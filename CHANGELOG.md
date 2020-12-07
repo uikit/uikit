@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.5.11 (December 7, 2020)
+
+### Fixed
+
+- Fix 'positionAt' function did not flip within its targets scroll container
+- Fix drag gets 'overflow: hidden' in Sortable component
+
 ## 3.5.10 (November 27, 2020)
 
 ### Added

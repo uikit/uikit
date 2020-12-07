@@ -301,7 +301,7 @@ function trackScroll(pos) {
         const dist = (Date.now() - last) * .3;
         last = Date.now();
 
-        scrollParents(document.elementFromPoint(x, pos.y)).some(scrollEl => {
+        scrollParents(document.elementFromPoint(x, pos.y)).reverse().some(scrollEl => {
 
             let {scrollTop: scroll, scrollHeight} = scrollEl;
 
@@ -338,8 +338,7 @@ function appendDrag(container, element) {
     css(clone, assign({
         boxSizing: 'border-box',
         width: element.offsetWidth,
-        height: element.offsetHeight,
-        overflow: 'hidden'
+        height: element.offsetHeight
     }, css(element, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
 
     height(clone.firstElementChild, height(element.firstElementChild));
