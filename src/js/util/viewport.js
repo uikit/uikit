@@ -10,11 +10,9 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
         return false;
     }
 
-    const parents = scrollParents(element).reverse();
+    const client = offset(element);
+    return scrollParents(element).every(parent => {
 
-    return parents.every((parent, i) => {
-
-        const client = offset(parents[i + 1] || element);
         const {top, left, bottom, right} = offset(getViewport(parent));
 
         return intersectRect(client, {
