@@ -103,7 +103,7 @@ export function scrolledOver(element, heightOffset = 0) {
         return 0;
     }
 
-    const scrollElement = scrollParents(element)[0];
+    const [scrollElement] = scrollParents(element, /auto|scroll/);
     const {scrollHeight, scrollTop} = scrollElement;
     const viewport = getViewport(scrollElement);
     const viewportHeight = offset(viewport).height;
