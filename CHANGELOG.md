@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix 'isInView' function
+
 ## 3.5.11 (December 7, 2020)
 
 ### Fixed
