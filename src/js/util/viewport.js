@@ -10,18 +10,17 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
         return false;
     }
 
-    const client = offset(element);
-    return scrollParents(element).every(parent => {
+    return intersectRect(...scrollParents(element).map(parent => {
 
         const {top, left, bottom, right} = offset(getViewport(parent));
 
-        return intersectRect(client, {
+        return {
             top: top - offsetTop,
             left: left - offsetLeft,
             bottom: bottom + offsetTop,
             right: right + offsetLeft
-        });
-    });
+        };
+    }).concat(offset(element)));
 }
 
 export function scrollTop(element, top) {
