@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.5.12 (December 7, 2020)
 
 ### Fixed
 
