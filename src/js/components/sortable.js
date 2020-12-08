@@ -342,21 +342,24 @@ function appendDrag(container, element) {
 function findTarget(items, x, y, current) {
 
     const rects = items.map(child => child.getBoundingClientRect());
+    const horizontal = rects.some((rectA, i) => rects.slice(i + 1).some(rectB => rectA.right <= rectB.left));
     const currentRect = rects[current];
 
     for (let i = 0; i < rects.length; i++) {
         const rect = rects[i];
-        if (pointInRect({x, y}, rect)) {
-
-            const horizontal = rects.some((rectA, i) => rects.slice(i + 1).some(rectB => rectA.right <= rectB.left));
-
-            return horizontal
-                ? currentRect.bottom < rect.top || currentRect.top < rect.bottom && currentRect.bottom > rect.top && x > rect.left + rect.width / 2
-                    ? i + 1
-                    : i
-                : y > rect.top + rect.height / 2
+        if (horizontal) {
+            if (pointInRect({x, y}, rect)) {
+                return currentRect.bottom < rect.top || currentRect.top < rect.bottom && currentRect.bottom > rect.top && x > rect.left + rect.width / 2
                     ? i + 1
                     : i;
+            }
+        } else {
+            if (y < rect.top + rect.height / 2) {
+                return i;
+            }
+            if (y < rect.bottom) {
+                return i + 1;
+            }
         }
     }
 
