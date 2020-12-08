@@ -1,4 +1,4 @@
-/*! UIkit 3.5.12 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.13 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4500,6 +4500,10 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 .uk-sortable-placeholder {
   opacity: 0;
+}
+/* Item
+ ========================================================================== */
+.uk-sortable-item {
   pointer-events: none;
 }
 /* Empty modifier

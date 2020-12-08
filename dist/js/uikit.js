@@ -1,4 +1,4 @@
-/*! UIkit 3.5.12 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.13 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -302,11 +302,25 @@
 
     function noop() {}
 
-    function intersectRect(r1, r2) {
-        return r1.left < r2.right &&
-            r1.right > r2.left &&
-            r1.top < r2.bottom &&
-            r1.bottom > r2.top;
+    function intersectRect() {
+        var rects = [], len = arguments.length;
+        while ( len-- ) rects[ len ] = arguments[ len ];
+
+        return [['bottom', 'top'], ['right', 'left']].every(function (ref) {
+                var minProp = ref[0];
+                var maxProp = ref[1];
+
+                return Math.min.apply(Math, rects.map(function (ref) {
+                var min = ref[minProp];
+
+                return min;
+                })) - Math.max.apply(Math, rects.map(function (ref) {
+                var max = ref[maxProp];
+
+                return max;
+                })) > 0;
+        }
+        );
     }
 
     function pointInRect(point, rect) {
@@ -2223,8 +2237,7 @@
             return false;
         }
 
-        var client = offset(element);
-        return scrollParents(element).every(function (parent) {
+        return intersectRect.apply(void 0, scrollParents(element).map(function (parent) {
 
             var ref = offset(getViewport(parent));
             var top = ref.top;
@@ -2232,13 +2245,13 @@
             var bottom = ref.bottom;
             var right = ref.right;
 
-            return intersectRect(client, {
+            return {
                 top: top - offsetTop,
                 left: left - offsetLeft,
                 bottom: bottom + offsetTop,
                 right: right + offsetLeft
-            });
-        });
+            };
+        }).concat(offset(element)));
     }
 
     function scrollTop(element, top) {
@@ -3491,7 +3504,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.12';
+    UIkit.version = '3.5.13';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -11438,7 +11451,7 @@
         },
 
         data: {
-            group: false,
+            group: '',
             threshold: 5,
             clsItem: 'uk-sortable-item',
             clsPlaceholder: 'uk-sortable-placeholder',
@@ -11523,42 +11536,45 @@
                     return;
                 }
 
-                // clamp to viewport
-                var ref = this.pos;
-                var x = ref.x;
-                var y = ref.y;
-                var ref$1 = this.origin;
-                var offsetTop = ref$1.offsetTop;
-                var offsetLeft = ref$1.offsetLeft;
-                var target = document.elementFromPoint(x, y);
+                var ref = this;
+                var ref_pos = ref.pos;
+                var x = ref_pos.x;
+                var y = ref_pos.y;
+                var ref_origin = ref.origin;
+                var offsetTop = ref_origin.offsetTop;
+                var offsetLeft = ref_origin.offsetLeft;
+                var placeholder = ref.placeholder;
 
                 css(this.drag, {
                     top: y - offsetTop,
                     left: x - offsetLeft
                 });
 
-                var sortable = this.getSortable(target);
-                var previous = this.getSortable(this.placeholder);
-                var move = sortable !== previous;
+                var previous = this.getSortable(placeholder);
+                var sortable = this.getSortable(document.elementFromPoint(x, y));
 
-                if (!sortable || within(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
+                if (!sortable) {
                     return;
                 }
 
-                target = sortable.target === target.parentNode && target || sortable.items.filter(function (element) { return within(target, element); })[0];
+                this.touched.add(sortable);
 
-                if (move) {
-                    previous.remove(this.placeholder);
-                } else if (!target) {
+                if (sortable !== previous) {
+                    previous.remove(placeholder);
+                    sortable.insert(placeholder);
+                }
+
+                var items = sortable.items;
+
+                if (items.length < 2 || items.concat(this.target).some(Transition.inProgress)) {
                     return;
                 }
 
-                sortable.insert(this.placeholder, target);
+                var targetIndex = findTarget(items, x, y, index(placeholder));
 
-                if (!includes(this.touched, sortable)) {
-                    this.touched.push(sortable);
+                if (~targetIndex && items[targetIndex - 1] !== placeholder && items[targetIndex] !== placeholder) {
+                    sortable.insert(placeholder, items[targetIndex]);
                 }
-
             },
 
             events: ['move']
@@ -11587,7 +11603,7 @@
 
                 e.preventDefault();
 
-                this.touched = [this];
+                this.touched = new Set([this]);
                 this.placeholder = placeholder;
                 this.origin = assign({target: target, index: index(placeholder)}, this.pos);
 
@@ -11631,6 +11647,8 @@
             },
 
             end: function() {
+                var this$1 = this;
+
 
                 off(document, pointerMove, this.move);
                 off(document, pointerUp, this.end);
@@ -11658,9 +11676,15 @@
                 remove(this.drag);
                 this.drag = null;
 
-                var classes = this.touched.map(function (sortable) { return ((sortable.clsPlaceholder) + " " + (sortable.clsItem)); }).join(' ');
-                this.touched.forEach(function (sortable) { return removeClass(sortable.items, classes); });
+                this.touched.forEach(function (ref) {
+                        var clsPlaceholder = ref.clsPlaceholder;
+                        var clsItem = ref.clsItem;
 
+                        return this$1.touched.forEach(function (sortable) { return removeClass(sortable.items, clsPlaceholder, clsItem); }
+                    );
+                }
+                );
+                this.touched = null;
                 removeClass(document.documentElement, this.clsDragState);
 
             },
@@ -11671,21 +11695,9 @@
 
                 addClass(this.items, this.clsItem);
 
-                var insert = function () {
-
-                    if (target) {
-
-                        if (!within(element, this$1.target) || isPredecessor(element, target)) {
-                            before(target, element);
-                        } else {
-                            after(target, element);
-                        }
-
-                    } else {
-                        append(this$1.target, element);
-                    }
-
-                };
+                var insert = function () { return target
+                    ? before(target, element)
+                    : append(this$1.target, element); };
 
                 if (this.animation) {
                     this.animate(insert);
@@ -11710,16 +11722,18 @@
             },
 
             getSortable: function(element) {
-                return element && (this.$getComponent(element, 'sortable') || this.getSortable(element.parentNode));
+                do {
+                    var sortable = this.$getComponent(element, 'sortable');
+
+                    if (sortable && sortable.group === this.group) {
+                        return sortable;
+                    }
+                } while ((element = parent(element)));
             }
 
         }
 
     };
-
-    function isPredecessor(element, target) {
-        return element.parentNode === target.parentNode && index(element) > index(target);
-    }
 
     var trackTimer;
     function trackScroll(pos) {
@@ -11781,6 +11795,30 @@
         height(clone.firstElementChild, height(element.firstElementChild));
 
         return clone;
+    }
+
+    function findTarget(items, x, y, current) {
+
+        var rects = items.map(function (child) { return child.getBoundingClientRect(); });
+        var currentRect = rects[current];
+
+        for (var i = 0; i < rects.length; i++) {
+            var rect = rects[i];
+            if (pointInRect({x: x, y: y}, rect)) {
+
+                var horizontal = rects.some(function (rectA, i) { return rects.slice(i + 1).some(function (rectB) { return rectA.right <= rectB.left; }); });
+
+                return horizontal
+                    ? currentRect.bottom < rect.top || currentRect.top < rect.bottom && currentRect.bottom > rect.top && x > rect.left + rect.width / 2
+                        ? i + 1
+                        : i
+                    : y > rect.top + rect.height / 2
+                        ? i + 1
+                        : i;
+            }
+        }
+
+        return -1;
     }
 
     var obj$1;
