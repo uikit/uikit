@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, append, assign, before, children, css, getEventPos, getViewport, hasTouch, height, includes, index, isEmpty, isInput, off, offset, on, parent, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within} from 'uikit-util';
+import {$$, addClass, append, assign, before, children, css, getEventPos, getViewport, hasTouch, height, index, isEmpty, isInput, off, offset, on, parent, pointerDown, pointerMove, pointerUp, pointInRect, remove, removeClass, scrollParents, scrollTop, toggleClass, Transition, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -21,7 +21,7 @@ export default {
     },
 
     data: {
-        group: false,
+        group: '',
         threshold: 5,
         clsItem: 'uk-sortable-item',
         clsPlaceholder: 'uk-sortable-placeholder',
@@ -102,38 +102,38 @@ export default {
                 return;
             }
 
-            // clamp to viewport
-            const {x, y} = this.pos;
-            const {offsetTop, offsetLeft} = this.origin;
-            let target = document.elementFromPoint(x, y);
+            const {pos: {x, y}, origin: {offsetTop, offsetLeft}, placeholder} = this;
 
             css(this.drag, {
                 top: y - offsetTop,
                 left: x - offsetLeft
             });
 
-            const sortable = this.getSortable(target);
-            const previous = this.getSortable(this.placeholder);
-            const move = sortable !== previous;
+            const previous = this.getSortable(placeholder);
+            const sortable = this.getSortable(document.elementFromPoint(x, y));
 
-            if (!sortable || within(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
+            if (!sortable) {
                 return;
             }
 
-            target = sortable.target === target.parentNode && target || sortable.items.filter(element => within(target, element))[0];
+            this.touched.add(sortable);
 
-            if (move) {
-                previous.remove(this.placeholder);
-            } else if (!target) {
+            if (sortable !== previous) {
+                previous.remove(placeholder);
+                sortable.insert(placeholder);
+            }
+
+            const {items} = sortable;
+
+            if (items.length < 2 || items.concat(this.target).some(Transition.inProgress)) {
                 return;
             }
 
-            sortable.insert(this.placeholder, target);
+            const targetIndex = findTarget(items, x, y, index(placeholder));
 
-            if (!includes(this.touched, sortable)) {
-                this.touched.push(sortable);
+            if (~targetIndex && items[targetIndex - 1] !== placeholder && items[targetIndex] !== placeholder) {
+                sortable.insert(placeholder, items[targetIndex]);
             }
-
         },
 
         events: ['move']
@@ -159,7 +159,7 @@ export default {
 
             e.preventDefault();
 
-            this.touched = [this];
+            this.touched = new Set([this]);
             this.placeholder = placeholder;
             this.origin = assign({target, index: index(placeholder)}, this.pos);
 
@@ -228,9 +228,12 @@ export default {
             remove(this.drag);
             this.drag = null;
 
-            const classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
-            this.touched.forEach(sortable => removeClass(sortable.items, classes));
-
+            this.touched.forEach(({clsPlaceholder, clsItem}) =>
+                this.touched.forEach(sortable =>
+                    removeClass(sortable.items, clsPlaceholder, clsItem)
+                )
+            );
+            this.touched = null;
             removeClass(document.documentElement, this.clsDragState);
 
         },
@@ -239,21 +242,9 @@ export default {
 
             addClass(this.items, this.clsItem);
 
-            const insert = () => {
-
-                if (target) {
-
-                    if (!within(element, this.target) || isPredecessor(element, target)) {
-                        before(target, element);
-                    } else {
-                        after(target, element);
-                    }
-
-                } else {
-                    append(this.target, element);
-                }
-
-            };
+            const insert = () => target
+                ? before(target, element)
+                : append(this.target, element);
 
             if (this.animation) {
                 this.animate(insert);
@@ -278,16 +269,18 @@ export default {
         },
 
         getSortable(element) {
-            return element && (this.$getComponent(element, 'sortable') || this.getSortable(element.parentNode));
+            do {
+                const sortable = this.$getComponent(element, 'sortable');
+
+                if (sortable && sortable.group === this.group) {
+                    return sortable;
+                }
+            } while ((element = parent(element)));
         }
 
     }
 
 };
-
-function isPredecessor(element, target) {
-    return element.parentNode === target.parentNode && index(element) > index(target);
-}
 
 let trackTimer;
 function trackScroll(pos) {
@@ -344,4 +337,28 @@ function appendDrag(container, element) {
     height(clone.firstElementChild, height(element.firstElementChild));
 
     return clone;
+}
+
+function findTarget(items, x, y, current) {
+
+    const rects = items.map(child => child.getBoundingClientRect());
+    const currentRect = rects[current];
+
+    for (let i = 0; i < rects.length; i++) {
+        const rect = rects[i];
+        if (pointInRect({x, y}, rect)) {
+
+            const horizontal = rects.some((rectA, i) => rects.slice(i + 1).some(rectB => rectA.right <= rectB.left));
+
+            return horizontal
+                ? currentRect.bottom < rect.top || currentRect.top < rect.bottom && currentRect.bottom > rect.top && x > rect.left + rect.width / 2
+                    ? i + 1
+                    : i
+                : y > rect.top + rect.height / 2
+                    ? i + 1
+                    : i;
+        }
+    }
+
+    return -1;
 }

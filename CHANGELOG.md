@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Sorting starts after traversing half the items height/width in Sortable component
+
 ## 3.5.12 (December 7, 2020)
 
 ### Fixed
