@@ -120,12 +120,12 @@ export default {
 
             if (sortable !== previous) {
                 previous.remove(placeholder);
-                sortable.insert(placeholder);
+                append(sortable.$el, placeholder);
             }
 
             const {items} = sortable;
 
-            if (items.length < 2 || items.concat(this.target).some(Transition.inProgress)) {
+            if (items.length < 2 || items.concat(sortable.target).some(Transition.inProgress)) {
                 return;
             }
 
