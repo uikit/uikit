@@ -98,8 +98,7 @@ export default function (prev, next, dir, {center, easing, list}) {
             return sortBy(slides(list).filter(slide => {
                 const slideLeft = getElLeft(slide, list);
                 return slideLeft >= left && slideLeft + offset(slide).width <= offset(list).width + left;
-            }), 'offsetLeft');
-
+            }), 'offsetLeft').concat(next);
         },
 
         updateTranslates() {

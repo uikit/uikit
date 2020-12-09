@@ -109,31 +109,34 @@ export default {
                 left: x - offsetLeft
             });
 
-            const previous = this.getSortable(placeholder);
             const sortable = this.getSortable(document.elementFromPoint(x, y));
 
             if (!sortable) {
                 return;
             }
 
-            this.touched.add(sortable);
-
-            if (sortable !== previous) {
-                previous.remove(placeholder);
-                sortable.insert(placeholder);
-            }
-
             const {items} = sortable;
 
-            if (items.length < 2 || items.concat(this.target).some(Transition.inProgress)) {
+            if (items.some(Transition.inProgress)) {
                 return;
             }
 
-            const targetIndex = findTarget(items, x, y, index(placeholder));
+            const target = findTarget(items, x, y);
 
-            if (~targetIndex && items[targetIndex - 1] !== placeholder && items[targetIndex] !== placeholder) {
-                sortable.insert(placeholder, items[targetIndex]);
+            if (items.length && !target || target === placeholder) {
+                return;
             }
+
+            this.touched.add(sortable);
+
+            const previous = this.getSortable(placeholder);
+
+            if (sortable !== previous) {
+                previous.remove(placeholder);
+            }
+
+            sortable.insert(placeholder, findInsertTarget(sortable.target, target, placeholder, x, y));
+
         },
 
         events: ['move']
@@ -240,6 +243,10 @@ export default {
 
         insert(element, target) {
 
+            if (target && (element === target || element === target.previousElementSibling)) {
+                return;
+            }
+
             addClass(this.items, this.clsItem);
 
             const insert = () => target
@@ -339,26 +346,61 @@ function appendDrag(container, element) {
     return clone;
 }
 
-function findTarget(items, x, y, current) {
-
-    const rects = items.map(child => child.getBoundingClientRect());
-    const currentRect = rects[current];
-
-    for (let i = 0; i < rects.length; i++) {
-        const rect = rects[i];
-        if (pointInRect({x, y}, rect)) {
-
-            const horizontal = rects.some((rectA, i) => rects.slice(i + 1).some(rectB => rectA.right <= rectB.left));
-
-            return horizontal
-                ? currentRect.bottom < rect.top || currentRect.top < rect.bottom && currentRect.bottom > rect.top && x > rect.left + rect.width / 2
-                    ? i + 1
-                    : i
-                : y > rect.top + rect.height / 2
-                    ? i + 1
-                    : i;
+function findTarget(items, x, y) {
+    for (let i = 0; i < items.length; i++) {
+        if (pointInRect({x, y}, items[i].getBoundingClientRect())) {
+            return items[i];
         }
     }
+}
 
-    return -1;
+function findInsertTarget(list, target, placeholder, x, y) {
+
+    const items = children(list);
+
+    if (!items.length) {
+        return;
+    }
+
+    const single = items.length === 1;
+
+    if (single) {
+        append(list, placeholder);
+    }
+
+    const horizontal = isHorizontal(children(list));
+
+    if (single) {
+        remove(placeholder);
+    }
+
+    const rect = target.getBoundingClientRect();
+    if (!horizontal) {
+        return y < rect.top + rect.height / 2
+            ? target
+            : target.nextElementSibling;
+    }
+
+    const placeholderRect = placeholder.getBoundingClientRect();
+    const sameLine = intersectLine(
+        [rect.top, rect.bottom],
+        [placeholderRect.top, placeholderRect.bottom]
+    );
+    return sameLine && x > rect.left + rect.width / 2 || !sameLine && placeholderRect.top < rect.top
+        ? target.nextElementSibling
+        : target;
+}
+
+function isHorizontal(items) {
+    return items.some((el, i) => {
+        const rectA = el.getBoundingClientRect();
+        return items.slice(i + 1).some(el => {
+            const rectB = el.getBoundingClientRect();
+            return !intersectLine([rectA.left, rectA.right], [rectB.left, rectB.right]);
+        });
+    });
+}
+
+function intersectLine(lineA, lineB) {
+    return lineA[1] > lineB[0] && lineB[1] > lineA[0];
 }
