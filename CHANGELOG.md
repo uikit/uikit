@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Scrollspy Nav using wrong viewport as reference
+- Fix Slider component skipping animation if slide item wider than its list
 
 ## 3.5.13 (December 8, 2020)
 
