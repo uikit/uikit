@@ -121,8 +121,10 @@ export function scrolledOver(element, heightOffset = 0) {
 export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scrollable = false) {
     const scrollEl = getScrollingElement(element);
     const scrollParents = parents(element).filter(parent =>
-        parent === scrollEl || overflowRe.test(css(parent, 'overflow'))
-        && !scrollable || parent.scrollHeight < height(parent)
+        parent === scrollEl
+        || scrollEl.contains(parent)
+            && overflowRe.test(css(parent, 'overflow'))
+            && (!scrollable || parent.scrollHeight < height(parent))
     );
     return scrollParents.length ? scrollParents : [scrollEl];
 }
