@@ -117,10 +117,11 @@ export function scrolledOver(element, heightOffset = 0) {
     return clamp(-1 * top / dist);
 }
 
-export function scrollParents(element, overflowRe = /auto|scroll|hidden/) {
+export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scrollable = false) {
     const scrollEl = getScrollingElement(element);
     const scrollParents = parents(element).filter(parent =>
         parent === scrollEl || overflowRe.test(css(parent, 'overflow'))
+        && !scrollable || parent.scrollHeight < Math.round(offset(parent).height)
     );
     return scrollParents.length ? scrollParents : [scrollEl];
 }

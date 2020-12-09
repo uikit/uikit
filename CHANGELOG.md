@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Scrollspy Nav using wrong viewport as reference
+
 ## 3.5.13 (December 8, 2020)
 
 ### Changed
