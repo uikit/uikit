@@ -1,4 +1,4 @@
-import {$$, addClass, closest, escape, getViewport, isVisible, offset, position, removeClass, scrollParents, trigger} from 'uikit-util';
+import {$$, addClass, closest, escape, getViewport, height, isVisible, position, removeClass, scrollParents, trigger} from 'uikit-util';
 
 export default {
 
@@ -61,7 +61,7 @@ export default {
                 const [scrollElement] = scrollParents(this.targets, /auto|scroll/, true);
                 const {scrollTop, scrollHeight} = scrollElement;
                 const viewport = getViewport(scrollElement);
-                const max = scrollHeight - offset(viewport).height;
+                const max = scrollHeight - height(viewport);
                 let active = false;
 
                 if (scrollTop === max) {

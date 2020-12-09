@@ -122,7 +122,7 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scroll
     const scrollEl = getScrollingElement(element);
     const scrollParents = parents(element).filter(parent =>
         parent === scrollEl || overflowRe.test(css(parent, 'overflow'))
-        && !scrollable || parent.scrollHeight < Math.round(height(parent))
+        && !scrollable || parent.scrollHeight < height(parent)
     );
     return scrollParents.length ? scrollParents : [scrollEl];
 }
