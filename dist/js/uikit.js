@@ -1,4 +1,4 @@
-/*! UIkit 3.5.13 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.14 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2280,10 +2280,10 @@
 
             var scrollTop = scrollElement.scrollTop;
             var scrollHeight = scrollElement.scrollHeight;
-            var clientHeight = scrollElement.clientHeight;
-            var maxScroll = scrollHeight - clientHeight;
+            var viewport = getViewport(scrollElement);
+            var maxScroll = scrollHeight - height(viewport);
 
-            var top = Math.ceil(position(parents[i - 1] || element, getViewport(scrollElement)).top - offsetBy) + diff + scrollTop;
+            var top = Math.ceil(position(parents[i - 1] || element, viewport).top - offsetBy) + diff + scrollTop;
 
             if (top > maxScroll) {
                 diff = top - maxScroll;
@@ -2343,13 +2343,13 @@
         var scrollHeight = scrollElement.scrollHeight;
         var scrollTop = scrollElement.scrollTop;
         var viewport = getViewport(scrollElement);
-        var viewportHeight = offset(viewport).height;
+        var viewportHeight = height(viewport);
         var viewportTop = offsetPosition(element)[0] - scrollTop - offsetPosition(scrollElement)[0];
         var viewportDist = Math.min(viewportHeight, viewportTop + scrollTop);
 
         var top = viewportTop - viewportDist;
         var dist = Math.min(
-            offset(element).height + heightOffset + viewportDist,
+            height(element) + heightOffset + viewportDist,
             scrollHeight - (viewportTop + scrollTop),
             scrollHeight - viewportHeight
         );
@@ -2357,11 +2357,15 @@
         return clamp(-1 * top / dist);
     }
 
-    function scrollParents(element, overflowRe) {
+    function scrollParents(element, overflowRe, scrollable) {
         if ( overflowRe === void 0 ) overflowRe = /auto|scroll|hidden/;
+        if ( scrollable === void 0 ) scrollable = false;
 
         var scrollEl = getScrollingElement(element);
-        var scrollParents = parents(element).filter(function (parent) { return parent === scrollEl || overflowRe.test(css(parent, 'overflow')); }
+        var scrollParents = parents(element).filter(function (parent) { return parent === scrollEl
+            || scrollEl.contains(parent)
+                && overflowRe.test(css(parent, 'overflow'))
+                && (!scrollable || parent.scrollHeight < height(parent)); }
         );
         return scrollParents.length ? scrollParents : [scrollEl];
     }
@@ -3504,7 +3508,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.13';
+    UIkit.version = '3.5.14';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3557,10 +3561,10 @@
                 if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
 
                     started++;
-                    css(document.body, 'overflowX', 'hidden');
+                    css(document.documentElement, 'overflowX', 'hidden');
                     setTimeout(function () {
                         if (!--started) {
-                            css(document.body, 'overflowX', '');
+                            css(document.documentElement, 'overflowX', '');
                         }
                     }, toMs(css(target, 'animationDuration')) + 100);
                 }
@@ -7466,12 +7470,12 @@
                         return false;
                     }
 
-                    var ref$1 = scrollParents(this.targets, /auto|scroll/);
+                    var ref$1 = scrollParents(this.targets, /auto|scroll/, true);
                     var scrollElement = ref$1[0];
                     var scrollTop = scrollElement.scrollTop;
                     var scrollHeight = scrollElement.scrollHeight;
                     var viewport = getViewport(scrollElement);
-                    var max = scrollHeight - offset(viewport).height;
+                    var max = scrollHeight - height(viewport);
                     var active = false;
 
                     if (scrollTop === max) {
@@ -10828,8 +10832,7 @@
                 return sortBy(slides(list).filter(function (slide) {
                     var slideLeft = getElLeft(slide, list);
                     return slideLeft >= left && slideLeft + offset(slide).width <= offset(list).width + left;
-                }), 'offsetLeft');
-
+                }), 'offsetLeft').concat(next);
             },
 
             updateTranslates: function() {
@@ -11550,31 +11553,34 @@
                     left: x - offsetLeft
                 });
 
-                var previous = this.getSortable(placeholder);
                 var sortable = this.getSortable(document.elementFromPoint(x, y));
 
                 if (!sortable) {
                     return;
                 }
 
-                this.touched.add(sortable);
-
-                if (sortable !== previous) {
-                    previous.remove(placeholder);
-                    sortable.insert(placeholder);
-                }
-
                 var items = sortable.items;
 
-                if (items.length < 2 || items.concat(this.target).some(Transition.inProgress)) {
+                if (items.some(Transition.inProgress)) {
                     return;
                 }
 
-                var targetIndex = findTarget(items, x, y, index(placeholder));
+                var target = findTarget(items, x, y);
 
-                if (~targetIndex && items[targetIndex - 1] !== placeholder && items[targetIndex] !== placeholder) {
-                    sortable.insert(placeholder, items[targetIndex]);
+                if (items.length && !target || target === placeholder) {
+                    return;
                 }
+
+                this.touched.add(sortable);
+
+                var previous = this.getSortable(placeholder);
+
+                if (sortable !== previous) {
+                    previous.remove(placeholder);
+                }
+
+                sortable.insert(placeholder, findInsertTarget(sortable.target, target, placeholder, x, y));
+
             },
 
             events: ['move']
@@ -11693,6 +11699,10 @@
                 var this$1 = this;
 
 
+                if (target && (element === target || element === target.previousElementSibling)) {
+                    return;
+                }
+
                 addClass(this.items, this.clsItem);
 
                 var insert = function () { return target
@@ -11797,28 +11807,63 @@
         return clone;
     }
 
-    function findTarget(items, x, y, current) {
-
-        var rects = items.map(function (child) { return child.getBoundingClientRect(); });
-        var currentRect = rects[current];
-
-        for (var i = 0; i < rects.length; i++) {
-            var rect = rects[i];
-            if (pointInRect({x: x, y: y}, rect)) {
-
-                var horizontal = rects.some(function (rectA, i) { return rects.slice(i + 1).some(function (rectB) { return rectA.right <= rectB.left; }); });
-
-                return horizontal
-                    ? currentRect.bottom < rect.top || currentRect.top < rect.bottom && currentRect.bottom > rect.top && x > rect.left + rect.width / 2
-                        ? i + 1
-                        : i
-                    : y > rect.top + rect.height / 2
-                        ? i + 1
-                        : i;
+    function findTarget(items, x, y) {
+        for (var i = 0; i < items.length; i++) {
+            if (pointInRect({x: x, y: y}, items[i].getBoundingClientRect())) {
+                return items[i];
             }
         }
+    }
 
-        return -1;
+    function findInsertTarget(list, target, placeholder, x, y) {
+
+        var items = children(list);
+
+        if (!items.length) {
+            return;
+        }
+
+        var single = items.length === 1;
+
+        if (single) {
+            append(list, placeholder);
+        }
+
+        var horizontal = isHorizontal(children(list));
+
+        if (single) {
+            remove(placeholder);
+        }
+
+        var rect = target.getBoundingClientRect();
+        if (!horizontal) {
+            return y < rect.top + rect.height / 2
+                ? target
+                : target.nextElementSibling;
+        }
+
+        var placeholderRect = placeholder.getBoundingClientRect();
+        var sameLine = intersectLine(
+            [rect.top, rect.bottom],
+            [placeholderRect.top, placeholderRect.bottom]
+        );
+        return sameLine && x > rect.left + rect.width / 2 || !sameLine && placeholderRect.top < rect.top
+            ? target.nextElementSibling
+            : target;
+    }
+
+    function isHorizontal(items) {
+        return items.some(function (el, i) {
+            var rectA = el.getBoundingClientRect();
+            return items.slice(i + 1).some(function (el) {
+                var rectB = el.getBoundingClientRect();
+                return !intersectLine([rectA.left, rectA.right], [rectB.left, rectB.right]);
+            });
+        });
+    }
+
+    function intersectLine(lineA, lineB) {
+        return lineA[1] > lineB[0] && lineB[1] > lineA[0];
     }
 
     var obj$1;
