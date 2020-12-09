@@ -43,10 +43,10 @@ export default function (UIkit) {
             if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
 
                 started++;
-                css(document.body, 'overflowX', 'hidden');
+                css(document.documentElement, 'overflowX', 'hidden');
                 setTimeout(() => {
                     if (!--started) {
-                        css(document.body, 'overflowX', '');
+                        css(document.documentElement, 'overflowX', '');
                     }
                 }, toMs(css(target, 'animationDuration')) + 100);
             }
