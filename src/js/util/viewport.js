@@ -1,7 +1,7 @@
 import {css} from './style';
 import {Promise} from './promise';
 import {isVisible, parents} from './filter';
-import {offset, offsetPosition, position} from './dimensions';
+import {height, offset, offsetPosition, position} from './dimensions';
 import {clamp, intersectRect, isDocument, isWindow, toNode, toWindow} from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
@@ -44,10 +44,11 @@ export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
     let diff = 0;
     return parents.reduce((fn, scrollElement, i) => {
 
-        const {scrollTop, scrollHeight, clientHeight} = scrollElement;
-        const maxScroll = scrollHeight - clientHeight;
+        const {scrollTop, scrollHeight} = scrollElement;
+        const viewport = getViewport(scrollElement);
+        const maxScroll = scrollHeight - height(viewport);
 
-        let top = Math.ceil(position(parents[i - 1] || element, getViewport(scrollElement)).top - offsetBy) + diff + scrollTop;
+        let top = Math.ceil(position(parents[i - 1] || element, viewport).top - offsetBy) + diff + scrollTop;
 
         if (top > maxScroll) {
             diff = top - maxScroll;
@@ -103,13 +104,13 @@ export function scrolledOver(element, heightOffset = 0) {
     const [scrollElement] = scrollParents(element, /auto|scroll/);
     const {scrollHeight, scrollTop} = scrollElement;
     const viewport = getViewport(scrollElement);
-    const viewportHeight = offset(viewport).height;
+    const viewportHeight = height(viewport);
     const viewportTop = offsetPosition(element)[0] - scrollTop - offsetPosition(scrollElement)[0];
     const viewportDist = Math.min(viewportHeight, viewportTop + scrollTop);
 
     const top = viewportTop - viewportDist;
     const dist = Math.min(
-        offset(element).height + heightOffset + viewportDist,
+        height(element) + heightOffset + viewportDist,
         scrollHeight - (viewportTop + scrollTop),
         scrollHeight - viewportHeight
     );
@@ -121,7 +122,7 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scroll
     const scrollEl = getScrollingElement(element);
     const scrollParents = parents(element).filter(parent =>
         parent === scrollEl || overflowRe.test(css(parent, 'overflow'))
-        && !scrollable || parent.scrollHeight < Math.round(offset(parent).height)
+        && !scrollable || parent.scrollHeight < Math.round(height(parent))
     );
     return scrollParents.length ? scrollParents : [scrollEl];
 }
