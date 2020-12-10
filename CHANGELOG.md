@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Scrollspy Nav
+
 ## 3.5.14 (December 9, 2020)
 
 ### Fixed
