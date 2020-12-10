@@ -124,7 +124,7 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scroll
         parent === scrollEl
         || scrollEl.contains(parent)
             && overflowRe.test(css(parent, 'overflow'))
-            && (!scrollable || parent.scrollHeight < height(parent))
+            && (!scrollable || parent.scrollHeight > height(parent))
     );
     return scrollParents.length ? scrollParents : [scrollEl];
 }
