@@ -1,4 +1,4 @@
-/*! UIkit 3.5.14 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.15 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2365,7 +2365,7 @@
         var scrollParents = parents(element).filter(function (parent) { return parent === scrollEl
             || scrollEl.contains(parent)
                 && overflowRe.test(css(parent, 'overflow'))
-                && (!scrollable || parent.scrollHeight < height(parent)); }
+                && (!scrollable || parent.scrollHeight > height(parent)); }
         );
         return scrollParents.length ? scrollParents : [scrollEl];
     }
@@ -3508,7 +3508,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.14';
+    UIkit.version = '3.5.15';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
