@@ -21,7 +21,7 @@ export default {
     },
 
     data: {
-        group: '',
+        group: false,
         threshold: 5,
         clsItem: 'uk-sortable-item',
         clsPlaceholder: 'uk-sortable-placeholder',
@@ -123,7 +123,7 @@ export default {
 
             const target = findTarget(items, {x, y});
 
-            if (items.length && !target || target === placeholder) {
+            if (items.length && (!target || target === placeholder)) {
                 return;
             }
 
@@ -279,7 +279,7 @@ export default {
             do {
                 const sortable = this.$getComponent(element, 'sortable');
 
-                if (sortable && sortable.group === this.group) {
+                if (sortable && (sortable === this || this.group !== false && sortable.group === this.group)) {
                     return sortable;
                 }
             } while ((element = parent(element)));

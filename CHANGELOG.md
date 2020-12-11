@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Sortable lets sort items between lists if no 'group' is set
+
 ## 3.5.15 (December 10, 2020)
 
 ### Fixed
