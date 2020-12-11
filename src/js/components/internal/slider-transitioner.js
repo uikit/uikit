@@ -83,8 +83,8 @@ export default function (prev, next, dir, {center, easing, list}) {
 
         getItemIn(out = false) {
 
-            const actives = this.getActives();
-            const all = sortBy(slides(list), 'offsetLeft');
+            const actives = sortBy(this.getActives(), 'offsetLeft');
+            const all = sortBy(children(list), 'offsetLeft');
             const i = index(all, actives[dir * (out ? -1 : 1) > 0 ? actives.length - 1 : 0]);
 
             return ~i && all[i + (prev && !out ? dir : 0)];
@@ -92,20 +92,17 @@ export default function (prev, next, dir, {center, easing, list}) {
         },
 
         getActives() {
-
-            const left = getLeft(prev || next, list, center);
-
-            return sortBy(slides(list).filter(slide => {
+            return [next].concat(children(list).filter((slide, i) => {
                 const slideLeft = getElLeft(slide, list);
-                return slideLeft >= left && slideLeft + offset(slide).width <= offset(list).width + left;
-            }), 'offsetLeft').concat(next);
+                return slideLeft > from && slideLeft + offset(slide).width <= offset(list).width + from;
+            }));
         },
 
         updateTranslates() {
 
             const actives = this.getActives();
 
-            slides(list).forEach(slide => {
+            children(list).forEach(slide => {
                 const isActive = includes(actives, slide);
 
                 triggerUpdate(slide, `itemtranslate${isActive ? 'in' : 'out'}`, {
@@ -134,11 +131,11 @@ export function getMax(list) {
 }
 
 export function getWidth(list) {
-    return slides(list).reduce((right, el) => offset(el).width + right, 0);
+    return children(list).reduce((right, el) => offset(el).width + right, 0);
 }
 
 export function getMaxWidth(list) {
-    return slides(list).reduce((right, el) => Math.max(right, offset(el).width), 0);
+    return children(list).reduce((right, el) => Math.max(right, offset(el).width), 0);
 }
 
 function centerEl(el, list) {
@@ -151,8 +148,4 @@ export function getElLeft(el, list) {
 
 function triggerUpdate(el, type, data) {
     trigger(el, createEvent(type, false, false, data));
-}
-
-function slides(list) {
-    return children(list);
 }
