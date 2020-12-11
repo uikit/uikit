@@ -1,4 +1,4 @@
-/*! UIkit 3.5.15 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.16 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -268,7 +268,7 @@
     }
 
     function sortBy(array, prop) {
-        return array.sort(function (ref, ref$1) {
+        return array.slice().sort(function (ref, ref$1) {
                 var propA = ref[prop]; if ( propA === void 0 ) propA = 0;
                 var propB = ref$1[prop]; if ( propB === void 0 ) propB = 0;
 
@@ -2362,12 +2362,17 @@
         if ( scrollable === void 0 ) scrollable = false;
 
         var scrollEl = getScrollingElement(element);
-        var scrollParents = parents(element).filter(function (parent) { return parent === scrollEl
-            || scrollEl.contains(parent)
-                && overflowRe.test(css(parent, 'overflow'))
-                && (!scrollable || parent.scrollHeight > height(parent)); }
-        );
-        return scrollParents.length ? scrollParents : [scrollEl];
+
+        var ancestors = parents(element).reverse();
+        ancestors = ancestors.slice(ancestors.indexOf(scrollEl) + 1);
+
+        var fixedIndex = findIndex(ancestors, function (el) { return css(el, 'position') === 'fixed'; });
+        if (~fixedIndex) {
+            ancestors = ancestors.slice(fixedIndex);
+        }
+
+        return [scrollEl].concat(ancestors.filter(function (parent) { return overflowRe.test(css(parent, 'overflow')) && (!scrollable || parent.scrollHeight > height(parent)); }
+        )).reverse();
     }
 
     function getViewport(scrollElement) {
@@ -3508,7 +3513,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.15';
+    UIkit.version = '3.5.16';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -10295,7 +10300,7 @@
                     var isCssProp = isColor || prop === 'opacity';
 
                     var pos, bgPos, diff;
-                    var steps = properties[prop].slice(0);
+                    var steps = properties[prop].slice();
 
                     if (isCssProp) {
                         css($el, prop, '');
@@ -10817,8 +10822,8 @@
                 if ( out === void 0 ) out = false;
 
 
-                var actives = this.getActives();
-                var all = sortBy(slides(list), 'offsetLeft');
+                var actives = sortBy(this.getActives(), 'offsetLeft');
+                var all = sortBy(children(list), 'offsetLeft');
                 var i = index(all, actives[dir * (out ? -1 : 1) > 0 ? actives.length - 1 : 0]);
 
                 return ~i && all[i + (prev && !out ? dir : 0)];
@@ -10826,20 +10831,17 @@
             },
 
             getActives: function() {
-
-                var left = getLeft(prev || next, list, center);
-
-                return sortBy(slides(list).filter(function (slide) {
+                return [next].concat(children(list).filter(function (slide, i) {
                     var slideLeft = getElLeft(slide, list);
-                    return slideLeft >= left && slideLeft + offset(slide).width <= offset(list).width + left;
-                }), 'offsetLeft').concat(next);
+                    return slideLeft > from && slideLeft + offset(slide).width <= offset(list).width + from;
+                }));
             },
 
             updateTranslates: function() {
 
                 var actives = this.getActives();
 
-                slides(list).forEach(function (slide) {
+                children(list).forEach(function (slide) {
                     var isActive = includes(actives, slide);
 
                     triggerUpdate$1(slide, ("itemtranslate" + (isActive ? 'in' : 'out')), {
@@ -10868,11 +10870,11 @@
     }
 
     function getWidth(list) {
-        return slides(list).reduce(function (right, el) { return offset(el).width + right; }, 0);
+        return children(list).reduce(function (right, el) { return offset(el).width + right; }, 0);
     }
 
     function getMaxWidth(list) {
-        return slides(list).reduce(function (right, el) { return Math.max(right, offset(el).width); }, 0);
+        return children(list).reduce(function (right, el) { return Math.max(right, offset(el).width); }, 0);
     }
 
     function centerEl(el, list) {
@@ -10885,10 +10887,6 @@
 
     function triggerUpdate$1(el, type, data) {
         trigger(el, createEvent(type, false, false, data));
-    }
-
-    function slides(list) {
-        return children(list);
     }
 
     var slider = {
@@ -10923,6 +10921,8 @@
             },
 
             maxIndex: function() {
+                var this$1 = this;
+
 
                 if (!this.finite || this.center && !this.sets) {
                     return this.length - 1;
@@ -10935,15 +10935,7 @@
                 css(this.slides, 'order', '');
 
                 var max = getMax(this.list);
-                var i = this.length;
-
-                while (i--) {
-                    if (getElLeft(this.list.children[i], this.list) < max) {
-                        return Math.min(i + 1, this.length - 1);
-                    }
-                }
-
-                return 0;
+                return this.length - findIndex(this.slides.slice().reverse(), function (el) { return getElLeft(el, this$1.list) < max; });
             },
 
             sets: function(ref) {
@@ -10951,13 +10943,17 @@
                 var sets = ref.sets;
 
 
+                if (!sets) {
+                    return;
+                }
+
                 var width = offset(this.list).width / (this.center ? 2 : 1);
 
                 var left = 0;
                 var leftCenter = width;
                 var slideLeft = 0;
 
-                sets = sets && this.slides.reduce(function (sets, slide, i) {
+                sets = sortBy(this.slides, 'offsetLeft').reduce(function (sets, slide, i) {
 
                     var ref = offset(slide);
                     var slideWidth = ref.width;
@@ -11454,7 +11450,7 @@
         },
 
         data: {
-            group: '',
+            group: false,
             threshold: 5,
             clsItem: 'uk-sortable-item',
             clsPlaceholder: 'uk-sortable-placeholder',
@@ -11565,9 +11561,9 @@
                     return;
                 }
 
-                var target = findTarget(items, x, y);
+                var target = findTarget(items, {x: x, y: y});
 
-                if (items.length && !target || target === placeholder) {
+                if (items.length && (!target || target === placeholder)) {
                     return;
                 }
 
@@ -11735,7 +11731,7 @@
                 do {
                     var sortable = this.$getComponent(element, 'sortable');
 
-                    if (sortable && sortable.group === this.group) {
+                    if (sortable && (sortable === this || this.group !== false && sortable.group === this.group)) {
                         return sortable;
                     }
                 } while ((element = parent(element)));
@@ -11807,12 +11803,8 @@
         return clone;
     }
 
-    function findTarget(items, x, y) {
-        for (var i = 0; i < items.length; i++) {
-            if (pointInRect({x: x, y: y}, items[i].getBoundingClientRect())) {
-                return items[i];
-            }
-        }
+    function findTarget(items, point) {
+        return items[findIndex(items, function (item) { return pointInRect(point, item.getBoundingClientRect()); })];
     }
 
     function findInsertTarget(list, target, placeholder, x, y) {
