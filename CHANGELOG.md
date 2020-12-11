@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Sortable lets sort items between lists if no 'group' is set
+- Fix 'scrollParents' checks for `position: fixed`
 
 ## 3.5.15 (December 10, 2020)
 

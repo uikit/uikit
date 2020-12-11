@@ -2,7 +2,7 @@ import {css} from './style';
 import {Promise} from './promise';
 import {isVisible, parents} from './filter';
 import {height, offset, offsetPosition, position} from './dimensions';
-import {clamp, intersectRect, isDocument, isWindow, toNode, toWindow} from './lang';
+import {clamp, findIndex, intersectRect, isDocument, isWindow, toNode, toWindow} from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
@@ -120,13 +120,18 @@ export function scrolledOver(element, heightOffset = 0) {
 
 export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scrollable = false) {
     const scrollEl = getScrollingElement(element);
-    const scrollParents = parents(element).filter(parent =>
-        parent === scrollEl
-        || scrollEl.contains(parent)
-            && overflowRe.test(css(parent, 'overflow'))
-            && (!scrollable || parent.scrollHeight > height(parent))
-    );
-    return scrollParents.length ? scrollParents : [scrollEl];
+
+    let ancestors = parents(element).reverse();
+    ancestors = ancestors.slice(ancestors.indexOf(scrollEl) + 1);
+
+    const fixedIndex = findIndex(ancestors, el => css(el, 'position') === 'fixed');
+    if (~fixedIndex) {
+        ancestors = ancestors.slice(fixedIndex);
+    }
+
+    return [scrollEl].concat(ancestors.filter(parent =>
+        overflowRe.test(css(parent, 'overflow')) && (!scrollable || parent.scrollHeight > height(parent))
+    )).reverse();
 }
 
 export function getViewport(scrollElement) {
