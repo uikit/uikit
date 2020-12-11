@@ -5,7 +5,6 @@
 //
 // Sub-objects:     `uk-sortable-drag`
 //                  `uk-sortable-placeholder`
-//                  `uk-sortable-item`
 //                  `uk-sortable-handle`
 //
 // Modifiers:       `uk-sortable-empty`
@@ -57,13 +56,9 @@
 
 .uk-sortable-placeholder {
     opacity: @sortable-placeholder-opacity;
+    pointer-events: none;
     .hook-sortable-placeholder;
 }
-
-/* Item
- ========================================================================== */
-
-.uk-sortable-item { pointer-events: none; }
 
 
 /* Empty modifier

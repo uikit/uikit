@@ -2,7 +2,7 @@ import Class from '../mixin/class';
 import Slider, {speedUp} from '../mixin/slider';
 import SliderReactive from '../mixin/slider-reactive';
 import Transitioner, {getElLeft, getMax, getMaxWidth, getWidth} from './internal/slider-transitioner';
-import {$, $$, addClass, css, data, includes, isEmpty, isNumeric, last, offset, toFloat, toggleClass} from 'uikit-util';
+import {$, $$, addClass, css, data, findIndex, includes, isEmpty, isNumeric, last, offset, sortBy, toFloat, toggleClass} from 'uikit-util';
 
 export default {
 
@@ -46,18 +46,14 @@ export default {
             css(this.slides, 'order', '');
 
             const max = getMax(this.list);
-            let i = this.length;
-
-            while (i--) {
-                if (getElLeft(this.list.children[i], this.list) < max) {
-                    return Math.min(i + 1, this.length - 1);
-                }
-            }
-
-            return 0;
+            return this.length - findIndex(this.slides.slice().reverse(), el => getElLeft(el, this.list) < max);
         },
 
         sets({sets}) {
+
+            if (!sets) {
+                return;
+            }
 
             const width = offset(this.list).width / (this.center ? 2 : 1);
 
@@ -65,7 +61,7 @@ export default {
             let leftCenter = width;
             let slideLeft = 0;
 
-            sets = sets && this.slides.reduce((sets, slide, i) => {
+            sets = sortBy(this.slides, 'offsetLeft').reduce((sets, slide, i) => {
 
                 const {width: slideWidth} = offset(slide);
                 const slideRight = slideLeft + slideWidth;

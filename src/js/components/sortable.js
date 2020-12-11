@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, append, assign, before, children, css, getEventPos, getViewport, hasTouch, height, index, isEmpty, isInput, off, offset, on, parent, pointerDown, pointerMove, pointerUp, pointInRect, remove, removeClass, scrollParents, scrollTop, toggleClass, Transition, trigger, within} from 'uikit-util';
+import {$$, addClass, append, assign, before, children, css, findIndex, getEventPos, getViewport, hasTouch, height, index, isEmpty, isInput, off, offset, on, parent, pointerDown, pointerMove, pointerUp, pointInRect, remove, removeClass, scrollParents, scrollTop, toggleClass, Transition, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -21,7 +21,7 @@ export default {
     },
 
     data: {
-        group: '',
+        group: false,
         threshold: 5,
         clsItem: 'uk-sortable-item',
         clsPlaceholder: 'uk-sortable-placeholder',
@@ -121,9 +121,9 @@ export default {
                 return;
             }
 
-            const target = findTarget(items, x, y);
+            const target = findTarget(items, {x, y});
 
-            if (items.length && !target || target === placeholder) {
+            if (items.length && (!target || target === placeholder)) {
                 return;
             }
 
@@ -279,7 +279,7 @@ export default {
             do {
                 const sortable = this.$getComponent(element, 'sortable');
 
-                if (sortable && sortable.group === this.group) {
+                if (sortable && (sortable === this || this.group !== false && sortable.group === this.group)) {
                     return sortable;
                 }
             } while ((element = parent(element)));
@@ -346,12 +346,8 @@ function appendDrag(container, element) {
     return clone;
 }
 
-function findTarget(items, x, y) {
-    for (let i = 0; i < items.length; i++) {
-        if (pointInRect({x, y}, items[i].getBoundingClientRect())) {
-            return items[i];
-        }
-    }
+function findTarget(items, point) {
+    return items[findIndex(items, item => pointInRect(point, item.getBoundingClientRect()))];
 }
 
 function findInsertTarget(list, target, placeholder, x, y) {

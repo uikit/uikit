@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.5.16 (December 11, 2020)
+
+### Fixed
+
+- Fix Sortable lets sort items between lists if no 'group' is set
+- Fix 'scrollParents' checks for `position: fixed`
+
 ## 3.5.15 (December 10, 2020)
 
 ### Fixed

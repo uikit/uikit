@@ -255,7 +255,7 @@ export function each(obj, cb) {
 }
 
 export function sortBy(array, prop) {
-    return array.sort(({[prop]: propA = 0}, {[prop]: propB = 0}) =>
+    return array.slice().sort(({[prop]: propA = 0}, {[prop]: propB = 0}) =>
         propA > propB
             ? 1
             : propB > propA

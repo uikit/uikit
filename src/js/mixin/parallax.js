@@ -32,7 +32,7 @@ export default {
                 const isCssProp = isColor || prop === 'opacity';
 
                 let pos, bgPos, diff;
-                let steps = properties[prop].slice(0);
+                let steps = properties[prop].slice();
 
                 if (isCssProp) {
                     css($el, prop, '');
