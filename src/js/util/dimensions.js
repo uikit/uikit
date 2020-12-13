@@ -133,7 +133,7 @@ export function flipPosition(pos) {
     for (const dir in dirs) {
         for (const i in dirs[dir]) {
             if (dirs[dir][i] === pos) {
-                return dirs[dir][+!i];
+                return dirs[dir][1 - i];
             }
         }
     }
