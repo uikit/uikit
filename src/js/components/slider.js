@@ -1,8 +1,8 @@
 import Class from '../mixin/class';
 import Slider, {speedUp} from '../mixin/slider';
 import SliderReactive from '../mixin/slider-reactive';
-import Transitioner, {getElLeft, getMax, getMaxWidth, getWidth} from './internal/slider-transitioner';
-import {$, $$, addClass, css, data, findIndex, includes, isEmpty, isNumeric, last, offset, sortBy, toFloat, toggleClass} from 'uikit-util';
+import Transitioner, {getElLeft, getMax, getWidth} from './internal/slider-transitioner';
+import {$, addClass, children, css, data, findIndex, includes, isEmpty, last, offset, sortBy, toFloat, toggleClass, toNumber} from 'uikit-util';
 
 export default {
 
@@ -30,7 +30,7 @@ export default {
         },
 
         finite({finite}) {
-            return finite || Math.ceil(getWidth(this.list)) < offset(this.list).width + getMaxWidth(this.list) + this.center;
+            return finite || Math.ceil(getWidth(this.list)) < offset(this.list).width + getMaxElWidth(this.list) + this.center;
         },
 
         maxIndex() {
@@ -46,7 +46,8 @@ export default {
             css(this.slides, 'order', '');
 
             const max = getMax(this.list);
-            return this.length - findIndex(this.slides.slice().reverse(), el => getElLeft(el, this.list) < max);
+            const index = findIndex(this.slides, el => getElLeft(el, this.list) >= max);
+            return ~index ? index : this.length - 1;
         },
 
         sets({sets}) {
@@ -112,10 +113,11 @@ export default {
     update: {
 
         write() {
-
-            $$(`[${this.attrItem}],[data-${this.attrItem}]`, this.$el).forEach(el => {
-                const index = data(el, this.attrItem);
-                this.maxIndex && toggleClass(el, 'uk-hidden', isNumeric(index) && (this.sets && !includes(this.sets, toFloat(index)) || index > this.maxIndex));
+            this.navItems.forEach(el => {
+                const index = toNumber(data(el, this.attrItem));
+                if (index !== false) {
+                    el.hidden = !this.maxIndex || index > this.maxIndex || this.sets && !includes(this.sets, index);
+                }
             });
 
             if (this.length && !this.dragging && !this.stack.length) {
@@ -157,12 +159,8 @@ export default {
                 return;
             }
 
-            this.duration = speedUp(this.avgWidth / this.velocity)
-                * (offset(
-                    this.dir < 0 || !this.slides[this.prevIndex]
-                        ? this.slides[this.index]
-                        : this.slides[this.prevIndex]
-                ).width / this.avgWidth);
+            const index = this.dir < 0 || !this.slides[this.prevIndex] ? this.index : this.prevIndex;
+            this.duration = speedUp(this.avgWidth / this.velocity) * (offset(this.slides[index]).width / this.avgWidth);
 
             this.reorder();
 
@@ -239,3 +237,7 @@ export default {
     }
 
 };
+
+function getMaxElWidth(list) {
+    return Math.max(0, ...children(list).map(el => offset(el).width));
+}

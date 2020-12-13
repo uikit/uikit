@@ -30,7 +30,7 @@ export default {
                 html(this.nav, this.slides.map((_, i) => `<li ${this.attrItem}="${i}"><a href></a></li>`).join(''));
             }
 
-            toggleClass($$(this.selNavItem, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
+            this.navItems.concat(this.nav).forEach(el => el && (el.hidden = !this.maxIndex));
 
             this.updateNav();
 

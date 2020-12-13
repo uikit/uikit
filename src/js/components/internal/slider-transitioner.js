@@ -92,7 +92,7 @@ export default function (prev, next, dir, {center, easing, list}) {
         },
 
         getActives() {
-            return [next].concat(children(list).filter((slide, i) => {
+            return [prev || next].concat(children(list).filter(slide => {
                 const slideLeft = getElLeft(slide, list);
                 return slideLeft > from && slideLeft + offset(slide).width <= offset(list).width + from;
             }));
@@ -132,10 +132,6 @@ export function getMax(list) {
 
 export function getWidth(list) {
     return children(list).reduce((right, el) => offset(el).width + right, 0);
-}
-
-export function getMaxWidth(list) {
-    return children(list).reduce((right, el) => Math.max(right, offset(el).width), 0);
 }
 
 function centerEl(el, list) {

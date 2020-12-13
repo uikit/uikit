@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Slider component
+
 ## 3.5.16 (December 11, 2020)
 
 ### Fixed
