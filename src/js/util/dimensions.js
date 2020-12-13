@@ -1,6 +1,4 @@
 import {css} from './style';
-import {attr} from './attr';
-import {isVisible} from './filter';
 import {each, endsWith, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
 
 export function offset(element, coordinates) {
@@ -27,9 +25,9 @@ function getDimensions(element) {
 
     const {pageYOffset: top, pageXOffset: left} = toWindow(element);
 
-    const rect = isWindow(element)
+    const rect = isWindow(element) || !toNode(element)
         ? {height: height(element), width: width(element), top: 0, left: 0}
-        : getRect(toNode(element));
+        : toNode(element).getBoundingClientRect();
 
     return {
         height: rect.height,
@@ -154,24 +152,4 @@ export function toPx(value, property = 'width', element = window) {
 
 function percent(base, value) {
     return base * toFloat(value) / 100;
-}
-
-function getRect(element) {
-
-    if (!element) {
-        return {};
-    }
-
-    let style;
-
-    if (!isVisible(element)) {
-        style = attr(element, 'style');
-        element.style.setProperty('display', 'block', 'important');
-    }
-
-    const rect = element.getBoundingClientRect();
-
-    attr(element, 'style', style);
-
-    return rect;
 }
