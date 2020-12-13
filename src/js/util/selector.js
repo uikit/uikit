@@ -1,6 +1,6 @@
 import {inBrowser} from './env';
 import {removeAttr} from './attr';
-import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
+import {isDocument, isElement, isString, startsWith, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
     return toNode(selector) || find(selector, getContext(selector, context));
@@ -107,10 +107,9 @@ function splitSelector(selector) {
 }
 
 const elProto = inBrowser ? Element.prototype : {};
-const matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector || noop;
 
 export function matches(element, selector) {
-    return toNodes(element).some(element => matchesFn.call(element, selector));
+    return toNodes(element).some(element => elProto.matches.call(element, selector));
 }
 
 const closestFn = elProto.closest || function (selector) {
