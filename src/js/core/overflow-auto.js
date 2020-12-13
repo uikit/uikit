@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import {closest, css, height, offset, toFloat, trigger} from 'uikit-util';
+import {closest, css, height, isVisible, offset, toFloat, trigger} from 'uikit-util';
 
 export default {
 
@@ -35,7 +35,7 @@ export default {
 
         read() {
 
-            if (!this.content || !this.container) {
+            if (!this.content || !this.container || !isVisible(this.$el)) {
                 return false;
             }
 
