@@ -1,27 +1,26 @@
 import {css} from './style';
 import {attr} from './attr';
 import {isVisible} from './filter';
-import {endsWith, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
+import {each, endsWith, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
 
 export function offset(element, coordinates) {
 
+    const currentOffset = getDimensions(element);
+
     if (!coordinates) {
-        return getDimensions(element);
+        return currentOffset;
     }
 
-    const currentOffset = getDimensions(element);
     const pos = css(element, 'position');
 
-    ['left', 'top'].forEach(prop => {
-        if (prop in coordinates) {
-            const value = css(element, prop);
-            css(element, prop, coordinates[prop] - currentOffset[prop]
-                + toFloat(pos === 'absolute' && value === 'auto'
-                    ? position(element)[prop]
-                    : value)
-            );
-        }
-    });
+    each(css(element, ['left', 'top']), (value, prop) =>
+        css(element, prop, coordinates[prop]
+            - currentOffset[prop]
+            + toFloat(pos === 'absolute' && value === 'auto'
+                ? position(element)[prop]
+                : value)
+        )
+    );
 }
 
 function getDimensions(element) {
@@ -44,7 +43,8 @@ function getDimensions(element) {
 
 export function position(element, parent) {
 
-    parent = parent || (toNode(element) || {}).offsetParent || toWindow(element).document.documentElement;
+    element = toNode(element);
+    parent = parent || element.offsetParent || element.documentElement;
 
     const elementOffset = offset(element);
     const parentOffset = offset(parent);
@@ -130,18 +130,14 @@ export function boxModelAdjust(element, prop, sizing = 'border-box') {
 }
 
 export function flipPosition(pos) {
-    switch (pos) {
-        case 'left':
-            return 'right';
-        case 'right':
-            return 'left';
-        case 'top':
-            return 'bottom';
-        case 'bottom':
-            return 'top';
-        default:
-            return pos;
+    for (const dir in dirs) {
+        for (const i in dirs[dir]) {
+            if (dirs[dir][i] === pos) {
+                return dir[+!i];
+            }
+        }
     }
+    return pos;
 }
 
 export function toPx(value, property = 'width', element = window) {
