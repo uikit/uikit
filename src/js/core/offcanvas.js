@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, append, css, endsWith, hasClass, height, removeClass, unwrap, wrapAll} from 'uikit-util';
+import {$, addClass, append, css, endsWith, hasClass, height, isVisible, removeClass, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -54,6 +54,18 @@ export default {
         transitionElement({mode}) {
             return mode === 'reveal' ? this.panel.parentNode : this.panel;
         }
+
+    },
+
+    update: {
+
+        read() {
+            if (this.isToggled() && !isVisible(this.$el)) {
+                this.hide();
+            }
+        },
+
+        events: ['resize']
 
     },
 

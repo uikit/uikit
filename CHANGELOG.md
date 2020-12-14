@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Offcanvas component hides if invisible
+
 ### Fixed
 
 - Fix regression in Slider component
