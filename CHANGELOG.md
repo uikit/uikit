@@ -6,6 +6,10 @@
 
 - Offcanvas component hides if invisible
 
+### Changed
+
+- Image component will load images eagerly in IE11
+
 ### Fixed
 
 - Fix regression in Slider component
