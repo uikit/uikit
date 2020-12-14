@@ -31,10 +31,6 @@ export default function Transitioner(prev, next, dir, {animation, easing}) {
             return deferred.promise;
         },
 
-        stop() {
-            return Transition.stop([next, prev]);
-        },
-
         cancel() {
             Transition.cancel([next, prev]);
         },
@@ -48,7 +44,6 @@ export default function Transitioner(prev, next, dir, {animation, easing}) {
         forward(duration, percent = this.percent()) {
             Transition.cancel([next, prev]);
             return this.show(duration, percent, true);
-
         },
 
         translate(percent) {
