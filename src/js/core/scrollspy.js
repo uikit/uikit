@@ -1,4 +1,4 @@
-import {$$, css, data, filter, isInView, Promise, toggleClass, trigger} from 'uikit-util';
+import {$$, css, data, filter, isInView, Promise, removeClass, toggleClass, trigger} from 'uikit-util';
 
 const stateKey = '_ukScrollspy';
 export default {
@@ -44,6 +44,13 @@ export default {
 
         }
 
+    },
+
+    disconnected() {
+        this.elements.forEach(el => {
+            removeClass(el, this.inViewClass, el[stateKey] ? el[stateKey].cls : '');
+            delete el[stateKey];
+        });
     },
 
     update: [
