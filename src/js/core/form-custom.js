@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import {$, $$, closest, isInput, matches, query, selInput} from 'uikit-util';
+import {$, $$, closest, isInput, matches, parent, query, selInput} from 'uikit-util';
 
 export default {
 
@@ -27,7 +27,7 @@ export default {
 
         target({target}, $el) {
             return target && (target === true
-                && this.input.parentNode === $el
+                && parent(this.input) === $el
                 && this.input.nextElementSibling
                 || query(target, $el));
         }

@@ -20,7 +20,7 @@ export default {
         read() {
 
             const el = this.$el;
-            const {offsetHeight: height, offsetWidth: width} = getPositionedParent(el) || el.parentNode;
+            const {offsetHeight: height, offsetWidth: width} = getPositionedParent(el) || parent(el);
             const dim = Dimensions.cover(
                 {
                     width: this.width || el.naturalWidth || el.videoWidth || el.clientWidth,

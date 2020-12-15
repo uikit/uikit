@@ -1,4 +1,4 @@
-import {$, addClass, append, css, includes, last, on, once, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toFloat, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, includes, last, on, once, parent, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toFloat, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -186,7 +186,7 @@ export default {
 
         show() {
 
-            if (this.container && this.$el.parentNode !== this.container) {
+            if (this.container && parent(this.$el) !== this.container) {
                 append(this.container, this.$el);
                 return new Promise(resolve =>
                     requestAnimationFrame(() =>

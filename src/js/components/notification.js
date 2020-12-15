@@ -1,4 +1,4 @@
-import {$, append, apply, closest, css, pointerEnter, pointerLeave, remove, startsWith, toFloat, Transition, trigger} from 'uikit-util';
+import {$, append, apply, closest, css, parent, pointerEnter, pointerLeave, remove, startsWith, toFloat, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -88,7 +88,7 @@ export default {
 
             const removeFn = () => {
 
-                const container = this.$el.parentNode;
+                const container = parent(this.$el);
 
                 trigger(this.$el, 'close', [this]);
                 remove(this.$el);

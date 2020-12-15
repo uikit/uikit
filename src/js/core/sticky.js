@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, css, fastdom, hasClass, inBrowser, isNumeric, isString, isVisible, noop, offset, offsetPosition, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, width, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, css, fastdom, hasClass, inBrowser, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, width, within} from 'uikit-util';
 
 export default {
 
@@ -317,7 +317,7 @@ function parseProp(prop, {$props, $el, [`${prop}Offset`]: propOffset}) {
 
     } else {
 
-        return offset(value === true ? $el.parentNode : query(value, $el)).bottom;
+        return offset(value === true ? parent($el) : query(value, $el)).bottom;
 
     }
 }
