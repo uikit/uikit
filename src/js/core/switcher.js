@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, attr, children, css, data, endsWith, findIndex, getIndex, hasClass, includes, matches, queryAll, toggleClass, toNodes, within} from 'uikit-util';
+import {$$, attr, children, css, data, endsWith, findIndex, getIndex, hasClass, matches, queryAll, toggleClass, toNodes, within} from 'uikit-util';
 
 export default {
 
@@ -20,7 +20,6 @@ export default {
         active: 0,
         swiping: true,
         cls: 'uk-active',
-        clsContainer: 'uk-switcher',
         attrItem: 'uk-switcher-item'
     },
 
@@ -74,9 +73,6 @@ export default {
             },
 
             handler(e) {
-                if (!includes(this.toggles, e.current)) {
-                    return;
-                }
                 e.preventDefault();
                 this.show(e.current);
             }
@@ -127,7 +123,10 @@ export default {
         show(item) {
 
             const prev = this.index();
-            const next = getIndex(item, this.toggles, prev);
+            const next = getIndex(
+                this.children[getIndex(item, this.toggles, prev)],
+                children(this.$el)
+            );
 
             if (prev === next) {
                 return;
