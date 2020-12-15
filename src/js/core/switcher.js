@@ -33,13 +33,9 @@ export default {
             },
 
             watch(connects) {
-
-                connects.forEach(list => this.updateAria(list.children));
-
                 if (this.swiping) {
                     css(connects, 'touch-action', 'pan-y pinch-zoom');
                 }
-
             },
 
             immediate: true

@@ -66,12 +66,6 @@ export default {
                 : !hasAttr(nodes, 'hidden');
         },
 
-        updateAria(el) {
-            if (this.cls === false) {
-                attr(el, 'aria-hidden', !this.isToggled(el));
-            }
-        },
-
         _toggleElement(el, show, animate) {
 
             show = isBoolean(show)
@@ -124,8 +118,6 @@ export default {
             }
 
             $$('[autofocus]', el).some(el => isVisible(el) ? el.focus() || true : el.blur());
-
-            this.updateAria(el);
 
             if (changed) {
                 trigger(el, 'toggled', [this]);

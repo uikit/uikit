@@ -282,8 +282,6 @@ export default {
 
                 e.preventDefault();
 
-                this.updateAria(this.$el);
-
                 if (toggle || this.toggle) {
                     attr((toggle || this.toggle).$el, 'aria-expanded', this.isToggled());
                     toggleClass(this.toggle.$el, this.cls, this.isToggled());
