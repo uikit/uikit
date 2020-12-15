@@ -173,16 +173,6 @@ export function toWindow(element) {
         : window;
 }
 
-export function toList(value) {
-    return isArray(value)
-        ? value
-        : isString(value)
-            ? value.split(/,(?![^(]*\))/).map(value => isNumeric(value)
-                ? toNumber(value)
-                : toBoolean(value.trim()))
-            : [value];
-}
-
 export function toMs(time) {
     return !time
         ? 0

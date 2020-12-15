@@ -1,4 +1,4 @@
-import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isEmpty, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
+import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isEmpty, isFunction, isNumeric, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toNumber} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -255,6 +255,16 @@ export default function (UIkit) {
         }
 
         return type ? type(value) : value;
+    }
+
+    function toList(value) {
+        return isArray(value)
+            ? value
+            : isString(value)
+                ? value.split(/,(?![^(]*\))/).map(value => isNumeric(value)
+                    ? toNumber(value)
+                    : toBoolean(value.trim()))
+                : [value];
     }
 
     function normalizeData({data, el}, {args, props = {}}) {
