@@ -82,7 +82,7 @@ function dimension(prop) {
     const propName = ucfirst(prop);
     return (element, value) => {
 
-        if (isUndefined(value)) {
+        if (isUndefined(value) || value === true) {
 
             if (isWindow(element)) {
                 return element[`inner${propName}`];
@@ -94,6 +94,10 @@ function dimension(prop) {
             }
 
             element = toNode(element);
+
+            if (value === true) {
+                return element ? element.getBoundingClientRect()[prop] : 0;
+            }
 
             value = css(element, prop);
             value = value === 'auto' ? element[`offset${propName}`] : toFloat(value) || 0;

@@ -2,7 +2,7 @@ import Class from '../mixin/class';
 import Slider, {speedUp} from '../mixin/slider';
 import SliderReactive from '../mixin/slider-reactive';
 import Transitioner, {getElLeft, getMax, getWidth} from './internal/slider-transitioner';
-import {$, addClass, children, css, data, findIndex, includes, isEmpty, last, offset, sortBy, toFloat, toggleClass, toNumber} from 'uikit-util';
+import {$, addClass, children, css, data, findIndex, includes, isEmpty, last, sortBy, toFloat, toggleClass, toNumber, width} from 'uikit-util';
 
 export default {
 
@@ -30,7 +30,7 @@ export default {
         },
 
         finite({finite}) {
-            return finite || Math.ceil(getWidth(this.list)) < offset(this.list).width + getMaxElWidth(this.list) + this.center;
+            return finite || Math.ceil(getWidth(this.list)) < width(this.list, true) + getMaxElWidth(this.list) + this.center;
         },
 
         maxIndex() {
@@ -56,7 +56,7 @@ export default {
                 return;
             }
 
-            const width = offset(this.list).width / (this.center ? 2 : 1);
+            const width = width(this.list, true) / (this.center ? 2 : 1);
 
             let left = 0;
             let leftCenter = width;
@@ -64,7 +64,7 @@ export default {
 
             sets = sortBy(this.slides, 'offsetLeft').reduce((sets, slide, i) => {
 
-                const {width: slideWidth} = offset(slide);
+                const slideWidth = width(slide, true);
                 const slideRight = slideLeft + slideWidth;
 
                 if (slideRight > left) {
@@ -76,7 +76,7 @@ export default {
                     if (!includes(sets, i)) {
 
                         const cmp = this.slides[i + 1];
-                        if (this.center && cmp && slideWidth < leftCenter - offset(cmp).width / 2) {
+                        if (this.center && cmp && slideWidth < leftCenter - width(cmp, true) / 2) {
                             leftCenter -= slideWidth;
                         } else {
                             leftCenter = width;
@@ -160,7 +160,7 @@ export default {
             }
 
             const index = this.dir < 0 || !this.slides[this.prevIndex] ? this.index : this.prevIndex;
-            this.duration = speedUp(this.avgWidth / this.velocity) * (offset(this.slides[index]).width / this.avgWidth);
+            this.duration = speedUp(this.avgWidth / this.velocity) * (width(this.slides[index], true) / this.avgWidth);
 
             this.reorder();
 
@@ -197,7 +197,7 @@ export default {
             }
 
             const next = this.slides[index];
-            let width = offset(this.list).width / 2 - offset(next).width / 2;
+            let width = width(this.list, true) / 2 - width(next, true) / 2;
             let j = 0;
 
             while (width > 0) {
@@ -205,7 +205,7 @@ export default {
                 const slide = this.slides[slideIndex];
 
                 css(slide, 'order', slideIndex > index ? -2 : -1);
-                width -= offset(slide).width;
+                width -= width(slide, true);
             }
 
         },
@@ -239,5 +239,5 @@ export default {
 };
 
 function getMaxElWidth(list) {
-    return Math.max(0, ...children(list).map(el => offset(el).width));
+    return Math.max(0, ...children(list).map(el => width(el, true)));
 }

@@ -38,7 +38,7 @@ export default {
                     return false;
                 }
 
-                minHeight = height(window) - (offsetHeight(document.documentElement) - offsetHeight(this.$el)) - box || '';
+                minHeight = height(window) - (height(document.documentElement, true) - height(this.$el, true)) - box || '';
 
             } else {
 
@@ -54,7 +54,7 @@ export default {
 
                 if (this.offsetBottom === true) {
 
-                    minHeight += ` - ${offsetHeight(this.$el.nextElementSibling)}px`;
+                    minHeight += ` - ${height(this.$el.nextElementSibling, true)}px`;
 
                 } else if (isNumeric(this.offsetBottom)) {
 
@@ -66,7 +66,7 @@ export default {
 
                 } else if (isString(this.offsetBottom)) {
 
-                    minHeight += ` - ${offsetHeight(query(this.offsetBottom, this.$el))}px`;
+                    minHeight += ` - ${height(query(this.offsetBottom, this.$el), true)}px`;
 
                 }
 
@@ -96,7 +96,3 @@ export default {
     }
 
 };
-
-function offsetHeight(el) {
-    return el && offset(el).height || 0;
-}
