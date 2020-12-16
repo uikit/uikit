@@ -99,8 +99,9 @@ export default {
 
             trigger(el, show ? 'show' : 'hide', [this]);
 
-            const removeFn = () => removeClass(el, show ? this.clsEnter : this.clsLeave);
-            promise.then(removeFn, removeFn);
+            promise
+                .catch(noop)
+                .then(() => removeClass(el, show ? this.clsEnter : this.clsLeave));
 
             return promise.then(() => {
                 removeClass(el, show ? this.clsEnter : this.clsLeave);

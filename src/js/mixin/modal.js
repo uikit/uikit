@@ -143,7 +143,6 @@ export default {
                 if (this.escClose) {
                     once(this.$el, 'hide', on(document, 'keydown', e => {
                         if (e.keyCode === 27 && last(active) === this) {
-                            e.preventDefault();
                             this.hide();
                         }
                     }), {self: true});
@@ -226,5 +225,5 @@ function animate({transitionElement, _toggle}) {
                 }, toMs(css(transitionElement, 'transitionDuration')));
 
             })
-        );
+        ).then(() => delete el._reject);
 }

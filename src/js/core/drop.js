@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, apply, css, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, within} from 'uikit-util';
+import {addClass, apply, css, hasClass, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, within} from 'uikit-util';
 
 let active;
 
@@ -230,7 +230,6 @@ export default {
 
                 once(this.$el, 'hide', on(document, 'keydown', e => {
                     if (e.keyCode === 27) {
-                        e.preventDefault();
                         this.hide(false);
                     }
                 }), {self: true});
@@ -274,7 +273,7 @@ export default {
 
         write() {
 
-            if (this.isToggled() && !Animation.inProgress(this.$el)) {
+            if (this.isToggled() && !hasClass(this.$el, this.clsEnter)) {
                 this.position();
             }
 
