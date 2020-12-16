@@ -17,6 +17,7 @@
 - Fix regression in Slider component
 - Fix do not set 'aria-hidden' if element has already been removed from the accessibility tree
 - Fix Switcher component does not ignore disabled toggles
+- Fix Toggle component in queued mode
 
 ## 3.5.16 (December 11, 2020)
 
