@@ -97,7 +97,7 @@ function insertNodes(element, fn) {
 }
 
 export function remove(element) {
-    toNodes(element).map(element => element.parentNode && element.parentNode.removeChild(element));
+    toNodes(element).forEach(element => element.parentNode && element.parentNode.removeChild(element));
 }
 
 export function wrapAll(element, structure) {
