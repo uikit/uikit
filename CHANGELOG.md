@@ -1,5 +1,24 @@
 # Changelog
 
+## 3.5.17 (December 16, 2020)
+
+### Added
+
+- Offcanvas component hides if invisible
+
+### Changed
+
+- Image component will load images eagerly in IE11
+- Improved Tooltip accessibility
+- Set 'aria-expanded' on toggles
+
+### Fixed
+
+- Fix regression in Slider component
+- Fix do not set 'aria-hidden' if element has already been removed from the accessibility tree
+- Fix Switcher component does not ignore disabled toggles
+- Fix Toggle component in queued mode
+
 ## 3.5.16 (December 11, 2020)
 
 ### Fixed

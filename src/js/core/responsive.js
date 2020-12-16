@@ -1,4 +1,4 @@
-import {addClass, Dimensions, height, isVisible, width} from 'uikit-util';
+import {addClass, Dimensions, height, isVisible, parent, width} from 'uikit-util';
 
 export default {
 
@@ -12,7 +12,7 @@ export default {
 
         read() {
             return isVisible(this.$el) && this.width && this.height
-                ? {width: width(this.$el.parentNode), height: this.height}
+                ? {width: width(parent(this.$el)), height: this.height}
                 : false;
         },
 

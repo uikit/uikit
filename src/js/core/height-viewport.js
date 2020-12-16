@@ -1,5 +1,5 @@
 import FlexBug from '../mixin/flex-bug';
-import {$, boxModelAdjust, css, endsWith, height, isNumeric, isString, isVisible, offset, query, toFloat} from 'uikit-util';
+import {$, boxModelAdjust, css, dimensions, endsWith, height, isNumeric, isString, isVisible, offset, query, toFloat} from 'uikit-util';
 
 export default {
 
@@ -38,7 +38,7 @@ export default {
                     return false;
                 }
 
-                minHeight = height(window) - (offsetHeight(document.documentElement) - offsetHeight(this.$el)) - box || '';
+                minHeight = height(window) - (dimensions(document.documentElement).height - dimensions(this.$el).height) - box || '';
 
             } else {
 
@@ -54,7 +54,7 @@ export default {
 
                 if (this.offsetBottom === true) {
 
-                    minHeight += ` - ${offsetHeight(this.$el.nextElementSibling)}px`;
+                    minHeight += ` - ${dimensions(this.$el.nextElementSibling).height}px`;
 
                 } else if (isNumeric(this.offsetBottom)) {
 
@@ -66,7 +66,7 @@ export default {
 
                 } else if (isString(this.offsetBottom)) {
 
-                    minHeight += ` - ${offsetHeight(query(this.offsetBottom, this.$el))}px`;
+                    minHeight += ` - ${dimensions(query(this.offsetBottom, this.$el)).height}px`;
 
                 }
 
@@ -96,7 +96,3 @@ export default {
     }
 
 };
-
-function offsetHeight(el) {
-    return el && offset(el).height || 0;
-}

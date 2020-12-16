@@ -1,4 +1,4 @@
-import {$, addClass, append, css, includes, last, on, once, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toFloat, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, includes, last, on, once, parent, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toFloat, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -143,7 +143,6 @@ export default {
                 if (this.escClose) {
                     once(this.$el, 'hide', on(document, 'keydown', e => {
                         if (e.keyCode === 27 && last(active) === this) {
-                            e.preventDefault();
                             this.hide();
                         }
                     }), {self: true});
@@ -186,7 +185,7 @@ export default {
 
         show() {
 
-            if (this.container && this.$el.parentNode !== this.container) {
+            if (this.container && parent(this.$el) !== this.container) {
                 append(this.container, this.$el);
                 return new Promise(resolve =>
                     requestAnimationFrame(() =>
@@ -226,5 +225,5 @@ function animate({transitionElement, _toggle}) {
                 }, toMs(css(transitionElement, 'transitionDuration')));
 
             })
-        );
+        ).then(() => delete el._reject);
 }

@@ -38,12 +38,11 @@ export default {
 
             removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
 
-            let node;
             let {offset} = this;
             const axis = this.getAxis();
 
             if (!isNumeric(offset)) {
-                node = $(offset);
+                const node = $(offset);
                 offset = node
                     ? getOffset(node)[axis === 'x' ? 'left' : 'top'] - getOffset(target)[axis === 'x' ? 'right' : 'bottom']
                     : 0;

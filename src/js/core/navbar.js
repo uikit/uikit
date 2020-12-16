@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import FlexBug from '../mixin/flex-bug';
-import {$, $$, addClass, after, assign, css, hasClass, height, includes, isRtl, isVisible, matches, noop, Promise, query, remove, toFloat, Transition, within} from 'uikit-util';
+import {$, $$, addClass, after, assign, css, hasClass, height, includes, isRtl, isVisible, matches, noop, parent, Promise, query, remove, toFloat, Transition, within} from 'uikit-util';
 
 export default {
 
@@ -147,7 +147,7 @@ export default {
 
             handler() {
 
-                if (!this.dropbar.parentNode) {
+                if (!parent(this.dropbar)) {
                     after(this.dropbarAnchor || this.$el, this.dropbar);
                 }
 

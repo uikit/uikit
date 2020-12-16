@@ -92,20 +92,12 @@ export function isDocument(obj) {
     return isObject(obj) && obj.nodeType === 9;
 }
 
-export function isJQuery(obj) {
-    return isObject(obj) && !!obj.jquery;
-}
-
 export function isNode(obj) {
     return isObject(obj) && obj.nodeType >= 1;
 }
 
 export function isElement(obj) {
     return isObject(obj) && obj.nodeType === 1;
-}
-
-export function isNodeCollection(obj) {
-    return toString.call(obj).match(/^\[object (NodeList|HTMLCollection)\]$/);
 }
 
 export function isBoolean(value) {
@@ -156,26 +148,14 @@ export function toFloat(value) {
     return parseFloat(value) || 0;
 }
 
+export const toArray = Array.from || (value => arrPrototype.slice.call(value));
+
 export function toNode(element) {
-    return isNode(element)
-        ? element
-        : isNodeCollection(element) || isJQuery(element)
-            ? element[0]
-            : isArray(element)
-                ? toNode(element[0])
-                : null;
+    return toNodes(element)[0];
 }
 
 export function toNodes(element) {
-    return isNode(element)
-        ? [element]
-        : isNodeCollection(element)
-            ? arrPrototype.slice.call(element)
-            : isArray(element)
-                ? element.map(toNode).filter(Boolean)
-                : isJQuery(element)
-                    ? element.toArray()
-                    : [];
+    return element && (isNode(element) ? [element] : toArray(element).filter(isNode)) || [];
 }
 
 export function toWindow(element) {
@@ -191,16 +171,6 @@ export function toWindow(element) {
             : element.ownerDocument
         ).defaultView
         : window;
-}
-
-export function toList(value) {
-    return isArray(value)
-        ? value
-        : isString(value)
-            ? value.split(/,(?![^(]*\))/).map(value => isNumeric(value)
-                ? toNumber(value)
-                : toBoolean(value.trim()))
-            : [value];
 }
 
 export function toMs(time) {

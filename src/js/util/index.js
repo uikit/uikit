@@ -14,7 +14,6 @@ export * from './options';
 export * from './player';
 export * from './position';
 export * from './promise';
-export * from './intersection';
 export * from './selector';
 export * from './style';
 export * from './viewport';

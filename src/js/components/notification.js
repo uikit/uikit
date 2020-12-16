@@ -1,4 +1,4 @@
-import {$, append, apply, closest, css, pointerEnter, pointerLeave, remove, startsWith, toFloat, Transition, trigger} from 'uikit-util';
+import {$, append, apply, closest, css, parent, pointerEnter, pointerLeave, remove, startsWith, toFloat, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -86,12 +86,12 @@ export default {
 
         close(immediate) {
 
-            const removeFn = () => {
+            const removeFn = el => {
 
-                const container = this.$el.parentNode;
+                const container = parent(el);
 
-                trigger(this.$el, 'close', [this]);
-                remove(this.$el);
+                trigger(el, 'close', [this]);
+                remove(el);
 
                 if (container && !container.hasChildNodes()) {
                     remove(container);
@@ -104,7 +104,7 @@ export default {
             }
 
             if (immediate) {
-                removeFn();
+                removeFn(this.$el);
             } else {
                 Transition.start(this.$el, this.startProps).then(removeFn);
             }

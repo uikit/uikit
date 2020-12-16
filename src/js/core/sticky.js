@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, css, fastdom, hasClass, inBrowser, isNumeric, isString, isVisible, noop, offset, offsetPosition, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, css, dimensions, fastdom, hasClass, inBrowser, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -151,7 +151,7 @@ export default {
 
                 this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
                 this.bottom = bottom && bottom - this.$el.offsetHeight;
-                this.width = offset(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
+                this.width = dimensions(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
 
                 return {
                     height,
@@ -317,7 +317,7 @@ function parseProp(prop, {$props, $el, [`${prop}Offset`]: propOffset}) {
 
     } else {
 
-        return offset(value === true ? $el.parentNode : query(value, $el)).bottom;
+        return offset(value === true ? parent($el) : query(value, $el)).bottom;
 
     }
 }

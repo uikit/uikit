@@ -1,6 +1,6 @@
 import FlexBug from '../mixin/flex-bug';
 import {getRows} from './margin';
-import {$$, boxModelAdjust, css, offset, toFloat} from 'uikit-util';
+import {$$, attr, boxModelAdjust, css, dimensions, isVisible, toFloat} from 'uikit-util';
 
 export default {
 
@@ -55,13 +55,15 @@ function match(elements) {
         return {heights: [''], elements};
     }
 
-    let {heights, max} = getHeights(elements);
+    let heights = elements.map(getHeight);
+    let max = Math.max(...heights);
     const hasMinHeight = elements.some(el => el.style.minHeight);
     const hasShrunk = elements.some((el, i) => !el.style.minHeight && heights[i] < max);
 
     if (hasMinHeight && hasShrunk) {
         css(elements, 'minHeight', '');
-        ({heights, max} = getHeights(elements));
+        heights = elements.map(getHeight);
+        max = Math.max(...heights);
     }
 
     heights = elements.map((el, i) =>
@@ -71,9 +73,18 @@ function match(elements) {
     return {heights, elements};
 }
 
-function getHeights(elements) {
-    const heights = elements.map(el => offset(el).height - boxModelAdjust(el, 'height', 'content-box'));
-    const max = Math.max.apply(null, heights);
+function getHeight(element) {
 
-    return {heights, max};
+    let style;
+
+    if (!isVisible(element)) {
+        style = attr(element, 'style');
+        element.style.setProperty('display', 'block', 'important');
+    }
+
+    const height = dimensions(element).height - boxModelAdjust(element, 'height', 'content-box');
+
+    attr(element, 'style', style);
+
+    return height;
 }

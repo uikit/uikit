@@ -63,7 +63,7 @@ export default function (UIkit) {
 
             // Handle Swipe Gesture
             const pos = getEventPos(e);
-            const target = 'tagName' in e.target ? e.target : e.target.parentNode;
+            const target = 'tagName' in e.target ? e.target : parent(e.target);
             off = once(document, `${pointerUp} ${pointerCancel}`, e => {
 
                 const {x, y} = getEventPos(e);

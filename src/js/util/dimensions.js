@@ -1,50 +1,59 @@
 import {css} from './style';
-import {attr} from './attr';
-import {isVisible} from './filter';
-import {endsWith, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
+import {each, endsWith, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
 
-export function offset(element, coordinates) {
+const dirs = {
+    width: ['left', 'right'],
+    height: ['top', 'bottom']
+};
 
-    if (!coordinates) {
-        return getDimensions(element);
-    }
+export function dimensions(element) {
 
-    const currentOffset = getDimensions(element);
-    const pos = css(element, 'position');
-
-    ['left', 'top'].forEach(prop => {
-        if (prop in coordinates) {
-            const value = css(element, prop);
-            css(element, prop, coordinates[prop] - currentOffset[prop]
-                + toFloat(pos === 'absolute' && value === 'auto'
-                    ? position(element)[prop]
-                    : value)
-            );
-        }
-    });
-}
-
-function getDimensions(element) {
-
-    const {pageYOffset: top, pageXOffset: left} = toWindow(element);
-
-    const rect = isWindow(element)
+    const rect = isWindow(element) || !toNode(element)
         ? {height: height(element), width: width(element), top: 0, left: 0}
-        : getRect(toNode(element));
+        : toNode(element).getBoundingClientRect();
 
     return {
         height: rect.height,
         width: rect.width,
-        top: rect.top + top,
-        left: rect.left + left,
-        bottom: rect.top + rect.height + top,
-        right: rect.left + rect.width + left
+        top: rect.top,
+        left: rect.left,
+        bottom: rect.top + rect.height,
+        right: rect.left + rect.width
     };
+}
+
+export function offset(element, coordinates) {
+
+    const currentOffset = dimensions(element);
+    const {pageYOffset, pageXOffset} = toWindow(element);
+    const offsetBy = {height: pageYOffset, width: pageXOffset};
+
+    for (const dir in dirs) {
+        for (const i in dirs[dir]) {
+            currentOffset[dirs[dir][i]] += offsetBy[dir];
+        }
+    }
+
+    if (!coordinates) {
+        return currentOffset;
+    }
+
+    const pos = css(element, 'position');
+
+    each(css(element, ['left', 'top']), (value, prop) =>
+        css(element, prop, coordinates[prop]
+            - currentOffset[prop]
+            + toFloat(pos === 'absolute' && value === 'auto'
+                ? position(element)[prop]
+                : value)
+        )
+    );
 }
 
 export function position(element, parent) {
 
-    parent = parent || (toNode(element) || {}).offsetParent || toWindow(element).document.documentElement;
+    element = toNode(element);
+    parent = parent || element.offsetParent || element.documentElement;
 
     const elementOffset = offset(element);
     const parentOffset = offset(parent);
@@ -104,7 +113,7 @@ function dimension(prop) {
 
         } else {
 
-            css(element, prop, !value && value !== 0
+            return css(element, prop, !value && value !== 0
                 ? ''
                 : +value + boxModelAdjust(element, prop) + 'px'
             );
@@ -113,11 +122,6 @@ function dimension(prop) {
 
     };
 }
-
-const dirs = {
-    width: ['left', 'right'],
-    height: ['top', 'bottom']
-};
 
 export function boxModelAdjust(element, prop, sizing = 'border-box') {
     return css(element, 'boxSizing') === sizing
@@ -130,18 +134,14 @@ export function boxModelAdjust(element, prop, sizing = 'border-box') {
 }
 
 export function flipPosition(pos) {
-    switch (pos) {
-        case 'left':
-            return 'right';
-        case 'right':
-            return 'left';
-        case 'top':
-            return 'bottom';
-        case 'bottom':
-            return 'top';
-        default:
-            return pos;
+    for (const dir in dirs) {
+        for (const i in dirs[dir]) {
+            if (dirs[dir][i] === pos) {
+                return dirs[dir][1 - i];
+            }
+        }
     }
+    return pos;
 }
 
 export function toPx(value, property = 'width', element = window) {
@@ -152,30 +152,10 @@ export function toPx(value, property = 'width', element = window) {
             : endsWith(value, 'vw')
                 ? percent(width(toWindow(element)), value)
                 : endsWith(value, '%')
-                    ? percent(getDimensions(element)[property], value)
+                    ? percent(dimensions(element)[property], value)
                     : toFloat(value);
 }
 
 function percent(base, value) {
     return base * toFloat(value) / 100;
-}
-
-function getRect(element) {
-
-    if (!element) {
-        return {};
-    }
-
-    let style;
-
-    if (!isVisible(element)) {
-        style = attr(element, 'style');
-        element.style.setProperty('display', 'block', 'important');
-    }
-
-    const rect = element.getBoundingClientRect();
-
-    attr(element, 'style', style);
-
-    return rect;
 }

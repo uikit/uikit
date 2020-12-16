@@ -1,4 +1,4 @@
-import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
+import {$$, addClass, Animation, assign, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, Promise, removeClass, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -45,6 +45,14 @@ export default {
 
         hasTransition({animation}) {
             return this.hasAnimation && animation[0] === true;
+        },
+
+        clsEnter() {
+            return `${this.$name}-enter`;
+        },
+
+        clsLeave() {
+            return `${this.$name}-leave`;
         }
 
     },
@@ -59,28 +67,19 @@ export default {
             ));
         },
 
-        isToggled(el) {
-            const nodes = toNodes(el || this.$el);
-            return this.cls
-                ? hasClass(nodes, this.cls.split(' ')[0])
-                : !hasAttr(nodes, 'hidden');
-        },
-
-        updateAria(el) {
-            if (this.cls === false) {
-                attr(el, 'aria-hidden', !this.isToggled(el));
-            }
+        isToggled(el = this.$el) {
+            return hasClass(this.clsEnter)
+                ? true
+                : hasClass(this.clsLeave)
+                    ? false
+                    : this.cls
+                        ? hasClass(el, this.cls.split(' ')[0])
+                        : !hasAttr(el, 'hidden');
         },
 
         _toggleElement(el, show, animate) {
 
-            show = isBoolean(show)
-                ? show
-                : Animation.inProgress(el)
-                    ? hasClass(el, 'uk-animation-leave')
-                    : Transition.inProgress(el)
-                        ? el.style.height === '0px'
-                        : !this.isToggled(el);
+            show = isBoolean(show) ? show : !this.isToggled(el);
 
             if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
                 return Promise.reject();
@@ -94,16 +93,21 @@ export default {
                         : this.hasTransition
                             ? toggleHeight(this)
                             : toggleAnimation(this)
-            )(el, show);
+            )(el, show) || Promise.resolve();
+
+            addClass(el, show ? this.clsEnter : this.clsLeave);
 
             trigger(el, show ? 'show' : 'hide', [this]);
 
-            const final = () => {
+            promise
+                .catch(noop)
+                .then(() => removeClass(el, show ? this.clsEnter : this.clsLeave));
+
+            return promise.then(() => {
+                removeClass(el, show ? this.clsEnter : this.clsLeave);
                 trigger(el, show ? 'shown' : 'hidden', [this]);
                 this.$update(el);
-            };
-
-            return (promise || Promise.resolve()).then(final);
+            });
         },
 
         _toggle(el, toggled) {
@@ -125,10 +129,8 @@ export default {
 
             $$('[autofocus]', el).some(el => isVisible(el) ? el.focus() || true : el.blur());
 
-            this.updateAria(el);
-
             if (changed) {
-                trigger(el, 'toggled', [this]);
+                trigger(el, 'toggled', [toggled, this]);
                 this.$update(el);
             }
         }
