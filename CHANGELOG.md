@@ -10,6 +10,7 @@
 
 - Image component will load images eagerly in IE11
 - Improved Tooltip accessibility
+- Set 'aria-expanded' on toggles
 
 ### Fixed
 

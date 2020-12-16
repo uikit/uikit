@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import {default as Togglable, toggleHeight} from '../mixin/togglable';
-import {$, $$, filter, getIndex, hasClass, includes, index, isInView, scrollIntoView, toggleClass, unwrap, wrapAll} from 'uikit-util';
+import {$, $$, attr, filter, getIndex, hasClass, includes, index, isInView, scrollIntoView, toggleClass, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -57,6 +57,10 @@ export default {
 
             immediate: true
 
+        },
+
+        toggles({toggle}) {
+            return this.items.map(item => $(toggle, item));
         }
 
     },
@@ -67,13 +71,13 @@ export default {
 
             name: 'click',
 
-            delegate() {
-                return `${this.targets} ${this.$props.toggle}`;
+            el() {
+                return this.toggles;
             },
 
             handler(e) {
                 e.preventDefault();
-                this.toggle(index($$(`${this.targets} ${this.$props.toggle}`, this.$el), e.current));
+                this.toggle(index(this.toggles, e.target));
             }
 
         }
@@ -98,6 +102,7 @@ export default {
             items.forEach(el => this.toggleElement(el, !hasClass(el, this.clsOpen), (el, show) => {
 
                 toggleClass(el, this.clsOpen, show);
+                attr($(this.$props.toggle, el), 'aria-expanded', show);
 
                 const content = $(`${el._wrapper ? '> * ' : ''}${this.content}`, el);
 

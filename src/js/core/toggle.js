@@ -1,6 +1,6 @@
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
-import {closest, hasClass, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
+import {attr, closest, hasClass, hasTouch, includes, isTouch, isUndefined, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
 
 export default {
 
@@ -32,7 +32,7 @@ export default {
             },
 
             watch() {
-                trigger(this.target, 'updatearia', [this]);
+                this.updateAria();
             },
 
             immediate: true
@@ -69,12 +69,10 @@ export default {
 
             handler(e) {
 
-                // TODO better isToggled handling
                 let link;
                 if (closest(e.target, 'a[href="#"], a[href=""]')
                     || (link = closest(e.target, 'a[href]')) && (
-                        this.cls && !hasClass(this.target, this.cls.split(' ')[0])
-                        || !isVisible(this.target)
+                        isToggled(this.target, this.cls)
                         || link.hash && matches(this.target, link.hash)
                     )
                 ) {
@@ -84,6 +82,19 @@ export default {
                 this.toggle();
             }
 
+        },
+
+        {
+
+            name: 'toggled',
+
+            self: true,
+
+            el() {
+                return this.target;
+            },
+
+            handler: 'updateAria'
         }
 
     ],
@@ -138,8 +149,22 @@ export default {
                 ), true)
             );
 
+        },
+
+        updateAria(toggled) {
+            attr(this.$el, 'aria-expanded', isUndefined(toggled)
+                ? isToggled(this.target, this.cls)
+                : toggled
+            );
         }
 
     }
 
 };
+
+// TODO improve isToggled handling
+function isToggled(target, cls) {
+    return cls
+        ? hasClass(target, cls.split(' ')[0])
+        : isVisible(target);
+}
