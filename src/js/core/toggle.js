@@ -117,18 +117,27 @@ export default {
                 return;
             }
 
-            if (this.queued) {
-
-                const toggled = this.target.filter(this.isToggled);
-                this.toggleElement(toggled, false).then(() =>
-                    this.toggleElement(this.target.filter(el =>
-                        !includes(toggled, el)
-                    ), true)
-                );
-
-            } else {
-                this.toggleElement(this.target);
+            if (!this.queued) {
+                return this.toggleElement(this.target);
             }
+
+            const leaving = this.target.filter(el => hasClass(el, this.clsLeave));
+
+            if (leaving.length) {
+                this.target.forEach(el => {
+                    const isLeaving = includes(leaving, el);
+                    this.toggleElement(el, isLeaving, isLeaving);
+                });
+                return;
+            }
+
+            const toggled = this.target.filter(this.isToggled);
+            this.toggleElement(toggled, false).then(() =>
+                this.toggleElement(this.target.filter(el =>
+                    !includes(toggled, el)
+                ), true)
+            );
+
         }
 
     }
