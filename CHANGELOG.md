@@ -9,6 +9,7 @@
 ### Changed
 
 - Image component will load images eagerly in IE11
+- Improved Tooltip accessibility
 
 ### Fixed
 

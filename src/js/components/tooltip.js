@@ -1,9 +1,7 @@
 import Container from '../mixin/container';
 import Togglable from '../mixin/togglable';
 import Position from '../mixin/position';
-import {append, attr, flipPosition, hasAttr, includes, isTouch, matches, on, pointerDown, pointerEnter, pointerLeave, pointerUp, remove, within} from 'uikit-util';
-
-const actives = [];
+import {append, attr, flipPosition, hasAttr, isInput, isTouch, matches, on, once, pointerEnter, pointerLeave, remove} from 'uikit-util';
 
 export default {
 
@@ -28,26 +26,28 @@ export default {
 
     beforeConnect() {
         this._hasTitle = hasAttr(this.$el, 'title');
-        attr(this.$el, {title: '', 'aria-expanded': false});
+        attr(this.$el, 'title', '');
+        this.updateAria(false);
+        makeFocusable(this.$el);
     },
 
     disconnected() {
         this.hide();
-        attr(this.$el, {title: this._hasTitle ? this.title : null, 'aria-expanded': null});
+        attr(this.$el, 'title', this._hasTitle ? this.title : null);
     },
 
     methods: {
 
         show() {
 
-            if (this.isActive() || !this.title) {
+            if (this.isToggled(this.tooltip) || !this.title) {
                 return;
             }
 
-            actives.forEach(active => active.hide());
-            actives.push(this);
-
-            this._unbind = on(document, pointerUp, e => !within(e.target, this.$el) && this.hide());
+            this._unbind = once(document, 'show keydown', this.hide, false, e =>
+                e.type === 'keydown' && e.keyCode === 27
+                || e.type === 'show' && e.detail[0] !== this && e.detail[0].$name === this.$name
+            );
 
             clearTimeout(this.showTimer);
             this.showTimer = setTimeout(this._show, this.delay);
@@ -55,16 +55,17 @@ export default {
 
         hide() {
 
-            if (!this.isActive() || matches(this.$el, 'input:focus')) {
+            if (matches(this.$el, 'input:focus')) {
+                return;
+            }
+
+            clearTimeout(this.showTimer);
+
+            if (!this.isToggled(this.tooltip)) {
                 return;
             }
 
             this.toggleElement(this.tooltip, false, false).then(() => {
-
-                actives.splice(actives.indexOf(this), 1);
-
-                clearTimeout(this.showTimer);
-
                 this.tooltip = remove(this.tooltip);
                 this._unbind();
             });
@@ -78,11 +79,9 @@ export default {
                  </div>`
             );
 
-            on(this.tooltip, 'toggled', () => {
+            on(this.tooltip, 'toggled', (e, toggled) => {
 
-                const toggled = this.isToggled(this.tooltip);
-
-                attr(this.$el, 'aria-expanded', toggled);
+                this.updateAria(toggled);
 
                 if (!toggled) {
                     return;
@@ -99,8 +98,8 @@ export default {
 
         },
 
-        isActive() {
-            return includes(actives, this);
+        updateAria(toggled) {
+            attr(this.$el, 'aria-expanded', toggled);
         }
 
     },
@@ -117,17 +116,18 @@ export default {
             e.type === pointerEnter
                 ? this.show()
                 : this.hide();
-        },
-
-        [pointerDown](e) {
-            if (!isTouch(e)) {
-                return;
-            }
-            this.isActive()
-                ? this.hide()
-                : this.show();
         }
 
     }
 
 };
+
+function makeFocusable(el) {
+    if (!isFocusable(el)) {
+        attr(el, 'tabindex', '0');
+    }
+}
+
+function isFocusable(el) {
+    return isInput(el) || matches(el, 'a,button') || hasAttr(el, 'tabindex');
+}
