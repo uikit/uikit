@@ -27,7 +27,7 @@ export function transition(element, props, duration = 400, timing = 'linear') {
                     transitionDuration: '',
                     transitionTimingFunction: ''
                 });
-                type === 'transitioncanceled' ? reject() : resolve();
+                type === 'transitioncanceled' ? reject() : resolve(element);
             }, {self: true});
 
             addClass(element, 'uk-transition');
@@ -75,7 +75,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 
                 clearTimeout(timer);
 
-                type === 'animationcanceled' ? reject() : resolve();
+                type === 'animationcanceled' ? reject() : resolve(element);
 
                 css(element, 'animationDuration', '');
                 removeClasses(element, `${animationPrefix}\\S*`);
