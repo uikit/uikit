@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import {closest, css, height, isVisible, toFloat, trigger} from 'uikit-util';
+import {closest, css, dimensions, height, isVisible, toFloat, trigger} from 'uikit-util';
 
 export default {
 
@@ -41,7 +41,7 @@ export default {
 
             return {
                 current: toFloat(css(this.$el, 'maxHeight')),
-                max: Math.max(150, height(this.container) - (height(this.content, true) - height(this.$el)))
+                max: Math.max(150, height(this.container) - (dimensions(this.content).height - height(this.$el)))
             };
         },
 

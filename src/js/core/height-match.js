@@ -1,6 +1,6 @@
 import FlexBug from '../mixin/flex-bug';
 import {getRows} from './margin';
-import {$$, attr, boxModelAdjust, css, height, isVisible, toFloat} from 'uikit-util';
+import {$$, attr, boxModelAdjust, css, dimensions, isVisible, toFloat} from 'uikit-util';
 
 export default {
 
@@ -82,9 +82,9 @@ function getHeight(element) {
         element.style.setProperty('display', 'block', 'important');
     }
 
-    const hgt = height(element, true) - boxModelAdjust(element, 'height', 'content-box');
+    const height = dimensions(element).height - boxModelAdjust(element, 'height', 'content-box');
 
     attr(element, 'style', style);
 
-    return hgt;
+    return height;
 }

@@ -1,5 +1,5 @@
 import {translate} from '../../mixin/internal/slideshow-animations';
-import {children, clamp, createEvent, css, Deferred, includes, index, isRtl, noop, position, sortBy, Transition, trigger, width} from 'uikit-util';
+import {children, clamp, createEvent, css, Deferred, dimensions, includes, index, isRtl, noop, position, sortBy, Transition, trigger} from 'uikit-util';
 
 export default function (prev, next, dir, {center, easing, list}) {
 
@@ -7,10 +7,10 @@ export default function (prev, next, dir, {center, easing, list}) {
 
     const from = prev
         ? getLeft(prev, list, center)
-        : getLeft(next, list, center) + width(next, true) * dir;
+        : getLeft(next, list, center) + dimensions(next).width * dir;
     const to = next
         ? getLeft(next, list, center)
-        : from + width(prev, true) * dir * (isRtl ? -1 : 1);
+        : from + dimensions(prev).width * dir * (isRtl ? -1 : 1);
 
     return {
 
@@ -56,7 +56,7 @@ export default function (prev, next, dir, {center, easing, list}) {
             css(list, 'transform', translate(clamp(
                 -to + (distance - distance * percent),
                 -getWidth(list),
-                width(list, true)
+                dimensions(list).width
             ) * (isRtl ? -1 : 1), 'px'));
 
             this.updateTranslates();
@@ -90,7 +90,7 @@ export default function (prev, next, dir, {center, easing, list}) {
         getActives() {
             return [prev || next].concat(children(list).filter(slide => {
                 const slideLeft = getElLeft(slide, list);
-                return slideLeft > from && slideLeft + width(slide, true) <= width(list, true) + from;
+                return slideLeft > from && slideLeft + dimensions(slide).width <= dimensions(list).width + from;
             }));
         },
 
@@ -123,19 +123,19 @@ function getLeft(el, list, center) {
 }
 
 export function getMax(list) {
-    return Math.max(0, getWidth(list) - width(list, true));
+    return Math.max(0, getWidth(list) - dimensions(list).width);
 }
 
 export function getWidth(list) {
-    return children(list).reduce((right, el) => width(el, true) + right, 0);
+    return children(list).reduce((right, el) => dimensions(el).width + right, 0);
 }
 
 function centerEl(el, list) {
-    return width(list, true) / 2 - width(el, true) / 2;
+    return dimensions(list).width / 2 - dimensions(el).width / 2;
 }
 
 export function getElLeft(el, list) {
-    return el && (position(el).left + (isRtl ? width(el, true) - width(list, true) : 0)) * (isRtl ? -1 : 1) || 0;
+    return el && (position(el).left + (isRtl ? dimensions(el).width - dimensions(list).width : 0)) * (isRtl ? -1 : 1) || 0;
 }
 
 function triggerUpdate(el, type, data) {

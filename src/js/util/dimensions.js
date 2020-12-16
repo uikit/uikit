@@ -1,9 +1,38 @@
 import {css} from './style';
 import {each, endsWith, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
 
+const dirs = {
+    width: ['left', 'right'],
+    height: ['top', 'bottom']
+};
+
+export function dimensions(element) {
+
+    const rect = isWindow(element) || !toNode(element)
+        ? {height: height(element), width: width(element), top: 0, left: 0}
+        : toNode(element).getBoundingClientRect();
+
+    return {
+        height: rect.height,
+        width: rect.width,
+        top: rect.top,
+        left: rect.left,
+        bottom: rect.top + rect.height,
+        right: rect.left + rect.width
+    };
+}
+
 export function offset(element, coordinates) {
 
-    const currentOffset = getDimensions(element);
+    const currentOffset = dimensions(element);
+    const {pageYOffset, pageXOffset} = toWindow(element);
+    const offsetBy = {height: pageYOffset, width: pageXOffset};
+
+    for (const dir in dirs) {
+        for (const i in dirs[dir]) {
+            currentOffset[dirs[dir][i]] += offsetBy[dir];
+        }
+    }
 
     if (!coordinates) {
         return currentOffset;
@@ -19,24 +48,6 @@ export function offset(element, coordinates) {
                 : value)
         )
     );
-}
-
-function getDimensions(element) {
-
-    const {pageYOffset: top, pageXOffset: left} = toWindow(element);
-
-    const rect = isWindow(element) || !toNode(element)
-        ? {height: height(element), width: width(element), top: 0, left: 0}
-        : toNode(element).getBoundingClientRect();
-
-    return {
-        height: rect.height,
-        width: rect.width,
-        top: rect.top + top,
-        left: rect.left + left,
-        bottom: rect.top + rect.height + top,
-        right: rect.left + rect.width + left
-    };
 }
 
 export function position(element, parent) {
@@ -82,7 +93,7 @@ function dimension(prop) {
     const propName = ucfirst(prop);
     return (element, value) => {
 
-        if (isUndefined(value) || value === true) {
+        if (isUndefined(value)) {
 
             if (isWindow(element)) {
                 return element[`inner${propName}`];
@@ -95,10 +106,6 @@ function dimension(prop) {
 
             element = toNode(element);
 
-            if (value === true) {
-                return element ? element.getBoundingClientRect()[prop] : 0;
-            }
-
             value = css(element, prop);
             value = value === 'auto' ? element[`offset${propName}`] : toFloat(value) || 0;
 
@@ -106,7 +113,7 @@ function dimension(prop) {
 
         } else {
 
-            css(element, prop, !value && value !== 0
+            return css(element, prop, !value && value !== 0
                 ? ''
                 : +value + boxModelAdjust(element, prop) + 'px'
             );
@@ -115,11 +122,6 @@ function dimension(prop) {
 
     };
 }
-
-const dirs = {
-    width: ['left', 'right'],
-    height: ['top', 'bottom']
-};
 
 export function boxModelAdjust(element, prop, sizing = 'border-box') {
     return css(element, 'boxSizing') === sizing
@@ -150,7 +152,7 @@ export function toPx(value, property = 'width', element = window) {
             : endsWith(value, 'vw')
                 ? percent(width(toWindow(element)), value)
                 : endsWith(value, '%')
-                    ? percent(getDimensions(element)[property], value)
+                    ? percent(dimensions(element)[property], value)
                     : toFloat(value);
 }
 
