@@ -16,6 +16,8 @@ export default {
         duration: 200,
         origin: false,
         transition: 'linear',
+        clsEnter: 'uk-togglabe-enter',
+        clsLeave: 'uk-togglabe-leave',
 
         initProps: {
             overflow: '',
@@ -45,26 +47,45 @@ export default {
 
         hasTransition({animation}) {
             return this.hasAnimation && animation[0] === true;
-        },
-
-        clsEnter() {
-            return `${this.$name}-enter`;
-        },
-
-        clsLeave() {
-            return `${this.$name}-leave`;
         }
 
     },
 
     methods: {
 
-        toggleElement(targets, show, animate) {
-            return Promise.all(toNodes(targets).map(el =>
-                new Promise(resolve =>
-                    this._toggleElement(el, show, animate).then(resolve, noop)
-                )
-            ));
+        toggleElement(targets, toggle, animate) {
+            return Promise.all(toNodes(targets).map(el => {
+
+                const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
+
+                if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
+                    return Promise.reject();
+                }
+
+                const promise = (
+                    isFunction(animate)
+                        ? animate
+                        : animate === false || !this.hasAnimation
+                        ? this._toggle
+                        : this.hasTransition
+                            ? toggleHeight(this)
+                            : toggleAnimation(this)
+                )(el, show) || Promise.resolve();
+
+                addClass(el, show ? this.clsEnter : this.clsLeave);
+
+                trigger(el, show ? 'show' : 'hide', [this]);
+
+                promise
+                    .catch(noop)
+                    .then(() => removeClass(el, show ? this.clsEnter : this.clsLeave));
+
+                return promise.then(() => {
+                    removeClass(el, show ? this.clsEnter : this.clsLeave);
+                    trigger(el, show ? 'shown' : 'hidden', [this]);
+                    this.$update(el);
+                }, noop);
+            }));
         },
 
         isToggled(el = this.$el) {
@@ -75,39 +96,6 @@ export default {
                     : this.cls
                         ? hasClass(el, this.cls.split(' ')[0])
                         : !hasAttr(el, 'hidden');
-        },
-
-        _toggleElement(el, show, animate) {
-
-            show = isBoolean(show) ? show : !this.isToggled(el);
-
-            if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
-                return Promise.reject();
-            }
-
-            const promise = (
-                isFunction(animate)
-                    ? animate
-                    : animate === false || !this.hasAnimation
-                        ? this._toggle
-                        : this.hasTransition
-                            ? toggleHeight(this)
-                            : toggleAnimation(this)
-            )(el, show) || Promise.resolve();
-
-            addClass(el, show ? this.clsEnter : this.clsLeave);
-
-            trigger(el, show ? 'show' : 'hide', [this]);
-
-            promise
-                .catch(noop)
-                .then(() => removeClass(el, show ? this.clsEnter : this.clsLeave));
-
-            return promise.then(() => {
-                removeClass(el, show ? this.clsEnter : this.clsLeave);
-                trigger(el, show ? 'shown' : 'hidden', [this]);
-                this.$update(el);
-            });
         },
 
         _toggle(el, toggled) {

@@ -21,7 +21,7 @@ const cssNumber = {
     'zoom': true
 };
 
-export function css(element, property, value) {
+export function css(element, property, value, priority) {
 
     return toNodes(element).map(element => {
 
@@ -34,7 +34,7 @@ export function css(element, property, value) {
             } else if (!value && !isNumber(value)) {
                 element.style.removeProperty(property);
             } else {
-                element.style[property] = isNumeric(value) && !cssNumber[property] ? `${value}px` : value;
+                element.style.setProperty(property, isNumeric(value) && !cssNumber[property] ? `${value}px` : value, priority);
             }
 
         } else if (isArray(property)) {
@@ -47,7 +47,8 @@ export function css(element, property, value) {
             }, {});
 
         } else if (isObject(property)) {
-            each(property, (value, property) => css(element, property, value));
+            priority = value;
+            each(property, (value, property) => css(element, property, value, priority));
         }
 
         return element;
@@ -95,13 +96,13 @@ export function getCssVar(name) {
 
 const cssProps = {};
 
+// https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
 export function propName(name) {
 
-    let ret = cssProps[name];
-    if (!ret) {
-        ret = cssProps[name] = vendorPropName(name) || name;
+    if (!cssProps[name]) {
+        cssProps[name] = vendorPropName(name);
     }
-    return ret;
+    return cssProps[name];
 }
 
 const cssPrefixes = ['webkit', 'moz', 'ms'];
@@ -124,4 +125,6 @@ function vendorPropName(name) {
             return prefixedName;
         }
     }
+
+    return name;
 }

@@ -1,6 +1,6 @@
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
-import {attr, closest, hasClass, hasTouch, includes, isTouch, isUndefined, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
+import {attr, closest, hasClass, hasTouch, includes, isBoolean, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
 
 export default {
 
@@ -94,7 +94,9 @@ export default {
                 return this.target;
             },
 
-            handler: 'updateAria'
+            handler(e, toggled) {
+                this.updateAria(toggled);
+            }
         }
 
     ],
@@ -152,9 +154,9 @@ export default {
         },
 
         updateAria(toggled) {
-            attr(this.$el, 'aria-expanded', isUndefined(toggled)
-                ? isToggled(this.target, this.cls)
-                : toggled
+            attr(this.$el, 'aria-expanded', isBoolean(toggled)
+                ? toggled
+                : isToggled(this.target, this.cls)
             );
         }
 

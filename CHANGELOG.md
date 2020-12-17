@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.6.0 (December 17, 2020)
+
+### Added
+
+- Add 'animationMode' setting to Filter component (shift | fade)
+- Add 'priority' param to 'css' function
+
+### Fixed
+
+- Fix 'aria-expanded' value on toggles
+
 ## 3.5.17 (December 16, 2020)
 
 ### Added

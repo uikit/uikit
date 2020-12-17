@@ -1,4 +1,4 @@
-/*! UIkit 3.5.17 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.6.0 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1363,7 +1363,7 @@
         'zoom': true
     };
 
-    function css(element, property, value) {
+    function css(element, property, value, priority) {
 
         return toNodes(element).map(function (element) {
 
@@ -1376,7 +1376,7 @@
                 } else if (!value && !isNumber(value)) {
                     element.style.removeProperty(property);
                 } else {
-                    element.style[property] = isNumeric(value) && !cssNumber[property] ? (value + "px") : value;
+                    element.style.setProperty(property, isNumeric(value) && !cssNumber[property] ? (value + "px") : value, priority);
                 }
 
             } else if (isArray(property)) {
@@ -1389,7 +1389,8 @@
                 }, {});
 
             } else if (isObject(property)) {
-                each(property, function (value, property) { return css(element, property, value); });
+                priority = value;
+                each(property, function (value, property) { return css(element, property, value, priority); });
             }
 
             return element;
@@ -1437,13 +1438,13 @@
 
     var cssProps = {};
 
+    // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
     function propName(name) {
 
-        var ret = cssProps[name];
-        if (!ret) {
-            ret = cssProps[name] = vendorPropName(name) || name;
+        if (!cssProps[name]) {
+            cssProps[name] = vendorPropName(name);
         }
-        return ret;
+        return cssProps[name];
     }
 
     var cssPrefixes = ['webkit', 'moz', 'ms'];
@@ -1467,6 +1468,8 @@
                 return prefixedName;
             }
         }
+
+        return name;
     }
 
     function transition(element, props, duration, timing) {
@@ -3401,7 +3404,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.17';
+    UIkit.version = '3.6.0';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3626,6 +3629,8 @@
             duration: 200,
             origin: false,
             transition: 'linear',
+            clsEnter: 'uk-togglabe-enter',
+            clsLeave: 'uk-togglabe-leave',
 
             initProps: {
                 overflow: '',
@@ -3659,26 +3664,47 @@
                 var animation = ref.animation;
 
                 return this.hasAnimation && animation[0] === true;
-            },
-
-            clsEnter: function() {
-                return ((this.$name) + "-enter");
-            },
-
-            clsLeave: function() {
-                return ((this.$name) + "-leave");
             }
 
         },
 
         methods: {
 
-            toggleElement: function(targets, show, animate) {
+            toggleElement: function(targets, toggle, animate) {
                 var this$1 = this;
 
-                return Promise.all(toNodes(targets).map(function (el) { return new Promise(function (resolve) { return this$1._toggleElement(el, show, animate).then(resolve, noop); }
-                    ); }
-                ));
+                return Promise.all(toNodes(targets).map(function (el) {
+
+                    var show = isBoolean(toggle) ? toggle : !this$1.isToggled(el);
+
+                    if (!trigger(el, ("before" + (show ? 'show' : 'hide')), [this$1])) {
+                        return Promise.reject();
+                    }
+
+                    var promise = (
+                        isFunction(animate)
+                            ? animate
+                            : animate === false || !this$1.hasAnimation
+                            ? this$1._toggle
+                            : this$1.hasTransition
+                                ? toggleHeight(this$1)
+                                : toggleAnimation(this$1)
+                    )(el, show) || Promise.resolve();
+
+                    addClass(el, show ? this$1.clsEnter : this$1.clsLeave);
+
+                    trigger(el, show ? 'show' : 'hide', [this$1]);
+
+                    promise
+                        .catch(noop)
+                        .then(function () { return removeClass(el, show ? this$1.clsEnter : this$1.clsLeave); });
+
+                    return promise.then(function () {
+                        removeClass(el, show ? this$1.clsEnter : this$1.clsLeave);
+                        trigger(el, show ? 'shown' : 'hidden', [this$1]);
+                        this$1.$update(el);
+                    }, noop);
+                }));
             },
 
             isToggled: function(el) {
@@ -3691,41 +3717,6 @@
                         : this.cls
                             ? hasClass(el, this.cls.split(' ')[0])
                             : !hasAttr(el, 'hidden');
-            },
-
-            _toggleElement: function(el, show, animate) {
-                var this$1 = this;
-
-
-                show = isBoolean(show) ? show : !this.isToggled(el);
-
-                if (!trigger(el, ("before" + (show ? 'show' : 'hide')), [this])) {
-                    return Promise.reject();
-                }
-
-                var promise = (
-                    isFunction(animate)
-                        ? animate
-                        : animate === false || !this.hasAnimation
-                            ? this._toggle
-                            : this.hasTransition
-                                ? toggleHeight(this)
-                                : toggleAnimation(this)
-                )(el, show) || Promise.resolve();
-
-                addClass(el, show ? this.clsEnter : this.clsLeave);
-
-                trigger(el, show ? 'show' : 'hide', [this]);
-
-                promise
-                    .catch(noop)
-                    .then(function () { return removeClass(el, show ? this$1.clsEnter : this$1.clsLeave); });
-
-                return promise.then(function () {
-                    removeClass(el, show ? this$1.clsEnter : this$1.clsLeave);
-                    trigger(el, show ? 'shown' : 'hidden', [this$1]);
-                    this$1.$update(el);
-                });
             },
 
             _toggle: function(el, toggled) {
@@ -5140,18 +5131,16 @@
         return {heights: heights, elements: elements};
     }
 
+    var clsBlock = 'uk-display-block';
     function getHeight(element) {
 
-        var style;
-
         if (!isVisible(element)) {
-            style = attr(element, 'style');
-            element.style.setProperty('display', 'block', 'important');
+            addClass(element, clsBlock);
         }
 
         var height = dimensions(element).height - boxModelAdjust(element, 'height', 'content-box');
 
-        attr(element, 'style', style);
+        removeClass(element, clsBlock);
 
         return height;
     }
@@ -8064,7 +8053,9 @@
                     return this.target;
                 },
 
-                handler: 'updateAria'
+                handler: function(e, toggled) {
+                    this.updateAria(toggled);
+                }
             }
 
         ],
@@ -8124,9 +8115,9 @@
             },
 
             updateAria: function(toggled) {
-                attr(this.$el, 'aria-expanded', isUndefined(toggled)
-                    ? isToggled(this.target, this.cls)
-                    : toggled
+                attr(this.$el, 'aria-expanded', isBoolean(toggled)
+                    ? toggled
+                    : isToggled(this.target, this.cls)
                 );
             }
 
@@ -8360,96 +8351,173 @@
         };
     }
 
+    var clsLeave = 'uk-transition-leave';
+    var clsEnter = 'uk-transition-enter';
+
+    function fade(action, target, duration, stagger) {
+        if ( stagger === void 0 ) stagger = 40;
+
+
+        var index = transitionIndex(target, true);
+        var propsIn = {opacity: 1};
+        var propsOut = {opacity: 0};
+
+        var wrapIndexFn = function (fn) { return function () { return index === transitionIndex(target) ? fn() : Promise.reject(); }; };
+
+        var leaveFn = wrapIndexFn(function () {
+
+            addClass(target, clsLeave);
+
+            return Promise.all(getTransitionNodes(target).map(function (child, i) { return new Promise(function (resolve) { return setTimeout(function () { return Transition.start(child, propsOut, duration / 2, 'ease').then(resolve); }, i * stagger); }
+                ); }
+            )).then(function () { return removeClass(target, clsLeave); });
+
+        });
+
+        var enterFn = wrapIndexFn(function () {
+
+            var oldHeight = height(target);
+
+            addClass(target, clsEnter);
+            action();
+
+            css(children(target), {opacity: 0});
+
+            trigger(toWindow(target), 'resize'); // IE11
+
+            return new Promise(function (resolve) {
+                requestAnimationFrame(function () {
+
+                    var nodes = children(target);
+                    var newHeight = height(target);
+
+                    height(target, oldHeight);
+
+                    var transitionNodes = getTransitionNodes(target);
+                    css(nodes, propsOut);
+
+                    var transitions = transitionNodes.map(function (child, i) { return new Promise(function (resolve) { return setTimeout(function () { return Transition.start(child, propsIn, duration / 2, 'ease').then(resolve); }, i * stagger); }
+                        ); }
+                    );
+
+                    if (oldHeight !== newHeight) {
+                        transitions.push(Transition.start(target, {height: newHeight}, duration / 2 + transitionNodes.length * stagger, 'ease'));
+                    }
+
+                    Promise.all(transitions).then(function () {
+                        removeClass(target, clsEnter);
+                        if (index === transitionIndex(target)) {
+                            css(target, 'height', '');
+                            css(nodes, {opacity: ''});
+                            delete target.dataset.transition;
+                        }
+                        resolve();
+                    });
+                });
+            });
+        });
+
+        return hasClass(target, clsLeave)
+            ? waitTransitionend(target).then(enterFn)
+            : hasClass(target, clsEnter)
+                ? waitTransitionend(target).then(leaveFn).then(enterFn)
+                : leaveFn().then(enterFn);
+    }
+
+    function transitionIndex(target, next) {
+        if (next) {
+            target.dataset.transition = 1 + transitionIndex(target);
+        }
+
+        return toNumber(target.dataset.transition) || 0;
+    }
+
+    function waitTransitionend(target) {
+        return Promise.all(children(target).filter(Transition.inProgress).map(function (el) { return new Promise(function (resolve) { return once(el, 'transitionend transitioncanceled', resolve); }); }
+        ));
+    }
+
+    function getTransitionNodes(target) {
+        return getRows(children(target)).reduce(function (nodes, row) { return nodes.concat(sortBy(row.filter(function (el) { return isInView(el); }), 'offsetLeft')); }, []);
+    }
+
     var targetClass = 'uk-animation-target';
 
-    var Animate = {
+    function shift (action, target, duration) {
 
-        props: {
-            animation: Number
-        },
+        addStyle();
 
-        data: {
-            animation: 150
-        },
+        var nodes = children(target);
+        var propsFrom = nodes.map(function (el) { return getProps(el, true); });
 
-        methods: {
+        var oldHeight = height(target);
 
-            animate: function(action, target) {
-                var this$1 = this;
-                if ( target === void 0 ) target = this.$el;
+        action();
 
+        Transition.cancel(target);
+        nodes.forEach(Transition.cancel);
 
-                addStyle();
+        reset(target);
 
-                var children$1 = children(target);
-                var propsFrom = children$1.map(function (el) { return getProps(el, true); });
+        trigger(toWindow(target), 'resize'); // IE11
 
-                var oldHeight = height(target);
-                var oldScrollY = window.pageYOffset;
+        return Promise.resolve().then(function () {
 
-                action();
+            fastdom.flush();
 
-                Transition.cancel(target);
-                children$1.forEach(Transition.cancel);
+            var newHeight = height(target);
 
-                reset(target);
-                this.$update(target, 'resize');
-                fastdom.flush();
+            nodes = nodes.concat(children(target).filter(function (el) { return !includes(nodes, el); }));
 
-                var newHeight = height(target);
-
-                children$1 = children$1.concat(children(target).filter(function (el) { return !includes(children$1, el); }));
-
-                var propsTo = children$1.map(function (el, i) { return el.parentNode && i in propsFrom
-                        ? propsFrom[i]
+            var propsTo = nodes.map(function (el, i) { return parent$1(el) && i in propsFrom
+                    ? propsFrom[i]
                         ? isVisible(el)
                             ? getPositionWithMargin(el)
                             : {opacity: 0}
                         : {opacity: isVisible(el) ? 1 : 0}
-                        : false; }
-                );
+                    : false; }
+            );
 
-                propsFrom = propsTo.map(function (props, i) {
-                    var from = children$1[i].parentNode === target
-                        ? propsFrom[i] || getProps(children$1[i])
-                        : false;
+            propsFrom = propsTo.map(function (props, i) {
 
-                    if (from) {
-                        if (!props) {
-                            delete from.opacity;
-                        } else if (!('opacity' in props)) {
-                            var opacity = from.opacity;
+                var from = parent$1(nodes[i]) === target && (propsFrom[i] || getProps(nodes[i]));
 
-                            if (opacity % 1) {
-                                props.opacity = 1;
-                            } else {
-                                delete from.opacity;
-                            }
-                        }
+                if (!from) {
+                    return false;
+                }
+
+                if (!props) {
+                    delete from.opacity;
+                } else if (!('opacity' in props)) {
+                    var opacity = from.opacity;
+
+                    if (opacity % 1) {
+                        props.opacity = 1;
+                    } else {
+                        delete from.opacity;
                     }
+                }
 
-                    return from;
-                });
+                return from;
+            });
 
-                addClass(target, targetClass);
-                children$1.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
-                css(target, {height: oldHeight, display: 'block'});
-                scrollTop(window, oldScrollY);
+            addClass(target, targetClass);
+            nodes.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
+            css(target, {height: oldHeight, display: 'block'});
 
-                return Promise.all(
-                    children$1.map(function (el, i) { return ['top', 'left', 'height', 'width'].some(function (prop) { return propsFrom[i][prop] !== propsTo[i][prop]; }
-                        ) && Transition.start(el, propsTo[i], this$1.animation, 'ease'); }
-                    ).concat(oldHeight !== newHeight && Transition.start(target, {height: newHeight}, this.animation, 'ease'))
-                ).then(function () {
-                    children$1.forEach(function (el, i) { return css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}); });
-                    reset(target);
-                    this$1.$update(target, 'resize');
-                    fastdom.flush(); // needed for IE11
-                }, noop);
+            var transitions = nodes.map(function (el, i) { return Transition.start(el, propsTo[i], duration, 'ease'); }
+            );
 
+            if (oldHeight !== newHeight) {
+                transitions.push(Transition.start(target, {height: newHeight}, duration, 'ease'));
             }
-        }
-    };
+
+            return Promise.all(transitions).then(function () {
+                nodes.forEach(function (el, i) { return css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}); });
+                reset(target);
+            }, noop);
+        });
+    }
 
     function getProps(el, opacity) {
 
@@ -8497,11 +8565,32 @@
         if (style) {
             return;
         }
-        style = append(document.head, '<style>').sheet;
-        style.insertRule(
-            ("." + targetClass + " > * {\n            margin-top: 0 !important;\n            transform: none !important;\n        }"), 0
-        );
+        style = !!append(document.head, ("<style> ." + targetClass + " > * {\n            margin-top: 0 !important;\n            transform: none !important;\n        } </style>"));
     }
+
+    var Animate = {
+
+        props: {
+            animation: Number,
+            animationMode: String
+        },
+
+        data: {
+            animation: 150,
+            animationMode: 'shift'
+        },
+
+        methods: {
+
+            animate: function(action, target) {
+                if ( target === void 0 ) target = this.$el;
+
+                var animationFn = this.animationMode === 'fade' ? fade : shift;
+                return animationFn(action, target, this.animation)
+                    .then(function () { return trigger(toWindow(target), 'resize'); }, noop);
+            }
+        }
+    };
 
     var filter$1 = {
 
@@ -9315,7 +9404,7 @@
 
         connected: function() {
             this.prevIndex = -1;
-            this.index = this.getValidIndex(this.index);
+            this.index = this.getValidIndex(this.$props.index);
             this.stack = [];
         },
 
@@ -11698,8 +11787,7 @@
     function appendDrag(container, element) {
         var clone = append(container, element.outerHTML.replace(/(^<)(?:li|tr)|(?:li|tr)(\/>$)/g, '$1div$2'));
 
-        clone.style.setProperty('margin', '0', 'important');
-
+        css(clone, 'margin', '0', 'important');
         css(clone, assign({
             boxSizing: 'border-box',
             width: element.offsetWidth,
