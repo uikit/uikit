@@ -16,6 +16,8 @@ export default {
         duration: 200,
         origin: false,
         transition: 'linear',
+        clsEnter: 'uk-togglabe-enter',
+        clsLeave: 'uk-togglabe-leave',
 
         initProps: {
             overflow: '',
@@ -45,14 +47,6 @@ export default {
 
         hasTransition({animation}) {
             return this.hasAnimation && animation[0] === true;
-        },
-
-        clsEnter() {
-            return `${this.$name}-enter`;
-        },
-
-        clsLeave() {
-            return `${this.$name}-leave`;
         }
 
     },

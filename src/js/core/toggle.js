@@ -94,7 +94,9 @@ export default {
                 return this.target;
             },
 
-            handler: 'updateAria'
+            handler(e, toggled) {
+                this.updateAria(toggled);
+            }
         }
 
     ],
