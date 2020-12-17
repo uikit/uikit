@@ -32,7 +32,7 @@ export default {
 
     connected() {
         this.prevIndex = -1;
-        this.index = this.getValidIndex(this.index);
+        this.index = this.getValidIndex(this.$props.index);
         this.stack = [];
     },
 
