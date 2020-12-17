@@ -72,7 +72,7 @@ export default {
                 let link;
                 if (closest(e.target, 'a[href="#"], a[href=""]')
                     || (link = closest(e.target, 'a[href]')) && (
-                        isToggled(this.target, this.cls)
+                        !isToggled(this.target, this.cls)
                         || link.hash && matches(this.target, link.hash)
                     )
                 ) {

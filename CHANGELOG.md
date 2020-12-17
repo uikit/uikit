@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.6.1 (December 17, 2020)
+
+### Fixed
+
+- Fix regression in Toggle component
+
 ## 3.6.0 (December 17, 2020)
 
 ### Added
