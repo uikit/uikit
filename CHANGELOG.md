@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add 'animationMode' setting to Filter component (shift | fade)
 - Add 'priority' param to 'css' function
 
 ### Fixed

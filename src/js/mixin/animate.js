@@ -1,143 +1,25 @@
-import {addClass, append, assign, css, fastdom, children as getChildren, height, includes, index, isVisible, noop, offset, position, Promise, removeClass, scrollTop, Transition} from 'uikit-util';
-
-const targetClass = 'uk-animation-target';
+import fade from './internal/animate-fade';
+import shift from './internal/animate-shift';
+import {noop, toWindow, trigger} from 'uikit-util';
 
 export default {
 
     props: {
-        animation: Number
+        animation: Number,
+        animationMode: String
     },
 
     data: {
-        animation: 150
+        animation: 150,
+        animationMode: 'shift'
     },
 
     methods: {
 
         animate(action, target = this.$el) {
-
-            addStyle();
-
-            let children = getChildren(target);
-            let propsFrom = children.map(el => getProps(el, true));
-
-            const oldHeight = height(target);
-            const oldScrollY = window.pageYOffset;
-
-            action();
-
-            Transition.cancel(target);
-            children.forEach(Transition.cancel);
-
-            reset(target);
-            this.$update(target, 'resize');
-            fastdom.flush();
-
-            const newHeight = height(target);
-
-            children = children.concat(getChildren(target).filter(el => !includes(children, el)));
-
-            const propsTo = children.map((el, i) =>
-                el.parentNode && i in propsFrom
-                    ? propsFrom[i]
-                    ? isVisible(el)
-                        ? getPositionWithMargin(el)
-                        : {opacity: 0}
-                    : {opacity: isVisible(el) ? 1 : 0}
-                    : false
-            );
-
-            propsFrom = propsTo.map((props, i) => {
-                const from = children[i].parentNode === target
-                    ? propsFrom[i] || getProps(children[i])
-                    : false;
-
-                if (from) {
-                    if (!props) {
-                        delete from.opacity;
-                    } else if (!('opacity' in props)) {
-                        const {opacity} = from;
-
-                        if (opacity % 1) {
-                            props.opacity = 1;
-                        } else {
-                            delete from.opacity;
-                        }
-                    }
-                }
-
-                return from;
-            });
-
-            addClass(target, targetClass);
-            children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-            css(target, {height: oldHeight, display: 'block'});
-            scrollTop(window, oldScrollY);
-
-            return Promise.all(
-                children.map((el, i) =>
-                    ['top', 'left', 'height', 'width'].some(prop =>
-                        propsFrom[i][prop] !== propsTo[i][prop]
-                    ) && Transition.start(el, propsTo[i], this.animation, 'ease')
-                ).concat(oldHeight !== newHeight && Transition.start(target, {height: newHeight}, this.animation, 'ease'))
-            ).then(() => {
-                children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
-                reset(target);
-                this.$update(target, 'resize');
-                fastdom.flush(); // needed for IE11
-            }, noop);
-
+            const animationFn = this.animationMode === 'fade' ? fade : shift;
+            return animationFn(action, target, this.animation)
+                .then(() => trigger(toWindow(target), 'resize'), noop);
         }
     }
 };
-
-function getProps(el, opacity) {
-
-    const zIndex = css(el, 'zIndex');
-
-    return isVisible(el)
-        ? assign({
-            display: '',
-            opacity: opacity ? css(el, 'opacity') : '0',
-            pointerEvents: 'none',
-            position: 'absolute',
-            zIndex: zIndex === 'auto' ? index(el) : zIndex
-        }, getPositionWithMargin(el))
-        : false;
-}
-
-function reset(el) {
-    css(el.children, {
-        height: '',
-        left: '',
-        opacity: '',
-        pointerEvents: '',
-        position: '',
-        top: '',
-        width: ''
-    });
-    removeClass(el, targetClass);
-    css(el, {height: '', display: ''});
-}
-
-function getPositionWithMargin(el) {
-    const {height, width} = offset(el);
-    const {top, left} = position(el);
-
-    return {top, left, height, width};
-}
-
-let style;
-
-function addStyle() {
-    if (style) {
-        return;
-    }
-    style = append(document.head, '<style>').sheet;
-    style.insertRule(
-        `.${targetClass} > * {
-            margin-top: 0 !important;
-            transform: none !important;
-        }`, 0
-    );
-}
