@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix 'aria-expanded' value on toggles
+
 ## 3.5.17 (December 16, 2020)
 
 ### Added
