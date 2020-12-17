@@ -333,8 +333,7 @@ function untrackScroll() {
 function appendDrag(container, element) {
     const clone = append(container, element.outerHTML.replace(/(^<)(?:li|tr)|(?:li|tr)(\/>$)/g, '$1div$2'));
 
-    clone.style.setProperty('margin', '0', 'important');
-
+    css(clone, 'margin', '0', 'important');
     css(clone, assign({
         boxSizing: 'border-box',
         width: element.offsetWidth,

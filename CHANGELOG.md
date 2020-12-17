@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add 'priority' param to 'css' function
+
 ### Fixed
 
 - Fix 'aria-expanded' value on toggles
