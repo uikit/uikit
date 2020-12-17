@@ -1,4 +1,4 @@
-/*! UIkit 3.6.0 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.6.1 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3404,7 +3404,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.0';
+    UIkit.version = '3.6.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -8031,7 +8031,7 @@
                     var link;
                     if (closest(e.target, 'a[href="#"], a[href=""]')
                         || (link = closest(e.target, 'a[href]')) && (
-                            isToggled(this.target, this.cls)
+                            !isToggled(this.target, this.cls)
                             || link.hash && matches(this.target, link.hash)
                         )
                     ) {
