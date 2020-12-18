@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- IMPORTANT: Change options 'animationMode' to 'animation', 'animation' to 'duration'
+- IMPORTANT: Rename 'shift' animation to 'slide'
+
 ## 3.6.1 (December 17, 2020)
 
 ### Fixed
