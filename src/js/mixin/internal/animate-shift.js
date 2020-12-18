@@ -7,77 +7,51 @@ export default function (action, target, duration) {
     addStyle();
 
     let nodes = children(target);
-    let propsFrom = nodes.map(el => getProps(el, true));
 
+    // get current state
+    const currentProps = nodes.map(el => getProps(el, true));
     const oldHeight = height(target);
 
-    action();
-
+    // Cancel previous animations
     Transition.cancel(target);
     nodes.forEach(Transition.cancel);
-
+    removeClass(target, targetClass);
     reset(target);
 
-    trigger(toWindow(target), 'resize'); // IE11
+    // Adding, sorting, removing nodes
+    action();
 
-    return Promise.resolve().then(() => {
+    // find new nodes
+    nodes = nodes.concat(children(target).filter(el => !includes(nodes, el)));
 
-        fastdom.flush();
+    // force update
+    trigger(toWindow(target), 'resize');
+    fastdom.flush();
 
-        const newHeight = height(target);
+    // get new state
+    const newHeight = height(target);
+    const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
 
-        nodes = nodes.concat(children(target).filter(el => !includes(nodes, el)));
+    // reset to previous state
+    addClass(target, targetClass);
+    nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
+    css(target, {height: oldHeight, display: 'block'});
 
-        const propsTo = nodes.map((el, i) =>
-            parent(el) && i in propsFrom
-                ? propsFrom[i]
-                    ? isVisible(el)
-                        ? getPositionWithMargin(el)
-                        : {opacity: 0}
-                    : {opacity: isVisible(el) ? 1 : 0}
-                : false
-        );
+    // Start transitions on next frame
+    return new Promise(resolve =>
+        requestAnimationFrame(() => {
 
-        propsFrom = propsTo.map((props, i) => {
+            const transitions = nodes.map((el, i) =>
+                    Transition.start(el, propsTo[i], duration, 'ease')
+                ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
 
-            const from = parent(nodes[i]) === target && (propsFrom[i] || getProps(nodes[i]));
+            Promise.all(transitions).then(() => {
+                nodes.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
+                reset(target);
+            }, noop).then(resolve);
 
-            if (!from) {
-                return false;
-            }
-
-            if (!props) {
-                delete from.opacity;
-            } else if (!('opacity' in props)) {
-                const {opacity} = from;
-
-                if (opacity % 1) {
-                    props.opacity = 1;
-                } else {
-                    delete from.opacity;
-                }
-            }
-
-            return from;
-        });
-
-        addClass(target, targetClass);
-        nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-        css(target, {height: oldHeight, display: 'block'});
-
-        const transitions = nodes.map((el, i) =>
-            Transition.start(el, propsTo[i], duration, 'ease')
-        );
-
-        if (oldHeight !== newHeight) {
-            transitions.push(Transition.start(target, {height: newHeight}, duration, 'ease'));
-        }
-
-        return Promise.all(transitions).then(() => {
-            nodes.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
-            reset(target);
-        }, noop);
-    });
+        })
+    );
 }
 
 function getProps(el, opacity) {
@@ -93,6 +67,43 @@ function getProps(el, opacity) {
             zIndex: zIndex === 'auto' ? index(el) : zIndex
         }, getPositionWithMargin(el))
         : false;
+}
+
+function getTransitionProps(target, nodes, currentProps) {
+
+    const propsTo = nodes.map((el, i) =>
+        parent(el) && i in currentProps
+            ? currentProps[i]
+            ? isVisible(el)
+                ? getPositionWithMargin(el)
+                : {opacity: 0}
+            : {opacity: isVisible(el) ? 1 : 0}
+            : false);
+
+    const propsFrom = propsTo.map((props, i) => {
+
+        const from = parent(nodes[i]) === target && (currentProps[i] || getProps(nodes[i]));
+
+        if (!from) {
+            return false;
+        }
+
+        if (!props) {
+            delete from.opacity;
+        } else if (!('opacity' in props)) {
+            const {opacity} = from;
+
+            if (opacity % 1) {
+                props.opacity = 1;
+            } else {
+                delete from.opacity;
+            }
+        }
+
+        return from;
+    });
+
+    return [propsTo, propsFrom];
 }
 
 function reset(el) {
