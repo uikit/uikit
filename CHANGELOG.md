@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix filter tests
+
 ## 3.6.2 (December 18, 2020)
 
 ### Changed
