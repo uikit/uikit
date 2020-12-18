@@ -44,11 +44,11 @@ export default {
 
                 const nodes = children(this.$el);
 
-                if (!nodes.length || !this.masonry && !this.parallax) {
+                // Filter component makes elements positioned absolute
+                if (!nodes.length || !this.masonry && !this.parallax || positionedAbsolute(this.$el)) {
                     return false;
                 }
 
-                const transitionInProgress = nodes.some(Transition.inProgress);
                 let translates = false;
 
                 const columnHeights = getColumnHeights(columns);
@@ -67,7 +67,7 @@ export default {
                         , 0);
                 }
 
-                return {padding, columns, translates, height: transitionInProgress ? false : this.masonry ? elHeight : ''};
+                return {padding, columns, translates, height: translates ? elHeight : ''};
 
             },
 
@@ -86,7 +86,7 @@ export default {
 
             read({height}) {
                 return {
-                    scrolled: this.parallax
+                    scrolled: this.parallax && !positionedAbsolute(this.$el)
                         ? scrolledOver(this.$el, height ? height - getHeight(this.$el) : 0) * Math.abs(this.parallax)
                         : false
                 };
@@ -115,6 +115,10 @@ export default {
     ]
 
 };
+
+function positionedAbsolute(el) {
+    return children(el).some(el => css(el, 'position') === 'absolute');
+}
 
 function getTranslates(rows, columns) {
 

@@ -1,4 +1,4 @@
-/*! UIkit 3.6.1 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.6.2 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -99,15 +99,19 @@
     }
 
     function isDocument(obj) {
-        return isObject(obj) && obj.nodeType === 9;
+        return nodeType(obj) === 9;
     }
 
     function isNode(obj) {
-        return isObject(obj) && obj.nodeType >= 1;
+        return nodeType(obj) >= 1;
     }
 
     function isElement(obj) {
-        return isObject(obj) && obj.nodeType === 1;
+        return nodeType(obj) === 1;
+    }
+
+    function nodeType(obj) {
+        return !isWindow(obj) && isObject(obj) && obj.nodeType;
     }
 
     function isBoolean(value) {
@@ -3404,7 +3408,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.1';
+    UIkit.version = '3.6.2';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4890,11 +4894,11 @@
 
                     var nodes = children(this.$el);
 
-                    if (!nodes.length || !this.masonry && !this.parallax) {
+                    // Filter component makes elements positioned absolute
+                    if (!nodes.length || !this.masonry && !this.parallax || positionedAbsolute(this.$el)) {
                         return false;
                     }
 
-                    var transitionInProgress = nodes.some(Transition.inProgress);
                     var translates = false;
 
                     var columnHeights = getColumnHeights(columns);
@@ -4912,7 +4916,7 @@
                             , 0);
                     }
 
-                    return {padding: padding, columns: columns, translates: translates, height: transitionInProgress ? false : this.masonry ? elHeight : ''};
+                    return {padding: padding, columns: columns, translates: translates, height: translates ? elHeight : ''};
 
                 },
 
@@ -4936,7 +4940,7 @@
                     var height$1 = ref.height;
 
                     return {
-                        scrolled: this.parallax
+                        scrolled: this.parallax && !positionedAbsolute(this.$el)
                             ? scrolledOver(this.$el, height$1 ? height$1 - height(this.$el) : 0) * Math.abs(this.parallax)
                             : false
                     };
@@ -4965,6 +4969,10 @@
         ]
 
     };
+
+    function positionedAbsolute(el) {
+        return children(el).some(function (el) { return css(el, 'position') === 'absolute'; });
+    }
 
     function getTranslates(rows, columns) {
 
@@ -8383,8 +8391,6 @@
 
             css(children(target), {opacity: 0});
 
-            trigger(toWindow(target), 'resize'); // IE11
-
             return new Promise(function (resolve) {
                 requestAnimationFrame(function () {
 
@@ -8443,80 +8449,56 @@
 
     var targetClass = 'uk-animation-target';
 
-    function shift (action, target, duration) {
+    function slide (action, target, duration) {
 
         addStyle();
 
         var nodes = children(target);
-        var propsFrom = nodes.map(function (el) { return getProps(el, true); });
 
+        // get current state
+        var currentProps = nodes.map(function (el) { return getProps(el, true); });
         var oldHeight = height(target);
 
-        action();
-
+        // Cancel previous animations
         Transition.cancel(target);
         nodes.forEach(Transition.cancel);
-
+        removeClass(target, targetClass);
         reset(target);
 
-        trigger(toWindow(target), 'resize'); // IE11
+        // Adding, sorting, removing nodes
+        action();
 
-        return Promise.resolve().then(function () {
+        // find new nodes
+        nodes = nodes.concat(children(target).filter(function (el) { return !includes(nodes, el); }));
 
-            fastdom.flush();
+        // force update
+        trigger(toWindow(target), 'resize');
+        fastdom.flush();
 
-            var newHeight = height(target);
+        // get new state
+        var newHeight = height(target);
+        var ref = getTransitionProps(target, nodes, currentProps);
+        var propsTo = ref[0];
+        var propsFrom = ref[1];
 
-            nodes = nodes.concat(children(target).filter(function (el) { return !includes(nodes, el); }));
+        // reset to previous state
+        addClass(target, targetClass);
+        nodes.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
+        css(target, {height: oldHeight, display: 'block'});
 
-            var propsTo = nodes.map(function (el, i) { return parent$1(el) && i in propsFrom
-                    ? propsFrom[i]
-                        ? isVisible(el)
-                            ? getPositionWithMargin(el)
-                            : {opacity: 0}
-                        : {opacity: isVisible(el) ? 1 : 0}
-                    : false; }
-            );
+        // Start transitions on next frame
+        return new Promise(function (resolve) { return requestAnimationFrame(function () {
 
-            propsFrom = propsTo.map(function (props, i) {
+                var transitions = nodes.map(function (el, i) { return Transition.start(el, propsTo[i], duration, 'ease'); }
+                    ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
 
-                var from = parent$1(nodes[i]) === target && (propsFrom[i] || getProps(nodes[i]));
+                Promise.all(transitions).then(function () {
+                    nodes.forEach(function (el, i) { return css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}); });
+                    reset(target);
+                }, noop).then(resolve);
 
-                if (!from) {
-                    return false;
-                }
-
-                if (!props) {
-                    delete from.opacity;
-                } else if (!('opacity' in props)) {
-                    var opacity = from.opacity;
-
-                    if (opacity % 1) {
-                        props.opacity = 1;
-                    } else {
-                        delete from.opacity;
-                    }
-                }
-
-                return from;
-            });
-
-            addClass(target, targetClass);
-            nodes.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
-            css(target, {height: oldHeight, display: 'block'});
-
-            var transitions = nodes.map(function (el, i) { return Transition.start(el, propsTo[i], duration, 'ease'); }
-            );
-
-            if (oldHeight !== newHeight) {
-                transitions.push(Transition.start(target, {height: newHeight}, duration, 'ease'));
-            }
-
-            return Promise.all(transitions).then(function () {
-                nodes.forEach(function (el, i) { return css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}); });
-                reset(target);
-            }, noop);
-        });
+            }); }
+        );
     }
 
     function getProps(el, opacity) {
@@ -8532,6 +8514,42 @@
                 zIndex: zIndex === 'auto' ? index(el) : zIndex
             }, getPositionWithMargin(el))
             : false;
+    }
+
+    function getTransitionProps(target, nodes, currentProps) {
+
+        var propsTo = nodes.map(function (el, i) { return parent$1(el) && i in currentProps
+                ? currentProps[i]
+                ? isVisible(el)
+                    ? getPositionWithMargin(el)
+                    : {opacity: 0}
+                : {opacity: isVisible(el) ? 1 : 0}
+                : false; });
+
+        var propsFrom = propsTo.map(function (props, i) {
+
+            var from = parent$1(nodes[i]) === target && (currentProps[i] || getProps(nodes[i]));
+
+            if (!from) {
+                return false;
+            }
+
+            if (!props) {
+                delete from.opacity;
+            } else if (!('opacity' in props)) {
+                var opacity = from.opacity;
+
+                if (opacity % 1) {
+                    props.opacity = 1;
+                } else {
+                    delete from.opacity;
+                }
+            }
+
+            return from;
+        });
+
+        return [propsTo, propsFrom];
     }
 
     function reset(el) {
@@ -8571,13 +8589,13 @@
     var Animate = {
 
         props: {
-            animation: Number,
-            animationMode: String
+            duration: Number,
+            animation: String
         },
 
         data: {
-            animation: 150,
-            animationMode: 'shift'
+            duration: 150,
+            animation: 'slide'
         },
 
         methods: {
@@ -8585,8 +8603,8 @@
             animate: function(action, target) {
                 if ( target === void 0 ) target = this.$el;
 
-                var animationFn = this.animationMode === 'fade' ? fade : shift;
-                return animationFn(action, target, this.animation)
+                var animationFn = this.animation === 'fade' ? fade : slide;
+                return animationFn(action, target, this.duration)
                     .then(function () { return trigger(toWindow(target), 'resize'); }, noop);
             }
         }
@@ -8608,7 +8626,7 @@
             selActive: false,
             attrItem: 'uk-filter-control',
             cls: 'uk-active',
-            animation: 250
+            duration: 250
         },
 
         computed: {

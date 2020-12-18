@@ -89,15 +89,19 @@ export function isWindow(obj) {
 }
 
 export function isDocument(obj) {
-    return isObject(obj) && obj.nodeType === 9;
+    return nodeType(obj) === 9;
 }
 
 export function isNode(obj) {
-    return isObject(obj) && obj.nodeType >= 1;
+    return nodeType(obj) >= 1;
 }
 
 export function isElement(obj) {
-    return isObject(obj) && obj.nodeType === 1;
+    return nodeType(obj) === 1;
+}
+
+function nodeType(obj) {
+    return !isWindow(obj) && isObject(obj) && obj.nodeType;
 }
 
 export function isBoolean(value) {

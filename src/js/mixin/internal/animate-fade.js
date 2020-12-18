@@ -1,5 +1,5 @@
 import {getRows} from '../../core/margin';
-import {addClass, children, css, hasClass, height, isInView, once, Promise, removeClass, sortBy, toNumber, toWindow, Transition, trigger} from 'uikit-util';
+import {addClass, children, css, hasClass, height, isInView, once, Promise, removeClass, sortBy, toNumber, Transition} from 'uikit-util';
 
 const clsLeave = 'uk-transition-leave';
 const clsEnter = 'uk-transition-enter';
@@ -33,8 +33,6 @@ export default function fade(action, target, duration, stagger = 40) {
         action();
 
         css(children(target), {opacity: 0});
-
-        trigger(toWindow(target), 'resize'); // IE11
 
         return new Promise(resolve => {
             requestAnimationFrame(() => {

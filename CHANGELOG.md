@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.6.2 (December 18, 2020)
+
+### Changed
+
+- IMPORTANT: Change options 'animationMode' to 'animation', 'animation' to 'duration'
+- IMPORTANT: Rename 'shift' animation to 'slide'
+
 ## 3.6.1 (December 17, 2020)
 
 ### Fixed
@@ -10,7 +17,7 @@
 
 ### Added
 
-- Add 'animationMode' setting to Filter component (shift | fade)
+- Add fade animation to Filter component
 - Add 'priority' param to 'css' function
 
 ### Fixed
