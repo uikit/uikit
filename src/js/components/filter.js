@@ -17,7 +17,7 @@ export default {
         selActive: false,
         attrItem: 'uk-filter-control',
         cls: 'uk-active',
-        animation: 250
+        duration: 250
     },
 
     computed: {

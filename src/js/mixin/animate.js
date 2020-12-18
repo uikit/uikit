@@ -1,24 +1,24 @@
 import fade from './internal/animate-fade';
-import shift from './internal/animate-shift';
+import slide from './internal/animate-slide';
 import {noop, toWindow, trigger} from 'uikit-util';
 
 export default {
 
     props: {
-        animation: Number,
-        animationMode: String
+        duration: Number,
+        animation: String
     },
 
     data: {
-        animation: 150,
-        animationMode: 'shift'
+        duration: 150,
+        animation: 'slide'
     },
 
     methods: {
 
         animate(action, target = this.$el) {
-            const animationFn = this.animationMode === 'fade' ? fade : shift;
-            return animationFn(action, target, this.animation)
+            const animationFn = this.animation === 'fade' ? fade : slide;
+            return animationFn(action, target, this.duration)
                 .then(() => trigger(toWindow(target), 'resize'), noop);
         }
     }
