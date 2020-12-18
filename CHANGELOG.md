@@ -10,7 +10,7 @@
 
 ### Added
 
-- Add 'animationMode' setting to Filter component (shift | fade)
+- Add fade animation to Filter component
 - Add 'priority' param to 'css' function
 
 ### Fixed
