@@ -28,6 +28,11 @@
                     console.log(e.type, filter, state);
                 });
 
+
+                util.on('#js-animation-switcher', 'change', function () {
+                    util.attr(util.$$('.js-filter-animation'), 'animation', this.value);
+                });
+
             });
 
         </script>
@@ -47,7 +52,7 @@
                 </select>
             </div>
 
-            <div uk-filter="target: .js-filter; animation: 2000">
+            <div class="js-filter-animation" uk-filter="target: .js-filter; duration: 2000">
 
                 <div class="uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
                     <h3>Default</h3>
@@ -144,7 +149,7 @@
 
             <h2>With Parallax</h2>
 
-            <div uk-filter="target: .js-filter">
+            <div class="uk-filter-animation" uk-filter="target: .js-filter">
 
                 <div class="uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
                     <h3>Default</h3>
@@ -279,15 +284,6 @@
             </div>
 
         </div>
-
-        <script>
-
-            UIkit.util.on('#js-animation-switcher', 'change', function () {
-                var value = this.value;
-                UIkit.util.$$('.js-filter-animation').forEach(function (filter) { UIkit.util.attr(filter, 'animation', value); });
-            });
-
-        </script>
 
     </body>
 </html>

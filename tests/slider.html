@@ -547,8 +547,7 @@
 
             ['finite', 'center', 'sets'].forEach(function(attr) {
                 UIkit.util.on('#js-'+attr+'-switcher', 'change', function () {
-                    var value = this.value;
-                    UIkit.util.$$('[uk-slider]').forEach(function (slider) { UIkit.util.attr(slider, attr, value); });
+                    UIkit.util.attr(UIkit.util.$$('[uk-slider]'), attr, this.value);
                 });
             });
 
