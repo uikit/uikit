@@ -40,6 +40,13 @@
 
             <h1>Filter</h1>
 
+            <div class="uk-margin">
+                <select id="js-animation-switcher" class="uk-select uk-form-width-small">
+                    <option value="slide">Slide</option>
+                    <option value="fade">Fade</option>
+                </select>
+            </div>
+
             <div uk-filter="target: .js-filter; animation: 2000">
 
                 <div class="uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
@@ -272,6 +279,15 @@
             </div>
 
         </div>
+
+        <script>
+
+            UIkit.util.on('#js-animation-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('.js-filter-animation').forEach(function (filter) { UIkit.util.attr(filter, 'animation', value); });
+            });
+
+        </script>
 
     </body>
 </html>
