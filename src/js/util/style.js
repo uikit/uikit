@@ -21,7 +21,7 @@ const cssNumber = {
     'zoom': true
 };
 
-export function css(element, property, value, priority) {
+export function css(element, property, value, priority = '') {
 
     return toNodes(element).map(element => {
 
@@ -125,6 +125,4 @@ function vendorPropName(name) {
             return prefixedName;
         }
     }
-
-    return name;
 }
