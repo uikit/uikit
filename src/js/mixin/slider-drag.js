@@ -1,4 +1,4 @@
-import {closest, css, getEventPos, includes, isRtl, isTouch, off, on, pointerCancel, pointerDown, pointerMove, pointerUp, selInput, trigger} from 'uikit-util';
+import {closest, css, getEventPos, hasTouch, includes, isRtl, isTouch, off, on, pointerCancel, pointerDown, pointerMove, pointerUp, selInput, trigger} from 'uikit-util';
 
 export default {
 
@@ -104,9 +104,11 @@ export default {
                 return;
             }
 
-            css(this.list, 'pointerEvents', 'none');
-
-            e.cancelable && e.preventDefault();
+            // Workaround for iOS's inert scrolling preventing pointerdown event
+            // https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action
+            if (!this.dragging && hasTouch) {
+                on(this.list, 'touchmove', preventDefault, {passive: false});
+            }
 
             this.dragging = true;
             this.dir = (distance < 0 ? 1 : -1);
@@ -172,6 +174,7 @@ export default {
 
             off(document, pointerMove, this.move, {passive: false});
             off(document, `${pointerUp} ${pointerCancel}`, this.end, true);
+            off(this.list, 'touchmove', preventDefault, {passive: false});
 
             if (this.dragging) {
 
@@ -210,4 +213,8 @@ export default {
 
 function hasTextNodesOnly(el) {
     return !el.children.length && el.childNodes.length;
+}
+
+function preventDefault(e) {
+    e.cancelable && e.preventDefault();
 }
