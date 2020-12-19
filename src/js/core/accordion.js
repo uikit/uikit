@@ -71,13 +71,13 @@ export default {
 
             name: 'click',
 
-            el() {
-                return this.toggles;
+            delegate() {
+                return `${this.targets} ${this.$props.toggle}`;
             },
 
             handler(e) {
                 e.preventDefault();
-                this.toggle(index(this.toggles, e.target));
+                this.toggle(index(this.toggles, e.current));
             }
 
         }

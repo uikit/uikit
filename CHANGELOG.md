@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix IE11 compatibility
+- Fix Accordion component toggles
 
 ## 3.6.3 (December 18, 2020)
 
