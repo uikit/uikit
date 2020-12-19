@@ -18,7 +18,7 @@ export function on(...args) {
     }
 
     if (selector) {
-        listener = delegate(targets, selector, listener);
+        listener = delegate(selector, listener);
     }
 
     useCapture = useCaptureFilter(useCapture);
@@ -78,23 +78,17 @@ function getArgs(args) {
     return args;
 }
 
-function delegate(delegates, selector, listener) {
+function delegate(selector, listener) {
     return e => {
 
-        delegates.forEach(delegate => {
+        const current = selector[0] === '>'
+            ? findAll(selector, e.currentTarget).reverse().filter(element => within(e.target, element))[0]
+            : closest(e.target, selector);
 
-            const current = selector[0] === '>'
-                ? findAll(selector, delegate).reverse().filter(element => within(e.target, element))[0]
-                : closest(e.target, selector);
-
-            if (current) {
-                e.delegate = delegate;
-                e.current = current;
-
-                listener.call(this, e);
-            }
-
-        });
+        if (current) {
+            e.current = current;
+            listener.call(this, e);
+        }
 
     };
 }
