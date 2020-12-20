@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Improve context selectors to use a dom path selector
+
 ### Fixed
 
 - Fix IE11 compatibility

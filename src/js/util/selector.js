@@ -1,5 +1,5 @@
+import {index} from './dom';
 import {inBrowser} from './env';
-import {removeAttr} from './attr';
 import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
@@ -33,11 +33,7 @@ function _query(selector, context = document, queryFn) {
 
     selector = selector.replace(contextSanitizeRe, '$1 *');
 
-    let removes;
-
     if (isContextSelector(selector)) {
-
-        removes = [];
 
         selector = splitSelector(selector).map((selector, i) => {
 
@@ -64,12 +60,7 @@ function _query(selector, context = document, queryFn) {
                 return null;
             }
 
-            if (!ctx.id) {
-                ctx.id = `uk-${Date.now()}${i}`;
-                removes.push(() => removeAttr(ctx, 'id'));
-            }
-
-            return `#${escape(ctx.id)} ${selector}`;
+            return `${domPath(ctx)} ${selector}`;
 
         }).filter(Boolean).join(',');
 
@@ -84,10 +75,6 @@ function _query(selector, context = document, queryFn) {
     } catch (e) {
 
         return null;
-
-    } finally {
-
-        removes && removes.forEach(remove => remove());
 
     }
 
@@ -104,6 +91,24 @@ const selectorRe = /.*?[^\\](?:,|$)/g;
 
 function splitSelector(selector) {
     return selector.match(selectorRe).map(selector => selector.replace(/,$/, '').trim());
+}
+
+function domPath(element) {
+    const names = [];
+    while (element.parentNode) {
+        if (element.id) {
+            names.unshift(`#${escape(el.id)}`);
+            break;
+        } else {
+            let {tagName} = element;
+            if (tagName !== 'HTML') {
+                tagName += `:nth-child(${index(element) + 1})`;
+            }
+            names.unshift(tagName);
+            element = element.parentNode;
+        }
+    }
+    return names.join(' > ');
 }
 
 const elProto = inBrowser ? Element.prototype : {};
