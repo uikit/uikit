@@ -54,38 +54,40 @@ export default {
     methods: {
 
         toggleElement(targets, toggle, animate) {
-            return Promise.all(toNodes(targets).map(el => {
+            return new Promise(resolve =>
+                Promise.all(toNodes(targets).map(el => {
 
-                const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
+                    const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
 
-                if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
-                    return Promise.reject();
-                }
+                    if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
+                        return Promise.reject();
+                    }
 
-                const promise = (
-                    isFunction(animate)
-                        ? animate
-                        : animate === false || !this.hasAnimation
-                        ? this._toggle
-                        : this.hasTransition
-                            ? toggleHeight(this)
-                            : toggleAnimation(this)
-                )(el, show) || Promise.resolve();
+                    const promise = (
+                        isFunction(animate)
+                            ? animate
+                            : animate === false || !this.hasAnimation
+                            ? this._toggle
+                            : this.hasTransition
+                                ? toggleHeight(this)
+                                : toggleAnimation(this)
+                    )(el, show) || Promise.resolve();
 
-                addClass(el, show ? this.clsEnter : this.clsLeave);
+                    addClass(el, show ? this.clsEnter : this.clsLeave);
 
-                trigger(el, show ? 'show' : 'hide', [this]);
+                    trigger(el, show ? 'show' : 'hide', [this]);
 
-                promise
-                    .catch(noop)
-                    .then(() => removeClass(el, show ? this.clsEnter : this.clsLeave));
+                    promise
+                        .catch(noop)
+                        .then(() => removeClass(el, show ? this.clsEnter : this.clsLeave));
 
-                return promise.then(() => {
-                    removeClass(el, show ? this.clsEnter : this.clsLeave);
-                    trigger(el, show ? 'shown' : 'hidden', [this]);
-                    this.$update(el);
-                }, noop);
-            }));
+                    return promise.then(() => {
+                        removeClass(el, show ? this.clsEnter : this.clsLeave);
+                        trigger(el, show ? 'shown' : 'hidden', [this]);
+                        this.$update(el);
+                    });
+                })).then(resolve, noop)
+            );
         },
 
         isToggled(el = this.$el) {
