@@ -19,10 +19,17 @@ export function hyphenate(str) {
     return hyphenateCache[str];
 }
 
+var camelizeCache = {};
 const camelizeRe = /-(\w)/g;
 
 export function camelize(str) {
-    return str.replace(camelizeRe, toUpper);
+
+    if (!(str in camelizeCache)) {
+        camelizeCache[str] = str.replace(camelizeRe, toUpper);
+    }
+
+    return camelizeCache[str];
+
 }
 
 function toUpper(_, c) {
