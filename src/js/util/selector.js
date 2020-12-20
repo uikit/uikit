@@ -1,6 +1,6 @@
-import {index} from './dom';
+import {index} from './filter';
 import {inBrowser} from './env';
-import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
+import {isDocument, isString, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
     return toNode(selector) || find(selector, getContext(selector, context));
@@ -109,41 +109,6 @@ function domPath(element) {
         }
     }
     return names.join(' > ');
-}
-
-const elProto = inBrowser ? Element.prototype : {};
-const matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector || noop;
-
-export function matches(element, selector) {
-    return toNodes(element).some(element => matchesFn.call(element, selector));
-}
-
-const closestFn = elProto.closest || function (selector) {
-    let ancestor = this;
-
-    do {
-
-        if (matches(ancestor, selector)) {
-            return ancestor;
-        }
-
-    } while ((ancestor = parent(ancestor)));
-};
-
-export function closest(element, selector) {
-
-    if (startsWith(selector, '>')) {
-        selector = selector.slice(1);
-    }
-
-    return isElement(element)
-        ? closestFn.call(element, selector)
-        : toNodes(element).map(element => closest(element, selector)).filter(Boolean);
-}
-
-export function parent(element) {
-    element = toNode(element);
-    return element && isElement(element.parentNode) && element.parentNode;
 }
 
 const escapeFn = inBrowser && window.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };

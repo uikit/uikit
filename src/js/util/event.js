@@ -1,6 +1,6 @@
 import {isIE} from './env';
-import {within} from './filter';
-import {closest, findAll} from './selector';
+import {findAll} from './selector';
+import {closest, within} from './filter';
 import {isArray, isBoolean, isFunction, isString, toNode, toNodes} from './lang';
 
 export function on(...args) {
