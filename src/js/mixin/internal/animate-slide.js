@@ -21,10 +21,10 @@ export default function (action, target, duration) {
     // Adding, sorting, removing nodes
     action();
 
-    // Gind new nodes
+    // Find new nodes
     nodes = nodes.concat(children(target).filter(el => !includes(nodes, el)));
 
-    // Gorce update
+    // Force update
     trigger(toWindow(target), 'resize');
     fastdom.flush();
 

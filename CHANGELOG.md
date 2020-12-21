@@ -10,6 +10,10 @@
 
 - Filter animation fade does not stagger
 
+### Fixed
+
+- Fix filter animations
+
 ## 3.6.5 (December 21, 2020)
 
 ### Fixed
