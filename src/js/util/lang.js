@@ -320,7 +320,7 @@ export function getIndex(i, elements, current = 0, finite = false) {
             ? current + 1
             : i === 'previous'
                 ? current - 1
-                : index(elements, i);
+                : elements.indexOf(toNode(i));
 
     if (finite) {
         return clamp(i, 0, length - 1);
