@@ -1,4 +1,4 @@
-/*! UIkit 3.6.4 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.6.5 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -474,7 +474,7 @@
         return toNodes(element).some(function (element) { return matches(element, selInput); });
     }
 
-    function parent$1(element) {
+    function parent(element) {
         element = toNode(element);
         return element && isElement(element.parentNode) && element.parentNode;
     }
@@ -499,7 +499,7 @@
                 return ancestor;
             }
 
-        } while ((ancestor = parent$1(ancestor)));
+        } while ((ancestor = parent(ancestor)));
     };
 
     function closest(element, selector) {
@@ -524,7 +524,7 @@
     function parents(element, selector) {
         var elements = [];
 
-        while ((element = parent$1(element))) {
+        while ((element = parent(element))) {
             if (!selector || matches(element, selector)) {
                 elements.push(element);
             }
@@ -542,7 +542,7 @@
     function index(element, ref) {
         return ref
             ? toNodes(element).indexOf(toNode(ref))
-            : children(parent$1(element)).indexOf(element);
+            : children(parent(element)).indexOf(element);
     }
 
     function query(selector, context) {
@@ -1190,7 +1190,7 @@
 
     function unwrap(element) {
         toNodes(element)
-            .map(parent$1)
+            .map(parent)
             .filter(function (value, index, self) { return self.indexOf(value) === index; })
             .forEach(function (parent) {
                 before(parent, parent.childNodes);
@@ -2569,7 +2569,7 @@
         isVisible: isVisible,
         selInput: selInput,
         isInput: isInput,
-        parent: parent$1,
+        parent: parent,
         filter: filter,
         matches: matches,
         closest: closest,
@@ -3435,7 +3435,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.4';
+    UIkit.version = '3.6.5';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4080,7 +4080,7 @@
             read: function() {
 
                 var el = this.$el;
-                var ref = getPositionedParent(el) || parent$1(el);
+                var ref = getPositionedParent(el) || parent(el);
                 var height = ref.offsetHeight;
                 var width = ref.offsetWidth;
                 var dim = Dimensions.cover(
@@ -4115,7 +4115,7 @@
     };
 
     function getPositionedParent(el) {
-        while ((el = parent$1(el))) {
+        while ((el = parent(el))) {
             if (css(el, 'position') !== 'static') {
                 return el;
             }
@@ -4629,7 +4629,7 @@
                 var target = ref.target;
 
                 return target && (target === true
-                    && parent$1(this.input) === $el
+                    && parent(this.input) === $el
                     && this.input.nextElementSibling
                     || query(target, $el));
             }
@@ -6300,7 +6300,7 @@
                 var this$1 = this;
 
 
-                if (this.container && parent$1(this.$el) !== this.container) {
+                if (this.container && parent(this.$el) !== this.container) {
                     append(this.container, this.$el);
                     return new Promise(function (resolve) { return requestAnimationFrame(function () { return this$1.show().then(resolve); }
                         ); }
@@ -6650,7 +6650,7 @@
 
                 handler: function() {
 
-                    if (!parent$1(this.dropbar)) {
+                    if (!parent(this.dropbar)) {
                         after(this.dropbarAnchor || this.$el, this.dropbar);
                     }
 
@@ -6837,7 +6837,7 @@
             transitionElement: function(ref) {
                 var mode = ref.mode;
 
-                return mode === 'reveal' ? parent$1(this.panel) : this.panel;
+                return mode === 'reveal' ? parent(this.panel) : this.panel;
             }
 
         },
@@ -6951,9 +6951,9 @@
 
                 handler: function() {
 
-                    if (this.mode === 'reveal' && !hasClass(parent$1(this.panel), this.clsMode)) {
+                    if (this.mode === 'reveal' && !hasClass(parent(this.panel), this.clsMode)) {
                         wrapAll(this.panel, '<div>');
-                        addClass(parent$1(this.panel), this.clsMode);
+                        addClass(parent(this.panel), this.clsMode);
                     }
 
                     css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
@@ -7112,7 +7112,7 @@
 
             read: function() {
                 return isVisible(this.$el) && this.width && this.height
-                    ? {width: width(parent$1(this.$el)), height: this.height}
+                    ? {width: width(parent(this.$el)), height: this.height}
                     : false;
             },
 
@@ -7768,7 +7768,7 @@
 
         } else {
 
-            return offset(value === true ? parent$1($el) : query(value, $el)).bottom;
+            return offset(value === true ? parent($el) : query(value, $el)).bottom;
 
         }
     }
@@ -8517,7 +8517,7 @@
 
     function getTransitionProps(target, nodes, currentProps) {
 
-        var propsTo = nodes.map(function (el, i) { return parent$1(el) && i in currentProps
+        var propsTo = nodes.map(function (el, i) { return parent(el) && i in currentProps
                 ? currentProps[i]
                 ? isVisible(el)
                     ? getPositionWithMargin(el)
@@ -8527,7 +8527,7 @@
 
         var propsFrom = propsTo.map(function (props, i) {
 
-            var from = parent$1(nodes[i]) === target && (currentProps[i] || getProps(nodes[i]));
+            var from = parent(nodes[i]) === target && (currentProps[i] || getProps(nodes[i]));
 
             if (!from) {
                 return false;
@@ -10273,7 +10273,7 @@
 
                 var removeFn = function (el) {
 
-                    var container = parent$1(el);
+                    var container = parent(el);
 
                     trigger(el, 'close', [this$1]);
                     remove(el);
@@ -10744,7 +10744,7 @@
         return el
             ? 'offsetTop' in el
                 ? el
-                : getOffsetElement(parent$1(el))
+                : getOffsetElement(parent(el))
             : document.body;
     }
 
@@ -11553,7 +11553,7 @@
 
             write: function() {
 
-                if (!this.drag || !parent$1(this.placeholder)) {
+                if (!this.drag || !parent(this.placeholder)) {
                     return;
                 }
 
@@ -11756,7 +11756,7 @@
                     if (sortable && (sortable === this || this.group !== false && sortable.group === this.group)) {
                         return sortable;
                     }
-                } while ((element = parent$1(element)));
+                } while ((element = parent(element)));
             }
 
         }
