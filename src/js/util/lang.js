@@ -19,10 +19,17 @@ export function hyphenate(str) {
     return hyphenateCache[str];
 }
 
+const camelizeCache = {};
 const camelizeRe = /-(\w)/g;
 
 export function camelize(str) {
-    return str.replace(camelizeRe, toUpper);
+
+    if (!(str in camelizeCache)) {
+        camelizeCache[str] = str.replace(camelizeRe, toUpper);
+    }
+
+    return camelizeCache[str];
+
 }
 
 function toUpper(_, c) {
@@ -300,3 +307,26 @@ export const Dimensions = {
     }
 
 };
+
+export function getIndex(i, elements, current = 0, finite = false) {
+
+    elements = toNodes(elements);
+
+    const {length} = elements;
+
+    i = isNumeric(i)
+        ? toNumber(i)
+        : i === 'next'
+            ? current + 1
+            : i === 'previous'
+                ? current - 1
+                : elements.indexOf(toNode(i));
+
+    if (finite) {
+        return clamp(i, 0, length - 1);
+    }
+
+    i %= length;
+
+    return i < 0 ? i + length : i;
+}

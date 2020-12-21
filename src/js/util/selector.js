@@ -1,6 +1,6 @@
 import {inBrowser} from './env';
-import {removeAttr} from './attr';
-import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
+import {closest, index, matches} from './filter';
+import {isDocument, isString, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
     return toNode(selector) || find(selector, getContext(selector, context));
@@ -33,11 +33,7 @@ function _query(selector, context = document, queryFn) {
 
     selector = selector.replace(contextSanitizeRe, '$1 *');
 
-    let removes;
-
     if (isContextSelector(selector)) {
-
-        removes = [];
 
         selector = splitSelector(selector).map((selector, i) => {
 
@@ -64,12 +60,7 @@ function _query(selector, context = document, queryFn) {
                 return null;
             }
 
-            if (!ctx.id) {
-                ctx.id = `uk-${Date.now()}${i}`;
-                removes.push(() => removeAttr(ctx, 'id'));
-            }
-
-            return `#${escape(ctx.id)} ${selector}`;
+            return `${domPath(ctx)} ${selector}`;
 
         }).filter(Boolean).join(',');
 
@@ -84,10 +75,6 @@ function _query(selector, context = document, queryFn) {
     } catch (e) {
 
         return null;
-
-    } finally {
-
-        removes && removes.forEach(remove => remove());
 
     }
 
@@ -106,39 +93,22 @@ function splitSelector(selector) {
     return selector.match(selectorRe).map(selector => selector.replace(/,$/, '').trim());
 }
 
-const elProto = inBrowser ? Element.prototype : {};
-const matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector || noop;
-
-export function matches(element, selector) {
-    return toNodes(element).some(element => matchesFn.call(element, selector));
-}
-
-const closestFn = elProto.closest || function (selector) {
-    let ancestor = this;
-
-    do {
-
-        if (matches(ancestor, selector)) {
-            return ancestor;
+function domPath(element) {
+    const names = [];
+    while (element.parentNode) {
+        if (element.id) {
+            names.unshift(`#${escape(element.id)}`);
+            break;
+        } else {
+            let {tagName} = element;
+            if (tagName !== 'HTML') {
+                tagName += `:nth-child(${index(element) + 1})`;
+            }
+            names.unshift(tagName);
+            element = element.parentNode;
         }
-
-    } while ((ancestor = parent(ancestor)));
-};
-
-export function closest(element, selector) {
-
-    if (startsWith(selector, '>')) {
-        selector = selector.slice(1);
     }
-
-    return isElement(element)
-        ? closestFn.call(element, selector)
-        : toNodes(element).map(element => closest(element, selector)).filter(Boolean);
-}
-
-export function parent(element) {
-    element = toNode(element);
-    return element && isElement(element.parentNode) && element.parentNode;
+    return names.join(' > ');
 }
 
 const escapeFn = inBrowser && window.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };

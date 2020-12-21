@@ -8,7 +8,7 @@ export default function (action, target, duration) {
 
     let nodes = children(target);
 
-    // get current state
+    // Get current state
     const currentProps = nodes.map(el => getProps(el, true));
     const oldHeight = height(target);
 
@@ -21,18 +21,18 @@ export default function (action, target, duration) {
     // Adding, sorting, removing nodes
     action();
 
-    // find new nodes
+    // Gind new nodes
     nodes = nodes.concat(children(target).filter(el => !includes(nodes, el)));
 
-    // force update
+    // Gorce update
     trigger(toWindow(target), 'resize');
     fastdom.flush();
 
-    // get new state
+    // Get new state
     const newHeight = height(target);
     const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
 
-    // reset to previous state
+    // Reset to previous state
     addClass(target, targetClass);
     nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
     css(target, {height: oldHeight, display: 'block'});
@@ -46,7 +46,7 @@ export default function (action, target, duration) {
                 ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
 
             Promise.all(transitions).then(() => {
-                nodes.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
+                nodes.forEach((el, i) => css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
                 reset(target);
             }, noop).then(resolve);
 
@@ -114,7 +114,8 @@ function reset(el) {
         pointerEvents: '',
         position: '',
         top: '',
-        width: ''
+        width: '',
+        zIndex: ''
     });
     removeClass(el, targetClass);
     css(el, {height: '', display: ''});

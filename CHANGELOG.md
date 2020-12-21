@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.6.4 (December 21, 2020)
+
+### Changed
+
+- Improve context selectors to use a dom path selector
+
+### Fixed
+
+- Fix IE11 compatibility
+- Fix Accordion component toggles
+- Fix regression in Toggle component
+
 ## 3.6.3 (December 18, 2020)
 
 ### Fixed

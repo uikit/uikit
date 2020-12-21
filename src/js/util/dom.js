@@ -1,7 +1,7 @@
 import {on} from './event';
-import {children} from './filter';
-import {find, findAll, parent} from './selector';
-import {clamp, isElement, isNumeric, isString, isUndefined, toNode, toNodes, toNumber} from './lang';
+import {parent} from './filter';
+import {find, findAll} from './selector';
+import {isElement, isString, isUndefined, toNode, toNodes} from './lang';
 
 export function ready(fn) {
 
@@ -14,35 +14,6 @@ export function ready(fn) {
         unbind();
         fn();
     });
-}
-
-export function index(element, ref) {
-    return ref
-        ? toNodes(element).indexOf(toNode(ref))
-        : children(parent(element)).indexOf(element);
-}
-
-export function getIndex(i, elements, current = 0, finite = false) {
-
-    elements = toNodes(elements);
-
-    const {length} = elements;
-
-    i = isNumeric(i)
-        ? toNumber(i)
-        : i === 'next'
-            ? current + 1
-            : i === 'previous'
-                ? current - 1
-                : index(elements, i);
-
-    if (finite) {
-        return clamp(i, 0, length - 1);
-    }
-
-    i %= length;
-
-    return i < 0 ? i + length : i;
 }
 
 export function empty(element) {

@@ -104,34 +104,17 @@ export default function (UIkit) {
         delete this._events;
     };
 
-    UIkit.prototype._initObserver = function () {
+    UIkit.prototype._initObservers = function () {
+        this._observers = [
+            initChildListObserver(this),
+            initPropsObserver(this)
+        ];
+    };
 
-        let {attrs, props, el} = this.$options;
-        if (this._observer || !props || attrs === false) {
-            return;
-        }
-
-        attrs = isArray(attrs) ? attrs : Object.keys(props);
-
-        this._observer = new MutationObserver(records => {
-            const data = getProps(this.$options, this.$name);
-            if (records.some(({attributeName}) => {
-                const prop = attributeName.replace('data-', '');
-                return (prop === this.$name ? attrs : [camelize(prop), camelize(attributeName)]).some(prop =>
-                    !isUndefined(data[prop]) && data[prop] !== this.$props[prop]
-                );
-            })) {
-                this.$reset();
-            }
-
-        });
-
-        const filter = attrs.map(key => hyphenate(key)).concat(this.$name);
-
-        this._observer.observe(el, {
-            attributes: true,
-            attributeFilter: filter.concat(filter.map(key => `data-${key}`))
-        });
+    UIkit.prototype._disconnectObservers = function () {
+        this._observers.forEach(observer =>
+            observer && observer.disconnect()
+        );
     };
 
     function getProps(opts, name) {
@@ -292,5 +275,49 @@ export default function (UIkit) {
         }
 
         return data;
+    }
+
+    function initChildListObserver(component) {
+        const {el} = component.$options;
+
+        const observer = new MutationObserver(() => component.$emit());
+        observer.observe(el, {
+            childList: true,
+            subtree: true
+        });
+
+        return observer;
+    }
+
+    function initPropsObserver(component) {
+
+        const {$name, $options, $props} = component;
+        const {attrs, props, el} = $options;
+
+        if (!props || attrs === false) {
+            return;
+        }
+
+        const attributes = isArray(attrs) ? attrs : Object.keys(props);
+        const filter = attributes.map(key => hyphenate(key)).concat($name);
+
+        const observer = new MutationObserver(records => {
+            const data = getProps($options, $name);
+            if (records.some(({attributeName}) => {
+                const prop = attributeName.replace('data-', '');
+                return (prop === $name ? attributes : [camelize(prop), camelize(attributeName)]).some(prop =>
+                    !isUndefined(data[prop]) && data[prop] !== $props[prop]
+                );
+            })) {
+                component.$reset();
+            }
+        });
+
+        observer.observe(el, {
+            attributes: true,
+            attributeFilter: filter.concat(filter.map(key => `data-${key}`))
+        });
+
+        return observer;
     }
 }
