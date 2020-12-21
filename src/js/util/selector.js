@@ -1,5 +1,5 @@
 import {inBrowser} from './env';
-import {closest, index, matches} from './filter';
+import {closest, index, matches, parent} from './filter';
 import {isDocument, isString, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
