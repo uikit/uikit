@@ -17,7 +17,14 @@ export default {
     methods: {
 
         animate(action, target = this.$el) {
-            const animationFn = this.animation === 'fade' ? fade : slide;
+
+            const name = this.animation;
+            const animationFn = name === 'fade'
+                ? fade
+                : name === 'delayed-fade'
+                    ? (...args) => fade(...args, 40)
+                    : slide;
+
             return animationFn(action, target, this.duration)
                 .then(() => trigger(toWindow(target), 'resize'), noop);
         }
