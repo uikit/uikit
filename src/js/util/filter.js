@@ -1,5 +1,5 @@
 import {inBrowser} from './env';
-import {isDocument, isElement, isString, startsWith, toNode, toNodes} from './lang';
+import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
 
 const voidElements = {
     area: true,

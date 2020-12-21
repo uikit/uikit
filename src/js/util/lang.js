@@ -19,7 +19,7 @@ export function hyphenate(str) {
     return hyphenateCache[str];
 }
 
-var camelizeCache = {};
+const camelizeCache = {};
 const camelizeRe = /-(\w)/g;
 
 export function camelize(str) {

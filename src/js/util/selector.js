@@ -1,5 +1,5 @@
-import {index} from './filter';
 import {inBrowser} from './env';
+import {closest, index, matches} from './filter';
 import {isDocument, isString, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
@@ -97,7 +97,7 @@ function domPath(element) {
     const names = [];
     while (element.parentNode) {
         if (element.id) {
-            names.unshift(`#${escape(el.id)}`);
+            names.unshift(`#${escape(element.id)}`);
             break;
         } else {
             let {tagName} = element;

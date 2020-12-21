@@ -27,7 +27,7 @@ export default function (UIkit) {
         this._connected = true;
 
         this._initEvents();
-        this._initObserver();
+        this._initObservers();
 
         this._callHook('connected');
         this._callUpdate();
@@ -40,12 +40,7 @@ export default function (UIkit) {
         }
 
         this._callHook('beforeDisconnect');
-
-        if (this._observer) {
-            this._observer.disconnect();
-            this._observer = null;
-        }
-
+        this._disconnectObservers();
         this._unbindEvents();
         this._callHook('disconnected');
 
