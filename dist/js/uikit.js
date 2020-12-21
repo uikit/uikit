@@ -1,4 +1,4 @@
-/*! UIkit 3.6.3 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.6.4 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -27,10 +27,17 @@
         return hyphenateCache[str];
     }
 
+    var camelizeCache = {};
     var camelizeRe = /-(\w)/g;
 
     function camelize(str) {
-        return str.replace(camelizeRe, toUpper);
+
+        if (!(str in camelizeCache)) {
+            camelizeCache[str] = str.replace(camelizeRe, toUpper);
+        }
+
+        return camelizeCache[str];
+
     }
 
     function toUpper(_, c) {
@@ -343,6 +350,32 @@
 
     };
 
+    function getIndex(i, elements, current, finite) {
+        if ( current === void 0 ) current = 0;
+        if ( finite === void 0 ) finite = false;
+
+
+        elements = toNodes(elements);
+
+        var length = elements.length;
+
+        i = isNumeric(i)
+            ? toNumber(i)
+            : i === 'next'
+                ? current + 1
+                : i === 'previous'
+                    ? current - 1
+                    : elements.indexOf(toNode(i));
+
+        if (finite) {
+            return clamp(i, 0, length - 1);
+        }
+
+        i %= length;
+
+        return i < 0 ? i + length : i;
+    }
+
     function attr(element, name, value) {
 
         if (isObject(name)) {
@@ -410,6 +443,108 @@
     var pointerLeave = hasPointerEvents ? 'pointerleave' : hasTouchEvents ? '' : 'mouseleave';
     var pointerCancel = hasPointerEvents ? 'pointercancel' : 'touchcancel';
 
+    var voidElements = {
+        area: true,
+        base: true,
+        br: true,
+        col: true,
+        embed: true,
+        hr: true,
+        img: true,
+        input: true,
+        keygen: true,
+        link: true,
+        menuitem: true,
+        meta: true,
+        param: true,
+        source: true,
+        track: true,
+        wbr: true
+    };
+    function isVoidElement(element) {
+        return toNodes(element).some(function (element) { return voidElements[element.tagName.toLowerCase()]; });
+    }
+
+    function isVisible(element) {
+        return toNodes(element).some(function (element) { return element.offsetWidth || element.offsetHeight || element.getClientRects().length; });
+    }
+
+    var selInput = 'input,select,textarea,button';
+    function isInput(element) {
+        return toNodes(element).some(function (element) { return matches(element, selInput); });
+    }
+
+    function parent$1(element) {
+        element = toNode(element);
+        return element && isElement(element.parentNode) && element.parentNode;
+    }
+
+    function filter(element, selector) {
+        return toNodes(element).filter(function (element) { return matches(element, selector); });
+    }
+
+    var elProto = inBrowser ? Element.prototype : {};
+    var matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector || noop;
+
+    function matches(element, selector) {
+        return toNodes(element).some(function (element) { return matchesFn.call(element, selector); });
+    }
+
+    var closestFn = elProto.closest || function (selector) {
+        var ancestor = this;
+
+        do {
+
+            if (matches(ancestor, selector)) {
+                return ancestor;
+            }
+
+        } while ((ancestor = parent$1(ancestor)));
+    };
+
+    function closest(element, selector) {
+
+        if (startsWith(selector, '>')) {
+            selector = selector.slice(1);
+        }
+
+        return isElement(element)
+            ? closestFn.call(element, selector)
+            : toNodes(element).map(function (element) { return closest(element, selector); }).filter(Boolean);
+    }
+
+    function within(element, selector) {
+        return !isString(selector)
+            ? element === selector || (isDocument(selector)
+                ? selector.documentElement
+                : toNode(selector)).contains(toNode(element)) // IE 11 document does not implement contains
+            : matches(element, selector) || !!closest(element, selector);
+    }
+
+    function parents(element, selector) {
+        var elements = [];
+
+        while ((element = parent$1(element))) {
+            if (!selector || matches(element, selector)) {
+                elements.push(element);
+            }
+        }
+
+        return elements;
+    }
+
+    function children(element, selector) {
+        element = toNode(element);
+        var children = element ? toNodes(element.children) : [];
+        return selector ? filter(children, selector) : children;
+    }
+
+    function index(element, ref) {
+        return ref
+            ? toNodes(element).indexOf(toNode(ref))
+            : children(parent$1(element)).indexOf(element);
+    }
+
     function query(selector, context) {
         return toNode(selector) || find(selector, getContext(selector, context));
     }
@@ -445,11 +580,7 @@
 
         selector = selector.replace(contextSanitizeRe, '$1 *');
 
-        var removes;
-
         if (isContextSelector(selector)) {
-
-            removes = [];
 
             selector = splitSelector(selector).map(function (selector, i) {
 
@@ -458,7 +589,7 @@
                 if (selector[0] === '!') {
 
                     var selectors = selector.substr(1).trim().split(' ');
-                    ctx = closest(parent$1(context), selectors[0]);
+                    ctx = closest(parent(context), selectors[0]);
                     selector = selectors.slice(1).join(' ').trim();
 
                 }
@@ -476,12 +607,7 @@
                     return null;
                 }
 
-                if (!ctx.id) {
-                    ctx.id = "uk-" + (Date.now()) + i;
-                    removes.push(function () { return removeAttr(ctx, 'id'); });
-                }
-
-                return ("#" + (escape(ctx.id)) + " " + selector);
+                return ((domPath(ctx)) + " " + selector);
 
             }).filter(Boolean).join(',');
 
@@ -496,10 +622,6 @@
         } catch (e) {
 
             return null;
-
-        } finally {
-
-            removes && removes.forEach(function (remove) { return remove(); });
 
         }
 
@@ -518,105 +640,27 @@
         return selector.match(selectorRe).map(function (selector) { return selector.replace(/,$/, '').trim(); });
     }
 
-    var elProto = inBrowser ? Element.prototype : {};
-    var matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector || noop;
-
-    function matches(element, selector) {
-        return toNodes(element).some(function (element) { return matchesFn.call(element, selector); });
-    }
-
-    var closestFn = elProto.closest || function (selector) {
-        var ancestor = this;
-
-        do {
-
-            if (matches(ancestor, selector)) {
-                return ancestor;
+    function domPath(element) {
+        var names = [];
+        while (element.parentNode) {
+            if (element.id) {
+                names.unshift(("#" + (escape(element.id))));
+                break;
+            } else {
+                var tagName = element.tagName;
+                if (tagName !== 'HTML') {
+                    tagName += ":nth-child(" + (index(element) + 1) + ")";
+                }
+                names.unshift(tagName);
+                element = element.parentNode;
             }
-
-        } while ((ancestor = parent$1(ancestor)));
-    };
-
-    function closest(element, selector) {
-
-        if (startsWith(selector, '>')) {
-            selector = selector.slice(1);
         }
-
-        return isElement(element)
-            ? closestFn.call(element, selector)
-            : toNodes(element).map(function (element) { return closest(element, selector); }).filter(Boolean);
-    }
-
-    function parent$1(element) {
-        element = toNode(element);
-        return element && isElement(element.parentNode) && element.parentNode;
+        return names.join(' > ');
     }
 
     var escapeFn = inBrowser && window.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, function (match) { return ("\\" + match); }); };
     function escape(css) {
         return isString(css) ? escapeFn.call(null, css) : '';
-    }
-
-    var voidElements = {
-        area: true,
-        base: true,
-        br: true,
-        col: true,
-        embed: true,
-        hr: true,
-        img: true,
-        input: true,
-        keygen: true,
-        link: true,
-        menuitem: true,
-        meta: true,
-        param: true,
-        source: true,
-        track: true,
-        wbr: true
-    };
-    function isVoidElement(element) {
-        return toNodes(element).some(function (element) { return voidElements[element.tagName.toLowerCase()]; });
-    }
-
-    function isVisible(element) {
-        return toNodes(element).some(function (element) { return element.offsetWidth || element.offsetHeight || element.getClientRects().length; });
-    }
-
-    var selInput = 'input,select,textarea,button';
-    function isInput(element) {
-        return toNodes(element).some(function (element) { return matches(element, selInput); });
-    }
-
-    function filter(element, selector) {
-        return toNodes(element).filter(function (element) { return matches(element, selector); });
-    }
-
-    function within(element, selector) {
-        return !isString(selector)
-            ? element === selector || (isDocument(selector)
-                ? selector.documentElement
-                : toNode(selector)).contains(toNode(element)) // IE 11 document does not implement contains
-            : matches(element, selector) || !!closest(element, selector);
-    }
-
-    function parents(element, selector) {
-        var elements = [];
-
-        while ((element = parent$1(element))) {
-            if (!selector || matches(element, selector)) {
-                elements.push(element);
-            }
-        }
-
-        return elements;
-    }
-
-    function children(element, selector) {
-        element = toNode(element);
-        var children = element ? toNodes(element.children) : [];
-        return selector ? filter(children, selector) : children;
     }
 
     function on() {
@@ -642,7 +686,7 @@
         }
 
         if (selector) {
-            listener = delegate(targets, selector, listener);
+            listener = delegate(selector, listener);
         }
 
         useCapture = useCaptureFilter(useCapture);
@@ -711,25 +755,19 @@
         return args;
     }
 
-    function delegate(delegates, selector, listener) {
+    function delegate(selector, listener) {
         var this$1 = this;
 
         return function (e) {
 
-            delegates.forEach(function (delegate) {
+            var current = selector[0] === '>'
+                ? findAll(selector, e.currentTarget).reverse().filter(function (element) { return within(e.target, element); })[0]
+                : closest(e.target, selector);
 
-                var current = selector[0] === '>'
-                    ? findAll(selector, delegate).reverse().filter(function (element) { return within(e.target, element); })[0]
-                    : closest(e.target, selector);
-
-                if (current) {
-                    e.delegate = delegate;
-                    e.current = current;
-
-                    listener.call(this$1, e);
-                }
-
-            });
+            if (current) {
+                e.current = current;
+                listener.call(this$1, e);
+            }
 
         };
     }
@@ -1077,38 +1115,6 @@
         });
     }
 
-    function index(element, ref) {
-        return ref
-            ? toNodes(element).indexOf(toNode(ref))
-            : children(parent$1(element)).indexOf(element);
-    }
-
-    function getIndex(i, elements, current, finite) {
-        if ( current === void 0 ) current = 0;
-        if ( finite === void 0 ) finite = false;
-
-
-        elements = toNodes(elements);
-
-        var length = elements.length;
-
-        i = isNumeric(i)
-            ? toNumber(i)
-            : i === 'next'
-                ? current + 1
-                : i === 'previous'
-                    ? current - 1
-                    : index(elements, i);
-
-        if (finite) {
-            return clamp(i, 0, length - 1);
-        }
-
-        i %= length;
-
-        return i < 0 ? i + length : i;
-    }
-
     function empty(element) {
         element = $(element);
         element.innerHTML = '';
@@ -1368,6 +1374,8 @@
     };
 
     function css(element, property, value, priority) {
+        if ( priority === void 0 ) priority = '';
+
 
         return toNodes(element).map(function (element) {
 
@@ -1472,8 +1480,6 @@
                 return prefixedName;
             }
         }
-
-        return name;
     }
 
     function transition(element, props, duration, timing) {
@@ -2526,8 +2532,6 @@
         flipPosition: flipPosition,
         toPx: toPx,
         ready: ready,
-        index: index,
-        getIndex: getIndex,
         empty: empty,
         html: html,
         prepend: prepend,
@@ -2565,10 +2569,14 @@
         isVisible: isVisible,
         selInput: selInput,
         isInput: isInput,
+        parent: parent$1,
         filter: filter,
+        matches: matches,
+        closest: closest,
         within: within,
         parents: parents,
         children: children,
+        index: index,
         hasOwn: hasOwn,
         hyphenate: hyphenate,
         camelize: camelize,
@@ -2611,6 +2619,7 @@
         intersectRect: intersectRect,
         pointInRect: pointInRect,
         Dimensions: Dimensions,
+        getIndex: getIndex,
         MouseTracker: MouseTracker,
         mergeOptions: mergeOptions,
         parseOptions: parseOptions,
@@ -2624,9 +2633,6 @@
         queryAll: queryAll,
         find: find,
         findAll: findAll,
-        matches: matches,
-        closest: closest,
-        parent: parent$1,
         escape: escape,
         css: css,
         getStyles: getStyles,
@@ -2747,7 +2753,7 @@
             this._connected = true;
 
             this._initEvents();
-            this._initObserver();
+            this._initObservers();
 
             this._callHook('connected');
             this._callUpdate();
@@ -2760,12 +2766,7 @@
             }
 
             this._callHook('beforeDisconnect');
-
-            if (this._observer) {
-                this._observer.disconnect();
-                this._observer = null;
-            }
-
+            this._disconnectObservers();
             this._unbindEvents();
             this._callHook('disconnected');
 
@@ -2984,40 +2985,16 @@
             delete this._events;
         };
 
-        UIkit.prototype._initObserver = function () {
-            var this$1 = this;
+        UIkit.prototype._initObservers = function () {
+            this._observers = [
+                initChildListObserver(this),
+                initPropsObserver(this)
+            ];
+        };
 
-
-            var ref = this.$options;
-            var attrs = ref.attrs;
-            var props = ref.props;
-            var el = ref.el;
-            if (this._observer || !props || attrs === false) {
-                return;
-            }
-
-            attrs = isArray(attrs) ? attrs : Object.keys(props);
-
-            this._observer = new MutationObserver(function (records) {
-                var data = getProps(this$1.$options, this$1.$name);
-                if (records.some(function (ref) {
-                    var attributeName = ref.attributeName;
-
-                    var prop = attributeName.replace('data-', '');
-                    return (prop === this$1.$name ? attrs : [camelize(prop), camelize(attributeName)]).some(function (prop) { return !isUndefined(data[prop]) && data[prop] !== this$1.$props[prop]; }
-                    );
-                })) {
-                    this$1.$reset();
-                }
-
-            });
-
-            var filter = attrs.map(function (key) { return hyphenate(key); }).concat(this.$name);
-
-            this._observer.observe(el, {
-                attributes: true,
-                attributeFilter: filter.concat(filter.map(function (key) { return ("data-" + key); }))
-            });
+        UIkit.prototype._disconnectObservers = function () {
+            this._observers.forEach(function (observer) { return observer && observer.disconnect(); }
+            );
         };
 
         function getProps(opts, name) {
@@ -3194,6 +3171,56 @@
             }
 
             return data;
+        }
+
+        function initChildListObserver(component) {
+            var ref = component.$options;
+            var el = ref.el;
+
+            var observer = new MutationObserver(function () { return component.$emit(); });
+            observer.observe(el, {
+                childList: true,
+                subtree: true
+            });
+
+            return observer;
+        }
+
+        function initPropsObserver(component) {
+
+            var $name = component.$name;
+            var $options = component.$options;
+            var $props = component.$props;
+            var attrs = $options.attrs;
+            var props = $options.props;
+            var el = $options.el;
+
+            if (!props || attrs === false) {
+                return;
+            }
+
+            var attributes = isArray(attrs) ? attrs : Object.keys(props);
+            var filter = attributes.map(function (key) { return hyphenate(key); }).concat($name);
+
+            var observer = new MutationObserver(function (records) {
+                var data = getProps($options, $name);
+                if (records.some(function (ref) {
+                    var attributeName = ref.attributeName;
+
+                    var prop = attributeName.replace('data-', '');
+                    return (prop === $name ? attributes : [camelize(prop), camelize(attributeName)]).some(function (prop) { return !isUndefined(data[prop]) && data[prop] !== $props[prop]; }
+                    );
+                })) {
+                    component.$reset();
+                }
+            });
+
+            observer.observe(el, {
+                attributes: true,
+                attributeFilter: filter.concat(filter.map(function (key) { return ("data-" + key); }))
+            });
+
+            return observer;
         }
     }
 
@@ -3408,7 +3435,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.3';
+    UIkit.version = '3.6.4';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3418,91 +3445,86 @@
 
     function Core (UIkit) {
 
-        inBrowser && ready(function () {
+        if (!inBrowser) {
+            return;
+        }
 
-            UIkit.update();
+        // throttle 'resize'
+        var pendingResize;
+        var handleResize = function () {
+            if (pendingResize) {
+                return;
+            }
+            pendingResize = true;
+            fastdom.write(function () { return pendingResize = false; });
+            UIkit.update(null, 'resize');
+        };
 
-            // throttle 'resize'
-            var pendingResize;
-            var handleResize = function () {
-                if (pendingResize) {
-                    return;
-                }
-                pendingResize = true;
-                fastdom.write(function () { return pendingResize = false; });
-                UIkit.update(null, 'resize');
-            };
+        on(window, 'load resize', handleResize);
+        on(document, 'loadedmetadata load', handleResize, true);
 
-            on(window, 'load resize', handleResize);
-            on(document, 'loadedmetadata load', handleResize, true);
+        if ('ResizeObserver' in window) {
+            (new ResizeObserver(handleResize)).observe(document.documentElement);
+        }
 
-            if ('ResizeObserver' in window) {
-                (new ResizeObserver(handleResize)).observe(document.documentElement);
+        // throttle `scroll` event (Safari triggers multiple `scroll` events per frame)
+        var pending;
+        on(window, 'scroll', function (e) {
+
+            if (pending) {
+                return;
+            }
+            pending = true;
+            fastdom.write(function () { return pending = false; });
+
+            UIkit.update(null, e.type);
+
+        }, {passive: true, capture: true});
+
+        var started = 0;
+        on(document, 'animationstart', function (ref) {
+            var target = ref.target;
+
+            if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
+
+                started++;
+                css(document.documentElement, 'overflowX', 'hidden');
+                setTimeout(function () {
+                    if (!--started) {
+                        css(document.documentElement, 'overflowX', '');
+                    }
+                }, toMs(css(target, 'animationDuration')) + 100);
+            }
+        }, true);
+
+        on(document, pointerDown, function (e) {
+
+            if (!isTouch(e)) {
+                return;
             }
 
-            // throttle `scroll` event (Safari triggers multiple `scroll` events per frame)
-            var pending;
-            on(window, 'scroll', function (e) {
+            // Handle Swipe Gesture
+            var pos = getEventPos(e);
+            var target = 'tagName' in e.target ? e.target : parent(e.target);
+            once(document, (pointerUp + " " + pointerCancel + " scroll"), function (e) {
 
-                if (pending) {
-                    return;
-                }
-                pending = true;
-                fastdom.write(function () { return pending = false; });
+                var ref = getEventPos(e);
+                var x = ref.x;
+                var y = ref.y;
 
-                UIkit.update(null, e.type);
+                // swipe
+                if (e.type !== 'scroll' && target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
 
-            }, {passive: true, capture: true});
-
-            var started = 0;
-            on(document, 'animationstart', function (ref) {
-                var target = ref.target;
-
-                if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
-
-                    started++;
-                    css(document.documentElement, 'overflowX', 'hidden');
                     setTimeout(function () {
-                        if (!--started) {
-                            css(document.documentElement, 'overflowX', '');
-                        }
-                    }, toMs(css(target, 'animationDuration')) + 100);
-                }
-            }, true);
+                        trigger(target, 'swipe');
+                        trigger(target, ("swipe" + (swipeDirection(pos.x, pos.y, x, y))));
+                    });
 
-            var off;
-            on(document, pointerDown, function (e) {
-
-                off && off();
-
-                if (!isTouch(e)) {
-                    return;
                 }
 
-                // Handle Swipe Gesture
-                var pos = getEventPos(e);
-                var target = 'tagName' in e.target ? e.target : parent(e.target);
-                off = once(document, (pointerUp + " " + pointerCancel), function (e) {
+            });
 
-                    var ref = getEventPos(e);
-                    var x = ref.x;
-                    var y = ref.y;
-
-                    // swipe
-                    if (target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
-
-                        setTimeout(function () {
-                            trigger(target, 'swipe');
-                            trigger(target, ("swipe" + (swipeDirection(pos.x, pos.y, x, y))));
-                        });
-
-                    }
-
-                });
-
-            }, {passive: true});
-
-        });
+        }, {passive: true});
 
     }
 
@@ -3525,51 +3547,44 @@
             return;
         }
 
-        fastdom.read(init);
-
-        function init() {
+        fastdom.read(function () {
 
             if (document.body) {
                 apply(document.body, connect);
             }
 
-            (new MutationObserver(function (mutations) {
-                var updates = [];
-                mutations.forEach(function (mutation) { return applyMutation(mutation, updates); });
-                updates.forEach(function (el) { return UIkit.update(el); });
-            })).observe(document, {
+            new MutationObserver(function (records) { return records.forEach(applyChildListMutation); }
+            ).observe(document, {
                 childList: true,
-                subtree: true,
-                characterData: true,
-                attributes: true
+                subtree: true
+            });
+
+            new MutationObserver(function (records) { return records.forEach(applyAttributeMutation); }
+            ).observe(document, {
+                attributes: true,
+                subtree: true
             });
 
             UIkit._initialized = true;
-        }
+        });
 
-        function applyMutation(mutation, updates) {
+        function applyChildListMutation(ref) {
+            var addedNodes = ref.addedNodes;
+            var removedNodes = ref.removedNodes;
 
-            var target = mutation.target;
-            var type = mutation.type;
-
-            var update = type !== 'attributes'
-                ? applyChildList(mutation)
-                : applyAttribute(mutation);
-
-            if (update && !updates.some(function (element) { return element.contains(target); })) {
-                updates.push(target.contains ? target : target.parentNode); // IE 11 text node does not implement contains
+            for (var i = 0; i < addedNodes.length; i++) {
+                apply(addedNodes[i], connect);
             }
 
+            for (var i$1 = 0; i$1 < removedNodes.length; i$1++) {
+                apply(removedNodes[i$1], disconnect);
+            }
         }
 
-        function applyAttribute(ref) {
+        function applyAttributeMutation(ref) {
             var target = ref.target;
             var attributeName = ref.attributeName;
 
-
-            if (attributeName === 'href') {
-                return true;
-            }
 
             var name = getComponentName(attributeName);
 
@@ -3579,32 +3594,15 @@
 
             if (hasAttr(target, attributeName)) {
                 UIkit[name](target);
-                return true;
+                return;
             }
 
             var component = UIkit.getComponent(target, name);
 
             if (component) {
                 component.$destroy();
-                return true;
             }
 
-        }
-
-        function applyChildList(ref) {
-            var addedNodes = ref.addedNodes;
-            var removedNodes = ref.removedNodes;
-
-
-            for (var i = 0; i < addedNodes.length; i++) {
-                apply(addedNodes[i], connect);
-            }
-
-            for (var i$1 = 0; i$1 < removedNodes.length; i$1++) {
-                apply(removedNodes[i$1], disconnect);
-            }
-
-            return true;
         }
 
     }
@@ -3677,38 +3675,39 @@
             toggleElement: function(targets, toggle, animate) {
                 var this$1 = this;
 
-                return Promise.all(toNodes(targets).map(function (el) {
+                return new Promise(function (resolve) { return Promise.all(toNodes(targets).map(function (el) {
 
-                    var show = isBoolean(toggle) ? toggle : !this$1.isToggled(el);
+                        var show = isBoolean(toggle) ? toggle : !this$1.isToggled(el);
 
-                    if (!trigger(el, ("before" + (show ? 'show' : 'hide')), [this$1])) {
-                        return Promise.reject();
-                    }
+                        if (!trigger(el, ("before" + (show ? 'show' : 'hide')), [this$1])) {
+                            return Promise.reject();
+                        }
 
-                    var promise = (
-                        isFunction(animate)
-                            ? animate
-                            : animate === false || !this$1.hasAnimation
-                            ? this$1._toggle
-                            : this$1.hasTransition
-                                ? toggleHeight(this$1)
-                                : toggleAnimation(this$1)
-                    )(el, show) || Promise.resolve();
+                        var promise = (
+                            isFunction(animate)
+                                ? animate
+                                : animate === false || !this$1.hasAnimation
+                                ? this$1._toggle
+                                : this$1.hasTransition
+                                    ? toggleHeight(this$1)
+                                    : toggleAnimation(this$1)
+                        )(el, show) || Promise.resolve();
 
-                    addClass(el, show ? this$1.clsEnter : this$1.clsLeave);
+                        addClass(el, show ? this$1.clsEnter : this$1.clsLeave);
 
-                    trigger(el, show ? 'show' : 'hide', [this$1]);
+                        trigger(el, show ? 'show' : 'hide', [this$1]);
 
-                    promise
-                        .catch(noop)
-                        .then(function () { return removeClass(el, show ? this$1.clsEnter : this$1.clsLeave); });
+                        promise
+                            .catch(noop)
+                            .then(function () { return removeClass(el, show ? this$1.clsEnter : this$1.clsLeave); });
 
-                    return promise.then(function () {
-                        removeClass(el, show ? this$1.clsEnter : this$1.clsLeave);
-                        trigger(el, show ? 'shown' : 'hidden', [this$1]);
-                        this$1.$update(el);
-                    }, noop);
-                }));
+                        return promise.then(function () {
+                            removeClass(el, show ? this$1.clsEnter : this$1.clsLeave);
+                            trigger(el, show ? 'shown' : 'hidden', [this$1]);
+                            this$1.$update(el);
+                        });
+                    })).then(resolve, noop); }
+                );
             },
 
             isToggled: function(el) {
@@ -3881,13 +3880,13 @@
 
                 name: 'click',
 
-                el: function() {
-                    return this.toggles;
+                delegate: function() {
+                    return ((this.targets) + " " + (this.$props.toggle));
                 },
 
                 handler: function(e) {
                     e.preventDefault();
-                    this.toggle(index(this.toggles, e.target));
+                    this.toggle(index(this.toggles, e.current));
                 }
 
             }
@@ -8455,7 +8454,7 @@
 
         var nodes = children(target);
 
-        // get current state
+        // Get current state
         var currentProps = nodes.map(function (el) { return getProps(el, true); });
         var oldHeight = height(target);
 
@@ -8468,20 +8467,20 @@
         // Adding, sorting, removing nodes
         action();
 
-        // find new nodes
+        // Gind new nodes
         nodes = nodes.concat(children(target).filter(function (el) { return !includes(nodes, el); }));
 
-        // force update
+        // Gorce update
         trigger(toWindow(target), 'resize');
         fastdom.flush();
 
-        // get new state
+        // Get new state
         var newHeight = height(target);
         var ref = getTransitionProps(target, nodes, currentProps);
         var propsTo = ref[0];
         var propsFrom = ref[1];
 
-        // reset to previous state
+        // Reset to previous state
         addClass(target, targetClass);
         nodes.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
         css(target, {height: oldHeight, display: 'block'});
@@ -8493,7 +8492,7 @@
                     ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
 
                 Promise.all(transitions).then(function () {
-                    nodes.forEach(function (el, i) { return css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}); });
+                    nodes.forEach(function (el, i) { return css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''); });
                     reset(target);
                 }, noop).then(resolve);
 
@@ -8560,7 +8559,8 @@
             pointerEvents: '',
             position: '',
             top: '',
-            width: ''
+            width: '',
+            zIndex: ''
         });
         removeClass(el, targetClass);
         css(el, {height: '', display: ''});
@@ -9190,9 +9190,11 @@
                     return;
                 }
 
-                css(this.list, 'pointerEvents', 'none');
-
-                e.cancelable && e.preventDefault();
+                // Workaround for iOS's inert scrolling preventing pointerdown event
+                // https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action
+                if (!this.dragging && hasTouch) {
+                    on(this.list, 'touchmove', preventDefault, {passive: false});
+                }
 
                 this.dragging = true;
                 this.dir = (distance < 0 ? 1 : -1);
@@ -9260,6 +9262,7 @@
 
                 off(document, pointerMove, this.move, {passive: false});
                 off(document, (pointerUp + " " + pointerCancel), this.end, true);
+                off(this.list, 'touchmove', preventDefault, {passive: false});
 
                 if (this.dragging) {
 
@@ -9298,6 +9301,10 @@
 
     function hasTextNodesOnly(el) {
         return !el.children.length && el.childNodes.length;
+    }
+
+    function preventDefault(e) {
+        e.cancelable && e.preventDefault();
     }
 
     var SliderNav = {
