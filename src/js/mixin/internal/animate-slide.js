@@ -1,4 +1,4 @@
-import {addClass, append, assign, children, css, fastdom, height, includes, index, isVisible, noop, offset, parent, position, Promise, removeClass, toWindow, Transition, trigger} from 'uikit-util';
+import {addClass, append, assign, children, css, fastdom, height, includes, index, isVisible, noop, offset, parent, position, Promise, removeClass, Transition} from 'uikit-util';
 
 const targetClass = 'uk-animation-target';
 
@@ -24,34 +24,37 @@ export default function (action, target, duration) {
     // Find new nodes
     nodes = nodes.concat(children(target).filter(el => !includes(nodes, el)));
 
-    // Force update
-    trigger(toWindow(target), 'resize');
-    fastdom.flush();
+    // Wait for update to propagate
+    return Promise.resolve().then(() => {
 
-    // Get new state
-    const newHeight = height(target);
-    const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
+        // Force update
+        fastdom.flush();
 
-    // Reset to previous state
-    addClass(target, targetClass);
-    nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-    css(target, {height: oldHeight, display: 'block'});
+        // Get new state
+        const newHeight = height(target);
+        const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
 
-    // Start transitions on next frame
-    return new Promise(resolve =>
-        requestAnimationFrame(() => {
+        // Reset to previous state
+        addClass(target, targetClass);
+        nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
+        css(target, {height: oldHeight, display: 'block'});
 
-            const transitions = nodes.map((el, i) =>
-                    Transition.start(el, propsTo[i], duration, 'ease')
-                ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
+        // Start transitions on next frame
+        return new Promise(resolve =>
+            requestAnimationFrame(() => {
 
-            Promise.all(transitions).then(() => {
-                nodes.forEach((el, i) => css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
-                reset(target);
-            }, noop).then(resolve);
+                const transitions = nodes.map((el, i) =>
+                        Transition.start(el, propsTo[i], duration, 'ease')
+                    ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
 
-        })
-    );
+                Promise.all(transitions).then(() => {
+                    nodes.forEach((el, i) => css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
+                    reset(target);
+                }, noop).then(resolve);
+
+            })
+        );
+    });
 }
 
 function getProps(el, opacity) {

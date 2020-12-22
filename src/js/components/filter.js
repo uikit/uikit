@@ -82,7 +82,12 @@ export default {
     methods: {
 
         apply(el) {
-            this.setState(mergeState(el, this.attrItem, this.getState()));
+            const prevState = this.getState();
+            const newState = mergeState(el, this.attrItem, this.getState());
+
+            if (!isEqualState(prevState, newState)) {
+                this.setState(newState);
+            }
         },
 
         getState() {
@@ -100,10 +105,11 @@ export default {
             this.toggles.forEach(el => toggleClass(el, this.cls, !!matchFilter(el, this.attrItem, state)));
 
             Promise.all($$(this.target, this.$el).map(target => {
-                const children = getChildren(target);
-                return animate
-                    ? this.animate(() => applyState(state, target, children), target)
-                    : applyState(state, target, children);
+                const filterFn = () => {
+                    applyState(state, target, getChildren(target));
+                    this.$update(this.$el);
+                };
+                return animate ? this.animate(filterFn, target) : filterFn();
             })).then(() => trigger(this.$el, 'afterFilter', [this]));
 
         },
@@ -118,6 +124,10 @@ export default {
 
 function getFilter(el, attr) {
     return parseOptions(data(el, attr), ['filter']);
+}
+
+function isEqualState(stateA, stateB) {
+    return ['filter', 'sort'].every(prop => isEqual(stateA[prop], stateB[prop]));
 }
 
 function applyState(state, target, children) {

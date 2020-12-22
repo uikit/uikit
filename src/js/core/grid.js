@@ -40,12 +40,14 @@ export default {
 
         {
 
-            read({columns, rows}) {
+            read(data) {
 
+                let {columns, rows} = data;
                 const nodes = children(this.$el);
 
                 // Filter component makes elements positioned absolute
                 if (!nodes.length || !this.masonry && !this.parallax || positionedAbsolute(this.$el)) {
+                    data.translates = false;
                     return false;
                 }
 
@@ -86,7 +88,7 @@ export default {
 
             read({height}) {
                 return {
-                    scrolled: this.parallax && !positionedAbsolute(this.$el)
+                    scrolled: this.parallax
                         ? scrolledOver(this.$el, height ? height - getHeight(this.$el) : 0) * Math.abs(this.parallax)
                         : false
                 };
