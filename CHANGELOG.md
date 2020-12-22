@@ -13,6 +13,7 @@
 ### Fixed
 
 - Fix filter animations
+- Fix slider drag behavior on iOS
 
 ## 3.6.5 (December 21, 2020)
 
