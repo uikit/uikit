@@ -35,7 +35,7 @@ export default {
             }
 
             e.preventDefault();
-            this.scrollTo(escape(decodeURIComponent(this.$el.hash)).substr(1));
+            this.scrollTo(`#${escape(decodeURIComponent(this.$el.hash.substr(1)))}`);
         }
 
     }

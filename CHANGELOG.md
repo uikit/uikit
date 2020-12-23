@@ -14,6 +14,7 @@
 
 - Fix filter animations
 - Fix slider drag behavior on iOS
+- Fix Scroll component now supports hash starting with any character
 
 ## 3.6.5 (December 21, 2020)
 
