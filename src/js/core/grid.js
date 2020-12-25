@@ -43,16 +43,16 @@ export default {
             read(data) {
 
                 let {columns, rows} = data;
-                const nodes = children(this.$el);
 
                 // Filter component makes elements positioned absolute
-                if (!nodes.length || !this.masonry && !this.parallax || positionedAbsolute(this.$el)) {
+                if (!columns.length || !this.masonry && !this.parallax || positionedAbsolute(this.$el)) {
                     data.translates = false;
                     return false;
                 }
 
                 let translates = false;
 
+                const nodes = children(this.$el);
                 const columnHeights = getColumnHeights(columns);
                 const margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
                 const elHeight = Math.max(...columnHeights) + margin;

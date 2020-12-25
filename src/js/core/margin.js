@@ -45,7 +45,7 @@ export function getRows(items) {
 
 function getColumns(rows) {
 
-    const columns = [[]];
+    const columns = [];
 
     for (let i = 0; i < rows.length; i++) {
         const sorted = sortBy(rows[i], 'left', 'right');
