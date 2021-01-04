@@ -1,4 +1,4 @@
-/*! UIkit 3.6.5 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.6.6 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1281,76 +1281,83 @@
     }
 
     function hasClass(element, cls) {
-        return cls && toNodes(element).some(function (element) { return element.classList.contains(cls.split(' ')[0]); });
+        var assign;
+
+        (assign = getClasses(cls), cls = assign[0]);
+        var nodes = toNodes(element);
+        for (var n = 0; n < nodes.length; n++) {
+            if (nodes[n].classList.contains(cls)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    function toggleClass(element) {
-        var args = [], len = arguments.length - 1;
-        while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
+    function toggleClass(element, cls, force) {
 
+        cls = getClasses(cls);
 
-        if (!args.length) {
-            return;
-        }
-
-        args = getArgs$1(args);
-
-        var force = !isString(last(args)) ? args.pop() : []; // in iOS 9.3 force === undefined evaluates to false
-
-        args = args.filter(Boolean);
-
-        toNodes(element).forEach(function (ref) {
-            var classList = ref.classList;
-
-            for (var i = 0; i < args.length; i++) {
-                supports.Force
-                    ? classList.toggle.apply(classList, [args[i]].concat(force))
-                    : (classList[(!isUndefined(force) ? force : !classList.contains(args[i])) ? 'add' : 'remove'](args[i]));
+        var nodes = toNodes(element);
+        for (var n = 0; n < nodes.length; n++) {
+            var list = nodes[n].classList;
+            for (var i = 0; i < cls.length; i++) {
+                if (!isBoolean(force)) {
+                    list.toggle(cls[i]);
+                } else if (supports.Force) {
+                    list.toggle(cls[i], force);
+                } else {
+                    list[!list.contains(cls[i]) ? 'add' : 'remove'](cls[i]);
+                }
             }
-        });
-
+        }
     }
 
     function apply$1(element, args, fn) {
-        args = getArgs$1(args).filter(Boolean);
+        var ref;
 
-        args.length && toNodes(element).forEach(function (ref) {
-            var classList = ref.classList;
 
-            supports.Multiple
-                ? classList[fn].apply(classList, args)
-                : args.forEach(function (cls) { return classList[fn](cls); });
-        });
+        args = args.reduce(function (args, arg) { return args.concat(getClasses(arg)); }, []);
+
+        var nodes = toNodes(element);
+        var loop = function ( n ) {
+            if (supports.Multiple) {
+                (ref = nodes[n].classList)[fn].apply(ref, args);
+            } else {
+                args.forEach(function (cls) { return nodes[n].classList[fn](cls); });
+            }
+        };
+
+        for (var n = 0; n < nodes.length; n++) loop( n );
     }
 
-    function getArgs$1(args) {
-        return args.reduce(function (args, arg) { return args.concat.call(args, isString(arg) && includes(arg, ' ') ? arg.trim().split(' ') : arg); }
-            , []);
+    function getClasses(str) {
+        str = String(str);
+        return ~str.indexOf(' ') ? str.split(' ') : [str];
     }
 
     // IE 11
     var supports = {
 
         get Multiple() {
-            return this.get('_multiple');
+            return this.get('Multiple');
         },
 
         get Force() {
-            return this.get('_force');
+            return this.get('Force');
         },
 
         get: function(key) {
 
-            if (!hasOwn(this, key)) {
-                var ref = document.createElement('_');
-                var classList = ref.classList;
-                classList.add('a', 'b');
-                classList.toggle('c', false);
-                this._multiple = classList.contains('b');
-                this._force = !classList.contains('c');
-            }
+            var ref = document.createElement('_');
+            var classList = ref.classList;
+            classList.add('a', 'b');
+            classList.toggle('c', false);
+            supports = {
+                Multiple: classList.contains('b'),
+                Force: !classList.contains('c')
+            };
 
-            return this[key];
+            return supports[key];
         }
 
     };
@@ -1785,7 +1792,8 @@
         },
 
         clear: function(task) {
-            return remove$1(this.reads, task) || remove$1(this.writes, task);
+            remove$1(this.reads, task);
+            remove$1(this.writes, task);
         },
 
         flush: flush
@@ -1830,7 +1838,7 @@
 
     function remove$1(array, item) {
         var index = array.indexOf(item);
-        return !!~index && !!array.splice(index, 1);
+        return ~index && array.splice(index, 1);
     }
 
     function MouseTracker() {}
@@ -2745,7 +2753,7 @@
 
             this._data = {};
             this._computeds = {};
-            this._frames = {reads: {}, writes: {}};
+            this._frame = 0;
 
             this._initProps();
 
@@ -2781,48 +2789,59 @@
 
             var type = e.type || e;
 
-            if (includes(['update', 'resize'], type)) {
+            if (~['update', 'resize'].indexOf(type)) {
                 this._callWatches();
             }
 
             var updates = this.$options.update;
-            var ref = this._frames;
-            var reads = ref.reads;
-            var writes = ref.writes;
 
             if (!updates) {
                 return;
             }
 
-            updates.forEach(function (ref, i) {
+            var frame = this._frame = ++this._frame % 64;
+
+            var loop = function ( i ) {
+                var ref = updates[i];
                 var read = ref.read;
                 var write = ref.write;
                 var events = ref.events;
 
-
-                if (type !== 'update' && !includes(events, type)) {
+                if (type !== 'update' && (!events || !~events.indexOf(type))) {
                     return;
                 }
 
-                if (read && !includes(fastdom.reads, reads[i])) {
-                    reads[i] = fastdom.read(function () {
+                var cancel = (void 0);
+                if (read) {
+                    fastdom.read(function () {
 
-                        var result = this$1._connected && read.call(this$1, this$1._data, type);
+                        if (!this$1._connected || frame !== this$1._frame) {
+                            return;
+                        }
 
-                        if (result === false && write) {
-                            fastdom.clear(writes[i]);
+                        var result = read.call(this$1, this$1._data, type);
+
+                        if (result === false) {
+                            cancel = true;
                         } else if (isPlainObject(result)) {
                             assign(this$1._data, result);
                         }
                     });
                 }
 
-                if (write && !includes(fastdom.writes, writes[i])) {
-                    writes[i] = fastdom.write(function () { return this$1._connected && write.call(this$1, this$1._data, type); });
+                if (write) {
+                    fastdom.write(function () {
+
+                        if (cancel || !this$1._connected || frame !== this$1._frame) {
+                            return;
+                        }
+
+                        write.call(this$1, this$1._data, type);
+                    });
                 }
+            };
 
-            });
-
+            for (var i = 0; i < updates.length; i++) loop( i );
         };
 
         UIkit.prototype._callWatches = function () {
@@ -2830,15 +2849,15 @@
 
 
             var ref = this;
-            var _frames = ref._frames;
+            var _watch = ref._watch;
 
-            if (_frames._watch) {
+            if (_watch) {
                 return;
             }
 
-            var initital = !hasOwn(_frames, '_watch');
+            var initital = !hasOwn(this, '_watch');
 
-            _frames._watch = fastdom.read(function () {
+            this._watch = fastdom.read(function () {
 
                 if (!this$1._connected) {
                     return;
@@ -2867,7 +2886,7 @@
 
                 }
 
-                _frames._watch = null;
+                this$1._watch = null;
 
             });
 
@@ -3435,7 +3454,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.5';
+    UIkit.version = '3.6.6';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4737,15 +4756,15 @@
             },
 
             write: function(ref) {
-                var this$1 = this;
                 var columns = ref.columns;
                 var rows = ref.rows;
 
-                rows.forEach(function (row, i) { return row.forEach(function (el) {
-                        toggleClass(el, this$1.margin, i !== 0);
-                        toggleClass(el, this$1.firstColumn, includes(columns[0], el));
-                    }); }
-                );
+                for (var i = 0; i < rows.length; i++) {
+                    for (var j = 0; j < rows[i].length; j++) {
+                        toggleClass(rows[i][j], this.margin, i !== 0);
+                        toggleClass(rows[i][j], this.firstColumn, !!~columns[0].indexOf(rows[i][j]));
+                    }
+                }
             },
 
             events: ['resize']
@@ -4760,11 +4779,14 @@
 
     function getColumns(rows) {
 
-        var columns = [[]];
+        var columns = [];
 
-        rows.forEach(function (row) { return sortBy$1(row, 'left', 'right').forEach(function (column, i) { return columns[i] = !columns[i] ? column : columns[i].concat(column); }
-            ); }
-        );
+        for (var i = 0; i < rows.length; i++) {
+            var sorted = sortBy$1(rows[i], 'left', 'right');
+            for (var j = 0; j < sorted.length; j++) {
+                columns[j] = !columns[j] ? sorted[j] : columns[j].concat(sorted[j]);
+            }
+        }
 
         return isRtl
             ? columns.reverse()
@@ -4886,20 +4908,20 @@
 
             {
 
-                read: function(ref) {
-                    var columns = ref.columns;
-                    var rows = ref.rows;
+                read: function(data) {
 
-
-                    var nodes = children(this.$el);
+                    var columns = data.columns;
+                    var rows = data.rows;
 
                     // Filter component makes elements positioned absolute
-                    if (!nodes.length || !this.masonry && !this.parallax || positionedAbsolute(this.$el)) {
+                    if (!columns.length || !this.masonry && !this.parallax || positionedAbsolute(this.$el)) {
+                        data.translates = false;
                         return false;
                     }
 
                     var translates = false;
 
+                    var nodes = children(this.$el);
                     var columnHeights = getColumnHeights(columns);
                     var margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
                     var elHeight = Math.max.apply(Math, columnHeights) + margin;
@@ -4939,7 +4961,7 @@
                     var height$1 = ref.height;
 
                     return {
-                        scrolled: this.parallax && !positionedAbsolute(this.$el)
+                        scrolled: this.parallax
                             ? scrolledOver(this.$el, height$1 ? height$1 - height(this.$el) : 0) * Math.abs(this.parallax)
                             : false
                     };
@@ -7165,7 +7187,7 @@
                 }
 
                 e.preventDefault();
-                this.scrollTo(escape(decodeURIComponent(this.$el.hash)).substr(1));
+                this.scrollTo(("#" + (escape(decodeURIComponent(this.$el.hash.substr(1))))));
             }
 
         }
@@ -8362,7 +8384,7 @@
     var clsEnter = 'uk-transition-enter';
 
     function fade(action, target, duration, stagger) {
-        if ( stagger === void 0 ) stagger = 40;
+        if ( stagger === void 0 ) stagger = 0;
 
 
         var index = transitionIndex(target, true);
@@ -8390,8 +8412,8 @@
 
             css(children(target), {opacity: 0});
 
-            return new Promise(function (resolve) {
-                requestAnimationFrame(function () {
+            // Two frames to ensure UIkit updates propagated
+            return new Promise(function (resolve) { return requestAnimationFrame(function () {
 
                     var nodes = children(target);
                     var newHeight = height(target);
@@ -8418,8 +8440,8 @@
                         }
                         resolve();
                     });
-                });
-            });
+                }); }
+            );
         });
 
         return hasClass(target, clsLeave)
@@ -8467,37 +8489,40 @@
         // Adding, sorting, removing nodes
         action();
 
-        // Gind new nodes
+        // Find new nodes
         nodes = nodes.concat(children(target).filter(function (el) { return !includes(nodes, el); }));
 
-        // Gorce update
-        trigger(toWindow(target), 'resize');
-        fastdom.flush();
+        // Wait for update to propagate
+        return Promise.resolve().then(function () {
 
-        // Get new state
-        var newHeight = height(target);
-        var ref = getTransitionProps(target, nodes, currentProps);
-        var propsTo = ref[0];
-        var propsFrom = ref[1];
+            // Force update
+            fastdom.flush();
 
-        // Reset to previous state
-        addClass(target, targetClass);
-        nodes.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
-        css(target, {height: oldHeight, display: 'block'});
+            // Get new state
+            var newHeight = height(target);
+            var ref = getTransitionProps(target, nodes, currentProps);
+            var propsTo = ref[0];
+            var propsFrom = ref[1];
 
-        // Start transitions on next frame
-        return new Promise(function (resolve) { return requestAnimationFrame(function () {
+            // Reset to previous state
+            addClass(target, targetClass);
+            nodes.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
+            css(target, {height: oldHeight, display: 'block'});
 
-                var transitions = nodes.map(function (el, i) { return Transition.start(el, propsTo[i], duration, 'ease'); }
-                    ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
+            // Start transitions on next frame
+            return new Promise(function (resolve) { return requestAnimationFrame(function () {
 
-                Promise.all(transitions).then(function () {
-                    nodes.forEach(function (el, i) { return css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''); });
-                    reset(target);
-                }, noop).then(resolve);
+                    var transitions = nodes.map(function (el, i) { return Transition.start(el, propsTo[i], duration, 'ease'); }
+                        ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
 
-            }); }
-        );
+                    Promise.all(transitions).then(function () {
+                        nodes.forEach(function (el, i) { return css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''); });
+                        reset(target);
+                    }, noop).then(resolve);
+
+                }); }
+            );
+        });
     }
 
     function getProps(el, opacity) {
@@ -8603,7 +8628,19 @@
             animate: function(action, target) {
                 if ( target === void 0 ) target = this.$el;
 
-                var animationFn = this.animation === 'fade' ? fade : slide;
+
+                var name = this.animation;
+                var animationFn = name === 'fade'
+                    ? fade
+                    : name === 'delayed-fade'
+                        ? function () {
+                            var args = [], len = arguments.length;
+                            while ( len-- ) args[ len ] = arguments[ len ];
+
+                            return fade.apply(void 0, args.concat( [40] ));
+                }
+                        : slide;
+
                 return animationFn(action, target, this.duration)
                     .then(function () { return trigger(toWindow(target), 'resize'); }, noop);
             }
@@ -8697,7 +8734,12 @@
         methods: {
 
             apply: function(el) {
-                this.setState(mergeState(el, this.attrItem, this.getState()));
+                var prevState = this.getState();
+                var newState = mergeState(el, this.attrItem, this.getState());
+
+                if (!isEqualState(prevState, newState)) {
+                    this.setState(newState);
+                }
             },
 
             getState: function() {
@@ -8720,10 +8762,11 @@
                 this.toggles.forEach(function (el) { return toggleClass(el, this$1.cls, !!matchFilter(el, this$1.attrItem, state)); });
 
                 Promise.all($$(this.target, this.$el).map(function (target) {
-                    var children$1 = children(target);
-                    return animate
-                        ? this$1.animate(function () { return applyState(state, target, children$1); }, target)
-                        : applyState(state, target, children$1);
+                    var filterFn = function () {
+                        applyState(state, target, children(target));
+                        this$1.$update(this$1.$el);
+                    };
+                    return animate ? this$1.animate(filterFn, target) : filterFn();
                 })).then(function () { return trigger(this$1.$el, 'afterFilter', [this$1]); });
 
             },
@@ -8740,6 +8783,10 @@
 
     function getFilter(el, attr) {
         return parseOptions(data(el, attr), ['filter']);
+    }
+
+    function isEqualState(stateA, stateB) {
+        return ['filter', 'sort'].every(function (prop) { return isEqual(stateA[prop], stateB[prop]); });
     }
 
     function applyState(state, target, children) {
@@ -9172,7 +9219,10 @@
                     this.prevIndex = this.index;
                 }
 
-                // See above workaround notice
+                // Workaround for iOS's inert scrolling preventing pointerdown event
+                // https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action
+                on(this.list, 'touchmove', this.move, {passive: false});
+
                 on(document, pointerMove, this.move, {passive: false});
                 on(document, (pointerUp + " " + pointerCancel), this.end, true);
 
@@ -9190,11 +9240,7 @@
                     return;
                 }
 
-                // Workaround for iOS's inert scrolling preventing pointerdown event
-                // https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action
-                if (!this.dragging && hasTouch) {
-                    on(this.list, 'touchmove', preventDefault, {passive: false});
-                }
+                e.cancelable && e.preventDefault();
 
                 this.dragging = true;
                 this.dir = (distance < 0 ? 1 : -1);
@@ -9260,9 +9306,9 @@
 
             end: function() {
 
+                off(this.list, 'touchmove', this.move, {passive: false});
                 off(document, pointerMove, this.move, {passive: false});
                 off(document, (pointerUp + " " + pointerCancel), this.end, true);
-                off(this.list, 'touchmove', preventDefault, {passive: false});
 
                 if (this.dragging) {
 
@@ -9301,10 +9347,6 @@
 
     function hasTextNodesOnly(el) {
         return !el.children.length && el.childNodes.length;
-    }
-
-    function preventDefault(e) {
-        e.cancelable && e.preventDefault();
     }
 
     var SliderNav = {
