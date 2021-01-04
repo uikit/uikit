@@ -22,7 +22,7 @@ export function hasClass(element, cls) {
     [cls] = getClasses(cls);
     const nodes = toNodes(element);
     for (let n = 0; n < nodes.length; n++) {
-        if (nodes[n].classList.contains(cls)) {
+        if (cls && nodes[n].classList.contains(cls)) {
             return true;
         }
     }
@@ -64,7 +64,7 @@ function apply(element, args, fn) {
 
 function getClasses(str) {
     str = String(str);
-    return ~str.indexOf(' ') ? str.split(' ') : [str];
+    return (~str.indexOf(' ') ? str.split(' ') : [str]).filter(Boolean);
 }
 
 // IE 11
