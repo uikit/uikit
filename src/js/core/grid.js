@@ -40,17 +40,19 @@ export default {
 
         {
 
-            read({columns, rows}) {
+            read(data) {
 
-                const nodes = children(this.$el);
+                let {columns, rows} = data;
 
                 // Filter component makes elements positioned absolute
-                if (!nodes.length || !this.masonry && !this.parallax || positionedAbsolute(this.$el)) {
+                if (!columns.length || !this.masonry && !this.parallax || positionedAbsolute(this.$el)) {
+                    data.translates = false;
                     return false;
                 }
 
                 let translates = false;
 
+                const nodes = children(this.$el);
                 const columnHeights = getColumnHeights(columns);
                 const margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
                 const elHeight = Math.max(...columnHeights) + margin;
@@ -86,7 +88,7 @@ export default {
 
             read({height}) {
                 return {
-                    scrolled: this.parallax && !positionedAbsolute(this.$el)
+                    scrolled: this.parallax
                         ? scrolledOver(this.$el, height ? height - getHeight(this.$el) : 0) * Math.abs(this.parallax)
                         : false
                 };

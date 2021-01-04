@@ -28,7 +28,6 @@
                     console.log(e.type, filter, state);
                 });
 
-
                 util.on('#js-animation-switcher', 'change', function () {
                     util.attr(util.$$('.js-filter-animation'), 'animation', this.value);
                 });
@@ -49,6 +48,7 @@
                 <select id="js-animation-switcher" class="uk-select uk-form-width-small">
                     <option value="slide">Slide</option>
                     <option value="fade">Fade</option>
+                    <option value="delayed-fade">Delayed Fade</option>
                 </select>
             </div>
 
@@ -149,7 +149,7 @@
 
             <h2>With Parallax</h2>
 
-            <div class="uk-filter-animation" uk-filter="target: .js-filter">
+            <div class="js-filter-animation" uk-filter="target: .js-filter">
 
                 <div class="uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
                     <h3>Default</h3>
@@ -271,7 +271,7 @@
                             <td><code>animation</code></td>
                             <td>String</td>
                             <td>slide</td>
-                            <td>Animation mode (slide | fade).</td>
+                            <td>Animation mode (slide, fade, delayed-fade).</td>
                         </tr>
                         <tr>
                             <td><code>duration</code></td>

@@ -23,7 +23,8 @@ export const fastdom = {
     },
 
     clear(task) {
-        return remove(this.reads, task) || remove(this.writes, task);
+        remove(this.reads, task);
+        remove(this.writes, task);
     },
 
     flush
@@ -66,5 +67,5 @@ function runTasks(tasks) {
 
 function remove(array, item) {
     const index = array.indexOf(item);
-    return !!~index && !!array.splice(index, 1);
+    return ~index && array.splice(index, 1);
 }

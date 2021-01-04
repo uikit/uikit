@@ -4,7 +4,7 @@ import {addClass, children, css, hasClass, height, isInView, once, Promise, remo
 const clsLeave = 'uk-transition-leave';
 const clsEnter = 'uk-transition-enter';
 
-export default function fade(action, target, duration, stagger = 40) {
+export default function fade(action, target, duration, stagger = 0) {
 
     const index = transitionIndex(target, true);
     const propsIn = {opacity: 1};
@@ -34,7 +34,8 @@ export default function fade(action, target, duration, stagger = 40) {
 
         css(children(target), {opacity: 0});
 
-        return new Promise(resolve => {
+        // Two frames to ensure UIkit updates propagated
+        return new Promise(resolve =>
             requestAnimationFrame(() => {
 
                 const nodes = children(target);
@@ -64,8 +65,8 @@ export default function fade(action, target, duration, stagger = 40) {
                     }
                     resolve();
                 });
-            });
-        });
+            })
+        );
     });
 
     return hasClass(target, clsLeave)

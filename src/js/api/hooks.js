@@ -1,4 +1,4 @@
-import {assign, fastdom, hasOwn, includes, isEqual, isPlainObject} from 'uikit-util';
+import {assign, fastdom, hasOwn, isEqual, isPlainObject} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -19,7 +19,7 @@ export default function (UIkit) {
 
         this._data = {};
         this._computeds = {};
-        this._frames = {reads: {}, writes: {}};
+        this._frame = 0;
 
         this._initProps();
 
@@ -52,55 +52,67 @@ export default function (UIkit) {
 
         const type = e.type || e;
 
-        if (includes(['update', 'resize'], type)) {
+        if (~['update', 'resize'].indexOf(type)) {
             this._callWatches();
         }
 
         const updates = this.$options.update;
-        const {reads, writes} = this._frames;
 
         if (!updates) {
             return;
         }
 
-        updates.forEach(({read, write, events}, i) => {
+        const frame = this._frame = ++this._frame % 64;
 
-            if (type !== 'update' && !includes(events, type)) {
-                return;
+        for (let i = 0; i < updates.length; i++) {
+            const {read, write, events} = updates[i];
+
+            if (type !== 'update' && (!events || !~events.indexOf(type))) {
+                continue;
             }
 
-            if (read && !includes(fastdom.reads, reads[i])) {
-                reads[i] = fastdom.read(() => {
+            let cancel;
+            if (read) {
+                fastdom.read(() => {
 
-                    const result = this._connected && read.call(this, this._data, type);
+                    if (!this._connected || frame !== this._frame) {
+                        return;
+                    }
 
-                    if (result === false && write) {
-                        fastdom.clear(writes[i]);
+                    const result = read.call(this, this._data, type);
+
+                    if (result === false) {
+                        cancel = true;
                     } else if (isPlainObject(result)) {
                         assign(this._data, result);
                     }
                 });
             }
 
-            if (write && !includes(fastdom.writes, writes[i])) {
-                writes[i] = fastdom.write(() => this._connected && write.call(this, this._data, type));
+            if (write) {
+                fastdom.write(() => {
+
+                    if (cancel || !this._connected || frame !== this._frame) {
+                        return;
+                    }
+
+                    write.call(this, this._data, type);
+                });
             }
-
-        });
-
+        }
     };
 
     UIkit.prototype._callWatches = function () {
 
-        const {_frames} = this;
+        const {_watch} = this;
 
-        if (_frames._watch) {
+        if (_watch) {
             return;
         }
 
-        const initital = !hasOwn(_frames, '_watch');
+        const initital = !hasOwn(this, '_watch');
 
-        _frames._watch = fastdom.read(() => {
+        this._watch = fastdom.read(() => {
 
             if (!this._connected) {
                 return;
@@ -125,7 +137,7 @@ export default function (UIkit) {
 
             }
 
-            _frames._watch = null;
+            this._watch = null;
 
         });
 

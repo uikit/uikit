@@ -1,4 +1,4 @@
-import {includes, isRtl, isVisible, offsetPosition, toggleClass} from 'uikit-util';
+import {isRtl, isVisible, offsetPosition, toggleClass} from 'uikit-util';
 
 export default {
 
@@ -25,12 +25,12 @@ export default {
         },
 
         write({columns, rows}) {
-            rows.forEach((row, i) =>
-                row.forEach(el => {
-                    toggleClass(el, this.margin, i !== 0);
-                    toggleClass(el, this.firstColumn, includes(columns[0], el));
-                })
-            );
+            for (let i = 0; i < rows.length; i++) {
+                for (let j = 0; j < rows[i].length; j++) {
+                    toggleClass(rows[i][j], this.margin, i !== 0);
+                    toggleClass(rows[i][j], this.firstColumn, !!~columns[0].indexOf(rows[i][j]));
+                }
+            }
         },
 
         events: ['resize']
@@ -45,13 +45,14 @@ export function getRows(items) {
 
 function getColumns(rows) {
 
-    const columns = [[]];
+    const columns = [];
 
-    rows.forEach(row =>
-        sortBy(row, 'left', 'right').forEach((column, i) =>
-            columns[i] = !columns[i] ? column : columns[i].concat(column)
-        )
-    );
+    for (let i = 0; i < rows.length; i++) {
+        const sorted = sortBy(rows[i], 'left', 'right');
+        for (let j = 0; j < sorted.length; j++) {
+            columns[j] = !columns[j] ? sorted[j] : columns[j].concat(sorted[j]);
+        }
+    }
 
     return isRtl
         ? columns.reverse()
