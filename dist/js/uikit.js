@@ -1,4 +1,4 @@
-/*! UIkit 3.6.6 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.7 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1286,7 +1286,7 @@
         (assign = getClasses(cls), cls = assign[0]);
         var nodes = toNodes(element);
         for (var n = 0; n < nodes.length; n++) {
-            if (nodes[n].classList.contains(cls)) {
+            if (cls && nodes[n].classList.contains(cls)) {
                 return true;
             }
         }
@@ -1332,7 +1332,7 @@
 
     function getClasses(str) {
         str = String(str);
-        return ~str.indexOf(' ') ? str.split(' ') : [str];
+        return (~str.indexOf(' ') ? str.split(' ') : [str]).filter(Boolean);
     }
 
     // IE 11
@@ -3454,7 +3454,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.6';
+    UIkit.version = '3.6.7';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
