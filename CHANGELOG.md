@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.6.7 (January 4, 2021)
+
+### Fixed
+
+- Fix regression in class util
+
 ## 3.6.6 (January 4, 2021)
 
 ### Added
