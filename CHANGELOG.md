@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in class util
+
 ## 3.6.7 (January 4, 2021)
 
 ### Fixed

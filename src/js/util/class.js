@@ -1,5 +1,5 @@
 import {attr} from './attr';
-import {isBoolean, toNodes} from './lang';
+import {isUndefined, toNodes} from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');
@@ -37,12 +37,12 @@ export function toggleClass(element, cls, force) {
     for (let n = 0; n < nodes.length; n++) {
         const list = nodes[n].classList;
         for (let i = 0; i < cls.length; i++) {
-            if (!isBoolean(force)) {
+            if (isUndefined(force)) {
                 list.toggle(cls[i]);
             } else if (supports.Force) {
-                list.toggle(cls[i], force);
+                list.toggle(cls[i], !!force);
             } else {
-                list[!list.contains(cls[i]) ? 'add' : 'remove'](cls[i]);
+                list[force ? 'add' : 'remove'](cls[i]);
             }
         }
     }
