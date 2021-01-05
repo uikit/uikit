@@ -1,4 +1,4 @@
-/*! UIkit 3.6.7 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.8 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1301,12 +1301,12 @@
         for (var n = 0; n < nodes.length; n++) {
             var list = nodes[n].classList;
             for (var i = 0; i < cls.length; i++) {
-                if (!isBoolean(force)) {
+                if (isUndefined(force)) {
                     list.toggle(cls[i]);
                 } else if (supports.Force) {
-                    list.toggle(cls[i], force);
+                    list.toggle(cls[i], !!force);
                 } else {
-                    list[!list.contains(cls[i]) ? 'add' : 'remove'](cls[i]);
+                    list[force ? 'add' : 'remove'](cls[i]);
                 }
             }
         }
@@ -3454,7 +3454,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.7';
+    UIkit.version = '3.6.8';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);

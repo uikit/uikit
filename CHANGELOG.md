@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.6.8 (January 5, 2021)
 
 ### Fixed
 
