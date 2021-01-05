@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix tooltip position
+
 ## 3.6.8 (January 5, 2021)
 
 ### Fixed
