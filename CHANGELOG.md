@@ -5,7 +5,8 @@
 ### Fixed
 
 - Fix component update handling
-- Fix tooltip position
+- Fix Tooltip position
+- Fix Tooltip component applied to button elements in iOS
 
 ## 3.6.8 (January 5, 2021)
 
