@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix component update handling
 - Fix tooltip position
 
 ## 3.6.8 (January 5, 2021)
