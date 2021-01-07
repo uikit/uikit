@@ -1,4 +1,4 @@
-/*! UIkit 3.6.8 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.9 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1577,7 +1577,8 @@
                 addClass(element, animation, animationPrefix + (out ? 'leave' : 'enter'));
 
                 if (startsWith(animation, animationPrefix)) {
-                    addClass(element, origin && ("uk-transform-origin-" + origin), out && (animationPrefix + "reverse"));
+                    origin && addClass(element, ("uk-transform-origin-" + origin));
+                    out && addClass(element, (animationPrefix + "reverse"));
                 }
 
             }); }
@@ -1804,7 +1805,7 @@
         if ( recursion === void 0 ) recursion = 1;
 
         runTasks(fastdom.reads);
-        runTasks(fastdom.writes.splice(0, fastdom.writes.length));
+        runTasks(fastdom.writes.splice(0));
 
         fastdom.scheduled = false;
 
@@ -2391,7 +2392,7 @@
 
         if (flip) {
 
-            var boundaries = scrollParents(target).map(getViewport);
+            var boundaries = scrollParents(element).map(getViewport);
 
             if (boundary && includes(boundaries, boundary)) {
                 boundaries.unshift(boundary);
@@ -2753,7 +2754,6 @@
 
             this._data = {};
             this._computeds = {};
-            this._frame = 0;
 
             this._initProps();
 
@@ -2765,6 +2765,7 @@
 
             this._callHook('connected');
             this._callUpdate();
+            this._callWatches();
         };
 
         UIkit.prototype._callDisconnected = function () {
@@ -2787,81 +2788,33 @@
             if ( e === void 0 ) e = 'update';
 
 
-            var type = e.type || e;
-
-            if (~['update', 'resize'].indexOf(type)) {
-                this._callWatches();
-            }
-
-            var updates = this.$options.update;
-
-            if (!updates) {
+            if (!this.$options.update || !this._connected) {
                 return;
             }
 
-            var frame = this._frame = ++this._frame % 64;
+            if (!this._updates) {
+                this._updates = new Set();
+                fastdom.read(function () {
+                    var types = this$1._updates;
+                    runUpdates.call(this$1, types);
+                    delete this$1._updates;
+                });
+            }
 
-            var loop = function ( i ) {
-                var ref = updates[i];
-                var read = ref.read;
-                var write = ref.write;
-                var events = ref.events;
-
-                if (type !== 'update' && (!events || !~events.indexOf(type))) {
-                    return;
-                }
-
-                var cancel = (void 0);
-                if (read) {
-                    fastdom.read(function () {
-
-                        if (!this$1._connected || frame !== this$1._frame) {
-                            return;
-                        }
-
-                        var result = read.call(this$1, this$1._data, type);
-
-                        if (result === false) {
-                            cancel = true;
-                        } else if (isPlainObject(result)) {
-                            assign(this$1._data, result);
-                        }
-                    });
-                }
-
-                if (write) {
-                    fastdom.write(function () {
-
-                        if (cancel || !this$1._connected || frame !== this$1._frame) {
-                            return;
-                        }
-
-                        write.call(this$1, this$1._data, type);
-                    });
-                }
-            };
-
-            for (var i = 0; i < updates.length; i++) loop( i );
+            this._updates.add(e.type || e);
         };
 
         UIkit.prototype._callWatches = function () {
             var this$1 = this;
 
 
-            var ref = this;
-            var _watch = ref._watch;
-
-            if (_watch) {
+            if (this._watch) {
                 return;
             }
 
             var initital = !hasOwn(this, '_watch');
 
             this._watch = fastdom.read(function () {
-
-                if (!this$1._connected) {
-                    return;
-                }
 
                 var ref = this$1;
                 var computed = ref.$options.computed;
@@ -2892,6 +2845,45 @@
 
         };
 
+        function runUpdates(types) {
+            var this$1 = this;
+
+
+            var isUpdate = types.has('update');
+            if (isUpdate || types.has('resize')) {
+                this._callWatches();
+            }
+
+            var updates = this.$options.update;
+
+            var loop = function ( i ) {
+                var ref = updates[i];
+                var read = ref.read;
+                var write = ref.write;
+                var events = ref.events;
+
+                if (!isUpdate && (!events || !events.some(function (type) { return types.has(type); }))) {
+                    return;
+                }
+
+                var result = (void 0);
+                if (read) {
+
+                    result = read.call(this$1, this$1._data, types);
+
+                    if (result && isPlainObject(result)) {
+                        assign(this$1._data, result);
+                    }
+                }
+
+                if (write && result !== false) {
+                    fastdom.write(function () { return write.call(this$1, this$1._data, types); });
+                }
+
+            };
+
+            for (var i = 0; i < updates.length; i++) loop( i );
+        }
     }
 
     function stateAPI (UIkit) {
@@ -3454,7 +3446,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.8';
+    UIkit.version = '3.6.9';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3732,9 +3724,9 @@
             isToggled: function(el) {
                 if ( el === void 0 ) el = this.$el;
 
-                return hasClass(this.clsEnter)
+                return hasClass(el, this.clsEnter)
                     ? true
-                    : hasClass(this.clsLeave)
+                    : hasClass(el, this.clsLeave)
                         ? false
                         : this.cls
                             ? hasClass(el, this.cls.split(' ')[0])
@@ -7582,7 +7574,7 @@
 
             {
 
-                read: function(ref, type) {
+                read: function(ref, types) {
                     var height = ref.height;
 
 
@@ -7592,7 +7584,7 @@
                         return false;
                     }
 
-                    if (this.isActive && type !== 'update') {
+                    if (this.isActive && types.has('resize')) {
                         this.hide();
                         height = this.$el.offsetHeight;
                         this.show();
@@ -7946,7 +7938,7 @@
                 this.connects.forEach(function (ref) {
                         var children = ref.children;
 
-                        return this$1.toggleElement(toNodes(children).filter(function (child, i) { return i !== next && this$1.isToggled(child); }
+                        return this$1.toggleElement(toNodes(children).filter(function (child) { return hasClass(child, this$1.cls); }
                     ), false, prev >= 0).then(function () { return this$1.toggleElement(children[next], true, prev >= 0); }
                     );
                 }
@@ -10486,9 +10478,7 @@
                 var this$1 = this;
 
 
-                data.active = this.matchMedia;
-
-                if (!data.active) {
+                if (!this.matchMedia) {
                     return;
                 }
 
@@ -10552,10 +10542,9 @@
 
             write: function(ref) {
                 var dim = ref.dim;
-                var active = ref.active;
 
 
-                if (!active) {
+                if (!this.matchMedia) {
                     css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
                     return;
                 }
@@ -10736,16 +10725,15 @@
 
         update: {
 
-            read: function(ref, type) {
+            read: function(ref, types) {
                 var percent = ref.percent;
-                var active = ref.active;
 
 
-                if (type !== 'scroll') {
+                if (!types.has('scroll')) {
                     percent = false;
                 }
 
-                if (!active) {
+                if (!this.matchMedia) {
                     return;
                 }
 
@@ -10760,10 +10748,9 @@
 
             write: function(ref) {
                 var style = ref.style;
-                var active = ref.active;
 
 
-                if (!active) {
+                if (!this.matchMedia) {
                     this.reset();
                     return;
                 }
@@ -11966,7 +11953,8 @@
                     return;
                 }
 
-                this._unbind = once(document, 'show keydown', this.hide, false, function (e) { return e.type === 'keydown' && e.keyCode === 27
+                this._unbind = once(document, ("show keydown " + pointerDown), this.hide, false, function (e) { return e.type === pointerDown && !within(e.target, this$1.$el)
+                    || e.type === 'keydown' && e.keyCode === 27
                     || e.type === 'show' && e.detail[0] !== this$1 && e.detail[0].$name === this$1.$name; }
                 );
 
@@ -12033,12 +12021,13 @@
             blur: 'hide'
 
         }, obj$1[(pointerEnter + " " + pointerLeave)] = function (e) {
-                if (isTouch(e)) {
-                    return;
+                if (!isTouch(e)) {
+                    this[e.type === pointerEnter ? 'show' : 'hide']();
                 }
-                e.type === pointerEnter
-                    ? this.show()
-                    : this.hide();
+            }, obj$1[pointerDown] = function (e) {
+                if (isTouch(e)) {
+                    this.show();
+                }
             }, obj$1 )
 
     };
