@@ -91,9 +91,9 @@ export default {
         },
 
         isToggled(el = this.$el) {
-            return hasClass(this.clsEnter)
+            return hasClass(el, this.clsEnter)
                 ? true
-                : hasClass(this.clsLeave)
+                : hasClass(el, this.clsLeave)
                     ? false
                     : this.cls
                         ? hasClass(el, this.cls.split(' ')[0])

@@ -128,7 +128,7 @@ export default {
 
         {
 
-            read({height}, type) {
+            read({height}, types) {
 
                 this.inactive = !this.matchMedia || !isVisible(this.$el);
 
@@ -136,7 +136,7 @@ export default {
                     return false;
                 }
 
-                if (this.isActive && type !== 'update') {
+                if (this.isActive && types.has('resize')) {
                     this.hide();
                     height = this.$el.offsetHeight;
                     this.show();

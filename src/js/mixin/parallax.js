@@ -129,9 +129,7 @@ export default {
 
         read(data) {
 
-            data.active = this.matchMedia;
-
-            if (!data.active) {
+            if (!this.matchMedia) {
                 return;
             }
 
@@ -190,9 +188,9 @@ export default {
             data.dim = dim;
         },
 
-        write({dim, active}) {
+        write({dim}) {
 
-            if (!active) {
+            if (!this.matchMedia) {
                 css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
                 return;
             }

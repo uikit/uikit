@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.6.9 (January 7, 2021)
+
+### Fixed
+
+- Fix component update handling
+- Fix Tooltip position
+- Fix Tooltip component applied to button elements in iOS
+- Fix regression in Switcher component
+
 ## 3.6.8 (January 5, 2021)
 
 ### Fixed

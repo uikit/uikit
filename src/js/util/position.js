@@ -36,7 +36,7 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
 
     if (flip) {
 
-        let boundaries = scrollParents(target).map(getViewport);
+        let boundaries = scrollParents(element).map(getViewport);
 
         if (boundary && includes(boundaries, boundary)) {
             boundaries.unshift(boundary);

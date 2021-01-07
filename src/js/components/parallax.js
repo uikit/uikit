@@ -27,13 +27,13 @@ export default {
 
     update: {
 
-        read({percent, active}, type) {
+        read({percent}, types) {
 
-            if (type !== 'scroll') {
+            if (!types.has('scroll')) {
                 percent = false;
             }
 
-            if (!active) {
+            if (!this.matchMedia) {
                 return;
             }
 
@@ -46,9 +46,9 @@ export default {
             };
         },
 
-        write({style, active}) {
+        write({style}) {
 
-            if (!active) {
+            if (!this.matchMedia) {
                 this.reset();
                 return;
             }
