@@ -30,6 +30,7 @@ export default function (UIkit) {
 
         this._callHook('connected');
         this._callUpdate();
+        this._callWatches();
     };
 
     UIkit.prototype._callDisconnected = function () {
@@ -67,19 +68,13 @@ export default function (UIkit) {
 
     UIkit.prototype._callWatches = function () {
 
-        const {_watch} = this;
-
-        if (_watch) {
+        if (this._watch) {
             return;
         }
 
         const initital = !hasOwn(this, '_watch');
 
         this._watch = fastdom.read(() => {
-
-            if (!this._connected) {
-                return;
-            }
 
             const {$options: {computed}, _computeds} = this;
 
