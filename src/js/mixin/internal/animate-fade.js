@@ -34,7 +34,7 @@ export default function fade(action, target, duration, stagger = 0) {
 
         css(children(target), {opacity: 0});
 
-        // Two frames to ensure UIkit updates propagated
+        // Ensure UIkit updates have propagated
         return new Promise(resolve =>
             requestAnimationFrame(() => {
 

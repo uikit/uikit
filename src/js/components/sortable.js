@@ -381,9 +381,31 @@ function findInsertTarget(list, target, placeholder, x, y) {
         [rect.top, rect.bottom],
         [placeholderRect.top, placeholderRect.bottom]
     );
-    return sameLine && x > rect.left + rect.width / 2 || !sameLine && placeholderRect.top < rect.top
-        ? target.nextElementSibling
-        : target;
+
+    if (sameLine) {
+        if (x > rect.left + rect.width / 2) {
+            return target.nextElementSibling;
+        }
+        return target;
+    } else {
+
+        const diff = placeholderRect.height < rect.height ? rect.height - placeholderRect.height : 0;
+
+        if (placeholderRect.top < rect.top) {
+
+            if (diff && y < rect.top + diff) {
+                return placeholder;
+            }
+
+            return target.nextElementSibling;
+        }
+
+        if (diff && y > rect.bottom - diff) {
+            return placeholder;
+        }
+
+        return target;
+    }
 }
 
 function isHorizontal(items) {

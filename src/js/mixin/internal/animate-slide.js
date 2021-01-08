@@ -4,57 +4,58 @@ const targetClass = 'uk-animation-target';
 
 export default function (action, target, duration) {
 
-    addStyle();
+    return new Promise(resolve =>
+        requestAnimationFrame(() => {
+            addStyle();
 
-    let nodes = children(target);
+            let nodes = children(target);
 
-    // Get current state
-    const currentProps = nodes.map(el => getProps(el, true));
-    const oldHeight = height(target);
+            // Get current state
+            const currentProps = nodes.map(el => getProps(el, true));
+            const oldHeight = height(target);
 
-    // Cancel previous animations
-    Transition.cancel(target);
-    nodes.forEach(Transition.cancel);
-    removeClass(target, targetClass);
-    reset(target);
+            // Cancel previous animations
+            Transition.cancel(target);
+            nodes.forEach(Transition.cancel);
+            removeClass(target, targetClass);
+            reset(target);
 
-    // Adding, sorting, removing nodes
-    action();
+            // Adding, sorting, removing nodes
+            action();
 
-    // Find new nodes
-    nodes = nodes.concat(children(target).filter(el => !includes(nodes, el)));
+            // Find new nodes
+            nodes = nodes.concat(children(target).filter(el => !includes(nodes, el)));
 
-    // Wait for update to propagate
-    return Promise.resolve().then(() => {
+            // Wait for update to propagate
+            Promise.resolve().then(() => {
 
-        // Force update
-        fastdom.flush();
+                // Force update
+                fastdom.flush();
 
-        // Get new state
-        const newHeight = height(target);
-        const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
+                // Get new state
+                const newHeight = height(target);
+                const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
 
-        // Reset to previous state
-        addClass(target, targetClass);
-        nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-        css(target, {height: oldHeight, display: 'block'});
+                // Reset to previous state
+                addClass(target, targetClass);
+                nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
+                css(target, {height: oldHeight, display: 'block'});
 
-        // Start transitions on next frame
-        return new Promise(resolve =>
-            requestAnimationFrame(() => {
+                // Start transitions on next frame
+                requestAnimationFrame(() => {
 
-                const transitions = nodes.map((el, i) =>
-                        Transition.start(el, propsTo[i], duration, 'ease')
-                    ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
+                    const transitions = nodes.map((el, i) =>
+                            Transition.start(el, propsTo[i], duration, 'ease')
+                        ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
 
-                Promise.all(transitions).then(() => {
-                    nodes.forEach((el, i) => css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
-                    reset(target);
-                }, noop).then(resolve);
+                    Promise.all(transitions).then(() => {
+                        nodes.forEach((el, i) => css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
+                        reset(target);
+                    }, noop).then(resolve);
 
-            })
-        );
-    });
+                });
+            });
+        }));
 }
 
 function getProps(el, opacity) {

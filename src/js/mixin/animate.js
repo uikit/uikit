@@ -1,6 +1,6 @@
 import fade from './internal/animate-fade';
 import slide from './internal/animate-slide';
-import {noop, toWindow, trigger} from 'uikit-util';
+import {noop} from 'uikit-util';
 
 export default {
 
@@ -26,7 +26,7 @@ export default {
                     : slide;
 
             return animationFn(action, target, this.duration)
-                .then(() => trigger(toWindow(target), 'resize'), noop);
+                .then(() => this.$update(target, 'resize'), noop);
         }
     }
 };
