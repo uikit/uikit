@@ -45,11 +45,11 @@ export default function (action, target, duration) {
                 requestAnimationFrame(() => {
 
                     const transitions = nodes.map((el, i) =>
-                            Transition.start(el, propsTo[i], duration, 'ease')
+                            parent(el) === target && Transition.start(el, propsTo[i], duration, 'ease')
                         ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
 
                     Promise.all(transitions).then(() => {
-                        nodes.forEach((el, i) => css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
+                        nodes.forEach((el, i) => parent(el) === target && css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
                         reset(target);
                     }, noop).then(resolve);
 
