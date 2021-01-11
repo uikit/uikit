@@ -127,8 +127,6 @@ export default {
                 return;
             }
 
-            this.touched.add(sortable);
-
             const previous = this.getSortable(placeholder);
             const insertTarget = findInsertTarget(sortable.target, target, placeholder, x, y, sortable === previous && data.moved !== target);
 
@@ -148,6 +146,8 @@ export default {
             }
 
             sortable.insert(placeholder, insertTarget);
+
+            this.touched.add(sortable);
         },
 
         events: ['move']
