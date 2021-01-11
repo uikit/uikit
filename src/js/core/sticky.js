@@ -191,14 +191,15 @@ export default {
                 };
             },
 
-            write(data, type) {
+            write(data, types) {
 
                 const now = Date.now();
+                const isScrollUpdate = types.has('scroll');
                 const {initTimestamp = 0, dir, lastDir, lastScroll, scroll, top} = data;
 
                 data.lastScroll = scroll;
 
-                if (scroll < 0 || scroll === lastScroll && type === 'scroll' || this.showOnUp && type !== 'scroll' && !this.isFixed) {
+                if (scroll < 0 || scroll === lastScroll && isScrollUpdate || this.showOnUp && !isScrollUpdate && !this.isFixed) {
                     return;
                 }
 
@@ -215,7 +216,7 @@ export default {
 
                 if (this.inactive
                     || scroll < this.top
-                    || this.showOnUp && (scroll <= this.top || dir === 'down' && type === 'scroll' || dir === 'up' && !this.isFixed && scroll <= this.bottomOffset)
+                    || this.showOnUp && (scroll <= this.top || dir === 'down' && isScrollUpdate || dir === 'up' && !this.isFixed && scroll <= this.bottomOffset)
                 ) {
 
                     if (!this.isFixed) {

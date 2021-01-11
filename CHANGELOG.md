@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in sticky component
+
 ## 3.6.9 (January 7, 2021)
 
 ### Fixed
