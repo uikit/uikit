@@ -36,8 +36,12 @@ export default {
         }
 
         this.svg = this.getSvg().then(el => {
-            this.applyAttributes(el);
-            return this.svgEl = insertSVG(el, this.$el);
+
+            if (this._connected) {
+                this.applyAttributes(el);
+                return this.svgEl = insertSVG(el, this.$el);
+            }
+
         }, noop);
 
     },
@@ -48,9 +52,13 @@ export default {
             this.$el.hidden = false;
         }
 
-        if (this.svg) {
-            this.svg.then(svg => (!this._connected || svg !== this.svgEl) && remove(svg), noop);
-        }
+        const {icon, src} = this;
+
+        this.svg.then(svg => {
+            if (!this._connected || src !== this.src || icon !== this.icon) {
+                remove(svg);
+            }
+        });
 
         this.svg = this.svgEl = null;
 
