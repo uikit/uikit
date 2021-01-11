@@ -30,7 +30,6 @@ export default function (UIkit) {
 
         this._callHook('connected');
         this._callUpdate();
-        this._callWatches();
     };
 
     UIkit.prototype._callDisconnected = function () {
@@ -45,20 +44,28 @@ export default function (UIkit) {
         this._callHook('disconnected');
 
         this._connected = false;
+        delete this._watch;
 
     };
 
     UIkit.prototype._callUpdate = function (e = 'update') {
 
-        if (!this.$options.update || !this._connected) {
+        if (!this._connected) {
+            return;
+        }
+
+        if (e === 'update' || e === 'resize') {
+            this._callWatches();
+        }
+
+        if (!this.$options.update) {
             return;
         }
 
         if (!this._updates) {
             this._updates = new Set();
             fastdom.read(() => {
-                const types = this._updates;
-                runUpdates.call(this, types);
+                runUpdates.call(this, this._updates);
                 delete this._updates;
             });
         }
@@ -103,17 +110,12 @@ export default function (UIkit) {
 
     function runUpdates(types) {
 
-        const isUpdate = types.has('update');
-        if (isUpdate || types.has('resize')) {
-            this._callWatches();
-        }
-
         const updates = this.$options.update;
 
         for (let i = 0; i < updates.length; i++) {
             const {read, write, events} = updates[i];
 
-            if (!isUpdate && (!events || !events.some(type => types.has(type)))) {
+            if (!types.has('update') && (!events || !events.some(type => types.has(type)))) {
                 continue;
             }
 

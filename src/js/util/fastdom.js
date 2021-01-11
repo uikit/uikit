@@ -61,7 +61,11 @@ function scheduleFlush(recursion) {
 function runTasks(tasks) {
     let task;
     while ((task = tasks.shift())) {
-        task();
+        try {
+            task();
+        } catch (e) {
+            console.error(e);
+        }
     }
 }
 

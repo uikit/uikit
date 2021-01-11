@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.6.10 (January 11, 2021)
+
+### Changed
+
+- Refactor Sortable behavior
+
+### Fixed
+
+- Fix regression in sticky component
+- Fix calculating max scroll height
+- Fix regression with calling watchers
+
 ## 3.6.9 (January 7, 2021)
 
 ### Fixed

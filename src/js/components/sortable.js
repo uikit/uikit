@@ -96,7 +96,7 @@ export default {
 
     update: {
 
-        write() {
+        write(data) {
 
             if (!this.drag || !parent(this.placeholder)) {
                 return;
@@ -127,16 +127,27 @@ export default {
                 return;
             }
 
-            this.touched.add(sortable);
-
             const previous = this.getSortable(placeholder);
+            const insertTarget = findInsertTarget(sortable.target, target, placeholder, x, y, sortable === previous && data.moved !== target);
+
+            if (insertTarget === false) {
+                return;
+            }
+
+            if (insertTarget && placeholder === insertTarget) {
+                return;
+            }
 
             if (sortable !== previous) {
                 previous.remove(placeholder);
+                data.moved = target;
+            } else {
+                delete data.moved;
             }
 
-            sortable.insert(placeholder, findInsertTarget(sortable.target, target, placeholder, x, y));
+            sortable.insert(placeholder, insertTarget);
 
+            this.touched.add(sortable);
         },
 
         events: ['move']
@@ -243,10 +254,6 @@ export default {
 
         insert(element, target) {
 
-            if (target && (element === target || element === target.previousElementSibling)) {
-                return;
-            }
-
             addClass(this.items, this.clsItem);
 
             const insert = () => target
@@ -349,53 +356,77 @@ function findTarget(items, point) {
     return items[findIndex(items, item => pointInRect(point, item.getBoundingClientRect()))];
 }
 
-function findInsertTarget(list, target, placeholder, x, y) {
+function findInsertTarget(list, target, placeholder, x, y, sameList) {
 
-    const items = children(list);
-
-    if (!items.length) {
+    if (!children(list).length) {
         return;
     }
 
-    const single = items.length === 1;
+    const rect = target.getBoundingClientRect();
+    if (!sameList) {
+
+        if (!isHorizontal(list, placeholder)) {
+            return y < rect.top + rect.height / 2
+                ? target
+                : target.nextElementSibling;
+        }
+
+        return target;
+    }
+
+    const placeholderRect = placeholder.getBoundingClientRect();
+    const sameRow = linesIntersect(
+        [rect.top, rect.bottom],
+        [placeholderRect.top, placeholderRect.bottom]
+    );
+
+    const pointerPos = sameRow ? x : y;
+    const lengthProp = sameRow ? 'width' : 'height';
+    const startProp = sameRow ? 'left' : 'top';
+    const endProp = sameRow ? 'right' : 'bottom';
+
+    const diff = placeholderRect[lengthProp] < rect[lengthProp] ? rect[lengthProp] - placeholderRect[lengthProp] : 0;
+
+    if (placeholderRect[startProp] < rect[startProp]) {
+
+        if (diff && pointerPos < rect[startProp] + diff) {
+            return false;
+        }
+
+        return target.nextElementSibling;
+    }
+
+    if (diff && pointerPos > rect[endProp] - diff) {
+        return false;
+    }
+
+    return target;
+}
+
+function isHorizontal(list, placeholder) {
+
+    const single = children(list).length === 1;
 
     if (single) {
         append(list, placeholder);
     }
 
-    const horizontal = isHorizontal(children(list));
+    const items = children(list);
+    const isHorizontal = items.some((el, i) => {
+        const rectA = el.getBoundingClientRect();
+        return items.slice(i + 1).some(el => {
+            const rectB = el.getBoundingClientRect();
+            return !linesIntersect([rectA.left, rectA.right], [rectB.left, rectB.right]);
+        });
+    });
 
     if (single) {
         remove(placeholder);
     }
 
-    const rect = target.getBoundingClientRect();
-    if (!horizontal) {
-        return y < rect.top + rect.height / 2
-            ? target
-            : target.nextElementSibling;
-    }
-
-    const placeholderRect = placeholder.getBoundingClientRect();
-    const sameLine = intersectLine(
-        [rect.top, rect.bottom],
-        [placeholderRect.top, placeholderRect.bottom]
-    );
-    return sameLine && x > rect.left + rect.width / 2 || !sameLine && placeholderRect.top < rect.top
-        ? target.nextElementSibling
-        : target;
+    return isHorizontal;
 }
 
-function isHorizontal(items) {
-    return items.some((el, i) => {
-        const rectA = el.getBoundingClientRect();
-        return items.slice(i + 1).some(el => {
-            const rectB = el.getBoundingClientRect();
-            return !intersectLine([rectA.left, rectA.right], [rectB.left, rectB.right]);
-        });
-    });
-}
-
-function intersectLine(lineA, lineB) {
+function linesIntersect(lineA, lineB) {
     return lineA[1] > lineB[0] && lineB[1] > lineA[0];
 }
