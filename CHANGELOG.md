@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in SVG component
+
 ## 3.6.10 (January 11, 2021)
 
 ### Changed
