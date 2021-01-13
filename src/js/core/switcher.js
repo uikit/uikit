@@ -32,9 +32,18 @@ export default {
             },
 
             watch(connects) {
+
                 if (this.swiping) {
                     css(connects, 'touch-action', 'pan-y pinch-zoom');
                 }
+
+                const index = this.index();
+                this.connects.forEach(el =>
+                    children(el).forEach((child, i) =>
+                        toggleClass(child, this.cls, i === index)
+                    )
+                );
+
             },
 
             immediate: true

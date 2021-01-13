@@ -102,6 +102,7 @@
 ### Fixed
 
 - Fix 'aria-expanded' value on toggles
+- Fix responsivness in Switcher component
 
 ## 3.5.17 (December 16, 2020)
 
