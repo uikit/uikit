@@ -230,9 +230,13 @@ function insertSVG(el, root) {
 }
 
 function equals(el, other) {
-    return innerHTML(el) === innerHTML(other);
+    return isSVG(el) && isSVG(other) && innerHTML(el) === innerHTML(other);
+}
+
+function isSVG(el) {
+    return el && el.tagName === 'svg';
 }
 
 function innerHTML(el) {
-    return el && el.innerHTML.replace(/\s/g, '')
+    return (el.innerHTML || (new XMLSerializer()).serializeToString(el).replace(/<svg.*?>(.*?)<\/svg>/g, '$1')).replace(/\s/g, '');
 }

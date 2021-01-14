@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix IE11 compatibility
+
 ## 3.6.11 (January 14, 2021)
 
 ### Fixed
