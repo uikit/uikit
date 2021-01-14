@@ -7,21 +7,20 @@ export function hasOwn(obj, key) {
 
 const hyphenateRe = /\B([A-Z])/g;
 
-export const hyphenate = cacheFunction(str => {
-    return str
-        .replace(hyphenateRe, '-$1')
-        .toLowerCase();
-});
+export const hyphenate = cacheFunction(str => str
+    .replace(hyphenateRe, '-$1')
+    .toLowerCase()
+);
 
 const camelizeRe = /-(\w)/g;
 
-export const camelize = cacheFunction(str => {
-    return str.replace(camelizeRe, toUpper);
-});
+export const camelize = cacheFunction(str =>
+    str.replace(camelizeRe, toUpper)
+);
 
-export const ucfirst = cacheFunction(str => {
-    return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : '';
-});
+export const ucfirst = cacheFunction(str =>
+    str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : ''
+);
 
 function toUpper(_, c) {
     return c ? c.toUpperCase() : '';
