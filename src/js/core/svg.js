@@ -1,4 +1,4 @@
-import {$, $$, after, ajax, append, attr, includes, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
+import {$, $$, after, ajax, append, attr, cacheFunction, includes, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
 
 export default {
 
@@ -138,15 +138,8 @@ export default {
 
 };
 
-const svgs = {};
-
-function loadSVG(src) {
-
-    if (svgs[src]) {
-        return svgs[src];
-    }
-
-    return svgs[src] = new Promise((resolve, reject) => {
+const loadSVG = cacheFunction(src =>
+    new Promise((resolve, reject) => {
 
         if (!src) {
             reject();
@@ -163,9 +156,8 @@ function loadSVG(src) {
             );
 
         }
-
-    });
-}
+    })
+);
 
 function parseSVG(svg, icon) {
 
