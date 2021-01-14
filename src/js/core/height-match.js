@@ -1,6 +1,6 @@
 import FlexBug from '../mixin/flex-bug';
 import {getRows} from './margin';
-import {$$, addClass, boxModelAdjust, css, dimensions, isVisible, removeClass, toFloat} from 'uikit-util';
+import {$$, boxModelAdjust, css, dimensions, isVisible, toFloat} from 'uikit-util';
 
 export default {
 
@@ -73,16 +73,19 @@ function match(elements) {
     return {heights, elements};
 }
 
-const clsBlock = 'uk-display-block';
 function getHeight(element) {
 
+    let style = false;
     if (!isVisible(element)) {
-        addClass(element, clsBlock);
+        style = element.style.display;
+        css(element, 'display', 'block', 'important');
     }
 
     const height = dimensions(element).height - boxModelAdjust(element, 'height', 'content-box');
 
-    removeClass(element, clsBlock);
+    if (style !== false) {
+        css(element, 'display', style);
+    }
 
     return height;
 }

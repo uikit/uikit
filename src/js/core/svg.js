@@ -1,4 +1,4 @@
-import {$, $$, after, ajax, append, attr, includes, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
+import {$, $$, after, ajax, append, attr, cacheFunction, includes, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
 
 export default {
 
@@ -38,8 +38,16 @@ export default {
         this.svg = this.getSvg().then(el => {
 
             if (this._connected) {
+
+                el = insertSVG(el, this.$el);
+
+                if (this.svgEl && el !== this.svgEl) {
+                    remove(this.svgEl);
+                }
+
                 this.applyAttributes(el);
-                return this.svgEl = insertSVG(el, this.$el);
+                this.$emit();
+                return this.svgEl = el;
             }
 
         }, noop);
@@ -48,19 +56,19 @@ export default {
 
     disconnected() {
 
-        if (isVoidElement(this.$el)) {
-            this.$el.hidden = false;
-        }
-
-        const {icon, src} = this;
-
         this.svg.then(svg => {
-            if (!this._connected || src !== this.src || icon !== this.icon) {
+            if (!this._connected) {
+
+                if (isVoidElement(this.$el)) {
+                    this.$el.hidden = false;
+                }
+
                 remove(svg);
+                this.svgEl = null;
             }
         });
 
-        this.svg = this.svgEl = null;
+        this.svg = null;
 
     },
 
@@ -89,7 +97,7 @@ export default {
         applyAttributes(el) {
 
             for (const prop in this.$options.props) {
-                if (this[prop] && includes(this.include, prop)) {
+                if (includes(this.include, prop) && (prop in this)) {
                     attr(el, prop, this[prop]);
                 }
             }
@@ -124,23 +132,14 @@ export default {
                 }
             });
 
-            attr(el, 'data-svg', this.icon || this.src);
-
         }
 
     }
 
 };
 
-const svgs = {};
-
-function loadSVG(src) {
-
-    if (svgs[src]) {
-        return svgs[src];
-    }
-
-    return svgs[src] = new Promise((resolve, reject) => {
+const loadSVG = cacheFunction(src =>
+    new Promise((resolve, reject) => {
 
         if (!src) {
             reject();
@@ -157,9 +156,8 @@ function loadSVG(src) {
             );
 
         }
-
-    });
-}
+    })
+);
 
 function parseSVG(svg, icon) {
 
@@ -232,5 +230,9 @@ function insertSVG(el, root) {
 }
 
 function equals(el, other) {
-    return attr(el, 'data-svg') === attr(other, 'data-svg');
+    return innerHTML(el) === innerHTML(other);
+}
+
+function innerHTML(el) {
+    return el && el.innerHTML.replace(/\s/g, '')
 }

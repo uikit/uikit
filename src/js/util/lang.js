@@ -5,39 +5,25 @@ export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
 }
 
-const hyphenateCache = {};
-const hyphenateRe = /([a-z\d])([A-Z])/g;
+const hyphenateRe = /\B([A-Z])/g;
 
-export function hyphenate(str) {
+export const hyphenate = cacheFunction(str => str
+    .replace(hyphenateRe, '-$1')
+    .toLowerCase()
+);
 
-    if (!(str in hyphenateCache)) {
-        hyphenateCache[str] = str
-            .replace(hyphenateRe, '$1-$2')
-            .toLowerCase();
-    }
-
-    return hyphenateCache[str];
-}
-
-const camelizeCache = {};
 const camelizeRe = /-(\w)/g;
 
-export function camelize(str) {
+export const camelize = cacheFunction(str =>
+    str.replace(camelizeRe, toUpper)
+);
 
-    if (!(str in camelizeCache)) {
-        camelizeCache[str] = str.replace(camelizeRe, toUpper);
-    }
-
-    return camelizeCache[str];
-
-}
+export const ucfirst = cacheFunction(str =>
+    str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : ''
+);
 
 function toUpper(_, c) {
     return c ? c.toUpperCase() : '';
-}
-
-export function ucfirst(str) {
-    return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : '';
 }
 
 const strPrototype = String.prototype;
@@ -329,4 +315,9 @@ export function getIndex(i, elements, current = 0, finite = false) {
     i %= length;
 
     return i < 0 ? i + length : i;
+}
+
+export function cacheFunction(fn) {
+    const cache = Object.create(null);
+    return key => cache[key] || (cache[key] = fn(key));
 }

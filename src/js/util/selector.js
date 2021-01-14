@@ -1,6 +1,6 @@
 import {inBrowser} from './env';
 import {closest, index, matches, parent} from './filter';
-import {isDocument, isString, toNode, toNodes} from './lang';
+import {cacheFunction, isDocument, isString, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
     return toNode(selector) || find(selector, getContext(selector, context));
@@ -12,7 +12,7 @@ export function queryAll(selector, context) {
 }
 
 function getContext(selector, context = document) {
-    return isContextSelector(selector) || isDocument(context)
+    return isString(selector) && isContextSelector(selector) || isDocument(context)
         ? context
         : context.ownerDocument;
 }
@@ -83,15 +83,15 @@ function _query(selector, context = document, queryFn) {
 const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
 const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
 
-function isContextSelector(selector) {
-    return isString(selector) && selector.match(contextSelectorRe);
-}
+const isContextSelector = cacheFunction(selector => selector.match(contextSelectorRe));
 
 const selectorRe = /.*?[^\\](?:,|$)/g;
 
-function splitSelector(selector) {
-    return selector.match(selectorRe).map(selector => selector.replace(/,$/, '').trim());
-}
+const splitSelector = cacheFunction(selector =>
+    selector.match(selectorRe).map(selector =>
+        selector.replace(/,$/, '').trim()
+    )
+);
 
 function domPath(element) {
     const names = [];

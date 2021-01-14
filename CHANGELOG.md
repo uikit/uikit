@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.6.11 (January 14, 2021)
+
+### Fixed
+
+- Fix regression in SVG component
+
 ## 3.6.10 (January 11, 2021)
 
 ### Changed
@@ -96,6 +102,7 @@
 ### Fixed
 
 - Fix 'aria-expanded' value on toggles
+- Fix responsivness in Switcher component
 
 ## 3.5.17 (December 16, 2020)
 
