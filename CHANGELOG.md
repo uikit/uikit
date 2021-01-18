@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix IE11 compatibility
+- Fix changing ratio does not correctly apply width and height in SVG component
 
 ## 3.6.11 (January 14, 2021)
 
