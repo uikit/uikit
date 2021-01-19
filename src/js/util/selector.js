@@ -31,40 +31,42 @@ function _query(selector, context = document, queryFn) {
         return null;
     }
 
-    selector = splitSelector(selector).map(selector => {
+    selector = selector.replace(contextSanitizeRe, '$1 *');
 
-        if (!isContextSelector(selector)) {
-            return selector;
-        }
+    if (isContextSelector(selector)) {
 
-        let ctx = context;
+        selector = splitSelector(selector).map((selector, i) => {
 
-        if (selector[0] === '!') {
+            let ctx = context;
 
-            const selectors = selector.substr(1).trim().split(' ');
-            ctx = closest(parent(context), selectors[0]);
-            selector = selectors.slice(1).join(' ').trim();
+            if (selector[0] === '!') {
 
-        }
+                const selectors = selector.substr(1).trim().split(' ');
+                ctx = closest(parent(context), selectors[0]);
+                selector = selectors.slice(1).join(' ').trim();
 
-        if (selector[0] === '-') {
+            }
 
-            const selectors = selector.substr(1).trim().split(' ');
-            const prev = (ctx || context).previousElementSibling;
-            ctx = matches(prev, selector.substr(1)) ? prev : null;
-            selector = selectors.slice(1).join(' ');
+            if (selector[0] === '-') {
 
-        }
+                const selectors = selector.substr(1).trim().split(' ');
+                const prev = (ctx || context).previousElementSibling;
+                ctx = matches(prev, selector.substr(1)) ? prev : null;
+                selector = selectors.slice(1).join(' ');
 
-        if (!ctx) {
-            return null;
-        }
+            }
 
-        return `${domPath(ctx)} ${selector}`;
+            if (!ctx) {
+                return null;
+            }
 
-    }).filter(Boolean).join(',');
+            return `${domPath(ctx)} ${selector}`;
 
-    context = document;
+        }).filter(Boolean).join(',');
+
+        context = document;
+
+    }
 
     try {
 
@@ -86,11 +88,9 @@ const isContextSelector = cacheFunction(selector => selector.match(contextSelect
 const selectorRe = /.*?[^\\](?:,|$)/g;
 
 const splitSelector = cacheFunction(selector =>
-    selector
-        .replace(contextSanitizeRe, '$1 *')
-        .match(selectorRe).map(selector =>
-            selector.replace(/,$/, '').trim()
-        )
+    selector.match(selectorRe).map(selector =>
+        selector.replace(/,$/, '').trim()
+    )
 );
 
 function domPath(element) {
