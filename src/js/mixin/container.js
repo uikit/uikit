@@ -1,4 +1,4 @@
-import {$} from 'uikit-util';
+import {query} from 'uikit-util';
 
 export default {
 
@@ -12,8 +12,8 @@ export default {
 
     computed: {
 
-        container({container}) {
-            return container === true && this.$container || container && $(container);
+        container({container}, $el) {
+            return container === true && this.$container || container && query(container, $el);
         }
 
     }

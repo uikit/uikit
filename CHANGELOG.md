@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Allow context selectors in 'container' options
+
 ### Fixed
 
 - Fix IE11 compatibility
