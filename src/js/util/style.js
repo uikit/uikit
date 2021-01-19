@@ -1,7 +1,7 @@
 import {isIE} from './env';
 import {append, remove} from './dom';
 import {addClass} from './class';
-import {cacheFunction, each, hyphenate, isArray, isNumber, isNumeric, isObject, isString, isUndefined, toNode, toNodes} from './lang';
+import {cacheFunction, each, hyphenate, isArray, isNumber, isNumeric, isObject, isString, isUndefined, toNodes, toWindow} from './lang';
 
 const cssNumber = {
     'animation-iteration-count': true,
@@ -57,12 +57,11 @@ export function css(element, property, value, priority = '') {
 
 }
 
-export function getStyles(element, pseudoElt) {
-    element = toNode(element);
-    return element.ownerDocument.defaultView.getComputedStyle(element, pseudoElt);
+function getStyles(element, pseudoElt) {
+    return toWindow(element).getComputedStyle(element, pseudoElt);
 }
 
-export function getStyle(element, property, pseudoElt) {
+function getStyle(element, property, pseudoElt) {
     return getStyles(element, pseudoElt)[property];
 }
 
