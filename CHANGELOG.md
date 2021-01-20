@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.6.13 (January 20, 2021)
+
+### Fixed
+
+- Fix slidenav icons
+
 ## 3.6.12 (January 20, 2021)
 
 ### Fixed
