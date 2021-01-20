@@ -1,4 +1,4 @@
-import {$, $$, after, ajax, append, attr, cacheFunction, includes, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
+import {$, $$, after, ajax, append, attr, cacheFunction, includes, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith, toFloat} from 'uikit-util';
 
 export default {
 
@@ -124,7 +124,7 @@ export default {
             }
 
             dimensions.forEach((val, i) =>
-                attr(el, props[i], (val | 0) * this.ratio || null)
+                attr(el, props[i], toFloat(val) * this.ratio || null)
             );
 
         }
