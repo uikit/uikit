@@ -50,12 +50,12 @@ export function offset(element, coordinates) {
     );
 }
 
-export function position(element, parent) {
+export function position(element) {
 
     let {top, left} = offset(element);
 
     const {ownerDocument: {body, documentElement}, offsetParent} = toNode(element);
-    parent = parent || offsetParent || documentElement;
+    let parent = offsetParent || documentElement;
 
     while (parent && (parent === body || parent === documentElement) && css(parent, 'position') === 'static') {
         parent = parent.parentNode;
