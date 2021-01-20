@@ -39,15 +39,15 @@ export default {
 
             if (this._connected) {
 
-                el = insertSVG(el, this.$el);
+                const svg = insertSVG(el, this.$el);
 
-                if (this.svgEl && el !== this.svgEl) {
+                if (this.svgEl && svg !== this.svgEl) {
                     remove(this.svgEl);
                 }
 
-                this.applyAttributes(el);
+                this.applyAttributes(svg, el);
                 this.$emit();
-                return this.svgEl = el;
+                return this.svgEl = svg;
             }
 
         }, noop);
@@ -94,7 +94,7 @@ export default {
             );
         },
 
-        applyAttributes(el) {
+        applyAttributes(el, ref) {
 
             for (const prop in this.$options.props) {
                 if (includes(this.include, prop) && (prop in this)) {
@@ -112,25 +112,20 @@ export default {
             }
 
             const props = ['width', 'height'];
-            let dimensions = [this.width, this.height];
+            let dimensions = props.map(prop => this[prop]);
 
             if (!dimensions.some(val => val)) {
-                dimensions = props.map(prop => attr(el, prop));
+                dimensions = props.map(prop => attr(ref, prop));
             }
 
-            const viewBox = attr(el, 'viewBox');
+            const viewBox = attr(ref, 'viewBox');
             if (viewBox && !dimensions.some(val => val)) {
                 dimensions = viewBox.split(' ').slice(2);
             }
 
-            dimensions.forEach((val, i) => {
-                val = (val | 0) * this.ratio;
-                val && attr(el, props[i], val);
-
-                if (val && !dimensions[i ^ 1]) {
-                    removeAttr(el, props[i ^ 1]);
-                }
-            });
+            dimensions.forEach((val, i) =>
+                attr(el, props[i], (val | 0) * this.ratio || null)
+            );
 
         }
 
@@ -230,9 +225,13 @@ function insertSVG(el, root) {
 }
 
 function equals(el, other) {
-    return innerHTML(el) === innerHTML(other);
+    return isSVG(el) && isSVG(other) && innerHTML(el) === innerHTML(other);
+}
+
+function isSVG(el) {
+    return el && el.tagName === 'svg';
 }
 
 function innerHTML(el) {
-    return el && el.innerHTML.replace(/\s/g, '')
+    return (el.innerHTML || (new XMLSerializer()).serializeToString(el).replace(/<svg.*?>(.*?)<\/svg>/g, '$1')).replace(/\s/g, '');
 }

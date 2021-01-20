@@ -1,4 +1,4 @@
-/*! UIkit 3.6.11 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.12 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1406,8 +1406,7 @@
     }
 
     function getStyles(element, pseudoElt) {
-        element = toNode(element);
-        return element.ownerDocument.defaultView.getComputedStyle(element, pseudoElt);
+        return toWindow(element).getComputedStyle(element, pseudoElt);
     }
 
     function getStyle(element, property, pseudoElt) {
@@ -1583,9 +1582,9 @@
 
     function dimensions(element) {
 
-        var rect = isWindow(element) || !toNode(element)
-            ? {height: height(element), width: width(element), top: 0, left: 0}
-            : toNode(element).getBoundingClientRect();
+        var rect = isElement(element)
+            ? toNode(element).getBoundingClientRect()
+            : {height: height(element), width: width(element), top: 0, left: 0};
 
         return {
             height: rect.height,
@@ -1626,17 +1625,32 @@
         );
     }
 
-    function position(element, parent) {
+    function position(element) {
 
-        element = toNode(element);
-        parent = parent || element.offsetParent || element.documentElement;
+        var ref = offset(element);
+        var top = ref.top;
+        var left = ref.left;
 
-        var elementOffset = offset(element);
-        var parentOffset = offset(parent);
+        var ref$1 = toNode(element);
+        var ref$1_ownerDocument = ref$1.ownerDocument;
+        var body = ref$1_ownerDocument.body;
+        var documentElement = ref$1_ownerDocument.documentElement;
+        var offsetParent = ref$1.offsetParent;
+        var parent = offsetParent || documentElement;
+
+        while (parent && (parent === body || parent === documentElement) && css(parent, 'position') === 'static') {
+            parent = parent.parentNode;
+        }
+
+        if (isElement(parent)) {
+            var parentOffset = offset(parent);
+            top -= parentOffset.top + toFloat(css(parent, 'borderTopWidth'));
+            left -= parentOffset.left + toFloat(css(parent, 'borderLeftWidth'));
+        }
 
         return {
-            top: elementOffset.top - parentOffset.top - toFloat(css(parent, 'borderTopWidth')),
-            left: elementOffset.left - parentOffset.left - toFloat(css(parent, 'borderLeftWidth'))
+            top: top - toFloat(css(element, 'marginTop')),
+            left: left - toFloat(css(element, 'marginLeft'))
         };
     }
 
@@ -2231,7 +2245,13 @@
             var clientHeight = scrollElement.clientHeight;
             var maxScroll = scrollHeight - clientHeight;
 
-            var top = Math.ceil(position(parents[i - 1] || element, getViewport(scrollElement)).top - offsetBy) + diff + scrollTop;
+            var top = Math.ceil(
+                offset(parents[i - 1] || element).top
+                - offset(getViewport(scrollElement)).top
+                - offsetBy
+                + diff
+                + scrollTop
+            );
 
             if (top > maxScroll) {
                 diff = top - maxScroll;
@@ -2619,8 +2639,6 @@
         findAll: findAll,
         escape: escape,
         css: css,
-        getStyles: getStyles,
-        getStyle: getStyle,
         getCssVar: getCssVar,
         propName: propName,
         isInView: isInView,
@@ -3416,7 +3434,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.11';
+    UIkit.version = '3.6.12';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4922,6 +4940,11 @@
                 read: function(ref) {
                     var height$1 = ref.height;
 
+
+                    if (positionedAbsolute(this.$el)) {
+                        return false;
+                    }
+
                     return {
                         scrolled: this.parallax
                             ? scrolledOver(this.$el, height$1 ? height$1 - height(this.$el) : 0) * Math.abs(this.parallax)
@@ -5172,12 +5195,6 @@
 
                 if (this.expand) {
 
-                    this.$el.dataset.heightExpand = '';
-
-                    if ($('[data-height-expand]') !== this.$el) {
-                        return false;
-                    }
-
                     minHeight = height(window) - (dimensions(document.documentElement).height - dimensions(this.$el).height) - box || '';
 
                 } else {
@@ -5283,15 +5300,15 @@
 
                 if (this$1._connected) {
 
-                    el = insertSVG(el, this$1.$el);
+                    var svg = insertSVG(el, this$1.$el);
 
-                    if (this$1.svgEl && el !== this$1.svgEl) {
+                    if (this$1.svgEl && svg !== this$1.svgEl) {
                         remove(this$1.svgEl);
                     }
 
-                    this$1.applyAttributes(el);
+                    this$1.applyAttributes(svg, el);
                     this$1.$emit();
-                    return this$1.svgEl = el;
+                    return this$1.svgEl = svg;
                 }
 
             }, noop);
@@ -5341,7 +5358,7 @@
                 );
             },
 
-            applyAttributes: function(el) {
+            applyAttributes: function(el, ref) {
                 var this$1 = this;
 
 
@@ -5352,9 +5369,9 @@
                 }
 
                 for (var attribute in this.attributes) {
-                    var ref = this.attributes[attribute].split(':', 2);
-                    var prop$1 = ref[0];
-                    var value = ref[1];
+                    var ref$1 = this.attributes[attribute].split(':', 2);
+                    var prop$1 = ref$1[0];
+                    var value = ref$1[1];
                     attr(el, prop$1, value);
                 }
 
@@ -5363,25 +5380,19 @@
                 }
 
                 var props = ['width', 'height'];
-                var dimensions = [this.width, this.height];
+                var dimensions = props.map(function (prop) { return this$1[prop]; });
 
                 if (!dimensions.some(function (val) { return val; })) {
-                    dimensions = props.map(function (prop) { return attr(el, prop); });
+                    dimensions = props.map(function (prop) { return attr(ref, prop); });
                 }
 
-                var viewBox = attr(el, 'viewBox');
+                var viewBox = attr(ref, 'viewBox');
                 if (viewBox && !dimensions.some(function (val) { return val; })) {
                     dimensions = viewBox.split(' ').slice(2);
                 }
 
-                dimensions.forEach(function (val, i) {
-                    val = (val | 0) * this$1.ratio;
-                    val && attr(el, props[i], val);
-
-                    if (val && !dimensions[i ^ 1]) {
-                        removeAttr(el, props[i ^ 1]);
-                    }
-                });
+                dimensions.forEach(function (val, i) { return attr(el, props[i], (val | 0) * this$1.ratio || null); }
+                );
 
             }
 
@@ -5480,11 +5491,15 @@
     }
 
     function equals(el, other) {
-        return innerHTML(el) === innerHTML(other);
+        return isSVG(el) && isSVG(other) && innerHTML(el) === innerHTML(other);
+    }
+
+    function isSVG(el) {
+        return el && el.tagName === 'svg';
     }
 
     function innerHTML(el) {
-        return el && el.innerHTML.replace(/\s/g, '')
+        return (el.innerHTML || (new XMLSerializer()).serializeToString(el).replace(/<svg.*?>(.*?)<\/svg>/g, '$1')).replace(/\s/g, '');
     }
 
     var closeIcon = "<svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" xmlns=\"http://www.w3.org/2000/svg\"><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"1\" y1=\"1\" x2=\"13\" y2=\"13\"/><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"13\" y1=\"1\" x2=\"1\" y2=\"13\"/></svg>";
@@ -6296,6 +6311,10 @@
                 var this$1 = this;
 
 
+                if (this.isToggled()) {
+                    return Promise.resolve();
+                }
+
                 if (this.container && parent(this.$el) !== this.container) {
                     append(this.container, this.$el);
                     return new Promise(function (resolve) { return requestAnimationFrame(function () { return this$1.show().then(resolve); }
@@ -6307,6 +6326,11 @@
             },
 
             hide: function() {
+
+                if (!this.isToggled()) {
+                    return Promise.resolve();
+                }
+
                 return this.toggleElement(this.$el, false, animate$1(this));
             }
 
@@ -7161,7 +7185,7 @@
                 }
 
                 e.preventDefault();
-                this.scrollTo(("#" + (escape(decodeURIComponent(this.$el.hash.substr(1))))));
+                this.scrollTo(("#" + (escape(decodeURIComponent((this.$el.hash || '').substr(1))))));
             }
 
         }
@@ -7386,7 +7410,7 @@
                     } else {
 
                         this.targets.every(function (el, i) {
-                            if (position(el, getViewport(scrollElement)).top - this$1.offset <= 0) {
+                            if (offset(el).top - offset(getViewport(scrollElement)).top - this$1.offset <= 0) {
                                 active = i;
                                 return true;
                             }
@@ -8452,23 +8476,19 @@
         return getRows(children(target)).reduce(function (nodes, row) { return nodes.concat(sortBy(row.filter(function (el) { return isInView(el); }), 'offsetLeft')); }, []);
     }
 
-    var targetClass = 'uk-animation-target';
-
     function slide (action, target, duration) {
 
         return new Promise(function (resolve) { return requestAnimationFrame(function () {
-                addStyle();
 
                 var nodes = children(target);
 
                 // Get current state
                 var currentProps = nodes.map(function (el) { return getProps(el, true); });
-                var oldHeight = height(target);
+                var targetProps = css(target, ['height', 'padding']);
 
                 // Cancel previous animations
                 Transition.cancel(target);
                 nodes.forEach(Transition.cancel);
-                removeClass(target, targetClass);
                 reset(target);
 
                 // Adding, sorting, removing nodes
@@ -8484,21 +8504,20 @@
                     fastdom.flush();
 
                     // Get new state
-                    var newHeight = height(target);
+                    var targetPropsTo = css(target, ['height', 'padding']);
                     var ref = getTransitionProps(target, nodes, currentProps);
                     var propsTo = ref[0];
                     var propsFrom = ref[1];
 
                     // Reset to previous state
-                    addClass(target, targetClass);
                     nodes.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
-                    css(target, {height: oldHeight, display: 'block'});
+                    css(target, assign({display: 'block'}, targetProps));
 
                     // Start transitions on next frame
                     requestAnimationFrame(function () {
 
                         var transitions = nodes.map(function (el, i) { return parent(el) === target && Transition.start(el, propsTo[i], duration, 'ease'); }
-                            ).concat(Transition.start(target, {height: newHeight}, duration, 'ease'));
+                            ).concat(Transition.start(target, targetPropsTo, duration, 'ease'));
 
                         Promise.all(transitions).then(function () {
                             nodes.forEach(function (el, i) { return parent(el) === target && css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''); });
@@ -8569,11 +8588,13 @@
             pointerEvents: '',
             position: '',
             top: '',
+            marginTop: '',
+            marginLeft: '',
+            transform: '',
             width: '',
             zIndex: ''
         });
-        removeClass(el, targetClass);
-        css(el, {height: '', display: ''});
+        css(el, {height: '', display: '', padding: ''});
     }
 
     function getPositionWithMargin(el) {
@@ -8583,17 +8604,11 @@
         var ref$1 = position(el);
         var top = ref$1.top;
         var left = ref$1.left;
+        var ref$2 = css(el, ['marginTop', 'marginLeft']);
+        var marginLeft = ref$2.marginLeft;
+        var marginTop = ref$2.marginTop;
 
-        return {top: top, left: left, height: height, width: width};
-    }
-
-    var style;
-
-    function addStyle() {
-        if (style) {
-            return;
-        }
-        style = !!append(document.head, ("<style> ." + targetClass + " > * {\n            margin-top: 0 !important;\n            transform: none !important;\n        } </style>"));
+        return {top: top, left: left, height: height, width: width, marginLeft: marginLeft, marginTop: marginTop, transform: ''};
     }
 
     var Animate = {

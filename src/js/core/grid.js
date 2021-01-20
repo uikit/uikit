@@ -87,6 +87,11 @@ export default {
         {
 
             read({height}) {
+
+                if (positionedAbsolute(this.$el)) {
+                    return false;
+                }
+
                 return {
                     scrolled: this.parallax
                         ? scrolledOver(this.$el, height ? height - getHeight(this.$el) : 0) * Math.abs(this.parallax)

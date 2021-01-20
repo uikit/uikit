@@ -1,4 +1,4 @@
-import {$$, addClass, closest, escape, getViewport, isVisible, position, removeClass, scrollParents, trigger} from 'uikit-util';
+import {$$, addClass, closest, escape, getViewport, isVisible, offset, removeClass, scrollParents, trigger} from 'uikit-util';
 
 export default {
 
@@ -68,7 +68,7 @@ export default {
                 } else {
 
                     this.targets.every((el, i) => {
-                        if (position(el, getViewport(scrollElement)).top - this.offset <= 0) {
+                        if (offset(el).top - offset(getViewport(scrollElement)).top - this.offset <= 0) {
                             active = i;
                             return true;
                         }

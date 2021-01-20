@@ -1,5 +1,5 @@
 import {css} from './style';
-import {each, endsWith, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
+import {each, endsWith, isDocument, isElement, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
 
 const dirs = {
     width: ['left', 'right'],
@@ -8,9 +8,9 @@ const dirs = {
 
 export function dimensions(element) {
 
-    const rect = isWindow(element) || !toNode(element)
-        ? {height: height(element), width: width(element), top: 0, left: 0}
-        : toNode(element).getBoundingClientRect();
+    const rect = isElement(element)
+        ? toNode(element).getBoundingClientRect()
+        : {height: height(element), width: width(element), top: 0, left: 0};
 
     return {
         height: rect.height,
@@ -50,17 +50,26 @@ export function offset(element, coordinates) {
     );
 }
 
-export function position(element, parent) {
+export function position(element) {
 
-    element = toNode(element);
-    parent = parent || element.offsetParent || element.documentElement;
+    let {top, left} = offset(element);
 
-    const elementOffset = offset(element);
-    const parentOffset = offset(parent);
+    const {ownerDocument: {body, documentElement}, offsetParent} = toNode(element);
+    let parent = offsetParent || documentElement;
+
+    while (parent && (parent === body || parent === documentElement) && css(parent, 'position') === 'static') {
+        parent = parent.parentNode;
+    }
+
+    if (isElement(parent)) {
+        const parentOffset = offset(parent);
+        top -= parentOffset.top + toFloat(css(parent, 'borderTopWidth'));
+        left -= parentOffset.left + toFloat(css(parent, 'borderLeftWidth'));
+    }
 
     return {
-        top: elementOffset.top - parentOffset.top - toFloat(css(parent, 'borderTopWidth')),
-        left: elementOffset.left - parentOffset.left - toFloat(css(parent, 'borderLeftWidth'))
+        top: top - toFloat(css(element, 'marginTop')),
+        left: left - toFloat(css(element, 'marginLeft'))
     };
 }
 

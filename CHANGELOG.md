@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.6.12 (January 20, 2021)
+
+### Fixed
+
+- Fix IE11 compatibility
+- Fix changing ratio does not correctly apply width and height in SVG component
+- Fix issues from hiding an already hidden Modal 
+
 ## 3.6.11 (January 14, 2021)
 
 ### Fixed
