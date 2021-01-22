@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix 'scrolledOver' function uses closest scrollable parent
+
 ## 3.6.13 (January 20, 2021)
 
 ### Fixed
