@@ -83,7 +83,7 @@ export default {
 
             handler(e) {
 
-                if (e.defaultPrevented) {
+                if (e.defaultPrevented || Transition.inProgress(e.target)) {
                     return;
                 }
 

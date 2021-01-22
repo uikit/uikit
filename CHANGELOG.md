@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix 'scrolledOver' function uses closest scrollable parent
+- Fix Lightbox closes on drag if slide background is dragged
 
 ## 3.6.13 (January 20, 2021)
 
