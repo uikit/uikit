@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, css, dimensions, fastdom, hasClass, inBrowser, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, css, dimensions, fastdom, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -94,7 +94,9 @@ export default {
 
             name: 'load hashchange popstate',
 
-            el: inBrowser && window,
+            el() {
+                return window;
+            },
 
             handler() {
 

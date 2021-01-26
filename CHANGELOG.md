@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.6.14 (January 26, 2021)
+
+### Fixed
+
+- Fix 'scrolledOver' function uses closest scrollable parent
+- Fix Lightbox closes on drag if slide background is dragged
+- Fix Drop component applies stack class wrongly
+
 ## 3.6.13 (January 20, 2021)
 
 ### Fixed

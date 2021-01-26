@@ -1,4 +1,4 @@
-import {$, attr, inBrowser, matches} from 'uikit-util';
+import {$, attr, matches} from 'uikit-util';
 
 export default {
 
@@ -32,7 +32,9 @@ export default {
 
             name: 'visibilitychange',
 
-            el: inBrowser && document,
+            el() {
+                return document;
+            },
 
             filter() {
                 return this.autoplay;

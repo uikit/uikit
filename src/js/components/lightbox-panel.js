@@ -3,7 +3,7 @@ import Container from '../mixin/container';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
 import Togglable from '../mixin/togglable';
-import {$, addClass, ajax, append, assign, attr, fragment, getImage, getIndex, html, inBrowser, on, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
+import {$, addClass, ajax, append, assign, attr, fragment, getImage, getIndex, html, on, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -83,7 +83,7 @@ export default {
 
             handler(e) {
 
-                if (e.defaultPrevented) {
+                if (e.defaultPrevented || Transition.inProgress(e.target)) {
                     return;
                 }
 
@@ -136,7 +136,9 @@ export default {
 
             name: 'keyup',
 
-            el: inBrowser && document,
+            el() {
+                return document;
+            },
 
             handler(e) {
 

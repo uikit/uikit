@@ -71,21 +71,25 @@ export default {
                             : this.hasTransition
                                 ? toggleHeight(this)
                                 : toggleAnimation(this)
-                    )(el, show) || Promise.resolve();
+                    )(el, show);
 
-                    addClass(el, show ? this.clsEnter : this.clsLeave);
+                    const cls = show ? this.clsEnter : this.clsLeave;
+
+                    addClass(el, cls);
 
                     trigger(el, show ? 'show' : 'hide', [this]);
 
-                    promise
-                        .catch(noop)
-                        .then(() => removeClass(el, show ? this.clsEnter : this.clsLeave));
-
-                    return promise.then(() => {
-                        removeClass(el, show ? this.clsEnter : this.clsLeave);
+                    const done = () => {
+                        removeClass(el, cls);
                         trigger(el, show ? 'shown' : 'hidden', [this]);
                         this.$update(el);
-                    });
+                    };
+
+                    return promise ? promise.then(done, () => {
+                        removeClass(el, cls);
+                        return Promise.reject();
+                    }) : done();
+
                 })).then(resolve, noop)
             );
         },
