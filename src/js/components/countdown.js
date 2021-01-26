@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import {$, empty, html, inBrowser} from 'uikit-util';
+import {$, empty, html} from 'uikit-util';
 
 export default {
 
@@ -58,7 +58,9 @@ export default {
 
             name: 'visibilitychange',
 
-            el: inBrowser && document,
+            el() {
+                return document;
+            },
 
             handler() {
                 if (document.hidden) {
