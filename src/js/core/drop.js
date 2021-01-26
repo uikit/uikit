@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, apply, css, hasClass, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, within} from 'uikit-util';
+import {addClass, apply, css, hasClass, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, within} from 'uikit-util';
 
 let active;
 
@@ -23,7 +23,7 @@ export default {
     data: {
         mode: ['click', 'hover'],
         toggle: '- *',
-        boundary: inBrowser && window,
+        boundary: true,
         boundaryAlign: false,
         delayShow: 0,
         delayHide: 800,
@@ -35,7 +35,7 @@ export default {
     computed: {
 
         boundary({boundary}, $el) {
-            return query(boundary, $el);
+            return boundary === true ? window : query(boundary, $el);
         },
 
         clsDrop({clsDrop}) {
@@ -358,7 +358,7 @@ export default {
             if (this.align === 'justify') {
                 const prop = this.getAxis() === 'y' ? 'width' : 'height';
                 css(this.$el, prop, alignTo[prop]);
-            } else if (this.$el.offsetWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+            } else if (this.boundary && this.$el.offsetWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }
 
