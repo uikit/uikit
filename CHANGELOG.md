@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- beforeSend in 'ajax' function may return Promise
+
 ## 3.6.14 (January 26, 2021)
 
 ### Fixed
