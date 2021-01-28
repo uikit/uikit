@@ -5,6 +5,7 @@
 ### Added
 
 - beforeSend in 'ajax' function may return Promise
+- Add 'container' option to Notification component
 
 ## 3.6.14 (January 26, 2021)
 
