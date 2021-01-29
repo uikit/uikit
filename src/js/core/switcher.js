@@ -58,7 +58,7 @@ export default {
 
             watch(toggles) {
                 const active = this.index();
-                this.show(~active && active || toggles[this.active] || toggles[0]);
+                this.show(~active ? active : toggles[this.active] || toggles[0]);
             },
 
             immediate: true

@@ -3,19 +3,23 @@ import {Promise} from './promise';
 import {assign, isString, noop} from './lang';
 
 export function ajax(url, options) {
+
+    const env = assign({
+        data: null,
+        method: 'GET',
+        headers: {},
+        xhr: new XMLHttpRequest(),
+        beforeSend: noop,
+        responseType: ''
+    }, options);
+
+    return Promise.resolve()
+        .then(() => env.beforeSend(env))
+        .then(() => send(url, env));
+}
+
+function send(url, env) {
     return new Promise((resolve, reject) => {
-
-        const env = assign({
-            data: null,
-            method: 'GET',
-            headers: {},
-            xhr: new XMLHttpRequest(),
-            beforeSend: noop,
-            responseType: ''
-        }, options);
-
-        env.beforeSend(env);
-
         let {xhr} = env;
 
         for (const prop in env) {

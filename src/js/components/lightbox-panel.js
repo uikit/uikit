@@ -232,7 +232,7 @@ export default {
                 };
 
                 // Image
-                if (type === 'image' || src.match(/\.(jpe?g|png|gif|svg|webp)($|\?)/i)) {
+                if (type === 'image' || src.match(/\.(avif|jpe?g|a?png|gif|svg|webp)($|\?)/i)) {
 
                     getImage(src, attrs.srcset, attrs.size).then(
                         ({width, height}) => this.setItem(item, createEl('img', assign({src, width, height, alt}, attrs))),

@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.6.15 (January 29, 2021)
+
+### Added
+
+- beforeSend in 'ajax' function may return Promise
+- Add 'container' option to Notification component
+
+### Fixed
+
+- Fix showing/hidding Modal/Offcanvas programmatically
+
 ## 3.6.14 (January 26, 2021)
 
 ### Fixed
