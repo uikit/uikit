@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="20"
+   height="20"
+   viewBox="0 0 20 20"
+   version="1.1"
+   id="svg885">
+  <path
+     id="path1588"
+     style="fill:#000001;fill-opacity:1;stroke:none;stroke-width:0.085314;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 16.358353,2.4641554 c -0.07335,-0.012904 -0.147244,-0.00598 -0.212073,0.024235 L 0.98004186,8.3506931 C 0.6958676,8.4797094 0.53986859,8.8622316 1.0179142,9.1383938 l 3.6658307,1.3875602 1.4451252,4.577747 c 0.072254,0.237335 0.3590893,0.482733 0.6710597,0.227221 L 8.9388366,13.599499 C 9.081265,13.482194 9.3223039,13.368966 9.555362,13.575269 l 3.779442,2.756947 c 0.265895,0.14168 0.52073,0.05211 0.642278,-0.269634 L 16.709791,3.0685659 c 0.08,-0.3431169 -0.131363,-0.5657197 -0.351438,-0.6044078 z M 13.14848,5.3544057 c 0.110827,-0.017207 0.165914,0.07842 0.05151,0.2317655 L 7.4149414,10.986457 C 7.2499488,11.132968 6.9529488,11.45051 6.9089968,11.855956 l -0.1666287,1.410285 c -0.063186,0.323354 -0.331171,0.273148 -0.3893054,0.03483 L 5.6032334,10.685008 C 5.5076323,10.333865 5.5617002,10.063205 5.9319464,9.7640067 L 13.022754,5.4119668 c 0.04532,-0.032593 0.08878,-0.051825 0.125738,-0.057564 z" />
+  <metadata
+     id="metadata891">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs889">
+    <mask
+       id="mask">
+      <rect
+         style="fill:#ffffff"
+         width="100%"
+         height="100%"
+         id="rect2"
+         x="0"
+         y="0" />
+      <path
+         d="M 30,98 V 30 H 50 L 70,55 90,30 h 20 V 98 H 90 V 59 L 70,84 50,59 v 39 z"
+         id="path4" />
+      <path
+         d="M 155,98 125,65 h 20 V 30 h 20 v 35 h 20 z"
+         id="path6" />
+    </mask>
+  </defs>
+  <rect
+     fill="none"
+     stroke="#000"
+     width="13"
+     height="17"
+     x="3.5"
+     y="1.5"
+     id="rect881" />
+</svg>
