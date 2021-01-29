@@ -159,7 +159,9 @@ export default {
 
             handler() {
 
-                active.splice(active.indexOf(this), 1);
+                if (includes(active, this)) {
+                    active.splice(active.indexOf(this), 1);
+                }
 
                 if (!active.length) {
                     css(document.body, 'overflowY', '');
@@ -184,11 +186,6 @@ export default {
         },
 
         show() {
-
-            if (this.isToggled()) {
-                return Promise.resolve();
-            }
-
             if (this.container && parent(this.$el) !== this.container) {
                 append(this.container, this.$el);
                 return new Promise(resolve =>
@@ -202,11 +199,6 @@ export default {
         },
 
         hide() {
-
-            if (!this.isToggled()) {
-                return Promise.resolve();
-            }
-
             return this.toggleElement(this.$el, false, animate(this));
         }
 
