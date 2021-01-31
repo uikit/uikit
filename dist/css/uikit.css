@@ -941,7 +941,7 @@ a.uk-link-reset,
  * 1. Style
  */
 .uk-table th {
-  padding: 16px 12px;
+  padding: 16 12;
   text-align: left;
   vertical-align: bottom;
   /* 1 */
@@ -953,7 +953,7 @@ a.uk-link-reset,
 /* Cell
  ========================================================================== */
 .uk-table td {
-  padding: 16px 12px;
+  padding: 16 12;
   vertical-align: top;
 }
 /*
@@ -1050,7 +1050,7 @@ a.uk-link-reset,
 }
 .uk-table-link > a {
   display: block;
-  padding: 16px 12px;
+  padding: 16 12;
 }
 .uk-table-small .uk-table-link > a {
   padding: 10px 12px;
@@ -1080,7 +1080,7 @@ a.uk-link-reset,
   .uk-table-responsive th:not(:first-child):not(.uk-table-link),
   .uk-table-responsive td:not(:first-child):not(.uk-table-link),
   .uk-table-responsive .uk-table-link:not(:first-child) > a {
-    padding-top: 5px !important;
+    padding-top: 5pxa !important;
   }
   .uk-table-responsive th:not(:last-child):not(.uk-table-link),
   .uk-table-responsive td:not(:last-child):not(.uk-table-link),
