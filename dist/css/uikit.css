@@ -1080,7 +1080,7 @@ a.uk-link-reset,
   .uk-table-responsive th:not(:first-child):not(.uk-table-link),
   .uk-table-responsive td:not(:first-child):not(.uk-table-link),
   .uk-table-responsive .uk-table-link:not(:first-child) > a {
-    padding-top: 5pxa !important;
+    padding-top: 5px !important;
   }
   .uk-table-responsive th:not(:last-child):not(.uk-table-link),
   .uk-table-responsive td:not(:last-child):not(.uk-table-link),
