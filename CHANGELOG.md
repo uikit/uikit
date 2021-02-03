@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix dragging slide correctly prevents click event
+
 ## 3.6.15 (January 29, 2021)
 
 ### Added

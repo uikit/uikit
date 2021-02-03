@@ -107,6 +107,9 @@ export default {
                 return;
             }
 
+            // prevent click event
+            css(this.list, 'pointerEvents', 'none');
+
             e.cancelable && e.preventDefault();
 
             this.dragging = true;
