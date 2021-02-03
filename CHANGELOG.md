@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Change
+
+- Make multiple select resizable
+
 ### Fixed
 
 - Fix dragging slide correctly prevents click event
