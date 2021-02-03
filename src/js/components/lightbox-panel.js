@@ -56,7 +56,7 @@ export default {
     computed: {
 
         caption({selCaption}, $el) {
-            return $('.uk-lightbox-caption', $el);
+            return $(selCaption, $el);
         }
 
     },

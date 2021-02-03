@@ -25,7 +25,7 @@ export default {
         toggles: {
 
             get({attrItem}, $el) {
-                return $$(`[${this.attrItem}],[data-${this.attrItem}]`, $el);
+                return $$(`[${attrItem}],[data-${attrItem}]`, $el);
             },
 
             watch() {
