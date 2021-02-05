@@ -250,7 +250,7 @@ export default function (UIkit) {
                 : [value];
     }
 
-    function normalizeData({data, el}, {args, props = {}}) {
+    function normalizeData({data}, {args, props = {}}) {
         data = isArray(data)
             ? !isEmpty(args)
                 ? data.slice(0, args.length).reduce((data, value, index) => {
@@ -269,7 +269,7 @@ export default function (UIkit) {
                 if (isUndefined(data[key])) {
                     delete data[key];
                 } else {
-                    data[key] = props[key] ? coerce(props[key], data[key], el) : data[key];
+                    data[key] = props[key] ? coerce(props[key], data[key]) : data[key];
                 }
             }
         }

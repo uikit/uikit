@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.6.16 (February 5, 2021)
+
+### Change
+
+- Make multiple select resizable
+
+### Fixed
+
+- Fix dragging slide correctly prevents click event
+
 ## 3.6.15 (January 29, 2021)
 
 ### Added
