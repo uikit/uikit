@@ -88,7 +88,7 @@ export default {
                 this.prevIndex = this.index;
             }
 
-            on(document, pointerMove, this.move, {passive: false, capture: true});
+            on(document, pointerMove, this.move, {passive: false});
             on(document, `${pointerUp} ${pointerCancel}`, this.end, true);
 
             css(this.list, 'userSelect', 'none');
