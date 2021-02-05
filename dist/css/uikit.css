@@ -1,4 +1,4 @@
-/*! UIkit 3.6.15 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.16 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1516,6 +1516,10 @@ button.uk-icon:not(:disabled) {
   padding-top: 4px;
   padding-bottom: 4px;
   vertical-align: top;
+}
+.uk-select[multiple],
+.uk-select[size] {
+  resize: vertical;
 }
 /* Focus */
 .uk-input:focus,

@@ -1,4 +1,4 @@
-/*! UIkit 3.6.15 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.16 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3153,7 +3153,6 @@
 
         function normalizeData(ref, ref$1) {
             var data = ref.data;
-            var el = ref.el;
             var args = ref$1.args;
             var props = ref$1.props; if ( props === void 0 ) props = {};
 
@@ -3438,7 +3437,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.15';
+    UIkit.version = '3.6.16';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -8678,7 +8677,7 @@
                 get: function(ref, $el) {
                     var attrItem = ref.attrItem;
 
-                    return $$(("[" + (this.attrItem) + "],[data-" + (this.attrItem) + "]"), $el);
+                    return $$(("[" + attrItem + "],[data-" + attrItem + "]"), $el);
                 },
 
                 watch: function() {
@@ -9226,10 +9225,6 @@
                     this.prevIndex = this.index;
                 }
 
-                // Workaround for iOS's inert scrolling preventing pointerdown event
-                // https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action
-                on(this.list, 'touchmove', this.move, {passive: false});
-
                 on(document, pointerMove, this.move, {passive: false});
                 on(document, (pointerUp + " " + pointerCancel), this.end, true);
 
@@ -9246,6 +9241,9 @@
                 if (distance === 0 || this.prevPos === this.pos || !this.dragging && Math.abs(distance) < this.threshold) {
                     return;
                 }
+
+                // prevent click event
+                css(this.list, 'pointerEvents', 'none');
 
                 e.cancelable && e.preventDefault();
 
@@ -9313,7 +9311,6 @@
 
             end: function() {
 
-                off(this.list, 'touchmove', this.move, {passive: false});
                 off(document, pointerMove, this.move, {passive: false});
                 off(document, (pointerUp + " " + pointerCancel), this.end, true);
 
@@ -9808,7 +9805,7 @@
             caption: function(ref, $el) {
                 var selCaption = ref.selCaption;
 
-                return $('.uk-lightbox-caption', $el);
+                return $(selCaption, $el);
             }
 
         },
@@ -9835,7 +9832,7 @@
 
                 handler: function(e) {
 
-                    if (e.defaultPrevented || Transition.inProgress(e.target)) {
+                    if (e.defaultPrevented) {
                         return;
                     }
 
@@ -11003,8 +11000,6 @@
             },
 
             maxIndex: function() {
-                var this$1 = this;
-
 
                 if (!this.finite || this.center && !this.sets) {
                     return this.length - 1;
@@ -11014,10 +11009,18 @@
                     return last(this.sets);
                 }
 
-                css(this.slides, 'order', '');
-
+                var lft = 0;
                 var max = getMax(this.list);
-                var index = findIndex(this.slides, function (el) { return getElLeft(el, this$1.list) >= max; });
+                var index = findIndex(this.slides, function (el) {
+
+                    if (lft >= max) {
+                        return true;
+                    }
+
+                    lft += dimensions(el).width;
+
+                });
+
                 return ~index ? index : this.length - 1;
             },
 
@@ -11103,8 +11106,10 @@
 
                 var actives = this._getTransitioner(this.index).getActives();
                 this.slides.forEach(function (slide) { return toggleClass(slide, this$1.clsActive, includes(actives, slide)); });
-                (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(function (slide) { return toggleClass(slide, this$1.clsActivated, includes(actives, slide)); });
 
+                if (this.clsActivated && (!this.sets || includes(this.sets, toFloat(this.index)))) {
+                    this.slides.forEach(function (slide) { return toggleClass(slide, this$1.clsActivated || '', includes(actives, slide)); });
+                }
             },
 
             events: ['resize']

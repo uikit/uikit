@@ -280,6 +280,9 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
     @if(mixin-exists(hook-form-multi-line)) {@include hook-form-multi-line();}
 }
 
+.uk-select[multiple],
+.uk-select[size] { resize: vertical; }
+
 /* Focus */
 .uk-input:focus,
 .uk-select:focus,
