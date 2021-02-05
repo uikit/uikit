@@ -1,7 +1,7 @@
 import Class from '../mixin/class';
 import Slider, {speedUp} from '../mixin/slider';
 import SliderReactive from '../mixin/slider-reactive';
-import Transitioner, {getElLeft, getMax, getWidth} from './internal/slider-transitioner';
+import Transitioner, {getMax, getWidth} from './internal/slider-transitioner';
 import {$, addClass, children, css, data, dimensions, findIndex, includes, isEmpty, last, sortBy, toFloat, toggleClass, toNumber} from 'uikit-util';
 
 export default {
@@ -43,10 +43,18 @@ export default {
                 return last(this.sets);
             }
 
-            css(this.slides, 'order', '');
-
+            let lft = 0;
             const max = getMax(this.list);
-            const index = findIndex(this.slides, el => getElLeft(el, this.list) >= max);
+            const index = findIndex(this.slides, el => {
+
+                if (lft >= max) {
+                    return true;
+                }
+
+                lft += dimensions(el).width;
+
+            });
+
             return ~index ? index : this.length - 1;
         },
 
