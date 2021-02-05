@@ -88,11 +88,7 @@ export default {
                 this.prevIndex = this.index;
             }
 
-            // Workaround for iOS's inert scrolling preventing pointerdown event
-            // https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action
-            on(this.list, 'touchmove', this.move, {passive: false});
-
-            on(document, pointerMove, this.move, {passive: false});
+            on(document, pointerMove, this.move, {passive: false, capture: true});
             on(document, `${pointerUp} ${pointerCancel}`, this.end, true);
 
             css(this.list, 'userSelect', 'none');
@@ -174,7 +170,6 @@ export default {
 
         end() {
 
-            off(this.list, 'touchmove', this.move, {passive: false});
             off(document, pointerMove, this.move, {passive: false});
             off(document, `${pointerUp} ${pointerCancel}`, this.end, true);
 
