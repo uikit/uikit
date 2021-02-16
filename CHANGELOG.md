@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add background-size modifier for width and height to Background component 
+
 ## 3.6.16 (February 5, 2021)
 
 ### Change
