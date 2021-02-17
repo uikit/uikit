@@ -89,7 +89,9 @@ export default {
             }
 
             on(document, pointerMove, this.move, {passive: false});
-            on(document, `${pointerUp} ${pointerCancel}`, this.end, true);
+
+            // 'input' event is triggered by video controls
+            on(document, `${pointerUp} ${pointerCancel} input`, this.end, true);
 
             css(this.list, 'userSelect', 'none');
 
@@ -171,7 +173,7 @@ export default {
         end() {
 
             off(document, pointerMove, this.move, {passive: false});
-            off(document, `${pointerUp} ${pointerCancel}`, this.end, true);
+            off(document, `${pointerUp} ${pointerCancel} input`, this.end, true);
 
             if (this.dragging) {
 
