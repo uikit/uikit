@@ -44,8 +44,8 @@ export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
     let diff = 0;
     return parents.reduce((fn, scrollElement, i) => {
 
-        const {scrollTop, scrollHeight, clientHeight} = scrollElement;
-        const maxScroll = scrollHeight - clientHeight;
+        const {scrollTop, scrollHeight} = scrollElement;
+        const maxScroll = scrollHeight - getViewportClientHeight(scrollElement);
 
         let top = Math.ceil(
             offset(parents[i - 1] || element).top
@@ -107,7 +107,8 @@ export function scrolledOver(element, heightOffset = 0) {
     }
 
     const [scrollElement] = scrollParents(element, /auto|scroll/, true);
-    const {clientHeight, scrollHeight, scrollTop} = scrollElement;
+    const {scrollHeight, scrollTop} = scrollElement;
+    const clientHeight = getViewportClientHeight(scrollElement);
     const viewportTop = offsetPosition(element)[0] - scrollTop - offsetPosition(scrollElement)[0];
     const viewportDist = Math.min(clientHeight, viewportTop + scrollTop);
 
@@ -133,12 +134,17 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scroll
     }
 
     return [scrollEl].concat(ancestors.filter(parent =>
-        overflowRe.test(css(parent, 'overflow')) && (!scrollable || parent.scrollHeight > parent.clientHeight))
+        overflowRe.test(css(parent, 'overflow')) && (!scrollable || parent.scrollHeight > getViewportClientHeight(parent)))
     ).reverse();
 }
 
 export function getViewport(scrollElement) {
     return scrollElement === getScrollingElement(scrollElement) ? window : scrollElement;
+}
+
+// iOS 12 returns <body> as scrollingElement
+export function getViewportClientHeight(scrollElement) {
+    return (scrollElement === getScrollingElement(scrollElement) ? document.documentElement : scrollElement).clientHeight;
 }
 
 function getScrollingElement(element) {

@@ -41,6 +41,8 @@ export default function fade(action, target, duration, stagger = 0) {
                 const nodes = children(target);
                 const newHeight = height(target);
 
+                // Ensure Grid cells do not stretch when height is applied
+                css(target, 'alignContent', 'flex-start');
                 height(target, oldHeight);
 
                 const transitionNodes = getTransitionNodes(target);
@@ -59,7 +61,7 @@ export default function fade(action, target, duration, stagger = 0) {
                 Promise.all(transitions).then(() => {
                     removeClass(target, clsEnter);
                     if (index === transitionIndex(target)) {
-                        css(target, 'height', '');
+                        css(target, {height: '', alignContent: ''});
                         css(nodes, {opacity: ''});
                         delete target.dataset.transition;
                     }

@@ -10,7 +10,7 @@ const html = require('rollup-plugin-html');
 const buble = require('@rollup/plugin-buble');
 const replace = require('@rollup/plugin-replace');
 const alias = require('@rollup/plugin-alias');
-const {basename, dirname, join, resolve} = require('path');
+const {basename, dirname, resolve} = require('path');
 const {version} = require('../package.json');
 const banner = `/*! UIkit ${version} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 
@@ -58,21 +58,10 @@ exports.minify = async function (file) {
         returnPromise: true
     }).minify([file]);
 
-    await exports.write(`${join(dirname(file), basename(file, '.css'))}.min.css`, styles);
+    await exports.write(`${resolve(dirname(file), basename(file, '.css'))}.min.css`, styles);
 
     return styles;
 
-};
-
-exports.uglify = async function (file) {
-    file = join(dirname(file), basename(file, '.js'));
-    return exports.write(
-        `${file}.min.js`,
-        uglify.minify(
-            await exports.read(`${file}.js`),
-            {output: {preamble: exports.banner}}
-        ).code
-    );
 };
 
 exports.renderLess = async function (data, options) {
@@ -102,7 +91,7 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
 
     const bundle = await rollup.rollup({
         external,
-        input: `${resolve(dirname(file), basename(file, '.js'))}.js`,
+        input: resolve(file),
         plugins: [
             replace(Object.assign({
                 VERSION: `'${version}'`

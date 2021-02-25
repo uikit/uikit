@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.6.17 (February 25, 2021)
+
+### Added
+
+- Add background-size modifier for width and height to Background component 
+
+### Fixed
+
+- Fix dragging time control starts dragging slide in Safari
+
 ## 3.6.16 (February 5, 2021)
 
 ### Change
