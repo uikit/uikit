@@ -1,4 +1,4 @@
-/*! UIkit 3.6.16 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.17 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -7604,7 +7604,9 @@ iframe.uk-cover {
 /* Size
  ========================================================================== */
 .uk-background-cover,
-.uk-background-contain {
+.uk-background-contain,
+.uk-background-width-1-1,
+.uk-background-height-1-1 {
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
@@ -7613,6 +7615,12 @@ iframe.uk-cover {
 }
 .uk-background-contain {
   background-size: contain;
+}
+.uk-background-width-1-1 {
+  background-size: 100%;
+}
+.uk-background-height-1-1 {
+  background-size: auto 100%;
 }
 /* Position
  ========================================================================== */

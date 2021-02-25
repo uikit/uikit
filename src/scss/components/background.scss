@@ -33,13 +33,17 @@ $background-secondary-background:                $global-secondary-background !d
  ========================================================================== */
 
 .uk-background-cover,
-.uk-background-contain {
+.uk-background-contain,
+.uk-background-width-1-1,
+.uk-background-height-1-1 {
     background-position: 50% 50%;
     background-repeat: no-repeat;
 }
 
 .uk-background-cover { background-size: cover; }
 .uk-background-contain { background-size: contain; }
+.uk-background-width-1-1 { background-size: 100%; }
+.uk-background-height-1-1 { background-size: auto 100%; }
 
 
 /* Position
