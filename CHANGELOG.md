@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add more social icons
+
 ## 3.6.17 (February 25, 2021)
 
 ### Added
