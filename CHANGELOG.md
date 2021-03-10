@@ -4,7 +4,11 @@
 
 ### Added
 
-- Add more social icons
+- Add Discord, Twitch and Tiktok icons
+
+### Removed
+
+- Remove Google Plus icon
 
 ## 3.6.17 (February 25, 2021)
 
