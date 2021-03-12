@@ -1,7 +1,7 @@
 import {isIE} from './env';
 import {append, remove} from './dom';
 import {addClass} from './class';
-import {cacheFunction, each, hyphenate, isArray, isNumber, isNumeric, isObject, isString, isUndefined, toNodes, toWindow} from './lang';
+import {each, hyphenate, isArray, isNumber, isNumeric, isObject, isString, isUndefined, memoize, toNodes, toWindow} from './lang';
 
 const cssNumber = {
     'animation-iteration-count': true,
@@ -65,7 +65,7 @@ function getStyle(element, property, pseudoElt) {
     return getStyles(element, pseudoElt)[property];
 }
 
-const parseCssVar = cacheFunction(name => {
+const parseCssVar = memoize(name => {
     /* usage in css: .uk-name:before { content:"xyz" } */
 
     const element = append(document.documentElement, document.createElement('div'));
@@ -86,7 +86,7 @@ export function getCssVar(name) {
 }
 
 // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
-export const propName = cacheFunction(name => vendorPropName(name));
+export const propName = memoize(name => vendorPropName(name));
 
 const cssPrefixes = ['webkit', 'moz', 'ms'];
 

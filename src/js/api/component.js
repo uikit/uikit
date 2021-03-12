@@ -1,4 +1,4 @@
-import {$$, assign, cacheFunction, camelize, fastdom, hyphenate, isPlainObject, startsWith} from 'uikit-util';
+import {$$, assign, camelize, fastdom, hyphenate, isPlainObject, memoize, startsWith} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -94,7 +94,7 @@ export default function (UIkit) {
 
 }
 
-export const getComponentName = cacheFunction(attribute => {
+export const getComponentName = memoize(attribute => {
     return startsWith(attribute, 'uk-') || startsWith(attribute, 'data-uk-')
         ? camelize(attribute.replace('data-uk-', '').replace('uk-', ''))
         : false;

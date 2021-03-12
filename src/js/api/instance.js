@@ -1,4 +1,4 @@
-import {cacheFunction, hyphenate, isEmpty, remove, within} from 'uikit-util';
+import {hyphenate, isEmpty, memoize, remove, within} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -69,7 +69,7 @@ export default function (UIkit) {
 
     UIkit.prototype.$getComponent = UIkit.getComponent;
 
-    const componentName = cacheFunction(name => UIkit.prefix + hyphenate(name));
+    const componentName = memoize(name => UIkit.prefix + hyphenate(name));
     Object.defineProperties(UIkit.prototype, {
 
         $container: Object.getOwnPropertyDescriptor(UIkit, 'container'),
