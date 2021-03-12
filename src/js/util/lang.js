@@ -7,18 +7,18 @@ export function hasOwn(obj, key) {
 
 const hyphenateRe = /\B([A-Z])/g;
 
-export const hyphenate = cacheFunction(str => str
+export const hyphenate = memoize(str => str
     .replace(hyphenateRe, '-$1')
     .toLowerCase()
 );
 
 const camelizeRe = /-(\w)/g;
 
-export const camelize = cacheFunction(str =>
+export const camelize = memoize(str =>
     str.replace(camelizeRe, toUpper)
 );
 
-export const ucfirst = cacheFunction(str =>
+export const ucfirst = memoize(str =>
     str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : ''
 );
 
@@ -317,7 +317,7 @@ export function getIndex(i, elements, current = 0, finite = false) {
     return i < 0 ? i + length : i;
 }
 
-export function cacheFunction(fn) {
+export function memoize(fn) {
     const cache = Object.create(null);
     return key => cache[key] || (cache[key] = fn(key));
 }

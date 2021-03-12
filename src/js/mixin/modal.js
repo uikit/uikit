@@ -114,7 +114,9 @@ export default {
 
             handler() {
 
-                if (width(window) - width(document) && this.overlay) {
+                const docEl = document.documentElement;
+
+                if (width(window) > docEl.clientWidth && this.overlay) {
                     css(document.body, 'overflowY', 'scroll');
                 }
 
@@ -122,7 +124,7 @@ export default {
                     css(this.$el, 'zIndex', toFloat(css(this.$el, 'zIndex')) + active.length);
                 }
 
-                addClass(document.documentElement, this.clsPage);
+                addClass(docEl, this.clsPage);
 
                 if (this.bgClose) {
                     once(this.$el, 'hide', on(document, pointerDown, ({target}) => {

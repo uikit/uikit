@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.6.18 (March 12, 2021)
+
+### Added
+
+- Add Discord, Twitch and Tiktok icons
+
+### Removed
+
+- Remove Google Plus icon
+
+### Fixed
+
+- Fix filter inital state
+
 ## 3.6.17 (February 25, 2021)
 
 ### Added

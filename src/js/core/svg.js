@@ -1,4 +1,4 @@
-import {$, $$, after, ajax, append, attr, cacheFunction, includes, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith, toFloat} from 'uikit-util';
+import {$, $$, after, ajax, append, attr, includes, isVisible, isVoidElement, memoize, noop, Promise, remove, removeAttr, startsWith, toFloat} from 'uikit-util';
 
 export default {
 
@@ -133,7 +133,7 @@ export default {
 
 };
 
-const loadSVG = cacheFunction(src =>
+const loadSVG = memoize(src =>
     new Promise((resolve, reject) => {
 
         if (!src) {

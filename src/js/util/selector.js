@@ -1,6 +1,6 @@
 import {inBrowser} from './env';
 import {closest, index, matches, parent} from './filter';
-import {cacheFunction, isDocument, isString, toNode, toNodes} from './lang';
+import {isDocument, isString, memoize, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
     return toNode(selector) || find(selector, getContext(selector, context));
@@ -83,11 +83,11 @@ function _query(selector, context = document, queryFn) {
 const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
 const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
 
-const isContextSelector = cacheFunction(selector => selector.match(contextSelectorRe));
+const isContextSelector = memoize(selector => selector.match(contextSelectorRe));
 
 const selectorRe = /.*?[^\\](?:,|$)/g;
 
-const splitSelector = cacheFunction(selector =>
+const splitSelector = memoize(selector =>
     selector.match(selectorRe).map(selector =>
         selector.replace(/,$/, '').trim()
     )
