@@ -1,4 +1,4 @@
-/*! UIkit 3.6.17 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.18 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -15,17 +15,17 @@
 
     var hyphenateRe = /\B([A-Z])/g;
 
-    var hyphenate = cacheFunction(function (str) { return str
+    var hyphenate = memoize(function (str) { return str
         .replace(hyphenateRe, '-$1')
         .toLowerCase(); }
     );
 
     var camelizeRe = /-(\w)/g;
 
-    var camelize = cacheFunction(function (str) { return str.replace(camelizeRe, toUpper); }
+    var camelize = memoize(function (str) { return str.replace(camelizeRe, toUpper); }
     );
 
-    var ucfirst = cacheFunction(function (str) { return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : ''; }
+    var ucfirst = memoize(function (str) { return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : ''; }
     );
 
     function toUpper(_, c) {
@@ -360,7 +360,7 @@
         return i < 0 ? i + length : i;
     }
 
-    function cacheFunction(fn) {
+    function memoize(fn) {
         var cache = Object.create(null);
         return function (key) { return cache[key] || (cache[key] = fn(key)); };
     }
@@ -619,11 +619,11 @@
     var contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
     var contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
 
-    var isContextSelector = cacheFunction(function (selector) { return selector.match(contextSelectorRe); });
+    var isContextSelector = memoize(function (selector) { return selector.match(contextSelectorRe); });
 
     var selectorRe = /.*?[^\\](?:,|$)/g;
 
-    var splitSelector = cacheFunction(function (selector) { return selector.match(selectorRe).map(function (selector) { return selector.replace(/,$/, '').trim(); }
+    var splitSelector = memoize(function (selector) { return selector.match(selectorRe).map(function (selector) { return selector.replace(/,$/, '').trim(); }
         ); }
     );
 
@@ -1417,7 +1417,7 @@
         return getStyles(element, pseudoElt)[property];
     }
 
-    var parseCssVar = cacheFunction(function (name) {
+    var parseCssVar = memoize(function (name) {
         /* usage in css: .uk-name:before { content:"xyz" } */
 
         var element = append(document.documentElement, document.createElement('div'));
@@ -1438,7 +1438,7 @@
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
-    var propName = cacheFunction(function (name) { return vendorPropName(name); });
+    var propName = memoize(function (name) { return vendorPropName(name); });
 
     var cssPrefixes = ['webkit', 'moz', 'ms'];
 
@@ -2631,7 +2631,7 @@
         pointInRect: pointInRect,
         Dimensions: Dimensions,
         getIndex: getIndex,
-        cacheFunction: cacheFunction,
+        memoize: memoize,
         MouseTracker: MouseTracker,
         mergeOptions: mergeOptions,
         parseOptions: parseOptions,
@@ -3314,7 +3314,7 @@
 
         UIkit.prototype.$getComponent = UIkit.getComponent;
 
-        var componentName = cacheFunction(function (name) { return UIkit.prefix + hyphenate(name); });
+        var componentName = memoize(function (name) { return UIkit.prefix + hyphenate(name); });
         Object.defineProperties(UIkit.prototype, {
 
             $container: Object.getOwnPropertyDescriptor(UIkit, 'container'),
@@ -3428,7 +3428,7 @@
 
     }
 
-    var getComponentName = cacheFunction(function (attribute) {
+    var getComponentName = memoize(function (attribute) {
         return startsWith(attribute, 'uk-') || startsWith(attribute, 'data-uk-')
             ? camelize(attribute.replace('data-uk-', '').replace('uk-', ''))
             : false;
@@ -3442,7 +3442,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.17';
+    UIkit.version = '3.6.18';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -5412,7 +5412,7 @@
 
     };
 
-    var loadSVG = cacheFunction(function (src) { return new Promise(function (resolve, reject) {
+    var loadSVG = memoize(function (src) { return new Promise(function (resolve, reject) {
 
             if (!src) {
                 reject();
@@ -6242,7 +6242,9 @@
                     var this$1 = this;
 
 
-                    if (width(window) - width(document) && this.overlay) {
+                    var docEl = document.documentElement;
+
+                    if (width(window) > docEl.clientWidth && this.overlay) {
                         css(document.body, 'overflowY', 'scroll');
                     }
 
@@ -6250,7 +6252,7 @@
                         css(this.$el, 'zIndex', toFloat(css(this.$el, 'zIndex')) + active$1.length);
                     }
 
-                    addClass(document.documentElement, this.clsPage);
+                    addClass(docEl, this.clsPage);
 
                     if (this.bgClose) {
                         once(this.$el, 'hide', on(document, pointerDown, function (ref) {
@@ -8654,6 +8656,7 @@
                 return animationFn(action, target, this.duration)
                     .then(function () { return this$1.$update(target, 'resize'); }, noop);
             }
+
         }
     };
 
@@ -8712,10 +8715,13 @@
                 },
 
                 watch: function(list, old) {
-                    if (!isEqualList(list, old)) {
+                    if (old && !isEqualList(list, old)) {
                         this.updateState();
                     }
-                }
+                },
+
+                immediate: true
+
             }
 
         },
