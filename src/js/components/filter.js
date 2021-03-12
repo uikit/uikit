@@ -50,10 +50,13 @@ export default {
             },
 
             watch(list, old) {
-                if (!isEqualList(list, old)) {
+                if (old && !isEqualList(list, old)) {
                     this.updateState();
                 }
-            }
+            },
+
+            immediate: true
+
         }
 
     },

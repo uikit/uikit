@@ -10,6 +10,10 @@
 
 - Remove Google Plus icon
 
+### Fixed
+
+- Fix filter inital state
+
 ## 3.6.17 (February 25, 2021)
 
 ### Added
