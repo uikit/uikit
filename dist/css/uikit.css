@@ -1,4 +1,4 @@
-/*! UIkit 3.6.17 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.18 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -9111,14 +9111,14 @@ iframe.uk-cover {
   transform: scale(1, 1);
 }
 .uk-transition-scale-down {
-  transform: scale(1.1, 1.1);
+  transform: scale(1.03, 1.03);
 }
 /* Show */
 .uk-transition-toggle:hover .uk-transition-scale-up,
 .uk-transition-toggle:focus .uk-transition-scale-up,
 .uk-transition-active.uk-active .uk-transition-scale-up {
   opacity: 1;
-  transform: scale(1.1, 1.1);
+  transform: scale(1.03, 1.03);
 }
 .uk-transition-toggle:hover .uk-transition-scale-down,
 .uk-transition-toggle:focus .uk-transition-scale-down,
