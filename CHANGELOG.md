@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix animation set to `false` in Sortable component
+
 ## 3.6.18 (March 12, 2021)
 
 ### Added
