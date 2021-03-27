@@ -371,3 +371,22 @@
 .hook-card-secondary-title() {}
 .hook-card-secondary-hover() {}
 .hook-card-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-card-badge-background:                     @inverse-global-primary-background;
+@inverse-card-badge-color:                          @inverse-global-inverse-color;
+
+.hook-inverse() {
+
+    &.uk-card-badge {
+        background-color: @inverse-card-badge-background;
+        color: @inverse-card-badge-color;
+        .hook-inverse-card-badge;
+    }
+
+}
+
+.hook-inverse-card-badge() {}
