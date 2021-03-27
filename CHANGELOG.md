@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Change
+
+- Update card badge style
+
 ### Fixed
 
 - Fix animation set to `false` in Sortable component
