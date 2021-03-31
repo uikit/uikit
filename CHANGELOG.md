@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix animation set to `false` in Sortable component
+- Fix Tooltip on elements with class 'uk-active' applied
 
 ## 3.6.18 (March 12, 2021)
 
