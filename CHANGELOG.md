@@ -10,6 +10,7 @@
 
 - Fix animation set to `false` in Sortable component
 - Fix Tooltip on elements with class 'uk-active' applied
+- Fix Slider parallax states
 
 ## 3.6.18 (March 12, 2021)
 
