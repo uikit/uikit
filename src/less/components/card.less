@@ -46,8 +46,13 @@
 @card-title-font-size:                         @global-large-font-size;
 @card-title-line-height:                       1.4;
 
-@card-badge-top:                               @global-gutter;
-@card-badge-right:                             @card-badge-top;
+@card-badge-top:                               15px;
+@card-badge-right:                             15px;
+@card-badge-height:                            30px;
+@card-badge-padding-horizontal:                10px;
+@card-badge-background:                        @global-primary-background;
+@card-badge-color:                             @global-inverse-color;
+@card-badge-font-size:                         @global-small-font-size;
 
 @card-hover-background:                        @global-muted-background;
 
@@ -179,11 +184,31 @@
 /* Badge
  ========================================================================== */
 
+/*
+ * 1. Position
+ * 2. Size
+ * 3. Style
+ * 4. Center child vertically
+ */
+
 .uk-card-badge {
+    /* 1 */
     position: absolute;
     top: @card-badge-top;
     right: @card-badge-right;
     z-index: 1;
+    /* 2 */
+    height: @card-badge-height;
+    padding-left: @card-badge-padding-horizontal;
+    padding-right: @card-badge-padding-horizontal;
+    /* 3 */
+    background: @card-badge-background;
+    color: @card-badge-color;
+    font-size: @card-badge-font-size;
+    /* 4 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .hook-card-badge;
 }
 
@@ -346,3 +371,22 @@
 .hook-card-secondary-title() {}
 .hook-card-secondary-hover() {}
 .hook-card-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-card-badge-background:                     @inverse-global-primary-background;
+@inverse-card-badge-color:                          @inverse-global-inverse-color;
+
+.hook-inverse() {
+
+    &.uk-card-badge {
+        background-color: @inverse-card-badge-background;
+        color: @inverse-card-badge-color;
+        .hook-inverse-card-badge;
+    }
+
+}
+
+.hook-inverse-card-badge() {}

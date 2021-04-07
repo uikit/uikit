@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.6.19 (April 7, 2021)
+
+### Change
+
+- Update card badge style
+
+### Fixed
+
+- Fix animation set to `false` in Sortable component
+- Fix Tooltip on elements with class 'uk-active' applied
+- Fix Slider parallax states
+
 ## 3.6.18 (March 12, 2021)
 
 ### Added

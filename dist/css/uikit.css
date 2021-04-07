@@ -1,4 +1,4 @@
-/*! UIkit 3.6.18 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.19 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2687,11 +2687,30 @@ select.uk-form-width-xsmall {
 }
 /* Badge
  ========================================================================== */
+/*
+ * 1. Position
+ * 2. Size
+ * 3. Style
+ * 4. Center child vertically
+ */
 .uk-card-badge {
+  /* 1 */
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 15px;
+  right: 15px;
   z-index: 1;
+  /* 2 */
+  height: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  /* 3 */
+  background: #1e87f0;
+  color: #fff;
+  font-size: 0.875rem;
+  /* 4 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /*
  * Remove margin from adjacent element
@@ -4019,19 +4038,21 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 /*
  * 1. Let items take content dimensions (0 0 auto)
- * 2. Create position context
- * 3. Disable horizontal panning gestures in IE11 and Edge
- * 4. Suppress outline on focus
+ *    `max-width` needed to keep image responsiveness and prevent content overflow
+ * 3. Create position context
+ * 4. Disable horizontal panning gestures in IE11 and Edge
+ * 5. Suppress outline on focus
  */
 .uk-slider-items > * {
   /* 1 */
   flex: none;
-  /* 2 */
-  position: relative;
+  max-width: 100%;
   /* 3 */
+  position: relative;
+  /* 4 */
   touch-action: pan-y;
 }
-/* 4 */
+/* 5 */
 .uk-slider-items > :focus {
   outline: none;
 }
@@ -10957,6 +10978,20 @@ iframe.uk-cover {
 .uk-offcanvas-bar .uk-button-link:hover,
 .uk-offcanvas-bar .uk-button-link:focus {
   color: rgba(255, 255, 255, 0.7);
+}
+.uk-light.uk-card-badge,
+.uk-section-primary:not(.uk-preserve-color).uk-card-badge,
+.uk-section-secondary:not(.uk-preserve-color).uk-card-badge,
+.uk-tile-primary:not(.uk-preserve-color).uk-card-badge,
+.uk-tile-secondary:not(.uk-preserve-color).uk-card-badge,
+.uk-card-primary.uk-card-body.uk-card-badge,
+.uk-card-primary > :not([class*='uk-card-media']).uk-card-badge,
+.uk-card-secondary.uk-card-body.uk-card-badge,
+.uk-card-secondary > :not([class*='uk-card-media']).uk-card-badge,
+.uk-overlay-primary.uk-card-badge,
+.uk-offcanvas-bar.uk-card-badge {
+  background-color: #fff;
+  color: #666;
 }
 .uk-light .uk-close,
 .uk-section-primary:not(.uk-preserve-color) .uk-close,

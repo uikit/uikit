@@ -1,4 +1,4 @@
-import {$$, css, data, filter, isInView, Promise, removeClass, toggleClass, trigger} from 'uikit-util';
+import {$$, css, filter, data as getData, isInView, Promise, removeClass, toggleClass, trigger} from 'uikit-util';
 
 const stateKey = '_ukScrollspy';
 export default {
@@ -57,16 +57,21 @@ export default {
 
         {
 
-            read({update}) {
+            read(data) {
 
-                if (!update) {
-                    return;
+                // Let child components be applied at least once first
+                if (!data.update) {
+                    Promise.resolve().then(() => {
+                        this.$emit();
+                        data.update = true;
+                    });
+                    return false;
                 }
 
                 this.elements.forEach(el => {
 
                     if (!el[stateKey]) {
-                        el[stateKey] = {cls: data(el, 'uk-scrollspy-class') || this.cls};
+                        el[stateKey] = {cls: getData(el, 'uk-scrollspy-class') || this.cls};
                     }
 
                     el[stateKey].show = isInView(el, this.offsetTop, this.offsetLeft);
@@ -76,12 +81,6 @@ export default {
             },
 
             write(data) {
-
-                // Let child components be applied at least once first
-                if (!data.update) {
-                    this.$emit();
-                    return data.update = true;
-                }
 
                 this.elements.forEach(el => {
 

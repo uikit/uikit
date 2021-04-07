@@ -6,7 +6,7 @@ export default {
 
     props: {
         duration: Number,
-        animation: String
+        animation: Boolean
     },
 
     data: {

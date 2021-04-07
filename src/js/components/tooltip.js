@@ -40,7 +40,7 @@ export default {
 
         show() {
 
-            if (this.isToggled(this.tooltip) || !this.title) {
+            if (this.isToggled(this.tooltip || null) || !this.title) {
                 return;
             }
 
@@ -62,7 +62,7 @@ export default {
 
             clearTimeout(this.showTimer);
 
-            if (!this.isToggled(this.tooltip)) {
+            if (!this.isToggled(this.tooltip || null)) {
                 return;
             }
 

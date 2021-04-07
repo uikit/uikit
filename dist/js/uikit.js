@@ -1,4 +1,4 @@
-/*! UIkit 3.6.18 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.19 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3442,7 +3442,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.18';
+    UIkit.version = '3.6.19';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -7259,13 +7259,17 @@
 
             {
 
-                read: function(ref) {
+                read: function(data$1) {
                     var this$1 = this;
-                    var update = ref.update;
 
 
-                    if (!update) {
-                        return;
+                    // Let child components be applied at least once first
+                    if (!data$1.update) {
+                        Promise.resolve().then(function () {
+                            this$1.$emit();
+                            data$1.update = true;
+                        });
+                        return false;
                     }
 
                     this.elements.forEach(function (el) {
@@ -7283,12 +7287,6 @@
                 write: function(data) {
                     var this$1 = this;
 
-
-                    // Let child components be applied at least once first
-                    if (!data.update) {
-                        this.$emit();
-                        return data.update = true;
-                    }
 
                     this.elements.forEach(function (el) {
 
@@ -8626,7 +8624,7 @@
 
         props: {
             duration: Number,
-            animation: String
+            animation: Boolean
         },
 
         data: {
@@ -10859,7 +10857,6 @@
 
                 this.translate(percent);
 
-                prev && this.updateTranslates();
                 percent = prev ? percent : clamp(percent, 0, 1);
                 triggerUpdate$1(this.getItemIn(), 'itemin', {percent: percent, duration: duration, timing: timing, dir: dir});
                 prev && triggerUpdate$1(this.getItemIn(true), 'itemout', {percent: 1 - percent, duration: duration, timing: timing, dir: dir});
@@ -10897,13 +10894,29 @@
                     dimensions(list).width
                 ) * (isRtl ? -1 : 1), 'px'));
 
-                this.updateTranslates();
+                var actives = this.getActives();
+                var itemIn = this.getItemIn();
+                var itemOut = this.getItemIn(true);
 
-                if (prev) {
-                    percent = clamp(percent, -1, 1);
-                    triggerUpdate$1(this.getItemIn(), 'itemtranslatein', {percent: percent, dir: dir});
-                    triggerUpdate$1(this.getItemIn(true), 'itemtranslateout', {percent: 1 - percent, dir: dir});
-                }
+                percent = prev ? clamp(percent, -1, 1) : 0;
+
+                children(list).forEach(function (slide, i) {
+                    var isActive = includes(actives, slide);
+                    var isIn = slide === itemIn;
+                    var isOut = slide === itemOut;
+                    var translateIn = isIn || !isOut && (isActive || dir * (isRtl ? -1 : 1) === -1 ^ getElLeft(slide, list) > getElLeft(prev || next));
+
+                    triggerUpdate$1(slide, ("itemtranslate" + (translateIn ? 'in' : 'out')), {
+                        dir: dir,
+                        percent: isOut
+                            ? 1 - percent
+                            : isIn
+                                ? percent
+                                : isActive
+                                    ? 1
+                                    : 0
+                    });
+                });
 
             },
 
@@ -10919,33 +10932,21 @@
                 if ( out === void 0 ) out = false;
 
 
-                var actives = sortBy(this.getActives(), 'offsetLeft');
-                var all = sortBy(children(list), 'offsetLeft');
-                var i = index(all, actives[dir * (out ? -1 : 1) > 0 ? actives.length - 1 : 0]);
+                var actives = this.getActives();
+                var nextActives = inView(list, getLeft(next || prev, list, center));
 
-                return ~i && all[i + (prev && !out ? dir : 0)];
+                if (out) {
+                    var temp = actives;
+                    actives = nextActives;
+                    nextActives = temp;
+                }
+
+                return nextActives[findIndex(nextActives, function (el) { return !includes(actives, el); })];
 
             },
 
             getActives: function() {
-                return [prev || next].concat(children(list).filter(function (slide) {
-                    var slideLeft = getElLeft(slide, list);
-                    return slideLeft > from && slideLeft + dimensions(slide).width <= dimensions(list).width + from;
-                }));
-            },
-
-            updateTranslates: function() {
-
-                var actives = this.getActives();
-
-                children(list).forEach(function (slide) {
-                    var isActive = includes(actives, slide);
-
-                    triggerUpdate$1(slide, ("itemtranslate" + (isActive ? 'in' : 'out')), {
-                        percent: isActive ? 1 : 0,
-                        dir: slide.offsetLeft <= next.offsetLeft ? 1 : -1
-                    });
-                });
+                return inView(list, getLeft(prev || next, list, center));
             }
 
         };
@@ -10976,6 +10977,19 @@
 
     function getElLeft(el, list) {
         return el && (position(el).left + (isRtl ? dimensions(el).width - dimensions(list).width : 0)) * (isRtl ? -1 : 1) || 0;
+    }
+
+    function inView(list, listLeft) {
+
+        listLeft -= 1;
+        var listRight = listLeft + dimensions(list).width + 2;
+
+        return children(list).filter(function (slide) {
+            var slideLeft = getElLeft(slide, list);
+            var slideRight = slideLeft + dimensions(slide).width;
+
+            return slideLeft >= listLeft && slideRight <= listRight;
+        });
     }
 
     function triggerUpdate$1(el, type, data) {
@@ -12018,7 +12032,7 @@
                 var this$1 = this;
 
 
-                if (this.isToggled(this.tooltip) || !this.title) {
+                if (this.isToggled(this.tooltip || null) || !this.title) {
                     return;
                 }
 
@@ -12041,7 +12055,7 @@
 
                 clearTimeout(this.showTimer);
 
-                if (!this.isToggled(this.tooltip)) {
+                if (!this.isToggled(this.tooltip || null)) {
                     return;
                 }
 
