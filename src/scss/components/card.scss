@@ -46,8 +46,13 @@ $card-footer-padding-vertical-l:                round($global-medium-gutter / 2)
 $card-title-font-size:                          $global-large-font-size !default;
 $card-title-line-height:                        1.4 !default;
 
-$card-badge-top:                                $global-gutter !default;
-$card-badge-right:                              $card-badge-top !default;
+$card-badge-top:                                15px !default;
+$card-badge-right:                              15px !default;
+$card-badge-height:                             30px !default;
+$card-badge-padding-horizontal:                 10px !default;
+$card-badge-background:                         $global-primary-background !default;
+$card-badge-color:                              $global-inverse-color !default;
+$card-badge-font-size:                          $global-small-font-size !default;
 
 $card-hover-background:                         $global-muted-background !default;
 
@@ -179,11 +184,31 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
 /* Badge
  ========================================================================== */
 
+/*
+ * 1. Position
+ * 2. Size
+ * 3. Style
+ * 4. Center child vertically
+ */
+
 .uk-card-badge {
+    /* 1 */
     position: absolute;
     top: $card-badge-top;
     right: $card-badge-right;
     z-index: 1;
+    /* 2 */
+    height: $card-badge-height;
+    padding-left: $card-badge-padding-horizontal;
+    padding-right: $card-badge-padding-horizontal;
+    /* 3 */
+    background: $card-badge-background;
+    color: $card-badge-color;
+    font-size: $card-badge-font-size;
+    /* 4 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @if(mixin-exists(hook-card-badge)) {@include hook-card-badge();}
 }
 
@@ -346,3 +371,14 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
 // @mixin hook-card-secondary-title(){}
 // @mixin hook-card-secondary-hover(){}
 // @mixin hook-card-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-card-badge-background:                      $inverse-global-primary-background !default;
+$inverse-card-badge-color:                           $inverse-global-inverse-color !default;
+
+
+
+// @mixin hook-inverse-card-badge(){}
