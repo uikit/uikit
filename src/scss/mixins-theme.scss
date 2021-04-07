@@ -631,6 +631,16 @@
     }
 
 }
+@mixin hook-inverse-card-badge(){}
+@mixin hook-inverse-component-card(){
+
+    &.uk-card-badge {
+        background-color: $inverse-card-badge-background;
+        color: $inverse-card-badge-color;
+        @if(mixin-exists(hook-inverse-card-badge)) {@include hook-inverse-card-badge();}
+    }
+
+}
 @mixin hook-close(){
     transition: 0.1s ease-in-out;
     transition-property: color, opacity;
