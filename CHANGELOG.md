@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix inverse colors for link toggle in Base component
+
 ## 3.6.19 (April 7, 2021)
 
 ### Change

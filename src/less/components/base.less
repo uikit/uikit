@@ -629,7 +629,9 @@ template { display: none; }
     }
 
     a:hover,
-    .uk-link:hover {
+    .uk-link:hover,
+    .uk-link-toggle:hover .uk-link,
+    .uk-link-toggle:focus .uk-link {
         color: @inverse-base-link-hover-color;
         .hook-inverse-base-link-hover;
     }
