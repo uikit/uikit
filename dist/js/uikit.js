@@ -1,4 +1,4 @@
-/*! UIkit 3.6.19 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.20 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -461,6 +461,10 @@
     var selInput = 'input,select,textarea,button';
     function isInput(element) {
         return toNodes(element).some(function (element) { return matches(element, selInput); });
+    }
+
+    function isFocusable(element) {
+        return isInput(element) || matches(element, 'a[href],button') || hasAttr(element, 'tabindex');
     }
 
     function parent(element) {
@@ -2580,6 +2584,7 @@
         isVisible: isVisible,
         selInput: selInput,
         isInput: isInput,
+        isFocusable: isFocusable,
         parent: parent,
         filter: filter,
         matches: matches,
@@ -3442,7 +3447,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.19';
+    UIkit.version = '3.6.20';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4378,7 +4383,7 @@
 
             {
 
-                name: pointerEnter,
+                name: (pointerEnter + " focusin"),
 
                 filter: function() {
                     return includes(this.mode, 'hover');
@@ -4394,7 +4399,7 @@
 
             {
 
-                name: pointerLeave,
+                name: (pointerLeave + " focusout"),
 
                 filter: function() {
                     return includes(this.mode, 'hover');
@@ -8020,6 +8025,12 @@
             queued: true
         },
 
+        connected: function() {
+            if (!isFocusable(this.$el)) {
+                attr(this.$el, 'tabindex', '0');
+            }
+        },
+
         computed: {
 
             target: {
@@ -8046,7 +8057,7 @@
 
             {
 
-                name: (pointerEnter + " " + pointerLeave),
+                name: (pointerEnter + " " + pointerLeave + " focus blur"),
 
                 filter: function() {
                     return includes(this.mode, 'hover');
@@ -8054,7 +8065,7 @@
 
                 handler: function(e) {
                     if (!isTouch(e)) {
-                        this.toggle(("toggle" + (e.type === pointerEnter ? 'show' : 'hide')));
+                        this.toggle(("toggle" + (includes([pointerEnter, 'focus'], e.type) ? 'show' : 'hide')));
                     }
                 }
 
@@ -12119,10 +12130,6 @@
         if (!isFocusable(el)) {
             attr(el, 'tabindex', '0');
         }
-    }
-
-    function isFocusable(el) {
-        return isInput(el) || matches(el, 'a,button') || hasAttr(el, 'tabindex');
     }
 
     var upload = {

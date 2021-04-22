@@ -1,4 +1,4 @@
-/*! UIkit 3.6.19 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.20 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -9383,26 +9383,48 @@ iframe.uk-cover {
 }
 .uk-light a:hover,
 .uk-light .uk-link:hover,
+.uk-light .uk-link-toggle:hover .uk-link,
+.uk-light .uk-link-toggle:focus .uk-link,
 .uk-section-primary:not(.uk-preserve-color) a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-link:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link,
 .uk-section-secondary:not(.uk-preserve-color) a:hover,
 .uk-section-secondary:not(.uk-preserve-color) .uk-link:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link,
 .uk-tile-primary:not(.uk-preserve-color) a:hover,
 .uk-tile-primary:not(.uk-preserve-color) .uk-link:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link,
 .uk-tile-secondary:not(.uk-preserve-color) a:hover,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-link:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link,
 .uk-card-primary.uk-card-body a:hover,
 .uk-card-primary.uk-card-body .uk-link:hover,
+.uk-card-primary.uk-card-body .uk-link-toggle:hover .uk-link,
+.uk-card-primary.uk-card-body .uk-link-toggle:focus .uk-link,
 .uk-card-primary > :not([class*='uk-card-media']) a:hover,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-link:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-toggle:hover .uk-link,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-toggle:focus .uk-link,
 .uk-card-secondary.uk-card-body a:hover,
 .uk-card-secondary.uk-card-body .uk-link:hover,
+.uk-card-secondary.uk-card-body .uk-link-toggle:hover .uk-link,
+.uk-card-secondary.uk-card-body .uk-link-toggle:focus .uk-link,
 .uk-card-secondary > :not([class*='uk-card-media']) a:hover,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-link:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-toggle:hover .uk-link,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-toggle:focus .uk-link,
 .uk-overlay-primary a:hover,
 .uk-overlay-primary .uk-link:hover,
+.uk-overlay-primary .uk-link-toggle:hover .uk-link,
+.uk-overlay-primary .uk-link-toggle:focus .uk-link,
 .uk-offcanvas-bar a:hover,
-.uk-offcanvas-bar .uk-link:hover {
+.uk-offcanvas-bar .uk-link:hover,
+.uk-offcanvas-bar .uk-link-toggle:hover .uk-link,
+.uk-offcanvas-bar .uk-link-toggle:focus .uk-link {
   color: #fff;
 }
 .uk-light :not(pre) > code,

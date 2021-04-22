@@ -207,6 +207,7 @@ $grid-divider-border:                            $global-border !default;
     top: 0;
     bottom: 0;
     border-left: $grid-divider-border-width solid $grid-divider-border;
+    @if(mixin-exists(hook-grid-divider-horizontal)) {@include hook-grid-divider-horizontal();}
 }
 
 /* Vertical */
@@ -216,6 +217,7 @@ $grid-divider-border:                            $global-border !default;
     left: 0;
     right: 0;
     border-top: $grid-divider-border-width solid $grid-divider-border;
+    @if(mixin-exists(hook-grid-divider-vertical)) {@include hook-grid-divider-vertical();}
 }
 
 /*
@@ -389,6 +391,8 @@ $grid-divider-border:                            $global-border !default;
 
 @if(mixin-exists(hook-grid-misc)) {@include hook-grid-misc();}
 
+// @mixin hook-grid-divider-horizontal(){}
+// @mixin hook-grid-divider-vertical(){}
 // @mixin hook-grid-misc(){}
 
 
@@ -398,3 +402,6 @@ $grid-divider-border:                            $global-border !default;
 $inverse-grid-divider-border:                   $inverse-global-border !default;
 
 
+
+// @mixin hook-inverse-grid-divider-horizontal(){}
+// @mixin hook-inverse-grid-divider-vertical(){}
