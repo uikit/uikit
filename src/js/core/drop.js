@@ -160,7 +160,7 @@ export default {
 
         {
 
-            name: pointerEnter,
+            name: `${pointerEnter} focusin`,
 
             filter() {
                 return includes(this.mode, 'hover');
@@ -176,7 +176,7 @@ export default {
 
         {
 
-            name: pointerLeave,
+            name: `${pointerLeave} focusout`,
 
             filter() {
                 return includes(this.mode, 'hover');

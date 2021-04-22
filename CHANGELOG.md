@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Change
+
+- Toggle component in hover mode toggles on focus and blur
+
 ### Fixed
 
 - Fix inverse colors for link toggle in Base component
