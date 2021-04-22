@@ -1,7 +1,7 @@
 import Container from '../mixin/container';
 import Togglable from '../mixin/togglable';
 import Position from '../mixin/position';
-import {append, attr, flipPosition, hasAttr, isInput, isTouch, matches, on, once, pointerDown, pointerEnter, pointerLeave, remove, within} from 'uikit-util';
+import {append, attr, flipPosition, hasAttr, isFocusable, isTouch, matches, on, once, pointerDown, pointerEnter, pointerLeave, remove, within} from 'uikit-util';
 
 export default {
 
@@ -132,8 +132,4 @@ function makeFocusable(el) {
     if (!isFocusable(el)) {
         attr(el, 'tabindex', '0');
     }
-}
-
-function isFocusable(el) {
-    return isInput(el) || matches(el, 'a,button') || hasAttr(el, 'tabindex');
 }

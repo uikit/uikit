@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.6.20 (April 22, 2021)
+
+### Change
+
+- Toggle component in hover mode toggles on focus and blur
+
+### Fixed
+
+- Fix inverse colors for link toggle in Base component
+
 ## 3.6.19 (April 7, 2021)
 
 ### Change

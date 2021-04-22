@@ -1,3 +1,4 @@
+import {hasAttr} from './attr';
 import {inBrowser} from './env';
 import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
 
@@ -30,6 +31,10 @@ export function isVisible(element) {
 export const selInput = 'input,select,textarea,button';
 export function isInput(element) {
     return toNodes(element).some(element => matches(element, selInput));
+}
+
+export function isFocusable(element) {
+    return isInput(element) || matches(element, 'a[href],button') || hasAttr(element, 'tabindex');
 }
 
 export function parent(element) {

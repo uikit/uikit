@@ -1,6 +1,6 @@
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
-import {attr, closest, hasClass, hasTouch, includes, isBoolean, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
+import {attr, closest, hasClass, hasTouch, includes, isBoolean, isFocusable, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
 
 export default {
 
@@ -20,6 +20,12 @@ export default {
         target: false,
         mode: 'click',
         queued: true
+    },
+
+    connected() {
+        if (!isFocusable(this.$el)) {
+            attr(this.$el, 'tabindex', '0');
+        }
     },
 
     computed: {
@@ -45,7 +51,7 @@ export default {
 
         {
 
-            name: `${pointerEnter} ${pointerLeave}`,
+            name: `${pointerEnter} ${pointerLeave} focus blur`,
 
             filter() {
                 return includes(this.mode, 'hover');
@@ -53,7 +59,7 @@ export default {
 
             handler(e) {
                 if (!isTouch(e)) {
-                    this.toggle(`toggle${e.type === pointerEnter ? 'show' : 'hide'}`);
+                    this.toggle(`toggle${includes([pointerEnter, 'focus'], e.type) ? 'show' : 'hide'}`);
                 }
             }
 
