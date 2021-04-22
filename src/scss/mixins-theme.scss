@@ -184,7 +184,9 @@
     }
 
     a:hover,
-    .uk-link:hover {
+    .uk-link:hover,
+    .uk-link-toggle:hover .uk-link,
+    .uk-link-toggle:focus .uk-link {
         color: $inverse-base-link-hover-color;
         @if(mixin-exists(hook-inverse-base-link-hover)) {@include hook-inverse-base-link-hover();}
     }
@@ -947,11 +949,22 @@
     .uk-form-icon:hover { color: $inverse-form-icon-hover-color; }
 
 }
+@mixin hook-grid-divider-horizontal(){}
+@mixin hook-grid-divider-vertical(){}
 @mixin hook-grid-misc(){}
+@mixin hook-inverse-grid-divider-horizontal(){}
+@mixin hook-inverse-grid-divider-vertical(){}
 @mixin hook-inverse-component-grid(){
 
-    .uk-grid-divider > :not(.uk-first-column)::before { border-left-color: $inverse-grid-divider-border; }
-    .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before { border-top-color: $inverse-grid-divider-border; }
+    .uk-grid-divider > :not(.uk-first-column)::before {
+        border-left-color: $inverse-grid-divider-border;
+        @if(mixin-exists(hook-inverse-grid-divider-horizontal)) {@include hook-inverse-grid-divider-horizontal();}
+    }
+
+    .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
+        border-top-color: $inverse-grid-divider-border;
+        @if(mixin-exists(hook-inverse-grid-divider-vertical)) {@include hook-inverse-grid-divider-vertical();}
+    }
 
 }
 @mixin hook-heading-small(){}
