@@ -63,8 +63,7 @@ function apply(element, args, fn) {
 }
 
 function getClasses(str) {
-    str = String(str);
-    return (~str.indexOf(' ') ? str.split(' ') : [str]).filter(Boolean);
+    return String(str).split(/\s|,/).filter(Boolean);
 }
 
 // IE 11
