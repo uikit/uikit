@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add divider modifier to Nav component
+
 ### Fixed
 
 - Fix passing an array of classes to class utility functions
