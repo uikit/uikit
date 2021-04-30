@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix passing an array of classes to class utility functions
+- Fix boundary option in Drop component
 
 ## 3.6.20 (April 22, 2021)
 
