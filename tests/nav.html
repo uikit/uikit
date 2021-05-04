@@ -14,6 +14,13 @@
 
             <h1>Nav</h1>
 
+            <div class="uk-margin">
+                <select id="js-divider-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Default</option>
+                    <option value="uk-nav-divider">Divider</option>
+                </select>
+            </div>
+
             <div class="uk-child-width-1-4@m" uk-grid>
                 <div>
 
@@ -350,6 +357,21 @@
             </table>
 
         </div>
+
+        <script>
+
+            var options = UIkit.util.$$('#js-divider-switcher option').map(function (option) { return option.value; });
+
+            UIkit.util.on('#js-divider-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('.uk-nav').forEach(function (table) {
+                    UIkit.util.removeClass(table, options);
+                    UIkit.util.addClass(table, value);
+                });
+            });
+
+        </script>
+
 
     </body>
 </html>

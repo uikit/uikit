@@ -38,7 +38,7 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
 
         let boundaries = scrollParents(element).map(getViewport);
 
-        if (boundary && includes(boundaries, boundary)) {
+        if (boundary && !includes(boundaries, boundary)) {
             boundaries.unshift(boundary);
         }
 
