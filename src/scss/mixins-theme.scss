@@ -1352,6 +1352,15 @@
 
     .uk-nav-primary .uk-nav-sub li.uk-active > a { color: $inverse-nav-primary-sublist-item-active-color; }
 
+    //
+    // Dividers
+    //
+
+    .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
+        border-top-color: $inverse-nav-dividers-border;
+        @if(mixin-exists(hook-nav-dividers)) {@include hook-nav-dividers();}
+    }
+
 }
 @mixin hook-inverse-component-navbar(){
 
@@ -1721,6 +1730,7 @@
 @mixin hook-nav-primary-item-active(){}
 @mixin hook-nav-primary-header(){}
 @mixin hook-nav-primary-divider(){}
+@mixin hook-nav-dividers(){}
 @mixin hook-nav-misc(){}
 @mixin hook-inverse-nav-parent-icon(){}
 @mixin hook-inverse-nav-default-item(){}
