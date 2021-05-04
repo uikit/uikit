@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.6.21 (May 4, 2021)
 
 ### Added
 

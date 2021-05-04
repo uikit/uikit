@@ -70,6 +70,12 @@ $nav-default-font-size:                          $global-small-font-size !defaul
 // @mixin hook-nav-primary-divider(){}
 
 
+// Style modifier
+// ========================================================================
+
+// @mixin hook-nav-dividers(){}
+
+
 // Miscellaneous
 // ========================================================================
 
@@ -92,3 +98,5 @@ $nav-default-font-size:                          $global-small-font-size !defaul
 // @mixin hook-inverse-nav-primary-item-active(){}
 // @mixin hook-inverse-nav-primary-header(){}
 // @mixin hook-inverse-nav-primary-divider(){}
+
+// @mixin hook-inverse-nav-dividers(){}
