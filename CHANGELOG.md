@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add animation set to `false` in Filter component
+
 ### Fixed
 
 - Fix box-shadow bottom being clipped in Safari if container is animated

@@ -260,11 +260,7 @@ export default {
                 ? before(target, element)
                 : append(this.target, element);
 
-            if (this.animation) {
-                this.animate(insert);
-            } else {
-                insert();
-            }
+            this.animate(insert);
 
         },
 
@@ -274,11 +270,7 @@ export default {
                 return;
             }
 
-            if (this.animation) {
-                this.animate(() => remove(element));
-            } else {
-                remove(element);
-            }
+            this.animate(() => remove(element));
 
         },
 

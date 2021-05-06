@@ -1,6 +1,6 @@
 import fade from './internal/animate-fade';
 import slide from './internal/animate-slide';
-import {noop} from 'uikit-util';
+import {noop, Promise} from 'uikit-util';
 
 export default {
 
@@ -23,7 +23,12 @@ export default {
                 ? fade
                 : name === 'delayed-fade'
                     ? (...args) => fade(...args, 40)
-                    : slide;
+                    : !name
+                        ? () => {
+                            action();
+                            return Promise.resolve();
+                        }
+                        : slide;
 
             return animationFn(action, target, this.duration)
                 .then(() => this.$update(target, 'resize'), noop);
