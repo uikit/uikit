@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- Fix box-shadow bottom being clipped in Safari if container is animated
 - Fix passing an array of classes to class utility functions
 - Fix boundary option in Drop component
 
