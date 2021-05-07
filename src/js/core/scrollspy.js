@@ -1,4 +1,4 @@
-import {$$, css, filter, data as getData, isInView, once, Promise, removeClass, toggleClass, trigger, removeClasses} from 'uikit-util';
+import {$$, css, filter, data as getData, isInView, once, Promise, removeClass, removeClasses, toggleClass, trigger} from 'uikit-util';
 
 const stateKey = '_ukScrollspy';
 export default {
@@ -132,9 +132,9 @@ export default {
             toggleClass(el, state.cls);
 
             if (/\buk-animation-/.test(state.cls)) {
-                state.off = once(el, 'animationcancel animationend', () => {
-                    removeClasses(el, 'uk-animation-\\w*');
-                });
+                state.off = once(el, 'animationcancel animationend', () =>
+                    removeClasses(el, 'uk-animation-\\w*')
+                );
             }
 
             trigger(el, inview ? 'inview' : 'outview');
