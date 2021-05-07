@@ -6,6 +6,10 @@
 
 - Add animation set to `false` in Filter component
 
+### Changed
+
+- Animation classes toggled by Scrollspy component are removed after animation finishes
+
 ### Fixed
 
 - Fix box-shadow bottom being clipped in Safari if container is animated
