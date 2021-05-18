@@ -1,4 +1,4 @@
-/*! UIkit 3.6.21 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.6.22 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4060,7 +4060,7 @@ select.uk-form-width-xsmall {
    Component: Sticky
  ========================================================================== */
 /*
- * 1. Resolve frame rate issues on devices with lower frame rates by forcing hardware acceleration
+ * 1. Force new layer to resolve frame rate issues on devices with lower frame rates
  */
 .uk-sticky-fixed {
   z-index: 980;
@@ -7993,7 +7993,7 @@ iframe.uk-cover {
  * 2. Create position context
  * 3. Prevent content overflow
  * 4. Behave like most inline-block elements
- * 5. Force hardware acceleration without creating a new stacking context
+ * 5. Force new layer without creating a new stacking context
  *    to fix 1px glitch when combined with overlays and transitions in Webkit
  * 6. Clip child elements
  */
@@ -8111,32 +8111,31 @@ iframe.uk-cover {
 /*
  * 1. Set position.
  * 2. Set style
- * 3. Blur doesn't work on pseudo elements with negative `z-index` in Edge.
- *    Solved by using `before` and add position context to child elements.
+ * 3. Fix shadow being clipped in Safari if container is animated
  */
 @supports (filter: blur(0)) {
   .uk-box-shadow-bottom {
     display: inline-block;
     position: relative;
+    z-index: 0;
     max-width: 100%;
     vertical-align: middle;
   }
-  .uk-box-shadow-bottom::before {
+  .uk-box-shadow-bottom::after {
     content: '';
     /* 1 */
     position: absolute;
     bottom: -30px;
     right: 0;
     left: 0;
+    z-index: -1;
     /* 2 */
     height: 30px;
     border-radius: 100%;
     background: #444;
     filter: blur(20px);
-  }
-  /* 3 */
-  .uk-box-shadow-bottom > * {
-    position: relative;
+    /* 3 */
+    will-change: filter;
   }
 }
 /* Drop cap
