@@ -169,7 +169,7 @@
  * 2. Create position context
  * 3. Prevent content overflow
  * 4. Behave like most inline-block elements
- * 5. Force hardware acceleration without creating a new stacking context
+ * 5. Force new layer without creating a new stacking context
  *    to fix 1px glitch when combined with overlays and transitions in Webkit
  * 6. Clip child elements
  */
@@ -283,36 +283,36 @@
 /*
  * 1. Set position.
  * 2. Set style
- * 3. Blur doesn't work on pseudo elements with negative `z-index` in Edge.
- *    Solved by using `before` and add position context to child elements.
+ * 3. Fix shadow being clipped in Safari if container is animated
  */
 
 @supports (filter: blur(0)) {
-
+ 
     .uk-box-shadow-bottom {
         display: inline-block;
         position: relative;
+        z-index: 0;
         max-width: 100%;
         vertical-align: middle;
     }
 
-    .uk-box-shadow-bottom::before {
+    .uk-box-shadow-bottom::after {
         content: '';
         /* 1 */
         position: absolute;
         bottom: -@box-shadow-bottom-height;
         left: 0;
         right: 0;
+        z-index: -1;
         /* 2 */
         height: @box-shadow-bottom-height;
         border-radius: @box-shadow-bottom-border-radius;
         background: @box-shadow-bottom-background;
         filter: blur(@box-shadow-bottom-blur);
+        /* 3 */
+        will-change: filter;
         .hook-box-shadow-bottom;
     }
-
-    /* 3 */
-    .uk-box-shadow-bottom > * { position: relative; }
 
 }
 

@@ -1,4 +1,4 @@
-import {$$, css, filter, data as getData, isInView, Promise, removeClass, toggleClass, trigger} from 'uikit-util';
+import {$$, css, filter, data as getData, isInView, once, Promise, removeClass, removeClasses, toggleClass, trigger} from 'uikit-util';
 
 const stateKey = '_ukScrollspy';
 export default {
@@ -85,20 +85,6 @@ export default {
                 this.elements.forEach(el => {
 
                     const state = el[stateKey];
-                    const toggle = inview => {
-
-                        css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
-
-                        toggleClass(el, this.inViewClass, inview);
-                        toggleClass(el, state.cls);
-
-                        trigger(el, inview ? 'inview' : 'outview');
-
-                        state.inview = inview;
-
-                        this.$update(el);
-
-                    };
 
                     if (state.show && !state.inview && !state.queued) {
 
@@ -109,7 +95,7 @@ export default {
                                 setTimeout(resolve, this.delay)
                             )
                         ).then(() => {
-                            toggle(true);
+                            this.toggle(el, true);
                             setTimeout(() => {
                                 state.queued = false;
                                 this.$emit();
@@ -118,7 +104,7 @@ export default {
 
                     } else if (!state.show && state.inview && !state.queued && this.repeat) {
 
-                        toggle(false);
+                        this.toggle(el, false);
 
                     }
 
@@ -130,7 +116,35 @@ export default {
 
         }
 
-    ]
+    ],
+
+    methods: {
+
+        toggle(el, inview) {
+
+            const state = el[stateKey];
+
+            state.off && state.off();
+
+            css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
+
+            toggleClass(el, this.inViewClass, inview);
+            toggleClass(el, state.cls);
+
+            if (/\buk-animation-/.test(state.cls)) {
+                state.off = once(el, 'animationcancel animationend', () =>
+                    removeClasses(el, 'uk-animation-\\w*')
+                );
+            }
+
+            trigger(el, inview ? 'inview' : 'outview');
+
+            state.inview = inview;
+
+            this.$update(el);
+        }
+
+    }
 
 };
 
