@@ -24,7 +24,7 @@ $sticky-reverse-animation-duration:              0.2s !default;
  ========================================================================== */
 
 /*
- * 1. Resolve frame rate issues on devices with lower frame rates by forcing hardware acceleration
+ * 1. Force new layer to resolve frame rate issues on devices with lower frame rates
  */
 
 .uk-sticky-fixed {
