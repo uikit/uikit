@@ -2,6 +2,8 @@ import Class from '../mixin/class';
 import FlexBug from '../mixin/flex-bug';
 import {$, $$, addClass, after, assign, css, hasClass, height, includes, isRtl, isVisible, matches, noop, parent, Promise, query, remove, toFloat, Transition, within} from 'uikit-util';
 
+const navItem = '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle';
+
 export default {
 
     mixins: [Class, FlexBug],
@@ -23,7 +25,7 @@ export default {
     },
 
     data: {
-        dropdown: '.uk-navbar-nav > li',
+        dropdown: navItem,
         align: !isRtl ? 'left' : 'right',
         clsDrop: 'uk-navbar-dropdown',
         mode: undefined,
@@ -38,7 +40,7 @@ export default {
         dropbarAnchor: false,
         duration: 200,
         forceHeight: true,
-        selMinHeight: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle'
+        selMinHeight: navItem
     },
 
     computed: {
@@ -79,8 +81,8 @@ export default {
 
         dropdowns: {
 
-            get({dropdown, clsDrop}, $el) {
-                return $$(`${dropdown} .${clsDrop}`, $el);
+            get({clsDrop}, $el) {
+                return $$(`.${clsDrop}`, $el);
             },
 
             watch(dropdowns) {
