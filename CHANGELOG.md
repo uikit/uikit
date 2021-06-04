@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add text-decoration modifier to Text component
+- Add text decoration modifier to Text component
 
 ## Fixed
 
