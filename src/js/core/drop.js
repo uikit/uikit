@@ -314,7 +314,7 @@ export default {
 
             }
 
-            this.showTimer = setTimeout(() => !this.isToggled() && this.toggleElement(this.$el, true), delay && this.delayShow || 0);
+            this.showTimer = setTimeout(() => this.toggleElement(this.$el, true), delay && this.delayShow || 0);
 
         },
 
