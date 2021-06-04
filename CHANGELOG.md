@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add text-decoration modifier to Text component
+
 ## Fixed
 
 - Fix default dropdown selector in Navbar component
