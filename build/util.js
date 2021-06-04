@@ -93,9 +93,12 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
         external,
         input: resolve(file),
         plugins: [
-            replace(Object.assign({
-                VERSION: `'${version}'`
-            }, replaces)),
+            replace({
+                preventAssignment: true,
+                values: Object.assign({
+                    VERSION: `'${version}'`
+                }, replaces)}
+            ),
             alias({
                 entries: Object.assign({
                     'uikit-util': './src/js/util/index.js'
