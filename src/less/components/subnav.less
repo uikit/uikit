@@ -47,8 +47,9 @@
 
 /*
  * 1. Allow items to wrap into the next line
- * 2. Gutter
- * 3. Reset list
+ * 2. Center items vertically if they have a different height
+ * 3. Gutter
+ * 4. Reset list
  */
 
 .uk-subnav {
@@ -56,8 +57,10 @@
     /* 1 */
     flex-wrap: wrap;
     /* 2 */
-    margin-left: -@subnav-margin-horizontal;
+    align-items: center;
     /* 3 */
+    margin-left: -@subnav-margin-horizontal;
+    /* 4 */
     padding: 0;
     list-style: none;
     .hook-subnav;
