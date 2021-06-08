@@ -8,6 +8,7 @@
 
 ## Fixed
 
+- Fix icon alignment in Nav, Subnav and Tab components
 - Fix default dropdown selector in Navbar component
 
 ## 3.6.22 (May 18, 2021)

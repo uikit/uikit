@@ -70,15 +70,21 @@
 
 /*
  * Items must target `a` elements to exclude other elements (e.g. dropdowns)
- * 1. Center text if a width is set
- * 2. Style
+ * 1. Center content vertically, e.g. an icon
+ * 2. Imitate white space gap when using flexbox
+ * 3. Center content if a width is set
+ * 4. Style
  */
 
 .uk-tab > * > a {
     /* 1 */
-    display: block;
-    text-align: center;
+    display: flex;
+    align-items: center;
     /* 2 */
+    column-gap: 0.25em;
+    /* 3 */
+    justify-content: center;
+    /* 4 */
     padding: @tab-item-padding-vertical @tab-item-padding-horizontal;
     color: @tab-item-color;
     .hook-tab-item;
