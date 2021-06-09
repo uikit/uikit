@@ -6,6 +6,10 @@
 
 - Add text decoration modifier to Text component
 
+### Change
+
+- Change default search width and horizontal padding
+
 ## Fixed
 
 - Fix icon alignment in Nav, Subnav and Tab components
