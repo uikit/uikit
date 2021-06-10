@@ -8,8 +8,9 @@
 
 ### Change
 
-- Change default search width and horizontal padding
-- Change default badge width and font size
+- Change default search width and horizontal padding in Search component
+- Change badge width and font size in Badge component
+- Change button link color and text decoration in Button component
 
 ### Removed
 
