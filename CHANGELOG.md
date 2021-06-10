@@ -11,7 +11,7 @@
 - Change default search width and horizontal padding in Search component
 - Change badge width and font size in Badge component
 - Change button link color and text decoration in Button component
-- Change card badge style in Card component
+- Change card badge height in Card component
 
 ### Removed
 
