@@ -9,6 +9,7 @@
 ### Change
 
 - Change default search width and horizontal padding
+- Change default badge width and font size
 
 ## Fixed
 
