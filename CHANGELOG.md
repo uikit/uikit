@@ -5,6 +5,7 @@
 ### Added
 
 - Add text decoration modifier to Text component
+- Add width variable to range thumb in to Form Range component
 
 ### Change
 
