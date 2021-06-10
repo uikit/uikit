@@ -11,6 +11,10 @@
 - Change default search width and horizontal padding
 - Change default badge width and font size
 
+### Removed
+
+- Remove badge hover color variable in Badge component
+
 ## Fixed
 
 - Fix focus background in Form and Search component
