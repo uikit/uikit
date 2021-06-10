@@ -16,6 +16,8 @@
 @search-default-border-width:                       @global-border-width;
 @search-default-border:                             @global-border;
 
+@search-default-focus-border:                       @global-primary-background;
+
 
 // Component
 // ========================================================================
@@ -28,13 +30,13 @@
 
 .hook-search-default-input() { border: @search-default-border-width solid @search-default-border; }
 
+.hook-search-default-input-focus() { border-color: @search-default-focus-border; }
+
 
 // Navbar modifiers
 // ========================================================================
 
 .hook-search-navbar-input() {}
-
-.hook-search-default-input-focus() {}
 
 
 // Large modifiers
