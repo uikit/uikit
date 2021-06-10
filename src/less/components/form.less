@@ -790,6 +790,8 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-radio-background:                darken(@inverse-global-muted-background, 5%);
 
+@inverse-form-radio-focus-background:          darken(@inverse-form-radio-background, 5%);
+
 @inverse-form-radio-checked-background:        @inverse-global-primary-background;
 @inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color;
 
@@ -851,6 +853,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     // Focus
     .uk-radio:focus,
     .uk-checkbox:focus {
+        background-color: @inverse-form-radio-focus-background;
         .hook-inverse-form-radio-focus;
     }
 
