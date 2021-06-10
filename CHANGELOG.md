@@ -13,7 +13,7 @@
 
 ## Fixed
 
-- Fix form focus background in Form component
+- Fix focus background in Form and Search component
 - Fix form size modifier for textarea in Form component
 - Fix icon alignment in Nav, Subnav and Tab components
 - Fix default dropdown selector in Navbar component

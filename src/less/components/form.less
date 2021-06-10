@@ -780,7 +780,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-background:                      @inverse-global-muted-background;
 @inverse-form-color:                           @inverse-global-color;
-@inverse-form-focus-background:                @inverse-global-muted-background;
+@inverse-form-focus-background:                darken(@inverse-form-background, 30%);
 @inverse-form-focus-color:                     @inverse-global-color;
 @inverse-form-placeholder-color:               @inverse-global-muted-color;
 
@@ -788,9 +788,9 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-datalist-icon-color:             @inverse-global-color;
 
-@inverse-form-radio-background:                darken(@inverse-global-muted-background, 5%);
+@inverse-form-radio-background:                @inverse-global-muted-background;
 
-@inverse-form-radio-focus-background:          darken(@inverse-form-radio-background, 5%);
+@inverse-form-radio-focus-background:          darken(@inverse-form-radio-background, 30%);
 
 @inverse-form-radio-checked-background:        @inverse-global-primary-background;
 @inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color;
