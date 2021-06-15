@@ -1,12 +1,14 @@
+import {active} from './drop';
 import Class from '../mixin/class';
 import FlexBug from '../mixin/flex-bug';
+import Container from '../mixin/container';
 import {$, $$, addClass, after, assign, css, hasClass, height, includes, isRtl, isVisible, matches, noop, parent, Promise, query, remove, toFloat, Transition, within} from 'uikit-util';
 
 const navItem = '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle';
 
 export default {
 
-    mixins: [Class, FlexBug],
+    mixins: [Class, Container, FlexBug],
 
     props: {
         dropdown: String,
@@ -40,7 +42,8 @@ export default {
         dropbarAnchor: false,
         duration: 200,
         forceHeight: true,
-        selMinHeight: navItem
+        selMinHeight: navItem,
+        container: false
     },
 
     computed: {
@@ -79,10 +82,20 @@ export default {
 
         },
 
+        dropContainer(_, $el) {
+            return this.container || $el;
+        },
+
         dropdowns: {
 
             get({clsDrop}, $el) {
-                return $$(`.${clsDrop}`, $el);
+                const dropdowns = $$(`.${clsDrop}`, $el);
+
+                if (this.container !== $el) {
+                    $$(`.${clsDrop}`, this.container).forEach(el => !includes(dropdowns, el) && dropdowns.push(el));
+                }
+
+                return dropdowns;
             },
 
             watch(dropdowns) {
@@ -115,7 +128,7 @@ export default {
 
             handler({current}) {
                 const active = this.getActive();
-                if (active && active.toggle && !within(active.toggle.$el, current) && !active.tracker.movesTo(active.$el)) {
+                if (active && active.target && !within(active.target, current) && !active.tracker.movesTo(active.$el)) {
                     active.hide(false);
                 }
             }
@@ -141,7 +154,9 @@ export default {
         {
             name: 'beforeshow',
 
-            capture: true,
+            el() {
+                return this.dropContainer;
+            },
 
             filter() {
                 return this.dropbar;
@@ -158,6 +173,10 @@ export default {
 
         {
             name: 'show',
+
+            el() {
+                return this.dropContainer;
+            },
 
             filter() {
                 return this.dropbar;
@@ -183,6 +202,10 @@ export default {
         {
             name: 'beforehide',
 
+            el() {
+                return this.dropContainer;
+            },
+
             filter() {
                 return this.dropbar;
             },
@@ -199,6 +222,10 @@ export default {
 
         {
             name: 'hide',
+
+            el() {
+                return this.dropContainer;
+            },
 
             filter() {
                 return this.dropbar;
@@ -222,8 +249,7 @@ export default {
     methods: {
 
         getActive() {
-            const [active] = this.dropdowns.map(this.getDropdown).filter(drop => drop && drop.isActive());
-            return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
+            return active && includes(active.mode, 'hover') && within(active.target, this.$el) && active;
         },
 
         transitionTo(newHeight, el) {
