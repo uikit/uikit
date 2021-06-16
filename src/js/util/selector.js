@@ -3,12 +3,11 @@ import {closest, index, matches, parent} from './filter';
 import {isDocument, isString, memoize, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
-    return toNode(selector) || find(selector, getContext(selector, context));
+    return find(selector, getContext(selector, context));
 }
 
 export function queryAll(selector, context) {
-    const nodes = toNodes(selector);
-    return nodes.length && nodes || findAll(selector, getContext(selector, context));
+    return findAll(selector, getContext(selector, context));
 }
 
 function getContext(selector, context = document) {
@@ -28,14 +27,14 @@ export function findAll(selector, context) {
 function _query(selector, context = document, queryFn) {
 
     if (!selector || !isString(selector)) {
-        return null;
+        return selector;
     }
 
     selector = selector.replace(contextSanitizeRe, '$1 *');
 
     if (isContextSelector(selector)) {
 
-        selector = splitSelector(selector).map((selector, i) => {
+        selector = splitSelector(selector).map(selector => {
 
             let ctx = context;
 

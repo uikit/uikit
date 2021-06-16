@@ -137,21 +137,17 @@ export function apply(node, fn) {
 }
 
 export function $(selector, context) {
-    return !isString(selector)
-        ? toNode(selector)
-        : isHtml(selector)
-            ? toNode(fragment(selector))
-            : find(selector, context);
+    return isHtml(selector)
+        ? toNode(fragment(selector))
+        : find(selector, context);
 }
 
 export function $$(selector, context) {
-    return !isString(selector)
-        ? toNodes(selector)
-        : isHtml(selector)
-            ? toNodes(fragment(selector))
-            : findAll(selector, context);
+    return isHtml(selector)
+        ? toNodes(fragment(selector))
+        : findAll(selector, context);
 }
 
 function isHtml(str) {
-    return str[0] === '<' || str.match(/^\s*</);
+    return isString(str) && (str[0] === '<' || str.match(/^\s*</));
 }
