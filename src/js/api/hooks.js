@@ -112,6 +112,10 @@ export default function (UIkit) {
 
         const updates = this.$options.update;
 
+        if (!this._connected) {
+            return;
+        }
+
         for (let i = 0; i < updates.length; i++) {
             const {read, write, events} = updates[i];
 
