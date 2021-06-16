@@ -18,7 +18,7 @@
 
 - Remove badge hover color variable in Badge component
 
-## Fixed
+### Fixed
 
 - Fix focus background in Form and Search component
 - Fix form size modifier for textarea in Form component
