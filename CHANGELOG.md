@@ -20,6 +20,7 @@
 
 ### Fixed
 
+- Fix input type list showing picker indicator in Chrome
 - Fix focus background in Form and Search component
 - Fix form size modifier for textarea in Form component
 - Fix icon alignment in Nav, Subnav and Tab components
