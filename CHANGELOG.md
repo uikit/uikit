@@ -15,6 +15,7 @@
 - Change button link color and text decoration in Button component
 - Change card badge height in Card component
 - Remove margin from the navbar item last-child in Navbar component
+- Add white space gap for navbar item in Navbar component
 
 ### Removed
 
