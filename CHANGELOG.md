@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix animation classes only partially being removed in Scrollspy component
+
 ## 3.7.0 (June 29, 2021)
 
 ### Added

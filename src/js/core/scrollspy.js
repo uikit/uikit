@@ -133,7 +133,7 @@ export default {
 
             if (/\buk-animation-/.test(state.cls)) {
                 state.off = once(el, 'animationcancel animationend', () =>
-                    removeClasses(el, 'uk-animation-\\w*')
+                    removeClasses(el, 'uk-animation-[\\w-]+')
                 );
             }
 
