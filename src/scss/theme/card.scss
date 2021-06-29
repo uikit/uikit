@@ -20,6 +20,9 @@ $card-secondary-hover-background:               $card-secondary-background !defa
 // New
 //
 
+$card-badge-border-radius:                      2px !default;
+$card-badge-text-transform:                     uppercase !default;
+
 $card-hover-box-shadow:                         $global-large-box-shadow !default;
 
 $card-default-box-shadow:                       $global-medium-box-shadow !default;
@@ -77,7 +80,7 @@ $card-secondary-hover-box-shadow:               $global-large-box-shadow !defaul
 // Badge
 // ========================================================================
 
-// @mixin hook-card-badge(){}
+
 
 
 // Hover modifier

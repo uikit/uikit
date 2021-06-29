@@ -66,14 +66,14 @@ $button-disabled-background:                     $global-muted-background !defau
 $button-disabled-color:                          $global-muted-color !default;
 
 $button-text-line-height:                        $global-line-height !default;
-$button-text-color:                              $global-muted-color !default;
-$button-text-hover-color:                        $global-color !default;
+$button-text-color:                              $global-emphasis-color !default;
+$button-text-hover-color:                        $global-muted-color !default;
 $button-text-disabled-color:                     $global-muted-color !default;
 
 $button-link-line-height:                        $global-line-height !default;
-$button-link-color:                              $global-link-color !default;
-$button-link-hover-color:                        $global-link-hover-color !default;
-$button-link-hover-text-decoration:              underline !default;
+$button-link-color:                              $global-emphasis-color !default;
+$button-link-hover-color:                        $global-muted-color !default;
+$button-link-hover-text-decoration:              none !default;
 $button-link-disabled-color:                     $global-muted-color !default;
 
 
@@ -429,11 +429,11 @@ $inverse-button-secondary-hover-background:     darken($inverse-button-secondary
 $inverse-button-secondary-hover-color:          $inverse-global-inverse-color !default;
 $inverse-button-secondary-active-background:    darken($inverse-button-secondary-background, 10%) !default;
 $inverse-button-secondary-active-color:         $inverse-global-inverse-color !default;
-$inverse-button-text-color:                     $inverse-global-muted-color !default;
-$inverse-button-text-hover-color:               $inverse-global-color !default;
+$inverse-button-text-color:                     $inverse-global-emphasis-color !default;
+$inverse-button-text-hover-color:               $inverse-global-muted-color !default;
 $inverse-button-text-disabled-color:            $inverse-global-muted-color !default;
-$inverse-button-link-color:                     $inverse-global-muted-color !default;
-$inverse-button-link-hover-color:               $inverse-global-color !default;
+$inverse-button-link-color:                     $inverse-global-emphasis-color !default;
+$inverse-button-link-hover-color:               $inverse-global-muted-color !default;
 
 
 
