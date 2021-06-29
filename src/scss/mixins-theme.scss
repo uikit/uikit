@@ -108,13 +108,12 @@
 
     .uk-badge {
         background-color: $inverse-badge-background;
-        color: $inverse-badge-color;
+        color: $inverse-badge-color !important;
         @if(mixin-exists(hook-inverse-badge)) {@include hook-inverse-badge();}
     }
 
     .uk-badge:hover,
     .uk-badge:focus {
-        color: $inverse-badge-hover-color;
         @if(mixin-exists(hook-inverse-badge-hover)) {@include hook-inverse-badge-hover();}
     }
 
@@ -528,7 +527,10 @@
 @mixin hook-card-media-left(){}
 @mixin hook-card-media-right(){}
 @mixin hook-card-title(){}
-@mixin hook-card-badge(){}
+@mixin hook-card-badge(){
+    border-radius: $card-badge-border-radius;
+    text-transform: $card-badge-text-transform;
+}
 @mixin hook-card-hover(){ box-shadow: $card-hover-box-shadow; }
 @mixin hook-card-default(){ box-shadow: $card-default-box-shadow; }
 @mixin hook-card-default-title(){}
@@ -915,6 +917,7 @@
     // Focus
     .uk-radio:focus,
     .uk-checkbox:focus {
+        background-color: $inverse-form-radio-focus-background;
         @if(mixin-exists(hook-inverse-form-radio-focus)) {@include hook-inverse-form-radio-focus();}
     }
 
@@ -1096,7 +1099,11 @@
 
 }
 @mixin hook-iconnav(){}
-@mixin hook-iconnav-item(){}
+@mixin hook-iconnav-item(){
+    font-size: $subnav-item-font-size;
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color;
+}
 @mixin hook-iconnav-item-hover(){}
 @mixin hook-iconnav-item-active(){}
 @mixin hook-iconnav-misc(){}
@@ -1857,7 +1864,7 @@
 @mixin hook-progress-misc(){}
 @mixin hook-search-input(){}
 @mixin hook-search-default-input(){ border: $search-default-border-width solid $search-default-border; }
-@mixin hook-search-default-input-focus(){}
+@mixin hook-search-default-input-focus(){ border-color: $search-default-focus-border; }
 @mixin hook-search-navbar-input(){}
 @mixin hook-search-large-input(){}
 @mixin hook-search-toggle(){}

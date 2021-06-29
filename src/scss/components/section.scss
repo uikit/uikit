@@ -172,7 +172,6 @@ $section-secondary-color-mode:                     light !default;
 @if ( $section-primary-color-mode == light ) { .uk-section-primary:not(.uk-preserve-color) { @extend .uk-light !optional;} }
 @if ( $section-primary-color-mode == dark ) { .uk-section-primary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
-
 /*
  * Secondary
  */

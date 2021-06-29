@@ -38,12 +38,12 @@
 $form-height:                                    $global-control-height !default;
 $form-line-height:                               $form-height !default;
 $form-padding-horizontal:                        10px !default;
-$form-padding-vertical:                          4px !default;
+$form-padding-vertical:                          round($form-padding-horizontal * 0.6) !default;
 
 $form-background:                                $global-muted-background !default;
 $form-color:                                     $global-color !default;
 
-$form-focus-background:                          $global-muted-background !default;
+$form-focus-background:                          darken($form-background, 5%) !default;
 $form-focus-color:                               $global-color !default;
 
 $form-disabled-background:                       $global-muted-background !default;
@@ -53,11 +53,13 @@ $form-placeholder-color:                         $global-muted-color !default;
 
 $form-small-height:                              $global-control-small-height !default;
 $form-small-padding-horizontal:                  8px !default;
+$form-small-padding-vertical:                    round($form-small-padding-horizontal * 0.6) !default;
 $form-small-line-height:                         $form-small-height !default;
 $form-small-font-size:                           $global-small-font-size !default;
 
 $form-large-height:                              $global-control-large-height !default;
 $form-large-padding-horizontal:                  12px !default;
+$form-large-padding-vertical:                    round($form-large-padding-horizontal * 0.6) !default;
 $form-large-line-height:                         $form-large-height !default;
 $form-large-font-size:                           $global-medium-font-size !default;
 
@@ -80,6 +82,8 @@ $form-datalist-icon-color:                       $global-color !default;
 $form-radio-size:                                16px !default;
 $form-radio-margin-top:                          -4px !default;
 $form-radio-background:                          darken($global-muted-background, 5%) !default;
+
+$form-radio-focus-background:                    darken($form-radio-background, 5%) !default;
 
 $form-radio-checked-background:                  $global-primary-background !default;
 $form-radio-checked-icon-color:                  $global-inverse-color !default;
@@ -322,11 +326,17 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
 
 .uk-form-small { font-size: $form-small-font-size; }
 
+/* Single-line */
 .uk-form-small:not(textarea):not([multiple]):not([size]) {
     height: $form-small-height;
     padding-left: $form-small-padding-horizontal;
     padding-right: $form-small-padding-horizontal;
 }
+
+/* Multi-line */
+textarea.uk-form-small,
+[multiple].uk-form-small,
+[size].uk-form-small { padding: $form-small-padding-vertical $form-small-padding-horizontal; }
 
 .uk-form-small:not(select):not(input):not(textarea) { line-height: $form-small-line-height; }
 
@@ -336,11 +346,17 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
 
 .uk-form-large { font-size: $form-large-font-size; }
 
+/* Single-line */
 .uk-form-large:not(textarea):not([multiple]):not([size]) {
     height: $form-large-height;
     padding-left: $form-large-padding-horizontal;
     padding-right: $form-large-padding-horizontal;
 }
+
+/* Multi-line */
+textarea.uk-form-large,
+[multiple].uk-form-large,
+[size].uk-form-large { padding: $form-large-padding-vertical $form-large-padding-horizontal; }
 
 .uk-form-large:not(select):not(input):not(textarea) { line-height: $form-large-line-height; }
 
@@ -452,7 +468,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 .uk-input[list]:focus { @include svg-fill($internal-form-datalist-image, "#000", $form-datalist-icon-color); }
 
 /* 1 */
-.uk-input[list]::-webkit-calendar-picker-indicator { display: none; }
+.uk-input[list]::-webkit-calendar-picker-indicator { display: none !important; }
 
 
 /* Radio and checkbox
@@ -495,6 +511,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 /* Focus */
 .uk-radio:focus,
 .uk-checkbox:focus {
+    background-color: $form-radio-focus-background;
     outline: none;
     @if(mixin-exists(hook-form-radio-focus)) {@include hook-form-radio-focus();}
 }
@@ -763,7 +780,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 
 $inverse-form-background:                       $inverse-global-muted-background !default;
 $inverse-form-color:                            $inverse-global-color !default;
-$inverse-form-focus-background:                 $inverse-global-muted-background !default;
+$inverse-form-focus-background:                 fadein($inverse-form-background, 5%) !default;
 $inverse-form-focus-color:                      $inverse-global-color !default;
 $inverse-form-placeholder-color:                $inverse-global-muted-color !default;
 
@@ -771,12 +788,14 @@ $inverse-form-select-icon-color:                $inverse-global-color !default;
 
 $inverse-form-datalist-icon-color:              $inverse-global-color !default;
 
-$inverse-form-radio-background:                 darken($inverse-global-muted-background, 5%) !default;
+$inverse-form-radio-background:                 $inverse-global-muted-background !default;
+
+$inverse-form-radio-focus-background:           fadein($inverse-form-radio-background, 5%) !default;
 
 $inverse-form-radio-checked-background:         $inverse-global-primary-background !default;
 $inverse-form-radio-checked-icon-color:         $inverse-global-inverse-color !default;
 
-$inverse-form-radio-checked-focus-background:   darken($inverse-global-primary-background, 10%) !default;
+$inverse-form-radio-checked-focus-background:   fadein($inverse-global-primary-background, 10%) !default;
 
 $inverse-form-icon-color:                       $inverse-global-muted-color !default;
 $inverse-form-icon-hover-color:                 $inverse-global-color !default;

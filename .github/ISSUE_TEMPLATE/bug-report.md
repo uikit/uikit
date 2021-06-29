@@ -21,7 +21,7 @@ Please open an issues only for a bug report or feature request. Make sure no one
 ### UIkit Version
 
 *Check if the issue is reproducible with the latest stable version.*
-3.6.22
+3.7.0
 
 ### Actual Behavior
 
