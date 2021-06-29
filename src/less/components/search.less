@@ -23,11 +23,11 @@
 
 @search-icon-color:                                 @global-muted-color;
 
-@search-default-width:                              180px;
+@search-default-width:                              240px;
 @search-default-height:                             @global-control-height;
-@search-default-padding-horizontal:                 6px;
+@search-default-padding-horizontal:                 10px;
 @search-default-background:                         @global-muted-background;
-@search-default-focus-background:                   @search-default-background;
+@search-default-focus-background:                   darken(@search-default-background, 5%);
 
 @search-default-icon-width:                         @global-control-height;
 
@@ -309,7 +309,7 @@
 @inverse-search-icon-color:                    @inverse-global-muted-color;
 
 @inverse-search-default-background:            @inverse-global-muted-background;
-@inverse-search-default-focus-background:      @inverse-search-default-background;
+@inverse-search-default-focus-background:      fadein(@inverse-search-default-background, 5%);
 
 @inverse-search-navbar-background:             transparent;
 

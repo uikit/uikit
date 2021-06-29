@@ -7,13 +7,23 @@
 // Variables
 // ========================================================================
 
+//
+// New
+//
+
+@subnav-item-font-size:                         @global-small-font-size;
+
 
 // Component
 // ========================================================================
 
 .hook-iconnav() {}
 
-.hook-iconnav-item() {}
+.hook-iconnav-item() {
+    font-size: @subnav-item-font-size;
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color;
+}
 
 .hook-iconnav-item-hover() {}
 

@@ -177,7 +177,9 @@ export default {
         },
 
         itemshow() {
-            ~this.prevIndex && addClass(this._getTransitioner().getItemIn(), this.clsActive);
+            if (~this.prevIndex) {
+                addClass(this._getTransitioner().getItemIn(), this.clsActive);
+            }
         }
 
     },

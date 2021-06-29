@@ -10,12 +10,13 @@
 // ========================================================================
 
 $form-range-thumb-height:                        15px !default;
+$form-range-thumb-width:                         $form-range-thumb-height !default;
 $form-range-thumb-border-radius:                 500px !default;
 $form-range-thumb-background:                    $global-color !default;
 
 $form-range-track-height:                        3px !default;
 $form-range-track-background:                    darken($global-muted-background, 5%) !default;
-$form-range-track-focus-background:              darken($global-muted-background, 15%) !default;
+$form-range-track-focus-background:              darken($form-range-track-background, 5%) !default;
 
 
 /* ========================================================================
@@ -85,7 +86,7 @@ $form-range-track-focus-background:              darken($global-muted-background
     margin-top: (floor($form-range-thumb-height / 2) * -1);
     /* 2 */
     height: $form-range-thumb-height;
-    width: $form-range-thumb-height;
+    width: $form-range-thumb-width;
     border-radius: $form-range-thumb-border-radius;
     background: $form-range-thumb-background;
     @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
@@ -97,7 +98,7 @@ $form-range-track-focus-background:              darken($global-muted-background
     border: none;
     /* 2 */
     height: $form-range-thumb-height;
-    width: $form-range-thumb-height;
+    width: $form-range-thumb-width;
     border-radius: $form-range-thumb-border-radius;
     background: $form-range-thumb-background;
     @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
@@ -115,7 +116,7 @@ $form-range-track-focus-background:              darken($global-muted-background
     border: none;
     /* 2 */
     height: $form-range-thumb-height;
-    width: $form-range-thumb-height;
+    width: $form-range-thumb-width;
     border-radius: $form-range-thumb-border-radius;
     background: $form-range-thumb-background;
     @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}

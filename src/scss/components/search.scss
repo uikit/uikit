@@ -23,11 +23,11 @@ $search-placeholder-color:                           $global-muted-color !defaul
 
 $search-icon-color:                                  $global-muted-color !default;
 
-$search-default-width:                               180px !default;
+$search-default-width:                               240px !default;
 $search-default-height:                              $global-control-height !default;
-$search-default-padding-horizontal:                  6px !default;
+$search-default-padding-horizontal:                  10px !default;
 $search-default-background:                          $global-muted-background !default;
-$search-default-focus-background:                    $search-default-background !default;
+$search-default-focus-background:                    darken($search-default-background, 5%) !default;
 
 $search-default-icon-width:                          $global-control-height !default;
 
@@ -309,7 +309,7 @@ $inverse-search-placeholder-color:              $inverse-global-muted-color !def
 $inverse-search-icon-color:                     $inverse-global-muted-color !default;
 
 $inverse-search-default-background:             $inverse-global-muted-background !default;
-$inverse-search-default-focus-background:       $inverse-search-default-background !default;
+$inverse-search-default-focus-background:       fadein($inverse-search-default-background, 5%) !default;
 
 $inverse-search-navbar-background:              transparent !default;
 

@@ -48,7 +48,7 @@ $card-title-line-height:                        1.4 !default;
 
 $card-badge-top:                                15px !default;
 $card-badge-right:                              15px !default;
-$card-badge-height:                             30px !default;
+$card-badge-height:                             22px !default;
 $card-badge-padding-horizontal:                 10px !default;
 $card-badge-background:                         $global-primary-background !default;
 $card-badge-color:                              $global-inverse-color !default;
@@ -199,8 +199,7 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
     z-index: 1;
     /* 2 */
     height: $card-badge-height;
-    padding-left: $card-badge-padding-horizontal;
-    padding-right: $card-badge-padding-horizontal;
+    padding: 0 $card-badge-padding-horizontal;
     /* 3 */
     background: $card-badge-background;
     color: $card-badge-color;
@@ -209,6 +208,7 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
     display: flex;
     justify-content: center;
     align-items: center;
+    line-height: 0;
     @if(mixin-exists(hook-card-badge)) {@include hook-card-badge();}
 }
 

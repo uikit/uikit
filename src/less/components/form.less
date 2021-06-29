@@ -38,12 +38,12 @@
 @form-height:                                   @global-control-height;
 @form-line-height:                              @form-height;
 @form-padding-horizontal:                       10px;
-@form-padding-vertical:                         4px;
+@form-padding-vertical:                         round(@form-padding-horizontal * 0.6);
 
 @form-background:                               @global-muted-background;
 @form-color:                                    @global-color;
 
-@form-focus-background:                         @global-muted-background;
+@form-focus-background:                         darken(@form-background, 5%);
 @form-focus-color:                              @global-color;
 
 @form-disabled-background:                      @global-muted-background;
@@ -53,11 +53,13 @@
 
 @form-small-height:                             @global-control-small-height;
 @form-small-padding-horizontal:                 8px;
+@form-small-padding-vertical:                   round(@form-small-padding-horizontal * 0.6);
 @form-small-line-height:                        @form-small-height;
 @form-small-font-size:                          @global-small-font-size;
 
 @form-large-height:                             @global-control-large-height;
 @form-large-padding-horizontal:                 12px;
+@form-large-padding-vertical:                   round(@form-large-padding-horizontal * 0.6);
 @form-large-line-height:                        @form-large-height;
 @form-large-font-size:                          @global-medium-font-size;
 
@@ -80,6 +82,8 @@
 @form-radio-size:                               16px;
 @form-radio-margin-top:                         -4px;
 @form-radio-background:                         darken(@global-muted-background, 5%);
+
+@form-radio-focus-background:                   darken(@form-radio-background, 5%);
 
 @form-radio-checked-background:                 @global-primary-background;
 @form-radio-checked-icon-color:                 @global-inverse-color;
@@ -322,11 +326,17 @@
 
 .uk-form-small { font-size: @form-small-font-size; }
 
+/* Single-line */
 .uk-form-small:not(textarea):not([multiple]):not([size]) {
     height: @form-small-height;
     padding-left: @form-small-padding-horizontal;
     padding-right: @form-small-padding-horizontal;
 }
+
+/* Multi-line */
+textarea.uk-form-small,
+[multiple].uk-form-small,
+[size].uk-form-small { padding: @form-small-padding-vertical @form-small-padding-horizontal; }
 
 .uk-form-small:not(select):not(input):not(textarea) { line-height: @form-small-line-height; }
 
@@ -336,11 +346,17 @@
 
 .uk-form-large { font-size: @form-large-font-size; }
 
+/* Single-line */
 .uk-form-large:not(textarea):not([multiple]):not([size]) {
     height: @form-large-height;
     padding-left: @form-large-padding-horizontal;
     padding-right: @form-large-padding-horizontal;
 }
+
+/* Multi-line */
+textarea.uk-form-large,
+[multiple].uk-form-large,
+[size].uk-form-large { padding: @form-large-padding-vertical @form-large-padding-horizontal; }
 
 .uk-form-large:not(select):not(input):not(textarea) { line-height: @form-large-line-height; }
 
@@ -452,7 +468,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-input[list]:focus { .svg-fill(@internal-form-datalist-image, "#000", @form-datalist-icon-color); }
 
 /* 1 */
-.uk-input[list]::-webkit-calendar-picker-indicator { display: none; }
+.uk-input[list]::-webkit-calendar-picker-indicator { display: none !important; }
 
 
 /* Radio and checkbox
@@ -495,6 +511,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 /* Focus */
 .uk-radio:focus,
 .uk-checkbox:focus {
+    background-color: @form-radio-focus-background;
     outline: none;
     .hook-form-radio-focus;
 }
@@ -763,7 +780,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-background:                      @inverse-global-muted-background;
 @inverse-form-color:                           @inverse-global-color;
-@inverse-form-focus-background:                @inverse-global-muted-background;
+@inverse-form-focus-background:                fadein(@inverse-form-background, 5%);
 @inverse-form-focus-color:                     @inverse-global-color;
 @inverse-form-placeholder-color:               @inverse-global-muted-color;
 
@@ -771,12 +788,14 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-datalist-icon-color:             @inverse-global-color;
 
-@inverse-form-radio-background:                darken(@inverse-global-muted-background, 5%);
+@inverse-form-radio-background:                @inverse-global-muted-background;
+
+@inverse-form-radio-focus-background:          fadein(@inverse-form-radio-background, 5%);
 
 @inverse-form-radio-checked-background:        @inverse-global-primary-background;
 @inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color;
 
-@inverse-form-radio-checked-focus-background:  darken(@inverse-global-primary-background, 10%);
+@inverse-form-radio-checked-focus-background:  fadein(@inverse-global-primary-background, 10%);
 
 @inverse-form-icon-color:                      @inverse-global-muted-color;
 @inverse-form-icon-hover-color:                @inverse-global-color;
@@ -834,6 +853,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     // Focus
     .uk-radio:focus,
     .uk-checkbox:focus {
+        background-color: @inverse-form-radio-focus-background;
         .hook-inverse-form-radio-focus;
     }
 

@@ -16,6 +16,8 @@ $search-default-background:                          transparent !default;
 $search-default-border-width:                        $global-border-width !default;
 $search-default-border:                              $global-border !default;
 
+$search-default-focus-border:                        $global-primary-background !default;
+
 
 // Component
 // ========================================================================
@@ -29,12 +31,12 @@ $search-default-border:                              $global-border !default;
 
 
 
+
+
 // Navbar modifiers
 // ========================================================================
 
 // @mixin hook-search-navbar-input(){}
-
-// @mixin hook-search-default-input-focus(){}
 
 
 // Large modifiers

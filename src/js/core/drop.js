@@ -1,12 +1,13 @@
+import Container from '../mixin/container';
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, apply, css, hasClass, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, within} from 'uikit-util';
+import {addClass, append, apply, css, hasClass, includes, isTouch, MouseTracker, offset, on, once, parent, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, within} from 'uikit-util';
 
-let active;
+export let active;
 
 export default {
 
-    mixins: [Position, Togglable],
+    mixins: [Container, Position, Togglable],
 
     args: 'pos',
 
@@ -29,7 +30,8 @@ export default {
         delayHide: 800,
         clsDrop: false,
         animation: ['uk-animation-fade'],
-        cls: 'uk-open'
+        cls: 'uk-open',
+        container: false
     },
 
     computed: {
@@ -56,11 +58,12 @@ export default {
 
         addClass(this.$el, this.clsDrop);
 
-        const {toggle} = this.$props;
-        this.toggle = toggle && this.$create('toggle', query(toggle, this.$el), {
-            target: this.$el,
-            mode: this.mode
-        });
+        if (this.toggle && !this.target) {
+            this.target = this.$create('toggle', query(this.toggle, this.$el), {
+                target: this.$el,
+                mode: this.mode
+            });
+        }
 
     },
 
@@ -126,7 +129,7 @@ export default {
                 if (this.isToggled()) {
                     this.hide(false);
                 } else {
-                    this.show(toggle, false);
+                    this.show(toggle.$el, false);
                 }
             }
 
@@ -140,7 +143,7 @@ export default {
 
             handler(e, toggle) {
                 e.preventDefault();
-                this.show(toggle);
+                this.show(toggle.$el);
             }
 
         },
@@ -222,7 +225,7 @@ export default {
 
                 once(this.$el, 'hide', on(document, pointerDown, ({target}) =>
                     !within(target, this.$el) && once(document, `${pointerUp} ${pointerCancel} scroll`, ({defaultPrevented, type, target: newTarget}) => {
-                        if (!defaultPrevented && type === pointerUp && target === newTarget && !(this.toggle && within(target, this.toggle.$el))) {
+                        if (!defaultPrevented && type === pointerUp && target === newTarget && !(this.target && within(target, this.target))) {
                             this.hide(false);
                         }
                     }, true)
@@ -285,13 +288,13 @@ export default {
 
     methods: {
 
-        show(toggle = this.toggle, delay = true) {
+        show(target = this.target, delay = true) {
 
-            if (this.isToggled() && toggle && this.toggle && toggle.$el !== this.toggle.$el) {
+            if (this.isToggled() && target && this.target && target !== this.target) {
                 this.hide(false);
             }
 
-            this.toggle = toggle;
+            this.target = target;
 
             this.clearTimers();
 
@@ -314,7 +317,11 @@ export default {
 
             }
 
-            this.showTimer = setTimeout(() => !this.isToggled() && this.toggleElement(this.$el, true), delay && this.delayShow || 0);
+            if (this.container && parent(this.$el) !== this.container) {
+                append(this.container, this.$el);
+            }
+
+            this.showTimer = setTimeout(() => this.toggleElement(this.$el, true), delay && this.delayShow || 0);
 
         },
 
@@ -353,7 +360,7 @@ export default {
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundary = offset(this.boundary);
-            const alignTo = this.boundaryAlign ? boundary : offset(this.toggle.$el);
+            const alignTo = this.boundaryAlign ? boundary : offset(this.target);
 
             if (this.align === 'justify') {
                 const prop = this.getAxis() === 'y' ? 'width' : 'height';
@@ -362,7 +369,7 @@ export default {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }
 
-            this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);
+            this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.target, this.boundary);
 
         }
 

@@ -81,12 +81,8 @@
 
 /*
  * Reset
- * 1. Prepare lists
- * 2. Prepare links
- * 3. Remove default focus style
  */
 
-/* 1 */
 .uk-nav,
 .uk-nav ul {
     margin: 0;
@@ -94,13 +90,30 @@
     list-style: none;
 }
 
-/* 2 */
+/*
+* 1. Center content vertically, e.g. an icon
+* 2. Imitate white space gap when using flexbox
+* 3. Reset link
+* 4. Space is allocated solely based on content dimensions: 0 0 auto
+ */
+
 .uk-nav li > a {
-    display: block;
+    /* 1 */
+    display: flex;
+    align-items: center;
+    /* 2 */
+    column-gap: 0.25em;
+    /* 3*/
     text-decoration: none;
 }
 
-/* 3 */
+/* 4 */
+.uk-nav li > a > * { flex: none; }
+
+/*
+ * Remove default focus style
+ */
+
 .uk-nav li > a:focus { outline: none; }
 
 /*
@@ -144,7 +157,7 @@ ul.uk-nav-sub {
     content: "";
     width: @nav-parent-icon-width;
     height: @nav-parent-icon-height;
-    float: right;
+    margin-left: auto;
     .svg-fill(@internal-nav-parent-close-image, "#000", @nav-parent-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -299,14 +312,22 @@ ul.uk-nav-sub {
 /* Alignment modifier
  ========================================================================== */
 
+/*
+ * 1. Center header
+ * 2. Center items
+ */
+
+ /* 1 */
 .uk-nav-center { text-align: center; }
+ /* 2 */
+.uk-nav-center li > a { justify-content: center; }
 
 /* Sublists */
 .uk-nav-center .uk-nav-sub,
 .uk-nav-center .uk-nav-sub ul { padding-left: 0; }
 
 /* Parent icon modifier  */
-.uk-nav-center.uk-nav-parent-icon > .uk-parent > a::after { position: absolute; }
+.uk-nav-center.uk-nav-parent-icon > .uk-parent > a::after { margin-left: 0; }
 
 
 /* Style modifier

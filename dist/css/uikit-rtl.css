@@ -1,4 +1,4 @@
-/*! UIkit 3.6.22 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.7.0 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1340,7 +1340,7 @@ button.uk-icon:not(:disabled) {
 }
 .uk-range:focus::-webkit-slider-runnable-track,
 .uk-range:active::-webkit-slider-runnable-track {
-  background: #d2d2d2;
+  background: #dedede;
 }
 /* Firefox */
 .uk-range::-moz-range-track {
@@ -1349,7 +1349,7 @@ button.uk-icon:not(:disabled) {
   border-radius: 500px;
 }
 .uk-range:focus::-moz-range-track {
-  background: #d2d2d2;
+  background: #dedede;
 }
 /* Edge */
 .uk-range::-ms-fill-lower,
@@ -1360,7 +1360,7 @@ button.uk-icon:not(:disabled) {
 }
 .uk-range:focus::-ms-fill-lower,
 .uk-range:focus::-ms-fill-upper {
-  background: #d2d2d2;
+  background: #dedede;
 }
 /* ========================================================================
    Component: Form
@@ -1513,8 +1513,8 @@ button.uk-icon:not(:disabled) {
 .uk-select[multiple],
 .uk-select[size],
 .uk-textarea {
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   vertical-align: top;
 }
 .uk-select[multiple],
@@ -1561,10 +1561,17 @@ button.uk-icon:not(:disabled) {
 .uk-form-small {
   font-size: 0.875rem;
 }
+/* Single-line */
 .uk-form-small:not(textarea):not([multiple]):not([size]) {
   height: 30px;
   padding-right: 8px;
   padding-left: 8px;
+}
+/* Multi-line */
+textarea.uk-form-small,
+[multiple].uk-form-small,
+[size].uk-form-small {
+  padding: 5px 8px;
 }
 .uk-form-small:not(select):not(input):not(textarea) {
   line-height: 28px;
@@ -1575,10 +1582,17 @@ button.uk-icon:not(:disabled) {
 .uk-form-large {
   font-size: 1.25rem;
 }
+/* Single-line */
 .uk-form-large:not(textarea):not([multiple]):not([size]) {
   height: 55px;
   padding-right: 12px;
   padding-left: 12px;
+}
+/* Multi-line */
+textarea.uk-form-large,
+[multiple].uk-form-large,
+[size].uk-form-large {
+  padding: 7px 12px;
 }
 .uk-form-large:not(select):not(input):not(textarea) {
   line-height: 53px;
@@ -1681,7 +1695,7 @@ select.uk-form-width-xsmall {
 }
 /* 1 */
 .uk-input[list]::-webkit-calendar-picker-indicator {
-  display: none;
+  display: none !important;
 }
 /* Radio and checkbox
  * Note: Does not work in IE11
@@ -1723,6 +1737,7 @@ select.uk-form-width-xsmall {
 /* Focus */
 .uk-radio:focus,
 .uk-checkbox:focus {
+  background-color: rgba(0, 0, 0, 0);
   outline: none;
   border-color: #1e87f0;
 }
@@ -2157,13 +2172,13 @@ select.uk-form-width-xsmall {
   line-height: 1.5;
   background: none;
   /* 2 */
-  color: #1e87f0;
+  color: #333;
 }
 /* Hover + Focus */
 .uk-button-link:hover,
 .uk-button-link:focus {
-  color: #0f6ecd;
-  text-decoration: underline;
+  color: #999;
+  text-decoration: none;
 }
 /* Disabled */
 .uk-button-link:disabled {
@@ -2700,9 +2715,8 @@ select.uk-form-width-xsmall {
   left: 15px;
   z-index: 1;
   /* 2 */
-  height: 30px;
-  padding-right: 10px;
-  padding-left: 10px;
+  height: 22px;
+  padding: 0 10px;
   /* 3 */
   background: #1e87f0;
   color: #fff;
@@ -2711,6 +2725,9 @@ select.uk-form-width-xsmall {
   display: flex;
   justify-content: center;
   align-items: center;
+  line-height: 0;
+  border-radius: 2px;
+  text-transform: uppercase;
 }
 /*
  * Remove margin from adjacent element
@@ -3110,26 +3127,26 @@ select.uk-form-width-xsmall {
  */
 .uk-badge {
   box-sizing: border-box;
-  min-width: 22px;
-  height: 22px;
+  min-width: 18px;
+  height: 18px;
   padding: 0 5px;
   border-radius: 500px;
   vertical-align: middle;
   /* 1 */
   background: #1e87f0;
-  color: #fff;
-  font-size: 0.875rem;
+  color: #fff !important;
+  font-size: 11px;
   /* 2 */
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  line-height: 0;
 }
 /*
  * Required for `a`
  */
 .uk-badge:hover,
 .uk-badge:focus {
-  color: #fff;
   text-decoration: none;
   outline: none;
 }
@@ -3438,21 +3455,22 @@ select.uk-form-width-xsmall {
 /* Default modifier
  ========================================================================== */
 .uk-search-default {
-  width: 180px;
+  width: 240px;
 }
 /*
  * Input
  */
 .uk-search-default .uk-search-input {
   height: 40px;
-  padding-right: 6px;
-  padding-left: 6px;
+  padding-right: 10px;
+  padding-left: 10px;
   background: transparent;
   border: 1px solid #e5e5e5;
 }
 /* Focus */
 .uk-search-default .uk-search-input:focus {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #1e87f0;
 }
 /*
  * Icon
@@ -4964,23 +4982,35 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 /*
  * Reset
- * 1. Prepare lists
- * 2. Prepare links
- * 3. Remove default focus style
  */
-/* 1 */
 .uk-nav,
 .uk-nav ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* 2 */
+/*
+* 1. Center content vertically, e.g. an icon
+* 2. Imitate white space gap when using flexbox
+* 3. Reset link
+* 4. Space is allocated solely based on content dimensions: 0 0 auto
+ */
 .uk-nav li > a {
-  display: block;
+  /* 1 */
+  display: flex;
+  align-items: center;
+  /* 2 */
+  column-gap: 0.25em;
+  /* 3*/
   text-decoration: none;
 }
-/* 3 */
+/* 4 */
+.uk-nav li > a > * {
+  flex: none;
+}
+/*
+ * Remove default focus style
+ */
 .uk-nav li > a:focus {
   outline: none;
 }
@@ -5018,7 +5048,7 @@ ul.uk-nav-sub {
   content: "";
   width: 1.5em;
   height: 1.5em;
-  float: left;
+  margin-right: auto;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23666%22%20stroke-width%3D%221.1%22%20points%3D%2210%201%204%207%2010%2013%22%20%2F%3E%0A%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -5132,8 +5162,17 @@ ul.uk-nav-sub {
 }
 /* Alignment modifier
  ========================================================================== */
+/*
+ * 1. Center header
+ * 2. Center items
+ */
+/* 1 */
 .uk-nav-center {
   text-align: center;
+}
+/* 2 */
+.uk-nav-center li > a {
+  justify-content: center;
 }
 /* Sublists */
 .uk-nav-center .uk-nav-sub,
@@ -5142,7 +5181,7 @@ ul.uk-nav-sub {
 }
 /* Parent icon modifier  */
 .uk-nav-center.uk-nav-parent-icon > .uk-parent > a::after {
-  position: absolute;
+  margin-right: 0;
 }
 /* Style modifier
  ========================================================================== */
@@ -5257,9 +5296,10 @@ ul.uk-nav-sub {
 /*
  * Items
  * 1. Center content vertically and horizontally
- * 2. Dimensions
- * 3. Style
- * 4. Required for `a`
+ * 2. Imitate white space gap when using flexbox
+ * 3. Dimensions
+ * 4. Style
+ * 5. Required for `a`
  */
 .uk-navbar-nav > li > a,
 .uk-navbar-item,
@@ -5269,13 +5309,15 @@ ul.uk-nav-sub {
   justify-content: center;
   align-items: center;
   /* 2 */
+  column-gap: 0.25em;
+  /* 3 */
   box-sizing: border-box;
   min-height: 80px;
   padding: 0 15px;
-  /* 3 */
+  /* 4 */
   font-size: 0.875rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  /* 4 */
+  /* 5 */
   text-decoration: none;
 }
 /*
@@ -5309,6 +5351,12 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-navbar-item {
   color: #666;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-navbar-item > :last-child {
+  margin-bottom: 0;
 }
 /* Toggle
  ========================================================================== */
@@ -5519,16 +5567,19 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Allow items to wrap into the next line
- * 2. Gutter
- * 3. Reset list
+ * 2. Center items vertically if they have a different height
+ * 3. Gutter
+ * 4. Reset list
  */
 .uk-subnav {
   display: flex;
   /* 1 */
   flex-wrap: wrap;
   /* 2 */
-  margin-right: -20px;
+  align-items: center;
   /* 3 */
+  margin-right: -20px;
+  /* 4 */
   padding: 0;
   list-style: none;
 }
@@ -5550,13 +5601,17 @@ ul.uk-nav-sub {
 /*
  * Items must target `a` elements to exclude other elements (e.g. dropdowns)
  * Using `:first-child` instead of `a` to support `span` elements for text
- * 1. Prevent gap if child element is `inline-block`, e.g. an icon
- * 2. Style
+ * 1. Center content vertically, e.g. an icon
+ * 2. Imitate white space gap when using flexbox
+ * 3. Style
  */
 .uk-subnav > * > :first-child {
   /* 1 */
-  display: block;
+  display: flex;
+  align-items: center;
   /* 2 */
+  column-gap: 0.25em;
+  /* 3 */
   color: #999;
   font-size: 0.875rem;
   text-transform: uppercase;
@@ -5785,14 +5840,20 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * Items must target `a` elements to exclude other elements (e.g. dropdowns)
- * 1. Center text if a width is set
- * 2. Style
+ * 1. Center content vertically, e.g. an icon
+ * 2. Imitate white space gap when using flexbox
+ * 3. Center content if a width is set
+ * 4. Style
  */
 .uk-tab > * > a {
   /* 1 */
-  display: block;
-  text-align: center;
+  display: flex;
+  align-items: center;
   /* 2 */
+  column-gap: 0.25em;
+  /* 3 */
+  justify-content: center;
+  /* 4 */
   padding: 5px 10px;
   color: #999;
   border-bottom: 1px solid transparent;
@@ -6104,14 +6165,27 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * Items must target `a` elements to exclude other elements (e.g. dropdowns)
- * 1. Prevent gap if child element is `inline-block`, e.g. an icon
- * 2. Style
+ * 1. Center content vertically if there is still some text
+ * 2. Imitate white space gap when using flexbox
+ * 3. Force text not to affect item height
+ * 4. Style
+ * 5. Required for `a` if there is still some text
  */
 .uk-iconnav > * > a {
   /* 1 */
-  display: block;
+  display: flex;
+  align-items: center;
   /* 2 */
+  column-gap: 0.25em;
+  /* 3 */
+  line-height: 0;
+  /* 4 */
   color: #999;
+  /* 5 */
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: 0.1s ease-in-out;
+  transition-property: color, background-color;
 }
 /* Hover + Focus */
 .uk-iconnav > * > a:hover,
@@ -7282,6 +7356,11 @@ ul.uk-nav-sub {
 }
 .uk-text-lowercase {
   text-transform: lowercase !important;
+}
+/* Decoration modifier
+ ========================================================================== */
+.uk-text-decoration-none {
+  text-decoration: none !important;
 }
 /* Color modifiers
  ========================================================================== */
@@ -10333,7 +10412,7 @@ iframe.uk-cover {
 .uk-overlay-primary .uk-icon-button:focus,
 .uk-offcanvas-bar .uk-icon-button:hover,
 .uk-offcanvas-bar .uk-icon-button:focus {
-  background-color: rgba(242, 242, 242, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-icon-button:active,
@@ -10347,7 +10426,7 @@ iframe.uk-cover {
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-icon-button:active,
 .uk-overlay-primary .uk-icon-button:active,
 .uk-offcanvas-bar .uk-icon-button:active {
-  background-color: rgba(230, 230, 230, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-input,
@@ -10421,7 +10500,7 @@ iframe.uk-cover {
 .uk-offcanvas-bar .uk-input:focus,
 .uk-offcanvas-bar .uk-select:focus,
 .uk-offcanvas-bar .uk-textarea:focus {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
   color: rgba(255, 255, 255, 0.7);
   border-color: rgba(255, 255, 255, 0.7);
 }
@@ -10536,7 +10615,7 @@ iframe.uk-cover {
 .uk-overlay-primary .uk-checkbox,
 .uk-offcanvas-bar .uk-radio,
 .uk-offcanvas-bar .uk-checkbox {
-  background-color: rgba(242, 242, 242, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-radio:focus,
@@ -10561,6 +10640,7 @@ iframe.uk-cover {
 .uk-overlay-primary .uk-checkbox:focus,
 .uk-offcanvas-bar .uk-radio:focus,
 .uk-offcanvas-bar .uk-checkbox:focus {
+  background-color: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-radio:checked,
@@ -10632,7 +10712,7 @@ iframe.uk-cover {
 .uk-offcanvas-bar .uk-radio:checked:focus,
 .uk-offcanvas-bar .uk-checkbox:checked:focus,
 .uk-offcanvas-bar .uk-checkbox:indeterminate:focus {
-  background-color: #e6e6e6;
+  background-color: #ffffff;
 }
 .uk-light .uk-radio:checked,
 .uk-section-primary:not(.uk-preserve-color) .uk-radio:checked,
@@ -10981,7 +11061,7 @@ iframe.uk-cover {
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-button-link,
 .uk-overlay-primary .uk-button-link,
 .uk-offcanvas-bar .uk-button-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: #fff;
 }
 .uk-light .uk-button-link:hover,
 .uk-light .uk-button-link:focus,
@@ -11005,7 +11085,7 @@ iframe.uk-cover {
 .uk-overlay-primary .uk-button-link:focus,
 .uk-offcanvas-bar .uk-button-link:hover,
 .uk-offcanvas-bar .uk-button-link:focus {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.5);
 }
 .uk-light.uk-card-badge,
 .uk-section-primary:not(.uk-preserve-color).uk-card-badge,
@@ -11158,31 +11238,7 @@ iframe.uk-cover {
 .uk-overlay-primary .uk-badge,
 .uk-offcanvas-bar .uk-badge {
   background-color: #fff;
-  color: #666;
-}
-.uk-light .uk-badge:hover,
-.uk-light .uk-badge:focus,
-.uk-section-primary:not(.uk-preserve-color) .uk-badge:hover,
-.uk-section-primary:not(.uk-preserve-color) .uk-badge:focus,
-.uk-section-secondary:not(.uk-preserve-color) .uk-badge:hover,
-.uk-section-secondary:not(.uk-preserve-color) .uk-badge:focus,
-.uk-tile-primary:not(.uk-preserve-color) .uk-badge:hover,
-.uk-tile-primary:not(.uk-preserve-color) .uk-badge:focus,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-badge:hover,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-badge:focus,
-.uk-card-primary.uk-card-body .uk-badge:hover,
-.uk-card-primary.uk-card-body .uk-badge:focus,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-badge:hover,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-badge:focus,
-.uk-card-secondary.uk-card-body .uk-badge:hover,
-.uk-card-secondary.uk-card-body .uk-badge:focus,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-badge:hover,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-badge:focus,
-.uk-overlay-primary .uk-badge:hover,
-.uk-overlay-primary .uk-badge:focus,
-.uk-offcanvas-bar .uk-badge:hover,
-.uk-offcanvas-bar .uk-badge:focus {
-  color: #666;
+  color: #666 !important;
 }
 .uk-light .uk-label,
 .uk-section-primary:not(.uk-preserve-color) .uk-label,
@@ -11301,7 +11357,7 @@ iframe.uk-cover {
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-search-default .uk-search-input:focus,
 .uk-overlay-primary .uk-search-default .uk-search-input:focus,
 .uk-offcanvas-bar .uk-search-default .uk-search-input:focus {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .uk-light .uk-search-navbar .uk-search-input,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-navbar .uk-search-input,

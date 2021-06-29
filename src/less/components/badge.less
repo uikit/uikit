@@ -9,15 +9,13 @@
 // Variables
 // ========================================================================
 
-@badge-size:                                    22px;
+@badge-size:                                    18px;
 @badge-padding-vertical:                        0;
 @badge-padding-horizontal:                      5px;
 @badge-border-radius:                           500px;
 @badge-background:                              @global-primary-background;
 @badge-color:                                   @global-inverse-color;
-@badge-font-size:                               @global-small-font-size;
-
-@badge-hover-color:                             @global-inverse-color;
+@badge-font-size:                               11px;
 
 
 /* ========================================================================
@@ -38,12 +36,13 @@
     vertical-align: middle;
     /* 1 */
     background: @badge-background;
-    color: @badge-color;
+    color: @badge-color !important;
     font-size: @badge-font-size;
     /* 2 */
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    line-height: 0;
     .hook-badge;
 }
 
@@ -53,7 +52,6 @@
 
 .uk-badge:hover,
 .uk-badge:focus {
-    color: @badge-hover-color;
     text-decoration: none;
     outline: none;
     .hook-badge-hover;
@@ -75,19 +73,17 @@
 
 @inverse-badge-background:                     @inverse-global-primary-background;
 @inverse-badge-color:                          @inverse-global-inverse-color;
-@inverse-badge-hover-color:                    @inverse-global-inverse-color;
 
 .hook-inverse() {
 
     .uk-badge {
         background-color: @inverse-badge-background;
-        color: @inverse-badge-color;
+        color: @inverse-badge-color !important;
         .hook-inverse-badge;
     }
 
     .uk-badge:hover,
     .uk-badge:focus {
-        color: @inverse-badge-hover-color;
         .hook-inverse-badge-hover;
     }
 

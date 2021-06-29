@@ -65,7 +65,9 @@ export default function (UIkit) {
         if (!this._updates) {
             this._updates = new Set();
             fastdom.read(() => {
-                runUpdates.call(this, this._updates);
+                if (this._connected) {
+                    runUpdates.call(this, this._updates);
+                }
                 delete this._updates;
             });
         }
@@ -79,29 +81,12 @@ export default function (UIkit) {
             return;
         }
 
-        const initital = !hasOwn(this, '_watch');
+        const initial = !hasOwn(this, '_watch');
 
         this._watch = fastdom.read(() => {
-
-            const {$options: {computed}, _computeds} = this;
-
-            for (const key in computed) {
-
-                const hasPrev = hasOwn(_computeds, key);
-                const prev = _computeds[key];
-
-                delete _computeds[key];
-
-                const {watch, immediate} = computed[key];
-                if (watch && (
-                    initital && immediate
-                    || hasPrev && !isEqual(prev, this[key])
-                )) {
-                    watch.call(this, this[key], prev);
-                }
-
+            if (this._connected) {
+                runWatches.call(this, initial);
             }
-
             this._watch = null;
 
         });
@@ -131,6 +116,28 @@ export default function (UIkit) {
 
             if (write && result !== false) {
                 fastdom.write(() => write.call(this, this._data, types));
+            }
+
+        }
+    }
+
+    function runWatches(initial) {
+
+        const {$options: {computed}, _computeds} = this;
+
+        for (const key in computed) {
+
+            const hasPrev = hasOwn(_computeds, key);
+            const prev = _computeds[key];
+
+            delete _computeds[key];
+
+            const {watch, immediate} = computed[key];
+            if (watch && (
+                initial && immediate
+                || hasPrev && !isEqual(prev, this[key])
+            )) {
+                watch.call(this, this[key], prev);
             }
 
         }

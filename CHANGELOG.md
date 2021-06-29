@@ -1,5 +1,38 @@
 # Changelog
 
+## 3.7.0 (June 29, 2021)
+
+### Added
+
+- Add text decoration modifier to Text component
+- Add width variable to range thumb in to Form Range component
+- Add Bag icon
+
+### Change
+
+- Change default search width and horizontal padding in Search component
+- Change badge width and font size in Badge component
+- Change button link color and text decoration in Button component
+- Change card badge height in Card component
+- Remove margin from the navbar item last-child in Navbar component
+- Add white space gap for navbar item in Navbar component
+- Allow text after icon in Iconnav component
+
+### Removed
+
+- Remove badge hover color variable in Badge component
+
+### Fixed
+
+- Fix input type list showing picker indicator in Chrome
+- Fix focus background in Form and Search component
+- Fix form size modifier for textarea in Form component
+- Fix icon alignment in Nav, Subnav and Tab components
+- Fix default dropdown selector in Navbar component
+- Fix show behavior in Drop component for multiple toggles
+- Fix ScrollspyNav component triggering 'active' event on every scroll
+- Fix prevent updates on disconnected components
+
 ## 3.6.22 (May 18, 2021)
 
 ### Added

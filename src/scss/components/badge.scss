@@ -9,15 +9,13 @@
 // Variables
 // ========================================================================
 
-$badge-size:                                     22px !default;
+$badge-size:                                     18px !default;
 $badge-padding-vertical:                         0 !default;
 $badge-padding-horizontal:                       5px !default;
 $badge-border-radius:                            500px !default;
 $badge-background:                               $global-primary-background !default;
 $badge-color:                                    $global-inverse-color !default;
-$badge-font-size:                                $global-small-font-size !default;
-
-$badge-hover-color:                              $global-inverse-color !default;
+$badge-font-size:                                11px !default;
 
 
 /* ========================================================================
@@ -38,12 +36,13 @@ $badge-hover-color:                              $global-inverse-color !default;
     vertical-align: middle;
     /* 1 */
     background: $badge-background;
-    color: $badge-color;
+    color: $badge-color !important;
     font-size: $badge-font-size;
     /* 2 */
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    line-height: 0;
     @if(mixin-exists(hook-badge)) {@include hook-badge();}
 }
 
@@ -53,7 +52,6 @@ $badge-hover-color:                              $global-inverse-color !default;
 
 .uk-badge:hover,
 .uk-badge:focus {
-    color: $badge-hover-color;
     text-decoration: none;
     outline: none;
     @if(mixin-exists(hook-badge-hover)) {@include hook-badge-hover();}
@@ -75,7 +73,6 @@ $badge-hover-color:                              $global-inverse-color !default;
 
 $inverse-badge-background:                      $inverse-global-primary-background !default;
 $inverse-badge-color:                           $inverse-global-inverse-color !default;
-$inverse-badge-hover-color:                     $inverse-global-inverse-color !default;
 
 
 

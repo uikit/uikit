@@ -20,6 +20,9 @@
 // New
 //
 
+@card-badge-border-radius:                     2px;
+@card-badge-text-transform:                    uppercase;
+
 @card-hover-box-shadow:                        @global-large-box-shadow;
 
 @card-default-box-shadow:                      @global-medium-box-shadow;
@@ -77,7 +80,10 @@
 // Badge
 // ========================================================================
 
-.hook-card-badge() {}
+.hook-card-badge() {
+    border-radius: @card-badge-border-radius;
+    text-transform: @card-badge-text-transform;
+}
 
 
 // Hover modifier

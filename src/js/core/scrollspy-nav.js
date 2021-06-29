@@ -1,4 +1,4 @@
-import {$$, addClass, closest, escape, getViewport, getViewportClientHeight, isVisible, offset, removeClass, scrollParents, trigger} from 'uikit-util';
+import {$$, addClass, closest, escape, getViewport, getViewportClientHeight, hasClass, isVisible, offset, removeClass, scrollParents, trigger} from 'uikit-util';
 
 export default {
 
@@ -84,13 +84,15 @@ export default {
 
             write({active}) {
 
+                const changed = active !== false && !hasClass(this.elements[active], this.cls);
+
                 this.links.forEach(el => el.blur());
                 removeClass(this.elements, this.cls);
+                addClass(this.elements[active], this.cls);
 
-                if (active !== false) {
-                    trigger(this.$el, 'active', [active, addClass(this.elements[active], this.cls)]);
+                if (changed) {
+                    trigger(this.$el, 'active', [active, this.elements[active]]);
                 }
-
             },
 
             events: ['scroll', 'resize']

@@ -62,15 +62,25 @@ $iconnav-item-active-color:                       $global-color !default;
 
 /*
  * Items must target `a` elements to exclude other elements (e.g. dropdowns)
- * 1. Prevent gap if child element is `inline-block`, e.g. an icon
- * 2. Style
+ * 1. Center content vertically if there is still some text
+ * 2. Imitate white space gap when using flexbox
+ * 3. Force text not to affect item height
+ * 4. Style
+ * 5. Required for `a` if there is still some text
  */
 
 .uk-iconnav > * > a {
     /* 1 */
-    display: block;
+    display: flex;
+    align-items: center;
     /* 2 */
+    column-gap: 0.25em;
+    /* 3 */
+    line-height: 0;
+    /* 4 */
     color: $iconnav-item-color;
+    /* 5 */
+    text-decoration: none;
     @if(mixin-exists(hook-iconnav-item)) {@include hook-iconnav-item();}
 }
 

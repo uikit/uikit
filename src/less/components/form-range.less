@@ -10,12 +10,13 @@
 // ========================================================================
 
 @form-range-thumb-height:                       15px;
+@form-range-thumb-width:                        @form-range-thumb-height;
 @form-range-thumb-border-radius:                500px;
 @form-range-thumb-background:                   @global-color;
 
 @form-range-track-height:                       3px;
 @form-range-track-background:                   darken(@global-muted-background, 5%);
-@form-range-track-focus-background:             darken(@global-muted-background, 15%);
+@form-range-track-focus-background:             darken(@form-range-track-background, 5%);
 
 
 /* ========================================================================
@@ -85,7 +86,7 @@
     margin-top: (floor(@form-range-thumb-height / 2) * -1);
     /* 2 */
     height: @form-range-thumb-height;
-    width: @form-range-thumb-height;
+    width: @form-range-thumb-width;
     border-radius: @form-range-thumb-border-radius;
     background: @form-range-thumb-background;
     .hook-form-range-thumb;
@@ -97,7 +98,7 @@
     border: none;
     /* 2 */
     height: @form-range-thumb-height;
-    width: @form-range-thumb-height;
+    width: @form-range-thumb-width;
     border-radius: @form-range-thumb-border-radius;
     background: @form-range-thumb-background;
     .hook-form-range-thumb;
@@ -115,7 +116,7 @@
     border: none;
     /* 2 */
     height: @form-range-thumb-height;
-    width: @form-range-thumb-height;
+    width: @form-range-thumb-width;
     border-radius: @form-range-thumb-border-radius;
     background: @form-range-thumb-background;
     .hook-form-range-thumb;

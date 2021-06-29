@@ -209,9 +209,10 @@
 /*
  * Items
  * 1. Center content vertically and horizontally
- * 2. Dimensions
- * 3. Style
- * 4. Required for `a`
+ * 2. Imitate white space gap when using flexbox
+ * 3. Dimensions
+ * 4. Style
+ * 5. Required for `a`
  */
 
 .uk-navbar-nav > li > a,    // Nav item
@@ -222,13 +223,15 @@
     justify-content: center;
     align-items: center;
     /* 2 */
+    column-gap: 0.25em;
+    /* 3 */
     box-sizing: border-box;
     min-height: @navbar-nav-item-height;
     padding: 0 @navbar-nav-item-padding-horizontal;
-    /* 3 */
+    /* 4 */
     font-size: @navbar-nav-item-font-size;
     font-family: @navbar-nav-item-font-family;
-    /* 4 */
+    /* 5 */
     text-decoration: none;
 }
 
@@ -274,6 +277,12 @@
     color: @navbar-item-color;
     .hook-navbar-item;
 }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-navbar-item > :last-child { margin-bottom: 0; }
 
 
 /* Toggle

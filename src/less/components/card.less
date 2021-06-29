@@ -48,7 +48,7 @@
 
 @card-badge-top:                               15px;
 @card-badge-right:                             15px;
-@card-badge-height:                            30px;
+@card-badge-height:                            22px;
 @card-badge-padding-horizontal:                10px;
 @card-badge-background:                        @global-primary-background;
 @card-badge-color:                             @global-inverse-color;
@@ -199,8 +199,7 @@
     z-index: 1;
     /* 2 */
     height: @card-badge-height;
-    padding-left: @card-badge-padding-horizontal;
-    padding-right: @card-badge-padding-horizontal;
+    padding: 0 @card-badge-padding-horizontal;
     /* 3 */
     background: @card-badge-background;
     color: @card-badge-color;
@@ -209,6 +208,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    line-height: 0;
     .hook-card-badge;
 }
 
