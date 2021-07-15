@@ -36,11 +36,7 @@ export function scrollTop(element, top) {
 
 export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
 
-    if (!isVisible(element)) {
-        return;
-    }
-
-    const parents = scrollParents(element);
+    const parents = isVisible(element) ? scrollParents(element) : [];
     let diff = 0;
     return parents.reduce((fn, scrollElement, i) => {
 
