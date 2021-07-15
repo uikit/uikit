@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix animation classes only partially being removed in Scrollspy component
+- Fix scrollIntoView did not return Promise if element is hidden 
 
 ## 3.7.0 (June 29, 2021)
 
