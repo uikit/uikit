@@ -1,4 +1,4 @@
-/*! UIkit 3.7.0 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.7.1 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2234,11 +2234,7 @@
         var offsetBy = ref.offset; if ( offsetBy === void 0 ) offsetBy = 0;
 
 
-        if (!isVisible(element)) {
-            return;
-        }
-
-        var parents = scrollParents(element);
+        var parents = isVisible(element) ? scrollParents(element) : [];
         var diff = 0;
         return parents.reduce(function (fn, scrollElement, i) {
 
@@ -3448,7 +3444,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.7.0';
+    UIkit.version = '3.7.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -5947,9 +5943,10 @@
     function setSrcAttrs(el, src, srcset, sizes) {
 
         if (isImg(el)) {
-            sizes && (el.sizes = sizes);
-            srcset && (el.srcset = srcset);
-            src && (el.src = src);
+            var set = function (prop, val) { return val && val !== el[prop] && (el[prop] = val); };
+            set('sizes', sizes);
+            set('srcset', srcset);
+            set('src', src);
         } else if (src) {
 
             var change = !includes(el.style.backgroundImage, src);
@@ -7371,7 +7368,7 @@
                 toggleClass(el, state.cls);
 
                 if (/\buk-animation-/.test(state.cls)) {
-                    state.off = once(el, 'animationcancel animationend', function () { return removeClasses(el, 'uk-animation-\\w*'); }
+                    state.off = once(el, 'animationcancel animationend', function () { return removeClasses(el, 'uk-animation-[\\w-]+'); }
                     );
                 }
 
