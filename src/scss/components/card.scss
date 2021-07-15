@@ -32,16 +32,16 @@ $card-body-padding-horizontal-l:                $global-medium-gutter !default;
 $card-body-padding-vertical-l:                  $global-medium-gutter !default;
 
 $card-header-padding-horizontal:                $global-gutter !default;
-$card-header-padding-vertical:                  round($global-gutter / 2) !default;
+$card-header-padding-vertical:                  round(math.div($global-gutter, 2)) !default;
 
 $card-header-padding-horizontal-l:              $global-medium-gutter !default;
-$card-header-padding-vertical-l:                round($global-medium-gutter / 2) !default;
+$card-header-padding-vertical-l:                round(math.div($global-medium-gutter, 2)) !default;
 
 $card-footer-padding-horizontal:                $global-gutter !default;
-$card-footer-padding-vertical:                  ($global-gutter / 2) !default;
+$card-footer-padding-vertical:                  (math.div($global-gutter, 2)) !default;
 
 $card-footer-padding-horizontal-l:              $global-medium-gutter !default;
-$card-footer-padding-vertical-l:                round($global-medium-gutter / 2) !default;
+$card-footer-padding-vertical-l:                round(math.div($global-medium-gutter, 2)) !default;
 
 $card-title-font-size:                          $global-large-font-size !default;
 $card-title-line-height:                        1.4 !default;
@@ -76,16 +76,16 @@ $card-secondary-color-mode:                     light !default;
 $card-small-body-padding-horizontal:            $global-margin !default;
 $card-small-body-padding-vertical:              $global-margin !default;
 $card-small-header-padding-horizontal:          $global-margin !default;
-$card-small-header-padding-vertical:            round($global-margin / 1.5) !default;
+$card-small-header-padding-vertical:            round(math.div($global-margin, 1.5)) !default;
 $card-small-footer-padding-horizontal:          $global-margin !default;
-$card-small-footer-padding-vertical:            round($global-margin / 1.5) !default;
+$card-small-footer-padding-vertical:            round(math.div($global-margin, 1.5)) !default;
 
 $card-large-body-padding-horizontal-l:          $global-large-gutter !default;
 $card-large-body-padding-vertical-l:            $global-large-gutter !default;
 $card-large-header-padding-horizontal-l:        $global-large-gutter !default;
-$card-large-header-padding-vertical-l:          round($global-large-gutter / 2) !default;
+$card-large-header-padding-vertical-l:          round(math.div($global-large-gutter, 2)) !default;
 $card-large-footer-padding-horizontal-l:        $global-large-gutter !default;
-$card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) !default;
+$card-large-footer-padding-vertical-l:          round(math.div($global-large-gutter, 2)) !default;
 
 
 /* ========================================================================
