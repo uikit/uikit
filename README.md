@@ -2,7 +2,7 @@
 
 # UIkit
 
-[![Discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/NEt4Pv7)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/uikit/uikit) [![Discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/NEt4Pv7)
 
 UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
@@ -43,6 +43,17 @@ To always have the latest development version of UIkit, even before a release, y
 ## Contributing
 
 Finding bugs, sending pull requests or improving our docs - any contribution is welcome and highly appreciated. To get started, head over to our [contribution guidelines](CONTRIBUTING.md). Thanks!
+
+### Contribute with online one click setup
+
+You can use Gitpod (a free online VS Code-like IDE) for contributing. With a single click it will launch a workspace and automatically:
+
+- clone the uikit repo.
+- install the dependencies.
+- start `yarn run watch`.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/uikit/uikit/)
+
 
 ## Versioning
 
