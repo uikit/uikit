@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix text alignment if tabs are left or right aligned in Tab component
+
 ## 3.7.1 (July 15, 2021)
 
 ### Fixed
