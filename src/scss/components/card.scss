@@ -223,7 +223,7 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
  ========================================================================== */
 
 .uk-card-hover:not(.uk-card-default):not(.uk-card-primary):not(.uk-card-secondary):hover {
-    background: $card-hover-background;
+    background-color: $card-hover-background;
     @if(mixin-exists(hook-card-hover)) {@include hook-card-hover();}
 }
 
@@ -237,7 +237,7 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
  */
 
 .uk-card-default {
-    background: $card-default-background;
+    background-color: $card-default-background;
     color: $card-default-color;
     @if(mixin-exists(hook-card-default)) {@include hook-card-default();}
 }
@@ -265,7 +265,7 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
  */
 
 .uk-card-primary {
-    background: $card-primary-background;
+    background-color: $card-primary-background;
     color: $card-primary-color;
     @if(mixin-exists(hook-card-primary)) {@include hook-card-primary();}
 }
@@ -291,7 +291,7 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
  */
 
 .uk-card-secondary {
-    background: $card-secondary-background;
+    background-color: $card-secondary-background;
     color: $card-secondary-color;
     @if(mixin-exists(hook-card-secondary)) {@include hook-card-secondary();}
 }
