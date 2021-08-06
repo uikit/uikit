@@ -1,11 +1,5 @@
 # Changelog
 
-## 3.7.3 (August 6, 2021)
-
-### Fixed
-
-- Fix nav item text with additional markup not wrapping into the next line in Nav component
-
 ## 3.7.2 (August 6, 2021)
 
 ### Fixed
