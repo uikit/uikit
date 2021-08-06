@@ -151,12 +151,12 @@ $tab-item-disabled-color:                 $global-muted-color !default;
 }
 
 .uk-tab-left > * > a {
-    text-align: left;
+    justify-content: left;
     @if(mixin-exists(hook-tab-left-item)) {@include hook-tab-left-item();}
 }
 
 .uk-tab-right > * > a {
-    text-align: left;
+    justify-content: left;
     @if(mixin-exists(hook-tab-right-item)) {@include hook-tab-right-item();}
 }
 
