@@ -164,6 +164,10 @@
     .hook-tile-default;
 }
 
+.uk-tile-default.uk-tile-hover:hover {
+    .hook-tile-default-hover;
+}
+
 /*
  * Muted
  */
@@ -173,6 +177,10 @@
     .hook-tile-muted;
 }
 
+.uk-tile-muted.uk-tile-hover:hover {
+    .hook-tile-muted-hover;
+}
+
 /*
  * Primary
  */
@@ -180,6 +188,10 @@
 .uk-tile-primary {
     background: @tile-primary-background;
     .hook-tile-primary;
+}
+
+.uk-tile-primary.uk-tile-hover:hover {
+    .hook-tile-primary-hover;
 }
 
 // Color Mode
@@ -195,6 +207,10 @@
     .hook-tile-secondary;
 }
 
+.uk-tile-secondary.uk-tile-hover:hover {
+    .hook-tile-secondary-hover;
+}
+
 // Color Mode
 .uk-tile-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-secondary-color-mode = light) {}
 .uk-tile-secondary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-secondary-color-mode = dark) {}
@@ -207,7 +223,11 @@
 
 .hook-tile() {}
 .hook-tile-default() {}
+.hook-tile-default-hover() {}
 .hook-tile-muted() {}
+.hook-tile-muted-hover() {}
 .hook-tile-primary() {}
+.hook-tile-primary-hover() {}
 .hook-tile-secondary() {}
+.hook-tile-secondary-hover() {}
 .hook-tile-misc() {}

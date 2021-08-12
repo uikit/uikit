@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add tile hover hooks
+
 ## 3.7.2 (August 6, 2021)
 
 ### Fixed
