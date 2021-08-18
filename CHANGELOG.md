@@ -103,7 +103,7 @@
 
 ### Added
 
-- Add Discord, Twitch and Tiktok icons
+- Add Discord, Twitch and TikTok icons
 
 ### Removed
 
@@ -111,7 +111,7 @@
 
 ### Fixed
 
-- Fix filter inital state
+- Fix filter initial state
 
 ## 3.6.17 (February 25, 2021)
 
@@ -268,7 +268,7 @@
 ### Fixed
 
 - Fix 'aria-expanded' value on toggles
-- Fix responsivness in Switcher component
+- Fix responsiveness in Switcher component
 
 ## 3.5.17 (December 16, 2020)
 
@@ -766,7 +766,7 @@
 
 ### Changed
 
-- By default the Offcanvas `container` option is `false` now
+- By default, the Offcanvas `container` option is `false` now
 - The `focusable` attribute on SVG/Icon component makes SVG focusable in IE
 
 ### Fixed
@@ -951,7 +951,7 @@
 
 ### Fixed
 
-- Fix visible toggle and its child elments not being focusable through keyboard navigation
+- Fix visible toggle and its child elements not being focusable through keyboard navigation
 - Fix Img component correctly escapes urls on background images
 
 ## 3.0.0 rc 26 (January 3, 2019)
@@ -1030,7 +1030,7 @@
 
 ### Added
 
-- Add print, reddit, mircrophone, file-text, file-pdf, chevron-double left and right icons
+- Add print, reddit, microphone, file-text, file-pdf, chevron-double left and right icons
 - Add text emphasis to Text component
 - Add `src` as primary option to SVG component
 
@@ -1096,7 +1096,7 @@
 ### Fixed
 
 - Fix `UIkit.mixin()`
-- Fix issue with list bullet in combination with multi column layouts
+- Fix issue with list bullet in combination with multi-column layouts
 - Allow for special characters in URI hash in Scroll Component
 - Height Match also sets a `height` in IE
 - Slideshow sets `min-height` instead of `height`
@@ -1422,7 +1422,7 @@
 ### Changed
 
 - Add `uk-slider-container` class to clip the Slider component
-- Remove auto-clipping from Slider items. Use `uk-cover-container` instead.
+- Remove auto-clipping from Slider items. Use `uk-cover-container` instead
 
 ### Fixed
 
