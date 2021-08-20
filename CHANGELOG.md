@@ -6,6 +6,10 @@
 
 - Add tile hover hooks
 
+### Fixed
+
+- Fix toggle behavior in Toggle component
+
 ## 3.7.2 (August 6, 2021)
 
 ### Fixed
