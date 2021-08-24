@@ -71,7 +71,7 @@ export default {
             },
 
             handler(e) {
-                if (!isTouch(e) && this._isTouch) {
+                if (!isTouch(e) && !this._isTouch) {
 
                     const isPointerEvent = includes(['pointerleave', 'pointerenter'], e.type);
                     if (!isPointerEvent && matches(this.$el, ':hover')
