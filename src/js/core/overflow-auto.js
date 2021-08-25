@@ -7,12 +7,14 @@ export default {
 
     props: {
         selContainer: String,
-        selContent: String
+        selContent: String,
+        minHeight: Number,
     },
 
     data: {
         selContainer: '.uk-modal',
-        selContent: '.uk-modal-dialog'
+        selContent: '.uk-modal-dialog',
+        minHeight: 150,
     },
 
     computed: {
@@ -28,7 +30,7 @@ export default {
     },
 
     connected() {
-        css(this.$el, 'minHeight', 150);
+        css(this.$el, 'minHeight', this.minHeight);
     },
 
     update: {
@@ -41,7 +43,7 @@ export default {
 
             return {
                 current: toFloat(css(this.$el, 'maxHeight')),
-                max: Math.max(150, height(this.container) - (dimensions(this.content).height - height(this.$el)))
+                max: Math.max(this.minHeight, height(this.container) - (dimensions(this.content).height - height(this.$el)))
             };
         },
 
