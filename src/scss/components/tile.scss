@@ -160,8 +160,12 @@ $tile-secondary-color-mode:                     light !default;
  */
 
 .uk-tile-default {
-    background: $tile-default-background;
+    background-color: $tile-default-background;
     @if(mixin-exists(hook-tile-default)) {@include hook-tile-default();}
+}
+
+.uk-tile-default.uk-tile-hover:hover {
+    @if(mixin-exists(hook-tile-default-hover)) {@include hook-tile-default-hover();}
 }
 
 /*
@@ -169,8 +173,12 @@ $tile-secondary-color-mode:                     light !default;
  */
 
 .uk-tile-muted {
-    background: $tile-muted-background;
+    background-color: $tile-muted-background;
     @if(mixin-exists(hook-tile-muted)) {@include hook-tile-muted();}
+}
+
+.uk-tile-muted.uk-tile-hover:hover {
+    @if(mixin-exists(hook-tile-muted-hover)) {@include hook-tile-muted-hover();}
 }
 
 /*
@@ -178,8 +186,12 @@ $tile-secondary-color-mode:                     light !default;
  */
 
 .uk-tile-primary {
-    background: $tile-primary-background;
+    background-color: $tile-primary-background;
     @if(mixin-exists(hook-tile-primary)) {@include hook-tile-primary();}
+}
+
+.uk-tile-primary.uk-tile-hover:hover {
+    @if(mixin-exists(hook-tile-primary-hover)) {@include hook-tile-primary-hover();}
 }
 
 // Color Mode
@@ -191,8 +203,12 @@ $tile-secondary-color-mode:                     light !default;
  */
 
 .uk-tile-secondary {
-    background: $tile-secondary-background;
+    background-color: $tile-secondary-background;
     @if(mixin-exists(hook-tile-secondary)) {@include hook-tile-secondary();}
+}
+
+.uk-tile-secondary.uk-tile-hover:hover {
+    @if(mixin-exists(hook-tile-secondary-hover)) {@include hook-tile-secondary-hover();}
 }
 
 // Color Mode
@@ -207,7 +223,11 @@ $tile-secondary-color-mode:                     light !default;
 
 // @mixin hook-tile(){}
 // @mixin hook-tile-default(){}
+// @mixin hook-tile-default-hover(){}
 // @mixin hook-tile-muted(){}
+// @mixin hook-tile-muted-hover(){}
 // @mixin hook-tile-primary(){}
+// @mixin hook-tile-primary-hover(){}
 // @mixin hook-tile-secondary(){}
+// @mixin hook-tile-secondary-hover(){}
 // @mixin hook-tile-misc(){}

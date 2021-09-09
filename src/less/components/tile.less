@@ -160,8 +160,12 @@
  */
 
 .uk-tile-default {
-    background: @tile-default-background;
+    background-color: @tile-default-background;
     .hook-tile-default;
+}
+
+.uk-tile-default.uk-tile-hover:hover {
+    .hook-tile-default-hover;
 }
 
 /*
@@ -169,8 +173,12 @@
  */
 
 .uk-tile-muted {
-    background: @tile-muted-background;
+    background-color: @tile-muted-background;
     .hook-tile-muted;
+}
+
+.uk-tile-muted.uk-tile-hover:hover {
+    .hook-tile-muted-hover;
 }
 
 /*
@@ -178,8 +186,12 @@
  */
 
 .uk-tile-primary {
-    background: @tile-primary-background;
+    background-color: @tile-primary-background;
     .hook-tile-primary;
+}
+
+.uk-tile-primary.uk-tile-hover:hover {
+    .hook-tile-primary-hover;
 }
 
 // Color Mode
@@ -191,8 +203,12 @@
  */
 
 .uk-tile-secondary {
-    background: @tile-secondary-background;
+    background-color: @tile-secondary-background;
     .hook-tile-secondary;
+}
+
+.uk-tile-secondary.uk-tile-hover:hover {
+    .hook-tile-secondary-hover;
 }
 
 // Color Mode
@@ -207,7 +223,11 @@
 
 .hook-tile() {}
 .hook-tile-default() {}
+.hook-tile-default-hover() {}
 .hook-tile-muted() {}
+.hook-tile-muted-hover() {}
 .hook-tile-primary() {}
+.hook-tile-primary-hover() {}
 .hook-tile-secondary() {}
+.hook-tile-secondary-hover() {}
 .hook-tile-misc() {}

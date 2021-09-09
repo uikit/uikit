@@ -413,7 +413,7 @@ $form-width-medium: 200px !default;
 $form-width-large: 500px !default;
 $form-select-padding-right: 20px !default;
 $form-select-icon-color: $global-color !default;
-$form-select-option-color: #444 !default;
+$form-select-option-color: $global-color !default;
 $form-select-disabled-icon-color: $global-muted-color !default;
 $form-datalist-padding-right: 20px !default;
 $form-datalist-icon-color: $global-color !default;

@@ -1,4 +1,4 @@
-/*! UIkit 3.7.2 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.7.3 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3444,7 +3444,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.7.2';
+    UIkit.version = '3.7.3';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -7100,12 +7100,14 @@
 
         props: {
             selContainer: String,
-            selContent: String
+            selContent: String,
+            minHeight: Number,
         },
 
         data: {
             selContainer: '.uk-modal',
-            selContent: '.uk-modal-dialog'
+            selContent: '.uk-modal-dialog',
+            minHeight: 150,
         },
 
         computed: {
@@ -7125,7 +7127,7 @@
         },
 
         connected: function() {
-            css(this.$el, 'minHeight', 150);
+            css(this.$el, 'minHeight', this.minHeight);
         },
 
         update: {
@@ -7138,7 +7140,7 @@
 
                 return {
                     current: toFloat(css(this.$el, 'maxHeight')),
-                    max: Math.max(150, height(this.container) - (dimensions(this.content).height - height(this.$el)))
+                    max: Math.max(this.minHeight, height(this.container) - (dimensions(this.content).height - height(this.$el)))
                 };
             },
 
@@ -8098,7 +8100,20 @@
         events: [
 
             {
+                name: (pointerDown + " " + pointerUp + " " + pointerCancel),
 
+                filter: function() {
+                    return includes(this.mode, 'hover');
+                },
+
+                handler: function(e) {
+                    this._isTouch = isTouch(e) && e.type === pointerDown;
+                }
+            },
+
+            {
+                // Clicking a button does not give it focus on all browsers and platforms
+                // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
                 name: (pointerEnter + " " + pointerLeave + " focus blur"),
 
                 filter: function() {
@@ -8106,7 +8121,15 @@
                 },
 
                 handler: function(e) {
-                    if (!isTouch(e)) {
+                    if (!isTouch(e) && !this._isTouch) {
+
+                        var isPointerEvent = includes(['pointerleave', 'pointerenter'], e.type);
+                        if (!isPointerEvent && matches(this.$el, ':hover')
+                            || isPointerEvent && matches(this.$el, ':focus')
+                        ) {
+                            return;
+                        }
+
                         this.toggle(("toggle" + (includes([pointerEnter, 'focus'], e.type) ? 'show' : 'hide')));
                     }
                 }
@@ -8126,7 +8149,7 @@
                     var link;
                     if (closest(e.target, 'a[href="#"], a[href=""]')
                         || (link = closest(e.target, 'a[href]')) && (
-                            !isToggled(this.target, this.cls)
+                            !attr(this.$el, 'aria-expanded')
                             || link.hash && matches(this.target, link.hash)
                         )
                     ) {
@@ -8212,20 +8235,15 @@
             updateAria: function(toggled) {
                 attr(this.$el, 'aria-expanded', isBoolean(toggled)
                     ? toggled
-                    : isToggled(this.target, this.cls)
+                    : this.cls
+                        ? hasClass(this.target[0], this.cls.split(' ')[0])
+                        : isVisible(this.target[0])
                 );
             }
 
         }
 
     };
-
-    // TODO improve isToggled handling
-    function isToggled(target, cls) {
-        return cls
-            ? hasClass(target, cls.split(' ')[0])
-            : isVisible(target);
-    }
 
     var components$1 = /*#__PURE__*/Object.freeze({
         __proto__: null,
