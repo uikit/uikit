@@ -1721,9 +1721,13 @@
 }
 @mixin hook-tile(){}
 @mixin hook-tile-default(){}
+@mixin hook-tile-default-hover(){}
 @mixin hook-tile-muted(){}
+@mixin hook-tile-muted-hover(){}
 @mixin hook-tile-primary(){}
+@mixin hook-tile-primary-hover(){}
 @mixin hook-tile-secondary(){}
+@mixin hook-tile-secondary-hover(){}
 @mixin hook-tile-misc(){}
 @mixin hook-tooltip(){}
 @mixin hook-tooltip-misc(){}

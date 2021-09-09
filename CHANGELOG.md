@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.7.3 (September 9, 2021)
 
 ### Added
 
