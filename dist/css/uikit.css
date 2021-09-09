@@ -1,4 +1,4 @@
-/*! UIkit 3.7.2 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.7.3 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1671,7 +1671,7 @@ select.uk-form-width-xsmall {
 }
 /* 4 */
 .uk-select:not([multiple]):not([size]) option {
-  color: #444;
+  color: #666;
 }
 /*
  * Disabled
@@ -2626,25 +2626,25 @@ select.uk-form-width-xsmall {
  * Default
  */
 .uk-tile-default {
-  background: #fff;
+  background-color: #fff;
 }
 /*
  * Muted
  */
 .uk-tile-muted {
-  background: #f8f8f8;
+  background-color: #f8f8f8;
 }
 /*
  * Primary
  */
 .uk-tile-primary {
-  background: #1e87f0;
+  background-color: #1e87f0;
 }
 /*
  * Secondary
  */
 .uk-tile-secondary {
-  background: #222;
+  background-color: #222;
 }
 /* ========================================================================
    Component: Card
@@ -5335,7 +5335,7 @@ ul.uk-nav-sub {
  */
 .uk-navbar-nav > li:hover > a,
 .uk-navbar-nav > li > a:focus,
-.uk-navbar-nav > li > a.uk-open {
+.uk-navbar-nav > li > a[aria-expanded="true"] {
   color: #666;
   outline: none;
 }
