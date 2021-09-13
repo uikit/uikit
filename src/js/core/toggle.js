@@ -99,7 +99,7 @@ export default {
                 let link;
                 if (closest(e.target, 'a[href="#"], a[href=""]')
                     || (link = closest(e.target, 'a[href]')) && (
-                        !attr(this.$el, 'aria-expanded')
+                        attr(this.$el, 'aria-expanded') !== 'true'
                         || link.hash && matches(this.target, link.hash)
                     )
                 ) {
