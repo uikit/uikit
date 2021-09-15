@@ -15,7 +15,7 @@
 ### Fixed
 
 - Fix toggle behavior in Toggle component
-- Fix navbar item style if dropdown is opened and `container` option is used
+- Fix navbar item style if dropdown is open and `container` option is used
 
 ## 3.7.2 (August 6, 2021)
 
