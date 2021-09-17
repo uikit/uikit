@@ -8,13 +8,13 @@ export default {
     props: {
         selContainer: String,
         selContent: String,
-        minHeight: Number,
+        minHeight: Number
     },
 
     data: {
         selContainer: '.uk-modal',
         selContent: '.uk-modal-dialog',
-        minHeight: 150,
+        minHeight: 150
     },
 
     computed: {
