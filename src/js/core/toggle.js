@@ -87,6 +87,18 @@ export default {
         },
 
         {
+            name: 'keydown',
+
+            handler(e) {
+                // Space
+                if (e.keyCode === 32) {
+                    e.preventDefault();
+                    this.$el.click();
+                }
+            }
+        },
+
+        {
 
             name: 'click',
 
@@ -192,3 +204,4 @@ export default {
     }
 
 };
+
