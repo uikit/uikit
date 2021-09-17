@@ -1,4 +1,3 @@
-import {hasAttr} from './attr';
 import {inBrowser} from './env';
 import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
 
@@ -33,8 +32,9 @@ export function isInput(element) {
     return toNodes(element).some(element => matches(element, selInput));
 }
 
+export const selFocusable = `${selInput},a[href],[tabindex]`;
 export function isFocusable(element) {
-    return isInput(element) || matches(element, 'a[href],button') || hasAttr(element, 'tabindex');
+    return matches(element, selFocusable);
 }
 
 export function parent(element) {
