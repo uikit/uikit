@@ -20,4 +20,6 @@
 custom
 themes.json
 .DS_Store
-/.idea
+.idea
+.vscode
+.nova
