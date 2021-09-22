@@ -1,4 +1,4 @@
-import {$$, addClass, Animation, assign, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, Promise, removeClass, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
+import {$$, addClass, Animation, assign, css, fastdom, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, Promise, removeClass, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -95,13 +95,14 @@ export default {
         },
 
         isToggled(el = this.$el) {
+            el = toNodes(el)[0];
             return hasClass(el, this.clsEnter)
                 ? true
                 : hasClass(el, this.clsLeave)
                     ? false
                     : this.cls
                         ? hasClass(el, this.cls.split(' ')[0])
-                        : !hasAttr(el, 'hidden');
+                        : isVisible(el);
         },
 
         _toggle(el, toggled) {

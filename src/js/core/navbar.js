@@ -49,7 +49,7 @@ export default {
     computed: {
 
         boundary({boundary, boundaryAlign}, $el) {
-            return (boundary === true || boundaryAlign) ? $el : boundary;
+            return boundary === true || boundaryAlign ? $el : boundary;
         },
 
         dropbarAnchor({dropbarAnchor}, $el) {
