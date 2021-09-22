@@ -10,6 +10,7 @@
 
 - Fix regression in Toggle component
 - Fix keyboard navigation in Navbar component
+- Fix navbar toggle style and navbar item inverse style if dropdown is open
 
 ## 3.7.3 (September 9, 2021)
 
