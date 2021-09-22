@@ -10,6 +10,7 @@ export default {
     props: {
         connect: String,
         toggle: String,
+        itemNav: String,
         active: Number,
         swiping: Boolean
     },
@@ -17,6 +18,7 @@ export default {
     data: {
         connect: '~.uk-switcher',
         toggle: '> * > :first-child',
+        itemNav: false,
         active: 0,
         swiping: true,
         cls: 'uk-active',
@@ -92,7 +94,7 @@ export default {
             name: 'click',
 
             el() {
-                return this.connects;
+                return this.connects.concat(this.itemNav ? queryAll(this.itemNav, this.$el) : []);
             },
 
             delegate() {
