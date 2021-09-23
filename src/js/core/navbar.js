@@ -2,7 +2,7 @@ import {active} from './drop';
 import Class from '../mixin/class';
 import FlexBug from '../mixin/flex-bug';
 import Container from '../mixin/container';
-import {$, $$, addClass, after, assign, css, hasClass, height, includes, isRtl, isVisible, matches, noop, parent, Promise, query, remove, toFloat, Transition, within} from 'uikit-util';
+import {$, $$, addClass, after, assign, css, findIndex, hasAttr, hasClass, height, includes, isRtl, isVisible, matches, noop, once, parent, Promise, query, remove, selFocusable, toFloat, Transition, within} from 'uikit-util';
 
 const navItem = '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle';
 
@@ -49,7 +49,7 @@ export default {
     computed: {
 
         boundary({boundary, boundaryAlign}, $el) {
-            return (boundary === true || boundaryAlign) ? $el : boundary;
+            return boundary === true || boundaryAlign ? $el : boundary;
         },
 
         dropbarAnchor({dropbarAnchor}, $el) {
@@ -91,8 +91,13 @@ export default {
             get({clsDrop}, $el) {
                 const dropdowns = $$(`.${clsDrop}`, $el);
 
-                if (this.container !== $el) {
-                    $$(`.${clsDrop}`, this.container).forEach(el => !includes(dropdowns, el) && dropdowns.push(el));
+                if (this.dropContainer !== $el) {
+                    $$(`.${clsDrop}`, this.dropContainer).forEach(el => {
+                        const dropdown = this.getDropdown(el);
+                        if (!includes(dropdowns, el) && dropdown && dropdown.target && within(dropdown.target, this.$el)) {
+                            dropdowns.push(el);
+                        }
+                    });
                 }
 
                 return dropdowns;
@@ -108,6 +113,10 @@ export default {
 
             immediate: true
 
+        },
+
+        toggles({dropdown}, $el) {
+            return $$(dropdown, $el);
         }
 
     },
@@ -120,7 +129,7 @@ export default {
     events: [
 
         {
-            name: 'mouseover',
+            name: 'mouseover focusin',
 
             delegate() {
                 return this.dropdown;
@@ -128,11 +137,85 @@ export default {
 
             handler({current}) {
                 const active = this.getActive();
-                if (active && active.target && !within(active.target, current) && !active.tracker.movesTo(active.$el)) {
+                if (active && includes(active.mode, 'hover') && active.target && !within(active.target, current) && !active.tracker.movesTo(active.$el)) {
                     active.hide(false);
                 }
             }
 
+        },
+
+        {
+            name: 'keydown',
+
+            delegate() {
+                return this.dropdown;
+            },
+
+            handler(e) {
+
+                const {current, keyCode} = e;
+                const active = this.getActive();
+
+                if (keyCode === keyMap.DOWN && hasAttr(current, 'aria-expanded')) {
+
+                    e.preventDefault();
+
+                    if (!active || active.target !== current) {
+                        current.click();
+                        once(this.dropContainer, 'show', ({target}) => focusFirstFocusableElement(target));
+                    } else {
+                        focusFirstFocusableElement(active.$el);
+                    }
+
+                }
+
+                handleNavItemNavigation(e, this.toggles, active);
+            }
+        },
+
+        {
+            name: 'keydown',
+
+            el() {
+                return this.dropContainer;
+            },
+
+            delegate() {
+                return `.${this.clsDrop}`;
+            },
+
+            handler(e) {
+
+                const {current, keyCode} = e;
+
+                if (!includes(this.dropdowns, current)) {
+                    return;
+                }
+
+                const active = this.getActive();
+                const elements = $$(selFocusable, current);
+                const i = findIndex(elements, el => matches(el, ':focus'));
+
+                if (keyCode === keyMap.UP) {
+                    e.preventDefault();
+                    if (i > 0) {
+                        elements[i - 1].focus();
+                    }
+                }
+
+                if (keyCode === keyMap.DOWN) {
+                    e.preventDefault();
+                    if (i < elements.length - 1) {
+                        elements[i + 1].focus();
+                    }
+                }
+
+                if (keyCode === keyMap.ESC) {
+                    active && active.target && active.target.focus();
+                }
+
+                handleNavItemNavigation(e, this.toggles, active);
+            }
         },
 
         {
@@ -142,10 +225,14 @@ export default {
                 return this.dropbar;
             },
 
+            filter() {
+                return this.dropbar;
+            },
+
             handler() {
                 const active = this.getActive();
 
-                if (active && !this.dropdowns.some(el => matches(el, ':hover'))) {
+                if (active && includes(active.mode, 'hover') && !this.dropdowns.some(el => matches(el, ':hover'))) {
                     active.hide();
                 }
             }
@@ -249,7 +336,7 @@ export default {
     methods: {
 
         getActive() {
-            return active && includes(active.mode, 'hover') && within(active.target, this.$el) && active;
+            return active && within(active.target, this.$el) && active;
         },
 
         transitionTo(newHeight, el) {
@@ -281,4 +368,46 @@ export default {
 
     }
 
+};
+
+function handleNavItemNavigation(e, toggles, active) {
+
+    const {current, keyCode} = e;
+    const target = active && active.target || current;
+    const i = toggles.indexOf(target);
+
+    // Left
+    if (keyCode === keyMap.LEFT && i > 0) {
+        active && active.hide(false);
+        toggles[i - 1].focus();
+    }
+
+    // Right
+    if (keyCode === keyMap.RIGHT && i < toggles.length - 1) {
+        active && active.hide(false);
+        toggles[i + 1].focus();
+    }
+
+    if (keyCode === keyMap.TAB) {
+        target.focus();
+        active && active.hide(false);
+    }
+}
+
+function focusFirstFocusableElement(el) {
+    if (!$(':focus', el)) {
+        const focusEl = $(selFocusable, el);
+        if (focusEl) {
+            focusEl.focus();
+        }
+    }
+}
+
+const keyMap = {
+    TAB: 9,
+    ESC: 27,
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40
 };

@@ -1,6 +1,6 @@
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
-import {attr, closest, hasClass, hasTouch, includes, isBoolean, isFocusable, isTouch, isVisible, matches, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, queryAll, trigger} from 'uikit-util';
+import {attr, closest, hasClass, hasTouch, includes, isBoolean, isFocusable, isTouch, matches, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, queryAll, trigger} from 'uikit-util';
 
 export default {
 
@@ -73,17 +73,35 @@ export default {
             handler(e) {
                 if (!isTouch(e) && !this._isTouch) {
 
-                    const isPointerEvent = includes(['pointerleave', 'pointerenter'], e.type);
-                    if (!isPointerEvent && matches(this.$el, ':hover')
-                        || isPointerEvent && matches(this.$el, ':focus')
+                    const show = includes([pointerEnter, 'focus'], e.type);
+
+                    if (e.type === 'blur' && matches(this.$el, ':hover')
+                        || e.type === pointerLeave && matches(this.$el, ':focus')
+                        || show && attr(this.$el, 'aria-expanded') === 'true'
                     ) {
                         return;
                     }
 
-                    this.toggle(`toggle${includes([pointerEnter, 'focus'], e.type) ? 'show' : 'hide'}`);
+                    this.toggle(`toggle${show ? 'show' : 'hide'}`);
                 }
             }
 
+        },
+
+        {
+            name: 'keydown',
+
+            filter() {
+                return includes(this.mode, 'click');
+            },
+
+            handler(e) {
+                // Space
+                if (e.keyCode === 32) {
+                    e.preventDefault();
+                    this.$el.click();
+                }
+            }
         },
 
         {
@@ -99,7 +117,7 @@ export default {
                 let link;
                 if (closest(e.target, 'a[href="#"], a[href=""]')
                     || (link = closest(e.target, 'a[href]')) && (
-                        !attr(this.$el, 'aria-expanded')
+                        attr(this.$el, 'aria-expanded') !== 'true'
                         || link.hash && matches(this.target, link.hash)
                     )
                 ) {
@@ -122,7 +140,9 @@ export default {
             },
 
             handler(e, toggled) {
-                this.updateAria(toggled);
+                if (e.target === this.target[0]) {
+                    this.updateAria(toggled);
+                }
             }
         }
 
@@ -183,12 +203,11 @@ export default {
         updateAria(toggled) {
             attr(this.$el, 'aria-expanded', isBoolean(toggled)
                 ? toggled
-                : this.cls
-                    ? hasClass(this.target[0], this.cls.split(' ')[0])
-                    : isVisible(this.target[0])
+                : this.isToggled(this.target)
             );
         }
 
     }
 
 };
+

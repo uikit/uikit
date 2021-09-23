@@ -1132,7 +1132,7 @@
 
     .uk-navbar-nav > li:hover > a,
     .uk-navbar-nav > li > a:focus,
-    .uk-navbar-nav > li > a.uk-open {
+    .uk-navbar-nav > li > a[aria-expanded="true"] {
         color: $inverse-navbar-nav-item-hover-color;
         @if(mixin-exists(hook-inverse-navbar-nav-item-hover)) {@include hook-inverse-navbar-nav-item-hover();}
     }
@@ -1159,7 +1159,7 @@
 
     .uk-navbar-toggle:hover,
     .uk-navbar-toggle:focus,
-    .uk-navbar-toggle.uk-open {
+    .uk-navbar-toggle[aria-expanded="true"] {
         color: $inverse-navbar-toggle-hover-color;
         @if(mixin-exists(hook-inverse-navbar-toggle-hover)) {@include hook-inverse-navbar-toggle-hover();}
     }

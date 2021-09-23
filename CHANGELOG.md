@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.7.4 (September 23, 2021)
+
+### Added
+
+- Add itemNav option to Switcher component
+
+### Change
+
+- Focus modal/offcanvas upon opening
+
+### Fixed
+
+- Fix regression in Toggle component
+- Fix keyboard navigation in Navbar component
+- Fix navbar toggle style and navbar item inverse style if dropdown is open
+
 ## 3.7.3 (September 9, 2021)
 
 ### Added
@@ -9,7 +25,7 @@
 ### Fixed
 
 - Fix toggle behavior in Toggle component
-- Fix navbar item style if dropdown is opened and `container` option is used
+- Fix navbar item style if dropdown is open and container option is used
 
 ## 3.7.2 (August 6, 2021)
 

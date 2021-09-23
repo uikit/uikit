@@ -25,7 +25,7 @@
             <div class="uk-margin" uk-margin>
 
                 <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Hover</button>
+                    <button class="uk-button uk-button-default" type="button">Hover, Click</button>
                     <div id="parent-drop" uk-drop>
                         <div id="parent-drop-card" class="uk-card uk-card-body uk-card-default">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Click</button>
+                    <button class="uk-button uk-button-default" type="button">Click only</button>
                     <div id="parent-drop-click" uk-drop="mode: click">
                         <div id="parent-drop-card-click" class="uk-card uk-card-body uk-card-default">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -89,15 +89,6 @@
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Hover only</button>
                     <div uk-drop="mode: hover; delay-hide: 0">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~div; mode: click,hover">Same</button>
-                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~div; mode: click,hover">Same</button>
-                    <button class="uk-button uk-button-default" type="button">Target</button>
-                    <div uk-drop>
                         <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
@@ -328,6 +319,21 @@
 
             </div>
 
+            <h2>Multiple Toggles</h2>
+
+            <div class="uk-margin" uk-margin>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~div; mode: click,hover">Same</button>
+                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~div; mode: click,hover">Same</button>
+                    <button class="uk-button uk-button-default" type="button">Target</button>
+                    <div uk-drop>
+                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    </div>
+                </div>
+
+            </div>
+
             <h2>JavaScript Options</h2>
 
             <div class="uk-overflow-auto">
@@ -374,8 +380,8 @@
                         <tr>
                             <td><code>boundary</code></td>
                             <td>CSS selector</td>
-                            <td>window</td>
-                            <td>Referenced element to keep Drop's visibility.</td>
+                            <td>true</td>
+                            <td>Referenced element to keep Drop's visibility. By default it's the window.</td>
                         </tr>
                         <tr>
                             <td><code>boundary-align</code></td>
