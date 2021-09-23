@@ -6,6 +6,10 @@
 
 - Add itemNav option to Switcher component
 
+### Change
+
+- Focus modal/offcanvas upon opening
+
 ### Fixed
 
 - Fix regression in Toggle component

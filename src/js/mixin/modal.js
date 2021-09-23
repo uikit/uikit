@@ -1,4 +1,4 @@
-import {$, addClass, append, css, includes, last, on, once, parent, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toFloat, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, attr, css, includes, isFocusable, last, on, once, parent, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toFloat, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -70,7 +70,7 @@ export default {
 
             self: true,
 
-            handler(e) {
+            handler(e, toggle) {
 
                 if (e.defaultPrevented) {
                     return;
@@ -78,6 +78,7 @@ export default {
 
                 e.preventDefault();
 
+                this.target = toggle.$el;
                 if (this.isToggled() === includes(active, this)) {
                     this.toggle();
                 }
@@ -148,6 +149,37 @@ export default {
                             this.hide();
                         }
                     }), {self: true});
+                }
+            }
+
+        },
+
+        {
+            name: 'shown',
+
+            self: true,
+
+            handler() {
+                if (!isFocusable(this.$el)) {
+                    attr(this.$el, 'tabindex', '0');
+                }
+
+                if (!$(':focus', this.$el)) {
+                    this.$el.focus();
+                }
+            }
+        },
+
+        {
+
+            name: 'hide',
+
+            self: true,
+
+            handler() {
+                if (isFocusable(this.target)) {
+                    this.target.focus();
+                    this.target = null;
                 }
             }
 
