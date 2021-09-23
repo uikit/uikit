@@ -295,7 +295,7 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 
 .uk-navbar-toggle:hover,
 .uk-navbar-toggle:focus,
-.uk-navbar-toggle.uk-open {
+.uk-navbar-toggle[aria-expanded="true"] {
     color: $navbar-toggle-hover-color;
     outline: none;
     text-decoration: none;
