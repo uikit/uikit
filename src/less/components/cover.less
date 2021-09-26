@@ -27,7 +27,9 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    --uk-position-translate-x: -50%;
+    --uk-position-translate-y: -50%;
+    transform: translate(var(--uk-position-translate-x, 0), var(--uk-position-translate-y, 0));
 }
 
 iframe.uk-cover { pointer-events: none; }

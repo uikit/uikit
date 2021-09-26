@@ -1,12 +1,19 @@
 # Changelog
 
+## WIP 3.8
+
+### Changed
+
+- Use custom properties in Position component
+- Make transition classes work with position or cover classes on the same element
+
 ## 3.7.4 (September 23, 2021)
 
 ### Added
 
 - Add itemNav option to Switcher component
 
-### Change
+### Changed
 
 - Focus modal/offcanvas upon opening
 
@@ -48,7 +55,7 @@
 - Add width variable to range thumb in to Form Range component
 - Add Bag icon
 
-### Change
+### Changed
 
 - Change default search width and horizontal padding in Search component
 - Change badge width and font size in Badge component
@@ -100,7 +107,7 @@
 
 ## 3.6.20 (April 22, 2021)
 
-### Change
+### Changed
 
 - Toggle component in hover mode toggles on focus and blur
 
@@ -110,7 +117,7 @@
 
 ## 3.6.19 (April 7, 2021)
 
-### Change
+### Changed
 
 - Update card badge style
 
@@ -146,7 +153,7 @@
 
 ## 3.6.16 (February 5, 2021)
 
-### Change
+### Changed
 
 - Make multiple select resizable
 
