@@ -71,12 +71,24 @@
  *       therefore it's recommended to use an extra `div` for the transition.
  */
 
+
+:where(.uk-transition-fade),
+:where([class*='uk-transition-scale']),
+:where([class*='uk-transition-slide']) {
+    --uk-position-translate-x: 0;
+    --uk-position-translate-y: 0;
+}
+
 .uk-transition-fade,
 [class*='uk-transition-scale'],
 [class*='uk-transition-slide'] {
-    transform: translate(var(--uk-position-translate-x, 0), var(--uk-position-translate-y, 0))
-               translate(var(--uk-translate-x, 0), var(--uk-translate-y, 0))
-               scale(var(--uk-scale-x, 1), var(--uk-scale-y, 1));
+    --uk-translate-x: 0;
+    --uk-translate-y: 0;
+    --uk-scale-x: 1;
+    --uk-scale-y: 1;
+    transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y))
+               translate(var(--uk-translate-x), var(--uk-translate-y))
+               scale(var(--uk-scale-x), var(--uk-scale-y));
     transition: @transition-duration ease-out;
     transition-property: opacity, transform, filter;
     opacity: 0;
