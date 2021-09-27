@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Change
+
+- Improve Cover component performance if applied to none video
+
 ## 3.7.4 (September 23, 2021)
 
 ### Added
