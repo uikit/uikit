@@ -66,11 +66,7 @@
  * 1. Using `:focus` and tabindex
  * 2. Using `:hover` and a `touchstart` event listener registered on the document
  *    (Doesn't work on Surface touch devices)
- *
- * Note: Transitions don't work with `uk-postion-center-*` classes because they also use `transform`,
- *       therefore it's recommended to use an extra `div` for the transition.
  */
-
 
 :where(.uk-transition-fade),
 :where([class*='uk-transition-scale']),
@@ -104,7 +100,11 @@
 
 /*
  * Scale
+ * 1. Make image rendering the same during the transition as before and after. Prefixed because of Safari.
  */
+
+/* 1 */
+[class*='uk-transition-scale'] { -webkit-backface-visibility: hidden; }
 
 .uk-transition-scale-up {
     --uk-scale-x: 1;
