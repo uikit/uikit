@@ -6,6 +6,7 @@
 
 - Use custom properties in Position component
 - Make transition classes work with position or cover classes on the same element
+- Refactor animation component
 
 ## 3.7.4 (September 23, 2021)
 

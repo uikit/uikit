@@ -40,11 +40,7 @@
    Component: Animation
  ========================================================================== */
 
-[class*='uk-animation-'] {
-    animation-duration: @animation-duration;
-    animation-timing-function: ease-out;
-    animation-fill-mode: both;
-}
+[class*='uk-animation-'] { animation: @animation-duration ease-out both; }
 
 
 /* Animations
@@ -64,42 +60,42 @@
  * Scale
  */
 
-.uk-animation-scale-up { animation-name: uk-fade-scale-02; }
-.uk-animation-scale-down { animation-name: uk-fade-scale-18; }
+.uk-animation-scale-up { animation-name: uk-fade, uk-scale-up; }
+.uk-animation-scale-down { animation-name: uk-fade, uk-scale-down; }
 
 /*
  * Slide
  */
 
-.uk-animation-slide-top { animation-name: uk-fade-top; }
-.uk-animation-slide-bottom { animation-name: uk-fade-bottom; }
-.uk-animation-slide-left { animation-name: uk-fade-left; }
-.uk-animation-slide-right { animation-name: uk-fade-right; }
+.uk-animation-slide-top { animation-name: uk-fade, uk-slide-top; }
+.uk-animation-slide-bottom { animation-name: uk-fade, uk-slide-bottom; }
+.uk-animation-slide-left { animation-name: uk-fade, uk-slide-left; }
+.uk-animation-slide-right { animation-name: uk-fade, uk-slide-right; }
 
 /*
  * Slide Small
  */
 
-.uk-animation-slide-top-small { animation-name: uk-fade-top-small; }
-.uk-animation-slide-bottom-small { animation-name: uk-fade-bottom-small; }
-.uk-animation-slide-left-small { animation-name: uk-fade-left-small; }
-.uk-animation-slide-right-small { animation-name: uk-fade-right-small; }
+.uk-animation-slide-top-small { animation-name: uk-fade, uk-slide-top-small; }
+.uk-animation-slide-bottom-small { animation-name: uk-fade, uk-slide-bottom-small; }
+.uk-animation-slide-left-small { animation-name: uk-fade, uk-slide-left-small; }
+.uk-animation-slide-right-small { animation-name: uk-fade, uk-slide-right-small; }
 
 /*
  * Slide Medium
  */
-
-.uk-animation-slide-top-medium { animation-name: uk-fade-top-medium; }
-.uk-animation-slide-bottom-medium { animation-name: uk-fade-bottom-medium; }
-.uk-animation-slide-left-medium { animation-name: uk-fade-left-medium; }
-.uk-animation-slide-right-medium { animation-name: uk-fade-right-medium; }
+ 
+.uk-animation-slide-top-medium { animation-name: uk-fade, uk-slide-top-medium; }
+.uk-animation-slide-bottom-medium { animation-name: uk-fade, uk-slide-bottom-medium; }
+.uk-animation-slide-left-medium { animation-name: uk-fade, uk-slide-left-medium; }
+.uk-animation-slide-right-medium { animation-name: uk-fade, uk-slide-right-medium; }
 
 /*
  * Kenburns
  */
 
 .uk-animation-kenburns {
-    animation-name: uk-scale-kenburns;
+    animation-name: uk-kenburns;
     animation-duration: @animation-kenburns-duration;
 }
 
@@ -119,15 +115,15 @@
 
 .uk-animation-stroke {
     animation-name: uk-stroke;
-    stroke-dasharray: var(--uk-animation-stroke);
     animation-duration: @animation-stroke-duration;
+    stroke-dasharray: var(--uk-animation-stroke);
 }
 
 
 /* Direction modifier
  ========================================================================== */
 
- .uk-animation-reverse {
+.uk-animation-reverse {
     animation-direction: reverse;
     animation-timing-function: ease-in;
 }
@@ -136,32 +132,13 @@
 /* Duration modifier
  ========================================================================== */
 
- .uk-animation-fast { animation-duration: @animation-fast-duration; }
+.uk-animation-fast { animation-duration: @animation-fast-duration; }
 
 
-/* Toggle (Hover + Focus)
-========================================================================== */
-
-/*
- * The toggle is triggered on touch devices using `:focus` and tabindex
- */
+/* Toggle animation based on the State of the Parent Element
+ ========================================================================== */
 
 .uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none; }
-
-/*
- * 1. Prevent tab highlighting on iOS.
- */
-
-.uk-animation-toggle {
-    /* 1 */
-    -webkit-tap-highlight-color: transparent;
-}
-
-/*
- * Remove outline for `tabindex`
- */
-
-.uk-animation-toggle:focus { outline: none; }
 
 
 /* Keyframes used by animation classes
@@ -177,220 +154,96 @@
 }
 
 /*
- * Slide Top
+ * Scale
  */
 
-@keyframes uk-fade-top {
-    0% {
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes uk-scale-up {
+    0% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+@keyframes uk-scale-down {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 /*
- * Slide Bottom
+ * Slide
  */
 
-@keyframes uk-fade-bottom {
-    0% {
-        opacity: 0;
-        transform: translateY(100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes uk-slide-top {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes uk-slide-bottom {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes uk-slide-left {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes uk-slide-right {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0); }
 }
 
 /*
- * Slide Left
+ * Slide Small
  */
 
-@keyframes uk-fade-left {
-    0% {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
+@keyframes uk-slide-top-small {
+    0% { transform: translateY(-@animation-slide-small-translate); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes uk-slide-bottom-small {
+    0% { transform: translateY(@animation-slide-small-translate); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes uk-slide-left-small {
+    0% { transform: translateX(-@animation-slide-small-translate); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes uk-slide-right-small {
+    0% { transform: translateX(@animation-slide-small-translate); }
+    100% { transform: translateX(0); }
 }
 
 /*
- * Slide Right
+ * Slide Medium
  */
 
-@keyframes uk-fade-right {
-    0% {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
+@keyframes uk-slide-top-medium {
+    0% { transform: translateY(-@animation-slide-medium-translate); }
+    100% { transform: translateY(0); }
 }
 
-/*
- * Slide Top Small
- */
-
-@keyframes uk-fade-top-small {
-    0% {
-        opacity: 0;
-        transform: translateY(-@animation-slide-small-translate);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes uk-slide-bottom-medium {
+    0% { transform: translateY(@animation-slide-medium-translate); }
+    100% { transform: translateY(0); }
 }
 
-/*
- * Slide Bottom Small
- */
-
-@keyframes uk-fade-bottom-small {
-    0% {
-        opacity: 0;
-        transform: translateY(@animation-slide-small-translate);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes uk-slide-left-medium {
+    0% { transform: translateX(-@animation-slide-medium-translate); }
+    100% { transform: translateX(0); }
 }
 
-/*
- * Slide Left Small
- */
-
-@keyframes uk-fade-left-small {
-    0% {
-        opacity: 0;
-        transform: translateX(-@animation-slide-small-translate);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/*
- * Slide Right Small
- */
-
-@keyframes uk-fade-right-small {
-    0% {
-        opacity: 0;
-        transform: translateX(@animation-slide-small-translate);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/*
- * Slide Top Medium
- */
-
-@keyframes uk-fade-top-medium {
-    0% {
-        opacity: 0;
-        transform: translateY(-@animation-slide-medium-translate);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/*
- * Slide Bottom Medium
- */
-
-@keyframes uk-fade-bottom-medium {
-    0% {
-        opacity: 0;
-        transform: translateY(@animation-slide-medium-translate);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/*
- * Slide Left Medium
- */
-
-@keyframes uk-fade-left-medium {
-    0% {
-        opacity: 0;
-        transform: translateX(-@animation-slide-medium-translate);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/*
- * Slide Right Medium
- */
-
-@keyframes uk-fade-right-medium {
-    0% {
-        opacity: 0;
-        transform: translateX(@animation-slide-medium-translate);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/*
- * Scale Up
- */
-
-@keyframes uk-fade-scale-02 {
-    0% {
-        opacity: 0;
-        transform: scale(0.2);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/*
- * Scale Down
- */
-
-@keyframes uk-fade-scale-18 {
-    0% {
-        opacity: 0;
-        transform: scale(1.8);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+@keyframes uk-slide-right-medium {
+    0% { transform: translateX(@animation-slide-medium-translate); }
+    100% { transform: translateX(0); }
 }
 
 /*
  * Kenburns
  */
 
-@keyframes uk-scale-kenburns {
+@keyframes uk-kenburns {
     0% { transform: scale(1); }
     100% { transform: scale(1.2); }
 }
