@@ -72,17 +72,7 @@ export default {
 
             handler(e) {
                 if (!isTouch(e) && !this._isTouch) {
-
-                    const show = includes([pointerEnter, 'focus'], e.type);
-
-                    if (e.type === 'blur' && matches(this.$el, ':hover')
-                        || e.type === pointerLeave && matches(this.$el, ':focus')
-                        || show && attr(this.$el, 'aria-expanded') === 'true'
-                    ) {
-                        return;
-                    }
-
-                    this.toggle(`toggle${show ? 'show' : 'hide'}`);
+                    this.toggle(`toggle${includes([pointerEnter, 'focus'], e.type) ? 'show' : 'hide'}`);
                 }
             }
 

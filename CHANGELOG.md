@@ -6,6 +6,10 @@
 
 - Improve Cover component performance if applied to none video
 
+### Fix
+
+- Revert change to toggle component's hover behavior
+
 ## 3.7.4 (September 23, 2021)
 
 ### Added
