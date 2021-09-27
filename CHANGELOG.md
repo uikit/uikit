@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Refactor focus styles to use `focus-visible` in all components
 - Use custom properties in Position component
 - Make transition classes work with position or cover classes on the same element
 - Refactor animation component
