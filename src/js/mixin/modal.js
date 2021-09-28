@@ -42,7 +42,7 @@ export default {
     },
 
     beforeDisconnect() {
-        if (this.isToggled()) {
+        if (includes(active, this)) {
             this.toggleElement(this.$el, false, false);
         }
     },
