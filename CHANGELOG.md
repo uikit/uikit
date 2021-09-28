@@ -9,6 +9,14 @@
 - Make transition classes work with position or cover classes on the same element
 - Refactor animation component
 
+### Change
+
+- Improve Cover component performance if applied to none video
+
+### Fix
+
+- Fix toggle behavior in Toggle component
+
 ## 3.7.4 (September 23, 2021)
 
 ### Added
