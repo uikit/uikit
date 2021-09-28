@@ -8,7 +8,7 @@
 
 ### Fix
 
-- Revert change to toggle component's hover behavior
+- Fix toggle behavior in Toggle component
 
 ## 3.7.4 (September 23, 2021)
 

@@ -71,9 +71,22 @@ export default {
             },
 
             handler(e) {
-                if (!isTouch(e) && !this._isTouch) {
-                    this.toggle(`toggle${includes([pointerEnter, 'focus'], e.type) ? 'show' : 'hide'}`);
+                if (isTouch(e) || this._isTouch) {
+                    return;
                 }
+
+                const show = includes([pointerEnter, 'focus'], e.type);
+                const expanded = attr(this.$el, 'aria-expanded');
+
+                if (!show && matches(this.$el, ':hover,:focus')
+                    || this._showState && show === (expanded !== this._showState)
+                ) {
+                    return;
+                }
+
+                this._showState = show ? expanded : null;
+
+                this.toggle(`toggle${show ? 'show' : 'hide'}`);
             }
 
         },
