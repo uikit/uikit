@@ -61,6 +61,9 @@
 
     .uk-table tbody tr { transition: background-color 0.1s linear; }
 
+    .uk-table-striped > tr:nth-of-type(even):last-child,
+    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom: @table-striped-border-width solid @table-striped-border; }
+
 }
 
 
@@ -76,3 +79,8 @@
     border-bottom-color: @inverse-global-border;
 }
 .hook-inverse-table-hover() {}
+
+.hook-inverse() {
+    .uk-table-striped > tr:nth-of-type(even):last-child,
+    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom-color: @inverse-global-border; }
+}
