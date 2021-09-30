@@ -115,7 +115,6 @@
 /*
  * Center
  * 1. Fix text wrapping if content is larger than 50% of the container.
- *    Use `:where` to have less specificity than Width component.
  */
 
 .uk-position-center {
@@ -125,12 +124,10 @@
     --uk-position-translate-y: -50%;
     transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
     /* 1 */
+    width: max-content;
     max-width: ~'calc(100% - (var(--uk-position-margin-offset) * 2))';
     box-sizing: border-box;
 }
-
-/* 1 */
-:where(.uk-position-center) { width: max-content; }
 
 /* Vertical */
 [class*='uk-position-center-left'],
@@ -143,11 +140,15 @@
 .uk-position-center-left { left: 0; }
 .uk-position-center-right { right: 0; }
 
-.uk-position-center-left-out { right: 100%; }
-:where(.uk-position-center-left-out) { width: max-content; }
+.uk-position-center-left-out {
+    right: 100%;
+    width: max-content;
+}
 
-.uk-position-center-right-out { left: 100%; }
-:where(.uk-position-center-right-out) { width: max-content; }
+.uk-position-center-right-out {
+    left: 100%;
+    width: max-content;
+}
 
 /* Horizontal */
 .uk-position-top-center,
@@ -156,13 +157,10 @@
     --uk-position-translate-x: -50%;
     transform: translate(var(--uk-position-translate-x), 0);
     /* 1 */
+    width: max-content;
     max-width: ~'calc(100% - (var(--uk-position-margin-offset) * 2))';
     box-sizing: border-box;
 }
-
-/* 1 */
-:where(.uk-position-top-center),
-:where(.uk-position-bottom-center) { width: max-content; }
 
 .uk-position-top-center { top: 0; }
 .uk-position-bottom-center { bottom: 0; }
