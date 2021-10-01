@@ -23,7 +23,7 @@ export default {
     },
 
     connected() {
-        if (!isFocusable(this.$el)) {
+        if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
             attr(this.$el, 'tabindex', '0');
         }
     },
@@ -204,6 +204,10 @@ export default {
         },
 
         updateAria(toggled) {
+            if (includes(this.mode, 'media')) {
+                return;
+            }
+
             attr(this.$el, 'aria-expanded', isBoolean(toggled)
                 ? toggled
                 : this.isToggled(this.target)

@@ -82,7 +82,7 @@ async function compile(file, dist) {
     const res = await util.write(dist, util.banner + output);
 
     if (!develop) {
-        util.minify(res);
+        await util.minify(res);
     }
 
 }
