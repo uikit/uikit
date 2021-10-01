@@ -9,6 +9,7 @@
 ### Fix
 
 - Fix toggle behavior in Toggle component
+- Fix Toggle component no longer sets tabindex in media mode
 
 ## 3.7.4 (September 23, 2021)
 
