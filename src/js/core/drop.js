@@ -163,7 +163,8 @@ export default {
 
         {
 
-            name: `${pointerEnter} focusin`,
+            // click fires after blur in toggle
+            name: `${pointerEnter} focusin click`,
 
             filter() {
                 return includes(this.mode, 'hover');

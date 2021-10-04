@@ -95,7 +95,7 @@ export default {
         },
 
         isToggled(el = this.$el) {
-            el = toNodes(el)[0];
+            [el] = toNodes(el);
             return hasClass(el, this.clsEnter)
                 ? true
                 : hasClass(el, this.clsLeave)
