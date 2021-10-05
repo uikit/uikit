@@ -1,4 +1,4 @@
-/*! UIkit 3.7.4 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.7.5 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2129,6 +2129,10 @@
 
     }
 
+    function isVideo(el) {
+        return isHTML5(el) || isIFrame(el);
+    }
+
     function isHTML5(el) {
         return el && el.tagName === 'VIDEO';
     }
@@ -2635,6 +2639,7 @@
         play: play,
         pause: pause,
         mute: mute,
+        isVideo: isVideo,
         positionAt: positionAt,
         Promise: Promise$1,
         Deferred: Deferred,
@@ -3446,7 +3451,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.7.4';
+    UIkit.version = '3.7.5';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3726,9 +3731,10 @@
             },
 
             isToggled: function(el) {
-                if ( el === void 0 ) el = this.$el;
+                var assign;
 
-                el = toNodes(el)[0];
+                if ( el === void 0 ) el = this.$el;
+                (assign = toNodes(el), el = assign[0]);
                 return hasClass(el, this.clsEnter)
                     ? true
                     : hasClass(el, this.clsLeave)
@@ -4053,6 +4059,11 @@
         update: {
 
             read: function() {
+
+                if (!isVideo(this.$el)) {
+                    return false;
+                }
+
                 return {
                     visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
                     inView: this.inView && isInView(this.$el)
@@ -4406,7 +4417,8 @@
 
             {
 
-                name: (pointerEnter + " focusin"),
+                // click fires after blur in toggle
+                name: (pointerEnter + " focusin click"),
 
                 filter: function() {
                     return includes(this.mode, 'hover');
@@ -6179,7 +6191,7 @@
         },
 
         beforeDisconnect: function() {
-            if (this.isToggled()) {
+            if (includes(active, this)) {
                 this.toggleElement(this.$el, false, false);
             }
         },
@@ -8246,7 +8258,7 @@
         },
 
         connected: function() {
-            if (!isFocusable(this.$el)) {
+            if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
                 attr(this.$el, 'tabindex', '0');
             }
         },
@@ -8276,20 +8288,34 @@
         events: [
 
             {
-                name: (pointerDown + " " + pointerUp + " " + pointerCancel),
+                name: pointerDown,
 
                 filter: function() {
                     return includes(this.mode, 'hover');
                 },
 
                 handler: function(e) {
-                    this._isTouch = isTouch(e) && e.type === pointerDown;
+                    var this$1$1 = this;
+
+
+                    if (!isTouch(e) || this._showState) {
+                        return;
+                    }
+
+                    // Clicking a button does not give it focus on all browsers and platforms
+                    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
+                    trigger(this.$el, 'focus');
+                    once(document, pointerDown, function () { return trigger(this$1$1.$el, 'blur'); }, true, function (e) { return !within(e.target, this$1$1.$el); });
+
+                    // Prevent initial click to prevent double toggle through focus + click
+                    if (includes(this.mode, 'click')) {
+                        this._preventClick = true;
+                    }
                 }
             },
 
             {
-                // Clicking a button does not give it focus on all browsers and platforms
-                // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
+
                 name: (pointerEnter + " " + pointerLeave + " focus blur"),
 
                 filter: function() {
@@ -8297,19 +8323,34 @@
                 },
 
                 handler: function(e) {
-                    if (!isTouch(e) && !this._isTouch) {
-
-                        var show = includes([pointerEnter, 'focus'], e.type);
-
-                        if (e.type === 'blur' && matches(this.$el, ':hover')
-                            || e.type === pointerLeave && matches(this.$el, ':focus')
-                            || show && attr(this.$el, 'aria-expanded') === 'true'
-                        ) {
-                            return;
-                        }
-
-                        this.toggle(("toggle" + (show ? 'show' : 'hide')));
+                    if (isTouch(e)) {
+                        return;
                     }
+
+                    var show = includes([pointerEnter, 'focus'], e.type);
+                    var expanded = attr(this.$el, 'aria-expanded');
+
+                    // Skip hide if still hovered or focused
+                    if (!show && (
+                        e.type === pointerLeave && matches(this.$el, ':focus')
+                        || e.type === 'blur' && matches(this.$el, ':hover')
+                    )) {
+                        return;
+                    }
+
+                    // Skip if state does not change e.g. hover + focus received
+                    if (this._showState && show === (expanded !== this._showState)) {
+
+                        // Ensure reset if state has changed through click
+                        if (!show) {
+                            this._showState = null;
+                        }
+                        return;
+                    }
+
+                    this._showState = show ? expanded : null;
+
+                    this.toggle(("toggle" + (show ? 'show' : 'hide')));
                 }
 
             },
@@ -8335,10 +8376,14 @@
                 name: 'click',
 
                 filter: function() {
-                    return includes(this.mode, 'click') || hasTouch && includes(this.mode, 'hover');
+                    return includes(this.mode, 'click');
                 },
 
                 handler: function(e) {
+
+                    if (this._preventClick) {
+                        return this._preventClick = null;
+                    }
 
                     var link;
                     if (closest(e.target, 'a[href="#"], a[href=""]')
@@ -8429,6 +8474,10 @@
             },
 
             updateAria: function(toggled) {
+                if (includes(this.mode, 'media')) {
+                    return;
+                }
+
                 attr(this.$el, 'aria-expanded', isBoolean(toggled)
                     ? toggled
                     : this.isToggled(this.target)

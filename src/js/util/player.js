@@ -40,6 +40,10 @@ export function mute(el) {
 
 }
 
+export function isVideo(el) {
+    return isHTML5(el) || isIFrame(el);
+}
+
 function isHTML5(el) {
     return el && el.tagName === 'VIDEO';
 }

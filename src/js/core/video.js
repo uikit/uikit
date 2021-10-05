@@ -1,4 +1,4 @@
-import {css, hasAttr, isInView, isVisible, mute, pause, play} from 'uikit-util';
+import {css, hasAttr, isInView, isVideo, isVisible, mute, pause, play} from 'uikit-util';
 
 export default {
 
@@ -37,6 +37,11 @@ export default {
     update: {
 
         read() {
+
+            if (!isVideo(this.$el)) {
+                return false;
+            }
+
             return {
                 visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
                 inView: this.inView && isInView(this.$el)
