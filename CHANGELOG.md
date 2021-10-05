@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Drop closing if clicked within through touch event
+
 ## 3.7.5 (October 5, 2021)
 
 ### Change
