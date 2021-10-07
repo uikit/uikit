@@ -9,6 +9,13 @@
 - Make transition classes work with position or cover classes on the same element
 - Refactor animation component
 
+### Fixed
+
+- Fix Drop closing if clicked within through touch event
+- Fix Slider not animating slides if slide wider than slide container
+
+## 3.7.5 (October 5, 2021)
+
 ### Change
 
 - Improve Cover component performance if applied to none video
