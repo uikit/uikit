@@ -144,11 +144,12 @@ export function getElLeft(el, list) {
 function inView(list, listLeft) {
 
     listLeft -= 1;
-    const listRight = listLeft + dimensions(list).width + 2;
+    const listWidth = dimensions(list).width;
+    const listRight = listLeft + listWidth + 2;
 
     return children(list).filter(slide => {
         const slideLeft = getElLeft(slide, list);
-        const slideRight = slideLeft + dimensions(slide).width;
+        const slideRight = slideLeft + Math.min(dimensions(slide).width, listWidth);
 
         return slideLeft >= listLeft && slideRight <= listRight;
     });
