@@ -13,7 +13,7 @@
 
 - Improve Cover component performance if applied to none video
 
-### Fix
+### Fixed
 
 - Fix toggle behavior in Toggle component
 - Fix Toggle component no longer sets tabindex in media mode
