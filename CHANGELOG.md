@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.7.6 (October 8, 2021)
+
+### Fixed
+
+- Fix Drop closing if clicked within through touch event
+- Fix Slider not animating slides if slide wider than slide container
+
 ## 3.7.5 (October 5, 2021)
 
 ### Change

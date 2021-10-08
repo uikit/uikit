@@ -1,4 +1,4 @@
-/*! UIkit 3.7.5 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.7.6 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3451,7 +3451,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.7.5';
+    UIkit.version = '3.7.6';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4410,15 +4410,16 @@
 
                 handler: function(e) {
                     e.preventDefault();
-                    this.hide();
+                    if (!matches(this.$el, ':focus,:hover')) {
+                        this.hide();
+                    }
                 }
 
             },
 
             {
 
-                // click fires after blur in toggle
-                name: (pointerEnter + " focusin click"),
+                name: (pointerEnter + " focusin"),
 
                 filter: function() {
                     return includes(this.mode, 'hover');
@@ -11301,11 +11302,12 @@
     function inView(list, listLeft) {
 
         listLeft -= 1;
-        var listRight = listLeft + dimensions(list).width + 2;
+        var listWidth = dimensions(list).width;
+        var listRight = listLeft + listWidth + 2;
 
         return children(list).filter(function (slide) {
             var slideLeft = getElLeft(slide, list);
-            var slideRight = slideLeft + dimensions(slide).width;
+            var slideRight = slideLeft + Math.min(dimensions(slide).width, listWidth);
 
             return slideLeft >= listLeft && slideRight <= listRight;
         });
