@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Revert setting focus to modal/offcanvas toggle after close
+
 ## 3.7.6 (October 8, 2021)
 
 ### Fixed
