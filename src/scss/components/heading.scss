@@ -264,7 +264,7 @@ $heading-hero-line-height:                       1.1 !default;
     content: "";
     /* 1 */
     position: absolute;
-    top: unquote('calc(#{$heading-line-top} - (#{$heading-line-height} / 2))');
+    top: unquote('calc(#{$heading-line-top} - (#{$heading-line-height} * 0.5))');
     /* 2 */
     width: $heading-line-width;
     /* 3 */

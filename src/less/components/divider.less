@@ -69,19 +69,19 @@
     content: "";
     position: absolute;
     top: @divider-icon-line-top;
-    max-width: ~'calc(50% - (@{divider-icon-width} / 2))';
+    max-width: ~'calc(50% - (@{divider-icon-width} * 0.5))';
     border-bottom: @divider-icon-line-border-width solid @divider-icon-line-border;
     .hook-divider-icon-line;
 }
 
 .uk-divider-icon::before {
-    right: ~'calc(50% + (@{divider-icon-width} / 2))';
+    right: ~'calc(50% + (@{divider-icon-width} * 0.5))';
     width: @divider-icon-line-width;
     .hook-divider-icon-line-left;
 }
 
 .uk-divider-icon::after {
-    left: ~'calc(50% + (@{divider-icon-width} / 2))';
+    left: ~'calc(50% + (@{divider-icon-width} * 0.5))';
     width: @divider-icon-line-width;
     .hook-divider-icon-line-right;
 }

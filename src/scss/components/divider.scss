@@ -69,19 +69,19 @@ $divider-vertical-border:                        $global-border !default;
     content: "";
     position: absolute;
     top: $divider-icon-line-top;
-    max-width: unquote('calc(50% - (#{$divider-icon-width} / 2))');
+    max-width: unquote('calc(50% - (#{$divider-icon-width} * 0.5))');
     border-bottom: $divider-icon-line-border-width solid $divider-icon-line-border;
     @if(mixin-exists(hook-divider-icon-line)) {@include hook-divider-icon-line();}
 }
 
 .uk-divider-icon::before {
-    right: unquote('calc(50% + (#{$divider-icon-width} / 2))');
+    right: unquote('calc(50% + (#{$divider-icon-width} * 0.5))');
     width: $divider-icon-line-width;
     @if(mixin-exists(hook-divider-icon-line-left)) {@include hook-divider-icon-line-left();}
 }
 
 .uk-divider-icon::after {
-    left: unquote('calc(50% + (#{$divider-icon-width} / 2))');
+    left: unquote('calc(50% + (#{$divider-icon-width} * 0.5))');
     width: $divider-icon-line-width;
     @if(mixin-exists(hook-divider-icon-line-right)) {@include hook-divider-icon-line-right();}
 }

@@ -148,7 +148,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        left: (@navbar-dropdown-grid-gutter-horizontal / 2);
+        left: (@navbar-dropdown-grid-gutter-horizontal * 0.5);
         border-left: @navbar-dropdown-grid-divider-border-width solid @navbar-dropdown-grid-divider-border;
     }
 
@@ -156,7 +156,7 @@
     .uk-navbar-dropdown-grid.uk-grid-stack > .uk-grid-margin::before {
         content: "";
         position: absolute;
-        top: -(@navbar-dropdown-grid-gutter-vertical / 2);
+        top: -(@navbar-dropdown-grid-gutter-vertical * 0.5);
         left: @navbar-dropdown-grid-gutter-horizontal;
         right: 0;
         border-top: @navbar-dropdown-grid-divider-border-width solid @navbar-dropdown-grid-divider-border;
