@@ -44,7 +44,7 @@ function findExistingPrefix() {
     // find existing prefix
     let currentPrefix;
 
-    allFiles.filter(({file}) => ~file.indexOf('uikit.css')).some(({file, data}) => {
+    allFiles.filter(({file}) => ~file.indexOf('uikit.css')).some(({data}) => {
 
         const res = data.match(new RegExp(`(${util.validClassName.source})(-[a-z]+)?-grid`));
         currentPrefix = res && res[1];
@@ -84,7 +84,7 @@ function replacePrefix(from, to) {
     }
 }
 
-function readAllFiles(prefix) {
+function readAllFiles() {
 
     const globs = [];
 

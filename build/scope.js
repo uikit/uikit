@@ -31,29 +31,24 @@ async function run() {
     const files = await readFiles();
     const oldScope = getScope(files);
 
-    try {
+    if (argv.cleanup && oldScope) {
+        cleanup(files, oldScope);
+    } else if (oldScope) {
+        const newScope = getNewScope();
 
-        if (argv.cleanup && oldScope) {
-            cleanup(files, oldScope);
-        } else if (oldScope) {
-            const newScope = getNewScope();
-
-            if (oldScope === newScope) {
-                throw new Error(`Already scoped with: ${oldScope}`);
-            }
-
-            cleanup(files, oldScope);
-            await scope(files, newScope);
-
-        } else {
-            await scope(files, getNewScope());
+        if (oldScope === newScope) {
+            console.warn(`Already scoped with: ${oldScope}`);
+            return;
         }
 
-        await store(files);
+        cleanup(files, oldScope);
+        await scope(files, newScope);
 
-    } catch (e) {
-        console.error(e);
+    } else {
+        await scope(files, getNewScope());
     }
+
+    await store(files);
 
 }
 
