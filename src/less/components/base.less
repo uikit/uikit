@@ -76,6 +76,8 @@
 @base-pre-font-family:                          @base-code-font-family;
 @base-pre-color:                                @global-color;
 
+@base-focus-outline:                            @global-emphasis-color;     
+
 @base-selection-background:                     #39f;
 @base-selection-color:                          @global-inverse-color;
 
@@ -116,13 +118,6 @@ body { margin: 0; }
  ========================================================================== */
 
 /*
- * Remove the outline on focused links when they are also active or hovered
- */
-
-a:active,
-a:hover { outline: none; }
-
-/*
  * Style
  */
 
@@ -136,8 +131,7 @@ a,
 
 a:hover,
 .uk-link:hover,
-.uk-link-toggle:hover .uk-link,
-.uk-link-toggle:focus .uk-link {
+.uk-link-toggle:hover .uk-link {
     color: @base-link-hover-color;
     text-decoration: @base-link-hover-text-decoration;
     .hook-base-link-hover;
@@ -522,6 +516,29 @@ pre {
 pre code { font-family: @base-pre-font-family; }
 
 
+/* Focus
+ ========================================================================== */
+
+/*
+ * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor. 
+ * 1. Set `:focus` style as fallback for `:focus-visible`.
+ * 2. Remove `:focus` style for browsers which support `:focus-visible`.
+ * 2. Set `:focus-visible` style for browsers which support it.
+ */
+
+/* 1 */
+:focus {
+    outline: 2px dotted @base-focus-outline;
+    outline-offset: 1px;
+}
+
+/* 2 */
+:focus:not(:focus-visible) { outline: none; }
+
+/* 3 */
+:focus-visible { outline: 2px dotted @base-focus-outline; }
+
+
 /* Selection pseudo-element
  ========================================================================== */
 
@@ -610,6 +627,7 @@ template { display: none; }
 @inverse-base-em-color:                        @inverse-global-emphasis-color;
 @inverse-base-heading-color:                   @inverse-global-emphasis-color;
 @inverse-base-hr-border:                       @inverse-global-border;
+@inverse-base-focus-outline:                   @inverse-global-emphasis-color;
 
 .hook-inverse() {
 
@@ -630,8 +648,7 @@ template { display: none; }
 
     a:hover,
     .uk-link:hover,
-    .uk-link-toggle:hover .uk-link,
-    .uk-link-toggle:focus .uk-link {
+    .uk-link-toggle:hover .uk-link {
         color: @inverse-base-link-hover-color;
         .hook-inverse-base-link-hover;
     }
@@ -716,6 +733,13 @@ template { display: none; }
         border-top-color: @inverse-base-hr-border;
         .hook-inverse-base-hr;
     }
+
+    //
+    // Focus
+    //
+
+    :focus { outline-color: @inverse-base-focus-outline; }
+    :focus-visible { outline-color: @inverse-base-focus-outline; }
 
 }
 
