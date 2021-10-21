@@ -78,7 +78,6 @@ export default {
 
                 e.preventDefault();
 
-                this.target = toggle.$el;
                 if (this.isToggled() === includes(active, this)) {
                     this.toggle();
                 }
@@ -161,28 +160,13 @@ export default {
 
             handler() {
                 if (!isFocusable(this.$el)) {
-                    attr(this.$el, 'tabindex', '0');
+                    attr(this.$el, 'tabindex', '-1');
                 }
 
                 if (!$(':focus', this.$el)) {
                     this.$el.focus();
                 }
             }
-        },
-
-        {
-
-            name: 'hide',
-
-            self: true,
-
-            handler() {
-                if (isFocusable(this.target)) {
-                    this.target.focus();
-                    this.target = null;
-                }
-            }
-
         },
 
         {

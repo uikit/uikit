@@ -41,7 +41,7 @@ async function updateVersion(version) {
     await Promise.all([
         run(`npm version ${version} --git-tag-version false`),
         replaceInFile('CHANGELOG.md', data => data.replace(/^##\s*WIP/m, `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`)),
-        replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', data => data.replace(pkg.version, version)),
+        replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', data => data.replace(pkg.version, version))
     ]);
 
     return version;
@@ -58,17 +58,17 @@ async function compile(version) {
 }
 
 async function createPackage(version) {
-    return new Promise(async resolve => {
-        const archive = archiver('zip');
-        const file = `dist/uikit-${version}.zip`;
+    const file = `dist/uikit-${version}.zip`;
+    const archive = archiver('zip');
 
-        archive.pipe(fs.createWriteStream(file).on('close', () => {
-            logFile(file);
-            resolve();
-        }));
-        await globToArchive(archive, 'dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}');
-        archive.finalize();
-    });
+    archive.pipe(fs.createWriteStream(file));
+
+    (await glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')).forEach(file =>
+        archive.file(file, {name: file.substring(5)})
+    );
+
+    await archive.finalize();
+    await logFile(file);
 }
 
 function versionFormat(version) {
@@ -77,10 +77,6 @@ function versionFormat(version) {
 
 async function replaceInFile(file, fn) {
     await write(file, fn(await read(file)));
-}
-
-async function globToArchive(archive, pattern) {
-    await glob(pattern).then(files => files.forEach(file => archive.file(file, {name: file.substring(5)})));
 }
 
 async function sequential(tasks) {

@@ -11,6 +11,12 @@
 
 ### Fixed
 
+- Revert setting focus to modal/offcanvas toggle after close
+
+## 3.7.6 (October 8, 2021)
+
+### Fixed
+
 - Fix Drop closing if clicked within through touch event
 - Fix Slider not animating slides if slide wider than slide container
 
@@ -20,7 +26,7 @@
 
 - Improve Cover component performance if applied to none video
 
-### Fix
+### Fixed
 
 - Fix toggle behavior in Toggle component
 - Fix Toggle component no longer sets tabindex in media mode
