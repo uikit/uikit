@@ -46,7 +46,7 @@
  ========================================================================== */
 
 /*
- * 1. Prevent content overflow if `max-width: 100%` is used inside position container.
+ * 1. Prevent content overflow.
  */
 
 [class*='uk-position-top'],
@@ -56,7 +56,8 @@
 [class*='uk-position-center'] {
     position: absolute !important;
     /* 1 */
-    max-width: 100%;
+    max-width: ~'calc(100% - (var(--uk-position-margin-offset) * 2))';
+    box-sizing: border-box;
 }
 
 /*
@@ -115,6 +116,7 @@
 /*
  * Center
  * 1. Fix text wrapping if content is larger than 50% of the container.
+ *    Using `max-content` requires `max-width` of 100% which is set generally.
  */
 
 .uk-position-center {
@@ -125,8 +127,6 @@
     transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
     /* 1 */
     width: max-content;
-    max-width: ~'calc(100% - (var(--uk-position-margin-offset) * 2))';
-    box-sizing: border-box;
 }
 
 /* Vertical */
@@ -158,8 +158,6 @@
     transform: translate(var(--uk-position-translate-x), 0);
     /* 1 */
     width: max-content;
-    max-width: ~'calc(100% - (var(--uk-position-margin-offset) * 2))';
-    box-sizing: border-box;
 }
 
 .uk-position-top-center { top: 0; }
