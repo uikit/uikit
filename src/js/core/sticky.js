@@ -148,6 +148,7 @@ export default {
 
                 this.topOffset = offset(this.isFixed ? this.placeholder : this.$el).top;
                 this.bottomOffset = this.topOffset + height;
+                this.offsetParentTop = offset(this.$el.offsetParent).top;
 
                 const bottom = parseProp('bottom', this);
 
@@ -285,13 +286,15 @@ export default {
 
             const active = this.top !== 0 || this.scroll > this.top;
             let top = Math.max(0, this.offset);
+            let position = 'fixed';
 
             if (isNumeric(this.bottom) && this.scroll > this.bottom - this.offset) {
-                top = this.bottom - this.scroll;
+                top = this.bottom - this.offsetParentTop;
+                position = 'absolute';
             }
 
             css(this.$el, {
-                position: 'fixed',
+                position,
                 top: `${top}px`,
                 width: this.width
             });

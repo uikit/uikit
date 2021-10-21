@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Improve sticky performance when bottom option is used
+
 ### Fixed
 
 - Revert setting focus to modal/offcanvas toggle after close
