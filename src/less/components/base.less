@@ -521,21 +521,25 @@ pre code { font-family: @base-pre-font-family; }
 
 /*
  * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor. 
- * 1. Set `:focus` style as fallback for `:focus-visible`.
- * 2. Remove `:focus` style for browsers which support `:focus-visible`.
- * 2. Set `:focus-visible` style for browsers which support it.
+ * 1. Fallback: Remove `:focus` for a negative tabindexes.
+ * 2. Fallback: Set `:focus` style but not for negative tabindexes.
+ * 3. Fallback: Remove `:focus` style for browsers which support `:focus-visible`.
+ * 4. Set `:focus-visible` style for browsers which support it.
  */
 
 /* 1 */
-:focus {
+:focus { outline: none; }
+
+/* 2 */
+:focus:not([tabindex^='-']) {
     outline: 2px dotted @base-focus-outline;
     outline-offset: 1px;
 }
 
-/* 2 */
+/* 3 */
 :focus:not(:focus-visible) { outline: none; }
 
-/* 3 */
+/* 4 */
 :focus-visible { outline: 2px dotted @base-focus-outline; }
 
 
