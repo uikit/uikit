@@ -84,11 +84,9 @@ $dotnav-item-active-background:                  rgba($global-color, 0.6) !defau
     @if(mixin-exists(hook-dotnav-item)) {@include hook-dotnav-item();}
 }
 
-/* Hover + Focus */
-.uk-dotnav > * > :hover,
-.uk-dotnav > * > :focus {
+/* Hover */
+.uk-dotnav > * > :hover {
     background-color: $dotnav-item-hover-background;
-    outline: none;
     @if(mixin-exists(hook-dotnav-item-hover)) {@include hook-dotnav-item-hover();}
 }
 

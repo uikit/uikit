@@ -53,9 +53,8 @@ $breadcrumb-divider-color:                           $global-muted-color !defaul
     @if(mixin-exists(hook-breadcrumb-item)) {@include hook-breadcrumb-item();}
 }
 
-/* Hover + Focus */
-.uk-breadcrumb > * > :hover,
-.uk-breadcrumb > * > :focus {
+/* Hover */
+.uk-breadcrumb > * > :hover {
     color: $breadcrumb-item-hover-color;
     text-decoration: $breadcrumb-item-hover-text-decoration;
     @if(mixin-exists(hook-breadcrumb-item-hover)) {@include hook-breadcrumb-item-hover();}

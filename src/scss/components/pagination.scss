@@ -81,9 +81,8 @@ $pagination-item-disabled-color:                 $global-muted-color !default;
     @if(mixin-exists(hook-pagination-item)) {@include hook-pagination-item();}
 }
 
-/* Hover + Focus */
-.uk-pagination > * > :hover,
-.uk-pagination > * > :focus {
+/* Hover */
+.uk-pagination > * > :hover {
     color: $pagination-item-hover-color;
     text-decoration: $pagination-item-hover-text-decoration;
     @if(mixin-exists(hook-pagination-item-hover)) {@include hook-pagination-item-hover();}

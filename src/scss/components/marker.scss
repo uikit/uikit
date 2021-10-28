@@ -31,11 +31,9 @@ $marker-hover-color:                              $global-inverse-color !default
     @if(mixin-exists(hook-marker)) {@include hook-marker();}
 }
 
-/* Hover + Focus */
-.uk-marker:hover,
-.uk-marker:focus {
+/* Hover */
+.uk-marker:hover {
     color: $marker-hover-color;
-    outline: none;
     @if(mixin-exists(hook-marker-hover)) {@include hook-marker-hover();}
 }
 

@@ -63,10 +63,8 @@ $thumbnav-margin-vertical:                       $thumbnav-margin-horizontal !de
     @if(mixin-exists(hook-thumbnav-item)) {@include hook-thumbnav-item();}
 }
 
-/* Hover + Focus */
-.uk-thumbnav > * > :hover,
-.uk-thumbnav > * > :focus {
-    outline: none;
+/* Hover */
+.uk-thumbnav > * > :hover {
     @if(mixin-exists(hook-thumbnav-item-hover)) {@include hook-thumbnav-item-hover();}
 }
 

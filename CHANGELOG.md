@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP 3.8
+## 3.8.0 (October 28, 2021)
 
 ### Changed
 

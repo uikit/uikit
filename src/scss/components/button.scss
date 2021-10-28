@@ -143,12 +143,6 @@ $button-link-disabled-color:                     $global-muted-color !default;
     @if(mixin-exists(hook-button-hover)) {@include hook-button-hover();}
 }
 
-/* Focus */
-.uk-button:focus {
-    outline: none;
-    @if(mixin-exists(hook-button-focus)) {@include hook-button-focus();}
-}
-
 /* OnClick + Active */
 .uk-button:active,
 .uk-button.uk-active {
@@ -169,9 +163,8 @@ $button-link-disabled-color:                     $global-muted-color !default;
     @if(mixin-exists(hook-button-default)) {@include hook-button-default();}
 }
 
-/* Hover + Focus */
-.uk-button-default:hover,
-.uk-button-default:focus {
+/* Hover */
+.uk-button-default:hover {
     background-color: $button-default-hover-background;
     color: $button-default-hover-color;
     @if(mixin-exists(hook-button-default-hover)) {@include hook-button-default-hover();}
@@ -195,9 +188,8 @@ $button-link-disabled-color:                     $global-muted-color !default;
     @if(mixin-exists(hook-button-primary)) {@include hook-button-primary();}
 }
 
-/* Hover + Focus */
-.uk-button-primary:hover,
-.uk-button-primary:focus {
+/* Hover */
+.uk-button-primary:hover {
     background-color: $button-primary-hover-background;
     color: $button-primary-hover-color;
     @if(mixin-exists(hook-button-primary-hover)) {@include hook-button-primary-hover();}
@@ -221,9 +213,8 @@ $button-link-disabled-color:                     $global-muted-color !default;
     @if(mixin-exists(hook-button-secondary)) {@include hook-button-secondary();}
 }
 
-/* Hover + Focus */
-.uk-button-secondary:hover,
-.uk-button-secondary:focus {
+/* Hover */
+.uk-button-secondary:hover {
     background-color: $button-secondary-hover-background;
     color: $button-secondary-hover-color;
     @if(mixin-exists(hook-button-secondary-hover)) {@include hook-button-secondary-hover();}
@@ -247,9 +238,8 @@ $button-link-disabled-color:                     $global-muted-color !default;
     @if(mixin-exists(hook-button-danger)) {@include hook-button-danger();}
 }
 
-/* Hover + Focus */
-.uk-button-danger:hover,
-.uk-button-danger:focus {
+/* Hover */
+.uk-button-danger:hover {
     background-color: $button-danger-hover-background;
     color: $button-danger-hover-color;
     @if(mixin-exists(hook-button-danger-hover)) {@include hook-button-danger-hover();}
@@ -315,9 +305,8 @@ $button-link-disabled-color:                     $global-muted-color !default;
     @if(mixin-exists(hook-button-text)) {@include hook-button-text();}
 }
 
-/* Hover + Focus */
-.uk-button-text:hover,
-.uk-button-text:focus {
+/* Hover */
+.uk-button-text:hover {
     color: $button-text-hover-color;
     @if(mixin-exists(hook-button-text-hover)) {@include hook-button-text-hover();}
 }
@@ -344,9 +333,8 @@ $button-link-disabled-color:                     $global-muted-color !default;
     @if(mixin-exists(hook-button-link)) {@include hook-button-link();}
 }
 
-/* Hover + Focus */
-.uk-button-link:hover,
-.uk-button-link:focus {
+/* Hover */
+.uk-button-link:hover {
     color: $button-link-hover-color;
     text-decoration: $button-link-hover-text-decoration;
 }
@@ -384,7 +372,6 @@ $button-link-disabled-color:                     $global-muted-color !default;
 
 // @mixin hook-button(){}
 // @mixin hook-button-hover(){}
-// @mixin hook-button-focus(){}
 // @mixin hook-button-active(){}
 // @mixin hook-button-default(){}
 // @mixin hook-button-default-hover(){}
