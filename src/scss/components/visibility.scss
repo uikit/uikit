@@ -92,21 +92,19 @@
 .uk-invisible { visibility: hidden !important; }
 
 
-/* Toggle (Hover + Focus)
+/* Based on the State of the Parent Element
  ========================================================================== */
 
 /*
- * Hidden
- * 1. The toggle is triggered on touch devices using `:focus` and tabindex
- * 2. The target stays visible if any element within receives focus through keyboard
- *    Doesn't work in Edge, yet.
- * 3. Can't use `display: none` nor `visibility: hidden` because both are not focusable.
- *
+ * Can't use `display: none` nor `visibility: hidden` because both are not focusable.
+ * The target stays visible if any element within receives focus through keyboard.
  */
 
-/* 1 + 2 */
+/*
+ * Discard space when hidden.
+ */
+
 .uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-within) {
-    /* 3 */
     position: absolute !important;
     width: 0 !important;
     height: 0 !important;
@@ -116,54 +114,27 @@
 }
 
 /*
- * Invisible
+ * Keep space when hidden.
  */
 
-/* 1 + 2 */
-.uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) {
-    /* 3 */
-    opacity: 0 !important;
-}
-
-/*
- * 1. Prevent tab highlighting on iOS.
- */
-
-.uk-visible-toggle {
-    /* 1 */
-    -webkit-tap-highlight-color: transparent;
-}
-
-/*
- * Remove outline for `tabindex`
- */
-
-.uk-visible-toggle:focus { outline: none; }
+.uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) { opacity: 0 !important; }
 
 
-/* Touch
+/* Based on Hover Capability of the Pointing Device
  ========================================================================== */
 
 /*
- * Hide if primary pointing device has limited accuracy, e.g. a touch screen.
- * Works on mobile browsers: Safari, Chrome and Android browser
+ * Hover
  */
 
-@media (pointer: coarse) {
+/* Hide if primary pointing device doesn't support hover, e.g. touch screens. */
+@media (hover: none) {
     .uk-hidden-touch { display: none !important; }
 }
 
-/*
- * Hide if primary pointing device is accurate, e.g. mouse.
- * 1. Fallback for IE11 and Firefox, because `pointer` is not supported
- * 2. Reset if supported
- */
-
-/* 1 */
-.uk-hidden-notouch { display: none !important; }
-
-@media (pointer: coarse) {
-    .uk-hidden-notouch { display: block !important; }
+/* Hide if primary pointing device supports hover, e.g. mice. */
+@media (hover) {
+    .uk-hidden-notouch { display: none !important; }
 }
 
 

@@ -84,11 +84,9 @@ $iconnav-item-active-color:                       $global-color !default;
     @if(mixin-exists(hook-iconnav-item)) {@include hook-iconnav-item();}
 }
 
-/* Hover + Focus */
-.uk-iconnav > * > a:hover,
-.uk-iconnav > * > a:focus {
+/* Hover */
+.uk-iconnav > * > a:hover {
     color: $iconnav-item-hover-color;
-    outline: none;
     @if(mixin-exists(hook-iconnav-item-hover)) {@include hook-iconnav-item-hover();}
 }
 

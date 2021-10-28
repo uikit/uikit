@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.8.0 (October 28, 2021)
+
+### Changed
+
+- Refactor focus styles to use `focus-visible` in all components
+- Use custom properties in Position component
+- Make transition classes work with position or cover classes on the same element
+- Refactor animation component
+
+### Changed
+
+- Improve sticky performance when bottom option is used
+
+### Fixed
+
+- Revert setting focus to modal/offcanvas toggle after close
+
 ## 3.7.6 (October 8, 2021)
 
 ### Fixed
@@ -13,7 +30,7 @@
 
 - Improve Cover component performance if applied to none video
 
-### Fix
+### Fixed
 
 - Fix toggle behavior in Toggle component
 - Fix Toggle component no longer sets tabindex in media mode
@@ -24,7 +41,7 @@
 
 - Add itemNav option to Switcher component
 
-### Change
+### Changed
 
 - Focus modal/offcanvas upon opening
 
@@ -66,7 +83,7 @@
 - Add width variable to range thumb in to Form Range component
 - Add Bag icon
 
-### Change
+### Changed
 
 - Change default search width and horizontal padding in Search component
 - Change badge width and font size in Badge component
@@ -118,7 +135,7 @@
 
 ## 3.6.20 (April 22, 2021)
 
-### Change
+### Changed
 
 - Toggle component in hover mode toggles on focus and blur
 
@@ -128,7 +145,7 @@
 
 ## 3.6.19 (April 7, 2021)
 
-### Change
+### Changed
 
 - Update card badge style
 
@@ -164,7 +181,7 @@
 
 ## 3.6.16 (February 5, 2021)
 
-### Change
+### Changed
 
 - Make multiple select resizable
 

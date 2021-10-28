@@ -18,8 +18,7 @@
         @if(mixin-exists(hook-inverse-accordion-title)) {@include hook-inverse-accordion-title();}
     }
 
-    .uk-accordion-title:hover,
-    .uk-accordion-title:focus {
+    .uk-accordion-title:hover {
         color: $inverse-accordion-title-hover-color;
         @if(mixin-exists(hook-inverse-accordion-title-hover)) {@include hook-inverse-accordion-title-hover();}
     }
@@ -68,8 +67,7 @@
         @if(mixin-exists(hook-inverse-badge)) {@include hook-inverse-badge();}
     }
 
-    .uk-badge:hover,
-    .uk-badge:focus {
+    .uk-badge:hover {
         @if(mixin-exists(hook-inverse-badge-hover)) {@include hook-inverse-badge-hover();}
     }
 
@@ -122,8 +120,7 @@
 
     a:hover,
     .uk-link:hover,
-    .uk-link-toggle:hover .uk-link,
-    .uk-link-toggle:focus .uk-link {
+    .uk-link-toggle:hover .uk-link {
         color: $inverse-base-link-hover-color;
         @if(mixin-exists(hook-inverse-base-link-hover)) {@include hook-inverse-base-link-hover();}
     }
@@ -209,6 +206,13 @@
         @if(mixin-exists(hook-inverse-base-hr)) {@include hook-inverse-base-hr();}
     }
 
+    //
+    // Focus
+    //
+
+    :focus { outline-color: $inverse-base-focus-outline; }
+    :focus-visible { outline-color: $inverse-base-focus-outline; }
+
 }
 @mixin hook-breadcrumb(){}
 @mixin hook-breadcrumb-item(){}
@@ -229,8 +233,7 @@
         @if(mixin-exists(hook-inverse-breadcrumb-item)) {@include hook-inverse-breadcrumb-item();}
     }
 
-    .uk-breadcrumb > * > :hover,
-    .uk-breadcrumb > * > :focus {
+    .uk-breadcrumb > * > :hover {
         color: $inverse-breadcrumb-item-hover-color;
         @if(mixin-exists(hook-inverse-breadcrumb-item-hover)) {@include hook-inverse-breadcrumb-item-hover();}
     }
@@ -257,7 +260,6 @@
 }
 @mixin hook-button(){}
 @mixin hook-button-hover(){}
-@mixin hook-button-focus(){}
 @mixin hook-button-active(){}
 @mixin hook-button-default(){}
 @mixin hook-button-default-hover(){}
@@ -304,8 +306,7 @@
         @if(mixin-exists(hook-inverse-button-default)) {@include hook-inverse-button-default();}
     }
 
-    .uk-button-default:hover,
-    .uk-button-default:focus {
+    .uk-button-default:hover {
         background-color: $inverse-button-default-hover-background;
         color: $inverse-button-default-hover-color;
         @if(mixin-exists(hook-inverse-button-default-hover)) {@include hook-inverse-button-default-hover();}
@@ -328,8 +329,7 @@
         @if(mixin-exists(hook-inverse-button-primary)) {@include hook-inverse-button-primary();}
     }
 
-    .uk-button-primary:hover,
-    .uk-button-primary:focus {
+    .uk-button-primary:hover {
         background-color: $inverse-button-primary-hover-background;
         color: $inverse-button-primary-hover-color;
         @if(mixin-exists(hook-inverse-button-primary-hover)) {@include hook-inverse-button-primary-hover();}
@@ -352,8 +352,7 @@
         @if(mixin-exists(hook-inverse-button-secondary)) {@include hook-inverse-button-secondary();}
     }
 
-    .uk-button-secondary:hover,
-    .uk-button-secondary:focus {
+    .uk-button-secondary:hover {
         background-color: $inverse-button-secondary-hover-background;
         color: $inverse-button-secondary-hover-color;
         @if(mixin-exists(hook-inverse-button-secondary-hover)) {@include hook-inverse-button-secondary-hover();}
@@ -375,8 +374,7 @@
         @if(mixin-exists(hook-inverse-button-text)) {@include hook-inverse-button-text();}
     }
 
-    .uk-button-text:hover,
-    .uk-button-text:focus {
+    .uk-button-text:hover {
         color: $inverse-button-text-hover-color;
         @if(mixin-exists(hook-inverse-button-text-hover)) {@include hook-inverse-button-text-hover();}
     }
@@ -395,9 +393,7 @@
         @if(mixin-exists(hook-inverse-button-link)) {@include hook-inverse-button-link();}
     }
 
-    .uk-button-link:hover,
-    .uk-button-link:focus { color: $inverse-button-link-hover-color; }
-
+    .uk-button-link:hover { color: $inverse-button-link-hover-color; }
 
 }
 @mixin hook-card(){}
@@ -446,8 +442,7 @@
         @if(mixin-exists(hook-inverse-close)) {@include hook-inverse-close();}
     }
 
-    .uk-close:hover,
-    .uk-close:focus {
+    .uk-close:hover {
         color: $inverse-close-hover-color;
         @if(mixin-exists(hook-inverse-close-hover)) {@include hook-inverse-close-hover();}
     }
@@ -568,8 +563,7 @@
         @if(mixin-exists(hook-inverse-dotnav-item)) {@include hook-inverse-dotnav-item();}
     }
 
-    .uk-dotnav > * > :hover,
-    .uk-dotnav > * > :focus {
+    .uk-dotnav > * > :hover {
         background-color: $inverse-dotnav-item-hover-background;
         @if(mixin-exists(hook-inverse-dotnav-item-hover)) {@include hook-inverse-dotnav-item-hover();}
     }
@@ -820,8 +814,7 @@
         @if(mixin-exists(hook-inverse-icon-link)) {@include hook-inverse-icon-link();}
     }
 
-    .uk-icon-link:hover,
-    .uk-icon-link:focus {
+    .uk-icon-link:hover {
         color: $inverse-icon-link-hover-color;
         @if(mixin-exists(hook-inverse-icon-link-hover)) {@include hook-inverse-icon-link-hover();}
     }
@@ -842,8 +835,7 @@
         @if(mixin-exists(hook-inverse-icon-button)) {@include hook-inverse-icon-button();}
     }
 
-    .uk-icon-button:hover,
-    .uk-icon-button:focus {
+    .uk-icon-button:hover {
         background-color: $inverse-icon-button-hover-background;
         color: $inverse-icon-button-hover-color;
         @if(mixin-exists(hook-inverse-icon-button-hover)) {@include hook-inverse-icon-button-hover();}
@@ -871,8 +863,7 @@
         @if(mixin-exists(hook-inverse-iconnav-item)) {@include hook-inverse-iconnav-item();}
     }
 
-    .uk-iconnav > * > a:hover,
-    .uk-iconnav > * > a:focus {
+    .uk-iconnav > * > a:hover {
         color: $inverse-iconnav-item-hover-color;
         @if(mixin-exists(hook-inverse-iconnav-item-hover)) {@include hook-inverse-iconnav-item-hover();}
     }
@@ -893,24 +884,21 @@
 
     a.uk-link-muted:hover,
     .uk-link-muted a:hover,
-    .uk-link-toggle:hover .uk-link-muted,
-    .uk-link-toggle:focus .uk-link-muted  {
+    .uk-link-toggle:hover .uk-link-muted  {
         color: $inverse-link-muted-hover-color;
         @if(mixin-exists(hook-inverse-link-muted-hover)) {@include hook-inverse-link-muted-hover();}
     }
 
     a.uk-link-text:hover,
     .uk-link-text a:hover,
-    .uk-link-toggle:hover .uk-link-text,
-    .uk-link-toggle:focus .uk-link-text {
+    .uk-link-toggle:hover .uk-link-text {
         color: $inverse-link-text-hover-color;
         @if(mixin-exists(hook-inverse-link-text-hover)) {@include hook-inverse-link-text-hover();}
     }
 
     a.uk-link-heading:hover,
     .uk-link-heading a:hover,
-    .uk-link-toggle:hover .uk-link-heading,
-    .uk-link-toggle:focus .uk-link-heading {
+    .uk-link-toggle:hover .uk-link-heading {
         color: $inverse-link-heading-hover-color;
         @if(mixin-exists(hook-inverse-link-heading-hover)) {@include hook-inverse-link-heading-hover();}
     }
@@ -946,8 +934,7 @@
         @if(mixin-exists(hook-inverse-totop)) {@include hook-inverse-totop();}
     }
 
-    .uk-totop:hover,
-    .uk-totop:focus {
+    .uk-totop:hover {
         color: $inverse-totop-hover-color;
         @if(mixin-exists(hook-inverse-totop-hover)) {@include hook-inverse-totop-hover();}
     }
@@ -1019,8 +1006,7 @@
         @if(mixin-exists(hook-inverse-search-toggle)) {@include hook-inverse-search-toggle();}
     }
 
-    .uk-search-toggle:hover,
-    .uk-search-toggle:focus {
+    .uk-search-toggle:hover {
         color: $inverse-search-toggle-hover-color;
         @if(mixin-exists(hook-inverse-search-toggle-hover)) {@include hook-inverse-search-toggle-hover();}
     }
@@ -1048,8 +1034,7 @@
         @if(mixin-exists(hook-inverse-nav-default-item)) {@include hook-inverse-nav-default-item();}
     }
 
-    .uk-nav-default > li > a:hover,
-    .uk-nav-default > li > a:focus {
+    .uk-nav-default > li > a:hover {
         color: $inverse-nav-default-item-hover-color;
         @if(mixin-exists(hook-inverse-nav-default-item-hover)) {@include hook-inverse-nav-default-item-hover();}
     }
@@ -1071,8 +1056,7 @@
 
     .uk-nav-default .uk-nav-sub a { color: $inverse-nav-default-sublist-item-color; }
 
-    .uk-nav-default .uk-nav-sub a:hover,
-    .uk-nav-default .uk-nav-sub a:focus { color: $inverse-nav-default-sublist-item-hover-color; }
+    .uk-nav-default .uk-nav-sub a:hover { color: $inverse-nav-default-sublist-item-hover-color; }
 
     .uk-nav-default .uk-nav-sub li.uk-active > a { color: $inverse-nav-default-sublist-item-active-color; }
 
@@ -1085,8 +1069,7 @@
         @if(mixin-exists(hook-inverse-nav-primary-item)) {@include hook-inverse-nav-primary-item();}
     }
 
-    .uk-nav-primary > li > a:hover,
-    .uk-nav-primary > li > a:focus {
+    .uk-nav-primary > li > a:hover {
         color: $inverse-nav-primary-item-hover-color;
         @if(mixin-exists(hook-inverse-nav-primary-item-hover)) {@include hook-inverse-nav-primary-item-hover();}
     }
@@ -1108,8 +1091,7 @@
 
     .uk-nav-primary .uk-nav-sub a { color: $inverse-nav-primary-sublist-item-color; }
 
-    .uk-nav-primary .uk-nav-sub a:hover,
-    .uk-nav-primary .uk-nav-sub a:focus { color: $inverse-nav-primary-sublist-item-hover-color; }
+    .uk-nav-primary .uk-nav-sub a:hover { color: $inverse-nav-primary-sublist-item-hover-color; }
 
     .uk-nav-primary .uk-nav-sub li.uk-active > a { color: $inverse-nav-primary-sublist-item-active-color; }
 
@@ -1131,7 +1113,6 @@
     }
 
     .uk-navbar-nav > li:hover > a,
-    .uk-navbar-nav > li > a:focus,
     .uk-navbar-nav > li > a[aria-expanded="true"] {
         color: $inverse-navbar-nav-item-hover-color;
         @if(mixin-exists(hook-inverse-navbar-nav-item-hover)) {@include hook-inverse-navbar-nav-item-hover();}
@@ -1158,7 +1139,6 @@
     }
 
     .uk-navbar-toggle:hover,
-    .uk-navbar-toggle:focus,
     .uk-navbar-toggle[aria-expanded="true"] {
         color: $inverse-navbar-toggle-hover-color;
         @if(mixin-exists(hook-inverse-navbar-toggle-hover)) {@include hook-inverse-navbar-toggle-hover();}
@@ -1172,8 +1152,7 @@
         @if(mixin-exists(hook-inverse-subnav-item)) {@include hook-inverse-subnav-item();}
     }
 
-    .uk-subnav > * > a:hover,
-    .uk-subnav > * > a:focus {
+    .uk-subnav > * > a:hover {
         color: $inverse-subnav-item-hover-color;
         @if(mixin-exists(hook-inverse-subnav-item-hover)) {@include hook-inverse-subnav-item-hover();}
     }
@@ -1202,8 +1181,7 @@
         @if(mixin-exists(hook-inverse-subnav-pill-item)) {@include hook-inverse-subnav-pill-item();}
     }
 
-    .uk-subnav-pill > * > a:hover,
-    .uk-subnav-pill > * > a:focus {
+    .uk-subnav-pill > * > a:hover {
         background-color: $inverse-subnav-pill-item-hover-background;
         color: $inverse-subnav-pill-item-hover-color;
         @if(mixin-exists(hook-inverse-subnav-pill-item-hover)) {@include hook-inverse-subnav-pill-item-hover();}
@@ -1238,8 +1216,7 @@
         @if(mixin-exists(hook-inverse-pagination-item)) {@include hook-inverse-pagination-item();}
     }
 
-    .uk-pagination > * > :hover,
-    .uk-pagination > * > :focus {
+    .uk-pagination > * > :hover {
         color: $inverse-pagination-item-hover-color;
         @if(mixin-exists(hook-inverse-pagination-item-hover)) {@include hook-inverse-pagination-item-hover();}
     }
@@ -1266,8 +1243,7 @@
         @if(mixin-exists(hook-inverse-tab-item)) {@include hook-inverse-tab-item();}
     }
 
-    .uk-tab > * > a:hover,
-    .uk-tab > * > a:focus{
+    .uk-tab > * > a:hover {
         color: $inverse-tab-item-hover-color;
         @if(mixin-exists(hook-inverse-tab-item-hover)) {@include hook-inverse-tab-item-hover();}
     }
@@ -1290,8 +1266,7 @@
         @if(mixin-exists(hook-inverse-slidenav)) {@include hook-inverse-slidenav();}
     }
 
-    .uk-slidenav:hover,
-    .uk-slidenav:focus {
+    .uk-slidenav:hover {
         color: $inverse-slidenav-hover-color;
         @if(mixin-exists(hook-inverse-slidenav-hover)) {@include hook-inverse-slidenav-hover();}
     }
@@ -1332,8 +1307,7 @@
         @if(mixin-exists(hook-inverse-logo)) {@include hook-inverse-logo();}
     }
 
-    .uk-logo:hover,
-    .uk-logo:focus {
+    .uk-logo:hover {
         color: $inverse-logo-hover-color;
         @if(mixin-exists(hook-inverse-logo-hover)) {@include hook-inverse-logo-hover();}
     }
@@ -1428,8 +1402,7 @@
         @if(mixin-exists(hook-inverse-marker)) {@include hook-inverse-marker();}
     }
 
-    .uk-marker:hover,
-    .uk-marker:focus {
+    .uk-marker:hover {
         color: $inverse-marker-hover-color;
         @if(mixin-exists(hook-inverse-marker-hover)) {@include hook-inverse-marker-hover();}
     }
@@ -1709,8 +1682,7 @@
         @if(mixin-exists(hook-inverse-thumbnav-item)) {@include hook-inverse-thumbnav-item();}
     }
 
-    .uk-thumbnav > * > :hover,
-    .uk-thumbnav > * > :focus {
+    .uk-thumbnav > * > :hover {
         @if(mixin-exists(hook-inverse-thumbnav-item-hover)) {@include hook-inverse-thumbnav-item-hover();}
     }
 

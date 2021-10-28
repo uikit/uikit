@@ -246,14 +246,12 @@
 
 /*
  * Hover
- * Apply hover style also to focus state and if dropdown is opened
+ * Apply hover style also if dropdown is opened
  */
 
 .uk-navbar-nav > li:hover > a,
-.uk-navbar-nav > li > a:focus,
 .uk-navbar-nav > li > a[aria-expanded="true"] {
     color: @navbar-nav-item-hover-color;
-    outline: none;
     .hook-navbar-nav-item-hover;
 }
 
@@ -294,10 +292,8 @@
 }
 
 .uk-navbar-toggle:hover,
-.uk-navbar-toggle:focus,
 .uk-navbar-toggle[aria-expanded="true"] {
     color: @navbar-toggle-hover-color;
-    outline: none;
     text-decoration: none;
     .hook-navbar-toggle-hover;
 }
@@ -311,9 +307,8 @@
     .hook-navbar-toggle-icon;
 }
 
-/* Hover + Focus */
-:hover > .uk-navbar-toggle-icon,
-:focus > .uk-navbar-toggle-icon {
+/* Hover */
+:hover > .uk-navbar-toggle-icon {
     .hook-navbar-toggle-icon-hover;
 }
 
@@ -435,9 +430,8 @@
     .hook-navbar-dropdown-nav-item;
 }
 
-/* Hover + Focus */
-.uk-navbar-dropdown-nav > li > a:hover,
-.uk-navbar-dropdown-nav > li > a:focus {
+/* Hover */
+.uk-navbar-dropdown-nav > li > a:hover {
     color: @navbar-dropdown-nav-item-hover-color;
     .hook-navbar-dropdown-nav-item-hover;
 }
@@ -472,8 +466,7 @@
 
 .uk-navbar-dropdown-nav .uk-nav-sub a { color: @navbar-dropdown-nav-sublist-item-color; }
 
-.uk-navbar-dropdown-nav .uk-nav-sub a:hover,
-.uk-navbar-dropdown-nav .uk-nav-sub a:focus { color: @navbar-dropdown-nav-sublist-item-hover-color; }
+.uk-navbar-dropdown-nav .uk-nav-sub a:hover { color: @navbar-dropdown-nav-sublist-item-hover-color; }
 
 .uk-navbar-dropdown-nav .uk-nav-sub li.uk-active > a { color: @navbar-dropdown-nav-sublist-item-active-color; }
 
@@ -551,7 +544,6 @@
     }
 
     .uk-navbar-nav > li:hover > a,
-    .uk-navbar-nav > li > a:focus,
     .uk-navbar-nav > li > a[aria-expanded="true"] {
         color: @inverse-navbar-nav-item-hover-color;
         .hook-inverse-navbar-nav-item-hover;
@@ -578,7 +570,6 @@
     }
 
     .uk-navbar-toggle:hover,
-    .uk-navbar-toggle:focus,
     .uk-navbar-toggle[aria-expanded="true"] {
         color: @inverse-navbar-toggle-hover-color;
         .hook-inverse-navbar-toggle-hover;

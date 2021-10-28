@@ -111,12 +111,6 @@ $internal-nav-parent-open-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20widt
 .uk-nav li > a > * { flex: none; }
 
 /*
- * Remove default focus style
- */
-
-.uk-nav li > a:focus { outline: none; }
-
-/*
  * Items
  * Must target `a` elements to exclude other elements (e.g. lists)
  */
@@ -205,9 +199,8 @@ ul.uk-nav-sub {
     @if(mixin-exists(hook-nav-default-item)) {@include hook-nav-default-item();}
 }
 
-/* Hover + Focus */
-.uk-nav-default > li > a:hover,
-.uk-nav-default > li > a:focus {
+/* Hover */
+.uk-nav-default > li > a:hover {
     color: $nav-default-item-hover-color;
     @if(mixin-exists(hook-nav-default-item-hover)) {@include hook-nav-default-item-hover();}
 }
@@ -242,8 +235,7 @@ ul.uk-nav-sub {
 
 .uk-nav-default .uk-nav-sub a { color: $nav-default-sublist-item-color; }
 
-.uk-nav-default .uk-nav-sub a:hover,
-.uk-nav-default .uk-nav-sub a:focus { color: $nav-default-sublist-item-hover-color; }
+.uk-nav-default .uk-nav-sub a:hover { color: $nav-default-sublist-item-hover-color; }
 
 .uk-nav-default .uk-nav-sub li.uk-active > a { color: $nav-default-sublist-item-active-color; }
 
@@ -266,9 +258,8 @@ ul.uk-nav-sub {
     @if(mixin-exists(hook-nav-primary-item)) {@include hook-nav-primary-item();}
 }
 
-/* Hover + Focus */
-.uk-nav-primary > li > a:hover,
-.uk-nav-primary > li > a:focus {
+/* Hover */
+.uk-nav-primary > li > a:hover {
     color: $nav-primary-item-hover-color;
     @if(mixin-exists(hook-nav-primary-item-hover)) {@include hook-nav-primary-item-hover();}
 }
@@ -303,8 +294,7 @@ ul.uk-nav-sub {
 
 .uk-nav-primary .uk-nav-sub a { color: $nav-primary-sublist-item-color; }
 
-.uk-nav-primary .uk-nav-sub a:hover,
-.uk-nav-primary .uk-nav-sub a:focus { color: $nav-primary-sublist-item-hover-color; }
+.uk-nav-primary .uk-nav-sub a:hover { color: $nav-primary-sublist-item-hover-color; }
 
 .uk-nav-primary .uk-nav-sub li.uk-active > a { color: $nav-primary-sublist-item-active-color; }
 

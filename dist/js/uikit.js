@@ -1,4 +1,4 @@
-/*! UIkit 3.7.6 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.8.0 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3451,7 +3451,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.7.6';
+    UIkit.version = '3.8.0';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -6228,7 +6228,6 @@
 
                     e.preventDefault();
 
-                    this.target = toggle.$el;
                     if (this.isToggled() === includes(active, this)) {
                         this.toggle();
                     }
@@ -6319,28 +6318,13 @@
 
                 handler: function() {
                     if (!isFocusable(this.$el)) {
-                        attr(this.$el, 'tabindex', '0');
+                        attr(this.$el, 'tabindex', '-1');
                     }
 
                     if (!$(':focus', this.$el)) {
                         this.$el.focus();
                     }
                 }
-            },
-
-            {
-
-                name: 'hide',
-
-                self: true,
-
-                handler: function() {
-                    if (isFocusable(this.target)) {
-                        this.target.focus();
-                        this.target = null;
-                    }
-                }
-
             },
 
             {
@@ -7841,6 +7825,7 @@
 
                     this.topOffset = offset(this.isFixed ? this.placeholder : this.$el).top;
                     this.bottomOffset = this.topOffset + height;
+                    this.offsetParentTop = offset(this.$el.offsetParent).top;
 
                     var bottom = parseProp('bottom', this);
 
@@ -7991,13 +7976,15 @@
 
                 var active = this.top !== 0 || this.scroll > this.top;
                 var top = Math.max(0, this.offset);
+                var position = 'fixed';
 
                 if (isNumeric(this.bottom) && this.scroll > this.bottom - this.offset) {
-                    top = this.bottom - this.scroll;
+                    top = this.bottom - this.offsetParentTop;
+                    position = 'absolute';
                 }
 
                 css(this.$el, {
-                    position: 'fixed',
+                    position: position,
                     top: (top + "px"),
                     width: this.width
                 });

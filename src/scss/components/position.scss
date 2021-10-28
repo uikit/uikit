@@ -39,12 +39,14 @@ $position-large-margin-l:                               50px !default;
    Component: Position
  ========================================================================== */
 
+:root { --uk-position-margin-offset: 0px; }
+
 
 /* Directions
  ========================================================================== */
 
 /*
- * 1. Prevent content overflow if `max-width: 100%` is used inside position container.
+ * 1. Prevent content overflow.
  */
 
 [class*='uk-position-top'],
@@ -54,14 +56,15 @@ $position-large-margin-l:                               50px !default;
 [class*='uk-position-center'] {
     position: absolute !important;
     /* 1 */
-    max-width: 100%;
+    max-width: unquote('calc(100% - (var(--uk-position-margin-offset) * 2))');
+    box-sizing: border-box;
 }
 
+/*
+ * Edges
+ * Don't use `width: 100%` because it's wrong if the parent has padding.
+ */
 
-/* Edges
- ========================================================================== */
-
-/* Don't use `width: 100%` because it is wrong if the parent has padding. */
 .uk-position-top {
     top: 0;
     left: 0;
@@ -86,9 +89,9 @@ $position-large-margin-l:                               50px !default;
     right: 0;
 }
 
-
-/* Corners
- ========================================================================== */
+/*
+ * Corners
+ */
 
 .uk-position-top-left {
     top: 0;
@@ -113,23 +116,25 @@ $position-large-margin-l:                               50px !default;
 /*
  * Center
  * 1. Fix text wrapping if content is larger than 50% of the container.
+ *    Using `max-content` requires `max-width` of 100% which is set generally.
  */
 
 .uk-position-center {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    top: unquote('calc(50% - var(--uk-position-margin-offset))');
+    left: unquote('calc(50% - var(--uk-position-margin-offset))');
+    --uk-position-translate-x: -50%;
+    --uk-position-translate-y: -50%;
+    transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
     /* 1 */
     width: max-content;
-    max-width: 100%;
-    box-sizing: border-box;
 }
 
 /* Vertical */
 [class*='uk-position-center-left'],
 [class*='uk-position-center-right'] {
-    top: 50%;
-    transform: translateY(-50%);
+    top: unquote('calc(50% - var(--uk-position-margin-offset))');
+    --uk-position-translate-y: -50%;
+    transform: translate(0, var(--uk-position-translate-y));
 }
 
 .uk-position-center-left { left: 0; }
@@ -148,20 +153,19 @@ $position-large-margin-l:                               50px !default;
 /* Horizontal */
 .uk-position-top-center,
 .uk-position-bottom-center {
-    left: 50%;
-    transform: translateX(-50%);
+    left: unquote('calc(50% - var(--uk-position-margin-offset))');
+    --uk-position-translate-x: -50%;
+    transform: translate(var(--uk-position-translate-x), 0);
     /* 1 */
     width: max-content;
-    max-width: 100%;
-    box-sizing: border-box;
 }
 
 .uk-position-top-center { top: 0; }
 .uk-position-bottom-center { bottom: 0; }
 
-
-/* Cover
- ========================================================================== */
+/*
+ * Cover
+ */
 
 .uk-position-cover {
     position: absolute;
@@ -172,89 +176,48 @@ $position-large-margin-l:                               50px !default;
 }
 
 
-/* Utility
+/* Margin
  ========================================================================== */
-
-.uk-position-relative { position: relative !important; }
-
-.uk-position-absolute { position: absolute !important; }
-
-.uk-position-fixed { position: fixed !important; }
-
-.uk-position-z-index { z-index: 1; }
-
-
-/* Margin modifier
- ========================================================================== */
-
-/*
- * Small
- */
 
 .uk-position-small {
-    max-width: unquote('calc(100% - (#{$position-small-margin} * 2))');
     margin: $position-small-margin;
+    --uk-position-margin-offset: #{$position-small-margin};
 }
-
-.uk-position-small.uk-position-center { transform: translate(-50%, -50%) translate(-$position-small-margin, (-$position-small-margin)); }
-
-.uk-position-small[class*='uk-position-center-left'],
-.uk-position-small[class*='uk-position-center-right'] { transform: translateY(-50%) translateY(-$position-small-margin); }
-
-.uk-position-small.uk-position-top-center,
-.uk-position-small.uk-position-bottom-center { transform: translateX(-50%) translateX(-$position-small-margin); }
-
-/*
- * Medium
- */
 
 .uk-position-medium {
-    max-width: unquote('calc(100% - (#{$position-medium-margin} * 2))');
     margin: $position-medium-margin;
+    --uk-position-margin-offset: #{$position-medium-margin};
 }
-
-.uk-position-medium.uk-position-center { transform: translate(-50%, -50%) translate(-$position-medium-margin, (-$position-medium-margin)); }
-
-.uk-position-medium[class*='uk-position-center-left'],
-.uk-position-medium[class*='uk-position-center-right'] { transform: translateY(-50%) translateY(-$position-medium-margin); }
-
-.uk-position-medium.uk-position-top-center,
-.uk-position-medium.uk-position-bottom-center { transform: translateX(-50%) translateX(-$position-medium-margin); }
-
-/*
- * Large
- */
 
 .uk-position-large {
-    max-width: unquote('calc(100% - (#{$position-large-margin} * 2))');
     margin: $position-large-margin;
+    --uk-position-margin-offset: #{$position-large-margin};
 }
-
-.uk-position-large.uk-position-center { transform: translate(-50%, -50%) translate(-$position-large-margin, (-$position-large-margin)); }
-
-.uk-position-large[class*='uk-position-center-left'],
-.uk-position-large[class*='uk-position-center-right'] { transform: translateY(-50%) translateY(-$position-large-margin); }
-
-.uk-position-large.uk-position-top-center,
-.uk-position-large.uk-position-bottom-center { transform: translateX(-50%) translateX(-$position-large-margin); }
 
 /* Desktop and bigger */
 @media (min-width: $breakpoint-large) {
 
     .uk-position-large {
-        max-width: unquote('calc(100% - (#{$position-large-margin-l} * 2))');
         margin: $position-large-margin-l;
+        --uk-position-margin-offset: #{$position-large-margin-l};
     }
 
-    .uk-position-large.uk-position-center { transform: translate(-50%, -50%) translate(-$position-large-margin-l, (-$position-large-margin-l)); }
-
-    .uk-position-large[class*='uk-position-center-left'],
-    .uk-position-large[class*='uk-position-center-right'] { transform: translateY(-50%) translateY(-$position-large-margin-l); }
-
-    .uk-position-large.uk-position-top-center,
-    .uk-position-large.uk-position-bottom-center { transform: translateX(-50%) translateX(-$position-large-margin-l); }
-
 }
+
+
+/* Schemes
+ ========================================================================== */
+
+.uk-position-relative { position: relative  !important; }
+.uk-position-absolute { position: absolute  !important; }
+.uk-position-fixed { position: fixed  !important; }
+.uk-position-sticky { position: sticky  !important; }
+
+
+/* Layer
+ ========================================================================== */
+
+.uk-position-z-index { z-index: 1; }
 
 
 // Hooks

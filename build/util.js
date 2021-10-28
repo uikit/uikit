@@ -38,7 +38,7 @@ exports.write = async function (dest, data) {
         throw err;
     }
 
-    exports.logFile(dest);
+    await exports.logFile(dest);
 
     return dest;
 

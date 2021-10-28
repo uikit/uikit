@@ -84,11 +84,9 @@
     .hook-dotnav-item;
 }
 
-/* Hover + Focus */
-.uk-dotnav > * > :hover,
-.uk-dotnav > * > :focus {
+/* Hover */
+.uk-dotnav > * > :hover {
     background-color: @dotnav-item-hover-background;
-    outline: none;
     .hook-dotnav-item-hover;
 }
 
@@ -156,8 +154,7 @@
         .hook-inverse-dotnav-item;
     }
 
-    .uk-dotnav > * > :hover,
-    .uk-dotnav > * > :focus {
+    .uk-dotnav > * > :hover {
         background-color: @inverse-dotnav-item-hover-background;
         .hook-inverse-dotnav-item-hover;
     }
