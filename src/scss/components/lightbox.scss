@@ -22,6 +22,8 @@
 $lightbox-z-index:                               $global-z-index + 10 !default;
 $lightbox-background:                            #000 !default;
 
+$lightbox-focus-outline:                         rgba(255,255,255,0.7) !default;
+
 $lightbox-item-color:                            rgba(255,255,255,0.7) !default;
 $lightbox-item-max-width:                        100vw !default;
 $lightbox-item-max-height:                       100vh !default;
@@ -89,6 +91,13 @@ $lightbox-button-hover-color:                    #fff !default;
     opacity: 1;
 }
 
+/*
+ * Focus
+ */
+
+.uk-lightbox :focus { outline-color: $lightbox-focus-outline; }
+.uk-lightbox :focus-visible { outline-color: $lightbox-focus-outline; }
+
 
 /* Page
  ========================================================================== */
@@ -111,7 +120,6 @@ $lightbox-button-hover-color:                    #fff !default;
  * 5. Responsiveness
  *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
  *    Using `vh` and `vw` to make responsive image work in IE11
- * 6. Suppress outline on focus
  */
 
 .uk-lightbox-items > * {
@@ -137,9 +145,6 @@ $lightbox-button-hover-color:                    #fff !default;
     max-width: $lightbox-item-max-width;
     max-height: $lightbox-item-max-height;
 }
-
-/* 6 */
-.uk-lightbox-items > :focus { outline: none; }
 
 .uk-lightbox-items > * > :not(iframe) {
     width: auto;
@@ -201,9 +206,8 @@ $lightbox-button-hover-color:                    #fff !default;
     @if(mixin-exists(hook-lightbox-button)) {@include hook-lightbox-button();}
 }
 
-/* Hover + Focus */
-.uk-lightbox-button:hover,
-.uk-lightbox-button:focus {
+/* Hover */
+.uk-lightbox-button:hover {
     color: $lightbox-button-hover-color;
     @if(mixin-exists(hook-lightbox-button-hover)) {@include hook-lightbox-button-hover();}
 }

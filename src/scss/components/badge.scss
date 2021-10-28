@@ -50,10 +50,8 @@ $badge-font-size:                                11px !default;
  * Required for `a`
  */
 
-.uk-badge:hover,
-.uk-badge:focus {
+.uk-badge:hover {
     text-decoration: none;
-    outline: none;
     @if(mixin-exists(hook-badge-hover)) {@include hook-badge-hover();}
 }
 

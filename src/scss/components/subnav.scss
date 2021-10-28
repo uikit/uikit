@@ -104,12 +104,10 @@ $subnav-item-disabled-color:                     $global-muted-color !default;
     @if(mixin-exists(hook-subnav-item)) {@include hook-subnav-item();}
 }
 
-/* Hover + Focus */
-.uk-subnav > * > a:hover,
-.uk-subnav > * > a:focus {
+/* Hover */
+.uk-subnav > * > a:hover {
     color: $subnav-item-hover-color;
     text-decoration: $subnav-item-hover-text-decoration;
-    outline: none;
     @if(mixin-exists(hook-subnav-item-hover)) {@include hook-subnav-item-hover();}
 }
 
@@ -168,9 +166,8 @@ $subnav-item-disabled-color:                     $global-muted-color !default;
     @if(mixin-exists(hook-subnav-pill-item)) {@include hook-subnav-pill-item();}
 }
 
-/* Hover + Focus */
-.uk-subnav-pill > * > a:hover,
-.uk-subnav-pill > * > a:focus {
+/* Hover */
+.uk-subnav-pill > * > a:hover {
     background-color: $subnav-pill-item-hover-background;
     color: $subnav-pill-item-hover-color;
     @if(mixin-exists(hook-subnav-pill-item-hover)) {@include hook-subnav-pill-item-hover();}

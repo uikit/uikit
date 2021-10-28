@@ -79,11 +79,10 @@ $alert-danger-color:                             $global-danger-background !defa
 .uk-alert-close:first-child + * { margin-top: 0; }
 
 /*
- * Hover + Focus
+ * Hover
  */
 
-.uk-alert-close:hover,
-.uk-alert-close:focus {
+.uk-alert-close:hover {
     @if(mixin-exists(hook-alert-close-hover)) {@include hook-alert-close-hover();}
 }
 

@@ -90,9 +90,8 @@ $tab-item-disabled-color:                 $global-muted-color !default;
     @if(mixin-exists(hook-tab-item)) {@include hook-tab-item();}
 }
 
-/* Hover + Focus */
-.uk-tab > * > a:hover,
-.uk-tab > * > a:focus {
+/* Hover */
+.uk-tab > * > a:hover {
     color: $tab-item-hover-color;
     text-decoration: $tab-item-hover-text-decoration;
     @if(mixin-exists(hook-tab-item-hover)) {@include hook-tab-item-hover();}

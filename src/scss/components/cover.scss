@@ -14,20 +14,25 @@
 
 /*
  * Works with iframes and embedded content
- * 1. Reset responsiveness for embedded content
- * 2. Center object
+ * 1. Apply transform instantly. Needed if transform is transitioned.
+ * 2. Reset responsiveness for embedded content
+ * 3. Center object
  * Note: Percent values on the `top` property only works if this element
  *       is absolute positioned or if the container has a height
  */
 
-.uk-cover {
-    /* 1 */
-    max-width: none;
+.uk-cover,
+/* 1 */
+[uk-cover] {
     /* 2 */
+    max-width: none;
+    /* 3 */
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    --uk-position-translate-x: -50%;
+    --uk-position-translate-y: -50%;
+    transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
 }
 
 iframe.uk-cover { pointer-events: none; }

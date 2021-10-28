@@ -76,6 +76,8 @@ $base-pre-line-height:                           1.5 !default;
 $base-pre-font-family:                           $base-code-font-family !default;
 $base-pre-color:                                 $global-color !default;
 
+$base-focus-outline:                             $global-emphasis-color !default;     
+
 $base-selection-background:                      #39f !default;
 $base-selection-color:                           $global-inverse-color !default;
 
@@ -116,13 +118,6 @@ body { margin: 0; }
  ========================================================================== */
 
 /*
- * Remove the outline on focused links when they are also active or hovered
- */
-
-a:active,
-a:hover { outline: none; }
-
-/*
  * Style
  */
 
@@ -136,8 +131,7 @@ a,
 
 a:hover,
 .uk-link:hover,
-.uk-link-toggle:hover .uk-link,
-.uk-link-toggle:focus .uk-link {
+.uk-link-toggle:hover .uk-link {
     color: $base-link-hover-color;
     text-decoration: $base-link-hover-text-decoration;
     @if(mixin-exists(hook-base-link-hover)) {@include hook-base-link-hover();}
@@ -522,6 +516,33 @@ pre {
 pre code { font-family: $base-pre-font-family; }
 
 
+/* Focus
+ ========================================================================== */
+
+/*
+ * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor. 
+ * 1. Fallback: Remove `:focus` for a negative tabindexes.
+ * 2. Fallback: Set `:focus` style but not for negative tabindexes.
+ * 3. Fallback: Remove `:focus` style for browsers which support `:focus-visible`.
+ * 4. Set `:focus-visible` style for browsers which support it.
+ */
+
+/* 1 */
+:focus { outline: none; }
+
+/* 2 */
+:focus:not([tabindex^='-']) {
+    outline: 2px dotted $base-focus-outline;
+    outline-offset: 1px;
+}
+
+/* 3 */
+:focus:not(:focus-visible) { outline: none; }
+
+/* 4 */
+:focus-visible { outline: 2px dotted $base-focus-outline; }
+
+
 /* Selection pseudo-element
  ========================================================================== */
 
@@ -610,6 +631,7 @@ $inverse-base-code-color:                       $inverse-global-color !default;
 $inverse-base-em-color:                         $inverse-global-emphasis-color !default;
 $inverse-base-heading-color:                    $inverse-global-emphasis-color !default;
 $inverse-base-hr-border:                        $inverse-global-border !default;
+$inverse-base-focus-outline:                    $inverse-global-emphasis-color !default;
 
 
 

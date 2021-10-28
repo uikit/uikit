@@ -34,7 +34,7 @@ $form-danger-border:                             $global-danger-background !defa
 $form-success-border:                            $global-success-background !default;
 
 $form-blank-focus-border:                        $global-border !default;
-$form-blank-focus-border-style:                  dashed !default;
+$form-blank-focus-border-style:                  solid !default;
 
 $form-radio-border-width:                        $global-border-width !default;
 $form-radio-border:                              darken($global-border, 10%) !default;
