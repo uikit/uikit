@@ -549,6 +549,7 @@ pre code { font-family: $base-pre-font-family; }
 ::selection {
     background: $base-selection-background;
     color: $base-selection-color;
+    -webkit-text-fill-color: $base-selection-color;
     text-shadow: none;
 }
 
