@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.8.1 (November 4, 2021)
+
+### Added
+
+- Add Less variables for outline style
+
+### Changed
+
+- Make padding large a little bigger on small devices
+- Change logo color to emphasis
+
 ## 3.8.0 (October 28, 2021)
 
 ### Changed
