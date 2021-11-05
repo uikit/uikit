@@ -1,4 +1,4 @@
-/*! UIkit 3.8.0 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.8.1 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2240,26 +2240,35 @@
 
 
         var parents = isVisible(element) ? scrollParents(element) : [];
-        var diff = 0;
         return parents.reduce(function (fn, scrollElement, i) {
 
             var scrollTop = scrollElement.scrollTop;
             var scrollHeight = scrollElement.scrollHeight;
+            var offsetHeight = scrollElement.offsetHeight;
             var maxScroll = scrollHeight - getViewportClientHeight(scrollElement);
+            var ref = offset(parents[i - 1] || element);
+            var elHeight = ref.height;
+            var elTop = ref.top;
 
             var top = Math.ceil(
-                offset(parents[i - 1] || element).top
+                elTop
                 - offset(getViewport$1(scrollElement)).top
                 - offsetBy
-                + diff
                 + scrollTop
             );
 
-            if (top > maxScroll) {
-                diff = top - maxScroll;
-                top = maxScroll;
+            if (offsetBy > 0 && offsetHeight < elHeight + offsetBy) {
+                top += offsetBy;
             } else {
-                diff = 0;
+                offsetBy = 0;
+            }
+
+            if (top > maxScroll) {
+                offsetBy -= top - maxScroll;
+                top = maxScroll;
+            } else if (top < 0) {
+                offsetBy -= top;
+                top = 0;
             }
 
             return function () { return scrollTo(scrollElement, top - scrollTop).then(fn); };
@@ -3451,7 +3460,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.8.0';
+    UIkit.version = '3.8.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);

@@ -49,8 +49,8 @@ $dropcap-font-size:                              (($global-line-height * 3) * 1e
 
 $logo-font-size:                                 $global-large-font-size !default;
 $logo-font-family:                               $global-font-family !default;
-$logo-color:                                     $global-color !default;
-$logo-hover-color:                               $global-color !default;
+$logo-color:                                     $global-emphasis-color !default;
+$logo-hover-color:                               $global-emphasis-color !default;
 
 $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) !default;
 
@@ -470,8 +470,8 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 // Inverse
 // ========================================================================
 
-$inverse-logo-color:                            $inverse-global-color !default;
-$inverse-logo-hover-color:                      $inverse-global-color !default;
+$inverse-logo-color:                            $inverse-global-emphasis-color !default;
+$inverse-logo-hover-color:                      $inverse-global-emphasis-color !default;
 
 
 
