@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.8.1 (November 4, 2021)
+## WIP
 
 ### Added
 
@@ -10,6 +10,10 @@
 
 - Make padding large a little bigger on small devices
 - Change logo color to emphasis
+
+### Fixed
+
+- Fix scrollIntoView funtion with offset argument provided
 
 ## 3.8.0 (October 28, 2021)
 
