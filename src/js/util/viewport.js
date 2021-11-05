@@ -37,25 +37,31 @@ export function scrollTop(element, top) {
 export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
 
     const parents = isVisible(element) ? scrollParents(element) : [];
-    let diff = 0;
     return parents.reduce((fn, scrollElement, i) => {
 
-        const {scrollTop, scrollHeight} = scrollElement;
+        const {scrollTop, scrollHeight, offsetHeight} = scrollElement;
         const maxScroll = scrollHeight - getViewportClientHeight(scrollElement);
+        const {height: elHeight, top: elTop} = offset(parents[i - 1] || element);
 
         let top = Math.ceil(
-            offset(parents[i - 1] || element).top
+            elTop
             - offset(getViewport(scrollElement)).top
             - offsetBy
-            + diff
             + scrollTop
         );
 
-        if (top > maxScroll) {
-            diff = top - maxScroll;
-            top = maxScroll;
+        if (offsetBy > 0 && offsetHeight < elHeight + offsetBy) {
+            top += offsetBy;
         } else {
-            diff = 0;
+            offsetBy = 0;
+        }
+
+        if (top > maxScroll) {
+            offsetBy -= top - maxScroll;
+            top = maxScroll;
+        } else if (top < 0) {
+            offsetBy -= top;
+            top = 0;
         }
 
         return () => scrollTo(scrollElement, top - scrollTop).then(fn);

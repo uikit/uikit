@@ -6,6 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Scroll - UIkit tests</title>
         <script src="js/test.js"></script>
+        <script>
+
+            UIkit.util.on(document, 'change', '#offset', function (e) {
+                UIkit.util.$$('[uk-scroll]').forEach(function (el) {
+                    el.setAttribute('data-offset', e.target.value);
+                })
+            })
+
+        </script>
     </head>
 
     <body>
@@ -14,12 +23,67 @@
 
             <h1>Scroll</h1>
 
+            <div class="uk-margin">
+                <label class="uk-form-label" for="offset">Offset</label>
+                <div class="uk-form-controls">
+                    <input class="uk-input uk-form-width-small" id="offset" type="text" value="0">
+                </div>
+            </div>
             <a class="uk-button uk-button-default" href="#bottom" uk-scroll>Go Down!</a>
+            <a class="uk-button uk-button-default" href="#second-card" uk-scroll>Go to second card!</a>
+            <a class="uk-button uk-button-default" href="#nested-card" uk-scroll>Go to last nested card!</a>
             <a id="js-top-callback" class="uk-button uk-button-default" href="#bottom" uk-scroll>Go Down with callback!</a>
 
-            <div style="height: 2000px;"></div>
+            <div class="uk-flex uk-flex-column uk-flex-center" style="height: 2000px;">
+
+                <div class="uk-overflow-auto" style="height: 300px;">
+                    <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+                        <h3 class="uk-card-title">1</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                    </div>
+                    <div id="second-card" class="uk-card uk-card-primary uk-card-hover uk-card-body">
+                        <h3 class="uk-card-title">2</h3>
+                        <div class="uk-overflow-auto" style="height: 250px;">
+                            <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+                                <h3 class="uk-card-title">Nested 1</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                            </div>
+                            <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">
+                                <h3 class="uk-card-title">Nested 2</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                            </div>
+                            <div id="nested-card" class="uk-card uk-card-default uk-card-hover uk-card-body">
+                                <h3 class="uk-card-title">Nested 3</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">
+                        <h3 class="uk-card-title">3</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                    </div>
+                </div>
+
+
+            </div>
 
             <a id="bottom" class="uk-button uk-button-default" href="#" uk-scroll>Go Up!</a>
+            <a class="uk-button uk-button-default" href="#nested-card" uk-scroll>Go to last nested card!</a>
 
             <script>
 

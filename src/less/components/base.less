@@ -76,7 +76,10 @@
 @base-pre-font-family:                          @base-code-font-family;
 @base-pre-color:                                @global-color;
 
-@base-focus-outline:                            @global-emphasis-color;     
+@base-focus-outline-width:                      2px;
+@base-focus-outline-style:                      dotted;
+@base-focus-outline:                            @global-emphasis-color;
+@base-focus-outline-offset:                     1px;
 
 @base-selection-background:                     #39f;
 @base-selection-color:                          @global-inverse-color;
@@ -532,15 +535,15 @@ pre code { font-family: @base-pre-font-family; }
 
 /* 2 */
 :focus:not([tabindex^='-']) {
-    outline: 2px dotted @base-focus-outline;
-    outline-offset: 1px;
+    outline: @base-focus-outline-width @base-focus-outline-style @base-focus-outline;
+    outline-offset: @base-focus-outline-offset;
 }
 
 /* 3 */
 :focus:not(:focus-visible) { outline: none; }
 
 /* 4 */
-:focus-visible { outline: 2px dotted @base-focus-outline; }
+:focus-visible { outline: @base-focus-outline-width @base-focus-outline-style @base-focus-outline; }
 
 
 /* Selection pseudo-element
