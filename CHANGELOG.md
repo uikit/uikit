@@ -19,7 +19,7 @@
 
 ### Fixed
 
-- Fix scrollIntoView funtion with offset argument provided
+- Fix scrollIntoView function with offset argument provided
 
 ## 3.8.0 (October 28, 2021)
 
