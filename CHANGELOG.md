@@ -1,5 +1,11 @@
 # Changelog
 
+### WIP
+
+### Changed
+
+- Upgrade LESS to version 4
+
 ## 3.8.1 (November 5, 2021)
 
 ### Added

@@ -98,6 +98,7 @@ glob.sync('src/less/**/*.less').forEach(file => {
         .replace(/(\.[\w-\\@]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*({\s*.*?\s*})/gs, '@if ($2 == $3) {\n$1 $4\n}') // replace conditionals
         .replace(/\${/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
         .replace(/[^(](-\$[\w-]*)/g, ' ($1)') // surround negative variables with brackets
+        .replace(/(--[\w-]+:\s*)~'([^']+)'/g, '$1$2') // string literals in custom properties
         .replace(/~('[^']+')/g, 'unquote($1)'); // string literals: for real
 
     /* File name of the current file */

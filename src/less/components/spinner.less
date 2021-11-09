@@ -11,7 +11,7 @@
 
 @spinner-size:                                  30px;
 @spinner-stroke-width:                          1;
-@spinner-radius:                                floor((@spinner-size - @spinner-stroke-width) / 2); // Minus stroke width to prevent overflow clipping
+@spinner-radius:                                floor(((@spinner-size - @spinner-stroke-width) / 2)); // Minus stroke width to prevent overflow clipping
 @spinner-circumference:                         round(2 * 3.141 * @spinner-radius);
 @spinner-duration:                              1.4s;
 
@@ -55,7 +55,7 @@
 @keyframes uk-spinner-dash {
     0% { stroke-dashoffset: @spinner-circumference; }
     50% {
-        stroke-dashoffset: @spinner-circumference/4;
+        stroke-dashoffset: (@spinner-circumference / 4);
         transform:rotate(135deg);
     }
     100% {
