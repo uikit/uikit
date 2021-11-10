@@ -182,8 +182,7 @@ export async function icons(src) {
 export async function run(cmd) {
     const {stdout, stderr} = await exec(cmd);
 
-    stdout && console.log(stdout.trim());
-    stderr && console.log(stderr.trim());
+    stderr && console.error(stderr.trim());
 
     return stdout;
 }
@@ -193,7 +192,7 @@ export function ucfirst(str) {
 }
 
 export async function getVersion() {
-    return JSON.parse(await read(resolve(__dirname, '../package.json'))).version;
+    return await readJson(resolve(__dirname, '../package.json')).version;
 }
 
 export async function replaceInFile(file, fn) {
