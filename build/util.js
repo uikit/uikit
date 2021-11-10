@@ -184,6 +184,8 @@ export async function run(cmd) {
 
     stdout && console.log(stdout.trim());
     stderr && console.log(stderr.trim());
+
+    return stdout;
 }
 
 export function ucfirst(str) {
