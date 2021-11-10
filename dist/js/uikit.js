@@ -1,4 +1,4 @@
-/*! UIkit 3.8.1 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.9.0 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -791,12 +791,12 @@
 
     function toEventTargets(target) {
         return isArray(target)
-                ? target.map(toEventTarget).filter(Boolean)
-                : isString(target)
-                    ? findAll(target)
-                    : isEventTarget(target)
-                        ? [target]
-                        : toNodes(target);
+            ? target.map(toEventTarget).filter(Boolean)
+            : isString(target)
+                ? findAll(target)
+                : isEventTarget(target)
+                    ? [target]
+                    : toNodes(target);
     }
 
     function isTouch(e) {
@@ -3460,7 +3460,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.8.1';
+    UIkit.version = '3.9.0';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);

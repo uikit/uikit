@@ -1,4 +1,4 @@
-/*! UIkit 3.8.1 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.9.0 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -9079,25 +9079,25 @@ iframe.uk-cover {
   --uk-translate-x: 100%;
 }
 .uk-transition-slide-top-small {
-  --uk-translate-y: -10px;
+  --uk-translate-y: calc(-1 * 10px);
 }
 .uk-transition-slide-bottom-small {
   --uk-translate-y: 10px;
 }
 .uk-transition-slide-left-small {
-  --uk-translate-x: -10px;
+  --uk-translate-x: calc(-1 * 10px);
 }
 .uk-transition-slide-right-small {
   --uk-translate-x: 10px;
 }
 .uk-transition-slide-top-medium {
-  --uk-translate-y: -50px;
+  --uk-translate-y: calc(-1 * 50px);
 }
 .uk-transition-slide-bottom-medium {
   --uk-translate-y: 50px;
 }
 .uk-transition-slide-left-medium {
-  --uk-translate-x: -50px;
+  --uk-translate-x: calc(-1 * 50px);
 }
 .uk-transition-slide-right-medium {
   --uk-translate-x: 50px;
