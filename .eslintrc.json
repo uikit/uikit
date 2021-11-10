@@ -1,12 +1,12 @@
-module.exports = {
+{
     "root":true,
     "env": {
         "es6": true,
         "browser": true,
-        "commonjs": true,
+        "commonjs": true
     },
     "extends": [
-        "eslint:recommended",
+        "eslint:recommended"
     ],
     "parserOptions": {
         "sourceType": "module"
@@ -59,6 +59,6 @@ module.exports = {
         "space-infix-ops": "error",
         "space-unary-ops": "error",
         "spaced-comment": "error",
-        "template-curly-spacing": "error",
+        "template-curly-spacing": "error"
     }
-};
+}

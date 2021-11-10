@@ -57,7 +57,7 @@ export function once(...args) {
 
 export function trigger(targets, event, detail) {
     return toEventTargets(targets).reduce((notCanceled, target) =>
-        notCanceled && target.dispatchEvent(createEvent(event, true, true, detail))
+            notCanceled && target.dispatchEvent(createEvent(event, true, true, detail))
         , true);
 }
 
@@ -121,12 +121,12 @@ function toEventTarget(target) {
 
 export function toEventTargets(target) {
     return isArray(target)
-            ? target.map(toEventTarget).filter(Boolean)
-            : isString(target)
-                ? findAll(target)
-                : isEventTarget(target)
-                    ? [target]
-                    : toNodes(target);
+        ? target.map(toEventTarget).filter(Boolean)
+        : isString(target)
+            ? findAll(target)
+            : isEventTarget(target)
+                ? [target]
+                : toNodes(target);
 }
 
 export function isTouch(e) {
