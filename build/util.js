@@ -1,6 +1,6 @@
 const fs = require('fs');
 const less = require('less');
-const SVGO = require('svgo');
+const {optimize} = require('svgo');
 const rollup = require('rollup');
 const postcss = require('postcss');
 const uglify = require('uglify-js');
@@ -134,32 +134,34 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
 
 exports.icons = async function (src) {
 
-    const svgo = new SVGO({
-
+    const options = {
         plugins: [
-            {removeViewBox: false},
             {
-                cleanupNumericValues: {
-                    floatPrecision: 3
+                name: 'preset-default',
+                params: {
+                    overrides: {
+                        removeViewBox: false,
+                        cleanupNumericValues: {
+                            floatPrecision: 3
+                        },
+                        convertPathData: false,
+                        convertShapeToPath: false,
+                        mergePaths: false,
+                        removeDimensions: false,
+                        removeStyleElement: false,
+                        removeScriptElement: false,
+                        removeUnknownsAndDefaults: false,
+                        removeUselessStrokeAndFill: false
+                    }
                 }
-            },
-            {convertPathData: false},
-            {convertShapeToPath: false},
-            {mergePaths: false},
-            {removeDimensions: false},
-            {removeStyleElement: false},
-            {removeScriptElement: false},
-            {removeUnknownsAndDefaults: false},
-            {removeUselessStrokeAndFill: false}
+            }
         ]
+    };
 
-    });
     const files = await exports.glob(src, {nosort: true});
-    const icons = await Promise.all(files.map(async file => {
-        const data = await exports.read(file);
-        const {data: svg} = await svgo.optimize(data);
-        return svg;
-    }));
+    const icons = await Promise.all(files.map(async file =>
+        (await optimize(await exports.read(file), options)).data
+    ));
 
     return JSON.stringify(files.reduce((result, file, i) => {
         result[basename(file, '.svg')] = icons[i];
