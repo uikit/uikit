@@ -8,9 +8,6 @@ import {args, getVersion, glob, logFile, replaceInFile, run} from './util.js';
 const {coerce, inc, prerelease, valid} = semver;
 
 const prevVersion = await getVersion();
-
-console.log(prevVersion, inc(prevVersion, prerelease(prevVersion) ? 'prerelease' : 'patch'));
-
 const version = await inquireVersion(args.v || args.version);
 
 await Promise.all([

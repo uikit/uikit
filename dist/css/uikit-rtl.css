@@ -1,4 +1,4 @@
-/*! UIkit 3.9.0 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.9.1 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -407,7 +407,7 @@ pre code {
 /* Focus
  ========================================================================== */
 /*
- * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor. 
+ * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor.
  * 1. Fallback: Remove `:focus` for a negative tabindexes.
  * 2. Fallback: Set `:focus` style but not for negative tabindexes.
  * 3. Fallback: Remove `:focus` style for browsers which support `:focus-visible`.
@@ -5584,7 +5584,7 @@ ul.uk-nav-sub {
 /* Divider modifier
  ========================================================================== */
 /*
- * Set gutter 
+ * Set gutter
  */
 .uk-subnav-divider {
   margin-right: -41px;
