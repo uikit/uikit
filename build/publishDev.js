@@ -1,6 +1,6 @@
 import semver from 'semver';
 import {resolve} from 'path';
-import {args, getVersion, run} from './util.js';
+import {__dirname, args, getVersion, run} from './util.js';
 
 const {inc} = semver;
 
