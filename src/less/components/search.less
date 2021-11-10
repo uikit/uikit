@@ -120,7 +120,7 @@
     /* 9 */
     border: none;
     color: @search-color;
-    .hook-search-input;
+    .hook-search-input();
 }
 
 .uk-search-input:focus { outline: none; }
@@ -190,13 +190,13 @@
     padding-left: @search-default-padding-horizontal;
     padding-right: @search-default-padding-horizontal;
     background: @search-default-background;
-    .hook-search-default-input;
+    .hook-search-default-input();
 }
 
 /* Focus */
 .uk-search-default .uk-search-input:focus {
     background-color: @search-default-focus-background;
-    .hook-search-default-input-focus;
+    .hook-search-default-input-focus();
 }
 
 /*
@@ -222,7 +222,7 @@
     height: @search-navbar-height;
     background: @search-navbar-background;
     font-size: @search-navbar-font-size;
-    .hook-search-navbar-input;
+    .hook-search-navbar-input();
 }
 
 /*
@@ -248,7 +248,7 @@
     height: @search-large-height;
     background: @search-large-background;
     font-size: @search-large-font-size;
-    .hook-search-large-input;
+    .hook-search-large-input();
 }
 
 /*
@@ -266,20 +266,20 @@
 
 .uk-search-toggle {
     color: @search-toggle-color;
-    .hook-search-toggle;
+    .hook-search-toggle();
 }
 
 /* Hover */
 .uk-search-toggle:hover {
     color: @search-toggle-hover-color;
-    .hook-search-toggle-hover;
+    .hook-search-toggle-hover();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-search-misc;
+.hook-search-misc();
 
 .hook-search-input() {}
 .hook-search-default-input() {}
@@ -336,22 +336,22 @@
 
     .uk-search-default .uk-search-input {
         background-color: @inverse-search-default-background;
-        .hook-inverse-search-default-input;
+        .hook-inverse-search-default-input();
     }
-    
+
     .uk-search-default .uk-search-input:focus {
         background-color: @inverse-search-default-focus-background;
-        .hook-inverse-search-default-input-focus;
+        .hook-inverse-search-default-input-focus();
     }
 
     .uk-search-navbar .uk-search-input {
         background-color: @inverse-search-navbar-background;
-        .hook-inverse-search-navbar-input;
+        .hook-inverse-search-navbar-input();
     }
 
     .uk-search-large .uk-search-input {
         background-color: @inverse-search-large-background;
-        .hook-inverse-search-large-input;
+        .hook-inverse-search-large-input();
     }
 
     //
@@ -360,12 +360,12 @@
 
     .uk-search-toggle {
         color: @inverse-search-toggle-color;
-        .hook-inverse-search-toggle;
+        .hook-inverse-search-toggle();
     }
 
     .uk-search-toggle:hover {
         color: @inverse-search-toggle-hover-color;
-        .hook-inverse-search-toggle-hover;
+        .hook-inverse-search-toggle-hover();
     }
 
 }

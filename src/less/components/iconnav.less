@@ -43,7 +43,7 @@
     list-style: none;
     /* 3 */
     margin-left: -@iconnav-margin-horizontal;
-    .hook-iconnav;
+    .hook-iconnav();
 }
 
 /*
@@ -81,19 +81,19 @@
     color: @iconnav-item-color;
     /* 5 */
     text-decoration: none;
-    .hook-iconnav-item;
+    .hook-iconnav-item();
 }
 
 /* Hover */
 .uk-iconnav > * > a:hover {
     color: @iconnav-item-hover-color;
-    .hook-iconnav-item-hover;
+    .hook-iconnav-item-hover();
 }
 
 /* Active */
 .uk-iconnav > .uk-active > a {
     color: @iconnav-item-active-color;
-    .hook-iconnav-item-active;
+    .hook-iconnav-item-active();
 }
 
 
@@ -123,7 +123,7 @@
 // Hooks
 // ========================================================================
 
-.hook-iconnav-misc;
+.hook-iconnav-misc();
 
 .hook-iconnav() {}
 .hook-iconnav-item() {}
@@ -143,17 +143,17 @@
 
     .uk-iconnav > * > a {
         color: @inverse-iconnav-item-color;
-        .hook-inverse-iconnav-item;
+        .hook-inverse-iconnav-item();
     }
 
     .uk-iconnav > * > a:hover {
         color: @inverse-iconnav-item-hover-color;
-        .hook-inverse-iconnav-item-hover;
+        .hook-inverse-iconnav-item-hover();
     }
 
     .uk-iconnav > .uk-active > a {
         color: @inverse-iconnav-item-active-color;
-        .hook-inverse-iconnav-item-active;
+        .hook-inverse-iconnav-item-active();
     }
 
 }

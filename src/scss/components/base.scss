@@ -523,7 +523,7 @@ pre code { font-family: $base-pre-font-family; }
  ========================================================================== */
 
 /*
- * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor. 
+ * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor.
  * 1. Fallback: Remove `:focus` for a negative tabindexes.
  * 2. Fallback: Set `:focus` style but not for negative tabindexes.
  * 3. Fallback: Remove `:focus` style for browsers which support `:focus-visible`.

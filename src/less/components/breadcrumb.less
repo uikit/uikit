@@ -34,7 +34,7 @@
 .uk-breadcrumb {
     padding: 0;
     list-style: none;
-    .hook-breadcrumb;
+    .hook-breadcrumb();
 }
 
 /*
@@ -50,26 +50,26 @@
 .uk-breadcrumb > * > * {
     font-size: @breadcrumb-item-font-size;
     color: @breadcrumb-item-color;
-    .hook-breadcrumb-item;
+    .hook-breadcrumb-item();
 }
 
 /* Hover */
 .uk-breadcrumb > * > :hover {
     color: @breadcrumb-item-hover-color;
     text-decoration: @breadcrumb-item-hover-text-decoration;
-    .hook-breadcrumb-item-hover;
+    .hook-breadcrumb-item-hover();
 }
 
 /* Disabled */
 .uk-breadcrumb > .uk-disabled > * {
-    .hook-breadcrumb-item-disabled;
+    .hook-breadcrumb-item-disabled();
 }
 
 /* Active */
 .uk-breadcrumb > :last-child > span,
 .uk-breadcrumb > :last-child > a:not([href]) {
     color: @breadcrumb-item-active-color;
-    .hook-breadcrumb-item-active;
+    .hook-breadcrumb-item-active();
 }
 
 /*
@@ -87,14 +87,14 @@
     /* 2 */
     font-size: @breadcrumb-divider-font-size;
     color: @breadcrumb-divider-color;
-    .hook-breadcrumb-divider;
+    .hook-breadcrumb-divider();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-breadcrumb-misc;
+.hook-breadcrumb-misc();
 
 .hook-breadcrumb() {}
 .hook-breadcrumb-item() {}
@@ -117,22 +117,22 @@
 
     .uk-breadcrumb > * > * {
         color: @inverse-breadcrumb-item-color;
-        .hook-inverse-breadcrumb-item;
+        .hook-inverse-breadcrumb-item();
     }
 
     .uk-breadcrumb > * > :hover {
         color: @inverse-breadcrumb-item-hover-color;
-        .hook-inverse-breadcrumb-item-hover;
+        .hook-inverse-breadcrumb-item-hover();
     }
 
 
     .uk-breadcrumb > .uk-disabled > * {
-        .hook-inverse-breadcrumb-item-disabled;
+        .hook-inverse-breadcrumb-item-disabled();
     }
 
     .uk-breadcrumb > :last-child > * {
         color: @inverse-breadcrumb-item-active-color;
-        .hook-inverse-breadcrumb-item-active;
+        .hook-inverse-breadcrumb-item-active();
     }
 
     //
@@ -141,7 +141,7 @@
 
     .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
         color: @inverse-breadcrumb-divider-color;
-        .hook-inverse-breadcrumb-divider;
+        .hook-inverse-breadcrumb-divider();
     }
 
 }

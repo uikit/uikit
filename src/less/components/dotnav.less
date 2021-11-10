@@ -46,7 +46,7 @@
     list-style: none;
     /* 3 */
     margin-left: -@dotnav-margin-horizontal;
-    .hook-dotnav;
+    .hook-dotnav();
 }
 
 /*
@@ -81,25 +81,25 @@
     text-indent: 100%;
     overflow: hidden;
     white-space: nowrap;
-    .hook-dotnav-item;
+    .hook-dotnav-item();
 }
 
 /* Hover */
 .uk-dotnav > * > :hover {
     background-color: @dotnav-item-hover-background;
-    .hook-dotnav-item-hover;
+    .hook-dotnav-item-hover();
 }
 
 /* OnClick */
 .uk-dotnav > * > :active {
     background-color: @dotnav-item-onclick-background;
-    .hook-dotnav-item-onclick;
+    .hook-dotnav-item-onclick();
 }
 
 /* Active */
 .uk-dotnav > .uk-active > * {
     background-color: @dotnav-item-active-background;
-    .hook-dotnav-item-active;
+    .hook-dotnav-item-active();
 }
 
 
@@ -129,7 +129,7 @@
 // Hooks
 // ========================================================================
 
-.hook-dotnav-misc;
+.hook-dotnav-misc();
 
 .hook-dotnav() {}
 .hook-dotnav-item() {}
@@ -151,22 +151,22 @@
 
     .uk-dotnav > * > * {
         background-color: @inverse-dotnav-item-background;
-        .hook-inverse-dotnav-item;
+        .hook-inverse-dotnav-item();
     }
 
     .uk-dotnav > * > :hover {
         background-color: @inverse-dotnav-item-hover-background;
-        .hook-inverse-dotnav-item-hover;
+        .hook-inverse-dotnav-item-hover();
     }
 
     .uk-dotnav > * > :active {
         background-color: @inverse-dotnav-item-onclick-background;
-        .hook-inverse-dotnav-item-onclick;
+        .hook-inverse-dotnav-item-onclick();
     }
 
     .uk-dotnav > .uk-active > * {
         background-color: @inverse-dotnav-item-active-background;
-        .hook-inverse-dotnav-item-active;
+        .hook-inverse-dotnav-item-active();
     }
 
 }

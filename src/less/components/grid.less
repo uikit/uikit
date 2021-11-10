@@ -207,7 +207,7 @@
     top: 0;
     bottom: 0;
     border-left: @grid-divider-border-width solid @grid-divider-border;
-    .hook-grid-divider-horizontal;
+    .hook-grid-divider-horizontal();
 }
 
 /* Vertical */
@@ -217,7 +217,7 @@
     left: 0;
     right: 0;
     border-top: @grid-divider-border-width solid @grid-divider-border;
-    .hook-grid-divider-vertical;
+    .hook-grid-divider-vertical();
 }
 
 /*
@@ -389,7 +389,7 @@
 // Hooks
 // ========================================================================
 
-.hook-grid-misc;
+.hook-grid-misc();
 
 .hook-grid-divider-horizontal() {}
 .hook-grid-divider-vertical() {}
@@ -405,12 +405,12 @@
 
     .uk-grid-divider > :not(.uk-first-column)::before {
         border-left-color: @inverse-grid-divider-border;
-        .hook-inverse-grid-divider-horizontal;
+        .hook-inverse-grid-divider-horizontal();
     }
 
     .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
         border-top-color: @inverse-grid-divider-border;
-        .hook-inverse-grid-divider-vertical;
+        .hook-inverse-grid-divider-vertical();
     }
 
 }

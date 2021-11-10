@@ -29,7 +29,7 @@
  ========================================================================== */
 
 .uk-countdown {
-    .hook-countdown;
+    .hook-countdown();
 }
 
 
@@ -38,7 +38,7 @@
 
 .uk-countdown-number,
 .uk-countdown-separator {
-    .hook-countdown-item;
+    .hook-countdown-item();
 }
 
 
@@ -57,7 +57,7 @@
     /* 2 */
     font-size: @countdown-number-font-size;
     line-height: @countdown-number-line-height;
-    .hook-countdown-number;
+    .hook-countdown-number();
 }
 
 /* Phone landscape and bigger */
@@ -81,7 +81,7 @@
 .uk-countdown-separator {
     font-size: @countdown-separator-font-size;
     line-height: @countdown-separator-line-height;
-    .hook-countdown-separator;
+    .hook-countdown-separator();
 }
 
 /* Phone landscape and bigger */
@@ -103,14 +103,14 @@
  ========================================================================== */
 
 .uk-countdown-label {
-    .hook-countdown-label;
+    .hook-countdown-label();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-countdown-misc;
+.hook-countdown-misc();
 
 .hook-countdown() {}
 .hook-countdown-item() {}
@@ -127,19 +127,19 @@
 
     .uk-countdown-number,
     .uk-countdown-separator {
-        .hook-inverse-countdown-item;
+        .hook-inverse-countdown-item();
     }
 
     .uk-countdown-number {
-        .hook-inverse-countdown-number;
+        .hook-inverse-countdown-number();
     }
 
     .uk-countdown-separator {
-        .hook-inverse-countdown-separator;
+        .hook-inverse-countdown-separator();
     }
 
     .uk-countdown-label {
-        .hook-inverse-countdown-label;
+        .hook-inverse-countdown-label();
     }
 
 }

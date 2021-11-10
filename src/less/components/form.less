@@ -248,7 +248,7 @@
     padding: 0 @form-padding-horizontal;
     background: @form-background;
     color: @form-color;
-    .hook-form;
+    .hook-form();
 }
 
 /*
@@ -264,7 +264,7 @@
     vertical-align: middle;
     /* 1 */
     display: inline-block;
-    .hook-form-single-line;
+    .hook-form-single-line();
 }
 
 /* 2 */
@@ -281,7 +281,7 @@
     padding-top: @form-padding-vertical;
     padding-bottom: @form-padding-vertical;
     vertical-align: top;
-    .hook-form-multi-line;
+    .hook-form-multi-line();
 }
 
 .uk-select[multiple],
@@ -294,7 +294,7 @@
     outline: none;
     background-color: @form-focus-background;
     color: @form-focus-color;
-    .hook-form-focus;
+    .hook-form-focus();
 }
 
 /* Disabled */
@@ -303,7 +303,7 @@
 .uk-textarea:disabled {
     background-color: @form-disabled-background;
     color: @form-disabled-color;
-    .hook-form-disabled;
+    .hook-form-disabled();
 }
 
 /*
@@ -371,7 +371,7 @@ textarea.uk-form-large,
 .uk-form-danger,
 .uk-form-danger:focus {
     color: @form-danger-color;
-    .hook-form-danger;
+    .hook-form-danger();
 }
 
 /*
@@ -381,7 +381,7 @@ textarea.uk-form-large,
 .uk-form-success,
 .uk-form-success:focus  {
     color: @form-success-color;
-    .hook-form-success;
+    .hook-form-success();
 }
 
 /*
@@ -390,11 +390,11 @@ textarea.uk-form-large,
 
 .uk-form-blank {
     background: none;
-    .hook-form-blank;
+    .hook-form-blank();
 }
 
 .uk-form-blank:focus {
-    .hook-form-blank-focus;
+    .hook-form-blank-focus();
 }
 
 
@@ -503,7 +503,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     /* 6 */
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    .hook-form-radio;
+    .hook-form-radio();
 }
 
 .uk-radio { border-radius: 50%; }
@@ -513,7 +513,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-checkbox:focus {
     background-color: @form-radio-focus-background;
     outline: none;
-    .hook-form-radio-focus;
+    .hook-form-radio-focus();
 }
 
 /*
@@ -524,7 +524,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-checkbox:checked,
 .uk-checkbox:indeterminate {
     background-color: @form-radio-checked-background;
-    .hook-form-radio-checked;
+    .hook-form-radio-checked();
 }
 
 /* Focus */
@@ -532,7 +532,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-checkbox:checked:focus,
 .uk-checkbox:indeterminate:focus {
     background-color: @form-radio-checked-focus-background;
-    .hook-form-radio-checked-focus;
+    .hook-form-radio-checked-focus();
 }
 
 /*
@@ -550,7 +550,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-radio:disabled,
 .uk-checkbox:disabled {
     background-color: @form-radio-disabled-background;
-    .hook-form-radio-disabled;
+    .hook-form-radio-disabled();
 }
 
 .uk-radio:disabled:checked { .svg-fill(@internal-form-radio-image, "#000", @form-radio-disabled-icon-color); }
@@ -579,7 +579,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     /* 4 */
     font-size: @form-legend-font-size;
     line-height: @form-legend-line-height;
-    .hook-form-legend;
+    .hook-form-legend();
 }
 
 
@@ -642,7 +642,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  ========================================================================== */
 
 .uk-form-label {
-    .hook-form-label;
+    .hook-form-label();
 }
 
 
@@ -656,7 +656,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-form-stacked .uk-form-label {
     display: block;
     margin-bottom: @form-stacked-margin-bottom;
-    .hook-form-stacked-label;
+    .hook-form-stacked-label();
 }
 
 /*
@@ -670,7 +670,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-form-horizontal .uk-form-label {
         display: block;
         margin-bottom: @form-stacked-margin-bottom;
-        .hook-form-stacked-label;
+        .hook-form-stacked-label();
     }
 
 }
@@ -682,7 +682,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
         width: @form-horizontal-label-width;
         margin-top: @form-horizontal-label-margin-top;
         float: left;
-        .hook-form-horizontal-label;
+        .hook-form-horizontal-label();
     }
 
     .uk-form-horizontal .uk-form-controls { margin-left: @form-horizontal-controls-margin-left; }
@@ -752,7 +752,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 // Hooks
 // ========================================================================
 
-.hook-form-misc;
+.hook-form-misc();
 
 .hook-form() {}
 .hook-form-single-line() {}
@@ -808,12 +808,12 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
         background-color: @inverse-form-background;
         color: @inverse-form-color;
         background-clip: padding-box;
-        .hook-inverse-form;
+        .hook-inverse-form();
 
         &:focus {
             background-color: @inverse-form-focus-background;
             color: @inverse-form-focus-color;
-            .hook-inverse-form-focus;
+            .hook-inverse-form-focus();
         }
     }
 
@@ -847,14 +847,14 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-radio,
     .uk-checkbox {
         background-color: @inverse-form-radio-background;
-        .hook-inverse-form-radio;
+        .hook-inverse-form-radio();
     }
 
     // Focus
     .uk-radio:focus,
     .uk-checkbox:focus {
         background-color: @inverse-form-radio-focus-background;
-        .hook-inverse-form-radio-focus;
+        .hook-inverse-form-radio-focus();
     }
 
     // Checked
@@ -862,7 +862,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-checkbox:checked,
     .uk-checkbox:indeterminate {
         background-color: @inverse-form-radio-checked-background;
-        .hook-inverse-form-radio-checked;
+        .hook-inverse-form-radio-checked();
     }
 
     // Focus
@@ -870,7 +870,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-checkbox:checked:focus,
     .uk-checkbox:indeterminate:focus {
         background-color: @inverse-form-radio-checked-focus-background;
-        .hook-inverse-form-radio-checked-focus;
+        .hook-inverse-form-radio-checked-focus();
     }
 
     // Icon
@@ -880,7 +880,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
     // Label
     .uk-form-label {
-        .hook-inverse-form-label;
+        .hook-inverse-form-label();
     }
 
     // Icon

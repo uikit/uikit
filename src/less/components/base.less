@@ -107,7 +107,7 @@ html {
     /* 3 */
     background: @base-body-background;
     color: @base-body-color;
-    .hook-base-body;
+    .hook-base-body();
 }
 
 /*
@@ -129,7 +129,7 @@ a,
     color: @base-link-color;
     text-decoration: @base-link-text-decoration;
     cursor: pointer;
-    .hook-base-link;
+    .hook-base-link();
 }
 
 a:hover,
@@ -137,7 +137,7 @@ a:hover,
 .uk-link-toggle:hover .uk-link {
     color: @base-link-hover-color;
     text-decoration: @base-link-hover-text-decoration;
-    .hook-base-link-hover;
+    .hook-base-link-hover();
 }
 
 
@@ -179,7 +179,7 @@ strong { font-weight: @base-strong-font-weight; }
     /* 3 */
     color: @base-code-color;
     white-space: nowrap;
-    .hook-base-code;
+    .hook-base-code();
 }
 
 /*
@@ -351,7 +351,7 @@ h6, .uk-h6,
     font-weight: @base-heading-font-weight;
     color: @base-heading-color;
     text-transform: @base-heading-text-transform;
-    .hook-base-heading;
+    .hook-base-heading();
 }
 
 /* Add margin if adjacent element */
@@ -374,37 +374,37 @@ h6, .uk-h6,
 h1, .uk-h1 {
     font-size: @base-h1-font-size;
     line-height: @base-h1-line-height;
-    .hook-base-h1;
+    .hook-base-h1();
 }
 
 h2, .uk-h2 {
     font-size: @base-h2-font-size;
     line-height: @base-h2-line-height;
-    .hook-base-h2;
+    .hook-base-h2();
 }
 
 h3, .uk-h3 {
     font-size: @base-h3-font-size;
     line-height: @base-h3-line-height;
-    .hook-base-h3;
+    .hook-base-h3();
 }
 
 h4, .uk-h4 {
     font-size: @base-h4-font-size;
     line-height: @base-h4-line-height;
-    .hook-base-h4;
+    .hook-base-h4();
 }
 
 h5, .uk-h5 {
     font-size: @base-h5-font-size;
     line-height: @base-h5-line-height;
-    .hook-base-h5;
+    .hook-base-h5();
 }
 
 h6, .uk-h6 {
     font-size: @base-h6-font-size;
     line-height: @base-h6-line-height;
-    .hook-base-h6;
+    .hook-base-h6();
 }
 
 /* Tablet landscape and bigger */
@@ -457,7 +457,7 @@ hr, .uk-hr {
     margin: 0 0 @base-hr-margin-vertical 0;
     border: 0;
     border-top: @base-hr-border-width solid @base-hr-border;
-    .hook-base-hr;
+    .hook-base-hr();
 }
 
 /* Add margin if adjacent element */
@@ -479,7 +479,7 @@ blockquote {
     font-size: @base-blockquote-font-size;
     line-height: @base-blockquote-line-height;
     font-style: @base-blockquote-font-style;
-    .hook-base-blockquote;
+    .hook-base-blockquote();
 }
 
 /* Add margin if adjacent element */
@@ -495,7 +495,7 @@ blockquote footer {
     margin-top:  @base-blockquote-footer-margin-top;
     font-size: @base-blockquote-footer-font-size;
     line-height: @base-blockquote-footer-line-height;
-    .hook-base-blockquote-footer;
+    .hook-base-blockquote-footer();
 }
 
 
@@ -513,7 +513,7 @@ pre {
     tab-size: 4;
     /* 1 */
     overflow: auto;
-    .hook-base-pre;
+    .hook-base-pre();
 }
 
 pre code { font-family: @base-pre-font-family; }
@@ -523,7 +523,7 @@ pre code { font-family: @base-pre-font-family; }
  ========================================================================== */
 
 /*
- * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor. 
+ * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor.
  * 1. Fallback: Remove `:focus` for a negative tabindexes.
  * 2. Fallback: Set `:focus` style but not for negative tabindexes.
  * 3. Fallback: Remove `:focus` style for browsers which support `:focus-visible`.
@@ -604,7 +604,7 @@ template { display: none; }
 // Hooks
 // ========================================================================
 
-.hook-base-misc;
+.hook-base-misc();
 
 .hook-base-body() {}
 .hook-base-link() {}
@@ -650,14 +650,14 @@ template { display: none; }
     a,
     .uk-link  {
         color: @inverse-base-link-color;
-        .hook-inverse-base-link;
+        .hook-inverse-base-link();
     }
 
     a:hover,
     .uk-link:hover,
     .uk-link-toggle:hover .uk-link {
         color: @inverse-base-link-hover-color;
-        .hook-inverse-base-link-hover;
+        .hook-inverse-base-link-hover();
     }
 
     //
@@ -668,7 +668,7 @@ template { display: none; }
     :not(pre) > kbd,
     :not(pre) > samp {
         color: @inverse-base-code-color;
-        .hook-inverse-base-code;
+        .hook-inverse-base-code();
     }
 
     //
@@ -693,31 +693,31 @@ template { display: none; }
     .uk-heading-xlarge,
     .uk-heading-2xlarge {
         color: @inverse-base-heading-color;
-        .hook-inverse-base-heading;
+        .hook-inverse-base-heading();
     }
 
     h1, .uk-h1 {
-        .hook-inverse-base-h1;
+        .hook-inverse-base-h1();
     }
 
     h2, .uk-h2 {
-        .hook-inverse-base-h2;
+        .hook-inverse-base-h2();
     }
 
     h3, .uk-h3 {
-        .hook-inverse-base-h3;
+        .hook-inverse-base-h3();
     }
 
     h4, .uk-h4 {
-        .hook-inverse-base-h4;
+        .hook-inverse-base-h4();
     }
 
     h5, .uk-h5 {
-        .hook-inverse-base-h5;
+        .hook-inverse-base-h5();
     }
 
     h6, .uk-h6 {
-        .hook-inverse-base-h6;
+        .hook-inverse-base-h6();
     }
 
     //
@@ -725,11 +725,11 @@ template { display: none; }
     //
 
     blockquote {
-        .hook-inverse-base-blockquote;
+        .hook-inverse-base-blockquote();
     }
 
     blockquote footer {
-        .hook-inverse-base-blockquote-footer;
+        .hook-inverse-base-blockquote-footer();
     }
 
     //
@@ -738,7 +738,7 @@ template { display: none; }
 
     hr, .uk-hr {
         border-top-color: @inverse-base-hr-border;
-        .hook-inverse-base-hr;
+        .hook-inverse-base-hr();
     }
 
     //

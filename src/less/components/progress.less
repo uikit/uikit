@@ -45,7 +45,7 @@
     /* 6 */
     margin-bottom: @progress-margin-vertical;
     height: @progress-height;
-    .hook-progress;
+    .hook-progress();
 }
 
 /* Add margin if adjacent element */
@@ -64,7 +64,7 @@
 
 .uk-progress::-webkit-progress-bar {
   background-color: @progress-background;
-  .hook-progress;
+  .hook-progress();
 }
 
 /* 2 */
@@ -78,12 +78,12 @@
 .uk-progress::-webkit-progress-value {
     background-color: @progress-bar-background;
     transition: width 0.6s ease;
-    .hook-progress-bar;
+    .hook-progress-bar();
 }
 
 .uk-progress::-moz-progress-bar {
     background-color: @progress-bar-background;
-    .hook-progress-bar;
+    .hook-progress-bar();
 }
 
 .uk-progress::-ms-fill {
@@ -91,14 +91,14 @@
     transition: width 0.6s ease;
     /* 1 */
     border: 0;
-    .hook-progress-bar;
+    .hook-progress-bar();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-progress-misc;
+.hook-progress-misc();
 
 .hook-progress() {}
 .hook-progress-bar() {}

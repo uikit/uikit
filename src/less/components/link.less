@@ -34,14 +34,14 @@
 a.uk-link-muted,
 .uk-link-muted a {
     color: @link-muted-color;
-    .hook-link-muted;
+    .hook-link-muted();
 }
 
 a.uk-link-muted:hover,
 .uk-link-muted a:hover,
 .uk-link-toggle:hover .uk-link-muted {
     color: @link-muted-hover-color;
-    .hook-link-muted-hover;
+    .hook-link-muted-hover();
 }
 
 
@@ -51,14 +51,14 @@ a.uk-link-muted:hover,
 a.uk-link-text,
 .uk-link-text a {
     color: inherit;
-    .hook-link-text;
+    .hook-link-text();
 }
 
 a.uk-link-text:hover,
 .uk-link-text a:hover,
 .uk-link-toggle:hover .uk-link-text {
     color: @link-text-hover-color;
-    .hook-link-text-hover;
+    .hook-link-text-hover();
 }
 
 
@@ -68,7 +68,7 @@ a.uk-link-text:hover,
 a.uk-link-heading,
 .uk-link-heading a {
     color: inherit;
-    .hook-link-heading;
+    .hook-link-heading();
 }
 
 a.uk-link-heading:hover,
@@ -76,7 +76,7 @@ a.uk-link-heading:hover,
 .uk-link-toggle:hover .uk-link-heading {
     color: @link-heading-hover-color;
     text-decoration: @link-heading-hover-text-decoration;
-    .hook-link-heading-hover;
+    .hook-link-heading-hover();
 }
 
 
@@ -91,7 +91,7 @@ a.uk-link-reset,
 .uk-link-reset a {
     color: inherit !important;
     text-decoration: none !important;
-    .hook-link-reset;
+    .hook-link-reset();
 }
 
 
@@ -107,7 +107,7 @@ a.uk-link-reset,
 // Hooks
 // ========================================================================
 
-.hook-link-misc;
+.hook-link-misc();
 
 .hook-link-muted() {}
 .hook-link-muted-hover() {}
@@ -132,28 +132,28 @@ a.uk-link-reset,
     a.uk-link-muted,
     .uk-link-muted a {
         color: @inverse-link-muted-color;
-        .hook-inverse-link-muted;
+        .hook-inverse-link-muted();
     }
 
     a.uk-link-muted:hover,
     .uk-link-muted a:hover,
     .uk-link-toggle:hover .uk-link-muted  {
         color: @inverse-link-muted-hover-color;
-        .hook-inverse-link-muted-hover;
+        .hook-inverse-link-muted-hover();
     }
 
     a.uk-link-text:hover,
     .uk-link-text a:hover,
     .uk-link-toggle:hover .uk-link-text {
         color: @inverse-link-text-hover-color;
-        .hook-inverse-link-text-hover;
+        .hook-inverse-link-text-hover();
     }
 
     a.uk-link-heading:hover,
     .uk-link-heading a:hover,
     .uk-link-toggle:hover .uk-link-heading {
         color: @inverse-link-heading-hover-color;
-        .hook-inverse-link-heading-hover;
+        .hook-inverse-link-heading-hover();
     }
 
 }

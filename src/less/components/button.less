@@ -122,7 +122,7 @@
     text-align: center;
     /* 10 */
     text-decoration: none;
-    .hook-button;
+    .hook-button();
 }
 
 .uk-button:not(:disabled) { cursor: pointer; }
@@ -140,13 +140,13 @@
 .uk-button:hover {
     /* 9 */
     text-decoration: none;
-    .hook-button-hover;
+    .hook-button-hover();
 }
 
 /* OnClick + Active */
 .uk-button:active,
 .uk-button.uk-active {
-    .hook-button-active;
+    .hook-button-active();
 }
 
 
@@ -160,14 +160,14 @@
 .uk-button-default {
     background-color: @button-default-background;
     color: @button-default-color;
-    .hook-button-default;
+    .hook-button-default();
 }
 
 /* Hover */
 .uk-button-default:hover {
     background-color: @button-default-hover-background;
     color: @button-default-hover-color;
-    .hook-button-default-hover;
+    .hook-button-default-hover();
 }
 
 /* OnClick + Active */
@@ -175,7 +175,7 @@
 .uk-button-default.uk-active {
     background-color: @button-default-active-background;
     color: @button-default-active-color;
-    .hook-button-default-active;
+    .hook-button-default-active();
 }
 
 /*
@@ -185,14 +185,14 @@
 .uk-button-primary {
     background-color: @button-primary-background;
     color: @button-primary-color;
-    .hook-button-primary;
+    .hook-button-primary();
 }
 
 /* Hover */
 .uk-button-primary:hover {
     background-color: @button-primary-hover-background;
     color: @button-primary-hover-color;
-    .hook-button-primary-hover;
+    .hook-button-primary-hover();
 }
 
 /* OnClick + Active */
@@ -200,7 +200,7 @@
 .uk-button-primary.uk-active {
     background-color: @button-primary-active-background;
     color: @button-primary-active-color;
-    .hook-button-primary-active;
+    .hook-button-primary-active();
 }
 
 /*
@@ -210,14 +210,14 @@
 .uk-button-secondary {
     background-color: @button-secondary-background;
     color: @button-secondary-color;
-    .hook-button-secondary;
+    .hook-button-secondary();
 }
 
 /* Hover */
 .uk-button-secondary:hover {
     background-color: @button-secondary-hover-background;
     color: @button-secondary-hover-color;
-    .hook-button-secondary-hover;
+    .hook-button-secondary-hover();
 }
 
 /* OnClick + Active */
@@ -225,7 +225,7 @@
 .uk-button-secondary.uk-active {
     background-color: @button-secondary-active-background;
     color: @button-secondary-active-color;
-    .hook-button-secondary-active;
+    .hook-button-secondary-active();
 }
 
 /*
@@ -235,14 +235,14 @@
 .uk-button-danger {
     background-color: @button-danger-background;
     color: @button-danger-color;
-    .hook-button-danger;
+    .hook-button-danger();
 }
 
 /* Hover */
 .uk-button-danger:hover {
     background-color: @button-danger-hover-background;
     color: @button-danger-hover-color;
-    .hook-button-danger-hover;
+    .hook-button-danger-hover();
 }
 
 /* OnClick + Active */
@@ -250,7 +250,7 @@
 .uk-button-danger.uk-active {
     background-color: @button-danger-active-background;
     color: @button-danger-active-color;
-    .hook-button-danger-active;
+    .hook-button-danger-active();
 }
 
 /*
@@ -264,7 +264,7 @@
 .uk-button-danger:disabled {
     background-color: @button-disabled-background;
     color: @button-disabled-color;
-    .hook-button-disabled;
+    .hook-button-disabled();
 }
 
 
@@ -275,14 +275,14 @@
     padding: 0 @button-small-padding-horizontal;
     line-height: @button-small-line-height;
     font-size: @button-small-font-size;
-    .hook-button-small;
+    .hook-button-small();
 }
 
 .uk-button-large {
     padding: 0 @button-large-padding-horizontal;
     line-height: @button-large-line-height;
     font-size: @button-large-font-size;
-    .hook-button-large;
+    .hook-button-large();
 }
 
 
@@ -302,19 +302,19 @@
     background: none;
     /* 2 */
     color: @button-text-color;
-    .hook-button-text;
+    .hook-button-text();
 }
 
 /* Hover */
 .uk-button-text:hover {
     color: @button-text-hover-color;
-    .hook-button-text-hover;
+    .hook-button-text-hover();
 }
 
 /* Disabled */
 .uk-button-text:disabled {
     color: @button-text-disabled-color;
-    .hook-button-text-disabled;
+    .hook-button-text-disabled();
 }
 
 /*
@@ -330,7 +330,7 @@
     background: none;
     /* 2 */
     color: @button-link-color;
-    .hook-button-link;
+    .hook-button-link();
 }
 
 /* Hover */
@@ -368,7 +368,7 @@
 // Hooks
 // ========================================================================
 
-.hook-button-misc;
+.hook-button-misc();
 
 .hook-button() {}
 .hook-button-hover() {}
@@ -431,20 +431,20 @@
     .uk-button-default {
         background-color: @inverse-button-default-background;
         color: @inverse-button-default-color;
-        .hook-inverse-button-default;
+        .hook-inverse-button-default();
     }
 
     .uk-button-default:hover {
         background-color: @inverse-button-default-hover-background;
         color: @inverse-button-default-hover-color;
-        .hook-inverse-button-default-hover;
+        .hook-inverse-button-default-hover();
     }
 
     .uk-button-default:active,
     .uk-button-default.uk-active {
         background-color: @inverse-button-default-active-background;
         color: @inverse-button-default-active-color;
-        .hook-inverse-button-default-active;
+        .hook-inverse-button-default-active();
     }
 
     //
@@ -454,20 +454,20 @@
     .uk-button-primary {
         background-color: @inverse-button-primary-background;
         color: @inverse-button-primary-color;
-        .hook-inverse-button-primary;
+        .hook-inverse-button-primary();
     }
 
     .uk-button-primary:hover {
         background-color: @inverse-button-primary-hover-background;
         color: @inverse-button-primary-hover-color;
-        .hook-inverse-button-primary-hover;
+        .hook-inverse-button-primary-hover();
     }
 
     .uk-button-primary:active,
     .uk-button-primary.uk-active {
         background-color: @inverse-button-primary-active-background;
         color: @inverse-button-primary-active-color;
-        .hook-inverse-button-primary-active;
+        .hook-inverse-button-primary-active();
     }
 
     //
@@ -477,20 +477,20 @@
     .uk-button-secondary {
         background-color: @inverse-button-secondary-background;
         color: @inverse-button-secondary-color;
-        .hook-inverse-button-secondary;
+        .hook-inverse-button-secondary();
     }
 
     .uk-button-secondary:hover {
         background-color: @inverse-button-secondary-hover-background;
         color: @inverse-button-secondary-hover-color;
-        .hook-inverse-button-secondary-hover;
+        .hook-inverse-button-secondary-hover();
     }
 
     .uk-button-secondary:active,
     .uk-button-secondary.uk-active {
         background-color: @inverse-button-secondary-active-background;
         color: @inverse-button-secondary-active-color;
-        .hook-inverse-button-secondary-active;
+        .hook-inverse-button-secondary-active();
     }
 
     //
@@ -499,17 +499,17 @@
 
     .uk-button-text {
         color: @inverse-button-text-color;
-        .hook-inverse-button-text;
+        .hook-inverse-button-text();
     }
 
     .uk-button-text:hover {
         color: @inverse-button-text-hover-color;
-        .hook-inverse-button-text-hover;
+        .hook-inverse-button-text-hover();
     }
 
     .uk-button-text:disabled {
         color: @inverse-button-text-disabled-color;
-        .hook-inverse-button-text-disabled;
+        .hook-inverse-button-text-disabled();
     }
 
     //
@@ -518,7 +518,7 @@
 
     .uk-button-link {
         color: @inverse-button-link-color;
-        .hook-inverse-button-link;
+        .hook-inverse-button-link();
     }
 
     .uk-button-link:hover { color: @inverse-button-link-hover-color; }

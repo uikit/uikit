@@ -63,7 +63,7 @@
     /* 4 */
     padding: 0;
     list-style: none;
-    .hook-subnav;
+    .hook-subnav();
 }
 
 /*
@@ -101,20 +101,20 @@
     column-gap: 0.25em;
     /* 3 */
     color: @subnav-item-color;
-    .hook-subnav-item;
+    .hook-subnav-item();
 }
 
 /* Hover */
 .uk-subnav > * > a:hover {
     color: @subnav-item-hover-color;
     text-decoration: @subnav-item-hover-text-decoration;
-    .hook-subnav-item-hover;
+    .hook-subnav-item-hover();
 }
 
 /* Active */
 .uk-subnav > .uk-active > a {
     color: @subnav-item-active-color;
-    .hook-subnav-item-active;
+    .hook-subnav-item-active();
 }
 
 
@@ -122,7 +122,7 @@
  ========================================================================== */
 
 /*
- * Set gutter 
+ * Set gutter
  */
 
 .uk-subnav-divider { margin-left: -((@subnav-divider-margin-horizontal * 2) + @subnav-divider-border-width); }
@@ -152,7 +152,7 @@
 /* 1 */
 .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
     border-left-color: @subnav-divider-border;
-    .hook-subnav-divider;
+    .hook-subnav-divider();
 }
 
 
@@ -163,28 +163,28 @@
     padding: @subnav-pill-item-padding-vertical @subnav-pill-item-padding-horizontal;
     background: @subnav-pill-item-background;
     color: @subnav-pill-item-color;
-    .hook-subnav-pill-item;
+    .hook-subnav-pill-item();
 }
 
 /* Hover */
 .uk-subnav-pill > * > a:hover {
     background-color: @subnav-pill-item-hover-background;
     color: @subnav-pill-item-hover-color;
-    .hook-subnav-pill-item-hover;
+    .hook-subnav-pill-item-hover();
 }
 
 /* OnClick */
 .uk-subnav-pill > * > a:active {
     background-color: @subnav-pill-item-onclick-background;
     color: @subnav-pill-item-onclick-color;
-    .hook-subnav-pill-item-onclick;
+    .hook-subnav-pill-item-onclick();
 }
 
 /* Active */
 .uk-subnav-pill > .uk-active > a {
     background-color: @subnav-pill-item-active-background;
     color: @subnav-pill-item-active-color;
-    .hook-subnav-pill-item-active;
+    .hook-subnav-pill-item-active();
 }
 
 
@@ -194,14 +194,14 @@
 
 .uk-subnav > .uk-disabled > a {
     color: @subnav-item-disabled-color;
-    .hook-subnav-item-disabled;
+    .hook-subnav-item-disabled();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-subnav-misc;
+.hook-subnav-misc();
 
 .hook-subnav() {}
 .hook-subnav-item() {}
@@ -237,17 +237,17 @@
 
     .uk-subnav > * > :first-child {
         color: @inverse-subnav-item-color;
-        .hook-inverse-subnav-item;
+        .hook-inverse-subnav-item();
     }
 
     .uk-subnav > * > a:hover {
         color: @inverse-subnav-item-hover-color;
-        .hook-inverse-subnav-item-hover;
+        .hook-inverse-subnav-item-hover();
     }
 
     .uk-subnav > .uk-active > a {
         color: @inverse-subnav-item-active-color;
-        .hook-inverse-subnav-item-active;
+        .hook-inverse-subnav-item-active();
     }
 
     //
@@ -256,7 +256,7 @@
 
     .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
         border-left-color: @inverse-subnav-divider-border;
-        .hook-inverse-subnav-divider;
+        .hook-inverse-subnav-divider();
     }
 
     //
@@ -266,25 +266,25 @@
     .uk-subnav-pill > * > :first-child {
         background-color: @inverse-subnav-pill-item-background;
         color: @inverse-subnav-pill-item-color;
-        .hook-inverse-subnav-pill-item;
+        .hook-inverse-subnav-pill-item();
     }
 
     .uk-subnav-pill > * > a:hover {
         background-color: @inverse-subnav-pill-item-hover-background;
         color: @inverse-subnav-pill-item-hover-color;
-        .hook-inverse-subnav-pill-item-hover;
+        .hook-inverse-subnav-pill-item-hover();
     }
 
     .uk-subnav-pill > * > a:active {
         background-color: @inverse-subnav-pill-item-onclick-background;
         color: @inverse-subnav-pill-item-onclick-color;
-        .hook-inverse-subnav-pill-item-onclick;
+        .hook-inverse-subnav-pill-item-onclick();
     }
 
     .uk-subnav-pill > .uk-active > a {
         background-color: @inverse-subnav-pill-item-active-background;
         color: @inverse-subnav-pill-item-active-color;
-        .hook-inverse-subnav-pill-item-active;
+        .hook-inverse-subnav-pill-item-active();
     }
 
     //
@@ -293,7 +293,7 @@
 
     .uk-subnav > .uk-disabled > a {
         color: @inverse-subnav-item-disabled-color;
-        .hook-inverse-subnav-item-disabled;
+        .hook-inverse-subnav-item-disabled();
     }
 
 }
