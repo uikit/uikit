@@ -66,11 +66,11 @@ exports.minify = async function (file) {
 
 exports.renderLess = async function (data, options) {
     return postcss()
-        .use(postcss.plugin('calc', () =>
-            css => {
-                css.walk(node => {
+        .use({
+            postcssPlugin: 'calc',
+            Once(root) {
+                root.walk(node => {
                     const {type} = node;
-
                     if (type === 'decl') {
                         node.value = postcss.list.space(node.value).map(value =>
                             value.startsWith('calc(')
@@ -80,7 +80,7 @@ exports.renderLess = async function (data, options) {
                     }
                 });
             }
-        ))
+        })
         .process((await less.render(data, options)).css)
         .css;
 };
