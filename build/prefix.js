@@ -1,17 +1,7 @@
-const fs = require('fs');
-const glob = require('glob');
-const util = require('./util');
-const argv = require('minimist')(process.argv.slice(2));
-const prompt = require('inquirer').createPromptModule();
+import inquirer from 'inquirer';
+import {args, glob, read, replaceInFile, validClassName} from './util.js';
 
-argv._.forEach(arg => {
-    const tokens = arg.split('=');
-    argv[tokens[0]] = tokens[1] || true;
-});
-
-const allFiles = [];
-
-if (argv.h || argv.help) {
+if (args.h || args.help) {
     console.log(`
         usage:
 
@@ -23,104 +13,58 @@ if (argv.h || argv.help) {
         prefix.js -p=xyz // will replace any existing prefix with xyz
 
     `);
-} else {
-    readAllFiles()
-        .then(startProcess)
-        .catch(({message}) => {
-            console.error(message);
-            process.exitCode = 1;
-        });
+    process.exit(0);
 }
 
-function startProcess() {
+const currentPrefix = await findExistingPrefix();
+const prefix = await getPrefix();
 
-    const currentPrefix = findExistingPrefix();
-    getPrefix().then(prefix => replacePrefix(currentPrefix, prefix));
-
+if (currentPrefix === prefix) {
+    throw new Error(`already prefixed with: ${prefix}`);
 }
 
-function findExistingPrefix() {
+await replacePrefix(currentPrefix, prefix);
 
-    // find existing prefix
-    let currentPrefix;
-
-    allFiles.filter(({file}) => ~file.indexOf('uikit.css')).some(({data}) => {
-
-        const res = data.match(new RegExp(`(${util.validClassName.source})(-[a-z]+)?-grid`));
-        currentPrefix = res && res[1];
-        return currentPrefix;
-
-    });
-    return currentPrefix;
-
+async function findExistingPrefix() {
+    const data = await read('dist/css/uikit.css');
+    const res = data.match(new RegExp(`(${validClassName.source})(-[a-z]+)?-grid`));
+    return res && res[1];
 }
 
-function getPrefix() {
+async function getPrefix() {
 
-    const prefixFromInput = argv.p || argv.prefix;
+    const prefixFromInput = args.p || args.prefix;
+
     if (!prefixFromInput) {
-        return prompt({
+
+        const prompt = inquirer.createPromptModule();
+
+        return (await prompt({
             name: 'prefix',
             message: 'enter a prefix',
-            validate: (val, res) => val.length && val.match(util.validClassName) ? !!(res.prefix = val) : 'invalid prefix'
-        })
-        .then(res => res.prefix);
-    } else if (util.validClassName.test(prefixFromInput)) {
-        return Promise.resolve(prefixFromInput);
+            validate: (val, res) => val.length && val.match(validClassName) ? !!(res.prefix = val) : 'invalid prefix'
+        })).prefix;
+    }
+
+    if (validClassName.test(prefixFromInput)) {
+        return prefixFromInput;
     } else {
-        throw 'illegal prefix: ' + prefixFromInput;
+        throw `illegal prefix: ${prefixFromInput}`;
     }
 }
 
-function replacePrefix(from, to) {
-
-    if (from === to) {
-        console.log('already prefixed with: ' + from);
-    } else {
-        allFiles.forEach(({file, data, replace}) => {
-            data = replace(data, from, to);
-            fs.writeFileSync(file, data);
-        });
+async function replacePrefix(from, to) {
+    for (const file of await glob('dist/**/*.css')) {
+        await replaceInFile(file, data => data.replace(
+            new RegExp(`${from}-${/([a-z\d-]+)/.source}`, 'g'),
+            `${to}-$1`
+        ));
     }
-}
 
-function readAllFiles() {
-
-    const globs = [];
-
-    globs.push(new Promise(res =>
-        glob('dist/**/*.css', (err, files) => {
-            const reads = [];
-            files.forEach(file =>
-                reads.push(util.read(file, data =>
-                    allFiles.push({
-                        file,
-                        data,
-                        replace: (data, needle, replace) => data.replace(new RegExp(`${needle}-` + /([a-z\d-]+)/.source, 'g'), `${replace}-$1`)
-                    })
-                ))
-            );
-            Promise.all(reads).then(res);
-        }
-        )
-    ));
-
-    globs.push(new Promise(res =>
-        glob('dist/**/*.js', (err, files) => {
-            const reads = [];
-            files.forEach(file =>
-                reads.push(util.read(file, data =>
-                    allFiles.push({
-                        file,
-                        data,
-                        replace: (data, needle, replace) => data.replace(new RegExp(`${needle}-`, 'g'), `${replace}-`).replace(new RegExp(`(${needle})?UIkit`, 'g'), `${replace === 'uk' ? '' : replace}UIkit`)
-                    })
-                ))
-            );
-            Promise.all(reads).then(res);
-        }
-        )
-    ));
-
-    return Promise.all(globs);
+    for (const file of await glob('dist/**/*.js')) {
+        await replaceInFile(file, data => data
+            .replace(new RegExp(`${from}-`, 'g'),`${to}-`)
+            .replace(new RegExp(`(${from})?UIkit`, 'g'), `${to === 'uk' ? '' : to}UIkit`)
+        );
+    }
 }

@@ -1,58 +1,8 @@
-const path = require('path');
-const glob = require('glob');
-const util = require('./util');
-const camelize = require('camelcase');
-const argv = require('minimist')(process.argv.slice(2));
+import path from 'path';
+import camelize from 'camelcase';
+import {__dirname, args, compile, glob, icons} from './util.js';
 
-argv._.forEach(arg => {
-    const tokens = arg.split('=');
-    argv[tokens[0]] = tokens[1] || true;
-});
-
-const numArgs = Object.keys(argv).length;
-argv.all = argv.all || numArgs <= 1; // no arguments passed, so compile all
-
-const minify = !(argv.debug || argv.nominify || argv.d);
-
-// -----
-
-// map component build jobs
-const components = glob.sync('src/js/components/!(index).js').reduce((components, file) => {
-
-    const name = path.basename(file, '.js');
-
-    components[name] = () =>
-        util.compile(`${__dirname}/wrapper/component.js`, `dist/js/components/${name}`, {
-            name,
-            minify,
-            external: ['uikit', 'uikit-util'],
-            globals: {uikit: 'UIkit', 'uikit-util': 'UIkit.util'},
-            aliases: {component: path.resolve(__dirname, '../src/js/components', name)},
-            replaces: {NAME: `'${camelize(name)}'`}
-        });
-
-    return components;
-
-}, {});
-
-const steps = {
-
-    core: () => util.compile('src/js/uikit-core.js', 'dist/js/uikit-core', {minify}),
-    uikit: () => util.compile('src/js/uikit.js', 'dist/js/uikit', {minify}),
-    icons: async () => util.compile('build/wrapper/icons.js', 'dist/js/uikit-icons', {
-        minify,
-        name: 'icons',
-        replaces: {ICONS: await util.icons('{src/images,custom}/icons/*.svg')}}
-    ),
-    tests: async () => util.compile('tests/js/index.js', 'tests/js/test', {
-        minify,
-        name: 'test',
-        replaces: {TESTS: await getTestFiles()}}
-    )
-
-};
-
-if (argv.h || argv.help) {
+if (args.h || args.help) {
 
     console.log(`
         usage:
@@ -71,46 +21,75 @@ if (argv.h || argv.help) {
         components: ${Object.keys(components).join(', ')}
 
     `);
-
-} else {
-
-    let jobs = collectJobs();
-
-    if (jobs.length === 0) {
-        argv.all = true;
-        jobs = collectJobs();
-    }
-
+    process.exit(0);
 }
 
-function collectJobs() {
+const minify = !(args.d || args.debug || args.nominify);
+const uikit = getUIkitTasks(minify);
+const components = await getComponentTasks(minify);
 
-    // if parameter components is set or all or none(implicit all), add all components
-    if (argv.components || argv.all) {
-        Object.assign(argv, components);
-    }
+let tasks;
+const allTasks = {...uikit, ...components};
+if (args.all || Object.keys(args).length <= 1) {
+    tasks = allTasks;
+} else if (args.components) {
+    tasks = components;
+} else {
+    tasks = Object.keys(args)
+        .map(step => allTasks[step])
+        .filter(t => t)
+}
 
-    // if parameter components is set or all or none(implicit all), add all steps
-    if (argv.all) {
-        Object.assign(argv, steps);
-    }
+await Promise.all(Object.values(tasks).map(task => task()));
 
-    Object.assign(steps, components);
+function getUIkitTasks(minify) {
+    return {
 
-    // Object.keys(argv).forEach(step => components[step] && componentJobs.push(components[step]()));
-    return Object.keys(argv)
-        .filter(step => steps[step])
-        .map(step =>
-            steps[step]()
-                .catch(({message}) => {
-                    console.error(message);
-                    process.exitCode = 1;
-                })
-    );
+        core: () => compile('src/js/uikit-core.js', 'dist/js/uikit-core', {minify}),
 
+        uikit: () => compile('src/js/uikit.js', 'dist/js/uikit', {minify}),
+
+        icons: async () => compile('build/wrapper/icons.js', 'dist/js/uikit-icons', {
+                minify,
+                name: 'icons',
+                replaces: {ICONS: await icons('{src/images,custom}/icons/*.svg')}
+            }
+        ),
+
+        tests: async () => compile('tests/js/index.js', 'tests/js/test', {
+                minify,
+                name: 'test',
+                replaces: {TESTS: await getTestFiles()}
+            }
+        ),
+
+    };
+}
+
+async function getComponentTasks(minify) {
+
+    const components = await glob('src/js/components/!(index).js');
+
+    return components.reduce((components, file) => {
+
+        const name = path.basename(file, '.js');
+
+        components[name] = () =>
+            compile(`${__dirname}/wrapper/component.js`, `dist/js/components/${name}`, {
+                name,
+                minify,
+                external: ['uikit', 'uikit-util'],
+                globals: {uikit: 'UIkit', 'uikit-util': 'UIkit.util'},
+                aliases: {component: path.resolve(__dirname, '../src/js/components', name)},
+                replaces: {NAME: `'${camelize(name)}'`}
+            });
+
+        return components;
+
+    }, {});
 }
 
 async function getTestFiles() {
-    const files = await util.glob('tests/!(index).html', {nosort: true});
+    const files = await glob('tests/!(index).html', {nosort: true});
     return JSON.stringify(files.map(file => path.basename(file, '.html')));
 }

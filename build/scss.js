@@ -1,8 +1,4 @@
-const fs = require('fs');
-const util = require('./util');
-const glob = require('glob');
-
-const {write} = util;
+import {glob, read, write} from './util.js';
 
 const themeMixins = {};
 const coreMixins = {};
@@ -74,9 +70,10 @@ const inverseTemplate = `    @include hook-inverse-component-base();
     @include hook-inverse-component-utility();`;
 
 /* First Step: Go through all files */
-glob.sync('src/less/**/*.less').forEach(file => {
+for (const file of await glob('src/less/**/*.less')) {
 
-    const data = fs.readFileSync(file, 'utf8');
+    const data = await read(file);
+
     /* replace all LESS stuff with SCSS */
     let scssData = data.replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
         .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
@@ -116,7 +113,7 @@ glob.sync('src/less/**/*.less').forEach(file => {
 
     /* get all Variables but not from the mixin.less file */
     if (filename !== 'mixin') {
-        scssData = getVariablesFromFile(file, scssData);
+        scssData = await getVariablesFromFile(file, scssData);
     }
 
     if (filename === 'uikit.theme') {
@@ -131,30 +128,30 @@ glob.sync('src/less/**/*.less').forEach(file => {
         scssData = mixinTemplate;
     }
 
-    return write(file.replace(/less/g, 'scss').replace('.theme.', '-theme.'), scssData);
+    await write(file.replace(/less/g, 'scss').replace('.theme.', '-theme.'), scssData);
 
-});
+}
 
 /* Second Step write all new needed files for SASS */
 
 /* write mixins into new file */
 const mixins_theme = Object.keys(themeMixins).map(function (key) { return themeMixins[key]; });
-write('src/scss/mixins-theme.scss', mixins_theme.join('\n'));
+await write('src/scss/mixins-theme.scss', mixins_theme.join('\n'));
 
 const mixins_core = Object.keys(coreMixins).map(function (key) { return coreMixins[key]; });
-write('src/scss/mixins.scss', mixins_core.join('\n'));
+await write('src/scss/mixins.scss', mixins_core.join('\n'));
 
 /* write core variables */
 const compactCoreVar = new Set();
 Object.keys(coreVar).map(key => getAllDependencies(coreVar, key).forEach(dependency => compactCoreVar.add(dependency)));
 
-write('src/scss/variables.scss', Array.from(compactCoreVar).join('\n'));
+await write('src/scss/variables.scss', Array.from(compactCoreVar).join('\n'));
 
 /* write theme variables */
 const compactThemeVar = new Set();
 Object.keys(themeVar).map(key => getAllDependencies(themeVar, key).forEach(dependency => compactThemeVar.add(dependency)));
 
-write('src/scss/variables-theme.scss', Array.from(compactThemeVar).join('\n'));
+await write('src/scss/variables-theme.scss', Array.from(compactThemeVar).join('\n'));
 
 /*
  * recursive function to get a dependencie Set which is ordered so that no depencies exist to a later on entry
@@ -229,7 +226,7 @@ function getMixinsFromFile(file, data) {
  * function to extract all the variables from a given file with its data.
  * @return an updated data where the icons have been replaced by the actual SVG data.
  */
-function getVariablesFromFile(file, data) {
+async function getVariablesFromFile(file, data) {
     const regex = /(\$[\w-]*)\s*:\s*(.*);/g;
     let match = regex.exec(data);
 
@@ -240,7 +237,7 @@ function getVariablesFromFile(file, data) {
 
             const iconregex = /(\$[\w-]+)\s*:\s*"\.\.\/\.\.\/images\/backgrounds\/([\w./-]+)" !default;/g;
             const iconmatch = iconregex.exec(match[0]);
-            let svg = fs.readFileSync(`src/images/backgrounds/${iconmatch[2]}`).toString();
+            let svg = (await read(`src/images/backgrounds/${iconmatch[2]}`)).toString();
             svg = `"${svg.replace(/\r?\n|\r/g, '%0A')
                 .replace(/"/g, '\'')
                 .replace(/\s/g, '%20')

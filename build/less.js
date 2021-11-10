@@ -1,56 +1,41 @@
-const fs = require('fs');
-const glob = require('glob');
-const path = require('path');
-const util = require('./util');
-const rtlcss = require('rtlcss');
-const postcss = require('postcss');
-const argv = require('minimist')(process.argv);
-const args = argv._;
-const rtl = ~args.indexOf('rtl');
+import {basename} from 'path';
+import rtlcss from 'rtlcss';
+import postcss from 'postcss';
+import {args, banner, glob, minify, pathExists, read, readJson, renderLess, write} from './util.js';
 
-argv._.forEach(arg => {
-    const tokens = arg.split('=');
-    argv[tokens[0]] = tokens[1] || true;
-});
-
-const develop = argv.develop || argv.debug || argv.d || argv.nominify;
-
-[
+const rtl = args.rtl;
+const develop = args.develop || args.debug || args.d || args.nominify;
+const sources = [
     {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css`},
     {src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css`}
+];
 
-].forEach(config => compile(config.src, config.dist));
+const themes = await pathExists('themes.json') ? await readJson('themes.json') : {};
 
-const themes = fs.existsSync('themes.json') ? JSON.parse(fs.readFileSync('themes.json')) : {};
-
-glob.sync('custom/*.less').forEach(file => {
-
-    const theme = path.basename(file, '.less');
+for (const src of await glob('custom/*.less')) {
+    const theme = basename(src, '.less');
     const dist = `dist/css/uikit.${theme}${rtl ? '-rtl' : ''}.css`;
 
     themes[theme] = {css: `../${dist}`};
 
-    if (fs.existsSync(`dist/js/uikit-icons-${theme}.js`)) {
+    if (await pathExists(`dist/js/uikit-icons-${theme}.js`)) {
         themes[theme].icons = `../dist/js/uikit-icons-${theme}.js`;
     }
 
-    compile(file, dist)
-        .catch(({message}) => {
-            console.error(message);
-            process.exitCode = 1;
-        });
-
-});
-
-if (!rtl && (Object.keys(themes).length || !fs.existsSync('themes.json'))) {
-    util.write('themes.json', JSON.stringify(themes));
+    sources.push({src, dist});
 }
 
-async function compile(file, dist) {
+await Promise.all(sources.map(({src, dist}) => compile(src, dist, develop, rtl)))
 
-    const less = await util.read(file);
+if (!rtl && (Object.keys(themes).length || !await pathExists('themes.json'))) {
+    await write('themes.json', JSON.stringify(themes));
+}
 
-    let output = (await util.renderLess(less, {
+async function compile(file, dist, develop, rtl) {
+
+    const less = await read(file);
+
+    let output = (await renderLess(less, {
         relativeUrls: true,
         rootpath: '../../',
         paths: ['src/less/', 'custom/']
@@ -79,10 +64,10 @@ async function compile(file, dist) {
         output = output.replace(/stroke-dashoffset: (\d+)px/g, 'stroke-dashoffset: -$1px');
     }
 
-    const res = await util.write(dist, util.banner + output);
+    await write(dist, banner + output);
 
     if (!develop) {
-        await util.minify(res);
+        await minify(dist);
     }
 
 }

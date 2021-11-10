@@ -1,55 +1,64 @@
-const fs = require('fs');
-const less = require('less');
-const {optimize} = require('svgo');
-const rollup = require('rollup');
-const postcss = require('postcss');
-const uglify = require('uglify-js');
-const {promisify} = require('util');
-const CleanCSS = require('clean-css');
-const html = require('rollup-plugin-html');
-const buble = require('@rollup/plugin-buble');
-const replace = require('@rollup/plugin-replace');
-const alias = require('@rollup/plugin-alias');
-const {basename, dirname, resolve} = require('path');
-const {version} = require('../package.json');
-const banner = `/*! UIkit ${version} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
+import fs from 'fs-extra';
+import less from 'less';
+import { URL } from 'url';
+import postcss from 'postcss';
+import globImport from 'glob';
+import {rollup} from 'rollup';
+import {optimize} from 'svgo';
+import uglify from 'uglify-js';
+import {promisify} from 'util';
+import minimist from 'minimist';
+import CleanCSS from 'clean-css';
+import html from 'rollup-plugin-html';
+import buble from '@rollup/plugin-buble';
+import alias from '@rollup/plugin-alias';
+import replace from '@rollup/plugin-replace';
+import {basename, dirname, resolve} from 'path';
+import {exec as execImport} from 'child_process';
 
-exports.banner = banner;
-exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
+export const exec = promisify(execImport);
+export const glob = promisify(globImport);
+export const readJson = fs.readJson;
+export const pathExists = fs.pathExists;
+export const __dirname = new URL('.', import.meta.url).pathname;
 
-exports.glob = promisify(require('glob'));
+export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
+export const validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
-const readFile = promisify(fs.readFile);
-exports.read = async function (file, cb) {
+const argv = minimist(process.argv.slice(2));
 
-    const data = await readFile(file, 'utf8');
-    cb && cb(data);
-    return data;
+argv._.forEach(arg => {
+    const tokens = arg.split('=');
+    argv[tokens[0]] = tokens[1] || true;
+});
 
-};
+export const args = argv;
 
-const writeFile = promisify(fs.writeFile);
-exports.write = async function (dest, data) {
+export function read(file) {
+    return fs.readFile(file, 'utf8');
+}
 
-    const err = await writeFile(dest, data);
+export async function write(dest, data) {
+
+    const err = await fs.writeFile(dest, data);
 
     if (err) {
         console.log(err);
         throw err;
     }
 
-    await exports.logFile(dest);
+    await logFile(dest);
 
     return dest;
 
-};
+}
 
-exports.logFile = async function (file) {
-    const data = await exports.read(file);
-    console.log(`${cyan(file)} ${getSize(data)}`);
-};
+export async function logFile(file) {
+    const data = await read(file);
+    console.log(`${cyan(resolve(file))} ${getSize(data)}`);
+}
 
-exports.minify = async function (file) {
+export async function minify(file) {
 
     const {styles} = await new CleanCSS({
         advanced: false,
@@ -58,13 +67,13 @@ exports.minify = async function (file) {
         returnPromise: true
     }).minify([file]);
 
-    await exports.write(`${resolve(dirname(file), basename(file, '.css'))}.min.css`, styles);
+    await write(`${resolve(dirname(file), basename(file, '.css'))}.min.css`, styles);
 
     return styles;
 
-};
+}
 
-exports.renderLess = async function (data, options) {
+export async function renderLess(data, options) {
     return postcss()
         .use({
             postcssPlugin: 'calc',
@@ -83,20 +92,20 @@ exports.renderLess = async function (data, options) {
         })
         .process((await less.render(data, options)).css)
         .css;
-};
+}
 
-exports.compile = async function (file, dest, {external, globals, name, aliases, replaces, minify = true}) {
+export async function compile(file, dest, {external, globals, name, aliases, replaces, minify = true}) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
-    const bundle = await rollup.rollup({
+    const bundle = await rollup({
         external,
         input: resolve(file),
         plugins: [
             replace({
                 preventAssignment: true,
                 values: Object.assign({
-                    VERSION: `'${version}'`
+                    VERSION: `'${await getVersion()}'`
                 }, replaces)}
             ),
             alias({
@@ -116,23 +125,23 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
 
     let {output: [{code, map}]} = await bundle.generate({
         globals,
+        banner,
         format: 'umd',
-        banner: exports.banner,
         amd: {id: `UIkit${name}`.toLowerCase()},
-        name: `UIkit${exports.ucfirst(name)}`,
+        name: `UIkit${ucfirst(name)}`,
         sourcemap: !minify ? 'inline' : false
     });
 
     code = code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2');
 
     return Promise.all([
-        exports.write(`${dest}.js`, code + (!minify ? '\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,' + Buffer.from(map.toString()).toString('base64') : '')),
-        minify ? exports.write(`${dest}.min.js`, uglify.minify(code, {output: {preamble: exports.banner}}).code) : null
+        write(`${dest}.js`, code + (!minify ? '\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,' + Buffer.from(map.toString()).toString('base64') : '')),
+        minify ? write(`${dest}.min.js`, uglify.minify(code, {output: {preamble: banner}}).code) : null
     ])[0];
 
-};
+}
 
-exports.icons = async function (src) {
+export async function icons(src) {
 
     const options = {
         plugins: [
@@ -158,9 +167,9 @@ exports.icons = async function (src) {
         ]
     };
 
-    const files = await exports.glob(src, {nosort: true});
+    const files = await glob(src, {nosort: true});
     const icons = await Promise.all(files.map(async file =>
-        (await optimize(await exports.read(file), options)).data
+        (await optimize(await read(file), options)).data
     ));
 
     return JSON.stringify(files.reduce((result, file, i) => {
@@ -168,11 +177,26 @@ exports.icons = async function (src) {
         return result;
     }, {}), null, '    ');
 
-};
+}
 
-exports.ucfirst = function (str) {
+export async function run(cmd) {
+    const {stdout, stderr} = await exec(cmd);
+
+    stdout && console.log(stdout.trim());
+    stderr && console.log(stderr.trim());
+}
+
+export function ucfirst(str) {
     return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
-};
+}
+
+export async function getVersion() {
+    return JSON.parse(await read(resolve(__dirname, '../package.json'))).version;
+}
+
+export async function replaceInFile(file, fn) {
+    await write(file, await fn(await read(file)));
+}
 
 function cyan(str) {
     return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
