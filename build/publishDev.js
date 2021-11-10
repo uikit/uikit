@@ -1,6 +1,8 @@
-import {inc} from 'semver';
+import semver from 'semver';
 import {resolve} from 'path';
 import {args, getVersion, run} from './util.js';
+
+const {inc} = semver;
 
 // default exec options
 const options = {cwd: resolve(`${__dirname}/..`), encoding: 'utf8'};
