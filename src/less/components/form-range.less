@@ -47,7 +47,7 @@
     background: transparent;
     /* 6 */
     padding: 0;
-    .hook-form-range;
+    .hook-form-range();
 }
 
 /* Focus */
@@ -89,7 +89,7 @@
     width: @form-range-thumb-width;
     border-radius: @form-range-thumb-border-radius;
     background: @form-range-thumb-background;
-    .hook-form-range-thumb;
+    .hook-form-range-thumb();
 }
 
 /* Firefox */
@@ -101,7 +101,7 @@
     width: @form-range-thumb-width;
     border-radius: @form-range-thumb-border-radius;
     background: @form-range-thumb-background;
-    .hook-form-range-thumb;
+    .hook-form-range-thumb();
 }
 
 /* Edge */
@@ -119,7 +119,7 @@
     width: @form-range-thumb-width;
     border-radius: @form-range-thumb-border-radius;
     background: @form-range-thumb-background;
-    .hook-form-range-thumb;
+    .hook-form-range-thumb();
 }
 
 /* Edge + IE11 */
@@ -137,26 +137,26 @@
 .uk-range::-webkit-slider-runnable-track {
     height: @form-range-track-height;
     background: @form-range-track-background;
-    .hook-form-range-track;
+    .hook-form-range-track();
 }
 
 .uk-range:focus::-webkit-slider-runnable-track,
 /* 1 */
 .uk-range:active::-webkit-slider-runnable-track {
     background: @form-range-track-focus-background;
-    .hook-form-range-track-focus;
+    .hook-form-range-track-focus();
 }
 
 /* Firefox */
 .uk-range::-moz-range-track {
     height: @form-range-track-height;
     background: @form-range-track-background;
-    .hook-form-range-track;
+    .hook-form-range-track();
 }
 
 .uk-range:focus::-moz-range-track {
     background: @form-range-track-focus-background;
-    .hook-form-range-track-focus;
+    .hook-form-range-track-focus();
 }
 
 /* Edge */
@@ -164,20 +164,20 @@
 .uk-range::-ms-fill-upper {
     height: @form-range-track-height;
     background: @form-range-track-background;
-    .hook-form-range-track;
+    .hook-form-range-track();
 }
 
 .uk-range:focus::-ms-fill-lower,
 .uk-range:focus::-ms-fill-upper {
     background: @form-range-track-focus-background;
-    .hook-form-range-track-focus;
+    .hook-form-range-track-focus();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-form-range-misc;
+.hook-form-range-misc();
 
 .hook-form-range() {}
 .hook-form-range-thumb() {}

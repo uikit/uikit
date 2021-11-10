@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Update Less mixin calls to use parentheses
+
 ## 3.9.0 (November 10, 2021)
 
 ### Changed

@@ -96,7 +96,7 @@
     /* 6 */
     opacity: 0;
     transition: opacity 0.15s linear;
-    .hook-modal;
+    .hook-modal();
 }
 
 /* Phone landscape and bigger */
@@ -161,7 +161,7 @@
     transform: translateY(-100px);
     transition: 0.3s linear;
     transition-property: opacity, transform;
-    .hook-modal-dialog;
+    .hook-modal-dialog();
 }
 
 /*
@@ -202,7 +202,7 @@
     width: 100%;
     max-width: 100%;
     transform: translateY(0);
-    .hook-modal-full;
+    .hook-modal-full();
 }
 
 
@@ -212,21 +212,21 @@
 .uk-modal-body {
     display: flow-root;
     padding: @modal-body-padding-vertical @modal-body-padding-horizontal;
-    .hook-modal-body;
+    .hook-modal-body();
 }
 
 .uk-modal-header {
     display: flow-root;
     padding: @modal-header-padding-vertical @modal-header-padding-horizontal;
     background: @modal-header-background;
-    .hook-modal-header;
+    .hook-modal-header();
 }
 
 .uk-modal-footer {
     display: flow-root;
     padding: @modal-footer-padding-vertical @modal-footer-padding-horizontal;
     background: @modal-footer-background;
-    .hook-modal-footer;
+    .hook-modal-footer();
 }
 
 /*
@@ -244,7 +244,7 @@
 .uk-modal-title {
     font-size: @modal-title-font-size;
     line-height: @modal-title-line-height;
-    .hook-modal-title;
+    .hook-modal-title();
 }
 
 
@@ -258,7 +258,7 @@
     top: @modal-close-position;
     right: @modal-close-position;
     padding: @modal-close-padding;
-    .hook-modal-close;
+    .hook-modal-close();
 }
 
 /*
@@ -272,7 +272,7 @@
  */
 
 [class*='uk-modal-close-']:hover {
-    .hook-modal-close-hover;
+    .hook-modal-close-hover();
 }
 
 /*
@@ -280,11 +280,11 @@
  */
 
 .uk-modal-close-default {
-    .hook-modal-close-default;
+    .hook-modal-close-default();
 }
 
 .uk-modal-close-default:hover {
-    .hook-modal-close-default-hover;
+    .hook-modal-close-default-hover();
 }
 
 /*
@@ -298,12 +298,12 @@
     right: -@modal-close-padding;
     transform: translate(0, -(@modal-close-outside-translate));
     color: @modal-close-outside-color;
-    .hook-modal-close-outside;
+    .hook-modal-close-outside();
 }
 
 .uk-modal-close-outside:hover {
     color: @modal-close-outside-hover-color;
-    .hook-modal-close-outside-hover;
+    .hook-modal-close-outside-hover();
 }
 
 /* Tablet landscape and bigger */
@@ -322,18 +322,18 @@
  */
 
 .uk-modal-close-full {
-    .hook-modal-close-full;
+    .hook-modal-close-full();
 }
 
 .uk-modal-close-full:hover {
-    .hook-modal-close-full-hover;
+    .hook-modal-close-full-hover();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-modal-misc;
+.hook-modal-misc();
 
 .hook-modal() {}
 .hook-modal-dialog() {}

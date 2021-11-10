@@ -29,7 +29,7 @@
 
 .uk-description-list > dt {
     color: @description-list-term-color;
-    .hook-description-list-term;
+    .hook-description-list-term();
 }
 
 .uk-description-list > dt:nth-child(n+2) {
@@ -41,7 +41,7 @@
  */
 
 .uk-description-list > dd {
-    .hook-description-list-description;
+    .hook-description-list-description();
 }
 
 
@@ -56,14 +56,14 @@
     margin-top: @description-list-divider-term-margin-top;
     padding-top: @description-list-divider-term-margin-top;
     border-top: @description-list-divider-term-border-width solid @description-list-divider-term-border;
-    .hook-description-list-divider-term;
+    .hook-description-list-divider-term();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-description-list-misc;
+.hook-description-list-misc();
 
 .hook-description-list-term() {}
 .hook-description-list-description() {}

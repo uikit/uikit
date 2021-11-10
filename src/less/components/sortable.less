@@ -30,7 +30,7 @@
 
 .uk-sortable {
     position: relative;
-    .hook-sortable;
+    .hook-sortable();
 }
 
 /*
@@ -47,7 +47,7 @@
     position: fixed !important;
     z-index: @sortable-dragged-z-index !important;
     pointer-events: none;
-    .hook-sortable-drag;
+    .hook-sortable-drag();
 }
 
 
@@ -57,7 +57,7 @@
 .uk-sortable-placeholder {
     opacity: @sortable-placeholder-opacity;
     pointer-events: none;
-    .hook-sortable-placeholder;
+    .hook-sortable-placeholder();
 }
 
 
@@ -66,7 +66,7 @@
 
 .uk-sortable-empty {
     min-height: @sortable-empty-height;
-    .hook-sortable-empty;
+    .hook-sortable-empty();
 }
 
 
@@ -81,7 +81,7 @@
 // Hooks
 // ========================================================================
 
-.hook-sortable-misc;
+.hook-sortable-misc();
 
 .hook-sortable() {}
 .hook-sortable-drag() {}

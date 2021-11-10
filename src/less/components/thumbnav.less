@@ -37,7 +37,7 @@
     list-style: none;
     /* 3 */
     margin-left: -@thumbnav-margin-horizontal;
-    .hook-thumbnav;
+    .hook-thumbnav();
 }
 
 /*
@@ -60,17 +60,17 @@
 
 .uk-thumbnav > * > * {
     display: inline-block;
-    .hook-thumbnav-item;
+    .hook-thumbnav-item();
 }
 
 /* Hover */
 .uk-thumbnav > * > :hover {
-    .hook-thumbnav-item-hover;
+    .hook-thumbnav-item-hover();
 }
 
 /* Active */
 .uk-thumbnav > .uk-active > * {
-    .hook-thumbnav-item-active;
+    .hook-thumbnav-item-active();
 }
 
 
@@ -100,7 +100,7 @@
 // Hooks
 // ========================================================================
 
-.hook-thumbnav-misc;
+.hook-thumbnav-misc();
 
 .hook-thumbnav() {}
 .hook-thumbnav-item() {}
@@ -115,15 +115,15 @@
 .hook-inverse() {
 
     .uk-thumbnav > * > * {
-        .hook-inverse-thumbnav-item;
+        .hook-inverse-thumbnav-item();
     }
 
     .uk-thumbnav > * > :hover {
-        .hook-inverse-thumbnav-item-hover;
+        .hook-inverse-thumbnav-item-hover();
     }
 
     .uk-thumbnav > .uk-active > * {
-        .hook-inverse-thumbnav-item-active;
+        .hook-inverse-thumbnav-item-active();
     }
 
 }

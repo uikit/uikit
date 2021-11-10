@@ -72,7 +72,7 @@
     width: 100%;
     /* 3 */
     margin-bottom: @table-margin-vertical;
-    .hook-table;
+    .hook-table();
 }
 
 /* Add margin if adjacent element */
@@ -94,7 +94,7 @@
     font-size: @table-header-cell-font-size;
     font-weight: @table-header-cell-font-weight;
     color: @table-header-cell-color;
-    .hook-table-header-cell;
+    .hook-table-header-cell();
 }
 
 
@@ -104,7 +104,7 @@
 .uk-table td {
     padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
     vertical-align: top;
-    .hook-table-cell;
+    .hook-table-cell();
 }
 
 /*
@@ -119,7 +119,7 @@
 
 .uk-table tfoot {
     font-size: @table-footer-font-size;
-    .hook-table-footer;
+    .hook-table-footer();
 }
 
 
@@ -130,7 +130,7 @@
     font-size: @table-caption-font-size;
     text-align: left;
     color: @table-caption-color;
-    .hook-table-caption;
+    .hook-table-caption();
 }
 
 
@@ -152,7 +152,7 @@
 .uk-table-divider > :not(:first-child) > tr,
 .uk-table-divider > :first-child > tr:not(:first-child) {
     border-top: @table-divider-border-width solid @table-divider-border;
-    .hook-table-divider;
+    .hook-table-divider();
 }
 
 /*
@@ -162,7 +162,7 @@
 .uk-table-striped > tr:nth-of-type(odd),
 .uk-table-striped tbody tr:nth-of-type(odd) {
     background: @table-striped-row-background;
-    .hook-table-striped;
+    .hook-table-striped();
 }
 
 /*
@@ -172,7 +172,7 @@
 .uk-table-hover > tr:hover,
 .uk-table-hover tbody tr:hover {
     background: @table-hover-row-background;
-    .hook-table-hover;
+    .hook-table-hover();
 }
 
 
@@ -182,7 +182,7 @@
 .uk-table > tr.uk-active,
 .uk-table tbody tr.uk-active {
     background: @table-row-active-background;
-    .hook-table-row-active;
+    .hook-table-row-active();
 }
 
 /* Size modifier
@@ -191,13 +191,13 @@
 .uk-table-small th,
 .uk-table-small td {
     padding: @table-small-cell-padding-vertical @table-small-cell-padding-horizontal;
-    .hook-table-small;
+    .hook-table-small();
 }
 
 .uk-table-large th,
 .uk-table-large td {
     padding: @table-large-cell-padding-vertical @table-large-cell-padding-horizontal;
-    .hook-table-large;
+    .hook-table-large();
 }
 
 
@@ -279,7 +279,7 @@
 // Hooks
 // ========================================================================
 
-.hook-table-misc;
+.hook-table-misc();
 
 .hook-table() {}
 .hook-table-header-cell() {}
@@ -309,37 +309,37 @@
 
     .uk-table th {
         color: @inverse-table-header-cell-color;
-        .hook-inverse-table-header-cell;
+        .hook-inverse-table-header-cell();
     }
 
     .uk-table caption {
         color: @inverse-table-caption-color;
-        .hook-inverse-table-caption;
+        .hook-inverse-table-caption();
     }
 
     .uk-table > tr.uk-active,
     .uk-table tbody tr.uk-active {
         background: @inverse-table-row-active-background;
-        .hook-inverse-table-row-active;
+        .hook-inverse-table-row-active();
     }
 
     .uk-table-divider > tr:not(:first-child),
     .uk-table-divider > :not(:first-child) > tr,
     .uk-table-divider > :first-child > tr:not(:first-child) {
         border-top-color: @inverse-table-divider-border;
-        .hook-inverse-table-divider;
+        .hook-inverse-table-divider();
     }
 
     .uk-table-striped > tr:nth-of-type(odd),
     .uk-table-striped tbody tr:nth-of-type(odd) {
         background: @inverse-table-striped-row-background;
-        .hook-inverse-table-striped;
+        .hook-inverse-table-striped();
     }
 
     .uk-table-hover > tr:hover,
     .uk-table-hover tbody tr:hover {
         background: @inverse-table-hover-row-background;
-        .hook-inverse-table-hover;
+        .hook-inverse-table-hover();
     }
 
 }

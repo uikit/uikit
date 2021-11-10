@@ -41,7 +41,7 @@
     color: @label-color;
     vertical-align: middle;
     white-space: nowrap;
-    .hook-label;
+    .hook-label();
 }
 
 
@@ -55,7 +55,7 @@
 .uk-label-success {
     background-color: @label-success-background;
     color: @label-success-color;
-    .hook-label-success;
+    .hook-label-success();
 }
 
 /*
@@ -65,7 +65,7 @@
 .uk-label-warning {
     background-color: @label-warning-background;
     color: @label-warning-color;
-    .hook-label-warning;
+    .hook-label-warning();
 }
 
 /*
@@ -75,14 +75,14 @@
 .uk-label-danger {
     background-color: @label-danger-background;
     color: @label-danger-color;
-    .hook-label-danger;
+    .hook-label-danger();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-label-misc;
+.hook-label-misc();
 
 .hook-label() {}
 .hook-label-success() {}
@@ -102,7 +102,7 @@
     .uk-label {
         background-color: @inverse-label-background;
         color: @inverse-label-color;
-        .hook-inverse-label;
+        .hook-inverse-label();
     }
 
 }

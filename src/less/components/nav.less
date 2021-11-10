@@ -128,7 +128,7 @@
 
 ul.uk-nav-sub {
     padding: @nav-sublist-padding-vertical 0 @nav-sublist-padding-vertical @nav-sublist-padding-left;
-    .hook-nav-sub;
+    .hook-nav-sub();
 }
 
 /*
@@ -155,7 +155,7 @@ ul.uk-nav-sub {
     .svg-fill(@internal-nav-parent-close-image, "#000", @nav-parent-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    .hook-nav-parent-icon;
+    .hook-nav-parent-icon();
 }
 
 .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-nav-parent-open-image, "#000", @nav-parent-icon-color); }
@@ -168,7 +168,7 @@ ul.uk-nav-sub {
     padding: @nav-header-padding-vertical @nav-header-padding-horizontal;
     text-transform: @nav-header-text-transform;
     font-size: @nav-header-font-size;
-    .hook-nav-header;
+    .hook-nav-header();
 }
 
 .uk-nav-header:not(:first-child) { margin-top: @nav-header-margin-top; }
@@ -179,7 +179,7 @@ ul.uk-nav-sub {
 
 .uk-nav >.uk-nav-divider {
     margin: @nav-divider-margin-vertical @nav-divider-margin-horizontal;
-    .hook-nav-divider;
+    .hook-nav-divider();
 }
 
 
@@ -187,7 +187,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-default {
-    .hook-nav-default;
+    .hook-nav-default();
 }
 
 /*
@@ -196,19 +196,19 @@ ul.uk-nav-sub {
 
 .uk-nav-default > li > a {
     color: @nav-default-item-color;
-    .hook-nav-default-item;
+    .hook-nav-default-item();
 }
 
 /* Hover */
 .uk-nav-default > li > a:hover {
     color: @nav-default-item-hover-color;
-    .hook-nav-default-item-hover;
+    .hook-nav-default-item-hover();
 }
 
 /* Active */
 .uk-nav-default > li.uk-active > a {
     color: @nav-default-item-active-color;
-    .hook-nav-default-item-active;
+    .hook-nav-default-item-active();
 }
 
 /*
@@ -217,7 +217,7 @@ ul.uk-nav-sub {
 
 .uk-nav-default .uk-nav-header {
     color: @nav-default-header-color;
-    .hook-nav-default-header;
+    .hook-nav-default-header();
 }
 
 /*
@@ -226,7 +226,7 @@ ul.uk-nav-sub {
 
 .uk-nav-default .uk-nav-divider {
     border-top: @nav-default-divider-border-width solid @nav-default-divider-border;
-    .hook-nav-default-divider;
+    .hook-nav-default-divider();
 }
 
 /*
@@ -244,7 +244,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-primary {
-    .hook-nav-primary;
+    .hook-nav-primary();
 }
 
 /*
@@ -255,19 +255,19 @@ ul.uk-nav-sub {
     font-size: @nav-primary-item-font-size;
     line-height: @nav-primary-item-line-height;
     color: @nav-primary-item-color;
-    .hook-nav-primary-item;
+    .hook-nav-primary-item();
 }
 
 /* Hover */
 .uk-nav-primary > li > a:hover {
     color: @nav-primary-item-hover-color;
-    .hook-nav-primary-item-hover;
+    .hook-nav-primary-item-hover();
 }
 
 /* Active */
 .uk-nav-primary > li.uk-active > a {
     color: @nav-primary-item-active-color;
-    .hook-nav-primary-item-active;
+    .hook-nav-primary-item-active();
 }
 
 /*
@@ -276,7 +276,7 @@ ul.uk-nav-sub {
 
 .uk-nav-primary .uk-nav-header {
     color: @nav-primary-header-color;
-    .hook-nav-primary-header;
+    .hook-nav-primary-header();
 }
 
 /*
@@ -285,7 +285,7 @@ ul.uk-nav-sub {
 
 .uk-nav-primary .uk-nav-divider {
     border-top: @nav-primary-divider-border-width solid @nav-primary-divider-border;
-    .hook-nav-primary-divider;
+    .hook-nav-primary-divider();
 }
 
 /*
@@ -327,14 +327,14 @@ ul.uk-nav-sub {
     margin-top: @nav-dividers-margin-top;
     padding-top: @nav-dividers-margin-top;
     border-top: @nav-dividers-border-width solid @nav-dividers-border;
-    .hook-nav-dividers;
+    .hook-nav-dividers();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-nav-misc;
+.hook-nav-misc();
 
 .hook-nav-sub() {}
 .hook-nav-parent-icon() {}
@@ -388,7 +388,7 @@ ul.uk-nav-sub {
 
     .uk-nav-parent-icon > .uk-parent > a::after {
         .svg-fill(@internal-nav-parent-close-image, "#000", @inverse-nav-parent-icon-color);
-        .hook-inverse-nav-parent-icon;
+        .hook-inverse-nav-parent-icon();
     }
 
     .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-nav-parent-open-image, "#000", @inverse-nav-parent-icon-color); }
@@ -399,27 +399,27 @@ ul.uk-nav-sub {
 
     .uk-nav-default > li > a {
         color: @inverse-nav-default-item-color;
-        .hook-inverse-nav-default-item;
+        .hook-inverse-nav-default-item();
     }
 
     .uk-nav-default > li > a:hover {
         color: @inverse-nav-default-item-hover-color;
-        .hook-inverse-nav-default-item-hover;
+        .hook-inverse-nav-default-item-hover();
     }
 
     .uk-nav-default > li.uk-active > a {
         color: @inverse-nav-default-item-active-color;
-        .hook-inverse-nav-default-item-active;
+        .hook-inverse-nav-default-item-active();
     }
 
     .uk-nav-default .uk-nav-header {
         color: @inverse-nav-default-header-color;
-        .hook-inverse-nav-default-header;
+        .hook-inverse-nav-default-header();
     }
 
     .uk-nav-default .uk-nav-divider {
         border-top-color: @inverse-nav-default-divider-border;
-        .hook-inverse-nav-default-divider;
+        .hook-inverse-nav-default-divider();
     }
 
     .uk-nav-default .uk-nav-sub a { color: @inverse-nav-default-sublist-item-color; }
@@ -434,27 +434,27 @@ ul.uk-nav-sub {
 
     .uk-nav-primary > li > a {
         color: @inverse-nav-primary-item-color;
-        .hook-inverse-nav-primary-item;
+        .hook-inverse-nav-primary-item();
     }
 
     .uk-nav-primary > li > a:hover {
         color: @inverse-nav-primary-item-hover-color;
-        .hook-inverse-nav-primary-item-hover;
+        .hook-inverse-nav-primary-item-hover();
     }
 
     .uk-nav-primary > li.uk-active > a {
         color: @inverse-nav-primary-item-active-color;
-        .hook-inverse-nav-primary-item-active;
+        .hook-inverse-nav-primary-item-active();
     }
 
     .uk-nav-primary .uk-nav-header {
         color: @inverse-nav-primary-header-color;
-        .hook-inverse-nav-primary-header;
+        .hook-inverse-nav-primary-header();
     }
 
     .uk-nav-primary .uk-nav-divider {
         border-top-color: @inverse-nav-primary-divider-border;
-        .hook-inverse-nav-primary-divider;
+        .hook-inverse-nav-primary-divider();
     }
 
     .uk-nav-primary .uk-nav-sub a { color: @inverse-nav-primary-sublist-item-color; }
@@ -469,7 +469,7 @@ ul.uk-nav-sub {
 
     .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
         border-top-color: @inverse-nav-dividers-border;
-        .hook-nav-dividers;
+        .hook-nav-dividers();
     }
 
 }

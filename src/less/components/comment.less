@@ -37,7 +37,7 @@
  ========================================================================== */
 
 .uk-comment {
-    .hook-comment;
+    .hook-comment();
 }
 
 
@@ -48,13 +48,13 @@
     display: flow-root;
     overflow-wrap: break-word;
     word-wrap: break-word;
-    .hook-comment-body;
+    .hook-comment-body();
 }
 
 .uk-comment-header {
     display: flow-root;
     margin-bottom: @comment-header-margin-bottom;
-    .hook-comment-header;
+    .hook-comment-header();
 }
 
 /*
@@ -71,7 +71,7 @@
 .uk-comment-title {
     font-size: @comment-title-font-size;
     line-height: @comment-title-line-height;
-    .hook-comment-title;
+    .hook-comment-title();
 }
 
 
@@ -82,7 +82,7 @@
     font-size: @comment-meta-font-size;
     line-height: @comment-meta-line-height;
     color: @comment-meta-color;
-    .hook-comment-meta;
+    .hook-comment-meta();
 }
 
 
@@ -90,7 +90,7 @@
  ========================================================================== */
 
 .uk-comment-avatar {
-    .hook-comment-avatar;
+    .hook-comment-avatar();
 }
 
 
@@ -105,7 +105,7 @@
 /* Adjacent siblings */
 .uk-comment-list > :nth-child(n+2) {
     margin-top: @comment-list-margin-top;
-    .hook-comment-list-adjacent;
+    .hook-comment-list-adjacent();
 }
 
 /*
@@ -117,7 +117,7 @@
     margin: @comment-list-margin-top 0 0 0;
     padding-left: @comment-list-padding-left;
     list-style: none;
-    .hook-comment-list-sub;
+    .hook-comment-list-sub();
 }
 
 /* Tablet and bigger */
@@ -130,7 +130,7 @@
 /* Adjacent siblings */
 .uk-comment-list .uk-comment ~ ul > :nth-child(n+2) {
     margin-top: @comment-list-margin-top;
-    .hook-comment-list-sub-adjacent;
+    .hook-comment-list-sub-adjacent();
 }
 
 
@@ -138,14 +138,14 @@
  ========================================================================== */
 
 .uk-comment-primary {
-    .hook-comment-primary;
+    .hook-comment-primary();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-comment-misc;
+.hook-comment-misc();
 
 .hook-comment() {}
 .hook-comment-body() {}

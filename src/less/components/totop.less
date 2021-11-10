@@ -28,26 +28,26 @@
 .uk-totop {
     padding: @totop-padding;
     color: @totop-color;
-    .hook-totop;
+    .hook-totop();
 }
 
 /* Hover */
 .uk-totop:hover {
     color: @totop-hover-color;
-    .hook-totop-hover;
+    .hook-totop-hover();
 }
 
 /* OnClick */
 .uk-totop:active {
     color: @totop-active-color;
-    .hook-totop-active;
+    .hook-totop-active();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-totop-misc;
+.hook-totop-misc();
 
 .hook-totop() {}
 .hook-totop-hover() {}
@@ -66,17 +66,17 @@
 
     .uk-totop {
         color: @inverse-totop-color;
-        .hook-inverse-totop;
+        .hook-inverse-totop();
     }
 
     .uk-totop:hover {
         color: @inverse-totop-hover-color;
-        .hook-inverse-totop-hover;
+        .hook-inverse-totop-hover();
     }
 
     .uk-totop:active {
         color: @inverse-totop-active-color;
-        .hook-inverse-totop-active;
+        .hook-inverse-totop-active();
     }
 
 }

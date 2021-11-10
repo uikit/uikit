@@ -46,7 +46,7 @@
     /* 3 */
     padding: 0;
     list-style: none;
-    .hook-tab;
+    .hook-tab();
 }
 
 /*
@@ -87,26 +87,26 @@
     /* 4 */
     padding: @tab-item-padding-vertical @tab-item-padding-horizontal;
     color: @tab-item-color;
-    .hook-tab-item;
+    .hook-tab-item();
 }
 
 /* Hover */
 .uk-tab > * > a:hover {
     color: @tab-item-hover-color;
     text-decoration: @tab-item-hover-text-decoration;
-    .hook-tab-item-hover;
+    .hook-tab-item-hover();
 }
 
 /* Active */
 .uk-tab > .uk-active > a {
     color: @tab-item-active-color;
-    .hook-tab-item-active;
+    .hook-tab-item-active();
 }
 
 /* Disabled */
 .uk-tab > .uk-disabled > a {
     color: @tab-item-disabled-color;
-    .hook-tab-item-disabled;
+    .hook-tab-item-disabled();
 }
 
 
@@ -118,11 +118,11 @@
  */
 
 .uk-tab-bottom {
-    .hook-tab-bottom;
+    .hook-tab-bottom();
 }
 
 .uk-tab-bottom > * > a {
-    .hook-tab-bottom-item;
+    .hook-tab-bottom-item();
 }
 
 /*
@@ -142,28 +142,28 @@
 .uk-tab-right > * { padding-left: 0; }
 
 .uk-tab-left {
-    .hook-tab-left;
+    .hook-tab-left();
 }
 
 .uk-tab-right {
-    .hook-tab-right;
+    .hook-tab-right();
 }
 
 .uk-tab-left > * > a {
     justify-content: left;
-    .hook-tab-left-item;
+    .hook-tab-left-item();
 }
 
 .uk-tab-right > * > a {
     justify-content: left;
-    .hook-tab-right-item;
+    .hook-tab-right-item();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-tab-misc;
+.hook-tab-misc();
 
 .hook-tab() {}
 .hook-tab-item() {}
@@ -190,27 +190,27 @@
 .hook-inverse() {
 
     .uk-tab {
-        .hook-inverse-tab;
+        .hook-inverse-tab();
     }
 
     .uk-tab > * > a {
         color: @inverse-tab-item-color;
-        .hook-inverse-tab-item;
+        .hook-inverse-tab-item();
     }
 
     .uk-tab > * > a:hover {
         color: @inverse-tab-item-hover-color;
-        .hook-inverse-tab-item-hover;
+        .hook-inverse-tab-item-hover();
     }
 
     .uk-tab > .uk-active > a {
         color: @inverse-tab-item-active-color;
-        .hook-inverse-tab-item-active;
+        .hook-inverse-tab-item-active();
     }
 
     .uk-tab > .uk-disabled > a {
         color: @inverse-tab-item-disabled-color;
-        .hook-inverse-tab-item-disabled;
+        .hook-inverse-tab-item-disabled();
     }
 
 }

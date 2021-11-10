@@ -151,7 +151,7 @@
     margin-top: @list-divider-margin-top;
     padding-top: @list-divider-margin-top;
     border-top: @list-divider-border-width solid @list-divider-border;
-    .hook-list-divider;
+    .hook-list-divider();
 }
 
 /*
@@ -160,7 +160,7 @@
 
 .uk-list-striped > * {
     padding: @list-striped-padding-vertical @list-striped-padding-horizontal;
-    .hook-list-striped;
+    .hook-list-striped();
 }
 
 .uk-list-striped > :nth-of-type(odd) { background: @list-striped-background; }
@@ -209,7 +209,7 @@
 // Hooks
 // ========================================================================
 
-.hook-list-misc;
+.hook-list-misc();
 
 .hook-list-divider() {}
 .hook-list-striped() {}
@@ -242,11 +242,11 @@
 
     .uk-list-divider > :nth-child(n+2) {
         border-top-color: @inverse-list-divider-border;
-        .hook-inverse-list-divider;
+        .hook-inverse-list-divider();
     }
 
     .uk-list-striped > * {
-        .hook-inverse-list-striped;
+        .hook-inverse-list-striped();
     }
 
     .uk-list-striped > :nth-of-type(odd) { background-color: @inverse-list-striped-background; }

@@ -95,7 +95,7 @@
 .uk-card {
     position: relative;
     box-sizing: border-box;
-    .hook-card;
+    .hook-card();
 }
 
 
@@ -105,19 +105,19 @@
 .uk-card-body {
     display: flow-root;
     padding: @card-body-padding-vertical @card-body-padding-horizontal;
-    .hook-card-body;
+    .hook-card-body();
 }
 
 .uk-card-header {
     display: flow-root;
     padding: @card-header-padding-vertical @card-header-padding-horizontal;
-    .hook-card-header;
+    .hook-card-header();
 }
 
 .uk-card-footer {
     display: flow-root;
     padding: @card-footer-padding-vertical @card-footer-padding-horizontal;
-    .hook-card-footer;
+    .hook-card-footer();
 }
 
 /* Desktop and bigger */
@@ -149,25 +149,25 @@
  */
 
 [class*='uk-card-media'] {
-    .hook-card-media;
+    .hook-card-media();
 }
 
 .uk-card-media-top,
 .uk-grid-stack > .uk-card-media-left,
 .uk-grid-stack > .uk-card-media-right  {
-    .hook-card-media-top;
+    .hook-card-media-top();
 }
 
 .uk-card-media-bottom {
-    .hook-card-media-bottom;
+    .hook-card-media-bottom();
 }
 
 :not(.uk-grid-stack) > .uk-card-media-left {
-    .hook-card-media-left;
+    .hook-card-media-left();
 }
 
 :not(.uk-grid-stack) > .uk-card-media-right {
-    .hook-card-media-right;
+    .hook-card-media-right();
 }
 
 
@@ -177,7 +177,7 @@
 .uk-card-title {
     font-size: @card-title-font-size;
     line-height: @card-title-line-height;
-    .hook-card-title;
+    .hook-card-title();
 }
 
 
@@ -209,7 +209,7 @@
     justify-content: center;
     align-items: center;
     line-height: 0;
-    .hook-card-badge;
+    .hook-card-badge();
 }
 
 /*
@@ -224,7 +224,7 @@
 
 .uk-card-hover:not(.uk-card-default):not(.uk-card-primary):not(.uk-card-secondary):hover {
     background-color: @card-hover-background;
-    .hook-card-hover;
+    .hook-card-hover();
 }
 
 
@@ -239,25 +239,25 @@
 .uk-card-default {
     background-color: @card-default-background;
     color: @card-default-color;
-    .hook-card-default;
+    .hook-card-default();
 }
 
 .uk-card-default .uk-card-title {
     color: @card-default-title-color;
-    .hook-card-default-title;
+    .hook-card-default-title();
 }
 
 .uk-card-default.uk-card-hover:hover {
     background-color: @card-default-hover-background;
-    .hook-card-default-hover;
+    .hook-card-default-hover();
 }
 
 .uk-card-default .uk-card-header {
-    .hook-card-default-header;
+    .hook-card-default-header();
 }
 
 .uk-card-default .uk-card-footer {
-    .hook-card-default-footer;
+    .hook-card-default-footer();
 }
 
 /*
@@ -267,17 +267,17 @@
 .uk-card-primary {
     background-color: @card-primary-background;
     color: @card-primary-color;
-    .hook-card-primary;
+    .hook-card-primary();
 }
 
 .uk-card-primary .uk-card-title {
     color: @card-primary-title-color;
-    .hook-card-primary-title;
+    .hook-card-primary-title();
 }
 
 .uk-card-primary.uk-card-hover:hover {
     background-color: @card-primary-hover-background;
-    .hook-card-primary-hover;
+    .hook-card-primary-hover();
 }
 
 // Color Mode
@@ -293,17 +293,17 @@
 .uk-card-secondary {
     background-color: @card-secondary-background;
     color: @card-secondary-color;
-    .hook-card-secondary;
+    .hook-card-secondary();
 }
 
 .uk-card-secondary .uk-card-title {
     color: @card-secondary-title-color;
-    .hook-card-secondary-title;
+    .hook-card-secondary-title();
 }
 
 .uk-card-secondary.uk-card-hover:hover {
     background-color: @card-secondary-hover-background;
-    .hook-card-secondary-hover;
+    .hook-card-secondary-hover();
 }
 
 // Color Mode
@@ -345,7 +345,7 @@
 // Hooks
 // ========================================================================
 
-.hook-card-misc;
+.hook-card-misc();
 
 .hook-card() {}
 .hook-card-body() {}
@@ -384,7 +384,7 @@
     &.uk-card-badge {
         background-color: @inverse-card-badge-background;
         color: @inverse-card-badge-color;
-        .hook-inverse-card-badge;
+        .hook-inverse-card-badge();
     }
 
 }

@@ -45,7 +45,7 @@
     /* 3 */
     padding: 0;
     list-style: none;
-    .hook-pagination;
+    .hook-pagination();
 }
 
 /*
@@ -78,33 +78,33 @@
     /* 2 */
     padding: @pagination-item-padding-vertical @pagination-item-padding-horizontal;
     color: @pagination-item-color;
-    .hook-pagination-item;
+    .hook-pagination-item();
 }
 
 /* Hover */
 .uk-pagination > * > :hover {
     color: @pagination-item-hover-color;
     text-decoration: @pagination-item-hover-text-decoration;
-    .hook-pagination-item-hover;
+    .hook-pagination-item-hover();
 }
 
 /* Active */
 .uk-pagination > .uk-active > * {
     color: @pagination-item-active-color;
-    .hook-pagination-item-active;
+    .hook-pagination-item-active();
 }
 
 /* Disabled */
 .uk-pagination > .uk-disabled > * {
     color: @pagination-item-disabled-color;
-    .hook-pagination-item-disabled;
+    .hook-pagination-item-disabled();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-pagination-misc;
+.hook-pagination-misc();
 
 .hook-pagination() {}
 .hook-pagination-item() {}
@@ -126,22 +126,22 @@
 
     .uk-pagination > * > * {
         color: @inverse-pagination-item-color;
-        .hook-inverse-pagination-item;
+        .hook-inverse-pagination-item();
     }
 
     .uk-pagination > * > :hover {
         color: @inverse-pagination-item-hover-color;
-        .hook-inverse-pagination-item-hover;
+        .hook-inverse-pagination-item-hover();
     }
 
     .uk-pagination > .uk-active > * {
         color: @inverse-pagination-item-active-color;
-        .hook-inverse-pagination-item-active;
+        .hook-inverse-pagination-item-active();
     }
 
     .uk-pagination > .uk-disabled > * {
         color: @inverse-pagination-item-disabled-color;
-        .hook-inverse-pagination-item-disabled;
+        .hook-inverse-pagination-item-disabled();
     }
 
 }

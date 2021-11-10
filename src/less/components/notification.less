@@ -61,7 +61,7 @@
     /* 2 */
     box-sizing: border-box;
     width: @notification-width;
-    .hook-notification;
+    .hook-notification();
 }
 
 
@@ -115,7 +115,7 @@
     font-size: @notification-message-font-size;
     line-height: @notification-message-line-height;
     cursor: pointer;
-    .hook-notification-message;
+    .hook-notification-message();
 }
 
 * + .uk-notification-message { margin-top: @notification-message-margin-top; }
@@ -130,7 +130,7 @@
     position: absolute;
     top: @notification-close-top;
     right: @notification-close-right;
-    .hook-notification-close;
+    .hook-notification-close();
 }
 
 .uk-notification-message:hover .uk-notification-close { display: block; }
@@ -145,7 +145,7 @@
 
 .uk-notification-message-primary {
     color: @notification-message-primary-color;
-    .hook-notification-message-primary;
+    .hook-notification-message-primary();
 }
 
 /*
@@ -154,7 +154,7 @@
 
 .uk-notification-message-success {
     color: @notification-message-success-color;
-    .hook-notification-message-success;
+    .hook-notification-message-success();
 }
 
 /*
@@ -163,7 +163,7 @@
 
 .uk-notification-message-warning {
     color: @notification-message-warning-color;
-    .hook-notification-message-warning;
+    .hook-notification-message-warning();
 }
 
 /*
@@ -172,14 +172,14 @@
 
 .uk-notification-message-danger {
     color: @notification-message-danger-color;
-    .hook-notification-message-danger;
+    .hook-notification-message-danger();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-notification-misc;
+.hook-notification-misc();
 
 .hook-notification() {}
 .hook-notification-message() {}

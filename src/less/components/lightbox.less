@@ -76,7 +76,7 @@
     transition: opacity 0.15s linear;
     /* 7 */
     touch-action: pinch-zoom;
-    .hook-lightbox;
+    .hook-lightbox();
 }
 
 /*
@@ -137,7 +137,7 @@
     color: @lightbox-item-color;
     /* 4 */
     will-change: transform, opacity;
-    .hook-lightbox-item;
+    .hook-lightbox-item();
 }
 
 /* 5 */
@@ -160,7 +160,7 @@
     padding: @lightbox-toolbar-padding-vertical @lightbox-toolbar-padding-horizontal;
     background: @lightbox-toolbar-background;
     color: @lightbox-toolbar-color;
-    .hook-lightbox-toolbar;
+    .hook-lightbox-toolbar();
 }
 
 .uk-lightbox-toolbar > * { color: @lightbox-toolbar-color; }
@@ -172,7 +172,7 @@
 .uk-lightbox-toolbar-icon {
     padding: @lightbox-toolbar-icon-padding;
     color: @lightbox-toolbar-icon-color;
-    .hook-lightbox-toolbar-icon;
+    .hook-lightbox-toolbar-icon();
 }
 
 /*
@@ -181,7 +181,7 @@
 
 .uk-lightbox-toolbar-icon:hover {
     color: @lightbox-toolbar-icon-hover-color;
-    .hook-lightbox-toolbar-icon-hover;
+    .hook-lightbox-toolbar-icon-hover();
 }
 
 
@@ -203,18 +203,18 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    .hook-lightbox-button;
+    .hook-lightbox-button();
 }
 
 /* Hover */
 .uk-lightbox-button:hover {
     color: @lightbox-button-hover-color;
-    .hook-lightbox-button-hover;
+    .hook-lightbox-button-hover();
 }
 
 /* OnClick */
 .uk-lightbox-button:active {
-    .hook-lightbox-button-active;
+    .hook-lightbox-button-active();
 }
 
 
@@ -236,7 +236,7 @@
 // Hooks
 // ========================================================================
 
-.hook-lightbox-misc;
+.hook-lightbox-misc();
 
 .hook-lightbox() {}
 .hook-lightbox-item() {}

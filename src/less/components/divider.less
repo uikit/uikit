@@ -61,7 +61,7 @@
     .svg-fill(@internal-divider-icon-image, "#000", @divider-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    .hook-divider-icon;
+    .hook-divider-icon();
 }
 
 .uk-divider-icon::before,
@@ -71,19 +71,19 @@
     top: @divider-icon-line-top;
     max-width: ~'calc(50% - (@{divider-icon-width} / 2))';
     border-bottom: @divider-icon-line-border-width solid @divider-icon-line-border;
-    .hook-divider-icon-line;
+    .hook-divider-icon-line();
 }
 
 .uk-divider-icon::before {
     right: ~'calc(50% + (@{divider-icon-width} / 2))';
     width: @divider-icon-line-width;
-    .hook-divider-icon-line-left;
+    .hook-divider-icon-line-left();
 }
 
 .uk-divider-icon::after {
     left: ~'calc(50% + (@{divider-icon-width} / 2))';
     width: @divider-icon-line-width;
-    .hook-divider-icon-line-right;
+    .hook-divider-icon-line-right();
 }
 
 
@@ -106,7 +106,7 @@
     max-width: 100%;
     border-top: @divider-small-border-width solid @divider-small-border;
     vertical-align: top;
-    .hook-divider-small;
+    .hook-divider-small();
 }
 
 
@@ -119,14 +119,14 @@
     margin-left: auto;
     margin-right: auto;
     border-left: @divider-vertical-border-width solid @divider-vertical-border;
-    .hook-divider-vertical;
+    .hook-divider-vertical();
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-divider-misc;
+.hook-divider-misc();
 
 .hook-divider-icon() {}
 .hook-divider-icon-line() {}
@@ -149,23 +149,23 @@
 
     .uk-divider-icon {
         .svg-fill(@internal-divider-icon-image, "#000", @inverse-divider-icon-color);
-        .hook-inverse-divider-icon;
+        .hook-inverse-divider-icon();
     }
 
     .uk-divider-icon::before,
     .uk-divider-icon::after {
         border-bottom-color: @inverse-divider-icon-line-border;
-        .hook-inverse-divider-icon-line;
+        .hook-inverse-divider-icon-line();
     }
 
     .uk-divider-small::after {
         border-top-color: @inverse-divider-small-border;
-        .hook-inverse-divider-small;
+        .hook-inverse-divider-small();
     }
 
     .uk-divider-vertical {
         border-left-color: @inverse-divider-vertical-border;
-        .hook-inverse-divider-vertical;
+        .hook-inverse-divider-vertical();
     }
 
 }

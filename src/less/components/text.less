@@ -46,14 +46,14 @@
     font-size: @text-lead-font-size;
     line-height: @text-lead-line-height;
     color: @text-lead-color;
-    .hook-text-lead;
+    .hook-text-lead();
 }
 
 .uk-text-meta {
     font-size: @text-meta-font-size;
     line-height: @text-meta-line-height;
     color: @text-meta-color;
-    .hook-text-meta;
+    .hook-text-meta();
 }
 
 
@@ -63,13 +63,13 @@
 .uk-text-small {
     font-size: @text-small-font-size;
     line-height: @text-small-line-height;
-    .hook-text-small;
+    .hook-text-small();
 }
 
 .uk-text-large {
     font-size: @text-large-font-size;
     line-height: @text-large-line-height;
-    .hook-text-large;
+    .hook-text-large();
 }
 
 .uk-text-default {
@@ -84,14 +84,14 @@
 .uk-text-light { font-weight: 300; }
 .uk-text-normal { font-weight: 400; }
 .uk-text-bold { font-weight: 700; }
- 
+
 .uk-text-lighter { font-weight: lighter; }
 .uk-text-bolder { font-weight: bolder; }
 
- 
+
 /* Style modifier
  ========================================================================== */
- 
+
 .uk-text-italic { font-style: italic; }
 
 
@@ -145,7 +145,7 @@
     .uk-text-background {
         background-color: @text-background-color;
         color: transparent !important;
-        .hook-text-background;
+        .hook-text-background();
     }
 
 }
@@ -258,7 +258,7 @@ td.uk-text-break { word-break: break-all; }
 // Hooks
 // ========================================================================
 
-.hook-text-misc;
+.hook-text-misc();
 
 .hook-text-lead() {}
 .hook-text-meta() {}
@@ -282,12 +282,12 @@ td.uk-text-break { word-break: break-all; }
 
     .uk-text-lead {
         color: @inverse-text-lead-color;
-        .hook-inverse-text-lead;
+        .hook-inverse-text-lead();
     }
 
     .uk-text-meta {
         color: @inverse-text-meta-color;
-        .hook-inverse-text-meta;
+        .hook-inverse-text-meta();
     }
 
     .uk-text-muted { color: @inverse-text-muted-color !important; }
