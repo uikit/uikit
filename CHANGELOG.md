@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix build scripts for windows users
+- Fix css in Leader component
+
 ## 3.9.1 (November 10, 2021)
 
 ### Changed
