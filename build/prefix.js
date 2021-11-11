@@ -63,7 +63,7 @@ async function replacePrefix(from, to) {
 
     for (const file of await glob('dist/**/*.js')) {
         await replaceInFile(file, data => data
-            .replace(new RegExp(`${from}-`, 'g'),`${to}-`)
+            .replace(new RegExp(`${from}-`, 'g'), `${to}-`)
             .replace(new RegExp(`(${from})?UIkit`, 'g'), `${to === 'uk' ? '' : to}UIkit`)
         );
     }

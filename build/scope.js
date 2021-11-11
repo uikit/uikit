@@ -41,7 +41,7 @@ if (args.cleanup && prevScope) {
 async function getScope(files) {
     for (const file of files) {
         const data = await read(file);
-        const scope = (data.match(currentScopeRe) || data.match(currentScopeLegacyRe) || [])[1];
+        const [, scope] = (data.match(currentScopeRe) || data.match(currentScopeLegacyRe) || []);
         if (scope) {
             return scope;
         }

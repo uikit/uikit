@@ -1,13 +1,15 @@
-import path from 'path';
 import camelize from 'camelcase';
-import {__dirname, args, compile, glob, icons} from './util.js';
+import {basename, resolve} from 'path';
+import {args, compile, glob, icons} from './util.js';
+
+const bundles = getBundleTasks();
+const components = await getComponentTasks();
 
 if (args.h || args.help) {
-
     console.log(`
         usage:
 
-        build.js [componentA, componentB, ...] [-d|debug|nominify|development]
+        build.js [componentA, componentB, ...] [-d|debug|nominify|watch]
 
         examples:
 
@@ -17,19 +19,15 @@ if (args.h || args.help) {
 
         available components:
 
-        bundles: ${Object.keys(steps).join(', ')}
+        bundles: ${Object.keys(bundles).join(', ')}
         components: ${Object.keys(components).join(', ')}
 
     `);
     process.exit(0);
 }
 
-const minify = !(args.d || args.debug || args.nominify);
-const uikit = getUIkitTasks(minify);
-const components = await getComponentTasks(minify);
-
 let tasks;
-const allTasks = {...uikit, ...components};
+const allTasks = {...bundles, ...components};
 if (args.all || Object.keys(args).length <= 1) {
     tasks = allTasks;
 } else if (args.components) {
@@ -37,50 +35,45 @@ if (args.all || Object.keys(args).length <= 1) {
 } else {
     tasks = Object.keys(args)
         .map(step => allTasks[step])
-        .filter(t => t)
+        .filter(t => t);
 }
 
 await Promise.all(Object.values(tasks).map(task => task()));
 
-function getUIkitTasks(minify) {
+function getBundleTasks() {
     return {
 
-        core: () => compile('src/js/uikit-core.js', 'dist/js/uikit-core', {minify}),
+        core: () => compile('src/js/uikit-core.js', 'dist/js/uikit-core'),
 
-        uikit: () => compile('src/js/uikit.js', 'dist/js/uikit', {minify}),
+        uikit: () => compile('src/js/uikit.js', 'dist/js/uikit'),
 
         icons: async () => compile('build/wrapper/icons.js', 'dist/js/uikit-icons', {
-                minify,
-                name: 'icons',
-                replaces: {ICONS: await icons('{src/images,custom}/icons/*.svg')}
-            }
-        ),
+            name: 'icons',
+            replaces: {ICONS: await icons('{src/images,custom}/icons/*.svg')}
+        }),
 
         tests: async () => compile('tests/js/index.js', 'tests/js/test', {
-                minify,
-                name: 'test',
-                replaces: {TESTS: await getTestFiles()}
-            }
-        ),
+            name: 'test',
+            replaces: {TESTS: await getTestFiles()}
+        })
 
     };
 }
 
-async function getComponentTasks(minify) {
+async function getComponentTasks() {
 
     const components = await glob('src/js/components/!(index).js');
 
     return components.reduce((components, file) => {
 
-        const name = path.basename(file, '.js');
+        const name = basename(file, '.js');
 
         components[name] = () =>
-            compile(`${__dirname}/wrapper/component.js`, `dist/js/components/${name}`, {
+            compile('build/wrapper/component.js', `dist/js/components/${name}`, {
                 name,
-                minify,
                 external: ['uikit', 'uikit-util'],
                 globals: {uikit: 'UIkit', 'uikit-util': 'UIkit.util'},
-                aliases: {component: path.resolve(__dirname, '../src/js/components', name)},
+                aliases: {component: resolve('src/js/components', name)},
                 replaces: {NAME: `'${camelize(name)}'`}
             });
 
@@ -91,5 +84,5 @@ async function getComponentTasks(minify) {
 
 async function getTestFiles() {
     const files = await glob('tests/!(index).html', {nosort: true});
-    return JSON.stringify(files.map(file => path.basename(file, '.html')));
+    return JSON.stringify(files.map(file => basename(file, '.html')));
 }

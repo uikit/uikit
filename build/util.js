@@ -1,26 +1,24 @@
-import fs from 'fs-extra';
 import less from 'less';
-import { URL } from 'url';
+import fs from 'fs-extra';
 import postcss from 'postcss';
 import globImport from 'glob';
-import {rollup} from 'rollup';
 import {optimize} from 'svgo';
-import uglify from 'uglify-js';
 import {promisify} from 'util';
 import minimist from 'minimist';
 import CleanCSS from 'clean-css';
 import html from 'rollup-plugin-html';
 import buble from '@rollup/plugin-buble';
 import alias from '@rollup/plugin-alias';
+import modify from 'rollup-plugin-modify';
+import {uglify} from 'rollup-plugin-uglify';
 import replace from '@rollup/plugin-replace';
-import {basename, dirname, resolve} from 'path';
+import {basename, dirname, join} from 'path';
 import {exec as execImport} from 'child_process';
+import {rollup, watch as rollupWatch} from 'rollup';
 
 export const exec = promisify(execImport);
 export const glob = promisify(globImport);
-export const readJson = fs.readJson;
-export const pathExists = fs.pathExists;
-export const __dirname = new URL('.', import.meta.url).pathname;
+export const {pathExists, readJson} = fs;
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 export const validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
@@ -55,7 +53,7 @@ export async function write(dest, data) {
 
 export async function logFile(file) {
     const data = await read(file);
-    console.log(`${cyan(resolve(file))} ${getSize(data)}`);
+    console.log(`${cyan(file)} ${getSize(data)}`);
 }
 
 export async function minify(file) {
@@ -67,7 +65,7 @@ export async function minify(file) {
         returnPromise: true
     }).minify([file]);
 
-    await write(`${resolve(dirname(file), basename(file, '.css'))}.min.css`, styles);
+    await write(`${join(dirname(file), basename(file, '.css'))}.min.css`, styles);
 
     return styles;
 
@@ -94,24 +92,30 @@ export async function renderLess(data, options) {
         .css;
 }
 
-export async function compile(file, dest, {external, globals, name, aliases, replaces, minify = true}) {
+export async function compile(file, dest, {external, globals, name, aliases, replaces} = {}) {
+
+    const minify = !args.nominify;
+    const debug = args.d || args.debug;
+    const watch = args.w || args.watch;
 
     name = (name || '').replace(/[^\w]/g, '_');
 
-    const bundle = await rollup({
+    const inputOptions = {
         external,
-        input: resolve(file),
+        input: file,
         plugins: [
             replace({
                 preventAssignment: true,
-                values: Object.assign({
-                    VERSION: `'${await getVersion()}'`
-                }, replaces)}
-            ),
+                values: {
+                    VERSION: `'${await getVersion()}'`,
+                    ...replaces
+                }
+            }),
             alias({
-                entries: Object.assign({
-                    'uikit-util': './src/js/util/index.js'
-                }, aliases)
+                entries: {
+                    'uikit-util': './src/js/util/index.js',
+                    ...aliases
+                }
             }),
             html({
                 include: '**/*.svg',
@@ -119,25 +123,63 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
                     collapseWhitespace: true
                 }
             }),
-            buble({namedFunctionExpressions: false})
+            buble({namedFunctionExpressions: false}),
+            modify({
+                find: /(>)\\n\s+|\\n\s+(<)/,
+                replace: (m, m1, m2) => `${m1 || ''} ${m2 || ''}`
+            })
         ]
-    });
+    };
 
-    let {output: [{code, map}]} = await bundle.generate({
+    const outputOptions = {
         globals,
         banner,
         format: 'umd',
         amd: {id: `UIkit${name}`.toLowerCase()},
         name: `UIkit${ucfirst(name)}`,
-        sourcemap: !minify ? 'inline' : false
-    });
+        sourcemap: debug ? 'inline' : false
+    };
 
-    code = code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2');
+    const output = [{
+        ...outputOptions,
+        file: `${dest}.js`
+    }];
 
-    return Promise.all([
-        write(`${dest}.js`, code + (!minify ? '\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,' + Buffer.from(map.toString()).toString('base64') : '')),
-        minify ? write(`${dest}.min.js`, uglify.minify(code, {output: {preamble: banner}}).code) : null
-    ])[0];
+    if (minify) {
+        output.push({
+            ...outputOptions,
+            file: `${dest}.min.js`,
+            plugins: [minify ? uglify({output: {preamble: banner}}) : undefined]
+        });
+    }
+
+    if (!watch) {
+        const bundle = await rollup(inputOptions);
+
+        for (const options of output) {
+            await bundle.write(options);
+            logFile(options.file);
+        }
+
+        await bundle.close();
+    } else {
+        const watcher = rollupWatch({
+            ...inputOptions,
+            output
+        });
+
+        watcher.on('event', ({code, result, output}) => {
+            if (result) {
+                result.close();
+
+            }
+            if (code === 'BUNDLE_END' && output) {
+                output.map(logFile);
+            }
+        });
+
+        watcher.close();
+    }
 
 }
 
@@ -182,8 +224,9 @@ export async function icons(src) {
 export async function run(cmd) {
     const {stdout, stderr} = await exec(cmd);
 
-    stdout && console.log(stdout.trim());
-    stderr && console.log(stderr.trim());
+    stderr && console.error(stderr.trim());
+
+    return stdout;
 }
 
 export function ucfirst(str) {
@@ -191,7 +234,7 @@ export function ucfirst(str) {
 }
 
 export async function getVersion() {
-    return JSON.parse(await read(resolve(__dirname, '../package.json'))).version;
+    return (await readJson('package.json')).version;
 }
 
 export async function replaceInFile(file, fn) {

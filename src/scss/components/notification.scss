@@ -77,7 +77,7 @@ $notification-message-danger-color:                    $global-danger-background
 .uk-notification-top-center,
 .uk-notification-bottom-center {
     left: 50%;
-    margin-left: ($notification-width / -2);
+    margin-left: ($notification-width * -0.5);
 }
 
 .uk-notification-bottom-left,
