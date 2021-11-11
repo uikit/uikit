@@ -1,11 +1,10 @@
 import semver from 'semver';
-import {resolve} from 'path';
-import {__dirname, args, getVersion, run} from './util.js';
+import {args, getVersion, run} from './util.js';
 
 const {inc} = semver;
 
 // default exec options
-const options = {cwd: resolve(`${__dirname}/..`), encoding: 'utf8'};
+const options = {encoding: 'utf8'};
 if (args.f || args.force || await isDevCommit()) {
 
     // increase version patch number
