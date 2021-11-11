@@ -196,9 +196,9 @@ function getMixinsFromFile(file, data) {
     match = regex.exec(data);
 
     while (match) {
-        themeMixins[match[1]] = match[0];
+        [themeMixins[match[1]]] = match;
         if (file.indexOf('theme/') < 0) {
-            coreMixins[match[1]] = match[0];
+            [coreMixins[match[1]]] = match;
         }
         match = regex.exec(data);
     }
@@ -208,9 +208,9 @@ function getMixinsFromFile(file, data) {
     match = regex.exec(data);
 
     while (match) {
-        themeMixins[match[1]] = match[0];
+        [themeMixins[match[1]]] = match;
         if (file.indexOf('theme/') < 0) {
-            coreMixins[match[1]] = match[0];
+            [coreMixins[match[1]]] = match;
         }
 
         match = regex.exec(data);

@@ -2,6 +2,10 @@ import path from 'path';
 import camelize from 'camelcase';
 import {__dirname, args, compile, glob, icons} from './util.js';
 
+const minify = !(args.d || args.debug || args.nominify);
+const bundles = getBundleTasks(minify);
+const components = await getComponentTasks(minify);
+
 if (args.h || args.help) {
 
     console.log(`
@@ -17,19 +21,15 @@ if (args.h || args.help) {
 
         available components:
 
-        bundles: ${Object.keys(steps).join(', ')}
+        bundles: ${Object.keys(bundles).join(', ')}
         components: ${Object.keys(components).join(', ')}
 
     `);
     process.exit(0);
 }
 
-const minify = !(args.d || args.debug || args.nominify);
-const uikit = getUIkitTasks(minify);
-const components = await getComponentTasks(minify);
-
 let tasks;
-const allTasks = {...uikit, ...components};
+const allTasks = {...bundles, ...components};
 if (args.all || Object.keys(args).length <= 1) {
     tasks = allTasks;
 } else if (args.components) {
@@ -37,12 +37,12 @@ if (args.all || Object.keys(args).length <= 1) {
 } else {
     tasks = Object.keys(args)
         .map(step => allTasks[step])
-        .filter(t => t)
+        .filter(t => t);
 }
 
 await Promise.all(Object.values(tasks).map(task => task()));
 
-function getUIkitTasks(minify) {
+function getBundleTasks(minify) {
     return {
 
         core: () => compile('src/js/uikit-core.js', 'dist/js/uikit-core', {minify}),
@@ -50,18 +50,16 @@ function getUIkitTasks(minify) {
         uikit: () => compile('src/js/uikit.js', 'dist/js/uikit', {minify}),
 
         icons: async () => compile('build/wrapper/icons.js', 'dist/js/uikit-icons', {
-                minify,
-                name: 'icons',
-                replaces: {ICONS: await icons('{src/images,custom}/icons/*.svg')}
-            }
-        ),
+            minify,
+            name: 'icons',
+            replaces: {ICONS: await icons('{src/images,custom}/icons/*.svg')}
+        }),
 
         tests: async () => compile('tests/js/index.js', 'tests/js/test', {
-                minify,
-                name: 'test',
-                replaces: {TESTS: await getTestFiles()}
-            }
-        ),
+            minify,
+            name: 'test',
+            replaces: {TESTS: await getTestFiles()}
+        })
 
     };
 }

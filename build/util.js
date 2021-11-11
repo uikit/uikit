@@ -1,6 +1,6 @@
-import fs from 'fs-extra';
 import less from 'less';
-import { URL } from 'url';
+import {URL} from 'url';
+import fs from 'fs-extra';
 import postcss from 'postcss';
 import globImport from 'glob';
 import {rollup} from 'rollup';
@@ -18,8 +18,7 @@ import {exec as execImport} from 'child_process';
 
 export const exec = promisify(execImport);
 export const glob = promisify(globImport);
-export const readJson = fs.readJson;
-export const pathExists = fs.pathExists;
+export const {pathExists, readJson} = fs;
 export const __dirname = new URL('.', import.meta.url).pathname;
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;

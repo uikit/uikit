@@ -1,13 +1,15 @@
 {
     "root": true,
     "env": {
-        "es6": true,
-        "node": true
+        "es2021": true,
+        "node": true,
+        "browser": false,
+        "commonjs": false
     },
     "extends": [
         "../.eslintrc.json"
     ],
     "parserOptions": {
-        "ecmaVersion": 2020
+        "ecmaVersion": 2022
     }
 }

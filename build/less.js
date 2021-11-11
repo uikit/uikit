@@ -3,7 +3,7 @@ import rtlcss from 'rtlcss';
 import postcss from 'postcss';
 import {args, banner, glob, minify, pathExists, read, readJson, renderLess, write} from './util.js';
 
-const rtl = args.rtl;
+const {rtl} = args;
 const develop = args.develop || args.debug || args.d || args.nominify;
 const sources = [
     {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css`},
@@ -25,7 +25,7 @@ for (const src of await glob('custom/*.less')) {
     sources.push({src, dist});
 }
 
-await Promise.all(sources.map(({src, dist}) => compile(src, dist, develop, rtl)))
+await Promise.all(sources.map(({src, dist}) => compile(src, dist, develop, rtl)));
 
 if (!rtl && (Object.keys(themes).length || !await pathExists('themes.json'))) {
     await write('themes.json', JSON.stringify(themes));
