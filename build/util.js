@@ -1,9 +1,7 @@
 import less from 'less';
-import {URL} from 'url';
 import fs from 'fs-extra';
 import postcss from 'postcss';
 import globImport from 'glob';
-import {rollup, watch as rollupWatch} from 'rollup';
 import {optimize} from 'svgo';
 import {promisify} from 'util';
 import minimist from 'minimist';
@@ -14,13 +12,13 @@ import alias from '@rollup/plugin-alias';
 import modify from 'rollup-plugin-modify';
 import {uglify} from 'rollup-plugin-uglify';
 import replace from '@rollup/plugin-replace';
-import {basename, dirname, resolve} from 'path';
+import {basename, dirname, join} from 'path';
 import {exec as execImport} from 'child_process';
+import {rollup, watch as rollupWatch} from 'rollup';
 
 export const exec = promisify(execImport);
 export const glob = promisify(globImport);
 export const {pathExists, readJson} = fs;
-export const __dirname = new URL('.', import.meta.url).pathname;
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 export const validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
@@ -55,7 +53,7 @@ export async function write(dest, data) {
 
 export async function logFile(file) {
     const data = await read(file);
-    console.log(`${cyan(resolve(file))} ${getSize(data)}`);
+    console.log(`${cyan(file)} ${getSize(data)}`);
 }
 
 export async function minify(file) {
@@ -67,7 +65,7 @@ export async function minify(file) {
         returnPromise: true
     }).minify([file]);
 
-    await write(`${resolve(dirname(file), basename(file, '.css'))}.min.css`, styles);
+    await write(`${join(dirname(file), basename(file, '.css'))}.min.css`, styles);
 
     return styles;
 
@@ -236,7 +234,7 @@ export function ucfirst(str) {
 }
 
 export async function getVersion() {
-    return (await readJson(resolve(__dirname, '../package.json'))).version;
+    return (await readJson('package.json')).version;
 }
 
 export async function replaceInFile(file, fn) {

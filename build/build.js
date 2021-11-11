@@ -1,6 +1,6 @@
 import camelize from 'camelcase';
 import {basename, resolve} from 'path';
-import {__dirname, args, compile, glob, icons} from './util.js';
+import {args, compile, glob, icons} from './util.js';
 
 const bundles = getBundleTasks();
 const components = await getComponentTasks();
@@ -74,7 +74,7 @@ async function getComponentTasks() {
                 name,
                 external: ['uikit', 'uikit-util'],
                 globals: {uikit: 'UIkit', 'uikit-util': 'UIkit.util'},
-                aliases: {component: resolve(__dirname, '../src/js/components', name)},
+                aliases: {component: resolve('src/js/components', name)},
                 replaces: {NAME: `'${camelize(name)}'`}
             });
 

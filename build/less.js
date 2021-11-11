@@ -1,6 +1,6 @@
-import {basename} from 'path';
 import rtlcss from 'rtlcss';
 import postcss from 'postcss';
+import {basename} from 'path';
 import {args, banner, glob, minify, pathExists, read, readJson, renderLess, write} from './util.js';
 
 const {rtl} = args;
