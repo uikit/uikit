@@ -6,7 +6,6 @@ const bundles = getBundleTasks();
 const components = await getComponentTasks();
 
 if (args.h || args.help) {
-
     console.log(`
         usage:
 
