@@ -44,11 +44,11 @@ $modal-body-padding-horizontal:                  $global-gutter !default;
 $modal-body-padding-vertical:                    $global-gutter !default;
 
 $modal-header-padding-horizontal:                $global-gutter !default;
-$modal-header-padding-vertical:                  ($modal-header-padding-horizontal / 2) !default;
+$modal-header-padding-vertical:                  ($modal-header-padding-horizontal * 0.5) !default;
 $modal-header-background:                        $global-muted-background !default;
 
 $modal-footer-padding-horizontal:                $global-gutter !default;
-$modal-footer-padding-vertical:                  ($modal-footer-padding-horizontal / 2) !default;
+$modal-footer-padding-vertical:                  ($modal-footer-padding-horizontal * 0.5) !default;
 $modal-footer-background:                        $global-muted-background !default;
 
 $modal-title-font-size:                          $global-xlarge-font-size !default;
