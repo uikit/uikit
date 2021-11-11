@@ -1,4 +1,4 @@
-/* global UIkit */
+/* global UIkit, TESTS */
 import {on} from '../../src/js/util/event';
 import {css} from '../../src/js/util/style';
 import {ucfirst} from '../../src/js/util/lang';
@@ -6,6 +6,7 @@ import {prepend} from '../../src/js/util/dom';
 import {addClass, removeClass} from '../../src/js/util/class';
 import {fastdom} from '../../src/js/util/fastdom';
 
+const tests = TESTS;
 const storage = window.sessionStorage;
 const key = '_uikit_style';
 const keyinverse = '_uikit_inverse';
@@ -61,7 +62,7 @@ on(window, 'load', () => setTimeout(() => fastdom.write(() => {
         <div class="uk-container">
             <select class="uk-select uk-form-width-small" style="margin: 20px 20px 20px 0">
                 <option value="index.html">Overview</option>
-                ${TESTS.map(name => `<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).join('')}
+                ${tests.map(name => `<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).join('')}
             </select>
             <select class="uk-select uk-form-width-small" style="margin: 20px">
                 ${Object.keys(styles).map(style => `<option value="${style}">${ucfirst(style)}</option>`).join('')}
