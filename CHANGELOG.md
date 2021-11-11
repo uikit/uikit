@@ -6,6 +6,7 @@
 
 - Fix build scripts for windows users
 - Fix css in Leader component
+- Fix division deprecation warnings in Sass source
 
 ## 3.9.1 (November 10, 2021)
 

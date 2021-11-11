@@ -47,6 +47,7 @@
     "inquirer": "^8.2.0",
     "less": "^4.1.2",
     "minimist": "^1.2.5",
+    "number-precision": "^1.5.1",
     "postcss": "^8.3.11",
     "rollup": "^2.59.0",
     "rollup-plugin-html": "^0.2.1",

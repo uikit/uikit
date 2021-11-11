@@ -1,4 +1,7 @@
+import NP from 'number-precision';
 import {glob, read, write} from './util.js';
+
+NP.enableBoundaryChecking(false);
 
 const themeMixins = {};
 const coreMixins = {};
@@ -78,6 +81,7 @@ for (const file of await glob('src/less/**/*.less')) {
     let scssData = data.replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
         .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
         .replace(/@/g, '$') // convert variables
+        .replace(/(:[^'"]*?\([^()'"]+?)\s*\/\s*([0-9.]+)+\)/g, (exp, m1, m2) => `${m1} * ${NP.round(1 / parseFloat(m2), 5)})`)
         .replace(/--uk-[^\s]+: (\$[^\s]+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
         .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
         .replace(/ e\(/g, ' unquote(') // convert escape function
