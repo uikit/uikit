@@ -20,7 +20,7 @@
     "prefix": "node build/prefix",
     "scope": "node build/scope",
     "release": "node build/release",
-    "watch": "npm-watch",
+    "watch-less": "watch-run -i -p 'src/less/**/*.less' yarn compile-less",
     "eslint": "eslint src/js",
     "eslint-fix": "eslint --fix src/js"
   },
@@ -47,20 +47,17 @@
     "inquirer": "^8.2.0",
     "less": "^4.1.2",
     "minimist": "^1.2.5",
-    "npm-watch": "github:dasdeck/npm-watch#46a8a36c61cfd998ed53d27f62eaf79e11c395b4",
     "postcss": "^8.3.11",
     "rollup": "^2.59.0",
     "rollup-plugin-html": "^0.2.1",
+    "rollup-plugin-modify": "^3.0.0",
+    "rollup-plugin-uglify": "^6.0.4",
     "rtlcss": "^3.5.0",
     "semver": "^7.3.2",
     "svgo": "^2.8.0",
-    "uglify-js": "^3.14.3"
+    "watch-run": "^1.2.5"
   },
-  "watch": {
-    "compile-js": "src/js/**/*.js",
-    "compile-less": {
-      "patterns": "**/*.less",
-      "extensions": "less"
-    }
+  "resolutions": {
+    "serialize-javascript": "^6.0.0"
   }
 }
