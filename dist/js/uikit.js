@@ -1,4 +1,4 @@
-/*! UIkit 3.9.1 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.9.2 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1419,21 +1419,23 @@
     var parseCssVar = memoize(function (name) {
         /* usage in css: .uk-name:before { content:"xyz" } */
 
-        var element = append(document.documentElement, document.createElement('div'));
+        var element = append(document.documentElement, fragment('<div>'));
 
         addClass(element, ("uk-" + name));
 
-        name = getStyle(element, 'content', ':before').replace(/^["'](.*)["']$/, '$1');
+        var value = getStyle(element, 'content', ':before');
 
         remove$1(element);
 
-        return name;
+        return value;
     });
 
+    var propertyRe = /^\s*(["'])?(.*?)\1\s*$/;
     function getCssVar(name) {
-        return !isIE
-            ? getStyles(document.documentElement).getPropertyValue(("--uk-" + name))
-            : parseCssVar(name);
+        return (isIE
+            ? parseCssVar(name)
+            : getStyles(document.documentElement).getPropertyValue(("--uk-" + name))
+        ).replace(propertyRe, '$2');
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
@@ -3460,7 +3462,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.9.1';
+    UIkit.version = '3.9.2';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
