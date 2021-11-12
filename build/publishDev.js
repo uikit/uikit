@@ -4,30 +4,29 @@ import {args, getVersion, run} from './util.js';
 const {inc} = semver;
 
 // default exec options
-const options = {encoding: 'utf8'};
 if (args.f || args.force || await isDevCommit()) {
 
     // increase version patch number
     const version = inc(await getVersion(), 'patch');
 
     // get current git hash
-    const hash = (await run('git rev-parse --short HEAD', options)).trim();
+    const hash = (await run('git rev-parse --short HEAD')).trim();
 
     // set version of package.json
-    await run(`npm version ${version}-dev.${hash} --git-tag-version false`, {...options, stdio: 'inherit'});
+    await run(`npm version ${version}-dev.${hash} --git-tag-version false`);
 
     // create dist files
-    await run('yarn compile && yarn compile-rtl && yarn build-scss', {...options, stdio: 'inherit'});
+    await run('yarn compile && yarn compile-rtl && yarn build-scss');
 
     // publish to dev tag
-    await run('npm publish --tag dev', options);
+    await run('npm publish --tag dev');
 
 }
 
 async function isDevCommit() {
 
     // check for changes to publish (%B: raw body (unwrapped subject and body)
-    const message = await run('git log -1 --pretty=%B', options);
+    const message = await run('git log -1 --pretty=%B');
 
     const type = message.match(/^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types)(\(.+\))?: .{1,50}/);
 

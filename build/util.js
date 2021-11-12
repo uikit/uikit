@@ -221,10 +221,11 @@ export async function icons(src) {
 
 }
 
-export async function run(cmd) {
-    const {stdout, stderr} = await exec(cmd);
+export async function run(cmd, options) {
+    const {stdout, stderr} = await exec(cmd, options);
 
-    stderr && console.error(stderr.trim());
+    stdout && console.log(stdout.trim());
+    stderr && console.log(stderr.trim());
 
     return stdout;
 }
