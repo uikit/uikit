@@ -10,7 +10,7 @@ import html from 'rollup-plugin-html';
 import buble from '@rollup/plugin-buble';
 import alias from '@rollup/plugin-alias';
 import modify from 'rollup-plugin-modify';
-import {uglify} from 'rollup-plugin-uglify';
+import {terser} from 'rollup-plugin-terser';
 import replace from '@rollup/plugin-replace';
 import {basename, dirname, join} from 'path';
 import {exec as execImport} from 'child_process';
@@ -149,7 +149,7 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
         output.push({
             ...outputOptions,
             file: `${dest}.min.js`,
-            plugins: [minify ? uglify({output: {preamble: banner}}) : undefined]
+            plugins: [minify ? terser() : undefined]
         });
     }
 
