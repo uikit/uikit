@@ -2,8 +2,7 @@
     "root":true,
     "env": {
         "es6": true,
-        "browser": true,
-        "commonjs": true
+        "browser": true
     },
     "extends": [
         "eslint:recommended"

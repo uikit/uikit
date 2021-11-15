@@ -163,6 +163,9 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
 
         await bundle.close();
     } else {
+
+        console.log('UIkit is watching the files...');
+
         const watcher = rollupWatch({
             ...inputOptions,
             output
