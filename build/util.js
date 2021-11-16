@@ -218,10 +218,9 @@ export async function icons(src) {
 
     const files = await glob(src, {nosort: true});
     const icons = await Promise.all(
-        files.map(() =>
-            limit(() =>
-                async file =>
-                    (await optimize(await read(file), options)).data
+        files.map(file =>
+            limit(async () =>
+                (await optimize(await read(file), options)).data
             )
         )
     );
