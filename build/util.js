@@ -1,5 +1,6 @@
 import less from 'less';
 import fs from 'fs-extra';
+import PQueue from 'p-queue';
 import postcss from 'postcss';
 import globImport from 'glob';
 import {optimize} from 'svgo';
@@ -19,6 +20,7 @@ import {rollup, watch as rollupWatch} from 'rollup';
 export const exec = promisify(execImport);
 export const glob = promisify(globImport);
 export const {pathExists, readJson} = fs;
+export const queue = new PQueue({concurrency: Number(process.env.cpus || 2)});
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 export const validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
@@ -157,7 +159,7 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
         const bundle = await rollup(inputOptions);
 
         for (const options of output) {
-            await bundle.write(options);
+            await queue.add(() => bundle.write(options));
             logFile(options.file);
         }
 
