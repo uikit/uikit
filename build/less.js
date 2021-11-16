@@ -1,7 +1,7 @@
 import rtlcss from 'rtlcss';
 import postcss from 'postcss';
 import {basename} from 'path';
-import {args, banner, glob, minify, pathExists, queue, read, readJson, renderLess, write} from './util.js';
+import {args, banner, glob, minify, pathExists, read, readJson, renderLess, write} from './util.js';
 
 const {rtl} = args;
 const develop = args.develop || args.debug || args.d || args.nominify;
@@ -35,11 +35,11 @@ async function compile(file, dist, develop, rtl) {
 
     const less = await read(file);
 
-    let output = await queue.add(async () => (await renderLess(less, {
+    let output = (await renderLess(less, {
         relativeUrls: true,
         rootpath: '../../',
         paths: ['src/less/', 'custom/']
-    })).replace(/\.\.\/dist\//g, ''));
+    })).replace(/\.\.\/dist\//g, '');
 
     if (rtl) {
         output = postcss([

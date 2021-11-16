@@ -1,6 +1,6 @@
 import less from 'less';
 import fs from 'fs-extra';
-import PQueue from 'p-queue';
+import pLimit from 'p-limit';
 import postcss from 'postcss';
 import globImport from 'glob';
 import {optimize} from 'svgo';
@@ -17,10 +17,11 @@ import {basename, dirname, join} from 'path';
 import {exec as execImport} from 'child_process';
 import {rollup, watch as rollupWatch} from 'rollup';
 
+const limit = pLimit(Number(process.env.cpus || 2));
+
 export const exec = promisify(execImport);
 export const glob = promisify(globImport);
 export const {pathExists, readJson} = fs;
-export const queue = new PQueue({concurrency: Number(process.env.cpus || 2)});
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 export const validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
@@ -60,12 +61,12 @@ export async function logFile(file) {
 
 export async function minify(file) {
 
-    const {styles} = await new CleanCSS({
+    const {styles} = await limit(() => new CleanCSS({
         advanced: false,
         keepSpecialComments: 0,
         rebase: false,
         returnPromise: true
-    }).minify([file]);
+    }).minify([file]));
 
     await write(`${join(dirname(file), basename(file, '.css'))}.min.css`, styles);
 
@@ -73,8 +74,8 @@ export async function minify(file) {
 
 }
 
-export async function renderLess(data, options) {
-    return postcss()
+export function renderLess(data, options) {
+    return limit(async () => postcss()
         .use({
             postcssPlugin: 'calc',
             Once(root) {
@@ -91,7 +92,8 @@ export async function renderLess(data, options) {
             }
         })
         .process((await less.render(data, options)).css)
-        .css;
+        .css
+    );
 }
 
 export async function compile(file, dest, {external, globals, name, aliases, replaces} = {}) {
@@ -159,7 +161,7 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
         const bundle = await rollup(inputOptions);
 
         for (const options of output) {
-            await queue.add(() => bundle.write(options));
+            await limit(() => bundle.write(options));
             logFile(options.file);
         }
 
@@ -215,9 +217,14 @@ export async function icons(src) {
     };
 
     const files = await glob(src, {nosort: true});
-    const icons = await Promise.all(files.map(async file =>
-        (await optimize(await read(file), options)).data
-    ));
+    const icons = await Promise.all(
+        files.map(() =>
+            limit(() =>
+                async file =>
+                    (await optimize(await read(file), options)).data
+            )
+        )
+    );
 
     return JSON.stringify(files.reduce((result, file, i) => {
         result[basename(file, '.svg')] = icons[i];
@@ -227,7 +234,7 @@ export async function icons(src) {
 }
 
 export async function run(cmd, options) {
-    const {stdout, stderr} = await exec(cmd, options);
+    const {stdout, stderr} = await limit(() => exec(cmd, options));
 
     stdout && console.log(stdout.trim());
     stderr && console.log(stderr.trim());
