@@ -380,6 +380,8 @@
     .hook-logo-hover();
 }
 
+.uk-logo > :where(img, svg, video) { display: block; }
+
 .uk-logo-inverse { display: none; }
 
 
@@ -491,7 +493,7 @@
     }
 
     .uk-logo > :not(.uk-logo-inverse):not(:only-of-type) { display: none; }
-    .uk-logo-inverse { display: inline; }
+    .uk-logo-inverse { display: block; }
 
 }
 

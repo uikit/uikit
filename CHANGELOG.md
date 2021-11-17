@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix logo image alignment if logo line-height is larger than the image
+
 ## 3.9.2 (November 11, 2021)
 
 ### Fixed
