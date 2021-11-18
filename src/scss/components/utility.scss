@@ -380,6 +380,8 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
     @if(mixin-exists(hook-logo-hover)) {@include hook-logo-hover();}
 }
 
+.uk-logo > :where(img, svg, video) { display: block; }
+
 .uk-logo-inverse { display: none; }
 
 

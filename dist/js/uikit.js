@@ -1,4 +1,4 @@
-/*! UIkit 3.9.2 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.9.3 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1604,14 +1604,17 @@
     function offset(element, coordinates) {
 
         var currentOffset = dimensions(element);
-        var ref = toWindow(element);
-        var pageYOffset = ref.pageYOffset;
-        var pageXOffset = ref.pageXOffset;
-        var offsetBy = {height: pageYOffset, width: pageXOffset};
 
-        for (var dir in dirs$1) {
-            for (var i in dirs$1[dir]) {
-                currentOffset[dirs$1[dir][i]] += offsetBy[dir];
+        if (element) {
+            var ref = toWindow(element);
+            var pageYOffset = ref.pageYOffset;
+            var pageXOffset = ref.pageXOffset;
+            var offsetBy = {height: pageYOffset, width: pageXOffset};
+
+            for (var dir in dirs$1) {
+                for (var i in dirs$1[dir]) {
+                    currentOffset[dirs$1[dir][i]] += offsetBy[dir];
+                }
             }
         }
 
@@ -3462,7 +3465,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.9.2';
+    UIkit.version = '3.9.3';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
