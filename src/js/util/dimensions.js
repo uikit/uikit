@@ -25,12 +25,15 @@ export function dimensions(element) {
 export function offset(element, coordinates) {
 
     const currentOffset = dimensions(element);
-    const {pageYOffset, pageXOffset} = toWindow(element);
-    const offsetBy = {height: pageYOffset, width: pageXOffset};
 
-    for (const dir in dirs) {
-        for (const i in dirs[dir]) {
-            currentOffset[dirs[dir][i]] += offsetBy[dir];
+    if (element) {
+        const {pageYOffset, pageXOffset} = toWindow(element);
+        const offsetBy = {height: pageYOffset, width: pageXOffset};
+
+        for (const dir in dirs) {
+            for (const i in dirs[dir]) {
+                currentOffset[dirs[dir][i]] += offsetBy[dir];
+            }
         }
     }
 
