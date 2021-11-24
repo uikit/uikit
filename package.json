@@ -20,7 +20,7 @@
     "prefix": "node build/prefix",
     "scope": "node build/scope",
     "release": "node build/release",
-    "watch-less": "watch-run -i -p 'src/less/**/*.less' yarn compile-less",
+    "watch": "watch-run -i -p 'src/less/**/*.less' yarn compile-less",
     "eslint": "eslint src/js",
     "eslint-fix": "eslint --fix src/js"
   },
