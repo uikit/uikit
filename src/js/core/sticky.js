@@ -146,9 +146,10 @@ export default {
 
                 height = !this.isActive ? this.$el.offsetHeight : height;
 
-                this.topOffset = offset(this.isFixed ? this.placeholder : this.$el).top;
+                const referenceElement = this.isFixed ? this.placeholder : this.$el;
+                this.topOffset = offset(referenceElement).top;
                 this.bottomOffset = this.topOffset + height;
-                this.offsetParentTop = offset(this.$el.offsetParent).top;
+                this.offsetParentTop = offset(referenceElement.offsetParent).top;
 
                 const bottom = parseProp('bottom', this);
 
