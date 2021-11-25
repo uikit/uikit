@@ -4,6 +4,9 @@ import {args, compile, glob, icons} from './util.js';
 
 const bundles = getBundleTasks();
 const components = await getComponentTasks();
+const buildAll = args.all || Object.keys(args).filter(name =>
+    ['d', 'debug', 'nominify', 'watch'].includes(name)
+).length <= 1;
 
 if (args.h || args.help) {
     console.log(`
@@ -28,7 +31,7 @@ if (args.h || args.help) {
 
 let tasks;
 const allTasks = {...bundles, ...components};
-if (args.all || Object.keys(args).length <= 1) {
+if (buildAll) {
     tasks = allTasks;
 } else if (args.components) {
     tasks = components;

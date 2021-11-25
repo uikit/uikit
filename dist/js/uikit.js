@@ -1,4 +1,4 @@
-/*! UIkit 3.9.3 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.9.4 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3465,7 +3465,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.9.3';
+    UIkit.version = '3.9.4';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -7837,9 +7837,10 @@
 
                     height = !this.isActive ? this.$el.offsetHeight : height;
 
-                    this.topOffset = offset(this.isFixed ? this.placeholder : this.$el).top;
+                    var referenceElement = this.isFixed ? this.placeholder : this.$el;
+                    this.topOffset = offset(referenceElement).top;
                     this.bottomOffset = this.topOffset + height;
-                    this.offsetParentTop = offset(this.$el.offsetParent).top;
+                    this.offsetParentTop = offset(referenceElement.offsetParent).top;
 
                     var bottom = parseProp('bottom', this);
 

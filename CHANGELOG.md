@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.9.4 (November 25, 2021)
+
+### Fixed
+
+- Fix Sticky position when bottom option is used
+
 ## 3.9.3 (November 18, 2021)
 
 ### Fixed
