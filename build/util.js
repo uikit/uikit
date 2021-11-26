@@ -175,13 +175,16 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
             output
         });
 
-        watcher.on('event', ({code, result, output}) => {
+        watcher.on('event', ({code, result, output, error}) => {
             if (result) {
                 result.close();
 
             }
             if (code === 'BUNDLE_END' && output) {
                 output.map(logFile);
+            }
+            if (error) {
+                console.error(error);
             }
         });
 
