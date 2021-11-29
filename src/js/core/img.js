@@ -173,7 +173,10 @@ function setSrcAttrs(el, src) {
 
 }
 
-function getPlaceholderImage(width, height, sizes) {
+function getPlaceholderImage(el) {
+    const sizes = data(el, 'sizes');
+    let width = data(el, 'width');
+    let height = data(el, 'height');
 
     if (sizes) {
         ({width, height} = Dimensions.ratio({width, height}, 'width', toPx(sizesToPixel(sizes))));
