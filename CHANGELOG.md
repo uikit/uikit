@@ -5,6 +5,7 @@
 ### Added
 
 - Add support for <picture> element in Img component
+- Add 'aria-haspopup' attribute to Drop component's toggle
 
 ## 3.9.4 (November 25, 2021)
 
