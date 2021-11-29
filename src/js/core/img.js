@@ -2,7 +2,10 @@ import {attr, children, createEvent, css, data, Dimensions, escape, getImage, in
 
 export default {
 
+    args: 'dataSrc',
+
     props: {
+        dataSrc: String,
         width: Number,
         height: Number,
         offsetTop: String,
@@ -11,6 +14,7 @@ export default {
     },
 
     data: {
+        dataSrc: '',
         width: false,
         height: false,
         offsetTop: '50vh',
@@ -20,16 +24,8 @@ export default {
 
     computed: {
 
-        cacheKey() {
-            return `${this.$name}.${data(this.$el, 'data-src')}`;
-        },
-
-        width({width, dataWidth}) {
-            return width || dataWidth;
-        },
-
-        height({height, dataHeight}) {
-            return height || dataHeight;
+        cacheKey({dataSrc}) {
+            return `${this.$name}.${dataSrc}`;
         },
 
         target: {
@@ -127,7 +123,7 @@ export default {
                 return;
             }
 
-            this._data.image = getImageFromElement(this.$el).then(img => {
+            this._data.image = getImageFromElement(this.$el, this.dataSrc).then(img => {
 
                 setSrcAttrs(this.$el, currentSrc(img));
                 storage[this.cacheKey] = currentSrc(img);
@@ -161,6 +157,7 @@ function setSrcAttrs(el, src) {
                 }
             })
         );
+        attr(el, 'src', src);
     } else if (src) {
 
         const change = !includes(el.style.backgroundImage, src);
@@ -201,10 +198,15 @@ function sizesToPixel(sizes) {
     return matches || '100vw';
 }
 
-function getImageFromElement(el) {
+function getImageFromElement(el, src) {
     const parentNode = parent(el);
+
+    if (!src) {
+        return Promise.reject(createEvent('error', false));
+    }
+
     if (!isPicture(parentNode)) {
-        return getImage(...srcProps.map(prop => data(el, prop)));
+        return getImage(src, ...srcProps.slice(1).map(prop => data(el, prop)));
     }
 
     return new Promise((resolve, reject) => {
