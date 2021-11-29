@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add support for <picture> element in Img component
+
 ## 3.9.4 (November 25, 2021)
 
 ### Fixed

@@ -1,13 +1,8 @@
-import {createEvent, css, Dimensions, escape, getImage, includes, isUndefined, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
+import {attr, children, createEvent, css, data, Dimensions, escape, getImage, includes, isUndefined, once, parent, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
 
 export default {
 
-    args: 'dataSrc',
-
     props: {
-        dataSrc: String,
-        dataSrcset: Boolean,
-        sizes: String,
         width: Number,
         height: Number,
         offsetTop: String,
@@ -16,9 +11,6 @@ export default {
     },
 
     data: {
-        dataSrc: '',
-        dataSrcset: false,
-        sizes: false,
         width: false,
         height: false,
         offsetTop: '50vh',
@@ -28,8 +20,8 @@ export default {
 
     computed: {
 
-        cacheKey({dataSrc}) {
-            return `${this.$name}.${dataSrc}`;
+        cacheKey() {
+            return `${this.$name}.${data(this.$el, 'data-src')}`;
         },
 
         width({width, dataWidth}) {
@@ -38,14 +30,6 @@ export default {
 
         height({height, dataHeight}) {
             return height || dataHeight;
-        },
-
-        sizes({sizes, dataSizes}) {
-            return sizes || dataSizes;
-        },
-
-        isImg(_, $el) {
-            return isImg($el);
         },
 
         target: {
@@ -73,14 +57,14 @@ export default {
     connected() {
 
         if (!window.IntersectionObserver) {
-            setSrcAttrs(this.$el, this.dataSrc, this.dataSrcset, this.sizes);
+            setSrcAttrs(this.$el);
             return;
         }
 
         if (storage[this.cacheKey]) {
-            setSrcAttrs(this.$el, storage[this.cacheKey], this.dataSrcset, this.sizes);
-        } else if (this.isImg && this.width && this.height) {
-            setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
+            setSrcAttrs(this.$el, storage[this.cacheKey]);
+        } else if (isImg(this.$el) && this.width && this.height) {
+            attr(this.$el, 'src', getPlaceholderImage(this.$el));
         }
 
         this.observer = new IntersectionObserver(this.load, {
@@ -107,7 +91,7 @@ export default {
                 this.load(this.observer.takeRecords());
             }
 
-            if (this.isImg) {
+            if (isImg(this.$el)) {
                 return false;
             }
 
@@ -115,14 +99,15 @@ export default {
 
         },
 
-        write(data) {
+        write(store) {
 
-            if (this.dataSrcset && window.devicePixelRatio !== 1) {
+            const srcset = data(this.$el, 'data-srcset');
+            if (srcset && window.devicePixelRatio !== 1) {
 
                 const bgSize = css(this.$el, 'backgroundSize');
-                if (bgSize.match(/^(auto\s?)+$/) || toFloat(bgSize) === data.bgSize) {
-                    data.bgSize = getSourceSize(this.dataSrcset, this.sizes);
-                    css(this.$el, 'backgroundSize', `${data.bgSize}px`);
+                if (bgSize.match(/^(auto\s?)+$/) || toFloat(bgSize) === store.bgSize) {
+                    store.bgSize = getSourceSize(srcset, data(this.$el, 'sizes'));
+                    css(this.$el, 'backgroundSize', `${store.bgSize}px`);
                 }
 
             }
@@ -142,9 +127,9 @@ export default {
                 return;
             }
 
-            this._data.image = getImage(this.dataSrc, this.dataSrcset, this.sizes).then(img => {
+            this._data.image = getImageFromElement(this.$el).then(img => {
 
-                setSrcAttrs(this.$el, currentSrc(img), img.srcset, img.sizes);
+                setSrcAttrs(this.$el, currentSrc(img));
                 storage[this.cacheKey] = currentSrc(img);
                 return img;
 
@@ -163,13 +148,19 @@ export default {
 
 };
 
-function setSrcAttrs(el, src, srcset, sizes) {
+const srcProps = ['data-src', 'data-srcset', 'sizes'];
+function setSrcAttrs(el, src) {
 
+    const parentNode = parent(el);
     if (isImg(el)) {
-        const set = (prop, val) => val && val !== el[prop] && (el[prop] = val);
-        set('sizes', sizes);
-        set('srcset', srcset);
-        set('src', src);
+        (isPicture(parentNode) ? children(parentNode) : [el]).forEach(el =>
+            srcProps.forEach(prop => {
+                const value = data(el, prop);
+                if (value) {
+                    attr(el, prop.replace(/^(data-)+/, ''), value);
+                }
+            })
+        );
     } else if (src) {
 
         const change = !includes(el.style.backgroundImage, src);
@@ -207,6 +198,19 @@ function sizesToPixel(sizes) {
     return matches || '100vw';
 }
 
+function getImageFromElement(el) {
+    const parentNode = parent(el);
+    if (!isPicture(parentNode)) {
+        return getImage(...srcProps.map(prop => data(el, prop)));
+    }
+
+    return new Promise((resolve, reject) => {
+        const picture = parentNode.cloneNode(true);
+        once(picture, 'load error', e => e.type === 'error' ? reject(e) : resolve(e.target), true);
+        setSrcAttrs(el);
+    });
+}
+
 const sizeRe = /\d+(?:\w+|%)/g;
 const additionRe = /[+-]?(\d+)/g;
 function evaluateSize(size) {
@@ -228,8 +232,16 @@ function getSourceSize(srcset, sizes) {
     return descriptors.filter(size => size >= srcSize)[0] || descriptors.pop() || '';
 }
 
+function isPicture(el) {
+    return isA(el, 'PICTURE');
+}
+
 function isImg(el) {
-    return el.tagName === 'IMG';
+    return isA(el, 'IMG');
+}
+
+function isA(el, tagName) {
+    return el && el.tagName === tagName;
 }
 
 function currentSrc(el) {
