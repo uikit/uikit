@@ -7,6 +7,10 @@
 - Add support for <picture> element in Img component
 - Add 'aria-haspopup' attribute to Drop component's toggle
 
+### Changed
+
+- Disable Sticky component if it's element is higher than viewport
+
 ### Fixed
 
 - Fix initial iframe width for `uk-responsive` which caused an expanded viewport on iOS devices

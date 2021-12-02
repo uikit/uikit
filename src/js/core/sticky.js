@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, css, dimensions, fastdom, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, css, dimensions, fastdom, height as getHeight, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -145,6 +145,11 @@ export default {
                 }
 
                 height = !this.isActive ? this.$el.offsetHeight : height;
+
+                if (height + this.offset > getHeight(window)) {
+                    this.inactive = true;
+                    return false;
+                }
 
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
                 this.topOffset = offset(referenceElement).top;
