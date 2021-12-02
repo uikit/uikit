@@ -7,6 +7,10 @@
 - Add support for <picture> element in Img component
 - Add 'aria-haspopup' attribute to Drop component's toggle
 
+### Fixed
+
+- Fix initial iframe width for `uk-responsive` which caused an expanded viewport on iOS devices
+
 ## 3.9.4 (November 25, 2021)
 
 ### Fixed
@@ -206,7 +210,7 @@
 ### Fixed
 
 - Fix animation set to `false` in Sortable component
-- Fix Tooltip on elements with class 'uk-active' applied
+- Fix Tooltip on elements with class `uk-active` applied
 - Fix Slider parallax states
 
 ## 3.6.18 (March 12, 2021)
