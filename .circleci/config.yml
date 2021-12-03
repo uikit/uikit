@@ -1,22 +1,36 @@
 version: 2.1
+
+orbs:
+  node: circleci/node@4.7.0
+
+executors:
+  executor:
+    docker:
+      - image: cimg/base::stable
+
 jobs:
   build:
-    docker:
-      - image: cimg/node:lts
+    executor: executor
     working_directory: ~/uikit
     steps:
+      # Install node
+      - node/install:
+          lts: true
+          install-npm: false
+          install-yarn: true
+
+      # Checkout repository
       - checkout
-      - restore_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+
+      # Download Node dependencies
+      - node/install-packages:
+          pkg-manager: yarn
+
+      # Run ESlint
       - run:
-          name: Dependencies
-          command: |
-            yarn install --pure-lockfile --cache-folder ~/.yarn
-      - save_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.yarn
-            - ./node_modules
+          name: ESlint
+          command: yarn eslint
+
       - run:
           name: Compile
           command: |
