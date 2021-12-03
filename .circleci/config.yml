@@ -6,7 +6,7 @@ orbs:
 executors:
   executor:
     docker:
-      - image: cimg/base::stable
+      - image: cimg/base:stable
 
 jobs:
   build:
