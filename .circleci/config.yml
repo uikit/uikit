@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/node:16
+      - image: cimg/node:lts
     working_directory: ~/uikit
     steps:
       - checkout
