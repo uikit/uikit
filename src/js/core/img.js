@@ -1,4 +1,4 @@
-import {attr, children, createEvent, css, data, Dimensions, escape, getImage, includes, isUndefined, once, parent, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
+import {$, attr, children, createEvent, css, data, Dimensions, escape, getImage, includes, isUndefined, once, parent, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
 
 export default {
 
@@ -157,7 +157,7 @@ function setSrcAttrs(el, src) {
                 }
             })
         );
-        attr(el, 'src', src);
+        src && attr(el, 'src', src);
     } else if (src) {
 
         const change = !includes(el.style.backgroundImage, src);
@@ -212,7 +212,7 @@ function getImageFromElement(el, src) {
     return new Promise((resolve, reject) => {
         const picture = parentNode.cloneNode(true);
         once(picture, 'load error', e => e.type === 'error' ? reject(e) : resolve(e.target), true);
-        setSrcAttrs(el);
+        setSrcAttrs($('img', picture));
     });
 }
 
