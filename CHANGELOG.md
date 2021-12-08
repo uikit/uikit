@@ -9,6 +9,7 @@
 
 ### Changed
 
+- Img component no longer sets a placeholder (use height/width instead)
 - Disable Sticky component if it's element is higher than viewport
 
 ### Fixed
