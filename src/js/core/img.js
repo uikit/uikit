@@ -55,17 +55,11 @@ export default {
 
         read({image}) {
 
-            if (!this.observer) {
+            if (!this.observer || isImg(this.$el)) {
                 return false;
             }
 
-            if (isImg(this.$el)) {
-                return false;
-            }
-
-            if (image && image.currentSrc !== '') {
-                setSrcAttrs(this.$el, currentSrc(image));
-            }
+            setSrcAttrs(this.$el, image && image.currentSrc);
 
         },
 
@@ -101,8 +95,9 @@ export default {
                 return this._data.image;
             }
 
-            this._data.image = isImg(this.$el) ? this.$el : getImageFromElement(this.$el, this.dataSrc);
-            setSrcAttrs(this.$el, currentSrc(this._data.image));
+            const image = isImg(this.$el) ? this.$el : getImageFromElement(this.$el, this.dataSrc);
+            this._data.image = image;
+            setSrcAttrs(this.$el, image.currentSrc);
 
             this.observer.disconnect();
         },
@@ -205,8 +200,4 @@ function isImg(el) {
 
 function isA(el, tagName) {
     return el && el.tagName === tagName;
-}
-
-function currentSrc(el) {
-    return el.currentSrc || el.src;
 }
