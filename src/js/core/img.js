@@ -53,7 +53,7 @@ export default {
     connected() {
 
         if (!window.IntersectionObserver) {
-            setSrcAttrs(this.$el);
+            setSrcAttrs(this.$el, this.dataSrc);
             return;
         }
 
