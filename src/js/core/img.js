@@ -115,10 +115,12 @@ export default {
 function setSrcAttrs(el, src) {
 
     if (isImg(el)) {
+
         const parentNode = parent(el);
         const elements = isPicture(parentNode) ? children(parentNode) : [el];
-        elements.forEach(setSourceProps);
+        elements.forEach(el => setSourceProps(el, el));
         src && attr(el, 'src', src);
+
     } else if (src) {
 
         const change = !includes(el.style.backgroundImage, src);
@@ -136,7 +138,7 @@ function setSourceProps(sourceEl, targetEl) {
     srcProps.forEach(prop => {
         const value = data(sourceEl, prop);
         if (value) {
-            attr(targetEl || sourceEl, prop.replace(/^(data-)+/, ''), value);
+            attr(targetEl, prop.replace(/^(data-)+/, ''), value);
         }
     });
 }
