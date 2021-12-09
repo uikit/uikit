@@ -30,6 +30,7 @@
 @search-default-focus-background:                   darken(@search-default-background, 5%);
 
 @search-default-icon-width:                         @global-control-height;
+@search-default-icon-padding:                       0;
 
 @search-navbar-width:                               400px;
 @search-navbar-height:                              40px;
@@ -37,6 +38,7 @@
 @search-navbar-font-size:                           @global-large-font-size;
 
 @search-navbar-icon-width:                          40px;
+@search-navbar-icon-padding:                        0;
 
 @search-large-width:                                500px;
 @search-large-height:                               80px;
@@ -44,6 +46,7 @@
 @search-large-font-size:                            @global-2xlarge-font-size;
 
 @search-large-icon-width:                           80px;
+@search-large-icon-padding:                         0;
 
 @search-toggle-color:                               @global-muted-color;
 @search-toggle-hover-color:                         @global-color;
@@ -205,8 +208,8 @@
 
 .uk-search-default .uk-search-icon { width: @search-default-icon-width; }
 
-.uk-search-default .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-default-icon-width); }
-.uk-search-default .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-default-icon-width); }
+.uk-search-default .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-default-icon-width + @search-default-icon-padding); }
+.uk-search-default .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-default-icon-width + @search-default-icon-padding); }
 
 
 /* Navbar modifier
@@ -236,8 +239,8 @@
 
 .uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
 
-.uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-navbar-icon-width); }
-.uk-search-navbar .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-navbar-icon-width); }
+.uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-navbar-icon-width + @search-navbar-icon-padding); }
+.uk-search-navbar .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-navbar-icon-width + @search-navbar-icon-padding); }
 
 
 /* Large modifier
@@ -267,8 +270,8 @@
 
 .uk-search-large .uk-search-icon { width: @search-large-icon-width; }
 
-.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-large-icon-width); }
-.uk-search-large .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-large-icon-width); }
+.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-large-icon-width + @search-large-icon-padding); }
+.uk-search-large .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-large-icon-width + @search-large-icon-padding); }
 
 
 /* Toggle

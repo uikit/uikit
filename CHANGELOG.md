@@ -6,6 +6,7 @@
 
 - Add support for <picture> element in Img component
 - Add 'aria-haspopup' attribute to Drop component's toggle
+- Add padding variable to search icon in Search component
 
 ### Changed
 
