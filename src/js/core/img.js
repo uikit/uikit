@@ -97,7 +97,7 @@ export default {
 
             const image = isImg(this.$el) ? this.$el : getImageFromElement(this.$el, this.dataSrc);
             this._data.image = image;
-            setSrcAttrs(this.$el, image.currentSrc);
+            setSrcAttrs(this.$el, image.currentSrc || this.dataSrc);
 
             this.observer.disconnect();
         },
