@@ -4,13 +4,11 @@
 
 ### Added
 
-- Add support for <picture> element in Img component
 - Add 'aria-haspopup' attribute to Drop component's toggle
 - Add padding variable to search icon in Search component
 
 ### Changed
 
-- Img component no longer sets a placeholder (use height/width instead)
 - Disable Sticky component if it's element is higher than viewport
 
 ### Fixed
