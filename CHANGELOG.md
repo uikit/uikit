@@ -1,5 +1,15 @@
 # Changelog
 
+## WIP Picture element
+
+### Added
+
+- Add support for <picture> element in Img component
+
+### Changed
+
+- Img component no longer sets a placeholder (use height/width instead)
+
 ## WIP
 
 ### Added
