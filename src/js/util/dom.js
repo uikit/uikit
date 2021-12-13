@@ -1,4 +1,4 @@
-import {on} from './event';
+import {once} from './event';
 import {parent} from './filter';
 import {find, findAll} from './selector';
 import {isElement, isString, isUndefined, toNode, toNodes} from './lang';
@@ -10,10 +10,7 @@ export function ready(fn) {
         return;
     }
 
-    const unbind = on(document, 'DOMContentLoaded', function () {
-        unbind();
-        fn();
-    });
+    once(document, 'DOMContentLoaded', fn);
 }
 
 export function empty(element) {
