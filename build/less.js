@@ -1,5 +1,4 @@
 import rtlcss from 'rtlcss';
-import postcss from 'postcss';
 import {basename} from 'path';
 import {args, banner, glob, minify, pathExists, read, readJson, renderLess, write} from './util.js';
 
@@ -42,12 +41,9 @@ async function compile(file, dist, develop, rtl) {
     })).replace(/\.\.\/dist\//g, '');
 
     if (rtl) {
-        output = postcss([
-            css => {
-                css.insertBefore(css.nodes[0], postcss.comment({text: 'rtl:begin:rename'}));
-                css.insertAfter(css.nodes[css.nodes.length - 1], postcss.comment({text: 'rtl:end:rename'}));
-            },
-            rtlcss({
+        output = rtlcss.process(
+            output,
+            {
                 stringMap: [{
                     name: 'previous-next',
                     priority: 100,
@@ -58,10 +54,33 @@ async function compile(file, dist, develop, rtl) {
                         ignoreCase: false
                     }
                 }]
-            })
-        ]).process(output).css;
+            },
+            [
+                {
+                    name: 'customNegate',
+                    priority: 50,
+                    directives: {
+                        control: {},
+                        value: []
+                    },
+                    processors: [
+                        {
+                            expr: ['--uk-position-translate-x', 'stroke-dashoffset'].join('|'),
+                            action(prop, value, context) {
+                                return {prop, value: context.util.negate(value)};
+                            }
+                        },
 
-        output = output.replace(/stroke-dashoffset: (\d+)px/g, 'stroke-dashoffset: -$1px');
+                    ]
+                }
+            ],
+            {
+                pre(root, postcss) {
+                    root.prepend(postcss.comment({text: 'rtl:begin:rename'}));
+                    root.append(postcss.comment({text: 'rtl:end:rename'}));
+                }
+            }
+        );
     }
 
     await write(dist, banner + output);
