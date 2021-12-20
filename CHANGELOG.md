@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add intrinsic widths to Width component
 - Add 'aria-haspopup' attribute to Drop component's toggle
 - Add padding variable to search icon in Search component
 
