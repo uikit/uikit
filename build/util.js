@@ -1,7 +1,6 @@
 import less from 'less';
 import fs from 'fs-extra';
 import pLimit from 'p-limit';
-import postcss from 'postcss';
 import globImport from 'glob';
 import {optimize} from 'svgo';
 import {promisify} from 'util';
@@ -75,25 +74,7 @@ export async function minify(file) {
 }
 
 export function renderLess(data, options) {
-    return limit(async () => postcss()
-        .use({
-            postcssPlugin: 'calc',
-            Once(root) {
-                root.walk(node => {
-                    const {type} = node;
-                    if (type === 'decl') {
-                        node.value = postcss.list.space(node.value).map(value =>
-                            value.startsWith('calc(')
-                                ? value.replace(/(.)calc/g, '$1')
-                                : value
-                        ).join(' ');
-                    }
-                });
-            }
-        })
-        .process((await less.render(data, options)).css)
-        .css
-    );
+    return limit(async () => (await less.render(data, options)).css);
 }
 
 export async function compile(file, dest, {external, globals, name, aliases, replaces} = {}) {
