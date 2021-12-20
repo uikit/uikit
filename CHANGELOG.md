@@ -16,6 +16,7 @@
 - Fix initial iframe width for `uk-responsive` which caused an expanded viewport on iOS devices
 - Fix link toggle style if not hovered
 - Fix compiling Slideshow css in rtl mode
+- Fix Sortable component no longer scrolls `overflow: hidden` containers
 
 ## 3.9.4 (November 25, 2021)
 
