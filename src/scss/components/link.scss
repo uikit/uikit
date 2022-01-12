@@ -32,7 +32,8 @@ $link-heading-hover-text-decoration:             none !default;
  ========================================================================== */
 
 a.uk-link-muted,
-.uk-link-muted a {
+.uk-link-muted a,
+.uk-link-toggle .uk-link-muted {
     color: $link-muted-color;
     @if(mixin-exists(hook-link-muted)) {@include hook-link-muted();}
 }
@@ -49,7 +50,8 @@ a.uk-link-muted:hover,
  ========================================================================== */
 
 a.uk-link-text,
-.uk-link-text a {
+.uk-link-text a,
+.uk-link-toggle .uk-link-text {
     color: inherit;
     @if(mixin-exists(hook-link-text)) {@include hook-link-text();}
 }
@@ -66,7 +68,8 @@ a.uk-link-text:hover,
  ========================================================================== */
 
 a.uk-link-heading,
-.uk-link-heading a {
+.uk-link-heading a,
+.uk-link-toggle .uk-link-heading {
     color: inherit;
     @if(mixin-exists(hook-link-heading)) {@include hook-link-heading();}
 }

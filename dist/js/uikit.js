@@ -1,4 +1,4 @@
-/*! UIkit 3.9.4 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.10.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -634,8 +634,9 @@
     function domPath(element) {
         var names = [];
         while (element.parentNode) {
-            if (element.id) {
-                names.unshift(("#" + (escape(element.id))));
+            var id = attr(element, 'id');
+            if (id) {
+                names.unshift(("#" + (escape(id))));
                 break;
             } else {
                 var tagName = element.tagName;
@@ -1104,10 +1105,7 @@
             return;
         }
 
-        var unbind = on(document, 'DOMContentLoaded', function () {
-            unbind();
-            fn();
-        });
+        once(document, 'DOMContentLoaded', fn);
     }
 
     function empty(element) {
@@ -3465,7 +3463,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.9.4';
+    UIkit.version = '3.10.0';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4105,7 +4103,7 @@
 
     var cover = {
 
-        mixins: [Class, Video],
+        mixins: [Video],
 
         props: {
             width: Number,
@@ -4327,7 +4325,8 @@
                 this.target = this.$create('toggle', query(this.toggle, this.$el), {
                     target: this.$el,
                     mode: this.mode
-                });
+                }).$el;
+                attr(this.target, 'aria-haspopup', true);
             }
 
         },
@@ -7820,7 +7819,7 @@
             {
 
                 read: function(ref, types) {
-                    var height = ref.height;
+                    var height$1 = ref.height;
 
 
                     this.inactive = !this.matchMedia || !isVisible(this.$el);
@@ -7831,15 +7830,20 @@
 
                     if (this.isActive && types.has('resize')) {
                         this.hide();
-                        height = this.$el.offsetHeight;
+                        height$1 = this.$el.offsetHeight;
                         this.show();
                     }
 
-                    height = !this.isActive ? this.$el.offsetHeight : height;
+                    height$1 = !this.isActive ? this.$el.offsetHeight : height$1;
+
+                    if (height$1 + this.offset > height(window)) {
+                        this.inactive = true;
+                        return false;
+                    }
 
                     var referenceElement = this.isFixed ? this.placeholder : this.$el;
                     this.topOffset = offset(referenceElement).top;
-                    this.bottomOffset = this.topOffset + height;
+                    this.bottomOffset = this.topOffset + height$1;
                     this.offsetParentTop = offset(referenceElement.offsetParent).top;
 
                     var bottom = parseProp('bottom', this);
@@ -7849,7 +7853,7 @@
                     this.width = dimensions(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
 
                     return {
-                        height: height,
+                        height: height$1,
                         top: offsetPosition(this.placeholder)[0],
                         margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                     };
@@ -12181,7 +12185,7 @@
             var dist = (Date.now() - last) * .3;
             last = Date.now();
 
-            scrollParents(document.elementFromPoint(x, pos.y)).reverse().some(function (scrollEl) {
+            scrollParents(document.elementFromPoint(x, pos.y), /auto|scroll/).reverse().some(function (scrollEl) {
 
                 var scroll = scrollEl.scrollTop;
                 var scrollHeight = scrollEl.scrollHeight;
