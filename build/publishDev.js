@@ -28,7 +28,8 @@ async function isDevCommit() {
     // check for changes to publish (%B: raw body (unwrapped subject and body)
     const message = await run('git log -1 --pretty=%B');
 
-    const type = message.match(/^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types)(\(.+\))?: .{1,50}/);
+    // https://www.conventionalcommits.org/en/v1.0.0/
+    const type = message.match(/^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build)(\(.+\))?: .{1,50}/);
 
     return type && ['feat', 'fix', 'refactor', 'perf'].includes(type[2]);
 

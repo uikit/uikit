@@ -95,7 +95,7 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 .uk-list-decimal > * { counter-increment: decimal; }
 
 [class*='uk-list'] > ::before {
-    content: '';
+    content: "";
     position: relative;
     left: (-$list-padding-left);
     width: $list-padding-left;

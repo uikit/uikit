@@ -1,3 +1,4 @@
+import {attr} from './attr';
 import {inBrowser} from './env';
 import {closest, index, matches, parent} from './filter';
 import {isDocument, isString, memoize, toNode, toNodes} from './lang';
@@ -95,8 +96,9 @@ const splitSelector = memoize(selector =>
 function domPath(element) {
     const names = [];
     while (element.parentNode) {
-        if (element.id) {
-            names.unshift(`#${escape(element.id)}`);
+        const id = attr(element, 'id');
+        if (id) {
+            names.unshift(`#${escape(id)}`);
             break;
         } else {
             let {tagName} = element;

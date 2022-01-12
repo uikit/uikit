@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.10.0 (January 12, 2022)
+
+### Added
+
+- Add intrinsic widths to Width component
+- Add 'aria-haspopup' attribute to Drop component's toggle
+- Add padding variable to search icon in Search component
+- Add position bottom variable to box-shadow bottom in Utility component
+
+### Changed
+
+- Disable Sticky component if it's element is higher than viewport
+
+### Fixed
+
+- Fix initial iframe width for `uk-responsive` which caused an expanded viewport on iOS devices
+- Fix link toggle style if not hovered
+- Fix compiling Slideshow css in rtl mode
+- Fix Sortable component no longer scrolls `overflow: hidden` containers
+- Fix 'yarn watch' not watching changes in less files
+- Fix `domPath()` for elements within forms that include inputs with name 'id'
+
 ## 3.9.4 (November 25, 2021)
 
 ### Fixed
@@ -199,7 +221,7 @@
 ### Fixed
 
 - Fix animation set to `false` in Sortable component
-- Fix Tooltip on elements with class 'uk-active' applied
+- Fix Tooltip on elements with class `uk-active` applied
 - Fix Slider parallax states
 
 ## 3.6.18 (March 12, 2021)

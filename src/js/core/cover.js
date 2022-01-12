@@ -1,10 +1,9 @@
 import Video from './video';
-import Class from '../mixin/class';
 import {css, Dimensions, parent} from 'uikit-util';
 
 export default {
 
-    mixins: [Class, Video],
+    mixins: [Video],
 
     props: {
         width: Number,

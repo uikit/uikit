@@ -30,6 +30,7 @@
 @search-default-focus-background:                   darken(@search-default-background, 5%);
 
 @search-default-icon-width:                         @global-control-height;
+@search-default-icon-padding:                       0;
 
 @search-navbar-width:                               400px;
 @search-navbar-height:                              40px;
@@ -37,6 +38,7 @@
 @search-navbar-font-size:                           @global-large-font-size;
 
 @search-navbar-icon-width:                          40px;
+@search-navbar-icon-padding:                        0;
 
 @search-large-width:                                500px;
 @search-large-height:                               80px;
@@ -44,6 +46,7 @@
 @search-large-font-size:                            @global-2xlarge-font-size;
 
 @search-large-icon-width:                           80px;
+@search-large-icon-padding:                         0;
 
 @search-toggle-color:                               @global-muted-color;
 @search-toggle-hover-color:                         @global-color;
@@ -205,8 +208,8 @@
 
 .uk-search-default .uk-search-icon { width: @search-default-icon-width; }
 
-.uk-search-default .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-default-icon-width); }
-.uk-search-default .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-default-icon-width); }
+.uk-search-default .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-default-icon-width + @search-default-icon-padding); }
+.uk-search-default .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-default-icon-width + @search-default-icon-padding); }
 
 
 /* Navbar modifier
@@ -225,14 +228,19 @@
     .hook-search-navbar-input();
 }
 
+/* Focus */
+.uk-search-navbar .uk-search-input:focus {
+    .hook-search-navbar-input-focus();
+}
+
 /*
  * Icon
  */
 
 .uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
 
-.uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-navbar-icon-width); }
-.uk-search-navbar .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-navbar-icon-width); }
+.uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-navbar-icon-width + @search-navbar-icon-padding); }
+.uk-search-navbar .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-navbar-icon-width + @search-navbar-icon-padding); }
 
 
 /* Large modifier
@@ -251,14 +259,19 @@
     .hook-search-large-input();
 }
 
+/* Focus */
+.uk-search-large .uk-search-input:focus {
+    .hook-search-large-input-focus();
+}
+
 /*
  * Icon
  */
 
 .uk-search-large .uk-search-icon { width: @search-large-icon-width; }
 
-.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-large-icon-width); }
-.uk-search-large .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-large-icon-width); }
+.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-large-icon-width + @search-large-icon-padding); }
+.uk-search-large .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-large-icon-width + @search-large-icon-padding); }
 
 
 /* Toggle
@@ -285,7 +298,9 @@
 .hook-search-default-input() {}
 .hook-search-default-input-focus() {}
 .hook-search-navbar-input() {}
+.hook-search-navbar-input-focus() {}
 .hook-search-large-input() {}
+.hook-search-large-input-focus() {}
 
 .hook-search-toggle() {}
 .hook-search-toggle-hover() {}
@@ -349,9 +364,17 @@
         .hook-inverse-search-navbar-input();
     }
 
+    .uk-search-navbar .uk-search-input:focus {
+        .hook-inverse-search-navbar-input-focus();
+    }
+
     .uk-search-large .uk-search-input {
         background-color: @inverse-search-large-background;
         .hook-inverse-search-large-input();
+    }
+
+    .uk-search-large .uk-search-input:focus {
+        .hook-inverse-search-large-input-focus();
     }
 
     //
@@ -373,6 +396,8 @@
 .hook-inverse-search-default-input() {}
 .hook-inverse-search-default-input-focus() {}
 .hook-inverse-search-navbar-input() {}
+.hook-inverse-search-navbar-input-focus() {}
 .hook-inverse-search-large-input() {}
+.hook-inverse-search-large-input-focus() {}
 .hook-inverse-search-toggle() {}
 .hook-inverse-search-toggle-hover() {}
