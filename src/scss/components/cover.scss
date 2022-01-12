@@ -14,14 +14,13 @@
 
 /*
  * Works with iframes and embedded content
- * 1. Apply transform instantly. Needed if transform is transitioned.
+ * 1. Use attribute to apply transform instantly. Needed if transform is transitioned.
  * 2. Reset responsiveness for embedded content
  * 3. Center object
  * Note: Percent values on the `top` property only works if this element
  *       is absolute positioned or if the container has a height
  */
 
-.uk-cover,
 /* 1 */
 [uk-cover] {
     /* 2 */

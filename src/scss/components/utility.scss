@@ -40,6 +40,7 @@ $border-rounded-border-radius:                   5px !default;
 $box-shadow-duration:                            0.1s !default;
 
 $box-shadow-bottom-height:                       30px !default;
+$box-shadow-bottom-bottom:                       (-$box-shadow-bottom-height) !default;
 $box-shadow-bottom-border-radius:                100% !default;
 $box-shadow-bottom-background:                   #444 !default;
 $box-shadow-bottom-blur:                         20px !default;
@@ -242,6 +243,12 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
     max-width: none;
 }
 
+/*
+ * Fix initial iframe width. Without the viewport is expanded on iOS devices
+ */
+
+[uk-responsive] { max-width: 100%; }
+
 
 /* Border
  ========================================================================== */
@@ -297,10 +304,10 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
     }
 
     .uk-box-shadow-bottom::after {
-        content: '';
+        content: "";
         /* 1 */
         position: absolute;
-        bottom: (-$box-shadow-bottom-height);
+        bottom: $box-shadow-bottom-bottom;
         left: 0;
         right: 0;
         z-index: -1;
