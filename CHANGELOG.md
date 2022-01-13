@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Slideshow component no longer throws if items list does not exist
+
 ## 3.10.0 (January 12, 2022)
 
 ### Added
