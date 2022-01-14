@@ -11,5 +11,14 @@
     ],
     "parserOptions": {
         "ecmaVersion": 2022
-    }
+    },
+    "overrides": [
+        {
+            "files": ["wrapper/*.js"],
+            "env": {
+                "browser": true,
+                "node": false
+            }
+        }
+    ]
 }
