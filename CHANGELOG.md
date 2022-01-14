@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Slideshow component no longer throws if items list does not exist
+- Fix space key no longer triggers Toggle on <input> elements
 
 ## 3.10.0 (January 12, 2022)
 

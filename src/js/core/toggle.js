@@ -2,6 +2,8 @@ import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
 import {attr, closest, hasClass, includes, isBoolean, isFocusable, isTouch, matches, once, pointerDown, pointerEnter, pointerLeave, queryAll, trigger, within} from 'uikit-util';
 
+const KEY_SPACE = 32;
+
 export default {
 
     mixins: [Media, Togglable],
@@ -119,12 +121,11 @@ export default {
             name: 'keydown',
 
             filter() {
-                return includes(this.mode, 'click');
+                return includes(this.mode, 'click') && this.$el.tagName !== 'INPUT';
             },
 
             handler(e) {
-                // Space
-                if (e.keyCode === 32) {
+                if (e.keyCode === KEY_SPACE) {
                     e.preventDefault();
                     this.$el.click();
                 }
