@@ -83,7 +83,7 @@ UIkit adapts the [Vue's commit convention](https://github.com/vuejs/vue/blob/dev
 - `fix:` A bug fix
 - `perf:` A code change that improves performance
 - `refactor:` A code change that neither fixes a bug nor adds a feature
-- `style:` Changes that do not affect the meaning of the code (white-space, formatting, etc)
+- `style:` Changes that do not affect the meaning of the code (white-space, formatting, etc.)
 - `test:` Adding missing tests or correcting existing tests
 
 ## Versioning

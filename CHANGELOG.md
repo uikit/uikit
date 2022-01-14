@@ -44,7 +44,7 @@
 
 ### Fixed
 
-- Fix build scripts for windows users
+- Fix build scripts for Windows users
 - Fix css in Leader component
 - Fix division deprecation warnings in Sass source
 
@@ -69,7 +69,7 @@
 ### Changed
 
 - Make padding large a little bigger on small devices
-- Change logo color to emphasis
+- Change logo color to 'emphasis'
 
 ### Fixed
 
@@ -444,7 +444,7 @@
 
 ### Changed
 
-- Sorting starts after traversing half the items height/width in Sortable component
+- Sorting starts after traversing half the item's height/width in Sortable component
 
 ## 3.5.12 (December 7, 2020)
 
@@ -513,7 +513,7 @@
 
 ### Changed
 
-- Sticky component uses window.Date instead of window.performance
+- Sticky component uses 'window.Date' instead of 'window.performance'
 - Sticky component with sticky-on-up no longer hides when Dropdown shows
 
 ### Fixed
@@ -800,7 +800,7 @@
 
 ### Added
 
-- Parallax, Scroll, Scrollspy Nav components work inside of scrollable container
+- Parallax, Scroll, Scrollspy Nav components work inside scrollable container
 - Expose `scrollIntoView` utility function
 
 ### Fixed
@@ -1548,7 +1548,7 @@
 
 ### Added
 
-- Add support to center elements outside of a container to Position component
+- Add support to center elements outside a container to Position component
 
 ### Changed
 
@@ -1955,7 +1955,7 @@
 
 ### Changed
 
-- IMPORTANT: Offcanvas requires to wrap page in extra div
+- IMPORTANT: Offcanvas requires wrapping page in extra div
 - Refactored Offcanvas component
 - Update Instagram, Tumblr and Vimeo icons
 - Component Constructor initializes multiple components at once
