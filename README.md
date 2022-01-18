@@ -3,6 +3,8 @@
 # UIkit
 
 [![Discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/NEt4Pv7)
+[![Build](https://circleci.com/gh/uikit/uikit.svg?style=shield)](https://circleci.com/gh/uikit/uikit)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/uikit/badge?style=rounded)](https://www.jsdelivr.com/package/npm/uikit)
 
 UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
