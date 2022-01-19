@@ -57,7 +57,7 @@ export default {
                 } else if (startsWith(prop, 'bg')) {
 
                     const attr = prop === 'bgy' ? 'height' : 'width';
-                    steps = steps.map(step => toPx(step, attr, this.$el));
+                    steps = steps.map(step => toPx(step, attr, $el));
 
                     css($el, `background-position-${prop[2]}`, '');
                     bgPos = css($el, 'backgroundPosition').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
@@ -91,7 +91,7 @@ export default {
                         return props;
                     }
 
-                    const length = getMaxPathLength(this.$el);
+                    const length = getMaxPathLength($el);
                     css($el, 'strokeDasharray', length);
 
                     if (unit === '%') {
