@@ -30,7 +30,6 @@
         "linebreak-style": ["error", "unix"],
         "no-array-constructor": "error",
         "no-case-declarations": "warn",
-        "no-console": "off",
         "no-duplicate-imports": "error",
         "no-empty": ["error", {"allowEmptyCatch": true}],
         "no-extend-native": "error",
