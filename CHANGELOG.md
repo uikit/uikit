@@ -62,7 +62,7 @@
 
 ### Changed
 
-- Upgrade LESS to version 4
+- Upgrade Less to version 4
 
 ## 3.8.1 (November 5, 2021)
 
@@ -1873,7 +1873,7 @@
 
 ### Changed
 
-- IMPORTANT: Move LESS/Sass imports into one file. Use `components/_import.less`
+- IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
 - IMPORTANT: Renamed `transition` option to `easing` in Scroll component
 - Improve flip behaviour in Drop component
 - Improve `class` handling
@@ -2047,7 +2047,7 @@
 
 ### Fixed
 
-- Fix npm not watching LESS
+- Fix npm not watching Less files
 - Modal no longer closes immediately when toggled from custom `click` handler
 - Fix Accordion component
 - Fix container for Tooltip component
@@ -2144,7 +2144,7 @@
 
 ### Changed
 
-- LESS no longer uses component attribute selectors
+- Less no longer uses component attribute selectors
 - Accordion close and open icons using variables
 
 ### Removed
