@@ -28,7 +28,7 @@ export default {
 
     data: {
         dropdown: navItem,
-        align: !isRtl ? 'left' : 'right',
+        align: isRtl ? 'right' : 'left',
         clsDrop: 'uk-navbar-dropdown',
         mode: undefined,
         offset: undefined,

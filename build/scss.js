@@ -236,7 +236,7 @@ async function getVariablesFromFile(file, data) {
 
     while (match) {
 
-        /* check if variable is an background icon, if so replace it directly by the SVG */
+        /* check if variable is a background icon, if so replace it directly by the SVG */
         if (match[0].indexOf('../../images/backgrounds') >= 0) {
 
             const iconregex = /(\$[\w-]+)\s*:\s*"\.\.\/\.\.\/images\/backgrounds\/([\w./-]+)" !default;/g;

@@ -32,7 +32,7 @@ export function translated(el) {
 
 export function translate(value = 0, unit = '%') {
     value += value ? unit : '';
-    return isIE ? `translateX(${value})` : `translate3d(${value}, 0, 0)`; // currently not translate3d in IE, translate3d within translate3d does not work while transitioning
+    return isIE ? `translateX(${value})` : `translate3d(${value}, 0, 0)`; // currently, not translate3d in IE, translate3d within translate3d does not work while transitioning
 }
 
 export function scale3d(value) {

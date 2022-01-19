@@ -82,10 +82,10 @@ export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
                 scrollTop(element, scroll + top * percent);
 
                 // scroll more if we have not reached our destination
-                if (percent !== 1) {
-                    requestAnimationFrame(step);
-                } else {
+                if (percent === 1) {
                     resolve();
+                } else {
+                    requestAnimationFrame(step);
                 }
 
             })();

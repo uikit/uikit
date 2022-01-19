@@ -69,8 +69,7 @@ async function compile(file, dist, develop, rtl) {
                             action(prop, value, context) {
                                 return {prop, value: context.util.negate(value)};
                             }
-                        },
-
+                        }
                     ]
                 }
             ],

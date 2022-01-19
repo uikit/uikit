@@ -247,7 +247,8 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
  * Fix initial iframe width. Without the viewport is expanded on iOS devices
  */
 
-[uk-responsive] { max-width: 100%; }
+[uk-responsive],
+[data-uk-responsive] { max-width: 100%; }
 
 
 /* Border

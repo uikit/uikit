@@ -1,4 +1,4 @@
-/*! UIkit 3.10.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.10.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -146,7 +146,7 @@
 
     function toNumber(value) {
         var number = Number(value);
-        return !isNaN(number) ? number : false;
+        return isNaN(number) ? false : number;
     }
 
     function toFloat(value) {
@@ -1125,10 +1125,10 @@
 
         parent = $(parent);
 
-        if (!parent.hasChildNodes()) {
-            return append(parent, element);
-        } else {
+        if (parent.hasChildNodes()) {
             return insertNodes(element, function (element) { return parent.insertBefore(element, parent.firstChild); });
+        } else {
+            return append(parent, element);
         }
     }
 
@@ -2292,10 +2292,10 @@
                     scrollTop(element, scroll + top * percent);
 
                     // scroll more if we have not reached our destination
-                    if (percent !== 1) {
-                        requestAnimationFrame(step);
-                    } else {
+                    if (percent === 1) {
                         resolve();
+                    } else {
+                        requestAnimationFrame(step);
                     }
 
                 })();
@@ -3004,12 +3004,12 @@
 
                 events.forEach(function (event) {
 
-                    if (!hasOwn(event, 'handler')) {
+                    if (hasOwn(event, 'handler')) {
+                        registerEvent(this$1$1, event);
+                    } else {
                         for (var key in event) {
                             registerEvent(this$1$1, event[key], key);
                         }
-                    } else {
-                        registerEvent(this$1$1, event);
                     }
 
                 });
@@ -3390,10 +3390,10 @@
                     var instance = UIkit.getComponent(element, name);
 
                     if (instance) {
-                        if (!data) {
-                            return instance;
-                        } else {
+                        if (data) {
                             instance.$destroy();
+                        } else {
+                            return instance;
                         }
                     }
 
@@ -3463,7 +3463,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.10.0';
+    UIkit.version = '3.10.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4193,7 +4193,7 @@
         },
 
         data: {
-            pos: ("bottom-" + (!isRtl ? 'left' : 'right')),
+            pos: ("bottom-" + (isRtl ? 'right' : 'left')),
             flip: true,
             offset: false,
             clsPos: ''
@@ -4204,7 +4204,7 @@
             pos: function(ref) {
                 var pos = ref.pos;
 
-                return (pos + (!includes(pos, '-') ? '-center' : '')).split('-');
+                return pos.split('-').concat('center').slice(0, 2);
             },
 
             dir: function() {
@@ -6592,7 +6592,7 @@
 
         data: {
             dropdown: navItem,
-            align: !isRtl ? 'left' : 'right',
+            align: isRtl ? 'right' : 'left',
             clsDrop: 'uk-navbar-dropdown',
             mode: undefined,
             offset: undefined,
@@ -7834,7 +7834,7 @@
                         this.show();
                     }
 
-                    height$1 = !this.isActive ? this.$el.offsetHeight : height$1;
+                    height$1 = this.isActive ? height$1 : this.$el.offsetHeight;
 
                     if (height$1 + this.offset > height(window)) {
                         this.inactive = true;
@@ -8244,6 +8244,8 @@
 
     };
 
+    var KEY_SPACE = 32;
+
     var toggle = {
 
         mixins: [Media, Togglable],
@@ -8366,12 +8368,11 @@
                 name: 'keydown',
 
                 filter: function() {
-                    return includes(this.mode, 'click');
+                    return includes(this.mode, 'click') && this.$el.tagName !== 'INPUT';
                 },
 
                 handler: function(e) {
-                    // Space
-                    if (e.keyCode === 32) {
+                    if (e.keyCode === KEY_SPACE) {
                         e.preventDefault();
                         this.$el.click();
                     }
@@ -8970,12 +8971,12 @@
 
                             return fade.apply(void 0, args.concat( [40] ));
                 }
-                        : !name
-                            ? function () {
+                        : name
+                            ? slide
+                            : function () {
                                 action();
                                 return Promise$1.resolve();
-                            }
-                            : slide;
+                            };
 
                 return animationFn(action, target, this.duration)
                     .then(function () { return this$1$1.$update(target, 'resize'); }, noop);
@@ -9254,7 +9255,7 @@
         if ( unit === void 0 ) unit = '%';
 
         value += value ? unit : '';
-        return isIE ? ("translateX(" + value + ")") : ("translate3d(" + value + ", 0, 0)"); // currently not translate3d in IE, translate3d within translate3d does not work while transitioning
+        return isIE ? ("translateX(" + value + ")") : ("translate3d(" + value + ", 0, 0)"); // currently, not translate3d in IE, translate3d within translate3d does not work while transitioning
     }
 
     function scale3d(value) {
@@ -10968,7 +10969,7 @@
                             var p = ref$1[2];
 
                             css[prop] = "rgba(" + (start.map(function (value, i) {
-                                    value = value + p * (end[i] - value);
+                                    value += p * (end[i] - value);
                                     return i === 3 ? toFloat(value) : parseInt(value, 10);
                                 }).join(',')) + ")";
                             break;
@@ -11685,13 +11686,7 @@
 
         percent /= 2;
 
-        return !isIn(type)
-            ? dir < 0
-                ? percent
-                : 1 - percent
-            : dir < 0
-                ? 1 - percent
-                : percent;
+        return isIn(type) ^ dir < 0 ? percent : 1 - percent;
     }
 
     var Animations = assign({}, Animations$2, {
@@ -11833,6 +11828,10 @@
         update: {
 
             read: function() {
+
+                if (!this.list) {
+                    return false;
+                }
 
                 var ref = this.ratio.split(':').map(Number);
                 var width = ref[0];
@@ -12381,7 +12380,8 @@
                 }
 
                 this.toggleElement(this.tooltip, false, false).then(function () {
-                    this$1$1.tooltip = remove$1(this$1$1.tooltip);
+                    remove$1(this$1$1.tooltip);
+                    this$1$1.tooltip = null;
                     this$1$1._unbind();
                 });
             },

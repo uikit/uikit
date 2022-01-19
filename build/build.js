@@ -4,9 +4,9 @@ import {args, compile, glob, icons} from './util.js';
 
 const bundles = getBundleTasks();
 const components = await getComponentTasks();
-const buildAll = args.all || Object.keys(args).filter(name =>
-    ['d', 'debug', 'nominify', 'watch'].includes(name)
-).length <= 1;
+const buildAll = args.all || !Object.keys(args).filter(name =>
+    !['d', 'debug', 'nominify', 'watch', '_'].includes(name)
+).length;
 
 if (args.h || args.help) {
     console.log(`
@@ -16,8 +16,8 @@ if (args.h || args.help) {
 
         examples:
 
-        build.js // builds all of uikit, including icons and does minification (implies 'all')
-        build.js uikit icons -d // builds all of uikit and the icons, skipping the minification
+        build.js // builds all of uikit, including icons, components and does minification (implies 'all')
+        build.js uikit icons -d // builds uikit and the icons, skipping the minification and components
         build.js core lightbox -d // builds uikit-core and the lightbox, skipping the minification
 
         available components:

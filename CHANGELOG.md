@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.10.1 (January 19, 2022)
+
+### Fixed
+
+- Fix vertical divider width in Divider component
+- Fix usage of `data-` prefix for Cover and Responsive component
+- Fix pointer events for iframes in Cover component
+- Fix Slideshow component no longer throws if items list does not exist
+- Fix space key no longer triggers Toggle on <input> elements
+
 ## 3.10.0 (January 12, 2022)
 
 ### Added
@@ -38,7 +48,7 @@
 
 ### Fixed
 
-- Fix build scripts for windows users
+- Fix build scripts for Windows users
 - Fix css in Leader component
 - Fix division deprecation warnings in Sass source
 
@@ -63,7 +73,7 @@
 ### Changed
 
 - Make padding large a little bigger on small devices
-- Change logo color to emphasis
+- Change logo color to 'emphasis'
 
 ### Fixed
 
@@ -438,7 +448,7 @@
 
 ### Changed
 
-- Sorting starts after traversing half the items height/width in Sortable component
+- Sorting starts after traversing half the item's height/width in Sortable component
 
 ## 3.5.12 (December 7, 2020)
 
@@ -507,7 +517,7 @@
 
 ### Changed
 
-- Sticky component uses window.Date instead of window.performance
+- Sticky component uses 'window.Date' instead of 'window.performance'
 - Sticky component with sticky-on-up no longer hides when Dropdown shows
 
 ### Fixed
@@ -794,7 +804,7 @@
 
 ### Added
 
-- Parallax, Scroll, Scrollspy Nav components work inside of scrollable container
+- Parallax, Scroll, Scrollspy Nav components work inside scrollable container
 - Expose `scrollIntoView` utility function
 
 ### Fixed
@@ -1542,7 +1552,7 @@
 
 ### Added
 
-- Add support to center elements outside of a container to Position component
+- Add support to center elements outside a container to Position component
 
 ### Changed
 
@@ -1949,7 +1959,7 @@
 
 ### Changed
 
-- IMPORTANT: Offcanvas requires to wrap page in extra div
+- IMPORTANT: Offcanvas requires wrapping page in extra div
 - Refactored Offcanvas component
 - Update Instagram, Tumblr and Vimeo icons
 - Component Constructor initializes multiple components at once

@@ -1,4 +1,4 @@
-import {$, flipPosition, offset as getOffset, includes, isNumeric, isRtl, positionAt, removeClasses, toggleClass} from 'uikit-util';
+import {$, flipPosition, offset as getOffset, isNumeric, isRtl, positionAt, removeClasses, toggleClass} from 'uikit-util';
 
 export default {
 
@@ -10,7 +10,7 @@ export default {
     },
 
     data: {
-        pos: `bottom-${!isRtl ? 'left' : 'right'}`,
+        pos: `bottom-${isRtl ? 'right' : 'left'}`,
         flip: true,
         offset: false,
         clsPos: ''
@@ -19,7 +19,7 @@ export default {
     computed: {
 
         pos({pos}) {
-            return (pos + (!includes(pos, '-') ? '-center' : '')).split('-');
+            return pos.split('-').concat('center').slice(0, 2);
         },
 
         dir() {

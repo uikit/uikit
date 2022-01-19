@@ -254,7 +254,7 @@ export default {
 
                         css[prop] = `rgba(${
                             start.map((value, i) => {
-                                value = value + p * (end[i] - value);
+                                value += p * (end[i] - value);
                                 return i === 3 ? toFloat(value) : parseInt(value, 10);
                             }).join(',')
                         })`;

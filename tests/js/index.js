@@ -1,10 +1,5 @@
 /* global UIkit, TESTS */
-import {on} from '../../src/js/util/event';
-import {css} from '../../src/js/util/style';
-import {ucfirst} from '../../src/js/util/lang';
-import {prepend} from '../../src/js/util/dom';
-import {addClass, removeClass} from '../../src/js/util/class';
-import {fastdom} from '../../src/js/util/fastdom';
+import {addClass, css, fastdom, on, prepend, removeClass, ucfirst} from 'uikit-util';
 
 const tests = TESTS;
 const storage = window.sessionStorage;
@@ -105,7 +100,7 @@ on(window, 'load', () => setTimeout(() => fastdom.write(() => {
 
     if ($inverse.value) {
 
-        removeClass(document.querySelectorAll('*'), [
+        removeClass(document.querySelectorAll('*'),
             'uk-navbar-container',
             'uk-card-default',
             'uk-card-muted',
@@ -121,7 +116,7 @@ on(window, 'load', () => setTimeout(() => fastdom.write(() => {
             'uk-section-secondary',
             'uk-overlay-default',
             'uk-overlay-primary'
-        ]);
+        );
 
         css(docEl, 'background', $inverse.value === 'dark' ? '#fff' : '#222');
         addClass($body, `uk-${$inverse.value}`);

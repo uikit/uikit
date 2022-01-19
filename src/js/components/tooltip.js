@@ -67,7 +67,8 @@ export default {
             }
 
             this.toggleElement(this.tooltip, false, false).then(() => {
-                this.tooltip = remove(this.tooltip);
+                remove(this.tooltip);
+                this.tooltip = null;
                 this._unbind();
             });
         },

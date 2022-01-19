@@ -10,7 +10,7 @@ assignees: ''
 
 👋 Hi, thank you for using UIKit!
 
-Please open an issues only for a bug report or feature request. Make sure no one else else has already opened a similar issue. If you need help or have questions about UIkit, there are few places to start:
+Please open an issues only for a bug report or feature request. Make sure no one else has already opened a similar issue. If you need help or have questions about UIkit, there are few places to start:
 
 - Search our public documentation: https://getuikit.com/docs
 - Ask the community in the Discord chat: https://discord.gg/NEt4Pv7

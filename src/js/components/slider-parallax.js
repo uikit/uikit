@@ -86,11 +86,5 @@ function getCurrentPercent(type, dir, percent) {
 
     percent /= 2;
 
-    return !isIn(type)
-        ? dir < 0
-            ? percent
-            : 1 - percent
-        : dir < 0
-            ? 1 - percent
-            : percent;
+    return isIn(type) ^ dir < 0 ? percent : 1 - percent;
 }

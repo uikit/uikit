@@ -87,12 +87,12 @@ export default function (UIkit) {
 
             events.forEach(event => {
 
-                if (!hasOwn(event, 'handler')) {
+                if (hasOwn(event, 'handler')) {
+                    registerEvent(this, event);
+                } else {
                     for (const key in event) {
                         registerEvent(this, event[key], key);
                     }
-                } else {
-                    registerEvent(this, event);
                 }
 
             });

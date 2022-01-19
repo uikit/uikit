@@ -28,6 +28,10 @@ export default {
 
         read() {
 
+            if (!this.list) {
+                return false;
+            }
+
             let [width, height] = this.ratio.split(':').map(Number);
 
             height = height * this.list.offsetWidth / width || 0;
