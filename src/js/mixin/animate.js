@@ -23,12 +23,12 @@ export default {
                 ? fade
                 : name === 'delayed-fade'
                     ? (...args) => fade(...args, 40)
-                    : !name
-                        ? () => {
+                    : name
+                        ? slide
+                        : () => {
                             action();
                             return Promise.resolve();
-                        }
-                        : slide;
+                        };
 
             return animationFn(action, target, this.duration)
                 .then(() => this.$update(target, 'resize'), noop);

@@ -30,10 +30,10 @@ export function prepend(parent, element) {
 
     parent = $(parent);
 
-    if (!parent.hasChildNodes()) {
-        return append(parent, element);
-    } else {
+    if (parent.hasChildNodes()) {
         return insertNodes(element, element => parent.insertBefore(element, parent.firstChild));
+    } else {
+        return append(parent, element);
     }
 }
 

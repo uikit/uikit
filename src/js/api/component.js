@@ -35,10 +35,10 @@ export default function (UIkit) {
                 const instance = UIkit.getComponent(element, name);
 
                 if (instance) {
-                    if (!data) {
-                        return instance;
-                    } else {
+                    if (data) {
                         instance.$destroy();
+                    } else {
+                        return instance;
                     }
                 }
 

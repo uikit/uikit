@@ -144,7 +144,7 @@ export default {
                     this.show();
                 }
 
-                height = !this.isActive ? this.$el.offsetHeight : height;
+                height = this.isActive ? height : this.$el.offsetHeight;
 
                 if (height + this.offset > getHeight(window)) {
                     this.inactive = true;
