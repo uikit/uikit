@@ -22,7 +22,8 @@
  */
 
 /* 1 */
-[uk-cover] {
+[uk-cover],
+[data-uk-cover] {
     /* 2 */
     max-width: none;
     /* 3 */
@@ -34,7 +35,8 @@
     transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
 }
 
-iframe.uk-cover { pointer-events: none; }
+iframe[uk-cover],
+iframe[data-uk-cover] { pointer-events: none; }
 
 
 /* Container
