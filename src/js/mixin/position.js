@@ -10,7 +10,7 @@ export default {
     },
 
     data: {
-        pos: `bottom-${!isRtl ? 'left' : 'right'}`,
+        pos: `bottom-${(isRtl ? 'right' : 'left')}`,
         flip: true,
         offset: false,
         clsPos: ''
