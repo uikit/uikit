@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix usage of `data-` prefix for Cover and Responsive component
 - Fix pointer events for iframes in Cover component
 - Fix Slideshow component no longer throws if items list does not exist
 - Fix space key no longer triggers Toggle on <input> elements
