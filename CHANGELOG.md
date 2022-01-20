@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix `getIndex()` returns `-1` instead of `NaN` if called with empty elements parameter
+
 ## 3.10.1 (January 19, 2022)
 
 ### Fixed
