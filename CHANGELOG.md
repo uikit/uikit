@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix interdependent computed properties being evaluated too often
 - Fix `getIndex()` returns `-1` instead of `NaN` if called with empty elements parameter
 
 ## 3.10.1 (January 19, 2022)

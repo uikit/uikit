@@ -123,23 +123,19 @@ export default function (UIkit) {
 
     function runWatches(initial) {
 
-        const {$options: {computed}, _computeds} = this;
+        const {$options: {computed}} = this;
+        const values = assign({}, this._computeds);
+        this._computeds = {};
 
         for (const key in computed) {
-
-            const hasPrev = hasOwn(_computeds, key);
-            const prev = _computeds[key];
-
-            delete _computeds[key];
-
             const {watch, immediate} = computed[key];
             if (watch && (
                 initial && immediate
-                || hasPrev && !isEqual(prev, this[key])
+                || hasOwn(values, key) && !isEqual(values[key], this[key])
             )) {
-                watch.call(this, this[key], prev);
+                watch.call(this, this[key], values[key]);
             }
-
         }
+
     }
 }
