@@ -6,6 +6,7 @@
 
 - Fix interdependent computed properties being evaluated too often
 - Fix `getIndex()` returns `-1` instead of `NaN` if called with empty elements parameter
+- Fix Scrollspy component no longer sets class `false`
 
 ## 3.10.1 (January 19, 2022)
 

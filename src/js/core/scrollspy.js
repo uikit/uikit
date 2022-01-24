@@ -16,7 +16,7 @@ export default {
     },
 
     data: () => ({
-        cls: false,
+        cls: '',
         target: false,
         hidden: true,
         offsetTop: 0,
