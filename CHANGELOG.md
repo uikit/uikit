@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Use same position context when uk-sticky sticks or not
 - Fix interdependent computed properties being evaluated too often
 - Fix `getIndex()` returns `-1` instead of `NaN` if called with empty elements parameter
 - Fix Scrollspy component no longer sets class `false`
