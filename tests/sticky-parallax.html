@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sticky Parallax - UIkit tests</title>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body style="padding-bottom: 1100px;">
+
+        <div class="uk-section uk-section-primary uk-position-z-index-negative uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-sticky="bottom: +* +*" uk-height-viewport>
+            <div class="uk-container">
+
+                <h1 class="uk-heading-2xlarge">Sticky Section</h1>
+
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default">
+            <div class="uk-container">
+
+                <div id="js-sticky-parallax-container" class="uk-position-relative uk-background-muted uk-text-center" style="height: 200vh">
+                    <div uk-sticky="bottom: #js-sticky-parallax-container; offset: 20vh">
+
+                        <div class="uk-position-center">
+                            <div class="uk-flex">
+                                <div>
+                                    <h1 class="uk-heading-2xlarge" uk-parallax="target: #js-sticky-parallax-container; x: 0,-250,-250,0; easing: 2; viewport: 0.8">Sticky</h1>
+                                </div>
+                                <div>
+                                    <h1 class="uk-heading-2xlarge" uk-parallax="target: #js-sticky-parallax-container; x: 0,250,250,0; easing: 2; viewport: 0.8">Parallax</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <img class="uk-position-relative uk-position-z-index" src="images/size-v.jpg" alt="" width="400" height="800">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default uk-text-center">
+
+            <div class="uk-transform-origin-bottom-center uk-margin-bottom" uk-parallax="scale: 1,.2; viewport: 0.5; target: +*">
+                <img src="images/photo2.jpg" width="1800" height="1200">
+            </div>
+
+            <div class="uk-container">
+
+                <h1 class="uk-heading-xlarge">Parallax Bottom</h1>
+
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default uk-text-center">
+
+            <div class="uk-cover-container uk-transform-origin-bottom-center uk-margin-bottom" uk-parallax="scale: 1,.2; viewport: 0.5; target: +*" uk-height-viewport>
+                <img src="images/photo3.jpg" width="1800" height="1200" uk-cover>
+            </div>
+
+            <div class="uk-container">
+
+                <h1 class="uk-heading-xlarge">Parallax Bottom Cover</h1>
+
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default">
+
+            <div class="uk-child-width-1-2" uk-grid>
+                <div class="uk-background-muted">
+
+                    <div class="uk-position-relative">
+                        <div style="height: 100vh;" uk-sticky="bottom: ![uk-grid]">
+                            <div uk-parallax="target: ![uk-grid]; y: 55vh, 45vh;">
+                                <img src="images/photo.jpg" alt="" width="1800" height="1200" class="uk-position-center-left">
+                                <img src="images/photo2.jpg" alt="" width="1800" height="1200" uk-parallax="target: #image-parallax-2; viewport: 0.1; opacity: 0,1" class="uk-position-center-left">
+                                <img src="images/photo3.jpg" alt="" width="1800" height="1200" uk-parallax="target: #image-parallax-3; viewport: 0.1; opacity: 0,1" class="uk-position-center-left">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 50vh;"></div>
+                    <div id="image-parallax-2" style="height: 50vh;"></div>
+                    <div id="image-parallax-3" style="height: 50vh;"></div>
+
+                </div>
+                <div>
+
+                    <div class="uk-position-relative">
+                        <div style="height: 100vh;" uk-sticky="bottom: ![uk-grid]">
+                            <div uk-parallax="target: ![uk-grid]; y: 55vh, 45vh;">
+                                <div uk-parallax="target: #text-parallax-1; viewport: 0.1; opacity: 0,1" class="uk-position-center-left">
+                                    <p uk-parallax="target: #text-parallax-2; viewport: 0.1; opacity: 1,0" class="uk-background-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                </div>
+                                <div uk-parallax="target: #text-parallax-2; viewport: 0.1; opacity: 0,1" class="uk-position-center-left">
+                                    <p uk-parallax="target: #text-parallax-3; viewport: 0.1; opacity: 1,0" class="uk-background-default">Lorem2 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                </div>
+                                <div uk-parallax="target: #text-parallax-3; viewport: 0.1; opacity: 0,1" class="uk-position-center-left">
+                                    <p class="uk-background-default">Lorem3 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="text-parallax-1" style="height: 50vh;"></div>
+                        <div id="text-parallax-2" style="height: 50vh;"></div>
+                        <div id="text-parallax-3" style="height: 50vh;"></div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>
