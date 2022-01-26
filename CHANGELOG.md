@@ -161,7 +161,7 @@
 ### Fixed
 
 - Fix animation classes only partially being removed in Scrollspy component
-- Fix scrollIntoView did not return Promise if element is hidden 
+- Fix scrollIntoView did not return Promise if element is hidden
 
 ## 3.7.0 (June 29, 2021)
 
@@ -261,7 +261,7 @@
 
 ### Added
 
-- Add background-size modifier for width and height to Background component 
+- Add background-size modifier for width and height to Background component
 
 ### Fixed
 
@@ -308,7 +308,7 @@
 
 - Fix IE11 compatibility
 - Fix changing ratio does not correctly apply width and height in SVG component
-- Fix issues from hiding an already hidden Modal 
+- Fix issues from hiding an already hidden Modal
 
 ## 3.6.11 (January 14, 2021)
 
@@ -542,7 +542,7 @@
 ### Added
 
 - Add list marker utility support for WebKit
-- Add `uk-text-default` to Text component 
+- Add `uk-text-default` to Text component
 - Add multiple targets to Filter component
 
 ### Fixed
@@ -551,7 +551,7 @@
 - Fix empty slider throws exception
 - Fix pointer events ignored on SVGs in Sortable component
 - Fix Grid component divider rendering
-- Fix `<select>` closes Drop component in hover mode in Firefox 
+- Fix `<select>` closes Drop component in hover mode in Firefox
 
 ## 3.5.4 (June 12, 2020)
 
@@ -562,7 +562,7 @@
 ### Fixed
 
 - Fix prop observer for dataSrc option in Image component
-- Fix ajax function supports responseType 'json' in IE 11 
+- Fix ajax function supports responseType 'json' in IE 11
 - Fix Accordion component with `multiple: true` and `collapsible: false`
 
 ## 3.5.3 (May 29, 2020)
@@ -615,7 +615,7 @@
 
 ### Added
 
-- Add inBrowser check to enable server-side rendering 
+- Add inBrowser check to enable server-side rendering
 
 ### Fixed
 
@@ -675,7 +675,7 @@
 
 ### Changed
 
-- Change default dimensions to 1920x1080 for YouTube in Lightbox component 
+- Change default dimensions to 1920x1080 for YouTube in Lightbox component
 
 ### Fixed
 
@@ -693,7 +693,7 @@
 
 - Fix Height Match component not matching empty elements
 - Fix Scrollspy Nav component activating wrong elements
-- Fix Modal/Drop close on bgClick behaviour 
+- Fix Modal/Drop close on bgClick behaviour
 - Fix `z-index` on Modal stacked dialogs
 
 ## 3.3.6 (March 12, 2020)
@@ -819,7 +819,7 @@
 ### Fixed
 
 - Fix scrolling containers while dragging in Sortable component
-- Fix show/hide behaviour in Drop component 
+- Fix show/hide behaviour in Drop component
 - Fix Accordion component will scroll title into view if needed
 - Fix component initialization without element
 
@@ -919,7 +919,7 @@
 - Fix swipe gestures in Switcher component (Android)
 - Ensure at most one Height Viewport component set to `expand` is active
 - Height Viewport component no longer calculates its height if invisible
-- Fix using Sortable in scrolling container 
+- Fix using Sortable in scrolling container
 - Fix lazy loading images if parent element is fully clipped
 - Fix clicking Slideshow with `draggable: false` no longer pauses autoplay
 - Fix toggling modal while transition is in progress
@@ -963,7 +963,7 @@
 - Fix selector engine
 - Fix CSS selector in Lightbox component
 - Fix Drop not closing when Toggle component is clicked
- 
+
 ## 3.1.3 (April 23, 2019)
 
 ### Fixed

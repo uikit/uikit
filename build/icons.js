@@ -2,16 +2,16 @@ import {args, compile, glob, icons} from './util.js';
 
 if (args.h || args.help) {
     console.log(`
-    
+
         Builds additional custom uikit icons found in './custom/*/icons'
-    
+
         usage:
 
         icons.js [custom|name]
 
-        -c|--custom 
+        -c|--custom
             Specify custom folder to look for icons (default: './custom/*/icons')
-        -n|--name 
+        -n|--name
             Specify name regex to match against folder (default: '([a-z]+)/icons$')
 
     `);
