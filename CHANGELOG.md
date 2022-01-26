@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add negative z-index utility class to Position component
+
 ### Fixed
 
 - Use same position context when uk-sticky sticks or not
