@@ -12,6 +12,7 @@
 - Fix interdependent computed properties being evaluated too often
 - Fix `getIndex()` returns `-1` instead of `NaN` if called with empty elements parameter
 - Fix Scrollspy component no longer sets class `false`
+- Fix Parallax component no longer rounds values to two digits after comma
 
 ## 3.10.1 (January 19, 2022)
 
