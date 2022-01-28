@@ -38,7 +38,7 @@ export default {
             }
 
             const prev = percent;
-            percent = ease(scrolledOver(this.target) / (this.viewport || 1), this.easing);
+            percent = ease(clamp(scrolledOver(this.target), 0, this.viewport) / this.viewport, this.easing);
 
             return {
                 percent,
