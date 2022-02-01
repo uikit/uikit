@@ -5,6 +5,7 @@
 ### Added
 
 - Add negative z-index utility class to Position component
+- Add 'start' and 'end' options to Parallax component
 
 ### Fixed
 
