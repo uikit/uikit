@@ -15,6 +15,7 @@
 - Fix Scrollspy component no longer sets class `false`
 - Fix Parallax component no longer rounds values to two digits after comma
 - Fix Parallax component running backwards with 'viewport' option set to a value < 1
+- Fix Parallax component easing option for values < -1 || > 1
 
 ## 3.10.1 (January 19, 2022)
 

@@ -93,7 +93,9 @@ function parseCalc(calc, el) {
 }
 
 function ease(percent, easing) {
-    return clamp(percent * (1 - (easing - easing * percent)));
+    return easing >= 0
+        ? Math.pow(percent, easing + 1)
+        : 1 - Math.pow(1 - percent, -easing + 1);
 }
 
 // SVG elements do not inherit from HTMLElement
