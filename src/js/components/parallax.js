@@ -1,5 +1,5 @@
 import Parallax from '../mixin/parallax';
-import {clamp, css, parent, query, scrolledOver, toPx} from 'uikit-util';
+import {css, parent, query, scrolledOver, toPx} from 'uikit-util';
 
 export default {
 
@@ -27,12 +27,13 @@ export default {
             return getOffsetElement(target && query(target, $el) || $el);
         },
 
-        start({start}, $el) {
-            return parseCalc(start, $el);
+        start({start}) {
+            return parseCalc(start, this.target);
         },
 
-        end({end}, $el) {
-            return parseCalc(end, $el);
+        end({end, viewport}) {
+            const value = end || viewport !== 1 && `${(1 - viewport) * 100}vh + ${(1 - viewport) * 100}%` || 0;
+            return parseCalc(value, this.target);
         }
 
     },
@@ -50,12 +51,7 @@ export default {
             }
 
             const prev = percent;
-            percent = ease(
-                clamp(
-                    scrolledOver(this.target, this.start, this.end), 0, this.viewport
-                ) / this.viewport,
-                this.easing
-            );
+            percent = ease(scrolledOver(this.target, this.start, this.end), this.easing);
 
             return {
                 percent,
@@ -104,5 +100,5 @@ function getOffsetElement(el) {
         ? 'offsetTop' in el
             ? el
             : getOffsetElement(parent(el))
-        : document.body;
+        : document.documentElement;
 }

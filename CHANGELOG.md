@@ -7,6 +7,10 @@
 - Add negative z-index utility class to Position component
 - Add 'start' and 'end' options to Parallax component
 
+### Deprecated
+
+- Deprecate 'viewport' option in Parallax component: Use 'end' option instead
+
 ### Fixed
 
 - Use same position context when uk-sticky sticks or not
