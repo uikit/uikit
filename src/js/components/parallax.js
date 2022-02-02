@@ -7,7 +7,7 @@ export default {
 
     props: {
         target: String,
-        viewport: Number,
+        viewport: Number, // Deprecated
         easing: Number,
         start: String,
         end: String
@@ -32,8 +32,10 @@ export default {
         },
 
         end({end, viewport}) {
-            const value = end || viewport !== 1 && `${(1 - viewport) * 100}vh + ${(1 - viewport) * 100}%` || 0;
-            return parseCalc(value, this.target);
+            return parseCalc(
+                end || (viewport = (1 - viewport) * 100) && `${viewport}vh+${viewport}%`,
+                this.target
+            );
         }
 
     },
