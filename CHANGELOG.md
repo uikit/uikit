@@ -4,12 +4,12 @@
 
 ### Added
 
+- Add `start` and `end` options to Parallax component
 - Add negative z-index utility class to Position component
-- Add 'start' and 'end' options to Parallax component
 
 ### Deprecated
 
-- Deprecate 'viewport' option in Parallax component: Use 'end' option instead
+- Deprecate `viewport` option in Parallax component: Use `end` option instead
 
 ### Fixed
 
@@ -29,7 +29,7 @@
 - Fix usage of `data-` prefix for Cover and Responsive component
 - Fix pointer events for iframes in Cover component
 - Fix Slideshow component no longer throws if items list does not exist
-- Fix space key no longer triggers Toggle on <input> elements
+- Fix space key no longer triggers Toggle on `input` elements
 
 ## 3.10.0 (January 12, 2022)
 
