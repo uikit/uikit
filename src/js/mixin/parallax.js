@@ -128,35 +128,14 @@ function filterFn(prop, el, steps) {
         steps.unshift(0);
     }
 
-    const unit = getUnit(steps);
+    const unit = getUnit(steps) || {blur: 'px', hue: 'deg'}[prop] || '%';
+    prop = {fopacity: 'opacity', hue: 'hue-rotate'}[prop] || prop;
     steps = steps.map(toFloat);
 
     return (css, percent) => {
-
         const value = getValue(steps, percent);
-
-        switch (prop) {
-            case 'blur':
-                setFilter(css, 'blur', value, unit || 'px');
-                break;
-            case 'hue':
-                setFilter(css, 'hue-rotate', value, unit || 'deg');
-                break;
-            case 'fopacity':
-                setFilter(css, 'opacity', value, unit || '%');
-                break;
-            case 'grayscale':
-            case 'invert':
-            case 'saturate':
-            case 'sepia':
-                setFilter(css, prop, value, unit || '%');
-                break;
-        }
+        css.filter += ` ${prop}(${value + unit})`;
     };
-}
-
-function setFilter(css, prop, value, unit) {
-    css.filter += ` ${prop}(${value + unit})`;
 }
 
 function cssPropFn(prop, el, steps) {
