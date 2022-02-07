@@ -203,9 +203,7 @@ function backgroundCoverFn(prop, el, steps, bgPos, attr) {
     const down = steps.indexOf(min) < steps.indexOf(max);
 
     const diff = max - min;
-
-    steps = steps.map(step => step - (down ? min : max));
-    const pos = `${down ? -diff : 0}px`;
+    let pos = (down ? -diff : 0) - (down ? min : max);
 
     const dimEl = {
         width: el.offsetWidth,
@@ -224,16 +222,16 @@ function backgroundCoverFn(prop, el, steps, bgPos, attr) {
         dimEl[attr] = baseDim[attr] + diff - span;
     } else if (span > diff) {
 
-        const posPercentage = dimEl[attr] / toPx(bgPos, attr, el);
+        const posPercentage = dimEl[attr] / toPx(bgPos, attr, el, true);
 
         if (posPercentage) {
-            steps = steps.map(step => step - (span - diff) / posPercentage);
+            pos -= (span - diff) / posPercentage;
         }
     }
 
     const dim = Dimensions.cover(dimImage, dimEl);
 
-    const fn = setBackgroundPosFn(prop, steps, pos);
+    const fn = setBackgroundPosFn(prop, steps, `${pos}px`);
     return (css, percent) => {
         fn(css, percent);
         css.backgroundSize = `${dim.width}px ${dim.height}px`;
