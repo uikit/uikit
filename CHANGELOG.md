@@ -6,6 +6,7 @@
 
 - Add `start` and `end` options to Parallax component
 - Add negative z-index utility class to Position component
+- Add Sticky Parallax test
 
 ### Deprecated
 
