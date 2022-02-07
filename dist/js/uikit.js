@@ -1,4 +1,4 @@
-/*! UIkit 3.11.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.11.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1758,7 +1758,7 @@
                     ? percent(width(toWindow(element)), value)
                     : endsWith(value, '%')
                         ? percent(offsetDim
-                            ? dimension(property)(element)
+                            ? element[("offset" + (ucfirst(property)))]
                             : dimensions(element)[property], value)
                         : toFloat(value);
     }
@@ -3462,7 +3462,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.11.0';
+    UIkit.version = '3.11.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -11105,7 +11105,7 @@
         calc = calc.toString().replace(/\s/g, '');
         calcRe.lastIndex = 0;
         while ((match = calcRe.exec(calc)) !== null) {
-            result += toPx(match, 'height', el, true);
+            result += toPx(match[0], 'height', el, true);
         }
 
         return result;
