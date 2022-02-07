@@ -1,5 +1,9 @@
 # Changelog
 
+## WIP
+
+- Fix infinite sliding in Slider component with equally sized slides
+
 ## 3.11.1 (February 7, 2022)
 
 ### Fixed

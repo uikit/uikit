@@ -30,7 +30,7 @@ export default {
         },
 
         finite({finite}) {
-            return finite || Math.ceil(getWidth(this.list)) < dimensions(this.list).width + getMaxElWidth(this.list) + this.center;
+            return finite || Math.ceil(getWidth(this.list)) < Math.floor(dimensions(this.list).width + getMaxElWidth(this.list) + this.center);
         },
 
         maxIndex() {
