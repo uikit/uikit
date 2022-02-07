@@ -24,6 +24,12 @@ $sticky-reverse-animation-duration:              0.2s !default;
  ========================================================================== */
 
 /*
+ * Create position context so it's t the same like when fixed.
+ */
+
+.uk-sticky { position: relative; }
+
+/*
  * 1. Force new layer to resolve frame rate issues on devices with lower frame rates
  */
 
