@@ -84,7 +84,7 @@ function parseCalc(calc, el) {
     calc = calc.toString().replace(/\s/g, '');
     calcRe.lastIndex = 0;
     while ((match = calcRe.exec(calc)) !== null) {
-        result += toPx(match, 'height', el, true);
+        result += toPx(match[0], 'height', el, true);
     }
 
     return result;

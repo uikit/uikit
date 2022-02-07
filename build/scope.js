@@ -15,7 +15,7 @@ if (args.h || args.help) {
     `);
     process.exit(0);
 }
-const currentScopeRe = /\/\* scoped: ([^*]*) \*\//;
+const currentScopeRe = /\/\* scoped: ([^*]*) \*\/\n/;
 const currentScopeLegacyRe = /\.(uk-scope)/;
 
 const files = await glob('dist/**/!(*.min).css');
@@ -65,9 +65,7 @@ async function scope(files, scope) {
         await replaceInFile(file, async data => {
             const output = await renderLess(`.${scope} {\n${stripComments(data)}\n}`);
             return `/* scoped: ${scope} */\n${
-                output
-                    .replace(new RegExp(`.${scope} ${/{(.|[\r\n])*?}/.source}`), '')
-                    .replace(new RegExp(`.${scope}${/\s((\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html)/.source}`, 'g'), '$1')
+                output.replace(new RegExp(`.${scope}\\s((\\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html|:root)`, 'g'), '$1') // unescape
             }`;
         });
         await minify(file);
@@ -78,8 +76,8 @@ async function cleanup(files, scope) {
     const string = scope.split(' ').map(scope => `.${scope}`).join(' ');
     for (const file of files) {
         await replaceInFile(file, data => data
-            .replace(new RegExp(/ */.source + string + / ({[\s\S]*?})?/.source, 'g'), '') // replace classes
-            .replace(new RegExp(currentScopeRe.source, 'g'), '') // remove scope comment
+            .replace(currentScopeRe, '') // remove scope comment
+            .replace(new RegExp(` *${string} ({[\\s\\S]*?})?`, 'g'), '') // replace classes
         );
     }
 }

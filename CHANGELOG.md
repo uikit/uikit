@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.11.1 (February 7, 2022)
+
+### Fixed
+
+- Fix scoping css to exclude `:root` selector
+- Fix `toPx()` correctly uses offsetHeight/Width
+
 ## 3.11.0 (February 7, 2022)
 
 ### Added

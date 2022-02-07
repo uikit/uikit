@@ -165,7 +165,7 @@ export function toPx(value, property = 'width', element = window, offsetDim = fa
                 ? percent(width(toWindow(element)), value)
                 : endsWith(value, '%')
                     ? percent(offsetDim
-                        ? dimension(property)(element)
+                        ? element[`offset${ucfirst(property)}`]
                         : dimensions(element)[property], value)
                     : toFloat(value);
 }
