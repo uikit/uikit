@@ -65,22 +65,16 @@ export default {
 
 function transformFn(prop, el, steps) {
 
-    let defaultValue = 0;
-    let unit = getUnit(steps) || '';
+    const unit = getUnit(steps) || {x: 'px', y: 'px', rotate: 'deg'}[prop] || '';
 
     if (prop === 'x' || prop === 'y') {
         prop = `translate${ucfirst(prop)}`;
-        unit = unit || 'px';
-    } else if (prop === 'rotate') {
-        unit = unit || 'deg';
-    } else if (prop === 'scale') {
-        defaultValue = 1;
     }
 
     steps = steps.map(toFloat);
 
     if (steps.length === 1) {
-        steps.unshift(defaultValue);
+        steps.unshift(prop === 'scale' ? 1 : 0);
     }
 
     return (css, percent) => {
@@ -197,6 +191,13 @@ function backgroundFn(prop, el, steps) {
 }
 
 function backgroundCoverFn(prop, el, steps, bgPos, attr) {
+
+    const image = getBackgroundImage.call(this, el);
+
+    if (!image.naturalWidth) {
+        return noop;
+    }
+
     const min = Math.min(...steps);
     const max = Math.max(...steps);
     const down = steps.indexOf(min) < steps.indexOf(max);
@@ -205,12 +206,6 @@ function backgroundCoverFn(prop, el, steps, bgPos, attr) {
 
     steps = steps.map(step => step - (down ? min : max));
     const pos = `${down ? -diff : 0}px`;
-
-    const image = getBackgroundImage.call(this, el);
-
-    if (!image.naturalWidth) {
-        return noop;
-    }
 
     const dimEl = {
         width: el.offsetWidth,
