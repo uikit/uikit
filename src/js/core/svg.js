@@ -57,15 +57,17 @@ export default {
     disconnected() {
 
         this.svg.then(svg => {
-            if (!this._connected) {
-
-                if (isVoidElement(this.$el)) {
-                    this.$el.hidden = false;
-                }
-
-                remove(svg);
-                this.svgEl = null;
+            if (this._connected) {
+                return;
             }
+
+            if (isVoidElement(this.$el)) {
+                this.$el.hidden = false;
+            }
+
+            remove(svg);
+            this.svgEl = null;
+
         });
 
         this.svg = null;
