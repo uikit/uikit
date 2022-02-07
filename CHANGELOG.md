@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.11.0 (February 7, 2022)
+
+### Added
+
+- Add `start` and `end` options to Parallax component
+- Add negative z-index utility class to Position component
+- Add Sticky Parallax test
+
+### Deprecated
+
+- Deprecate `viewport` option in Parallax component: Use `end` option instead
+
+### Fixed
+
+- Use same position context when uk-sticky sticks or not
+- Fix interdependent computed properties being evaluated too often
+- Fix `getIndex()` returns `-1` instead of `NaN` if called with empty elements parameter
+- Fix Scrollspy component no longer sets class `false`
+- Fix Parallax component no longer rounds values to two digits after comma
+- Fix Parallax component running backwards with 'viewport' option set to a value < 1
+- Fix Parallax component easing option for values < -1 || > 1
+
 ## 3.10.1 (January 19, 2022)
 
 ### Fixed
@@ -8,7 +30,7 @@
 - Fix usage of `data-` prefix for Cover and Responsive component
 - Fix pointer events for iframes in Cover component
 - Fix Slideshow component no longer throws if items list does not exist
-- Fix space key no longer triggers Toggle on <input> elements
+- Fix space key no longer triggers Toggle on `input` elements
 
 ## 3.10.0 (January 12, 2022)
 
@@ -62,7 +84,7 @@
 
 ### Changed
 
-- Upgrade LESS to version 4
+- Upgrade Less to version 4
 
 ## 3.8.1 (November 5, 2021)
 
@@ -152,7 +174,7 @@
 ### Fixed
 
 - Fix animation classes only partially being removed in Scrollspy component
-- Fix scrollIntoView did not return Promise if element is hidden 
+- Fix scrollIntoView did not return Promise if element is hidden
 
 ## 3.7.0 (June 29, 2021)
 
@@ -252,7 +274,7 @@
 
 ### Added
 
-- Add background-size modifier for width and height to Background component 
+- Add background-size modifier for width and height to Background component
 
 ### Fixed
 
@@ -299,7 +321,7 @@
 
 - Fix IE11 compatibility
 - Fix changing ratio does not correctly apply width and height in SVG component
-- Fix issues from hiding an already hidden Modal 
+- Fix issues from hiding an already hidden Modal
 
 ## 3.6.11 (January 14, 2021)
 
@@ -533,7 +555,7 @@
 ### Added
 
 - Add list marker utility support for WebKit
-- Add `uk-text-default` to Text component 
+- Add `uk-text-default` to Text component
 - Add multiple targets to Filter component
 
 ### Fixed
@@ -542,7 +564,7 @@
 - Fix empty slider throws exception
 - Fix pointer events ignored on SVGs in Sortable component
 - Fix Grid component divider rendering
-- Fix `<select>` closes Drop component in hover mode in Firefox 
+- Fix `<select>` closes Drop component in hover mode in Firefox
 
 ## 3.5.4 (June 12, 2020)
 
@@ -553,7 +575,7 @@
 ### Fixed
 
 - Fix prop observer for dataSrc option in Image component
-- Fix ajax function supports responseType 'json' in IE 11 
+- Fix ajax function supports responseType 'json' in IE 11
 - Fix Accordion component with `multiple: true` and `collapsible: false`
 
 ## 3.5.3 (May 29, 2020)
@@ -606,7 +628,7 @@
 
 ### Added
 
-- Add inBrowser check to enable server-side rendering 
+- Add inBrowser check to enable server-side rendering
 
 ### Fixed
 
@@ -666,7 +688,7 @@
 
 ### Changed
 
-- Change default dimensions to 1920x1080 for YouTube in Lightbox component 
+- Change default dimensions to 1920x1080 for YouTube in Lightbox component
 
 ### Fixed
 
@@ -684,7 +706,7 @@
 
 - Fix Height Match component not matching empty elements
 - Fix Scrollspy Nav component activating wrong elements
-- Fix Modal/Drop close on bgClick behaviour 
+- Fix Modal/Drop close on bgClick behaviour
 - Fix `z-index` on Modal stacked dialogs
 
 ## 3.3.6 (March 12, 2020)
@@ -810,7 +832,7 @@
 ### Fixed
 
 - Fix scrolling containers while dragging in Sortable component
-- Fix show/hide behaviour in Drop component 
+- Fix show/hide behaviour in Drop component
 - Fix Accordion component will scroll title into view if needed
 - Fix component initialization without element
 
@@ -910,7 +932,7 @@
 - Fix swipe gestures in Switcher component (Android)
 - Ensure at most one Height Viewport component set to `expand` is active
 - Height Viewport component no longer calculates its height if invisible
-- Fix using Sortable in scrolling container 
+- Fix using Sortable in scrolling container
 - Fix lazy loading images if parent element is fully clipped
 - Fix clicking Slideshow with `draggable: false` no longer pauses autoplay
 - Fix toggling modal while transition is in progress
@@ -954,7 +976,7 @@
 - Fix selector engine
 - Fix CSS selector in Lightbox component
 - Fix Drop not closing when Toggle component is clicked
- 
+
 ## 3.1.3 (April 23, 2019)
 
 ### Fixed
@@ -1873,7 +1895,7 @@
 
 ### Changed
 
-- IMPORTANT: Move LESS/Sass imports into one file. Use `components/_import.less`
+- IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
 - IMPORTANT: Renamed `transition` option to `easing` in Scroll component
 - Improve flip behaviour in Drop component
 - Improve `class` handling
@@ -2047,7 +2069,7 @@
 
 ### Fixed
 
-- Fix npm not watching LESS
+- Fix npm not watching Less files
 - Modal no longer closes immediately when toggled from custom `click` handler
 - Fix Accordion component
 - Fix container for Tooltip component
@@ -2144,7 +2166,7 @@
 
 ### Changed
 
-- LESS no longer uses component attribute selectors
+- Less no longer uses component attribute selectors
 - Accordion close and open icons using variables
 
 ### Removed

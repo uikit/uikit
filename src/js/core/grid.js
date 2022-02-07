@@ -1,6 +1,6 @@
 import Margin from './margin';
 import Class from '../mixin/class';
-import {addClass, children, css, height as getHeight, hasClass, scrolledOver, sortBy, toFloat, toggleClass} from 'uikit-util';
+import {addClass, children, css, hasClass, scrolledOver, sortBy, toFloat, toggleClass} from 'uikit-util';
 
 export default {
 
@@ -94,7 +94,7 @@ export default {
 
                 return {
                     scrolled: this.parallax
-                        ? scrolledOver(this.$el, height ? height - getHeight(this.$el) : 0) * Math.abs(this.parallax)
+                        ? scrolledOver(this.$el) * Math.abs(this.parallax)
                         : false
                 };
             },

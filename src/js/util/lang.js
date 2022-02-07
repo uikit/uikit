@@ -300,6 +300,10 @@ export function getIndex(i, elements, current = 0, finite = false) {
 
     const {length} = elements;
 
+    if (!length) {
+        return -1;
+    }
+
     i = isNumeric(i)
         ? toNumber(i)
         : i === 'next'

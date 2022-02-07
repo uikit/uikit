@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sticky Parallax - UIkit tests</title>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body style="padding-bottom: 1100px;">
+
+        <div class="uk-section uk-section-primary uk-position-z-index-negative uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-sticky="bottom: +* +*" uk-height-viewport>
+            <div class="uk-container">
+
+                <h1 class="uk-heading-2xlarge">Sticky Section</h1>
+
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default">
+            <div class="uk-container">
+
+                <div id="js-sticky-parallax-container" class="uk-position-relative uk-background-muted uk-text-center" style="height: 200vh">
+                    <div uk-sticky="bottom: #js-sticky-parallax-container; offset: 20vh">
+
+                        <div class="uk-position-center">
+                            <div class="uk-flex">
+                                <div>
+                                    <h1 class="uk-heading-2xlarge" uk-parallax="target: #js-sticky-parallax-container; x: 0,-250,-250,0; easing: -1; start: 60vh; end: 100vh;">Sticky</h1>
+                                </div>
+                                <div>
+                                    <h1 class="uk-heading-2xlarge" uk-parallax="target: #js-sticky-parallax-container; x: 0,250,250,0; easing: -1; start: 60vh; end: 100vh;">Parallax</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <img class="uk-position-relative uk-position-z-index" src="images/size-v.jpg" alt="" width="400" height="800">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default uk-text-center">
+
+            <div class="uk-transform-origin-bottom-center uk-margin-bottom" uk-parallax="scale: 1,.2; start: 100%; end: 40vh">
+                <img src="images/photo2.jpg" width="1800" height="1200">
+            </div>
+
+            <div class="uk-container">
+
+                <h1 class="uk-heading-xlarge">Parallax Bottom</h1>
+
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default uk-text-center">
+
+            <div class="uk-cover-container uk-transform-origin-bottom-center uk-margin-bottom" uk-parallax="scale: 1,.2; start: 100%; end: 40vh" uk-height-viewport>
+                <img src="images/photo3.jpg" width="1800" height="1200" uk-cover>
+            </div>
+
+            <div class="uk-container">
+
+                <h1 class="uk-heading-xlarge">Parallax Bottom Cover</h1>
+
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default uk-text-center uk-position-relative uk-position-z-index">
+
+            <div class="uk-cover-container uk-position-z-index-negative" uk-sticky="bottom: true" uk-height-viewport>
+                <img src="images/photo.jpg" width="1800" height="1200" uk-cover>
+            </div>
+
+            <div class="uk-light" style="margin-top: -100vh; padding: 30vh 0">
+
+                <div uk-parallax="start: 100%; end: 70vh; opacity: 0,1; y: 2vh, 0">
+                    <div uk-parallax="start: 100% + 30vh; end: 100%; opacity: 1,0; y: 0, -10vh">
+                        <h1 class="uk-heading-xlarge uk-margin-xlarge">Sticky Background</h1>
+                    </div>
+                </div>
+
+                <div uk-parallax="start: 100%; end: 70vh; opacity: 0,1; y: 2vh, 0">
+                    <div uk-parallax="start: 100% + 30vh; end: 100%; opacity: 1,0; y: 0, -10vh">
+                        <h1 class="uk-heading-xlarge uk-margin-xlarge">Sticky Background</h1>
+                    </div>
+                </div>
+
+                <div uk-parallax="start: 100%; end: 70vh; opacity: 0,1; y: 2vh, 0">
+                    <div uk-parallax="start: 100% + 30vh; end: 100%; opacity: 1,0; y: 0, -10vh">
+                        <h1 class="uk-heading-xlarge uk-margin-xlarge">Sticky Background</h1>
+                    </div>
+                </div>
+
+                <div uk-parallax="start: 100%; end: 70vh; opacity: 0,1; y: 2vh, 0">
+                    <div uk-parallax="start: 100% + 30vh; end: 100%; opacity: 1,0; y: 0, -10vh">
+                        <h1 class="uk-heading-xlarge uk-margin-xlarge">Sticky Background</h1>
+                    </div>
+                </div>
+
+                <div uk-parallax="start: 100%; end: 70vh; opacity: 0,1; y: 2vh, 0">
+                    <div uk-parallax="start: 100% + 30vh; end: 100%; opacity: 1,0; y: 0, -10vh">
+                        <h1 class="uk-heading-xlarge uk-margin-xlarge">Sticky Background</h1>
+                    </div>
+                </div>
+
+                <div uk-parallax="start: 100%; end: 70vh; opacity: 0,1; y: 2vh, 0">
+                    <div uk-parallax="start: 100% + 30vh; end: 100%; opacity: 1,0; y: 0, -10vh">
+                        <h1 class="uk-heading-xlarge uk-margin-xlarge-top uk-margin-remove-bottom">Sticky Background</h1>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default">
+
+            <div id="js-sticky-parallax-viewport" class="uk-child-width-1-3 uk-text-center" uk-grid>
+                <div>
+
+                    <img class="uk-margin-large" src="images/photo.jpg" alt="" width="1800" height="1200">
+                    <img class="uk-margin-large" src="images/photo3.jpg" alt="" width="1800" height="1200">
+                    <img class="uk-margin-large" src="images/photo2.jpg" alt="" width="1800" height="1200">
+                    <img class="uk-margin-large" src="images/photo.jpg" alt="" width="1800" height="1200">
+                    <img class="uk-margin-large" src="images/photo3.jpg" alt="" width="1800" height="1200">
+
+                </div>
+                <div>
+
+                    <div class="uk-tile uk-tile-muted uk-text-center" style="height: 100vh" uk-sticky="bottom: #js-sticky-parallax-viewport">
+
+                        <div uk-parallax="target: #js-sticky-parallax-viewport; start: 100vh; end: 100vh; y: 0, 35vh; easing: 0">
+
+                            <h1 class="uk-margin-remove">Sticky Parallax Viewport</h1>
+    
+                        </div>
+
+                    </div>
+
+                </div>
+                <div>
+
+                    <img class="uk-margin-large" src="images/photo2.jpg" alt="" width="1800" height="1200">
+                    <img class="uk-margin-large" src="images/photo.jpg" alt="" width="1800" height="1200">
+                    <img class="uk-margin-large" src="images/photo3.jpg" alt="" width="1800" height="1200">
+                    <img class="uk-margin-large" src="images/photo2.jpg" alt="" width="1800" height="1200">
+                    <img class="uk-margin-large" src="images/photo.jpg" alt="" width="1800" height="1200">
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="uk-section uk-section-default">
+
+            <div id="js-sticky-parallax-images" class="uk-child-width-1-3" style="height: 250vh" uk-grid>
+                <div class="uk-background-muted uk-width-expand">
+        
+                    <div style="height: 100vh;" uk-sticky="bottom: #js-sticky-parallax-images">
+                        <div uk-parallax="target: #js-sticky-parallax-images; y: 55vh, 45vh;">
+                            <img class="uk-position-center-left" src="images/photo.jpg" alt="" width="1800" height="1200">
+                            <img class="uk-position-center-left" src="images/photo2.jpg" alt="" width="1800" height="1200" uk-parallax="target: #js-sticky-parallax-images; start: 125vh; end: 100% + 100vh - 135vh; opacity: 0,1">
+                            <img class="uk-position-center-left" src="images/photo3.jpg" alt="" width="1800" height="1200" uk-parallax="target: #js-sticky-parallax-images; start: 175vh; end: 100% + 100vh - 185vh; opacity: 0,1">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="uk-width-small">
+                    <div class="uk-position-relative uk-background-muted" style="height: 75vh"><div class="uk-position-bottom-center">75vh</div></div>
+                    <div class="uk-position-relative uk-background-primary uk-light" style="height: 50vh"><div class="uk-position-bottom-center">125vh</div></div>
+                    <div class="uk-position-relative uk-background-secondary uk-light" style="height: 50vh"><div class="uk-position-bottom-center">175vh</div></div>
+                    <div class="uk-position-relative uk-background-muted" style="height: 50vh"><div class="uk-position-bottom-center">225vh</div></div>
+                    <div class="uk-position-relative uk-background-primary uk-light" style="height: 25vh"><div class="uk-position-bottom-center">250vh</div></div>
+                </div>
+                <div class="uk-width-expand">
+
+                    <div style="height: 75vh;"></div>
+
+                    <div class="uk-flex uk-flex-middle" style="height: 50vh;">
+                        <div>
+
+                            <h1>Sticky Parallax Images 1</h1>
+                            
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                        </div>
+                    </div>
+
+                    <div class="uk-flex uk-flex-middle" style="height: 50vh;">
+                        <div>
+
+                            <h1>Sticky Parallax Images 2</h1>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                        </div>
+                    </div>
+
+                    <div class="uk-flex uk-flex-middle" style="height: 50vh;">
+                        <div>
+
+                            <h1>Sticky Parallax Images 3</h1>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="uk-section uk-section-default">
+
+            <div id="js-sticky-parallax-images-all" class="uk-child-width-1-3" style="height: 250vh" uk-grid>
+                <div class="uk-background-muted uk-width-expand">
+
+                    <div style="height: 100vh;" uk-sticky="bottom: #js-sticky-parallax-images-all">
+                        <div uk-parallax="target: #js-sticky-parallax-images-all; y: 55vh, 45vh;">
+                            <img class="uk-position-center-left" src="images/photo.jpg" alt="" width="1800" height="1200">
+                            <img class="uk-position-center-left" src="images/photo2.jpg" alt="" width="1800" height="1200" uk-parallax="target: #js-sticky-parallax-images-all; start: 150vh; end: 100% + 100vh - 160vh; opacity: 0,1">
+                            <img class="uk-position-center-left" src="images/photo3.jpg" alt="" width="1800" height="1200" uk-parallax="target: #js-sticky-parallax-images-all; start: 200vh; end: 100% + 100vh - 210vh; opacity: 0,1">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="uk-width-small">
+                    <div class="uk-position-relative uk-background-muted" style="height: 100vh"><div class="uk-position-bottom-center">100vh</div></div>
+                    <div class="uk-position-relative uk-background-primary uk-light" style="height: 50vh"><div class="uk-position-bottom-center">150vh</div></div>
+                    <div class="uk-position-relative uk-background-secondary uk-light" style="height: 50vh"><div class="uk-position-bottom-center">200vh</div></div>
+                    <div class="uk-position-relative uk-background-muted" style="height: 50vh"><div class="uk-position-bottom-center">250vh</div></div>
+                </div>
+                <div class="uk-width-expand">
+
+                    <div style="height: 100vh;" uk-sticky="bottom: #js-sticky-parallax-images-all">
+                        <div uk-parallax="target: #js-sticky-parallax-images-all; y: 55vh, 45vh;">
+                            <div class="uk-position-center-left" uk-parallax="target: #js-sticky-parallax-images-all; start: 90vh; end: 100% + 100vh - 100vh; opacity: 0,1">
+                                <div uk-parallax="target: #js-sticky-parallax-images-all; start: 140vh; end: 100% + 100vh - 150vh; opacity: 1,0">
+
+                                    <h1>Sticky Parallax Images All 1</h1>
+
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                                </div>
+                            </div>
+                            <div class="uk-position-center-left" uk-parallax="target: #js-sticky-parallax-images-all; start: 150vh; end: 100% + 100vh - 160vh; opacity: 0,1">
+                                <div uk-parallax="target: #js-sticky-parallax-images-all; start: 190vh; end: 100% + 100vh - 200vh; opacity: 1,0">
+
+                                    <h1>Sticky Parallax Images All 2</h1>
+
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                                </div>
+                            </div>
+                            <div class="uk-position-center-left" uk-parallax="target: #js-sticky-parallax-images-all; start: 200vh; end: 100% + 100vh - 210vh; opacity: 0,1">
+
+                                <h1>Sticky Parallax Images All 3</h1>
+
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

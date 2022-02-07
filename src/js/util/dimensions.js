@@ -156,7 +156,7 @@ export function flipPosition(pos) {
     return pos;
 }
 
-export function toPx(value, property = 'width', element = window) {
+export function toPx(value, property = 'width', element = window, offsetDim = false) {
     return isNumeric(value)
         ? +value
         : endsWith(value, 'vh')
@@ -164,7 +164,9 @@ export function toPx(value, property = 'width', element = window) {
             : endsWith(value, 'vw')
                 ? percent(width(toWindow(element)), value)
                 : endsWith(value, '%')
-                    ? percent(dimensions(element)[property], value)
+                    ? percent(offsetDim
+                        ? dimension(property)(element)
+                        : dimensions(element)[property], value)
                     : toFloat(value);
 }
 
