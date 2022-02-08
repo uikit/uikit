@@ -133,10 +133,6 @@ export function getWidth(list) {
     return children(list).reduce((right, el) => dimensions(el).width + right, 0);
 }
 
-export function getWidthWithPadding(list) {
-    return children(list).reduce((right, el) => Math.ceil(dimensions(el).width + right), 0);
-}
-
 function centerEl(el, list) {
     return dimensions(list).width / 2 - dimensions(el).width / 2;
 }
