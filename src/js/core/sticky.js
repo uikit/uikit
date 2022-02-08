@@ -9,7 +9,7 @@ export default {
     props: {
         top: null,
         bottom: Boolean,
-        offset: String,
+        offset: 'list',
         animation: String,
         clsActive: String,
         clsInactive: String,
@@ -39,7 +39,7 @@ export default {
     computed: {
 
         offset({offset}) {
-            return toPx(offset);
+            return offset.reduce((acc, val) => acc + toPx(val), 0);
         },
 
         selTarget({selTarget}, $el) {
