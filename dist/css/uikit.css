@@ -1,4 +1,4 @@
-/*! UIkit 3.10.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.11.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4052,6 +4052,12 @@ select.uk-form-width-xsmall {
 /* ========================================================================
    Component: Sticky
  ========================================================================== */
+/*
+ * Create position context so it's t the same like when fixed.
+ */
+.uk-sticky {
+  position: relative;
+}
 /*
  * 1. Force new layer to resolve frame rate issues on devices with lower frame rates
  */
@@ -9016,6 +9022,9 @@ iframe[data-uk-cover] {
  ========================================================================== */
 .uk-position-z-index {
   z-index: 1;
+}
+.uk-position-z-index-negative {
+  z-index: -1;
 }
 /* ========================================================================
    Component: Transition

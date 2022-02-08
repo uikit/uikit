@@ -102,7 +102,7 @@ export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
 
 }
 
-export function scrolledOver(element, heightOffset = 0) {
+export function scrolledOver(element, startOffset = 0, endOffset = 0) {
 
     if (!isVisible(element)) {
         return 0;
@@ -110,18 +110,14 @@ export function scrolledOver(element, heightOffset = 0) {
 
     const [scrollElement] = scrollParents(element, /auto|scroll/, true);
     const {scrollHeight, scrollTop} = scrollElement;
-    const clientHeight = getViewportClientHeight(scrollElement);
-    const viewportTop = offsetPosition(element)[0] - scrollTop - offsetPosition(scrollElement)[0];
-    const viewportDist = Math.min(clientHeight, viewportTop + scrollTop);
+    const viewportHeight = getViewportClientHeight(scrollElement);
+    const maxScroll = scrollHeight - viewportHeight;
+    const elementOffsetTop = offsetPosition(element)[0] - offsetPosition(scrollElement)[0];
 
-    const top = viewportTop - viewportDist;
-    const dist = Math.min(
-        element.offsetHeight + heightOffset + viewportDist,
-        scrollHeight - (viewportTop + scrollTop),
-        scrollHeight - clientHeight
-    );
+    const start = Math.max(0, elementOffsetTop - viewportHeight + startOffset);
+    const end = Math.min(maxScroll, elementOffsetTop + element.offsetHeight - endOffset);
 
-    return clamp(-1 * top / dist);
+    return clamp((scrollTop - start) / (end - start));
 }
 
 export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scrollable = false) {

@@ -2,9 +2,26 @@
 
 ## WIP
 
+- Fix infinite sliding in Slider component with equally sized slides
+
+## 3.11.1 (February 7, 2022)
+
+### Fixed
+
+- Fix scoping css to exclude `:root` selector
+- Fix `toPx()` correctly uses offsetHeight/Width
+
+## 3.11.0 (February 7, 2022)
+
 ### Added
 
+- Add `start` and `end` options to Parallax component
 - Add negative z-index utility class to Position component
+- Add Sticky Parallax test
+
+### Deprecated
+
+- Deprecate `viewport` option in Parallax component: Use `end` option instead
 
 ### Fixed
 
@@ -12,6 +29,9 @@
 - Fix interdependent computed properties being evaluated too often
 - Fix `getIndex()` returns `-1` instead of `NaN` if called with empty elements parameter
 - Fix Scrollspy component no longer sets class `false`
+- Fix Parallax component no longer rounds values to two digits after comma
+- Fix Parallax component running backwards with 'viewport' option set to a value < 1
+- Fix Parallax component easing option for values < -1 || > 1
 
 ## 3.10.1 (January 19, 2022)
 
@@ -21,7 +41,7 @@
 - Fix usage of `data-` prefix for Cover and Responsive component
 - Fix pointer events for iframes in Cover component
 - Fix Slideshow component no longer throws if items list does not exist
-- Fix space key no longer triggers Toggle on <input> elements
+- Fix space key no longer triggers Toggle on `input` elements
 
 ## 3.10.0 (January 12, 2022)
 
