@@ -1,6 +1,6 @@
 import Media from '../mixin/media';
 import {getMaxPathLength} from '../core/svg';
-import {css, Dimensions, each, isNumber, isString, isUndefined, noop, startsWith, toFloat, toPx, ucfirst} from 'uikit-util';
+import {css, Dimensions, each, isNumber, isString, isUndefined, noop, startsWith, toFloat, toPx, trigger, ucfirst} from 'uikit-util';
 
 const props = {
     x: transformFn,
@@ -38,12 +38,18 @@ export default {
         props(properties, $el) {
             return keys(props).reduce((result, prop) => {
                 if (!isUndefined(properties[prop])) {
-                    result[prop] = props[prop].call(this, prop, $el, properties[prop].slice());
+                    result[prop] = props[prop](prop, $el, properties[prop].slice());
                 }
                 return result;
             }, {});
         }
 
+    },
+
+    events: {
+        bgimageload() {
+            this.$emit();
+        }
     },
 
     methods: {
@@ -186,15 +192,15 @@ function backgroundFn(prop, el, steps) {
     const bgPos = css(el, 'backgroundPosition').split(' ')[prop === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
 
     return getCssValue(el, 'backgroundSize', '') === 'cover'
-        ? backgroundCoverFn.call(this, prop, el, steps, bgPos, attr)
+        ? backgroundCoverFn(prop, el, steps, bgPos, attr)
         : setBackgroundPosFn(prop, steps, bgPos);
 }
 
 function backgroundCoverFn(prop, el, steps, bgPos, attr) {
 
-    const image = getBackgroundImage.call(this, el);
+    const dimImage = getBackgroundImageDimensions(el);
 
-    if (!image.naturalWidth) {
+    if (!dimImage.width) {
         return noop;
     }
 
@@ -208,11 +214,6 @@ function backgroundCoverFn(prop, el, steps, bgPos, attr) {
     const dimEl = {
         width: el.offsetWidth,
         height: el.offsetHeight
-    };
-
-    const dimImage = {
-        width: image.naturalWidth,
-        height: image.naturalHeight
     };
 
     const baseDim = Dimensions.cover(dimImage, dimEl);
@@ -245,24 +246,34 @@ function setBackgroundPosFn(prop, steps, pos) {
     };
 }
 
-function getBackgroundImage(el) {
+const dimensions = {};
+function getBackgroundImageDimensions(el) {
     const src = css(el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
-    const data = this._data;
-
-    if (data[src]) {
-        return data[src];
+    if (dimensions[src]) {
+        return dimensions[src];
     }
 
+    const image = new Image();
     if (src) {
-        const img = new Image();
-        img.src = src;
-        if (!img.naturalWidth) {
-            img.onload = () => this.$update();
-        }
+        image.src = src;
 
-        return data[src] = img;
+        if (!image.naturalWidth) {
+            image.onload = () => {
+                dimensions[src] = toDimensions(image);
+                trigger(el, 'bgimageload');
+            };
+        }
     }
+
+    return dimensions[src] = toDimensions(image);
+}
+
+function toDimensions(image) {
+    return {
+        width: image.naturalWidth,
+        height: image.naturalHeight
+    };
 }
 
 function getStep(steps, percent) {
