@@ -218,7 +218,6 @@ export default {
 
             off(document, pointerMove, this.move);
             off(document, pointerUp, this.end);
-            off(window, 'scroll', this.scroll);
 
             if (!this.drag) {
                 return;
@@ -295,7 +294,7 @@ function trackScroll(pos) {
     trackTimer = setInterval(() => {
 
         let {x, y} = pos;
-        y += window.pageYOffset;
+        y += scrollTop(window);
 
         const dist = (Date.now() - last) * .3;
         last = Date.now();

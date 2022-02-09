@@ -100,7 +100,7 @@ export default {
 
             handler() {
 
-                if (!(this.targetOffset !== false && location.hash && window.pageYOffset > 0)) {
+                if (!(this.targetOffset !== false && location.hash && scrollTop(window) > 0)) {
                     return;
                 }
 

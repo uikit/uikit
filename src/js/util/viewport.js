@@ -2,7 +2,7 @@ import {css} from './style';
 import {Promise} from './promise';
 import {isVisible, parents} from './filter';
 import {offset, offsetPosition} from './dimensions';
-import {clamp, findIndex, intersectRect, isDocument, isWindow, toNode, toWindow} from './lang';
+import {clamp, findIndex, intersectRect, isDocument, isUndefined, isWindow, toNode, toWindow} from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
@@ -31,7 +31,11 @@ export function scrollTop(element, top) {
         element = toNode(element);
     }
 
-    element.scrollTop = top;
+    if (isUndefined(top)) {
+        return element.scrollTop;
+    } else {
+        element.scrollTop = top;
+    }
 }
 
 export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {

@@ -13,7 +13,7 @@ export default function (UIkit) {
             return;
         }
         pendingResize = true;
-        fastdom.write(() => pendingResize = false);
+        fastdom.read(() => pendingResize = false);
         UIkit.update(null, 'resize');
     };
 
@@ -32,7 +32,7 @@ export default function (UIkit) {
             return;
         }
         pending = true;
-        fastdom.write(() => pending = false);
+        fastdom.read(() => pending = false);
 
         UIkit.update(null, e.type);
 

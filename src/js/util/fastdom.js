@@ -31,7 +31,7 @@ export const fastdom = {
 
 };
 
-function flush(recursion = 1) {
+function flush(recursion) {
     runTasks(fastdom.reads);
     runTasks(fastdom.writes.splice(0));
 
@@ -53,7 +53,7 @@ function scheduleFlush(recursion) {
     if (recursion && recursion < RECURSION_LIMIT) {
         Promise.resolve().then(() => flush(recursion));
     } else {
-        requestAnimationFrame(() => flush());
+        requestAnimationFrame(() => flush(1));
     }
 
 }
