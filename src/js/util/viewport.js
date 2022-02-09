@@ -149,7 +149,7 @@ export function getViewportClientHeight(scrollElement) {
     return (scrollElement === getScrollingElement(scrollElement) ? document.documentElement : scrollElement).clientHeight;
 }
 
-function getScrollingElement(element) {
+export function getScrollingElement(element) {
     const {document} = toWindow(element);
     return document.scrollingElement || document.documentElement;
 }

@@ -1,5 +1,5 @@
 import FlexBug from '../mixin/flex-bug';
-import {boxModelAdjust, css, dimensions, endsWith, height, isNumeric, isString, isVisible, offset, query, toFloat} from 'uikit-util';
+import {boxModelAdjust, css, dimensions, endsWith, height, isNumeric, isString, isVisible, offset, query, toFloat, trigger} from 'uikit-util';
 
 export default {
 
@@ -76,7 +76,7 @@ export default {
             css(this.$el, {minHeight});
 
             if (minHeight !== prev) {
-                this.$update(this.$el, 'resize');
+                trigger(this.$el, 'resize');
             }
 
             if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {

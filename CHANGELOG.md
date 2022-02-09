@@ -2,6 +2,12 @@
 
 ## WIP
 
+### Changed
+
+- Scroll Sticky component's content if it's higher than viewport
+
+### Fixed
+
 - Fix infinite sliding in Slider component with equally sized slides
 
 ## 3.11.1 (February 7, 2022)

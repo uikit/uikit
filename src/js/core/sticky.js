@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, css, dimensions, fastdom, height as getHeight, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, clamp, css, dimensions, fastdom, height as getHeight, getScrollingElement, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -146,24 +146,26 @@ export default {
 
                 height = this.isActive ? height : this.$el.offsetHeight;
 
-                if (height + this.offset > getHeight(window)) {
-                    this.inactive = true;
-                    return false;
-                }
+                const overflow = Math.max(0, height + this.offset - getHeight(window));
 
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
-                this.topOffset = offset(referenceElement).top;
-                this.bottomOffset = this.topOffset + height;
-                this.offsetParentTop = offset(referenceElement.offsetParent).top;
+                const topOffset = offset(referenceElement).top;
+                const offsetParentTop = offset(referenceElement.offsetParent).top;
 
                 const bottom = parseProp('bottom', this);
-
-                this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                this.bottom = bottom && bottom - this.$el.offsetHeight;
-                this.width = dimensions(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
+                const start = Math.max(toFloat(parseProp('top', this)), topOffset) - this.offset;
+                const end = bottom
+                    ? bottom - this.$el.offsetHeight + overflow - this.offset
+                    : getScrollingElement(this.$el).scrollHeight - getHeight(window);
 
                 return {
+                    start,
+                    end,
+                    overflow,
+                    topOffset,
+                    offsetParentTop,
                     height,
+                    width: dimensions(isVisible(this.widthElement) ? this.widthElement : this.$el).width,
                     top: offsetPosition(this.placeholder)[0],
                     margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                 };
@@ -190,42 +192,48 @@ export default {
 
         {
 
-            read({scroll = 0}) {
+            read({scroll: prevScroll = 0, dir: prevDir = 'down', overflow, overflowScroll = 0, start, end}) {
 
-                this.scroll = window.pageYOffset;
+                const scroll = scrollTop(window);
+                const dir = prevScroll <= scroll ? 'down' : 'up';
 
                 return {
-                    dir: scroll <= this.scroll ? 'down' : 'up',
-                    scroll: this.scroll
+                    dir,
+                    prevDir,
+                    scroll,
+                    prevScroll,
+                    overflowScroll: clamp(
+                        overflowScroll
+                        + clamp(scroll, start, end)
+                        - clamp(prevScroll, start, end),
+                        0,
+                        overflow
+                    )
                 };
             },
 
             write(data, types) {
 
-                const now = Date.now();
                 const isScrollUpdate = types.has('scroll');
-                const {initTimestamp = 0, dir, lastDir, lastScroll, scroll, top} = data;
+                const {initTimestamp = 0, dir, prevDir, scroll, prevScroll = 0, top, start, topOffset, height} = data;
 
-                data.lastScroll = scroll;
-
-                if (scroll < 0 || scroll === lastScroll && isScrollUpdate || this.showOnUp && !isScrollUpdate && !this.isFixed) {
+                if (scroll < 0 || scroll === prevScroll && isScrollUpdate || this.showOnUp && !isScrollUpdate && !this.isFixed) {
                     return;
                 }
 
-                if (now - initTimestamp > 300 || dir !== lastDir) {
+                const now = Date.now();
+                if (now - initTimestamp > 300 || dir !== prevDir) {
                     data.initScroll = scroll;
                     data.initTimestamp = now;
                 }
 
-                data.lastDir = dir;
-
-                if (this.showOnUp && !this.isFixed && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
+                if (this.showOnUp && !this.isFixed && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(prevScroll - scroll) <= 10) {
                     return;
                 }
 
                 if (this.inactive
-                    || scroll < this.top
-                    || this.showOnUp && (scroll <= this.top || dir === 'down' && isScrollUpdate || dir === 'up' && !this.isFixed && scroll <= this.bottomOffset)
+                    || scroll < start
+                    || this.showOnUp && (scroll <= start || dir === 'down' && isScrollUpdate || dir === 'up' && !this.isFixed && scroll <= topOffset + height)
                 ) {
 
                     if (!this.isFixed) {
@@ -240,7 +248,7 @@ export default {
 
                     this.isFixed = false;
 
-                    if (this.animation && scroll > this.topOffset) {
+                    if (this.animation && scroll > topOffset) {
                         Animation.cancel(this.$el);
                         Animation.out(this.$el, this.animation).then(() => this.hide(), noop);
                     } else {
@@ -290,23 +298,28 @@ export default {
 
         update() {
 
-            const active = this.top !== 0 || this.scroll > this.top;
+            const {width, scroll = 0, overflow, overflowScroll = 0, start, end, topOffset, height, offsetParentTop} = this._data;
+            const active = start !== 0 || scroll > start;
             let top = Math.max(0, this.offset);
             let position = 'fixed';
 
-            if (isNumeric(this.bottom) && this.scroll > this.bottom - this.offset) {
-                top = this.bottom - this.offsetParentTop;
+            if (scroll > end) {
+                top = end + this.offset - offsetParentTop;
                 position = 'absolute';
+            }
+
+            if (overflow) {
+                top -= overflowScroll;
             }
 
             css(this.$el, {
                 position,
                 top: `${top}px`,
-                width: this.width
+                width
             });
 
             this.isActive = active;
-            toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);
+            toggleClass(this.$el, this.clsBelow, scroll > topOffset + height);
             addClass(this.$el, this.clsFixed);
 
         }
