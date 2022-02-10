@@ -42,7 +42,7 @@ export default {
 
         position({position}, $el) {
             return position === 'auto'
-                ? offset(this.isFixed ? this.placeholder : $el) > getHeight(window)
+                ? (this.isFixed ? this.placeholder : $el).offsetHeight > getHeight(window)
                     ? 'bottom'
                     : 'top'
                 : position;
@@ -315,7 +315,7 @@ export default {
 
             const {width, scroll = 0, overflow, overflowScroll = 0, start, end, topOffset, height, offsetParentTop} = this._data;
             const active = start !== 0 || scroll > start;
-            let top = Math.max(0, this.offset);
+            let top = this.offset;
             let position = 'fixed';
 
             if (scroll > end) {
