@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add `position` option to Sticky component
+
 ### Changed
 
 - Scroll Sticky component's content if it's higher than viewport

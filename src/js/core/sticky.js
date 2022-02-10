@@ -7,6 +7,7 @@ export default {
     mixins: [Class, Media],
 
     props: {
+        position: String,
         top: null,
         bottom: Boolean,
         offset: String,
@@ -22,6 +23,7 @@ export default {
     },
 
     data: {
+        position: 'top',
         top: 0,
         bottom: false,
         offset: 0,
@@ -38,7 +40,18 @@ export default {
 
     computed: {
 
+        position({position}, $el) {
+            return position === 'auto'
+                ? offset(this.isFixed ? this.placeholder : $el) > getHeight(window)
+                    ? 'bottom'
+                    : 'top'
+                : position;
+        },
+
         offset({offset}, $el) {
+            if (this.position === 'bottom') {
+                offset += '+100vh-100%';
+            }
             return toPx(offset, 'height', $el);
         },
 
