@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, clamp, css, dimensions, fastdom, height as getHeight, getScrollingElement, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, clamp, css, dimensions, fastdom, height as getHeight, getScrollingElement, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -38,8 +38,8 @@ export default {
 
     computed: {
 
-        offset({offset}) {
-            return toPx(offset);
+        offset({offset}, $el) {
+            return toPx(offset, 'height', $el);
         },
 
         selTarget({selTarget}, $el) {
@@ -152,8 +152,10 @@ export default {
                 const topOffset = offset(referenceElement).top;
                 const offsetParentTop = offset(referenceElement.offsetParent).top;
 
-                const bottom = parseProp('bottom', this);
-                const start = Math.max(toFloat(parseProp('top', this)), topOffset) - this.offset;
+                const top = parseProp(this.top, this.$el, topOffset);
+                const bottom = parseProp(this.bottom, this.$el, topOffset + height);
+
+                const start = Math.max(top, topOffset) - this.offset;
                 const end = bottom
                     ? bottom - this.$el.offsetHeight + overflow - this.offset
                     : getScrollingElement(this.$el).scrollHeight - getHeight(window);
@@ -328,12 +330,10 @@ export default {
 
 };
 
-function parseProp(prop, {$props, $el, [`${prop}Offset`]: propOffset}) {
-
-    const value = $props[prop];
+function parseProp(value, el, propOffset) {
 
     if (!value) {
-        return;
+        return 0;
     }
 
     if (isString(value) && value.match(/^-?\d/)) {
@@ -342,7 +342,7 @@ function parseProp(prop, {$props, $el, [`${prop}Offset`]: propOffset}) {
 
     } else {
 
-        return offset(value === true ? parent($el) : query(value, $el)).bottom;
+        return offset(value === true ? parent(el) : query(value, el)).bottom;
 
     }
 }

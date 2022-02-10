@@ -1,5 +1,5 @@
 import {css} from './style';
-import {each, endsWith, isDocument, isElement, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
+import {each, isDocument, isElement, isString, isUndefined, isWindow, memoize, toFloat, toNode, toWindow, ucfirst} from './lang';
 
 const dirs = {
     width: ['left', 'right'],
@@ -157,18 +157,34 @@ export function flipPosition(pos) {
 }
 
 export function toPx(value, property = 'width', element = window, offsetDim = false) {
-    return isNumeric(value)
-        ? +value
-        : endsWith(value, 'vh')
-            ? percent(height(toWindow(element)), value)
-            : endsWith(value, 'vw')
-                ? percent(width(toWindow(element)), value)
-                : endsWith(value, '%')
-                    ? percent(offsetDim
-                        ? element[`offset${ucfirst(property)}`]
-                        : dimensions(element)[property], value)
-                    : toFloat(value);
+
+    if (!isString(value)) {
+        return toFloat(value);
+    }
+
+    return parseCalc(value).reduce((result, value) => {
+        const unit = parseUnit(value);
+        if (unit) {
+            value = percent(
+                unit === 'vh'
+                    ? height(toWindow(element))
+                    : unit === 'vw'
+                        ? width(toWindow(element))
+                        : offsetDim
+                            ? element[`offset${ucfirst(property)}`]
+                            : dimensions(element)[property],
+                value
+            );
+        }
+
+        return result + toFloat(value);
+    }, 0);
 }
+
+const calcRe = /-?\d+(?:\.\d+)?(?:v[wh]|%|px)?/g;
+const parseCalc = memoize(calc => calc.toString().replace(/\s/g, '').match(calcRe) || []);
+const unitRe = /(?:v[hw]|%)$/;
+const parseUnit = memoize(str => (str.match(unitRe) || [])[0]);
 
 function percent(base, value) {
     return base * toFloat(value) / 100;

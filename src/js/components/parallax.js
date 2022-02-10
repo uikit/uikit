@@ -28,13 +28,15 @@ export default {
         },
 
         start({start}) {
-            return parseCalc(start, this.target);
+            return toPx(start, 'height', this.target, true);
         },
 
         end({end, viewport}) {
-            return parseCalc(
+            return toPx(
                 end || (viewport = (1 - viewport) * 100) && `${viewport}vh+${viewport}%`,
-                this.target
+                'height',
+                this.target,
+                true
             );
         }
 
@@ -76,19 +78,6 @@ export default {
     }
 
 };
-
-const calcRe = /-?\d+(?:\.\d+)?(?:v[wh]|%|px)?/g;
-function parseCalc(calc, el) {
-    let match;
-    let result = 0;
-    calc = calc.toString().replace(/\s/g, '');
-    calcRe.lastIndex = 0;
-    while ((match = calcRe.exec(calc)) !== null) {
-        result += toPx(match[0], 'height', el, true);
-    }
-
-    return result;
-}
 
 function ease(percent, easing) {
     return easing >= 0
