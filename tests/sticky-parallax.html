@@ -21,21 +21,20 @@
         <div class="uk-section uk-section-default">
             <div class="uk-container">
 
-                <div id="js-sticky-parallax-container" class="uk-position-relative uk-background-muted uk-text-center" style="height: 200vh">
-                    <div uk-sticky="bottom: #js-sticky-parallax-container; offset: 20vh">
+                <div id="js-sticky-parallax-container" class="uk-position-relative uk-background-muted uk-text-center" style="height: 300vh">
+                    <div class="uk-flex uk-flex-center uk-flex-middle" style="height: 100vh;" uk-sticky="bottom: #js-sticky-parallax-container">
+                        <div>
 
-                        <div class="uk-position-center">
-                            <div class="uk-flex">
-                                <div>
-                                    <h1 class="uk-heading-2xlarge" uk-parallax="target: #js-sticky-parallax-container; x: 0,-10vw,-10vw,0; easing: -1; start: 60vh; end: 100vh;">Sticky</h1>
-                                </div>
-                                <div>
-                                    <h1 class="uk-heading-2xlarge" uk-parallax="target: #js-sticky-parallax-container; x: 0,10vw,10vw,0; easing: -1; start: 60vh; end: 100vh;">Parallax</h1>
-                                </div>
+                            <img class="uk-position-relative uk-position-z-index" src="images/size-v.jpg" alt="" width="400" height="800" style="max-width: 50vw" uk-parallax="target: #js-sticky-parallax-container; y: 0,-250; easing: -1; start: 100vh; end: 100vh;">
+
+                            <div style="margin-top: -200px">
+                                <h1 class="uk-heading-2xlarge">
+                                    <span class="uk-display-inline-block" uk-parallax="target: #js-sticky-parallax-container; x: 0,-15vw,-7vw,0; easing: -1; start: 60vh; end: 100vh;">Sticky</span>
+                                    <br><span class="uk-display-inline-block" uk-parallax="target: #js-sticky-parallax-container; x: 0,10vw,5vw,0; easing: -1; start: 60vh; end: 100vh;">Parallax</span>
+                                </h1>
                             </div>
-                        </div>
 
-                        <img class="uk-position-relative uk-position-z-index" src="images/size-v.jpg" alt="" width="400" height="800" style="max-width: 40vw">
+                        </div>
 
                     </div>
                 </div>
