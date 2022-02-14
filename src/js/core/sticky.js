@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, clamp, css, dimensions, fastdom, height as getHeight, getScrollingElement, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toggleClass, toPx, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, clamp, css, dimensions, fastdom, height as getHeight, getScrollingElement, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -143,7 +143,7 @@ export default {
 
         {
 
-            read({height}, types) {
+            read({height, margin}, types) {
 
                 this.inactive = !this.matchMedia || !isVisible(this.$el);
 
@@ -151,13 +151,19 @@ export default {
                     return false;
                 }
 
-                if (this.isActive && types.has('resize')) {
+                const hide = this.isActive && types.has('resize');
+                if (hide) {
                     this.hide();
-                    height = this.$el.offsetHeight;
-                    this.show();
                 }
 
-                height = this.isActive ? height : this.$el.offsetHeight;
+                if (!this.isActive) {
+                    height = this.$el.offsetHeight;
+                    margin = css(this.$el, 'margin');
+                }
+
+                if (hide) {
+                    this.show();
+                }
 
                 const overflow = Math.max(0, height + this.offset - getHeight(window));
 
@@ -180,17 +186,17 @@ export default {
                     topOffset,
                     offsetParentTop,
                     height,
+                    margin,
                     width: dimensions(isVisible(this.widthElement) ? this.widthElement : this.$el).width,
-                    top: offsetPosition(this.placeholder)[0],
-                    margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
+                    top: offsetPosition(this.placeholder)[0]
                 };
             },
 
-            write({height, margins}) {
+            write({height, margin}) {
 
                 const {placeholder} = this;
 
-                css(placeholder, assign({height}, margins));
+                css(placeholder, {height, margin});
 
                 if (!within(placeholder, document)) {
                     after(this.$el, placeholder);
