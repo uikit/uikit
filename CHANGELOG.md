@@ -13,6 +13,7 @@
 ### Fixed
 
 - Fix infinite sliding in Slider component with equally sized slides
+- Fix Sticky component setting wrong margin for placeholder
 
 ## 3.11.1 (February 7, 2022)
 
