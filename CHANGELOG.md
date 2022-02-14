@@ -4,11 +4,11 @@
 
 ### Added
 
-- Add `position` option to Sticky component
+- Add `position` option with `top`, `bottom` and `auto` values to Sticky component
 
 ### Changed
 
-- Scroll Sticky component's content if it's higher than viewport
+- Improve sticky behavior if sticky content is larger than the viewport
 
 ### Fixed
 
