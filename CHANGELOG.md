@@ -5,6 +5,7 @@
 ### Added
 
 - Add `position` option with `top`, `bottom` and `auto` values to Sticky component
+- Add support for basic math operands in `offset` option of Sticky component
 
 ### Changed
 
