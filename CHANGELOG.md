@@ -16,6 +16,7 @@
 - Fix infinite sliding in Slider component with equally sized slides
 - Fix Sticky component setting wrong margin for placeholder
 - Fix dropdowns not closing in Navbar component when hovering dropbar and navigation with keyboard
+- Fix dropdown no longer closes if pointer is still moving towards it
 
 ## 3.11.1 (February 7, 2022)
 

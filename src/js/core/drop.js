@@ -308,7 +308,7 @@ export default {
             if (active) {
 
                 if (delay && active.isDelaying) {
-                    this.showTimer = setTimeout(this.show, 10);
+                    this.showTimer = setTimeout(() => matches(target, ':hover') && this.show(), 10);
                     return;
                 }
 

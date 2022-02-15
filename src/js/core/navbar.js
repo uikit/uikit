@@ -137,7 +137,7 @@ export default {
 
             handler({current}) {
                 const active = this.getActive();
-                if (active && includes(active.mode, 'hover') && active.target && !within(active.target, current) && !active.tracker.movesTo(active.$el)) {
+                if (active && includes(active.mode, 'hover') && active.target && !within(active.target, current) && !active.isDelaying) {
                     active.hide(false);
                 }
             }
