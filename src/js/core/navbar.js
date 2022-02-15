@@ -301,7 +301,11 @@ export default {
 
                 const active = this.getActive();
 
-                if (matches(this.dropbar, ':hover') && active && active.$el === $el) {
+                if (matches(this.dropbar, ':hover')
+                    && active
+                    && active.$el === $el
+                    && !this.toggles.some(el => active.target !== el && matches(el, ':focus'))
+                ) {
                     e.preventDefault();
                 }
             }
