@@ -211,11 +211,11 @@ export default function (UIkit) {
             on(
                 el,
                 name,
-                !delegate
-                    ? null
-                    : isString(delegate)
+                delegate
+                    ? isString(delegate)
                         ? delegate
-                        : delegate.call(component),
+                        : delegate.call(component)
+                    : null,
                 isString(handler) ? component[handler] : handler.bind(component),
                 {passive, capture, self}
             )
