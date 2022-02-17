@@ -7,6 +7,7 @@ import {
     data,
     escape,
     fragment,
+    hasAttr,
     includes,
     isArray,
     isEmpty,
@@ -57,11 +58,14 @@ export default {
             return;
         }
 
+        ensurePlaceholderImage(this.$el);
+
         const rootMargin = `${toPx(this.offsetTop, 'height')}px ${toPx(
             this.offsetLeft,
             'width'
         )}px`;
         this.observer = new IntersectionObserver(this.load, { rootMargin });
+
         this.observe();
     },
 
@@ -124,7 +128,6 @@ function setSrcAttrs(el, src) {
         const parentNode = parent(el);
         const elements = isPicture(parentNode) ? children(parentNode) : [el];
         elements.forEach((el) => setSourceProps(el, el));
-        src && attr(el, 'src', src);
     } else if (src) {
         const change = !includes(el.style.backgroundImage, src);
         if (change) {
@@ -229,6 +232,12 @@ function getSourceSize(srcset, sizes) {
     const descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort((a, b) => a - b);
 
     return descriptors.filter((size) => size >= srcSize)[0] || descriptors.pop() || '';
+}
+
+function ensurePlaceholderImage(el) {
+    if (isImg(el) && !hasAttr(el, 'src')) {
+        attr(el, 'src', 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"></svg>');
+    }
 }
 
 function isPicture(el) {
