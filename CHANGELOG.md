@@ -5,6 +5,7 @@
 ### Added
 
 - Add support for <picture> element in Img component
+- Add `sources` option to Img component
 
 ### Changed
 

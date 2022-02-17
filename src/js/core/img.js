@@ -1,13 +1,18 @@
 import {
+    append,
     attr,
     children,
     createEvent,
     css,
     data,
     escape,
+    fragment,
     includes,
+    isArray,
+    isObject,
     isUndefined,
     parent,
+    parseOptions,
     queryAll,
     startsWith,
     toFloat,
@@ -20,6 +25,7 @@ export default {
 
     props: {
         dataSrc: String,
+        dataSources: String,
         offsetTop: String,
         offsetLeft: String,
         target: String,
@@ -27,6 +33,7 @@ export default {
 
     data: {
         dataSrc: '',
+        dataSources: [],
         offsetTop: '50vh',
         offsetLeft: '50vw',
         target: false,
@@ -98,7 +105,10 @@ export default {
                 return this._data.image;
             }
 
-            const image = isImg(this.$el) ? this.$el : getImageFromElement(this.$el, this.dataSrc);
+            const image = isImg(this.$el)
+                ? this.$el
+                : getImageFromElement(this.$el, this.dataSrc, parseOptions(this.dataSources));
+
             this._data.image = image;
             setSrcAttrs(this.$el, image.currentSrc || this.dataSrc);
 
@@ -138,12 +148,27 @@ function setSourceProps(sourceEl, targetEl) {
     });
 }
 
-function getImageFromElement(el, src) {
+function getImageFromElement(el, src, sources = []) {
     if (!src) {
         return false;
     }
 
     const img = new Image();
+
+    if (!isArray(sources) && isObject(sources)) {
+        sources = [sources];
+    }
+
+    if (sources.length) {
+        const picture = fragment('<picture>');
+        sources.forEach((attrs) => {
+            const source = fragment('<source>');
+            attr(source, attrs);
+            append(picture, source);
+        });
+        append(picture, img);
+    }
+
     setSourceProps(el, img);
     attr(img, 'src', src);
     return img;
