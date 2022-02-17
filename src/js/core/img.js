@@ -9,7 +9,7 @@ import {
     fragment,
     includes,
     isArray,
-    isObject,
+    isEmpty,
     isUndefined,
     parent,
     parseOptions,
@@ -70,15 +70,11 @@ export default {
     },
 
     update: {
-        read({ image }) {
+        write(store) {
             if (!this.observer || isImg(this.$el)) {
                 return false;
             }
 
-            setSrcAttrs(this.$el, image && image.currentSrc);
-        },
-
-        write(store) {
             const srcset = data(this.$el, 'data-srcset');
             if (srcset && window.devicePixelRatio !== 1) {
                 const bgSize = css(this.$el, 'backgroundSize');
@@ -107,10 +103,10 @@ export default {
 
             const image = isImg(this.$el)
                 ? this.$el
-                : getImageFromElement(this.$el, this.dataSrc, parseOptions(this.dataSources));
+                : getImageFromElement(this.$el, this.dataSrc, this.dataSources);
 
             this._data.image = image;
-            setSrcAttrs(this.$el, image.currentSrc || this.dataSrc);
+            setSrcAttrs(this.$el, image.currentSrc);
 
             this.observer.disconnect();
         },
@@ -148,16 +144,22 @@ function setSourceProps(sourceEl, targetEl) {
     });
 }
 
-function getImageFromElement(el, src, sources = []) {
+function getImageFromElement(el, src, sources) {
     if (!src) {
         return false;
     }
 
     const img = new Image();
 
-    if (!isArray(sources) && isObject(sources)) {
-        sources = [sources];
-    }
+    wrapInPicture(img, sources);
+    setSourceProps(el, img);
+    img.onload = () => setSrcAttrs(el, img.currentSrc);
+    attr(img, 'src', src);
+    return img;
+}
+
+function wrapInPicture(img, sources) {
+    sources = parseSources(sources);
 
     if (sources.length) {
         const picture = fragment('<picture>');
@@ -168,10 +170,28 @@ function getImageFromElement(el, src, sources = []) {
         });
         append(picture, img);
     }
+}
 
-    setSourceProps(el, img);
-    attr(img, 'src', src);
-    return img;
+function parseSources(sources) {
+    if (!sources) {
+        return [];
+    }
+
+    if (startsWith(sources, '[')) {
+        try {
+            sources = JSON.parse(sources);
+        } catch (e) {
+            sources = [];
+        }
+    } else {
+        sources = parseOptions(sources);
+    }
+
+    if (!isArray(sources)) {
+        sources = [sources];
+    }
+
+    return sources.filter((source) => !isEmpty(source));
 }
 
 const sizesRe = /\s*(.*?)\s*(\w+|calc\(.*?\))\s*(?:,|$)/g;
