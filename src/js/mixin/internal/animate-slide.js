@@ -1,4 +1,4 @@
-import {assign, children, css, fastdom, includes, index, isVisible, noop, offset, parent, position, Promise, Transition} from 'uikit-util';
+import {assign, children, css, fastdom, includes, index, isVisible, noop, offset, parent, position, Transition} from 'uikit-util';
 
 export default function (action, target, duration) {
 

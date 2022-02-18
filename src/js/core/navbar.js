@@ -1,14 +1,13 @@
 import {active} from './drop';
 import Class from '../mixin/class';
-import FlexBug from '../mixin/flex-bug';
 import Container from '../mixin/container';
-import {$, $$, addClass, after, assign, css, findIndex, hasAttr, hasClass, height, includes, isRtl, isVisible, matches, noop, once, parent, Promise, query, remove, selFocusable, toFloat, Transition, within} from 'uikit-util';
+import {$, $$, addClass, after, assign, css, findIndex, hasAttr, hasClass, height, includes, isRtl, isVisible, matches, noop, once, parent, query, remove, selFocusable, toFloat, Transition, within} from 'uikit-util';
 
 const navItem = '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle';
 
 export default {
 
-    mixins: [Class, Container, FlexBug],
+    mixins: [Class, Container],
 
     props: {
         dropdown: String,

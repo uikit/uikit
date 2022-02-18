@@ -1,5 +1,5 @@
 import {inBrowser} from './env';
-import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
+import {isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
 
 const voidElements = {
     area: true,
@@ -77,11 +77,9 @@ export function closest(element, selector) {
 }
 
 export function within(element, selector) {
-    return !isString(selector)
-        ? element === selector || (isDocument(selector)
-            ? selector.documentElement
-            : toNode(selector)).contains(toNode(element)) // IE 11 document does not implement contains
-        : matches(element, selector) || !!closest(element, selector);
+    return isString(selector)
+        ? matches(element, selector) || !!closest(element, selector)
+        : element === selector || toNode(selector).contains(toNode(element));
 }
 
 export function parents(element, selector) {

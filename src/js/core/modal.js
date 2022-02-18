@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, assign, css, Deferred, hasClass, height, html, isString, on, Promise, removeClass} from 'uikit-util';
+import {$, addClass, assign, css, Deferred, hasClass, height, html, isString, on, removeClass} from 'uikit-util';
 
 export default {
 

@@ -1,5 +1,4 @@
 import {once} from './event';
-import {Promise} from './promise';
 import {assign, includes, noop} from './lang';
 
 export function play(el) {

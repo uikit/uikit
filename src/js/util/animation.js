@@ -1,5 +1,4 @@
 import {attr} from './attr';
-import {Promise} from './promise';
 import {once, trigger} from './event';
 import {css, propName} from './style';
 import {assign, startsWith, toNodes} from './lang';

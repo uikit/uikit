@@ -15,7 +15,7 @@ import slidenavPrevious from '../../images/components/slidenav-previous.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
 import spinner from '../../images/components/spinner.svg';
 import totop from '../../images/components/totop.svg';
-import {$, addClass, apply, css, each, hasClass, hyphenate, isRtl, isString, parents, Promise, swap} from 'uikit-util';
+import {$, addClass, apply, css, each, hasClass, hyphenate, isRtl, isString, parents, swap} from 'uikit-util';
 
 const icons = {
     spinner,

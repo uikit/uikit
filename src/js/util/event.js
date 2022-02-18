@@ -1,7 +1,6 @@
-import {isIE} from './env';
 import {findAll} from './selector';
 import {closest, within} from './filter';
-import {isArray, isBoolean, isFunction, isString, toNode, toNodes} from './lang';
+import {isArray, isFunction, isString, toNode, toNodes} from './lang';
 
 export function on(...args) {
 
@@ -21,8 +20,6 @@ export function on(...args) {
         listener = delegate(selector, listener);
     }
 
-    useCapture = useCaptureFilter(useCapture);
-
     type.split(' ').forEach(type =>
         targets.forEach(target =>
             target.addEventListener(type, listener, useCapture)
@@ -32,7 +29,6 @@ export function on(...args) {
 }
 
 export function off(targets, type, listener, useCapture = false) {
-    useCapture = useCaptureFilter(useCapture);
     targets = toEventTargets(targets);
     type.split(' ').forEach(type =>
         targets.forEach(target =>
@@ -63,9 +59,7 @@ export function trigger(targets, event, detail) {
 
 export function createEvent(e, bubbles = true, cancelable = false, detail) {
     if (isString(e)) {
-        const event = document.createEvent('CustomEvent'); // IE 11
-        event.initCustomEvent(e, bubbles, cancelable, detail);
-        e = event;
+        e = new CustomEvent(e, {bubbles, cancelable, detail});
     }
 
     return e;
@@ -103,12 +97,6 @@ function selfFilter(listener) {
             return listener.call(null, e);
         }
     };
-}
-
-function useCaptureFilter(options) {
-    return options && isIE && !isBoolean(options)
-        ? !!options.capture
-        : options;
 }
 
 function isEventTarget(target) {

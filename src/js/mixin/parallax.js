@@ -188,8 +188,7 @@ function backgroundFn(prop, el, steps) {
     const attr = prop === 'y' ? 'height' : 'width';
     steps = steps.map(step => toPx(step, attr, el));
 
-    css(el, `background-position-${prop}`, '');
-    const bgPos = css(el, 'backgroundPosition').split(' ')[prop === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
+    const bgPos = getCssValue(el, `background-position-${prop}`, '');
 
     return getCssValue(el, 'backgroundSize', '') === 'cover'
         ? backgroundCoverFn(prop, el, steps, bgPos, attr)

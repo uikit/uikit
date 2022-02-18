@@ -1,4 +1,4 @@
-import {$, $$, after, ajax, append, attr, includes, isVisible, isVoidElement, memoize, noop, Promise, remove, removeAttr, startsWith, toFloat} from 'uikit-util';
+import {$, $$, after, ajax, append, attr, includes, isVisible, isVoidElement, memoize, noop, remove, removeAttr, startsWith, toFloat} from 'uikit-util';
 
 export default {
 

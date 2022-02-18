@@ -235,7 +235,7 @@ export function uniqueBy(array, prop) {
     const seen = new Set();
     return array.filter(({[prop]: check}) => seen.has(check)
         ? false
-        : seen.add(check) || true // IE 11 does not return the Set object
+        : seen.add(check)
     );
 }
 
@@ -324,4 +324,13 @@ export function getIndex(i, elements, current = 0, finite = false) {
 export function memoize(fn) {
     const cache = Object.create(null);
     return key => cache[key] || (cache[key] = fn(key));
+}
+
+export class Deferred {
+    constructor() {
+        this.promise = new Promise((resolve, reject) => {
+            this.reject = reject;
+            this.resolve = resolve;
+        });
+    }
 }

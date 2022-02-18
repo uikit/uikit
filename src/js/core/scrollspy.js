@@ -1,4 +1,4 @@
-import {$$, css, filter, data as getData, isInView, once, Promise, removeClass, removeClasses, toggleClass, trigger} from 'uikit-util';
+import {$$, css, filter, data as getData, isInView, once, removeClass, removeClasses, toggleClass, trigger} from 'uikit-util';
 
 const stateKey = '_ukScrollspy';
 export default {

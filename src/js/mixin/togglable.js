@@ -1,4 +1,4 @@
-import {$$, addClass, Animation, assign, css, fastdom, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, Promise, removeClass, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
+import {$$, addClass, Animation, assign, css, fastdom, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, removeClass, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
 
 export default {
 
