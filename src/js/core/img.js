@@ -21,6 +21,8 @@ import {
     trigger,
 } from 'uikit-util';
 
+const nativeLazyLoad = 'loading' in HTMLImageElement.prototype;
+
 export default {
     args: 'dataSrc',
 
@@ -58,7 +60,16 @@ export default {
             return;
         }
 
-        ensurePlaceholderImage(this.$el);
+        if (nativeLazyLoad && isImg(this.$el)) {
+            this.$el.loading = 'lazy';
+            setSrcAttrs(this.$el);
+
+            if (this.target.length === 1) {
+                return;
+            }
+        }
+
+        ensureSrcAttribute(this.$el);
 
         const rootMargin = `${toPx(this.offsetTop, 'height')}px ${toPx(
             this.offsetLeft,
@@ -110,6 +121,7 @@ export default {
                 : getImageFromElement(this.$el, this.dataSrc, this.dataSources);
 
             this._data.image = image;
+            image.loading = 'eager';
             setSrcAttrs(this.$el, image.currentSrc);
 
             this.observer.disconnect();
@@ -234,7 +246,7 @@ function getSourceSize(srcset, sizes) {
     return descriptors.filter((size) => size >= srcSize)[0] || descriptors.pop() || '';
 }
 
-function ensurePlaceholderImage(el) {
+function ensureSrcAttribute(el) {
     if (isImg(el) && !hasAttr(el, 'src')) {
         attr(el, 'src', 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"></svg>');
     }
