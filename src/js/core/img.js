@@ -11,7 +11,6 @@ import {
     includes,
     isArray,
     isEmpty,
-    isUndefined,
     parent,
     parseOptions,
     queryAll,
@@ -22,6 +21,7 @@ import {
 } from 'uikit-util';
 
 const nativeLazyLoad = 'loading' in HTMLImageElement.prototype;
+const nativeIsIntersecting = 'isIntersecting' in IntersectionObserverEntry.prototype; // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
 
 export default {
     args: 'dataSrc',
@@ -55,7 +55,7 @@ export default {
     },
 
     connected() {
-        if (!window.IntersectionObserver) {
+        if (!window.IntersectionObserver || !nativeIsIntersecting) {
             setSrcAttrs(this.$el, this.dataSrc);
             return;
         }
@@ -105,10 +105,7 @@ export default {
 
     methods: {
         load(entries) {
-            // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
-            if (
-                !entries.some((entry) => isUndefined(entry.isIntersecting) || entry.isIntersecting)
-            ) {
+            if (!entries.some((entry) => entry.isIntersecting)) {
                 return;
             }
 
