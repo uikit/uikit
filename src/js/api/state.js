@@ -1,4 +1,4 @@
-import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isEmpty, isFunction, isNumeric, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toNumber} from 'uikit-util';
+import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isFunction, isNumeric, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toNumber} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -250,27 +250,23 @@ export default function (UIkit) {
                 : [value];
     }
 
-    function normalizeData({data}, {args, props = {}}) {
-        data = isArray(data)
-            ? !isEmpty(args)
-                ? data.slice(0, args.length).reduce((data, value, index) => {
-                    if (isPlainObject(value)) {
-                        assign(data, value);
-                    } else {
-                        data[args[index]] = value;
-                    }
-                    return data;
-                }, {})
-                : undefined
-            : data;
-
-        if (data) {
-            for (const key in data) {
-                if (isUndefined(data[key])) {
-                    delete data[key];
+    function normalizeData({data = {}}, {args = [], props = {}}) {
+        if (isArray(data)) {
+            data = data.slice(0, args.length).reduce((data, value, index) => {
+                if (isPlainObject(value)) {
+                    assign(data, value);
                 } else {
-                    data[key] = props[key] ? coerce(props[key], data[key]) : data[key];
+                    data[args[index]] = value;
                 }
+                return data;
+            }, {});
+        }
+
+        for (const key in data) {
+            if (isUndefined(data[key])) {
+                delete data[key];
+            } else if (props[key]) {
+                data[key] = coerce(props[key], data[key]);
             }
         }
 
