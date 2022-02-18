@@ -6,6 +6,7 @@
 
 - Add `position` option with `top`, `bottom` and `auto` values to Sticky component
 - Add support for basic math operands in `offset` option of Sticky component
+- Add object fit and position classes to Utility component
 
 ### Changed
 
