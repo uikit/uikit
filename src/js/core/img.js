@@ -28,18 +28,20 @@ export default {
 
     props: {
         dataSrc: String,
-        dataSources: String,
+        sources: String,
         offsetTop: String,
         offsetLeft: String,
         target: String,
+        loading: String,
     },
 
     data: {
         dataSrc: '',
-        dataSources: [],
+        sources: [],
         offsetTop: '50vh',
         offsetLeft: '50vw',
         target: false,
+        loading: 'lazy',
     },
 
     computed: {
@@ -55,8 +57,8 @@ export default {
     },
 
     connected() {
-        if (!window.IntersectionObserver || !nativeIsIntersecting) {
-            setSrcAttrs(this.$el, this.dataSrc);
+        if (this.loading !== 'lazy' || !window.IntersectionObserver || !nativeIsIntersecting) {
+            this.load();
             return;
         }
 
@@ -75,12 +77,23 @@ export default {
             this.offsetLeft,
             'width'
         )}px`;
-        this.observer = new IntersectionObserver(this.load, { rootMargin });
-
+        this.observer = new IntersectionObserver(
+            (entries) => {
+                if (entries.some((entry) => entry.isIntersecting)) {
+                    this.load();
+                    this.observer.disconnect();
+                }
+            },
+            { rootMargin }
+        );
         this.observe();
     },
 
     disconnected() {
+        if (this._data.image) {
+            this._data.image.onload = '';
+        }
+
         this.observer && this.observer.disconnect();
     },
 
@@ -104,24 +117,18 @@ export default {
     },
 
     methods: {
-        load(entries) {
-            if (!entries.some((entry) => entry.isIntersecting)) {
-                return;
-            }
-
+        load() {
             if (this._data.image) {
                 return this._data.image;
             }
 
             const image = isImg(this.$el)
                 ? this.$el
-                : getImageFromElement(this.$el, this.dataSrc, this.dataSources);
+                : getImageFromElement(this.$el, this.dataSrc, this.sources);
 
-            this._data.image = image;
-            image.loading = 'eager';
+            image.loading = '';
             setSrcAttrs(this.$el, image.currentSrc);
-
-            this.observer.disconnect();
+            return (this.image = image);
         },
 
         observe() {

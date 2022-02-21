@@ -363,10 +363,16 @@
                             <td>The image's `src` attribute.</td>
                         </tr>
                         <tr>
-                            <td><code>dataSources</code></td>
+                            <td><code>sources</code></td>
                             <td>String</td>
                             <td>''</td>
                             <td>The image's sources. This option is used for background images only. The sources attributes be passed in `key: value;` format for a single source. For multiple sources in JSON format.</td>
+                        </tr>
+                        <tr>
+                            <td><code>loading</code></td>
+                            <td>`lazy`|`eager`</td>
+                            <td>`lazy`</td>
+                            <td>Enable lazy/eager loading. Set to `eager` for images within the first visible viewport.</td>
                         </tr>
                         <tr>
                             <td><code>offsetTop</code></td>

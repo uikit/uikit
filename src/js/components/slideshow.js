@@ -78,5 +78,5 @@ export default {
 };
 
 function removeLazyLoad(el) {
-    el && $$('img[loading="lazy"]', el).forEach((el) => (el.loading = 'eager'));
+    el && $$('img[loading="lazy"]', el).forEach((el) => (el.loading = ''));
 }
