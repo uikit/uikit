@@ -18,6 +18,7 @@
 - Fix Sticky component setting wrong margin for placeholder
 - Fix dropdowns not closing in Navbar component when hovering dropbar and navigation with keyboard
 - Fix dropdown no longer closes if pointer is still moving towards it
+- Fix `fadein` not transformed correctly to `fade-in` in scss build
 
 ## 3.11.1 (February 7, 2022)
 

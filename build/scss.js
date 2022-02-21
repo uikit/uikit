@@ -92,7 +92,7 @@ for (const file of await glob('src/less/**/*.less')) {
         .replace(/\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes|-moz-document)/g, '@$1') // replace valid '@' statements
         .replace(/tint\((\$[\w-]+),\s([^)]*)\)/g, 'mix(white, $1, $2)') // replace Less function tint with mix
         .replace(/fade\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2) => { return `rgba(${p1}, ${p2 / 100})`;}) // replace Less function fade with rgba
-        .replace(/fadeout\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2) => { return `fade-out(${p1}, ${p2 / 100})`;}) // replace Less function fadeout with fade-out
+        .replace(/fade(in|out)\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2, p3) => { return `fade-${p1}(${p2}, ${p3 / 100})`;}) // replace Less function fadeout with fade-out
         .replace(/\.svg-fill/g, '@include svg-fill') // include svg-fill mixin
         .replace(/(.*):extend\((\.[\w-\\@]*) all\) when \((\$[\w-]*) = ([\w]+)\) {}/g, '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }') // update conditional extend and add !optional to ignore warnings
         .replace(/(\.[\w-\\@]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*{\s*@if\(mixin-exists\(([\w-]*)\)\) {@include\s([\w-]*)\(\);\s*}\s*}/g, '@if ($2 == $3) { $1 { @if (mixin-exists($4)) {@include $4();}}}') // update conditional hook
