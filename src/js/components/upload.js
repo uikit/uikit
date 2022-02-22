@@ -1,7 +1,6 @@
-import {addClass, ajax, matches, noop, on, removeClass, trigger} from 'uikit-util';
+import { addClass, ajax, matches, noop, on, removeClass, trigger } from 'uikit-util';
 
 export default {
-
     props: {
         allow: String,
         clsDragover: String,
@@ -16,7 +15,7 @@ export default {
         name: String,
         params: Object,
         type: String,
-        url: String
+        url: String,
     },
 
     data: {
@@ -44,13 +43,11 @@ export default {
         load: noop,
         loadEnd: noop,
         loadStart: noop,
-        progress: noop
+        progress: noop,
     },
 
     events: {
-
         change(e) {
-
             if (!matches(e.target, 'input[type="file"]')) {
                 return;
             }
@@ -90,14 +87,11 @@ export default {
         dragleave(e) {
             stop(e);
             removeClass(this.$el, this.clsDragover);
-        }
-
+        },
     },
 
     methods: {
-
         async upload(files) {
-
             if (!files.length) {
                 return;
             }
@@ -105,7 +99,6 @@ export default {
             trigger(this.$el, 'upload', [files]);
 
             for (let i = 0; i < files.length; i++) {
-
                 if (this.maxSize && this.maxSize * 1000 < files[i].size) {
                     this.fail(this.msgInvalidSize.replace('%s', this.maxSize));
                     return;
@@ -120,7 +113,6 @@ export default {
                     this.fail(this.msgInvalidMime.replace('%s', this.mime));
                     return;
                 }
-
             }
 
             if (!this.multiple) {
@@ -130,11 +122,10 @@ export default {
             this.beforeAll(this, files);
 
             const chunks = chunk(files, this.concurrent);
-            const upload = async files => {
-
+            const upload = async (files) => {
                 const data = new FormData();
 
-                files.forEach(file => data.append(this.name, file));
+                files.forEach((file) => data.append(this.name, file));
 
                 for (const key in this.params) {
                     data.append(key, this.params[key]);
@@ -145,17 +136,15 @@ export default {
                         data,
                         method: this.method,
                         responseType: this.type,
-                        beforeSend: env => {
-
-                            const {xhr} = env;
+                        beforeSend: (env) => {
+                            const { xhr } = env;
                             xhr.upload && on(xhr.upload, 'progress', this.progress);
-                            ['loadStart', 'load', 'loadEnd', 'abort'].forEach(type =>
+                            ['loadStart', 'load', 'loadEnd', 'abort'].forEach((type) =>
                                 on(xhr, type.toLowerCase(), this[type])
                             );
 
                             return this.beforeSend(env);
-
-                        }
+                        },
                     });
 
                     this.complete(xhr);
@@ -165,22 +154,27 @@ export default {
                     } else {
                         this.completeAll(xhr);
                     }
-
                 } catch (e) {
                     this.error(e);
                 }
             };
 
             await upload(chunks.shift());
-
-        }
-
-    }
-
+        },
+    },
 };
 
 function match(pattern, path) {
-    return path.match(new RegExp(`^${pattern.replace(/\//g, '\\/').replace(/\*\*/g, '(\\/[^\\/]+)*').replace(/\*/g, '[^\\/]+').replace(/((?!\\))\?/g, '$1.')}$`, 'i'));
+    return path.match(
+        new RegExp(
+            `^${pattern
+                .replace(/\//g, '\\/')
+                .replace(/\*\*/g, '(\\/[^\\/]+)*')
+                .replace(/\*/g, '[^\\/]+')
+                .replace(/((?!\\))\?/g, '$1.')}$`,
+            'i'
+        )
+    );
 }
 
 function chunk(files, size) {

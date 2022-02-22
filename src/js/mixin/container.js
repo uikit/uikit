@@ -1,21 +1,17 @@
-import {$} from 'uikit-util';
+import { $ } from 'uikit-util';
 
 export default {
-
     props: {
-        container: Boolean
+        container: Boolean,
     },
 
     data: {
-        container: true
+        container: true,
     },
 
     computed: {
-
-        container({container}) {
-            return container === true && this.$container || container && $(container);
-        }
-
-    }
-
+        container({ container }) {
+            return (container === true && this.$container) || (container && $(container));
+        },
+    },
 };

@@ -1,12 +1,35 @@
-import {active} from './drop';
+import { active } from './drop';
 import Class from '../mixin/class';
 import Container from '../mixin/container';
-import {$, $$, addClass, after, assign, css, findIndex, hasAttr, hasClass, height, includes, isRtl, isVisible, matches, noop, once, parent, query, remove, selFocusable, toFloat, Transition, within} from 'uikit-util';
+import {
+    $,
+    $$,
+    addClass,
+    after,
+    assign,
+    css,
+    findIndex,
+    hasAttr,
+    hasClass,
+    height,
+    includes,
+    isRtl,
+    isVisible,
+    matches,
+    noop,
+    once,
+    parent,
+    query,
+    remove,
+    selFocusable,
+    toFloat,
+    Transition,
+    within,
+} from 'uikit-util';
 
 const navItem = '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle';
 
 export default {
-
     mixins: [Class, Container],
 
     props: {
@@ -22,7 +45,7 @@ export default {
         dropbar: Boolean,
         dropbarMode: String,
         dropbarAnchor: Boolean,
-        duration: Number
+        duration: Number,
     },
 
     data: {
@@ -42,43 +65,41 @@ export default {
         duration: 200,
         forceHeight: true,
         selMinHeight: navItem,
-        container: false
+        container: false,
     },
 
     computed: {
-
-        boundary({boundary, boundaryAlign}, $el) {
+        boundary({ boundary, boundaryAlign }, $el) {
             return boundary === true || boundaryAlign ? $el : boundary;
         },
 
-        dropbarAnchor({dropbarAnchor}, $el) {
+        dropbarAnchor({ dropbarAnchor }, $el) {
             return query(dropbarAnchor, $el);
         },
 
-        pos({align}) {
+        pos({ align }) {
             return `bottom-${align}`;
         },
 
         dropbar: {
-
-            get({dropbar}) {
-
+            get({ dropbar }) {
                 if (!dropbar) {
                     return null;
                 }
 
-                dropbar = this._dropbar || query(dropbar, this.$el) || $('+ .uk-navbar-dropbar', this.$el);
+                dropbar =
+                    this._dropbar ||
+                    query(dropbar, this.$el) ||
+                    $('+ .uk-navbar-dropbar', this.$el);
 
                 return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
-
             },
 
             watch(dropbar) {
                 addClass(dropbar, 'uk-navbar-dropbar');
             },
 
-            immediate: true
-
+            immediate: true,
         },
 
         dropContainer(_, $el) {
@@ -86,12 +107,11 @@ export default {
         },
 
         dropdowns: {
-
-            get({clsDrop}, $el) {
+            get({ clsDrop }, $el) {
                 const dropdowns = $$(`.${clsDrop}`, $el);
 
                 if (this.dropContainer !== $el) {
-                    $$(`.${clsDrop}`, this.dropContainer).forEach(el => {
+                    $$(`.${clsDrop}`, this.dropContainer).forEach((el) => {
                         const target = this.getDropdown(el)?.target;
                         if (!includes(dropdowns, el) && target && within(target, this.$el)) {
                             dropdowns.push(el);
@@ -105,19 +125,21 @@ export default {
             watch(dropdowns) {
                 this.$create(
                     'drop',
-                    dropdowns.filter(el => !this.getDropdown(el)),
-                    assign({}, this.$props, {boundary: this.boundary, pos: this.pos, offset: this.dropbar || this.offset})
+                    dropdowns.filter((el) => !this.getDropdown(el)),
+                    assign({}, this.$props, {
+                        boundary: this.boundary,
+                        pos: this.pos,
+                        offset: this.dropbar || this.offset,
+                    })
                 );
             },
 
-            immediate: true
-
+            immediate: true,
         },
 
-        toggles({dropdown}, $el) {
+        toggles({ dropdown }, $el) {
             return $$(dropdown, $el);
-        }
-
+        },
     },
 
     disconnected() {
@@ -126,7 +148,6 @@ export default {
     },
 
     events: [
-
         {
             name: 'mouseover focusin',
 
@@ -134,13 +155,18 @@ export default {
                 return this.dropdown;
             },
 
-            handler({current}) {
+            handler({ current }) {
                 const active = this.getActive();
-                if (active && includes(active.mode, 'hover') && active.target && !within(active.target, current) && !active.isDelaying) {
+                if (
+                    active &&
+                    includes(active.mode, 'hover') &&
+                    active.target &&
+                    !within(active.target, current) &&
+                    !active.isDelaying
+                ) {
                     active.hide(false);
                 }
-            }
-
+            },
         },
 
         {
@@ -151,25 +177,24 @@ export default {
             },
 
             handler(e) {
-
-                const {current, keyCode} = e;
+                const { current, keyCode } = e;
                 const active = this.getActive();
 
                 if (keyCode === keyMap.DOWN && hasAttr(current, 'aria-expanded')) {
-
                     e.preventDefault();
 
                     if (!active || active.target !== current) {
                         current.click();
-                        once(this.dropContainer, 'show', ({target}) => focusFirstFocusableElement(target));
+                        once(this.dropContainer, 'show', ({ target }) =>
+                            focusFirstFocusableElement(target)
+                        );
                     } else {
                         focusFirstFocusableElement(active.$el);
                     }
-
                 }
 
                 handleNavItemNavigation(e, this.toggles, active);
-            }
+            },
         },
 
         {
@@ -184,8 +209,7 @@ export default {
             },
 
             handler(e) {
-
-                const {current, keyCode} = e;
+                const { current, keyCode } = e;
 
                 if (!includes(this.dropdowns, current)) {
                     return;
@@ -193,7 +217,7 @@ export default {
 
                 const active = this.getActive();
                 const elements = $$(selFocusable, current);
-                const i = findIndex(elements, el => matches(el, ':focus'));
+                const i = findIndex(elements, (el) => matches(el, ':focus'));
 
                 if (keyCode === keyMap.UP) {
                     e.preventDefault();
@@ -214,7 +238,7 @@ export default {
                 }
 
                 handleNavItemNavigation(e, this.toggles, active);
-            }
+            },
         },
 
         {
@@ -231,10 +255,14 @@ export default {
             handler() {
                 const active = this.getActive();
 
-                if (active && includes(active.mode, 'hover') && !this.dropdowns.some(el => matches(el, ':hover'))) {
+                if (
+                    active &&
+                    includes(active.mode, 'hover') &&
+                    !this.dropdowns.some((el) => matches(el, ':hover'))
+                ) {
                     active.hide();
                 }
-            }
+            },
         },
 
         {
@@ -249,12 +277,10 @@ export default {
             },
 
             handler() {
-
                 if (!parent(this.dropbar)) {
                     after(this.dropbarAnchor || this.$el, this.dropbar);
                 }
-
-            }
+            },
         },
 
         {
@@ -268,7 +294,7 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, {$el, dir}) {
+            handler(_, { $el, dir }) {
                 if (!hasClass($el, this.clsDrop)) {
                     return;
                 }
@@ -280,9 +306,14 @@ export default {
                 this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
 
                 if (dir === 'bottom') {
-                    this.transitionTo($el.offsetHeight + toFloat(css($el, 'marginTop')) + toFloat(css($el, 'marginBottom')), $el);
+                    this.transitionTo(
+                        $el.offsetHeight +
+                            toFloat(css($el, 'marginTop')) +
+                            toFloat(css($el, 'marginBottom')),
+                        $el
+                    );
                 }
-            }
+            },
         },
 
         {
@@ -296,17 +327,17 @@ export default {
                 return this.dropbar;
             },
 
-            handler(e, {$el}) {
-
+            handler(e, { $el }) {
                 const active = this.getActive();
 
-                if (matches(this.dropbar, ':hover')
-                    && active?.$el === $el
-                    && !this.toggles.some(el => active.target !== el && matches(el, ':focus'))
+                if (
+                    matches(this.dropbar, ':hover') &&
+                    active?.$el === $el &&
+                    !this.toggles.some((el) => active.target !== el && matches(el, ':focus'))
                 ) {
                     e.preventDefault();
                 }
-            }
+            },
         },
 
         {
@@ -320,7 +351,7 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, {$el}) {
+            handler(_, { $el }) {
                 if (!hasClass($el, this.clsDrop)) {
                     return;
                 }
@@ -330,20 +361,17 @@ export default {
                 if (!active || active?.$el === $el) {
                     this.transitionTo(0);
                 }
-            }
-        }
-
+            },
+        },
     ],
 
     methods: {
-
         getActive() {
             return active && within(active.target, this.$el) && active;
         },
 
         transitionTo(newHeight, el) {
-
-            const {dropbar} = this;
+            const { dropbar } = this;
             const oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
 
             el = oldHeight < newHeight && el;
@@ -354,27 +382,28 @@ export default {
 
             Transition.cancel([el, dropbar]);
             return Promise.all([
-                Transition.start(dropbar, {height: newHeight}, this.duration),
-                Transition.start(el, {clip: `rect(0,${el.offsetWidth}px,${newHeight}px,0)`}, this.duration)
+                Transition.start(dropbar, { height: newHeight }, this.duration),
+                Transition.start(
+                    el,
+                    { clip: `rect(0,${el.offsetWidth}px,${newHeight}px,0)` },
+                    this.duration
+                ),
             ])
                 .catch(noop)
                 .then(() => {
-                    css(el, {clip: ''});
+                    css(el, { clip: '' });
                     this.$update(dropbar);
                 });
         },
 
         getDropdown(el) {
             return this.$getComponent(el, 'drop') || this.$getComponent(el, 'dropdown');
-        }
-
-    }
-
+        },
+    },
 };
 
 function handleNavItemNavigation(e, toggles, active) {
-
-    const {current, keyCode} = e;
+    const { current, keyCode } = e;
     const target = active?.target || current;
     const i = toggles.indexOf(target);
 
@@ -408,5 +437,5 @@ const keyMap = {
     LEFT: 37,
     UP: 38,
     RIGHT: 39,
-    DOWN: 40
+    DOWN: 40,
 };

@@ -1,11 +1,27 @@
-import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isFunction, isNumeric, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toNumber} from 'uikit-util';
+import {
+    assign,
+    camelize,
+    data as getData,
+    hasOwn,
+    hyphenate,
+    isArray,
+    isFunction,
+    isNumeric,
+    isPlainObject,
+    isString,
+    isUndefined,
+    mergeOptions,
+    on,
+    parseOptions,
+    startsWith,
+    toBoolean,
+    toNumber,
+} from 'uikit-util';
 
 export default function (UIkit) {
-
     let uid = 0;
 
     UIkit.prototype._init = function (options) {
-
         options = options || {};
         options.data = normalizeData(options, this.constructor.options);
 
@@ -25,8 +41,7 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._initData = function () {
-
-        const {data = {}} = this.$options;
+        const { data = {} } = this.$options;
 
         for (const key in data) {
             this.$props[key] = this[key] = data[key];
@@ -34,8 +49,7 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._initMethods = function () {
-
-        const {methods} = this.$options;
+        const { methods } = this.$options;
 
         if (methods) {
             for (const key in methods) {
@@ -45,8 +59,7 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._initComputeds = function () {
-
-        const {computed} = this.$options;
+        const { computed } = this.$options;
 
         this._computeds = {};
 
@@ -58,7 +71,6 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._initProps = function (props) {
-
         let key;
 
         props = props || getProps(this.$options, this.$name);
@@ -78,10 +90,8 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._initEvents = function () {
-
         this._events = [];
-        this.$options.events?.forEach(event => {
-
+        this.$options.events?.forEach((event) => {
             if (hasOwn(event, 'handler')) {
                 registerEvent(this, event);
             } else {
@@ -89,33 +99,25 @@ export default function (UIkit) {
                     registerEvent(this, event[key], key);
                 }
             }
-
         });
-
     };
 
     UIkit.prototype._unbindEvents = function () {
-        this._events.forEach(unbind => unbind());
+        this._events.forEach((unbind) => unbind());
         delete this._events;
     };
 
     UIkit.prototype._initObservers = function () {
-        this._observers = [
-            initChildListObserver(this),
-            initPropsObserver(this)
-        ];
+        this._observers = [initChildListObserver(this), initPropsObserver(this)];
     };
 
     UIkit.prototype._disconnectObservers = function () {
-        this._observers.forEach(observer =>
-            observer?.disconnect()
-        );
+        this._observers.forEach((observer) => observer?.disconnect());
     };
 
     function getProps(opts, name) {
-
         const data = {};
-        const {args = [], props = {}, el} = opts;
+        const { args = [], props = {}, el } = opts;
 
         if (!props) {
             return data;
@@ -129,9 +131,7 @@ export default function (UIkit) {
                 continue;
             }
 
-            value = props[key] === Boolean && value === ''
-                ? true
-                : coerce(props[key], value);
+            value = props[key] === Boolean && value === '' ? true : coerce(props[key], value);
 
             if (prop === 'target' && (!value || startsWith(value, '_'))) {
                 continue;
@@ -154,12 +154,10 @@ export default function (UIkit) {
 
     function registerComputed(component, key, cb) {
         Object.defineProperty(component, key, {
-
             enumerable: true,
 
             get() {
-
-                const {_computeds, $props, $el} = component;
+                const { _computeds, $props, $el } = component;
 
                 if (!hasOwn(_computeds, key)) {
                     _computeds[key] = (cb.get || cb).call(component, $props, $el);
@@ -169,36 +167,31 @@ export default function (UIkit) {
             },
 
             set(value) {
-
-                const {_computeds} = component;
+                const { _computeds } = component;
 
                 _computeds[key] = cb.set ? cb.set.call(component, value) : value;
 
                 if (isUndefined(_computeds[key])) {
                     delete _computeds[key];
                 }
-            }
-
+            },
         });
     }
 
     function registerEvent(component, event, key) {
-
         if (!isPlainObject(event)) {
-            event = ({name: key, handler: event});
+            event = { name: key, handler: event };
         }
 
-        let {name, el, handler, capture, passive, delegate, filter, self} = event;
-        el = isFunction(el)
-            ? el.call(component)
-            : el || component.$el;
+        let { name, el, handler, capture, passive, delegate, filter, self } = event;
+        el = isFunction(el) ? el.call(component) : el || component.$el;
 
         if (isArray(el)) {
-            el.forEach(el => registerEvent(component, assign({}, event, {el}), key));
+            el.forEach((el) => registerEvent(component, assign({}, event, { el }), key));
             return;
         }
 
-        if (!el || filter && !filter.call(component)) {
+        if (!el || (filter && !filter.call(component))) {
             return;
         }
 
@@ -206,24 +199,18 @@ export default function (UIkit) {
             on(
                 el,
                 name,
-                delegate
-                    ? isString(delegate)
-                        ? delegate
-                        : delegate.call(component)
-                    : null,
+                delegate ? (isString(delegate) ? delegate : delegate.call(component)) : null,
                 isString(handler) ? component[handler] : handler.bind(component),
-                {passive, capture, self}
+                { passive, capture, self }
             )
         );
-
     }
 
     function notIn(options, key) {
-        return options.every(arr => !arr || !hasOwn(arr, key));
+        return options.every((arr) => !arr || !hasOwn(arr, key));
     }
 
     function coerce(type, value) {
-
         if (type === Boolean) {
             return toBoolean(value);
         } else if (type === Number) {
@@ -239,13 +226,13 @@ export default function (UIkit) {
         return isArray(value)
             ? value
             : isString(value)
-                ? value.split(/,(?![^(]*\))/).map(value => isNumeric(value)
-                    ? toNumber(value)
-                    : toBoolean(value.trim()))
-                : [value];
+            ? value
+                  .split(/,(?![^(]*\))/)
+                  .map((value) => (isNumeric(value) ? toNumber(value) : toBoolean(value.trim())))
+            : [value];
     }
 
-    function normalizeData({data = {}}, {args = [], props = {}}) {
+    function normalizeData({ data = {} }, { args = [], props = {} }) {
         if (isArray(data)) {
             data = data.slice(0, args.length).reduce((data, value, index) => {
                 if (isPlainObject(value)) {
@@ -269,44 +256,45 @@ export default function (UIkit) {
     }
 
     function initChildListObserver(component) {
-        const {el} = component.$options;
+        const { el } = component.$options;
 
         const observer = new MutationObserver(() => component.$emit());
         observer.observe(el, {
             childList: true,
-            subtree: true
+            subtree: true,
         });
 
         return observer;
     }
 
     function initPropsObserver(component) {
-
-        const {$name, $options, $props} = component;
-        const {attrs, props, el} = $options;
+        const { $name, $options, $props } = component;
+        const { attrs, props, el } = $options;
 
         if (!props || attrs === false) {
             return;
         }
 
         const attributes = isArray(attrs) ? attrs : Object.keys(props);
-        const filter = attributes.map(key => hyphenate(key)).concat($name);
+        const filter = attributes.map((key) => hyphenate(key)).concat($name);
 
-        const observer = new MutationObserver(records => {
+        const observer = new MutationObserver((records) => {
             const data = getProps($options, $name);
-            if (records.some(({attributeName}) => {
-                const prop = attributeName.replace('data-', '');
-                return (prop === $name ? attributes : [camelize(prop), camelize(attributeName)]).some(prop =>
-                    !isUndefined(data[prop]) && data[prop] !== $props[prop]
-                );
-            })) {
+            if (
+                records.some(({ attributeName }) => {
+                    const prop = attributeName.replace('data-', '');
+                    return (
+                        prop === $name ? attributes : [camelize(prop), camelize(attributeName)]
+                    ).some((prop) => !isUndefined(data[prop]) && data[prop] !== $props[prop]);
+                })
+            ) {
                 component.$reset();
             }
         });
 
         observer.observe(el, {
             attributes: true,
-            attributeFilter: filter.concat(filter.map(key => `data-${key}`))
+            attributeFilter: filter.concat(filter.map((key) => `data-${key}`)),
         });
 
         return observer;

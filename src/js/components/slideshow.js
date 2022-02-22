@@ -2,16 +2,15 @@ import Class from '../mixin/class';
 import Slideshow from '../mixin/slideshow';
 import Animations from './internal/slideshow-animations';
 import SliderReactive from '../mixin/slider-reactive';
-import {boxModelAdjust, css} from 'uikit-util';
+import { boxModelAdjust, css } from 'uikit-util';
 
 export default {
-
     mixins: [Class, Slideshow, SliderReactive],
 
     props: {
         ratio: String,
         minHeight: Number,
-        maxHeight: Number
+        maxHeight: Number,
     },
 
     data: {
@@ -21,20 +20,18 @@ export default {
         selList: '.uk-slideshow-items',
         attrItem: 'uk-slideshow-item',
         selNav: '.uk-slideshow-nav',
-        Animations
+        Animations,
     },
 
     update: {
-
         read() {
-
             if (!this.list) {
                 return false;
             }
 
             let [width, height] = this.ratio.split(':').map(Number);
 
-            height = height * this.list.offsetWidth / width || 0;
+            height = (height * this.list.offsetWidth) / width || 0;
 
             if (this.minHeight) {
                 height = Math.max(this.minHeight, height);
@@ -44,15 +41,13 @@ export default {
                 height = Math.min(this.maxHeight, height);
             }
 
-            return {height: height - boxModelAdjust(this.list, 'height', 'content-box')};
+            return { height: height - boxModelAdjust(this.list, 'height', 'content-box') };
         },
 
-        write({height}) {
+        write({ height }) {
             height > 0 && css(this.list, 'minHeight', height);
         },
 
-        events: ['resize']
-
-    }
-
+        events: ['resize'],
+    },
 };

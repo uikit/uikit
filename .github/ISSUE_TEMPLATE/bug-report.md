@@ -3,7 +3,6 @@ name: Bug Report 🐛
 about: Report a bug you have found.
 labels: '! Bug'
 assignees: ''
-
 ---
 
 <!--
@@ -20,20 +19,20 @@ Please open an issues only for a bug report or feature request. Make sure no one
 
 ### UIkit Version
 
-*Check if the issue is reproducible with the latest stable version.*
+_Check if the issue is reproducible with the latest stable version._
 3.11.1
 
 ### Actual Behavior
 
-*What happened? Screenshots please, if relevant!*
+_What happened? Screenshots please, if relevant!_
 
 ### Expected Behavior
 
-*What should have happened?*
+_What should have happened?_
 
 ### Reproduction Link
 
-*A minimal Codepen that can reproduce the bug. Start with this [Codepen template](http://codepen.io/anon/pen/XMpryM)*
+_A minimal Codepen that can reproduce the bug. Start with this [Codepen template](http://codepen.io/anon/pen/XMpryM)_
 
 ### Steps to Reproduce the Problem
 

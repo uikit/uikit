@@ -1,8 +1,18 @@
-import {$$, css, filter, data as getData, isInView, once, removeClass, removeClasses, toggleClass, trigger} from 'uikit-util';
+import {
+    $$,
+    css,
+    filter,
+    data as getData,
+    isInView,
+    once,
+    removeClass,
+    removeClasses,
+    toggleClass,
+    trigger,
+} from 'uikit-util';
 
 const stateKey = '_ukScrollspy';
 export default {
-
     args: 'cls',
 
     props: {
@@ -12,7 +22,7 @@ export default {
         offsetTop: Number,
         offsetLeft: Number,
         repeat: Boolean,
-        delay: Number
+        delay: Number,
     },
 
     data: () => ({
@@ -23,14 +33,12 @@ export default {
         offsetLeft: 0,
         repeat: false,
         delay: 0,
-        inViewClass: 'uk-scrollspy-inview'
+        inViewClass: 'uk-scrollspy-inview',
     }),
 
     computed: {
-
         elements: {
-
-            get({target}, $el) {
+            get({ target }, $el) {
                 return target ? $$(target, $el) : [$el];
             },
 
@@ -40,25 +48,20 @@ export default {
                 }
             },
 
-            immediate: true
-
-        }
-
+            immediate: true,
+        },
     },
 
     disconnected() {
-        this.elements.forEach(el => {
+        this.elements.forEach((el) => {
             removeClass(el, this.inViewClass, el[stateKey] ? el[stateKey].cls : '');
             delete el[stateKey];
         });
     },
 
     update: [
-
         {
-
             read(data) {
-
                 // Let child components be applied at least once first
                 if (!data.update) {
                     Promise.resolve().then(() => {
@@ -68,60 +71,43 @@ export default {
                     return false;
                 }
 
-                this.elements.forEach(el => {
-
+                this.elements.forEach((el) => {
                     if (!el[stateKey]) {
-                        el[stateKey] = {cls: getData(el, 'uk-scrollspy-class') || this.cls};
+                        el[stateKey] = { cls: getData(el, 'uk-scrollspy-class') || this.cls };
                     }
 
                     el[stateKey].show = isInView(el, this.offsetTop, this.offsetLeft);
-
                 });
-
             },
 
             write(data) {
-
-                this.elements.forEach(el => {
-
+                this.elements.forEach((el) => {
                     const state = el[stateKey];
 
                     if (state.show && !state.inview && !state.queued) {
-
                         state.queued = true;
 
-                        data.promise = (data.promise || Promise.resolve()).then(() =>
-                            new Promise(resolve =>
-                                setTimeout(resolve, this.delay)
-                            )
-                        ).then(() => {
-                            this.toggle(el, true);
-                            setTimeout(() => {
-                                state.queued = false;
-                                this.$emit();
-                            }, 300);
-                        });
-
+                        data.promise = (data.promise || Promise.resolve())
+                            .then(() => new Promise((resolve) => setTimeout(resolve, this.delay)))
+                            .then(() => {
+                                this.toggle(el, true);
+                                setTimeout(() => {
+                                    state.queued = false;
+                                    this.$emit();
+                                }, 300);
+                            });
                     } else if (!state.show && state.inview && !state.queued && this.repeat) {
-
                         this.toggle(el, false);
-
                     }
-
                 });
-
             },
 
-            events: ['scroll', 'resize']
-
-        }
-
+            events: ['scroll', 'resize'],
+        },
     ],
 
     methods: {
-
         toggle(el, inview) {
-
             const state = el[stateKey];
 
             state.off && state.off();
@@ -142,9 +128,6 @@ export default {
             state.inview = inview;
 
             this.$update(el);
-        }
-
-    }
-
+        },
+    },
 };
-

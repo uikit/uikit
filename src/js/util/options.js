@@ -1,14 +1,24 @@
-import {assign, hasOwn, includes, isArray, isFunction, isUndefined, sortBy, startsWith} from './lang';
+import {
+    assign,
+    hasOwn,
+    includes,
+    isArray,
+    isFunction,
+    isUndefined,
+    sortBy,
+    startsWith,
+} from './lang';
 
 const strats = {};
 
 strats.events =
-strats.created =
-strats.beforeConnect =
-strats.connected =
-strats.beforeDisconnect =
-strats.disconnected =
-strats.destroy = concatStrat;
+    strats.created =
+    strats.beforeConnect =
+    strats.connected =
+    strats.beforeDisconnect =
+    strats.disconnected =
+    strats.destroy =
+        concatStrat;
 
 // args strategy
 strats.args = function (parentVal, childVal) {
@@ -17,12 +27,14 @@ strats.args = function (parentVal, childVal) {
 
 // update strategy
 strats.update = function (parentVal, childVal) {
-    return sortBy(concatStrat(parentVal, isFunction(childVal) ? {read: childVal} : childVal), 'order');
+    return sortBy(
+        concatStrat(parentVal, isFunction(childVal) ? { read: childVal } : childVal),
+        'order'
+    );
 };
 
 // property strategy
 strats.props = function (parentVal, childVal) {
-
     if (isArray(childVal)) {
         childVal = childVal.reduce((value, key) => {
             value[key] = String;
@@ -34,20 +46,13 @@ strats.props = function (parentVal, childVal) {
 };
 
 // extend strategy
-strats.computed =
-strats.methods = function (parentVal, childVal) {
-    return childVal
-        ? parentVal
-            ? assign({}, parentVal, childVal)
-            : childVal
-        : parentVal;
+strats.computed = strats.methods = function (parentVal, childVal) {
+    return childVal ? (parentVal ? assign({}, parentVal, childVal) : childVal) : parentVal;
 };
 
 // data strategy
 strats.data = function (parentVal, childVal, vm) {
-
     if (!vm) {
-
         if (!childVal) {
             return parentVal;
         }
@@ -59,7 +64,6 @@ strats.data = function (parentVal, childVal, vm) {
         return function (vm) {
             return mergeFnData(parentVal, childVal, vm);
         };
-
     }
 
     return mergeFnData(parentVal, childVal, vm);
@@ -67,26 +71,21 @@ strats.data = function (parentVal, childVal, vm) {
 
 function mergeFnData(parentVal, childVal, vm) {
     return strats.computed(
-        isFunction(parentVal)
-            ? parentVal.call(vm, vm)
-            : parentVal,
-        isFunction(childVal)
-            ? childVal.call(vm, vm)
-            : childVal
+        isFunction(parentVal) ? parentVal.call(vm, vm) : parentVal,
+        isFunction(childVal) ? childVal.call(vm, vm) : childVal
     );
 }
 
 // concat strategy
 function concatStrat(parentVal, childVal) {
-
     parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
 
     return childVal
         ? parentVal
             ? parentVal.concat(childVal)
             : isArray(childVal)
-                ? childVal
-                : [childVal]
+            ? childVal
+            : [childVal]
         : parentVal;
 }
 
@@ -96,7 +95,6 @@ function defaultStrat(parentVal, childVal) {
 }
 
 export function mergeOptions(parent, child, vm) {
-
     const options = {};
 
     if (isFunction(child)) {
@@ -131,25 +129,21 @@ export function mergeOptions(parent, child, vm) {
 }
 
 export function parseOptions(options, args = []) {
-
     try {
-
         return options
             ? startsWith(options, '{')
                 ? JSON.parse(options)
                 : args.length && !includes(options, ':')
-                    ? ({[args[0]]: options})
-                    : options.split(';').reduce((options, option) => {
-                        const [key, value] = option.split(/:(.*)/);
-                        if (key && !isUndefined(value)) {
-                            options[key.trim()] = value.trim();
-                        }
-                        return options;
-                    }, {})
+                ? { [args[0]]: options }
+                : options.split(';').reduce((options, option) => {
+                      const [key, value] = option.split(/:(.*)/);
+                      if (key && !isUndefined(value)) {
+                          options[key.trim()] = value.trim();
+                      }
+                      return options;
+                  }, {})
             : {};
-
     } catch (e) {
         return {};
     }
-
 }

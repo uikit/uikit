@@ -1,11 +1,26 @@
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
-import {attr, closest, hasClass, includes, isBoolean, isFocusable, isTouch, matches, once, pointerDown, pointerEnter, pointerLeave, queryAll, trigger, within} from 'uikit-util';
+import {
+    attr,
+    closest,
+    hasClass,
+    includes,
+    isBoolean,
+    isFocusable,
+    isTouch,
+    matches,
+    once,
+    pointerDown,
+    pointerEnter,
+    pointerLeave,
+    queryAll,
+    trigger,
+    within,
+} from 'uikit-util';
 
 const KEY_SPACE = 32;
 
 export default {
-
     mixins: [Media, Togglable],
 
     args: 'target',
@@ -14,14 +29,14 @@ export default {
         href: String,
         target: null,
         mode: 'list',
-        queued: Boolean
+        queued: Boolean,
     },
 
     data: {
         href: false,
         target: false,
         mode: 'click',
-        queued: true
+        queued: true,
     },
 
     connected() {
@@ -31,26 +46,21 @@ export default {
     },
 
     computed: {
-
         target: {
-
-            get({href, target}, $el) {
+            get({ href, target }, $el) {
                 target = queryAll(target || href, $el);
-                return target.length && target || [$el];
+                return (target.length && target) || [$el];
             },
 
             watch() {
                 this.updateAria();
             },
 
-            immediate: true
-
-        }
-
+            immediate: true,
+        },
     },
 
     events: [
-
         {
             name: pointerDown,
 
@@ -59,7 +69,6 @@ export default {
             },
 
             handler(e) {
-
                 if (!isTouch(e) || this._showState) {
                     return;
                 }
@@ -67,17 +76,22 @@ export default {
                 // Clicking a button does not give it focus on all browsers and platforms
                 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
                 trigger(this.$el, 'focus');
-                once(document, pointerDown, () => trigger(this.$el, 'blur'), true, e => !within(e.target, this.$el));
+                once(
+                    document,
+                    pointerDown,
+                    () => trigger(this.$el, 'blur'),
+                    true,
+                    (e) => !within(e.target, this.$el)
+                );
 
                 // Prevent initial click to prevent double toggle through focus + click
                 if (includes(this.mode, 'click')) {
                     this._preventClick = true;
                 }
-            }
+            },
         },
 
         {
-
             name: `${pointerEnter} ${pointerLeave} focus blur`,
 
             filter() {
@@ -93,16 +107,16 @@ export default {
                 const expanded = attr(this.$el, 'aria-expanded');
 
                 // Skip hide if still hovered or focused
-                if (!show && (
-                    e.type === pointerLeave && matches(this.$el, ':focus')
-                    || e.type === 'blur' && matches(this.$el, ':hover')
-                )) {
+                if (
+                    !show &&
+                    ((e.type === pointerLeave && matches(this.$el, ':focus')) ||
+                        (e.type === 'blur' && matches(this.$el, ':hover')))
+                ) {
                     return;
                 }
 
                 // Skip if state does not change e.g. hover + focus received
                 if (this._showState && show === (expanded !== this._showState)) {
-
                     // Ensure reset if state has changed through click
                     if (!show) {
                         this._showState = null;
@@ -113,8 +127,7 @@ export default {
                 this._showState = show ? expanded : null;
 
                 this.toggle(`toggle${show ? 'show' : 'hide'}`);
-            }
-
+            },
         },
 
         {
@@ -129,11 +142,10 @@ export default {
                     e.preventDefault();
                     this.$el.click();
                 }
-            }
+            },
         },
 
         {
-
             name: 'click',
 
             filter() {
@@ -141,28 +153,25 @@ export default {
             },
 
             handler(e) {
-
                 if (this._preventClick) {
-                    return this._preventClick = null;
+                    return (this._preventClick = null);
                 }
 
                 let link;
-                if (closest(e.target, 'a[href="#"], a[href=""]')
-                    || (link = closest(e.target, 'a[href]')) && (
-                        attr(this.$el, 'aria-expanded') !== 'true'
-                        || link.hash && matches(this.target, link.hash)
-                    )
+                if (
+                    closest(e.target, 'a[href="#"], a[href=""]') ||
+                    ((link = closest(e.target, 'a[href]')) &&
+                        (attr(this.$el, 'aria-expanded') !== 'true' ||
+                            (link.hash && matches(this.target, link.hash))))
                 ) {
                     e.preventDefault();
                 }
 
                 this.toggle();
-            }
-
+            },
         },
 
         {
-
             name: 'toggled',
 
             self: true,
@@ -175,36 +184,27 @@ export default {
                 if (e.target === this.target[0]) {
                     this.updateAria(toggled);
                 }
-            }
-        }
-
+            },
+        },
     ],
 
     update: {
-
         read() {
-            return includes(this.mode, 'media') && this.media
-                ? {match: this.matchMedia}
-                : false;
+            return includes(this.mode, 'media') && this.media ? { match: this.matchMedia } : false;
         },
 
-        write({match}) {
-
+        write({ match }) {
             const toggled = this.isToggled(this.target);
             if (match ? !toggled : toggled) {
                 this.toggle();
             }
-
         },
 
-        events: ['resize']
-
+        events: ['resize'],
     },
 
     methods: {
-
         async toggle(type) {
-
             if (!trigger(this.target, type || 'toggle', [this])) {
                 return;
             }
@@ -213,10 +213,10 @@ export default {
                 return this.toggleElement(this.target);
             }
 
-            const leaving = this.target.filter(el => hasClass(el, this.clsLeave));
+            const leaving = this.target.filter((el) => hasClass(el, this.clsLeave));
 
             if (leaving.length) {
-                this.target.forEach(el => {
+                this.target.forEach((el) => {
                     const isLeaving = includes(leaving, el);
                     this.toggleElement(el, isLeaving, isLeaving);
                 });
@@ -225,10 +225,10 @@ export default {
 
             const toggled = this.target.filter(this.isToggled);
             await this.toggleElement(toggled, false);
-            await this.toggleElement(this.target.filter(el =>
-                !includes(toggled, el)
-            ), true);
-
+            await this.toggleElement(
+                this.target.filter((el) => !includes(toggled, el)),
+                true
+            );
         },
 
         updateAria(toggled) {
@@ -236,12 +236,11 @@ export default {
                 return;
             }
 
-            attr(this.$el, 'aria-expanded', isBoolean(toggled)
-                ? toggled
-                : this.isToggled(this.target)
+            attr(
+                this.$el,
+                'aria-expanded',
+                isBoolean(toggled) ? toggled : this.isToggled(this.target)
             );
-        }
-
-    }
-
+        },
+    },
 };

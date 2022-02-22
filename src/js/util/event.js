@@ -1,9 +1,8 @@
-import {findAll} from './selector';
-import {closest, within} from './filter';
-import {isArray, isFunction, isString, toNode, toNodes} from './lang';
+import { findAll } from './selector';
+import { closest, within } from './filter';
+import { isArray, isFunction, isString, toNode, toNodes } from './lang';
 
 export function on(...args) {
-
     let [targets, type, selector, listener, useCapture] = getArgs(args);
 
     targets = toEventTargets(targets);
@@ -20,46 +19,49 @@ export function on(...args) {
         listener = delegate(selector, listener);
     }
 
-    type.split(' ').forEach(type =>
-        targets.forEach(target =>
-            target.addEventListener(type, listener, useCapture)
-        )
+    type.split(' ').forEach((type) =>
+        targets.forEach((target) => target.addEventListener(type, listener, useCapture))
     );
     return () => off(targets, type, listener, useCapture);
 }
 
 export function off(targets, type, listener, useCapture = false) {
     targets = toEventTargets(targets);
-    type.split(' ').forEach(type =>
-        targets.forEach(target =>
-            target.removeEventListener(type, listener, useCapture)
-        )
+    type.split(' ').forEach((type) =>
+        targets.forEach((target) => target.removeEventListener(type, listener, useCapture))
     );
 }
 
 export function once(...args) {
-
     const [element, type, selector, listener, useCapture, condition] = getArgs(args);
-    const off = on(element, type, selector, e => {
-        const result = !condition || condition(e);
-        if (result) {
-            off();
-            listener(e, result);
-        }
-    }, useCapture);
+    const off = on(
+        element,
+        type,
+        selector,
+        (e) => {
+            const result = !condition || condition(e);
+            if (result) {
+                off();
+                listener(e, result);
+            }
+        },
+        useCapture
+    );
 
     return off;
 }
 
 export function trigger(targets, event, detail) {
-    return toEventTargets(targets).reduce((notCanceled, target) =>
-            notCanceled && target.dispatchEvent(createEvent(event, true, true, detail))
-        , true);
+    return toEventTargets(targets).reduce(
+        (notCanceled, target) =>
+            notCanceled && target.dispatchEvent(createEvent(event, true, true, detail)),
+        true
+    );
 }
 
 export function createEvent(e, bubbles = true, cancelable = false, detail) {
     if (isString(e)) {
-        e = new CustomEvent(e, {bubbles, cancelable, detail});
+        e = new CustomEvent(e, { bubbles, cancelable, detail });
     }
 
     return e;
@@ -73,22 +75,23 @@ function getArgs(args) {
 }
 
 function delegate(selector, listener) {
-    return e => {
-
-        const current = selector[0] === '>'
-            ? findAll(selector, e.currentTarget).reverse().filter(element => within(e.target, element))[0]
-            : closest(e.target, selector);
+    return (e) => {
+        const current =
+            selector[0] === '>'
+                ? findAll(selector, e.currentTarget)
+                      .reverse()
+                      .filter((element) => within(e.target, element))[0]
+                : closest(e.target, selector);
 
         if (current) {
             e.current = current;
             listener.call(this, e);
         }
-
     };
 }
 
 function detail(listener) {
-    return e => isArray(e.detail) ? listener(e, ...e.detail) : listener(e);
+    return (e) => (isArray(e.detail) ? listener(e, ...e.detail) : listener(e));
 }
 
 function selfFilter(listener) {
@@ -111,10 +114,10 @@ export function toEventTargets(target) {
     return isArray(target)
         ? target.map(toEventTarget).filter(Boolean)
         : isString(target)
-            ? findAll(target)
-            : isEventTarget(target)
-                ? [target]
-                : toNodes(target);
+        ? findAll(target)
+        : isEventTarget(target)
+        ? [target]
+        : toNodes(target);
 }
 
 export function isTouch(e) {
@@ -122,7 +125,7 @@ export function isTouch(e) {
 }
 
 export function getEventPos(e) {
-    const {clientX: x, clientY: y} = e.touches?.[0] || e.changedTouches?.[0] || e;
+    const { clientX: x, clientY: y } = e.touches?.[0] || e.changedTouches?.[0] || e;
 
-    return {x, y};
+    return { x, y };
 }

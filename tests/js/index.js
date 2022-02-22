@@ -1,5 +1,5 @@
 /* global UIkit, TESTS */
-import {addClass, css, fastdom, on, prepend, removeClass, ucfirst} from 'uikit-util';
+import { addClass, css, fastdom, on, prepend, removeClass, ucfirst } from 'uikit-util';
 
 const tests = TESTS;
 const storage = window.sessionStorage;
@@ -14,10 +14,13 @@ request.send(null);
 
 const themes = request.status === 200 ? JSON.parse(request.responseText) : {};
 const styles = {
-    core: {css: '../dist/css/uikit-core.css'},
-    theme: {css: '../dist/css/uikit.css'}
+    core: { css: '../dist/css/uikit-core.css' },
+    theme: { css: '../dist/css/uikit.css' },
 };
-const component = location.pathname.split('/').pop().replace(/.html$/, '');
+const component = location.pathname
+    .split('/')
+    .pop()
+    .replace(/.html$/, '');
 
 for (const theme in themes) {
     styles[theme] = themes[theme];
@@ -26,7 +29,7 @@ for (const theme in themes) {
 const variations = {
     '': 'Default',
     light: 'Dark',
-    dark: 'Light'
+    dark: 'Light',
 };
 
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
@@ -44,102 +47,128 @@ docEl.dir = dir;
 const style = styles[storage[key]] || styles.theme;
 
 // add style
-document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '-rtl.css')}">`);
+document.writeln(
+    `<link rel="stylesheet" href="${
+        dir !== 'rtl' ? style.css : style.css.replace('.css', '-rtl.css')
+    }">`
+);
 
 // add javascript
 document.writeln('<script src="../dist/js/uikit.js"></script>');
-document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
+document.writeln(
+    `<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`
+);
 
-on(window, 'load', () => setTimeout(() => fastdom.write(() => {
-
-    const $body = document.body;
-    const $container = prepend($body, `
+on(window, 'load', () =>
+    setTimeout(
+        () =>
+            fastdom.write(() => {
+                const $body = document.body;
+                const $container = prepend(
+                    $body,
+                    `
         <div class="uk-container">
             <select class="uk-select uk-form-width-small" style="margin: 20px 20px 20px 0">
                 <option value="index.html">Overview</option>
-                ${tests.map(name => `<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).join('')}
+                ${tests
+                    .map(
+                        (name) =>
+                            `<option value="${name}.html">${name
+                                .split('-')
+                                .map(ucfirst)
+                                .join(' ')}</option>`
+                    )
+                    .join('')}
             </select>
             <select class="uk-select uk-form-width-small" style="margin: 20px">
-                ${Object.keys(styles).map(style => `<option value="${style}">${ucfirst(style)}</option>`).join('')}
+                ${Object.keys(styles)
+                    .map((style) => `<option value="${style}">${ucfirst(style)}</option>`)
+                    .join('')}
             </select>
             <select class="uk-select uk-form-width-small" style="margin: 20px">
-                ${Object.keys(variations).map(name => `<option value="${name}">${variations[name]}</option>`).join('')}
+                ${Object.keys(variations)
+                    .map((name) => `<option value="${name}">${variations[name]}</option>`)
+                    .join('')}
             </select>
             <label style="margin: 20px">
                 <input type="checkbox" class="uk-checkbox"/>
                 <span style="margin: 5px">RTL</span>
             </label>
         </div>
-    `);
+    `
+                );
 
-    const [$tests, $styles, $inverse, $rtl] = $container.children;
+                const [$tests, $styles, $inverse, $rtl] = $container.children;
 
-    // Tests
-    // ------------------------------
+                // Tests
+                // ------------------------------
 
-    on($tests, 'change', () => {
-        if ($tests.value) {
-            location.href = `${$tests.value}${styles.custom ? `?style=${getParam('style')}` : ''}`;
-        }
-    });
-    $tests.value = `${component || 'index'}.html`;
+                on($tests, 'change', () => {
+                    if ($tests.value) {
+                        location.href = `${$tests.value}${
+                            styles.custom ? `?style=${getParam('style')}` : ''
+                        }`;
+                    }
+                });
+                $tests.value = `${component || 'index'}.html`;
 
-    // Styles
-    // ------------------------------
+                // Styles
+                // ------------------------------
 
-    on($styles, 'change', () => {
-        storage[key] = $styles.value;
-        location.reload();
-    });
-    $styles.value = storage[key];
+                on($styles, 'change', () => {
+                    storage[key] = $styles.value;
+                    location.reload();
+                });
+                $styles.value = storage[key];
 
-    // Variations
-    // ------------------------------
+                // Variations
+                // ------------------------------
 
-    $inverse.value = storage[keyinverse];
+                $inverse.value = storage[keyinverse];
 
-    if ($inverse.value) {
+                if ($inverse.value) {
+                    removeClass(
+                        document.querySelectorAll('*'),
+                        'uk-navbar-container',
+                        'uk-card-default',
+                        'uk-card-muted',
+                        'uk-card-primary',
+                        'uk-card-secondary',
+                        'uk-tile-default',
+                        'uk-tile-muted',
+                        'uk-tile-primary',
+                        'uk-tile-secondary',
+                        'uk-section-default',
+                        'uk-section-muted',
+                        'uk-section-primary',
+                        'uk-section-secondary',
+                        'uk-overlay-default',
+                        'uk-overlay-primary'
+                    );
 
-        removeClass(document.querySelectorAll('*'),
-            'uk-navbar-container',
-            'uk-card-default',
-            'uk-card-muted',
-            'uk-card-primary',
-            'uk-card-secondary',
-            'uk-tile-default',
-            'uk-tile-muted',
-            'uk-tile-primary',
-            'uk-tile-secondary',
-            'uk-section-default',
-            'uk-section-muted',
-            'uk-section-primary',
-            'uk-section-secondary',
-            'uk-overlay-default',
-            'uk-overlay-primary'
-        );
+                    css(docEl, 'background', $inverse.value === 'dark' ? '#fff' : '#222');
+                    addClass($body, `uk-${$inverse.value}`);
+                }
 
-        css(docEl, 'background', $inverse.value === 'dark' ? '#fff' : '#222');
-        addClass($body, `uk-${$inverse.value}`);
+                on($inverse, 'change', () => {
+                    storage[keyinverse] = $inverse.value;
+                    location.reload();
+                });
 
-    }
+                // RTL
+                // ------------------------------
 
-    on($inverse, 'change', () => {
-        storage[keyinverse] = $inverse.value;
-        location.reload();
-    });
+                on($rtl, 'change', ({ target }) => {
+                    storage._uikit_dir = target.checked ? 'rtl' : 'ltr';
+                    location.reload();
+                });
+                $rtl.firstElementChild.checked = dir === 'rtl';
 
-    // RTL
-    // ------------------------------
-
-    on($rtl, 'change', ({target}) => {
-        storage._uikit_dir = target.checked ? 'rtl' : 'ltr';
-        location.reload();
-    });
-    $rtl.firstElementChild.checked = dir === 'rtl';
-
-    css(docEl, 'paddingTop', '');
-
-}), 100));
+                css(docEl, 'paddingTop', '');
+            }),
+        100
+    )
+);
 
 css(docEl, 'paddingTop', '80px');
 

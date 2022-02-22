@@ -1,10 +1,9 @@
-import {once} from './event';
-import {parent} from './filter';
-import {find, findAll} from './selector';
-import {isElement, isString, isUndefined, toNode, toNodes} from './lang';
+import { once } from './event';
+import { parent } from './filter';
+import { find, findAll } from './selector';
+import { isElement, isString, isUndefined, toNode, toNodes } from './lang';
 
 export function ready(fn) {
-
     if (document.readyState !== 'loading') {
         fn();
         return;
@@ -27,11 +26,10 @@ export function html(parent, html) {
 }
 
 export function prepend(parent, element) {
-
     parent = $(parent);
 
     if (parent.hasChildNodes()) {
-        return insertNodes(element, element => parent.insertBefore(element, parent.firstChild));
+        return insertNodes(element, (element) => parent.insertBefore(element, parent.firstChild));
     } else {
         return append(parent, element);
     }
@@ -39,37 +37,33 @@ export function prepend(parent, element) {
 
 export function append(parent, element) {
     parent = $(parent);
-    return insertNodes(element, element => parent.appendChild(element));
+    return insertNodes(element, (element) => parent.appendChild(element));
 }
 
 export function before(ref, element) {
     ref = $(ref);
-    return insertNodes(element, element => ref.parentNode.insertBefore(element, ref));
+    return insertNodes(element, (element) => ref.parentNode.insertBefore(element, ref));
 }
 
 export function after(ref, element) {
     ref = $(ref);
-    return insertNodes(element, element => ref.nextSibling
-        ? before(ref.nextSibling, element)
-        : append(ref.parentNode, element)
+    return insertNodes(element, (element) =>
+        ref.nextSibling ? before(ref.nextSibling, element) : append(ref.parentNode, element)
     );
 }
 
 function insertNodes(element, fn) {
     element = isString(element) ? fragment(element) : element;
-    return element
-        ? 'length' in element
-            ? toNodes(element).map(fn)
-            : fn(element)
-        : null;
+    return element ? ('length' in element ? toNodes(element).map(fn) : fn(element)) : null;
 }
 
 export function remove(element) {
-    toNodes(element).forEach(element => element.parentNode && element.parentNode.removeChild(element));
+    toNodes(element).forEach(
+        (element) => element.parentNode && element.parentNode.removeChild(element)
+    );
 }
 
 export function wrapAll(element, structure) {
-
     structure = toNode(before(element, structure));
 
     while (structure.firstChild) {
@@ -82,16 +76,20 @@ export function wrapAll(element, structure) {
 }
 
 export function wrapInner(element, structure) {
-    return toNodes(toNodes(element).map(element =>
-        element.hasChildNodes ? wrapAll(toNodes(element.childNodes), structure) : append(element, structure)
-    ));
+    return toNodes(
+        toNodes(element).map((element) =>
+            element.hasChildNodes
+                ? wrapAll(toNodes(element.childNodes), structure)
+                : append(element, structure)
+        )
+    );
 }
 
 export function unwrap(element) {
     toNodes(element)
         .map(parent)
         .filter((value, index, self) => self.indexOf(value) === index)
-        .forEach(parent => {
+        .forEach((parent) => {
             before(parent, parent.childNodes);
             remove(parent);
         });
@@ -101,7 +99,6 @@ const fragmentRe = /^\s*<(\w+|!)[^>]*>/;
 const singleTagRe = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
 
 export function fragment(html) {
-
     const matches = singleTagRe.exec(html);
     if (matches) {
         return document.createElement(matches[1]);
@@ -115,11 +112,9 @@ export function fragment(html) {
     }
 
     return container.childNodes.length > 1 ? toNodes(container.childNodes) : container.firstChild;
-
 }
 
 export function apply(node, fn) {
-
     if (!isElement(node)) {
         return;
     }
@@ -134,15 +129,11 @@ export function apply(node, fn) {
 }
 
 export function $(selector, context) {
-    return isHtml(selector)
-        ? toNode(fragment(selector))
-        : find(selector, context);
+    return isHtml(selector) ? toNode(fragment(selector)) : find(selector, context);
 }
 
 export function $$(selector, context) {
-    return isHtml(selector)
-        ? toNodes(fragment(selector))
-        : findAll(selector, context);
+    return isHtml(selector) ? toNodes(fragment(selector)) : findAll(selector, context);
 }
 
 function isHtml(str) {

@@ -1,5 +1,5 @@
-import {attr} from './attr';
-import {isUndefined, toNodes} from './lang';
+import { attr } from './attr';
+import { isUndefined, toNodes } from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');
@@ -10,7 +10,7 @@ export function removeClass(element, ...args) {
 }
 
 export function removeClasses(element, cls) {
-    attr(element, 'class', value => (value || '').replace(new RegExp(`\\b${cls}\\b`, 'g'), ''));
+    attr(element, 'class', (value) => (value || '').replace(new RegExp(`\\b${cls}\\b`, 'g'), ''));
 }
 
 export function replaceClass(element, ...args) {
@@ -30,7 +30,6 @@ export function hasClass(element, cls) {
 }
 
 export function toggleClass(element, cls, force) {
-
     cls = getClasses(cls);
 
     const nodes = toNodes(element);
@@ -47,7 +46,6 @@ export function toggleClass(element, cls, force) {
 }
 
 function apply(element, args, fn) {
-
     args = args.reduce((args, arg) => args.concat(getClasses(arg)), []);
 
     const nodes = toNodes(element);

@@ -1,7 +1,6 @@
-import {isFunction, isObject, isUndefined, toNode, toNodes} from './lang';
+import { isFunction, isObject, isUndefined, toNode, toNodes } from './lang';
 
 export function attr(element, name, value) {
-
     if (isObject(name)) {
         for (const key in name) {
             attr(element, key, name[key]);
@@ -12,8 +11,7 @@ export function attr(element, name, value) {
     if (isUndefined(value)) {
         return toNode(element)?.getAttribute(name);
     } else {
-        toNodes(element).forEach(element => {
-
+        toNodes(element).forEach((element) => {
             if (isFunction(value)) {
                 value = value.call(element, attr(element, name));
             }
@@ -25,19 +23,16 @@ export function attr(element, name, value) {
             }
         });
     }
-
 }
 
 export function hasAttr(element, name) {
-    return toNodes(element).some(element => element.hasAttribute(name));
+    return toNodes(element).some((element) => element.hasAttribute(name));
 }
 
 export function removeAttr(element, name) {
     element = toNodes(element);
-    name.split(' ').forEach(name =>
-        element.forEach(element =>
-            element.hasAttribute(name) && element.removeAttribute(name)
-        )
+    name.split(' ').forEach((name) =>
+        element.forEach((element) => element.hasAttribute(name) && element.removeAttribute(name))
     );
 }
 

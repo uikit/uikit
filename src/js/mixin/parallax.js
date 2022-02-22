@@ -1,6 +1,19 @@
 import Media from '../mixin/media';
-import {getMaxPathLength} from '../core/svg';
-import {css, Dimensions, each, isNumber, isString, isUndefined, noop, startsWith, toFloat, toPx, trigger, ucfirst} from 'uikit-util';
+import { getMaxPathLength } from '../core/svg';
+import {
+    css,
+    Dimensions,
+    each,
+    isNumber,
+    isString,
+    isUndefined,
+    noop,
+    startsWith,
+    toFloat,
+    toPx,
+    trigger,
+    ucfirst,
+} from 'uikit-util';
 
 const props = {
     x: transformFn,
@@ -20,13 +33,12 @@ const props = {
     opacity: cssPropFn,
     stroke: strokeFn,
     bgx: backgroundFn,
-    bgy: backgroundFn
+    bgy: backgroundFn,
 };
 
-const {keys} = Object;
+const { keys } = Object;
 
 export default {
-
     mixins: [Media],
 
     props: fillObject(keys(props), 'list'),
@@ -34,7 +46,6 @@ export default {
     data: fillObject(keys(props), undefined),
 
     computed: {
-
         props(properties, $el) {
             return keys(props).reduce((result, prop) => {
                 if (!isUndefined(properties[prop])) {
@@ -42,36 +53,34 @@ export default {
                 }
                 return result;
             }, {});
-        }
-
+        },
     },
 
     events: {
         bgimageload() {
             this.$emit();
-        }
+        },
     },
 
     methods: {
-
         reset() {
             each(this.getCss(0), (_, prop) => css(this.$el, prop, ''));
         },
 
         getCss(percent) {
-            return keys(this.props).reduce((css, prop) => {
-                this.props[prop](css, percent);
-                return css;
-            }, {transform: '', filter: ''});
-        }
-
-    }
-
+            return keys(this.props).reduce(
+                (css, prop) => {
+                    this.props[prop](css, percent);
+                    return css;
+                },
+                { transform: '', filter: '' }
+            );
+        },
+    },
 };
 
 function transformFn(prop, el, steps) {
-
-    const unit = getUnit(steps) || {x: 'px', y: 'px', rotate: 'deg'}[prop] || '';
+    const unit = getUnit(steps) || { x: 'px', y: 'px', rotate: 'deg' }[prop] || '';
 
     if (prop === 'x' || prop === 'y') {
         prop = `translate${ucfirst(prop)}`;
@@ -95,20 +104,20 @@ function transformFn(prop, el, steps) {
 }
 
 function colorFn(prop, el, steps) {
-
     if (steps.length === 1) {
         steps.unshift(getCssValue(el, prop, ''));
     }
 
-    steps = steps.map(step => parseColor(el, step));
+    steps = steps.map((step) => parseColor(el, step));
 
     return (css, percent) => {
-
         const [start, end, p] = getStep(steps, percent);
-        const value = start.map((value, i) => {
-            value += p * (end[i] - value);
-            return i === 3 ? toFloat(value) : parseInt(value, 10);
-        }).join(',');
+        const value = start
+            .map((value, i) => {
+                value += p * (end[i] - value);
+                return i === 3 ? toFloat(value) : parseInt(value, 10);
+            })
+            .join(',');
         css[prop] = `rgba(${value})`;
     };
 }
@@ -123,13 +132,12 @@ function parseColor(el, color) {
 }
 
 function filterFn(prop, el, steps) {
-
     if (steps.length === 1) {
         steps.unshift(0);
     }
 
-    const unit = getUnit(steps) || {blur: 'px', hue: 'deg'}[prop] || '%';
-    prop = {fopacity: 'opacity', hue: 'hue-rotate'}[prop] || prop;
+    const unit = getUnit(steps) || { blur: 'px', hue: 'deg' }[prop] || '%';
+    prop = { fopacity: 'opacity', hue: 'hue-rotate' }[prop] || prop;
     steps = steps.map(toFloat);
 
     return (css, percent) => {
@@ -139,7 +147,6 @@ function filterFn(prop, el, steps) {
 }
 
 function cssPropFn(prop, el, steps) {
-
     if (steps.length === 1) {
         steps.unshift(getCssValue(el, prop, ''));
     }
@@ -152,7 +159,6 @@ function cssPropFn(prop, el, steps) {
 }
 
 function strokeFn(prop, el, steps) {
-
     if (steps.length === 1) {
         steps.unshift(0);
     }
@@ -160,7 +166,7 @@ function strokeFn(prop, el, steps) {
     const unit = getUnit(steps);
     steps = steps.map(toFloat);
 
-    if (!steps.some(step => step)) {
+    if (!steps.some((step) => step)) {
         return noop;
     }
 
@@ -168,7 +174,7 @@ function strokeFn(prop, el, steps) {
     css(el, 'strokeDasharray', length);
 
     if (unit === '%') {
-        steps = steps.map(step => step * length / 100);
+        steps = steps.map((step) => (step * length) / 100);
     }
 
     steps = steps.reverse();
@@ -179,14 +185,13 @@ function strokeFn(prop, el, steps) {
 }
 
 function backgroundFn(prop, el, steps) {
-
     if (steps.length === 1) {
         steps.unshift(0);
     }
 
     prop = prop.substr(-1);
     const attr = prop === 'y' ? 'height' : 'width';
-    steps = steps.map(step => toPx(step, attr, el));
+    steps = steps.map((step) => toPx(step, attr, el));
 
     const bgPos = getCssValue(el, `background-position-${prop}`, '');
 
@@ -196,7 +201,6 @@ function backgroundFn(prop, el, steps) {
 }
 
 function backgroundCoverFn(prop, el, steps, bgPos, attr) {
-
     const dimImage = getBackgroundImageDimensions(el);
 
     if (!dimImage.width) {
@@ -212,7 +216,7 @@ function backgroundCoverFn(prop, el, steps, bgPos, attr) {
 
     const dimEl = {
         width: el.offsetWidth,
-        height: el.offsetHeight
+        height: el.offsetHeight,
     };
 
     const baseDim = Dimensions.cover(dimImage, dimEl);
@@ -221,7 +225,6 @@ function backgroundCoverFn(prop, el, steps, bgPos, attr) {
     if (span < diff) {
         dimEl[attr] = baseDim[attr] + diff - span;
     } else if (span > diff) {
-
         const posPercentage = dimEl[attr] / toPx(bgPos, attr, el, true);
 
         if (posPercentage) {
@@ -265,13 +268,13 @@ function getBackgroundImageDimensions(el) {
         }
     }
 
-    return dimensions[src] = toDimensions(image);
+    return (dimensions[src] = toDimensions(image));
 }
 
 function toDimensions(image) {
     return {
         width: image.naturalWidth,
-        height: image.naturalHeight
+        height: image.naturalHeight,
     };
 }
 
@@ -281,18 +284,21 @@ function getStep(steps, percent) {
 
     return steps
         .slice(index, index + 2)
-        .concat(percent === 1 ? 1 : percent % (1 / count) * count);
+        .concat(percent === 1 ? 1 : (percent % (1 / count)) * count);
 }
 
 function getValue(steps, percent) {
     const [start, end, p] = getStep(steps, percent);
-    return isNumber(start)
-        ? start + Math.abs(start - end) * p * (start < end ? 1 : -1)
-        : +end;
+    return isNumber(start) ? start + Math.abs(start - end) * p * (start < end ? 1 : -1) : +end;
 }
 
 function getUnit(steps, defaultUnit) {
-    return steps.reduce((unit, step) => unit || isString(step) && step.replace(/[\d-]/g, '').trim(), '') || defaultUnit;
+    return (
+        steps.reduce(
+            (unit, step) => unit || (isString(step) && step.replace(/[\d-]/g, '').trim()),
+            ''
+        ) || defaultUnit
+    );
 }
 
 function getCssValue(el, prop, value) {

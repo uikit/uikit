@@ -1,8 +1,20 @@
 import Modal from '../mixin/modal';
-import {$, addClass, append, css, endsWith, hasClass, height, isVisible, parent, removeClass, unwrap, wrapAll} from 'uikit-util';
+import {
+    $,
+    addClass,
+    append,
+    css,
+    endsWith,
+    hasClass,
+    height,
+    isVisible,
+    parent,
+    removeClass,
+    unwrap,
+    wrapAll,
+} from 'uikit-util';
 
 export default {
-
     mixins: [Modal],
 
     args: 'mode',
@@ -10,7 +22,7 @@ export default {
     props: {
         mode: String,
         flip: Boolean,
-        overlay: Boolean
+        overlay: Boolean,
     },
 
     data: {
@@ -26,65 +38,58 @@ export default {
         clsMode: 'uk-offcanvas',
         clsOverlay: 'uk-offcanvas-overlay',
         selClose: '.uk-offcanvas-close',
-        container: false
+        container: false,
     },
 
     computed: {
-
-        clsFlip({flip, clsFlip}) {
+        clsFlip({ flip, clsFlip }) {
             return flip ? clsFlip : '';
         },
 
-        clsOverlay({overlay, clsOverlay}) {
+        clsOverlay({ overlay, clsOverlay }) {
             return overlay ? clsOverlay : '';
         },
 
-        clsMode({mode, clsMode}) {
+        clsMode({ mode, clsMode }) {
             return `${clsMode}-${mode}`;
         },
 
-        clsSidebarAnimation({mode, clsSidebarAnimation}) {
+        clsSidebarAnimation({ mode, clsSidebarAnimation }) {
             return mode === 'none' || mode === 'reveal' ? '' : clsSidebarAnimation;
         },
 
-        clsContainerAnimation({mode, clsContainerAnimation}) {
+        clsContainerAnimation({ mode, clsContainerAnimation }) {
             return mode !== 'push' && mode !== 'reveal' ? '' : clsContainerAnimation;
         },
 
-        transitionElement({mode}) {
+        transitionElement({ mode }) {
             return mode === 'reveal' ? parent(this.panel) : this.panel;
-        }
-
+        },
     },
 
     update: {
-
         read() {
             if (this.isToggled() && !isVisible(this.$el)) {
                 this.hide();
             }
         },
 
-        events: ['resize']
-
+        events: ['resize'],
     },
 
     events: [
-
         {
-
             name: 'click',
 
             delegate() {
                 return 'a[href^="#"]';
             },
 
-            handler({current: {hash}, defaultPrevented}) {
+            handler({ current: { hash }, defaultPrevented }) {
                 if (!defaultPrevented && hash && $(hash, document.body)) {
                     this.hide();
                 }
-            }
-
+            },
         },
 
         {
@@ -96,14 +101,11 @@ export default {
                 return this.panel;
             },
 
-            handler({targetTouches}) {
-
+            handler({ targetTouches }) {
                 if (targetTouches.length === 1) {
                     this.clientY = targetTouches[0].clientY;
                 }
-
-            }
-
+            },
         },
 
         {
@@ -118,8 +120,7 @@ export default {
 
             handler(e) {
                 e.cancelable && e.preventDefault();
-            }
-
+            },
         },
 
         {
@@ -132,23 +133,21 @@ export default {
             },
 
             handler(e) {
-
                 if (e.targetTouches.length !== 1) {
                     return;
                 }
 
                 const clientY = e.targetTouches[0].clientY - this.clientY;
-                const {scrollTop, scrollHeight, clientHeight} = this.panel;
+                const { scrollTop, scrollHeight, clientHeight } = this.panel;
 
-                if (clientHeight >= scrollHeight
-                    || scrollTop === 0 && clientY > 0
-                    || scrollHeight - scrollTop <= clientHeight && clientY < 0
+                if (
+                    clientHeight >= scrollHeight ||
+                    (scrollTop === 0 && clientY > 0) ||
+                    (scrollHeight - scrollTop <= clientHeight && clientY < 0)
                 ) {
                     e.cancelable && e.preventDefault();
                 }
-
-            }
-
+            },
         },
 
         {
@@ -157,7 +156,6 @@ export default {
             self: true,
 
             handler() {
-
                 if (this.mode === 'reveal' && !hasClass(parent(this.panel), this.clsMode)) {
                     wrapAll(this.panel, '<div>');
                     addClass(parent(this.panel), this.clsMode);
@@ -168,15 +166,17 @@ export default {
                 css(document.body, 'touch-action', 'pan-y pinch-zoom');
                 css(this.$el, 'display', 'block');
                 addClass(this.$el, this.clsOverlay);
-                addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
+                addClass(
+                    this.panel,
+                    this.clsSidebarAnimation,
+                    this.mode !== 'reveal' ? this.clsMode : ''
+                );
 
                 height(document.body); // force reflow
                 addClass(document.body, this.clsContainerAnimation);
 
                 this.clsContainerAnimation && suppressUserScale();
-
-
-            }
+            },
         },
 
         {
@@ -187,7 +187,7 @@ export default {
             handler() {
                 removeClass(document.body, this.clsContainerAnimation);
                 css(document.body, 'touch-action', '');
-            }
+            },
         },
 
         {
@@ -196,7 +196,6 @@ export default {
             self: true,
 
             handler() {
-
                 this.clsContainerAnimation && resumeUserScale();
 
                 if (this.mode === 'reveal') {
@@ -209,24 +208,19 @@ export default {
                 removeClass(document.body, this.clsContainer, this.clsFlip);
 
                 css(document.documentElement, 'overflowY', '');
-
-            }
+            },
         },
 
         {
             name: 'swipeLeft swipeRight',
 
             handler(e) {
-
                 if (this.isToggled() && endsWith(e.type, 'Left') ^ this.flip) {
                     this.hide();
                 }
-
-            }
-        }
-
-    ]
-
+            },
+        },
+    ],
 };
 
 // Chrome in responsive mode zooms page upon opening offcanvas
@@ -240,5 +234,7 @@ function resumeUserScale() {
 }
 
 function getViewport() {
-    return $('meta[name="viewport"]', document.head) || append(document.head, '<meta name="viewport">');
+    return (
+        $('meta[name="viewport"]', document.head) || append(document.head, '<meta name="viewport">')
+    );
 }

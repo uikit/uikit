@@ -1,14 +1,9 @@
-import {css} from 'uikit-util';
+import { css } from 'uikit-util';
 
 export default {
-
     slide: {
-
         show(dir) {
-            return [
-                {transform: translate(dir * -100)},
-                {transform: translate()}
-            ];
+            return [{ transform: translate(dir * -100) }, { transform: translate() }];
         },
 
         percent(current) {
@@ -17,13 +12,11 @@ export default {
 
         translate(percent, dir) {
             return [
-                {transform: translate(dir * -100 * percent)},
-                {transform: translate(dir * 100 * (1 - percent))}
+                { transform: translate(dir * -100 * percent) },
+                { transform: translate(dir * 100 * (1 - percent)) },
             ];
-        }
-
-    }
-
+        },
+    },
 };
 
 export function translated(el) {

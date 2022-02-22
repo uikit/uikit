@@ -1,7 +1,19 @@
-import {createEvent, css, Dimensions, escape, getImage, includes, isUndefined, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
+import {
+    createEvent,
+    css,
+    Dimensions,
+    escape,
+    getImage,
+    includes,
+    isUndefined,
+    queryAll,
+    startsWith,
+    toFloat,
+    toPx,
+    trigger,
+} from 'uikit-util';
 
 export default {
-
     args: 'dataSrc',
 
     props: {
@@ -12,7 +24,7 @@ export default {
         height: Number,
         offsetTop: String,
         offsetLeft: String,
-        target: String
+        target: String,
     },
 
     data: {
@@ -23,24 +35,23 @@ export default {
         height: false,
         offsetTop: '50vh',
         offsetLeft: '50vw',
-        target: false
+        target: false,
     },
 
     computed: {
-
-        cacheKey({dataSrc}) {
+        cacheKey({ dataSrc }) {
             return `${this.$name}.${dataSrc}`;
         },
 
-        width({width, dataWidth}) {
+        width({ width, dataWidth }) {
             return width || dataWidth;
         },
 
-        height({height, dataHeight}) {
+        height({ height, dataHeight }) {
             return height || dataHeight;
         },
 
-        sizes({sizes, dataSizes}) {
+        sizes({ sizes, dataSizes }) {
             return sizes || dataSizes;
         },
 
@@ -49,29 +60,25 @@ export default {
         },
 
         target: {
-
-            get({target}) {
+            get({ target }) {
                 return [this.$el, ...queryAll(target, this.$el)];
             },
 
             watch() {
                 this.observe();
-            }
-
+            },
         },
 
-        offsetTop({offsetTop}) {
+        offsetTop({ offsetTop }) {
             return toPx(offsetTop, 'height');
         },
 
-        offsetLeft({offsetLeft}) {
+        offsetLeft({ offsetLeft }) {
             return toPx(offsetLeft, 'width');
-        }
-
+        },
     },
 
     connected() {
-
         if (!window.IntersectionObserver) {
             setSrcAttrs(this.$el, this.dataSrc, this.dataSrcset, this.sizes);
             return;
@@ -84,11 +91,10 @@ export default {
         }
 
         this.observer = new IntersectionObserver(this.load, {
-            rootMargin: `${this.offsetTop}px ${this.offsetLeft}px`
+            rootMargin: `${this.offsetTop}px ${this.offsetLeft}px`,
         });
 
         requestAnimationFrame(this.observe);
-
     },
 
     disconnected() {
@@ -96,9 +102,7 @@ export default {
     },
 
     update: {
-
-        read({image}) {
-
+        read({ image }) {
             if (!this.observer) {
                 return false;
             }
@@ -111,81 +115,76 @@ export default {
                 return false;
             }
 
-            image && image.then(img => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img)));
-
+            image &&
+                image.then(
+                    (img) => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img))
+                );
         },
 
         write(data) {
-
             if (this.dataSrcset && window.devicePixelRatio !== 1) {
-
                 const bgSize = css(this.$el, 'backgroundSize');
                 if (bgSize.match(/^(auto\s?)+$/) || toFloat(bgSize) === data.bgSize) {
                     data.bgSize = getSourceSize(this.dataSrcset, this.sizes);
                     css(this.$el, 'backgroundSize', `${data.bgSize}px`);
                 }
-
             }
-
         },
 
-        events: ['resize']
-
+        events: ['resize'],
     },
 
     methods: {
-
         load(entries) {
-
             // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
-            if (!entries.some(entry => isUndefined(entry.isIntersecting) || entry.isIntersecting)) {
+            if (
+                !entries.some((entry) => isUndefined(entry.isIntersecting) || entry.isIntersecting)
+            ) {
                 return;
             }
 
-            this._data.image = getImage(this.dataSrc, this.dataSrcset, this.sizes).then(img => {
-
-                setSrcAttrs(this.$el, currentSrc(img), img.srcset, img.sizes);
-                storage[this.cacheKey] = currentSrc(img);
-                return img;
-
-            }, e => trigger(this.$el, new e.constructor(e.type, e)));
+            this._data.image = getImage(this.dataSrc, this.dataSrcset, this.sizes).then(
+                (img) => {
+                    setSrcAttrs(this.$el, currentSrc(img), img.srcset, img.sizes);
+                    storage[this.cacheKey] = currentSrc(img);
+                    return img;
+                },
+                (e) => trigger(this.$el, new e.constructor(e.type, e))
+            );
 
             this.observer.disconnect();
         },
 
         observe() {
             if (this._connected && !this._data.image) {
-                this.target.forEach(el => this.observer.observe(el));
+                this.target.forEach((el) => this.observer.observe(el));
             }
-        }
-
-    }
-
+        },
+    },
 };
 
 function setSrcAttrs(el, src, srcset, sizes) {
-
     if (isImg(el)) {
         const set = (prop, val) => val && val !== el[prop] && (el[prop] = val);
         set('sizes', sizes);
         set('srcset', srcset);
         set('src', src);
     } else if (src) {
-
         const change = !includes(el.style.backgroundImage, src);
         if (change) {
             css(el, 'backgroundImage', `url(${escape(src)})`);
             trigger(el, createEvent('load', false));
         }
-
     }
-
 }
 
 function getPlaceholderImage(width, height, sizes) {
-
     if (sizes) {
-        ({width, height} = Dimensions.ratio({width, height}, 'width', toPx(sizesToPixel(sizes))));
+        ({ width, height } = Dimensions.ratio(
+            { width, height },
+            'width',
+            toPx(sizesToPixel(sizes))
+        ));
     }
 
     return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"></svg>`;
@@ -212,11 +211,11 @@ const additionRe = /[+-]?(\d+)/g;
 function evaluateSize(size) {
     return startsWith(size, 'calc')
         ? size
-            .slice(5, -1)
-            .replace(sizeRe, size => toPx(size))
-            .replace(/ /g, '')
-            .match(additionRe)
-            .reduce((a, b) => a + +b, 0)
+              .slice(5, -1)
+              .replace(sizeRe, (size) => toPx(size))
+              .replace(/ /g, '')
+              .match(additionRe)
+              .reduce((a, b) => a + +b, 0)
         : size;
 }
 
@@ -225,7 +224,7 @@ function getSourceSize(srcset, sizes) {
     const srcSize = toPx(sizesToPixel(sizes));
     const descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort((a, b) => a - b);
 
-    return descriptors.filter(size => size >= srcSize)[0] || descriptors.pop() || '';
+    return descriptors.filter((size) => size >= srcSize)[0] || descriptors.pop() || '';
 }
 
 function isImg(el) {

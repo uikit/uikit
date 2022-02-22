@@ -1,30 +1,27 @@
-import {isRtl, isVisible, offsetPosition, toggleClass} from 'uikit-util';
+import { isRtl, isVisible, offsetPosition, toggleClass } from 'uikit-util';
 
 export default {
-
     props: {
         margin: String,
-        firstColumn: Boolean
+        firstColumn: Boolean,
     },
 
     data: {
         margin: 'uk-margin-small-top',
-        firstColumn: 'uk-first-column'
+        firstColumn: 'uk-first-column',
     },
 
     update: {
-
         read() {
-
             const rows = getRows(this.$el.children);
 
             return {
                 rows,
-                columns: getColumns(rows)
+                columns: getColumns(rows),
             };
         },
 
-        write({columns, rows}) {
+        write({ columns, rows }) {
             for (let i = 0; i < rows.length; i++) {
                 for (let j = 0; j < rows[i].length; j++) {
                     toggleClass(rows[i][j], this.margin, i !== 0);
@@ -33,10 +30,8 @@ export default {
             }
         },
 
-        events: ['resize']
-
-    }
-
+        events: ['resize'],
+    },
 };
 
 export function getRows(items) {
@@ -44,7 +39,6 @@ export function getRows(items) {
 }
 
 function getColumns(rows) {
-
     const columns = [];
 
     for (let i = 0; i < rows.length; i++) {
@@ -54,17 +48,13 @@ function getColumns(rows) {
         }
     }
 
-    return isRtl
-        ? columns.reverse()
-        : columns;
+    return isRtl ? columns.reverse() : columns;
 }
 
 function sortBy(items, startProp, endProp) {
-
     const sorted = [[]];
 
     for (let i = 0; i < items.length; i++) {
-
         const el = items[i];
 
         if (!isVisible(el)) {
@@ -74,7 +64,6 @@ function sortBy(items, startProp, endProp) {
         let dim = getOffset(el);
 
         for (let j = sorted.length - 1; j >= 0; j--) {
-
             const current = sorted[j];
 
             if (!current[0]) {
@@ -104,17 +93,14 @@ function sortBy(items, startProp, endProp) {
                 sorted.unshift([el]);
                 break;
             }
-
         }
-
     }
 
     return sorted;
 }
 
 function getOffset(element, offset = false) {
-
-    let {offsetTop, offsetLeft, offsetHeight, offsetWidth} = element;
+    let { offsetTop, offsetLeft, offsetHeight, offsetWidth } = element;
 
     if (offset) {
         [offsetTop, offsetLeft] = offsetPosition(element);
@@ -124,6 +110,6 @@ function getOffset(element, offset = false) {
         top: offsetTop,
         left: offsetLeft,
         bottom: offsetTop + offsetHeight,
-        right: offsetLeft + offsetWidth
+        right: offsetLeft + offsetWidth,
     };
 }

@@ -5,7 +5,6 @@
 */
 
 export const fastdom = {
-
     reads: [],
     writes: [],
 
@@ -26,8 +25,7 @@ export const fastdom = {
         remove(this.writes, task);
     },
 
-    flush
-
+    flush,
 };
 
 function flush(recursion) {
@@ -43,7 +41,6 @@ function flush(recursion) {
 
 const RECURSION_LIMIT = 4;
 function scheduleFlush(recursion) {
-
     if (fastdom.scheduled) {
         return;
     }
@@ -54,7 +51,6 @@ function scheduleFlush(recursion) {
     } else {
         requestAnimationFrame(() => flush(1));
     }
-
 }
 
 function runTasks(tasks) {

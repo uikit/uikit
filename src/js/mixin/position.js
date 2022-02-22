@@ -1,24 +1,31 @@
-import {$, flipPosition, offset as getOffset, isNumeric, isRtl, positionAt, removeClasses, toggleClass} from 'uikit-util';
+import {
+    $,
+    flipPosition,
+    offset as getOffset,
+    isNumeric,
+    isRtl,
+    positionAt,
+    removeClasses,
+    toggleClass,
+} from 'uikit-util';
 
 export default {
-
     props: {
         pos: String,
         offset: null,
         flip: Boolean,
-        clsPos: String
+        clsPos: String,
     },
 
     data: {
         pos: `bottom-${isRtl ? 'right' : 'left'}`,
         flip: true,
         offset: false,
-        clsPos: ''
+        clsPos: '',
     },
 
     computed: {
-
-        pos({pos}) {
+        pos({ pos }) {
             return pos.split('-').concat('center').slice(0, 2);
         },
 
@@ -28,32 +35,34 @@ export default {
 
         align() {
             return this.pos[1];
-        }
-
+        },
     },
 
     methods: {
-
         positionAt(element, target, boundary) {
-
             removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
 
-            let {offset} = this;
+            let { offset } = this;
             const axis = this.getAxis();
 
             if (!isNumeric(offset)) {
                 const node = $(offset);
                 offset = node
-                    ? getOffset(node)[axis === 'x' ? 'left' : 'top'] - getOffset(target)[axis === 'x' ? 'right' : 'bottom']
+                    ? getOffset(node)[axis === 'x' ? 'left' : 'top'] -
+                      getOffset(target)[axis === 'x' ? 'right' : 'bottom']
                     : 0;
             }
 
-            const {x, y} = positionAt(
+            const { x, y } = positionAt(
                 element,
                 target,
-                axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
+                axis === 'x'
+                    ? `${flipPosition(this.dir)} ${this.align}`
+                    : `${this.align} ${flipPosition(this.dir)}`,
                 axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
-                axis === 'x' ? `${this.dir === 'left' ? -offset : offset}` : ` ${this.dir === 'top' ? -offset : offset}`,
+                axis === 'x'
+                    ? `${this.dir === 'left' ? -offset : offset}`
+                    : ` ${this.dir === 'top' ? -offset : offset}`,
                 null,
                 this.flip,
                 boundary
@@ -63,13 +72,10 @@ export default {
             this.align = axis === 'x' ? y : x;
 
             toggleClass(element, `${this.clsPos}-${this.dir}-${this.align}`, this.offset === false);
-
         },
 
         getAxis() {
             return this.dir === 'top' || this.dir === 'bottom' ? 'y' : 'x';
-        }
-
-    }
-
+        },
+    },
 };
