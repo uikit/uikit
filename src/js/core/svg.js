@@ -5,10 +5,12 @@ import {
     append,
     attr,
     includes,
+    isTag,
     isVisible,
     isVoidElement,
     memoize,
     noop,
+    once,
     remove,
     removeAttr,
     startsWith,
@@ -94,6 +96,12 @@ export default {
 
     methods: {
         async getSvg() {
+            if (isTag(this.$el, 'img') && !this.$el.complete && this.$el.loading === 'lazy') {
+                return new Promise((resolve) =>
+                    once(this.$el, 'load', () => resolve(this.getSvg()))
+                );
+            }
+
             return parseSVG(await loadSVG(this.src), this.icon) || Promise.reject('SVG not found.');
         },
 
@@ -193,7 +201,7 @@ export function getMaxPathLength(el) {
 }
 
 function insertSVG(el, root) {
-    if (isVoidElement(root) || root.tagName === 'CANVAS') {
+    if (isVoidElement(root) || isTag(root, 'canvas')) {
         root.hidden = true;
 
         const next = root.nextElementSibling;
@@ -205,11 +213,7 @@ function insertSVG(el, root) {
 }
 
 function equals(el, other) {
-    return isSVG(el) && isSVG(other) && innerHTML(el) === innerHTML(other);
-}
-
-function isSVG(el) {
-    return el?.tagName === 'svg';
+    return isTag(el, 'svg') && isTag(other, 'svg') && innerHTML(el) === innerHTML(other);
 }
 
 function innerHTML(el) {

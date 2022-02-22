@@ -7,6 +7,7 @@
 - Add support for <picture> element in Img component
 - Add `sources` option to Image component to allow for multiple image sources for background images
 - Add `loading` option to Image component (Avoid lazy loading images that are in first visible viewport)
+- SVG component handles loading="lazy" attribute if its applied to an `img` tag
 
 ### Changed
 

@@ -7,6 +7,7 @@ import {
     includes,
     isBoolean,
     isFocusable,
+    isTag,
     isTouch,
     matches,
     once,
@@ -134,7 +135,7 @@ export default {
             name: 'keydown',
 
             filter() {
-                return includes(this.mode, 'click') && this.$el.tagName !== 'INPUT';
+                return includes(this.mode, 'click') && isTag(this.$el, 'input');
             },
 
             handler(e) {

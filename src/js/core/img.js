@@ -11,6 +11,7 @@ import {
     includes,
     isArray,
     isEmpty,
+    isTag,
     parent,
     parseOptions,
     queryAll,
@@ -257,13 +258,9 @@ function ensureSrcAttribute(el) {
 }
 
 function isPicture(el) {
-    return isA(el, 'PICTURE');
+    return isTag(el, 'picture');
 }
 
 function isImg(el) {
-    return isA(el, 'IMG');
-}
-
-function isA(el, tagName) {
-    return el && el.tagName === tagName;
+    return isTag(el, 'img');
 }
