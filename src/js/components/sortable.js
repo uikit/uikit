@@ -332,11 +332,12 @@ function appendDrag(container, element) {
     const clone = append(container, element.outerHTML.replace(/(^<)(?:li|tr)|(?:li|tr)(\/>$)/g, '$1div$2'));
 
     css(clone, 'margin', '0', 'important');
-    css(clone, assign({
+    css(clone, {
         boxSizing: 'border-box',
         width: element.offsetWidth,
-        height: element.offsetHeight
-    }, css(element, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
+        height: element.offsetHeight,
+        padding: css(element, 'padding')
+    });
 
     height(clone.firstElementChild, height(element.firstElementChild));
 
