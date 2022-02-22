@@ -13,6 +13,10 @@
 - Improve sticky behavior if sticky content is larger than the viewport
 - Sticky component's `bottom` option checks for bottom padding if sticky element is within referenced element
 
+## Removed
+
+- Drop IE11 support from JavaScript
+
 ### Fixed
 
 - Fix infinite sliding in Slider component with equally sized slides
