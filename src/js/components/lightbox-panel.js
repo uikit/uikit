@@ -3,7 +3,7 @@ import Container from '../mixin/container';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
 import Togglable from '../mixin/togglable';
-import {$, addClass, ajax, append, assign, attr, fragment, getImage, getIndex, html, on, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
+import {$, addClass, append, assign, attr, fragment, getImage, getIndex, html, on, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -211,7 +211,7 @@ export default {
 
             name: 'itemload',
 
-            handler(_, item) {
+            async handler(_, item) {
 
                 const {source: src, type, alt = '', poster, attrs = {}} = item;
 
@@ -234,10 +234,12 @@ export default {
                 // Image
                 if (type === 'image' || src.match(/\.(avif|jpe?g|a?png|gif|svg|webp)($|\?)/i)) {
 
-                    getImage(src, attrs.srcset, attrs.size).then(
-                        ({width, height}) => this.setItem(item, createEl('img', assign({src, width, height, alt}, attrs))),
-                        () => this.setError(item)
-                    );
+                    try {
+                        const {width, height} = await getImage(src, attrs.srcset, attrs.size);
+                        this.setItem(item, createEl('img', assign({src, width, height, alt}, attrs)));
+                    } catch (e) {
+                        this.setError(item);
+                    }
 
                 // Video
                 } else if (type === 'video' || src.match(/\.(mp4|webm|ogv)($|\?)/i)) {
@@ -278,17 +280,21 @@ export default {
                 // Vimeo
                 } else if ((matches = src.match(/\/\/.*?vimeo\.[a-z]+\/(\d+)[&?]?(.*)?/))) {
 
-                    ajax(`https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(src)}`, {
-                        responseType: 'json',
-                        withCredentials: false
-                    }).then(
-                        ({response: {height, width}}) => this.setItem(item, createEl('iframe', assign({
+                    try {
+
+                        const {height, width} = await (await fetch(`https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(src)}`, {
+                            credentials: 'omit'
+                        })).json();
+
+                        this.setItem(item, createEl('iframe', assign({
                             src: `https://player.vimeo.com/video/${matches[1]}${matches[2] ? `?${matches[2]}` : ''}`,
                             width,
                             height
-                        }, iframeAttrs, attrs))),
-                        () => this.setError(item)
-                    );
+                        }, iframeAttrs, attrs)));
+
+                    } catch (e) {
+                        this.setError(item);
+                    }
 
                 }
 

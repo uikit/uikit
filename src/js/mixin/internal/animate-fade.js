@@ -1,5 +1,5 @@
 import {getRows} from '../../core/margin';
-import {addClass, children, css, hasClass, height, isInView, once, Promise, removeClass, sortBy, toNumber, Transition} from 'uikit-util';
+import {addClass, children, css, hasClass, height, isInView, once, removeClass, sortBy, toNumber, Transition} from 'uikit-util';
 
 const clsLeave = 'uk-transition-leave';
 const clsEnter = 'uk-transition-enter';

@@ -10,8 +10,7 @@ export function attr(element, name, value) {
     }
 
     if (isUndefined(value)) {
-        element = toNode(element);
-        return element && element.getAttribute(name);
+        return toNode(element)?.getAttribute(name);
     } else {
         toNodes(element).forEach(element => {
 

@@ -203,7 +203,7 @@ export default {
 
     methods: {
 
-        toggle(type) {
+        async toggle(type) {
 
             if (!trigger(this.target, type || 'toggle', [this])) {
                 return;
@@ -224,11 +224,10 @@ export default {
             }
 
             const toggled = this.target.filter(this.isToggled);
-            this.toggleElement(toggled, false).then(() =>
-                this.toggleElement(this.target.filter(el =>
-                    !includes(toggled, el)
-                ), true)
-            );
+            await this.toggleElement(toggled, false);
+            await this.toggleElement(this.target.filter(el =>
+                !includes(toggled, el)
+            ), true);
 
         },
 

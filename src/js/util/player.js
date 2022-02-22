@@ -1,5 +1,4 @@
 import {once} from './event';
-import {Promise} from './promise';
 import {assign, includes, noop} from './lang';
 
 export function play(el) {
@@ -45,11 +44,11 @@ export function isVideo(el) {
 }
 
 function isHTML5(el) {
-    return el && el.tagName === 'VIDEO';
+    return el?.tagName === 'VIDEO';
 }
 
 function isIFrame(el) {
-    return el && el.tagName === 'IFRAME' && (isYoutube(el) || isVimeo(el));
+    return el?.tagName === 'IFRAME' && (isYoutube(el) || isVimeo(el));
 }
 
 function isYoutube(el) {
@@ -60,8 +59,9 @@ function isVimeo(el) {
     return !!el.src.match(/vimeo\.com\/video\/.*/);
 }
 
-function call(el, cmd) {
-    enableApi(el).then(() => post(el, cmd));
+async function call(el, cmd) {
+    await enableApi(el);
+    post(el, cmd);
 }
 
 function post(el, cmd) {

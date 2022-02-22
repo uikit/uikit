@@ -26,9 +26,7 @@ if (currentPrefix === prefix) {
 await replacePrefix(currentPrefix, prefix);
 
 async function findExistingPrefix() {
-    const data = await read('dist/css/uikit.css');
-    const res = data.match(new RegExp(`(${validClassName.source})(-[a-z]+)?-grid`));
-    return res && res[1];
+    return (await read('dist/css/uikit.css')).match(new RegExp(`(${validClassName.source})(-[a-z]+)?-grid`))?.[1];
 }
 
 async function getPrefix() {

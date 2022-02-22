@@ -1,9 +1,6 @@
-import FlexBug from '../mixin/flex-bug';
 import {boxModelAdjust, css, dimensions, endsWith, height, isNumeric, isString, isVisible, offset, query, toFloat, trigger} from 'uikit-util';
 
 export default {
-
-    mixins: [FlexBug],
 
     props: {
         expand: Boolean,

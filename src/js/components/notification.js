@@ -48,18 +48,17 @@ export default {
 
     },
 
-    connected() {
+    async connected() {
 
         const margin = toFloat(css(this.$el, this.marginProp));
-        Transition.start(
+        await Transition.start(
             css(this.$el, this.startProps),
             {opacity: 1, [this.marginProp]: margin}
-        ).then(() => {
-            if (this.timeout) {
-                this.timer = setTimeout(this.close, this.timeout);
-            }
-        });
+        );
 
+        if (this.timeout) {
+            this.timer = setTimeout(this.close, this.timeout);
+        }
     },
 
     events: {
@@ -87,7 +86,7 @@ export default {
 
     methods: {
 
-        close(immediate) {
+        async close(immediate) {
 
             const removeFn = el => {
 
@@ -96,7 +95,7 @@ export default {
                 trigger(el, 'close', [this]);
                 remove(el);
 
-                if (container && !container.hasChildNodes()) {
+                if (!container?.hasChildNodes()) {
                     remove(container);
                 }
 
@@ -106,11 +105,11 @@ export default {
                 clearTimeout(this.timer);
             }
 
-            if (immediate) {
-                removeFn(this.$el);
-            } else {
-                Transition.start(this.$el, this.startProps).then(removeFn);
+            if (!immediate) {
+                await Transition.start(this.$el, this.startProps);
             }
+
+            removeFn(this.$el);
         }
 
     }

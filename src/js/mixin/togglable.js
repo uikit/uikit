@@ -1,4 +1,4 @@
-import {$$, addClass, Animation, assign, css, fastdom, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, Promise, removeClass, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
+import {$$, addClass, Animation, assign, css, fastdom, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, removeClass, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -67,10 +67,10 @@ export default {
                         isFunction(animate)
                             ? animate
                             : animate === false || !this.hasAnimation
-                            ? this._toggle
-                            : this.hasTransition
-                                ? toggleHeight(this)
-                                : toggleAnimation(this)
+                                ? this._toggle
+                                : this.hasTransition
+                                    ? toggleHeight(this)
+                                    : toggleAnimation(this)
                     )(el, show);
 
                     const cls = show ? this.clsEnter : this.clsLeave;

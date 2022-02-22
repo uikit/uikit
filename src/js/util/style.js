@@ -1,6 +1,3 @@
-import {isIE} from './env';
-import {append, fragment, remove} from './dom';
-import {addClass} from './class';
 import {each, hyphenate, isArray, isNumber, isNumeric, isObject, isString, isUndefined, memoize, toNodes, toWindow} from './lang';
 
 const cssNumber = {
@@ -65,26 +62,9 @@ function getStyle(element, property, pseudoElt) {
     return getStyles(element, pseudoElt)[property];
 }
 
-const parseCssVar = memoize(name => {
-    /* usage in css: .uk-name:before { content:"xyz" } */
-
-    const element = append(document.documentElement, fragment('<div>'));
-
-    addClass(element, `uk-${name}`);
-
-    const value = getStyle(element, 'content', ':before');
-
-    remove(element);
-
-    return value;
-});
-
 const propertyRe = /^\s*(["'])?(.*?)\1\s*$/;
 export function getCssVar(name) {
-    return (isIE
-        ? parseCssVar(name)
-        : getStyles(document.documentElement).getPropertyValue(`--uk-${name}`)
-    ).replace(propertyRe, '$2');
+    return getStyles(document.documentElement).getPropertyValue(`--uk-${name}`).replace(propertyRe, '$2');
 }
 
 // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty

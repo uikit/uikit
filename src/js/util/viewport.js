@@ -1,5 +1,4 @@
 import {css} from './style';
-import {Promise} from './promise';
 import {isVisible, parents} from './filter';
 import {offset, offsetPosition} from './dimensions';
 import {clamp, findIndex, intersectRect, isDocument, isUndefined, isWindow, toNode, toWindow} from './lang';

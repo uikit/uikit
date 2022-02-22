@@ -201,7 +201,7 @@ function getMixinsFromFile(file, data) {
 
     while (match) {
         [themeMixins[match[1]]] = match;
-        if (file.indexOf('theme/') < 0) {
+        if (!file.includes('theme/')) {
             [coreMixins[match[1]]] = match;
         }
         match = regex.exec(data);
@@ -213,7 +213,7 @@ function getMixinsFromFile(file, data) {
 
     while (match) {
         [themeMixins[match[1]]] = match;
-        if (file.indexOf('theme/') < 0) {
+        if (!file.includes('theme/')) {
             [coreMixins[match[1]]] = match;
         }
 
@@ -237,7 +237,7 @@ async function getVariablesFromFile(file, data) {
     while (match) {
 
         /* check if variable is a background icon, if so replace it directly by the SVG */
-        if (match[0].indexOf('../../images/backgrounds') >= 0) {
+        if (match[0].includes('../../images/backgrounds')) {
 
             const iconregex = /(\$[\w-]+)\s*:\s*"\.\.\/\.\.\/images\/backgrounds\/([\w./-]+)" !default;/g;
             const iconmatch = iconregex.exec(match[0]);
@@ -254,7 +254,7 @@ async function getVariablesFromFile(file, data) {
                 .replace(/%3Csvg/, 'data:image/svg+xml;charset=UTF-8,%3Csvg')}"`;
 
             /* add SVG to the coreVar and themeVar only if it is a theme file and make it optional */
-            if (file.indexOf('theme/') < 0) {
+            if (!file.includes('theme/')) {
                 coreVar[iconmatch[1]] = {value: `${svg} !default;`, dependencies: []};
             }
 
@@ -277,7 +277,7 @@ async function getVariablesFromFile(file, data) {
             }
 
             /* add variables only to the core Variables if it is not a theme file */
-            if (file.indexOf('theme/') < 0) {
+            if (!file.includes('theme/')) {
                 coreVar[match[1]] = {value: `${match[2]};`, dependencies: Array.from(dependencies)};
             }
 

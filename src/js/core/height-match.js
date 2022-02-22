@@ -1,10 +1,7 @@
-import FlexBug from '../mixin/flex-bug';
 import {getRows} from './margin';
 import {$$, boxModelAdjust, css, dimensions, isVisible, toFloat} from 'uikit-util';
 
 export default {
-
-    mixins: [FlexBug],
 
     args: 'target',
 

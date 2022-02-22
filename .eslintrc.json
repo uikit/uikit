@@ -8,7 +8,8 @@
         "eslint:recommended"
     ],
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaVersion": 2022
     },
     "globals": {
         "VERSION": true,

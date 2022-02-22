@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, assign, css, Deferred, hasClass, height, html, isString, on, Promise, removeClass} from 'uikit-util';
+import {$, addClass, assign, css, Deferred, hasClass, height, html, isString, on, removeClass} from 'uikit-util';
 
 export default {
 
@@ -62,11 +62,10 @@ function install({modal}) {
 
         dialog.show();
 
-        on(dialog.$el, 'hidden', () =>
-            Promise.resolve().then(() =>
-                dialog.$destroy(true)
-            ), {self: true}
-        );
+        on(dialog.$el, 'hidden', async () => {
+            await Promise.resolve();
+            dialog.$destroy(true);
+        }, {self: true});
 
         return dialog;
     };
@@ -130,7 +129,7 @@ function install({modal}) {
 
         on(dialog.$el, 'submit', 'form', e => {
             e.preventDefault();
-            deferred.resolve(submitFn && submitFn(dialog));
+            deferred.resolve(submitFn?.(dialog));
             resolved = true;
             dialog.hide();
         });

@@ -80,23 +80,18 @@ export default function (UIkit) {
     UIkit.prototype._initEvents = function () {
 
         this._events = [];
+        this.$options.events?.forEach(event => {
 
-        const {events} = this.$options;
-
-        if (events) {
-
-            events.forEach(event => {
-
-                if (hasOwn(event, 'handler')) {
-                    registerEvent(this, event);
-                } else {
-                    for (const key in event) {
-                        registerEvent(this, event[key], key);
-                    }
+            if (hasOwn(event, 'handler')) {
+                registerEvent(this, event);
+            } else {
+                for (const key in event) {
+                    registerEvent(this, event[key], key);
                 }
+            }
 
-            });
-        }
+        });
+
     };
 
     UIkit.prototype._unbindEvents = function () {
@@ -113,7 +108,7 @@ export default function (UIkit) {
 
     UIkit.prototype._disconnectObservers = function () {
         this._observers.forEach(observer =>
-            observer && observer.disconnect()
+            observer?.disconnect()
         );
     };
 

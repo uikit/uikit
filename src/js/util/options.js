@@ -134,9 +134,8 @@ export function parseOptions(options, args = []) {
 
     try {
 
-        return !options
-            ? {}
-            : startsWith(options, '{')
+        return options
+            ? startsWith(options, '{')
                 ? JSON.parse(options)
                 : args.length && !includes(options, ':')
                     ? ({[args[0]]: options})
@@ -146,7 +145,8 @@ export function parseOptions(options, args = []) {
                             options[key.trim()] = value.trim();
                         }
                         return options;
-                    }, {});
+                    }, {})
+            : {};
 
     } catch (e) {
         return {};

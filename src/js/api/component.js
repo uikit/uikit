@@ -52,9 +52,7 @@ export default function (UIkit) {
 
         opt.name = name;
 
-        if (opt.install) {
-            opt.install(UIkit, opt, name);
-        }
+        opt.install?.(UIkit, opt, name);
 
         if (UIkit._initialized && !opt.functional) {
             fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
@@ -63,7 +61,7 @@ export default function (UIkit) {
         return components[name] = isPlainObject(options) ? opt : options;
     };
 
-    UIkit.getComponents = element => element && element[DATA] || {};
+    UIkit.getComponents = element => element?.[DATA] || {};
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
     UIkit.connect = node => {

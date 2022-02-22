@@ -99,7 +99,7 @@ export default {
                 return;
             }
 
-            items.forEach(el => this.toggleElement(el, !hasClass(el, this.clsOpen), (el, show) => {
+            items.forEach(el => this.toggleElement(el, !hasClass(el, this.clsOpen), async (el, show) => {
 
                 toggleClass(el, this.clsOpen, show);
                 attr($(this.$props.toggle, el), 'aria-expanded', show);
@@ -116,18 +116,18 @@ export default {
                 }
 
                 hide(content, false);
-                return toggleHeight(this)(el._wrapper, show).then(() => {
-                    hide(content, !show);
-                    delete el._wrapper;
-                    unwrap(content);
+                await toggleHeight(this)(el._wrapper, show);
+                hide(content, !show);
 
-                    if (show) {
-                        const toggle = $(this.$props.toggle, el);
-                        if (!isInView(toggle)) {
-                            scrollIntoView(toggle, {offset: this.offset});
-                        }
+                delete el._wrapper;
+                unwrap(content);
+
+                if (show) {
+                    const toggle = $(this.$props.toggle, el);
+                    if (!isInView(toggle)) {
+                        scrollIntoView(toggle, {offset: this.offset});
                     }
-                });
+                }
             }));
         }
 

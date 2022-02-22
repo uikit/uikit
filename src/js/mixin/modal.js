@@ -1,4 +1,4 @@
-import {$, addClass, append, attr, css, includes, isFocusable, last, on, once, parent, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toFloat, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, attr, css, includes, isFocusable, last, on, once, parent, pointerCancel, pointerDown, pointerUp, removeClass, toFloat, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';

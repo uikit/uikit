@@ -54,7 +54,7 @@ export default {
             this.showTimer = setTimeout(this._show, this.delay);
         },
 
-        hide() {
+        async hide() {
 
             if (matches(this.$el, 'input:focus')) {
                 return;
@@ -66,11 +66,11 @@ export default {
                 return;
             }
 
-            this.toggleElement(this.tooltip, false, false).then(() => {
-                remove(this.tooltip);
-                this.tooltip = null;
-                this._unbind();
-            });
+            await this.toggleElement(this.tooltip, false, false);
+            remove(this.tooltip);
+            this.tooltip = null;
+            this._unbind();
+
         },
 
         _show() {

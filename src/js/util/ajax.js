@@ -1,6 +1,5 @@
 import {on} from './event';
-import {Promise} from './promise';
-import {assign, isString, noop} from './lang';
+import {assign, noop} from './lang';
 
 export function ajax(url, options) {
 
@@ -20,7 +19,7 @@ export function ajax(url, options) {
 
 function send(url, env) {
     return new Promise((resolve, reject) => {
-        let {xhr} = env;
+        const {xhr} = env;
 
         for (const prop in env) {
             if (prop in xhr) {
@@ -41,11 +40,6 @@ function send(url, env) {
         on(xhr, 'load', () => {
 
             if (xhr.status === 0 || xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
-
-                // IE 11 does not support responseType 'json'
-                if (env.responseType === 'json' && isString(xhr.response)) {
-                    xhr = assign(copyXhr(xhr), {response: JSON.parse(xhr.response)});
-                }
 
                 resolve(xhr);
 
@@ -78,12 +72,4 @@ export function getImage(src, srcset, sizes) {
         img.src = src;
     });
 
-}
-
-function copyXhr(source) {
-    const target = {};
-    for (const key in source) {
-        target[key] = source[key];
-    }
-    return target;
 }

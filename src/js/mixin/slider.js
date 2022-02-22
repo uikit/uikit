@@ -1,7 +1,7 @@
 import SliderAutoplay from './slider-autoplay';
 import SliderDrag from './slider-drag';
 import SliderNav from './slider-nav';
-import {$, $$, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, Promise, removeClass, trigger} from 'uikit-util';
+import {$, $$, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, removeClass, trigger} from 'uikit-util';
 
 export default {
 

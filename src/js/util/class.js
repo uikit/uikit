@@ -39,10 +39,8 @@ export function toggleClass(element, cls, force) {
         for (let i = 0; i < cls.length; i++) {
             if (isUndefined(force)) {
                 list.toggle(cls[i]);
-            } else if (supports.Force) {
-                list.toggle(cls[i], !!force);
             } else {
-                list[force ? 'add' : 'remove'](cls[i]);
+                list.toggle(cls[i], !!force);
             }
         }
     }
@@ -54,40 +52,10 @@ function apply(element, args, fn) {
 
     const nodes = toNodes(element);
     for (let n = 0; n < nodes.length; n++) {
-        if (supports.Multiple) {
-            nodes[n].classList[fn](...args);
-        } else {
-            args.forEach(cls => nodes[n].classList[fn](cls));
-        }
+        nodes[n].classList[fn](...args);
     }
 }
 
 function getClasses(str) {
     return String(str).split(/\s|,/).filter(Boolean);
 }
-
-// IE 11
-let supports = {
-
-    get Multiple() {
-        return this.get('Multiple');
-    },
-
-    get Force() {
-        return this.get('Force');
-    },
-
-    get(key) {
-
-        const {classList} = document.createElement('_');
-        classList.add('a', 'b');
-        classList.toggle('c', false);
-        supports = {
-            Multiple: classList.contains('b'),
-            Force: !classList.contains('c')
-        };
-
-        return supports[key];
-    }
-
-};

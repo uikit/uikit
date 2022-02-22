@@ -1,14 +1,13 @@
 import {active} from './drop';
 import Class from '../mixin/class';
-import FlexBug from '../mixin/flex-bug';
 import Container from '../mixin/container';
-import {$, $$, addClass, after, assign, css, findIndex, hasAttr, hasClass, height, includes, isRtl, isVisible, matches, noop, once, parent, Promise, query, remove, selFocusable, toFloat, Transition, within} from 'uikit-util';
+import {$, $$, addClass, after, assign, css, findIndex, hasAttr, hasClass, height, includes, isRtl, isVisible, matches, noop, once, parent, query, remove, selFocusable, toFloat, Transition, within} from 'uikit-util';
 
 const navItem = '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle';
 
 export default {
 
-    mixins: [Class, Container, FlexBug],
+    mixins: [Class, Container],
 
     props: {
         dropdown: String,
@@ -93,8 +92,8 @@ export default {
 
                 if (this.dropContainer !== $el) {
                     $$(`.${clsDrop}`, this.dropContainer).forEach(el => {
-                        const dropdown = this.getDropdown(el);
-                        if (!includes(dropdowns, el) && dropdown && dropdown.target && within(dropdown.target, this.$el)) {
+                        const target = this.getDropdown(el)?.target;
+                        if (!includes(dropdowns, el) && target && within(target, this.$el)) {
                             dropdowns.push(el);
                         }
                     });
@@ -211,7 +210,7 @@ export default {
                 }
 
                 if (keyCode === keyMap.ESC) {
-                    active && active.target && active.target.focus();
+                    active?.target?.focus();
                 }
 
                 handleNavItemNavigation(e, this.toggles, active);
@@ -302,8 +301,7 @@ export default {
                 const active = this.getActive();
 
                 if (matches(this.dropbar, ':hover')
-                    && active
-                    && active.$el === $el
+                    && active?.$el === $el
                     && !this.toggles.some(el => active.target !== el && matches(el, ':focus'))
                 ) {
                     e.preventDefault();
@@ -329,7 +327,7 @@ export default {
 
                 const active = this.getActive();
 
-                if (!active || active && active.$el === $el) {
+                if (!active || active?.$el === $el) {
                     this.transitionTo(0);
                 }
             }
@@ -377,33 +375,30 @@ export default {
 function handleNavItemNavigation(e, toggles, active) {
 
     const {current, keyCode} = e;
-    const target = active && active.target || current;
+    const target = active?.target || current;
     const i = toggles.indexOf(target);
 
     // Left
     if (keyCode === keyMap.LEFT && i > 0) {
-        active && active.hide(false);
+        active?.hide(false);
         toggles[i - 1].focus();
     }
 
     // Right
     if (keyCode === keyMap.RIGHT && i < toggles.length - 1) {
-        active && active.hide(false);
+        active?.hide(false);
         toggles[i + 1].focus();
     }
 
     if (keyCode === keyMap.TAB) {
         target.focus();
-        active && active.hide(false);
+        active?.hide(false);
     }
 }
 
 function focusFirstFocusableElement(el) {
     if (!$(':focus', el)) {
-        const focusEl = $(selFocusable, el);
-        if (focusEl) {
-            focusEl.focus();
-        }
+        $(selFocusable, el)?.focus();
     }
 }
 

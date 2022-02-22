@@ -1,6 +1,6 @@
 import fade from './internal/animate-fade';
 import slide from './internal/animate-slide';
-import {noop, Promise} from 'uikit-util';
+import {noop} from 'uikit-util';
 
 export default {
 
