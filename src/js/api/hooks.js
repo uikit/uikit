@@ -3,12 +3,7 @@ import {assign, fastdom, hasOwn, isEqual, isPlainObject} from 'uikit-util';
 export default function (UIkit) {
 
     UIkit.prototype._callHook = function (hook) {
-
-        const handlers = this.$options[hook];
-
-        if (handlers) {
-            handlers.forEach(handler => handler.call(this));
-        }
+        this.$options[hook]?.forEach(handler => handler.call(this));
     };
 
     UIkit.prototype._callConnected = function () {

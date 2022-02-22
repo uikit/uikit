@@ -147,8 +147,9 @@ export const Spinner = {
 
     extends: IconComponent,
 
-    connected() {
-        this.svg.then(svg => svg && this.ratio !== 1 && css($('circle', svg), 'strokeWidth', 1 / this.ratio));
+    async connected() {
+        const svg = await this.svg;
+        svg && this.ratio !== 1 && css($('circle', svg), 'strokeWidth', 1 / this.ratio);
     }
 
 };

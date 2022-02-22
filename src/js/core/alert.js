@@ -40,8 +40,9 @@ export default {
 
     methods: {
 
-        close() {
-            this.toggleElement(this.$el).then(() => this.$destroy(true));
+        async close() {
+            await this.toggleElement(this.$el);
+            this.$destroy(true);
         }
 
     }

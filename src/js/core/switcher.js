@@ -148,13 +148,12 @@ export default {
                 attr(this.toggles[i], 'aria-expanded', next === i);
             });
 
-            this.connects.forEach(({children}) =>
-                this.toggleElement(toNodes(children).filter(child =>
+            this.connects.forEach(async ({children}) => {
+                await this.toggleElement(toNodes(children).filter(child =>
                     hasClass(child, this.cls)
-                ), false, prev >= 0).then(() =>
-                    this.toggleElement(children[next], true, prev >= 0)
-                )
-            );
+                ), false, prev >= 0);
+                await this.toggleElement(children[next], true, prev >= 0);
+            });
         }
 
     }

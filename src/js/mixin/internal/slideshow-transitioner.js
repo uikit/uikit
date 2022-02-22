@@ -63,7 +63,7 @@ export default function Transitioner(prev, next, dir, {animation, easing}) {
         },
 
         getDistance() {
-            return prev && prev.offsetWidth;
+            return prev?.offsetWidth;
         }
 
     };

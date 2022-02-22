@@ -12,14 +12,13 @@ export default {
 
     methods: {
 
-        scrollTo(el) {
+        async scrollTo(el) {
 
             el = el && $(el) || document.body;
 
             if (trigger(this.$el, 'beforescroll', [this, el])) {
-                scrollIntoView(el, {offset: this.offset}).then(() =>
-                    trigger(this.$el, 'scrolled', [this, el])
-                );
+                await scrollIntoView(el, {offset: this.offset});
+                trigger(this.$el, 'scrolled', [this, el]);
             }
 
         }

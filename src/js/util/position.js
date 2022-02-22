@@ -84,11 +84,12 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
                         position[align] = newVal;
 
                         ['element', 'target'].forEach(el => {
-                            flipped[el][dir] = !elemOffset
-                                ? flipped[el][dir]
-                                : flipped[el][dir] === dirs[prop][1]
+                            if (elemOffset) {
+                                flipped[el][dir] = flipped[el][dir] === dirs[prop][1]
                                     ? dirs[prop][2]
                                     : dirs[prop][1];
+                            }
+
                         });
 
                         return true;

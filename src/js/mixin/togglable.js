@@ -67,10 +67,10 @@ export default {
                         isFunction(animate)
                             ? animate
                             : animate === false || !this.hasAnimation
-                            ? this._toggle
-                            : this.hasTransition
-                                ? toggleHeight(this)
-                                : toggleAnimation(this)
+                                ? this._toggle
+                                : this.hasTransition
+                                    ? toggleHeight(this)
+                                    : toggleAnimation(this)
                     )(el, show);
 
                     const cls = show ? this.clsEnter : this.clsLeave;

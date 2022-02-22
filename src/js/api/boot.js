@@ -55,11 +55,7 @@ export default function (UIkit) {
             return;
         }
 
-        const component = UIkit.getComponent(target, name);
-
-        if (component) {
-            component.$destroy();
-        }
+        UIkit.getComponent(target, name)?.$destroy();
 
     }
 

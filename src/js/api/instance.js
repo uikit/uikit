@@ -44,7 +44,7 @@ export default function (UIkit) {
 
         this._callHook('destroy');
 
-        if (!el || !el[DATA]) {
+        if (!el?.[DATA]) {
             return;
         }
 

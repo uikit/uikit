@@ -69,7 +69,7 @@ export default {
 
             const transfer = e.dataTransfer;
 
-            if (!transfer || !transfer.files) {
+            if (!transfer?.files) {
                 return;
             }
 
@@ -96,7 +96,7 @@ export default {
 
     methods: {
 
-        upload(files) {
+        async upload(files) {
 
             if (!files.length) {
                 return;
@@ -130,7 +130,7 @@ export default {
             this.beforeAll(this, files);
 
             const chunks = chunk(files, this.concurrent);
-            const upload = files => {
+            const upload = async files => {
 
                 const data = new FormData();
 
@@ -140,39 +140,38 @@ export default {
                     data.append(key, this.params[key]);
                 }
 
-                ajax(this.url, {
-                    data,
-                    method: this.method,
-                    responseType: this.type,
-                    beforeSend: env => {
+                try {
+                    const xhr = await ajax(this.url, {
+                        data,
+                        method: this.method,
+                        responseType: this.type,
+                        beforeSend: env => {
 
-                        const {xhr} = env;
-                        xhr.upload && on(xhr.upload, 'progress', this.progress);
-                        ['loadStart', 'load', 'loadEnd', 'abort'].forEach(type =>
-                            on(xhr, type.toLowerCase(), this[type])
-                        );
+                            const {xhr} = env;
+                            xhr.upload && on(xhr.upload, 'progress', this.progress);
+                            ['loadStart', 'load', 'loadEnd', 'abort'].forEach(type =>
+                                on(xhr, type.toLowerCase(), this[type])
+                            );
 
-                        return this.beforeSend(env);
+                            return this.beforeSend(env);
 
-                    }
-                }).then(
-                    xhr => {
-
-                        this.complete(xhr);
-
-                        if (chunks.length) {
-                            upload(chunks.shift());
-                        } else {
-                            this.completeAll(xhr);
                         }
+                    });
 
-                    },
-                    e => this.error(e)
-                );
+                    this.complete(xhr);
 
+                    if (chunks.length) {
+                        await upload(chunks.shift());
+                    } else {
+                        this.completeAll(xhr);
+                    }
+
+                } catch (e) {
+                    this.error(e);
+                }
             };
 
-            upload(chunks.shift());
+            await upload(chunks.shift());
 
         }
 

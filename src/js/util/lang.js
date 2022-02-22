@@ -171,11 +171,11 @@ export function toWindow(element) {
 }
 
 export function toMs(time) {
-    return !time
-        ? 0
-        : endsWith(time, 'ms')
+    return time
+        ? endsWith(time, 'ms')
             ? toFloat(time)
-            : toFloat(time) * 1000;
+            : toFloat(time) * 1000
+        : 0;
 }
 
 export function isEqual(value, other) {

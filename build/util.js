@@ -7,9 +7,9 @@ import {promisify} from 'util';
 import minimist from 'minimist';
 import CleanCSS from 'clean-css';
 import html from 'rollup-plugin-html';
-import buble from '@rollup/plugin-buble';
 import alias from '@rollup/plugin-alias';
 import modify from 'rollup-plugin-modify';
+import {babel} from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
 import {basename, dirname, join} from 'path';
 import {exec as execImport} from 'child_process';
@@ -108,7 +108,17 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
                     collapseWhitespace: true
                 }
             }),
-            buble({namedFunctionExpressions: false}),
+            babel({
+                presets: [['@babel/preset-env', {
+                    loose: true,
+                    targets: {
+                        safari: '12'
+                    }
+                }]],
+                extensions: ['.js'],
+                babelHelpers: 'bundled',
+                retainLines: true
+            }),
             modify({
                 find: /(>)\\n\s+|\\n\s+(<)/,
                 replace: (m, m1, m2) => `${m1 || ''} ${m2 || ''}`

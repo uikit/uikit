@@ -1,4 +1,4 @@
-import {$, $$, after, ajax, append, attr, includes, isVisible, isVoidElement, memoize, noop, remove, removeAttr, startsWith, toFloat} from 'uikit-util';
+import {$, $$, after, append, attr, includes, isVisible, isVoidElement, memoize, noop, remove, removeAttr, startsWith, toFloat} from 'uikit-util';
 
 export default {
 
@@ -90,10 +90,8 @@ export default {
 
     methods: {
 
-        getSvg() {
-            return loadSVG(this.src).then(svg =>
-                parseSVG(svg, this.icon) || Promise.reject('SVG not found.')
-            );
+        async getSvg() {
+            return parseSVG(await loadSVG(this.src), this.icon) || Promise.reject('SVG not found.');
         },
 
         applyAttributes(el, ref) {
@@ -135,26 +133,17 @@ export default {
 
 };
 
-const loadSVG = memoize(src =>
-    new Promise((resolve, reject) => {
-
-        if (!src) {
-            reject();
-            return;
-        }
-
+const loadSVG = memoize(async src => {
+    if (src) {
         if (startsWith(src, 'data:')) {
-            resolve(decodeURIComponent(src.split(',')[1]));
+            return decodeURIComponent(src.split(',')[1]);
         } else {
-
-            ajax(src).then(
-                xhr => resolve(xhr.response),
-                () => reject('SVG not found.')
-            );
-
+            return (await fetch(src)).text();
         }
-    })
-);
+    } else {
+        return Promise.reject();
+    }
+});
 
 function parseSVG(svg, icon) {
 
@@ -163,7 +152,7 @@ function parseSVG(svg, icon) {
     }
 
     svg = $(svg.substr(svg.indexOf('<svg')));
-    return svg && svg.hasChildNodes() && svg;
+    return svg?.hasChildNodes() && svg;
 }
 
 const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
@@ -231,7 +220,7 @@ function equals(el, other) {
 }
 
 function isSVG(el) {
-    return el && el.tagName === 'svg';
+    return el?.tagName === 'svg';
 }
 
 function innerHTML(el) {
