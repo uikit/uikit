@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, clamp, css, dimensions, fastdom, height as getHeight, getScrollingElement, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toggleClass, toPx, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, clamp, css, dimensions, fastdom, height as getHeight, getScrollingElement, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, parent, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -172,7 +172,7 @@ export default {
                 const offsetParentTop = offset(referenceElement.offsetParent).top;
 
                 const top = parseProp(this.top, this.$el, topOffset);
-                const bottom = parseProp(this.bottom, this.$el, topOffset + height);
+                const bottom = parseProp(this.bottom, this.$el, topOffset + height, true);
 
                 const start = Math.max(top, topOffset) - this.offset;
                 const end = bottom
@@ -349,7 +349,7 @@ export default {
 
 };
 
-function parseProp(value, el, propOffset) {
+function parseProp(value, el, propOffset, padding) {
 
     if (!value) {
         return 0;
@@ -361,7 +361,9 @@ function parseProp(value, el, propOffset) {
 
     } else {
 
-        return offset(value === true ? parent(el) : query(value, el)).bottom;
+        const refElement = value === true ? parent(el) : query(value, el);
+        return offset(refElement).bottom
+            - (padding && refElement && within(el, refElement) ? toFloat(css(refElement, 'paddingBottom')) : 0);
 
     }
 }

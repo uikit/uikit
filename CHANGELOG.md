@@ -11,6 +11,7 @@
 ### Changed
 
 - Improve sticky behavior if sticky content is larger than the viewport
+- Sticky component's `bottom` option checks for bottom padding if sticky element is within referenced element
 
 ### Fixed
 
