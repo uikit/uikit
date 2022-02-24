@@ -5,19 +5,22 @@
 ### Added
 
 - Add support for `<picture>` element to Image component
-- Add `sources` option to allow multiple image sources for background images to Image component
+- Add `sources` option to emulate `<picture>` element for background images to Image component
 - Add `loading` option to avoid lazy loading background images in first visible viewport to Image component
 - Add support for `loading="lazy"` attribute to SVG component
 
 ### Changed
 
-- The placeholder image, set by the Image component, no longer has a width/height. `data-` prefixed height/width attributes are ignored. (Use height/width attributes instead for the browser to infer the intrinsic size of the image being loaded)
 - Image component no longer relies on session storage to check for cached images to immediately show an image
-- Slideshow removes native loading="lazy" attribute from adjacent slides (Previously handled by Image component and its `target` option)
+- Slideshow removes native `loading="lazy"` attribute from adjacent slides
 
 ### Deprecated
 
 - Deprecate `uk-img` for `<img>` element: Use native `loading="lazy"` attribute instead
+
+### Removed
+
+- Removed `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
 
 ## WIP
 
