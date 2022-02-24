@@ -1,5 +1,4 @@
 import { attr } from './attr';
-import { inBrowser } from './env';
 import { closest, index, matches, parent } from './filter';
 import { isDocument, isString, memoize, toNode, toNodes } from './lang';
 
@@ -99,11 +98,6 @@ function domPath(element) {
     return names.join(' > ');
 }
 
-const escapeFn =
-    (inBrowser && window.CSS && CSS.escape) ||
-    function (css) {
-        return css.replace(/([^\x7f-\uFFFF\w-])/g, (match) => `\\${match}`);
-    };
 export function escape(css) {
-    return isString(css) ? escapeFn.call(null, css) : '';
+    return isString(css) ? CSS.escape(css) : '';
 }
