@@ -165,10 +165,6 @@ function setSourceProps(sourceEl, targetEl) {
 }
 
 function getImageFromElement(el, src, sources) {
-    if (!src) {
-        return false;
-    }
-
     const img = new Image();
 
     wrapInPicture(img, sources);
