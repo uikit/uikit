@@ -80,29 +80,14 @@ export function unwrap(element) {
     toNodes(element)
         .map(parent)
         .filter((value, index, self) => self.indexOf(value) === index)
-        .forEach((parent) => {
-            before(parent, parent.childNodes);
-            remove(parent);
-        });
+        .forEach((parent) => parent.replaceWith(...parent.childNodes));
 }
 
-const fragmentRe = /^\s*<(\w+|!)[^>]*>/;
-const singleTagRe = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
-
 export function fragment(html) {
-    const matches = singleTagRe.exec(html);
-    if (matches) {
-        return document.createElement(matches[1]);
-    }
-
-    const container = document.createElement('div');
-    if (fragmentRe.test(html)) {
-        container.insertAdjacentHTML('beforeend', html.trim());
-    } else {
-        container.textContent = html;
-    }
-
-    return container.childNodes.length > 1 ? toNodes(container.childNodes) : container.firstChild;
+    const template = document.createElement('template');
+    template.innerHTML = html;
+    const { childNodes } = template.content;
+    return childNodes.length > 1 ? toNodes(childNodes) : childNodes[0];
 }
 
 export function apply(node, fn) {
