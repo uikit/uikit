@@ -26,6 +26,26 @@
             
             <h2>Loading Lazy Attribute</h2>
 
+            <div class="uk-child-width-1-2@m" uk-grid>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?fit=crop&w=900&h=600&q=80" width="900" height="600" alt="" loading="lazy">
+                    <p class="uk-margin-small-top">Image</p>
+                </div>
+                <div>
+                    <picture>
+                        <source srcset="https://images.unsplash.com/photo-1487958449943-2429e8be8625?fit=crop&w=580&h=386&q=80 580w,
+                                        https://images.unsplash.com/photo-1487958449943-2429e8be8625?fit=crop&w=900&h=600&q=80 900w"
+                                media="(min-width: 1200px)">
+                        <img src="https://images.unsplash.com/photo-1435575653489-b0873ec954e2?fit=crop&w=900&h=600&q=80"
+                             srcset="https://images.unsplash.com/photo-1435575653489-b0873ec954e2?fit=crop&w=580&h=386&q=80 580w,
+                                          https://images.unsplash.com/photo-1435575653489-b0873ec954e2?fit=crop&w=900&h=600&q=80 900w"
+                             sizes="(min-width: 960px) 580px, 100vw"
+                             width="900" height="600" alt="" loading="lazy">
+                    </picture>
+                    <p class="uk-margin-small-top">Picture with Srcset</p>
+                </div>
+            </div>
+
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
                 <div>
                     <img src="https://images.unsplash.com/photo-1517842536804-bf6629e2c291?fit=crop&w=373&h=249&q=80"
@@ -240,10 +260,8 @@
                 <h1>Background Picture</h1>
             </div>
 
-
             <div class="uk-height-large uk-background-cover uk-margin-medium uk-flex uk-flex-center uk-flex-middle uk-light"
-                 sources="srcset: https://images.unsplash.com/photo-1464621922360-27f3bf0eca75?fit=crop&w=1200&h=450&q=80,
-                                  https://images.unsplash.com/photo-1464621922360-27f3bf0eca75?fit=crop&w=800&h=300&q=80 800w,
+                 sources="srcset: https://images.unsplash.com/photo-1464621922360-27f3bf0eca75?fit=crop&w=800&h=300&q=80 800w,
                                   https://images.unsplash.com/photo-1464621922360-27f3bf0eca75?fit=crop&w=1200&h=450&q=80 1200w,
                                   https://images.unsplash.com/photo-1464621922360-27f3bf0eca75?fit=crop&w=2400&h=900&q=80 2400w; media: (min-width: 1200px)"
                  data-src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?fit=crop&w=1200&h=450&q=80"
@@ -254,10 +272,14 @@
                 <h1>Background Picture with Srcset</h1>
             </div>
                 
-            <div class="uk-height-large uk-background-cover uk-margin-medium uk-flex uk-flex-center uk-flex-middle uk-light"
-                 sources="[{&quot;type&quot;: &quot;image\/webp&quot;,
-                            &quot;srcset&quot;: &quot;https://images.unsplash.com/photo-1518436127045-3367819540bf?fit=crop&w=1200&h=450&q=80&quot;
+            <div class="uk-height-large uk-background-cover uk-margin-medium uk-flex uk-flex-center uk-flex-middle"
+                 sources="[{&quot;type&quot;: &quot;image\/avif&quot;,
+                            &quot;srcset&quot;: &quot;images/image-type.avif&quot;
+                           },
+                           {&quot;type&quot;: &quot;image\/webp&quot;,
+                            &quot;srcset&quot;: &quot;images/image-type.webp&quot;
                            }]"
+                 data-src="images/image-type.jpg"
                  uk-img>
                 <h1>Background Picture with Multiple Sources</h1>
             </div>
@@ -364,9 +386,20 @@
             <div class="uk-child-width-1-2@m" uk-grid>
                 <div>
                     <img data-src="https://images.unsplash.com/photo-1522201949034-507737bce479?fit=crop&w=900&h=600&q=80" width="900" height="600" alt="" uk-img>
+                    <p class="uk-margin-small-top">Image</p>
                 </div>
                 <div>
-                    <img data-src="https://images.unsplash.com/photo-1503481766315-7a586b20f66d?fit=crop&w=900&h=600&q=80" width="900" height="600" alt="" uk-img>
+                    <picture>
+                        <source data-srcset="https://images.unsplash.com/photo-1447933601403-0c6688de566e?fit=crop&w=580&h=386&q=80 580w,
+                                             https://images.unsplash.com/photo-1447933601403-0c6688de566e?fit=crop&w=900&h=600&q=80 900w"
+                                media="(min-width: 1200px)">
+                        <img data-src="https://images.unsplash.com/photo-1503481766315-7a586b20f66d?fit=crop&w=900&h=600&q=80"
+                             data-srcset="https://images.unsplash.com/photo-1503481766315-7a586b20f66d?fit=crop&w=580&h=386&q=80 580w,
+                                          https://images.unsplash.com/photo-1503481766315-7a586b20f66d?fit=crop&w=900&h=600&q=80 900w"
+                             sizes="(min-width: 960px) 580px, 100vw"
+                             width="900" height="600" alt="" uk-img>
+                    </picture>
+                    <p class="uk-margin-small-top">Picture with Srcset</p>
                 </div>
             </div>
 
