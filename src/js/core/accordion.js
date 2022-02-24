@@ -105,7 +105,7 @@ export default {
                 return;
             }
 
-            items.forEach((el) =>
+            for (const el of items) {
                 this.toggleElement(el, !hasClass(el, this.clsOpen), async (el, show) => {
                     toggleClass(el, this.clsOpen, show);
                     attr($(this.$props.toggle, el), 'aria-expanded', show);
@@ -134,8 +134,8 @@ export default {
                             scrollIntoView(toggle, { offset: this.offset });
                         }
                     }
-                })
-            );
+                });
+            }
         },
     },
 };

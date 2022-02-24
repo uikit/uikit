@@ -29,9 +29,9 @@ export default {
         },
 
         write({ rows }) {
-            rows.forEach(({ heights, elements }) =>
-                elements.forEach((el, i) => css(el, 'minHeight', heights[i]))
-            );
+            for (const { heights, elements } of rows) {
+                elements.forEach((el, i) => css(el, 'minHeight', heights[i]));
+            }
         },
 
         events: ['resize'],

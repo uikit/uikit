@@ -139,9 +139,9 @@ export default {
                         beforeSend: (env) => {
                             const { xhr } = env;
                             xhr.upload && on(xhr.upload, 'progress', this.progress);
-                            ['loadStart', 'load', 'loadEnd', 'abort'].forEach((type) =>
-                                on(xhr, type.toLowerCase(), this[type])
-                            );
+                            for (const type of ['loadStart', 'load', 'loadEnd', 'abort']) {
+                                on(xhr, type.toLowerCase(), this[type]);
+                            }
 
                             return this.beforeSend(env);
                         },

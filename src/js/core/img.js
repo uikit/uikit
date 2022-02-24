@@ -157,7 +157,9 @@ export default {
 
         observe() {
             if (this._connected && !this._data.image) {
-                this.target.forEach((el) => this.observer.observe(el));
+                for (const el of this.target) {
+                    this.observer.observe(el);
+                }
             }
         },
     },

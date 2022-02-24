@@ -61,7 +61,7 @@ export default {
     methods: {
         updateNav() {
             const i = this.getValidIndex();
-            this.navItems.forEach((el) => {
+            for (const el of this.navItems) {
                 const cmd = data(el, this.attrItem);
 
                 toggleClass(el, this.clsActive, toNumber(cmd) === i);
@@ -71,7 +71,7 @@ export default {
                     this.finite &&
                         ((cmd === 'previous' && i === 0) || (cmd === 'next' && i >= this.maxIndex))
                 );
-            });
+            }
         },
     },
 };

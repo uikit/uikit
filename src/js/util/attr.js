@@ -11,17 +11,17 @@ export function attr(element, name, value) {
     if (isUndefined(value)) {
         return toNode(element)?.getAttribute(name);
     } else {
-        toNodes(element).forEach((element) => {
+        for (const el of toNodes(element)) {
             if (isFunction(value)) {
-                value = value.call(element, attr(element, name));
+                value = value.call(el, attr(el, name));
             }
 
             if (value === null) {
-                removeAttr(element, name);
+                removeAttr(el, name);
             } else {
-                element.setAttribute(name, value);
+                el.setAttribute(name, value);
             }
-        });
+        }
     }
 }
 
@@ -30,10 +30,12 @@ export function hasAttr(element, name) {
 }
 
 export function removeAttr(element, name) {
-    element = toNodes(element);
-    name.split(' ').forEach((name) =>
-        element.forEach((element) => element.hasAttribute(name) && element.removeAttribute(name))
-    );
+    const elements = toNodes(element);
+    for (const attribute of name.split(' ')) {
+        for (const element of elements) {
+            element.removeAttribute(attribute);
+        }
+    }
 }
 
 export function data(element, attribute) {

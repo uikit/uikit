@@ -89,7 +89,7 @@ export default function (prev, next, dir, { center, easing, list }) {
 
             percent = prev ? clamp(percent, -1, 1) : 0;
 
-            children(list).forEach((slide) => {
+            for (const slide of children(list)) {
                 const isActive = includes(actives, slide);
                 const isIn = slide === itemIn;
                 const isOut = slide === itemOut;
@@ -104,7 +104,7 @@ export default function (prev, next, dir, { center, easing, list }) {
                     dir,
                     percent: isOut ? 1 - percent : isIn ? percent : isActive ? 1 : 0,
                 });
-            });
+            }
         },
 
         percent() {

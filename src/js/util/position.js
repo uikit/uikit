@@ -95,14 +95,14 @@ export function positionAt(
                     if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
                         position[align] = newVal;
 
-                        ['element', 'target'].forEach((el) => {
+                        for (const el of ['element', 'target']) {
                             if (elemOffset) {
                                 flipped[el][dir] =
                                     flipped[el][dir] === dirs[prop][1]
                                         ? dirs[prop][2]
                                         : dirs[prop][1];
                             }
-                        });
+                        }
 
                         return true;
                     }

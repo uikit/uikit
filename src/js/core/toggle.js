@@ -216,10 +216,10 @@ export default {
             const leaving = this.target.filter((el) => hasClass(el, this.clsLeave));
 
             if (leaving.length) {
-                this.target.forEach((el) => {
+                for (const el of this.target) {
                     const isLeaving = includes(leaving, el);
                     this.toggleElement(el, isLeaving, isLeaving);
-                });
+                }
                 return;
             }
 

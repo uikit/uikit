@@ -73,9 +73,9 @@ function install(UIkit, Lightbox) {
 function toItem(el) {
     const item = {};
 
-    ['href', 'caption', 'type', 'poster', 'alt', 'attrs'].forEach((attr) => {
+    for (const attr of ['href', 'caption', 'type', 'poster', 'alt', 'attrs']) {
         item[attr === 'href' ? 'source' : attr] = data(el, attr);
-    });
+    }
 
     item.attrs = parseOptions(item.attrs);
 

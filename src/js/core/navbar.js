@@ -111,12 +111,12 @@ export default {
                 const dropdowns = $$(`.${clsDrop}`, $el);
 
                 if (this.dropContainer !== $el) {
-                    $$(`.${clsDrop}`, this.dropContainer).forEach((el) => {
+                    for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
                         const target = this.getDropdown(el)?.target;
                         if (!includes(dropdowns, el) && target && within(target, this.$el)) {
                             dropdowns.push(el);
                         }
-                    });
+                    }
                 }
 
                 return dropdowns;

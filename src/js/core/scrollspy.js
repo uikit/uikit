@@ -53,10 +53,10 @@ export default {
     },
 
     disconnected() {
-        this.elements.forEach((el) => {
+        for (const el of this.elements) {
             removeClass(el, this.inViewClass, el[stateKey] ? el[stateKey].cls : '');
             delete el[stateKey];
-        });
+        }
     },
 
     update: [
@@ -71,17 +71,17 @@ export default {
                     return false;
                 }
 
-                this.elements.forEach((el) => {
+                for (const el of this.elements) {
                     if (!el[stateKey]) {
                         el[stateKey] = { cls: getData(el, 'uk-scrollspy-class') || this.cls };
                     }
 
                     el[stateKey].show = isInView(el, this.offsetTop, this.offsetLeft);
-                });
+                }
             },
 
             write(data) {
-                this.elements.forEach((el) => {
+                for (const el of this.elements) {
                     const state = el[stateKey];
 
                     if (state.show && !state.inview && !state.queued) {
@@ -99,7 +99,7 @@ export default {
                     } else if (!state.show && state.inview && !state.queued && this.repeat) {
                         this.toggle(el, false);
                     }
-                });
+                }
             },
 
             events: ['scroll', 'resize'],

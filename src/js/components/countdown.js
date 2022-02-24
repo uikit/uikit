@@ -77,7 +77,7 @@ export default {
                 timespan.days = timespan.hours = timespan.minutes = timespan.seconds = 0;
             }
 
-            this.units.forEach((unit) => {
+            for (const unit of this.units) {
                 let digits = String(Math.floor(timespan[unit]));
 
                 digits = digits.length < 2 ? `0${digits}` : digits;
@@ -92,7 +92,7 @@ export default {
 
                     digits.forEach((digit, i) => (el.children[i].textContent = digit));
                 }
-            });
+            }
         },
     },
 

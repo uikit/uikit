@@ -67,13 +67,13 @@ export default {
     },
 
     created() {
-        ['init', 'start', 'move', 'end'].forEach((key) => {
+        for (const key of ['init', 'start', 'move', 'end']) {
             const fn = this[key];
             this[key] = (e) => {
                 assign(this.pos, getEventPos(e));
                 fn(e);
             };
-        });
+        }
     },
 
     events: {
@@ -269,11 +269,11 @@ export default {
             remove(this.drag);
             this.drag = null;
 
-            this.touched.forEach(({ clsPlaceholder, clsItem }) =>
-                this.touched.forEach((sortable) =>
-                    removeClass(sortable.items, clsPlaceholder, clsItem)
-                )
-            );
+            for (const { clsPlaceholder, clsItem } of this.touched) {
+                for (const sortable of this.touched) {
+                    removeClass(sortable.items, clsPlaceholder, clsItem);
+                }
+            }
             this.touched = null;
             removeClass(document.documentElement, this.clsDragState);
         },

@@ -26,17 +26,17 @@ export default {
     },
 
     created() {
-        ['start', 'move', 'end'].forEach((key) => {
+        for (const key of ['start', 'move', 'end']) {
             const fn = this[key];
             this[key] = (e) => {
                 const pos = getEventPos(e).x * (isRtl ? -1 : 1);
 
-                this.prevPos = pos !== this.pos ? this.pos : this.prevPos;
+                this.prevPos = pos === this.pos ? this.prevPos : this.pos;
                 this.pos = pos;
 
                 fn(e);
             };
-        });
+        }
     },
 
     events: [

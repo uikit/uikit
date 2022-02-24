@@ -91,7 +91,7 @@ export default function (UIkit) {
 
     UIkit.prototype._initEvents = function () {
         this._events = [];
-        this.$options.events?.forEach((event) => {
+        for (const event of this.$options.events || []) {
             if (hasOwn(event, 'handler')) {
                 registerEvent(this, event);
             } else {
@@ -99,7 +99,7 @@ export default function (UIkit) {
                     registerEvent(this, event[key], key);
                 }
             }
-        });
+        }
     };
 
     UIkit.prototype._unbindEvents = function () {

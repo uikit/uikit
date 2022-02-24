@@ -130,7 +130,7 @@ export default {
 
     update: {
         write() {
-            this.navItems.forEach((el) => {
+            for (const el of this.navItems) {
                 const index = toNumber(data(el, this.attrItem));
                 if (index !== false) {
                     el.hidden =
@@ -138,7 +138,7 @@ export default {
                         index > this.maxIndex ||
                         (this.sets && !includes(this.sets, index));
                 }
-            });
+            }
 
             if (this.length && !this.dragging && !this.stack.length) {
                 this.reorder();
@@ -146,14 +146,13 @@ export default {
             }
 
             const actives = this._getTransitioner(this.index).getActives();
-            this.slides.forEach((slide) =>
-                toggleClass(slide, this.clsActive, includes(actives, slide))
-            );
-
-            if (this.clsActivated && (!this.sets || includes(this.sets, toFloat(this.index)))) {
-                this.slides.forEach((slide) =>
-                    toggleClass(slide, this.clsActivated || '', includes(actives, slide))
-                );
+            const activeClasses = [
+                this.clsActive,
+                ((!this.sets || includes(this.sets, toFloat(this.index))) && this.clsActivated) ||
+                    '',
+            ];
+            for (const slide of this.slides) {
+                toggleClass(slide, activeClasses, includes(actives, slide));
             }
         },
 
