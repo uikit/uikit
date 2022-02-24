@@ -1,5 +1,4 @@
 import {
-    assign,
     children,
     css,
     fastdom,
@@ -44,7 +43,7 @@ export default function (action, target, duration) {
 
                 // Reset to previous state
                 nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-                css(target, assign({ display: 'block' }, targetProps));
+                css(target, { display: 'block', ...targetProps });
 
                 // Start transitions on next frame
                 requestAnimationFrame(() => {
@@ -76,16 +75,14 @@ function getProps(el, opacity) {
     const zIndex = css(el, 'zIndex');
 
     return isVisible(el)
-        ? assign(
-              {
-                  display: '',
-                  opacity: opacity ? css(el, 'opacity') : '0',
-                  pointerEvents: 'none',
-                  position: 'absolute',
-                  zIndex: zIndex === 'auto' ? index(el) : zIndex,
-              },
-              getPositionWithMargin(el)
-          )
+        ? {
+              display: '',
+              opacity: opacity ? css(el, 'opacity') : '0',
+              pointerEvents: 'none',
+              position: 'absolute',
+              zIndex: zIndex === 'auto' ? index(el) : zIndex,
+              ...getPositionWithMargin(el),
+          }
         : false;
 }
 

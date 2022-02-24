@@ -2,7 +2,6 @@ import Modal from '../mixin/modal';
 import {
     $,
     addClass,
-    assign,
     css,
     Deferred,
     hasClass,
@@ -136,7 +135,7 @@ function install({ modal }) {
     };
 
     function openDialog(tmpl, options, hideFn, submitFn) {
-        options = assign({ bgClose: false, escClose: true, labels: modal.labels }, options);
+        options = { bgClose: false, escClose: true, labels: modal.labels, ...options };
 
         const dialog = modal.dialog(tmpl(options), options);
         const deferred = new Deferred();

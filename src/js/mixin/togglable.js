@@ -2,7 +2,6 @@ import {
     $$,
     addClass,
     Animation,
-    assign,
     css,
     fastdom,
     hasClass,
@@ -175,7 +174,7 @@ export function toggleHeight({ isToggled, duration, initProps, hideProps, transi
             show
                 ? Transition.start(
                       el,
-                      assign({}, initProps, { overflow: 'hidden', height: endHeight }),
+                      { ...initProps, overflow: 'hidden', height: endHeight },
                       Math.round(duration * (1 - currentHeight / endHeight)),
                       transition
                   )

@@ -1,6 +1,5 @@
 import Class from '../mixin/class';
 import Togglable from '../mixin/togglable';
-import { assign } from 'uikit-util';
 
 export default {
     mixins: [Class, Togglable],
@@ -15,7 +14,7 @@ export default {
         animation: [true],
         selClose: '.uk-alert-close',
         duration: 150,
-        hideProps: assign({ opacity: 0 }, Togglable.data.hideProps),
+        hideProps: { opacity: 0, ...Togglable.data.hideProps },
     },
 
     events: [

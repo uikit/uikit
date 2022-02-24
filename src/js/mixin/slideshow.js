@@ -1,7 +1,7 @@
 import Animations from './internal/slideshow-animations';
 import Transitioner from './internal/slideshow-transitioner';
 import Slider from './slider.js';
-import { addClass, assign, removeClass } from 'uikit-util';
+import { addClass, removeClass } from 'uikit-util';
 
 export default {
     mixins: [Slider],
@@ -19,7 +19,7 @@ export default {
 
     computed: {
         animation({ animation, Animations }) {
-            return assign(Animations[animation] || Animations.slide, { name: animation });
+            return { ...(Animations[animation] || Animations.slide), name: animation };
         },
 
         transitionOptions() {

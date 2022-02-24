@@ -1,7 +1,8 @@
 import Animations, { scale3d } from '../../mixin/internal/slideshow-animations';
-import { assign, css } from 'uikit-util';
+import { css } from 'uikit-util';
 
-export default assign({}, Animations, {
+export default {
+    ...Animations,
     fade: {
         show() {
             return [{ opacity: 0 }, { opacity: 1 }];
@@ -35,4 +36,4 @@ export default assign({}, Animations, {
             ];
         },
     },
-});
+};

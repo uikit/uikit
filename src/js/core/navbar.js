@@ -6,7 +6,6 @@ import {
     $$,
     addClass,
     after,
-    assign,
     css,
     findIndex,
     hasAttr,
@@ -126,11 +125,12 @@ export default {
                 this.$create(
                     'drop',
                     dropdowns.filter((el) => !this.getDropdown(el)),
-                    assign({}, this.$props, {
+                    {
+                        ...this.$props,
                         boundary: this.boundary,
                         pos: this.pos,
                         offset: this.dropbar || this.offset,
-                    })
+                    }
                 );
             },
 

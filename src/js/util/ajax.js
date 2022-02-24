@@ -2,18 +2,15 @@ import { on } from './event';
 import { assign, noop } from './lang';
 
 export function ajax(url, options) {
-    const env = assign(
-        {
-            data: null,
-            method: 'GET',
-            headers: {},
-            xhr: new XMLHttpRequest(),
-            beforeSend: noop,
-            responseType: '',
-        },
-        options
-    );
-
+    const env = {
+        data: null,
+        method: 'GET',
+        headers: {},
+        xhr: new XMLHttpRequest(),
+        beforeSend: noop,
+        responseType: '',
+        ...options,
+    };
     return Promise.resolve()
         .then(() => env.beforeSend(env))
         .then(() => send(url, env));

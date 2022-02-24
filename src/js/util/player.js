@@ -1,5 +1,5 @@
 import { once } from './event';
-import { assign, includes, noop } from './lang';
+import { includes, noop } from './lang';
 
 export function play(el) {
     if (isIFrame(el)) {
@@ -64,7 +64,7 @@ async function call(el, cmd) {
 
 function post(el, cmd) {
     try {
-        el.contentWindow.postMessage(JSON.stringify(assign({ event: 'command' }, cmd)), '*');
+        el.contentWindow.postMessage(JSON.stringify({ event: 'command', ...cmd }), '*');
     } catch (e) {
         // noop
     }

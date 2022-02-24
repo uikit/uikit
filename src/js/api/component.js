@@ -1,13 +1,4 @@
-import {
-    $$,
-    assign,
-    camelize,
-    fastdom,
-    hyphenate,
-    isPlainObject,
-    memoize,
-    startsWith,
-} from 'uikit-util';
+import { $$, camelize, fastdom, hyphenate, isPlainObject, memoize, startsWith } from 'uikit-util';
 
 export default function (UIkit) {
     const DATA = UIkit.data;
@@ -51,7 +42,7 @@ export default function (UIkit) {
             }
         };
 
-        const opt = isPlainObject(options) ? assign({}, options) : options.options;
+        const opt = isPlainObject(options) ? { ...options } : options.options;
 
         opt.name = name;
 

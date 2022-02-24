@@ -7,7 +7,6 @@ import {
     $,
     addClass,
     append,
-    assign,
     attr,
     fragment,
     getImage,
@@ -219,29 +218,21 @@ export default {
                 if (type === 'image' || src.match(/\.(avif|jpe?g|a?png|gif|svg|webp)($|\?)/i)) {
                     try {
                         const { width, height } = await getImage(src, attrs.srcset, attrs.size);
-                        this.setItem(
-                            item,
-                            createEl('img', assign({ src, width, height, alt }, attrs))
-                        );
+                        this.setItem(item, createEl('img', { src, width, height, alt, ...attrs }));
                     } catch (e) {
                         this.setError(item);
                     }
 
                     // Video
                 } else if (type === 'video' || src.match(/\.(mp4|webm|ogv)($|\?)/i)) {
-                    const video = createEl(
-                        'video',
-                        assign(
-                            {
-                                src,
-                                poster,
-                                controls: '',
-                                playsinline: '',
-                                'uk-video': `${this.videoAutoplay}`,
-                            },
-                            attrs
-                        )
-                    );
+                    const video = createEl('video', {
+                        src,
+                        poster,
+                        controls: '',
+                        playsinline: '',
+                        'uk-video': `${this.videoAutoplay}`,
+                        ...attrs,
+                    });
 
                     on(video, 'loadedmetadata', () => {
                         attr(video, { width: video.videoWidth, height: video.videoHeight });
@@ -253,18 +244,13 @@ export default {
                 } else if (type === 'iframe' || src.match(/\.(html|php)($|\?)/i)) {
                     this.setItem(
                         item,
-                        createEl(
-                            'iframe',
-                            assign(
-                                {
-                                    src,
-                                    frameborder: '0',
-                                    allowfullscreen: '',
-                                    class: 'uk-lightbox-iframe',
-                                },
-                                attrs
-                            )
-                        )
+                        createEl('iframe', {
+                            src,
+                            frameborder: '0',
+                            allowfullscreen: '',
+                            class: 'uk-lightbox-iframe',
+                            ...attrs,
+                        })
                     );
 
                     // YouTube
@@ -275,20 +261,15 @@ export default {
                 ) {
                     this.setItem(
                         item,
-                        createEl(
-                            'iframe',
-                            assign(
-                                {
-                                    src: `https://www.youtube${matches[1] || ''}.com/embed/${
-                                        matches[2]
-                                    }${matches[3] ? `?${matches[3]}` : ''}`,
-                                    width: 1920,
-                                    height: 1080,
-                                },
-                                iframeAttrs,
-                                attrs
-                            )
-                        )
+                        createEl('iframe', {
+                            src: `https://www.youtube${matches[1] || ''}.com/embed/${matches[2]}${
+                                matches[3] ? `?${matches[3]}` : ''
+                            }`,
+                            width: 1920,
+                            height: 1080,
+                            ...iframeAttrs,
+                            ...attrs,
+                        })
                     );
 
                     // Vimeo
@@ -307,20 +288,15 @@ export default {
 
                         this.setItem(
                             item,
-                            createEl(
-                                'iframe',
-                                assign(
-                                    {
-                                        src: `https://player.vimeo.com/video/${matches[1]}${
-                                            matches[2] ? `?${matches[2]}` : ''
-                                        }`,
-                                        width,
-                                        height,
-                                    },
-                                    iframeAttrs,
-                                    attrs
-                                )
-                            )
+                            createEl('iframe', {
+                                src: `https://player.vimeo.com/video/${matches[1]}${
+                                    matches[2] ? `?${matches[2]}` : ''
+                                }`,
+                                width,
+                                height,
+                                ...iframeAttrs,
+                                ...attrs,
+                            })
                         );
                     } catch (e) {
                         this.setError(item);

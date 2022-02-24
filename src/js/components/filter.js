@@ -2,7 +2,6 @@ import Animate from '../mixin/animate';
 import {
     $$,
     append,
-    assign,
     css,
     data,
     each,
@@ -105,7 +104,7 @@ export default {
         },
 
         setState(state, animate = true) {
-            state = assign({ filter: { '': '' }, sort: [] }, state);
+            state = { filter: { '': '' }, sort: [], ...state };
 
             trigger(this.$el, 'beforeFilter', [this, state]);
 
@@ -205,7 +204,7 @@ function getSelector({ filter }) {
 }
 
 function sortItems(nodes, sort, order) {
-    return assign([], nodes).sort(
+    return [...nodes].sort(
         (a, b) =>
             data(a, sort).localeCompare(data(b, sort), undefined, { numeric: true }) *
             (order === 'asc' || -1)

@@ -187,7 +187,7 @@ export default function (UIkit) {
         el = isFunction(el) ? el.call(component) : el || component.$el;
 
         if (isArray(el)) {
-            el.forEach((el) => registerEvent(component, assign({}, event, { el }), key));
+            el.forEach((el) => registerEvent(component, { ...event, el }, key));
             return;
         }
 

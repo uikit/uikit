@@ -216,7 +216,7 @@ export const Dimensions = {
     },
 
     contain(dimensions, maxDimensions) {
-        dimensions = assign({}, dimensions);
+        dimensions = { ...dimensions };
 
         each(
             dimensions,

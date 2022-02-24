@@ -205,7 +205,7 @@ export default {
 
             this.touched = new Set([this]);
             this.placeholder = placeholder;
-            this.origin = assign({ target, index: index(placeholder) }, this.pos);
+            this.origin = { target, index: index(placeholder), ...this.pos };
 
             on(document, pointerMove, this.move);
             on(document, pointerUp, this.end);

@@ -105,7 +105,7 @@ export default function (UIkit) {
         const {
             $options: { computed },
         } = this;
-        const values = assign({}, this._computeds);
+        const values = { ...this._computeds };
         this._computeds = {};
 
         for (const key in computed) {

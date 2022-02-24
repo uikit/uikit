@@ -1,13 +1,4 @@
-import {
-    assign,
-    hasOwn,
-    includes,
-    isArray,
-    isFunction,
-    isUndefined,
-    sortBy,
-    startsWith,
-} from './lang';
+import { hasOwn, includes, isArray, isFunction, isUndefined, sortBy, startsWith } from './lang';
 
 const strats = {};
 
@@ -48,7 +39,7 @@ strats.props = function (parentVal, childVal) {
 
 // extend strategy
 strats.computed = strats.methods = function (parentVal, childVal) {
-    return childVal ? (parentVal ? assign({}, parentVal, childVal) : childVal) : parentVal;
+    return childVal ? (parentVal ? { ...parentVal, ...childVal } : childVal) : parentVal;
 };
 
 // data strategy

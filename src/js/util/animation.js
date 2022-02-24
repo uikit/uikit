@@ -1,7 +1,7 @@
 import { attr } from './attr';
 import { once, trigger } from './event';
 import { css, propName } from './style';
-import { assign, startsWith, toNodes } from './lang';
+import { startsWith, toNodes } from './lang';
 import { addClass, hasClass, removeClass, removeClasses } from './class';
 
 export function transition(element, props, duration = 400, timing = 'linear') {
@@ -35,17 +35,12 @@ export function transition(element, props, duration = 400, timing = 'linear') {
                     );
 
                     addClass(element, 'uk-transition');
-                    css(
-                        element,
-                        assign(
-                            {
-                                transitionProperty: Object.keys(props).map(propName).join(','),
-                                transitionDuration: `${duration}ms`,
-                                transitionTimingFunction: timing,
-                            },
-                            props
-                        )
-                    );
+                    css(element, {
+                        transitionProperty: Object.keys(props).map(propName).join(','),
+                        transitionDuration: `${duration}ms`,
+                        transitionTimingFunction: timing,
+                        ...props,
+                    });
                 })
         )
     );

@@ -4,7 +4,6 @@ import SliderNav from './slider-nav';
 import {
     $,
     $$,
-    assign,
     clamp,
     fastdom,
     getIndex,
@@ -170,21 +169,14 @@ export default {
         },
 
         _show(prev, next, force) {
-            this._transitioner = this._getTransitioner(
-                prev,
-                next,
-                this.dir,
-                assign(
-                    {
-                        easing: force
-                            ? next.offsetWidth < 600
-                                ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
-                                : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
-                            : this.easing,
-                    },
-                    this.transitionOptions
-                )
-            );
+            this._transitioner = this._getTransitioner(prev, next, this.dir, {
+                easing: force
+                    ? next.offsetWidth < 600
+                        ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
+                        : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
+                    : this.easing,
+                ...this.transitionOptions,
+            });
 
             if (!force && !prev) {
                 this._translate(1);
