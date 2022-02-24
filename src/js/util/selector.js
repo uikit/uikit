@@ -10,12 +10,6 @@ export function queryAll(selector, context) {
     return findAll(selector, getContext(selector, context));
 }
 
-function getContext(selector, context = document) {
-    return (isString(selector) && isContextSelector(selector)) || isDocument(context)
-        ? context
-        : context.ownerDocument;
-}
-
 export function find(selector, context) {
     return toNode(_query(selector, context, 'querySelector'));
 }
@@ -23,6 +17,17 @@ export function find(selector, context) {
 export function findAll(selector, context) {
     return toNodes(_query(selector, context, 'querySelectorAll'));
 }
+
+const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
+const isContextSelector = memoize((selector) => selector.match(contextSelectorRe));
+
+function getContext(selector, context = document) {
+    return (isString(selector) && isContextSelector(selector)) || isDocument(context)
+        ? context
+        : context.ownerDocument;
+}
+
+const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
 
 function _query(selector, context = document, queryFn) {
     if (!selector || !isString(selector)) {
@@ -67,11 +72,6 @@ function _query(selector, context = document, queryFn) {
         return null;
     }
 }
-
-const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
-const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
-
-const isContextSelector = memoize((selector) => selector.match(contextSelectorRe));
 
 const selectorRe = /.*?[^\\](?:,|$)/g;
 
