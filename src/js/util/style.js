@@ -48,11 +48,11 @@ export function css(element, property, value, priority = '') {
             }
         } else if (isArray(property)) {
             const styles = getStyles(element);
-
-            return property.reduce((props, property) => {
-                props[property] = styles[propName(property)];
-                return props;
-            }, {});
+            const props = {};
+            for (const prop of property) {
+                props[prop] = styles[propName(prop)];
+            }
+            return props;
         } else if (isObject(property)) {
             priority = value;
             each(property, (value, property) => css(element, property, value, priority));

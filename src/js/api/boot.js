@@ -33,12 +33,12 @@ export default function (UIkit) {
     });
 
     function applyChildListMutation({ addedNodes, removedNodes }) {
-        for (let i = 0; i < addedNodes.length; i++) {
-            apply(addedNodes[i], connect);
+        for (const node of addedNodes) {
+            apply(node, connect);
         }
 
-        for (let i = 0; i < removedNodes.length; i++) {
-            apply(removedNodes[i], disconnect);
+        for (const node of removedNodes) {
+            apply(node, disconnect);
         }
     }
 

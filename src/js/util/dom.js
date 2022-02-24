@@ -1,7 +1,7 @@
 import { once } from './event';
 import { parent } from './filter';
 import { find, findAll } from './selector';
-import { isElement, isString, isUndefined, toNode, toNodes } from './lang';
+import { isElement, isString, isUndefined, startsWith, toNode, toNodes } from './lang';
 
 export function ready(fn) {
     if (document.readyState !== 'loading') {
@@ -13,54 +13,45 @@ export function ready(fn) {
 }
 
 export function empty(element) {
-    element = $(element);
-    element.innerHTML = '';
-    return element;
+    return replaceChildren(element, '');
 }
 
 export function html(parent, html) {
-    parent = $(parent);
-    return isUndefined(html)
-        ? parent.innerHTML
-        : append(parent.hasChildNodes() ? empty(parent) : parent, html);
+    return isUndefined(html) ? $(parent).innerHTML : replaceChildren(parent, html);
+}
+
+export function replaceChildren(parent, element) {
+    const nodes = $$(element);
+    $(parent).replaceChildren(...nodes);
+    return nodes;
 }
 
 export function prepend(parent, element) {
-    parent = $(parent);
-
-    if (parent.hasChildNodes()) {
-        return insertNodes(element, (element) => parent.insertBefore(element, parent.firstChild));
-    } else {
-        return append(parent, element);
-    }
+    const nodes = $$(element);
+    $(parent).prepend(...nodes);
+    return nodes;
 }
 
 export function append(parent, element) {
-    parent = $(parent);
-    return insertNodes(element, (element) => parent.appendChild(element));
+    const nodes = $$(element);
+    $(parent).append(...nodes);
+    return nodes;
 }
 
 export function before(ref, element) {
-    ref = $(ref);
-    return insertNodes(element, (element) => ref.parentNode.insertBefore(element, ref));
+    const nodes = $$(element);
+    $(ref).before(...nodes);
+    return nodes;
 }
 
 export function after(ref, element) {
-    ref = $(ref);
-    return insertNodes(element, (element) =>
-        ref.nextSibling ? before(ref.nextSibling, element) : append(ref.parentNode, element)
-    );
-}
-
-function insertNodes(element, fn) {
-    element = isString(element) ? fragment(element) : element;
-    return element ? ('length' in element ? toNodes(element).map(fn) : fn(element)) : null;
+    const nodes = $$(element);
+    $(ref).after(...nodes);
+    return nodes;
 }
 
 export function remove(element) {
-    toNodes(element).forEach(
-        (element) => element.parentNode && element.parentNode.removeChild(element)
-    );
+    toNodes(element).forEach((element) => element.remove());
 }
 
 export function wrapAll(element, structure) {
@@ -137,5 +128,5 @@ export function $$(selector, context) {
 }
 
 function isHtml(str) {
-    return isString(str) && (str[0] === '<' || str.match(/^\s*</));
+    return isString(str) && startsWith(str.trim(), '<');
 }

@@ -1,5 +1,4 @@
-const objPrototype = Object.prototype;
-const { hasOwnProperty } = objPrototype;
+const { hasOwnProperty, toString } = Object.prototype;
 
 export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
@@ -21,55 +20,24 @@ function toUpper(_, c) {
     return c ? c.toUpperCase() : '';
 }
 
-const strPrototype = String.prototype;
-const startsWithFn =
-    strPrototype.startsWith ||
-    function (search) {
-        return this.lastIndexOf(search, 0) === 0;
-    };
-
 export function startsWith(str, search) {
-    return startsWithFn.call(str, search);
+    return str.startsWith(search);
 }
-
-const endsWithFn =
-    strPrototype.endsWith ||
-    function (search) {
-        return this.substr(-search.length) === search;
-    };
 
 export function endsWith(str, search) {
-    return endsWithFn.call(str, search);
+    return str.endsWith(search);
 }
-
-const arrPrototype = Array.prototype;
-
-const includesFn = function (search, i) {
-    return !!~this.indexOf(search, i);
-};
-const includesStr = strPrototype.includes || includesFn;
-const includesArray = arrPrototype.includes || includesFn;
 
 export function includes(obj, search) {
-    return obj && (isString(obj) ? includesStr : includesArray).call(obj, search);
+    return obj && obj.includes(search);
 }
-
-const findIndexFn =
-    arrPrototype.findIndex ||
-    function (predicate) {
-        for (let i = 0; i < this.length; i++) {
-            if (predicate.call(arguments[1], this[i], i, this)) {
-                return i;
-            }
-        }
-        return -1;
-    };
 
 export function findIndex(array, predicate) {
-    return findIndexFn.call(array, predicate);
+    return array.findIndex(predicate);
 }
 
-export const { isArray } = Array;
+export const { isArray, from: toArray } = Array;
+export const { assign } = Object;
 
 export function isFunction(obj) {
     return typeof obj === 'function';
@@ -79,7 +47,6 @@ export function isObject(obj) {
     return obj !== null && typeof obj === 'object';
 }
 
-const { toString } = objPrototype;
 export function isPlainObject(obj) {
     return toString.call(obj) === '[object Object]';
 }
@@ -147,14 +114,12 @@ export function toFloat(value) {
     return parseFloat(value) || 0;
 }
 
-export const toArray = Array.from || ((value) => arrPrototype.slice.call(value));
-
 export function toNode(element) {
     return toNodes(element)[0];
 }
 
 export function toNodes(element) {
-    return (element && (isNode(element) ? [element] : toArray(element).filter(isNode))) || [];
+    return (element && (isNode(element) ? [element] : Array.from(element).filter(isNode))) || [];
 }
 
 export function toWindow(element) {
@@ -184,23 +149,6 @@ export function isEqual(value, other) {
 export function swap(value, a, b) {
     return value.replace(new RegExp(`${a}|${b}`, 'g'), (match) => (match === a ? b : a));
 }
-
-export const assign =
-    Object.assign ||
-    function (target, ...args) {
-        target = Object(target);
-        for (let i = 0; i < args.length; i++) {
-            const source = args[i];
-            if (source !== null) {
-                for (const key in source) {
-                    if (hasOwn(source, key)) {
-                        target[key] = source[key];
-                    }
-                }
-            }
-        }
-        return target;
-    };
 
 export function last(array) {
     return array[array.length - 1];

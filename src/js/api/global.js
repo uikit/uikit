@@ -40,9 +40,10 @@ export default function (UIkit) {
     UIkit.update = function (element, e) {
         element = element ? toNode(element) : document.body;
 
-        parents(element)
-            .reverse()
-            .forEach((element) => update(element[DATA], e));
+        for (const parentEl of parents(element).reverse()) {
+            update(parentEl[DATA], e);
+        }
+
         apply(element, (element) => update(element[DATA], e));
     };
 

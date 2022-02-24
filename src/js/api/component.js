@@ -74,8 +74,8 @@ export default function (UIkit) {
             }
         }
 
-        for (let i = 0; i < node.attributes.length; i++) {
-            const name = getComponentName(node.attributes[i].name);
+        for (const attribute of node.attributes) {
+            const name = getComponentName(attribute.name);
 
             if (name && name in components) {
                 UIkit[name](node);

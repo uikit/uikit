@@ -36,10 +36,11 @@ strats.update = function (parentVal, childVal) {
 // property strategy
 strats.props = function (parentVal, childVal) {
     if (isArray(childVal)) {
-        childVal = childVal.reduce((value, key) => {
+        const value = {};
+        for (const key of childVal) {
             value[key] = String;
-            return value;
-        }, {});
+        }
+        childVal = value;
     }
 
     return strats.methods(parentVal, childVal);
@@ -106,8 +107,8 @@ export function mergeOptions(parent, child, vm) {
     }
 
     if (child.mixins) {
-        for (let i = 0, l = child.mixins.length; i < l; i++) {
-            parent = mergeOptions(parent, child.mixins[i], vm);
+        for (const mixin of child.mixins) {
+            parent = mergeOptions(parent, mixin, vm);
         }
     }
 

@@ -81,11 +81,7 @@ export default function (UIkit) {
     };
 
     function runUpdates(types) {
-        const updates = this.$options.update;
-
-        for (let i = 0; i < updates.length; i++) {
-            const { read, write, events } = updates[i];
-
+        for (const { read, write, events } of this.$options.update) {
             if (!types.has('update') && (!events || !events.some((type) => types.has(type)))) {
                 continue;
             }

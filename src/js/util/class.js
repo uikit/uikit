@@ -20,9 +20,8 @@ export function replaceClass(element, ...args) {
 
 export function hasClass(element, cls) {
     [cls] = getClasses(cls);
-    const nodes = toNodes(element);
-    for (let n = 0; n < nodes.length; n++) {
-        if (cls && nodes[n].classList.contains(cls)) {
+    for (const node of toNodes(element)) {
+        if (cls && node.classList.contains(cls)) {
             return true;
         }
     }
@@ -30,17 +29,15 @@ export function hasClass(element, cls) {
 }
 
 export function toggleClass(element, cls, force) {
-    cls = getClasses(cls);
+    const classes = getClasses(cls);
 
-    const nodes = toNodes(element);
-    for (let n = 0; n < nodes.length; n++) {
-        const list = nodes[n].classList;
-        for (let i = 0; i < cls.length; i++) {
-            if (isUndefined(force)) {
-                list.toggle(cls[i]);
-            } else {
-                list.toggle(cls[i], !!force);
-            }
+    if (!isUndefined(force)) {
+        force = !!force;
+    }
+
+    for (const node of toNodes(element)) {
+        for (const cls of classes) {
+            node.classList.toggle(cls, force);
         }
     }
 }
@@ -48,9 +45,8 @@ export function toggleClass(element, cls, force) {
 function apply(element, args, fn) {
     args = args.reduce((args, arg) => args.concat(getClasses(arg)), []);
 
-    const nodes = toNodes(element);
-    for (let n = 0; n < nodes.length; n++) {
-        nodes[n].classList[fn](...args);
+    for (const node of toNodes(element)) {
+        node.classList[fn](...args);
     }
 }
 

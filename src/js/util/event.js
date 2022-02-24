@@ -3,9 +3,7 @@ import { closest, within } from './filter';
 import { isArray, isFunction, isString, toNode, toNodes } from './lang';
 
 export function on(...args) {
-    let [targets, type, selector, listener, useCapture] = getArgs(args);
-
-    targets = toEventTargets(targets);
+    let [targets, types, selector, listener, useCapture = false] = getArgs(args);
 
     if (listener.length > 1) {
         listener = detail(listener);
@@ -19,24 +17,29 @@ export function on(...args) {
         listener = delegate(selector, listener);
     }
 
-    type.split(' ').forEach((type) =>
-        targets.forEach((target) => target.addEventListener(type, listener, useCapture))
-    );
-    return () => off(targets, type, listener, useCapture);
+    for (const type of types) {
+        for (const target of targets) {
+            target.addEventListener(type, listener, useCapture);
+        }
+    }
+
+    return () => off(targets, types, listener, useCapture);
 }
 
-export function off(targets, type, listener, useCapture = false) {
-    targets = toEventTargets(targets);
-    type.split(' ').forEach((type) =>
-        targets.forEach((target) => target.removeEventListener(type, listener, useCapture))
-    );
+export function off(...args) {
+    let [targets, types, , listener, useCapture = false] = getArgs(args);
+    for (const type of types) {
+        for (const target of targets) {
+            target.removeEventListener(type, listener, useCapture);
+        }
+    }
 }
 
 export function once(...args) {
-    const [element, type, selector, listener, useCapture, condition] = getArgs(args);
+    const [element, types, selector, listener, useCapture = false, condition] = getArgs(args);
     const off = on(
         element,
-        type,
+        types,
         selector,
         (e) => {
             const result = !condition || condition(e);
@@ -52,10 +55,8 @@ export function once(...args) {
 }
 
 export function trigger(targets, event, detail) {
-    return toEventTargets(targets).reduce(
-        (notCanceled, target) =>
-            notCanceled && target.dispatchEvent(createEvent(event, true, true, detail)),
-        true
+    return toEventTargets(targets).every((target) =>
+        target.dispatchEvent(createEvent(event, true, true, detail))
     );
 }
 
@@ -68,9 +69,19 @@ export function createEvent(e, bubbles = true, cancelable = false, detail) {
 }
 
 function getArgs(args) {
+    // Event targets
+    args[0] = toEventTargets(args[0]);
+
+    // Event types
+    if (isString(args[1])) {
+        args[1] = args[1].split(' ');
+    }
+
+    // Delegate?
     if (isFunction(args[2])) {
         args.splice(2, 0, false);
     }
+
     return args;
 }
 

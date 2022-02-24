@@ -1,5 +1,4 @@
-import { inBrowser } from './env';
-import { isElement, isString, noop, startsWith, toNode, toNodes } from './lang';
+import { isElement, isString, startsWith, toNode, toNodes } from './lang';
 
 const voidElements = {
     area: true,
@@ -48,25 +47,9 @@ export function filter(element, selector) {
     return toNodes(element).filter((element) => matches(element, selector));
 }
 
-const elProto = inBrowser ? Element.prototype : {};
-const matchesFn =
-    elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector || noop;
-
 export function matches(element, selector) {
-    return toNodes(element).some((element) => matchesFn.call(element, selector));
+    return toNodes(element).some((element) => element.matches(selector));
 }
-
-const closestFn =
-    elProto.closest ||
-    function (selector) {
-        let ancestor = this;
-
-        do {
-            if (matches(ancestor, selector)) {
-                return ancestor;
-            }
-        } while ((ancestor = parent(ancestor)));
-    };
 
 export function closest(element, selector) {
     if (startsWith(selector, '>')) {
@@ -74,7 +57,7 @@ export function closest(element, selector) {
     }
 
     return isElement(element)
-        ? closestFn.call(element, selector)
+        ? element.closest(selector)
         : toNodes(element)
               .map((element) => closest(element, selector))
               .filter(Boolean);
