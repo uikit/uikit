@@ -98,25 +98,25 @@ export default {
 
             trigger(this.$el, 'upload', [files]);
 
-            for (let i = 0; i < files.length; i++) {
-                if (this.maxSize && this.maxSize * 1000 < files[i].size) {
+            for (const file of files) {
+                if (this.maxSize && this.maxSize * 1000 < file.size) {
                     this.fail(this.msgInvalidSize.replace('%s', this.maxSize));
                     return;
                 }
 
-                if (this.allow && !match(this.allow, files[i].name)) {
+                if (this.allow && !match(this.allow, file.name)) {
                     this.fail(this.msgInvalidName.replace('%s', this.allow));
                     return;
                 }
 
-                if (this.mime && !match(this.mime, files[i].type)) {
+                if (this.mime && !match(this.mime, file.type)) {
                     this.fail(this.msgInvalidMime.replace('%s', this.mime));
                     return;
                 }
             }
 
             if (!this.multiple) {
-                files = [files[0]];
+                files = files.slice(0, 1);
             }
 
             this.beforeAll(this, files);
@@ -180,11 +180,7 @@ function match(pattern, path) {
 function chunk(files, size) {
     const chunks = [];
     for (let i = 0; i < files.length; i += size) {
-        const chunk = [];
-        for (let j = 0; j < size; j++) {
-            chunk.push(files[i + j]);
-        }
-        chunks.push(chunk);
+        chunks.push(files.slice(i, i + size));
     }
     return chunks;
 }

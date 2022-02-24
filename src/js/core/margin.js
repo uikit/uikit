@@ -22,10 +22,10 @@ export default {
         },
 
         write({ columns, rows }) {
-            for (let i = 0; i < rows.length; i++) {
-                for (let j = 0; j < rows[i].length; j++) {
-                    toggleClass(rows[i][j], this.margin, i !== 0);
-                    toggleClass(rows[i][j], this.firstColumn, !!~columns[0].indexOf(rows[i][j]));
+            for (const row of rows) {
+                for (const column of row) {
+                    toggleClass(column, this.margin, rows[0] !== row);
+                    toggleClass(column, this.firstColumn, !!~columns[0].indexOf(column));
                 }
             }
         },
@@ -41,10 +41,10 @@ export function getRows(items) {
 function getColumns(rows) {
     const columns = [];
 
-    for (let i = 0; i < rows.length; i++) {
-        const sorted = sortBy(rows[i], 'left', 'right');
+    for (const row of rows) {
+        const sorted = sortBy(row, 'left', 'right');
         for (let j = 0; j < sorted.length; j++) {
-            columns[j] = !columns[j] ? sorted[j] : columns[j].concat(sorted[j]);
+            columns[j] = columns[j] ? columns[j].concat(sorted[j]) : sorted[j];
         }
     }
 
@@ -54,17 +54,15 @@ function getColumns(rows) {
 function sortBy(items, startProp, endProp) {
     const sorted = [[]];
 
-    for (let i = 0; i < items.length; i++) {
-        const el = items[i];
-
+    for (const el of items) {
         if (!isVisible(el)) {
             continue;
         }
 
         let dim = getOffset(el);
 
-        for (let j = sorted.length - 1; j >= 0; j--) {
-            const current = sorted[j];
+        for (let i = sorted.length - 1; i >= 0; i--) {
+            const current = sorted[i];
 
             if (!current[0]) {
                 current.push(el);
@@ -89,7 +87,7 @@ function sortBy(items, startProp, endProp) {
                 break;
             }
 
-            if (j === 0) {
+            if (i === 0) {
                 sorted.unshift([el]);
                 break;
             }
