@@ -15,7 +15,7 @@
 
 ## Removed
 
-- Drop IE11 support from JavaScript
+- Remove IE11 support
 
 ### Fixed
 
