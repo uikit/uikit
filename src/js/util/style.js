@@ -31,7 +31,8 @@ const cssNumber = {
 };
 
 export function css(element, property, value, priority = '') {
-    return toNodes(element).map((element) => {
+    const elements = toNodes(element);
+    for (const element of elements) {
         if (isString(property)) {
             property = propName(property);
 
@@ -57,9 +58,8 @@ export function css(element, property, value, priority = '') {
             priority = value;
             each(property, (value, property) => css(element, property, value, priority));
         }
-
-        return element;
-    })[0];
+    }
+    return elements[0];
 }
 
 function getStyles(element, pseudoElt) {
