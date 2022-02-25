@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP Picture element
+## WIP
 
 ### Added
 
@@ -8,25 +8,6 @@
 - Add `sources` option to emulate `<picture>` element for background images to Image component
 - Add `loading` option to avoid lazy loading background images in first visible viewport to Image component
 - Add support for `loading="lazy"` attribute to SVG component
-
-### Changed
-
-- Image elements need `width` and `height` attributes to prevent layout shifts
-- Image component no longer relies on session storage to check for cached images to immediately show an image
-- Slideshow and Slider remove native `loading="lazy"` attribute from adjacent slides
-
-### Deprecated
-
-- Deprecate `uk-img` for `<img>` element: Use native `loading="lazy"` attribute instead
-
-### Removed
-
-- Removed `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
-
-## WIP
-
-### Added
-
 - Add `position` option with `top`, `bottom` and `auto` values to Sticky component
 - Add support for basic math operands in `offset` option of Sticky component
 - Add object fit and position classes to Utility component
@@ -34,12 +15,20 @@
 
 ### Changed
 
+- Image elements need `width` and `height` attributes to prevent layout shifts
+- Image component no longer relies on session storage to check for cached images to immediately show an image
+- Slideshow and Slider remove native `loading="lazy"` attribute from adjacent slides
 - Improve sticky behavior if sticky content is larger than the viewport
 - Sticky component's `bottom` option checks for bottom padding if sticky element is within referenced element
+
+### Deprecated
+
+- Deprecate `uk-img` for `<img>` element: Use native `loading="lazy"` attribute instead
 
 ## Removed
 
 - Remove IE11 support
+- Removed `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
 
 ### Fixed
 
