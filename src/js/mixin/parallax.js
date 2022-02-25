@@ -9,7 +9,6 @@ import {
     isString,
     isUndefined,
     noop,
-    startsWith,
     toFloat,
     toPx,
     trigger,
