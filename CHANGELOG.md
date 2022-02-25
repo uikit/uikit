@@ -11,6 +11,7 @@
 
 ### Changed
 
+- Image elements need `width` and `height` attributes to prevent layout shifts
 - Image component no longer relies on session storage to check for cached images to immediately show an image
 - Slideshow removes native `loading="lazy"` attribute from adjacent slides
 
