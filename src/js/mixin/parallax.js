@@ -4,6 +4,7 @@ import {
     css,
     Dimensions,
     each,
+    findIndex,
     isNumber,
     isString,
     isUndefined,
@@ -81,25 +82,21 @@ export default {
 
 function transformFn(prop, el, steps) {
     const unit = getUnit(steps) || { x: 'px', y: 'px', rotate: 'deg' }[prop] || '';
+    let transformFn;
 
     if (prop === 'x' || prop === 'y') {
         prop = `translate${ucfirst(prop)}`;
+        transformFn = (step) => toFloat(toFloat(step).toFixed(unit === 'px' ? 0 : 6));
     }
-
-    steps = steps.map(toFloat);
 
     if (steps.length === 1) {
         steps.unshift(prop === 'scale' ? 1 : 0);
     }
 
+    steps = parseSteps(steps, transformFn);
+
     return (css, percent) => {
-        let value = getValue(steps, percent);
-
-        if (startsWith(prop, 'translate')) {
-            value = toFloat(value).toFixed(unit === 'px' ? 0 : 6);
-        }
-
-        css.transform += ` ${prop}(${value}${unit})`;
+        css.transform += ` ${prop}(${getValue(steps, percent)}${unit})`;
     };
 }
 
@@ -108,7 +105,7 @@ function colorFn(prop, el, steps) {
         steps.unshift(getCssValue(el, prop, ''));
     }
 
-    steps = steps.map((step) => parseColor(el, step));
+    steps = parseSteps(steps, (step) => parseColor(el, step));
 
     return (css, percent) => {
         const [start, end, p] = getStep(steps, percent);
@@ -138,7 +135,7 @@ function filterFn(prop, el, steps) {
 
     const unit = getUnit(steps) || { blur: 'px', hue: 'deg' }[prop] || '%';
     prop = { fopacity: 'opacity', hue: 'hue-rotate' }[prop] || prop;
-    steps = steps.map(toFloat);
+    steps = parseSteps(steps);
 
     return (css, percent) => {
         const value = getValue(steps, percent);
@@ -151,7 +148,7 @@ function cssPropFn(prop, el, steps) {
         steps.unshift(getCssValue(el, prop, ''));
     }
 
-    steps = steps.map(toFloat);
+    steps = parseSteps(steps);
 
     return (css, percent) => {
         css[prop] = getValue(steps, percent);
@@ -164,20 +161,17 @@ function strokeFn(prop, el, steps) {
     }
 
     const unit = getUnit(steps);
-    steps = steps.map(toFloat);
+    const length = getMaxPathLength(el);
+    steps = parseSteps(steps.reverse(), (step) => {
+        step = toFloat(step);
+        return unit === '%' ? (step * length) / 100 : step;
+    });
 
-    if (!steps.some((step) => step)) {
+    if (!steps.some(([value]) => value)) {
         return noop;
     }
 
-    const length = getMaxPathLength(el);
     css(el, 'strokeDasharray', length);
-
-    if (unit === '%') {
-        steps = steps.map((step) => (step * length) / 100);
-    }
-
-    steps = steps.reverse();
 
     return (css, percent) => {
         css.strokeDashoffset = getValue(steps, percent);
@@ -191,7 +185,7 @@ function backgroundFn(prop, el, steps) {
 
     prop = prop.substr(-1);
     const attr = prop === 'y' ? 'height' : 'width';
-    steps = steps.map((step) => toPx(step, attr, el));
+    steps = parseSteps(steps, (step) => toPx(step, attr, el));
 
     const bgPos = getCssValue(el, `background-position-${prop}`, '');
 
@@ -207,9 +201,10 @@ function backgroundCoverFn(prop, el, steps, bgPos, attr) {
         return noop;
     }
 
-    const min = Math.min(...steps);
-    const max = Math.max(...steps);
-    const down = steps.indexOf(min) < steps.indexOf(max);
+    const values = steps.map(([value]) => value);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const down = values.indexOf(min) < values.indexOf(max);
 
     const diff = max - min;
     let pos = (down ? -diff : 0) - (down ? min : max);
@@ -278,13 +273,36 @@ function toDimensions(image) {
     };
 }
 
-function getStep(steps, percent) {
-    const count = steps.length - 1;
-    const index = Math.min(Math.floor(count * percent), count - 1);
+function parseSteps(steps, fn = toFloat) {
+    const result = [];
+    for (const step of steps) {
+        const [value, percent] = isString(step) ? step.trim().split(' ') : [step];
+        result.push([fn(value), percent ? toFloat(percent) / 100 : null]);
+    }
 
-    return steps
-        .slice(index, index + 2)
-        .concat(percent === 1 ? 1 : (percent % (1 / count)) * count);
+    const { length } = result;
+    result[0][1] = 0;
+    result[length - 1][1] = 1;
+    for (let i = 1; i < length - 1; i++) {
+        if (result[i] === null) {
+            const nextIndex = findIndex(result.slice(i + 1), ([, percent]) => percent !== null) + 1;
+            const percent = (result[i + nextIndex] - result[i - 1][1]) / (nextIndex + 1);
+            for (let j = 0; j < nextIndex; j++) {
+                result[i + j][1] = percent * j + 1;
+            }
+        }
+    }
+
+    return result;
+}
+
+function getStep(steps, percent) {
+    const index = findIndex(steps.slice(1), ([, targetPercent]) => percent <= targetPercent) + 1;
+    return [
+        steps[index - 1][0],
+        steps[index][0],
+        (percent - steps[index - 1][1]) / (steps[index][1] - steps[index - 1][1]),
+    ];
 }
 
 function getValue(steps, percent) {
