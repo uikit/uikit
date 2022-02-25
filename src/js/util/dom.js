@@ -20,34 +20,18 @@ export function html(parent, html) {
     return isUndefined(html) ? $(parent).innerHTML : replaceChildren(parent, html);
 }
 
-export function replaceChildren(parent, element) {
-    const nodes = $$(element);
-    $(parent).replaceChildren(...nodes);
-    return nodes;
-}
+export const replaceChildren = applyFn('replaceChildren');
+export const prepend = applyFn('prepend');
+export const append = applyFn('append');
+export const before = applyFn('before');
+export const after = applyFn('after');
 
-export function prepend(parent, element) {
-    const nodes = $$(element);
-    $(parent).prepend(...nodes);
-    return nodes;
-}
-
-export function append(parent, element) {
-    const nodes = $$(element);
-    $(parent).append(...nodes);
-    return nodes;
-}
-
-export function before(ref, element) {
-    const nodes = $$(element);
-    $(ref).before(...nodes);
-    return nodes;
-}
-
-export function after(ref, element) {
-    const nodes = $$(element);
-    $(ref).after(...nodes);
-    return nodes;
+function applyFn(fn) {
+    return function (ref, element) {
+        const nodes = $$(element);
+        $(ref)[fn](...nodes);
+        return unwrapSingle(nodes);
+    };
 }
 
 export function remove(element) {
@@ -85,9 +69,12 @@ export function unwrap(element) {
 
 export function fragment(html) {
     const template = document.createElement('template');
-    template.innerHTML = html;
-    const { childNodes } = template.content;
-    return childNodes.length > 1 ? toNodes(childNodes) : childNodes[0];
+    template.innerHTML = html.trim();
+    return unwrapSingle(template.content.childNodes);
+}
+
+function unwrapSingle(nodes) {
+    return nodes.length > 1 ? nodes : nodes[0];
 }
 
 export function apply(node, fn) {
