@@ -1,6 +1,7 @@
 import Class from '../mixin/class';
 import Slider, { speedUp } from '../mixin/slider';
 import SliderReactive from '../mixin/slider-reactive';
+import SliderPreload from './internal/slider-preload';
 import Transitioner, { getMax, getWidth } from './internal/slider-transitioner';
 import {
     $,
@@ -20,7 +21,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Class, Slider, SliderReactive],
+    mixins: [Class, Slider, SliderReactive, SliderPreload],
 
     props: {
         center: Boolean,
@@ -258,6 +259,25 @@ export default {
             } while (index !== prev);
 
             return index;
+        },
+
+        getAdjacentSlides() {
+            const { width } = dimensions(this.list);
+            const left = -width;
+            const right = width * 2;
+            const slideWidth = dimensions(this.slides[this.index]).width;
+            const slideLeft = this.center ? width / 2 - slideWidth / 2 : 0;
+            const slides = new Set();
+            for (const i of [-1, 1]) {
+                let currentLeft = slideLeft + (i > 0 ? slideWidth : 0);
+                let j = 0;
+                do {
+                    const slide = this.slides[this.getIndex(this.index + i + j++ * i)];
+                    currentLeft += dimensions(slide).width * i;
+                    slides.add(slide);
+                } while (this.slides.length > j && currentLeft > left && currentLeft < right);
+            }
+            return Array.from(slides);
         },
     },
 };
