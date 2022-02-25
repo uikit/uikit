@@ -1,3 +1,4 @@
+import { isTag } from './dom';
 import { once } from './event';
 import { includes, noop } from './lang';
 
@@ -40,11 +41,11 @@ export function isVideo(el) {
 }
 
 function isHTML5(el) {
-    return el?.tagName === 'VIDEO';
+    return isTag(el, 'video');
 }
 
 function isIFrame(el) {
-    return el?.tagName === 'IFRAME' && (isYoutube(el) || isVimeo(el));
+    return isTag(el, 'iframe') && (isYoutube(el) || isVimeo(el));
 }
 
 function isYoutube(el) {

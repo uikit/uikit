@@ -12,6 +12,10 @@ export function ready(fn) {
     once(document, 'DOMContentLoaded', fn);
 }
 
+export function isTag(element, tagName) {
+    return element?.tagName?.toLowerCase() === tagName.toLowerCase();
+}
+
 export function empty(element) {
     return replaceChildren(element, '');
 }

@@ -1,5 +1,28 @@
 # Changelog
 
+## WIP Picture element
+
+### Added
+
+- Add support for `<picture>` element to Image component
+- Add `sources` option to emulate `<picture>` element for background images to Image component
+- Add `loading` option to avoid lazy loading background images in first visible viewport to Image component
+- Add support for `loading="lazy"` attribute to SVG component
+
+### Changed
+
+- Image elements need `width` and `height` attributes to prevent layout shifts
+- Image component no longer relies on session storage to check for cached images to immediately show an image
+- Slideshow and Slider remove native `loading="lazy"` attribute from adjacent slides
+
+### Deprecated
+
+- Deprecate `uk-img` for `<img>` element: Use native `loading="lazy"` attribute instead
+
+### Removed
+
+- Removed `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
+
 ## WIP
 
 ### Added
@@ -63,7 +86,7 @@
 - Fix usage of `data-` prefix for Cover and Responsive component
 - Fix pointer events for iframes in Cover component
 - Fix Slideshow component no longer throws if items list does not exist
-- Fix space key no longer triggers Toggle on `input` elements
+- Fix space key no longer triggers Toggle on `<input>` element
 
 ## 3.10.0 (January 12, 2022)
 
@@ -380,7 +403,7 @@
 
 - Fix component update handling
 - Fix Tooltip position
-- Fix Tooltip component applied to button elements in iOS
+- Fix Tooltip component applied to `<button>` element in iOS
 - Fix regression in Switcher component
 
 ## 3.6.8 (January 5, 2021)
@@ -929,7 +952,7 @@
 ### Fixed
 
 - Fix Slideshow invisible after switching tabs in Switcher
-- Fix lazy loading images in Img component in UC Browser
+- Fix lazy loading images in Image component in UC Browser
 - Fix opening Offcanvas/Modal through buttons
 
 ## 3.1.8 (August 29, 2019)
@@ -1099,8 +1122,8 @@
 ### Fixed
 
 - Fix touch event detection
-- Fix background images are shown too large on retina displays in Img component
-- Fix correctly calculate offsetLeft in Img component
+- Fix background images are shown too large on retina displays in Image component
+- Fix correctly calculate offsetLeft in Image component
 - Fix autofocus elements not blurring within Toggable on hide
 
 ## 3.0.2 (January 15, 2019)
@@ -1109,7 +1132,7 @@
 
 - Fix offcanvas overlay transition
 - Fix active state in Switcher component
-- Fix background images on displays with higher devicePixelRatio in Img component
+- Fix background images on displays with higher devicePixelRatio in Image component
 
 ## 3.0.1 (January 14, 2019)
 
@@ -1142,7 +1165,7 @@
 ### Fixed
 
 - Fix visible toggle and its child elements not being focusable through keyboard navigation
-- Fix Img component correctly escapes urls on background images
+- Fix Image component correctly escapes urls on background images
 
 ## 3.0.0 rc 26 (January 3, 2019)
 
@@ -1161,8 +1184,8 @@
 - Fix `flex bug` mixin (IE 11)
 - Fix properly resolving css custom properties in scss
 - Fix order of variable assignments in scss
-- Fix background images are shown too large on retina displays in Img component
-- Fix lazy loading images in Img component in Safari
+- Fix background images are shown too large on retina displays in Image component
+- Fix lazy loading images in Image component in Safari
 - Limit positioned element to container width and margin in Position component
 
 ## 3.0.0 rc 25 (November 30, 2018)
@@ -1250,7 +1273,7 @@
 
 ### Fixed
 
-- Fix preserve color not working if class is set on svg element in Icon component
+- Fix preserve color not working if class is set on `<svg>` element in Icon component
 - Fix inverse hover color for accordion title
 - Fix close color being overwritten from toolbar in Lightbox component
 - Fix Modal not hiding upon being destroyed
@@ -1494,7 +1517,7 @@
 
 ### Added
 
-- Add Img component to lazy load images
+- Add Image component to lazy load images
 - Add Filter component to filter and sort any kind of layout
 - Add `masonry` option to Grid component
 - Add inverse style for form icon
@@ -1657,7 +1680,7 @@
 
 ### Changed
 
-- IMPORTANT: Use `a` element instead of headings for the accordion title
+- IMPORTANT: Use `<a>` element instead of headings for the accordion title
 - Calling a component constructor with data on an already initialized component will reset the component
 - Dropbar no longer repositions Dropdowns in DOM upon opening
 
@@ -1758,7 +1781,7 @@
 - Fix slide animations stacking when tab is not focused in Slideshow component
 - Fix overlay not showing in Offcanvas component
 - Fix Slideshow Parallax in Slideshow component for IE11
-- Fix default border-radius for button elements in Chrome 62.
+- Fix default border-radius for `<button>` element in Chrome 62.
 
 ## 3.0.0 beta 31 (October 20, 2017)
 
@@ -1867,7 +1890,7 @@
 
 - Offcanvas will keep scroll position if anchor link was clicked
 - Fix margin modifier in Position component for IE11
-- Fix divider-small text alignment for `hr` elements Edge and IE
+- Fix divider-small text alignment for `<hr>` element Edge and IE
 - Fix setting the ratio of Spinner component
 - Fix event handling in Sortable component
 - Fix grid calculation (Firefox)
@@ -1903,7 +1926,7 @@
 
 ### Changed
 
-- Make Icon component work with button elements
+- Make Icon component work with `<button>` element
 
 ### Fixed
 
@@ -2233,7 +2256,7 @@
 
 ### Changed
 
-- UIkit observes `body` element too now
+- UIkit observes `<body>` element too now
 - Performance improvements
 
 ### Fixed
@@ -2279,7 +2302,7 @@
 
 ### Fixed
 
-- Fix Icon component on canvas elements (Safari)
+- Fix Icon component on `<canvas>` elements (Safari)
 
 ## 3.0.0 beta 1 (January 09, 2017)
 

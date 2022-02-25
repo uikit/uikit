@@ -2,10 +2,11 @@ import Class from '../mixin/class';
 import Slideshow from '../mixin/slideshow';
 import Animations from './internal/slideshow-animations';
 import SliderReactive from '../mixin/slider-reactive';
+import SliderPreload from './internal/slider-preload';
 import { boxModelAdjust, css } from 'uikit-util';
 
 export default {
-    mixins: [Class, Slideshow, SliderReactive],
+    mixins: [Class, Slideshow, SliderReactive, SliderPreload],
 
     props: {
         ratio: String,
@@ -49,5 +50,11 @@ export default {
         },
 
         events: ['resize'],
+    },
+
+    methods: {
+        getAdjacentSlides() {
+            return [1, -1].map((i) => this.slides[this.getIndex(this.index + i)]);
+        },
     },
 };
