@@ -213,7 +213,7 @@ export default {
                     margin,
                     width: dimensions(isVisible(this.widthElement) ? this.widthElement : this.$el)
                         .width,
-                    top: offsetPosition(this.placeholder)[0],
+                    top: offsetPosition(referenceElement)[0],
                 };
             },
 
