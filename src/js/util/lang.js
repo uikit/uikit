@@ -128,8 +128,9 @@ export function toWindow(element) {
     }
 
     element = toNode(element);
+    const document = isDocument(element) ? element : element?.ownerDocument;
 
-    return element ? (isDocument(element) ? element : element.ownerDocument).defaultView : window;
+    return document?.defaultView || window;
 }
 
 export function toMs(time) {
