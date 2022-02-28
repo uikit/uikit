@@ -135,7 +135,7 @@ export default {
             name: 'keydown',
 
             filter() {
-                return includes(this.mode, 'click') && isTag(this.$el, 'input');
+                return includes(this.mode, 'click') && !isTag(this.$el, 'input');
             },
 
             handler(e) {
