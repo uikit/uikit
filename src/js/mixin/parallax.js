@@ -309,13 +309,15 @@ function getValue(stops, percent) {
     return isNumber(start) ? start + Math.abs(start - end) * p * (start < end ? 1 : -1) : +end;
 }
 
+const unitRe = /^[\d-]+([^\s]+)/;
 function getUnit(stops, defaultUnit) {
-    return (
-        stops.reduce(
-            (unit, stop) => unit || (isString(stop) && stop.replace(/[\d-]/g, '').trim()),
-            ''
-        ) || defaultUnit
-    );
+    for (const stop of stops) {
+        const match = stop.match?.(unitRe);
+        if (match) {
+            return match[1];
+        }
+    }
+    return defaultUnit;
 }
 
 function getCssValue(el, prop, value) {
