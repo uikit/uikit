@@ -79,35 +79,35 @@ export default {
     },
 };
 
-function transformFn(prop, el, steps) {
-    const unit = getUnit(steps) || { x: 'px', y: 'px', rotate: 'deg' }[prop] || '';
+function transformFn(prop, el, stops) {
+    const unit = getUnit(stops) || { x: 'px', y: 'px', rotate: 'deg' }[prop] || '';
     let transformFn;
 
     if (prop === 'x' || prop === 'y') {
         prop = `translate${ucfirst(prop)}`;
-        transformFn = (step) => toFloat(toFloat(step).toFixed(unit === 'px' ? 0 : 6));
+        transformFn = (stop) => toFloat(toFloat(stop).toFixed(unit === 'px' ? 0 : 6));
     }
 
-    if (steps.length === 1) {
-        steps.unshift(prop === 'scale' ? 1 : 0);
+    if (stops.length === 1) {
+        stops.unshift(prop === 'scale' ? 1 : 0);
     }
 
-    steps = parseSteps(steps, transformFn);
+    stops = parseStops(stops, transformFn);
 
     return (css, percent) => {
-        css.transform += ` ${prop}(${getValue(steps, percent)}${unit})`;
+        css.transform += ` ${prop}(${getValue(stops, percent)}${unit})`;
     };
 }
 
-function colorFn(prop, el, steps) {
-    if (steps.length === 1) {
-        steps.unshift(getCssValue(el, prop, ''));
+function colorFn(prop, el, stops) {
+    if (stops.length === 1) {
+        stops.unshift(getCssValue(el, prop, ''));
     }
 
-    steps = parseSteps(steps, (step) => parseColor(el, step));
+    stops = parseStops(stops, (stop) => parseColor(el, stop));
 
     return (css, percent) => {
-        const [start, end, p] = getStep(steps, percent);
+        const [start, end, p] = getStop(stops, percent);
         const value = start
             .map((value, i) => {
                 value += p * (end[i] - value);
@@ -127,80 +127,80 @@ function parseColor(el, color) {
         .map(toFloat);
 }
 
-function filterFn(prop, el, steps) {
-    if (steps.length === 1) {
-        steps.unshift(0);
+function filterFn(prop, el, stops) {
+    if (stops.length === 1) {
+        stops.unshift(0);
     }
 
-    const unit = getUnit(steps) || { blur: 'px', hue: 'deg' }[prop] || '%';
+    const unit = getUnit(stops) || { blur: 'px', hue: 'deg' }[prop] || '%';
     prop = { fopacity: 'opacity', hue: 'hue-rotate' }[prop] || prop;
-    steps = parseSteps(steps);
+    stops = parseStops(stops);
 
     return (css, percent) => {
-        const value = getValue(steps, percent);
+        const value = getValue(stops, percent);
         css.filter += ` ${prop}(${value + unit})`;
     };
 }
 
-function cssPropFn(prop, el, steps) {
-    if (steps.length === 1) {
-        steps.unshift(getCssValue(el, prop, ''));
+function cssPropFn(prop, el, stops) {
+    if (stops.length === 1) {
+        stops.unshift(getCssValue(el, prop, ''));
     }
 
-    steps = parseSteps(steps);
+    stops = parseStops(stops);
 
     return (css, percent) => {
-        css[prop] = getValue(steps, percent);
+        css[prop] = getValue(stops, percent);
     };
 }
 
-function strokeFn(prop, el, steps) {
-    if (steps.length === 1) {
-        steps.unshift(0);
+function strokeFn(prop, el, stops) {
+    if (stops.length === 1) {
+        stops.unshift(0);
     }
 
-    const unit = getUnit(steps);
+    const unit = getUnit(stops);
     const length = getMaxPathLength(el);
-    steps = parseSteps(steps.reverse(), (step) => {
-        step = toFloat(step);
-        return unit === '%' ? (step * length) / 100 : step;
+    stops = parseStops(stops.reverse(), (stop) => {
+        stop = toFloat(stop);
+        return unit === '%' ? (stop * length) / 100 : stop;
     });
 
-    if (!steps.some(([value]) => value)) {
+    if (!stops.some(([value]) => value)) {
         return noop;
     }
 
     css(el, 'strokeDasharray', length);
 
     return (css, percent) => {
-        css.strokeDashoffset = getValue(steps, percent);
+        css.strokeDashoffset = getValue(stops, percent);
     };
 }
 
-function backgroundFn(prop, el, steps) {
-    if (steps.length === 1) {
-        steps.unshift(0);
+function backgroundFn(prop, el, stops) {
+    if (stops.length === 1) {
+        stops.unshift(0);
     }
 
     prop = prop.substr(-1);
     const attr = prop === 'y' ? 'height' : 'width';
-    steps = parseSteps(steps, (step) => toPx(step, attr, el));
+    stops = parseStops(stops, (stop) => toPx(stop, attr, el));
 
     const bgPos = getCssValue(el, `background-position-${prop}`, '');
 
     return getCssValue(el, 'backgroundSize', '') === 'cover'
-        ? backgroundCoverFn(prop, el, steps, bgPos, attr)
-        : setBackgroundPosFn(prop, steps, bgPos);
+        ? backgroundCoverFn(prop, el, stops, bgPos, attr)
+        : setBackgroundPosFn(prop, stops, bgPos);
 }
 
-function backgroundCoverFn(prop, el, steps, bgPos, attr) {
+function backgroundCoverFn(prop, el, stops, bgPos, attr) {
     const dimImage = getBackgroundImageDimensions(el);
 
     if (!dimImage.width) {
         return noop;
     }
 
-    const values = steps.map(([value]) => value);
+    const values = stops.map(([value]) => value);
     const min = Math.min(...values);
     const max = Math.max(...values);
     const down = values.indexOf(min) < values.indexOf(max);
@@ -228,7 +228,7 @@ function backgroundCoverFn(prop, el, steps, bgPos, attr) {
 
     const dim = Dimensions.cover(dimImage, dimEl);
 
-    const fn = setBackgroundPosFn(prop, steps, `${pos}px`);
+    const fn = setBackgroundPosFn(prop, stops, `${pos}px`);
     return (css, percent) => {
         fn(css, percent);
         css.backgroundSize = `${dim.width}px ${dim.height}px`;
@@ -236,9 +236,9 @@ function backgroundCoverFn(prop, el, steps, bgPos, attr) {
     };
 }
 
-function setBackgroundPosFn(prop, steps, pos) {
+function setBackgroundPosFn(prop, stops, pos) {
     return function (css, percent) {
-        css[`background-position-${prop}`] = `calc(${pos} + ${getValue(steps, percent)}px)`;
+        css[`background-position-${prop}`] = `calc(${pos} + ${getValue(stops, percent)}px)`;
     };
 }
 
@@ -272,10 +272,10 @@ function toDimensions(image) {
     };
 }
 
-function parseSteps(steps, fn = toFloat) {
+function parseStops(stops, fn = toFloat) {
     const result = [];
-    for (const step of steps) {
-        const [value, percent] = isString(step) ? step.trim().split(' ') : [step];
+    for (const stop of stops) {
+        const [value, percent] = isString(stop) ? stop.trim().split(' ') : [stop];
         result.push([fn(value), percent ? toFloat(percent) / 100 : null]);
     }
 
@@ -295,24 +295,24 @@ function parseSteps(steps, fn = toFloat) {
     return result;
 }
 
-function getStep(steps, percent) {
-    const index = findIndex(steps.slice(1), ([, targetPercent]) => percent <= targetPercent) + 1;
+function getStop(stops, percent) {
+    const index = findIndex(stops.slice(1), ([, targetPercent]) => percent <= targetPercent) + 1;
     return [
-        steps[index - 1][0],
-        steps[index][0],
-        (percent - steps[index - 1][1]) / (steps[index][1] - steps[index - 1][1]),
+        stops[index - 1][0],
+        stops[index][0],
+        (percent - stops[index - 1][1]) / (stops[index][1] - stops[index - 1][1]),
     ];
 }
 
-function getValue(steps, percent) {
-    const [start, end, p] = getStep(steps, percent);
+function getValue(stops, percent) {
+    const [start, end, p] = getStop(stops, percent);
     return isNumber(start) ? start + Math.abs(start - end) * p * (start < end ? 1 : -1) : +end;
 }
 
-function getUnit(steps, defaultUnit) {
+function getUnit(stops, defaultUnit) {
     return (
-        steps.reduce(
-            (unit, step) => unit || (isString(step) && step.replace(/[\d-]/g, '').trim()),
+        stops.reduce(
+            (unit, stop) => unit || (isString(stop) && stop.replace(/[\d-]/g, '').trim()),
             ''
         ) || defaultUnit
     );

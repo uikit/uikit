@@ -21,19 +21,19 @@ function toUpper(_, c) {
 }
 
 export function startsWith(str, search) {
-    return str.startsWith(search);
+    return str?.startsWith?.(search);
 }
 
 export function endsWith(str, search) {
-    return str.endsWith(search);
+    return str?.endsWith?.(search);
 }
 
 export function includes(obj, search) {
-    return obj && obj.includes(search);
+    return obj?.includes?.(search);
 }
 
 export function findIndex(array, predicate) {
-    return array.findIndex(predicate);
+    return array?.findIndex?.(predicate);
 }
 
 export const { isArray, from: toArray } = Array;

@@ -15,6 +15,7 @@ import {
     parent,
     parseOptions,
     queryAll,
+    removeAttr,
     startsWith,
     toFloat,
     toPx,
@@ -38,7 +39,7 @@ export default {
 
     data: {
         dataSrc: '',
-        sources: [],
+        sources: false,
         offsetTop: '50vh',
         offsetLeft: '50vw',
         target: false,
@@ -95,7 +96,7 @@ export default {
             this._data.image.onload = '';
         }
 
-        this.observer && this.observer.disconnect();
+        this.observer?.disconnect();
     },
 
     update: {
@@ -127,9 +128,9 @@ export default {
                 ? this.$el
                 : getImageFromElement(this.$el, this.dataSrc, this.sources);
 
-            image.loading = '';
+            removeAttr(image, 'loading');
             setSrcAttrs(this.$el, image.currentSrc);
-            return (this.image = image);
+            return (this._data.image = image);
         },
 
         observe() {
@@ -181,11 +182,11 @@ function wrapInPicture(img, sources) {
 
     if (sources.length) {
         const picture = fragment('<picture>');
-        sources.forEach((attrs) => {
+        for (const attrs of sources) {
             const source = fragment('<source>');
             attr(source, attrs);
             append(picture, source);
-        });
+        }
         append(picture, img);
     }
 }

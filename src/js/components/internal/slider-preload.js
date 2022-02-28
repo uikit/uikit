@@ -1,4 +1,4 @@
-import { $$, isVisible } from 'uikit-util';
+import { $$, isVisible, removeAttr } from 'uikit-util';
 
 export default {
     connected() {
@@ -32,6 +32,6 @@ export default {
 
 export function removeLazyLoad(elements = []) {
     for (const el of elements) {
-        el && $$('img[loading="lazy"]', el).forEach((el) => (el.loading = ''));
+        el && $$('img[loading="lazy"]', el).forEach((el) => removeAttr(el, 'loading'));
     }
 }
