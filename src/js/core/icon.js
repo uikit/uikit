@@ -68,14 +68,14 @@ const Icon = {
     },
 
     methods: {
-        getSvg() {
+        async getSvg() {
             const icon = getIcon(this.icon);
 
             if (!icon) {
-                return Promise.reject('Icon not found.');
+                throw 'Icon not found.';
             }
 
-            return Promise.resolve(icon);
+            return icon;
         },
     },
 };
@@ -137,9 +137,16 @@ export const Close = {
 export const Spinner = {
     extends: IconComponent,
 
-    async connected() {
-        const svg = await this.svg;
-        svg && this.ratio !== 1 && css($('circle', svg), 'strokeWidth', 1 / this.ratio);
+    methods: {
+        async getSvg() {
+            const icon = await Icon.methods.getSvg.call(this);
+
+            if (this.ratio !== 1) {
+                css($('circle', icon), 'strokeWidth', 1 / this.ratio);
+            }
+
+            return icon;
+        },
     },
 };
 
