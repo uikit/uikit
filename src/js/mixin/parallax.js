@@ -283,11 +283,11 @@ function parseStops(stops, fn = toFloat) {
     result[0][1] = 0;
     result[length - 1][1] = 1;
     for (let i = 1; i < length - 1; i++) {
-        if (result[i] === null) {
+        if (result[i][1] === null) {
             const nextIndex = findIndex(result.slice(i + 1), ([, percent]) => percent !== null) + 1;
-            const percent = (result[i + nextIndex] - result[i - 1][1]) / (nextIndex + 1);
+            const percent = (result[i + nextIndex][1] - result[i - 1][1]) / (nextIndex + 1);
             for (let j = 0; j < nextIndex; j++) {
-                result[i + j][1] = percent * j + 1;
+                result[i + j][1] = percent * (j + 1);
             }
         }
     }
