@@ -12,7 +12,6 @@
 - Add support for basic math operands in `offset` option of Sticky component
 - Add animation stop positions to Parallax component
 - Add object fit and position classes to Utility component
-- Add support for specifying location for steps in Parallax component
 
 ### Changed
 
