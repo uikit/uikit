@@ -275,6 +275,7 @@ function toDimensions(image) {
 function parseStops(stops, fn = toFloat) {
     const result = [];
     const { length } = stops;
+    let nullIndex = 0;
     for (let i = 0; i < length; i++) {
         let [value, percent] = isString(stops[i]) ? stops[i].trim().split(' ') : [stops[i]];
         value = fn(value);
@@ -296,16 +297,17 @@ function parseStops(stops, fn = toFloat) {
         }
 
         result.push([value, percent]);
-    }
 
-    for (let i = 1; i < result.length - 1; i++) {
-        if (result[i][1] === null) {
-            const nextIndex = findIndex(result.slice(i + 1), ([, percent]) => percent !== null) + 1;
-            const percent = (result[i + nextIndex][1] - result[i - 1][1]) / (nextIndex + 1);
-            for (let j = 0; j < nextIndex; j++) {
-                result[i + j][1] = result[i - 1][1] + percent * (j + 1);
+        if (percent === null) {
+            nullIndex++;
+        } else if (nullIndex) {
+            const leftPercent = result[i - nullIndex - 1][1];
+            const p = (percent - leftPercent) / (nullIndex + 1);
+            for (let j = nullIndex; j > 0; j--) {
+                result[i - j][1] = leftPercent + p * (nullIndex - j + 1);
             }
-            i += nextIndex;
+
+            nullIndex = 0;
         }
     }
 
