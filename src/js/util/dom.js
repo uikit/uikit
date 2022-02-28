@@ -32,8 +32,10 @@ export const after = applyFn('after');
 
 function applyFn(fn) {
     return function (ref, element) {
-        const nodes = $$(element);
-        $(ref)[fn](...nodes);
+        const nodes = toNodes(isString(element) ? fragment(element) : element);
+        if (nodes.length) {
+            $(ref)[fn](...nodes);
+        }
         return unwrapSingle(nodes);
     };
 }
@@ -74,7 +76,11 @@ export function unwrap(element) {
 export function fragment(html) {
     const template = document.createElement('template');
     template.innerHTML = html.trim();
-    return unwrapSingle(template.content.childNodes);
+    const nodes = toNodes(template.content.childNodes);
+    for (const node of nodes) {
+        document.adoptNode(node);
+    }
+    return unwrapSingle(nodes);
 }
 
 function unwrapSingle(nodes) {
