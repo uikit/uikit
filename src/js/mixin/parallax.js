@@ -328,7 +328,7 @@ function getValue(stops, percent) {
     return isNumber(start) ? start + Math.abs(start - end) * p * (start < end ? 1 : -1) : +end;
 }
 
-const unitRe = /^-?\d+([^\s\d]+)/;
+const unitRe = /^-?\d+([^\s]*)/;
 function getUnit(stops, defaultUnit) {
     for (const stop of stops) {
         const match = stop.match?.(unitRe);
