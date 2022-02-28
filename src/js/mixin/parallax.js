@@ -274,21 +274,38 @@ function toDimensions(image) {
 
 function parseStops(stops, fn = toFloat) {
     const result = [];
-    for (const stop of stops) {
-        const [value, percent] = isString(stop) ? stop.trim().split(' ') : [stop];
-        result.push([fn(value), percent ? toFloat(percent) / 100 : null]);
+    const { length } = stops;
+    for (let i = 0; i < length; i++) {
+        let [value, percent] = isString(stops[i]) ? stops[i].trim().split(' ') : [stops[i]];
+        value = fn(value);
+        percent = percent ? toFloat(percent) / 100 : null;
+
+        if (i === 0) {
+            if (percent === null) {
+                percent = 0;
+            } else if (percent) {
+                result.push([value, 0]);
+            }
+        } else if (i === length - 1) {
+            if (percent === null) {
+                percent = 1;
+            } else if (percent !== 1) {
+                result.push([value, percent]);
+                percent = 1;
+            }
+        }
+
+        result.push([value, percent]);
     }
 
-    const { length } = result;
-    result[0][1] = 0;
-    result[length - 1][1] = 1;
-    for (let i = 1; i < length - 1; i++) {
+    for (let i = 1; i < result.length - 1; i++) {
         if (result[i][1] === null) {
             const nextIndex = findIndex(result.slice(i + 1), ([, percent]) => percent !== null) + 1;
             const percent = (result[i + nextIndex][1] - result[i - 1][1]) / (nextIndex + 1);
             for (let j = 0; j < nextIndex; j++) {
-                result[i + j][1] = percent * (j + 1);
+                result[i + j][1] = result[i - 1][1] + percent * (j + 1);
             }
+            i += nextIndex;
         }
     }
 
