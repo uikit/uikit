@@ -21,8 +21,8 @@
         <div class="uk-section uk-section-default">
             <div class="uk-container">
 
-                <div id="js-sticky-parallax-container" class="uk-position-relative uk-background-muted uk-text-center" style="height: 300vh">
-                    <div class="uk-flex uk-flex-center uk-flex-middle" style="height: 100vh;" uk-sticky="bottom: #js-sticky-parallax-container">
+                <div id="js-sticky-parallax-container" class="uk-position-relative uk-background-muted uk-text-center uk-height-viewport-3">
+                    <div class="uk-flex uk-flex-center uk-flex-middle uk-height-viewport" uk-sticky="bottom: #js-sticky-parallax-container">
                         <div>
 
                             <img class="uk-position-relative uk-position-z-index" src="images/size-v.jpg" width="400" height="800" alt="" style="max-width: 50vw" uk-parallax="target: #js-sticky-parallax-container; y: 0,-250; easing: -1; start: 100vh; end: 100vh;">
@@ -118,7 +118,7 @@
                 </div>
                 <div>
 
-                    <div class="uk-background-muted uk-text-center" style="height: 100vh" uk-sticky="bottom: #js-sticky-parallax-viewport">
+                    <div class="uk-background-muted uk-text-center uk-height-viewport" uk-sticky="bottom: #js-sticky-parallax-viewport">
 
                         <div uk-parallax="target: #js-sticky-parallax-viewport; start: 100vh; end: 100vh; y: 10vh, 80vh; easing: 0">
 
@@ -146,12 +146,12 @@
 
         <div class="uk-section uk-section-default">
 
-            <div id="js-sticky-parallax-images" style="height: 250vh" uk-grid>
+            <div id="js-sticky-parallax-images" style="min-height: 250vh" uk-grid>
                 <div class="uk-width-expand">
 
-                    <div class="uk-background-muted" style="height: 100vh;" uk-sticky="bottom: #js-sticky-parallax-images">
+                    <div class="uk-background-muted uk-height-viewport" uk-sticky="bottom: #js-sticky-parallax-images">
                         <div uk-parallax="target: #js-sticky-parallax-images; y: 55vh, 45vh;">
-                            <img class="uk-position-center-left" src="images/photo.jpg" width="1800" height="1200" alt="" uk-parallax="target: #js-sticky-parallax-images; start: 125vh; end: 100% + 100vh - 185vh; opacity: 1,1 99%,0; easing:0">
+                            <img class="uk-position-center-left" src="images/photo.jpg" width="1800" height="1200" alt="" uk-parallax="target: #js-sticky-parallax-images; start: 125vh; end: 100% + 100vh - 185vh; opacity: 1,1,0; easing:0">
                             <img class="uk-position-center-left" src="images/photo2.jpg" width="1800" height="1200" alt="" uk-parallax="target: #js-sticky-parallax-images; start: 175vh; end: 100% + 100vh - 235vh; opacity: 0,1 16.666%,1 99%,0; easing:0">
                             <img class="uk-position-center-left" src="images/photo3.jpg" width="1800" height="1200" alt="" uk-parallax="target: #js-sticky-parallax-images; start: 225vh; end: 100% + 100vh - 275vh; opacity: 0,1 20%,1; easing:0">
                         </div>
@@ -206,10 +206,10 @@
 
         <div class="uk-section uk-section-default">
 
-            <div id="js-sticky-parallax-images-all" style="height: 250vh" uk-grid>
+            <div id="js-sticky-parallax-images-all" style="min-height: 250vh" uk-grid>
                 <div class="uk-width-expand">
 
-                    <div class="uk-background-muted" style="height: 100vh;" uk-sticky="bottom: #js-sticky-parallax-images-all">
+                    <div class="uk-background-muted uk-height-viewport" uk-sticky="bottom: #js-sticky-parallax-images-all">
                         <div uk-parallax="target: #js-sticky-parallax-images-all; y: 55vh, 45vh;">
                             <img class="uk-position-center-left" src="images/photo.jpg" width="1800" height="1200" alt="" uk-parallax="target: #js-sticky-parallax-images-all; start: 100vh; end: 100% + 100vh - 160vh; opacity: 1,1 99%,0; easing:0">
                             <img class="uk-position-center-left" src="images/photo2.jpg" width="1800" height="1200" alt="" uk-parallax="target: #js-sticky-parallax-images-all; start: 150vh; end: 100% + 100vh - 210vh; opacity: 0,1 16.666%,1 99%,0; easing:0">
@@ -226,7 +226,7 @@
                 </div>
                 <div class="uk-width-expand">
 
-                    <div style="height: 100vh;" uk-sticky="bottom: #js-sticky-parallax-images-all">
+                    <div class="uk-height-viewport" uk-sticky="bottom: #js-sticky-parallax-images-all">
                         <div uk-parallax="target: #js-sticky-parallax-images-all; y: 55vh, 45vh;">
 
                             <div class="uk-position-center-left" uk-parallax="target: #js-sticky-parallax-images-all; start: 100vh; end: 100% + 100vh - 150vh; opacity: 0,1 20%,1 80%,0">
