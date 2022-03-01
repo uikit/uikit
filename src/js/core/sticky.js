@@ -162,6 +162,7 @@ export default {
 
                 const hide = this.isActive && types.has('resize');
                 if (hide) {
+                    css(this.selTarget, 'transition', '0s');
                     this.hide();
                 }
 
@@ -172,6 +173,7 @@ export default {
 
                 if (hide) {
                     this.show();
+                    fastdom.write(() => css(this.selTarget, 'transition', ''));
                 }
 
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
