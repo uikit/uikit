@@ -142,7 +142,7 @@ export default {
                                 top -
                                     elHeight -
                                     (isNumeric(this.targetOffset) ? this.targetOffset : 0) -
-                                    this._data.offset
+                                    toPx(this.offset, 'height')
                             );
                         }
                     });
@@ -177,20 +177,19 @@ export default {
                 }
 
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
+                const windowHeight = getHeight(window);
 
                 let position = this.position;
-
-                if (position === 'auto') {
-                    position = height > getHeight(window) ? 'bottom' : 'top';
+                if (position === 'auto' && height > windowHeight) {
+                    position = 'bottom';
                 }
 
-                let offset = this.offset;
+                let offset = toPx(this.offset, 'height', referenceElement);
                 if (position === 'bottom') {
-                    offset += '+100vh-100%';
+                    offset += windowHeight - height;
                 }
-                offset = toPx(offset, 'height', referenceElement);
 
-                const overflow = Math.max(0, height + offset - getHeight(window));
+                const overflow = Math.max(0, height + offset - windowHeight);
                 const topOffset = getOffset(referenceElement).top;
                 const offsetParentTop = getOffset(referenceElement.offsetParent).top;
 
@@ -200,7 +199,7 @@ export default {
                 const start = Math.max(top, topOffset) - offset;
                 const end = bottom
                     ? bottom - getOffset(this.$el).height + overflow - offset
-                    : getScrollingElement(this.$el).scrollHeight - getHeight(window);
+                    : getScrollingElement(this.$el).scrollHeight - windowHeight;
 
                 return {
                     start,
