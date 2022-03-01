@@ -34,10 +34,12 @@
 ### Fixed
 
 - Fix infinite sliding in Slider component with equally sized slides
-- Fix Sticky component setting wrong margin for placeholder
 - Fix dropdowns not closing in Navbar component when hovering dropbar and navigation with keyboard
 - Fix dropdown no longer closes if pointer is still moving towards it
 - Fix `fadein` not transformed correctly to `fade-in` in scss build
+- Fix Sticky component setting wrong margin for placeholder
+- Fix Sticky placeholder sets height with fraction
+- Fix Sticky component does not animate in if scroll position equals top offset
 
 ## 3.11.1 (February 7, 2022)
 

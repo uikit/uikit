@@ -10,13 +10,13 @@ import {
     dimensions,
     fastdom,
     height as getHeight,
+    offset as getOffset,
     getScrollingElement,
     hasClass,
     isNumeric,
     isString,
     isVisible,
     noop,
-    offset,
     offsetPosition,
     parent,
     query,
@@ -67,21 +67,6 @@ export default {
     },
 
     computed: {
-        position({ position }, $el) {
-            return position === 'auto'
-                ? (this.isFixed ? this.placeholder : $el).offsetHeight > getHeight(window)
-                    ? 'bottom'
-                    : 'top'
-                : position;
-        },
-
-        offset({ offset }, $el) {
-            if (this.position === 'bottom') {
-                offset += '+100vh-100%';
-            }
-            return toPx(offset, 'height', $el);
-        },
-
         selTarget({ selTarget }, $el) {
             return (selTarget && $(selTarget, $el)) || $el;
         },
@@ -143,8 +128,8 @@ export default {
 
                 if (target) {
                     fastdom.read(() => {
-                        const { top } = offset(target);
-                        const elTop = offset(this.$el).top;
+                        const { top } = getOffset(target);
+                        const elTop = getOffset(this.$el).top;
                         const elHeight = this.$el.offsetHeight;
 
                         if (
@@ -157,7 +142,7 @@ export default {
                                 top -
                                     elHeight -
                                     (isNumeric(this.targetOffset) ? this.targetOffset : 0) -
-                                    this.offset
+                                    this._data.offset
                             );
                         }
                     });
@@ -181,7 +166,7 @@ export default {
                 }
 
                 if (!this.isActive) {
-                    height = this.$el.offsetHeight;
+                    height = getOffset(this.$el).height;
                     margin = css(this.$el, 'margin');
                 }
 
@@ -189,23 +174,36 @@ export default {
                     this.show();
                 }
 
-                const overflow = Math.max(0, height + this.offset - getHeight(window));
-
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
-                const topOffset = offset(referenceElement).top;
-                const offsetParentTop = offset(referenceElement.offsetParent).top;
+
+                let position = this.position;
+
+                if (position === 'auto') {
+                    position = height > getHeight(window) ? 'bottom' : 'top';
+                }
+
+                let offset = this.offset;
+                if (position === 'bottom') {
+                    offset += '+100vh-100%';
+                }
+                offset = toPx(offset, 'height', referenceElement);
+
+                const overflow = Math.max(0, height + offset - getHeight(window));
+                const topOffset = getOffset(referenceElement).top;
+                const offsetParentTop = getOffset(referenceElement.offsetParent).top;
 
                 const top = parseProp(this.top, this.$el, topOffset);
                 const bottom = parseProp(this.bottom, this.$el, topOffset + height, true);
 
-                const start = Math.max(top, topOffset) - this.offset;
+                const start = Math.max(top, topOffset) - offset;
                 const end = bottom
-                    ? bottom - this.$el.offsetHeight + overflow - this.offset
+                    ? bottom - getOffset(this.$el).height + overflow - offset
                     : getScrollingElement(this.$el).scrollHeight - getHeight(window);
 
                 return {
                     start,
                     end,
+                    offset,
                     overflow,
                     topOffset,
                     offsetParentTop,
@@ -322,7 +320,7 @@ export default {
                     }
                 } else if (this.isFixed) {
                     this.update();
-                } else if (this.animation) {
+                } else if (this.animation && scroll > topOffset) {
                     Animation.cancel(this.$el);
                     this.show();
                     Animation.in(this.$el, this.animation).catch(noop);
@@ -350,33 +348,33 @@ export default {
         },
 
         update() {
-            const {
+            let {
                 width,
                 scroll = 0,
                 overflow,
                 overflowScroll = 0,
                 start,
                 end,
+                offset,
                 topOffset,
                 height,
                 offsetParentTop,
             } = this._data;
             const active = start !== 0 || scroll > start;
-            let top = this.offset;
             let position = 'fixed';
 
             if (scroll > end) {
-                top = end + this.offset - offsetParentTop;
+                offset += end - offsetParentTop;
                 position = 'absolute';
             }
 
             if (overflow) {
-                top -= overflowScroll;
+                offset -= overflowScroll;
             }
 
             css(this.$el, {
                 position,
-                top: `${top}px`,
+                top: `${offset}px`,
                 width,
             });
 
@@ -397,7 +395,7 @@ function parseProp(value, el, propOffset, padding) {
     } else {
         const refElement = value === true ? parent(el) : query(value, el);
         return (
-            offset(refElement).bottom -
+            getOffset(refElement).bottom -
             (padding && refElement && within(el, refElement)
                 ? toFloat(css(refElement, 'paddingBottom'))
                 : 0)
