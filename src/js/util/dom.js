@@ -73,14 +73,23 @@ export function unwrap(element) {
         .forEach((parent) => parent.replaceWith(...parent.childNodes));
 }
 
+const fragmentRe = /^\s*<(\w+|!)[^>]*>/;
+const singleTagRe = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
+
 export function fragment(html) {
-    const template = document.createElement('template');
-    template.innerHTML = html.trim();
-    const nodes = toNodes(template.content.childNodes);
-    for (const node of nodes) {
-        document.adoptNode(node);
+    const matches = singleTagRe.exec(html);
+    if (matches) {
+        return document.createElement(matches[1]);
     }
-    return unwrapSingle(nodes);
+
+    const container = document.createElement('div');
+    if (fragmentRe.test(html)) {
+        container.insertAdjacentHTML('beforeend', html.trim());
+    } else {
+        container.textContent = html;
+    }
+
+    return unwrapSingle(container.childNodes);
 }
 
 function unwrapSingle(nodes) {
