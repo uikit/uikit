@@ -37,8 +37,8 @@ export function offset(element, coordinates) {
     const currentOffset = dimensions(element);
 
     if (element) {
-        const { pageYOffset, pageXOffset } = toWindow(element);
-        const offsetBy = { height: pageYOffset, width: pageXOffset };
+        const { scrollY, scrollX } = toWindow(element);
+        const offsetBy = { height: scrollY, width: scrollX };
 
         for (const dir in dirs) {
             for (const i in dirs[dir]) {
@@ -104,8 +104,8 @@ export function offsetPosition(element) {
 
         if (css(element, 'position') === 'fixed') {
             const win = toWindow(element);
-            offset[0] += win.pageYOffset;
-            offset[1] += win.pageXOffset;
+            offset[0] += win.scrollY;
+            offset[1] += win.scrollX;
             return offset;
         }
     } while ((element = element.offsetParent));
