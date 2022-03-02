@@ -13,7 +13,6 @@ import {
     offset as getOffset,
     getScrollingElement,
     hasClass,
-    isNumeric,
     isString,
     isVisible,
     noop,
@@ -29,6 +28,7 @@ import {
     toPx,
     trigger,
     within,
+    intersectRect,
 } from 'uikit-util';
 
 export default {
@@ -119,34 +119,29 @@ export default {
                 return window;
             },
 
+            filter() {
+                return this.targetOffset !== false;
+            },
+
             handler() {
-                if (!(this.targetOffset !== false && location.hash && scrollTop(window) > 0)) {
+                if (!location.hash || scrollTop(window) === 0) {
                     return;
                 }
 
-                const target = $(location.hash);
+                fastdom.read(() => {
+                    const targetOffset = getOffset($(location.hash));
+                    const elOffset = getOffset(this.$el);
 
-                if (target) {
-                    fastdom.read(() => {
-                        const { top } = getOffset(target);
-                        const elTop = getOffset(this.$el).top;
-                        const elHeight = this.$el.offsetHeight;
-
-                        if (
-                            this.isFixed &&
-                            elTop + elHeight >= top &&
-                            elTop <= top + target.offsetHeight
-                        ) {
-                            scrollTop(
-                                window,
-                                top -
-                                    elHeight -
-                                    (isNumeric(this.targetOffset) ? this.targetOffset : 0) -
-                                    toPx(this.offset, 'height')
-                            );
-                        }
-                    });
-                }
+                    if (this.isFixed && intersectRect(targetOffset, elOffset)) {
+                        scrollTop(
+                            window,
+                            targetOffset.top -
+                                elOffset.height -
+                                toPx(this.targetOffset, 'height') -
+                                toPx(this.offset, 'height')
+                        );
+                    }
+                });
             },
         },
     ],
