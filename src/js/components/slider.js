@@ -12,9 +12,7 @@ import {
     dimensions,
     findIndex,
     includes,
-    isEmpty,
     last,
-    sortBy,
     toFloat,
     toggleClass,
     toNumber,
@@ -73,48 +71,39 @@ export default {
             return ~index ? index : this.length - 1;
         },
 
-        sets({ sets }) {
-            if (!sets) {
+        sets({ sets: enabled }) {
+            if (!enabled) {
                 return;
             }
 
-            const width = dimensions(this.list).width / (this.center ? 2 : 1);
-
             let left = 0;
-            let leftCenter = width;
-            let slideLeft = 0;
+            const sets = [];
+            const width = dimensions(this.list).width;
+            for (let i in this.slides) {
+                const slideWidth = dimensions(this.slides[i]).width;
 
-            sets = sortBy(this.slides, 'offsetLeft').reduce((sets, slide, i) => {
-                const slideWidth = dimensions(slide).width;
-                const slideRight = slideLeft + slideWidth;
-
-                if (slideRight > left) {
-                    if (!this.center && i > this.maxIndex) {
-                        i = this.maxIndex;
-                    }
-
-                    if (!includes(sets, i)) {
-                        const cmp = this.slides[i + 1];
-                        if (
-                            this.center &&
-                            cmp &&
-                            slideWidth < leftCenter - dimensions(cmp).width / 2
-                        ) {
-                            leftCenter -= slideWidth;
-                        } else {
-                            leftCenter = width;
-                            sets.push(i);
-                            left = slideLeft + width + (this.center ? slideWidth / 2 : 0);
-                        }
-                    }
+                if (left + slideWidth > width) {
+                    left = 0;
                 }
 
-                slideLeft += slideWidth;
+                if (this.center) {
+                    if (
+                        left < width / 2 &&
+                        left + slideWidth + dimensions(this.slides[+i + 1]).width / 2 > width / 2
+                    ) {
+                        sets.push(+i);
+                        left = width / 2 - slideWidth / 2;
+                    }
+                } else if (left === 0) {
+                    sets.push(Math.min(+i, this.maxIndex));
+                }
 
+                left += slideWidth;
+            }
+
+            if (sets.length) {
                 return sets;
-            }, []);
-
-            return !isEmpty(sets) && sets;
+            }
         },
 
         transitionOptions() {

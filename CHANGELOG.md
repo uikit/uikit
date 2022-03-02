@@ -35,6 +35,7 @@
 ### Fixed
 
 - Fix infinite sliding in Slider component with equally sized slides
+- Fix Slider component sets calculation
 - Fix dropdowns not closing in Navbar component when hovering dropbar and navigation with keyboard
 - Fix dropdown no longer closes if pointer is still moving towards it
 - Fix `fadein` not transformed correctly to `fade-in` in scss build
