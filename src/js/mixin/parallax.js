@@ -68,13 +68,11 @@ export default {
         },
 
         getCss(percent) {
-            return keys(this.props).reduce(
-                (css, prop) => {
-                    this.props[prop](css, percent);
-                    return css;
-                },
-                { transform: '', filter: '' }
-            );
+            const css = { transform: '', filter: '' };
+            for (const prop in this.props) {
+                this.props[prop](css, percent);
+            }
+            return css;
         },
     },
 };
