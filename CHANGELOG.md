@@ -21,6 +21,7 @@
 - Slideshow and Slider remove native `loading="lazy"` attribute from adjacent slides
 - Improve sticky behavior if sticky content is larger than the viewport
 - Sticky component's `bottom` option checks for bottom padding if sticky element is within referenced element
+- Height Viewport component sets `uk-height-viewport` class to reduce initial layout shifts
 
 ### Deprecated
 

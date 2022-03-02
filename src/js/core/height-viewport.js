@@ -1,3 +1,4 @@
+import Class from '../mixin/class';
 import {
     boxModelAdjust,
     css,
@@ -14,6 +15,8 @@ import {
 } from 'uikit-util';
 
 export default {
+    mixins: [Class],
+
     props: {
         expand: Boolean,
         offsetTop: Boolean,
