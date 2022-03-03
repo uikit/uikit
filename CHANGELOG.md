@@ -43,6 +43,7 @@
 - Fix Sticky placeholder sets height with fraction
 - Fix Sticky component does not animate in if scroll position equals top offset
 - Fix Sticky component prevents transition on `selTarget` if forced to hide for recalculation
+- Fix Parallax component initial jump in background image
 
 ## 3.11.1 (February 7, 2022)
 

@@ -257,6 +257,7 @@ function getBackgroundImageDimensions(el) {
                 dimensions[src] = toDimensions(image);
                 trigger(el, 'bgimageload');
             };
+            return toDimensions(image);
         }
     }
 
