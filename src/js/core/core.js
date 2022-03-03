@@ -4,6 +4,7 @@ import {
     getEventPos,
     inBrowser,
     isTouch,
+    observeResize,
     on,
     once,
     parent,
@@ -31,11 +32,8 @@ export default function (UIkit) {
     };
 
     on(window, 'load resize', handleResize);
-    on(document, 'loadedmetadata load', handleResize, true);
 
-    if ('ResizeObserver' in window) {
-        new ResizeObserver(handleResize).observe(document.documentElement);
-    }
+    observeResize(document.documentElement, handleResize);
 
     let started = 0;
     on(

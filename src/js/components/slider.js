@@ -135,15 +135,7 @@ export default {
                 this._translate(1);
             }
 
-            const actives = this._getTransitioner(this.index).getActives();
-            const activeClasses = [
-                this.clsActive,
-                ((!this.sets || includes(this.sets, toFloat(this.index))) && this.clsActivated) ||
-                    '',
-            ];
-            for (const slide of this.slides) {
-                toggleClass(slide, activeClasses, includes(actives, slide));
-            }
+            this.updateActiveClasses();
         },
 
         events: ['resize'],
@@ -192,6 +184,10 @@ export default {
                 addClass(this._getTransitioner().getItemIn(), this.clsActive);
             }
         },
+
+        itemshown() {
+            this.updateActiveClasses();
+        },
     },
 
     methods: {
@@ -225,6 +221,18 @@ export default {
 
                 css(slide, 'order', slideIndex > index ? -2 : -1);
                 width -= dimensions(slide).width;
+            }
+        },
+
+        updateActiveClasses() {
+            const actives = this._getTransitioner(this.index).getActives();
+            const activeClasses = [
+                this.clsActive,
+                ((!this.sets || includes(this.sets, toFloat(this.index))) && this.clsActivated) ||
+                    '',
+            ];
+            for (const slide of this.slides) {
+                toggleClass(slide, activeClasses, includes(actives, slide));
             }
         },
 

@@ -28,10 +28,6 @@ export default {
     },
 
     events: {
-        'itemshow itemhide itemshown itemhidden'({ target }) {
-            this.$update(target);
-        },
-
         beforeitemshow({ target }) {
             addClass(target, this.clsActive);
         },

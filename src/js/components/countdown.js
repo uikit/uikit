@@ -101,8 +101,8 @@ export default {
             this.stop();
 
             if (this.date && this.units.length) {
-                this.$update();
-                this.timer = setInterval(this.$update, 1000);
+                this.$emit();
+                this.timer = setInterval(() => this.$emit(), 1000);
             }
         },
 

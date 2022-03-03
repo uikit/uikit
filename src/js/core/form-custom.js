@@ -60,7 +60,7 @@ export default {
             name: 'change',
 
             handler() {
-                this.$update();
+                this.$emit();
             },
         },
 
@@ -72,7 +72,7 @@ export default {
             },
 
             handler() {
-                this.$update();
+                this.$emit();
             },
         },
     ],

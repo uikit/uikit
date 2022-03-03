@@ -8,10 +8,12 @@ import {
     escape,
     fragment,
     hasAttr,
+    hasIntersectionObserver,
     includes,
     isArray,
     isEmpty,
     isTag,
+    observeIntersection,
     parent,
     parseOptions,
     queryAll,
@@ -23,7 +25,6 @@ import {
 } from 'uikit-util';
 
 const nativeLazyLoad = 'loading' in HTMLImageElement.prototype;
-const nativeIsIntersecting = 'isIntersecting' in IntersectionObserverEntry.prototype; // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
 
 export default {
     args: 'dataSrc',
@@ -53,13 +54,13 @@ export default {
             },
 
             watch() {
-                this.observe();
+                this.$reset();
             },
         },
     },
 
     connected() {
-        if (this.loading !== 'lazy' || !window.IntersectionObserver || !nativeIsIntersecting) {
+        if (this.loading !== 'lazy' || !hasIntersectionObserver) {
             this.load();
             return;
         }
@@ -75,20 +76,19 @@ export default {
 
         ensureSrcAttribute(this.$el);
 
-        const rootMargin = `${toPx(this.offsetTop, 'height')}px ${toPx(
-            this.offsetLeft,
-            'width'
-        )}px`;
-        this.observer = new IntersectionObserver(
-            (entries) => {
-                if (entries.some((entry) => entry.isIntersecting)) {
-                    this.load();
-                    this.observer.disconnect();
-                }
+        this.observer = observeIntersection(
+            this.target,
+            (entries, observer) => {
+                this.load();
+                observer.disconnect();
             },
-            { rootMargin }
+            {
+                rootMargin: `${toPx(this.offsetTop, 'height')}px ${toPx(
+                    this.offsetLeft,
+                    'width'
+                )}px`,
+            }
         );
-        this.observe();
     },
 
     disconnected() {
@@ -131,14 +131,6 @@ export default {
             removeAttr(image, 'loading');
             setSrcAttrs(this.$el, image.currentSrc);
             return (this._data.image = image);
-        },
-
-        observe() {
-            if (this._connected && !this._data.image) {
-                for (const el of this.target) {
-                    this.observer.observe(el);
-                }
-            }
         },
     },
 };

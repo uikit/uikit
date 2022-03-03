@@ -1,5 +1,5 @@
 import Video from './video';
-import { css, Dimensions, parent } from 'uikit-util';
+import { css, Dimensions, observeResize, parent } from 'uikit-util';
 
 export default {
     mixins: [Video],
@@ -11,6 +11,14 @@ export default {
 
     data: {
         automute: true,
+    },
+
+    connected() {
+        this.resizeObserver = observeResize(this.$el, () => this.$emit('resize'));
+    },
+
+    disconnected() {
+        this.resizeObserver.disconnect();
     },
 
     update: {

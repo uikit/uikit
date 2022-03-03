@@ -1,4 +1,14 @@
-import { css, hasAttr, isInView, isVideo, isVisible, mute, pause, play } from 'uikit-util';
+import {
+    css,
+    hasAttr,
+    isInView,
+    isVideo,
+    isVisible,
+    mute,
+    observeIntersection,
+    pause,
+    play,
+} from 'uikit-util';
 
 export default {
     args: 'autoplay',
@@ -27,6 +37,12 @@ export default {
         if (this.automute) {
             mute(this.$el);
         }
+
+        this.observer = observeIntersection(this.$el, () => this.$emit('resize'));
+    },
+
+    disconnected() {
+        this.observer.disconnect();
     },
 
     update: {

@@ -82,12 +82,6 @@ export default {
         },
     },
 
-    events: {
-        itemshown() {
-            this.$update(this.list);
-        },
-    },
-
     methods: {
         show(index, force = false) {
             if (this.dragging || !this.length) {
