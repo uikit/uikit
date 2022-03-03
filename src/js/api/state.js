@@ -4,6 +4,7 @@ import {
     data as getData,
     hasOwn,
     hyphenate,
+    includes,
     isArray,
     isFunction,
     isNumeric,
@@ -100,11 +101,18 @@ export default function (UIkit) {
                 }
             }
         }
+        for (const { events = [] } of this.$options.update || []) {
+            if (includes(events, 'scroll')) {
+                registerScrollListener(this._uid, () => this.$emit('scroll'));
+                break;
+            }
+        }
     };
 
     UIkit.prototype._unbindEvents = function () {
         this._events.forEach((unbind) => unbind());
         delete this._events;
+        unregisterScrollListener(this._uid);
     };
 
     UIkit.prototype._initObservers = function () {
@@ -298,5 +306,26 @@ export default function (UIkit) {
         });
 
         return observer;
+    }
+
+    const scrollListeners = new Map();
+    let unbindScrollListener;
+    function registerScrollListener(id, listener) {
+        unbindScrollListener =
+            unbindScrollListener ||
+            on(window, 'scroll', () => scrollListeners.forEach((listener) => listener()), {
+                passive: true,
+                capture: true,
+            });
+
+        scrollListeners.set(id, listener);
+    }
+
+    function unregisterScrollListener(id) {
+        scrollListeners.delete(id);
+        if (unbindScrollListener && !scrollListeners.size) {
+            unbindScrollListener();
+            unbindScrollListener = null;
+        }
     }
 }

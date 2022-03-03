@@ -37,23 +37,6 @@ export default function (UIkit) {
         new ResizeObserver(handleResize).observe(document.documentElement);
     }
 
-    // throttle `scroll` event (Safari triggers multiple `scroll` events per frame)
-    let pending;
-    on(
-        window,
-        'scroll',
-        (e) => {
-            if (pending) {
-                return;
-            }
-            pending = true;
-            fastdom.read(() => (pending = false));
-
-            UIkit.update(null, e.type);
-        },
-        { passive: true, capture: true }
-    );
-
     let started = 0;
     on(
         document,
