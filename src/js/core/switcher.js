@@ -1,3 +1,4 @@
+import Lazyload from '../mixin/lazyload';
 import Togglable from '../mixin/togglable';
 import {
     $$,
@@ -17,7 +18,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Togglable],
+    mixins: [Lazyload, Togglable],
 
     args: 'connect',
 
@@ -79,6 +80,10 @@ export default {
                 this.toggles.some((toggle) => within(toggle, child))
             );
         },
+    },
+
+    connected() {
+        this.lazyload(this.$el, this.connects);
     },
 
     events: [

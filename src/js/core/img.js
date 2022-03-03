@@ -76,18 +76,20 @@ export default {
 
         ensureSrcAttribute(this.$el);
 
-        this.observer = observeIntersection(
-            this.target,
-            (entries, observer) => {
-                this.load();
-                observer.disconnect();
-            },
-            {
-                rootMargin: `${toPx(this.offsetTop, 'height')}px ${toPx(
-                    this.offsetLeft,
-                    'width'
-                )}px`,
-            }
+        this.registerObserver(
+            observeIntersection(
+                this.target,
+                (entries, observer) => {
+                    this.load();
+                    observer.disconnect();
+                },
+                {
+                    rootMargin: `${toPx(this.offsetTop, 'height')}px ${toPx(
+                        this.offsetLeft,
+                        'width'
+                    )}px`,
+                }
+            )
         );
     },
 
@@ -95,8 +97,6 @@ export default {
         if (this._data.image) {
             this._data.image.onload = '';
         }
-
-        this.observer?.disconnect();
     },
 
     update: {

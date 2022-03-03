@@ -1,4 +1,5 @@
 import Container from '../mixin/container';
+import Lazyload from '../mixin/lazyload';
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
 import {
@@ -30,7 +31,7 @@ import {
 export let active;
 
 export default {
-    mixins: [Container, Position, Togglable],
+    mixins: [Container, Lazyload, Position, Togglable],
 
     args: 'pos',
 
@@ -84,6 +85,7 @@ export default {
                 mode: this.mode,
             }).$el;
             attr(this.target, 'aria-haspopup', true);
+            this.lazyload(this.target);
         }
     },
 

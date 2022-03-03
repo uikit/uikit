@@ -1,3 +1,4 @@
+import Lazyload from '../mixin/lazyload';
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
 import {
@@ -22,7 +23,7 @@ import {
 const KEY_SPACE = 32;
 
 export default {
-    mixins: [Media, Togglable],
+    mixins: [Lazyload, Media, Togglable],
 
     args: 'target',
 
@@ -44,6 +45,7 @@ export default {
         if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
             attr(this.$el, 'tabindex', '0');
         }
+        this.lazyload(this.$el, this.target);
     },
 
     computed: {

@@ -119,6 +119,10 @@ export default function (UIkit) {
         this._observers = [initChildListObserver(this), initPropsObserver(this)];
     };
 
+    UIkit.prototype.registerObserver = function (observer) {
+        this._observers.push(observer);
+    };
+
     UIkit.prototype._disconnectObservers = function () {
         this._observers.forEach((observer) => observer?.disconnect());
     };

@@ -14,11 +14,7 @@ export default {
     },
 
     connected() {
-        this.resizeObserver = observeResize(this.$el, () => this.$emit('resize'));
-    },
-
-    disconnected() {
-        this.resizeObserver.disconnect();
+        this.registerObserver(observeResize(this.$el, () => this.$emit('resize')));
     },
 
     update: {

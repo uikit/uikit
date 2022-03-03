@@ -38,11 +38,7 @@ export default {
             mute(this.$el);
         }
 
-        this.observer = observeIntersection(this.$el, () => this.$emit('resize'));
-    },
-
-    disconnected() {
-        this.observer.disconnect();
+        this.registerObserver(observeIntersection(this.$el, () => this.$emit('resize')));
     },
 
     update: {

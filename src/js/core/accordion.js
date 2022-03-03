@@ -1,4 +1,5 @@
 import Class from '../mixin/class';
+import Lazyload from '../mixin/lazyload';
 import { default as Togglable, toggleHeight } from '../mixin/togglable';
 import {
     $,
@@ -17,7 +18,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Class, Togglable],
+    mixins: [Class, Lazyload, Togglable],
 
     props: {
         targets: String,
@@ -71,6 +72,10 @@ export default {
         toggles({ toggle }) {
             return this.items.map((item) => $(toggle, item));
         },
+    },
+
+    connected() {
+        this.lazyload();
     },
 
     events: [

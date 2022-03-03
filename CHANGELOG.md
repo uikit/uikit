@@ -18,7 +18,8 @@
 
 - Image elements need `width` and `height` attributes to prevent layout shifts
 - Image component no longer relies on session storage to check for cached images to immediately show an image
-- Slideshow and Slider remove native `loading="lazy"` attribute from adjacent slides
+- Slider and Switcher remove native `loading="lazy"` attribute from adjacent slides
+- Accordion, Drop, Switcher and Toggle remove native `loading="lazy"` attribute from their children when entering the viewport
 - Improve sticky behavior if sticky content is larger than the viewport
 - Sticky component's `bottom` option checks for bottom padding if sticky element is within referenced element
 - Height Viewport component sets `uk-height-viewport` class to reduce initial layout shifts
