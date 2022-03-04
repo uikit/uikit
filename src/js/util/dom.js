@@ -59,7 +59,7 @@ export function wrapAll(element, structure) {
 export function wrapInner(element, structure) {
     return toNodes(
         toNodes(element).map((element) =>
-            element.hasChildNodes
+            element.hasChildNodes()
                 ? wrapAll(toNodes(element.childNodes), structure)
                 : append(element, structure)
         )

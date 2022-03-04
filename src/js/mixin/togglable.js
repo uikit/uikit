@@ -150,7 +150,7 @@ export default {
 export function toggleHeight({ isToggled, duration, initProps, hideProps, transition, _toggle }) {
     return (el, show) => {
         const inProgress = Transition.inProgress(el);
-        const inner = el.hasChildNodes
+        const inner = el.hasChildNodes()
             ? toFloat(css(el.firstElementChild, 'marginTop')) +
               toFloat(css(el.lastElementChild, 'marginBottom'))
             : 0;
