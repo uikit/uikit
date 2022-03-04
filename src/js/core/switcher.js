@@ -1,4 +1,5 @@
 import Lazyload from '../mixin/lazyload';
+import Swipe from '../mixin/swipe';
 import Togglable from '../mixin/togglable';
 import {
     $$,
@@ -18,7 +19,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Lazyload, Togglable],
+    mixins: [Lazyload, Swipe, Togglable],
 
     args: 'connect',
 
@@ -27,7 +28,6 @@ export default {
         toggle: String,
         itemNav: String,
         active: Number,
-        swiping: Boolean,
     },
 
     data: {
@@ -35,7 +35,6 @@ export default {
         toggle: '> * > :first-child',
         itemNav: false,
         active: 0,
-        swiping: true,
         cls: 'uk-active',
         attrItem: 'uk-switcher-item',
     },
@@ -79,6 +78,10 @@ export default {
             return children(this.$el).filter((child) =>
                 this.toggles.some((toggle) => within(toggle, child))
             );
+        },
+
+        swipeTarget(props, $el) {
+            return this.connects;
         },
     },
 

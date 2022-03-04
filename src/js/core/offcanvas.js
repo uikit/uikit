@@ -1,4 +1,5 @@
 import Modal from '../mixin/modal';
+import Swipe from '../mixin/swipe';
 import {
     $,
     addClass,
@@ -15,7 +16,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Modal],
+    mixins: [Modal, Swipe],
 
     args: 'mode',
 
