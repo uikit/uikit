@@ -57,7 +57,7 @@ export default {
     },
 
     events: {
-        bgimageload() {
+        load() {
             this.$emit();
         },
     },
@@ -255,7 +255,7 @@ function getBackgroundImageDimensions(el) {
         if (!image.naturalWidth) {
             image.onload = () => {
                 dimensions[src] = toDimensions(image);
-                trigger(el, 'bgimageload');
+                trigger(el, 'load');
             };
             return toDimensions(image);
         }
