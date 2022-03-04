@@ -17,7 +17,7 @@ export default function (UIkit) {
     };
 
     on(window, 'load resize', handleResize);
-
+    on(document, 'loadedmetadata load', handleResize, true);
     observeResize(document.documentElement, handleResize);
 
     let started = 0;
