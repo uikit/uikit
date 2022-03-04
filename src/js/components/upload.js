@@ -1,4 +1,4 @@
-import { addClass, ajax, matches, noop, on, removeClass, trigger } from 'uikit-util';
+import { addClass, ajax, matches, noop, on, removeClass, toArray, trigger } from 'uikit-util';
 
 export default {
     props: {
@@ -178,6 +178,7 @@ function match(pattern, path) {
 }
 
 function chunk(files, size) {
+    files = toArray(files);
     const chunks = [];
     for (let i = 0; i < files.length; i += size) {
         chunks.push(files.slice(i, i + size));
