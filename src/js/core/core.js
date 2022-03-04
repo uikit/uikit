@@ -1,19 +1,4 @@
-import {
-    css,
-    fastdom,
-    getEventPos,
-    inBrowser,
-    isTouch,
-    observeResize,
-    on,
-    once,
-    parent,
-    pointerCancel,
-    pointerDown,
-    pointerUp,
-    toMs,
-    trigger,
-} from 'uikit-util';
+import { css, fastdom, inBrowser, observeResize, on, toMs } from 'uikit-util';
 
 export default function (UIkit) {
     if (!inBrowser) {

@@ -80,7 +80,7 @@ export default {
             );
         },
 
-        swipeTarget(props, $el) {
+        swipeTarget() {
             return this.connects;
         },
     },
