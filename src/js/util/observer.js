@@ -1,4 +1,4 @@
-import { isArray } from './lang';
+import { toNodes } from './lang';
 
 // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
 export const hasIntersectionObserver =
@@ -13,7 +13,7 @@ export function observeIntersection(targets, cb, options, intersecting = true) {
             cb(entries, observer);
         }
     }, options);
-    for (const el of isArray(targets) ? targets : [targets]) {
+    for (const el of toNodes(targets)) {
         observer.observe(el);
     }
     return observer;
@@ -28,7 +28,7 @@ export function observeResize(targets, cb, options = { box: 'border-box' }) {
     const observer = new ResizeObserver((entries, observer) => {
         cb(entries, observer);
     });
-    for (const el of isArray(targets) ? targets : [targets]) {
+    for (const el of toNodes(targets)) {
         observer.observe(el, options);
     }
 
