@@ -1,5 +1,7 @@
 import Class from '../mixin/class';
-import { $, empty, html } from 'uikit-util';
+import { $, html } from 'uikit-util';
+
+const units = ['days', 'hours', 'minutes', 'seconds'];
 
 export default {
     mixins: [Class],
@@ -14,39 +16,13 @@ export default {
         clsWrapper: '.uk-countdown-%unit%',
     },
 
-    computed: {
-        date({ date }) {
-            return Date.parse(date);
-        },
-
-        days({ clsWrapper }, $el) {
-            return $(clsWrapper.replace('%unit%', 'days'), $el);
-        },
-
-        hours({ clsWrapper }, $el) {
-            return $(clsWrapper.replace('%unit%', 'hours'), $el);
-        },
-
-        minutes({ clsWrapper }, $el) {
-            return $(clsWrapper.replace('%unit%', 'minutes'), $el);
-        },
-
-        seconds({ clsWrapper }, $el) {
-            return $(clsWrapper.replace('%unit%', 'seconds'), $el);
-        },
-
-        units() {
-            return ['days', 'hours', 'minutes', 'seconds'].filter((unit) => this[unit]);
-        },
-    },
-
     connected() {
+        this.date = Date.parse(this.date);
         this.start();
     },
 
     disconnected() {
         this.stop();
-        this.units.forEach((unit) => empty(this[unit]));
     },
 
     events: [
@@ -67,22 +43,37 @@ export default {
         },
     ],
 
-    update: {
-        write() {
+    methods: {
+        start() {
+            this.stop();
+            this.update();
+            this.timer = setInterval(this.update, 1000);
+        },
+
+        stop() {
+            clearInterval(this.timer);
+        },
+
+        update() {
             const timespan = getTimeSpan(this.date);
 
-            if (timespan.total <= 0) {
+            if (!this.date || timespan.total <= 0) {
                 this.stop();
 
                 timespan.days = timespan.hours = timespan.minutes = timespan.seconds = 0;
             }
 
-            for (const unit of this.units) {
+            for (const unit of units) {
+                const el = $(this.clsWrapper.replace('%unit%', unit), this.$el);
+
+                if (!el) {
+                    continue;
+                }
+
                 let digits = String(Math.floor(timespan[unit]));
 
                 digits = digits.length < 2 ? `0${digits}` : digits;
 
-                const el = this[unit];
                 if (el.textContent !== digits) {
                     digits = digits.split('');
 
@@ -92,24 +83,6 @@ export default {
 
                     digits.forEach((digit, i) => (el.children[i].textContent = digit));
                 }
-            }
-        },
-    },
-
-    methods: {
-        start() {
-            this.stop();
-
-            if (this.date && this.units.length) {
-                this.$emit();
-                this.timer = setInterval(() => this.$emit(), 1000);
-            }
-        },
-
-        stop() {
-            if (this.timer) {
-                clearInterval(this.timer);
-                this.timer = null;
             }
         },
     },
