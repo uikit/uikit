@@ -38,7 +38,7 @@ export default {
             mute(this.$el);
         }
 
-        this.registerObserver(observeIntersection(this.$el, () => this.$emit('resize')));
+        this.registerObserver(observeIntersection(this.$el, () => this.$emit('scroll'), {}, false));
     },
 
     update: {
