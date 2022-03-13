@@ -39,8 +39,7 @@ export function isFocusable(element) {
 }
 
 export function parent(element) {
-    element = toNode(element);
-    return element && isElement(element.parentNode) && element.parentNode;
+    return toNode(element)?.parentElement;
 }
 
 export function filter(element, selector) {
