@@ -1,28 +1,23 @@
-import {getCssVar, isString, toFloat} from 'uikit-util';
+import { getCssVar, isString, toFloat } from 'uikit-util';
 
 export default {
-
     props: {
-        media: Boolean
+        media: Boolean,
     },
 
     data: {
-        media: false
+        media: false,
     },
 
     computed: {
-
         matchMedia() {
             const media = toMedia(this.media);
             return !media || window.matchMedia(media).matches;
-        }
-
-    }
-
+        },
+    },
 };
 
 function toMedia(value) {
-
     if (isString(value)) {
         if (value[0] === '@') {
             const name = `breakpoint-${value.substr(1)}`;

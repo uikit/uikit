@@ -1,17 +1,31 @@
 import Container from '../mixin/container';
 import Togglable from '../mixin/togglable';
 import Position from '../mixin/position';
-import {append, attr, flipPosition, hasAttr, isFocusable, isTouch, matches, on, once, pointerDown, pointerEnter, pointerLeave, remove, within} from 'uikit-util';
+import {
+    append,
+    attr,
+    flipPosition,
+    hasAttr,
+    isFocusable,
+    isTouch,
+    matches,
+    on,
+    once,
+    pointerDown,
+    pointerEnter,
+    pointerLeave,
+    remove,
+    within,
+} from 'uikit-util';
 
 export default {
-
     mixins: [Container, Togglable, Position],
 
     args: 'title',
 
     props: {
         delay: Number,
-        title: String
+        title: String,
     },
 
     data: {
@@ -21,7 +35,7 @@ export default {
         animation: ['uk-animation-scale-up'],
         duration: 100,
         cls: 'uk-active',
-        clsPos: 'uk-tooltip'
+        clsPos: 'uk-tooltip',
     },
 
     beforeConnect() {
@@ -37,25 +51,27 @@ export default {
     },
 
     methods: {
-
         show() {
-
             if (this.isToggled(this.tooltip || null) || !this.title) {
                 return;
             }
 
-            this._unbind = once(document, `show keydown ${pointerDown}`, this.hide, false, e =>
-                e.type === pointerDown && !within(e.target, this.$el)
-                || e.type === 'keydown' && e.keyCode === 27
-                || e.type === 'show' && e.detail[0] !== this && e.detail[0].$name === this.$name
+            this._unbind = once(
+                document,
+                `show keydown ${pointerDown}`,
+                this.hide,
+                false,
+                (e) =>
+                    (e.type === pointerDown && !within(e.target, this.$el)) ||
+                    (e.type === 'keydown' && e.keyCode === 27) ||
+                    (e.type === 'show' && e.detail[0] !== this && e.detail[0].$name === this.$name)
             );
 
             clearTimeout(this.showTimer);
             this.showTimer = setTimeout(this._show, this.delay);
         },
 
-        hide() {
-
+        async hide() {
             if (matches(this.$el, 'input:focus')) {
                 return;
             }
@@ -66,23 +82,21 @@ export default {
                 return;
             }
 
-            this.toggleElement(this.tooltip, false, false).then(() => {
-                remove(this.tooltip);
-                this.tooltip = null;
-                this._unbind();
-            });
+            await this.toggleElement(this.tooltip, false, false);
+            remove(this.tooltip);
+            this.tooltip = null;
+            this._unbind();
         },
 
         _show() {
-
-            this.tooltip = append(this.container,
+            this.tooltip = append(
+                this.container,
                 `<div class="${this.clsPos}">
                     <div class="${this.clsPos}-inner">${this.title}</div>
                  </div>`
             );
 
             on(this.tooltip, 'toggled', (e, toggled) => {
-
                 this.updateAria(toggled);
 
                 if (!toggled) {
@@ -91,23 +105,21 @@ export default {
 
                 this.positionAt(this.tooltip, this.$el);
 
-                this.origin = this.getAxis() === 'y'
-                    ? `${flipPosition(this.dir)}-${this.align}`
-                    : `${this.align}-${flipPosition(this.dir)}`;
+                this.origin =
+                    this.getAxis() === 'y'
+                        ? `${flipPosition(this.dir)}-${this.align}`
+                        : `${this.align}-${flipPosition(this.dir)}`;
             });
 
             this.toggleElement(this.tooltip, true);
-
         },
 
         updateAria(toggled) {
             attr(this.$el, 'aria-expanded', toggled);
-        }
-
+        },
     },
 
     events: {
-
         focus: 'show',
         blur: 'hide',
 
@@ -123,10 +135,8 @@ export default {
             if (isTouch(e)) {
                 this.show();
             }
-        }
-
-    }
-
+        },
+    },
 };
 
 function makeFocusable(el) {

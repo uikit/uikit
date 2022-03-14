@@ -1,7 +1,6 @@
-import {addClass, ajax, matches, noop, on, removeClass, trigger} from 'uikit-util';
+import { addClass, ajax, matches, noop, on, removeClass, toArray, trigger } from 'uikit-util';
 
 export default {
-
     props: {
         allow: String,
         clsDragover: String,
@@ -16,7 +15,7 @@ export default {
         name: String,
         params: Object,
         type: String,
-        url: String
+        url: String,
     },
 
     data: {
@@ -44,13 +43,11 @@ export default {
         load: noop,
         loadEnd: noop,
         loadStart: noop,
-        progress: noop
+        progress: noop,
     },
 
     events: {
-
         change(e) {
-
             if (!matches(e.target, 'input[type="file"]')) {
                 return;
             }
@@ -69,7 +66,7 @@ export default {
 
             const transfer = e.dataTransfer;
 
-            if (!transfer || !transfer.files) {
+            if (!transfer?.files) {
                 return;
             }
 
@@ -90,108 +87,101 @@ export default {
         dragleave(e) {
             stop(e);
             removeClass(this.$el, this.clsDragover);
-        }
-
+        },
     },
 
     methods: {
-
-        upload(files) {
-
+        async upload(files) {
             if (!files.length) {
                 return;
             }
 
             trigger(this.$el, 'upload', [files]);
 
-            for (let i = 0; i < files.length; i++) {
-
-                if (this.maxSize && this.maxSize * 1000 < files[i].size) {
+            for (const file of files) {
+                if (this.maxSize && this.maxSize * 1000 < file.size) {
                     this.fail(this.msgInvalidSize.replace('%s', this.maxSize));
                     return;
                 }
 
-                if (this.allow && !match(this.allow, files[i].name)) {
+                if (this.allow && !match(this.allow, file.name)) {
                     this.fail(this.msgInvalidName.replace('%s', this.allow));
                     return;
                 }
 
-                if (this.mime && !match(this.mime, files[i].type)) {
+                if (this.mime && !match(this.mime, file.type)) {
                     this.fail(this.msgInvalidMime.replace('%s', this.mime));
                     return;
                 }
-
             }
 
             if (!this.multiple) {
-                files = [files[0]];
+                files = files.slice(0, 1);
             }
 
             this.beforeAll(this, files);
 
             const chunks = chunk(files, this.concurrent);
-            const upload = files => {
-
+            const upload = async (files) => {
                 const data = new FormData();
 
-                files.forEach(file => data.append(this.name, file));
+                files.forEach((file) => data.append(this.name, file));
 
                 for (const key in this.params) {
                     data.append(key, this.params[key]);
                 }
 
-                ajax(this.url, {
-                    data,
-                    method: this.method,
-                    responseType: this.type,
-                    beforeSend: env => {
+                try {
+                    const xhr = await ajax(this.url, {
+                        data,
+                        method: this.method,
+                        responseType: this.type,
+                        beforeSend: (env) => {
+                            const { xhr } = env;
+                            xhr.upload && on(xhr.upload, 'progress', this.progress);
+                            for (const type of ['loadStart', 'load', 'loadEnd', 'abort']) {
+                                on(xhr, type.toLowerCase(), this[type]);
+                            }
 
-                        const {xhr} = env;
-                        xhr.upload && on(xhr.upload, 'progress', this.progress);
-                        ['loadStart', 'load', 'loadEnd', 'abort'].forEach(type =>
-                            on(xhr, type.toLowerCase(), this[type])
-                        );
+                            return this.beforeSend(env);
+                        },
+                    });
 
-                        return this.beforeSend(env);
+                    this.complete(xhr);
 
+                    if (chunks.length) {
+                        await upload(chunks.shift());
+                    } else {
+                        this.completeAll(xhr);
                     }
-                }).then(
-                    xhr => {
-
-                        this.complete(xhr);
-
-                        if (chunks.length) {
-                            upload(chunks.shift());
-                        } else {
-                            this.completeAll(xhr);
-                        }
-
-                    },
-                    e => this.error(e)
-                );
-
+                } catch (e) {
+                    this.error(e);
+                }
             };
 
-            upload(chunks.shift());
-
-        }
-
-    }
-
+            await upload(chunks.shift());
+        },
+    },
 };
 
 function match(pattern, path) {
-    return path.match(new RegExp(`^${pattern.replace(/\//g, '\\/').replace(/\*\*/g, '(\\/[^\\/]+)*').replace(/\*/g, '[^\\/]+').replace(/((?!\\))\?/g, '$1.')}$`, 'i'));
+    return path.match(
+        new RegExp(
+            `^${pattern
+                .replace(/\//g, '\\/')
+                .replace(/\*\*/g, '(\\/[^\\/]+)*')
+                .replace(/\*/g, '[^\\/]+')
+                .replace(/((?!\\))\?/g, '$1.')}$`,
+            'i'
+        )
+    );
 }
 
 function chunk(files, size) {
+    files = toArray(files);
     const chunks = [];
     for (let i = 0; i < files.length; i += size) {
-        const chunk = [];
-        for (let j = 0; j < size; j++) {
-            chunk.push(files[i + j]);
-        }
-        chunks.push(chunk);
+        chunks.push(files.slice(i, i + size));
     }
     return chunks;
 }

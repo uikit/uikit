@@ -2,32 +2,32 @@ import less from 'less';
 import fs from 'fs-extra';
 import pLimit from 'p-limit';
 import globImport from 'glob';
-import {optimize} from 'svgo';
-import {promisify} from 'util';
+import { optimize } from 'svgo';
+import { promisify } from 'util';
 import minimist from 'minimist';
 import CleanCSS from 'clean-css';
 import html from 'rollup-plugin-html';
-import buble from '@rollup/plugin-buble';
 import alias from '@rollup/plugin-alias';
 import modify from 'rollup-plugin-modify';
+import { babel } from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
-import {basename, dirname, join} from 'path';
-import {exec as execImport} from 'child_process';
-import {rollup, watch as rollupWatch} from 'rollup';
-import {minify as rollupMinify} from 'rollup-plugin-esbuild';
+import { basename, dirname, join } from 'path';
+import { exec as execImport } from 'child_process';
+import { rollup, watch as rollupWatch } from 'rollup';
+import { minify as rollupMinify } from 'rollup-plugin-esbuild';
 
 const limit = pLimit(Number(process.env.cpus || 2));
 
 export const exec = promisify(execImport);
 export const glob = promisify(globImport);
-export const {pathExists, readJson} = fs;
+export const { pathExists, readJson } = fs;
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 export const validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
 const argv = minimist(process.argv.slice(2));
 
-argv._.forEach(arg => {
+argv._.forEach((arg) => {
     const tokens = arg.split('=');
     argv[tokens[0]] = tokens[1] || true;
 });
@@ -39,7 +39,6 @@ export function read(file) {
 }
 
 export async function write(dest, data) {
-
     const err = await fs.writeFile(dest, data);
 
     if (err) {
@@ -50,7 +49,6 @@ export async function write(dest, data) {
     await logFile(dest);
 
     return dest;
-
 }
 
 export async function logFile(file) {
@@ -59,26 +57,25 @@ export async function logFile(file) {
 }
 
 export async function minify(file) {
-
-    const {styles} = await limit(() => new CleanCSS({
-        advanced: false,
-        keepSpecialComments: 0,
-        rebase: false,
-        returnPromise: true
-    }).minify([file]));
+    const { styles } = await limit(() =>
+        new CleanCSS({
+            advanced: false,
+            keepSpecialComments: 0,
+            rebase: false,
+            returnPromise: true,
+        }).minify([file])
+    );
 
     await write(`${join(dirname(file), basename(file, '.css'))}.min.css`, styles);
 
     return styles;
-
 }
 
 export function renderLess(data, options) {
     return limit(async () => (await less.render(data, options)).css);
 }
 
-export async function compile(file, dest, {external, globals, name, aliases, replaces} = {}) {
-
+export async function compile(file, dest, { external, globals, name, aliases, replaces } = {}) {
     const minify = !args.nominify;
     const debug = args.d || args.debug;
     const watch = args.w || args.watch;
@@ -93,48 +90,65 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
                 preventAssignment: true,
                 values: {
                     VERSION: `'${await getVersion()}'`,
-                    ...replaces
-                }
+                    ...replaces,
+                },
             }),
             alias({
                 entries: {
                     'uikit-util': './src/js/util/index.js',
-                    ...aliases
-                }
+                    ...aliases,
+                },
             }),
             html({
                 include: '**/*.svg',
                 htmlMinifierOptions: {
-                    collapseWhitespace: true
-                }
+                    collapseWhitespace: true,
+                },
             }),
-            buble({namedFunctionExpressions: false}),
+            babel({
+                presets: [
+                    [
+                        '@babel/preset-env',
+                        {
+                            loose: true,
+                            targets: {
+                                safari: '12',
+                            },
+                        },
+                    ],
+                ],
+                extensions: ['.js'],
+                babelHelpers: 'bundled',
+                retainLines: true,
+            }),
             modify({
                 find: /(>)\\n\s+|\\n\s+(<)/,
-                replace: (m, m1, m2) => `${m1 || ''} ${m2 || ''}`
-            })
-        ]
+                replace: (m, m1, m2) => `${m1 || ''} ${m2 || ''}`,
+            }),
+        ],
     };
 
     const outputOptions = {
         globals,
         banner,
         format: 'umd',
-        amd: {id: `UIkit${name}`.toLowerCase()},
+        amd: { id: `UIkit${name}`.toLowerCase() },
         name: `UIkit${ucfirst(name)}`,
-        sourcemap: debug ? 'inline' : false
+        sourcemap: debug ? 'inline' : false,
     };
 
-    const output = [{
-        ...outputOptions,
-        file: `${dest}.js`
-    }];
+    const output = [
+        {
+            ...outputOptions,
+            file: `${dest}.js`,
+        },
+    ];
 
     if (minify) {
         output.push({
             ...outputOptions,
             file: `${dest}.min.js`,
-            plugins: [minify ? rollupMinify() : undefined]
+            plugins: [minify ? rollupMinify() : undefined],
         });
     }
 
@@ -148,18 +162,16 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
 
         await bundle.close();
     } else {
-
         console.log('UIkit is watching the files...');
 
         const watcher = rollupWatch({
             ...inputOptions,
-            output
+            output,
         });
 
-        watcher.on('event', ({code, result, output, error}) => {
+        watcher.on('event', ({ code, result, output, error }) => {
             if (result) {
                 result.close();
-
             }
             if (code === 'BUNDLE_END' && output) {
                 output.map(logFile);
@@ -171,11 +183,9 @@ export async function compile(file, dest, {external, globals, name, aliases, rep
 
         watcher.close();
     }
-
 }
 
 export async function icons(src) {
-
     const options = {
         plugins: [
             {
@@ -184,7 +194,7 @@ export async function icons(src) {
                     overrides: {
                         removeViewBox: false,
                         cleanupNumericValues: {
-                            floatPrecision: 3
+                            floatPrecision: 3,
                         },
                         convertPathData: false,
                         convertShapeToPath: false,
@@ -193,31 +203,30 @@ export async function icons(src) {
                         removeStyleElement: false,
                         removeScriptElement: false,
                         removeUnknownsAndDefaults: false,
-                        removeUselessStrokeAndFill: false
-                    }
-                }
-            }
-        ]
+                        removeUselessStrokeAndFill: false,
+                    },
+                },
+            },
+        ],
     };
 
-    const files = await glob(src, {nosort: true});
+    const files = await glob(src, { nosort: true });
     const icons = await Promise.all(
-        files.map(file =>
-            limit(async () =>
-                (await optimize(await read(file), options)).data
-            )
-        )
+        files.map((file) => limit(async () => (await optimize(await read(file), options)).data))
     );
 
-    return JSON.stringify(files.reduce((result, file, i) => {
-        result[basename(file, '.svg')] = icons[i];
-        return result;
-    }, {}), null, '    ');
-
+    return JSON.stringify(
+        files.reduce((result, file, i) => {
+            result[basename(file, '.svg')] = icons[i];
+            return result;
+        }, {}),
+        null,
+        '    '
+    );
 }
 
 export async function run(cmd, options) {
-    const {stdout, stderr} = await limit(() => exec(cmd, options));
+    const { stdout, stderr } = await limit(() => exec(cmd, options));
 
     stdout && console.log(stdout.trim());
     stderr && console.log(stderr.trim());

@@ -1,39 +1,46 @@
-import {closest, css, getEventPos, includes, isRtl, isTouch, off, on, pointerCancel, pointerDown, pointerMove, pointerUp, selInput, trigger} from 'uikit-util';
+import {
+    closest,
+    css,
+    getEventPos,
+    includes,
+    isRtl,
+    isTouch,
+    off,
+    on,
+    pointerCancel,
+    pointerDown,
+    pointerMove,
+    pointerUp,
+    selInput,
+    trigger,
+} from 'uikit-util';
 
 export default {
-
     props: {
-        draggable: Boolean
+        draggable: Boolean,
     },
 
     data: {
         draggable: true,
-        threshold: 10
+        threshold: 10,
     },
 
     created() {
-
-        ['start', 'move', 'end'].forEach(key => {
-
+        for (const key of ['start', 'move', 'end']) {
             const fn = this[key];
-            this[key] = e => {
-
+            this[key] = (e) => {
                 const pos = getEventPos(e).x * (isRtl ? -1 : 1);
 
-                this.prevPos = pos !== this.pos ? this.pos : this.prevPos;
+                this.prevPos = pos === this.pos ? this.prevPos : this.pos;
                 this.pos = pos;
 
                 fn(e);
             };
-
-        });
-
+        }
     },
 
     events: [
-
         {
-
             name: pointerDown,
 
             delegate() {
@@ -41,19 +48,18 @@ export default {
             },
 
             handler(e) {
-
-                if (!this.draggable
-                    || !isTouch(e) && hasTextNodesOnly(e.target)
-                    || closest(e.target, selInput)
-                    || e.button > 0
-                    || this.length < 2
+                if (
+                    !this.draggable ||
+                    (!isTouch(e) && hasTextNodesOnly(e.target)) ||
+                    closest(e.target, selInput) ||
+                    e.button > 0 ||
+                    this.length < 2
                 ) {
                     return;
                 }
 
                 this.start(e);
-            }
-
+            },
         },
 
         {
@@ -61,19 +67,15 @@ export default {
 
             handler(e) {
                 e.preventDefault();
-            }
-        }
-
+            },
+        },
     ],
 
     methods: {
-
         start() {
-
             this.drag = this.pos;
 
             if (this._transitioner) {
-
                 this.percent = this._transitioner.percent();
                 this.drag += this._transitioner.getDistance() * this.percent * this.dir;
 
@@ -83,25 +85,26 @@ export default {
                 this.dragging = true;
 
                 this.stack = [];
-
             } else {
                 this.prevIndex = this.index;
             }
 
-            on(document, pointerMove, this.move, {passive: false});
+            on(document, pointerMove, this.move, { passive: false });
 
             // 'input' event is triggered by video controls
             on(document, `${pointerUp} ${pointerCancel} input`, this.end, true);
 
             css(this.list, 'userSelect', 'none');
-
         },
 
         move(e) {
-
             const distance = this.pos - this.drag;
 
-            if (distance === 0 || this.prevPos === this.pos || !this.dragging && Math.abs(distance) < this.threshold) {
+            if (
+                distance === 0 ||
+                this.prevPos === this.pos ||
+                (!this.dragging && Math.abs(distance) < this.threshold)
+            ) {
                 return;
             }
 
@@ -111,23 +114,21 @@ export default {
             e.cancelable && e.preventDefault();
 
             this.dragging = true;
-            this.dir = (distance < 0 ? 1 : -1);
+            this.dir = distance < 0 ? 1 : -1;
 
-            const {slides} = this;
-            let {prevIndex} = this;
+            const { slides } = this;
+            let { prevIndex } = this;
             let dis = Math.abs(distance);
             let nextIndex = this.getIndex(prevIndex + this.dir, prevIndex);
             let width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
 
             while (nextIndex !== prevIndex && dis > width) {
-
                 this.drag -= width * this.dir;
 
                 prevIndex = nextIndex;
                 dis -= width;
                 nextIndex = this.getIndex(prevIndex + this.dir, prevIndex);
                 width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
-
             }
 
             this.percent = dis / width;
@@ -139,17 +140,18 @@ export default {
 
             let itemShown;
 
-            [this.index, this.prevIndex].filter(i => !includes([nextIndex, prevIndex], i)).forEach(i => {
-                trigger(slides[i], 'itemhidden', [this]);
+            [this.index, this.prevIndex]
+                .filter((i) => !includes([nextIndex, prevIndex], i))
+                .forEach((i) => {
+                    trigger(slides[i], 'itemhidden', [this]);
 
-                if (edge) {
-                    itemShown = true;
-                    this.prevIndex = prevIndex;
-                }
+                    if (edge) {
+                        itemShown = true;
+                        this.prevIndex = prevIndex;
+                    }
+                });
 
-            });
-
-            if (this.index === prevIndex && this.prevIndex !== prevIndex || itemShown) {
+            if ((this.index === prevIndex && this.prevIndex !== prevIndex) || itemShown) {
                 trigger(slides[this.index], 'itemshown', [this]);
             }
 
@@ -167,16 +169,13 @@ export default {
                 !edge && trigger(prev, 'itemhide', [this]);
                 trigger(next, 'itemshow', [this]);
             }
-
         },
 
         end() {
-
-            off(document, pointerMove, this.move, {passive: false});
+            off(document, pointerMove, this.move, { passive: false });
             off(document, `${pointerUp} ${pointerCancel} input`, this.end, true);
 
             if (this.dragging) {
-
                 this.dragging = null;
 
                 if (this.index === this.prevIndex) {
@@ -185,29 +184,29 @@ export default {
                     this._show(false, this.index, true);
                     this._transitioner = null;
                 } else {
-
-                    const dirChange = (isRtl ? this.dir * (isRtl ? 1 : -1) : this.dir) < 0 === this.prevPos > this.pos;
+                    const dirChange =
+                        (isRtl ? this.dir * (isRtl ? 1 : -1) : this.dir) < 0 ===
+                        this.prevPos > this.pos;
                     this.index = dirChange ? this.index : this.prevIndex;
 
                     if (dirChange) {
                         this.percent = 1 - this.percent;
                     }
 
-                    this.show(this.dir > 0 && !dirChange || this.dir < 0 && dirChange ? 'next' : 'previous', true);
+                    this.show(
+                        (this.dir > 0 && !dirChange) || (this.dir < 0 && dirChange)
+                            ? 'next'
+                            : 'previous',
+                        true
+                    );
                 }
-
             }
 
-            css(this.list, {userSelect: '', pointerEvents: ''});
+            css(this.list, { userSelect: '', pointerEvents: '' });
 
-            this.drag
-                = this.percent
-                = null;
-
-        }
-
-    }
-
+            this.drag = this.percent = null;
+        },
+    },
 };
 
 function hasTextNodesOnly(el) {

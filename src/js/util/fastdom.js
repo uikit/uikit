@@ -1,4 +1,3 @@
-import {Promise} from './promise';
 /*
     Based on:
     Copyright (c) 2016 Wilson Page wilsonpage@me.com
@@ -6,7 +5,6 @@ import {Promise} from './promise';
 */
 
 export const fastdom = {
-
     reads: [],
     writes: [],
 
@@ -27,11 +25,10 @@ export const fastdom = {
         remove(this.writes, task);
     },
 
-    flush
-
+    flush,
 };
 
-function flush(recursion = 1) {
+function flush(recursion) {
     runTasks(fastdom.reads);
     runTasks(fastdom.writes.splice(0));
 
@@ -44,7 +41,6 @@ function flush(recursion = 1) {
 
 const RECURSION_LIMIT = 4;
 function scheduleFlush(recursion) {
-
     if (fastdom.scheduled) {
         return;
     }
@@ -53,9 +49,8 @@ function scheduleFlush(recursion) {
     if (recursion && recursion < RECURSION_LIMIT) {
         Promise.resolve().then(() => flush(recursion));
     } else {
-        requestAnimationFrame(() => flush());
+        requestAnimationFrame(() => flush(1));
     }
-
 }
 
 function runTasks(tasks) {

@@ -1,7 +1,6 @@
-import {isFunction, isObject, isUndefined, toNode, toNodes} from './lang';
+import { isFunction, isObject, isUndefined, toNode, toNodes } from './lang';
 
 export function attr(element, name, value) {
-
     if (isObject(name)) {
         for (const key in name) {
             attr(element, key, name[key]);
@@ -10,42 +9,39 @@ export function attr(element, name, value) {
     }
 
     if (isUndefined(value)) {
-        element = toNode(element);
-        return element && element.getAttribute(name);
+        return toNode(element)?.getAttribute(name);
     } else {
-        toNodes(element).forEach(element => {
-
+        for (const el of toNodes(element)) {
             if (isFunction(value)) {
-                value = value.call(element, attr(element, name));
+                value = value.call(el, attr(el, name));
             }
 
             if (value === null) {
-                removeAttr(element, name);
+                removeAttr(el, name);
             } else {
-                element.setAttribute(name, value);
+                el.setAttribute(name, value);
             }
-        });
+        }
     }
-
 }
 
 export function hasAttr(element, name) {
-    return toNodes(element).some(element => element.hasAttribute(name));
+    return toNodes(element).some((element) => element.hasAttribute(name));
 }
 
 export function removeAttr(element, name) {
-    element = toNodes(element);
-    name.split(' ').forEach(name =>
-        element.forEach(element =>
-            element.hasAttribute(name) && element.removeAttribute(name)
-        )
-    );
+    const elements = toNodes(element);
+    for (const attribute of name.split(' ')) {
+        for (const element of elements) {
+            element.removeAttribute(attribute);
+        }
+    }
 }
 
 export function data(element, attribute) {
-    for (let i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
-        if (hasAttr(element, attrs[i])) {
-            return attr(element, attrs[i]);
+    for (const name of [attribute, `data-${attribute}`]) {
+        if (hasAttr(element, name)) {
+            return attr(element, name);
         }
     }
 }

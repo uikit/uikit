@@ -1,4 +1,4 @@
-import {args, compile, glob, icons} from './util.js';
+import { args, compile, glob, icons } from './util.js';
 
 if (args.h || args.help) {
     console.log(`
@@ -25,14 +25,10 @@ await Promise.all((await glob(path)).map(compileIcons));
 
 async function compileIcons(folder) {
     const [, name] = folder.toString().match(new RegExp(match, 'i'));
-    return compile(
-        'build/wrapper/icons.js',
-        `dist/js/uikit-icons-${name}`,
-        {
-            name,
-            replaces: {
-                ICONS: await icons(`{src/images/icons,${folder}}/*.svg`)
-            }
-        }
-    );
+    return compile('build/wrapper/icons.js', `dist/js/uikit-icons-${name}`, {
+        name,
+        replaces: {
+            ICONS: await icons(`{src/images/icons,${folder}}/*.svg`),
+        },
+    });
 }

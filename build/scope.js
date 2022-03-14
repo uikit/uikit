@@ -1,4 +1,4 @@
-import {args, glob, minify, read, renderLess, replaceInFile, validClassName} from './util.js';
+import { args, glob, minify, read, renderLess, replaceInFile, validClassName } from './util.js';
 
 if (args.h || args.help) {
     console.log(`
@@ -33,7 +33,6 @@ if (args.cleanup && prevScope) {
 
     await cleanup(files, prevScope);
     await scope(files, newScope);
-
 } else {
     await scope(files, getNewScope());
 }
@@ -41,7 +40,7 @@ if (args.cleanup && prevScope) {
 async function getScope(files) {
     for (const file of files) {
         const data = await read(file);
-        const [, scope] = (data.match(currentScopeRe) || data.match(currentScopeLegacyRe) || []);
+        const [, scope] = data.match(currentScopeRe) || data.match(currentScopeLegacyRe) || [];
         if (scope) {
             return scope;
         }
@@ -50,7 +49,6 @@ async function getScope(files) {
 }
 
 function getNewScope() {
-
     const scopeFromInput = args.scope || args.s || 'uk-scope';
 
     if (validClassName.test(scopeFromInput)) {
@@ -62,10 +60,16 @@ function getNewScope() {
 
 async function scope(files, scope) {
     for (const file of files) {
-        await replaceInFile(file, async data => {
+        await replaceInFile(file, async (data) => {
             const output = await renderLess(`.${scope} {\n${stripComments(data)}\n}`);
             return `/* scoped: ${scope} */\n${
-                output.replace(new RegExp(`.${scope}\\s((\\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html|:root)`, 'g'), '$1') // unescape
+                output.replace(
+                    new RegExp(
+                        `.${scope}\\s((\\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html|:root)`,
+                        'g'
+                    ),
+                    '$1'
+                ) // unescape
             }`;
         });
         await minify(file);
@@ -73,11 +77,17 @@ async function scope(files, scope) {
 }
 
 async function cleanup(files, scope) {
-    const string = scope.split(' ').map(scope => `.${scope}`).join(' ');
+    const string = scope
+        .split(' ')
+        .map((scope) => `.${scope}`)
+        .join(' ');
     for (const file of files) {
-        await replaceInFile(file, data => data
-            .replace(currentScopeRe, '') // remove scope comment
-            .replace(new RegExp(` *${string} ({[\\s\\S]*?})?`, 'g'), '') // replace classes
+        await replaceInFile(
+            file,
+            (data) =>
+                data
+                    .replace(currentScopeRe, '') // remove scope comment
+                    .replace(new RegExp(` *${string} ({[\\s\\S]*?})?`, 'g'), '') // replace classes
         );
     }
 }
@@ -86,6 +96,6 @@ function stripComments(input) {
     return input
         .replace(/\/\*(.|\n)*?\*\//gm, '')
         .split('\n')
-        .filter(line => line.trim().substr(0, 2) !== '//')
+        .filter((line) => line.trim().substr(0, 2) !== '//')
         .join('\n');
 }

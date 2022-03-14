@@ -1,10 +1,9 @@
-import {once} from './event';
-import {parent} from './filter';
-import {find, findAll} from './selector';
-import {isElement, isString, isUndefined, toNode, toNodes} from './lang';
+import { once } from './event';
+import { parent } from './filter';
+import { find, findAll } from './selector';
+import { isElement, isString, isUndefined, startsWith, toNode, toNodes } from './lang';
 
 export function ready(fn) {
-
     if (document.readyState !== 'loading') {
         fn();
         return;
@@ -13,63 +12,37 @@ export function ready(fn) {
     once(document, 'DOMContentLoaded', fn);
 }
 
+export function isTag(element, tagName) {
+    return element?.tagName?.toLowerCase() === tagName.toLowerCase();
+}
+
 export function empty(element) {
-    element = $(element);
-    element.innerHTML = '';
-    return element;
+    return replaceChildren(element, '');
 }
 
 export function html(parent, html) {
-    parent = $(parent);
-    return isUndefined(html)
-        ? parent.innerHTML
-        : append(parent.hasChildNodes() ? empty(parent) : parent, html);
+    return isUndefined(html) ? $(parent).innerHTML : replaceChildren(parent, html);
 }
 
-export function prepend(parent, element) {
+export const replaceChildren = applyFn('replaceChildren');
+export const prepend = applyFn('prepend');
+export const append = applyFn('append');
+export const before = applyFn('before');
+export const after = applyFn('after');
 
-    parent = $(parent);
-
-    if (parent.hasChildNodes()) {
-        return insertNodes(element, element => parent.insertBefore(element, parent.firstChild));
-    } else {
-        return append(parent, element);
-    }
-}
-
-export function append(parent, element) {
-    parent = $(parent);
-    return insertNodes(element, element => parent.appendChild(element));
-}
-
-export function before(ref, element) {
-    ref = $(ref);
-    return insertNodes(element, element => ref.parentNode.insertBefore(element, ref));
-}
-
-export function after(ref, element) {
-    ref = $(ref);
-    return insertNodes(element, element => ref.nextSibling
-        ? before(ref.nextSibling, element)
-        : append(ref.parentNode, element)
-    );
-}
-
-function insertNodes(element, fn) {
-    element = isString(element) ? fragment(element) : element;
-    return element
-        ? 'length' in element
-            ? toNodes(element).map(fn)
-            : fn(element)
-        : null;
+function applyFn(fn) {
+    return function (ref, element) {
+        const nodes = toNodes(isString(element) ? fragment(element) : element);
+        $(ref)?.[fn](...nodes);
+        return unwrapSingle(nodes);
+    };
 }
 
 export function remove(element) {
-    toNodes(element).forEach(element => element.parentNode && element.parentNode.removeChild(element));
+    toNodes(element).forEach((element) => element.remove());
 }
 
 export function wrapAll(element, structure) {
-
     structure = toNode(before(element, structure));
 
     while (structure.firstChild) {
@@ -82,26 +55,26 @@ export function wrapAll(element, structure) {
 }
 
 export function wrapInner(element, structure) {
-    return toNodes(toNodes(element).map(element =>
-        element.hasChildNodes ? wrapAll(toNodes(element.childNodes), structure) : append(element, structure)
-    ));
+    return toNodes(
+        toNodes(element).map((element) =>
+            element.hasChildNodes()
+                ? wrapAll(toNodes(element.childNodes), structure)
+                : append(element, structure)
+        )
+    );
 }
 
 export function unwrap(element) {
     toNodes(element)
         .map(parent)
         .filter((value, index, self) => self.indexOf(value) === index)
-        .forEach(parent => {
-            before(parent, parent.childNodes);
-            remove(parent);
-        });
+        .forEach((parent) => parent.replaceWith(...parent.childNodes));
 }
 
 const fragmentRe = /^\s*<(\w+|!)[^>]*>/;
 const singleTagRe = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
 
 export function fragment(html) {
-
     const matches = singleTagRe.exec(html);
     if (matches) {
         return document.createElement(matches[1]);
@@ -114,12 +87,14 @@ export function fragment(html) {
         container.textContent = html;
     }
 
-    return container.childNodes.length > 1 ? toNodes(container.childNodes) : container.firstChild;
+    return unwrapSingle(container.childNodes);
+}
 
+function unwrapSingle(nodes) {
+    return nodes.length > 1 ? nodes : nodes[0];
 }
 
 export function apply(node, fn) {
-
     if (!isElement(node)) {
         return;
     }
@@ -134,17 +109,13 @@ export function apply(node, fn) {
 }
 
 export function $(selector, context) {
-    return isHtml(selector)
-        ? toNode(fragment(selector))
-        : find(selector, context);
+    return isHtml(selector) ? toNode(fragment(selector)) : find(selector, context);
 }
 
 export function $$(selector, context) {
-    return isHtml(selector)
-        ? toNodes(fragment(selector))
-        : findAll(selector, context);
+    return isHtml(selector) ? toNodes(fragment(selector)) : findAll(selector, context);
 }
 
 function isHtml(str) {
-    return isString(str) && (str[0] === '<' || str.match(/^\s*</));
+    return isString(str) && startsWith(str.trim(), '<');
 }

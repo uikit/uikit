@@ -1,12 +1,9 @@
-import {isInView} from 'uikit-util';
+import { isInView } from 'uikit-util';
 
 // Deprecated
 export default {
-
     update: {
-
         read(data) {
-
             const inview = isInView(this.$el);
 
             if (!inview || data.isInView === inview) {
@@ -20,7 +17,6 @@ export default {
             this.$el.src = '' + this.$el.src; // force self-assign
         },
 
-        events: ['scroll', 'resize']
-    }
-
+        events: ['scroll', 'resize'],
+    },
 };

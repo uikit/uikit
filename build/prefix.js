@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import {args, glob, read, replaceInFile, validClassName} from './util.js';
+import { args, glob, read, replaceInFile, validClassName } from './util.js';
 
 if (args.h || args.help) {
     console.log(`
@@ -26,24 +26,27 @@ if (currentPrefix === prefix) {
 await replacePrefix(currentPrefix, prefix);
 
 async function findExistingPrefix() {
-    const data = await read('dist/css/uikit.css');
-    const res = data.match(new RegExp(`(${validClassName.source})(-[a-z]+)?-grid`));
-    return res && res[1];
+    return (await read('dist/css/uikit.css')).match(
+        new RegExp(`(${validClassName.source})(-[a-z]+)?-grid`)
+    )?.[1];
 }
 
 async function getPrefix() {
-
     const prefixFromInput = args.p || args.prefix;
 
     if (!prefixFromInput) {
-
         const prompt = inquirer.createPromptModule();
 
-        return (await prompt({
-            name: 'prefix',
-            message: 'enter a prefix',
-            validate: (val, res) => val.length && val.match(validClassName) ? !!(res.prefix = val) : 'invalid prefix'
-        })).prefix;
+        return (
+            await prompt({
+                name: 'prefix',
+                message: 'enter a prefix',
+                validate: (val, res) =>
+                    val.length && val.match(validClassName)
+                        ? !!(res.prefix = val)
+                        : 'invalid prefix',
+            })
+        ).prefix;
     }
 
     if (validClassName.test(prefixFromInput)) {
@@ -55,16 +58,16 @@ async function getPrefix() {
 
 async function replacePrefix(from, to) {
     for (const file of await glob('dist/**/*.css')) {
-        await replaceInFile(file, data => data.replace(
-            new RegExp(`${from}-${/([a-z\d-]+)/.source}`, 'g'),
-            `${to}-$1`
-        ));
+        await replaceInFile(file, (data) =>
+            data.replace(new RegExp(`${from}-${/([a-z\d-]+)/.source}`, 'g'), `${to}-$1`)
+        );
     }
 
     for (const file of await glob('dist/**/*.js')) {
-        await replaceInFile(file, data => data
-            .replace(new RegExp(`${from}-`, 'g'), `${to}-`)
-            .replace(new RegExp(`(${from})?UIkit`, 'g'), `${to === 'uk' ? '' : to}UIkit`)
+        await replaceInFile(file, (data) =>
+            data
+                .replace(new RegExp(`${from}-`, 'g'), `${to}-`)
+                .replace(new RegExp(`(${from})?UIkit`, 'g'), `${to === 'uk' ? '' : to}UIkit`)
         );
     }
 }

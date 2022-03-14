@@ -1,5 +1,4 @@
-const objPrototype = Object.prototype;
-const {hasOwnProperty} = objPrototype;
+const { hasOwnProperty, toString } = Object.prototype;
 
 export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
@@ -7,18 +6,13 @@ export function hasOwn(obj, key) {
 
 const hyphenateRe = /\B([A-Z])/g;
 
-export const hyphenate = memoize(str => str
-    .replace(hyphenateRe, '-$1')
-    .toLowerCase()
-);
+export const hyphenate = memoize((str) => str.replace(hyphenateRe, '-$1').toLowerCase());
 
 const camelizeRe = /-(\w)/g;
 
-export const camelize = memoize(str =>
-    str.replace(camelizeRe, toUpper)
-);
+export const camelize = memoize((str) => str.replace(camelizeRe, toUpper));
 
-export const ucfirst = memoize(str =>
+export const ucfirst = memoize((str) =>
     str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : ''
 );
 
@@ -26,43 +20,24 @@ function toUpper(_, c) {
     return c ? c.toUpperCase() : '';
 }
 
-const strPrototype = String.prototype;
-const startsWithFn = strPrototype.startsWith || function (search) { return this.lastIndexOf(search, 0) === 0; };
-
 export function startsWith(str, search) {
-    return startsWithFn.call(str, search);
+    return str?.startsWith?.(search);
 }
-
-const endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
 
 export function endsWith(str, search) {
-    return endsWithFn.call(str, search);
+    return str?.endsWith?.(search);
 }
-
-const arrPrototype = Array.prototype;
-
-const includesFn = function (search, i) { return !!~this.indexOf(search, i); };
-const includesStr = strPrototype.includes || includesFn;
-const includesArray = arrPrototype.includes || includesFn;
 
 export function includes(obj, search) {
-    return obj && (isString(obj) ? includesStr : includesArray).call(obj, search);
+    return obj?.includes?.(search);
 }
-
-const findIndexFn = arrPrototype.findIndex || function (predicate) {
-    for (let i = 0; i < this.length; i++) {
-        if (predicate.call(arguments[1], this[i], i, this)) {
-            return i;
-        }
-    }
-    return -1;
-};
 
 export function findIndex(array, predicate) {
-    return findIndexFn.call(array, predicate);
+    return array?.findIndex?.(predicate);
 }
 
-export const {isArray} = Array;
+export const { isArray, from: toArray } = Array;
+export const { assign } = Object;
 
 export function isFunction(obj) {
     return typeof obj === 'function';
@@ -72,7 +47,6 @@ export function isObject(obj) {
     return obj !== null && typeof obj === 'object';
 }
 
-const {toString} = objPrototype;
 export function isPlainObject(obj) {
     return toString.call(obj) === '[object Object]';
 }
@@ -110,16 +84,11 @@ export function isNumber(value) {
 }
 
 export function isNumeric(value) {
-    return isNumber(value) || isString(value) && !isNaN(value - parseFloat(value));
+    return isNumber(value) || (isString(value) && !isNaN(value - parseFloat(value)));
 }
 
 export function isEmpty(obj) {
-    return !(isArray(obj)
-        ? obj.length
-        : isObject(obj)
-            ? Object.keys(obj).length
-            : false
-    );
+    return !(isArray(obj) ? obj.length : isObject(obj) ? Object.keys(obj).length : false);
 }
 
 export function isUndefined(value) {
@@ -130,10 +99,10 @@ export function toBoolean(value) {
     return isBoolean(value)
         ? value
         : value === 'true' || value === '1' || value === ''
-            ? true
-            : value === 'false' || value === '0'
-                ? false
-                : value;
+        ? true
+        : value === 'false' || value === '0'
+        ? false
+        : value;
 }
 
 export function toNumber(value) {
@@ -145,14 +114,12 @@ export function toFloat(value) {
     return parseFloat(value) || 0;
 }
 
-export const toArray = Array.from || (value => arrPrototype.slice.call(value));
-
 export function toNode(element) {
     return toNodes(element)[0];
 }
 
 export function toNodes(element) {
-    return element && (isNode(element) ? [element] : toArray(element).filter(isNode)) || [];
+    return (element && (isNode(element) ? [element] : Array.from(element).filter(isNode))) || [];
 }
 
 export function toWindow(element) {
@@ -161,52 +128,28 @@ export function toWindow(element) {
     }
 
     element = toNode(element);
+    const document = isDocument(element) ? element : element?.ownerDocument;
 
-    return element
-        ? (isDocument(element)
-            ? element
-            : element.ownerDocument
-        ).defaultView
-        : window;
+    return document?.defaultView || window;
 }
 
 export function toMs(time) {
-    return !time
-        ? 0
-        : endsWith(time, 'ms')
-            ? toFloat(time)
-            : toFloat(time) * 1000;
+    return time ? (endsWith(time, 'ms') ? toFloat(time) : toFloat(time) * 1000) : 0;
 }
 
 export function isEqual(value, other) {
-    return value === other
-        || isObject(value)
-        && isObject(other)
-        && Object.keys(value).length === Object.keys(other).length
-        && each(value, (val, key) => val === other[key]);
-}
-
-export function swap(value, a, b) {
-    return value.replace(
-        new RegExp(`${a}|${b}`, 'g'),
-        match => match === a ? b : a
+    return (
+        value === other ||
+        (isObject(value) &&
+            isObject(other) &&
+            Object.keys(value).length === Object.keys(other).length &&
+            each(value, (val, key) => val === other[key]))
     );
 }
 
-export const assign = Object.assign || function (target, ...args) {
-    target = Object(target);
-    for (let i = 0; i < args.length; i++) {
-        const source = args[i];
-        if (source !== null) {
-            for (const key in source) {
-                if (hasOwn(source, key)) {
-                    target[key] = source[key];
-                }
-            }
-        }
-    }
-    return target;
-};
+export function swap(value, a, b) {
+    return value.replace(new RegExp(`${a}|${b}`, 'g'), (match) => (match === a ? b : a));
+}
 
 export function last(array) {
     return array[array.length - 1];
@@ -222,21 +165,16 @@ export function each(obj, cb) {
 }
 
 export function sortBy(array, prop) {
-    return array.slice().sort(({[prop]: propA = 0}, {[prop]: propB = 0}) =>
-        propA > propB
-            ? 1
-            : propB > propA
-                ? -1
-                : 0
-    );
+    return array
+        .slice()
+        .sort(({ [prop]: propA = 0 }, { [prop]: propB = 0 }) =>
+            propA > propB ? 1 : propB > propA ? -1 : 0
+        );
 }
 
 export function uniqueBy(array, prop) {
     const seen = new Set();
-    return array.filter(({[prop]: check}) => seen.has(check)
-        ? false
-        : seen.add(check) || true // IE 11 does not return the Set object
-    );
+    return array.filter(({ [prop]: check }) => (seen.has(check) ? false : seen.add(check)));
 }
 
 export function clamp(number, min = 0, max = 1) {
@@ -246,36 +184,48 @@ export function clamp(number, min = 0, max = 1) {
 export function noop() {}
 
 export function intersectRect(...rects) {
-    return [['bottom', 'top'], ['right', 'left']].every(([minProp, maxProp]) =>
-        Math.min(...rects.map(({[minProp]: min}) => min)) - Math.max(...rects.map(({[maxProp]: max}) => max)) > 0
+    return [
+        ['bottom', 'top'],
+        ['right', 'left'],
+    ].every(
+        ([minProp, maxProp]) =>
+            Math.min(...rects.map(({ [minProp]: min }) => min)) -
+                Math.max(...rects.map(({ [maxProp]: max }) => max)) >
+            0
     );
 }
 
 export function pointInRect(point, rect) {
-    return point.x <= rect.right &&
+    return (
+        point.x <= rect.right &&
         point.x >= rect.left &&
         point.y <= rect.bottom &&
-        point.y >= rect.top;
+        point.y >= rect.top
+    );
 }
 
 export const Dimensions = {
-
     ratio(dimensions, prop, value) {
-
         const aProp = prop === 'width' ? 'height' : 'width';
 
         return {
-            [aProp]: dimensions[prop] ? Math.round(value * dimensions[aProp] / dimensions[prop]) : dimensions[aProp],
-            [prop]: value
+            [aProp]: dimensions[prop]
+                ? Math.round((value * dimensions[aProp]) / dimensions[prop])
+                : dimensions[aProp],
+            [prop]: value,
         };
     },
 
     contain(dimensions, maxDimensions) {
-        dimensions = assign({}, dimensions);
+        dimensions = { ...dimensions };
 
-        each(dimensions, (_, prop) => dimensions = dimensions[prop] > maxDimensions[prop]
-            ? this.ratio(dimensions, prop, maxDimensions[prop])
-            : dimensions
+        each(
+            dimensions,
+            (_, prop) =>
+                (dimensions =
+                    dimensions[prop] > maxDimensions[prop]
+                        ? this.ratio(dimensions, prop, maxDimensions[prop])
+                        : dimensions)
         );
 
         return dimensions;
@@ -284,21 +234,23 @@ export const Dimensions = {
     cover(dimensions, maxDimensions) {
         dimensions = this.contain(dimensions, maxDimensions);
 
-        each(dimensions, (_, prop) => dimensions = dimensions[prop] < maxDimensions[prop]
-            ? this.ratio(dimensions, prop, maxDimensions[prop])
-            : dimensions
+        each(
+            dimensions,
+            (_, prop) =>
+                (dimensions =
+                    dimensions[prop] < maxDimensions[prop]
+                        ? this.ratio(dimensions, prop, maxDimensions[prop])
+                        : dimensions)
         );
 
         return dimensions;
-    }
-
+    },
 };
 
 export function getIndex(i, elements, current = 0, finite = false) {
-
     elements = toNodes(elements);
 
-    const {length} = elements;
+    const { length } = elements;
 
     if (!length) {
         return -1;
@@ -307,10 +259,10 @@ export function getIndex(i, elements, current = 0, finite = false) {
     i = isNumeric(i)
         ? toNumber(i)
         : i === 'next'
-            ? current + 1
-            : i === 'previous'
-                ? current - 1
-                : elements.indexOf(toNode(i));
+        ? current + 1
+        : i === 'previous'
+        ? current - 1
+        : elements.indexOf(toNode(i));
 
     if (finite) {
         return clamp(i, 0, length - 1);
@@ -323,5 +275,14 @@ export function getIndex(i, elements, current = 0, finite = false) {
 
 export function memoize(fn) {
     const cache = Object.create(null);
-    return key => cache[key] || (cache[key] = fn(key));
+    return (key) => cache[key] || (cache[key] = fn(key));
+}
+
+export class Deferred {
+    constructor() {
+        this.promise = new Promise((resolve, reject) => {
+            this.reject = reject;
+            this.resolve = resolve;
+        });
+    }
 }

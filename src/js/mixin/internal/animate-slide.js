@@ -1,14 +1,24 @@
-import {assign, children, css, fastdom, includes, index, isVisible, noop, offset, parent, position, Promise, Transition} from 'uikit-util';
+import {
+    children,
+    css,
+    fastdom,
+    includes,
+    index,
+    isVisible,
+    noop,
+    offset,
+    parent,
+    position,
+    Transition,
+} from 'uikit-util';
 
 export default function (action, target, duration) {
-
-    return new Promise(resolve =>
+    return new Promise((resolve) =>
         requestAnimationFrame(() => {
-
             let nodes = children(target);
 
             // Get current state
-            const currentProps = nodes.map(el => getProps(el, true));
+            const currentProps = nodes.map((el) => getProps(el, true));
             const targetProps = css(target, ['height', 'padding']);
 
             // Cancel previous animations
@@ -20,11 +30,10 @@ export default function (action, target, duration) {
             action();
 
             // Find new nodes
-            nodes = nodes.concat(children(target).filter(el => !includes(nodes, el)));
+            nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
 
             // Wait for update to propagate
             Promise.resolve().then(() => {
-
                 // Force update
                 fastdom.flush();
 
@@ -34,53 +43,61 @@ export default function (action, target, duration) {
 
                 // Reset to previous state
                 nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-                css(target, assign({display: 'block'}, targetProps));
+                css(target, { display: 'block', ...targetProps });
 
                 // Start transitions on next frame
                 requestAnimationFrame(() => {
+                    const transitions = nodes
+                        .map(
+                            (el, i) =>
+                                parent(el) === target &&
+                                Transition.start(el, propsTo[i], duration, 'ease')
+                        )
+                        .concat(Transition.start(target, targetPropsTo, duration, 'ease'));
 
-                    const transitions = nodes.map((el, i) =>
-                            parent(el) === target && Transition.start(el, propsTo[i], duration, 'ease')
-                        ).concat(Transition.start(target, targetPropsTo, duration, 'ease'));
-
-                    Promise.all(transitions).then(() => {
-                        nodes.forEach((el, i) => parent(el) === target && css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
-                        reset(target);
-                    }, noop).then(resolve);
-
+                    Promise.all(transitions)
+                        .then(() => {
+                            nodes.forEach(
+                                (el, i) =>
+                                    parent(el) === target &&
+                                    css(el, 'display', propsTo[i].opacity === 0 ? 'none' : '')
+                            );
+                            reset(target);
+                        }, noop)
+                        .then(resolve);
                 });
             });
-        }));
+        })
+    );
 }
 
 function getProps(el, opacity) {
-
     const zIndex = css(el, 'zIndex');
 
     return isVisible(el)
-        ? assign({
-            display: '',
-            opacity: opacity ? css(el, 'opacity') : '0',
-            pointerEvents: 'none',
-            position: 'absolute',
-            zIndex: zIndex === 'auto' ? index(el) : zIndex
-        }, getPositionWithMargin(el))
+        ? {
+              display: '',
+              opacity: opacity ? css(el, 'opacity') : '0',
+              pointerEvents: 'none',
+              position: 'absolute',
+              zIndex: zIndex === 'auto' ? index(el) : zIndex,
+              ...getPositionWithMargin(el),
+          }
         : false;
 }
 
 function getTransitionProps(target, nodes, currentProps) {
-
     const propsTo = nodes.map((el, i) =>
         parent(el) && i in currentProps
             ? currentProps[i]
-            ? isVisible(el)
-                ? getPositionWithMargin(el)
-                : {opacity: 0}
-            : {opacity: isVisible(el) ? 1 : 0}
-            : false);
+                ? isVisible(el)
+                    ? getPositionWithMargin(el)
+                    : { opacity: 0 }
+                : { opacity: isVisible(el) ? 1 : 0 }
+            : false
+    );
 
     const propsFrom = propsTo.map((props, i) => {
-
         const from = parent(nodes[i]) === target && (currentProps[i] || getProps(nodes[i]));
 
         if (!from) {
@@ -90,7 +107,7 @@ function getTransitionProps(target, nodes, currentProps) {
         if (!props) {
             delete from.opacity;
         } else if (!('opacity' in props)) {
-            const {opacity} = from;
+            const { opacity } = from;
 
             if (opacity % 1) {
                 props.opacity = 1;
@@ -117,15 +134,15 @@ function reset(el) {
         marginLeft: '',
         transform: '',
         width: '',
-        zIndex: ''
+        zIndex: '',
     });
-    css(el, {height: '', display: '', padding: ''});
+    css(el, { height: '', display: '', padding: '' });
 }
 
 function getPositionWithMargin(el) {
-    const {height, width} = offset(el);
-    const {top, left} = position(el);
-    const {marginLeft, marginTop} = css(el, ['marginTop', 'marginLeft']);
+    const { height, width } = offset(el);
+    const { top, left } = position(el);
+    const { marginLeft, marginTop } = css(el, ['marginTop', 'marginLeft']);
 
-    return {top, left, height, width, marginLeft, marginTop, transform: ''};
+    return { top, left, height, width, marginLeft, marginTop, transform: '' };
 }

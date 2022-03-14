@@ -139,10 +139,8 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
 /*
  * 1. Create position context for spinner and close button
  * 2. Dimensions
- * 3. Fix `max-width: 100%` not working in combination with flex and responsive images in IE11
- *    `!important` needed to overwrite `uk-width-auto`. See `#modal-media-image` in tests
- * 4. Style
- * 5. Slide-in transition
+ * 3. Style
+ * 4. Slide-in transition
  */
 
 .uk-modal-dialog {
@@ -153,10 +151,8 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
     margin: 0 auto;
     width: $modal-dialog-width;
     /* 3 */
-    max-width: unquote('calc(100% - 0.01px)') !important;
-    /* 4 */
     background: $modal-dialog-background;
-    /* 5 */
+    /* 4 */
     opacity: 0;
     transform: translateY(-100px);
     transition: 0.3s linear;

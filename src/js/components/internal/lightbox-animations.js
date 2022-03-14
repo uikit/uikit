@@ -1,15 +1,11 @@
-import Animations, {scale3d} from '../../mixin/internal/slideshow-animations';
-import {assign, css} from 'uikit-util';
+import Animations, { scale3d } from '../../mixin/internal/slideshow-animations';
+import { css } from 'uikit-util';
 
-export default assign({}, Animations, {
-
+export default {
+    ...Animations,
     fade: {
-
         show() {
-            return [
-                {opacity: 0},
-                {opacity: 1}
-            ];
+            return [{ opacity: 0 }, { opacity: 1 }];
         },
 
         percent(current) {
@@ -17,20 +13,15 @@ export default assign({}, Animations, {
         },
 
         translate(percent) {
-            return [
-                {opacity: 1 - percent},
-                {opacity: percent}
-            ];
-        }
-
+            return [{ opacity: 1 - percent }, { opacity: percent }];
+        },
     },
 
     scale: {
-
         show() {
             return [
-                {opacity: 0, transform: scale3d(1 - .2)},
-                {opacity: 1, transform: scale3d(1)}
+                { opacity: 0, transform: scale3d(1 - 0.2) },
+                { opacity: 1, transform: scale3d(1) },
             ];
         },
 
@@ -40,11 +31,9 @@ export default assign({}, Animations, {
 
         translate(percent) {
             return [
-                {opacity: 1 - percent, transform: scale3d(1 - .2 * percent)},
-                {opacity: percent, transform: scale3d(1 - .2 + .2 * percent)}
+                { opacity: 1 - percent, transform: scale3d(1 - 0.2 * percent) },
+                { opacity: percent, transform: scale3d(1 - 0.2 + 0.2 * percent) },
             ];
-        }
-
-    }
-
-});
+        },
+    },
+};

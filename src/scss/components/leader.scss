@@ -49,7 +49,6 @@ $leader-fill-margin-left:                        $global-small-gutter !default;
  * Pass fill character to JS
  */
 
-.uk-leader-fill-content::before { content: '#{$leader-fill-content}'; }
 :root { --uk-leader-fill-content: '#{$leader-fill-content}'; }
 
 

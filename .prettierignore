@@ -1,0 +1,14 @@
+/*
+!/*.js
+!/*.json
+!/.github
+!/.circleci
+!/build
+!/src
+/src/*
+!/src/js
+!/tests
+/tests/*
+!/tests/js
+/tests/js/*
+!/tests/js/index.js

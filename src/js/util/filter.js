@@ -1,5 +1,4 @@
-import {inBrowser} from './env';
-import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
+import { isElement, isString, startsWith, toNode, toNodes } from './lang';
 
 const voidElements = {
     area: true,
@@ -17,19 +16,21 @@ const voidElements = {
     param: true,
     source: true,
     track: true,
-    wbr: true
+    wbr: true,
 };
 export function isVoidElement(element) {
-    return toNodes(element).some(element => voidElements[element.tagName.toLowerCase()]);
+    return toNodes(element).some((element) => voidElements[element.tagName.toLowerCase()]);
 }
 
 export function isVisible(element) {
-    return toNodes(element).some(element => element.offsetWidth || element.offsetHeight || element.getClientRects().length);
+    return toNodes(element).some(
+        (element) => element.offsetWidth || element.offsetHeight || element.getClientRects().length
+    );
 }
 
 export const selInput = 'input,select,textarea,button';
 export function isInput(element) {
-    return toNodes(element).some(element => matches(element, selInput));
+    return toNodes(element).some((element) => matches(element, selInput));
 }
 
 export const selFocusable = `${selInput},a[href],[tabindex]`;
@@ -38,50 +39,33 @@ export function isFocusable(element) {
 }
 
 export function parent(element) {
-    element = toNode(element);
-    return element && isElement(element.parentNode) && element.parentNode;
+    return toNode(element)?.parentElement;
 }
 
 export function filter(element, selector) {
-    return toNodes(element).filter(element => matches(element, selector));
+    return toNodes(element).filter((element) => matches(element, selector));
 }
-
-const elProto = inBrowser ? Element.prototype : {};
-const matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector || noop;
 
 export function matches(element, selector) {
-    return toNodes(element).some(element => matchesFn.call(element, selector));
+    return toNodes(element).some((element) => element.matches(selector));
 }
 
-const closestFn = elProto.closest || function (selector) {
-    let ancestor = this;
-
-    do {
-
-        if (matches(ancestor, selector)) {
-            return ancestor;
-        }
-
-    } while ((ancestor = parent(ancestor)));
-};
-
 export function closest(element, selector) {
-
     if (startsWith(selector, '>')) {
         selector = selector.slice(1);
     }
 
     return isElement(element)
-        ? closestFn.call(element, selector)
-        : toNodes(element).map(element => closest(element, selector)).filter(Boolean);
+        ? element.closest(selector)
+        : toNodes(element)
+              .map((element) => closest(element, selector))
+              .filter(Boolean);
 }
 
 export function within(element, selector) {
-    return !isString(selector)
-        ? element === selector || (isDocument(selector)
-            ? selector.documentElement
-            : toNode(selector)).contains(toNode(element)) // IE 11 document does not implement contains
-        : matches(element, selector) || !!closest(element, selector);
+    return isString(selector)
+        ? matches(element, selector) || !!closest(element, selector)
+        : element === selector || toNode(selector).contains(toNode(element));
 }
 
 export function parents(element, selector) {
@@ -103,7 +87,5 @@ export function children(element, selector) {
 }
 
 export function index(element, ref) {
-    return ref
-        ? toNodes(element).indexOf(toNode(ref))
-        : children(parent(element)).indexOf(element);
+    return ref ? toNodes(element).indexOf(toNode(ref)) : children(parent(element)).indexOf(element);
 }

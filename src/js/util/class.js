@@ -1,5 +1,5 @@
-import {attr} from './attr';
-import {isUndefined, toNodes} from './lang';
+import { attr } from './attr';
+import { isUndefined, toNodes } from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');
@@ -10,7 +10,7 @@ export function removeClass(element, ...args) {
 }
 
 export function removeClasses(element, cls) {
-    attr(element, 'class', value => (value || '').replace(new RegExp(`\\b${cls}\\b`, 'g'), ''));
+    attr(element, 'class', (value) => (value || '').replace(new RegExp(`\\b${cls}\\b`, 'g'), ''));
 }
 
 export function replaceClass(element, ...args) {
@@ -20,9 +20,8 @@ export function replaceClass(element, ...args) {
 
 export function hasClass(element, cls) {
     [cls] = getClasses(cls);
-    const nodes = toNodes(element);
-    for (let n = 0; n < nodes.length; n++) {
-        if (cls && nodes[n].classList.contains(cls)) {
+    for (const node of toNodes(element)) {
+        if (cls && node.classList.contains(cls)) {
             return true;
         }
     }
@@ -30,64 +29,27 @@ export function hasClass(element, cls) {
 }
 
 export function toggleClass(element, cls, force) {
+    const classes = getClasses(cls);
 
-    cls = getClasses(cls);
+    if (!isUndefined(force)) {
+        force = !!force;
+    }
 
-    const nodes = toNodes(element);
-    for (let n = 0; n < nodes.length; n++) {
-        const list = nodes[n].classList;
-        for (let i = 0; i < cls.length; i++) {
-            if (isUndefined(force)) {
-                list.toggle(cls[i]);
-            } else if (supports.Force) {
-                list.toggle(cls[i], !!force);
-            } else {
-                list[force ? 'add' : 'remove'](cls[i]);
-            }
+    for (const node of toNodes(element)) {
+        for (const cls of classes) {
+            node.classList.toggle(cls, force);
         }
     }
 }
 
 function apply(element, args, fn) {
-
     args = args.reduce((args, arg) => args.concat(getClasses(arg)), []);
 
-    const nodes = toNodes(element);
-    for (let n = 0; n < nodes.length; n++) {
-        if (supports.Multiple) {
-            nodes[n].classList[fn](...args);
-        } else {
-            args.forEach(cls => nodes[n].classList[fn](cls));
-        }
+    for (const node of toNodes(element)) {
+        node.classList[fn](...args);
     }
 }
 
 function getClasses(str) {
     return String(str).split(/\s|,/).filter(Boolean);
 }
-
-// IE 11
-let supports = {
-
-    get Multiple() {
-        return this.get('Multiple');
-    },
-
-    get Force() {
-        return this.get('Force');
-    },
-
-    get(key) {
-
-        const {classList} = document.createElement('_');
-        classList.add('a', 'b');
-        classList.toggle('c', false);
-        supports = {
-            Multiple: classList.contains('b'),
-            Force: !classList.contains('c')
-        };
-
-        return supports[key];
-    }
-
-};

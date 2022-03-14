@@ -15,7 +15,19 @@ import slidenavPrevious from '../../images/components/slidenav-previous.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
 import spinner from '../../images/components/spinner.svg';
 import totop from '../../images/components/totop.svg';
-import {$, addClass, apply, css, each, hasClass, hyphenate, isRtl, isString, parents, Promise, swap} from 'uikit-util';
+import {
+    $,
+    addClass,
+    apply,
+    css,
+    each,
+    hasClass,
+    hyphenate,
+    isRtl,
+    isString,
+    parents,
+    swap,
+} from 'uikit-util';
 
 const icons = {
     spinner,
@@ -33,11 +45,10 @@ const icons = {
     'slidenav-next': slidenavNext,
     'slidenav-next-large': slidenavNextLarge,
     'slidenav-previous': slidenavPrevious,
-    'slidenav-previous-large': slidenavPreviousLarge
+    'slidenav-previous-large': slidenavPreviousLarge,
 };
 
 const Icon = {
-
     install,
 
     extends: SVG,
@@ -47,7 +58,7 @@ const Icon = {
     props: ['icon'],
 
     data: {
-        include: ['focusable']
+        include: ['focusable'],
     },
 
     isIcon: true,
@@ -57,42 +68,35 @@ const Icon = {
     },
 
     methods: {
-
-        getSvg() {
-
+        async getSvg() {
             const icon = getIcon(this.icon);
 
             if (!icon) {
-                return Promise.reject('Icon not found.');
+                throw 'Icon not found.';
             }
 
-            return Promise.resolve(icon);
-        }
-
-    }
-
+            return icon;
+        },
+    },
 };
 
 export default Icon;
 
 export const IconComponent = {
-
     args: false,
 
     extends: Icon,
 
-    data: vm => ({
-        icon: hyphenate(vm.constructor.options.name)
+    data: (vm) => ({
+        icon: hyphenate(vm.constructor.options.name),
     }),
 
     beforeConnect() {
         addClass(this.$el, this.$name);
-    }
-
+    },
 };
 
 export const Slidenav = {
-
     extends: IconComponent,
 
     beforeConnect() {
@@ -100,72 +104,64 @@ export const Slidenav = {
     },
 
     computed: {
-
-        icon({icon}, $el) {
-            return hasClass($el, 'uk-slidenav-large')
-                ? `${icon}-large`
-                : icon;
-        }
-
-    }
-
+        icon({ icon }, $el) {
+            return hasClass($el, 'uk-slidenav-large') ? `${icon}-large` : icon;
+        },
+    },
 };
 
 export const Search = {
-
     extends: IconComponent,
 
     computed: {
-
-        icon({icon}, $el) {
+        icon({ icon }, $el) {
             return hasClass($el, 'uk-search-icon') && parents($el, '.uk-search-large').length
                 ? 'search-large'
                 : parents($el, '.uk-search-navbar').length
-                    ? 'search-navbar'
-                    : icon;
-        }
-
-    }
-
+                ? 'search-navbar'
+                : icon;
+        },
+    },
 };
 
 export const Close = {
-
     extends: IconComponent,
 
     computed: {
-
         icon() {
             return `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
-        }
-
-    }
-
+        },
+    },
 };
 
 export const Spinner = {
-
     extends: IconComponent,
 
-    connected() {
-        this.svg.then(svg => svg && this.ratio !== 1 && css($('circle', svg), 'strokeWidth', 1 / this.ratio));
-    }
+    methods: {
+        async getSvg() {
+            const icon = await Icon.methods.getSvg.call(this);
 
+            if (this.ratio !== 1) {
+                css($('circle', icon), 'strokeWidth', 1 / this.ratio);
+            }
+
+            return icon;
+        },
+    },
 };
 
 const parsed = {};
 function install(UIkit) {
     UIkit.icon.add = (name, svg) => {
-
-        const added = isString(name) ? ({[name]: svg}) : name;
+        const added = isString(name) ? { [name]: svg } : name;
         each(added, (svg, name) => {
             icons[name] = svg;
             delete parsed[name];
         });
 
         if (UIkit._initialized) {
-            apply(document.body, el =>
-                each(UIkit.getComponents(el), cmp => {
+            apply(document.body, (el) =>
+                each(UIkit.getComponents(el), (cmp) => {
                     cmp.$options.isIcon && cmp.icon in added && cmp.$reset();
                 })
             );
@@ -174,7 +170,6 @@ function install(UIkit) {
 }
 
 function getIcon(icon) {
-
     if (!icons[icon]) {
         return null;
     }

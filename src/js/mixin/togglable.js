@@ -1,13 +1,31 @@
-import {$$, addClass, Animation, assign, css, fastdom, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, Promise, removeClass, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
+import {
+    $$,
+    addClass,
+    Animation,
+    css,
+    fastdom,
+    hasClass,
+    height,
+    includes,
+    isBoolean,
+    isFunction,
+    isVisible,
+    noop,
+    removeClass,
+    toFloat,
+    toggleClass,
+    toNodes,
+    Transition,
+    trigger,
+} from 'uikit-util';
 
 export default {
-
     props: {
         cls: Boolean,
         animation: 'list',
         duration: Number,
         origin: String,
-        transition: String
+        transition: String,
     },
 
     data: {
@@ -25,7 +43,7 @@ export default {
             paddingTop: '',
             paddingBottom: '',
             marginTop: '',
-            marginBottom: ''
+            marginBottom: '',
         },
 
         hideProps: {
@@ -34,63 +52,61 @@ export default {
             paddingTop: 0,
             paddingBottom: 0,
             marginTop: 0,
-            marginBottom: 0
-        }
-
+            marginBottom: 0,
+        },
     },
 
     computed: {
-
-        hasAnimation({animation}) {
+        hasAnimation({ animation }) {
             return !!animation[0];
         },
 
-        hasTransition({animation}) {
+        hasTransition({ animation }) {
             return this.hasAnimation && animation[0] === true;
-        }
-
+        },
     },
 
     methods: {
-
         toggleElement(targets, toggle, animate) {
-            return new Promise(resolve =>
-                Promise.all(toNodes(targets).map(el => {
+            return new Promise((resolve) =>
+                Promise.all(
+                    toNodes(targets).map((el) => {
+                        const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
 
-                    const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
+                        if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
+                            return Promise.reject();
+                        }
 
-                    if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
-                        return Promise.reject();
-                    }
-
-                    const promise = (
-                        isFunction(animate)
-                            ? animate
-                            : animate === false || !this.hasAnimation
-                            ? this._toggle
-                            : this.hasTransition
+                        const promise = (
+                            isFunction(animate)
+                                ? animate
+                                : animate === false || !this.hasAnimation
+                                ? this._toggle
+                                : this.hasTransition
                                 ? toggleHeight(this)
                                 : toggleAnimation(this)
-                    )(el, show);
+                        )(el, show);
 
-                    const cls = show ? this.clsEnter : this.clsLeave;
+                        const cls = show ? this.clsEnter : this.clsLeave;
 
-                    addClass(el, cls);
+                        addClass(el, cls);
 
-                    trigger(el, show ? 'show' : 'hide', [this]);
+                        trigger(el, show ? 'show' : 'hide', [this]);
 
-                    const done = () => {
-                        removeClass(el, cls);
-                        trigger(el, show ? 'shown' : 'hidden', [this]);
-                        this.$update(el);
-                    };
+                        const done = () => {
+                            removeClass(el, cls);
+                            trigger(el, show ? 'shown' : 'hidden', [this]);
+                            this.$update(el);
+                        };
 
-                    return promise ? promise.then(done, () => {
-                        removeClass(el, cls);
-                        return Promise.reject();
-                    }) : done();
-
-                })).then(resolve, noop)
+                        return promise
+                            ? promise.then(done, () => {
+                                  removeClass(el, cls);
+                                  return Promise.reject();
+                              })
+                            : done();
+                    })
+                ).then(resolve, noop)
             );
         },
 
@@ -99,14 +115,13 @@ export default {
             return hasClass(el, this.clsEnter)
                 ? true
                 : hasClass(el, this.clsLeave)
-                    ? false
-                    : this.cls
-                        ? hasClass(el, this.cls.split(' ')[0])
-                        : isVisible(el);
+                ? false
+                : this.cls
+                ? hasClass(el, this.cls.split(' ')[0])
+                : isVisible(el);
         },
 
         _toggle(el, toggled) {
-
             if (!el) {
                 return;
             }
@@ -122,23 +137,23 @@ export default {
                 changed && (el.hidden = !toggled);
             }
 
-            $$('[autofocus]', el).some(el => isVisible(el) ? el.focus() || true : el.blur());
+            $$('[autofocus]', el).some((el) => (isVisible(el) ? el.focus() || true : el.blur()));
 
             if (changed) {
                 trigger(el, 'toggled', [toggled, this]);
                 this.$update(el);
             }
-        }
-
-    }
-
+        },
+    },
 };
 
-export function toggleHeight({isToggled, duration, initProps, hideProps, transition, _toggle}) {
+export function toggleHeight({ isToggled, duration, initProps, hideProps, transition, _toggle }) {
     return (el, show) => {
-
         const inProgress = Transition.inProgress(el);
-        const inner = el.hasChildNodes ? toFloat(css(el.firstElementChild, 'marginTop')) + toFloat(css(el.lastElementChild, 'marginBottom')) : 0;
+        const inner = el.hasChildNodes()
+            ? toFloat(css(el.firstElementChild, 'marginTop')) +
+              toFloat(css(el.lastElementChild, 'marginBottom'))
+            : 0;
         const currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0;
 
         Transition.cancel(el);
@@ -155,26 +170,37 @@ export function toggleHeight({isToggled, duration, initProps, hideProps, transit
         const endHeight = height(el) + (inProgress ? 0 : inner);
         height(el, currentHeight);
 
-        return (show
-            ? Transition.start(el, assign({}, initProps, {overflow: 'hidden', height: endHeight}), Math.round(duration * (1 - currentHeight / endHeight)), transition)
-            : Transition.start(el, hideProps, Math.round(duration * (currentHeight / endHeight)), transition).then(() => _toggle(el, false))
+        return (
+            show
+                ? Transition.start(
+                      el,
+                      { ...initProps, overflow: 'hidden', height: endHeight },
+                      Math.round(duration * (1 - currentHeight / endHeight)),
+                      transition
+                  )
+                : Transition.start(
+                      el,
+                      hideProps,
+                      Math.round(duration * (currentHeight / endHeight)),
+                      transition
+                  ).then(() => _toggle(el, false))
         ).then(() => css(el, initProps));
-
     };
 }
 
 function toggleAnimation(cmp) {
     return (el, show) => {
-
         Animation.cancel(el);
 
-        const {animation, duration, _toggle} = cmp;
+        const { animation, duration, _toggle } = cmp;
 
         if (show) {
             _toggle(el, true);
             return Animation.in(el, animation[0], duration, cmp.origin);
         }
 
-        return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() => _toggle(el, false));
+        return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() =>
+            _toggle(el, false)
+        );
     };
 }

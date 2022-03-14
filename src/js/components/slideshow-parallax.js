@@ -1,1 +1,1 @@
-export {default} from './slider-parallax';
+export { default } from './slider-parallax';
