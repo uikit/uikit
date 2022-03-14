@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.12.1 (March 14, 2022)
+
+### Fixed
+
+- Fix List component used with flex utility classes
+
 ## 3.12.0 (March 14, 2022)
 
 ### Added

@@ -94,7 +94,11 @@
 .uk-list-decimal { counter-reset: decimal; }
 .uk-list-decimal > * { counter-increment: decimal; }
 
-[class*='uk-list'] > ::before {
+.uk-list-disc > ::before,
+.uk-list-circle > ::before,
+.uk-list-square > ::before,
+.uk-list-decimal > ::before,
+.uk-list-hyphen > ::before {
     content: "";
     position: relative;
     left: -@list-padding-left;
