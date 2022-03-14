@@ -1,4 +1,4 @@
-/*! UIkit 3.12.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.12.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -756,7 +756,11 @@ a.uk-link-reset,
 .uk-list-decimal > * {
   counter-increment: decimal;
 }
-[class*='uk-list'] > ::before {
+.uk-list-disc > ::before,
+.uk-list-circle > ::before,
+.uk-list-square > ::before,
+.uk-list-decimal > ::before,
+.uk-list-hyphen > ::before {
   content: "";
   position: relative;
   left: -30px;
