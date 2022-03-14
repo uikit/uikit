@@ -59,6 +59,7 @@ $slider-container-margin-right:                      -25px !default;
 /*
  * 1. Optimize animation
  * 2. Create a containing block. In Safari it's neither created by `transform` nor `will-change`.
+ * 3. Disable horizontal panning gestures
  */
 
 .uk-slider-items {
@@ -66,6 +67,8 @@ $slider-container-margin-right:                      -25px !default;
     will-change: transform;
     /* 2 */
     position: relative;
+    /* 3 */
+    touch-action: pan-y;
 }
 
 /*

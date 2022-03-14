@@ -33,6 +33,7 @@
  * 2. Reset list
  * 3. Clip child elements
  * 4. Prevent displaying the callout information on iOS.
+ * 5. Disable horizontal panning gestures
  */
 
 .uk-slideshow-items {
@@ -47,6 +48,8 @@
     overflow: hidden;
     /* 4 */
     -webkit-touch-callout: none;
+    /* 5 */
+    touch-action: pan-y;
 }
 
 
