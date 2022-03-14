@@ -1,4 +1,4 @@
-/*! UIkit 3.12.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.12.2 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -3846,6 +3846,7 @@ select.uk-form-width-xsmall {
  * 2. Reset list
  * 3. Clip child elements
  * 4. Prevent displaying the callout information on iOS.
+ * 5. Disable horizontal panning gestures
  */
 .uk-slideshow-items {
   /* 1 */
@@ -3859,6 +3860,8 @@ select.uk-form-width-xsmall {
   overflow: hidden;
   /* 4 */
   -webkit-touch-callout: none;
+  /* 5 */
+  touch-action: pan-y;
 }
 /* Item
  ========================================================================== */
@@ -3917,12 +3920,15 @@ select.uk-form-width-xsmall {
 /*
  * 1. Optimize animation
  * 2. Create a containing block. In Safari it's neither created by `transform` nor `will-change`.
+ * 3. Disable horizontal panning gestures
  */
 .uk-slider-items {
   /* 1 */
   will-change: transform;
   /* 2 */
   position: relative;
+  /* 3 */
+  touch-action: pan-y;
 }
 /*
  * 1. Reset list style without interfering with grid
