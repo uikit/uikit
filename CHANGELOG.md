@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Slider/Slideshow touch gestures
+
 ## 3.12.1 (March 14, 2022)
 
 ### Fixed
