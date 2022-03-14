@@ -201,9 +201,9 @@ $inverse-icon-link-hover-color:                 $inverse-global-color !default;
 $inverse-icon-link-active-color:                $inverse-global-color !default;
 $inverse-icon-button-background:                $inverse-global-muted-background !default;
 $inverse-icon-button-color:                     $inverse-global-muted-color !default;
-$inverse-icon-button-hover-background:          fadein($inverse-icon-button-background, 5%) !default;
+$inverse-icon-button-hover-background:          fade-in($inverse-icon-button-background, 0.05) !default;
 $inverse-icon-button-hover-color:               $inverse-global-color !default;
-$inverse-icon-button-active-background:         fadein($inverse-icon-button-background, 10%) !default;
+$inverse-icon-button-active-background:         fade-in($inverse-icon-button-background, 0.1) !default;
 $inverse-icon-button-active-color:              $inverse-global-color !default;
 
 

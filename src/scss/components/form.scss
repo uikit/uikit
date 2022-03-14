@@ -472,7 +472,6 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 
 
 /* Radio and checkbox
- * Note: Does not work in IE11
  ========================================================================== */
 
 /*
@@ -780,7 +779,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 
 $inverse-form-background:                       $inverse-global-muted-background !default;
 $inverse-form-color:                            $inverse-global-color !default;
-$inverse-form-focus-background:                 fadein($inverse-form-background, 5%) !default;
+$inverse-form-focus-background:                 fade-in($inverse-form-background, 0.05) !default;
 $inverse-form-focus-color:                      $inverse-global-color !default;
 $inverse-form-placeholder-color:                $inverse-global-muted-color !default;
 
@@ -790,12 +789,12 @@ $inverse-form-datalist-icon-color:              $inverse-global-color !default;
 
 $inverse-form-radio-background:                 $inverse-global-muted-background !default;
 
-$inverse-form-radio-focus-background:           fadein($inverse-form-radio-background, 5%) !default;
+$inverse-form-radio-focus-background:           fade-in($inverse-form-radio-background, 0.05) !default;
 
 $inverse-form-radio-checked-background:         $inverse-global-primary-background !default;
 $inverse-form-radio-checked-icon-color:         $inverse-global-inverse-color !default;
 
-$inverse-form-radio-checked-focus-background:   fadein($inverse-global-primary-background, 10%) !default;
+$inverse-form-radio-checked-focus-background:   fade-in($inverse-global-primary-background, 0.1) !default;
 
 $inverse-form-icon-color:                       $inverse-global-muted-color !default;
 $inverse-form-icon-hover-color:                 $inverse-global-color !default;

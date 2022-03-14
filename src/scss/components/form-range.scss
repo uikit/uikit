@@ -9,14 +9,14 @@
 // Variables
 // ========================================================================
 
+$form-range-track-height:                        3px !default;
+$form-range-track-background:                    darken($global-muted-background, 5%) !default;
+$form-range-track-focus-background:              darken($form-range-track-background, 5%) !default;
+
 $form-range-thumb-height:                        15px !default;
 $form-range-thumb-width:                         $form-range-thumb-height !default;
 $form-range-thumb-border-radius:                 500px !default;
 $form-range-thumb-background:                    $global-color !default;
-
-$form-range-track-height:                        3px !default;
-$form-range-track-background:                    darken($global-muted-background, 5%) !default;
-$form-range-track-focus-background:              darken($form-range-track-background, 5%) !default;
 
 
 /* ========================================================================
@@ -24,29 +24,30 @@ $form-range-track-focus-background:              darken($form-range-track-backgr
  ========================================================================== */
 
 /*
- * 1. Normalize and defaults
- * 2. Prevent content overflow if a fixed width is used
- * 3. Take the full width
- * 4. Remove default style
- * 5. Remove white background in Chrome
- * 6. Remove padding in IE11
+ * 1. Remove default style.
+ * 2. Define consistent box sizing.
+ * 3. Remove `margin` in all browsers.
+ * 4. Align to the center of the line box.
+ * 5. Prevent content overflow if a fixed width is used.
+ * 6. Take the full width.
+ * 7. Remove white background in Chrome.
  */
 
 .uk-range {
     /* 1 */
-    box-sizing: border-box;
-    margin: 0;
-    vertical-align: middle;
-    /* 2 */
-    max-width: 100%;
-    /* 3 */
-    width: 100%;
-    /* 4 */
     -webkit-appearance: none;
+    /* 2 */
+    box-sizing: border-box;
+    /* 3 */
+    margin: 0;
+    /* 4 */
+    vertical-align: middle;
     /* 5 */
-    background: transparent;
+    max-width: 100%;
     /* 6 */
-    padding: 0;
+    width: 100%;
+    /* 7 */
+    background: transparent;
     @if(mixin-exists(hook-form-range)) {@include hook-form-range();}
 }
 
@@ -54,82 +55,16 @@ $form-range-track-focus-background:              darken($form-range-track-backgr
 .uk-range:focus { outline: none; }
 .uk-range::-moz-focus-outer { border: none; }
 
-/* IE11 Reset */
-.uk-range::-ms-track {
-    height: $form-range-thumb-height;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-}
-
 /*
  * Improves consistency of cursor style for clickable elements
  */
 
 .uk-range:not(:disabled)::-webkit-slider-thumb { cursor: pointer; }
 .uk-range:not(:disabled)::-moz-range-thumb { cursor: pointer; }
-.uk-range:not(:disabled)::-ms-thumb { cursor: pointer; }
 
-
-/* Thumb
- ========================================================================== */
 
 /*
- * 1. Reset
- * 2. Style
- */
-
-/* Webkit */
-.uk-range::-webkit-slider-thumb {
-    /* 1 */
-    -webkit-appearance: none;
-    margin-top: (floor(($form-range-thumb-height * 0.5)) * -1);
-    /* 2 */
-    height: $form-range-thumb-height;
-    width: $form-range-thumb-width;
-    border-radius: $form-range-thumb-border-radius;
-    background: $form-range-thumb-background;
-    @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
-}
-
-/* Firefox */
-.uk-range::-moz-range-thumb {
-    /* 1 */
-    border: none;
-    /* 2 */
-    height: $form-range-thumb-height;
-    width: $form-range-thumb-width;
-    border-radius: $form-range-thumb-border-radius;
-    background: $form-range-thumb-background;
-    @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
-}
-
-/* Edge */
-.uk-range::-ms-thumb {
-    /* 1 */
-    margin-top: 0;
-}
-
-/* IE11 */
-.uk-range::-ms-thumb {
-    /* 1 */
-    border: none;
-    /* 2 */
-    height: $form-range-thumb-height;
-    width: $form-range-thumb-width;
-    border-radius: $form-range-thumb-border-radius;
-    background: $form-range-thumb-background;
-    @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
-}
-
-/* Edge + IE11 */
-.uk-range::-ms-tooltip { display: none; }
-
-
-/* Track
- ========================================================================== */
-
-/*
+ * Track
  * 1. Safari doesn't have a focus state. Using active instead.
  */
 
@@ -159,18 +94,36 @@ $form-range-track-focus-background:              darken($form-range-track-backgr
     @if(mixin-exists(hook-form-range-track-focus)) {@include hook-form-range-track-focus();}
 }
 
-/* Edge */
-.uk-range::-ms-fill-lower,
-.uk-range::-ms-fill-upper {
-    height: $form-range-track-height;
-    background: $form-range-track-background;
-    @if(mixin-exists(hook-form-range-track)) {@include hook-form-range-track();}
+/*
+ * Thumb
+ * 1. Reset
+ * 2. Style
+ */
+
+/* Webkit */
+.uk-range::-webkit-slider-thumb {
+    /* 1 */
+    -webkit-appearance: none;
+    margin-top: (floor(($form-range-thumb-height * 0.5)) * -1);
+    /* 2 */
+    height: $form-range-thumb-height;
+    width: $form-range-thumb-width;
+    border-radius: $form-range-thumb-border-radius;
+    background: $form-range-thumb-background;
+    @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
 }
 
-.uk-range:focus::-ms-fill-lower,
-.uk-range:focus::-ms-fill-upper {
-    background: $form-range-track-focus-background;
-    @if(mixin-exists(hook-form-range-track-focus)) {@include hook-form-range-track-focus();}
+/* Firefox */
+.uk-range::-moz-range-thumb {
+    /* 1 */
+    border: none;
+    /* 2 */
+    height: $form-range-thumb-height;
+    width: $form-range-thumb-width;
+    margin-top: (floor(($form-range-thumb-height * 0.5)) * -1);
+    border-radius: $form-range-thumb-border-radius;
+    background: $form-range-thumb-background;
+    @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
 }
 
 
@@ -180,7 +133,7 @@ $form-range-track-focus-background:              darken($form-range-track-backgr
 @if(mixin-exists(hook-form-range-misc)) {@include hook-form-range-misc();}
 
 // @mixin hook-form-range(){}
-// @mixin hook-form-range-thumb(){}
 // @mixin hook-form-range-track(){}
 // @mixin hook-form-range-track-focus(){}
+// @mixin hook-form-range-thumb(){}
 // @mixin hook-form-range-misc(){}

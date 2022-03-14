@@ -317,7 +317,7 @@ $inverse-search-placeholder-color:              $inverse-global-muted-color !def
 $inverse-search-icon-color:                     $inverse-global-muted-color !default;
 
 $inverse-search-default-background:             $inverse-global-muted-background !default;
-$inverse-search-default-focus-background:       fadein($inverse-search-default-background, 5%) !default;
+$inverse-search-default-focus-background:       fade-in($inverse-search-default-background, 0.05) !default;
 
 $inverse-search-navbar-background:              transparent !default;
 

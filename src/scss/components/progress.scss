@@ -21,28 +21,24 @@ $progress-bar-background:                        $global-primary-background !def
  ========================================================================== */
 
 /*
- * 1. Add the correct vertical alignment in Chrome, Firefox, and Opera.
- * 2. Remove default style
- * 3. Behave like a block element
- * 4. Remove borders in Firefox and Edge
- * 5. Set background color for progress container in Firefox, IE11 and Edge
- * 6. Style
+ * 1. Add the correct vertical alignment in all browsers.
+ * 2. Behave like a block element.
+ * 3. Remove borders in Firefox.
+ * 4. Remove default style in Chrome, Safari and Edge.
+ * 5. Style
  */
 
 .uk-progress {
     /* 1 */
     vertical-align: baseline;
     /* 2 */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    /* 3 */
     display: block;
     width: 100%;
-    /* 4 */
+    /* 3 */
     border: 0;
-    /* 5 */
+    /* 4 */
     background-color: $progress-background;
-    /* 6 */
+    /* 5 */
     margin-bottom: $progress-margin-vertical;
     height: $progress-height;
     @if(mixin-exists(hook-progress)) {@include hook-progress();}
@@ -52,27 +48,15 @@ $progress-bar-background:                        $global-primary-background !def
 * + .uk-progress { margin-top: $progress-margin-vertical; }
 
 /*
- * Remove animated circles for indeterminate state in IE11 and Edge
+ * Show background color set on `uk-progress` in Chrome, Safari and Edge.
  */
 
-.uk-progress:indeterminate { color: transparent; }
+ .uk-progress::-webkit-progress-bar { background-color: transparent; }
 
 /*
- * Progress container
- * 2. Remove progress bar for indeterminate state in Firefox
- */
-
-.uk-progress::-webkit-progress-bar {
-  background-color: $progress-background;
-  @if(mixin-exists(hook-progress)) {@include hook-progress();}
-}
-
-/* 2 */
-.uk-progress:indeterminate::-moz-progress-bar { width: 0; }
-
-/*
- * Progress bar
- * 1. Remove right border in IE11 and Edge
+ * Progress Bar
+ * 1. Transitions don't work on `::-moz-progress-bar` pseudo element in Firefox yet.
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=662351
  */
 
 .uk-progress::-webkit-progress-value {
@@ -83,14 +67,8 @@ $progress-bar-background:                        $global-primary-background !def
 
 .uk-progress::-moz-progress-bar {
     background-color: $progress-bar-background;
-    @if(mixin-exists(hook-progress-bar)) {@include hook-progress-bar();}
-}
-
-.uk-progress::-ms-fill {
-    background-color: $progress-bar-background;
-    transition: width 0.6s ease;
     /* 1 */
-    border: 0;
+    transition: width 0.6s ease;
     @if(mixin-exists(hook-progress-bar)) {@include hook-progress-bar();}
 }
 
