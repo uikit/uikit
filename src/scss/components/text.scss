@@ -125,29 +125,22 @@ $text-background-color:                          $global-primary-background !def
  ========================================================================== */
 
 /*
- * 1. The background clips to the foreground text. Works in Chrome, Firefox, Safari, Edge and Opera
- *    Default color is set to transparent
- * 2. Container fits the text
- * 3. Fallback color for IE11
+ * 1. The background clips to the foreground text. Works in all browsers.
+ * 2. Default color is set to transparent.
+ * 3. Container fits the text
+ * 4. Style
  */
 
 .uk-text-background {
     /* 1 */
     -webkit-background-clip: text;
     /* 2 */
-    display: inline-block;
+    color: transparent !important;
     /* 3 */
-    color: $text-background-color !important;
-}
-
-@supports (-webkit-background-clip: text) {
-
-    .uk-text-background {
-        background-color: $text-background-color;
-        color: transparent !important;
-        @if(mixin-exists(hook-text-background)) {@include hook-text-background();}
-    }
-
+    display: inline-block;
+    /* 4 */
+    background-color: $text-background-color;
+    @if(mixin-exists(hook-text-background)) {@include hook-text-background();}
 }
 
 
@@ -233,26 +226,17 @@ $text-background-color:                          $global-primary-background !def
 th.uk-text-truncate,
 td.uk-text-truncate { max-width: 0; }
 
-
 /*
- * 1. Wrap long words onto the next line and break them if they are too long to fit
- * 2. Legacy `word-wrap` as fallback for `overflow-wrap`
- * 3. Fix `overflow-wrap` which doesn't work with table cells in Chrome, Opera, IE11 and Edge
- *    Must use `break-all` to support IE11 and Edge
- * Note: Not using `hyphens: auto;` because it hyphenates text even if not needed
+ * Wrap long words onto the next line and break them if they are too long to fit.
+ * 1. Make it work with table cells in all browsers.
+ * Note: Not using `hyphens: auto` because it hyphenates text even if not needed.
  */
 
-.uk-text-break {
-    /* 1 */
-    overflow-wrap: break-word;
-    /* 2 */
-    word-wrap: break-word;
-}
+ .uk-text-break { overflow-wrap: break-word; }
 
-/* 3 */
-th.uk-text-break,
-td.uk-text-break { word-break: break-all; }
-
+ /* 1 */
+ th.uk-text-break,
+ td.uk-text-break { word-break: break-word; }
 
 
 // Hooks

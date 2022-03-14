@@ -1,10 +1,9 @@
-/*! UIkit 3.11.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.12.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
 /*
  * 1. Set `font-size` to support `rem` units
- *    Not using `font` property because a leading hyphen (e.g. -apple-system) causes the font to break in IE11 and Edge
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  * 3. Style
  */
@@ -132,7 +131,7 @@ sub {
 /* Embedded content
  ========================================================================== */
 /*
- * Remove the gap between embedded content and the bottom of their containers.
+ * Remove the gap between the element and the bottom of its parent container.
  */
 audio,
 canvas,
@@ -143,13 +142,13 @@ video {
   vertical-align: middle;
 }
 /*
- * 1. Add responsiveness.
- * 2. Auto-scale the height. Only needed if `height` attribute is present.
- * 3. Corrects responsive `max-width` behavior if padding and border are used.
- * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio.
+ * 1. Constrain the element to its parent width.
+ * 2. Preserve the intrinsic aspect ratio and auto-scale the height of an image if the `height` attribute is present.
+ * 3. Take border and padding into account.
  */
 canvas,
 img,
+svg,
 video {
   /* 1 */
   max-width: 100%;
@@ -158,30 +157,16 @@ video {
   /* 3 */
   box-sizing: border-box;
 }
-/* 4 */
-@supports (display: block) {
-  svg {
-    max-width: 100%;
-    height: auto;
-    box-sizing: border-box;
-  }
-}
 /*
- * Hide the overflow in IE.
- */
-svg:not(:root) {
-  overflow: hidden;
-}
-/*
- * 1. Fix lazy loading images if parent element is set to `display: inline` and has `overflow: hidden`.
- * 2. Hide `alt` text for lazy loading images.
- * Note: Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
+ * Deprecated: only needed for `img` elements with `uk-img`
+ * 1. Hide `alt` text for lazy load images.
+ * 2. Fix lazy loading images if parent element is set to `display: inline` and has `overflow: hidden`.
  */
 img:not([src]) {
   /* 1 */
-  min-width: 1px;
-  /* 2 */
   visibility: hidden;
+  /* 2 */
+  min-width: 1px;
 }
 /*
  * Iframe
@@ -465,18 +450,6 @@ template {
 /*
  * Breakpoints
  */
-.uk-breakpoint-s::before {
-  content: '640px';
-}
-.uk-breakpoint-m::before {
-  content: '960px';
-}
-.uk-breakpoint-l::before {
-  content: '1200px';
-}
-.uk-breakpoint-xl::before {
-  content: '1600px';
-}
 :root {
   --uk-breakpoint-s: 640px;
   --uk-breakpoint-m: 960px;
@@ -1244,28 +1217,29 @@ button.uk-icon:not(:disabled) {
    Component: Form Range
  ========================================================================== */
 /*
- * 1. Normalize and defaults
- * 2. Prevent content overflow if a fixed width is used
- * 3. Take the full width
- * 4. Remove default style
- * 5. Remove white background in Chrome
- * 6. Remove padding in IE11
+ * 1. Remove default style.
+ * 2. Define consistent box sizing.
+ * 3. Remove `margin` in all browsers.
+ * 4. Align to the center of the line box.
+ * 5. Prevent content overflow if a fixed width is used.
+ * 6. Take the full width.
+ * 7. Remove white background in Chrome.
  */
 .uk-range {
   /* 1 */
-  box-sizing: border-box;
-  margin: 0;
-  vertical-align: middle;
-  /* 2 */
-  max-width: 100%;
-  /* 3 */
-  width: 100%;
-  /* 4 */
   -webkit-appearance: none;
+  /* 2 */
+  box-sizing: border-box;
+  /* 3 */
+  margin: 0;
+  /* 4 */
+  vertical-align: middle;
   /* 5 */
-  background: transparent;
+  max-width: 100%;
   /* 6 */
-  padding: 0;
+  width: 100%;
+  /* 7 */
+  background: transparent;
 }
 /* Focus */
 .uk-range:focus {
@@ -1273,13 +1247,6 @@ button.uk-icon:not(:disabled) {
 }
 .uk-range::-moz-focus-outer {
   border: none;
-}
-/* IE11 Reset */
-.uk-range::-ms-track {
-  height: 15px;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
 }
 /*
  * Improves consistency of cursor style for clickable elements
@@ -1290,12 +1257,31 @@ button.uk-icon:not(:disabled) {
 .uk-range:not(:disabled)::-moz-range-thumb {
   cursor: pointer;
 }
-.uk-range:not(:disabled)::-ms-thumb {
-  cursor: pointer;
-}
-/* Thumb
- ========================================================================== */
 /*
+ * Track
+ * 1. Safari doesn't have a focus state. Using active instead.
+ */
+/* Webkit */
+.uk-range::-webkit-slider-runnable-track {
+  height: 3px;
+  background: #ebebeb;
+  border-radius: 500px;
+}
+.uk-range:focus::-webkit-slider-runnable-track,
+.uk-range:active::-webkit-slider-runnable-track {
+  background: #dedede;
+}
+/* Firefox */
+.uk-range::-moz-range-track {
+  height: 3px;
+  background: #ebebeb;
+  border-radius: 500px;
+}
+.uk-range:focus::-moz-range-track {
+  background: #dedede;
+}
+/*
+ * Thumb
  * 1. Reset
  * 2. Style
  */
@@ -1318,64 +1304,10 @@ button.uk-icon:not(:disabled) {
   /* 2 */
   height: 15px;
   width: 15px;
+  margin-top: -7px;
   border-radius: 500px;
   background: #fff;
   border: 1px solid #cccccc;
-}
-/* Edge */
-.uk-range::-ms-thumb {
-  /* 1 */
-  margin-top: 0;
-}
-/* IE11 */
-.uk-range::-ms-thumb {
-  /* 1 */
-  border: none;
-  /* 2 */
-  height: 15px;
-  width: 15px;
-  border-radius: 500px;
-  background: #fff;
-  border: 1px solid #cccccc;
-}
-/* Edge + IE11 */
-.uk-range::-ms-tooltip {
-  display: none;
-}
-/* Track
- ========================================================================== */
-/*
- * 1. Safari doesn't have a focus state. Using active instead.
- */
-/* Webkit */
-.uk-range::-webkit-slider-runnable-track {
-  height: 3px;
-  background: #ebebeb;
-  border-radius: 500px;
-}
-.uk-range:focus::-webkit-slider-runnable-track,
-.uk-range:active::-webkit-slider-runnable-track {
-  background: #dedede;
-}
-/* Firefox */
-.uk-range::-moz-range-track {
-  height: 3px;
-  background: #ebebeb;
-  border-radius: 500px;
-}
-.uk-range:focus::-moz-range-track {
-  background: #dedede;
-}
-/* Edge */
-.uk-range::-ms-fill-lower,
-.uk-range::-ms-fill-upper {
-  height: 3px;
-  background: #ebebeb;
-  border-radius: 500px;
-}
-.uk-range:focus::-ms-fill-lower,
-.uk-range:focus::-ms-fill-upper {
-  background: #dedede;
 }
 /* ========================================================================
    Component: Form
@@ -1713,7 +1645,6 @@ select.uk-form-width-xsmall {
   display: none !important;
 }
 /* Radio and checkbox
- * Note: Does not work in IE11
  ========================================================================== */
 /*
  * 1. Style
@@ -2229,27 +2160,23 @@ select.uk-form-width-xsmall {
    Component: Progress
  ========================================================================== */
 /*
- * 1. Add the correct vertical alignment in Chrome, Firefox, and Opera.
- * 2. Remove default style
- * 3. Behave like a block element
- * 4. Remove borders in Firefox and Edge
- * 5. Set background color for progress container in Firefox, IE11 and Edge
- * 6. Style
+ * 1. Add the correct vertical alignment in all browsers.
+ * 2. Behave like a block element.
+ * 3. Remove borders in Firefox.
+ * 4. Remove default style in Chrome, Safari and Edge.
+ * 5. Style
  */
 .uk-progress {
   /* 1 */
   vertical-align: baseline;
   /* 2 */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  /* 3 */
   display: block;
   width: 100%;
-  /* 4 */
+  /* 3 */
   border: 0;
-  /* 5 */
+  /* 4 */
   background-color: #f8f8f8;
-  /* 6 */
+  /* 5 */
   margin-bottom: 20px;
   height: 15px;
   border-radius: 500px;
@@ -2260,27 +2187,15 @@ select.uk-form-width-xsmall {
   margin-top: 20px;
 }
 /*
- * Remove animated circles for indeterminate state in IE11 and Edge
- */
-.uk-progress:indeterminate {
-  color: transparent;
-}
-/*
- * Progress container
- * 2. Remove progress bar for indeterminate state in Firefox
+ * Show background color set on `uk-progress` in Chrome, Safari and Edge.
  */
 .uk-progress::-webkit-progress-bar {
-  background-color: #f8f8f8;
-  border-radius: 500px;
-  overflow: hidden;
-}
-/* 2 */
-.uk-progress:indeterminate::-moz-progress-bar {
-  width: 0;
+  background-color: transparent;
 }
 /*
- * Progress bar
- * 1. Remove right border in IE11 and Edge
+ * Progress Bar
+ * 1. Transitions don't work on `::-moz-progress-bar` pseudo element in Firefox yet.
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=662351
  */
 .uk-progress::-webkit-progress-value {
   background-color: #1e87f0;
@@ -2288,12 +2203,8 @@ select.uk-form-width-xsmall {
 }
 .uk-progress::-moz-progress-bar {
   background-color: #1e87f0;
-}
-.uk-progress::-ms-fill {
-  background-color: #1e87f0;
-  transition: width 0.6s ease;
   /* 1 */
-  border: 0;
+  transition: width 0.6s ease;
 }
 /* ========================================================================
    Component: Section
@@ -3778,10 +3689,8 @@ select.uk-form-width-xsmall {
 /*
  * 1. Create position context for spinner and close button
  * 2. Dimensions
- * 3. Fix `max-width: 100%` not working in combination with flex and responsive images in IE11
- *    `!important` needed to overwrite `uk-width-auto`. See `#modal-media-image` in tests
- * 4. Style
- * 5. Slide-in transition
+ * 3. Style
+ * 4. Slide-in transition
  */
 .uk-modal-dialog {
   /* 1 */
@@ -3791,10 +3700,8 @@ select.uk-form-width-xsmall {
   margin: 0 auto;
   width: 600px;
   /* 3 */
-  max-width: calc(100% - 0.01px) !important;
-  /* 4 */
   background: #fff;
-  /* 5 */
+  /* 4 */
   opacity: 0;
   transform: translateY(-100px);
   transition: 0.3s linear;
@@ -3956,7 +3863,6 @@ select.uk-form-width-xsmall {
  * 2. Take the full width
  * 3. Clip child elements, e.g. for `uk-cover`
  * 4. Optimize animation
- * 5. Disable horizontal panning gestures in IE11 and Edge
  */
 .uk-slideshow-items > * {
   /* 1 */
@@ -3970,8 +3876,6 @@ select.uk-form-width-xsmall {
   overflow: hidden;
   /* 4 */
   will-change: transform, opacity;
-  /* 5 */
-  touch-action: pan-y;
 }
 /*
  * Hide not active items
@@ -4038,7 +3942,6 @@ select.uk-form-width-xsmall {
  * 1. Let items take content dimensions (0 0 auto)
  *    `max-width` needed to keep image responsiveness and prevent content overflow
  * 3. Create position context
- * 4. Disable horizontal panning gestures in IE11 and Edge
  */
 .uk-slider-items > * {
   /* 1 */
@@ -4046,8 +3949,6 @@ select.uk-form-width-xsmall {
   max-width: 100%;
   /* 3 */
   position: relative;
-  /* 4 */
-  touch-action: pan-y;
 }
 /* ========================================================================
    Component: Sticky
@@ -4350,9 +4251,6 @@ select.uk-form-width-xsmall {
 /*
  * Pass fill character to JS
  */
-.uk-leader-fill-content::before {
-  content: '.';
-}
 :root {
   --uk-leader-fill-content: '.';
 }
@@ -5176,13 +5074,6 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-navbar-container:not(.uk-navbar-transparent) {
   background: #f8f8f8;
-}
-/*
- * Remove pseudo elements created by micro clearfix as precaution (if Container component is used)
- */
-.uk-navbar-container > ::before,
-.uk-navbar-container > ::after {
-  display: none !important;
 }
 /* Groups
  ========================================================================== */
@@ -6229,7 +6120,6 @@ ul.uk-nav-sub {
  * 4. Optimize animation
  * 5. Responsiveness
  *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
- *    Using `vh` and `vw` to make responsive image work in IE11
  */
 .uk-lightbox-items > * {
   /* 1 */
@@ -7149,6 +7039,15 @@ ul.uk-nav-sub {
 .uk-height-viewport {
   min-height: 100vh;
 }
+.uk-height-viewport-2 {
+  min-height: 200vh;
+}
+.uk-height-viewport-3 {
+  min-height: 300vh;
+}
+.uk-height-viewport-4 {
+  min-height: 400vh;
+}
 /*
  * Pixel
  * Useful for `overflow: auto`
@@ -7271,24 +7170,20 @@ ul.uk-nav-sub {
 /* Background modifier
  ========================================================================== */
 /*
- * 1. The background clips to the foreground text. Works in Chrome, Firefox, Safari, Edge and Opera
- *    Default color is set to transparent
- * 2. Container fits the text
- * 3. Fallback color for IE11
+ * 1. The background clips to the foreground text. Works in all browsers.
+ * 2. Default color is set to transparent.
+ * 3. Container fits the text
+ * 4. Style
  */
 .uk-text-background {
   /* 1 */
   -webkit-background-clip: text;
   /* 2 */
-  display: inline-block;
+  color: transparent !important;
   /* 3 */
-  color: #1e87f0 !important;
-}
-@supports (-webkit-background-clip: text) {
-  .uk-text-background {
-    background-color: #1e87f0;
-    color: transparent !important;
-  }
+  display: inline-block;
+  /* 4 */
+  background-color: #1e87f0;
 }
 /* Alignment modifiers
  ========================================================================== */
@@ -7394,22 +7289,17 @@ td.uk-text-truncate {
   max-width: 0;
 }
 /*
- * 1. Wrap long words onto the next line and break them if they are too long to fit
- * 2. Legacy `word-wrap` as fallback for `overflow-wrap`
- * 3. Fix `overflow-wrap` which doesn't work with table cells in Chrome, Opera, IE11 and Edge
- *    Must use `break-all` to support IE11 and Edge
- * Note: Not using `hyphens: auto;` because it hyphenates text even if not needed
+ * Wrap long words onto the next line and break them if they are too long to fit.
+ * 1. Make it work with table cells in all browsers.
+ * Note: Not using `hyphens: auto` because it hyphenates text even if not needed.
  */
 .uk-text-break {
-  /* 1 */
   overflow-wrap: break-word;
-  /* 2 */
-  word-wrap: break-word;
 }
-/* 3 */
+/* 1 */
 th.uk-text-break,
 td.uk-text-break {
-  word-break: break-all;
+  word-break: break-word;
 }
 /* ========================================================================
    Component: Column
@@ -8032,6 +7922,53 @@ iframe[data-uk-cover] {
 [data-uk-responsive] {
   max-width: 100%;
 }
+/* Object
+ ========================================================================== */
+.uk-object-cover {
+  object-fit: cover;
+}
+.uk-object-contain {
+  object-fit: contain;
+}
+.uk-object-fill {
+  object-fit: fill;
+}
+.uk-object-none {
+  object-fit: none;
+}
+.uk-object-scale-down {
+  object-fit: scale-down;
+}
+/* 
+ * Position
+ */
+.uk-object-top-right {
+  object-position: 100% 0;
+}
+.uk-object-top-center {
+  object-position: 50% 0;
+}
+.uk-object-top-left {
+  object-position: 0% 0;
+}
+.uk-object-center-right {
+  object-position: 100% 50%;
+}
+.uk-object-center-center {
+  object-position: 50% 50%;
+}
+.uk-object-center-left {
+  object-position: 0% 50%;
+}
+.uk-object-bottom-right {
+  object-position: 100% 100%;
+}
+.uk-object-bottom-center {
+  object-position: 50% 100%;
+}
+.uk-object-bottom-left {
+  object-position: 0% 100%;
+}
 /* Border
  ========================================================================== */
 .uk-border-circle {
@@ -8282,15 +8219,6 @@ iframe[data-uk-cover] {
 }
 .uk-flex-inline {
   display: inline-flex;
-}
-/*
- * Remove pseudo elements created by micro clearfix as precaution
- */
-.uk-flex::before,
-.uk-flex::after,
-.uk-flex-inline::before,
-.uk-flex-inline::after {
-  display: none;
 }
 /* Alignment
  ========================================================================== */

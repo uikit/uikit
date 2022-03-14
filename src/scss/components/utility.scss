@@ -10,6 +10,7 @@
 //                  `uk-inline-*`
 //                  `uk-responsive-*`
 //                  `uk-preserve-width`
+//                  `uk-object-*`
 //                  `uk-border-*`
 //                  `uk-box-shadow-*`
 //                  `uk-box-shadow-bottom`
@@ -249,6 +250,30 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 
 [uk-responsive],
 [data-uk-responsive] { max-width: 100%; }
+
+
+/* Object
+ ========================================================================== */
+
+.uk-object-cover { object-fit: cover; }
+.uk-object-contain { object-fit: contain; }
+.uk-object-fill { object-fit: fill; }
+.uk-object-none { object-fit: none; }
+.uk-object-scale-down { object-fit: scale-down; }
+
+/* 
+ * Position
+ */
+
+.uk-object-top-left { object-position: 0 0; }
+.uk-object-top-center { object-position: 50% 0; }
+.uk-object-top-right { object-position: 100% 0; }
+.uk-object-center-left { object-position: 0 50%; }
+.uk-object-center-center { object-position: 50% 50%; }
+.uk-object-center-right { object-position: 100% 50%; }
+.uk-object-bottom-left { object-position: 0 100%; }
+.uk-object-bottom-center { object-position: 50% 100%; }
+.uk-object-bottom-right { object-position: 100% 100%; }
 
 
 /* Border
