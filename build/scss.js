@@ -92,10 +92,7 @@ for (const file of await glob('src/less/**/*.less')) {
         .replace(/(\$[\w-]*)\s*:(.*);/g, '$1: $2 !default;') // make variables optional
         .replace(/@mixin ([\w-]*)\s*\((.*)\)\s*{\s*}/g, '// @mixin $1($2){}') // comment empty mixins
         .replace(/\.(hook[a-zA-Z\-\d]+)(\(\))?;/g, '@if(mixin-exists($1)) {@include $1();}') // hook calls surrounded by a mixin-exists
-        .replace(
-            /\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes|-moz-document)/g,
-            '@$1'
-        ) // replace valid '@' statements
+        .replace(/\$(import|supports|media|font-face|page|keyframes|-moz-document)/g, '@$1') // replace valid '@' statements
         .replace(/tint\((\$[\w-]+),\s([^)]*)\)/g, 'mix(white, $1, $2)') // replace Less function tint with mix
         .replace(/fade\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2) => {
             return `rgba(${p1}, ${p2 / 100})`;
@@ -191,19 +188,14 @@ await write('src/scss/variables-theme.scss', Array.from(compactThemeVar).join('\
  * @return Set with all the dependencies.
  */
 function getAllDependencies(allVariables, currentKey, dependencies = new Set()) {
-    if (!allVariables[currentKey].dependencies.length) {
-        dependencies.add(`${currentKey}: ${allVariables[currentKey].value}`);
-        return Array.from(dependencies);
-    } else {
-        allVariables[currentKey].dependencies.forEach((dependecy) => {
-            getAllDependencies(allVariables, dependecy, dependencies).forEach((newDependency) =>
-                dependencies.add(newDependency)
-            );
-        });
+    allVariables[currentKey].dependencies?.forEach((dependency) =>
+        getAllDependencies(allVariables, dependency, dependencies).forEach((newDependency) =>
+            dependencies.add(newDependency)
+        )
+    );
 
-        dependencies.add(`${currentKey}: ${allVariables[currentKey].value}`);
-        return Array.from(dependencies);
-    }
+    dependencies.add(`${currentKey}: ${allVariables[currentKey].value}`);
+    return Array.from(dependencies);
 }
 
 /*
