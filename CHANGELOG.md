@@ -5,6 +5,7 @@
 ### Removed
 
 - Remove Edge Legacy (EdgeHTML) support
+- Remove Safari fallback for `focus-visible`
 
 ## 3.12.2 (March 14, 2022)
 
