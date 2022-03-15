@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Removed
+
+- Remove Edge Legacy (EdgeHTML) support
+
 ## 3.12.2 (March 14, 2022)
 
 ### Fixed
@@ -40,7 +46,7 @@
 
 - Deprecate `uk-img` for `<img>` element: Use native `loading="lazy"` attribute instead
 
-## Removed
+### Removed
 
 - Remove IE11 support
 - Removed `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
@@ -1123,7 +1129,7 @@
 
 - Image Component uses IntersectionObserver now
 
-## Removed
+### Removed
 
 - Remove `isReady` function
 - Form Custom component no longer sets `uk-hover` and `uk-focus` classes
