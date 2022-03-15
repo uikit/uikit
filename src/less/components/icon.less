@@ -107,15 +107,21 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 
 /*
  * Display images in icon dimensions
+ * 1. Required for `span` with background image
+ * 2. Required for `image`
  */
 
 .uk-icon-image {
     width: @icon-image-size;
     height: @icon-image-size;
+    /* 1 */
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: contain;
     vertical-align: middle;
+    /* 2 */
+    object-fit: scale-down;
+    max-width: none;
 }
 
 

@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add support for `<img>` element to icon image class in Icon component
+
 ### Removed
 
 - Remove Edge Legacy (EdgeHTML) support
