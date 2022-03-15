@@ -7,6 +7,10 @@
 - Remove Edge Legacy (EdgeHTML) support
 - Remove Safari fallback for `focus-visible`
 
+### Fixed
+
+- Fix list bullet regression in List component
+
 ## 3.12.2 (March 14, 2022)
 
 ### Fixed
