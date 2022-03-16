@@ -224,9 +224,7 @@ export default {
 
                 this.tracker.init();
 
-                once(
-                    this.$el,
-                    'hide',
+                for (const handler of [
                     on(
                         document,
                         pointerDown,
@@ -248,19 +246,16 @@ export default {
                                 true
                             )
                     ),
-                    { self: true }
-                );
 
-                once(
-                    this.$el,
-                    'hide',
                     on(document, 'keydown', (e) => {
                         if (e.keyCode === 27) {
                             this.hide(false);
                         }
                     }),
-                    { self: true }
-                );
+                    on(window, 'resize', () => this.$emit('resize')),
+                ]) {
+                    once(this.$el, 'hide', handler, { self: true });
+                }
             },
         },
 

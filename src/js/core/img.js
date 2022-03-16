@@ -8,7 +8,6 @@ import {
     escape,
     fragment,
     hasAttr,
-    hasIntersectionObserver,
     includes,
     isArray,
     isEmpty,
@@ -60,7 +59,7 @@ export default {
     },
 
     connected() {
-        if (this.loading !== 'lazy' || !hasIntersectionObserver) {
+        if (this.loading !== 'lazy') {
             this.load();
             return;
         }

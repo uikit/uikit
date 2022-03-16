@@ -11,7 +11,6 @@ import {
     offset,
     query,
     toFloat,
-    trigger,
 } from 'uikit-util';
 
 export default {
@@ -71,12 +70,8 @@ export default {
             return { minHeight, prev };
         },
 
-        write({ minHeight, prev }) {
+        write({ minHeight }) {
             css(this.$el, { minHeight });
-
-            if (minHeight !== prev) {
-                trigger(this.$el, 'resize');
-            }
 
             if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {
                 css(this.$el, 'minHeight', this.minHeight);

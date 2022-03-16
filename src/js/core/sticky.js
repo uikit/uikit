@@ -1,5 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
+import Resize from '../mixin/resize';
 import {
     $,
     addClass,
@@ -32,7 +33,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Class, Media],
+    mixins: [Class, Media, Resize],
 
     props: {
         position: String,
@@ -73,6 +74,10 @@ export default {
 
         widthElement({ widthElement }, $el) {
             return query(widthElement, $el) || this.placeholder;
+        },
+
+        resizeTargets() {
+            return document.documentElement;
         },
 
         isActive: {

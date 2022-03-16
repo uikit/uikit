@@ -1,4 +1,11 @@
-import { isRtl, isVisible, offsetPosition, toggleClass } from 'uikit-util';
+import {
+    isRtl,
+    isVisible,
+    observeMutation,
+    observeResize,
+    offsetPosition,
+    toggleClass,
+} from 'uikit-util';
 
 export default {
     props: {
@@ -9,6 +16,16 @@ export default {
     data: {
         margin: 'uk-margin-small-top',
         firstColumn: 'uk-first-column',
+    },
+
+    connected() {
+        this.registerObserver(
+            observeMutation(this.$el, () => this.$reset(), {
+                childList: true,
+            })
+        );
+
+        this.registerObserver(observeResize(this.$el.children, () => this.$emit('resize')));
     },
 
     update: {

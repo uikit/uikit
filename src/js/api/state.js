@@ -62,7 +62,7 @@ export default function (UIkit) {
     UIkit.prototype._initComputeds = function () {
         const { computed } = this.$options;
 
-        this._computeds = {};
+        this._computed = {};
 
         if (computed) {
             for (const key in computed) {
@@ -101,11 +101,9 @@ export default function (UIkit) {
                 }
             }
         }
-        for (const { events = [] } of this.$options.update || []) {
-            if (includes(events, 'scroll')) {
-                registerScrollListener(this._uid, () => this.$emit('scroll'));
-                break;
-            }
+
+        if (hasUpdateOfType(this.$options.update, 'scroll')) {
+            registerScrollListener(this._uid, () => this.$emit('scroll'));
         }
     };
 
@@ -116,7 +114,11 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._initObservers = function () {
-        this._observers = [initChildListObserver(this), initPropsObserver(this)];
+        this._observers = [initPropsObserver(this)];
+
+        if (this.$options.computed) {
+            this.registerObserver(initChildListObserver(this));
+        }
     };
 
     UIkit.prototype.registerObserver = function (observer) {
@@ -170,22 +172,22 @@ function registerComputed(component, key, cb) {
         enumerable: true,
 
         get() {
-            const { _computeds, $props, $el } = component;
+            const { _computed, $props, $el } = component;
 
-            if (!hasOwn(_computeds, key)) {
-                _computeds[key] = (cb.get || cb).call(component, $props, $el);
+            if (!hasOwn(_computed, key)) {
+                _computed[key] = (cb.get || cb).call(component, $props, $el);
             }
 
-            return _computeds[key];
+            return _computed[key];
         },
 
         set(value) {
-            const { _computeds } = component;
+            const { _computed } = component;
 
-            _computeds[key] = cb.set ? cb.set.call(component, value) : value;
+            _computed[key] = cb.set ? cb.set.call(component, value) : value;
 
-            if (isUndefined(_computeds[key])) {
-                delete _computeds[key];
+            if (isUndefined(_computed[key])) {
+                delete _computed[key];
             }
         },
     });
@@ -311,6 +313,14 @@ function initPropsObserver(component) {
     });
 
     return observer;
+}
+
+function hasUpdateOfType(updates = [], type) {
+    for (const { events = [] } of updates) {
+        if (includes(events, type)) {
+            return true;
+        }
+    }
 }
 
 const scrollListeners = new Map();

@@ -1,7 +1,11 @@
-import { isInView } from 'uikit-util';
+import { isInView, observeIntersection } from 'uikit-util';
 
 // Deprecated
 export default {
+    connected() {
+        this.registerObserver(observeIntersection(this.$el, () => this.$emit()));
+    },
+
     update: {
         read(data) {
             const inview = isInView(this.$el);
@@ -16,7 +20,5 @@ export default {
         write() {
             this.$el.src = '' + this.$el.src; // force self-assign
         },
-
-        events: ['scroll', 'resize'],
     },
 };

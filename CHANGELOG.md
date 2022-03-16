@@ -6,6 +6,11 @@
 
 - Add support for `<img>` element to icon image class in Icon component
 
+### Changed
+
+- Drastically improve performance for large sites
+- Custom components have to listen for `resize` updates manually
+
 ### Removed
 
 - Remove Edge Legacy (EdgeHTML) support
