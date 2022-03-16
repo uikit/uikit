@@ -189,22 +189,25 @@ export default {
                 }
             },
         },
+
+        {
+            name: 'mediachange',
+
+            filter() {
+                return includes(this.mode, 'media');
+            },
+
+            el() {
+                return this.target;
+            },
+
+            handler(e, mediaObj) {
+                if (mediaObj.matches ^ this.isToggled(this.target)) {
+                    this.toggle();
+                }
+            },
+        },
     ],
-
-    update: {
-        read() {
-            return includes(this.mode, 'media') && this.media ? { match: this.matchMedia } : false;
-        },
-
-        write({ match }) {
-            const toggled = this.isToggled(this.target);
-            if (match ? !toggled : toggled) {
-                this.toggle();
-            }
-        },
-
-        events: ['resize'],
-    },
 
     methods: {
         async toggle(type) {
