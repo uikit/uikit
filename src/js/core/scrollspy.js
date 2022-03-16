@@ -110,7 +110,7 @@ export default {
         toggle(el, inview) {
             const state = el[stateKey];
 
-            state.off && state.off();
+            state.off?.();
 
             css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
 
@@ -118,9 +118,12 @@ export default {
             toggleClass(el, state.cls);
 
             if (/\buk-animation-/.test(state.cls)) {
-                state.off = once(el, 'animationcancel animationend', () =>
-                    removeClasses(el, 'uk-animation-[\\w-]+')
-                );
+                const removeAnimationClasses = () => removeClasses(el, 'uk-animation-[\\w-]+');
+                if (inview) {
+                    state.off = once(el, 'animationcancel animationend', removeAnimationClasses);
+                } else {
+                    removeAnimationClasses();
+                }
             }
 
             trigger(el, inview ? 'inview' : 'outview');

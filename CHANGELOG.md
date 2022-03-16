@@ -15,6 +15,7 @@
 
 - Fix list bullet regression in List component
 - Fix Sticky component notices change in its offset parent's position
+- Fix Scrollspy component does not apply animation classes on hide
 
 ## 3.12.2 (March 14, 2022)
 
