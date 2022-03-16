@@ -186,7 +186,6 @@ export default {
 
                 const overflow = Math.max(0, height + offset - windowHeight);
                 const topOffset = getOffset(referenceElement).top;
-                const offsetParentTop = getOffset(referenceElement.offsetParent).top;
 
                 const top = parseProp(this.top, this.$el, topOffset);
                 const bottom = parseProp(this.bottom, this.$el, topOffset + height, true);
@@ -202,7 +201,6 @@ export default {
                     offset,
                     overflow,
                     topOffset,
-                    offsetParentTop,
                     height,
                     margin,
                     width: dimensions(isVisible(this.widthElement) ? this.widthElement : this.$el)
@@ -244,6 +242,7 @@ export default {
                     prevDir,
                     scroll,
                     prevScroll,
+                    offsetParentTop: getOffset(this.$el.offsetParent).top,
                     overflowScroll: clamp(
                         overflowScroll + clamp(scroll, start, end) - clamp(prevScroll, start, end),
                         0,

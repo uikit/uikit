@@ -14,6 +14,7 @@
 ### Fixed
 
 - Fix list bullet regression in List component
+- Fix Sticky component notices change in its offset parent's position
 
 ## 3.12.2 (March 14, 2022)
 
