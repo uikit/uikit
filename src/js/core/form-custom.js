@@ -42,13 +42,12 @@ export default {
         let option;
         const prop = isInput(target) ? 'value' : 'textContent';
         const prev = target[prop];
-        const value =
-            input.files && input.files[0]
-                ? input.files[0].name
-                : matches(input, 'select') &&
-                  (option = $$('option', input).filter((el) => el.selected)[0]) // eslint-disable-line prefer-destructuring
-                ? option.textContent
-                : input.value;
+        const value = input.files?.[0]
+            ? input.files[0].name
+            : matches(input, 'select') &&
+              (option = $$('option', input).filter((el) => el.selected)[0]) // eslint-disable-line prefer-destructuring
+            ? option.textContent
+            : input.value;
 
         if (prev !== value) {
             target[prop] = value;

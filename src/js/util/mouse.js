@@ -25,7 +25,7 @@ MouseTracker.prototype = {
     },
 
     cancel() {
-        this.unbind && this.unbind();
+        this.unbind?.();
         this.interval && clearInterval(this.interval);
     },
 

@@ -45,7 +45,7 @@ export default {
             return (
                 finite ||
                 Math.ceil(getWidth(this.list)) <
-                    Math.floor(dimensions(this.list).width + getMaxElWidth(this.list) + this.center)
+                    Math.trunc(dimensions(this.list).width + getMaxElWidth(this.list) + this.center)
             );
         },
 
