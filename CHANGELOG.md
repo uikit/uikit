@@ -9,7 +9,7 @@
 ### Changed
 
 - Drastically improve performance for large sites
-- Custom components have to listen for `resize` updates manually
+- Custom components have to listen for `resize` and `scroll` updates manually
 
 ### Removed
 

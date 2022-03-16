@@ -1,6 +1,7 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
 import Resize from '../mixin/resize';
+import Scroll from '../mixin/scroll';
 import {
     $,
     addClass,
@@ -33,7 +34,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Class, Media, Resize],
+    mixins: [Class, Media, Resize, Scroll],
 
     props: {
         position: String,

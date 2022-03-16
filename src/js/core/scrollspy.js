@@ -1,3 +1,4 @@
+import Scroll from '../mixin/scroll';
 import {
     $$,
     css,
@@ -13,6 +14,8 @@ import {
 
 const stateKey = '_ukScrollspy';
 export default {
+    mixins: [Scroll],
+
     args: 'cls',
 
     props: {

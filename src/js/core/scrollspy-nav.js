@@ -1,3 +1,4 @@
+import Scroll from '../mixin/scroll';
 import {
     $$,
     closest,
@@ -13,6 +14,8 @@ import {
 import { getTargetElement } from './scroll';
 
 export default {
+    mixins: [Scroll],
+
     props: {
         cls: String,
         closest: String,
