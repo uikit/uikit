@@ -15,6 +15,7 @@
 
 - Remove Edge Legacy (EdgeHTML) support
 - Remove Safari fallback for `focus-visible`
+- Remove deprecated Gif component
 
 ### Fixed
 
