@@ -17,7 +17,7 @@ export default {
     },
 
     connected() {
-        this.date = Date.parse(this.date);
+        this.date = Date.parse(this.$props.date);
         this.start();
     },
 
