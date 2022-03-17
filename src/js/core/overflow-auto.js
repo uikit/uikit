@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Resize from '../mixin/resize';
-import { closest, css, dimensions, height, isVisible } from 'uikit-util';
+import { closest, css, dimensions, fastdom, height, isVisible } from 'uikit-util';
 
 export default {
     mixins: [Class, Resize],
@@ -25,14 +25,10 @@ export default {
         content({ selContent }, $el) {
             return closest($el, selContent);
         },
-
-        resizeTargets() {
-            return [this.container, this.content];
-        },
     },
 
-    connected() {
-        css(this.$el, 'minHeight', this.minHeight);
+    resizeTargets() {
+        return [this.container, this.content];
     },
 
     update: {
@@ -50,7 +46,7 @@ export default {
         },
 
         write({ max }) {
-            css(this.$el, 'maxHeight', max);
+            css(this.$el, { minHeight: this.minHeight, maxHeight: max });
         },
 
         events: ['resize'],

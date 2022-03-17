@@ -16,6 +16,7 @@ import {
     pointerEnter,
     pointerLeave,
     queryAll,
+    ready,
     trigger,
     within,
 } from 'uikit-util';
@@ -41,13 +42,6 @@ export default {
         queued: true,
     },
 
-    connected() {
-        if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
-            attr(this.$el, 'tabindex', '0');
-        }
-        this.lazyload(this.$el, this.target);
-    },
-
     computed: {
         target: {
             get({ href, target }, $el) {
@@ -61,6 +55,17 @@ export default {
 
             immediate: true,
         },
+    },
+
+    connected() {
+        if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
+            attr(this.$el, 'tabindex', '0');
+        }
+
+        this.lazyload(this.$el, this.target);
+
+        // check for target
+        ready(() => this.$emit());
     },
 
     events: [

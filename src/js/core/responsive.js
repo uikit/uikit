@@ -1,7 +1,14 @@
+import Resize from '../mixin/resize';
 import { addClass, Dimensions, height, isVisible, parent, width } from 'uikit-util';
 
 export default {
+    mixin: [Resize],
+
     props: ['width', 'height'],
+
+    resizeTargets() {
+        return [this.$el, parent(this.$el)];
+    },
 
     connected() {
         addClass(this.$el, 'uk-responsive-width');

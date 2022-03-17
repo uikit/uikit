@@ -18,17 +18,13 @@ export default {
         media: false,
     },
 
-    computed: {
-        matchMedia() {
-            return this.mediaObj?.matches;
-        },
-    },
-
     connected() {
         const media = toMedia(this.media);
         this.mediaObj = window.matchMedia(media);
-        const handler = () =>
+        const handler = () => {
+            this.matchMedia = this.mediaObj.matches;
             trigger(this.$el, createEvent('mediachange', false, true, [this.mediaObj]));
+        };
         this.offMediaObj = on(this.mediaObj, 'change', () => {
             handler();
             this.$emit('resize');

@@ -71,10 +71,6 @@ export default {
             return (selTarget && $(selTarget, $el)) || $el;
         },
 
-        resizeTargets() {
-            return document.documentElement;
-        },
-
         isActive: {
             get() {
                 return hasClass(this.selTarget, this.clsActive);
@@ -90,6 +86,10 @@ export default {
                 }
             },
         },
+    },
+
+    resizeTargets() {
+        return document.documentElement;
     },
 
     connected() {

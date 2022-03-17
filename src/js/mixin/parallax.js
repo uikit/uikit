@@ -1,6 +1,7 @@
 import Media from '../mixin/media';
 import { getMaxPathLength } from '../core/svg';
 import {
+    createEvent,
     css,
     Dimensions,
     each,
@@ -255,7 +256,7 @@ function getBackgroundImageDimensions(el) {
         if (!image.naturalWidth) {
             image.onload = () => {
                 dimensions[src] = toDimensions(image);
-                trigger(el, 'load');
+                trigger(el, createEvent('load', false));
             };
             return toDimensions(image);
         }

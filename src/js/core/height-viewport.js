@@ -31,11 +31,9 @@ export default {
         minHeight: 0,
     },
 
-    computed: {
-        resizeTargets() {
-            // check for offsetTop change
-            return [this.$el, document.documentElement];
-        },
+    resizeTargets() {
+        // check for offsetTop change
+        return [this.$el, document.documentElement];
     },
 
     update: {

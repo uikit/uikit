@@ -1,13 +1,5 @@
 import { getRows } from './margin';
-import {
-    $$,
-    boxModelAdjust,
-    css,
-    dimensions,
-    isVisible,
-    observeMutation,
-    toFloat,
-} from 'uikit-util';
+import { $$, boxModelAdjust, css, dimensions, isVisible, toFloat } from 'uikit-util';
 
 export default {
     args: 'target',
@@ -24,21 +16,19 @@ export default {
     },
 
     computed: {
-        elements({ target }, $el) {
-            return $$(target, $el);
-        },
+        elements: {
+            get({ target }, $el) {
+                return $$(target, $el);
+            },
 
-        resizeTargets() {
-            this.$el.children;
+            watch() {
+                this.$reset();
+            },
         },
     },
 
-    connected() {
-        this.registerObserver(
-            observeMutation(this.$el, () => this.$reset(), {
-                childList: true,
-            })
-        );
+    resizeTargets() {
+        return this.elements;
     },
 
     update: {
