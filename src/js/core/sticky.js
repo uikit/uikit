@@ -47,7 +47,6 @@ export default {
         clsFixed: String,
         clsBelow: String,
         selTarget: String,
-        widthElement: Boolean,
         showOnUp: Boolean,
         targetOffset: Number,
     },
@@ -63,7 +62,6 @@ export default {
         clsFixed: 'uk-sticky-fixed',
         clsBelow: 'uk-sticky-below',
         selTarget: '',
-        widthElement: false,
         showOnUp: false,
         targetOffset: false,
     },
@@ -71,10 +69,6 @@ export default {
     computed: {
         selTarget({ selTarget }, $el) {
             return (selTarget && $(selTarget, $el)) || $el;
-        },
-
-        widthElement({ widthElement }, $el) {
-            return query(widthElement, $el) || this.placeholder;
         },
 
         resizeTargets() {
@@ -114,7 +108,6 @@ export default {
 
         remove(this.placeholder);
         this.placeholder = null;
-        this.widthElement = null;
     },
 
     events: [
@@ -209,8 +202,7 @@ export default {
                     topOffset,
                     height,
                     margin,
-                    width: dimensions(isVisible(this.widthElement) ? this.widthElement : this.$el)
-                        .width,
+                    width: dimensions(referenceElement).width,
                     top: offsetPosition(referenceElement)[0],
                 };
             },

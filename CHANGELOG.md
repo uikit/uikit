@@ -16,6 +16,7 @@
 - Remove Edge Legacy (EdgeHTML) support
 - Remove Safari fallback for `focus-visible`
 - Remove deprecated Gif component
+- Remove option `width-element` in Sticky component
 
 ### Fixed
 
