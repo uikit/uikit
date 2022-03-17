@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Resize from '../mixin/resize';
-import { closest, css, dimensions, fastdom, height, isVisible } from 'uikit-util';
+import { closest, css, dimensions, height, isVisible } from 'uikit-util';
 
 export default {
     mixins: [Class, Resize],
