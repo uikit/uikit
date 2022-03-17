@@ -25,7 +25,7 @@ export default {
     },
 
     connected() {
-        this.pos = this.pos.split('-').concat('center').slice(0, 2);
+        this.pos = this.$props.pos.split('-').concat('center').slice(0, 2);
         this.dir = this.pos[0];
         this.align = this.pos[1];
     },
