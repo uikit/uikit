@@ -14,7 +14,6 @@ import {
     height as getHeight,
     offset as getOffset,
     getScrollingElement,
-    hasClass,
     isString,
     isVisible,
     noop,
@@ -70,22 +69,6 @@ export default {
         selTarget({ selTarget }, $el) {
             return (selTarget && $(selTarget, $el)) || $el;
         },
-
-        isActive: {
-            get() {
-                return hasClass(this.selTarget, this.clsActive);
-            },
-
-            set(value) {
-                if (value && !this.isActive) {
-                    replaceClass(this.selTarget, this.clsInactive, this.clsActive);
-                    trigger(this.$el, 'active');
-                } else if (!value && !hasClass(this.selTarget, this.clsInactive)) {
-                    replaceClass(this.selTarget, this.clsActive, this.clsInactive);
-                    trigger(this.$el, 'inactive');
-                }
-            },
-        },
     },
 
     resizeTargets() {
@@ -97,7 +80,7 @@ export default {
             $('+ .uk-sticky-placeholder', this.$el) ||
             $('<div class="uk-sticky-placeholder"></div>');
         this.isFixed = false;
-        this.isActive = false;
+        this.setActive(false);
     },
 
     disconnected() {
@@ -216,8 +199,6 @@ export default {
                     after(this.$el, placeholder);
                     placeholder.hidden = true;
                 }
-
-                this.isActive = !!this.isActive; // force self-assign
             },
 
             events: ['resize'],
@@ -334,7 +315,7 @@ export default {
         },
 
         hide() {
-            this.isActive = false;
+            this.setActive(false);
             removeClass(this.$el, this.clsFixed, this.clsBelow);
             css(this.$el, { position: '', top: '', width: '' });
             this.placeholder.hidden = true;
@@ -371,9 +352,21 @@ export default {
                 width,
             });
 
-            this.isActive = active;
+            this.setActive(active);
             toggleClass(this.$el, this.clsBelow, scroll > topOffset + height);
             addClass(this.$el, this.clsFixed);
+        },
+
+        setActive(active) {
+            const prev = this.active;
+            this.active = active;
+            if (active) {
+                replaceClass(this.selTarget, this.clsInactive, this.clsActive);
+                prev !== active && trigger(this.$el, 'active');
+            } else {
+                replaceClass(this.selTarget, this.clsActive, this.clsInactive);
+                prev !== active && trigger(this.$el, 'inactive');
+            }
         },
     },
 };
