@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Switcher component with disabled toggles
+
 ## 3.13.0 (March 18, 2022)
 
 ### Added
