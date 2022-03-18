@@ -21,6 +21,7 @@
 ### Fixed
 
 - Fix list bullet regression in List component
+- Fix regression in Modal component with `uk-modal-dialog` class
 - Fix Sticky component notices change in its offset parent's position
 - Fix Scrollspy component does not apply animation classes on hide
 

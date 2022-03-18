@@ -139,8 +139,9 @@
 /*
  * 1. Create position context for spinner and close button
  * 2. Dimensions
- * 3. Style
- * 4. Slide-in transition
+ * 3. `!important` is needed to overwrite `uk-width-auto`. See `#modal-media-image` in tests
+ * 4. Style
+ * 5. Slide-in transition
  */
 
 .uk-modal-dialog {
@@ -151,8 +152,10 @@
     margin: 0 auto;
     width: @modal-dialog-width;
     /* 3 */
-    background: @modal-dialog-background;
+    max-width: 100% !important;
     /* 4 */
+    background: @modal-dialog-background;
+    /* 5 */
     opacity: 0;
     transform: translateY(-100px);
     transition: 0.3s linear;
