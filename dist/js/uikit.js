@@ -1,4 +1,4 @@
-/*! UIkit 3.13.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.13.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2894,7 +2894,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.13.0';
+    UIkit.version = '3.13.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3429,6 +3429,16 @@
       data: {
         automute: true },
 
+
+      events: {
+        load() {
+          this.$emit('resize');
+        } },
+
+
+      resizeTargets() {
+        return [this.$el, parent(this.$el)];
+      },
 
       update: {
         read() {
@@ -4213,7 +4223,7 @@
 
       {
         read() {
-          if (positionedAbsolute(this.$el)) {
+          if (this.parallax && positionedAbsolute(this.$el)) {
             return false;
           }
 
@@ -6407,6 +6417,10 @@
               el[stateKey] = { cls: data(el, 'uk-scrollspy-class') || this.cls };
             }
 
+            if (!this.repeat && el[stateKey].show) {
+              continue;
+            }
+
             el[stateKey].show = isInView(el, this.offsetTop, this.offsetLeft);
           }
         },
@@ -7052,7 +7066,7 @@
             return;
           }
 
-          this.children.forEach((child, i) => {
+          children(this.$el).forEach((child, i) => {
             toggleClass(child, this.cls, next === i);
             attr(this.toggles[i], 'aria-expanded', next === i);
           });
