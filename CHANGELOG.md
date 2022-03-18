@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.13.0 (March 18, 2022)
 
 ### Added
 
@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Drastically improve performance for large sites
+- Improve performance for large sites
 - Custom components have to listen for `resize` and `scroll` updates manually
 
 ### Removed

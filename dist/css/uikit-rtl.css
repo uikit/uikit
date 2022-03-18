@@ -1,4 +1,4 @@
-/*! UIkit 3.12.2 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.13.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -391,27 +391,9 @@ pre code {
 }
 /* Focus
  ========================================================================== */
-/*
- * Safari doesn't support `:focus-visible` yet. It also doesn't set focus if clicking a button or anchor.
- * 1. Fallback: Remove `:focus` for a negative tabindexes.
- * 2. Fallback: Set `:focus` style but not for negative tabindexes.
- * 3. Fallback: Remove `:focus` style for browsers which support `:focus-visible`.
- * 4. Set `:focus-visible` style for browsers which support it.
- */
-/* 1 */
 :focus {
   outline: none;
 }
-/* 2 */
-:focus:not([tabindex^='-']) {
-  outline: 2px dotted #333;
-  outline-offset: 1px;
-}
-/* 3 */
-:focus:not(:focus-visible) {
-  outline: none;
-}
-/* 4 */
 :focus-visible {
   outline: 2px dotted #333;
 }
@@ -808,6 +790,7 @@ a.uk-link-reset,
 }
 .uk-list-bullet > ::before {
   content: "";
+  display: list-item;
   position: relative;
   right: -30px;
   width: 30px;
@@ -1162,14 +1145,20 @@ button.uk-icon:not(:disabled) {
  ========================================================================== */
 /*
  * Display images in icon dimensions
+ * 1. Required for `span` with background image
+ * 2. Required for `image`
  */
 .uk-icon-image {
   width: 20px;
   height: 20px;
+  /* 1 */
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: middle;
+  /* 2 */
+  object-fit: scale-down;
+  max-width: none;
 }
 /* Style modifiers
  ========================================================================== */
@@ -1492,14 +1481,8 @@ button.uk-icon:not(:disabled) {
 /*
  * Placeholder
  */
-.uk-input::-ms-input-placeholder {
-  color: #999 !important;
-}
 .uk-input::placeholder {
   color: #999;
-}
-.uk-textarea::-ms-input-placeholder {
-  color: #999 !important;
 }
 .uk-textarea::placeholder {
   color: #999;
@@ -1603,8 +1586,7 @@ select.uk-form-width-xsmall {
 /*
  * 1. Remove default style. Also works in Firefox
  * 2. Style
- * 3. Remove default style in IE 10/11
- * 4. Set `color` for options in the select dropdown, because the inherited `color` might be too light.
+ * 3. Set `color` for options in the select dropdown, because the inherited `color` might be too light.
  */
 .uk-select:not([multiple]):not([size]) {
   /* 1 */
@@ -1617,10 +1599,6 @@ select.uk-form-width-xsmall {
   background-position: 0% 50%;
 }
 /* 3 */
-.uk-select:not([multiple]):not([size])::-ms-expand {
-  display: none;
-}
-/* 4 */
 .uk-select:not([multiple]):not([size]) option {
   color: #666;
 }
@@ -3309,9 +3287,6 @@ select.uk-form-width-xsmall {
   outline: none;
 }
 /* Placeholder */
-.uk-search-input:-ms-input-placeholder {
-  color: #999 !important;
-}
 .uk-search-input::placeholder {
   color: #999;
 }
@@ -3693,8 +3668,9 @@ select.uk-form-width-xsmall {
 /*
  * 1. Create position context for spinner and close button
  * 2. Dimensions
- * 3. Style
- * 4. Slide-in transition
+ * 3. `!important` is needed to overwrite `uk-width-auto`. See `#modal-media-image` in tests
+ * 4. Style
+ * 5. Slide-in transition
  */
 .uk-modal-dialog {
   /* 1 */
@@ -3704,8 +3680,10 @@ select.uk-form-width-xsmall {
   margin: 0 auto;
   width: 600px;
   /* 3 */
-  background: #fff;
+  max-width: 100% !important;
   /* 4 */
+  background: #fff;
+  /* 5 */
   opacity: 0;
   transform: translateY(-100px);
   transition: 0.3s linear;
@@ -8067,8 +8045,6 @@ iframe[data-uk-cover] {
  *    https://bugzilla.mozilla.org/show_bug.cgi?id=214004
  * 2. In Firefox, a floating `::first-letter` doesn't have a line box and there for no `line-height`
  *    https://bugzilla.mozilla.org/show_bug.cgi?id=317933
- * 3. Caused by 1.: Edge creates two nested `::first-letter` containers, one for each selector
- *    This doubles the `font-size` exponential when using the `em` unit.
  */
 .uk-dropcap::first-letter,
 .uk-dropcap > p:first-of-type::first-letter {
@@ -8084,12 +8060,6 @@ iframe[data-uk-cover] {
   .uk-dropcap::first-letter,
   .uk-dropcap > p:first-of-type::first-letter {
     margin-top: 1.1%;
-  }
-}
-/* 3 */
-@supports (-ms-ime-align: auto) {
-  .uk-dropcap > p:first-of-type::first-letter {
-    font-size: 1em;
   }
 }
 /* Logo
@@ -10243,19 +10213,6 @@ iframe[data-uk-cover] {
   color: rgba(255, 255, 255, 0.7);
   border-color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-input::-ms-input-placeholder,
-.uk-section-primary:not(.uk-preserve-color) .uk-input::-ms-input-placeholder,
-.uk-section-secondary:not(.uk-preserve-color) .uk-input::-ms-input-placeholder,
-.uk-tile-primary:not(.uk-preserve-color) .uk-input::-ms-input-placeholder,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-input::-ms-input-placeholder,
-.uk-card-primary.uk-card-body .uk-input::-ms-input-placeholder,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-input::-ms-input-placeholder,
-.uk-card-secondary.uk-card-body .uk-input::-ms-input-placeholder,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-input::-ms-input-placeholder,
-.uk-overlay-primary .uk-input::-ms-input-placeholder,
-.uk-offcanvas-bar .uk-input::-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.5) !important;
-}
 .uk-light .uk-input::placeholder,
 .uk-section-primary:not(.uk-preserve-color) .uk-input::placeholder,
 .uk-section-secondary:not(.uk-preserve-color) .uk-input::placeholder,
@@ -10268,19 +10225,6 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-input::placeholder,
 .uk-offcanvas-bar .uk-input::placeholder {
   color: rgba(255, 255, 255, 0.5);
-}
-.uk-light .uk-textarea::-ms-input-placeholder,
-.uk-section-primary:not(.uk-preserve-color) .uk-textarea::-ms-input-placeholder,
-.uk-section-secondary:not(.uk-preserve-color) .uk-textarea::-ms-input-placeholder,
-.uk-tile-primary:not(.uk-preserve-color) .uk-textarea::-ms-input-placeholder,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-textarea::-ms-input-placeholder,
-.uk-card-primary.uk-card-body .uk-textarea::-ms-input-placeholder,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-textarea::-ms-input-placeholder,
-.uk-card-secondary.uk-card-body .uk-textarea::-ms-input-placeholder,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-textarea::-ms-input-placeholder,
-.uk-overlay-primary .uk-textarea::-ms-input-placeholder,
-.uk-offcanvas-bar .uk-textarea::-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.5) !important;
 }
 .uk-light .uk-textarea::placeholder,
 .uk-section-primary:not(.uk-preserve-color) .uk-textarea::placeholder,
@@ -10930,19 +10874,6 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-search-input,
 .uk-offcanvas-bar .uk-search-input {
   color: rgba(255, 255, 255, 0.7);
-}
-.uk-light .uk-search-input:-ms-input-placeholder,
-.uk-section-primary:not(.uk-preserve-color) .uk-search-input:-ms-input-placeholder,
-.uk-section-secondary:not(.uk-preserve-color) .uk-search-input:-ms-input-placeholder,
-.uk-tile-primary:not(.uk-preserve-color) .uk-search-input:-ms-input-placeholder,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-search-input:-ms-input-placeholder,
-.uk-card-primary.uk-card-body .uk-search-input:-ms-input-placeholder,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-search-input:-ms-input-placeholder,
-.uk-card-secondary.uk-card-body .uk-search-input:-ms-input-placeholder,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-search-input:-ms-input-placeholder,
-.uk-overlay-primary .uk-search-input:-ms-input-placeholder,
-.uk-offcanvas-bar .uk-search-input:-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.5) !important;
 }
 .uk-light .uk-search-input::placeholder,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-input::placeholder,
