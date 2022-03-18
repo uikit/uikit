@@ -70,6 +70,10 @@ export default {
                         el[stateKey] = { cls: getData(el, 'uk-scrollspy-class') || this.cls };
                     }
 
+                    if (!this.repeat && el[stateKey].show) {
+                        continue;
+                    }
+
                     el[stateKey].show = isInView(el, this.offsetTop, this.offsetLeft);
                 }
             },

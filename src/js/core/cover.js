@@ -14,6 +14,16 @@ export default {
         automute: true,
     },
 
+    events: {
+        load() {
+            this.$emit('resize');
+        },
+    },
+
+    resizeTargets() {
+        return [this.$el, parent(this.$el)];
+    },
+
     update: {
         read() {
             const el = this.$el;

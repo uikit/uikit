@@ -157,7 +157,7 @@ export default {
                 return;
             }
 
-            this.children.forEach((child, i) => {
+            children(this.$el).forEach((child, i) => {
                 toggleClass(child, this.cls, next === i);
                 attr(this.toggles[i], 'aria-expanded', next === i);
             });
