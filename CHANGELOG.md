@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Switcher component with disabled toggles
+- Fix regression in Cover component
 
 ## 3.13.0 (March 18, 2022)
 
