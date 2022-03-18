@@ -58,25 +58,12 @@ export default {
         container: false,
     },
 
-    computed: {
-        boundary({ boundary }, $el) {
-            return boundary === true ? window : query(boundary, $el);
-        },
-
-        clsDrop({ clsDrop }) {
-            return clsDrop || `uk-${this.$options.name}`;
-        },
-
-        clsPos() {
-            return this.clsDrop;
-        },
-    },
-
     created() {
         this.tracker = new MouseTracker();
     },
 
     connected() {
+        this.clsPos = this.clsDrop = this.$props.clsDrop || `uk-${this.$options.name}`;
         addClass(this.$el, this.clsDrop);
 
         if (this.toggle && !this.target) {
@@ -224,9 +211,7 @@ export default {
 
                 this.tracker.init();
 
-                once(
-                    this.$el,
-                    'hide',
+                for (const handler of [
                     on(
                         document,
                         pointerDown,
@@ -248,19 +233,16 @@ export default {
                                 true
                             )
                     ),
-                    { self: true }
-                );
 
-                once(
-                    this.$el,
-                    'hide',
                     on(document, 'keydown', (e) => {
                         if (e.keyCode === 27) {
                             this.hide(false);
                         }
                     }),
-                    { self: true }
-                );
+                    on(window, 'resize', () => this.$emit('resize')),
+                ]) {
+                    once(this.$el, 'hide', handler, { self: true });
+                }
             },
         },
 
@@ -370,28 +352,28 @@ export default {
         },
 
         position() {
+            const boundary = this.boundary === true ? window : query(this.boundary, this.$el);
             removeClass(this.$el, `${this.clsDrop}-stack`);
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
-            const boundary = offset(this.boundary);
-            const alignTo = this.boundaryAlign ? boundary : offset(this.target);
+            const boundaryOffset = offset(boundary);
+            const alignTo = this.boundaryAlign ? boundaryOffset : offset(this.target);
 
             if (this.align === 'justify') {
                 const prop = this.getAxis() === 'y' ? 'width' : 'height';
                 css(this.$el, prop, alignTo[prop]);
             } else if (
-                this.boundary &&
+                boundary &&
                 this.$el.offsetWidth >
-                    Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)
+                    Math.max(
+                        boundaryOffset.right - alignTo.left,
+                        alignTo.right - boundaryOffset.left
+                    )
             ) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }
 
-            this.positionAt(
-                this.$el,
-                this.boundaryAlign ? this.boundary : this.target,
-                this.boundary
-            );
+            this.positionAt(this.$el, this.boundaryAlign ? boundary : this.target, boundary);
         },
     },
 };

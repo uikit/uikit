@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import { $, $$, closest, isInput, matches, parent, query, selInput } from 'uikit-util';
+import { $, $$, closest, isInput, matches, parent, selInput } from 'uikit-util';
 
 export default {
     mixins: [Class],
@@ -27,7 +27,7 @@ export default {
             return (
                 target &&
                 ((target === true && parent(this.input) === $el && this.input.nextElementSibling) ||
-                    query(target, $el))
+                    $(target, $el))
             );
         },
     },
@@ -42,13 +42,12 @@ export default {
         let option;
         const prop = isInput(target) ? 'value' : 'textContent';
         const prev = target[prop];
-        const value =
-            input.files && input.files[0]
-                ? input.files[0].name
-                : matches(input, 'select') &&
-                  (option = $$('option', input).filter((el) => el.selected)[0]) // eslint-disable-line prefer-destructuring
-                ? option.textContent
-                : input.value;
+        const value = input.files?.[0]
+            ? input.files[0].name
+            : matches(input, 'select') &&
+              (option = $$('option', input).filter((el) => el.selected)[0]) // eslint-disable-line prefer-destructuring
+            ? option.textContent
+            : input.value;
 
         if (prev !== value) {
             target[prop] = value;

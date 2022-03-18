@@ -8,7 +8,6 @@ import {
     escape,
     fragment,
     hasAttr,
-    hasIntersectionObserver,
     includes,
     isArray,
     isEmpty,
@@ -47,29 +46,19 @@ export default {
         loading: 'lazy',
     },
 
-    computed: {
-        target: {
-            get({ target }) {
-                return [this.$el, ...queryAll(target, this.$el)];
-            },
-
-            watch() {
-                this.$reset();
-            },
-        },
-    },
-
     connected() {
-        if (this.loading !== 'lazy' || !hasIntersectionObserver) {
+        if (this.loading !== 'lazy') {
             this.load();
             return;
         }
+
+        const target = [this.$el, ...queryAll(this.$props.target, this.$el)];
 
         if (nativeLazyLoad && isImg(this.$el)) {
             this.$el.loading = 'lazy';
             setSrcAttrs(this.$el);
 
-            if (this.target.length === 1) {
+            if (target.length === 1) {
                 return;
             }
         }
@@ -78,7 +67,7 @@ export default {
 
         this.registerObserver(
             observeIntersection(
-                this.target,
+                target,
                 (entries, observer) => {
                     this.load();
                     observer.disconnect();

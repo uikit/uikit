@@ -11,7 +11,7 @@ export default function (UIkit) {
         }
 
         this._data = {};
-        this._computeds = {};
+        this._computed = {};
 
         this._initProps();
 
@@ -105,8 +105,8 @@ export default function (UIkit) {
         const {
             $options: { computed },
         } = this;
-        const values = { ...this._computeds };
-        this._computeds = {};
+        const values = { ...this._computed };
+        this._computed = {};
 
         for (const key in computed) {
             const { watch, immediate } = computed[key];

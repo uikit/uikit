@@ -16,9 +16,19 @@ export default {
     },
 
     computed: {
-        elements({ target }, $el) {
-            return $$(target, $el);
+        elements: {
+            get({ target }, $el) {
+                return $$(target, $el);
+            },
+
+            watch() {
+                this.$reset();
+            },
         },
+    },
+
+    resizeTargets() {
+        return this.elements;
     },
 
     update: {

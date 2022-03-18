@@ -1,4 +1,4 @@
-/*! UIkit 3.12.2 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.13.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -456,40 +456,41 @@
     }
 
     const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
+    const sanatize = memoize((selector) => selector.replace(contextSanitizeRe, '$1 *'));
 
     function _query(selector, context, queryFn) {if (context === void 0) {context = document;}
       if (!selector || !isString(selector)) {
         return selector;
       }
 
-      selector = selector.replace(contextSanitizeRe, '$1 *');
+      selector = sanatize(selector);
 
       if (isContextSelector(selector)) {
-        selector = splitSelector(selector).
-        map((selector) => {
+        const split = splitSelector(selector);
+        selector = '';
+        for (let sel of split) {
           let ctx = context;
 
-          if (selector[0] === '!') {
-            const selectors = selector.substr(1).trim().split(' ');
+          if (sel[0] === '!') {
+            const selectors = sel.substr(1).trim().split(' ');
             ctx = closest(parent(context), selectors[0]);
-            selector = selectors.slice(1).join(' ').trim();
+            sel = selectors.slice(1).join(' ').trim();
+            if (!sel.length && split.length === 1) {
+              return ctx;
+            }
           }
 
-          if (selector[0] === '-') {
-            const selectors = selector.substr(1).trim().split(' ');
+          if (sel[0] === '-') {
+            const selectors = sel.substr(1).trim().split(' ');
             const prev = (ctx || context).previousElementSibling;
-            ctx = matches(prev, selector.substr(1)) ? prev : null;
-            selector = selectors.slice(1).join(' ');
+            ctx = matches(prev, sel.substr(1)) ? prev : null;
+            sel = selectors.slice(1).join(' ');
           }
 
-          if (!ctx) {
-            return null;
+          if (ctx) {
+            selector += "" + (selector ? ',' : '') + domPath(ctx) + " " + sel;
           }
-
-          return domPath(ctx) + " " + selector;
-        }).
-        filter(Boolean).
-        join(',');
+        }
 
         context = document;
       }
@@ -809,7 +810,7 @@
     // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
     const propName = memoize((name) => vendorPropName(name));
 
-    const cssPrefixes = ['webkit', 'moz', 'ms'];
+    const cssPrefixes = ['webkit', 'moz'];
 
     function vendorPropName(name) {
       name = hyphenate(name);
@@ -850,12 +851,7 @@
 
     function hasClass(element, cls) {
       [cls] = getClasses(cls);
-      for (const node of toNodes(element)) {
-        if (cls && node.classList.contains(cls)) {
-          return true;
-        }
-      }
-      return false;
+      return !!cls && toNodes(element).some((node) => node.classList.contains(cls));
     }
 
     function toggleClass(element, cls, force) {
@@ -1409,8 +1405,8 @@
         }, 50);
       },
 
-      cancel() {
-        this.unbind && this.unbind();
+      cancel() {var _this$unbind;
+        (_this$unbind = this.unbind) == null ? void 0 : _this$unbind.call(this);
         this.interval && clearInterval(this.interval);
       },
 
@@ -1467,34 +1463,69 @@
       return { x: x1 + ua * (x2 - x1), y: y1 + ua * (y2 - y1) };
     }
 
-    // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
-    const hasIntersectionObserver =
-    window.IntersectionObserver && 'isIntersecting' in IntersectionObserverEntry.prototype;
     function observeIntersection(targets, cb, options, intersecting) {if (intersecting === void 0) {intersecting = true;}
-      if (!hasIntersectionObserver) {
-        return;
-      }
-
-      const observer = new IntersectionObserver((entries, observer) => {
-        if (!intersecting || entries.some((entry) => entry.isIntersecting)) {
+      return observe(
+      IntersectionObserver,
+      targets,
+      intersecting ?
+      (entries, observer) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
           cb(entries, observer);
         }
-      }, options);
-      for (const el of toNodes(targets)) {
-        observer.observe(el);
-      }
-      return observer;
+      } :
+      cb,
+      options);
+
     }
 
     const hasResizeObserver = window.ResizeObserver;
     function observeResize(targets, cb, options) {if (options === void 0) {options = { box: 'border-box' };}
-      if (!hasResizeObserver) {
+      if (hasResizeObserver) {
+        return observe(ResizeObserver, targets, cb, options);
+      }
+
+      // Fallback Safari < 13.1
+      initResizeListener();
+      listeners.add(cb);
+
+      return {
+        disconnect() {
+          listeners.delete(cb);
+        } };
+
+    }
+
+    let listeners;
+    function initResizeListener() {
+      if (listeners) {
         return;
       }
 
-      const observer = new ResizeObserver((entries, observer) => {
-        cb(entries, observer);
-      });
+      listeners = new Set();
+
+      // throttle 'resize'
+      let pendingResize;
+      const handleResize = () => {
+        if (pendingResize) {
+          return;
+        }
+        pendingResize = true;
+        fastdom.read(() => pendingResize = false);
+        for (const listener of listeners) {
+          listener();
+        }
+      };
+
+      on(window, 'load resize', handleResize);
+      on(document, 'loadedmetadata load', handleResize, true);
+    }
+
+    function observeMutation(targets, cb, options) {
+      return observe(MutationObserver, targets, cb, options);
+    }
+
+    function observe(Observer, targets, cb, options) {
+      const observer = new Observer(cb);
       for (const el of toNodes(targets)) {
         observer.observe(el, options);
       }
@@ -2179,9 +2210,9 @@
         memoize: memoize,
         Deferred: Deferred,
         MouseTracker: MouseTracker,
-        hasIntersectionObserver: hasIntersectionObserver,
         observeIntersection: observeIntersection,
         observeResize: observeResize,
+        observeMutation: observeMutation,
         mergeOptions: mergeOptions,
         parseOptions: parseOptions,
         play: play,
@@ -2289,7 +2320,7 @@
         }
 
         this._data = {};
-        this._computeds = {};
+        this._computed = {};
 
         this._initProps();
 
@@ -2383,8 +2414,8 @@
         const {
           $options: { computed } } =
         this;
-        const values = { ...this._computeds };
-        this._computeds = {};
+        const values = { ...this._computed };
+        this._computed = {};
 
         for (const key in computed) {
           const { watch, immediate } = computed[key];
@@ -2442,7 +2473,7 @@
       UIkit.prototype._initComputeds = function () {
         const { computed } = this.$options;
 
-        this._computeds = {};
+        this._computed = {};
 
         if (computed) {
           for (const key in computed) {
@@ -2481,22 +2512,19 @@
             }
           }
         }
-        for (const { events = [] } of this.$options.update || []) {
-          if (includes(events, 'scroll')) {
-            registerScrollListener(this._uid, () => this.$emit('scroll'));
-            break;
-          }
-        }
       };
 
       UIkit.prototype._unbindEvents = function () {
         this._events.forEach((unbind) => unbind());
         delete this._events;
-        unregisterScrollListener(this._uid);
       };
 
       UIkit.prototype._initObservers = function () {
-        this._observers = [initChildListObserver(this), initPropsObserver(this)];
+        this._observers = [initPropsObserver(this)];
+
+        if (this.$options.computed) {
+          this.registerObserver(initChildListObserver(this));
+        }
       };
 
       UIkit.prototype.registerObserver = function (observer) {
@@ -2550,22 +2578,22 @@
         enumerable: true,
 
         get() {
-          const { _computeds, $props, $el } = component;
+          const { _computed, $props, $el } = component;
 
-          if (!hasOwn(_computeds, key)) {
-            _computeds[key] = (cb.get || cb).call(component, $props, $el);
+          if (!hasOwn(_computed, key)) {
+            _computed[key] = (cb.get || cb).call(component, $props, $el);
           }
 
-          return _computeds[key];
+          return _computed[key];
         },
 
         set(value) {
-          const { _computeds } = component;
+          const { _computed } = component;
 
-          _computeds[key] = cb.set ? cb.set.call(component, value) : value;
+          _computed[key] = cb.set ? cb.set.call(component, value) : value;
 
-          if (isUndefined(_computeds[key])) {
-            delete _computeds[key];
+          if (isUndefined(_computed[key])) {
+            delete _computed[key];
           }
         } });
 
@@ -2691,27 +2719,6 @@
 
 
       return observer;
-    }
-
-    const scrollListeners = new Map();
-    let unbindScrollListener;
-    function registerScrollListener(id, listener) {
-      unbindScrollListener =
-      unbindScrollListener ||
-      on(window, 'scroll', () => scrollListeners.forEach((listener) => listener()), {
-        passive: true,
-        capture: true });
-
-
-      scrollListeners.set(id, listener);
-    }
-
-    function unregisterScrollListener(id) {
-      scrollListeners.delete(id);
-      if (unbindScrollListener && !scrollListeners.size) {
-        unbindScrollListener();
-        unbindScrollListener = null;
-      }
     }
 
     function instanceAPI (UIkit) {
@@ -2887,7 +2894,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.12.2';
+    UIkit.version = '3.13.0';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -2895,25 +2902,10 @@
     componentAPI(UIkit);
     instanceAPI(UIkit);
 
-    function Core (UIkit) {
+    function Core () {
       if (!inBrowser) {
         return;
       }
-
-      // throttle 'resize'
-      let pendingResize;
-      const handleResize = () => {
-        if (pendingResize) {
-          return;
-        }
-        pendingResize = true;
-        fastdom.read(() => pendingResize = false);
-        UIkit.update(null, 'resize');
-      };
-
-      on(window, 'load resize', handleResize);
-      on(document, 'loadedmetadata load', handleResize, true);
-      observeResize(document.documentElement, handleResize);
 
       let started = 0;
       on(
@@ -3317,9 +3309,11 @@
 
               if (show) {
                 const toggle = $(this.$props.toggle, el);
-                if (!isInView(toggle)) {
-                  scrollIntoView(toggle, { offset: this.offset });
-                }
+                fastdom.read(() => {
+                  if (!isInView(toggle)) {
+                    scrollIntoView(toggle, { offset: this.offset });
+                  }
+                });
               }
             });
           }
@@ -3381,13 +3375,9 @@
         autoplay: true },
 
 
-      computed: {
-        inView(_ref) {let { autoplay } = _ref;
-          return autoplay === 'inview';
-        } },
-
-
       connected() {
+        this.inView = this.autoplay === 'inview';
+
         if (this.inView && !hasAttr(this.$el, 'preload')) {
           this.$el.preload = 'none';
         }
@@ -3411,18 +3401,25 @@
 
         },
 
-        write(_ref2) {let { visible, inView } = _ref2;
+        write(_ref) {let { visible, inView } = _ref;
           if (!visible || this.inView && !inView) {
             pause(this.$el);
           } else if (this.autoplay === true || this.inView && inView) {
             play(this.$el);
           }
-        },
+        } } };
 
-        events: ['resize', 'scroll'] } };
+    var Resize = {
+      connected() {var _this$$options$resize;
+        this.registerObserver(
+        observeResize(((_this$$options$resize = this.$options.resizeTargets) == null ? void 0 : _this$$options$resize.call(this)) || this.$el, () =>
+        this.$emit('resize')));
+
+
+      } };
 
     var cover = {
-      mixins: [Video],
+      mixins: [Resize, Video],
 
       props: {
         width: Number,
@@ -3432,10 +3429,6 @@
       data: {
         automute: true },
 
-
-      connected() {
-        this.registerObserver(observeResize(this.$el, () => this.$emit('resize')));
-      },
 
       update: {
         read() {
@@ -3505,19 +3498,11 @@
         clsPos: '' },
 
 
-      computed: {
-        pos(_ref) {let { pos } = _ref;
-          return pos.split('-').concat('center').slice(0, 2);
-        },
-
-        dir() {
-          return this.pos[0];
-        },
-
-        align() {
-          return this.pos[1];
-        } },
-
+      connected() {
+        this.pos = this.$props.pos.split('-').concat('center').slice(0, 2);
+        this.dir = this.pos[0];
+        this.align = this.pos[1];
+      },
 
       methods: {
         positionAt(element, target, boundary) {
@@ -3525,6 +3510,8 @@
 
           let { offset: offset$1 } = this;
           const axis = this.getAxis();
+          const dir = this.pos[0];
+          const align = this.pos[1];
 
           if (!isNumeric(offset$1)) {
             const node = $(offset$1);
@@ -3537,13 +3524,11 @@
           const { x, y } = positionAt(
           element,
           target,
-          axis === 'x' ?
-          flipPosition(this.dir) + " " + this.align :
-          this.align + " " + flipPosition(this.dir),
-          axis === 'x' ? this.dir + " " + this.align : this.align + " " + this.dir,
+          axis === 'x' ? flipPosition(dir) + " " + align : align + " " + flipPosition(dir),
+          axis === 'x' ? dir + " " + align : align + " " + dir,
           axis === 'x' ? "" + (
-          this.dir === 'left' ? -offset$1 : offset$1) : " " + (
-          this.dir === 'top' ? -offset$1 : offset$1),
+          dir === 'left' ? -offset$1 : offset$1) : " " + (
+          dir === 'top' ? -offset$1 : offset$1),
           null,
           this.flip,
           boundary).
@@ -3589,25 +3574,12 @@
         container: false },
 
 
-      computed: {
-        boundary(_ref, $el) {let { boundary } = _ref;
-          return boundary === true ? window : query(boundary, $el);
-        },
-
-        clsDrop(_ref2) {let { clsDrop } = _ref2;
-          return clsDrop || "uk-" + this.$options.name;
-        },
-
-        clsPos() {
-          return this.clsDrop;
-        } },
-
-
       created() {
         this.tracker = new MouseTracker();
       },
 
       connected() {
+        this.clsPos = this.clsDrop = this.$props.clsDrop || "uk-" + this.$options.name;
         addClass(this.$el, this.clsDrop);
 
         if (this.toggle && !this.target) {
@@ -3647,7 +3619,7 @@
           return 'a[href^="#"]';
         },
 
-        handler(_ref3) {let { defaultPrevented, current: { hash } } = _ref3;
+        handler(_ref) {let { defaultPrevented, current: { hash } } = _ref;
           if (!defaultPrevented && hash && !within(hash, this.$el)) {
             this.hide(false);
           }
@@ -3755,18 +3727,16 @@
 
           this.tracker.init();
 
-          once(
-          this.$el,
-          'hide',
+          for (const handler of [
           on(
           document,
           pointerDown,
-          (_ref4) => {let { target } = _ref4;return (
+          (_ref2) => {let { target } = _ref2;return (
               !within(target, this.$el) &&
               once(
               document,
               pointerUp + " " + pointerCancel + " scroll",
-              (_ref5) => {let { defaultPrevented, type, target: newTarget } = _ref5;
+              (_ref3) => {let { defaultPrevented, type, target: newTarget } = _ref3;
                 if (
                 !defaultPrevented &&
                 type === pointerUp &&
@@ -3779,19 +3749,16 @@
               true));}),
 
 
-          { self: true });
 
-
-          once(
-          this.$el,
-          'hide',
           on(document, 'keydown', (e) => {
             if (e.keyCode === 27) {
               this.hide(false);
             }
           }),
-          { self: true });
-
+          on(window, 'resize', () => this.$emit('resize'))])
+          {
+            once(this.$el, 'hide', handler, { self: true });
+          }
         } },
 
 
@@ -3808,7 +3775,7 @@
       {
         name: 'hide',
 
-        handler(_ref6) {let { target } = _ref6;
+        handler(_ref4) {let { target } = _ref4;
           if (this.$el !== target) {
             active$1 =
             active$1 === null && within(target, this.$el) && this.isToggled() ?
@@ -3901,28 +3868,28 @@
         },
 
         position() {
+          const boundary = this.boundary === true ? window : query(this.boundary, this.$el);
           removeClass(this.$el, this.clsDrop + "-stack");
           toggleClass(this.$el, this.clsDrop + "-boundary", this.boundaryAlign);
 
-          const boundary = offset(this.boundary);
-          const alignTo = this.boundaryAlign ? boundary : offset(this.target);
+          const boundaryOffset = offset(boundary);
+          const alignTo = this.boundaryAlign ? boundaryOffset : offset(this.target);
 
           if (this.align === 'justify') {
             const prop = this.getAxis() === 'y' ? 'width' : 'height';
             css(this.$el, prop, alignTo[prop]);
           } else if (
-          this.boundary &&
+          boundary &&
           this.$el.offsetWidth >
-          Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left))
+          Math.max(
+          boundaryOffset.right - alignTo.left,
+          alignTo.right - boundaryOffset.left))
+
           {
             addClass(this.$el, this.clsDrop + "-stack");
           }
 
-          this.positionAt(
-          this.$el,
-          this.boundaryAlign ? this.boundary : this.target,
-          this.boundary);
-
+          this.positionAt(this.$el, this.boundaryAlign ? boundary : this.target, boundary);
         } } };
 
 
@@ -3959,12 +3926,12 @@
           return (
             target && (
             target === true && parent(this.input) === $el && this.input.nextElementSibling ||
-            query(target, $el)));
+            $(target, $el)));
 
         } },
 
 
-      update() {
+      update() {var _input$files;
         const { target, input } = this;
 
         if (!target) {
@@ -3974,8 +3941,7 @@
         let option;
         const prop = isInput(target) ? 'value' : 'textContent';
         const prev = target[prop];
-        const value =
-        input.files && input.files[0] ?
+        const value = (_input$files = input.files) != null && _input$files[0] ?
         input.files[0].name :
         matches(input, 'select') && (
         option = $$('option', input).filter((el) => el.selected)[0]) // eslint-disable-line prefer-destructuring
@@ -4007,26 +3973,9 @@
           this.$emit();
         } }] };
 
-    // Deprecated
-    var gif = {
-      update: {
-        read(data) {
-          const inview = isInView(this.$el);
-
-          if (!inview || data.isInView === inview) {
-            return false;
-          }
-
-          data.isInView = inview;
-        },
-
-        write() {
-          this.$el.src = '' + this.$el.src; // force self-assign
-        },
-
-        events: ['scroll', 'resize'] } };
-
     var Margin = {
+      mixins: [Resize],
+
       props: {
         margin: String,
         firstColumn: Boolean },
@@ -4036,6 +3985,18 @@
         margin: 'uk-margin-small-top',
         firstColumn: 'uk-first-column' },
 
+
+      resizeTargets() {
+        return this.$el.children;
+      },
+
+      connected() {
+        this.registerObserver(
+        observeMutation(this.$el, () => this.$reset(), {
+          childList: true }));
+
+
+      },
 
       update: {
         read() {
@@ -4138,10 +4099,41 @@
 
     }
 
+    var Scroll = {
+      connected() {
+        registerScrollListener(this._uid, () => this.$emit('scroll'));
+      },
+
+      disconnected() {
+        unregisterScrollListener(this._uid);
+      } };
+
+
+    const scrollListeners = new Map();
+    let unbindScrollListener;
+    function registerScrollListener(id, listener) {
+      unbindScrollListener =
+      unbindScrollListener ||
+      on(window, 'scroll', () => scrollListeners.forEach((listener) => listener()), {
+        passive: true,
+        capture: true });
+
+
+      scrollListeners.set(id, listener);
+    }
+
+    function unregisterScrollListener(id) {
+      scrollListeners.delete(id);
+      if (unbindScrollListener && !scrollListeners.size) {
+        unbindScrollListener();
+        unbindScrollListener = null;
+      }
+    }
+
     var grid = {
       extends: Margin,
 
-      mixins: [Class],
+      mixins: [Class, Scroll],
 
       name: 'grid',
 
@@ -4299,10 +4291,20 @@
 
 
       computed: {
-        elements(_ref, $el) {let { target } = _ref;
-          return $$(target, $el);
-        } },
+        elements: {
+          get(_ref, $el) {let { target } = _ref;
+            return $$(target, $el);
+          },
 
+          watch() {
+            this.$reset();
+          } } },
+
+
+
+      resizeTargets() {
+        return this.elements;
+      },
 
       update: {
         read() {
@@ -4361,7 +4363,7 @@
     }
 
     var heightViewport = {
-      mixins: [Class],
+      mixins: [Class, Resize],
 
       props: {
         expand: Boolean,
@@ -4376,6 +4378,11 @@
         offsetBottom: false,
         minHeight: 0 },
 
+
+      resizeTargets() {
+        // check for offsetTop change
+        return [this.$el, document.documentElement];
+      },
 
       update: {
         read(_ref) {let { minHeight: prev } = _ref;
@@ -4417,12 +4424,8 @@
           return { minHeight, prev };
         },
 
-        write(_ref2) {let { minHeight, prev } = _ref2;
+        write(_ref2) {let { minHeight } = _ref2;
           css(this.$el, { minHeight });
-
-          if (minHeight !== prev) {
-            trigger(this.$el, 'resize');
-          }
 
           if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {
             css(this.$el, 'minHeight', this.minHeight);
@@ -4473,10 +4476,24 @@
             }
 
             this.applyAttributes(svg, el);
-            this.$emit();
+
             return this.svgEl = svg;
           }
         }, noop);
+
+        if (this.strokeAnimation) {
+          this.svg.then((el) => {
+            if (this._connected) {
+              applyAnimation(el);
+              this.registerObserver(
+              observeIntersection(el, (records, observer) => {
+                applyAnimation(el);
+                observer.disconnect();
+              }));
+
+            }
+          });
+        }
       },
 
       disconnected() {
@@ -4495,18 +4512,6 @@
 
         this.svg = null;
       },
-
-      update: {
-        read() {
-          return !!(this.strokeAnimation && this.svgEl && isVisible(this.svgEl));
-        },
-
-        write() {
-          applyAnimation(this.svgEl);
-        },
-
-        type: ['resize'] },
-
 
       methods: {
         async getSvg() {
@@ -4737,37 +4742,30 @@
 
       beforeConnect() {
         addClass(this.$el, 'uk-slidenav');
-      },
-
-      computed: {
-        icon(_ref, $el) {let { icon } = _ref;
-          return hasClass($el, 'uk-slidenav-large') ? icon + "-large" : icon;
-        } } };
-
+        const icon = this.$props.icon;
+        this.icon = hasClass(this.$el, 'uk-slidenav-large') ? icon + "-large" : icon;
+      } };
 
 
     const Search = {
       extends: IconComponent,
 
-      computed: {
-        icon(_ref2, $el) {let { icon } = _ref2;
-          return hasClass($el, 'uk-search-icon') && parents($el, '.uk-search-large').length ?
-          'search-large' :
-          parents($el, '.uk-search-navbar').length ?
-          'search-navbar' :
-          icon;
-        } } };
-
+      beforeConnect() {
+        this.icon =
+        hasClass(this.$el, 'uk-search-icon') && parents(this.$el, '.uk-search-large').length ?
+        'search-large' :
+        parents(this.$el, '.uk-search-navbar').length ?
+        'search-navbar' :
+        this.$props.icon;
+      } };
 
 
     const Close = {
       extends: IconComponent,
 
-      computed: {
-        icon() {
-          return "close-" + (hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon');
-        } } };
-
+      beforeConnect() {
+        this.icon = "close-" + (hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon');
+      } };
 
 
     const Spinner = {
@@ -4844,29 +4842,19 @@
         loading: 'lazy' },
 
 
-      computed: {
-        target: {
-          get(_ref) {let { target } = _ref;
-            return [this.$el, ...queryAll(target, this.$el)];
-          },
-
-          watch() {
-            this.$reset();
-          } } },
-
-
-
       connected() {
-        if (this.loading !== 'lazy' || !hasIntersectionObserver) {
+        if (this.loading !== 'lazy') {
           this.load();
           return;
         }
+
+        const target = [this.$el, ...queryAll(this.$props.target, this.$el)];
 
         if (nativeLazyLoad && isImg(this.$el)) {
           this.$el.loading = 'lazy';
           setSrcAttrs(this.$el);
 
-          if (this.target.length === 1) {
+          if (target.length === 1) {
             return;
           }
         }
@@ -4875,7 +4863,7 @@
 
         this.registerObserver(
         observeIntersection(
-        this.target,
+        target,
         (entries, observer) => {
           this.load();
           observer.disconnect();
@@ -5064,17 +5052,28 @@
         media: false },
 
 
-      computed: {
-        matchMedia() {
-          const media = toMedia(this.media);
-          return !media || window.matchMedia(media).matches;
-        } } };
+      connected() {
+        const media = toMedia(this.media);
+        this.mediaObj = window.matchMedia(media);
+        const handler = () => {
+          this.matchMedia = this.mediaObj.matches;
+          trigger(this.$el, createEvent('mediachange', false, true, [this.mediaObj]));
+        };
+        this.offMediaObj = on(this.mediaObj, 'change', () => {
+          handler();
+          this.$emit('resize');
+        });
+        handler();
+      },
 
+      disconnected() {var _this$offMediaObj;
+        (_this$offMediaObj = this.offMediaObj) == null ? void 0 : _this$offMediaObj.call(this);
+      } };
 
 
     function toMedia(value) {
       if (isString(value)) {
-        if (value[0] === '@') {
+        if (startsWith(value, '@')) {
           const name = "breakpoint-" + value.substr(1);
           value = toFloat(getCssVar(name));
         } else if (isNaN(value)) {
@@ -5082,11 +5081,11 @@
         }
       }
 
-      return value && !isNaN(value) ? "(min-width: " + value + "px)" : false;
+      return value && isNumeric(value) ? "(min-width: " + value + "px)" : '';
     }
 
     var leader = {
-      mixins: [Class, Media],
+      mixins: [Class, Media, Resize],
 
       props: {
         fill: String },
@@ -5114,26 +5113,19 @@
       },
 
       update: {
-        read(_ref2) {let { changed, width } = _ref2;
-          const prev = width;
-
-          width = Math.floor(this.$el.offsetWidth / 2);
+        read() {
+          const width = Math.trunc(this.$el.offsetWidth / 2);
 
           return {
             width,
             fill: this.fill,
-            changed: changed || prev !== width,
             hide: !this.matchMedia };
 
         },
 
-        write(data) {
-          toggleClass(this.wrapper, this.clsHide, data.hide);
-
-          if (data.changed) {
-            data.changed = false;
-            attr(this.wrapper, this.attrFill, new Array(data.width).join(data.fill));
-          }
+        write(_ref2) {let { width, fill, hide } = _ref2;
+          toggleClass(this.wrapper, this.clsHide, hide);
+          attr(this.wrapper, this.attrFill, new Array(width).join(fill));
         },
 
         events: ['resize'] } };
@@ -6238,7 +6230,7 @@
     }
 
     var overflowAuto = {
-      mixins: [Class],
+      mixins: [Class, Resize],
 
       props: {
         selContainer: String,
@@ -6262,8 +6254,8 @@
         } },
 
 
-      connected() {
-        css(this.$el, 'minHeight', this.minHeight);
+      resizeTargets() {
+        return [this.container, this.content];
       },
 
       update: {
@@ -6273,7 +6265,6 @@
           }
 
           return {
-            current: toFloat(css(this.$el, 'maxHeight')),
             max: Math.max(
             this.minHeight,
             height(this.container) - (dimensions$1(this.content).height - height(this.$el))) };
@@ -6281,17 +6272,20 @@
 
         },
 
-        write(_ref3) {let { current, max } = _ref3;
-          css(this.$el, 'maxHeight', max);
-          if (Math.round(current) !== Math.round(max)) {
-            trigger(this.$el, 'resize');
-          }
+        write(_ref3) {let { max } = _ref3;
+          css(this.$el, { minHeight: this.minHeight, maxHeight: max });
         },
 
         events: ['resize'] } };
 
     var responsive = {
+      mixin: [Resize],
+
       props: ['width', 'height'],
+
+      resizeTargets() {
+        return [this.$el, parent(this.$el)];
+      },
 
       connected() {
         addClass(this.$el, 'uk-responsive-width');
@@ -6346,11 +6340,19 @@
           }
 
           e.preventDefault();
-          this.scrollTo("#" + escape(decodeURIComponent((this.$el.hash || '').substr(1))));
+          this.scrollTo(getTargetElement(this.$el));
         } } };
+
+
+
+    function getTargetElement(el) {
+      return document.getElementById(decodeURIComponent(el.hash).substring(1));
+    }
 
     const stateKey = '_ukScrollspy';
     var scrollspy = {
+      mixins: [Scroll],
+
       args: 'cls',
 
       props: {
@@ -6391,24 +6393,15 @@
 
 
       disconnected() {
-        for (const el of this.elements) {
-          removeClass(el, this.inViewClass, el[stateKey] ? el[stateKey].cls : '');
+        for (const el of this.elements) {var _el$stateKey;
+          removeClass(el, this.inViewClass, ((_el$stateKey = el[stateKey]) == null ? void 0 : _el$stateKey.cls) || '');
           delete el[stateKey];
         }
       },
 
       update: [
       {
-        read(data$1) {
-          // Let child components be applied at least once first
-          if (!data$1.update) {
-            Promise.resolve().then(() => {
-              this.$emit();
-              data$1.update = true;
-            });
-            return false;
-          }
-
+        read() {
           for (const el of this.elements) {
             if (!el[stateKey]) {
               el[stateKey] = { cls: data(el, 'uk-scrollspy-class') || this.cls };
@@ -6448,7 +6441,7 @@
         toggle(el, inview) {
           const state = el[stateKey];
 
-          state.off && state.off();
+          state.off == null ? void 0 : state.off();
 
           css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
 
@@ -6456,9 +6449,12 @@
           toggleClass(el, state.cls);
 
           if (/\buk-animation-/.test(state.cls)) {
-            state.off = once(el, 'animationcancel animationend', () =>
-            removeClasses(el, 'uk-animation-[\\w-]+'));
-
+            const removeAnimationClasses = () => removeClasses(el, 'uk-animation-[\\w-]+');
+            if (inview) {
+              state.off = once(el, 'animationcancel animationend', removeAnimationClasses);
+            } else {
+              removeAnimationClasses();
+            }
           }
 
           trigger(el, inview ? 'inview' : 'outview');
@@ -6469,6 +6465,8 @@
         } } };
 
     var scrollspyNav = {
+      mixins: [Scroll],
+
       props: {
         cls: String,
         closest: String,
@@ -6500,10 +6498,6 @@
           immediate: true },
 
 
-        targets() {
-          return $$(this.links.map((el) => escape(el.hash).substr(1)).join(','));
-        },
-
         elements(_ref) {let { closest: selector } = _ref;
           return closest(this.links, selector || '*');
         } },
@@ -6512,13 +6506,15 @@
       update: [
       {
         read() {
-          const { length } = this.targets;
+          const targets = this.links.map(getTargetElement).filter(Boolean);
+
+          const { length } = targets;
 
           if (!length || !isVisible(this.$el)) {
             return false;
           }
 
-          const [scrollElement] = scrollParents(this.targets, /auto|scroll/, true);
+          const [scrollElement] = scrollParents(targets, /auto|scroll/, true);
           const { scrollTop, scrollHeight } = scrollElement;
           const max = scrollHeight - getViewportClientHeight(scrollElement);
           let active = false;
@@ -6526,15 +6522,17 @@
           if (scrollTop === max) {
             active = length - 1;
           } else {
-            this.targets.every((el, i) => {
+            for (const i in targets) {
               if (
-              offset(el).top - offset(getViewport$1(scrollElement)).top - this.offset <=
+              offset(targets[i]).top -
+              offset(getViewport$1(scrollElement)).top -
+              this.offset >
               0)
               {
-                active = i;
-                return true;
+                break;
               }
-            });
+              active = +i;
+            }
 
             if (active === false && this.overflow) {
               active = 0;
@@ -6548,8 +6546,9 @@
           const changed = active !== false && !hasClass(this.elements[active], this.cls);
 
           this.links.forEach((el) => el.blur());
-          removeClass(this.elements, this.cls);
-          addClass(this.elements[active], this.cls);
+          for (const i in this.elements) {
+            toggleClass(this.elements[i], this.cls, +i === active);
+          }
 
           if (changed) {
             trigger(this.$el, 'active', [active, this.elements[active]]);
@@ -6559,7 +6558,7 @@
         events: ['scroll', 'resize'] }] };
 
     var sticky = {
-      mixins: [Class, Media],
+      mixins: [Class, Media, Resize, Scroll],
 
       props: {
         position: String,
@@ -6572,7 +6571,6 @@
         clsFixed: String,
         clsBelow: String,
         selTarget: String,
-        widthElement: Boolean,
         showOnUp: Boolean,
         targetOffset: Number },
 
@@ -6588,7 +6586,6 @@
         clsFixed: 'uk-sticky-fixed',
         clsBelow: 'uk-sticky-below',
         selTarget: '',
-        widthElement: false,
         showOnUp: false,
         targetOffset: false },
 
@@ -6596,35 +6593,19 @@
       computed: {
         selTarget(_ref, $el) {let { selTarget } = _ref;
           return selTarget && $(selTarget, $el) || $el;
-        },
-
-        widthElement(_ref2, $el) {let { widthElement } = _ref2;
-          return query(widthElement, $el) || this.placeholder;
-        },
-
-        isActive: {
-          get() {
-            return hasClass(this.selTarget, this.clsActive);
-          },
-
-          set(value) {
-            if (value && !this.isActive) {
-              replaceClass(this.selTarget, this.clsInactive, this.clsActive);
-              trigger(this.$el, 'active');
-            } else if (!value && !hasClass(this.selTarget, this.clsInactive)) {
-              replaceClass(this.selTarget, this.clsActive, this.clsInactive);
-              trigger(this.$el, 'inactive');
-            }
-          } } },
+        } },
 
 
+      resizeTargets() {
+        return document.documentElement;
+      },
 
       connected() {
         this.placeholder =
         $('+ .uk-sticky-placeholder', this.$el) ||
         $('<div class="uk-sticky-placeholder"></div>');
         this.isFixed = false;
-        this.isActive = false;
+        this.setActive(false);
       },
 
       disconnected() {
@@ -6635,7 +6616,6 @@
 
         remove$1(this.placeholder);
         this.placeholder = null;
-        this.widthElement = null;
       },
 
       events: [
@@ -6675,7 +6655,7 @@
 
       update: [
       {
-        read(_ref3, types) {let { height: height$1, margin } = _ref3;
+        read(_ref2, types) {let { height: height$1, margin } = _ref2;
           this.inactive = !this.matchMedia || !isVisible(this.$el);
 
           if (this.inactive) {
@@ -6713,7 +6693,6 @@
 
           const overflow = Math.max(0, height$1 + offset$1 - windowHeight);
           const topOffset = offset(referenceElement).top;
-          const offsetParentTop = offset(referenceElement.offsetParent).top;
 
           const top = parseProp(this.top, this.$el, topOffset);
           const bottom = parseProp(this.bottom, this.$el, topOffset + height$1, true);
@@ -6729,16 +6708,14 @@
             offset: offset$1,
             overflow,
             topOffset,
-            offsetParentTop,
             height: height$1,
             margin,
-            width: dimensions$1(isVisible(this.widthElement) ? this.widthElement : this.$el).
-            width,
+            width: dimensions$1(referenceElement).width,
             top: offsetPosition(referenceElement)[0] };
 
         },
 
-        write(_ref4) {let { height, margin } = _ref4;
+        write(_ref3) {let { height, margin } = _ref3;
           const { placeholder } = this;
 
           css(placeholder, { height, margin });
@@ -6747,22 +6724,20 @@
             after(this.$el, placeholder);
             placeholder.hidden = true;
           }
-
-          this.isActive = !!this.isActive; // force self-assign
         },
 
         events: ['resize'] },
 
 
       {
-        read(_ref5)
+        read(_ref4)
 
 
 
 
 
 
-        {let { scroll: prevScroll = 0, dir: prevDir = 'down', overflow, overflowScroll = 0, start, end } = _ref5;
+        {let { scroll: prevScroll = 0, dir: prevDir = 'down', overflow, overflowScroll = 0, start, end } = _ref4;
           const scroll = scrollTop(window);
           const dir = prevScroll <= scroll ? 'down' : 'up';
 
@@ -6771,6 +6746,7 @@
             prevDir,
             scroll,
             prevScroll,
+            offsetParentTop: offset(this.$el.offsetParent).top,
             overflowScroll: clamp(
             overflowScroll + clamp(scroll, start, end) - clamp(prevScroll, start, end),
             0,
@@ -6864,7 +6840,7 @@
         },
 
         hide() {
-          this.isActive = false;
+          this.setActive(false);
           removeClass(this.$el, this.clsFixed, this.clsBelow);
           css(this.$el, { position: '', top: '', width: '' });
           this.placeholder.hidden = true;
@@ -6901,9 +6877,21 @@
             width });
 
 
-          this.isActive = active;
+          this.setActive(active);
           toggleClass(this.$el, this.clsBelow, scroll > topOffset + height);
           addClass(this.$el, this.clsFixed);
+        },
+
+        setActive(active) {
+          const prev = this.active;
+          this.active = active;
+          if (active) {
+            replaceClass(this.selTarget, this.clsInactive, this.clsActive);
+            prev !== active && trigger(this.$el, 'active');
+          } else {
+            replaceClass(this.selTarget, this.clsActive, this.clsInactive);
+            prev !== active && trigger(this.$el, 'inactive');
+          }
         } } };
 
 
@@ -6995,6 +6983,9 @@
 
       connected() {
         this.lazyload(this.$el, this.connects);
+
+        // check for connects
+        ready(() => this.$emit());
       },
 
       events: [
@@ -7123,13 +7114,6 @@
         queued: true },
 
 
-      connected() {
-        if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
-          attr(this.$el, 'tabindex', '0');
-        }
-        this.lazyload(this.$el, this.target);
-      },
-
       computed: {
         target: {
           get(_ref, $el) {let { href, target } = _ref;
@@ -7144,6 +7128,17 @@
           immediate: true } },
 
 
+
+      connected() {
+        if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
+          attr(this.$el, 'tabindex', '0');
+        }
+
+        this.lazyload(this.$el, this.target);
+
+        // check for target
+        ready(() => this.$emit());
+      },
 
       events: [
       {
@@ -7269,23 +7264,26 @@
           if (e.target === this.target[0]) {
             this.updateAria(toggled);
           }
-        } }],
+        } },
 
 
+      {
+        name: 'mediachange',
 
-      update: {
-        read() {
-          return includes(this.mode, 'media') && this.media ? { match: this.matchMedia } : false;
+        filter() {
+          return includes(this.mode, 'media');
         },
 
-        write(_ref2) {let { match } = _ref2;
-          const toggled = this.isToggled(this.target);
-          if (match ? !toggled : toggled) {
+        el() {
+          return this.target;
+        },
+
+        handler(e, mediaObj) {
+          if (mediaObj.matches ^ this.isToggled(this.target)) {
             this.toggle();
           }
-        },
+        } }],
 
-        events: ['resize'] },
 
 
       methods: {
@@ -7336,7 +7334,6 @@
         Drop: drop,
         Dropdown: drop,
         FormCustom: formCustom,
-        Gif: gif,
         Grid: grid,
         HeightMatch: heightMatch,
         HeightViewport: heightViewport,
@@ -7396,7 +7393,7 @@
 
 
       connected() {
-        this.date = Date.parse(this.date);
+        this.date = Date.parse(this.$props.date);
         this.start();
       },
 
@@ -7449,7 +7446,7 @@
               continue;
             }
 
-            let digits = String(Math.floor(timespan[unit]));
+            let digits = String(Math.trunc(timespan[unit]));
 
             digits = digits.length < 2 ? "0" + digits : digits;
 
@@ -8437,7 +8434,7 @@
         } } };
 
     var Slider = {
-      mixins: [SliderAutoplay, SliderDrag, SliderNav],
+      mixins: [SliderAutoplay, SliderDrag, SliderNav, Resize],
 
       props: {
         clsActivated: Boolean,
@@ -9061,8 +9058,8 @@
           return this.panel.show(index);
         },
 
-        hide() {
-          return this.panel && this.panel.hide();
+        hide() {var _this$panel;
+          return (_this$panel = this.panel) == null ? void 0 : _this$panel.hide();
         } } };
 
 
@@ -9446,7 +9443,7 @@
         if (!image.naturalWidth) {
           image.onload = () => {
             dimensions[src] = toDimensions(image);
-            trigger(el, 'load');
+            trigger(el, createEvent('load', false));
           };
           return toDimensions(image);
         }
@@ -9544,7 +9541,7 @@
     }
 
     var parallax = {
-      mixins: [Parallax],
+      mixins: [Parallax, Resize, Scroll],
 
       props: {
         target: String,
@@ -9837,7 +9834,7 @@
           return (
             finite ||
             Math.ceil(getWidth(this.list)) <
-            Math.floor(dimensions$1(this.list).width + getMaxElWidth(this.list) + this.center));
+            Math.trunc(dimensions$1(this.list).width + getMaxElWidth(this.list) + this.center));
 
         },
 
@@ -10081,11 +10078,13 @@
         selItem: '!li' },
 
 
-      computed: {
-        item(_ref, $el) {let { selItem } = _ref;
-          return query(selItem, $el);
-        } },
+      connected() {
+        this.item = query(this.selItem, this.$el);
+      },
 
+      disconnected() {
+        this.item = null;
+      },
 
       events: [
       {
@@ -10097,7 +10096,7 @@
           return this.item;
         },
 
-        handler(_ref2) {let { type, detail: { percent, duration, timing, dir } } = _ref2;
+        handler(_ref) {let { type, detail: { percent, duration, timing, dir } } = _ref;
           fastdom.read(() => {
             const propsFrom = this.getCss(getCurrentPercent(type, dir, percent));
             const propsTo = this.getCss(isIn(type) ? 0.5 : dir > 0 ? 1 : 0);
@@ -10132,7 +10131,7 @@
           return this.item;
         },
 
-        handler(_ref3) {let { type, detail: { percent, dir } } = _ref3;
+        handler(_ref2) {let { type, detail: { percent, dir } } = _ref2;
           fastdom.read(() => {
             const props = this.getCss(getCurrentPercent(type, dir, percent));
             fastdom.write(() => css(this.$el, props));

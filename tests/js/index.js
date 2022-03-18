@@ -1,4 +1,4 @@
-/* global UIkit, TESTS */
+/* global TESTS */
 import { addClass, css, fastdom, on, prepend, removeClass, ucfirst } from 'uikit-util';
 
 const tests = TESTS;

@@ -56,7 +56,7 @@ export default {
         },
 
         hide() {
-            return this.panel && this.panel.hide();
+            return this.panel?.hide();
         },
     },
 };

@@ -1,5 +1,30 @@
 # Changelog
 
+## 3.13.0 (March 18, 2022)
+
+### Added
+
+- Add support for `<img>` element to icon image class in Icon component
+
+### Changed
+
+- Improve performance for large sites
+- Custom components have to listen for `resize` and `scroll` updates manually
+
+### Removed
+
+- Remove Edge Legacy (EdgeHTML) support
+- Remove Safari fallback for `focus-visible`
+- Remove deprecated Gif component
+- Remove option `width-element` in Sticky component
+
+### Fixed
+
+- Fix list bullet regression in List component
+- Fix regression in Modal component with `uk-modal-dialog` class
+- Fix Sticky component notices change in its offset parent's position
+- Fix Scrollspy component does not apply animation classes on hide
+
 ## 3.12.2 (March 14, 2022)
 
 ### Fixed
@@ -40,7 +65,7 @@
 
 - Deprecate `uk-img` for `<img>` element: Use native `loading="lazy"` attribute instead
 
-## Removed
+### Removed
 
 - Remove IE11 support
 - Removed `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
@@ -1123,7 +1148,7 @@
 
 - Image Component uses IntersectionObserver now
 
-## Removed
+### Removed
 
 - Remove `isReady` function
 - Form Custom component no longer sets `uk-hover` and `uk-focus` classes

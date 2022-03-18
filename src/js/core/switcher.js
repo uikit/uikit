@@ -13,6 +13,7 @@ import {
     hasClass,
     matches,
     queryAll,
+    ready,
     toggleClass,
     toNodes,
     within,
@@ -87,6 +88,9 @@ export default {
 
     connected() {
         this.lazyload(this.$el, this.connects);
+
+        // check for connects
+        ready(() => this.$emit());
     },
 
     events: [

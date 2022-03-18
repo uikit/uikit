@@ -101,36 +101,29 @@ export const Slidenav = {
 
     beforeConnect() {
         addClass(this.$el, 'uk-slidenav');
-    },
-
-    computed: {
-        icon({ icon }, $el) {
-            return hasClass($el, 'uk-slidenav-large') ? `${icon}-large` : icon;
-        },
+        const icon = this.$props.icon;
+        this.icon = hasClass(this.$el, 'uk-slidenav-large') ? `${icon}-large` : icon;
     },
 };
 
 export const Search = {
     extends: IconComponent,
 
-    computed: {
-        icon({ icon }, $el) {
-            return hasClass($el, 'uk-search-icon') && parents($el, '.uk-search-large').length
+    beforeConnect() {
+        this.icon =
+            hasClass(this.$el, 'uk-search-icon') && parents(this.$el, '.uk-search-large').length
                 ? 'search-large'
-                : parents($el, '.uk-search-navbar').length
+                : parents(this.$el, '.uk-search-navbar').length
                 ? 'search-navbar'
-                : icon;
-        },
+                : this.$props.icon;
     },
 };
 
 export const Close = {
     extends: IconComponent,
 
-    computed: {
-        icon() {
-            return `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
-        },
+    beforeConnect() {
+        this.icon = `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
     },
 };
 

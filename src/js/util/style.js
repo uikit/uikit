@@ -80,7 +80,7 @@ export function getCssVar(name) {
 // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
 export const propName = memoize((name) => vendorPropName(name));
 
-const cssPrefixes = ['webkit', 'moz', 'ms'];
+const cssPrefixes = ['webkit', 'moz'];
 
 function vendorPropName(name) {
     name = hyphenate(name);

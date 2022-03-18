@@ -1,8 +1,10 @@
+import Resize from '../mixin/resize';
+import Scroll from '../mixin/scroll';
 import Parallax from '../mixin/parallax';
 import { css, parent, query, scrolledOver, toPx } from 'uikit-util';
 
 export default {
-    mixins: [Parallax],
+    mixins: [Parallax, Resize, Scroll],
 
     props: {
         target: String,

@@ -20,12 +20,7 @@ export function replaceClass(element, ...args) {
 
 export function hasClass(element, cls) {
     [cls] = getClasses(cls);
-    for (const node of toNodes(element)) {
-        if (cls && node.classList.contains(cls)) {
-            return true;
-        }
-    }
-    return false;
+    return !!cls && toNodes(element).some((node) => node.classList.contains(cls));
 }
 
 export function toggleClass(element, cls, force) {

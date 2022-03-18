@@ -17,7 +17,7 @@ export default {
     },
 
     connected() {
-        this.date = Date.parse(this.date);
+        this.date = Date.parse(this.$props.date);
         this.start();
     },
 
@@ -70,7 +70,7 @@ export default {
                     continue;
                 }
 
-                let digits = String(Math.floor(timespan[unit]));
+                let digits = String(Math.trunc(timespan[unit]));
 
                 digits = digits.length < 2 ? `0${digits}` : digits;
 

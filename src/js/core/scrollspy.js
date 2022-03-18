@@ -1,3 +1,4 @@
+import Scroll from '../mixin/scroll';
 import {
     $$,
     css,
@@ -13,6 +14,8 @@ import {
 
 const stateKey = '_ukScrollspy';
 export default {
+    mixins: [Scroll],
+
     args: 'cls',
 
     props: {
@@ -54,23 +57,14 @@ export default {
 
     disconnected() {
         for (const el of this.elements) {
-            removeClass(el, this.inViewClass, el[stateKey] ? el[stateKey].cls : '');
+            removeClass(el, this.inViewClass, el[stateKey]?.cls || '');
             delete el[stateKey];
         }
     },
 
     update: [
         {
-            read(data) {
-                // Let child components be applied at least once first
-                if (!data.update) {
-                    Promise.resolve().then(() => {
-                        this.$emit();
-                        data.update = true;
-                    });
-                    return false;
-                }
-
+            read() {
                 for (const el of this.elements) {
                     if (!el[stateKey]) {
                         el[stateKey] = { cls: getData(el, 'uk-scrollspy-class') || this.cls };
@@ -110,7 +104,7 @@ export default {
         toggle(el, inview) {
             const state = el[stateKey];
 
-            state.off && state.off();
+            state.off?.();
 
             css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
 
@@ -118,9 +112,12 @@ export default {
             toggleClass(el, state.cls);
 
             if (/\buk-animation-/.test(state.cls)) {
-                state.off = once(el, 'animationcancel animationend', () =>
-                    removeClasses(el, 'uk-animation-[\\w-]+')
-                );
+                const removeAnimationClasses = () => removeClasses(el, 'uk-animation-[\\w-]+');
+                if (inview) {
+                    state.off = once(el, 'animationcancel animationend', removeAnimationClasses);
+                } else {
+                    removeAnimationClasses();
+                }
             }
 
             trigger(el, inview ? 'inview' : 'outview');

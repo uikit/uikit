@@ -24,18 +24,10 @@ export default {
         clsPos: '',
     },
 
-    computed: {
-        pos({ pos }) {
-            return pos.split('-').concat('center').slice(0, 2);
-        },
-
-        dir() {
-            return this.pos[0];
-        },
-
-        align() {
-            return this.pos[1];
-        },
+    connected() {
+        this.pos = this.$props.pos.split('-').concat('center').slice(0, 2);
+        this.dir = this.pos[0];
+        this.align = this.pos[1];
     },
 
     methods: {
@@ -44,6 +36,8 @@ export default {
 
             let { offset } = this;
             const axis = this.getAxis();
+            const dir = this.pos[0];
+            const align = this.pos[1];
 
             if (!isNumeric(offset)) {
                 const node = $(offset);
@@ -56,13 +50,11 @@ export default {
             const { x, y } = positionAt(
                 element,
                 target,
+                axis === 'x' ? `${flipPosition(dir)} ${align}` : `${align} ${flipPosition(dir)}`,
+                axis === 'x' ? `${dir} ${align}` : `${align} ${dir}`,
                 axis === 'x'
-                    ? `${flipPosition(this.dir)} ${this.align}`
-                    : `${this.align} ${flipPosition(this.dir)}`,
-                axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
-                axis === 'x'
-                    ? `${this.dir === 'left' ? -offset : offset}`
-                    : ` ${this.dir === 'top' ? -offset : offset}`,
+                    ? `${dir === 'left' ? -offset : offset}`
+                    : ` ${dir === 'top' ? -offset : offset}`,
                 null,
                 this.flip,
                 boundary

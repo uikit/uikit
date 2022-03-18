@@ -1,4 +1,4 @@
-import { $, escape, scrollIntoView, trigger } from 'uikit-util';
+import { $, scrollIntoView, trigger } from 'uikit-util';
 
 export default {
     props: {
@@ -27,7 +27,11 @@ export default {
             }
 
             e.preventDefault();
-            this.scrollTo(`#${escape(decodeURIComponent((this.$el.hash || '').substr(1)))}`);
+            this.scrollTo(getTargetElement(this.$el));
         },
     },
 };
+
+export function getTargetElement(el) {
+    return document.getElementById(decodeURIComponent(el.hash).substring(1));
+}

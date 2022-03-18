@@ -133,6 +133,7 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 
 .uk-list-bullet > ::before {
     content: "";
+    display: list-item;
     position: relative;
     left: (-$list-padding-left);
     width: $list-padding-left;

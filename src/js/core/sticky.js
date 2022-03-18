@@ -1,5 +1,7 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
+import Resize from '../mixin/resize';
+import Scroll from '../mixin/scroll';
 import {
     $,
     addClass,
@@ -12,7 +14,6 @@ import {
     height as getHeight,
     offset as getOffset,
     getScrollingElement,
-    hasClass,
     isString,
     isVisible,
     noop,
@@ -32,7 +33,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Class, Media],
+    mixins: [Class, Media, Resize, Scroll],
 
     props: {
         position: String,
@@ -45,7 +46,6 @@ export default {
         clsFixed: String,
         clsBelow: String,
         selTarget: String,
-        widthElement: Boolean,
         showOnUp: Boolean,
         targetOffset: Number,
     },
@@ -61,7 +61,6 @@ export default {
         clsFixed: 'uk-sticky-fixed',
         clsBelow: 'uk-sticky-below',
         selTarget: '',
-        widthElement: false,
         showOnUp: false,
         targetOffset: false,
     },
@@ -70,26 +69,10 @@ export default {
         selTarget({ selTarget }, $el) {
             return (selTarget && $(selTarget, $el)) || $el;
         },
+    },
 
-        widthElement({ widthElement }, $el) {
-            return query(widthElement, $el) || this.placeholder;
-        },
-
-        isActive: {
-            get() {
-                return hasClass(this.selTarget, this.clsActive);
-            },
-
-            set(value) {
-                if (value && !this.isActive) {
-                    replaceClass(this.selTarget, this.clsInactive, this.clsActive);
-                    trigger(this.$el, 'active');
-                } else if (!value && !hasClass(this.selTarget, this.clsInactive)) {
-                    replaceClass(this.selTarget, this.clsActive, this.clsInactive);
-                    trigger(this.$el, 'inactive');
-                }
-            },
-        },
+    resizeTargets() {
+        return document.documentElement;
     },
 
     connected() {
@@ -97,7 +80,7 @@ export default {
             $('+ .uk-sticky-placeholder', this.$el) ||
             $('<div class="uk-sticky-placeholder"></div>');
         this.isFixed = false;
-        this.isActive = false;
+        this.setActive(false);
     },
 
     disconnected() {
@@ -108,7 +91,6 @@ export default {
 
         remove(this.placeholder);
         this.placeholder = null;
-        this.widthElement = null;
     },
 
     events: [
@@ -186,7 +168,6 @@ export default {
 
                 const overflow = Math.max(0, height + offset - windowHeight);
                 const topOffset = getOffset(referenceElement).top;
-                const offsetParentTop = getOffset(referenceElement.offsetParent).top;
 
                 const top = parseProp(this.top, this.$el, topOffset);
                 const bottom = parseProp(this.bottom, this.$el, topOffset + height, true);
@@ -202,11 +183,9 @@ export default {
                     offset,
                     overflow,
                     topOffset,
-                    offsetParentTop,
                     height,
                     margin,
-                    width: dimensions(isVisible(this.widthElement) ? this.widthElement : this.$el)
-                        .width,
+                    width: dimensions(referenceElement).width,
                     top: offsetPosition(referenceElement)[0],
                 };
             },
@@ -220,8 +199,6 @@ export default {
                     after(this.$el, placeholder);
                     placeholder.hidden = true;
                 }
-
-                this.isActive = !!this.isActive; // force self-assign
             },
 
             events: ['resize'],
@@ -244,6 +221,7 @@ export default {
                     prevDir,
                     scroll,
                     prevScroll,
+                    offsetParentTop: getOffset(this.$el.offsetParent).top,
                     overflowScroll: clamp(
                         overflowScroll + clamp(scroll, start, end) - clamp(prevScroll, start, end),
                         0,
@@ -337,7 +315,7 @@ export default {
         },
 
         hide() {
-            this.isActive = false;
+            this.setActive(false);
             removeClass(this.$el, this.clsFixed, this.clsBelow);
             css(this.$el, { position: '', top: '', width: '' });
             this.placeholder.hidden = true;
@@ -374,9 +352,21 @@ export default {
                 width,
             });
 
-            this.isActive = active;
+            this.setActive(active);
             toggleClass(this.$el, this.clsBelow, scroll > topOffset + height);
             addClass(this.$el, this.clsFixed);
+        },
+
+        setActive(active) {
+            const prev = this.active;
+            this.active = active;
+            if (active) {
+                replaceClass(this.selTarget, this.clsInactive, this.clsActive);
+                prev !== active && trigger(this.$el, 'active');
+            } else {
+                replaceClass(this.selTarget, this.clsActive, this.clsInactive);
+                prev !== active && trigger(this.$el, 'inactive');
+            }
         },
     },
 };

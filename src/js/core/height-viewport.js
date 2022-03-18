@@ -1,4 +1,5 @@
 import Class from '../mixin/class';
+import Resize from '../mixin/resize';
 import {
     boxModelAdjust,
     css,
@@ -11,11 +12,10 @@ import {
     offset,
     query,
     toFloat,
-    trigger,
 } from 'uikit-util';
 
 export default {
-    mixins: [Class],
+    mixins: [Class, Resize],
 
     props: {
         expand: Boolean,
@@ -29,6 +29,11 @@ export default {
         offsetTop: false,
         offsetBottom: false,
         minHeight: 0,
+    },
+
+    resizeTargets() {
+        // check for offsetTop change
+        return [this.$el, document.documentElement];
     },
 
     update: {
@@ -71,12 +76,8 @@ export default {
             return { minHeight, prev };
         },
 
-        write({ minHeight, prev }) {
+        write({ minHeight }) {
             css(this.$el, { minHeight });
-
-            if (minHeight !== prev) {
-                trigger(this.$el, 'resize');
-            }
 
             if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {
                 css(this.$el, 'minHeight', this.minHeight);

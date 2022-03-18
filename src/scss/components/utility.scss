@@ -358,8 +358,6 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
  *    https://bugzilla.mozilla.org/show_bug.cgi?id=214004
  * 2. In Firefox, a floating `::first-letter` doesn't have a line box and there for no `line-height`
  *    https://bugzilla.mozilla.org/show_bug.cgi?id=317933
- * 3. Caused by 1.: Edge creates two nested `::first-letter` containers, one for each selector
- *    This doubles the `font-size` exponential when using the `em` unit.
  */
 
 .uk-dropcap::first-letter,
@@ -378,13 +376,6 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 
   .uk-dropcap::first-letter,
   .uk-dropcap > p:first-of-type::first-letter { margin-top: 1.1%; }
-
-}
-
-/* 3 */
-@supports (-ms-ime-align: auto) {
-
-  .uk-dropcap > p:first-of-type::first-letter { font-size: 1em; }
 
 }
 
