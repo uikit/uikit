@@ -95,7 +95,7 @@ export default {
 
         {
             read() {
-                if (positionedAbsolute(this.$el)) {
+                if (this.parallax && positionedAbsolute(this.$el)) {
                     return false;
                 }
 
