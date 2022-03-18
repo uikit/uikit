@@ -640,10 +640,8 @@
     // Placeholder
     //
 
-    .uk-input::-ms-input-placeholder { color: $inverse-form-placeholder-color !important; }
     .uk-input::placeholder { color: $inverse-form-placeholder-color; }
 
-    .uk-textarea::-ms-input-placeholder { color: $inverse-form-placeholder-color !important; }
     .uk-textarea::placeholder { color: $inverse-form-placeholder-color; }
 
     //
@@ -962,9 +960,7 @@
 
     .uk-search-input { color: $inverse-search-color; }
 
-    .uk-search-input:-ms-input-placeholder { color: $inverse-search-placeholder-color !important; }
     .uk-search-input::placeholder { color: $inverse-search-placeholder-color; }
-
 
     //
     // Icon

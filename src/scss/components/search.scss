@@ -129,7 +129,6 @@ $search-toggle-hover-color:                          $global-color !default;
 .uk-search-input:focus { outline: none; }
 
 /* Placeholder */
-.uk-search-input:-ms-input-placeholder { color: $search-placeholder-color !important; }
 .uk-search-input::placeholder { color: $search-placeholder-color; }
 
 
