@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Switcher component with disabled toggles
+- Fix responsiveness in Responsive component
 
 ## 3.13.1 (March 18, 2022)
 

@@ -2,7 +2,7 @@ import Resize from '../mixin/resize';
 import { addClass, Dimensions, height, isVisible, parent, width } from 'uikit-util';
 
 export default {
-    mixin: [Resize],
+    mixins: [Resize],
 
     props: ['width', 'height'],
 
