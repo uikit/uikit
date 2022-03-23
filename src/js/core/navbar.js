@@ -42,7 +42,6 @@ export default {
         delayShow: Number,
         delayHide: Number,
         dropbar: Boolean,
-        dropbarMode: String,
         dropbarAnchor: Boolean,
         duration: Number,
     },
@@ -59,7 +58,6 @@ export default {
         flip: 'x',
         boundary: true,
         dropbar: false,
-        dropbarMode: 'slide',
         dropbarAnchor: false,
         duration: 200,
         forceHeight: true,
@@ -297,10 +295,6 @@ export default {
             handler(_, { $el, dir }) {
                 if (!hasClass($el, this.clsDrop)) {
                     return;
-                }
-
-                if (this.dropbarMode === 'slide') {
-                    addClass(this.dropbar, 'uk-navbar-dropbar-slide');
                 }
 
                 this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
