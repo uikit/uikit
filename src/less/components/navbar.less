@@ -468,20 +468,12 @@
  ========================================================================== */
 
 .uk-navbar-dropbar {
-    background: @navbar-dropbar-background;
-    .hook-navbar-dropbar();
-}
-
-/*
- * Slide modifier
- */
-
-.uk-navbar-dropbar-slide {
     position: absolute;
     z-index: @navbar-dropbar-z-index;
     left: 0;
     right: 0;
-    .hook-navbar-dropbar-slide();
+    background: @navbar-dropbar-background;
+    .hook-navbar-dropbar();
 }
 
 
@@ -514,7 +506,6 @@
 .hook-navbar-dropdown-nav-header() {}
 .hook-navbar-dropdown-nav-divider() {}
 .hook-navbar-dropbar(){}
-.hook-navbar-dropbar-slide(){}
 .hook-navbar-misc() {}
 
 

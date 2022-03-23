@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Removed
+
+- Remove dropbar push mode from Navbar component
+
 ### Fixed
 
 - Fix Switcher component with disabled toggles
