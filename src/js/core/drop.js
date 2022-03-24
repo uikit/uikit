@@ -129,7 +129,7 @@ export default {
                 if (this.isToggled()) {
                     this.hide(false);
                 } else {
-                    this.show(toggle.$el, false);
+                    this.show(toggle?.$el, false);
                 }
             },
         },
@@ -141,7 +141,7 @@ export default {
 
             handler(e, toggle) {
                 e.preventDefault();
-                this.show(toggle.$el);
+                this.show(toggle?.$el);
             },
         },
 
