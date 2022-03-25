@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.13.4 (March 25, 2022)
+
+### Fixed
+
+- Fix Tooltip margin
+
 ## 3.13.3 (March 25, 2022)
 
 ### Fixed
