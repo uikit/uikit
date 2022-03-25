@@ -12,6 +12,7 @@
 
 ### Fixed
 
+- Fix dropbar dropdown alignment
 - Fix dropbar dropdown top margin flickering
 - Fix Switcher component with disabled toggles
 - Fix responsiveness in Responsive component

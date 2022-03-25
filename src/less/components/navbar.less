@@ -66,6 +66,7 @@
 
 @navbar-dropdown-dropbar-margin-top:            0;
 @navbar-dropdown-dropbar-margin-bottom:         @navbar-dropdown-dropbar-margin-top;
+@navbar-dropdown-dropbar-padding:               @navbar-nav-item-padding-horizontal;
 
 @navbar-dropdown-nav-item-color:                @global-muted-color;
 @navbar-dropdown-nav-item-hover-color:          @global-color;
@@ -390,6 +391,7 @@
  * Dropbar modifier
  * 1. Set position
  * 2. Bottom padding for dropbar
+ * 3. Horizontal padding
  */
 
 .uk-navbar-dropdown-dropbar {
@@ -397,6 +399,7 @@
     --uk-position-margin-offset: @navbar-dropdown-dropbar-margin-top;
     /* 2 */
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
+    padding: @navbar-dropdown-dropbar-padding;
     .hook-navbar-dropdown-dropbar();
 }
 
