@@ -8,6 +8,7 @@ import {
     escape,
     fragment,
     hasAttr,
+    inBrowser,
     includes,
     isArray,
     isEmpty,
@@ -23,7 +24,7 @@ import {
     trigger,
 } from 'uikit-util';
 
-const nativeLazyLoad = 'loading' in HTMLImageElement.prototype;
+const nativeLazyLoad = inBrowser && 'loading' in HTMLImageElement.prototype;
 
 export default {
     args: 'dataSrc',

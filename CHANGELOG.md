@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix importing UIkit in Next.js
+
 ## 3.13.2 (March 25, 2022)
 
 ### Changed
