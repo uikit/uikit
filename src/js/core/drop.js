@@ -362,13 +362,7 @@ export default {
 
             if (this.align === 'justify') {
                 const prop = this.getAxis() === 'y' ? 'width' : 'height';
-                css(
-                    this.$el,
-                    prop,
-                    (this.boundaryAlign || boundary !== window ? boundaryOffset : targetOffset)[
-                        prop
-                    ]
-                );
+                css(this.$el, prop, alignTo[prop]);
             } else if (
                 this.$el.offsetWidth >
                 Math.max(boundaryOffset.right - alignTo.left, alignTo.right - boundaryOffset.left)
