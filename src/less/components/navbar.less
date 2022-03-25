@@ -339,8 +339,7 @@
  * 1. Hide by default
  * 2. Set position
  * 3. Set a default width
- * 4. Offset
- * 5. Style
+ * 4. Style
  */
 
 .uk-navbar-dropdown {
@@ -349,12 +348,11 @@
     /* 2 */
     position: absolute;
     z-index: @navbar-dropdown-z-index;
+    --uk-position-margin-offset: @navbar-dropdown-margin;
     /* 3 */
     box-sizing: border-box;
     width: @navbar-dropdown-width;
     /* 4 */
-    --uk-drop-margin-offset: @navbar-dropdown-margin;
-    /* 5 */
     padding: @navbar-dropdown-padding;
     background: @navbar-dropdown-background;
     color: @navbar-dropdown-color;
@@ -390,13 +388,13 @@
 
 /*
  * Dropbar modifier
- * 1. Offset
+ * 1. Set position
  * 2. Bottom padding for dropbar
  */
 
 .uk-navbar-dropdown-dropbar {
     /* 1 */
-    --uk-drop-margin-offset: @navbar-dropdown-dropbar-margin-top;
+    --uk-position-margin-offset: @navbar-dropdown-dropbar-margin-top;
     /* 2 */
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
     .hook-navbar-dropdown-dropbar();

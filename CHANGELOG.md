@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Use custom property for direction offset in components based on Drop component
+- Use custom property for direction offset in components based on Position mixin
 
 ### Removed
 

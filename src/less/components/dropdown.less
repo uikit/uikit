@@ -44,8 +44,7 @@
  * 1. Hide by default
  * 2. Set position
  * 3. Set a default width
- * 4. Offset
- * 5. Style
+ * 4. Style
  */
 
 .uk-dropdown {
@@ -54,12 +53,11 @@
     /* 2 */
     position: absolute;
     z-index: @dropdown-z-index;
+    --uk-position-margin-offset: @dropdown-margin;
     /* 3 */
     box-sizing: border-box;
     min-width: @dropdown-min-width;
     /* 4 */
-    --uk-drop-margin-offset: @dropdown-margin;
-    /* 5 */
     padding: @dropdown-padding;
     background: @dropdown-background;
     color: @dropdown-color;
