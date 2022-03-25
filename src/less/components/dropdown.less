@@ -44,7 +44,8 @@
  * 1. Hide by default
  * 2. Set position
  * 3. Set a default width
- * 4. Style
+ * 4. Offset
+ * 5. Style
  */
 
 .uk-dropdown {
@@ -57,6 +58,8 @@
     box-sizing: border-box;
     min-width: @dropdown-min-width;
     /* 4 */
+    --uk-drop-margin-offset: @dropdown-margin;
+    /* 5 */
     padding: @dropdown-padding;
     background: @dropdown-background;
     color: @dropdown-color;
@@ -118,16 +121,6 @@
 
 .uk-dropdown-nav .uk-nav-sub a:hover,
 .uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: @dropdown-nav-sublist-item-hover-color; }
-
-
-/* Direction / Alignment modifiers
- ========================================================================== */
-
-/* Direction */
-[class*='uk-dropdown-top'] { margin-top: -@dropdown-margin; }
-[class*='uk-dropdown-bottom'] { margin-top: @dropdown-margin; }
-[class*='uk-dropdown-left'] { margin-left: -@dropdown-margin; }
-[class*='uk-dropdown-right'] { margin-left: @dropdown-margin; }
 
 
 /* Grid modifiers

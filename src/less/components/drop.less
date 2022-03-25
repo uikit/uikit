@@ -33,6 +33,7 @@
  * 1. Hide by default
  * 2. Set position
  * 3. Set a default width
+ * 4. Offset
  */
 
 .uk-drop {
@@ -44,20 +45,12 @@
     /* 3 */
     box-sizing: border-box;
     width: @drop-width;
+    /* 4 */
+    --uk-drop-margin-offset: @drop-margin;
 }
 
 /* Show */
 .uk-drop.uk-open { display: block; }
-
-
-/* Direction / Alignment modifiers
- ========================================================================== */
-
-/* Direction */
-[class*='uk-drop-top'] { margin-top: -@drop-margin; }
-[class*='uk-drop-bottom'] { margin-top: @drop-margin; }
-[class*='uk-drop-left'] { margin-left: -@drop-margin; }
-[class*='uk-drop-right'] { margin-left: @drop-margin; }
 
 
 /* Grid modifiers

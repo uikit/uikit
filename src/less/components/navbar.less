@@ -339,7 +339,8 @@
  * 1. Hide by default
  * 2. Set position
  * 3. Set a default width
- * 4. Style
+ * 4. Offset
+ * 5. Style
  */
 
 .uk-navbar-dropdown {
@@ -352,6 +353,8 @@
     box-sizing: border-box;
     width: @navbar-dropdown-width;
     /* 4 */
+    --uk-drop-margin-offset: @navbar-dropdown-margin;
+    /* 5 */
     padding: @navbar-dropdown-padding;
     background: @navbar-dropdown-background;
     color: @navbar-dropdown-color;
@@ -360,16 +363,6 @@
 
 /* Show */
 .uk-navbar-dropdown.uk-open { display: block; }
-
-/*
- * Direction / Alignment modifiers
- */
-
-/* Direction */
-[class*='uk-navbar-dropdown-top'] { margin-top: -@navbar-dropdown-margin; }
-[class*='uk-navbar-dropdown-bottom'] { margin-top: @navbar-dropdown-margin; }
-[class*='uk-navbar-dropdown-left'] { margin-left: -@navbar-dropdown-margin; }
-[class*='uk-navbar-dropdown-right'] { margin-left: @navbar-dropdown-margin; }
 
 /*
  * Grid
@@ -397,10 +390,14 @@
 
 /*
  * Dropbar modifier
+ * 1. Offset
+ * 2. Bottom padding for dropbar
  */
 
 .uk-navbar-dropdown-dropbar {
-    margin-top: @navbar-dropdown-dropbar-margin-top;
+    /* 1 */
+    --uk-drop-margin-offset: @navbar-dropdown-dropbar-margin-top;
+    /* 2 */
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
     .hook-navbar-dropdown-dropbar();
 }

@@ -2,12 +2,17 @@
 
 ## WIP
 
+### Changed
+
+- Use custom property for direction offset in components based on Drop component
+
 ### Removed
 
 - Remove dropbar push mode from Navbar component
 
 ### Fixed
 
+- Fix dropbar dropdown top margin flickering
 - Fix Switcher component with disabled toggles
 - Fix responsiveness in Responsive component
 
