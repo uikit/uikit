@@ -352,23 +352,26 @@ export default {
         },
 
         position() {
-            const boundary = this.boundary === true ? window : query(this.boundary, this.$el);
+            const boundary = query(this.boundary, this.$el) || window;
             removeClass(this.$el, `${this.clsDrop}-stack`);
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundaryOffset = offset(boundary);
-            const alignTo = this.boundaryAlign ? boundaryOffset : offset(this.target);
+            const targetOffset = offset(this.target);
+            const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
 
             if (this.align === 'justify') {
                 const prop = this.getAxis() === 'y' ? 'width' : 'height';
-                css(this.$el, prop, alignTo[prop]);
+                css(
+                    this.$el,
+                    prop,
+                    (this.boundaryAlign || boundary !== window ? boundaryOffset : targetOffset)[
+                        prop
+                    ]
+                );
             } else if (
-                boundary &&
                 this.$el.offsetWidth >
-                    Math.max(
-                        boundaryOffset.right - alignTo.left,
-                        alignTo.right - boundaryOffset.left
-                    )
+                Math.max(boundaryOffset.right - alignTo.left, alignTo.right - boundaryOffset.left)
             ) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }
