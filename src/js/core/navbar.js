@@ -16,6 +16,7 @@ import {
     isVisible,
     matches,
     noop,
+    offset,
     once,
     parent,
     query,
@@ -274,9 +275,13 @@ export default {
                 return this.dropbar;
             },
 
-            handler() {
+            handler(_, { $el }) {
                 if (!parent(this.dropbar)) {
                     after(this.dropbarAnchor || this.$el, this.dropbar);
+                }
+
+                if (hasClass($el, this.clsDrop)) {
+                    this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
                 }
             },
         },
@@ -297,12 +302,10 @@ export default {
                     return;
                 }
 
-                this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
-
                 if (dir === 'bottom') {
                     this.transitionTo(
-                        $el.offsetHeight +
-                            toFloat(css($el, 'marginTop')) +
+                        offset($el).bottom -
+                            offset(this.dropbar).top +
                             toFloat(css($el, 'marginBottom')),
                         $el
                     );
