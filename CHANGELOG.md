@@ -17,6 +17,7 @@
 - Fix dropbar dropdown top margin flickering
 - Fix Switcher component with disabled toggles
 - Fix responsiveness in Responsive component
+- Fix video autoplay
 
 ## 3.13.1 (March 18, 2022)
 
