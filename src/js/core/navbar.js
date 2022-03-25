@@ -276,13 +276,15 @@ export default {
             },
 
             handler(_, { $el }) {
+                if (!hasClass($el, this.clsDrop)) {
+                    return;
+                }
+
                 if (!parent(this.dropbar)) {
                     after(this.dropbarAnchor || this.$el, this.dropbar);
                 }
 
-                if (hasClass($el, this.clsDrop)) {
-                    this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
-                }
+                addClass($el, `${this.clsDrop}-dropbar`);
             },
         },
 
