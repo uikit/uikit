@@ -9,7 +9,6 @@ import {
     isUndefined,
     memoize,
     toNodes,
-    toWindow,
 } from './lang';
 
 const cssNumber = {
