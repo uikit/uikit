@@ -21,8 +21,8 @@
 // ========================================================================
 
 $drop-z-index:                               $global-z-index + 20 !default;
-$drop-width:                                 300px !default;
 $drop-margin:                                $global-margin !default;
+$drop-width:                                 300px !default;
 
 
 /* ========================================================================
@@ -41,23 +41,15 @@ $drop-margin:                                $global-margin !default;
     /* 2 */
     position: absolute;
     z-index: $drop-z-index;
+    --uk-position-margin-offset: #{$drop-margin};
     /* 3 */
     box-sizing: border-box;
     width: $drop-width;
+    max-width: 100vw;
 }
 
 /* Show */
 .uk-drop.uk-open { display: block; }
-
-
-/* Direction / Alignment modifiers
- ========================================================================== */
-
-/* Direction */
-[class*='uk-drop-top'] { margin-top: (-$drop-margin); }
-[class*='uk-drop-bottom'] { margin-top: $drop-margin; }
-[class*='uk-drop-left'] { margin-left: (-$drop-margin); }
-[class*='uk-drop-right'] { margin-left: $drop-margin; }
 
 
 /* Grid modifiers

@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.13.2 (March 25, 2022)
 
 ### Changed
 
