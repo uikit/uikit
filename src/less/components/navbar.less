@@ -56,8 +56,8 @@
 @navbar-subtitle-font-size:                     @global-small-font-size;
 
 @navbar-dropdown-z-index:                       @global-z-index + 20;
-@navbar-dropdown-width:                         200px;
 @navbar-dropdown-margin:                        0;
+@navbar-dropdown-width:                         200px;
 @navbar-dropdown-padding:                       15px;
 @navbar-dropdown-background:                    @global-muted-background;
 @navbar-dropdown-color:                         @global-color;
@@ -353,6 +353,7 @@
     /* 3 */
     box-sizing: border-box;
     width: @navbar-dropdown-width;
+    max-width: 100vw;
     /* 4 */
     padding: @navbar-dropdown-padding;
     background: @navbar-dropdown-background;

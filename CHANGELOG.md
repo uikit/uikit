@@ -5,6 +5,7 @@
 ### Changed
 
 - Use custom property for direction offset in components based on Position mixin
+- Add max-width to drops in Drop, Dropdown and Navbar components
 
 ### Removed
 
