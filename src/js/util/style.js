@@ -37,13 +37,15 @@ export function css(element, property, value, priority = '') {
             property = propName(property);
 
             if (isUndefined(value)) {
-                return toWindow(element).getComputedStyle(element).getPropertyValue(property);
-            } else if (!value && !isNumber(value)) {
-                element.style.removeProperty(property);
+                return getComputedStyle(element).getPropertyValue(property);
             } else {
                 element.style.setProperty(
                     property,
-                    isNumeric(value) && !cssNumber[property] ? `${value}px` : value,
+                    isNumeric(value) && !cssNumber[property]
+                        ? `${value}px`
+                        : value || isNumber(value)
+                        ? value
+                        : '',
                     priority
                 );
             }
