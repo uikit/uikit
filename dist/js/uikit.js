@@ -1,4 +1,4 @@
-/*! UIkit 3.13.2 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.13.3 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2889,7 +2889,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.13.2';
+    UIkit.version = '3.13.3';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4816,7 +4816,7 @@
       return isRtl ? swap(swap(icon, 'left', 'right'), 'previous', 'next') : icon;
     }
 
-    const nativeLazyLoad = ('loading' in HTMLImageElement.prototype);
+    const nativeLazyLoad = inBrowser && 'loading' in HTMLImageElement.prototype;
 
     var img = {
       args: 'dataSrc',
