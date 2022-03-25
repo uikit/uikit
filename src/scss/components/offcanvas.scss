@@ -35,8 +35,10 @@ $offcanvas-bar-width-m:                          350px !default;
 $offcanvas-bar-padding-vertical-m:               $global-medium-gutter !default;
 $offcanvas-bar-padding-horizontal-m:             $global-medium-gutter !default;
 
-$offcanvas-close-position:                       20px !default;
+$offcanvas-close-position:                       5px !default;
 $offcanvas-close-padding:                        5px !default;
+
+$offcanvas-close-position-m:                     20px !default;
 
 $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 
@@ -205,6 +207,22 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
     padding: $offcanvas-close-padding;
     @if(mixin-exists(hook-offcanvas-close)) {@include hook-offcanvas-close();}
 }
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-offcanvas-close {
+        top: $offcanvas-close-position-m;
+        right: $offcanvas-close-position-m;
+    }
+
+}
+
+/*
+ * Remove margin from adjacent element
+ */
+
+.uk-offcanvas-close:first-child + * { margin-top: 0; }
 
 
 /* Overlay

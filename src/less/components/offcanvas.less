@@ -35,8 +35,10 @@
 @offcanvas-bar-padding-vertical-m:              @global-medium-gutter;
 @offcanvas-bar-padding-horizontal-m:            @global-medium-gutter;
 
-@offcanvas-close-position:                      20px;
+@offcanvas-close-position:                      5px;
 @offcanvas-close-padding:                       5px;
+
+@offcanvas-close-position-m:                    20px;
 
 @offcanvas-overlay-background:                  rgba(0,0,0,0.1);
 
@@ -205,6 +207,22 @@
     padding: @offcanvas-close-padding;
     .hook-offcanvas-close();
 }
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-offcanvas-close {
+        top: @offcanvas-close-position-m;
+        right: @offcanvas-close-position-m;
+    }
+
+}
+
+/*
+ * Remove margin from adjacent element
+ */
+
+.uk-offcanvas-close:first-child + * { margin-top: 0; }
 
 
 /* Overlay

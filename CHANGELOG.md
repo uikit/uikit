@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.13.2 (March 25, 2022)
+
+### Changed
+
+- Use custom property for direction offset in components based on Position mixin
+- Add max-width to drops in Drop, Dropdown and Navbar components
+
+### Removed
+
+- Remove dropbar push mode from Navbar component
+
+### Fixed
+
+- Fix dropbar dropdown alignment
+- Fix dropbar dropdown top margin flickering
+- Fix Switcher component with disabled toggles
+- Fix responsiveness in Responsive component
+- Fix video autoplay
+- Fix importing UIkit in Next.js
+
 ## 3.13.1 (March 18, 2022)
 
 ### Fixed

@@ -1,12 +1,12 @@
 import {
     $,
     flipPosition,
+    getCssVar,
     offset as getOffset,
     isNumeric,
     isRtl,
     positionAt,
-    removeClasses,
-    toggleClass,
+    toPx,
 } from 'uikit-util';
 
 export default {
@@ -14,14 +14,12 @@ export default {
         pos: String,
         offset: null,
         flip: Boolean,
-        clsPos: String,
     },
 
     data: {
         pos: `bottom-${isRtl ? 'right' : 'left'}`,
         flip: true,
         offset: false,
-        clsPos: '',
     },
 
     connected() {
@@ -32,13 +30,11 @@ export default {
 
     methods: {
         positionAt(element, target, boundary) {
-            removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
-
-            let { offset } = this;
             const axis = this.getAxis();
             const dir = this.pos[0];
             const align = this.pos[1];
 
+            let { offset } = this;
             if (!isNumeric(offset)) {
                 const node = $(offset);
                 offset = node
@@ -46,6 +42,7 @@ export default {
                       getOffset(target)[axis === 'x' ? 'right' : 'bottom']
                     : 0;
             }
+            offset += toPx(getCssVar('position-margin-offset', element));
 
             const { x, y } = positionAt(
                 element,
@@ -62,8 +59,6 @@ export default {
 
             this.dir = axis === 'x' ? x : y;
             this.align = axis === 'x' ? y : x;
-
-            toggleClass(element, `${this.clsPos}-${this.dir}-${this.align}`, this.offset === false);
         },
 
         getAxis() {

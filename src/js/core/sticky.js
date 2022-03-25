@@ -14,6 +14,7 @@ import {
     height as getHeight,
     offset as getOffset,
     getScrollingElement,
+    intersectRect,
     isString,
     isVisible,
     noop,
@@ -29,7 +30,6 @@ import {
     toPx,
     trigger,
     within,
-    intersectRect,
 } from 'uikit-util';
 
 export default {

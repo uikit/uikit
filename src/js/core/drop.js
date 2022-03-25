@@ -63,7 +63,7 @@ export default {
     },
 
     connected() {
-        this.clsPos = this.clsDrop = this.$props.clsDrop || `uk-${this.$options.name}`;
+        this.clsDrop = this.$props.clsDrop || `uk-${this.$options.name}`;
         addClass(this.$el, this.clsDrop);
 
         if (this.toggle && !this.target) {
@@ -129,7 +129,7 @@ export default {
                 if (this.isToggled()) {
                     this.hide(false);
                 } else {
-                    this.show(toggle.$el, false);
+                    this.show(toggle?.$el, false);
                 }
             },
         },
@@ -141,7 +141,7 @@ export default {
 
             handler(e, toggle) {
                 e.preventDefault();
-                this.show(toggle.$el);
+                this.show(toggle?.$el);
             },
         },
 
@@ -352,23 +352,20 @@ export default {
         },
 
         position() {
-            const boundary = this.boundary === true ? window : query(this.boundary, this.$el);
+            const boundary = query(this.boundary, this.$el) || window;
             removeClass(this.$el, `${this.clsDrop}-stack`);
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundaryOffset = offset(boundary);
-            const alignTo = this.boundaryAlign ? boundaryOffset : offset(this.target);
+            const targetOffset = offset(this.target);
+            const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
 
             if (this.align === 'justify') {
                 const prop = this.getAxis() === 'y' ? 'width' : 'height';
                 css(this.$el, prop, alignTo[prop]);
             } else if (
-                boundary &&
                 this.$el.offsetWidth >
-                    Math.max(
-                        boundaryOffset.right - alignTo.left,
-                        alignTo.right - boundaryOffset.left
-                    )
+                Math.max(boundaryOffset.right - alignTo.left, alignTo.right - boundaryOffset.left)
             ) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }

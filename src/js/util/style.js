@@ -9,7 +9,6 @@ import {
     isUndefined,
     memoize,
     toNodes,
-    toWindow,
 } from './lang';
 
 const cssNumber = {
@@ -37,21 +36,22 @@ export function css(element, property, value, priority = '') {
             property = propName(property);
 
             if (isUndefined(value)) {
-                return getStyle(element, property);
-            } else if (!value && !isNumber(value)) {
-                element.style.removeProperty(property);
+                return getComputedStyle(element).getPropertyValue(property);
             } else {
                 element.style.setProperty(
                     property,
-                    isNumeric(value) && !cssNumber[property] ? `${value}px` : value,
+                    isNumeric(value) && !cssNumber[property]
+                        ? `${value}px`
+                        : value || isNumber(value)
+                        ? value
+                        : '',
                     priority
                 );
             }
         } else if (isArray(property)) {
-            const styles = getStyles(element);
             const props = {};
             for (const prop of property) {
-                props[prop] = styles[propName(prop)];
+                props[prop] = css(element, prop);
             }
             return props;
         } else if (isObject(property)) {
@@ -62,19 +62,9 @@ export function css(element, property, value, priority = '') {
     return elements[0];
 }
 
-function getStyles(element, pseudoElt) {
-    return toWindow(element).getComputedStyle(element, pseudoElt);
-}
-
-function getStyle(element, property, pseudoElt) {
-    return getStyles(element, pseudoElt)[property];
-}
-
 const propertyRe = /^\s*(["'])?(.*?)\1\s*$/;
-export function getCssVar(name) {
-    return getStyles(document.documentElement)
-        .getPropertyValue(`--uk-${name}`)
-        .replace(propertyRe, '$2');
+export function getCssVar(name, element = document.documentElement) {
+    return css(element, `--uk-${name}`).replace(propertyRe, '$2');
 }
 
 // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
@@ -83,6 +73,10 @@ export const propName = memoize((name) => vendorPropName(name));
 const cssPrefixes = ['webkit', 'moz'];
 
 function vendorPropName(name) {
+    if (name[0] === '-') {
+        return name;
+    }
+
     name = hyphenate(name);
 
     const { style } = document.documentElement;

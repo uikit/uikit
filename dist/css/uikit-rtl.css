@@ -1,4 +1,4 @@
-/*! UIkit 3.13.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.13.2 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -3488,28 +3488,15 @@ select.uk-form-width-xsmall {
   /* 2 */
   position: absolute;
   z-index: 1020;
+  --uk-position-margin-offset: 20px;
   /* 3 */
   box-sizing: border-box;
   width: 300px;
+  max-width: 100vw;
 }
 /* Show */
 .uk-drop.uk-open {
   display: block;
-}
-/* Direction / Alignment modifiers
- ========================================================================== */
-/* Direction */
-[class*='uk-drop-top'] {
-  margin-top: -20px;
-}
-[class*='uk-drop-bottom'] {
-  margin-top: 20px;
-}
-[class*='uk-drop-right'] {
-  margin-right: -20px;
-}
-[class*='uk-drop-left'] {
-  margin-right: 20px;
 }
 /* Grid modifiers
  ========================================================================== */
@@ -3531,9 +3518,11 @@ select.uk-form-width-xsmall {
   /* 2 */
   position: absolute;
   z-index: 1020;
+  --uk-position-margin-offset: 10px;
   /* 3 */
   box-sizing: border-box;
   min-width: 200px;
+  max-width: 100vw;
   /* 4 */
   padding: 25px;
   background: #fff;
@@ -3583,21 +3572,6 @@ select.uk-form-width-xsmall {
 .uk-dropdown-nav .uk-nav-sub a:hover,
 .uk-dropdown-nav .uk-nav-sub li.uk-active > a {
   color: #666;
-}
-/* Direction / Alignment modifiers
- ========================================================================== */
-/* Direction */
-[class*='uk-dropdown-top'] {
-  margin-top: -10px;
-}
-[class*='uk-dropdown-bottom'] {
-  margin-top: 10px;
-}
-[class*='uk-dropdown-right'] {
-  margin-right: -10px;
-}
-[class*='uk-dropdown-left'] {
-  margin-right: 10px;
 }
 /* Grid modifiers
  ========================================================================== */
@@ -4101,9 +4075,22 @@ select.uk-form-width-xsmall {
 .uk-offcanvas-close {
   position: absolute;
   z-index: 1000;
-  top: 20px;
-  left: 20px;
+  top: 5px;
+  left: 5px;
   padding: 5px;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-offcanvas-close {
+    top: 20px;
+    left: 20px;
+  }
+}
+/*
+ * Remove margin from adjacent element
+ */
+.uk-offcanvas-close:first-child + * {
+  margin-top: 0;
 }
 /* Overlay
  ========================================================================== */
@@ -4356,6 +4343,7 @@ select.uk-form-width-xsmall {
   /* 2 */
   position: absolute;
   z-index: 1030;
+  --uk-position-margin-offset: 10px;
   /* 3 */
   top: 0;
   /* 4 */
@@ -4371,21 +4359,6 @@ select.uk-form-width-xsmall {
 /* Show */
 .uk-tooltip.uk-active {
   display: block;
-}
-/* Direction / Alignment modifiers
- ========================================================================== */
-/* Direction */
-[class*='uk-tooltip-top'] {
-  margin-top: -10px;
-}
-[class*='uk-tooltip-bottom'] {
-  margin-top: 10px;
-}
-[class*='uk-tooltip-right'] {
-  margin-right: -10px;
-}
-[class*='uk-tooltip-left'] {
-  margin-right: 10px;
 }
 /* ========================================================================
    Component: Sortable
@@ -5243,9 +5216,11 @@ ul.uk-nav-sub {
   /* 2 */
   position: absolute;
   z-index: 1020;
+  --uk-position-margin-offset: 15px;
   /* 3 */
   box-sizing: border-box;
   width: 200px;
+  max-width: 100vw;
   /* 4 */
   padding: 25px;
   background: #fff;
@@ -5255,22 +5230,6 @@ ul.uk-nav-sub {
 /* Show */
 .uk-navbar-dropdown.uk-open {
   display: block;
-}
-/*
- * Direction / Alignment modifiers
- */
-/* Direction */
-[class*='uk-navbar-dropdown-top'] {
-  margin-top: -15px;
-}
-[class*='uk-navbar-dropdown-bottom'] {
-  margin-top: 15px;
-}
-[class*='uk-navbar-dropdown-right'] {
-  margin-right: -15px;
-}
-[class*='uk-navbar-dropdown-left'] {
-  margin-right: 15px;
 }
 /*
  * Grid
@@ -5308,10 +5267,16 @@ ul.uk-nav-sub {
 }
 /*
  * Dropbar modifier
+ * 1. Set position
+ * 2. Bottom padding for dropbar
+ * 3. Horizontal padding
  */
 .uk-navbar-dropdown-dropbar {
-  margin-top: 0;
+  /* 1 */
+  --uk-position-margin-offset: 0;
+  /* 2 */
   margin-bottom: 0;
+  padding: 15px;
   box-shadow: none;
 }
 /* Dropdown Nav
@@ -5361,16 +5326,11 @@ ul.uk-nav-sub {
 /* Dropbar
  ========================================================================== */
 .uk-navbar-dropbar {
-  background: #fff;
-}
-/*
- * Slide modifier
- */
-.uk-navbar-dropbar-slide {
   position: absolute;
   z-index: 980;
   right: 0;
   left: 0;
+  background: #fff;
   box-shadow: 0 5px 7px rgba(0, 0, 0, 0.05);
 }
 /*

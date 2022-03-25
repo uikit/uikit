@@ -35,7 +35,6 @@ export default {
         animation: ['uk-animation-scale-up'],
         duration: 100,
         cls: 'uk-active',
-        clsPos: 'uk-tooltip',
     },
 
     beforeConnect() {
@@ -91,8 +90,8 @@ export default {
         _show() {
             this.tooltip = append(
                 this.container,
-                `<div class="${this.clsPos}">
-                    <div class="${this.clsPos}-inner">${this.title}</div>
+                `<div class="uk-${this.$options.name}">
+                    <div class="uk-${this.$options.name}-inner">${this.title}</div>
                  </div>`
             );
 

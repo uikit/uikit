@@ -1,6 +1,7 @@
 import { on } from './event';
 import { toNodes } from './lang';
 import { fastdom } from './fastdom';
+import { inBrowser } from './env';
 
 export function observeIntersection(targets, cb, options, intersecting = true) {
     return observe(
@@ -17,7 +18,7 @@ export function observeIntersection(targets, cb, options, intersecting = true) {
     );
 }
 
-const hasResizeObserver = window.ResizeObserver;
+const hasResizeObserver = inBrowser && window.ResizeObserver;
 export function observeResize(targets, cb, options = { box: 'border-box' }) {
     if (hasResizeObserver) {
         return observe(ResizeObserver, targets, cb, options);
