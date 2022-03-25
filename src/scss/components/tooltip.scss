@@ -21,6 +21,7 @@
 // ========================================================================
 
 $tooltip-z-index:                                $global-z-index + 30 !default;
+$tooltip-margin:                                 10px !default;
 $tooltip-max-width:                              200px !default;
 $tooltip-padding-vertical:                       3px !default;
 $tooltip-padding-horizontal:                     6px !default;
@@ -29,7 +30,6 @@ $tooltip-border-radius:                          2px !default;
 $tooltip-color:                                  $global-inverse-color !default;
 $tooltip-font-size:                              12px !default;
 
-$tooltip-margin:                                 10px !default;
 
 
 /* ========================================================================
@@ -50,6 +50,7 @@ $tooltip-margin:                                 10px !default;
     /* 2 */
     position: absolute;
     z-index: $tooltip-z-index;
+    --uk-position-margin-offset: #{$dropdown-margin};
     /* 3 */
     top: 0;
     /* 4 */
@@ -66,16 +67,6 @@ $tooltip-margin:                                 10px !default;
 
 /* Show */
 .uk-tooltip.uk-active { display: block; }
-
-
-/* Direction / Alignment modifiers
- ========================================================================== */
-
-/* Direction */
-[class*='uk-tooltip-top'] { margin-top: (-$tooltip-margin); }
-[class*='uk-tooltip-bottom'] { margin-top: $tooltip-margin; }
-[class*='uk-tooltip-left'] { margin-left: (-$tooltip-margin); }
-[class*='uk-tooltip-right'] { margin-left: $tooltip-margin; }
 
 
 // Hooks

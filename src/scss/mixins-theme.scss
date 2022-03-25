@@ -1754,8 +1754,7 @@
 @mixin hook-navbar-dropdown-nav-item-active(){}
 @mixin hook-navbar-dropdown-nav-header(){}
 @mixin hook-navbar-dropdown-nav-divider(){}
-@mixin hook-navbar-dropbar(){}
-@mixin hook-navbar-dropbar-slide(){ box-shadow: $navbar-dropbar-box-shadow; }
+@mixin hook-navbar-dropbar(){ box-shadow: $navbar-dropbar-box-shadow; }
 @mixin hook-navbar-misc(){
 
     /*
