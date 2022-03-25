@@ -63,7 +63,7 @@ export default {
     },
 
     connected() {
-        this.clsPos = this.clsDrop = this.$props.clsDrop || `uk-${this.$options.name}`;
+        this.clsDrop = this.$props.clsDrop || `uk-${this.$options.name}`;
         addClass(this.$el, this.clsDrop);
 
         if (this.toggle && !this.target) {
