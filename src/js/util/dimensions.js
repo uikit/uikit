@@ -41,8 +41,8 @@ export function offset(element, coordinates) {
         const offsetBy = { height: scrollY, width: scrollX };
 
         for (const dir in dirs) {
-            for (const i in dirs[dir]) {
-                currentOffset[dirs[dir][i]] += offsetBy[dir];
+            for (const prop of dirs[dir]) {
+                currentOffset[prop] += offsetBy[dir];
             }
         }
     }
