@@ -1,12 +1,12 @@
 import {
+    createEvent,
     getCssVar,
+    isNumeric,
     isString,
     on,
-    trigger,
-    toFloat,
     startsWith,
-    isNumeric,
-    createEvent,
+    toFloat,
+    trigger,
 } from 'uikit-util';
 
 export default {
