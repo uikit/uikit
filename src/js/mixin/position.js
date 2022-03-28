@@ -77,11 +77,11 @@ function getAlignment(el, target) {
 
     let dir;
     for (const props of properties) {
-        if (elOffset[props[0]] > targetOffset[props[1]]) {
+        if (elOffset[props[0]] >= targetOffset[props[1]]) {
             dir = props[1];
             break;
         }
-        if (elOffset[props[1]] < targetOffset[props[0]]) {
+        if (elOffset[props[1]] <= targetOffset[props[0]]) {
             dir = props[0];
             break;
         }
