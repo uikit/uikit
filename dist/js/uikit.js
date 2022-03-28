@@ -1,4 +1,4 @@
-/*! UIkit 3.13.4 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.13.5 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1459,9 +1459,7 @@
     }
 
     function observeIntersection(targets, cb, options, intersecting) {if (intersecting === void 0) {intersecting = true;}
-      return observe(
-      IntersectionObserver,
-      targets,
+      const observer = new IntersectionObserver(
       intersecting ?
       (entries, observer) => {
         if (entries.some((entry) => entry.isIntersecting)) {
@@ -1471,6 +1469,11 @@
       cb,
       options);
 
+      for (const el of toNodes(targets)) {
+        observer.observe(el);
+      }
+
+      return observer;
     }
 
     const hasResizeObserver = inBrowser && window.ResizeObserver;
@@ -2889,7 +2892,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.13.4';
+    UIkit.version = '3.13.5';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3521,7 +3524,7 @@
             offset(target)[axis === 'x' ? 'right' : 'bottom'] :
             0;
           }
-          offset$1 += toPx(getCssVar('position-margin-offset', element));
+          offset$1 = toPx(offset$1) + toPx(getCssVar('position-margin-offset', element));
 
           const { x, y } = positionAt(
           element,
