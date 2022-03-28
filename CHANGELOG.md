@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Drop component's `offset` option
+
 ## 3.13.4 (March 25, 2022)
 
 ### Fixed
