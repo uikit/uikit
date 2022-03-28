@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.13.5 (March 28, 2022)
+
+### Fixed
+
+- Fix regression in Drop component's `offset` option
+- Fix initial values for `@navbar-dropdown-margin` and `@navbar-dropdown-dropbar-margin-top`
+
 ## 3.13.4 (March 25, 2022)
 
 ### Fixed

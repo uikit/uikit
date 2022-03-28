@@ -4,9 +4,7 @@ import { fastdom } from './fastdom';
 import { inBrowser } from './env';
 
 export function observeIntersection(targets, cb, options, intersecting = true) {
-    return observe(
-        IntersectionObserver,
-        targets,
+    const observer = new IntersectionObserver(
         intersecting
             ? (entries, observer) => {
                   if (entries.some((entry) => entry.isIntersecting)) {
@@ -16,6 +14,11 @@ export function observeIntersection(targets, cb, options, intersecting = true) {
             : cb,
         options
     );
+    for (const el of toNodes(targets)) {
+        observer.observe(el);
+    }
+
+    return observer;
 }
 
 const hasResizeObserver = inBrowser && window.ResizeObserver;
