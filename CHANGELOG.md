@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix Position component
 - Fix regression in Upload component with `multiple` option disabled
 
 ## 3.13.5 (March 28, 2022)
