@@ -8,7 +8,7 @@ export default {
         selItem: '!li',
     },
 
-    connected() {
+    beforeConnect() {
         this.item = query(this.selItem, this.$el);
     },
 

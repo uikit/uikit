@@ -7,6 +7,7 @@
 - Fix Position component
 - Fix regression in Upload component with `multiple` option disabled
 - Fix regression in Height Viewport component with `expand` option enabled
+- Fix regression in Slider/Slideshow Parallax
 
 ## 3.13.5 (March 28, 2022)
 
