@@ -53,7 +53,7 @@ $dropdown-nav-sublist-item-hover-color:          $global-color !default;
     /* 2 */
     position: absolute;
     z-index: $dropdown-z-index;
-    --uk-position-margin-offset: #{$dropdown-margin};
+    --uk-position-offset: #{$dropdown-margin};
     /* 3 */
     box-sizing: border-box;
     min-width: $dropdown-min-width;
