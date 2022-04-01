@@ -148,7 +148,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
         output.push({
             ...outputOptions,
             file: `${dest}.min.js`,
-            plugins: [minify ? rollupMinify() : undefined],
+            plugins: [minify && !debug ? rollupMinify() : undefined],
         });
     }
 
