@@ -3,6 +3,7 @@ import {
     flipPosition,
     getCssVar,
     offset as getOffset,
+    includes,
     isNumeric,
     isRtl,
     positionAt,
@@ -30,9 +31,8 @@ export default {
 
     methods: {
         positionAt(element, target, boundary) {
-            const axis = this.getAxis();
-            const dir = this.pos[0];
-            const align = this.pos[1];
+            const [dir, align] = this.pos;
+            const axis = this.getAxis(dir);
 
             let { offset } = this;
             if (!isNumeric(offset)) {
@@ -43,26 +43,63 @@ export default {
                     : 0;
             }
             offset = toPx(offset) + toPx(getCssVar('position-offset', element));
+            offset = [includes(['left', 'top'], dir) ? -offset : +offset, 0];
 
-            const { x, y } = positionAt(
-                element,
-                target,
-                axis === 'x' ? `${flipPosition(dir)} ${align}` : `${align} ${flipPosition(dir)}`,
-                axis === 'x' ? `${dir} ${align}` : `${align} ${dir}`,
-                axis === 'x'
-                    ? `${dir === 'left' ? -offset : offset}`
-                    : ` ${dir === 'top' ? -offset : offset}`,
-                null,
-                this.flip,
-                boundary
-            ).target;
+            const attach = {
+                element: [flipPosition(dir), align],
+                target: [dir, align],
+            };
 
-            this.dir = axis === 'x' ? x : y;
-            this.align = axis === 'x' ? y : x;
+            if (axis === 'y') {
+                for (const prop in attach) {
+                    attach[prop] = attach[prop].reverse();
+                }
+                offset = offset.reverse();
+            }
+
+            positionAt(element, target, {
+                attach,
+                offset,
+                boundary,
+                flip: this.flip,
+            });
+
+            [this.dir, this.align] = getAlignment(element, target, this.pos);
         },
 
-        getAxis() {
-            return this.dir === 'top' || this.dir === 'bottom' ? 'y' : 'x';
+        getAxis(dir = this.dir) {
+            return includes(['top', 'bottom'], dir) ? 'y' : 'x';
         },
     },
 };
+
+function getAlignment(el, target, [dir, align]) {
+    const elOffset = getOffset(el);
+    const targetOffset = getOffset(target);
+    const properties = [
+        ['left', 'right'],
+        ['top', 'bottom'],
+    ];
+
+    for (const props of properties) {
+        if (elOffset[props[0]] >= targetOffset[props[1]]) {
+            dir = props[1];
+            break;
+        }
+        if (elOffset[props[1]] <= targetOffset[props[0]]) {
+            dir = props[0];
+            break;
+        }
+    }
+
+    const props = includes(properties[0], dir) ? properties[1] : properties[0];
+    if (elOffset[props[0]] === targetOffset[props[0]]) {
+        align = props[0];
+    } else if (elOffset[props[1]] === targetOffset[props[1]]) {
+        align = props[1];
+    } else {
+        align = 'center';
+    }
+
+    return [dir, align];
+}

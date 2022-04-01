@@ -2,6 +2,10 @@
 
 ## 3.13.7 (April 1, 2022)
 
+### Added
+
+- Drop/Dropdowns try to shift to stay within viewport
+
 ### Fixed
 
 - Fix regression in Drop component not updating its width if alignment is set to `justify`
