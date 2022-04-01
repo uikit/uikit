@@ -1,7 +1,10 @@
+import Resize from '../mixin/resize';
 import { getRows } from './margin';
 import { $$, boxModelAdjust, css, dimensions, isVisible, toFloat } from 'uikit-util';
 
 export default {
+    mixins: [Resize],
+
     args: 'target',
 
     props: {

@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix regression in Drop component not updating its width if alignment is set to `justify`
+- Fix regression in Height Match component not updating its height when resized
 
 ## 3.13.6 (April 1, 2022)
 
