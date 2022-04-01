@@ -9,7 +9,7 @@
         <style>
 
             /* JavaScript */
-            #js-viewport {
+            #js-boundary {
                 height: 300px;
                 outline: 1px solid rgba(0,0,0,0.1);
                 position: relative;
@@ -26,6 +26,7 @@
 
             #js-element {
                 position: absolute;
+                display: none;
                 width: 75px;
                 height: 75px;
                 background: rgba(0,0,0,0.1);
@@ -237,13 +238,13 @@
 
             <h2>JavaScript</h2>
 
-            <div id="js-viewport" class="uk-margin">
+            <div id="js-boundary" class="uk-margin">
                 <div id="js-target" class="uk-flex uk-flex-center uk-flex-middle" draggable="true">Drag me!</div>
             </div>
 
             <div id="js-element"></div>
 
-            <div class="uk-grid uk-child-width-auto uk-form-stacked" style="margin-bottom: 100vh">
+            <div class="uk-grid uk-child-width-auto uk-form-stacked">
                 <div>
 
                     <div class="uk-margin">
@@ -326,26 +327,27 @@
 
         <script>
 
-            const {$, $$, css, getEventPos, on, offset, positionAt} = UIkit.util;
-            let viewport = $('#js-viewport');
-            let element = $('#js-element');
-            let target = $('#js-target');
-            let offsetX;
-            let offsetY;
+            var util = UIkit.util,
+                $ = util.$,
+                on = util.on,
+                offset = util.offset,
+                ticking,
+                element = $('#js-element'),
+                boundary = $('#js-boundary'),
+                target = $('#js-target'),
+                offsetX,
+                offsetY;
 
             function position() {
-                positionAt(
+                util.positionAt(
                     element,
                     target,
-                    {
-                        viewport,
-                        attach:{
-                            element: [$('#js-element_x').value, $('#js-element_y').value],
-                            target: [$('#js-target_x').value, $('#js-target_y').value]
-                        },
-                        offset: [$('#js-offset_x').value, $('#js-offset_y').value],
-                        flip: [$('#js-flip_x').value, $('#js-flip_y').value]
-                    }
+                    $('#js-element_x').value + ' ' + $('#js-element_y').value,
+                    $('#js-target_x').value + ' ' + $('#js-target_y').value,
+                    $('#js-offset_x').value + ' ' + $('#js-offset_y').value,
+                    null,
+                    $('#js-flip_x').value + $('#js-flip_y').value,
+                    boundary
                 );
             }
 
@@ -357,34 +359,33 @@
 
             });
 
-            let lastPos;
             on(window, 'dragover', function (e) {
-
-                const pos = getEventPos(e);
-
-                if (lastPos?.x === pos.x && lastPos?.y === pos.y) {
-                    return;
-                }
-                lastPos = pos;
 
                 e.preventDefault();
 
-                // positions target at mouse cursor
-                positionAt(
-                    target,
-                    viewport,
-                    {
-                        offset: [e.pageX - offset(viewport).left - offsetX, e.pageY - offset(viewport).top - offsetY]
-                    }
-                );
+                if (!ticking) {
+                    requestAnimationFrame(function () {
 
-                // positions element at target
-                position();
+                        util.positionAt(
+                            target,
+                            boundary,
+                            'left top',
+                            'left top',
+                            (e.pageX - offset(boundary).left - offsetX) + ' ' + (e.pageY - offset(boundary).top - offsetY)
+                        );
+
+                        position();
+
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+
             });
 
-            on($$('select,input'), 'change', position);
-            on(window, 'scroll', position);
+            util.$$('select,input').forEach(el => on(el, 'change', position));
 
+            util.css(element, 'display', 'block');
             position();
 
         </script>

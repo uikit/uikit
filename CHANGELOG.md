@@ -34,10 +34,6 @@
 
 ## 3.13.2 (March 25, 2022)
 
-### Added
-
-- Drop/Dropdowns try to shift to stay within viewport
-
 ### Changed
 
 - Use custom property for direction offset in components based on Position mixin
