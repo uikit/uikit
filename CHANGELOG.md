@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Drop component not updating its width if alignment is set to `justify`
+
 ## 3.13.6 (April 1, 2022)
 
 ### Removed
