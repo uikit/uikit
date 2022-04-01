@@ -1,4 +1,4 @@
-/*! UIkit 3.13.6 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.13.7 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2892,7 +2892,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.13.6';
+    UIkit.version = '3.13.7';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3879,7 +3879,7 @@
           const targetOffset = offset(this.target);
           const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
 
-          if (this.align === 'justify') {
+          if (this.pos[1] === 'justify') {
             const prop = this.getAxis() === 'y' ? 'width' : 'height';
             css(this.$el, prop, alignTo[prop]);
           } else if (
@@ -4277,6 +4277,8 @@
     }
 
     var heightMatch = {
+      mixins: [Resize],
+
       args: 'target',
 
       props: {

@@ -1,6 +1,18 @@
 # Changelog
 
+## 3.13.7 (April 1, 2022)
+
+### Fixed
+
+- Fix regression in Drop component not updating its width if alignment is set to `justify`
+- Fix regression in Height Match component not updating its height when resized
+
 ## 3.13.6 (April 1, 2022)
+
+### Removed
+
+- Image component no longer sets a `background-size` for elements with `background-size` set to `auto`
+
 
 ### Fixed
 
@@ -8,10 +20,6 @@
 - Fix regression in Upload component with `multiple` option disabled
 - Fix regression in Height Viewport component with `expand` option enabled
 - Fix regression in Slider/Slideshow Parallax
-
-### Removed
-
-- Image component no longer sets a `background-size` for elements with `background-size` set to `auto`
 
 ## 3.13.5 (March 28, 2022)
 

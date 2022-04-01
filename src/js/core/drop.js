@@ -360,7 +360,7 @@ export default {
             const targetOffset = offset(this.target);
             const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
 
-            if (this.align === 'justify') {
+            if (this.pos[1] === 'justify') {
                 const prop = this.getAxis() === 'y' ? 'width' : 'height';
                 css(this.$el, prop, alignTo[prop]);
             } else if (
