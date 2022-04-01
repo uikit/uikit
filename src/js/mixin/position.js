@@ -42,7 +42,7 @@ export default {
                       getOffset(target)[axis === 'x' ? 'right' : 'bottom']
                     : 0;
             }
-            offset = toPx(offset) + toPx(getCssVar('position-margin-offset', element));
+            offset = toPx(offset) + toPx(getCssVar('position-offset', element));
 
             const { x, y } = positionAt(
                 element,

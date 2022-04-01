@@ -94,7 +94,6 @@
 * 1. Center content vertically, e.g. an icon
 * 2. Imitate white space gap when using flexbox
 * 3. Reset link
-* 4. Space is allocated solely based on content dimensions: 0 0 auto
  */
 
 .uk-nav li > a {
@@ -106,9 +105,6 @@
     /* 3*/
     text-decoration: none;
 }
-
-/* 4 */
-.uk-nav li > a > * { flex: none; }
 
 /*
  * Items
@@ -177,7 +173,7 @@ ul.uk-nav-sub {
 /* Divider
  ========================================================================== */
 
-.uk-nav >.uk-nav-divider {
+.uk-nav .uk-nav-divider {
     margin: @nav-divider-margin-vertical @nav-divider-margin-horizontal;
     .hook-nav-divider();
 }

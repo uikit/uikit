@@ -46,11 +46,13 @@ export default {
             const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
             if (this.expand) {
-                minHeight =
+                minHeight = Math.max(
                     height(window) -
                         (dimensions(document.documentElement).height -
                             dimensions(this.$el).height) -
-                        box || '';
+                        box,
+                    0
+                );
             } else {
                 // on mobile devices (iOS and Android) window.innerHeight !== 100vh
                 minHeight = 'calc(100vh';
