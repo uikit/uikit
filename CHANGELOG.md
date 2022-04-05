@@ -6,6 +6,10 @@
 
 - Drop/Dropdowns try to shift to stay within viewport
 
+### Fixed
+
+- Fix Drop/Dropdowns component does not close on clicked `.uk-(drop|dropdown)-close` selector
+
 ## 3.13.7 (April 1, 2022)
 
 ### Fixed
