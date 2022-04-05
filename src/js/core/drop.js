@@ -62,8 +62,11 @@ export default {
         this.tracker = new MouseTracker();
     },
 
-    connected() {
+    beforeConnect() {
         this.clsDrop = this.$props.clsDrop || `uk-${this.$options.name}`;
+    },
+
+    connected() {
         addClass(this.$el, this.clsDrop);
 
         if (this.toggle && !this.target) {
