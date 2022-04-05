@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add subtitle classes to Nav component
 - Drop/Dropdowns try to shift to stay within viewport
 
 ### Fixed
@@ -22,7 +23,6 @@
 ### Removed
 
 - Image component no longer sets a `background-size` for elements with `background-size` set to `auto`
-
 
 ### Fixed
 
