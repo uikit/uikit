@@ -7,6 +7,10 @@
 - Add subtitle classes to Nav, Dropdown and Navbar component
 - Drop/Dropdowns try to shift to stay within viewport
 
+### Changed
+
+- Allow text to wrap into the next line for navs in Dropdown component
+
 ### Fixed
 
 - Fix Drop/Dropdowns component does not close on clicked `.uk-(drop|dropdown)-close` selector
