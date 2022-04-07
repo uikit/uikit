@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Drop/Dropdowns component does not close on clicked `.uk-(drop|dropdown)-close` selector
+- Fix Accordion initially not closed
 
 ## 3.13.7 (April 1, 2022)
 

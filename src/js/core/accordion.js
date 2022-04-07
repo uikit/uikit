@@ -48,7 +48,7 @@ export default {
     computed: {
         items: {
             get({ targets }, $el) {
-                return $$(targets, $el);
+                return $$(targets, $el).filter((el) => $(this.content, el));
             },
 
             watch(items, prev) {
