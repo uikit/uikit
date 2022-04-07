@@ -362,16 +362,17 @@ export default {
             const boundaryOffset = offset(boundary);
             const targetOffset = offset(this.target);
             const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
+            const prop = this.axis === 'y' ? 'width' : 'height';
+
+            css(this.$el, `max-${prop}`, '');
 
             if (this.pos[1] === 'justify') {
-                const prop = this.getAxis() === 'y' ? 'width' : 'height';
                 css(this.$el, prop, alignTo[prop]);
-            } else if (
-                this.$el.offsetWidth >
-                Math.max(boundaryOffset.right - alignTo.left, alignTo.right - boundaryOffset.left)
-            ) {
+            } else if (this.$el.offsetWidth > boundaryOffset.width) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }
+
+            css(this.$el, `max-${prop}`, boundaryOffset[prop]);
 
             this.positionAt(this.$el, this.boundaryAlign ? boundary : this.target, boundary);
         },

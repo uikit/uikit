@@ -6,9 +6,11 @@ import {
     attr,
     flipPosition,
     hasAttr,
+    includes,
     isFocusable,
     isTouch,
     matches,
+    offset,
     on,
     once,
     pointerDown,
@@ -104,10 +106,12 @@ export default {
 
                 this.positionAt(this.tooltip, this.$el);
 
+                const [dir, align] = getAlignment(this.tooltip, this.$el, this.pos);
+
                 this.origin =
-                    this.getAxis() === 'y'
-                        ? `${flipPosition(this.dir)}-${this.align}`
-                        : `${this.align}-${flipPosition(this.dir)}`;
+                    this.axis === 'y'
+                        ? `${flipPosition(dir)}-${align}`
+                        : `${align}-${flipPosition(dir)}`;
             });
 
             this.toggleElement(this.tooltip, true);
@@ -142,4 +146,35 @@ function makeFocusable(el) {
     if (!isFocusable(el)) {
         attr(el, 'tabindex', '0');
     }
+}
+
+function getAlignment(el, target, [dir, align]) {
+    const elOffset = offset(el);
+    const targetOffset = offset(target);
+    const properties = [
+        ['left', 'right'],
+        ['top', 'bottom'],
+    ];
+
+    for (const props of properties) {
+        if (elOffset[props[0]] >= targetOffset[props[1]]) {
+            dir = props[1];
+            break;
+        }
+        if (elOffset[props[1]] <= targetOffset[props[0]]) {
+            dir = props[0];
+            break;
+        }
+    }
+
+    const props = includes(properties[0], dir) ? properties[1] : properties[0];
+    if (elOffset[props[0]] === targetOffset[props[0]]) {
+        align = props[0];
+    } else if (elOffset[props[1]] === targetOffset[props[1]]) {
+        align = props[1];
+    } else {
+        align = 'center';
+    }
+
+    return [dir, align];
 }
