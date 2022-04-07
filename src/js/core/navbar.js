@@ -299,7 +299,7 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el, dir }) {
+            handler(_, { $el, pos: [dir] = [] }) {
                 if (!hasClass($el, this.clsDrop)) {
                     return;
                 }
