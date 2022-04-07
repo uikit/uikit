@@ -75,7 +75,10 @@ function attachToWithFlip(element, target, options) {
         const willFlip =
             !intersectLine(position, targetDim, i) && intersectLine(position, targetDim, 1 - i);
 
-        viewport = getIntersectionArea(...viewports, willFlip ? null : boundary);
+        viewport = getIntersectionArea(
+            ...viewports,
+            willFlip || position[prop] > offset(boundary)[prop] ? null : boundary
+        );
         const isInStartBoundary = position[start] >= viewport[start];
         const isInEndBoundary = position[end] <= viewport[end];
 
