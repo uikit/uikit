@@ -16,6 +16,7 @@
 - Fix Drop/Dropdowns component does not close on clicked `.uk-(drop|dropdown)-close` selector
 - Fix dropbar dropdown alignment if boundary-align is true
 - Fix Accordion initially not closed
+- Fix Height Match component not matching correctly
 
 ## 3.13.7 (April 1, 2022)
 
