@@ -20,6 +20,7 @@ export default {
 
     connected() {
         const media = toMedia(this.media);
+        this.matchMedia = true;
         if (media) {
             this.mediaObj = window.matchMedia(media);
             const handler = () => {
