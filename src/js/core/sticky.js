@@ -137,13 +137,13 @@ export default {
                     return false;
                 }
 
-                const hide = this.isActive && types.has('resize');
+                const hide = this.active && types.has('resize');
                 if (hide) {
                     css(this.selTarget, 'transition', '0s');
                     this.hide();
                 }
 
-                if (!this.isActive) {
+                if (!this.active) {
                     height = getOffset(this.$el).height;
                     margin = css(this.$el, 'margin');
                 }
