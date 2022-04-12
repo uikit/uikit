@@ -13,7 +13,6 @@ import {
     trigger,
 } from 'uikit-util';
 
-const stateKey = '_ukScrollspy';
 export default {
     mixins: [Scroll],
 
@@ -61,20 +60,25 @@ export default {
     },
 
     connected() {
+        this._data.elements = new Map();
         this.registerObserver(
             observeIntersection(
                 this.elements,
                 (records) => {
+                    const elements = this._data.elements;
                     for (const { target: el, isIntersecting } of records) {
-                        if (!el[stateKey]) {
-                            el[stateKey] = { cls: getData(el, 'uk-scrollspy-class') || this.cls };
+                        if (!elements.has(el)) {
+                            elements.set(el, {
+                                cls: getData(el, 'uk-scrollspy-class') || this.cls,
+                            });
                         }
 
-                        if (!this.repeat && el[stateKey].show) {
+                        const state = elements.get(el);
+                        if (!this.repeat && state.show) {
                             continue;
                         }
 
-                        el[stateKey].show = isIntersecting;
+                        state.show = isIntersecting;
                     }
 
                     this.$emit();
@@ -90,22 +94,15 @@ export default {
     },
 
     disconnected() {
-        for (const el of this.elements) {
-            removeClass(el, this.inViewClass, el[stateKey]?.cls || '');
-            delete el[stateKey];
+        for (const [el, state] of this._data.elements.entries()) {
+            removeClass(el, this.inViewClass, state?.cls || '');
         }
     },
 
     update: [
         {
             write(data) {
-                for (const el of this.elements) {
-                    const state = el[stateKey];
-
-                    if (!state) {
-                        continue;
-                    }
-
+                for (const [el, state] of data.elements.entries()) {
                     if (state.show && !state.inview && !state.queued) {
                         state.queued = true;
 
@@ -128,7 +125,7 @@ export default {
 
     methods: {
         toggle(el, inview) {
-            const state = el[stateKey];
+            const state = this._data.elements.get(el);
 
             state.off?.();
 
