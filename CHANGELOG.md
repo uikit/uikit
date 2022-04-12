@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Scrollspy component uses IntersectionObserver instead of scroll/resize events
+
 ### Fixed
 
 - Fix Drop/Dropdowns component does not close on clicked `.uk-(drop|dropdown)-close` selector
