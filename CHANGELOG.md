@@ -10,6 +10,7 @@
 ### Changed
 
 - Allow text to wrap into the next line for navs in Dropdown component
+- Scrollspy component uses IntersectionObserver instead of scroll/resize events
 
 ### Fixed
 
