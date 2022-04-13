@@ -6,6 +6,7 @@
 
 - Add subtitle classes to Nav, Dropdown and Navbar component
 - Drop/Dropdowns try to shift to stay within viewport
+- Add navbar justify to Navbar component
 
 ### Changed
 
