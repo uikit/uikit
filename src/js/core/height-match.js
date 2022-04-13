@@ -15,7 +15,6 @@ export default {
     data: {
         target: '> *',
         row: true,
-        forceHeight: true,
     },
 
     computed: {
