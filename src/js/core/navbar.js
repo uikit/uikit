@@ -61,8 +61,6 @@ export default {
         dropbar: false,
         dropbarAnchor: false,
         duration: 200,
-        forceHeight: true,
-        selMinHeight: navItem,
         container: false,
     },
 
