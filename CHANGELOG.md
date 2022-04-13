@@ -19,6 +19,7 @@
 - Fix Accordion initially not closed
 - Fix Height Match component not matching correctly
 - Fix regression in Sticky component affecting height of placeholder
+- Fix Toggle not toggling after re-entering button with mouse before drop has closed itself
 
 ## 3.13.7 (April 1, 2022)
 
