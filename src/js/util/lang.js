@@ -133,10 +133,6 @@ export function toWindow(element) {
     return document?.defaultView || window;
 }
 
-export function toMs(time) {
-    return time ? (endsWith(time, 'ms') ? toFloat(time) : toFloat(time) * 1000) : 0;
-}
-
 export function isEqual(value, other) {
     return (
         value === other ||
