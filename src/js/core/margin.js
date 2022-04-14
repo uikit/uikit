@@ -15,7 +15,7 @@ export default {
     },
 
     resizeTargets() {
-        return this.$el.children;
+        return [this.$el, this.$el.children];
     },
 
     connected() {
