@@ -13,6 +13,10 @@
 - Allow text to wrap into the next line for navs in Dropdown component
 - Scrollspy component uses IntersectionObserver instead of scroll/resize events
 
+### Removed
+
+- Remove setting `overflow-x: hidden` on html element, while horizontal animation is active
+
 ### Fixed
 
 - Fix Drop/Dropdowns component does not close on clicked `.uk-(drop|dropdown)-close` selector
