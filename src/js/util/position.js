@@ -51,7 +51,7 @@ function attachTo(element, target, options) {
 }
 
 function attachToWithFlip(element, target, options) {
-    const position = attachTo(element, target, options);
+    let position = attachTo(element, target, options);
     const targetDim = offset(target);
     const viewports = scrollParents(element).map(getViewport);
 
@@ -61,6 +61,7 @@ function attachToWithFlip(element, target, options) {
         offset: elOffset,
         boundary,
         viewport,
+        recursion = 0,
     } = options;
 
     viewports.push(viewport);
@@ -110,6 +111,29 @@ function attachToWithFlip(element, target, options) {
                     : 0) -
                 elOffset[i] * 2;
 
+            if (
+                position[start] + offsetBy < viewport[start] ||
+                position[end] + offsetBy > viewport[end]
+            ) {
+                if (recursion < 1) {
+                    position =
+                        attachToWithFlip(element, target, {
+                            ...options,
+                            attach: {
+                                element: elAttach.map(flipDir).reverse(),
+                                target: targetAttach.map(flipDir).reverse(),
+                            },
+                            offset: elOffset.reverse(),
+                            flip: flip === true ? flip : [...flip, dirs[1 - i][1]],
+                            recursion: recursion + 1,
+                        }) || position;
+
+                    continue;
+                } else {
+                    return false;
+                }
+            }
+
             // Move
         } else {
             offsetBy =
@@ -152,4 +176,13 @@ function getIntersectionArea(...elements) {
 function intersectLine(dimA, dimB, dir) {
     const [, , start, end] = dirs[dir];
     return dimA[end] > dimB[start] && dimB[end] > dimA[start];
+}
+
+function flipDir(prop) {
+    for (const i in dirs) {
+        const index = dirs[i].indexOf(prop);
+        if (~index) {
+            return dirs[1 - i][(index % 2) + 2];
+        }
+    }
 }
