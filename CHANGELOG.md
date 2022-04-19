@@ -26,6 +26,7 @@
 - Fix Margin component does not correctly listen for resize
 - Fix regression in Sticky component affecting height of placeholder
 - Fix Toggle not toggling after re-entering button with mouse before drop has closed itself
+- Fix reposition Drop on scroll
 
 ## 3.13.7 (April 1, 2022)
 
