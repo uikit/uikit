@@ -13,7 +13,6 @@ import {
     fastdom,
     height as getHeight,
     offset as getOffset,
-    getScrollingElement,
     intersectRect,
     isString,
     isVisible,
@@ -175,7 +174,7 @@ export default {
                 const start = Math.max(top, topOffset) - offset;
                 const end = bottom
                     ? bottom - getOffset(this.$el).height + overflow - offset
-                    : getScrollingElement(this.$el).scrollHeight - windowHeight;
+                    : document.scrollingElement.scrollHeight - windowHeight;
 
                 return {
                     start,

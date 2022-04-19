@@ -1,6 +1,6 @@
 import { offset } from './dimensions';
-import { clamp, includes } from './lang';
-import { getViewport, scrollParents } from './viewport';
+import { clamp, includes, ucfirst } from './lang';
+import { offsetViewport, scrollParents } from './viewport';
 
 const dirs = [
     ['width', 'x', 'left', 'right'],
@@ -51,9 +51,10 @@ function attachTo(element, target, options) {
 }
 
 function attachToWithFlip(element, target, options) {
-    let position = attachTo(element, target, options);
+    const position = attachTo(element, target, options);
     const targetDim = offset(target);
-    const viewports = scrollParents(element).map(getViewport);
+    const viewports = scrollParents(element, /auto|scroll/);
+    const [scrollElement] = viewports;
 
     let {
         flip,
@@ -61,11 +62,11 @@ function attachToWithFlip(element, target, options) {
         offset: elOffset,
         boundary,
         viewport,
-        recursion = 0,
     } = options;
 
     viewports.push(viewport);
 
+    const offsetPosition = { ...position };
     for (const i in dirs) {
         const [prop, dir, start, end] = dirs[i];
 
@@ -112,25 +113,37 @@ function attachToWithFlip(element, target, options) {
                 elOffset[i] * 2;
 
             if (
-                position[start] + offsetBy < viewport[start] ||
-                position[end] + offsetBy > viewport[end]
+                !isInScrollArea(
+                    {
+                        ...position,
+                        [start]: position[start] + offsetBy,
+                        [end]: position[end] + offsetBy,
+                    },
+                    scrollElement,
+                    i
+                )
             ) {
-                if (recursion < 1) {
-                    position =
-                        attachToWithFlip(element, target, {
-                            ...options,
-                            attach: {
-                                element: elAttach.map(flipDir).reverse(),
-                                target: targetAttach.map(flipDir).reverse(),
-                            },
-                            offset: elOffset.reverse(),
-                            flip: flip === true ? flip : [...flip, dirs[1 - i][1]],
-                            recursion: recursion + 1,
-                        }) || position;
-
+                if (isInScrollArea(position, scrollElement, i)) {
                     continue;
-                } else {
+                }
+
+                if (options.recursion) {
                     return false;
+                }
+
+                const newPos = attachToWithFlip(element, target, {
+                    ...options,
+                    attach: {
+                        element: elAttach.map(flipDir).reverse(),
+                        target: targetAttach.map(flipDir).reverse(),
+                    },
+                    offset: elOffset.reverse(),
+                    flip: flip === true ? flip : [...flip, dirs[1 - i][1]],
+                    recursion: true,
+                });
+
+                if (newPos && isInScrollArea(newPos, scrollElement, 1 - i)) {
+                    return newPos;
                 }
             }
 
@@ -144,11 +157,11 @@ function attachToWithFlip(element, target, options) {
                 ) - position[start];
         }
 
-        position[start] = position[dir] = position[start] + offsetBy;
-        position[end] += offsetBy;
+        offsetPosition[start] = position[dir] = position[start] + offsetBy;
+        offsetPosition[end] += offsetBy;
     }
 
-    return position;
+    return offsetPosition;
 }
 
 function moveBy(start, end, dim) {
@@ -156,21 +169,24 @@ function moveBy(start, end, dim) {
 }
 
 function getIntersectionArea(...elements) {
-    let intersection;
-    for (const el of elements.filter(Boolean)) {
-        const rect = offset(el);
-        if (!intersection) {
-            intersection = rect;
-            continue;
-        }
-        for (const prop of ['left', 'top']) {
-            intersection[prop] = Math.max(rect[prop], intersection[prop]);
-        }
-        for (const prop of ['right', 'bottom']) {
-            intersection[prop] = Math.min(rect[prop], intersection[prop]);
+    let rect = {};
+    for (let el of elements.filter(Boolean)) {
+        const offset = offsetViewport(el);
+        for (const [, , start, end] of dirs) {
+            rect[start] = Math.max(rect[start] || 0, offset[start]);
+            rect[end] = Math.min(...[rect[end], offset[end]].filter(Boolean));
         }
     }
-    return intersection;
+    return rect;
+}
+
+function isInScrollArea(position, scrollElement, dir) {
+    const viewport = offsetViewport(scrollElement);
+    const [prop, , start, end] = dirs[dir];
+    viewport[start] -= scrollElement[`scroll${ucfirst(start)}`];
+    viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`];
+
+    return position[start] >= viewport[start] && position[end] <= viewport[end];
 }
 
 function intersectLine(dimA, dimB, dir) {
