@@ -242,11 +242,11 @@ export default {
                             this.hide(false);
                         }
                     }),
-                    on(window, 'resize', () => this.$emit('resize')),
+                    on(window, 'resize', () => this.$emit()),
                     on(
                         document,
                         'scroll',
-                        ({ target }) => target.contains(this.$el) && this.$emit('resize'),
+                        ({ target }) => target.contains(this.$el) && this.$emit(),
                         true
                     ),
                 ]) {
@@ -289,8 +289,6 @@ export default {
                 this.position();
             }
         },
-
-        events: ['resize'],
     },
 
     methods: {
