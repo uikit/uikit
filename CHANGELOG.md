@@ -5,8 +5,9 @@
 ### Added
 
 - Add subtitle classes to Nav, Dropdown and Navbar component
-- Drop/Dropdowns try to shift to stay within viewport
+- Add Drop/Dropdowns try to shift to stay within viewport
 - Add navbar justify to Navbar component
+- Add scale property in Parallax component supports viewport/percent/pixel units now
 
 ### Changed
 

@@ -79,12 +79,16 @@ export default {
 };
 
 function transformFn(prop, el, stops) {
-    const unit = getUnit(stops) || { x: 'px', y: 'px', rotate: 'deg' }[prop] || '';
+    let unit = getUnit(stops) || { x: 'px', y: 'px', rotate: 'deg' }[prop] || '';
     let transformFn;
 
     if (prop === 'x' || prop === 'y') {
         prop = `translate${ucfirst(prop)}`;
         transformFn = (stop) => toFloat(toFloat(stop).toFixed(unit === 'px' ? 0 : 6));
+    } else if (prop === 'scale') {
+        unit = '';
+        transformFn = (stop) =>
+            getUnit([stop]) ? toPx(stop, 'width', el, true) / el.offsetWidth : stop;
     }
 
     if (stops.length === 1) {
