@@ -156,15 +156,7 @@ export default {
         {
             name: 'click',
 
-            filter() {
-                return includes(this.mode, 'click');
-            },
-
             handler(e) {
-                if (this._preventClick) {
-                    return (this._preventClick = null);
-                }
-
                 let link;
                 if (
                     closest(e.target, 'a[href="#"], a[href=""]') ||
@@ -173,6 +165,14 @@ export default {
                             (link.hash && matches(this.target, link.hash))))
                 ) {
                     e.preventDefault();
+                }
+
+                if (this._preventClick) {
+                    return (this._preventClick = null);
+                }
+
+                if (!includes(this.mode, 'click')) {
+                    return;
                 }
 
                 this.toggle();
