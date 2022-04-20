@@ -21,6 +21,7 @@ export default {
         pos: `bottom-${isRtl ? 'right' : 'left'}`,
         flip: true,
         offset: false,
+        viewportPadding: 10,
     },
 
     connected() {
@@ -59,6 +60,7 @@ export default {
                 attach,
                 offset,
                 boundary,
+                viewportPadding: this.viewportPadding,
                 flip: this.flip,
             });
         },

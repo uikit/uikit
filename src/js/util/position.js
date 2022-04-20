@@ -62,6 +62,7 @@ function attachToWithFlip(element, target, options) {
         offset: elOffset,
         boundary,
         viewport,
+        viewportPadding,
     } = options;
 
     viewports.push(viewport);
@@ -77,10 +78,17 @@ function attachToWithFlip(element, target, options) {
         const willFlip =
             !intersectLine(position, targetDim, i) && intersectLine(position, targetDim, 1 - i);
 
-        viewport = getIntersectionArea(
-            ...viewports,
-            willFlip || position[prop] > offset(boundary)[prop] ? null : boundary
-        );
+        viewport = getIntersectionArea(...viewports.filter(Boolean).map(offsetViewport));
+
+        if (viewportPadding) {
+            viewport[start] += viewportPadding;
+            viewport[end] -= viewportPadding;
+        }
+
+        if (boundary && !(willFlip || position[prop] > offset(boundary)[prop])) {
+            viewport = getIntersectionArea(viewport, offset(boundary));
+        }
+
         const isInStartBoundary = position[start] >= viewport[start];
         const isInEndBoundary = position[end] <= viewport[end];
 
@@ -168,16 +176,15 @@ function moveBy(start, end, dim) {
     return start === 'center' ? dim / 2 : start === end ? dim : 0;
 }
 
-function getIntersectionArea(...elements) {
-    let rect = {};
-    for (let el of elements.filter(Boolean)) {
-        const offset = offsetViewport(el);
+function getIntersectionArea(...rects) {
+    let area = {};
+    for (const rect of rects) {
         for (const [, , start, end] of dirs) {
-            rect[start] = Math.max(rect[start] || 0, offset[start]);
-            rect[end] = Math.min(...[rect[end], offset[end]].filter(Boolean));
+            area[start] = Math.max(area[start] || 0, rect[start]);
+            area[end] = Math.min(...[area[end], rect[end]].filter(Boolean));
         }
     }
-    return rect;
+    return area;
 }
 
 function isInScrollArea(position, scrollElement, dir) {

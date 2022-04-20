@@ -14,6 +14,7 @@ import {
     matches,
     MouseTracker,
     offset,
+    offsetViewport,
     on,
     once,
     parent,
@@ -24,6 +25,7 @@ import {
     pointerUp,
     query,
     removeClass,
+    scrollParents,
     toggleClass,
     within,
 } from 'uikit-util';
@@ -353,26 +355,33 @@ export default {
         },
 
         position() {
-            const boundary = query(this.boundary, this.$el) || window;
             removeClass(this.$el, `${this.clsDrop}-stack`);
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
-            const boundaryOffset = offset(boundary);
-            const targetOffset = offset(this.target);
-            const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
-            const prop = this.axis === 'y' ? 'width' : 'height';
+            const boundary = query(this.boundary, this.$el);
+            const [scrollParent] = scrollParents(this.$el);
+            const scrollParentOffset = offsetViewport(scrollParent);
+            const boundaryOffset = boundary ? offset(boundary) : scrollParentOffset;
 
-            css(this.$el, `max-${prop}`, '');
+            css(this.$el, 'maxWidth', '');
+            const maxWidth = scrollParentOffset.width - (boundary ? 0 : 2 * this.viewportPadding);
 
             if (this.pos[1] === 'justify') {
+                const prop = this.axis === 'y' ? 'width' : 'height';
+                const targetOffset = offset(this.target);
+                const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
                 css(this.$el, prop, alignTo[prop]);
-            } else if (this.$el.offsetWidth > boundaryOffset.width) {
+            } else if (this.$el.offsetWidth > maxWidth) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }
 
-            css(this.$el, `max-${prop}`, boundaryOffset[prop]);
+            css(this.$el, 'maxWidth', maxWidth);
 
-            this.positionAt(this.$el, this.boundaryAlign ? boundary : this.target, boundary);
+            this.positionAt(
+                this.$el,
+                boundary && this.boundaryAlign ? boundary : this.target,
+                boundary
+            );
         },
     },
 };
