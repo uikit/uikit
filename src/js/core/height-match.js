@@ -1,6 +1,6 @@
 import Resize from '../mixin/resize';
 import { getRows } from './margin';
-import { $$, boxModelAdjust, css, dimensions, isVisible, toFloat } from 'uikit-util';
+import { $$, boxModelAdjust, css, dimensions, isVisible } from 'uikit-util';
 
 export default {
     mixins: [Resize],
@@ -15,7 +15,6 @@ export default {
     data: {
         target: '> *',
         row: true,
-        forceHeight: true,
     },
 
     computed: {
@@ -31,7 +30,7 @@ export default {
     },
 
     resizeTargets() {
-        return this.elements;
+        return [this.$el, this.elements];
     },
 
     update: {
@@ -56,22 +55,14 @@ function match(elements) {
         return { heights: [''], elements };
     }
 
+    css(elements, 'minHeight', '');
     let heights = elements.map(getHeight);
-    let max = Math.max(...heights);
-    const hasMinHeight = elements.some((el) => el.style.minHeight);
-    const hasShrunk = elements.some((el, i) => !el.style.minHeight && heights[i] < max);
+    const max = Math.max(...heights);
 
-    if (hasMinHeight && hasShrunk) {
-        css(elements, 'minHeight', '');
-        heights = elements.map(getHeight);
-        max = Math.max(...heights);
-    }
-
-    heights = elements.map((el, i) =>
-        heights[i] === max && toFloat(el.style.minHeight).toFixed(2) !== max.toFixed(2) ? '' : max
-    );
-
-    return { heights, elements };
+    return {
+        heights: elements.map((el, i) => (heights[i].toFixed(2) === max.toFixed(2) ? '' : max)),
+        elements,
+    };
 }
 
 function getHeight(element) {

@@ -124,7 +124,7 @@ export default {
                 }
 
                 // Skip if state does not change e.g. hover + focus received
-                if (this._showState && show === (expanded !== this._showState)) {
+                if (this._showState && show && expanded !== this._showState) {
                     // Ensure reset if state has changed through click
                     if (!show) {
                         this._showState = null;

@@ -62,8 +62,11 @@ export default {
         this.tracker = new MouseTracker();
     },
 
-    connected() {
+    beforeConnect() {
         this.clsDrop = this.$props.clsDrop || `uk-${this.$options.name}`;
+    },
+
+    connected() {
         addClass(this.$el, this.clsDrop);
 
         if (this.toggle && !this.target) {
@@ -239,7 +242,13 @@ export default {
                             this.hide(false);
                         }
                     }),
-                    on(window, 'resize', () => this.$emit('resize')),
+                    on(window, 'resize', () => this.$emit()),
+                    on(
+                        document,
+                        'scroll',
+                        ({ target }) => target.contains(this.$el) && this.$emit(),
+                        true
+                    ),
                 ]) {
                     once(this.$el, 'hide', handler, { self: true });
                 }
@@ -280,8 +289,6 @@ export default {
                 this.position();
             }
         },
-
-        events: ['resize'],
     },
 
     methods: {
