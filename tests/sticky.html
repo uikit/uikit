@@ -8,7 +8,10 @@
         <script src="js/test.js"></script>
         <style>
 
-            .viewport { border: 1px dashed rgba(0,0,0,0.2); }
+            .container {
+                height: 500px;
+                border: 1px dashed rgba(0,0,0,0.2);
+            }
 
         </style>
     </head>
@@ -19,65 +22,238 @@
 
             <h1>Sticky</h1>
 
-            <div class="uk-grid">
-                <div class="uk-width-5-6">
-                    <div class="viewport uk-margin">
-                        <div class="uk-grid uk-child-width-1-6" uk-height-viewport="offset-top: true">
-                            <div>
+            <h2>Position</h2>
 
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="offset: 50; bottom: !.viewport">Stick to container; 50px offset</div>
+            <div class="container uk-margin">
+                <div class="uk-grid uk-grid-small uk-child-width-1-4">
+                    <div>
 
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: 50vh; target-offset: 10">Sticky after 50vh; Scroll up if initially above paragraph below</div>
-
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: !.viewport; animation: uk-animation-slide-top">Stick below container; animation</div>
-
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="bottom: #hash">Stick until next paragraph</div>
-
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="show-on-up: true; animation: uk-animation-slide-top">Sticky on scroll up; animation</div>
-
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: 300; animation: uk-animation-slide-top; media: 640">Sticky after 300px scrolling; @media 640px</div>
-
-                            </div>
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="bottom: !.container">
+                            position: top<br>
+                            end: !.container
                         </div>
+
                     </div>
+                    <div>
 
-                    <p id="hash" class="uk-margin-large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                    <div class="viewport uk-margin">
-                        <div class="uk-grid uk-child-width-1-6" uk-height-viewport>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="position: bottom; bottom: !.viewport">Sticky bottom</div>
-
-                            </div>
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; bottom: !.container">
+                            position: bottom<br>
+                            end: !.container
                         </div>
-                    </div>
 
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: auto; bottom: !.container">
+                            position: auto<br>
+                            end: !.container
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: auto; bottom: !.container" style="height: 600px">
+                            position: auto<br>
+                            end: !.container
+                        </div>
+
+                    </div>
                 </div>
-                <div class="uk-width-1-6">
-                    <div class="viewport" style="min-height: 200vh;">
-                        <div>
-                            <div class="uk-card uk-card-primary uk-card-body" uk-sticky="bottom: !.viewport">
-                                <p>Oversized Content</p>
+            </div>
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                            </div>
+            <h2>Start and End</h2>
+
+            <div class="container uk-margin">
+                <div class="uk-grid uk-grid-small uk-child-width-1-4">
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="top: 50; bottom: !.container">
+                            start: 50<br>
+                            end: !.container
                         </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="top: 50%; bottom: !.container">
+                            start: 50%<br>
+                            end: !.container
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="top: 10vh; bottom: 30vh">
+                            start: 10vh<br>
+                            end: 30vh
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="top: 50; bottom: 200">
+                            top: 50<br>
+                            end: 200
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <h2>Offset</h2>
+
+            <div class="container uk-margin">
+                <div class="uk-grid uk-grid-small uk-child-width-1-4">
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="offset: 50; bottom: !.container">
+                            offset: 50<br>
+                            bottom: !.container
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="offset: 50%; bottom: !.container">
+                            offset: 50%<br>
+                            bottom: !.container
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="offset: 50vh; bottom: !.container">
+                            offset: 50vh<br>
+                            bottom: !.container
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <h2>Target Offset, Animation, Show On Up and Media</h2>
+
+            <div class="container uk-margin">
+                <div class="uk-grid uk-grid-small uk-child-width-1-4">
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="top: 50vh; target-offset: 10; bottom: !.container ~ h2">
+                            start: 50vh<br>
+                            target-offset: 10<br>
+                            end: !.container ~ h2
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="top: !.container; bottom: !.container ~ h2; animation: uk-animation-slide-top">
+                            start: !.container<br>
+                            end: !.container ~ h2<br>
+                            animation: uk-animation-slide-top
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="bottom: !.container + .paragraph; show-on-up: true; animation: uk-animation-slide-top">
+                            end: !.container + .paragraph<br>
+                            show-on-up: true<br>
+                            animation: uk-animation-slide-top
+                        </div>
+
+                    </div>
+                     <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="top: 300; bottom: !.container + .paragraph; animation: uk-animation-slide-top; media: 640">
+                            start: 300<br>
+                            end: !.container + .paragraph<br>
+                            animation: uk-animation-slide-top<br>
+                            media: 640
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <p class="paragraph uk-margin-large-top">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <p class="uk-margin-large-bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <h2>Oversized Content</h2>
+
+            <div class="uk-margin">
+                <div class="uk-grid">
+                    <div class="uk-width-1-4">
+
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="bottom: !.uk-grid">
+
+                            <h3>Heading 1</h3>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                            <h3>Heading 2</h3>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                            <h3>Heading 3</h3>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        </div>
+
+                    </div>
+                    <div class="uk-width-3-4">
+
+                        <h2>Heading 1</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <h2>Heading 2</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <h2>Heading 3</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <h2>Heading 4</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
                     </div>
                 </div>
             </div>
