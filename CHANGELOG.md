@@ -22,6 +22,7 @@
 
 - Fix dropbar dropdown alignment if boundary-align is true
 - Fix viewport helper functions take border into account
+- Revert: Fix reposition Drop on scroll
 
 ## 3.13.9 (April 20, 2022)
 
