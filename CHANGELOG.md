@@ -4,19 +4,20 @@
 
 ### Added
 
-- Add subtitle classes to Nav, Dropdown and Navbar component
-- Add Drop/Dropdowns try to shift to stay within viewport
+- Add position shifting to Drop and Dropdown components
+- Add axis flipping if overflowing on both sides to Drop and Dropdown components
+- Add `max-width` to prevent overflowing the viewport to Drop and Dropdown components
 - Add navbar justify to Navbar component
-- Add scale property in Parallax component supports viewport/percent/pixel units now
+- Add subtitle classes to Nav, Dropdown and Navbar components
+- Add support for `vw`,`vh`,`%` and `px` units to scale property in Parallax component 
 
 ### Changed
 
 - Allow text to wrap into the next line for navs in Dropdown component
-- Scrollspy component uses IntersectionObserver instead of scroll/resize events
 
 ### Removed
 
-- Remove setting `overflow-x: hidden` on html element, while horizontal animation is active
+- Remove `overflow-x: hidden` on html element, while horizontal animation is active
 
 ### Fixed
 
