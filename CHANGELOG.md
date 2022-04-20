@@ -5,6 +5,7 @@
 ### Fixed
 
 - Revert: Fix reposition Drop on scroll
+- Fix Toggle component does not `defaultPrevent()` click on anchor with touch gesture
 
 ## 3.13.9 (April 20, 2022)
 
