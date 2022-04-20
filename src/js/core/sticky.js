@@ -221,7 +221,9 @@ export default {
                     prevDir,
                     scroll,
                     prevScroll,
-                    offsetParentTop: getOffset(this.$el.offsetParent).top,
+                    offsetParentTop: getOffset(
+                        (this.isFixed ? this.placeholder : this.$el).offsetParent
+                    ).top,
                     overflowScroll: clamp(
                         overflowScroll + clamp(scroll, start, end) - clamp(prevScroll, start, end),
                         0,

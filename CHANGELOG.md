@@ -6,6 +6,7 @@
 
 - Revert: Fix reposition Drop on scroll
 - Fix Toggle component does not `defaultPrevent()` click on anchor with touch gesture
+- Fix Sticky component uses wrong offsetParent while it's positioned fixed
 
 ## 3.13.9 (April 20, 2022)
 
