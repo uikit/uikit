@@ -7,12 +7,14 @@
 - Add position shifting to Drop and Dropdown components
 - Add axis flipping if overflowing on both sides to Drop and Dropdown components
 - Add `max-width` to prevent overflowing the viewport to Drop and Dropdown components
+- Add support for negative `start` value in Sticky component
 - Add navbar justify to Navbar component
 - Add subtitle classes to Nav, Dropdown and Navbar components
 - Add support for `vw`,`vh`,`%` and `px` units to scale property in Parallax component 
 
 ### Changed
 
+- Rename `top` and `bottom` options to `start` and `end` in Sticky component
 - Allow text to wrap into the next line for navs in Dropdown component
 
 ### Removed

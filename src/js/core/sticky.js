@@ -14,6 +14,7 @@ import {
     height as getHeight,
     offset as getOffset,
     intersectRect,
+    isNumeric,
     isString,
     isVisible,
     noop,
@@ -36,8 +37,10 @@ export default {
 
     props: {
         position: String,
-        top: null,
+        top: Boolean,
         bottom: Boolean,
+        start: Boolean,
+        end: Boolean,
         offset: String,
         animation: String,
         clsActive: String,
@@ -51,8 +54,10 @@ export default {
 
     data: {
         position: 'top',
-        top: 0,
+        top: false,
         bottom: false,
+        start: false,
+        end: false,
         offset: 0,
         animation: '',
         clsActive: 'uk-active',
@@ -75,6 +80,9 @@ export default {
     },
 
     connected() {
+        this.start = this.start || this.top;
+        this.end = this.end || this.bottom;
+
         this.placeholder =
             $('+ .uk-sticky-placeholder', this.$el) ||
             $('<div class="uk-sticky-placeholder"></div>');
@@ -168,13 +176,17 @@ export default {
                 const overflow = Math.max(0, height + offset - windowHeight);
                 const topOffset = getOffset(referenceElement).top;
 
-                const top = parseProp(this.top, this.$el, topOffset);
-                const bottom = parseProp(this.bottom, this.$el, topOffset + height, true);
-
-                const start = Math.max(top, topOffset) - offset;
-                const end = bottom
-                    ? bottom - getOffset(this.$el).height + overflow - offset
-                    : document.scrollingElement.scrollHeight - windowHeight;
+                const start =
+                    (this.start === false
+                        ? topOffset
+                        : parseProp(this.start, this.$el, topOffset)) - offset;
+                const end =
+                    this.end === false
+                        ? document.scrollingElement.scrollHeight - windowHeight
+                        : parseProp(this.end, this.$el, topOffset + height, true) -
+                          getOffset(this.$el).height +
+                          overflow -
+                          offset;
 
                 return {
                     start,
@@ -375,8 +387,8 @@ function parseProp(value, el, propOffset, padding) {
         return 0;
     }
 
-    if (isString(value) && value.match(/^-?\d/)) {
-        return propOffset + toPx(value);
+    if (isNumeric(value) || (isString(value) && value.match(/^-?\d/))) {
+        return propOffset + toPx(value, 'height', el, true);
     } else {
         const refElement = value === true ? parent(el) : query(value, el);
         return (
