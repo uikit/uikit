@@ -1,4 +1,4 @@
-/*! UIkit 3.13.9 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.13.10 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2892,7 +2892,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.13.9';
+    UIkit.version = '3.13.10';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3761,13 +3761,7 @@
               this.hide(false);
             }
           }),
-          on(window, 'resize', () => this.$emit()),
-          on(
-          document,
-          'scroll',
-          (_ref4) => {let { target } = _ref4;return target.contains(this.$el) && this.$emit();},
-          true)])
-
+          on(window, 'resize', () => this.$emit())])
           {
             once(this.$el, 'hide', handler, { self: true });
           }
@@ -3787,7 +3781,7 @@
       {
         name: 'hide',
 
-        handler(_ref5) {let { target } = _ref5;
+        handler(_ref4) {let { target } = _ref4;
           if (this.$el !== target) {
             active$1 =
             active$1 === null && within(target, this.$el) && this.isToggled() ?
@@ -6710,7 +6704,9 @@
             prevDir,
             scroll,
             prevScroll,
-            offsetParentTop: offset(this.$el.offsetParent).top,
+            offsetParentTop: offset(
+            (this.isFixed ? this.placeholder : this.$el).offsetParent).
+            top,
             overflowScroll: clamp(
             overflowScroll + clamp(scroll, start, end) - clamp(prevScroll, start, end),
             0,
@@ -7186,15 +7182,7 @@
       {
         name: 'click',
 
-        filter() {
-          return includes(this.mode, 'click');
-        },
-
         handler(e) {
-          if (this._preventClick) {
-            return this._preventClick = null;
-          }
-
           let link;
           if (
           closest(e.target, 'a[href="#"], a[href=""]') ||
@@ -7203,6 +7191,14 @@
           link.hash && matches(this.target, link.hash)))
           {
             e.preventDefault();
+          }
+
+          if (this._preventClick) {
+            return this._preventClick = null;
+          }
+
+          if (!includes(this.mode, 'click')) {
+            return;
           }
 
           this.toggle();

@@ -25,6 +25,11 @@
 
 - Fix dropbar dropdown alignment if boundary-align is true
 - Fix viewport helper functions take border into account
+
+## 3.13.10 (April 20, 2022)
+
+### Fixed
+
 - Revert: Fix reposition Drop on scroll
 - Fix Toggle component does not `defaultPrevent()` click on anchor with touch gesture
 - Fix Sticky component uses wrong offsetParent while it's positioned fixed
