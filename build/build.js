@@ -1,6 +1,9 @@
 import camelize from 'camelcase';
 import { basename, resolve } from 'path';
 import { args, compile, glob, icons } from './util.js';
+import pLimit from 'p-limit';
+
+const limit = pLimit(Number(process.env.cpus || 2));
 
 const bundles = getBundleTasks();
 const components = await getComponentTasks();
@@ -42,7 +45,7 @@ if (buildAll) {
         .filter((t) => t);
 }
 
-await Promise.all(Object.values(tasks).map((task) => task()));
+await Promise.all(Object.values(tasks).map((task) => limit(task)));
 
 function getBundleTasks() {
     return {
