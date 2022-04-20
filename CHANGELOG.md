@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.13.9 (April 20, 2022)
+
+### Fixed
+
+- Fix release
+
 ## 3.13.8 (April 20, 2022)
 
 ### Changed
