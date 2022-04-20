@@ -23,6 +23,12 @@
 - Fix dropbar dropdown alignment if boundary-align is true
 - Fix viewport helper functions take border into account
 
+## 3.13.9 (April 20, 2022)
+
+### Fixed
+
+- Fix release
+
 ## 3.13.8 (April 20, 2022)
 
 ### Changed
