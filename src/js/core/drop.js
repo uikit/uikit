@@ -243,12 +243,6 @@ export default {
                         }
                     }),
                     on(window, 'resize', () => this.$emit()),
-                    on(
-                        document,
-                        'scroll',
-                        ({ target }) => target.contains(this.$el) && this.$emit(),
-                        true
-                    ),
                 ]) {
                     once(this.$el, 'hide', handler, { self: true });
                 }
