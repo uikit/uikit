@@ -20,15 +20,24 @@
 
 ### Fixed
 
-- Fix Drop/Dropdowns component does not close on clicked `.uk-(drop|dropdown)-close` selector
 - Fix dropbar dropdown alignment if boundary-align is true
+- Fix viewport helper functions take border into account
+
+## 3.13.8 (April 20, 2022)
+
+### Changed
+
+- Scrollspy component uses IntersectionObserver instead of scroll/resize events
+
+### Fixed
+
+- Fix Drop/Dropdowns component does not close on clicked `.uk-(drop|dropdown)-close` selector
 - Fix Accordion initially not closed
 - Fix Height Match component not matching correctly
 - Fix Margin component does not correctly listen for resize
 - Fix regression in Sticky component affecting height of placeholder
 - Fix Toggle not toggling after re-entering button with mouse before drop has closed itself
 - Fix reposition Drop on scroll
-- Fix viewport helper functions take border into account
 
 ## 3.13.7 (April 1, 2022)
 

@@ -1,4 +1,4 @@
-/*! UIkit 3.13.7 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.13.8 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1740,11 +1740,11 @@
       }
     }
 
-    const stateKey$1 = '_ukPlayer';
+    const stateKey = '_ukPlayer';
     let counter = 0;
     function enableApi(el) {
-      if (el[stateKey$1]) {
-        return el[stateKey$1];
+      if (el[stateKey]) {
+        return el[stateKey];
       }
 
       const youtube = isYoutube(el);
@@ -1753,7 +1753,7 @@
       const id = ++counter;
       let poller;
 
-      return el[stateKey$1] = new Promise((resolve) => {
+      return el[stateKey] = new Promise((resolve) => {
         youtube &&
         once(el, 'load', () => {
           const listener = () => post(el, { event: 'listening', id });
@@ -2412,7 +2412,7 @@
         const {
           $options: { computed } } =
         this;
-        const values = { ...this._computed };
+        const values = { ...(initial ? {} : this._computed) };
         this._computed = {};
 
         for (const key in computed) {
@@ -2892,7 +2892,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.13.7';
+    UIkit.version = '3.13.8';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3219,7 +3219,7 @@
       computed: {
         items: {
           get(_ref, $el) {let { targets } = _ref;
-            return $$(targets, $el);
+            return $$(targets, $el).filter((el) => $(this.content, el));
           },
 
           watch(items, prev) {
@@ -3581,8 +3581,11 @@
         this.tracker = new MouseTracker();
       },
 
-      connected() {
+      beforeConnect() {
         this.clsDrop = this.$props.clsDrop || "uk-" + this.$options.name;
+      },
+
+      connected() {
         addClass(this.$el, this.clsDrop);
 
         if (this.toggle && !this.target) {
@@ -3758,7 +3761,13 @@
               this.hide(false);
             }
           }),
-          on(window, 'resize', () => this.$emit('resize'))])
+          on(window, 'resize', () => this.$emit()),
+          on(
+          document,
+          'scroll',
+          (_ref4) => {let { target } = _ref4;return target.contains(this.$el) && this.$emit();},
+          true)])
+
           {
             once(this.$el, 'hide', handler, { self: true });
           }
@@ -3778,7 +3787,7 @@
       {
         name: 'hide',
 
-        handler(_ref4) {let { target } = _ref4;
+        handler(_ref5) {let { target } = _ref5;
           if (this.$el !== target) {
             active$1 =
             active$1 === null && within(target, this.$el) && this.isToggled() ?
@@ -3798,9 +3807,7 @@
           if (this.isToggled() && !hasClass(this.$el, this.clsEnter)) {
             this.position();
           }
-        },
-
-        events: ['resize'] },
+        } },
 
 
       methods: {
@@ -3987,7 +3994,7 @@
 
 
       resizeTargets() {
-        return this.$el.children;
+        return [this.$el, this.$el.children];
       },
 
       connected() {
@@ -4288,8 +4295,7 @@
 
       data: {
         target: '> *',
-        row: true,
-        forceHeight: true },
+        row: true },
 
 
       computed: {
@@ -4305,7 +4311,7 @@
 
 
       resizeTargets() {
-        return this.elements;
+        return [this.$el, this.elements];
       },
 
       update: {
@@ -4330,22 +4336,14 @@
         return { heights: [''], elements };
       }
 
+      css(elements, 'minHeight', '');
       let heights = elements.map(getHeight);
-      let max = Math.max(...heights);
-      const hasMinHeight = elements.some((el) => el.style.minHeight);
-      const hasShrunk = elements.some((el, i) => !el.style.minHeight && heights[i] < max);
+      const max = Math.max(...heights);
 
-      if (hasMinHeight && hasShrunk) {
-        css(elements, 'minHeight', '');
-        heights = elements.map(getHeight);
-        max = Math.max(...heights);
-      }
+      return {
+        heights: elements.map((el, i) => heights[i].toFixed(2) === max.toFixed(2) ? '' : max),
+        elements };
 
-      heights = elements.map((el, i) =>
-      heights[i] === max && toFloat(el.style.minHeight).toFixed(2) !== max.toFixed(2) ? '' : max);
-
-
-      return { heights, elements };
     }
 
     function getHeight(element) {
@@ -5512,8 +5510,6 @@
         dropbar: false,
         dropbarAnchor: false,
         duration: 200,
-        forceHeight: true,
-        selMinHeight: navItem,
         container: false },
 
 
@@ -6295,7 +6291,6 @@
       return document.getElementById(decodeURIComponent(el.hash).substring(1));
     }
 
-    const stateKey = '_ukScrollspy';
     var scrollspy = {
       mixins: [Scroll],
 
@@ -6328,9 +6323,13 @@
             return target ? $$(target, $el) : [$el];
           },
 
-          watch(elements) {
+          watch(elements, prev) {
             if (this.hidden) {
               css(filter$1(elements, ":not(." + this.inViewClass + ")"), 'visibility', 'hidden');
+            }
+
+            if (prev) {
+              this.$reset();
             }
           },
 
@@ -6338,33 +6337,50 @@
 
 
 
+      connected() {
+        this._data.elements = new Map();
+        this.registerObserver(
+        observeIntersection(
+        this.elements,
+        (records) => {
+          const elements = this._data.elements;
+          for (const { target: el, isIntersecting } of records) {
+            if (!elements.has(el)) {
+              elements.set(el, {
+                cls: data(el, 'uk-scrollspy-class') || this.cls });
+
+            }
+
+            const state = elements.get(el);
+            if (!this.repeat && state.show) {
+              continue;
+            }
+
+            state.show = isIntersecting;
+          }
+
+          this.$emit();
+        },
+        {
+          rootMargin: toPx(this.offsetTop, 'height') - 1 + "px " + (
+          toPx(this.offsetLeft, 'width') - 1) + "px" },
+
+
+        false));
+
+
+      },
+
       disconnected() {
-        for (const el of this.elements) {var _el$stateKey;
-          removeClass(el, this.inViewClass, ((_el$stateKey = el[stateKey]) == null ? void 0 : _el$stateKey.cls) || '');
-          delete el[stateKey];
+        for (const [el, state] of this._data.elements.entries()) {
+          removeClass(el, this.inViewClass, (state == null ? void 0 : state.cls) || '');
         }
       },
 
       update: [
       {
-        read() {
-          for (const el of this.elements) {
-            if (!el[stateKey]) {
-              el[stateKey] = { cls: data(el, 'uk-scrollspy-class') || this.cls };
-            }
-
-            if (!this.repeat && el[stateKey].show) {
-              continue;
-            }
-
-            el[stateKey].show = isInView(el, this.offsetTop, this.offsetLeft);
-          }
-        },
-
         write(data) {
-          for (const el of this.elements) {
-            const state = el[stateKey];
-
+          for (const [el, state] of data.elements.entries()) {
             if (state.show && !state.inview && !state.queued) {
               state.queued = true;
 
@@ -6381,15 +6397,13 @@
               this.toggle(el, false);
             }
           }
-        },
-
-        events: ['scroll', 'resize'] }],
+        } }],
 
 
 
       methods: {
         toggle(el, inview) {
-          const state = el[stateKey];
+          const state = this._data.elements.get(el);
 
           state.off == null ? void 0 : state.off();
 
@@ -6612,13 +6626,13 @@
             return false;
           }
 
-          const hide = this.isActive && types.has('resize');
+          const hide = this.active && types.has('resize');
           if (hide) {
             css(this.selTarget, 'transition', '0s');
             this.hide();
           }
 
-          if (!this.isActive) {
+          if (!this.active) {
             height$1 = offset(this.$el).height;
             margin = css(this.$el, 'margin');
           }
@@ -7140,7 +7154,7 @@
           }
 
           // Skip if state does not change e.g. hover + focus received
-          if (this._showState && show === (expanded !== this._showState)) {
+          if (this._showState && show && expanded !== this._showState) {
             // Ensure reset if state has changed through click
             if (!show) {
               this._showState = null;
@@ -8813,7 +8827,10 @@
 
 
           // Image
-          if (type === 'image' || src.match(/\.(avif|jpe?g|a?png|gif|svg|webp)($|\?)/i)) {
+          if (
+          type === 'image' ||
+          src.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i))
+          {
             try {
               const { width, height } = await getImage(src, attrs.srcset, attrs.size);
               this.setItem(item, createEl('img', { src, width, height, alt, ...attrs }));
