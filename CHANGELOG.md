@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Revert: Fix reposition Drop on scroll
+
 ## 3.13.9 (April 20, 2022)
 
 ### Fixed
