@@ -20,7 +20,8 @@
 
     <body>
 
-        <div class="uk-container">
+        <!-- uk-position-relative is needed because of the test toolbar -->
+        <div class="uk-container uk-position-relative">
 
             <h1>Sticky</h1>
 
@@ -152,18 +153,18 @@
                     </div>
                     <div>
 
-                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; offset: 50%; end: !.container">
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; offset: -50%; end: !.container">
                             position: bottom<br>
-                            offset: 50%<br>
+                            offset: -50%<br>
                             end: !.container
                         </div>
 
                     </div>
                     <div>
 
-                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; offset: 50vh; end: !.container">
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; offset: -50vh; end: !.container">
                             position: bottom<br>
-                            offset: 50vh<br>
+                            offset: -50vh<br>
                             end: !.container
                         </div>
 
