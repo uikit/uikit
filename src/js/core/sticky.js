@@ -125,8 +125,8 @@ export default {
                             window,
                             targetOffset.top -
                                 elOffset.height -
-                                toPx(this.targetOffset, 'height') -
-                                toPx(this.offset, 'height')
+                                toPx(this.targetOffset, 'height', this.placeholder) -
+                                toPx(this.offset, 'height', this.placeholder)
                         );
                     }
                 });
