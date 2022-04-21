@@ -10,7 +10,6 @@ import {
     clamp,
     css,
     dimensions,
-    fastdom,
     height as getHeight,
     offset as getOffset,
     intersectRect,
@@ -117,7 +116,7 @@ export default {
                     return;
                 }
 
-                fastdom.read(() => {
+                setTimeout(() => {
                     const targetOffset = getOffset($(location.hash));
                     const elOffset = getOffset(this.$el);
 
@@ -157,7 +156,7 @@ export default {
 
                 if (hide) {
                     this.show();
-                    fastdom.write(() => css(this.selTarget, 'transition', ''));
+                    requestAnimationFrame(() => css(this.selTarget, 'transition', ''));
                 }
 
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
