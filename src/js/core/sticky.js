@@ -36,10 +36,10 @@ export default {
 
     props: {
         position: String,
-        top: Boolean,
-        bottom: Boolean,
-        start: Boolean,
-        end: Boolean,
+        top: null,
+        bottom: null,
+        start: null,
+        end: null,
         offset: String,
         animation: String,
         clsActive: String,
@@ -79,8 +79,8 @@ export default {
     },
 
     connected() {
-        this.start = this.start || this.top;
-        this.end = this.end || this.bottom;
+        this.start = coerce(this.start || this.top);
+        this.end = coerce(this.end || this.bottom);
 
         this.placeholder =
             $('+ .uk-sticky-placeholder', this.$el) ||
@@ -399,4 +399,13 @@ function parseProp(value, el, propOffset, padding) {
                 : 0)
         );
     }
+}
+
+function coerce(value) {
+    if (value === 'true') {
+        return true;
+    } else if (value === 'false') {
+        return false;
+    }
+    return value;
 }
