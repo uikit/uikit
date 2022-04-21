@@ -25,6 +25,7 @@
 
 - Fix dropbar dropdown alignment if boundary-align is true
 - Fix viewport helper functions take border into account
+- Fix Sticky component responsiveness on window resize
 
 ## 3.13.10 (April 20, 2022)
 

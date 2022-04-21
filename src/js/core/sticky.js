@@ -101,6 +101,17 @@ export default {
 
     events: [
         {
+            name: 'resize',
+
+            el() {
+                return window;
+            },
+
+            handler() {
+                this.$emit('resize');
+            },
+        },
+        {
             name: 'load hashchange popstate',
 
             el() {
