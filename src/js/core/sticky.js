@@ -41,6 +41,7 @@ export default {
         start: null,
         end: null,
         offset: String,
+        overflowFlip: Boolean,
         animation: String,
         clsActive: String,
         clsInactive: String,
@@ -58,6 +59,7 @@ export default {
         start: false,
         end: false,
         offset: 0,
+        overflowFlip: false,
         animation: '',
         clsActive: 'uk-active',
         clsInactive: '',
@@ -174,16 +176,18 @@ export default {
                 const windowHeight = getHeight(window);
 
                 let position = this.position;
-                if (position === 'auto' && height > windowHeight) {
-                    position = 'bottom';
+                if (this.overflowFlip && height > windowHeight) {
+                    position = position === 'top' ? 'bottom' : 'top';
                 }
 
                 let offset = toPx(this.offset, 'height', referenceElement);
-                if (position === 'bottom') {
+                if (position === 'bottom' && (height < windowHeight || this.overflowFlip)) {
                     offset += windowHeight - height;
                 }
 
-                const overflow = Math.max(0, height + offset - windowHeight);
+                const overflow = this.overflowFlip
+                    ? 0
+                    : Math.max(0, height + offset - windowHeight);
                 const topOffset = getOffset(referenceElement).top;
 
                 const start =

@@ -301,17 +301,16 @@
                 </select>
             </div>
 
-            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative " uk-sticky="position: auto; end: 100%">
-                position: top<br>
-                overflow: flip<br>
+            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative " uk-sticky="overflow-flip: true; end: 100%">
+                overflow-flip: true<br>
                 end: 100%
             </div>
             <div class="js-overflow-flip uk-background-muted uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-height-large">Cover previous section.<br>Reveal next section.</div>
-            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative " uk-sticky="position: bottom; start: -100%; end: 0%">
+            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative " uk-sticky="position: bottom; overflow-flip: true; start: -100%; end: 0">
                 position: bottom<br>
-                overflow: flip<br>
+                overflow-flip: true<br>
                 start: -100%<br>
-                end: end: 0%
+                end: end: 0
             </div>
 
             <h2>JavaScript Options</h2>
@@ -350,6 +349,12 @@
                             <td>Length</td>
                             <td>0</td>
                             <td>The offset the Sticky should be fixed to. The value can be in vh, % and px. It supports basic mathematics operands + and -.</td>
+                        </tr>
+                        <tr>
+                            <td><code>overflow-flip</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Flip the Sticky's position option if the element oveflows the viewport</td>
                         </tr>
                         <tr>
                             <td><code>animation</code></td>
