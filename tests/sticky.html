@@ -333,22 +333,22 @@
                             <td>The position the element should be stuck to. With position `auto` the element sticks to the top of the viewport if it's smaller than the viewport, otherwise it sticks to the top.</td>
                         </tr>
                         <tr>
-                            <td><code>top</code></td>
-                            <td>Number|Viewport Height|CSS Selector</td>
+                            <td><code>start</code></td>
+                            <td>Number|String</td>
                             <td>0</td>
-                            <td>The top offset from where the element should stick.</td>
+                            <td>Start offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the element's top border and viewport's top border intersect. A CSS Selector will set start to the referenced element's bottom border and the elements top border.</td>
                         </tr>
                         <tr>
-                            <td><code>bottom</code></td>
-                            <td>Boolean|CSS Selector</td>
+                            <td><code>end</code></td>
+                            <td>Boolean|Number|String</td>
                             <td>false</td>
-                            <td>The bottom offset until the element should stick. (true: parent element, prefixed with '!' a parent selector)</td>
+                            <td>End offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. A value of `0` means that the element's top border and viewport's top border intersect, which would cause the element not to be sticky at all if start is also set to `0`. A CSS Selector will set the end to the referenced element's bottom and the element's bottom border. `false` will make the element stick until the end of the page. `true` selects the parent element.</td>
                         </tr>
                         <tr>
                             <td><code>offset</code></td>
                             <td>String</td>
                             <td>0</td>
-                            <td>The offset the Sticky should be fixed to. It supports basic mathematics operands + and -. (e.g. 50vh + 50%)</td>
+                            <td>The offset the Sticky should be fixed to. The value can be in vh, % and px. It supports basic mathematics operands + and -.</td>
                         </tr>
                         <tr>
                             <td><code>animation</code></td>
@@ -390,7 +390,7 @@
                             <td><code>target-offset</code></td>
                             <td>Boolean, Number</td>
                             <td>false</td>
-                            <td>Initially make sure that the Sticky is not over a targeted element via location hash.</td>
+                            <td>Initially make sure that the Sticky element is not over a referenced element via the page's location hash. The offset defines by how far the element will be above the referenced element. `false` will disable this behavior.</td>
                         </tr>
                     </tbody>
                 </table>
