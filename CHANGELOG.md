@@ -20,8 +20,8 @@
 
 ### Removed
 
+- Remove `position: auto` option in Sticky component, use `overflow-flip` option instead
 - Remove `overflow-x: hidden` on html element, while horizontal animation is active
-- Remove `auto` value for `position` option in Sticky component, use `overflow-flip` option instead
 
 ### Fixed
 
