@@ -79,7 +79,7 @@ export default {
             let left = 0;
             const sets = [];
             const width = dimensions(this.list).width;
-            for (let i in this.slides) {
+            for (let i = 0; i < this.slides.length; i++) {
                 const slideWidth = dimensions(this.slides[i]).width;
 
                 if (left + slideWidth > width) {

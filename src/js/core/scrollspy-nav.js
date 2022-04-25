@@ -71,7 +71,7 @@ export default {
                 if (scrollTop === max) {
                     active = length - 1;
                 } else {
-                    for (const i in targets) {
+                    for (let i = 0; i < targets.length; i++) {
                         if (offset(targets[i]).top - viewport.top - this.offset > 0) {
                             break;
                         }
@@ -90,7 +90,7 @@ export default {
                 const changed = active !== false && !hasClass(this.elements[active], this.cls);
 
                 this.links.forEach((el) => el.blur());
-                for (const i in this.elements) {
+                for (let i = 0; i < this.elements.length; i++) {
                     toggleClass(this.elements[i], this.cls, +i === active);
                 }
 

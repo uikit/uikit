@@ -38,8 +38,7 @@ function attachTo(element, target, options) {
 
     const position = offset(element);
     const targetOffset = offset(target);
-    for (const i in dirs) {
-        const [prop, dir, start, end] = dirs[i];
+    for (const [i, [prop, dir, start, end]] of Object.entries(dirs)) {
         position[start] = position[dir] =
             targetOffset[start] +
             moveBy(attach.target[i], end, targetOffset[prop]) -
@@ -68,9 +67,7 @@ function attachToWithFlip(element, target, options) {
     viewports.push(viewport);
 
     const offsetPosition = { ...position };
-    for (const i in dirs) {
-        const [prop, dir, start, end] = dirs[i];
-
+    for (const [i, [prop, dir, start, end]] of Object.entries(dirs)) {
         if (flip !== true && !includes(flip, dir)) {
             continue;
         }
@@ -202,7 +199,7 @@ function intersectLine(dimA, dimB, dir) {
 }
 
 function flipDir(prop) {
-    for (const i in dirs) {
+    for (let i = 0; i < dirs.length; i++) {
         const index = dirs[i].indexOf(prop);
         if (~index) {
             return dirs[1 - i][(index % 2) + 2];
