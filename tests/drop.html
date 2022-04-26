@@ -15,9 +15,7 @@
                 -webkit-overflow-scrolling: touch;
             }
 
-            .boundary-overflow {
-                width: 200%;
-            }
+            .boundary-overflow { width: 200%; }
 
         </style>
     </head>
@@ -219,11 +217,18 @@
 
             <h2>Shift and Flip</h2>
 
+            <div class="uk-margin">
+                <select id="js-boundary-overflow-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Resize</option>
+                    <option value="boundary-overflow">Scroll</option>
+                </select>
+            </div>
+
             <div uk-grid>
                 <div class="uk-width-1-2@m">
 
-                    <div class="boundary uk-height-large uk-margin">
-                        <div class="boundary-overflow uk-flex uk-flex-center">
+                    <div class="boundary uk-height-large uk-resize-horizontal uk-margin">
+                        <div class="js-boundary-overflow uk-flex uk-flex-center">
                             <div>
 
                                 <button class="uk-button uk-button-default" type="button">Click</button>
@@ -236,8 +241,8 @@
                 </div>
                 <div class="uk-width-1-2@m">
 
-                    <div class="boundary uk-height-large uk-margin">
-                        <div class="boundary-overflow uk-flex uk-flex-center">
+                    <div class="boundary uk-height-large uk-resize-horizontal uk-margin">
+                        <div class="js-boundary-overflow uk-flex uk-flex-center">
                             <div>
 
                                 <button class="uk-button uk-button-default" style="margin-left: 40px" type="button">Click</button>
@@ -473,6 +478,20 @@
             </div>
 
         </div>
+
+        <script>
+
+            var options = UIkit.util.$$('#js-boundary-overflow-switcher option').map(function (option) { return option.value; });
+
+            UIkit.util.on('#js-boundary-overflow-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('.js-boundary-overflow').forEach(function (table) {
+                    UIkit.util.removeClass(table, options);
+                    UIkit.util.addClass(table, value);
+                });
+            });
+
+        </script>
 
     </body>
 </html>
