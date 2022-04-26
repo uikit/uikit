@@ -52,7 +52,7 @@ function attachTo(element, target, options) {
 function attachToWithFlip(element, target, options) {
     const position = attachTo(element, target, options);
     const targetDim = offset(target);
-    const viewports = scrollParents(element, /auto|scroll/);
+    const viewports = scrollParents(element);
     const [scrollElement] = viewports;
 
     let {
