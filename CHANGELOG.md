@@ -12,6 +12,7 @@
 - Add navbar justify to Navbar component
 - Add subtitle classes to Nav, Dropdown and Navbar components
 - Add support for `vw`,`vh`,`%` and `px` units to scale property in Parallax component
+- Add resize horizontal class to Utility component
 
 ### Changed
 
