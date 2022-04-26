@@ -11,10 +11,13 @@
             .boundary {
                 padding: 15px;
                 border: 1px dashed rgba(0,0,0,0.2);
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
-            .small-height { height: 80px; }
-            .small-width { width: 165px; }
+            .boundary-overflow {
+                width: 200%;
+            }
 
         </style>
     </head>
@@ -219,24 +222,28 @@
             <div uk-grid>
                 <div class="uk-width-1-2@m">
 
-                    <div class="boundary uk-resize-horizontal uk-overflow-hidden uk-height-large uk-margin uk-flex uk-flex-center">
-                        <div>
+                    <div class="boundary uk-resize-horizontal uk-height-large uk-margin">
+                        <div class="boundary-overflow uk-flex uk-flex-center">
+                            <div>
 
-                            <button class="uk-button uk-button-default" type="button">Shift</button>
-                            <div class="uk-width-medium uk-open uk-display-block" uk-dropdown="pos: bottom-left; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                <button class="uk-button uk-button-default" type="button">Click</button>
+                                <div class="uk-width-medium" uk-dropdown="pos: bottom-left; boundary: !.boundary; mode: click">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 
+                            </div>
                         </div>
                     </div>
 
                 </div>
                 <div class="uk-width-1-2@m">
 
-                    <div class="boundary uk-resize-horizontal uk-overflow-hidden uk-height-large uk-margin uk-flex uk-flex-center">
-                        <div>
+                    <div class="boundary uk-resize-horizontal uk-height-large uk-margin">
+                        <div class="boundary-overflow uk-flex uk-flex-center">
+                            <div>
 
-                            <button class="uk-button uk-button-default" style="margin-left: 40px" type="button">Flip</button>
-                            <div class="uk-width-small uk-open uk-display-block" uk-dropdown="pos: right-top; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                <button class="uk-button uk-button-default" style="margin-left: 40px" type="button">Click</button>
+                                <div class="uk-width-small" uk-dropdown="pos: right-top; boundary: !.boundary; mode: click">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 
+                            </div>
                         </div>
                     </div>
 
