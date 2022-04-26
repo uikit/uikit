@@ -31,6 +31,7 @@
 - Fix viewport helper functions take border into account
 - Fix Sticky component responsiveness on window resize
 - Fix Cover component correctly applies ratio if only one of width/height is provided
+- Fix responsiveness in Grid, Margin and Height Match component
 
 ## 3.13.10 (April 20, 2022)
 
