@@ -4,7 +4,6 @@ import {
     createEvent,
     css,
     Dimensions,
-    each,
     findIndex,
     isNumber,
     isString,
@@ -65,7 +64,9 @@ export default {
 
     methods: {
         reset() {
-            each(this.getCss(0), (_, prop) => css(this.$el, prop, ''));
+            for (const prop in this.getCss(0)) {
+                css(this.$el, prop, '');
+            }
         },
 
         getCss(percent) {
