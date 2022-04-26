@@ -7,6 +7,7 @@
 - Add position shifting to Drop and Dropdown components
 - Add axis flipping if overflowing on both sides to Drop and Dropdown components
 - Add `max-width` to prevent overflowing the viewport to Drop and Dropdown components
+- Add `display` option to Drop and Dropdown components
 - Add support for negative `start` value in Sticky component
 - Add `overflow-flip` option to Sticky component
 - Add navbar justify to Navbar component

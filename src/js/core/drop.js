@@ -13,6 +13,7 @@ import {
     isTouch,
     matches,
     MouseTracker,
+    noop,
     offset,
     offsetViewport,
     on,
@@ -44,6 +45,7 @@ export default {
         boundaryAlign: Boolean,
         delayShow: Number,
         delayHide: Number,
+        display: String,
         clsDrop: String,
     },
 
@@ -54,6 +56,7 @@ export default {
         boundaryAlign: false,
         delayShow: 0,
         delayHide: 800,
+        display: null,
         clsDrop: false,
         animation: ['uk-animation-fade'],
         cls: 'uk-open',
@@ -245,6 +248,14 @@ export default {
                         }
                     }),
                     on(window, 'resize', () => this.$emit()),
+                    this.display === 'static'
+                        ? noop
+                        : on(
+                              document,
+                              'scroll',
+                              ({ target }) => target.contains(this.$el) && this.$emit(),
+                              true
+                          ),
                 ]) {
                     once(this.$el, 'hide', handler, { self: true });
                 }
