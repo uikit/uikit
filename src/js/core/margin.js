@@ -1,5 +1,12 @@
 import Resize from '../mixin/resize';
-import { isRtl, isVisible, observeMutation, offsetPosition, toggleClass } from 'uikit-util';
+import {
+    isRtl,
+    isVisible,
+    observeMutation,
+    offsetPosition,
+    toArray,
+    toggleClass,
+} from 'uikit-util';
 
 export default {
     mixins: [Resize],
@@ -15,7 +22,7 @@ export default {
     },
 
     resizeTargets() {
-        return [this.$el, this.$el.children];
+        return [this.$el, ...toArray(this.$el.children)];
     },
 
     connected() {

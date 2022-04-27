@@ -130,10 +130,13 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 
 /*
  * Link
+ * 1. Allow text within link
  */
 
 .uk-icon-link {
     color: $icon-link-color;
+    /* 1 */
+    text-decoration: none !important;
     @if(mixin-exists(hook-icon-link)) {@include hook-icon-link();}
 }
 

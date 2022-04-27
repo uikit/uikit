@@ -13,7 +13,9 @@ import {
     isTouch,
     matches,
     MouseTracker,
+    observeResize,
     offset,
+    offsetViewport,
     on,
     once,
     parent,
@@ -24,6 +26,7 @@ import {
     pointerUp,
     query,
     removeClass,
+    scrollParents,
     toggleClass,
     within,
 } from 'uikit-util';
@@ -42,6 +45,7 @@ export default {
         boundaryAlign: Boolean,
         delayShow: Number,
         delayHide: Number,
+        display: String,
         clsDrop: String,
     },
 
@@ -52,6 +56,7 @@ export default {
         boundaryAlign: false,
         delayShow: 0,
         delayHide: 800,
+        display: null,
         clsDrop: false,
         animation: ['uk-animation-fade'],
         cls: 'uk-open',
@@ -242,7 +247,23 @@ export default {
                             this.hide(false);
                         }
                     }),
-                    on(window, 'resize', () => this.$emit()),
+
+                    ...(this.display === 'static'
+                        ? []
+                        : (() => {
+                              const handler = () => this.$emit();
+                              return [
+                                  on(window, 'resize', handler),
+                                  on(document, 'scroll', handler, true),
+                                  (() => {
+                                      const observer = observeResize(
+                                          scrollParents(this.$el),
+                                          handler
+                                      );
+                                      return () => observer.disconnect();
+                                  })(),
+                              ];
+                          })()),
                 ]) {
                     once(this.$el, 'hide', handler, { self: true });
                 }
@@ -353,25 +374,34 @@ export default {
         },
 
         position() {
-            const boundary = query(this.boundary, this.$el) || window;
             removeClass(this.$el, `${this.clsDrop}-stack`);
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
-            const boundaryOffset = offset(boundary);
-            const targetOffset = offset(this.target);
-            const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
+            const boundary = query(this.boundary, this.$el);
+            const [scrollParent] = scrollParents(this.$el);
+            const scrollParentOffset = offsetViewport(scrollParent);
+            const boundaryOffset = boundary ? offset(boundary) : scrollParentOffset;
+
+            css(this.$el, 'maxWidth', '');
+            const maxWidth =
+                scrollParentOffset.width - (this.boundaryAlign ? 0 : 2 * this.viewportPadding);
 
             if (this.pos[1] === 'justify') {
-                const prop = this.getAxis() === 'y' ? 'width' : 'height';
+                const prop = this.axis === 'y' ? 'width' : 'height';
+                const targetOffset = offset(this.target);
+                const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
                 css(this.$el, prop, alignTo[prop]);
-            } else if (
-                this.$el.offsetWidth >
-                Math.max(boundaryOffset.right - alignTo.left, alignTo.right - boundaryOffset.left)
-            ) {
+            } else if (this.$el.offsetWidth > maxWidth) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }
 
-            this.positionAt(this.$el, this.boundaryAlign ? boundary : this.target, boundary);
+            css(this.$el, 'maxWidth', maxWidth);
+
+            this.positionAt(
+                this.$el,
+                boundary && this.boundaryAlign ? boundary : this.target,
+                boundary
+            );
         },
     },
 };

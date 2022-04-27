@@ -8,10 +8,14 @@
         <script src="js/test.js"></script>
         <style>
 
-            .boundary { border: 1px dashed rgba(0,0,0,0.2); }
+            .boundary {
+                padding: 15px;
+                border: 1px dashed rgba(0,0,0,0.2);
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
+            }
 
-            .small-height { height: 80px; }
-            .small-width { width: 165px; }
+            .boundary-overflow { width: 200%; }
 
         </style>
     </head>
@@ -211,112 +215,162 @@
 
             </div>
 
-            <h2>Drop with Boundary</h2>
+            <h2>Shift and Flip</h2>
 
-            <div class="boundary small-height uk-margin uk-flex uk-flex-between">
-
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Right</button>
-                    <div uk-drop="pos: bottom-right; boundary: ! .boundary">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Justify</button>
-                    <div uk-drop="pos: bottom-justify; boundary: ! .boundary; boundary-align: true">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Center</button>
-                    <div uk-drop="pos: bottom-center; boundary: ! .boundary">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Left</button>
-                    <div uk-drop="pos: bottom-left; boundary: ! .boundary; boundary-align: true">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Right</button>
-                    <div uk-drop="pos: bottom-right; boundary: ! .boundary; boundary-align: true">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Centered</button>
-                    <div uk-drop="pos: bottom-center; boundary: ! .boundary; boundary-align: true">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Left</button>
-                    <div uk-drop="pos: bottom-left; boundary: ! .boundary">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
+            <div class="uk-margin">
+                <select id="js-boundary-overflow-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Resize</option>
+                    <option value="boundary-overflow">Scroll</option>
+                </select>
             </div>
 
-            <div class="boundary small-width uk-panel">
+            <div uk-grid>
+                <div class="uk-width-1-2@m">
 
-                <div class="uk-inline uk-margin-small-bottom">
-                    <button class="uk-button uk-button-default" type="button">Top</button>
-                    <div uk-drop="pos: right-bottom; boundary: ! .boundary">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    <div class="boundary uk-height-large uk-resize-horizontal uk-margin">
+                        <div class="js-boundary-overflow uk-flex uk-flex-center">
+                            <div>
+
+                                <button class="uk-button uk-button-default" type="button">Click</button>
+                                <div class="uk-width-medium" uk-dropdown="pos: bottom-left; boundary: !.boundary; mode: click">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="uk-inline uk-margin-small-bottom">
-                    <button class="uk-button uk-button-default" type="button">Justify</button>
-                    <div uk-drop="pos: right-justify; boundary: ! .boundary; boundary-align: true">
-                        <div class="uk-card uk-card-body uk-card-default uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                </div>
+                <div class="uk-width-1-2@m">
+
+                    <div class="boundary uk-height-large uk-resize-horizontal uk-margin">
+                        <div class="js-boundary-overflow uk-flex uk-flex-center">
+                            <div>
+
+                                <button class="uk-button uk-button-default" style="margin-left: 40px" type="button">Click</button>
+                                <div class="uk-width-small" uk-dropdown="pos: right-top; boundary: !.boundary; mode: click">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="uk-inline uk-margin-small-bottom">
-                    <button class="uk-button uk-button-default" type="button">Center</button>
-                    <div uk-drop="pos: right-center; boundary: ! .boundary">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                </div>
+            </div>
+
+            <h2>Boundary</h2>
+
+            <div class="uk-child-width-1-2@m" uk-grid>
+                <div>
+
+                    <div class="boundary uk-height-medium uk-margin uk-flex uk-flex-between uk-flex-wrap">
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Bottom Right</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-right; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Bottom Center</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-center; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Bottom Left</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-left; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
                     </div>
-                </div>
 
-                <div class="uk-inline uk-margin-small-bottom">
-                    <button class="uk-button uk-button-default" type="button">Top</button>
-                    <div uk-drop="pos: right-top; boundary: ! .boundary; boundary-align: true">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                </div>
+                <div>
+
+                    <div class="boundary uk-height-medium uk-flex uk-flex-column uk-flex-between uk-flex-wrap">
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Right Bottom</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-bottom; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Right Center</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-center; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Right Top</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-top; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
                     </div>
-                </div>
 
-                <div class="uk-inline uk-margin-small-bottom">
-                    <button class="uk-button uk-button-default" type="button">Bottom</button>
-                    <div uk-drop="pos: right-bottom; boundary: ! .boundary; boundary-align: true">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                </div>
+            </div>
+
+            <h2>Boundary Align</h2>
+
+            <div class="uk-child-width-1-2@m" uk-grid>
+                <div>
+
+                    <div class="boundary uk-margin uk-flex uk-flex-around uk-flex-wrap" uk-margin>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Bottom Right</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-right; boundary: !.boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Bottom Center</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-center; boundary: !.boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Bottom Left</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-left; boundary: !.boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Bottom Justify</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-justify; boundary: ! .boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
                     </div>
-                </div>
 
-                <div class="uk-inline uk-margin-small-bottom">
-                    <button class="uk-button uk-button-default" type="button">Centered</button>
-                    <div uk-drop="pos: right-center; boundary: ! .boundary; boundary-align: true">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                </div>
+                <div class="uk-width-auto">
+
+                    <div class="boundary uk-height-medium uk-flex uk-flex-column uk-flex-around">
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Right Bottom</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-bottom; boundary: !.boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Right Center</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-center; boundary: !.boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Right Top</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-top; boundary: !.boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Right Justify</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-justify; boundary: ! .boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
                     </div>
-                </div>
 
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Bottom</button>
-                    <div uk-drop="pos: right-top; boundary: ! .boundary">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
                 </div>
-
             </div>
 
             <h2>Multiple Toggles</h2>
@@ -378,6 +432,12 @@
                             <td>Delay time in hover mode before a Drop is hidden in ms.</td>
                         </tr>
                         <tr>
+                            <td><code>display</code></td>
+                            <td>`dynamic`|`static`</td>
+                            <td>`dynamic`</td>
+                            <td>Disable dynamic positioning while scrolling by setting this option to `static`.</td>
+                        </tr>
+                        <tr>
                             <td><code>boundary</code></td>
                             <td>CSS selector</td>
                             <td>true</td>
@@ -418,6 +478,20 @@
             </div>
 
         </div>
+
+        <script>
+
+            var options = UIkit.util.$$('#js-boundary-overflow-switcher option').map(function (option) { return option.value; });
+
+            UIkit.util.on('#js-boundary-overflow-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('.js-boundary-overflow').forEach(function (table) {
+                    UIkit.util.removeClass(table, options);
+                    UIkit.util.addClass(table, value);
+                });
+            });
+
+        </script>
 
     </body>
 </html>

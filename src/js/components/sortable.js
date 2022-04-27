@@ -10,14 +10,13 @@ import {
     css,
     findIndex,
     getEventPos,
-    getViewport,
     hasTouch,
     height,
     index,
     isEmpty,
     isInput,
     off,
-    offset,
+    offsetViewport,
     on,
     parent,
     pointerDown,
@@ -324,7 +323,7 @@ function trackScroll(pos) {
             .some((scrollEl) => {
                 let { scrollTop: scroll, scrollHeight } = scrollEl;
 
-                const { top, bottom, height } = offset(getViewport(scrollEl));
+                const { top, bottom, height } = offsetViewport(scrollEl);
 
                 if (top < y && top + 35 > y) {
                     scroll -= dist;

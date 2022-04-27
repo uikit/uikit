@@ -14,6 +14,8 @@ $navbar-dropdown-padding:                        25px !default;
 $navbar-dropdown-background:                     $global-background !default;
 $navbar-dropdown-grid-gutter-horizontal:         ($navbar-dropdown-padding * 2) !default;
 
+$navbar-dropdown-nav-subtitle-font-size:         12px !default;
+
 //
 // New
 //
@@ -104,6 +106,8 @@ $navbar-dropdown-grid-divider-border:            $navbar-dropdown-nav-divider-bo
 // @mixin hook-navbar-dropdown-nav-item(){}
 
 // @mixin hook-navbar-dropdown-nav-item-hover(){}
+
+// @mixin hook-navbar-dropdown-nav-subtitle(){}
 
 // @mixin hook-navbar-dropdown-nav-header(){}
 

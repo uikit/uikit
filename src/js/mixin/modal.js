@@ -4,6 +4,7 @@ import {
     append,
     attr,
     css,
+    endsWith,
     includes,
     isFocusable,
     last,
@@ -15,7 +16,6 @@ import {
     pointerUp,
     removeClass,
     toFloat,
-    toMs,
     width,
     within,
 } from 'uikit-util';
@@ -245,7 +245,7 @@ function animate({ transitionElement, _toggle }) {
     return (el, show) =>
         new Promise((resolve, reject) =>
             once(el, 'show hide', () => {
-                el._reject && el._reject();
+                el._reject?.();
                 el._reject = reject;
 
                 _toggle(el, show);
@@ -268,4 +268,8 @@ function animate({ transitionElement, _toggle }) {
                 }, toMs(css(transitionElement, 'transitionDuration')));
             })
         ).then(() => delete el._reject);
+}
+
+function toMs(time) {
+    return time ? (endsWith(time, 'ms') ? toFloat(time) : toFloat(time) * 1000) : 0;
 }

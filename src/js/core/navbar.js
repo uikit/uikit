@@ -27,8 +27,6 @@ import {
     within,
 } from 'uikit-util';
 
-const navItem = '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle';
-
 export default {
     mixins: [Class, Container],
 
@@ -48,7 +46,7 @@ export default {
     },
 
     data: {
-        dropdown: navItem,
+        dropdown: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
         align: isRtl ? 'right' : 'left',
         clsDrop: 'uk-navbar-dropdown',
         mode: undefined,
@@ -134,8 +132,22 @@ export default {
             immediate: true,
         },
 
-        toggles({ dropdown }, $el) {
-            return $$(dropdown, $el);
+        toggles: {
+            get({ dropdown }, $el) {
+                return $$(dropdown, $el);
+            },
+
+            watch() {
+                const justify = hasClass(this.$el, 'uk-navbar-justify');
+                for (const container of $$(
+                    '.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right',
+                    this.$el
+                )) {
+                    css(container, 'flexGrow', justify ? $$(this.dropdown, container).length : '');
+                }
+            },
+
+            immediate: true,
         },
     },
 
@@ -297,7 +309,7 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el, dir }) {
+            handler(_, { $el, pos: [dir] = [] }) {
                 if (!hasClass($el, this.clsDrop)) {
                     return;
                 }

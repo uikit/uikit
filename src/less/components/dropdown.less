@@ -29,6 +29,7 @@
 
 @dropdown-nav-item-color:                       @global-muted-color;
 @dropdown-nav-item-hover-color:                 @global-color;
+@dropdown-nav-subtitle-font-size:               @global-small-font-size;
 @dropdown-nav-header-color:                     @global-emphasis-color;
 @dropdown-nav-divider-border-width:             @global-border-width;
 @dropdown-nav-divider-border:                   @global-border;
@@ -74,7 +75,6 @@
  ========================================================================== */
 
 .uk-dropdown-nav {
-    white-space: nowrap;
     .hook-dropdown-nav();
 }
 
@@ -92,6 +92,15 @@
 .uk-dropdown-nav > li.uk-active > a {
     color: @dropdown-nav-item-hover-color;
     .hook-dropdown-nav-item-hover();
+}
+
+/*
+ * Subtitle
+ */
+
+.uk-dropdown-nav .uk-nav-subtitle {
+    font-size: @dropdown-nav-subtitle-font-size;
+    .hook-dropdown-nav-subtitle();
 }
 
 /*
@@ -138,6 +147,7 @@
 .hook-dropdown-nav() {}
 .hook-dropdown-nav-item() {}
 .hook-dropdown-nav-item-hover() {}
+.hook-dropdown-nav-subtitle() {}
 .hook-dropdown-nav-header() {}
 .hook-dropdown-nav-divider() {}
 .hook-dropdown-misc() {}

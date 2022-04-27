@@ -16,7 +16,7 @@
     <body>
 
         <div class="uk-section-default">
-            <div class="uk-section uk-background-cover uk-background-primary uk-overflow-hidden uk-light uk-flex" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -400; sepia:100" uk-height-viewport="offset-top: true">
+            <div class="uk-section uk-background-cover uk-background-primary uk-overflow-hidden uk-light uk-flex" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -400; sepia: 100" uk-height-viewport="offset-top: true">
 
                 <h1 class="uk-heading-xlarge uk-margin-auto uk-margin-auto-vertical">Parallax</h1>
 
@@ -168,15 +168,15 @@
                             </tr>
                             <tr>
                                 <td><code>start</code></td>
-                                <td>Number|String</td>
+                                <td>Length</td>
                                 <td>0</td>
-                                <td>Start offset. The value can be in vh|%|px. It supports basic mathematics operands + and -. (e.g. 50vh + 50%)</td>
+                                <td>Start offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the target's top border and viewport's bottom border intersect.</td>
                             </tr>
                             <tr>
                                 <td><code>end</code></td>
-                                <td>Number|String</td>
+                                <td>Length</td>
                                 <td>0</td>
-                                <td>End offset. The value can be in vh|%|px. It supports basic mathematics operands + and -. (e.g. 50vh + 50%)</td>
+                                <td>End offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the target's bottom border and the viewport's top border intersect.</td>
                             </tr>
                             <tr>
                                 <td><code>media</code></td>

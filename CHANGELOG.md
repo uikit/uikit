@@ -1,5 +1,38 @@
 # Changelog
 
+## 3.14.0 (April 27, 2022)
+
+### Added
+
+- Add position shifting to Drop and Dropdown components
+- Add axis flipping if overflowing on both sides to Drop and Dropdown components
+- Add `max-width` to prevent overflowing the viewport to Drop and Dropdown components
+- Add `display` option to Drop and Dropdown components
+- Add support for negative `start` value in Sticky component
+- Add `overflow-flip` option to Sticky component
+- Add navbar justify to Navbar component
+- Add subtitle classes to Nav, Dropdown and Navbar components
+- Add support for `vw`,`vh`,`%` and `px` units to scale property in Parallax component
+- Add resize horizontal class to Utility component
+
+### Changed
+
+- Rename `top` and `bottom` options to `start` and `end` in Sticky component
+- Allow text to wrap into the next line for navs in Dropdown component
+
+### Removed
+
+- Remove `position: auto` option in Sticky component, use `overflow-flip` option instead
+- Remove `overflow-x: hidden` on html element, while horizontal animation is active
+
+### Fixed
+
+- Fix dropbar dropdown alignment if boundary-align is true
+- Fix viewport helper functions take border into account
+- Fix Sticky component responsiveness on window resize
+- Fix Cover component correctly applies ratio if only one of width/height is provided
+- Fix responsiveness in Grid, Margin and Height Match component
+
 ## 3.13.10 (April 20, 2022)
 
 ### Fixed
@@ -42,7 +75,6 @@
 ### Removed
 
 - Image component no longer sets a `background-size` for elements with `background-size` set to `auto`
-
 
 ### Fixed
 

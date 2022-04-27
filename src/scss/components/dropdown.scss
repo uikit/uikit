@@ -29,6 +29,7 @@ $dropdown-color:                                 $global-color !default;
 
 $dropdown-nav-item-color:                        $global-muted-color !default;
 $dropdown-nav-item-hover-color:                  $global-color !default;
+$dropdown-nav-subtitle-font-size:                $global-small-font-size !default;
 $dropdown-nav-header-color:                      $global-emphasis-color !default;
 $dropdown-nav-divider-border-width:              $global-border-width !default;
 $dropdown-nav-divider-border:                    $global-border !default;
@@ -74,7 +75,6 @@ $dropdown-nav-sublist-item-hover-color:          $global-color !default;
  ========================================================================== */
 
 .uk-dropdown-nav {
-    white-space: nowrap;
     @if(mixin-exists(hook-dropdown-nav)) {@include hook-dropdown-nav();}
 }
 
@@ -92,6 +92,15 @@ $dropdown-nav-sublist-item-hover-color:          $global-color !default;
 .uk-dropdown-nav > li.uk-active > a {
     color: $dropdown-nav-item-hover-color;
     @if(mixin-exists(hook-dropdown-nav-item-hover)) {@include hook-dropdown-nav-item-hover();}
+}
+
+/*
+ * Subtitle
+ */
+
+.uk-dropdown-nav .uk-nav-subtitle {
+    font-size: $dropdown-nav-subtitle-font-size;
+    @if(mixin-exists(hook-dropdown-nav-subtitle)) {@include hook-dropdown-nav-subtitle();}
 }
 
 /*
@@ -138,6 +147,7 @@ $dropdown-nav-sublist-item-hover-color:          $global-color !default;
 // @mixin hook-dropdown-nav(){}
 // @mixin hook-dropdown-nav-item(){}
 // @mixin hook-dropdown-nav-item-hover(){}
+// @mixin hook-dropdown-nav-subtitle(){}
 // @mixin hook-dropdown-nav-header(){}
 // @mixin hook-dropdown-nav-divider(){}
 // @mixin hook-dropdown-misc(){}

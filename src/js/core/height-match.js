@@ -30,7 +30,7 @@ export default {
     },
 
     resizeTargets() {
-        return [this.$el, this.elements];
+        return [this.$el, ...this.elements];
     },
 
     update: {

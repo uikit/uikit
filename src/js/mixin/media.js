@@ -20,16 +20,19 @@ export default {
 
     connected() {
         const media = toMedia(this.media);
-        this.mediaObj = window.matchMedia(media);
-        const handler = () => {
-            this.matchMedia = this.mediaObj.matches;
-            trigger(this.$el, createEvent('mediachange', false, true, [this.mediaObj]));
-        };
-        this.offMediaObj = on(this.mediaObj, 'change', () => {
+        this.matchMedia = true;
+        if (media) {
+            this.mediaObj = window.matchMedia(media);
+            const handler = () => {
+                this.matchMedia = this.mediaObj.matches;
+                trigger(this.$el, createEvent('mediachange', false, true, [this.mediaObj]));
+            };
+            this.offMediaObj = on(this.mediaObj, 'change', () => {
+                handler();
+                this.$emit('resize');
+            });
             handler();
-            this.$emit('resize');
-        });
-        handler();
+        }
     },
 
     disconnected() {

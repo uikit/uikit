@@ -809,6 +809,7 @@
 @mixin hook-dropdown-nav(){ font-size: $dropdown-nav-font-size; }
 @mixin hook-dropdown-nav-item(){}
 @mixin hook-dropdown-nav-item-hover(){}
+@mixin hook-dropdown-nav-subtitle(){}
 @mixin hook-dropdown-nav-header(){}
 @mixin hook-dropdown-nav-divider(){}
 @mixin hook-dropdown-misc(){}
@@ -1706,12 +1707,14 @@
 @mixin hook-nav-default-item(){}
 @mixin hook-nav-default-item-hover(){}
 @mixin hook-nav-default-item-active(){}
+@mixin hook-nav-default-subtitle(){}
 @mixin hook-nav-default-header(){}
 @mixin hook-nav-default-divider(){}
 @mixin hook-nav-primary(){}
 @mixin hook-nav-primary-item(){}
 @mixin hook-nav-primary-item-hover(){}
 @mixin hook-nav-primary-item-active(){}
+@mixin hook-nav-primary-subtitle(){}
 @mixin hook-nav-primary-header(){}
 @mixin hook-nav-primary-divider(){}
 @mixin hook-nav-dividers(){}
@@ -1752,6 +1755,7 @@
 @mixin hook-navbar-dropdown-nav-item(){}
 @mixin hook-navbar-dropdown-nav-item-hover(){}
 @mixin hook-navbar-dropdown-nav-item-active(){}
+@mixin hook-navbar-dropdown-nav-subtitle(){}
 @mixin hook-navbar-dropdown-nav-header(){}
 @mixin hook-navbar-dropdown-nav-divider(){}
 @mixin hook-navbar-dropbar(){ box-shadow: $navbar-dropbar-box-shadow; }
@@ -1839,6 +1843,7 @@
 @mixin hook-progress-bar(){}
 @mixin hook-progress-misc(){}
 @mixin hook-search-input(){}
+@mixin hook-search-icon(){}
 @mixin hook-search-default-input(){ border: $search-default-border-width solid $search-default-border; }
 @mixin hook-search-default-input-focus(){ border-color: $search-default-focus-border; }
 @mixin hook-search-navbar-input(){}

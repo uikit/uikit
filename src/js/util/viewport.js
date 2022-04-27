@@ -8,8 +8,10 @@ import {
     isDocument,
     isUndefined,
     isWindow,
+    toFloat,
     toNode,
     toWindow,
+    ucfirst,
 } from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
@@ -20,7 +22,7 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
     return intersectRect(
         ...scrollParents(element)
             .map((parent) => {
-                const { top, left, bottom, right } = offset(getViewport(parent));
+                const { top, left, bottom, right } = offsetViewport(parent);
 
                 return {
                     top: top - offsetTop,
@@ -35,7 +37,7 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
 export function scrollTop(element, top) {
     if (isWindow(element) || isDocument(element)) {
-        element = getScrollingElement(element);
+        element = scrollingElement(element);
     } else {
         element = toNode(element);
     }
@@ -52,12 +54,13 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
     return parents.reduce(
         (fn, scrollElement, i) => {
             const { scrollTop, scrollHeight, offsetHeight } = scrollElement;
-            const maxScroll = scrollHeight - getViewportClientHeight(scrollElement);
-            const { height: elHeight, top: elTop } = offset(parents[i - 1] || element);
+            const viewport = offsetViewport(scrollElement);
+            const maxScroll = scrollHeight - viewport.height;
+            const { height: elHeight, top: elTop } = parents[i - 1]
+                ? offsetViewport(parents[i - 1])
+                : offset(element);
 
-            let top = Math.ceil(
-                elTop - offset(getViewport(scrollElement)).top - offsetBy + scrollTop
-            );
+            let top = Math.ceil(elTop - viewport.top - offsetBy + scrollTop);
 
             if (offsetBy > 0 && offsetHeight < elHeight + offsetBy) {
                 top += offsetBy;
@@ -115,7 +118,7 @@ export function scrolledOver(element, startOffset = 0, endOffset = 0) {
 
     const [scrollElement] = scrollParents(element, /auto|scroll/, true);
     const { scrollHeight, scrollTop } = scrollElement;
-    const viewportHeight = getViewportClientHeight(scrollElement);
+    const { height: viewportHeight } = offsetViewport(scrollElement);
     const maxScroll = scrollHeight - viewportHeight;
     const elementOffsetTop = offsetPosition(element)[0] - offsetPosition(scrollElement)[0];
 
@@ -126,7 +129,7 @@ export function scrolledOver(element, startOffset = 0, endOffset = 0) {
 }
 
 export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scrollable = false) {
-    const scrollEl = getScrollingElement(element);
+    const scrollEl = scrollingElement(element);
 
     let ancestors = parents(element).reverse();
     ancestors = ancestors.slice(ancestors.indexOf(scrollEl) + 1);
@@ -141,26 +144,43 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scroll
             ancestors.filter(
                 (parent) =>
                     overflowRe.test(css(parent, 'overflow')) &&
-                    (!scrollable || parent.scrollHeight > getViewportClientHeight(parent))
+                    (!scrollable || parent.scrollHeight > offsetViewport(parent).height)
             )
         )
         .reverse();
 }
 
-export function getViewport(scrollElement) {
-    return scrollElement === getScrollingElement(scrollElement) ? window : scrollElement;
+export function offsetViewport(scrollElement) {
+    let viewportElement = getViewport(scrollElement);
+
+    // iOS 12 returns <body> as scrollingElement
+    if (viewportElement === scrollingElement(viewportElement)) {
+        viewportElement = document.documentElement;
+    }
+
+    let rect = offset(viewportElement);
+    for (let [prop, dir, start, end] of [
+        ['width', 'x', 'left', 'right'],
+        ['height', 'y', 'top', 'bottom'],
+    ]) {
+        if (!isWindow(getViewport(viewportElement))) {
+            rect[start] += toFloat(css(viewportElement, `border${ucfirst(start)}Width`));
+        }
+        rect[prop] = rect[dir] = (
+            isWindow(viewportElement) ? scrollingElement(viewportElement) : viewportElement
+        )[`client${ucfirst(prop)}`];
+        rect[end] = rect[prop] + rect[start];
+    }
+    return rect;
 }
 
-// iOS 12 returns <body> as scrollingElement
-export function getViewportClientHeight(scrollElement) {
-    return (
-        scrollElement === getScrollingElement(scrollElement)
-            ? document.documentElement
-            : scrollElement
-    ).clientHeight;
+function scrollingElement(element) {
+    const {
+        document: { scrollingElement },
+    } = toWindow(element);
+    return scrollingElement;
 }
 
-export function getScrollingElement(element) {
-    const { document } = toWindow(element);
-    return document.scrollingElement || document.documentElement;
+function getViewport(scrollElement) {
+    return scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
 }

@@ -66,11 +66,12 @@
 
 @navbar-dropdown-dropbar-margin-top:            0px;
 @navbar-dropdown-dropbar-margin-bottom:         @navbar-dropdown-dropbar-margin-top;
-@navbar-dropdown-dropbar-padding:               @navbar-nav-item-padding-horizontal;
+@navbar-dropdown-dropbar-padding-horizontal:    @navbar-nav-item-padding-horizontal;
 
 @navbar-dropdown-nav-item-color:                @global-muted-color;
 @navbar-dropdown-nav-item-hover-color:          @global-color;
 @navbar-dropdown-nav-item-active-color:         @global-emphasis-color;
+@navbar-dropdown-nav-subtitle-font-size:        @global-small-font-size;
 @navbar-dropdown-nav-header-color:              @global-emphasis-color;
 @navbar-dropdown-nav-divider-border-width:      @global-border-width;
 @navbar-dropdown-nav-divider-border:            @global-border;
@@ -316,6 +317,17 @@
 }
 
 
+/* Justify modifier
+ ========================================================================== */
+
+.uk-navbar-justify .uk-navbar-left,
+.uk-navbar-justify .uk-navbar-right,
+.uk-navbar-justify .uk-navbar-nav,
+.uk-navbar-justify .uk-navbar-nav > li,        // Nav item
+.uk-navbar-justify .uk-navbar-item,            // Content item
+.uk-navbar-justify .uk-navbar-toggle { flex-grow: 1; }
+
+
 /* Style modifiers
  ========================================================================== */
 
@@ -400,7 +412,9 @@
     --uk-position-offset: @navbar-dropdown-dropbar-margin-top;
     /* 2 */
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
-    padding: @navbar-dropdown-dropbar-padding;
+    /* 3 */
+    padding-left: @navbar-dropdown-dropbar-padding-horizontal;
+    padding-right: @navbar-dropdown-dropbar-padding-horizontal;
     .hook-navbar-dropdown-dropbar();
 }
 
@@ -432,6 +446,15 @@
 .uk-navbar-dropdown-nav > li.uk-active > a {
     color: @navbar-dropdown-nav-item-active-color;
     .hook-navbar-dropdown-nav-item-active();
+}
+
+/*
+ * Subtitle
+ */
+
+.uk-navbar-dropdown-nav .uk-nav-subtitle {
+    font-size: @navbar-dropdown-nav-subtitle-font-size;
+    .hook-navbar-dropdown-nav-subtitle();
 }
 
 /*
@@ -502,6 +525,7 @@
 .hook-navbar-dropdown-nav-item() {}
 .hook-navbar-dropdown-nav-item-hover() {}
 .hook-navbar-dropdown-nav-item-active() {}
+.hook-navbar-dropdown-nav-subtitle() {}
 .hook-navbar-dropdown-nav-header() {}
 .hook-navbar-dropdown-nav-divider() {}
 .hook-navbar-dropbar(){}

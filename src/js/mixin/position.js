@@ -3,6 +3,7 @@ import {
     flipPosition,
     getCssVar,
     offset as getOffset,
+    includes,
     isNumeric,
     isRtl,
     positionAt,
@@ -20,49 +21,48 @@ export default {
         pos: `bottom-${isRtl ? 'right' : 'left'}`,
         flip: true,
         offset: false,
+        viewportPadding: 10,
     },
 
     connected() {
         this.pos = this.$props.pos.split('-').concat('center').slice(0, 2);
-        this.dir = this.pos[0];
-        this.align = this.pos[1];
+        this.axis = includes(['top', 'bottom'], this.pos[0]) ? 'y' : 'x';
     },
 
     methods: {
         positionAt(element, target, boundary) {
-            const axis = this.getAxis();
-            const dir = this.pos[0];
-            const align = this.pos[1];
+            const [dir, align] = this.pos;
 
             let { offset } = this;
             if (!isNumeric(offset)) {
                 const node = $(offset);
                 offset = node
-                    ? getOffset(node)[axis === 'x' ? 'left' : 'top'] -
-                      getOffset(target)[axis === 'x' ? 'right' : 'bottom']
+                    ? getOffset(node)[this.axis === 'x' ? 'left' : 'top'] -
+                      getOffset(target)[this.axis === 'x' ? 'right' : 'bottom']
                     : 0;
             }
             offset = toPx(offset) + toPx(getCssVar('position-offset', element));
+            offset = [includes(['left', 'top'], dir) ? -offset : +offset, 0];
 
-            const { x, y } = positionAt(
-                element,
-                target,
-                axis === 'x' ? `${flipPosition(dir)} ${align}` : `${align} ${flipPosition(dir)}`,
-                axis === 'x' ? `${dir} ${align}` : `${align} ${dir}`,
-                axis === 'x'
-                    ? `${dir === 'left' ? -offset : offset}`
-                    : ` ${dir === 'top' ? -offset : offset}`,
-                null,
-                this.flip,
-                boundary
-            ).target;
+            const attach = {
+                element: [flipPosition(dir), align],
+                target: [dir, align],
+            };
 
-            this.dir = axis === 'x' ? x : y;
-            this.align = axis === 'x' ? y : x;
-        },
+            if (this.axis === 'y') {
+                for (const prop in attach) {
+                    attach[prop] = attach[prop].reverse();
+                }
+                offset = offset.reverse();
+            }
 
-        getAxis() {
-            return this.dir === 'top' || this.dir === 'bottom' ? 'y' : 'x';
+            positionAt(element, target, {
+                attach,
+                offset,
+                boundary,
+                viewportPadding: this.viewportPadding,
+                flip: this.flip,
+            });
         },
     },
 };

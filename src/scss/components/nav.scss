@@ -5,6 +5,7 @@
 //
 // Sub-objects:     `uk-nav-header`
 //                  `uk-nav-divider`
+//                  `uk-nav-subtitle`
 //                  `uk-nav-sub`
 //
 // Modifiers:       `uk-nav-parent-icon`
@@ -48,6 +49,7 @@ $nav-divider-margin-horizontal:                  0 !default;
 $nav-default-item-color:                         $global-muted-color !default;
 $nav-default-item-hover-color:                   $global-color !default;
 $nav-default-item-active-color:                  $global-emphasis-color !default;
+$nav-default-subtitle-font-size:                 $global-small-font-size !default;
 $nav-default-header-color:                       $global-emphasis-color !default;
 $nav-default-divider-border-width:               $global-border-width !default;
 $nav-default-divider-border:                     $global-border !default;
@@ -60,6 +62,7 @@ $nav-primary-item-line-height:                   $global-line-height !default;
 $nav-primary-item-color:                         $global-muted-color !default;
 $nav-primary-item-hover-color:                   $global-color !default;
 $nav-primary-item-active-color:                  $global-emphasis-color !default;
+$nav-primary-subtitle-font-size:                 $global-medium-font-size !default;
 $nav-primary-header-color:                       $global-emphasis-color !default;
 $nav-primary-divider-border-width:               $global-border-width !default;
 $nav-primary-divider-border:                     $global-border !default;
@@ -208,6 +211,15 @@ ul.uk-nav-sub {
 }
 
 /*
+ * Subtitle
+ */
+
+.uk-nav-default .uk-nav-subtitle {
+    font-size: $nav-default-subtitle-font-size;
+    @if(mixin-exists(hook-nav-default-subtitle)) {@include hook-nav-default-subtitle();}
+}
+
+/*
  * Header
  */
 
@@ -264,6 +276,15 @@ ul.uk-nav-sub {
 .uk-nav-primary > li.uk-active > a {
     color: $nav-primary-item-active-color;
     @if(mixin-exists(hook-nav-primary-item-active)) {@include hook-nav-primary-item-active();}
+}
+
+/*
+ * Subtitle
+ */
+
+ .uk-nav-primary .uk-nav-subtitle {
+    font-size: $nav-primary-subtitle-font-size;
+    @if(mixin-exists(hook-nav-primary-subtitle)) {@include hook-nav-primary-subtitle();}
 }
 
 /*
@@ -340,12 +361,14 @@ ul.uk-nav-sub {
 // @mixin hook-nav-default-item(){}
 // @mixin hook-nav-default-item-hover(){}
 // @mixin hook-nav-default-item-active(){}
+// @mixin hook-nav-default-subtitle(){}
 // @mixin hook-nav-default-header(){}
 // @mixin hook-nav-default-divider(){}
 // @mixin hook-nav-primary(){}
 // @mixin hook-nav-primary-item(){}
 // @mixin hook-nav-primary-item-hover(){}
 // @mixin hook-nav-primary-item-active(){}
+// @mixin hook-nav-primary-subtitle(){}
 // @mixin hook-nav-primary-header(){}
 // @mixin hook-nav-primary-divider(){}
 // @mixin hook-nav-dividers(){}

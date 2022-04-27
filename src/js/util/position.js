@@ -1,156 +1,211 @@
 import { offset } from './dimensions';
-import { each, endsWith, includes, toFloat } from './lang';
-import { getViewport, scrollParents } from './viewport';
+import { clamp, includes, ucfirst } from './lang';
+import { offsetViewport, scrollParents } from './viewport';
 
-const dirs = {
-    width: ['x', 'left', 'right'],
-    height: ['y', 'top', 'bottom'],
-};
+const dirs = [
+    ['width', 'x', 'left', 'right'],
+    ['height', 'y', 'top', 'bottom'],
+];
 
-export function positionAt(
-    element,
-    target,
-    elAttach,
-    targetAttach,
-    elOffset,
-    targetOffset,
-    flip,
-    boundary
-) {
-    elAttach = getPos(elAttach);
-    targetAttach = getPos(targetAttach);
+export function positionAt(element, target, options) {
+    options = {
+        attach: {
+            element: ['left', 'top'],
+            target: ['left', 'top'],
+            ...options.attach,
+        },
+        offset: [0, 0],
+        ...options,
+    };
 
-    const flipped = { element: elAttach, target: targetAttach };
+    const dim = options.flip
+        ? attachToWithFlip(element, target, options)
+        : attachTo(element, target, options);
 
-    if (!element || !target) {
-        return flipped;
+    offset(element, dim);
+}
+
+function attachTo(element, target, options) {
+    let { attach, offset: offsetBy } = {
+        attach: {
+            element: ['left', 'top'],
+            target: ['left', 'top'],
+            ...options.attach,
+        },
+        offset: [0, 0],
+        ...options,
+    };
+
+    const position = offset(element);
+    const targetOffset = offset(target);
+    for (const [i, [prop, dir, start, end]] of Object.entries(dirs)) {
+        position[start] = position[dir] =
+            targetOffset[start] +
+            moveBy(attach.target[i], end, targetOffset[prop]) -
+            moveBy(attach.element[i], end, position[prop]) +
+            +offsetBy[i];
+        position[end] = position[start] + position[prop];
     }
+    return position;
+}
 
-    const dim = offset(element);
+function attachToWithFlip(element, target, options) {
+    const position = attachTo(element, target, options);
     const targetDim = offset(target);
-    const position = targetDim;
 
-    moveTo(position, elAttach, dim, -1);
-    moveTo(position, targetAttach, targetDim, 1);
+    let {
+        flip,
+        attach: { element: elAttach, target: targetAttach },
+        offset: elOffset,
+        boundary,
+        viewport,
+        viewportPadding,
+    } = options;
 
-    elOffset = getOffsets(elOffset, dim.width, dim.height);
-    targetOffset = getOffsets(targetOffset, targetDim.width, targetDim.height);
+    let viewports = scrollParents(element);
+    if (boundary === target) {
+        viewports = viewports.filter((viewport) => viewport !== boundary);
+    }
+    const [scrollElement] = viewports;
+    viewports.push(viewport);
 
-    elOffset['x'] += targetOffset['x'];
-    elOffset['y'] += targetOffset['y'];
-
-    position.left += elOffset['x'];
-    position.top += elOffset['y'];
-
-    if (flip) {
-        let boundaries = scrollParents(element).map(getViewport);
-
-        if (boundary && !includes(boundaries, boundary)) {
-            boundaries.unshift(boundary);
+    const offsetPosition = { ...position };
+    for (const [i, [prop, dir, start, end]] of Object.entries(dirs)) {
+        if (flip !== true && !includes(flip, dir)) {
+            continue;
         }
 
-        boundaries = boundaries.map((el) => offset(el));
+        const willFlip =
+            !intersectLine(position, targetDim, i) && intersectLine(position, targetDim, 1 - i);
 
-        each(dirs, ([dir, align, alignFlip], prop) => {
-            if (!(flip === true || includes(flip, dir))) {
-                return;
+        viewport = getIntersectionArea(...viewports.filter(Boolean).map(offsetViewport));
+
+        if (viewportPadding) {
+            viewport[start] += viewportPadding;
+            viewport[end] -= viewportPadding;
+        }
+
+        if (boundary && !willFlip && position[prop] <= offset(boundary)[prop]) {
+            viewport = getIntersectionArea(viewport, offset(boundary));
+        }
+
+        const isInStartBoundary = position[start] >= viewport[start];
+        const isInEndBoundary = position[end] <= viewport[end];
+
+        if (isInStartBoundary && isInEndBoundary) {
+            continue;
+        }
+
+        let offsetBy;
+
+        // Flip
+        if (willFlip) {
+            if (
+                (elAttach[i] === end && isInStartBoundary) ||
+                (elAttach[i] === start && isInEndBoundary)
+            ) {
+                continue;
             }
 
-            boundaries.some((boundary) => {
-                const elemOffset =
-                    elAttach[dir] === align
-                        ? -dim[prop]
-                        : elAttach[dir] === alignFlip
-                        ? dim[prop]
-                        : 0;
+            offsetBy =
+                (elAttach[i] === start
+                    ? -position[prop]
+                    : elAttach[i] === end
+                    ? position[prop]
+                    : 0) +
+                (targetAttach[i] === start
+                    ? targetDim[prop]
+                    : targetAttach[i] === end
+                    ? -targetDim[prop]
+                    : 0) -
+                elOffset[i] * 2;
 
-                const targetOffset =
-                    targetAttach[dir] === align
-                        ? targetDim[prop]
-                        : targetAttach[dir] === alignFlip
-                        ? -targetDim[prop]
-                        : 0;
-
-                if (
-                    position[align] < boundary[align] ||
-                    position[align] + dim[prop] > boundary[alignFlip]
-                ) {
-                    const centerOffset = dim[prop] / 2;
-                    const centerTargetOffset =
-                        targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
-
-                    return (
-                        (elAttach[dir] === 'center' &&
-                            (apply(centerOffset, centerTargetOffset) ||
-                                apply(-centerOffset, -centerTargetOffset))) ||
-                        apply(elemOffset, targetOffset)
-                    );
+            if (
+                !isInScrollArea(
+                    {
+                        ...position,
+                        [start]: position[start] + offsetBy,
+                        [end]: position[end] + offsetBy,
+                    },
+                    scrollElement,
+                    i
+                )
+            ) {
+                if (isInScrollArea(position, scrollElement, i)) {
+                    continue;
                 }
 
-                function apply(elemOffset, targetOffset) {
-                    const newVal = toFloat(
-                        (position[align] + elemOffset + targetOffset - elOffset[dir] * 2).toFixed(4)
-                    );
-
-                    if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
-                        position[align] = newVal;
-
-                        for (const el of ['element', 'target']) {
-                            if (elemOffset) {
-                                flipped[el][dir] =
-                                    flipped[el][dir] === dirs[prop][1]
-                                        ? dirs[prop][2]
-                                        : dirs[prop][1];
-                            }
-                        }
-
-                        return true;
-                    }
+                if (options.recursion) {
+                    return false;
                 }
-            });
-        });
-    }
 
-    offset(element, position);
+                const newPos = attachToWithFlip(element, target, {
+                    ...options,
+                    attach: {
+                        element: elAttach.map(flipDir).reverse(),
+                        target: targetAttach.map(flipDir).reverse(),
+                    },
+                    offset: elOffset.reverse(),
+                    flip: flip === true ? flip : [...flip, dirs[1 - i][1]],
+                    recursion: true,
+                });
 
-    return flipped;
-}
+                if (newPos && isInScrollArea(newPos, scrollElement, 1 - i)) {
+                    return newPos;
+                }
+            }
 
-function moveTo(position, attach, dim, factor) {
-    each(dirs, ([dir, align, alignFlip], prop) => {
-        if (attach[dir] === alignFlip) {
-            position[align] += dim[prop] * factor;
-        } else if (attach[dir] === 'center') {
-            position[align] += (dim[prop] * factor) / 2;
+            // Move
+        } else {
+            offsetBy =
+                clamp(
+                    clamp(position[start], viewport[start], viewport[end] - position[prop]),
+                    targetDim[start] - position[prop] + elOffset[i],
+                    targetDim[end] - elOffset[i]
+                ) - position[start];
         }
-    });
-}
 
-function getPos(pos) {
-    const x = /left|center|right/;
-    const y = /top|center|bottom/;
-
-    pos = (pos || '').split(' ');
-
-    if (pos.length === 1) {
-        pos = x.test(pos[0])
-            ? pos.concat('center')
-            : y.test(pos[0])
-            ? ['center'].concat(pos)
-            : ['center', 'center'];
+        offsetPosition[start] = position[dir] = position[start] + offsetBy;
+        offsetPosition[end] += offsetBy;
     }
 
-    return {
-        x: x.test(pos[0]) ? pos[0] : 'center',
-        y: y.test(pos[1]) ? pos[1] : 'center',
-    };
+    return offsetPosition;
 }
 
-function getOffsets(offsets, width, height) {
-    const [x, y] = (offsets || '').split(' ');
+function moveBy(start, end, dim) {
+    return start === 'center' ? dim / 2 : start === end ? dim : 0;
+}
 
-    return {
-        x: x ? toFloat(x) * (endsWith(x, '%') ? width / 100 : 1) : 0,
-        y: y ? toFloat(y) * (endsWith(y, '%') ? height / 100 : 1) : 0,
-    };
+function getIntersectionArea(...rects) {
+    let area = {};
+    for (const rect of rects) {
+        for (const [, , start, end] of dirs) {
+            area[start] = Math.max(area[start] || 0, rect[start]);
+            area[end] = Math.min(...[area[end], rect[end]].filter(Boolean));
+        }
+    }
+    return area;
+}
+
+function isInScrollArea(position, scrollElement, dir) {
+    const viewport = offsetViewport(scrollElement);
+    const [prop, , start, end] = dirs[dir];
+    viewport[start] -= scrollElement[`scroll${ucfirst(start)}`];
+    viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`];
+
+    return position[start] >= viewport[start] && position[end] <= viewport[end];
+}
+
+function intersectLine(dimA, dimB, dir) {
+    const [, , start, end] = dirs[dir];
+    return dimA[end] > dimB[start] && dimB[end] > dimA[start];
+}
+
+function flipDir(prop) {
+    for (let i = 0; i < dirs.length; i++) {
+        const index = dirs[i].indexOf(prop);
+        if (~index) {
+            return dirs[1 - i][(index % 2) + 2];
+        }
+    }
 }

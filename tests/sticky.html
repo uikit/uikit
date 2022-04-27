@@ -8,78 +8,309 @@
         <script src="js/test.js"></script>
         <style>
 
-            .viewport { border: 1px dashed rgba(0,0,0,0.2); }
+            .container {
+                height: 700px;
+                border: 1px dashed rgba(0,0,0,0.2);
+            }
+
+            .test-height { height: 120vh;}
 
         </style>
     </head>
 
     <body>
 
-        <div class="uk-container">
+        <!-- uk-position-relative is needed because of the test toolbar -->
+        <div class="uk-container uk-position-relative">
 
             <h1>Sticky</h1>
 
-            <div class="uk-grid">
-                <div class="uk-width-5-6">
-                    <div class="viewport uk-margin">
-                        <div class="uk-grid uk-child-width-1-6" uk-height-viewport="offset-top: true">
-                            <div>
+            <h2>Position Top</h2>
 
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="offset: 50; bottom: !.viewport">Stick to container; 50px offset</div>
+            <div class="container uk-margin">
+                <div class="uk-grid uk-grid-small uk-child-width-1-4">
+                    <div>
 
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: 50vh; target-offset: 10">Sticky after 50vh; Scroll up if initially above paragraph below</div>
-
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: !.viewport; animation: uk-animation-slide-top">Stick below container; animation</div>
-
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="bottom: #hash">Stick until next paragraph</div>
-
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="show-on-up: true; animation: uk-animation-slide-top">Sticky on scroll up; animation</div>
-
-                            </div>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: 300; animation: uk-animation-slide-top; media: 640">Sticky after 300px scrolling; @media 640px</div>
-
-                            </div>
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="end: !.container">
+                            start: 0<br>
+                            end: !.container
                         </div>
+
                     </div>
+                    <div>
 
-                    <p id="hash" class="uk-margin-large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                    <div class="viewport uk-margin">
-                        <div class="uk-grid uk-child-width-1-6" uk-height-viewport>
-                            <div>
-
-                                <div class="uk-card uk-card-primary uk-card-body" uk-sticky="position: bottom; bottom: !.viewport">Sticky bottom</div>
-
-                            </div>
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="start: 100%; end: !.container">
+                            start: 100%<br>
+                            end: !.container
                         </div>
+
                     </div>
+                    <div>
 
-                </div>
-                <div class="uk-width-1-6">
-                    <div class="viewport" style="min-height: 200vh;">
-                        <div>
-                            <div class="uk-card uk-card-primary uk-card-body" uk-sticky="bottom: !.viewport">
-                                <p>Oversized Content</p>
-
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                            </div>
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="start: 200; end: 500">
+                            start: 200<br>
+                            end: 500
                         </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="start: 20vh; end: 50vh">
+                            start: 20vh<br>
+                            end: 50vh
+                        </div>
+
                     </div>
                 </div>
+            </div>
+
+            <h2>Position Bottom</h2>
+
+            <div class="container uk-margin">
+                <div class="uk-grid uk-grid-small uk-child-width-1-4">
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; end: !.container">
+                            position: bottom<br>
+                            start: 0<br>
+                            end: !.container
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; start: 100%; end: !.container">
+                            position: bottom<br>
+                            start: 100%<br>
+                            end: !.container
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; start: 200; end: 500">
+                            position: bottom<br>
+                            start: 200<br>
+                            end: 500
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; start: 20vh; end: 50vh">
+                            position: bottom<br>
+                            start: 20vh<br>
+                            end: 50vh
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <h2>Offset</h2>
+
+            <div class="container uk-margin">
+                <div class="uk-grid uk-grid-small uk-child-width-1-4">
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="offset: 50%; end: !.container">
+                            position: top<br>
+                            offset: 50%<br>
+                            end: !.container
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="offset: 50vh; end: !.container">
+                            position: top<br>
+                            offset: 50vh<br>
+                            end: !.container
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; offset: -50%; end: !.container">
+                            position: bottom<br>
+                            offset: -50%<br>
+                            end: !.container
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="position: bottom; offset: -50vh; end: !.container">
+                            position: bottom<br>
+                            offset: -50vh<br>
+                            end: !.container
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <h2>Animation, Show On Up, Media and Target Offset</h2>
+
+            <div class="container uk-margin">
+                <div class="uk-grid uk-grid-small uk-child-width-1-4">
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="start: !.container; end: !.container ~ h2; animation: uk-animation-slide-top">
+                            start: !.container<br>
+                            end: !.container ~ h2<br>
+                            animation: uk-animation-slide-top
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="end: !.container ~ h2; show-on-up: true; animation: uk-animation-slide-top">
+                            end: !.container ~ h2<br>
+                            show-on-up: true<br>
+                            animation: uk-animation-slide-top
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="end: !.container; media: 640">
+                            end: !.container<br>
+                            media: 640
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body uk-card-small" uk-sticky="target-offset: 20; end: !.container ~ h2">
+                            target-offset: 20<br>
+                            end: !.container ~ h2
+                            <p>
+                                <a class="uk-button uk-button-default" href="#js-paragraph">Jump to Paragraph</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <p id="js-paragraph" class="uk-margin-large-top">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <p class="uk-margin-large-bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <h2>Oversized Content</h2>
+
+            <div class="uk-margin">
+                <div class="uk-grid">
+                    <div class="uk-width-1-4">
+
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="end: !.uk-grid">
+
+                            <h3>Position Top 1</h3>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                            <h3>Position Top 2</h3>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                            <h3>Position Top 3</h3>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        </div>
+
+                    </div>
+                    <div class="uk-width-1-2">
+
+                        <h2>Heading 1</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <h2>Heading 2</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <h2>Heading 3</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <h2>Heading 4</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                    </div>
+                    <div class="uk-width-1-4">
+
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="position: bottom; end: !.uk-grid">
+
+                            <h3>Position Bottom 1</h3>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                            <h3>Position Bottom 2</h3>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                            <h3>Position Bottom 3</h3>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <h2>Overflow Flip</h2>
+
+            <div class="uk-margin">
+                <select id="js-height-switcher" class="uk-select uk-form-width-small">
+                    <option value="uk-height-large">Smaller than Viewport</option>
+                    <option value="test-height">Lager than Viewport</option>
+                </select>
+            </div>
+
+            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative " uk-sticky="overflow-flip: true; end: 100%">
+                overflow-flip: true<br>
+                end: 100%
+            </div>
+            <div class="js-overflow-flip uk-background-muted uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-height-large">Cover previous section.<br>Reveal next section.</div>
+            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative " uk-sticky="position: bottom; overflow-flip: true; start: -100%; end: 0">
+                position: bottom<br>
+                overflow-flip: true<br>
+                start: -100%<br>
+                end: 0
             </div>
 
             <h2>JavaScript Options</h2>
@@ -97,27 +328,33 @@
                     <tbody>
                         <tr>
                             <td><code>position</code></td>
-                            <td>`top`|`bottom`|`auto`</td>
+                            <td>`top`|`bottom`</td>
                             <td>`top`</td>
-                            <td>The position the element should be stuck to. With position `auto` the element sticks to the top of the viewport if it's smaller than the viewport, otherwise it sticks to the top.</td>
+                            <td>The position the element should be stuck to.</td>
                         </tr>
                         <tr>
-                            <td><code>top</code></td>
-                            <td>Number|Viewport Height|CSS Selector</td>
+                            <td><code>start</code></td>
+                            <td>Length|CSS Selector</td>
                             <td>0</td>
-                            <td>The top offset from where the element should stick.</td>
+                            <td>Start offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the element's top border and viewport's top border intersect. A CSS Selector will set start to the selected element's bottom border and the elements top border.</td>
                         </tr>
                         <tr>
-                            <td><code>bottom</code></td>
-                            <td>Boolean|CSS Selector</td>
+                            <td><code>end</code></td>
+                            <td>Length|CSS Selector|Boolean</td>
                             <td>false</td>
-                            <td>The bottom offset until the element should stick. (true: parent element, prefixed with '!' a parent selector)</td>
+                            <td>End offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. A value of `0` means that the element's top border and viewport's top border intersect, which would cause the element not to be sticky at all if start is also set to `0`. A CSS Selector will set the end to the selected element's bottom and the element's bottom border. `false` will make the element stick until the end of the page. `true` selects the parent element.</td>
                         </tr>
                         <tr>
                             <td><code>offset</code></td>
-                            <td>String</td>
+                            <td>Length</td>
                             <td>0</td>
-                            <td>The offset the Sticky should be fixed to. It supports basic mathematics operands + and -. (e.g. 50vh + 50%)</td>
+                            <td>The offset the Sticky should be fixed to. The value can be in vh, % and px. It supports basic mathematics operands + and -.</td>
+                        </tr>
+                        <tr>
+                            <td><code>overflow-flip</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Flip the Sticky's position option if the element overflows the viewport and disables overflow scrolling.</td>
                         </tr>
                         <tr>
                             <td><code>animation</code></td>
@@ -157,15 +394,29 @@
                         </tr>
                         <tr>
                             <td><code>target-offset</code></td>
-                            <td>Boolean, Number</td>
+                            <td>false, Length</td>
                             <td>false</td>
-                            <td>Initially make sure that the Sticky is not over a targeted element via location hash.</td>
+                            <td>Initially make sure that the Sticky element is not over a referenced element via the page's location hash. The offset defines by how far the element will be above the referenced element. `false` will disable this behavior.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
         </div>
+
+        <script>
+
+            var options = UIkit.util.$$('#js-height-switcher option').map(function (option) { return option.value; });
+
+            UIkit.util.on('#js-height-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('.js-overflow-flip').forEach(function (table) {
+                    UIkit.util.removeClass(table, options);
+                    UIkit.util.addClass(table, value);
+                });
+            });
+
+        </script>
 
     </body>
 </html>

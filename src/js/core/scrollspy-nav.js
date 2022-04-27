@@ -2,11 +2,10 @@ import Scroll from '../mixin/scroll';
 import {
     $$,
     closest,
-    getViewport,
-    getViewportClientHeight,
     hasClass,
     isVisible,
     offset,
+    offsetViewport,
     scrollParents,
     toggleClass,
     trigger,
@@ -65,19 +64,15 @@ export default {
 
                 const [scrollElement] = scrollParents(targets, /auto|scroll/, true);
                 const { scrollTop, scrollHeight } = scrollElement;
-                const max = scrollHeight - getViewportClientHeight(scrollElement);
+                const viewport = offsetViewport(scrollElement);
+                const max = scrollHeight - viewport.height;
                 let active = false;
 
                 if (scrollTop === max) {
                     active = length - 1;
                 } else {
-                    for (const i in targets) {
-                        if (
-                            offset(targets[i]).top -
-                                offset(getViewport(scrollElement)).top -
-                                this.offset >
-                            0
-                        ) {
+                    for (let i = 0; i < targets.length; i++) {
+                        if (offset(targets[i]).top - viewport.top - this.offset > 0) {
                             break;
                         }
                         active = +i;
@@ -95,7 +90,7 @@ export default {
                 const changed = active !== false && !hasClass(this.elements[active], this.cls);
 
                 this.links.forEach((el) => el.blur());
-                for (const i in this.elements) {
+                for (let i = 0; i < this.elements.length; i++) {
                     toggleClass(this.elements[i], this.cls, +i === active);
                 }
 

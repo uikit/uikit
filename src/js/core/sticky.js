@@ -10,11 +10,10 @@ import {
     clamp,
     css,
     dimensions,
-    fastdom,
     height as getHeight,
     offset as getOffset,
-    getScrollingElement,
     intersectRect,
+    isNumeric,
     isString,
     isVisible,
     noop,
@@ -38,8 +37,11 @@ export default {
     props: {
         position: String,
         top: null,
-        bottom: Boolean,
+        bottom: null,
+        start: null,
+        end: null,
         offset: String,
+        overflowFlip: Boolean,
         animation: String,
         clsActive: String,
         clsInactive: String,
@@ -52,9 +54,12 @@ export default {
 
     data: {
         position: 'top',
-        top: 0,
+        top: false,
         bottom: false,
+        start: false,
+        end: false,
         offset: 0,
+        overflowFlip: false,
         animation: '',
         clsActive: 'uk-active',
         clsInactive: '',
@@ -76,6 +81,9 @@ export default {
     },
 
     connected() {
+        this.start = coerce(this.start || this.top);
+        this.end = coerce(this.end || this.bottom);
+
         this.placeholder =
             $('+ .uk-sticky-placeholder', this.$el) ||
             $('<div class="uk-sticky-placeholder"></div>');
@@ -95,6 +103,17 @@ export default {
 
     events: [
         {
+            name: 'resize',
+
+            el() {
+                return window;
+            },
+
+            handler() {
+                this.$emit('resize');
+            },
+        },
+        {
             name: 'load hashchange popstate',
 
             el() {
@@ -110,7 +129,7 @@ export default {
                     return;
                 }
 
-                fastdom.read(() => {
+                setTimeout(() => {
                     const targetOffset = getOffset($(location.hash));
                     const elOffset = getOffset(this.$el);
 
@@ -119,8 +138,8 @@ export default {
                             window,
                             targetOffset.top -
                                 elOffset.height -
-                                toPx(this.targetOffset, 'height') -
-                                toPx(this.offset, 'height')
+                                toPx(this.targetOffset, 'height', this.placeholder) -
+                                toPx(this.offset, 'height', this.placeholder)
                         );
                     }
                 });
@@ -150,32 +169,38 @@ export default {
 
                 if (hide) {
                     this.show();
-                    fastdom.write(() => css(this.selTarget, 'transition', ''));
+                    requestAnimationFrame(() => css(this.selTarget, 'transition', ''));
                 }
 
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
                 const windowHeight = getHeight(window);
 
                 let position = this.position;
-                if (position === 'auto' && height > windowHeight) {
-                    position = 'bottom';
+                if (this.overflowFlip && height > windowHeight) {
+                    position = position === 'top' ? 'bottom' : 'top';
                 }
 
                 let offset = toPx(this.offset, 'height', referenceElement);
-                if (position === 'bottom') {
+                if (position === 'bottom' && (height < windowHeight || this.overflowFlip)) {
                     offset += windowHeight - height;
                 }
 
-                const overflow = Math.max(0, height + offset - windowHeight);
+                const overflow = this.overflowFlip
+                    ? 0
+                    : Math.max(0, height + offset - windowHeight);
                 const topOffset = getOffset(referenceElement).top;
 
-                const top = parseProp(this.top, this.$el, topOffset);
-                const bottom = parseProp(this.bottom, this.$el, topOffset + height, true);
-
-                const start = Math.max(top, topOffset) - offset;
-                const end = bottom
-                    ? bottom - getOffset(this.$el).height + overflow - offset
-                    : getScrollingElement(this.$el).scrollHeight - windowHeight;
+                const start =
+                    (this.start === false
+                        ? topOffset
+                        : parseProp(this.start, this.$el, topOffset)) - offset;
+                const end =
+                    this.end === false
+                        ? document.scrollingElement.scrollHeight - windowHeight
+                        : parseProp(this.end, this.$el, topOffset + height, true) -
+                          getOffset(this.$el).height +
+                          overflow -
+                          offset;
 
                 return {
                     start,
@@ -378,8 +403,8 @@ function parseProp(value, el, propOffset, padding) {
         return 0;
     }
 
-    if (isString(value) && value.match(/^-?\d/)) {
-        return propOffset + toPx(value);
+    if (isNumeric(value) || (isString(value) && value.match(/^-?\d/))) {
+        return propOffset + toPx(value, 'height', el, true);
     } else {
         const refElement = value === true ? parent(el) : query(value, el);
         return (
@@ -389,4 +414,13 @@ function parseProp(value, el, propOffset, padding) {
                 : 0)
         );
     }
+}
+
+function coerce(value) {
+    if (value === 'true') {
+        return true;
+    } else if (value === 'false') {
+        return false;
+    }
+    return value;
 }
