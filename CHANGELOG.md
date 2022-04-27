@@ -10,6 +10,10 @@
 
 - Set `transition` option to `ease` by default in Togglable mixin
 
+## Fixed
+
+- Fix toggling accordion item while transition is in progress
+
 ## 3.14.0 (April 27, 2022)
 
 ### Added
