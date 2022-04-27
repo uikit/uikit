@@ -154,6 +154,7 @@ $search-toggle-hover-color:                          $global-color !default;
     align-items: center;
     /* 3 */
     color: $search-icon-color;
+    @if(mixin-exists(hook-search-icon)) {@include hook-search-icon();}
 }
 
 /*
@@ -294,6 +295,7 @@ $search-toggle-hover-color:                          $global-color !default;
 @if(mixin-exists(hook-search-misc)) {@include hook-search-misc();}
 
 // @mixin hook-search-input(){}
+// @mixin hook-search-icon(){}
 // @mixin hook-search-default-input(){}
 // @mixin hook-search-default-input-focus(){}
 // @mixin hook-search-navbar-input(){}

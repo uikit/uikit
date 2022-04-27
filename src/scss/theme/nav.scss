@@ -7,6 +7,8 @@
 // Variables
 // ========================================================================
 
+$nav-default-subtitle-font-size:                 12px !default;
+
 //
 // New
 //
@@ -49,6 +51,8 @@ $nav-default-font-size:                          $global-small-font-size !defaul
 
 // @mixin hook-nav-default-item-active(){}
 
+// @mixin hook-nav-default-subtitle(){}
+
 // @mixin hook-nav-default-header(){}
 
 // @mixin hook-nav-default-divider(){}
@@ -64,6 +68,8 @@ $nav-default-font-size:                          $global-small-font-size !defaul
 // @mixin hook-nav-primary-item-hover(){}
 
 // @mixin hook-nav-primary-item-active(){}
+
+// @mixin hook-nav-primary-subtitle(){}
 
 // @mixin hook-nav-primary-header(){}
 

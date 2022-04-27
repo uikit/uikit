@@ -10,6 +10,8 @@
 $dropdown-padding:                               25px !default;
 $dropdown-background:                            $global-background !default;
 
+$dropdown-nav-subtitle-font-size:                12px !default;
+
 //
 // New
 //
@@ -33,6 +35,8 @@ $dropdown-box-shadow:                            0 5px 12px rgba(0,0,0,0.15) !de
 // @mixin hook-dropdown-nav-item(){}
 
 // @mixin hook-dropdown-nav-item-hover(){}
+
+// @mixin hook-dropdown-nav-subtitle(){}
 
 // @mixin hook-dropdown-nav-header(){}
 
