@@ -28,7 +28,6 @@ export default {
         multiple: Boolean,
         toggle: String,
         content: String,
-        transition: String,
         offset: Number,
     },
 
@@ -41,7 +40,6 @@ export default {
         clsOpen: 'uk-open',
         toggle: '> .uk-accordion-title',
         content: '> .uk-accordion-content',
-        transition: 'ease',
         offset: 0,
     },
 

@@ -33,7 +33,7 @@ export default {
         animation: [false],
         duration: 200,
         origin: false,
-        transition: 'linear',
+        transition: 'ease',
         clsEnter: 'uk-togglabe-enter',
         clsLeave: 'uk-togglabe-leave',
 

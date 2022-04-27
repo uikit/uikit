@@ -5,6 +5,10 @@
 ## Added
 
 - Add `box-shadow` to `toggleHeight()` hide properties
+ 
+## Changed
+
+- Set `transition` option to `ease` by default in Togglable mixin
 
 ## 3.14.0 (April 27, 2022)
 
