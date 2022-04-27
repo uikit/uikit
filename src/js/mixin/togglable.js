@@ -44,6 +44,7 @@ export default {
             paddingBottom: '',
             marginTop: '',
             marginBottom: '',
+            boxShadow: '',
         },
 
         hideProps: {
@@ -53,6 +54,7 @@ export default {
             paddingBottom: 0,
             marginTop: 0,
             marginBottom: 0,
+            boxShadow: 'none',
         },
     },
 

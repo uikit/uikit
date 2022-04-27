@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+## Added
+
+- Add `box-shadow` to `toggleHeight()` hide properties
+
 ## 3.14.0 (April 27, 2022)
 
 ### Added
