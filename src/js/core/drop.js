@@ -13,7 +13,7 @@ import {
     isTouch,
     matches,
     MouseTracker,
-    noop,
+    observeResize,
     offset,
     offsetViewport,
     on,
@@ -247,15 +247,23 @@ export default {
                             this.hide(false);
                         }
                     }),
-                    on(window, 'resize', () => this.$emit()),
-                    this.display === 'static'
-                        ? noop
-                        : on(
-                              document,
-                              'scroll',
-                              ({ target }) => target.contains(this.$el) && this.$emit(),
-                              true
-                          ),
+
+                    ...(this.display === 'static'
+                        ? []
+                        : (() => {
+                              const handler = () => this.$emit();
+                              return [
+                                  on(window, 'resize', handler),
+                                  on(document, 'scroll', handler, true),
+                                  (() => {
+                                      const observer = observeResize(
+                                          scrollParents(this.$el),
+                                          handler
+                                      );
+                                      return () => observer.disconnect();
+                                  })(),
+                              ];
+                          })()),
                 ]) {
                     once(this.$el, 'hide', handler, { self: true });
                 }

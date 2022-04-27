@@ -52,8 +52,6 @@ function attachTo(element, target, options) {
 function attachToWithFlip(element, target, options) {
     const position = attachTo(element, target, options);
     const targetDim = offset(target);
-    const viewports = scrollParents(element);
-    const [scrollElement] = viewports;
 
     let {
         flip,
@@ -64,6 +62,11 @@ function attachToWithFlip(element, target, options) {
         viewportPadding,
     } = options;
 
+    let viewports = scrollParents(element);
+    if (boundary === target) {
+        viewports = viewports.filter((viewport) => viewport !== boundary);
+    }
+    const [scrollElement] = viewports;
     viewports.push(viewport);
 
     const offsetPosition = { ...position };
@@ -82,7 +85,7 @@ function attachToWithFlip(element, target, options) {
             viewport[end] -= viewportPadding;
         }
 
-        if (boundary && !(willFlip || position[prop] > offset(boundary)[prop])) {
+        if (boundary && !willFlip && position[prop] <= offset(boundary)[prop]) {
             viewport = getIntersectionArea(viewport, offset(boundary));
         }
 
