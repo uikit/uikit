@@ -383,7 +383,8 @@ export default {
             const boundaryOffset = boundary ? offset(boundary) : scrollParentOffset;
 
             css(this.$el, 'maxWidth', '');
-            const maxWidth = scrollParentOffset.width - (boundary ? 0 : 2 * this.viewportPadding);
+            const maxWidth =
+                scrollParentOffset.width - (this.boundaryAlign ? 0 : 2 * this.viewportPadding);
 
             if (this.pos[1] === 'justify') {
                 const prop = this.axis === 'y' ? 'width' : 'height';
