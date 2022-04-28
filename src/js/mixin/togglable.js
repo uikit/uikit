@@ -24,6 +24,7 @@ export default {
         cls: Boolean,
         animation: 'list',
         duration: Number,
+        velocity: Number,
         origin: String,
         transition: String,
     },
@@ -32,6 +33,7 @@ export default {
         cls: false,
         animation: [false],
         duration: 200,
+        velocity: 0.2,
         origin: false,
         transition: 'ease',
         clsEnter: 'uk-togglabe-enter',
@@ -149,7 +151,15 @@ export default {
     },
 };
 
-export function toggleHeight({ isToggled, duration, initProps, hideProps, transition, _toggle }) {
+export function toggleHeight({
+    isToggled,
+    duration,
+    velocity,
+    initProps,
+    hideProps,
+    transition,
+    _toggle,
+}) {
     return (el, show) => {
         const inProgress = Transition.inProgress(el);
         const inner = el.hasChildNodes()
@@ -170,6 +180,8 @@ export function toggleHeight({ isToggled, duration, initProps, hideProps, transi
         fastdom.flush();
 
         const endHeight = height(el) + (inProgress ? 0 : inner);
+        duration = velocity * el.offsetHeight + duration;
+
         height(el, currentHeight);
 
         return (

@@ -5,6 +5,7 @@
 ## Added
 
 - Add `box-shadow` to `toggleHeight()` hide properties
+- Add adaptive velocity to Alert and Accordion components
  
 ## Changed
 
