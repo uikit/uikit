@@ -333,7 +333,7 @@ function getValue(steps, percent) {
     return isNumber(start) ? start + Math.abs(start - end) * p * (start < end ? 1 : -1) : +end;
 }
 
-const unitRe = /^-?\d+([^\s]*)/;
+const unitRe = /^-?\d+(\S*)/;
 function getUnit(steps, defaultUnit) {
     for (const step of steps) {
         const match = step.match?.(unitRe);
