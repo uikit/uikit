@@ -45,13 +45,13 @@ export default {
                 return target ? $$(target, $el) : [$el];
             },
 
-            watch(elements, prev) {
+            watch(elements) {
                 if (this.hidden) {
                     css(filter(elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
                 }
 
-                if (prev) {
-                    this.$reset();
+                for (const element of elements) {
+                    this._observer.observe(element);
                 }
             },
 
@@ -61,9 +61,10 @@ export default {
 
     connected() {
         this._data.elements = new Map();
+
         this.registerObserver(
-            observeIntersection(
-                this.elements,
+            (this._observer = observeIntersection(
+                [],
                 (records) => {
                     const elements = this._data.elements;
                     for (const { target: el, isIntersecting } of records) {
@@ -89,7 +90,7 @@ export default {
                     }px`,
                 },
                 false
-            )
+            ))
         );
     },
 
@@ -97,6 +98,8 @@ export default {
         for (const [el, state] of this._data.elements.entries()) {
             removeClass(el, this.inViewClass, state?.cls || '');
         }
+
+        this._observer = null;
     },
 
     update: [

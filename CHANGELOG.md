@@ -15,6 +15,7 @@
 
 - Fix toggling accordion item while transition is in progress
 - Fix Drop positioning with `boundaryAlign: true`
+- Fix Scrollspy component not triggering in some cases
 
 ## 3.14.0 (April 27, 2022)
 
