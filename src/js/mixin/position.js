@@ -60,7 +60,7 @@ export default {
                 attach,
                 offset,
                 boundary,
-                viewportPadding: this.viewportPadding,
+                viewportPadding: this.boundaryAlign ? 0 : this.viewportPadding,
                 flip: this.flip,
             });
         },

@@ -14,6 +14,7 @@
 ## Fixed
 
 - Fix toggling accordion item while transition is in progress
+- Fix Drop positioning with `boundaryAlign: true`
 
 ## 3.14.0 (April 27, 2022)
 
