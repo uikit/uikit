@@ -49,6 +49,10 @@ function attachTo(element, target, options) {
     return position;
 }
 
+function moveBy(start, end, dim) {
+    return start === 'center' ? dim / 2 : start === end ? dim : 0;
+}
+
 function attachToWithFlip(element, target, options) {
     const position = attachTo(element, target, options);
     const targetDim = offset(target);
@@ -172,10 +176,6 @@ function attachToWithFlip(element, target, options) {
     return offsetPosition;
 }
 
-function moveBy(start, end, dim) {
-    return start === 'center' ? dim / 2 : start === end ? dim : 0;
-}
-
 function getIntersectionArea(...rects) {
     let area = {};
     for (const rect of rects) {
@@ -188,7 +188,7 @@ function getIntersectionArea(...rects) {
 }
 
 function isInScrollArea(position, scrollElement, dir) {
-    const viewport = offsetViewport(scrollElement);
+    const viewport = offsetViewport(scrollElement, false);
     const [prop, , start, end] = dirs[dir];
     viewport[start] -= scrollElement[`scroll${ucfirst(start)}`];
     viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`];
