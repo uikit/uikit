@@ -153,11 +153,6 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scroll
 export function offsetViewport(scrollElement) {
     let viewportElement = getViewport(scrollElement);
 
-    // iOS 12 returns <body> as scrollingElement
-    if (viewportElement === scrollingElement(viewportElement)) {
-        viewportElement = document.documentElement;
-    }
-
     let rect = offset(viewportElement);
     for (let [prop, dir, start, end] of [
         ['width', 'x', 'left', 'right'],
@@ -166,9 +161,8 @@ export function offsetViewport(scrollElement) {
         if (!isWindow(getViewport(viewportElement))) {
             rect[start] += toFloat(css(viewportElement, `border${ucfirst(start)}Width`));
         }
-        rect[prop] = rect[dir] = (
-            isWindow(viewportElement) ? scrollingElement(viewportElement) : viewportElement
-        )[`client${ucfirst(prop)}`];
+        rect[prop] = rect[dir] =
+            viewportElement[(isWindow(viewportElement) ? 'inner' : 'client') + ucfirst(prop)];
         rect[end] = rect[prop] + rect[start];
     }
     return rect;
