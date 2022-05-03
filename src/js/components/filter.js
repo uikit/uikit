@@ -194,7 +194,7 @@ function matchFilter(
 }
 
 function isEqualList(listA, listB) {
-    return listA.length === listB.length && listA.every((el) => ~listB.indexOf(el));
+    return listA.length === listB.length && listA.every((el) => listB.includes(el));
 }
 
 function getSelector({ filter }) {

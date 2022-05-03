@@ -47,7 +47,7 @@ export default {
             for (const row of rows) {
                 for (const column of row) {
                     toggleClass(column, this.margin, rows[0] !== row);
-                    toggleClass(column, this.firstColumn, !!~columns[0].indexOf(column));
+                    toggleClass(column, this.firstColumn, columns[0].includes(column));
                 }
             }
         },

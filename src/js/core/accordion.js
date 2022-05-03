@@ -28,7 +28,6 @@ export default {
         multiple: Boolean,
         toggle: String,
         content: String,
-        transition: String,
         offset: Number,
     },
 
@@ -41,19 +40,16 @@ export default {
         clsOpen: 'uk-open',
         toggle: '> .uk-accordion-title',
         content: '> .uk-accordion-content',
-        transition: 'ease',
         offset: 0,
     },
 
     computed: {
         items: {
             get({ targets }, $el) {
-                return $$(targets, $el).filter((el) => $(this.content, el));
+                return $$(targets, $el);
             },
 
             watch(items, prev) {
-                items.forEach((el) => hide($(this.content, el), !hasClass(el, this.clsOpen)));
-
                 if (prev || hasClass(items, this.clsOpen)) {
                     return;
                 }
@@ -72,6 +68,26 @@ export default {
 
         toggles({ toggle }) {
             return this.items.map((item) => $(toggle, item));
+        },
+
+        contents: {
+            get({ content }) {
+                return this.items.map((item) => $(content, item));
+            },
+
+            watch(items) {
+                for (const el of items) {
+                    hide(
+                        el,
+                        !hasClass(
+                            this.items.find((item) => item.contains(el)),
+                            this.clsOpen
+                        )
+                    );
+                }
+            },
+
+            immediate: true,
         },
     },
 

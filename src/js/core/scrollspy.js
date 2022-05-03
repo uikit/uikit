@@ -4,6 +4,7 @@ import {
     css,
     filter,
     data as getData,
+    isEqual,
     observeIntersection,
     once,
     removeClass,
@@ -50,7 +51,7 @@ export default {
                     css(filter(elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
                 }
 
-                if (prev) {
+                if (!isEqual(elements, prev)) {
                     this.$reset();
                 }
             },
