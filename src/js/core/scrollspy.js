@@ -4,6 +4,7 @@ import {
     css,
     filter,
     data as getData,
+    isEqual,
     observeIntersection,
     once,
     removeClass,
@@ -45,13 +46,13 @@ export default {
                 return target ? $$(target, $el) : [$el];
             },
 
-            watch(elements) {
+            watch(elements, prev) {
                 if (this.hidden) {
                     css(filter(elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
                 }
 
-                for (const element of elements) {
-                    this._observer.observe(element);
+                if (!isEqual(elements, prev)) {
+                    this.$reset();
                 }
             },
 
@@ -61,10 +62,9 @@ export default {
 
     connected() {
         this._data.elements = new Map();
-
         this.registerObserver(
-            (this._observer = observeIntersection(
-                [],
+            observeIntersection(
+                this.elements,
                 (records) => {
                     const elements = this._data.elements;
                     for (const { target: el, isIntersecting } of records) {
@@ -90,7 +90,7 @@ export default {
                     }px`,
                 },
                 false
-            ))
+            )
         );
     },
 
@@ -98,8 +98,6 @@ export default {
         for (const [el, state] of this._data.elements.entries()) {
             removeClass(el, this.inViewClass, state?.cls || '');
         }
-
-        this._observer = null;
     },
 
     update: [
