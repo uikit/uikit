@@ -1,4 +1,4 @@
-/*! UIkit 3.14.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.14.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2474,7 +2474,7 @@
         const {
           $options: { computed } } =
         this;
-        const values = { ...(initial ? {} : this._computed) };
+        const values = { ...this._computed };
         this._computed = {};
 
         for (const key in computed) {
@@ -2954,7 +2954,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.14.0';
+    UIkit.version = '3.14.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3046,6 +3046,7 @@
         cls: Boolean,
         animation: 'list',
         duration: Number,
+        velocity: Number,
         origin: String,
         transition: String },
 
@@ -3054,8 +3055,9 @@
         cls: false,
         animation: [false],
         duration: 200,
+        velocity: 0.2,
         origin: false,
-        transition: 'linear',
+        transition: 'ease',
         clsEnter: 'uk-togglabe-enter',
         clsLeave: 'uk-togglabe-leave',
 
@@ -3065,7 +3067,8 @@
           paddingTop: '',
           paddingBottom: '',
           marginTop: '',
-          marginBottom: '' },
+          marginBottom: '',
+          boxShadow: '' },
 
 
         hideProps: {
@@ -3074,7 +3077,8 @@
           paddingTop: 0,
           paddingBottom: 0,
           marginTop: 0,
-          marginBottom: 0 } },
+          marginBottom: 0,
+          boxShadow: 'none' } },
 
 
 
@@ -3169,7 +3173,15 @@
 
 
 
-    function toggleHeight(_ref3) {let { isToggled, duration, initProps, hideProps, transition, _toggle } = _ref3;
+    function toggleHeight(_ref3)
+
+
+
+
+
+
+
+    {let { isToggled, duration, velocity, initProps, hideProps, transition, _toggle } = _ref3;
       return (el, show) => {
         const inProgress = Transition.inProgress(el);
         const inner = el.hasChildNodes() ?
@@ -3190,6 +3202,8 @@
         fastdom.flush();
 
         const endHeight = height(el) + (inProgress ? 0 : inner);
+        duration = velocity * el.offsetHeight + duration;
+
         height(el, currentHeight);
 
         return (
@@ -3237,7 +3251,6 @@
         multiple: Boolean,
         toggle: String,
         content: String,
-        transition: String,
         offset: Number },
 
 
@@ -3250,19 +3263,16 @@
         clsOpen: 'uk-open',
         toggle: '> .uk-accordion-title',
         content: '> .uk-accordion-content',
-        transition: 'ease',
         offset: 0 },
 
 
       computed: {
         items: {
           get(_ref, $el) {let { targets } = _ref;
-            return $$(targets, $el).filter((el) => $(this.content, el));
+            return $$(targets, $el);
           },
 
           watch(items, prev) {
-            items.forEach((el) => hide($(this.content, el), !hasClass(el, this.clsOpen)));
-
             if (prev || hasClass(items, this.clsOpen)) {
               return;
             }
@@ -3281,7 +3291,27 @@
 
         toggles(_ref2) {let { toggle } = _ref2;
           return this.items.map((item) => $(toggle, item));
-        } },
+        },
+
+        contents: {
+          get(_ref3) {let { content } = _ref3;
+            return this.items.map((item) => $(content, item));
+          },
+
+          watch(items) {
+            for (const el of items) {
+              hide(
+              el,
+              !hasClass(
+              this.items.find((item) => item.contains(el)),
+              this.clsOpen));
+
+
+            }
+          },
+
+          immediate: true } },
+
 
 
       connected() {
@@ -3592,7 +3622,7 @@
             attach,
             offset: offset$1,
             boundary,
-            viewportPadding: this.viewportPadding,
+            viewportPadding: this.boundaryAlign ? 0 : this.viewportPadding,
             flip: this.flip });
 
         } } };
@@ -4090,7 +4120,7 @@
           for (const row of rows) {
             for (const column of row) {
               toggleClass(column, this.margin, rows[0] !== row);
-              toggleClass(column, this.firstColumn, !!~columns[0].indexOf(column));
+              toggleClass(column, this.firstColumn, columns[0].includes(column));
             }
           }
         },
@@ -6418,7 +6448,7 @@
               css(filter$1(elements, ":not(." + this.inViewClass + ")"), 'visibility', 'hidden');
             }
 
-            if (prev) {
+            if (!isEqual(elements, prev)) {
               this.$reset();
             }
           },
@@ -8023,7 +8053,7 @@
     }
 
     function isEqualList(listA, listB) {
-      return listA.length === listB.length && listA.every((el) => ~listB.indexOf(el));
+      return listA.length === listB.length && listA.every((el) => listB.includes(el));
     }
 
     function getSelector(_ref4) {let { filter } = _ref4;
@@ -9602,7 +9632,7 @@
       return isNumber(start) ? start + Math.abs(start - end) * p * (start < end ? 1 : -1) : +end;
     }
 
-    const unitRe = /^-?\d+([^\s]*)/;
+    const unitRe = /^-?\d+(\S*)/;
     function getUnit(stops, defaultUnit) {
       for (const stop of stops) {
         const match = stop.match == null ? void 0 : stop.match(unitRe);
