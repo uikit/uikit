@@ -2,16 +2,16 @@
 
 ## 3.14.1 (May 3, 2022)
 
-## Added
+### Added
 
 - Add `box-shadow` to `toggleHeight()` hide properties
 - Add adaptive velocity to Alert and Accordion components
  
-## Changed
+### Changed
 
 - Set `transition` option to `ease` by default in Togglable mixin
 
-## Fixed
+### Fixed
 
 - Fix toggling accordion item while transition is in progress
 - Fix Drop positioning with `boundaryAlign: true`
