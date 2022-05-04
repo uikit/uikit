@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Scroll component on iOS 12
+- Revert: Height Viewport component sets `uk-height-viewport` class to reduce initial layout shifts
 
 ## 3.14.1 (May 3, 2022)
 
