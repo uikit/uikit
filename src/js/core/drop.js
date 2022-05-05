@@ -8,6 +8,7 @@ import {
     apply,
     attr,
     css,
+    getCssVar,
     hasClass,
     includes,
     isTouch,
@@ -15,7 +16,6 @@ import {
     MouseTracker,
     observeResize,
     offset,
-    offsetViewport,
     on,
     once,
     parent,
@@ -28,6 +28,7 @@ import {
     removeClass,
     scrollParents,
     toggleClass,
+    toPx,
     within,
 } from 'uikit-util';
 
@@ -378,13 +379,13 @@ export default {
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundary = query(this.boundary, this.$el);
-            const [scrollParent] = scrollParents(this.$el);
-            const scrollParentOffset = offsetViewport(scrollParent);
+            const scrollParentOffset = offset(scrollParents(this.$el)[0]);
             const boundaryOffset = boundary ? offset(boundary) : scrollParentOffset;
 
             css(this.$el, 'maxWidth', '');
             const maxWidth =
-                scrollParentOffset.width - (this.boundaryAlign ? 0 : 2 * this.viewportPadding);
+                scrollParentOffset.width -
+                2 * toPx(getCssVar('position-viewport-offset', this.$el));
 
             if (this.pos[1] === 'justify') {
                 const prop = this.axis === 'y' ? 'width' : 'height';

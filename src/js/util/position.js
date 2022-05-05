@@ -63,7 +63,7 @@ function attachToWithFlip(element, target, options) {
         offset: elOffset,
         boundary,
         viewport,
-        viewportPadding,
+        viewportOffset,
     } = options;
 
     let viewports = scrollParents(element);
@@ -84,9 +84,9 @@ function attachToWithFlip(element, target, options) {
 
         viewport = getIntersectionArea(...viewports.filter(Boolean).map(offsetViewport));
 
-        if (viewportPadding) {
-            viewport[start] += viewportPadding;
-            viewport[end] -= viewportPadding;
+        if (viewportOffset) {
+            viewport[start] += viewportOffset;
+            viewport[end] -= viewportOffset;
         }
 
         if (boundary && !willFlip && position[prop] <= offset(boundary)[prop]) {
