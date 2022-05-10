@@ -156,6 +156,10 @@ export default {
         {
             name: 'click',
 
+            filter() {
+                return includes(['click', 'hover'], this.mode);
+            },
+
             handler(e) {
                 let link;
                 if (

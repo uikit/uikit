@@ -5,9 +5,10 @@
 ### Fixed
 
 - Fix Scroll component on iOS 12
-- Revert: Height Viewport component sets `uk-height-viewport` class to reduce initial layout shifts
 - Fix offset calculation in Drop component
 - Fix `-justify` positioning in Drop component
+- Fix Toggle component in `mode:media` default prevents click event
+- Revert: Height Viewport component sets `uk-height-viewport` class to reduce initial layout shifts
 
 ## 3.14.1 (May 3, 2022)
 
