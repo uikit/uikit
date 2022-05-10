@@ -379,7 +379,9 @@ export default {
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundary = query(this.boundary, this.$el);
-            const scrollParentOffset = offset(scrollParents(this.$el)[0]);
+            const scrollParentOffset = offset(
+                scrollParents(boundary && this.boundaryAlign ? boundary : this.$el)[0]
+            );
             const boundaryOffset = boundary ? offset(boundary) : scrollParentOffset;
 
             css(this.$el, 'maxWidth', '');
@@ -389,9 +391,15 @@ export default {
 
             if (this.pos[1] === 'justify') {
                 const prop = this.axis === 'y' ? 'width' : 'height';
-                const targetOffset = offset(this.target);
-                const alignTo = this.boundaryAlign ? boundaryOffset : targetOffset;
-                css(this.$el, prop, alignTo[prop]);
+                css(
+                    this.$el,
+                    prop,
+                    Math.min(
+                        (boundary ? boundaryOffset : offset(this.target))[prop],
+                        scrollParentOffset[prop] -
+                            2 * toPx(getCssVar('position-viewport-offset', this.$el))
+                    )
+                );
             } else if (this.$el.offsetWidth > maxWidth) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }
