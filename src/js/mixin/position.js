@@ -1,14 +1,4 @@
-import {
-    $,
-    flipPosition,
-    getCssVar,
-    offset as getOffset,
-    includes,
-    isNumeric,
-    isRtl,
-    positionAt,
-    toPx,
-} from 'uikit-util';
+import { flipPosition, getCssVar, includes, isRtl, positionAt, toPx } from 'uikit-util';
 
 export default {
     props: {
@@ -32,15 +22,11 @@ export default {
         positionAt(element, target, boundary) {
             const [dir, align] = this.pos;
 
-            let { offset } = this;
-            if (!isNumeric(offset)) {
-                const node = $(offset);
-                offset = node
-                    ? getOffset(node)[this.axis === 'x' ? 'left' : 'top'] -
-                      getOffset(target)[this.axis === 'x' ? 'right' : 'bottom']
-                    : 0;
-            }
-            offset = toPx(offset) + toPx(getCssVar('position-offset', element));
+            let offset = toPx(
+                this.offset === false ? getCssVar('position-offset', element) : this.offset,
+                this.axis === 'x' ? 'width' : 'height',
+                element
+            );
             offset = [includes(['left', 'top'], dir) ? -offset : +offset, 0];
 
             const attach = {
