@@ -157,7 +157,7 @@ export default {
             name: 'click',
 
             filter() {
-                return includes(['click', 'hover'], this.mode);
+                return ['click', 'hover'].some((mode) => includes(this.mode, mode));
             },
 
             handler(e) {
