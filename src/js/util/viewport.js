@@ -158,11 +158,13 @@ export function offsetViewport(scrollElement) {
         ['width', 'x', 'left', 'right'],
         ['height', 'y', 'top', 'bottom'],
     ]) {
-        if (!isWindow(getViewport(viewportElement))) {
+        if (!isWindow(viewportElement)) {
             rect[start] += toFloat(css(viewportElement, `border${ucfirst(start)}Width`));
+        } else {
+            // iOS 12 returns <body> as scrollingElement
+            viewportElement = scrollingElement(viewportElement);
         }
-        rect[prop] = rect[dir] =
-            viewportElement[(isWindow(viewportElement) ? 'inner' : 'client') + ucfirst(prop)];
+        rect[prop] = rect[dir] = viewportElement[`client${ucfirst(prop)}`];
         rect[end] = rect[prop] + rect[start];
     }
     return rect;
