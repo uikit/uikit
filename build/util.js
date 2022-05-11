@@ -11,10 +11,10 @@ import alias from '@rollup/plugin-alias';
 import modify from 'rollup-plugin-modify';
 import { babel } from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
-import { terser } from 'rollup-plugin-terser';
 import { basename, dirname, join } from 'path';
 import { exec as execImport } from 'child_process';
 import { rollup, watch as rollupWatch } from 'rollup';
+import { minify as esbuildMinify } from 'rollup-plugin-esbuild';
 
 const limit = pLimit(Number(process.env.cpus || 2));
 
@@ -148,7 +148,13 @@ export async function compile(file, dest, { external, globals, name, aliases, re
         output.push({
             ...outputOptions,
             file: `${dest}.min.js`,
-            plugins: [debug ? undefined : terser()],
+            plugins: [
+                debug
+                    ? undefined
+                    : esbuildMinify({
+                          target: 'safari12',
+                      }),
+            ],
         });
     }
 
