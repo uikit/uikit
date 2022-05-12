@@ -143,19 +143,21 @@ function attachToWithFlip(element, target, options) {
                     return false;
                 }
 
-                const newPos = attachToWithFlip(element, target, {
-                    ...options,
-                    attach: {
-                        element: elAttach.map(flipDir).reverse(),
-                        target: targetAttach.map(flipDir).reverse(),
-                    },
-                    offset: elOffset.reverse(),
-                    flip: flip === true ? flip : [...flip, dirs[1 - i][1]],
-                    recursion: true,
-                });
+                if (flip === true || includes(flip, dirs[1 - i][1])) {
+                    const newPos = attachToWithFlip(element, target, {
+                        ...options,
+                        attach: {
+                            element: elAttach.map(flipDir).reverse(),
+                            target: targetAttach.map(flipDir).reverse(),
+                        },
+                        offset: elOffset.reverse(),
+                        flip: flip === true ? flip : [...flip, dirs[1 - i][1]],
+                        recursion: true,
+                    });
 
-                if (newPos && isInScrollArea(newPos, scrollElement, 1 - i)) {
-                    return newPos;
+                    if (newPos && isInScrollArea(newPos, scrollElement, 1 - i)) {
+                        return newPos;
+                    }
                 }
             }
 
