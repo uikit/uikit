@@ -22,12 +22,22 @@ export default {
         positionAt(element, target, boundary) {
             const [dir, align] = this.pos;
 
-            let offset = toPx(
-                this.offset === false ? getCssVar('position-offset', element) : this.offset,
-                this.axis === 'x' ? 'width' : 'height',
-                element
-            );
-            offset = [includes(['left', 'top'], dir) ? -offset : +offset, 0];
+            const mainAxisOffset =
+                toPx(
+                    this.offset === false ? getCssVar('position-offset', element) : this.offset,
+                    this.axis === 'x' ? 'width' : 'height',
+                    element
+                ) * (includes(['left', 'top'], dir) ? -1 : 1);
+
+            const crossAxisOffset = includes(['center', 'justify'], align)
+                ? 0
+                : toPx(
+                      getCssVar('position-shift-offset', element),
+                      this.axis === 'y' ? 'width' : 'height',
+                      element
+                  ) * (includes(['left', 'top'], align) ? 1 : -1);
+
+            let offset = [mainAxisOffset, crossAxisOffset];
 
             const attach = {
                 element: [flipPosition(dir), align],
