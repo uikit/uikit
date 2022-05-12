@@ -7,6 +7,9 @@
 // Variables
 // ========================================================================
 
+@navbar-nav-item-gap:                           30px;
+@navbar-nav-item-padding-horizontal:            0;
+
 @navbar-nav-item-font-size:                     @global-small-font-size;
 
 @navbar-dropdown-margin:                        15px;
@@ -128,18 +131,6 @@
 // ========================================================================
 
 .hook-navbar-misc() {
-
-    /*
-     * Navbar
-     */
-
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-nav:first-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-item:first-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-toggle:first-child { margin-left: -@navbar-nav-item-padding-horizontal; }
-
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-nav:last-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-item:last-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-toggle:last-child { margin-right: -@navbar-nav-item-padding-horizontal; }
 
     /*
      * Grid Divider

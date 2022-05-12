@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add gap variable to navbar items in Navbar component
+
 ### Fixed
 
 - Fix Scroll component on iOS 12
