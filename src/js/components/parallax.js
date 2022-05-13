@@ -74,7 +74,7 @@ export default {
 };
 
 function ease(percent, easing) {
-    return easing >= 0 ? Math.pow(percent, easing + 1) : 1 - Math.pow(1 - percent, -easing + 1);
+    return easing >= 0 ? Math.pow(percent, easing + 1) : 1 - Math.pow(1 - percent, 1 - easing);
 }
 
 // SVG elements do not inherit from HTMLElement
