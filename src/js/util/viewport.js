@@ -171,10 +171,7 @@ export function offsetViewport(scrollElement) {
 }
 
 function scrollingElement(element) {
-    const {
-        document: { scrollingElement },
-    } = toWindow(element);
-    return scrollingElement;
+    return toWindow(element).document.scrollingElement;
 }
 
 function getViewport(scrollElement) {
