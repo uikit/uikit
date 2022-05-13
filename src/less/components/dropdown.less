@@ -22,6 +22,7 @@
 
 @dropdown-z-index:                              @global-z-index + 20;
 @dropdown-margin:                               @global-small-margin;
+@dropdown-viewport-margin:                      15px;
 @dropdown-min-width:                            200px;
 @dropdown-padding:                              15px;
 @dropdown-background:                           @global-muted-background;
@@ -55,7 +56,7 @@
     position: absolute;
     z-index: @dropdown-z-index;
     --uk-position-offset: @dropdown-margin;
-    --uk-position-viewport-offset: 10;
+    --uk-position-viewport-offset: @dropdown-viewport-margin;
     /* 3 */
     box-sizing: border-box;
     min-width: @dropdown-min-width;

@@ -58,7 +58,9 @@
 @navbar-subtitle-font-size:                     @global-small-font-size;
 
 @navbar-dropdown-z-index:                       @global-z-index + 20;
-@navbar-dropdown-margin:                        0px;
+@navbar-dropdown-margin:                        0;
+@navbar-dropdown-shift-margin:                  0;
+@navbar-dropdown-viewport-margin:               15px;
 @navbar-dropdown-width:                         200px;
 @navbar-dropdown-padding:                       15px;
 @navbar-dropdown-background:                    @global-muted-background;
@@ -374,8 +376,8 @@
     position: absolute;
     z-index: @navbar-dropdown-z-index;
     --uk-position-offset: @navbar-dropdown-margin;
-    --uk-position-shift-offset: 0;
-    --uk-position-viewport-offset: 10;
+    --uk-position-shift-offset: @navbar-dropdown-shift-margin;
+    --uk-position-viewport-offset: @navbar-dropdown-viewport-margin;
     /* 3 */
     box-sizing: border-box;
     width: @navbar-dropdown-width;

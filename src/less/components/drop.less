@@ -22,6 +22,7 @@
 
 @drop-z-index:                              @global-z-index + 20;
 @drop-margin:                               @global-margin;
+@drop-viewport-margin:                      15px;
 @drop-width:                                300px;
 
 
@@ -42,7 +43,7 @@
     position: absolute;
     z-index: @drop-z-index;
     --uk-position-offset: @drop-margin;
-    --uk-position-viewport-offset: 10;
+    --uk-position-viewport-offset: @drop-viewport-margin;
     /* 3 */
     box-sizing: border-box;
     width: @drop-width;
