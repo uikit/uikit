@@ -418,17 +418,20 @@
 
 /*
  * Dropbar modifier
- * 1. Set position
- * 2. Bottom padding for dropbar
- * 3. Horizontal padding
+ * 1. Reset dropdown width to prevent to early shifting
+ * 2. Set position
+ * 3. Bottom padding for dropbar
+ * 4. Horizontal padding
  */
 
 .uk-navbar-dropdown-dropbar {
     /* 1 */
-    --uk-position-offset: @navbar-dropdown-dropbar-margin-top;
+    width: auto;
     /* 2 */
-    margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
+    --uk-position-offset: @navbar-dropdown-dropbar-margin-top;
     /* 3 */
+    margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
+    /* 4 */
     padding-left: @navbar-dropdown-dropbar-padding-horizontal;
     padding-right: @navbar-dropdown-dropbar-padding-horizontal;
     .hook-navbar-dropdown-dropbar();
