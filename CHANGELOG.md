@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix logo image not working with text align in Utility component
 - Fix Scroll component on iOS 12
 - Fix offset calculation in Drop component
 - Fix `-justify` positioning in Drop component
