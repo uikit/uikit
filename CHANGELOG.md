@@ -6,6 +6,12 @@
 
 - Add gap variable to navbar items in Navbar component
 
+### Changed
+
+- Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
+- Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
+- Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`
+
 ### Fixed
 
 - Fix Scroll component on iOS 12
