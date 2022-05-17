@@ -13,9 +13,9 @@ import {
     height,
     includes,
     isRtl,
-    isVisible,
     matches,
     noop,
+    observeResize,
     offset,
     once,
     parent,
@@ -309,19 +309,19 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el, pos: [dir] = [] }) {
+            handler(_, { $el }) {
                 if (!hasClass($el, this.clsDrop)) {
                     return;
                 }
 
-                if (dir === 'bottom') {
+                this._observer = observeResize($el, () =>
                     this.transitionTo(
                         offset($el).bottom -
                             offset(this.dropbar).top +
                             toFloat(css($el, 'marginBottom')),
                         $el
-                    );
-                }
+                    )
+                );
             },
         },
 
@@ -365,6 +365,8 @@ export default {
                     return;
                 }
 
+                this._observer.disconnect();
+
                 const active = this.getActive();
 
                 if (!active || active?.$el === $el) {
@@ -381,7 +383,7 @@ export default {
 
         transitionTo(newHeight, el) {
             const { dropbar } = this;
-            const oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
+            const oldHeight = height(dropbar);
 
             el = oldHeight < newHeight && el;
 
@@ -390,7 +392,7 @@ export default {
             height(dropbar, oldHeight);
 
             Transition.cancel([el, dropbar]);
-            return Promise.all([
+            Promise.all([
                 Transition.start(dropbar, { height: newHeight }, this.duration),
                 Transition.start(
                     el,
@@ -399,10 +401,7 @@ export default {
                 ),
             ])
                 .catch(noop)
-                .then(() => {
-                    css(el, { clip: '' });
-                    this.$update(dropbar);
-                });
+                .then(() => css(el, { clip: '' }));
         },
 
         getDropdown(el) {
