@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP mobile_dropdown
+
+### Added
+
+- Add `animate-out` option to Drop component
+
 ## WIP
 
 ### Added

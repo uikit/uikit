@@ -48,6 +48,7 @@ export default {
         delayHide: Number,
         display: String,
         clsDrop: String,
+        animateOut: Boolean,
     },
 
     data: {
@@ -62,6 +63,7 @@ export default {
         animation: ['uk-animation-fade'],
         cls: 'uk-open',
         container: false,
+        animateOut: false,
     },
 
     created() {
@@ -345,7 +347,7 @@ export default {
         },
 
         hide(delay = true) {
-            const hide = () => this.toggleElement(this.$el, false, false);
+            const hide = () => this.toggleElement(this.$el, false, this.animateOut && delay);
 
             this.clearTimers();
 
