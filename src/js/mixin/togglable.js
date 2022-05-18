@@ -5,7 +5,6 @@ import {
     css,
     fastdom,
     hasClass,
-    height,
     includes,
     isBoolean,
     isFunction,
@@ -41,7 +40,7 @@ export default {
 
         initProps: {
             overflow: '',
-            height: '',
+            maxHeight: '',
             paddingTop: '',
             paddingBottom: '',
             marginTop: '',
@@ -51,7 +50,7 @@ export default {
 
         hideProps: {
             overflow: 'hidden',
-            height: 0,
+            maxHeight: 0,
             paddingTop: 0,
             paddingBottom: 0,
             marginTop: 0,
@@ -81,16 +80,11 @@ export default {
                             return Promise.reject();
                         }
 
-                        if (!animate) {
-                            Animation.cancel(el);
-                            Transition.cancel(el);
-                        }
-
                         const promise = (
                             isFunction(animate)
                                 ? animate
                                 : animate === false || !this.hasAnimation
-                                ? this._toggle
+                                ? toggleInstant(this)
                                 : this.hasTransition
                                 ? toggleHeight(this)
                                 : toggleAnimation(this)
@@ -156,6 +150,14 @@ export default {
     },
 };
 
+function toggleInstant({ _toggle }) {
+    return (el, show) => {
+        Animation.cancel(el);
+        Transition.cancel(el);
+        return _toggle(el, show);
+    };
+}
+
 export function toggleHeight({
     isToggled,
     duration,
@@ -171,7 +173,9 @@ export function toggleHeight({
             ? toFloat(css(el.firstElementChild, 'marginTop')) +
               toFloat(css(el.lastElementChild, 'marginBottom'))
             : 0;
-        const currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0;
+        const currentHeight = isVisible(el)
+            ? toFloat(css(el, 'height')) + (inProgress ? 0 : inner)
+            : 0;
 
         Transition.cancel(el);
 
@@ -179,21 +183,21 @@ export function toggleHeight({
             _toggle(el, true);
         }
 
-        height(el, '');
+        css(el, 'maxHeight', '');
 
         // Update child components first
         fastdom.flush();
 
-        const endHeight = height(el) + (inProgress ? 0 : inner);
-        duration = velocity * el.offsetHeight + duration;
+        const endHeight = toFloat(css(el, 'height')) + (inProgress ? 0 : inner);
+        duration = velocity * endHeight + duration;
 
-        height(el, currentHeight);
+        css(el, 'maxHeight', currentHeight);
 
         return (
             show
                 ? Transition.start(
                       el,
-                      { ...initProps, overflow: 'hidden', height: endHeight },
+                      { ...initProps, overflow: 'hidden', maxHeight: endHeight },
                       Math.round(duration * (1 - currentHeight / endHeight)),
                       transition
                   )
