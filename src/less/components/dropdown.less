@@ -5,10 +5,7 @@
 //
 // Adopted:         `uk-dropdown-nav`
 //
-// Modifiers:       `uk-dropdown-top-*`
-//                  `uk-dropdown-bottom-*`
-//                  `uk-dropdown-left-*`
-//                  `uk-dropdown-right-*`
+// Modifiers:       `uk-dropdown-stretch`
 //                  `uk-dropdown-stack`
 //                  `uk-dropdown-grid`
 //
@@ -70,6 +67,16 @@
 
 /* Show */
 .uk-dropdown.uk-open { display: block; }
+
+
+/* Stretch modifier
+ ========================================================================== */
+
+ .uk-dropdown-stretch {
+    --uk-position-offset: 0;
+    --uk-position-viewport-offset: 0;
+    .hook-dropdown-stretch();
+}
 
 
 /* Nav
@@ -146,6 +153,7 @@
 .hook-dropdown-misc();
 
 .hook-dropdown() {}
+.hook-dropdown-stretch() {}
 .hook-dropdown-nav() {}
 .hook-dropdown-nav-item() {}
 .hook-dropdown-nav-item-hover() {}
