@@ -22,22 +22,7 @@ export default {
         positionAt(element, target, boundary) {
             const [dir, align] = this.pos;
 
-            const mainAxisOffset =
-                toPx(
-                    this.offset === false ? getCssVar('position-offset', element) : this.offset,
-                    this.axis === 'x' ? 'width' : 'height',
-                    element
-                ) * (includes(['left', 'top'], dir) ? -1 : 1);
-
-            const crossAxisOffset = includes(['center', 'justify'], align)
-                ? 0
-                : toPx(
-                      getCssVar('position-shift-offset', element),
-                      this.axis === 'y' ? 'width' : 'height',
-                      element
-                  ) * (includes(['left', 'top'], align) ? 1 : -1);
-
-            let offset = [mainAxisOffset, crossAxisOffset];
+            let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
 
             const attach = {
                 element: [flipPosition(dir), align],
@@ -56,8 +41,32 @@ export default {
                 offset,
                 boundary,
                 flip: this.flip,
-                viewportOffset: toPx(getCssVar('position-viewport-offset', element)),
+                viewportOffset: this.getViewportOffset(element),
             });
+        },
+
+        getPositionOffset(element) {
+            return (
+                toPx(
+                    this.offset === false ? getCssVar('position-offset', element) : this.offset,
+                    this.axis === 'x' ? 'width' : 'height',
+                    element
+                ) * (includes(['left', 'top'], this.pos[0]) ? -1 : 1)
+            );
+        },
+
+        getShiftOffset(element) {
+            return includes(['center', 'justify'], this.pos[1])
+                ? 0
+                : toPx(
+                      getCssVar('position-shift-offset', element),
+                      this.axis === 'y' ? 'width' : 'height',
+                      element
+                  ) * (includes(['left', 'top'], this.pos[1]) ? 1 : -1);
+        },
+
+        getViewportOffset(element) {
+            return toPx(getCssVar('position-viewport-offset', element));
         },
     },
 };

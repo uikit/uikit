@@ -9,7 +9,6 @@ import {
     attr,
     css,
     dimensions,
-    getCssVar,
     hasClass,
     includes,
     isTouch,
@@ -30,7 +29,6 @@ import {
     removeClass,
     scrollParents,
     toggleClass,
-    toPx,
     within,
 } from 'uikit-util';
 
@@ -390,11 +388,10 @@ export default {
             );
             const scrollParentOffset = offset(scrollParent);
             const boundaryOffset = boundary ? offset(boundary) : scrollParentOffset;
+            const viewportOffset = this.getViewportOffset(this.$el);
 
             css(this.$el, 'maxWidth', '');
-            const maxWidth =
-                scrollParentOffset.width -
-                2 * toPx(getCssVar('position-viewport-offset', this.$el));
+            const maxWidth = scrollParentOffset.width - 2 * viewportOffset;
 
             if (this.pos[1] === 'justify') {
                 const prop = this.axis === 'y' ? 'width' : 'height';
@@ -403,27 +400,27 @@ export default {
                     prop,
                     Math.min(
                         (boundary ? boundaryOffset : offset(this.target))[prop],
-                        scrollParentOffset[prop] -
-                            2 * toPx(getCssVar('position-viewport-offset', this.$el))
+                        scrollParentOffset[prop] - 2 * viewportOffset
                     )
                 );
             } else if (this.pos[1] === 'stretch') {
                 const viewport = offsetViewport(scrollParent);
                 const targetDim = dimensions(target);
+                const offset = Math.abs(this.getPositionOffset(this.$el)) + viewportOffset;
 
                 css(this.$el, {
                     width:
                         this.axis === 'y'
                             ? viewport.width
-                            : this.pos[0] === 'left'
-                            ? targetDim.left
-                            : viewport.width - targetDim.right,
+                            : (this.pos[0] === 'left'
+                                  ? targetDim.left
+                                  : viewport.width - targetDim.right) - offset,
                     height:
                         this.axis === 'x'
                             ? viewport.height
-                            : this.pos[0] === 'top'
-                            ? targetDim.top
-                            : viewport.height - targetDim.bottom,
+                            : (this.pos[0] === 'top'
+                                  ? targetDim.top
+                                  : viewport.height - targetDim.bottom) - offset,
                 });
             } else if (this.$el.offsetWidth > maxWidth) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
