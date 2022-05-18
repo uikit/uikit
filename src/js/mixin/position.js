@@ -1,4 +1,13 @@
-import { flipPosition, getCssVar, includes, isRtl, positionAt, toPx } from 'uikit-util';
+import {
+    css,
+    dimensions,
+    flipPosition,
+    getCssVar,
+    includes,
+    isRtl,
+    positionAt,
+    toPx,
+} from 'uikit-util';
 
 export default {
     props: {
@@ -34,6 +43,10 @@ export default {
                 }
                 offset = offset.reverse();
             }
+
+            // Ensure none positioned element does not generate scrollbars
+            const elDim = dimensions(element);
+            css(this.$el, { top: -elDim.height, left: -elDim.width });
 
             positionAt(element, target, {
                 attach,
