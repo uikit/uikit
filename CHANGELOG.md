@@ -5,6 +5,7 @@
 ### Added
 
 - Add `animate-out` option to Drop component
+- Add alignment `stretch` to Drop component
 
 ## WIP
 
