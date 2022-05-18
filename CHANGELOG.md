@@ -5,6 +5,7 @@
 ### Added
 
 - Add gap variable to navbar items in Navbar component
+- Add color mode variable to navbar dropdown in Navbar component
 - Add small breakpoint padding variables to Modal component
 
 ### Changed

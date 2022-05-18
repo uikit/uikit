@@ -65,6 +65,7 @@
 @navbar-dropdown-padding:                       15px;
 @navbar-dropdown-background:                    @global-muted-background;
 @navbar-dropdown-color:                         @global-color;
+@navbar-dropdown-color-mode:                    none;
 @navbar-dropdown-grid-gutter-horizontal:        @global-gutter;
 @navbar-dropdown-grid-gutter-vertical:          @navbar-dropdown-grid-gutter-horizontal;
 
@@ -391,6 +392,10 @@
 
 /* Show */
 .uk-navbar-dropdown.uk-open { display: block; }
+
+
+.uk-navbar-dropdown:extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
+.uk-navbar-dropdown:extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
 
 /*
  * Grid
