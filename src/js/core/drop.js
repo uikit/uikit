@@ -379,7 +379,7 @@ export default {
         position() {
             removeClass(this.$el, `${this.clsDrop}-stack`);
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
-            toggleClass(this.$el, `${this.clsDrop}-stretch`, this.pos[1] === 'stretch');
+            toggleClass(this.$el, `${this.clsDrop}-stretch`, this.align === 'stretch');
 
             const boundary = query(this.boundary, this.$el);
             const target = boundary && this.boundaryAlign ? boundary : this.target;
@@ -393,7 +393,7 @@ export default {
             css(this.$el, 'maxWidth', '');
             const maxWidth = scrollParentOffset.width - 2 * viewportOffset;
 
-            if (this.pos[1] === 'justify') {
+            if (this.align === 'justify') {
                 const prop = this.axis === 'y' ? 'width' : 'height';
                 css(
                     this.$el,
@@ -403,7 +403,7 @@ export default {
                         scrollParentOffset[prop] - 2 * viewportOffset
                     )
                 );
-            } else if (this.pos[1] === 'stretch') {
+            } else if (this.align === 'stretch') {
                 const viewport = offsetViewport(scrollParent);
                 const targetDim = dimensions(target);
                 const offset = Math.abs(this.getPositionOffset(this.$el)) + viewportOffset;
@@ -412,13 +412,13 @@ export default {
                     width:
                         this.axis === 'y'
                             ? viewport.width
-                            : (this.pos[0] === 'left'
+                            : (this.dir === 'left'
                                   ? targetDim.left
                                   : viewport.width - targetDim.right) - offset,
                     height:
                         this.axis === 'x'
                             ? viewport.height
-                            : (this.pos[0] === 'top'
+                            : (this.dir === 'top'
                                   ? targetDim.top
                                   : viewport.height - targetDim.bottom) - offset,
                 });

@@ -15,18 +15,17 @@ export default {
 
     connected() {
         this.pos = this.$props.pos.split('-').concat('center').slice(0, 2);
-        this.axis = includes(['top', 'bottom'], this.pos[0]) ? 'y' : 'x';
+        [this.dir, this.align] = this.pos;
+        this.axis = includes(['top', 'bottom'], this.dir) ? 'y' : 'x';
     },
 
     methods: {
         positionAt(element, target, boundary) {
-            const [dir, align] = this.pos;
-
             let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
 
             const attach = {
-                element: [flipPosition(dir), align],
-                target: [dir, align],
+                element: [flipPosition(this.dir), this.align],
+                target: [this.dir, this.align],
             };
 
             if (this.axis === 'y') {
@@ -51,18 +50,18 @@ export default {
                     this.offset === false ? getCssVar('position-offset', element) : this.offset,
                     this.axis === 'x' ? 'width' : 'height',
                     element
-                ) * (includes(['left', 'top'], this.pos[0]) ? -1 : 1)
+                ) * (includes(['left', 'top'], this.dir) ? -1 : 1)
             );
         },
 
         getShiftOffset(element) {
-            return includes(['center', 'justify'], this.pos[1])
+            return includes(['center', 'justify', 'stretch'], this.align)
                 ? 0
                 : toPx(
                       getCssVar('position-shift-offset', element),
                       this.axis === 'y' ? 'width' : 'height',
                       element
-                  ) * (includes(['left', 'top'], this.pos[1]) ? 1 : -1);
+                  ) * (includes(['left', 'top'], this.align) ? 1 : -1);
         },
 
         getViewportOffset(element) {
