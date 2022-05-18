@@ -29,6 +29,8 @@
 
 @navbar-dropdown-box-shadow:                    0 5px 12px rgba(0,0,0,0.15);
 
+@navbar-dropdown-stretch-background:            @global-muted-background;
+
 @navbar-dropbar-box-shadow:                     0 5px 7px rgba(0, 0, 0, 0.05);
 
 @navbar-dropdown-grid-divider-border-width:     @global-border-width;
@@ -101,6 +103,11 @@
 // ========================================================================
 
 .hook-navbar-dropdown() { box-shadow: @navbar-dropdown-box-shadow; }
+
+.hook-navbar-dropdown-stretch() {
+    box-shadow: none;
+    background: @navbar-dropdown-stretch-background;
+}
 
 .hook-navbar-dropdown-dropbar() { box-shadow: none; }
 

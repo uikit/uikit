@@ -393,17 +393,6 @@
 .uk-navbar-dropdown.uk-open { display: block; }
 
 /*
- * Stretch modifier
- */
-
-.uk-navbar-dropdown-stretch {
-    --uk-position-offset: 0;
-    --uk-position-shift-offset: 0;
-    --uk-position-viewport-offset: 0;
-    .hook-navbar-dropdown-stretch();
-}
-
-/*
  * Grid
  * Adopts `uk-grid`
  */
@@ -426,6 +415,17 @@
 .uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 3); }
 .uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 4); }
 .uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 5); }
+
+/*
+ * Stretch modifier
+ */
+
+ .uk-navbar-dropdown-stretch {
+    --uk-position-offset: 0;
+    --uk-position-shift-offset: 0;
+    --uk-position-viewport-offset: 0;
+    .hook-navbar-dropdown-stretch();
+}
 
 /*
  * Dropbar modifier
