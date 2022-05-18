@@ -1,49 +1,53 @@
 {
-  "name": "uikit",
-  "title": "UIkit",
-  "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-  "version": "2.27.5",
-  "homepage": "http://www.getuikit.com",
-  "author": {
-    "name": "UIkit",
-    "email": "info@getuikit.com",
-    "url": "http://www.getuikit.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/uikit/uikit"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/uikit/uikit/blob/master/LICENSE.md"
+    "name": "uikit",
+    "title": "UIkit",
+    "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
+    "version": "2.27.5",
+    "homepage": "http://www.getuikit.com",
+    "keywords": [],
+    "author": {
+        "name": "UIkit",
+        "email": "info@getuikit.com",
+        "url": "http://www.getuikit.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/uikit/uikit"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/uikit/uikit/blob/master/LICENSE.md"
+        }
+    ],
+    "main": "dist/js/uikit.js",
+    "resolutions": {
+        "chalk": "^4.1.2",
+        "graceful-fs": "^4.2.9"
+    },
+    "dependencies": {
+        "node-promise": "^0.5.10"
+    },
+    "devDependencies": {
+        "browser-sync": "^2.6.5",
+        "del": "^0.1.2",
+        "glob": "^4.0.5",
+        "gulp": "^3.9.1",
+        "gulp-concat": "^2.3.4",
+        "gulp-header": "1.0.5",
+        "gulp-ignore": "^1.2.0",
+        "gulp-less": "latest",
+        "gulp-minify-css": "^1.1.1",
+        "gulp-rename": "^1.2.0",
+        "gulp-replace": "^0.4.0",
+        "gulp-rimraf": "latest",
+        "gulp-tap": "latest",
+        "gulp-uglify": "^0.3.1",
+        "gulp-util": "latest",
+        "gulp-watch": "^0.6.9",
+        "gulp-zip": "^2.0.2",
+        "mkdirp": "latest",
+        "promise": "latest",
+        "run-sequence": "^0.3.6"
     }
-  ],
-  "main": "dist/js/uikit.js",
-  "dependencies": {
-    "node-promise": "^0.5.10"
-  },
-  "devDependencies": {
-    "browser-sync": "^2.6.5",
-    "del": "^0.1.2",
-    "glob": "^4.0.5",
-    "gulp": "^3.8.8",
-    "gulp-concat": "^2.3.4",
-    "gulp-header": "1.0.5",
-    "gulp-ignore": "^1.2.0",
-    "gulp-less": "latest",
-    "gulp-minify-css": "^1.1.1",
-    "gulp-rename": "^1.2.0",
-    "gulp-replace": "^0.4.0",
-    "gulp-rimraf": "latest",
-    "gulp-tap": "latest",
-    "gulp-uglify": "^0.3.1",
-    "gulp-util": "latest",
-    "gulp-watch": "^0.6.9",
-    "gulp-zip": "^2.0.2",
-    "mkdirp": "latest",
-    "promise": "latest",
-    "run-sequence": "^0.3.6"
-  },
-  "keywords": []
 }
