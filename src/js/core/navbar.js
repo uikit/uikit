@@ -285,8 +285,8 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el }) {
-                if (!hasClass($el, this.clsDrop)) {
+            handler(_, { $el, align }) {
+                if (!hasClass($el, this.clsDrop) || align === 'stretch') {
                     return;
                 }
 
@@ -309,8 +309,8 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el }) {
-                if (!hasClass($el, this.clsDrop)) {
+            handler(_, { $el, align }) {
+                if (!hasClass($el, this.clsDrop) || align === 'stretch') {
                     return;
                 }
 
@@ -360,8 +360,8 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el }) {
-                if (!hasClass($el, this.clsDrop)) {
+            handler(_, { $el, align }) {
+                if (!hasClass($el, this.clsDrop) || align === 'stretch') {
                     return;
                 }
 
