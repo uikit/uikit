@@ -46,7 +46,7 @@ export default {
 
             // Ensure none positioned element does not generate scrollbars
             const elDim = dimensions(element);
-            css(this.$el, { top: -elDim.height, left: -elDim.width });
+            css(element, { top: -elDim.height, left: -elDim.width });
 
             positionAt(element, target, {
                 attach,
