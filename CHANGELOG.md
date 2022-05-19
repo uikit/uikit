@@ -7,6 +7,7 @@
 - Add `animate-out` option to Drop component
 - Add alignment `stretch` to Drop component
 - Add Height Viewport uses scroll parent as viewport 
+- Add zero z-index utility class to Position component
 
 ## WIP
 
