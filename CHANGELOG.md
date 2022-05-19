@@ -9,6 +9,10 @@
 - Add Height Viewport uses scroll parent as viewport 
 - Add zero z-index utility class to Position component
 
+### Fixed
+
+- Make content clickable for sticky cover and reveal effects
+
 ## WIP
 
 ### Added
