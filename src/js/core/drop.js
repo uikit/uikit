@@ -251,7 +251,7 @@ export default {
                         }
                     }),
 
-                    ...(this.display === 'static'
+                    ...(this.display === 'static' && this.align !== 'stretch'
                         ? []
                         : (() => {
                               const handler = () => this.$emit();
