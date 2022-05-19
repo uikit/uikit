@@ -12,6 +12,7 @@ import {
     noop,
     offset,
     removeClass,
+    scrollParents,
     startsWith,
     toFloat,
     toggleClass,
@@ -230,8 +231,8 @@ function slideHorizontal({ isToggled, duration, velocity, transition, _toggle },
 
         Transition.cancel(el);
 
-        const docEl = document.documentElement;
-        css(docEl, 'overflowX', 'hidden');
+        const [scrollElement] = scrollParents(el);
+        css(scrollElement, 'overflowX', 'hidden');
 
         if (!isToggled(el)) {
             _toggle(el, true);
@@ -243,7 +244,7 @@ function slideHorizontal({ isToggled, duration, velocity, transition, _toggle },
         const percent = visible ? ((width + marginLeft * (right ? -1 : 1)) / width) * 100 : 0;
         const offsetEl = offset(el);
         const useClipPath = right
-            ? offsetEl.right < docEl.clientWidth
+            ? offsetEl.right < scrollElement.clientWidth
             : Math.round(offsetEl.left) > 0;
 
         css(el, {
@@ -280,7 +281,7 @@ function slideHorizontal({ isToggled, duration, velocity, transition, _toggle },
                       transition
                   ).then(() => _toggle(el, false))
         ).then(() => {
-            css(docEl, 'overflowX', '');
+            css(scrollElement, 'overflowX', '');
             css(el, { clipPath: '', marginLeft: '' });
         });
     };
