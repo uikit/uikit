@@ -404,6 +404,9 @@ export default {
                     )
                 );
             } else if (this.align === 'stretch') {
+                this.flip = this.axis === 'y' ? 'x' : 'y';
+                this.display = 'static';
+
                 const viewport = offsetViewport(scrollParent);
                 const targetDim = dimensions(target);
                 const offset = Math.abs(this.getPositionOffset(this.$el)) + viewportOffset;

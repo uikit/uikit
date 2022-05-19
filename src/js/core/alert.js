@@ -11,7 +11,7 @@ export default {
     },
 
     data: {
-        animation: [true],
+        animation: ['slide'],
         selClose: '.uk-alert-close',
         duration: 150,
         hideProps: { opacity: 0, ...Togglable.data.hideProps },

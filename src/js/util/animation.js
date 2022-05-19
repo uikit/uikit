@@ -5,6 +5,7 @@ import { startsWith, toNodes } from './lang';
 import { addClass, hasClass, removeClass, removeClasses } from './class';
 
 export function transition(element, props, duration = 400, timing = 'linear') {
+    duration = Math.round(duration);
     return Promise.all(
         toNodes(element).map(
             (element) =>

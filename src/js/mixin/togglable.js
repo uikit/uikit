@@ -10,7 +10,9 @@ import {
     isFunction,
     isVisible,
     noop,
+    offset,
     removeClass,
+    startsWith,
     toFloat,
     toggleClass,
     toNodes,
@@ -65,7 +67,7 @@ export default {
         },
 
         hasTransition({ animation }) {
-            return this.hasAnimation && animation[0] === true;
+            return startsWith(animation[0], 'slide');
         },
     },
 
@@ -86,7 +88,7 @@ export default {
                                 : animate === false || !this.hasAnimation
                                 ? toggleInstant(this)
                                 : this.hasTransition
-                                ? toggleHeight(this)
+                                ? toggleTransition(this)
                                 : toggleAnimation(this)
                         )(el, show);
 
@@ -158,7 +160,17 @@ function toggleInstant({ _toggle }) {
     };
 }
 
-export function toggleHeight({
+function toggleTransition(cmp) {
+    switch (cmp.animation[0]) {
+        case 'slide-left':
+            return slideHorizontal(cmp);
+        case 'slide-right':
+            return slideHorizontal(cmp, true);
+    }
+    return slide(cmp);
+}
+
+export function slide({
     isToggled,
     duration,
     velocity,
@@ -198,16 +210,79 @@ export function toggleHeight({
                 ? Transition.start(
                       el,
                       { ...initProps, overflow: 'hidden', maxHeight: endHeight },
-                      Math.round(duration * (1 - currentHeight / endHeight)),
+                      duration * (1 - currentHeight / endHeight),
                       transition
                   )
                 : Transition.start(
                       el,
                       hideProps,
-                      Math.round(duration * (currentHeight / endHeight)),
+                      duration * (currentHeight / endHeight),
                       transition
                   ).then(() => _toggle(el, false))
         ).then(() => css(el, initProps));
+    };
+}
+
+function slideHorizontal({ isToggled, duration, velocity, transition, _toggle }, right) {
+    return (el, show) => {
+        const visible = isVisible(el);
+        const marginLeft = toFloat(css(el, 'marginLeft'));
+
+        Transition.cancel(el);
+
+        const docEl = document.documentElement;
+        css(docEl, 'overflowX', 'hidden');
+
+        if (!isToggled(el)) {
+            _toggle(el, true);
+        }
+
+        const width = toFloat(css(el, 'width'));
+        duration = velocity * width + duration;
+
+        const percent = visible ? ((width + marginLeft * (right ? -1 : 1)) / width) * 100 : 0;
+        const offsetEl = offset(el);
+        const useClipPath = right
+            ? offsetEl.right < docEl.clientWidth
+            : Math.round(offsetEl.left) > 0;
+
+        css(el, {
+            clipPath: useClipPath
+                ? right
+                    ? `polygon(0 0,${percent}% 0,${percent}% 100%,0 100%)`
+                    : `polygon(${100 - percent}% 0,100% 0,100% 100%,${100 - percent}% 100%)`
+                : '',
+            marginLeft: (((100 - percent) * (right ? 1 : -1)) / 100) * width,
+        });
+
+        return (
+            show
+                ? Transition.start(
+                      el,
+                      {
+                          clipPath: useClipPath ? `polygon(0 0,100% 0,100% 100%,0 100%)` : '',
+                          marginLeft: 0,
+                      },
+                      duration * (1 - percent / 100),
+                      transition
+                  )
+                : Transition.start(
+                      el,
+                      {
+                          clipPath: useClipPath
+                              ? right
+                                  ? `polygon(0 0,0 0,0 100%,0 100%)`
+                                  : `polygon(100% 0,100% 0,100% 100%,100% 100%)`
+                              : '',
+                          marginLeft: (right ? 1 : -1) * width,
+                      },
+                      duration * (percent / 100),
+                      transition
+                  ).then(() => _toggle(el, false))
+        ).then(() => {
+            css(docEl, 'overflowX', '');
+            css(el, { clipPath: '', marginLeft: '' });
+        });
     };
 }
 
