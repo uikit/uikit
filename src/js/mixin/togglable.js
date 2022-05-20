@@ -182,13 +182,14 @@ export function slide({
 }) {
     return (el, show) => {
         const inProgress = Transition.inProgress(el);
-        const inner = el.hasChildNodes()
-            ? toFloat(css(el.firstElementChild, 'marginTop')) +
-              toFloat(css(el.lastElementChild, 'marginBottom'))
-            : 0;
-        const currentHeight = isVisible(el)
-            ? toFloat(css(el, 'height')) + (inProgress ? 0 : inner)
-            : 0;
+        const inner =
+            !inProgress && el.hasChildNodes()
+                ? toFloat(css(el.firstElementChild, 'marginTop')) +
+                  toFloat(css(el.lastElementChild, 'marginBottom'))
+                : 0;
+        const currentHeight = isVisible(el) ? toFloat(css(el, 'height')) + inner : 0;
+
+        const props = inProgress ? css(el, Object.keys(initProps)) : show ? hideProps : initProps;
 
         Transition.cancel(el);
 
@@ -201,10 +202,10 @@ export function slide({
         // Update child components first
         fastdom.flush();
 
-        const endHeight = toFloat(css(el, 'height')) + (inProgress ? 0 : inner);
+        const endHeight = toFloat(css(el, 'height')) + inner;
         duration = velocity * endHeight + duration;
 
-        css(el, 'maxHeight', currentHeight);
+        css(el, { ...props, maxHeight: currentHeight });
 
         return (
             show
