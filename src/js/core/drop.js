@@ -408,22 +408,22 @@ export default {
                 this.display = 'static';
 
                 const viewport = offsetViewport(scrollParent);
-                const targetDim = dimensions(target);
-                const offset = Math.abs(this.getPositionOffset(this.$el)) + viewportOffset;
+                const targetDim = offset(target);
+                const elOffset = Math.abs(this.getPositionOffset(this.$el)) + viewportOffset;
 
                 css(this.$el, {
                     width:
                         this.axis === 'y'
                             ? viewport.width
                             : (this.dir === 'left'
-                                  ? targetDim.left
-                                  : viewport.width - targetDim.right) - offset,
+                                  ? targetDim.left - viewport.left
+                                  : viewport.right - targetDim.right) - elOffset,
                     height:
                         this.axis === 'x'
                             ? viewport.height
                             : (this.dir === 'top'
-                                  ? targetDim.top
-                                  : viewport.height - targetDim.bottom) - offset,
+                                  ? targetDim.top - viewport.top
+                                  : viewport.bottom - targetDim.bottom) - elOffset,
                 });
             } else if (this.$el.offsetWidth > maxWidth) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
