@@ -8,7 +8,6 @@ import {
     apply,
     attr,
     css,
-    dimensions,
     hasClass,
     includes,
     isTouch,
