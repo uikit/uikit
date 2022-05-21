@@ -418,12 +418,16 @@
 
 /*
  * Stretch modifier
+ * 1. Allow scrolling
  */
 
  .uk-navbar-dropdown-stretch {
     --uk-position-offset: 0;
     --uk-position-shift-offset: 0;
     --uk-position-viewport-offset: 0;
+    /* 1 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     .hook-navbar-dropdown-stretch();
 }
 

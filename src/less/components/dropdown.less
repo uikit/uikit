@@ -72,9 +72,16 @@
 /* Stretch modifier
  ========================================================================== */
 
- .uk-dropdown-stretch {
+/*
+ * 1. Allow scrolling
+ */
+
+.uk-dropdown-stretch {
     --uk-position-offset: 0;
     --uk-position-viewport-offset: 0;
+    /* 1 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     .hook-dropdown-stretch();
 }
 
