@@ -45,7 +45,7 @@ export default {
             let minHeight = '';
             const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
-            const [scrollElement] = scrollParents(this.$el);
+            const [scrollElement] = scrollParents(this.$el, /auto|scroll/);
             const { height: viewportHeight } = offsetViewport(scrollElement);
 
             if (this.expand) {

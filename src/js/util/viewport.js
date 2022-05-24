@@ -128,7 +128,7 @@ export function scrolledOver(element, startOffset = 0, endOffset = 0) {
     return clamp((scrollTop - start) / (end - start));
 }
 
-export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scrollable = false) {
+export function scrollParents(element, overflowRe = /auto|scroll|hidden|clip/, scrollable = false) {
     const scrollEl = scrollingElement(element);
 
     let ancestors = parents(element).reverse();
