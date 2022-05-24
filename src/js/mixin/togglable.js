@@ -5,13 +5,15 @@ import {
     css,
     fastdom,
     hasClass,
-    height,
     includes,
     isBoolean,
     isFunction,
     isVisible,
     noop,
+    offset,
     removeClass,
+    scrollParents,
+    startsWith,
     toFloat,
     toggleClass,
     toNodes,
@@ -41,7 +43,7 @@ export default {
 
         initProps: {
             overflow: '',
-            height: '',
+            maxHeight: '',
             paddingTop: '',
             paddingBottom: '',
             marginTop: '',
@@ -51,7 +53,7 @@ export default {
 
         hideProps: {
             overflow: 'hidden',
-            height: 0,
+            maxHeight: 0,
             paddingTop: 0,
             paddingBottom: 0,
             marginTop: 0,
@@ -66,7 +68,7 @@ export default {
         },
 
         hasTransition({ animation }) {
-            return this.hasAnimation && animation[0] === true;
+            return startsWith(animation[0], 'slide');
         },
     },
 
@@ -81,18 +83,13 @@ export default {
                             return Promise.reject();
                         }
 
-                        if (!animate) {
-                            Animation.cancel(el);
-                            Transition.cancel(el);
-                        }
-
                         const promise = (
                             isFunction(animate)
                                 ? animate
                                 : animate === false || !this.hasAnimation
-                                ? this._toggle
+                                ? toggleInstant(this)
                                 : this.hasTransition
-                                ? toggleHeight(this)
+                                ? toggleTransition(this)
                                 : toggleAnimation(this)
                         )(el, show);
 
@@ -156,7 +153,25 @@ export default {
     },
 };
 
-export function toggleHeight({
+function toggleInstant({ _toggle }) {
+    return (el, show) => {
+        Animation.cancel(el);
+        Transition.cancel(el);
+        return _toggle(el, show);
+    };
+}
+
+function toggleTransition(cmp) {
+    switch (cmp.animation[0]) {
+        case 'slide-left':
+            return slideHorizontal(cmp);
+        case 'slide-right':
+            return slideHorizontal(cmp, true);
+    }
+    return slide(cmp);
+}
+
+export function slide({
     isToggled,
     duration,
     velocity,
@@ -167,11 +182,14 @@ export function toggleHeight({
 }) {
     return (el, show) => {
         const inProgress = Transition.inProgress(el);
-        const inner = el.hasChildNodes()
-            ? toFloat(css(el.firstElementChild, 'marginTop')) +
-              toFloat(css(el.lastElementChild, 'marginBottom'))
-            : 0;
-        const currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0;
+        const inner =
+            !inProgress && el.hasChildNodes()
+                ? toFloat(css(el.firstElementChild, 'marginTop')) +
+                  toFloat(css(el.lastElementChild, 'marginBottom'))
+                : 0;
+        const currentHeight = isVisible(el) ? toFloat(css(el, 'height')) + inner : 0;
+
+        const props = inProgress ? css(el, Object.keys(initProps)) : show ? hideProps : initProps;
 
         Transition.cancel(el);
 
@@ -179,31 +197,94 @@ export function toggleHeight({
             _toggle(el, true);
         }
 
-        height(el, '');
+        css(el, 'maxHeight', '');
 
         // Update child components first
         fastdom.flush();
 
-        const endHeight = height(el) + (inProgress ? 0 : inner);
-        duration = velocity * el.offsetHeight + duration;
+        const endHeight = toFloat(css(el, 'height')) + inner;
+        duration = velocity * endHeight + duration;
 
-        height(el, currentHeight);
+        css(el, { ...props, maxHeight: currentHeight });
 
         return (
             show
                 ? Transition.start(
                       el,
-                      { ...initProps, overflow: 'hidden', height: endHeight },
-                      Math.round(duration * (1 - currentHeight / endHeight)),
+                      { ...initProps, overflow: 'hidden', maxHeight: endHeight },
+                      duration * (1 - currentHeight / endHeight),
                       transition
                   )
                 : Transition.start(
                       el,
                       hideProps,
-                      Math.round(duration * (currentHeight / endHeight)),
+                      duration * (currentHeight / endHeight),
                       transition
                   ).then(() => _toggle(el, false))
         ).then(() => css(el, initProps));
+    };
+}
+
+function slideHorizontal({ isToggled, duration, velocity, transition, _toggle }, right) {
+    return (el, show) => {
+        const visible = isVisible(el);
+        const marginLeft = toFloat(css(el, 'marginLeft'));
+
+        Transition.cancel(el);
+
+        const [scrollElement] = scrollParents(el);
+        css(scrollElement, 'overflowX', 'hidden');
+
+        if (!isToggled(el)) {
+            _toggle(el, true);
+        }
+
+        const width = toFloat(css(el, 'width'));
+        duration = velocity * width + duration;
+
+        const percent = visible ? ((width + marginLeft * (right ? -1 : 1)) / width) * 100 : 0;
+        const offsetEl = offset(el);
+        const useClipPath = right
+            ? offsetEl.right < scrollElement.clientWidth
+            : Math.round(offsetEl.left) > 0;
+
+        css(el, {
+            clipPath: useClipPath
+                ? right
+                    ? `polygon(0 0,${percent}% 0,${percent}% 100%,0 100%)`
+                    : `polygon(${100 - percent}% 0,100% 0,100% 100%,${100 - percent}% 100%)`
+                : '',
+            marginLeft: (((100 - percent) * (right ? 1 : -1)) / 100) * width,
+        });
+
+        return (
+            show
+                ? Transition.start(
+                      el,
+                      {
+                          clipPath: useClipPath ? `polygon(0 0,100% 0,100% 100%,0 100%)` : '',
+                          marginLeft: 0,
+                      },
+                      duration * (1 - percent / 100),
+                      transition
+                  )
+                : Transition.start(
+                      el,
+                      {
+                          clipPath: useClipPath
+                              ? right
+                                  ? `polygon(0 0,0 0,0 100%,0 100%)`
+                                  : `polygon(100% 0,100% 0,100% 100%,100% 100%)`
+                              : '',
+                          marginLeft: (right ? 1 : -1) * width,
+                      },
+                      duration * (percent / 100),
+                      transition
+                  ).then(() => _toggle(el, false))
+        ).then(() => {
+            css(scrollElement, 'overflowX', '');
+            css(el, { clipPath: '', marginLeft: '' });
+        });
     };
 }
 

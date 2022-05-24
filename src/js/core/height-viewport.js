@@ -4,12 +4,13 @@ import {
     css,
     dimensions,
     endsWith,
-    height,
     isNumeric,
     isString,
     isVisible,
-    offset,
+    offsetPosition,
+    offsetViewport,
     query,
+    scrollParents,
     toFloat,
 } from 'uikit-util';
 
@@ -32,7 +33,7 @@ export default {
 
     resizeTargets() {
         // check for offsetTop change
-        return [this.$el, document.documentElement];
+        return [this.$el, ...scrollParents(this.$el, /auto|scroll/)];
     },
 
     update: {
@@ -44,21 +45,25 @@ export default {
             let minHeight = '';
             const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
+            const [scrollElement] = scrollParents(this.$el);
+            const { height: viewportHeight } = offsetViewport(scrollElement);
+
             if (this.expand) {
                 minHeight = Math.max(
-                    height(window) -
-                        (dimensions(document.documentElement).height -
-                            dimensions(this.$el).height) -
+                    viewportHeight -
+                        (dimensions(scrollElement).height - dimensions(this.$el).height) -
                         box,
                     0
                 );
             } else {
                 // on mobile devices (iOS and Android) window.innerHeight !== 100vh
-                minHeight = 'calc(100vh';
+                minHeight = `calc(${
+                    document.scrollingElement === scrollElement ? '100vh' : `${viewportHeight}px`
+                }`;
 
                 if (this.offsetTop) {
-                    const { top } = offset(this.$el);
-                    minHeight += top > 0 && top < height(window) / 2 ? ` - ${top}px` : '';
+                    const top = offsetPosition(this.$el)[0] - offsetPosition(scrollElement)[0];
+                    minHeight += top > 0 && top < viewportHeight / 2 ? ` - ${top}px` : '';
                 }
 
                 if (this.offsetBottom === true) {

@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Lazyload from '../mixin/lazyload';
-import { default as Togglable, toggleHeight } from '../mixin/togglable';
+import { slide, default as Togglable } from '../mixin/togglable';
 import {
     $,
     $$,
@@ -34,7 +34,7 @@ export default {
     data: {
         targets: '> *',
         active: false,
-        animation: [true],
+        animation: ['slide'],
         collapsible: true,
         multiple: false,
         clsOpen: 'uk-open',
@@ -144,7 +144,7 @@ export default {
                     }
 
                     hide(content, false);
-                    await toggleHeight(this)(el._wrapper, show);
+                    await slide(this)(el._wrapper, show);
                     hide(content, !show);
 
                     delete el._wrapper;

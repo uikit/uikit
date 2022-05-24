@@ -285,8 +285,8 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el }) {
-                if (!hasClass($el, this.clsDrop)) {
+            handler(_, { $el, align }) {
+                if (!hasClass($el, this.clsDrop) || align === 'stretch') {
                     return;
                 }
 
@@ -309,8 +309,8 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el }) {
-                if (!hasClass($el, this.clsDrop)) {
+            handler(_, { $el, align }) {
+                if (!hasClass($el, this.clsDrop) || align === 'stretch') {
                     return;
                 }
 
@@ -360,8 +360,8 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el }) {
-                if (!hasClass($el, this.clsDrop)) {
+            handler(_, { $el, align }) {
+                if (!hasClass($el, this.clsDrop) || align === 'stretch') {
                     return;
                 }
 
@@ -387,7 +387,7 @@ export default {
 
             el = oldHeight < newHeight && el;
 
-            css(el, 'clip', `rect(0,${el.offsetWidth}px,${oldHeight}px,0)`);
+            css(el, 'clipPath', `polygon(0 0,100% 0,100% ${oldHeight}px,0 ${oldHeight}px)`);
 
             height(dropbar, oldHeight);
 
@@ -396,12 +396,14 @@ export default {
                 Transition.start(dropbar, { height: newHeight }, this.duration),
                 Transition.start(
                     el,
-                    { clip: `rect(0,${el.offsetWidth}px,${newHeight}px,0)` },
+                    {
+                        clipPath: `polygon(0 0,100% 0,100% ${newHeight}px,0 ${newHeight}px)`,
+                    },
                     this.duration
                 ),
             ])
                 .catch(noop)
-                .then(() => css(el, { clip: '' }));
+                .then(() => css(el, { clipPath: '' }));
         },
 
         getDropdown(el) {

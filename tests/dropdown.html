@@ -78,7 +78,7 @@
                     <div class="uk-margin" uk-margin>
 
                         <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button">Hover</button>
+                            <button class="uk-button uk-button-default" type="button">Hover, Click</button>
                             <div uk-dropdown>
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
@@ -99,7 +99,7 @@
                         </div>
 
                         <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button">Click</button>
+                            <button class="uk-button uk-button-default" type="button">Click only</button>
                             <div uk-dropdown="mode: click">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
@@ -115,6 +115,38 @@
                                     <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                                     <li class="uk-nav-divider"></li>
                                     <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="uk-inline">
+                            <button class="uk-button uk-button-default" type="button">Hover only</button>
+                            <div uk-dropdown="mode: hover">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li class="uk-parent">
+                                        <a href="#">Parent</a>
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="uk-inline">
+                            <button class="uk-button uk-button-default" type="button">Out Animation</button>
+                            <div uk-dropdown="animate-out: true">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -147,17 +179,6 @@
                                     <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                                     <li class="uk-nav-divider"></li>
                                     <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button">Hover only</button>
-                            <div uk-dropdown="mode: hover; delay-hide: 0">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Item</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -350,6 +371,200 @@
                     </div>
 
                 </div>
+            </div>
+
+            <h2>Stretch</h2>
+
+            <div class="uk-margin" uk-margin>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Stretch Fade</button>
+                    <div uk-dropdown="pos: bottom-stretch; animate-out: true">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Stretch Slide</button>
+                    <div uk-dropdown="pos: bottom-stretch; animate-out: true; animation: slide">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Stretch Slide Left</button>
+                    <div uk-dropdown="pos: bottom-stretch; animate-out: true; animation: slide-left">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Stretch Slide Right</button>
+                    <div uk-dropdown="pos: bottom-stretch; animate-out: true; animation: slide-right">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="uk-margin" uk-margin>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Top Stretch Fade</button>
+                    <div uk-dropdown="pos: top-stretch; animate-out: true">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Top Stretch Slide</button>
+                    <div uk-dropdown="pos: top-stretch; animate-out: true; animation: slide">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Top Stretch Slide Left</button>
+                    <div uk-dropdown="pos: top-stretch; animate-out: true; animation: slide-left">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Top Stretch Slide Right</button>
+                    <div uk-dropdown="pos: top-stretch; animate-out: true; animation: slide-right">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="uk-margin" uk-margin>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Left Stretch Fade</button>
+                    <div uk-dropdown="pos: left-stretch; animate-out: true">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Left Stretch Slide</button>
+                    <div uk-dropdown="pos: left-stretch; animate-out: true; animation: slide">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Left Stretch Slide Left</button>
+                    <div uk-dropdown="pos: left-stretch; animate-out: true; animation: slide-left">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Left Stretch Slide Right</button>
+                    <div uk-dropdown="pos: left-stretch; animate-out: true; animation: slide-right">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="uk-margin" uk-margin>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Right Stretch Fade</button>
+                    <div uk-dropdown="pos: right-stretch; animate-out: true">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Right Stretch Slide</button>
+                    <div uk-dropdown="pos: right-stretch; animate-out: true; animation: slide">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Right Stretch Slide Left</button>
+                    <div uk-dropdown="pos: right-stretch; animate-out: true; animation: slide-left">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Right Stretch Slide Right</button>
+                    <div uk-dropdown="pos: right-stretch; animate-out: true; animation: slide-right">
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
 
             <h2>JavaScript Options</h2>

@@ -20,8 +20,9 @@
 
     <body>
 
-        <!-- uk-position-relative is needed because of the test toolbar -->
-        <div class="uk-container uk-position-relative">
+        <!-- position relative is needed because of the test toolbar -->
+        <!-- position relative and z-index are needed for sticky cover and reveal sections -->
+        <div class="uk-container uk-position-relative uk-position-z-index-zero">
 
             <h1>Sticky</h1>
 
@@ -301,12 +302,12 @@
                 </select>
             </div>
 
-            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative " uk-sticky="overflow-flip: true; end: 100%">
+            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative" uk-sticky="overflow-flip: true; end: 100%">
                 overflow-flip: true<br>
                 end: 100%
             </div>
             <div class="js-overflow-flip uk-background-muted uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-height-large">Cover previous section.<br>Reveal next section.</div>
-            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative " uk-sticky="position: bottom; overflow-flip: true; start: -100%; end: 0">
+            <div class="js-overflow-flip uk-background-primary uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center uk-light uk-height-large uk-position-z-index-negative" uk-sticky="position: bottom; overflow-flip: true; start: -100%; end: 0">
                 position: bottom<br>
                 overflow-flip: true<br>
                 start: -100%<br>

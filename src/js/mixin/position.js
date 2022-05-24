@@ -1,4 +1,13 @@
-import { flipPosition, getCssVar, includes, isRtl, positionAt, toPx } from 'uikit-util';
+import {
+    css,
+    dimensions,
+    flipPosition,
+    getCssVar,
+    includes,
+    isRtl,
+    positionAt,
+    toPx,
+} from 'uikit-util';
 
 export default {
     props: {
@@ -15,33 +24,17 @@ export default {
 
     connected() {
         this.pos = this.$props.pos.split('-').concat('center').slice(0, 2);
-        this.axis = includes(['top', 'bottom'], this.pos[0]) ? 'y' : 'x';
+        [this.dir, this.align] = this.pos;
+        this.axis = includes(['top', 'bottom'], this.dir) ? 'y' : 'x';
     },
 
     methods: {
         positionAt(element, target, boundary) {
-            const [dir, align] = this.pos;
-
-            const mainAxisOffset =
-                toPx(
-                    this.offset === false ? getCssVar('position-offset', element) : this.offset,
-                    this.axis === 'x' ? 'width' : 'height',
-                    element
-                ) * (includes(['left', 'top'], dir) ? -1 : 1);
-
-            const crossAxisOffset = includes(['center', 'justify'], align)
-                ? 0
-                : toPx(
-                      getCssVar('position-shift-offset', element),
-                      this.axis === 'y' ? 'width' : 'height',
-                      element
-                  ) * (includes(['left', 'top'], align) ? 1 : -1);
-
-            let offset = [mainAxisOffset, crossAxisOffset];
+            let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
 
             const attach = {
-                element: [flipPosition(dir), align],
-                target: [dir, align],
+                element: [flipPosition(this.dir), this.align],
+                target: [this.dir, this.align],
             };
 
             if (this.axis === 'y') {
@@ -51,13 +44,41 @@ export default {
                 offset = offset.reverse();
             }
 
+            // Ensure none positioned element does not generate scrollbars
+            const elDim = dimensions(element);
+            css(element, { top: -elDim.height, left: -elDim.width });
+
             positionAt(element, target, {
                 attach,
                 offset,
                 boundary,
                 flip: this.flip,
-                viewportOffset: toPx(getCssVar('position-viewport-offset', element)),
+                viewportOffset: this.getViewportOffset(element),
             });
+        },
+
+        getPositionOffset(element) {
+            return (
+                toPx(
+                    this.offset === false ? getCssVar('position-offset', element) : this.offset,
+                    this.axis === 'x' ? 'width' : 'height',
+                    element
+                ) * (includes(['left', 'top'], this.dir) ? -1 : 1)
+            );
+        },
+
+        getShiftOffset(element) {
+            return includes(['center', 'justify', 'stretch'], this.align)
+                ? 0
+                : toPx(
+                      getCssVar('position-shift-offset', element),
+                      this.axis === 'y' ? 'width' : 'height',
+                      element
+                  ) * (includes(['left', 'top'], this.align) ? 1 : -1);
+        },
+
+        getViewportOffset(element) {
+            return toPx(getCssVar('position-viewport-offset', element));
         },
     },
 };
