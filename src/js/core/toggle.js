@@ -248,8 +248,6 @@ export default {
                 return;
             }
 
-            console.log('updateAria', isBoolean(toggled) ? toggled : this.isToggled(this.target));
-
             attr(
                 this.$el,
                 'aria-expanded',
