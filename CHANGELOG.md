@@ -1,25 +1,15 @@
 # Changelog
 
-## WIP mobile_dropdown
-
-### Added
-
-- Add `animate-out` option to Drop component
-- Add alignment `stretch` to Drop component
-- Add Height Viewport uses scroll parent as viewport 
-- Add zero z-index utility class to Position component
-
-### Fixed
-
-- Make content clickable for sticky cover and reveal effects
-
 ## WIP
 
 ### Added
 
 - Add gap variable to navbar items in Navbar component
 - Add color mode variable to navbar dropdown in Navbar component
-- Add small breakpoint padding variables to Modal component
+- Add small breakpoint padding variables to Modal component- Add `animate-out` option to Drop component
+- Add alignment `stretch` to Drop component
+- Add Height Viewport uses scroll parent as viewport
+- Add zero z-index utility class to Position component
 
 ### Changed
 
@@ -37,6 +27,7 @@
 - Fix: Toggle component did not default prevent touch click on anchor with closed target
 - Revert: Height Viewport component sets `uk-height-viewport` class to reduce initial layout shifts
 - Fix Dropbar handles resizing Drop components
+- Make content clickable for sticky cover and reveal effects
 
 ## 3.14.1 (May 3, 2022)
 
