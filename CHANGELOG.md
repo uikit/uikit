@@ -27,6 +27,7 @@
 - Fix: Toggle component did not default prevent touch click on anchor with closed target
 - Revert: Height Viewport component sets `uk-height-viewport` class to reduce initial layout shifts
 - Fix Dropbar handles resizing Drop components
+- Fix Parallax component background image positioning
 - Make content clickable for sticky cover and reveal effects
 
 ## 3.14.1 (May 3, 2022)
