@@ -17,14 +17,15 @@ export function isTag(element, tagName) {
 }
 
 export function empty(element) {
-    return replaceChildren(element, '');
+    element = $(element);
+    element.innerHTML = '';
+    return element;
 }
 
 export function html(parent, html) {
-    return isUndefined(html) ? $(parent).innerHTML : replaceChildren(parent, html);
+    return isUndefined(html) ? $(parent).innerHTML : append(empty(parent), html);
 }
 
-export const replaceChildren = applyFn('replaceChildren');
 export const prepend = applyFn('prepend');
 export const append = applyFn('append');
 export const before = applyFn('before');
