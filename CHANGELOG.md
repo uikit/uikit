@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix compatibility with iOS < 14
+- Fix regression in Parallax component
 
 ## 3.14.2 (May 27, 2022)
 
