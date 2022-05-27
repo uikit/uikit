@@ -47,12 +47,17 @@ export default {
 
     computed: {
         props(properties, $el) {
-            return keys(props).reduce((result, prop) => {
-                if (!isUndefined(properties[prop])) {
-                    result[prop] = props[prop](prop, $el, properties[prop].slice());
+            const stops = {};
+            for (const prop in properties) {
+                if (prop in props && !isUndefined(properties[prop])) {
+                    stops[prop] = properties[prop].slice();
                 }
-                return result;
-            }, {});
+            }
+            const result = {};
+            for (const prop in stops) {
+                result[prop] = props[prop](prop, $el, stops[prop], stops);
+            }
+            return result;
         },
     },
 
@@ -181,58 +186,66 @@ function strokeFn(prop, el, stops) {
     };
 }
 
-function backgroundFn(prop, el, stops) {
+function backgroundFn(prop, el, stops, props) {
     if (stops.length === 1) {
         stops.unshift(0);
     }
 
-    prop = prop.substr(-1);
-    const attr = prop === 'y' ? 'height' : 'width';
-    stops = parseStops(stops, (stop) => toPx(stop, attr, el));
+    const attr = prop === 'bgy' ? 'height' : 'width';
+    props[prop] = parseStops(stops, (stop) => toPx(stop, attr, el));
 
-    const bgPos = getCssValue(el, `background-position-${prop}`, '');
+    const bgProps = ['bgx', 'bgy'].filter((prop) => prop in props);
+    if (bgProps.length === 2 && prop === 'bgx') {
+        return noop;
+    }
 
-    return getCssValue(el, 'backgroundSize', '') === 'cover'
-        ? backgroundCoverFn(prop, el, stops, bgPos, attr)
-        : setBackgroundPosFn(prop, stops, bgPos);
+    if (getCssValue(el, 'backgroundSize', '') === 'cover') {
+        return backgroundCoverFn(prop, el, stops, props);
+    }
+
+    const positions = {};
+    for (const prop of bgProps) {
+        positions[prop] = getBackgroundPos(el, prop);
+    }
+
+    return setBackgroundPosFn(bgProps, props, positions);
 }
 
-function backgroundCoverFn(prop, el, stops, bgPos, attr) {
+function backgroundCoverFn(prop, el, stops, props) {
     const dimImage = getBackgroundImageDimensions(el);
 
     if (!dimImage.width) {
         return noop;
     }
 
-    const values = stops.map(([value]) => value);
-    const min = Math.min(...values);
-    const max = Math.max(...values);
-    const down = values.indexOf(min) < values.indexOf(max);
-
-    const diff = max - min;
-    let pos = (down ? -diff : 0) - (down ? min : max);
-
     const dimEl = {
         width: el.offsetWidth,
         height: el.offsetHeight,
     };
 
-    const baseDim = Dimensions.cover(dimImage, dimEl);
-    const span = baseDim[attr] - dimEl[attr];
+    const bgProps = ['bgx', 'bgy'].filter((prop) => prop in props);
 
-    if (span < diff) {
-        dimEl[attr] = baseDim[attr] + diff - span;
-    } else if (span > diff) {
-        const posPercentage = dimEl[attr] / toPx(bgPos, attr, el, true);
+    const positions = {};
+    for (const prop of bgProps) {
+        const values = props[prop].map(([value]) => value);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const down = values.indexOf(min) < values.indexOf(max);
+        const diff = max - min;
 
-        if (posPercentage) {
-            pos -= (span - diff) / posPercentage;
-        }
+        positions[prop] = `${(down ? -diff : 0) - (down ? min : max)}px`;
+        dimEl[prop === 'bgy' ? 'height' : 'width'] += diff;
     }
 
     const dim = Dimensions.cover(dimImage, dimEl);
 
-    const fn = setBackgroundPosFn(prop, stops, `${pos}px`);
+    for (const prop of bgProps) {
+        const attr = prop === 'bgy' ? 'height' : 'width';
+        const overflow = dim[attr] - dimEl[attr];
+        positions[prop] = `max(${getBackgroundPos(el, prop)},-${overflow}px) + ${positions[prop]}`;
+    }
+
+    const fn = setBackgroundPosFn(bgProps, positions, props);
     return (css, percent) => {
         fn(css, percent);
         css.backgroundSize = `${dim.width}px ${dim.height}px`;
@@ -240,9 +253,16 @@ function backgroundCoverFn(prop, el, stops, bgPos, attr) {
     };
 }
 
-function setBackgroundPosFn(prop, stops, pos) {
+function getBackgroundPos(el, prop) {
+    return getCssValue(el, `background-position-${prop.substr(-1)}`, '');
+}
+
+function setBackgroundPosFn(bgProps, positions, props) {
     return function (css, percent) {
-        css[`background-position-${prop}`] = `calc(${pos} + ${getValue(stops, percent)}px)`;
+        for (const prop of bgProps) {
+            const value = getValue(props[prop], percent);
+            css[`background-position-${prop.substr(-1)}`] = `calc(${positions[prop]} + ${value}px)`;
+        }
     };
 }
 
