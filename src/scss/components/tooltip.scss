@@ -51,6 +51,7 @@ $tooltip-font-size:                              12px !default;
     position: absolute;
     z-index: $tooltip-z-index;
     --uk-position-offset: #{$tooltip-margin};
+    --uk-position-viewport-offset: 10;
     /* 3 */
     top: 0;
     /* 4 */
