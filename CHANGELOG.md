@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.14.3 (May 27, 2022)
+
+### Fixed
+
+- Fix compatibility with iOS < 14
+- Fix regression in Parallax component
+
 ## 3.14.2 (May 27, 2022)
 
 ### Fixed
@@ -8,12 +15,12 @@
 - Fix Scroll component on iOS 12
 - Fix offset calculation in Drop component
 - Fix `-justify` positioning in Drop component
-- Fix Toggle component in `mode:media` default prevents click event
-- Fix: Toggle component did not default prevent touch click on anchor with closed target
-- Revert: Height Viewport component sets `uk-height-viewport` class to reduce initial layout shifts
 - Fix Dropbar handles resizing Drop components
+- Fix Toggle component in `mode:media` default prevents click event
+- Fix Toggle component not default preventing touch click on anchor with closed target
 - Fix Parallax component background image positioning
 - Make content clickable for sticky cover and reveal effects
+- Revert: Height Viewport component sets `uk-height-viewport` class to reduce initial layout shifts
 
 ## 3.14.1 (May 3, 2022)
 
