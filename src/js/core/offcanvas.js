@@ -94,6 +94,64 @@ export default {
         },
 
         {
+            name: 'touchstart',
+
+            passive: true,
+
+            el() {
+                return this.panel;
+            },
+
+            handler({ targetTouches }) {
+                if (targetTouches.length === 1) {
+                    this.clientY = targetTouches[0].clientY;
+                }
+            },
+        },
+
+        {
+            name: 'touchmove',
+
+            self: true,
+            passive: false,
+
+            filter() {
+                return this.overlay;
+            },
+
+            handler(e) {
+                e.cancelable && e.preventDefault();
+            },
+        },
+
+        {
+            name: 'touchmove',
+
+            passive: false,
+
+            el() {
+                return this.panel;
+            },
+
+            handler(e) {
+                if (e.targetTouches.length !== 1) {
+                    return;
+                }
+
+                const clientY = e.targetTouches[0].clientY - this.clientY;
+                const { scrollTop, scrollHeight, clientHeight } = this.panel;
+
+                if (
+                    clientHeight >= scrollHeight ||
+                    (scrollTop === 0 && clientY > 0) ||
+                    (scrollHeight - scrollTop <= clientHeight && clientY < 0)
+                ) {
+                    e.cancelable && e.preventDefault();
+                }
+            },
+        },
+
+        {
             name: 'show',
 
             self: true,
@@ -105,14 +163,14 @@ export default {
                 }
 
                 css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
-                css(document.body, 'touchAction', this.overlay ? 'none' : 'pan-y pinch-zoom');
-                css(this.$el, 'display', 'block');
                 addClass(document.body, this.clsContainer, this.clsFlip);
+                css(document.body, 'touch-action', 'pan-y pinch-zoom');
+                css(this.$el, 'display', 'block');
                 addClass(this.$el, this.clsOverlay);
                 addClass(
                     this.panel,
                     this.clsSidebarAnimation,
-                    this.mode === 'reveal' ? '' : this.clsMode
+                    this.mode !== 'reveal' ? this.clsMode : ''
                 );
 
                 height(document.body); // force reflow
@@ -129,7 +187,7 @@ export default {
 
             handler() {
                 removeClass(document.body, this.clsContainerAnimation);
-                css(document.body, 'touchAction', '');
+                css(document.body, 'touch-action', '');
             },
         },
 
