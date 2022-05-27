@@ -1,4 +1,4 @@
-/*! UIkit 3.14.2 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.14.3 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1182,14 +1182,15 @@
     }
 
     function empty(element) {
-      return replaceChildren(element, '');
+      element = $(element);
+      element.innerHTML = '';
+      return element;
     }
 
     function html(parent, html) {
-      return isUndefined(html) ? $(parent).innerHTML : replaceChildren(parent, html);
+      return isUndefined(html) ? $(parent).innerHTML : append(empty(parent), html);
     }
 
-    const replaceChildren = applyFn('replaceChildren');
     const prepend = applyFn('prepend');
     const append = applyFn('append');
     const before = applyFn('before');
@@ -2177,7 +2178,6 @@
         isTag: isTag,
         empty: empty,
         html: html,
-        replaceChildren: replaceChildren,
         prepend: prepend,
         append: append,
         before: before,
@@ -2949,7 +2949,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.14.2';
+    UIkit.version = '3.14.3';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -9514,7 +9514,7 @@
         positions[prop] = getBackgroundPos(el, prop);
       }
 
-      return setBackgroundPosFn(bgProps, props, positions);
+      return setBackgroundPosFn(bgProps, positions, props);
     }
 
     function backgroundCoverFn(prop, el, stops, props) {
