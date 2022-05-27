@@ -48,7 +48,7 @@ export default {
 
             watch(connects) {
                 if (this.swiping) {
-                    css(connects, 'touch-action', 'pan-y pinch-zoom');
+                    css(connects, 'touchAction', 'pan-y pinch-zoom');
                 }
 
                 const index = this.index();
