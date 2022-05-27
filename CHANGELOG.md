@@ -17,6 +17,8 @@
 - Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
 - Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`
 
+## 3.14.3 (May 27, 2022)
+
 ### Fixed
 
 - Fix compatibility with iOS < 14
