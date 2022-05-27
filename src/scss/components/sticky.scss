@@ -55,6 +55,13 @@ $sticky-reverse-animation-duration:              0.2s !default;
 
 .uk-sticky.uk-animation-reverse { animation-duration: $sticky-reverse-animation-duration; }
 
+/*
+ * Placeholder
+ * Make content clickable for sticky cover and reveal effects
+ */
+
+.uk-sticky-placeholder { pointer-events: none; }
+
 
 // Hooks
 // ========================================================================
