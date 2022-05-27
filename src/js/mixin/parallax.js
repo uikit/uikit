@@ -208,7 +208,7 @@ function backgroundFn(prop, el, stops, props) {
         positions[prop] = getBackgroundPos(el, prop);
     }
 
-    return setBackgroundPosFn(bgProps, props, positions);
+    return setBackgroundPosFn(bgProps, positions, props);
 }
 
 function backgroundCoverFn(prop, el, stops, props) {
