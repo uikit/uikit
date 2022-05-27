@@ -15,7 +15,7 @@
                 -webkit-overflow-scrolling: touch;
             }
 
-            .boundary-overflow { width: 200%; }
+            .boundary-overflow { width: 250%; }
 
         </style>
     </head>
@@ -260,7 +260,7 @@
             <div class="uk-child-width-1-2@m" uk-grid>
                 <div>
 
-                    <div class="boundary uk-height-medium uk-margin uk-flex uk-flex-between uk-flex-wrap">
+                    <div class="boundary uk-height-medium uk-margin uk-flex uk-flex-around uk-flex-wrap">
                         <div>
 
                             <button class="uk-button uk-button-default" type="button">Bottom Right</button>
@@ -277,6 +277,12 @@
 
                             <button class="uk-button uk-button-default" type="button">Bottom Left</button>
                             <div class="uk-width-medium" uk-dropdown="pos: bottom-left; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Bottom Justify</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-justify; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 
                         </div>
                     </div>
@@ -301,6 +307,12 @@
 
                             <button class="uk-button uk-button-default" type="button">Right Top</button>
                             <div class="uk-width-medium" uk-dropdown="pos: right-top; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                        </div>
+                        <div>
+
+                            <button class="uk-button uk-button-default" type="button">Right Justify</button>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-justify; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 
                         </div>
                     </div>
@@ -472,6 +484,12 @@
                             <td>Number</td>
                             <td>200</td>
                             <td>The animation duration.</td>
+                        </tr>
+                        <tr>
+                            <td><code>container</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Define a target container via a selector to specify where the drop should be appended in the DOM.</td>
                         </tr>
                     </tbody>
                 </table>

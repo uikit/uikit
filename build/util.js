@@ -14,7 +14,7 @@ import replace from '@rollup/plugin-replace';
 import { basename, dirname, join } from 'path';
 import { exec as execImport } from 'child_process';
 import { rollup, watch as rollupWatch } from 'rollup';
-import { minify as rollupMinify } from 'rollup-plugin-esbuild';
+import { minify as esbuildMinify } from 'rollup-plugin-esbuild';
 
 const limit = pLimit(Number(process.env.cpus || 2));
 
@@ -148,7 +148,13 @@ export async function compile(file, dest, { external, globals, name, aliases, re
         output.push({
             ...outputOptions,
             file: `${dest}.min.js`,
-            plugins: [minify && !debug ? rollupMinify() : undefined],
+            plugins: [
+                debug
+                    ? undefined
+                    : esbuildMinify({
+                          target: 'safari12',
+                      }),
+            ],
         });
     }
 

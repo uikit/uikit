@@ -77,6 +77,8 @@ export default {
             },
 
             handler(e) {
+                this._preventClick = null;
+
                 if (!isTouch(e) || this._showState) {
                     return;
                 }
@@ -156,9 +158,14 @@ export default {
         {
             name: 'click',
 
+            filter() {
+                return ['click', 'hover'].some((mode) => includes(this.mode, mode));
+            },
+
             handler(e) {
                 let link;
                 if (
+                    this._preventClick ||
                     closest(e.target, 'a[href="#"], a[href=""]') ||
                     ((link = closest(e.target, 'a[href]')) &&
                         (attr(this.$el, 'aria-expanded') !== 'true' ||
@@ -167,15 +174,9 @@ export default {
                     e.preventDefault();
                 }
 
-                if (this._preventClick) {
-                    return (this._preventClick = null);
+                if (!this._preventClick && includes(this.mode, 'click')) {
+                    this.toggle();
                 }
-
-                if (!includes(this.mode, 'click')) {
-                    return;
-                }
-
-                this.toggle();
             },
         },
 

@@ -1765,11 +1765,13 @@
      * Navbar
      */
 
-    .uk-navbar-container > .uk-container .uk-navbar-left {
-        margin-left: (-$navbar-nav-item-padding-horizontal);
-        margin-right: (-$navbar-nav-item-padding-horizontal);
-    }
-    .uk-navbar-container > .uk-container .uk-navbar-right { margin-right: (-$navbar-nav-item-padding-horizontal); }
+    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-nav:first-child,
+    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-item:first-child,
+    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-toggle:first-child { margin-left: (-$navbar-nav-item-padding-horizontal); }
+
+    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-nav:last-child,
+    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-item:last-child,
+    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-toggle:last-child { margin-right: (-$navbar-nav-item-padding-horizontal); }
 
     /*
      * Grid Divider

@@ -128,6 +128,10 @@ export default {
         toggle(el, inview) {
             const state = this._data.elements.get(el);
 
+            if (!state) {
+                return;
+            }
+
             state.off?.();
 
             css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');

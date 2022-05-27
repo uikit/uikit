@@ -81,6 +81,11 @@ export default {
                             return Promise.reject();
                         }
 
+                        if (!animate) {
+                            Animation.cancel(el);
+                            Transition.cancel(el);
+                        }
+
                         const promise = (
                             isFunction(animate)
                                 ? animate

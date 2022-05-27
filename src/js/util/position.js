@@ -49,6 +49,10 @@ function attachTo(element, target, options) {
     return position;
 }
 
+function moveBy(start, end, dim) {
+    return start === 'center' ? dim / 2 : start === end ? dim : 0;
+}
+
 function attachToWithFlip(element, target, options) {
     const position = attachTo(element, target, options);
     const targetDim = offset(target);
@@ -59,7 +63,7 @@ function attachToWithFlip(element, target, options) {
         offset: elOffset,
         boundary,
         viewport,
-        viewportPadding,
+        viewportOffset,
     } = options;
 
     let viewports = scrollParents(element);
@@ -80,9 +84,9 @@ function attachToWithFlip(element, target, options) {
 
         viewport = getIntersectionArea(...viewports.filter(Boolean).map(offsetViewport));
 
-        if (viewportPadding) {
-            viewport[start] += viewportPadding;
-            viewport[end] -= viewportPadding;
+        if (viewportOffset) {
+            viewport[start] += viewportOffset;
+            viewport[end] -= viewportOffset;
         }
 
         if (boundary && !willFlip && position[prop] <= offset(boundary)[prop]) {
@@ -139,19 +143,21 @@ function attachToWithFlip(element, target, options) {
                     return false;
                 }
 
-                const newPos = attachToWithFlip(element, target, {
-                    ...options,
-                    attach: {
-                        element: elAttach.map(flipDir).reverse(),
-                        target: targetAttach.map(flipDir).reverse(),
-                    },
-                    offset: elOffset.reverse(),
-                    flip: flip === true ? flip : [...flip, dirs[1 - i][1]],
-                    recursion: true,
-                });
+                if (flip === true || includes(flip, dirs[1 - i][1])) {
+                    const newPos = attachToWithFlip(element, target, {
+                        ...options,
+                        attach: {
+                            element: elAttach.map(flipDir).reverse(),
+                            target: targetAttach.map(flipDir).reverse(),
+                        },
+                        offset: elOffset.reverse(),
+                        flip: flip === true ? flip : [...flip, dirs[1 - i][1]],
+                        recursion: true,
+                    });
 
-                if (newPos && isInScrollArea(newPos, scrollElement, 1 - i)) {
-                    return newPos;
+                    if (newPos && isInScrollArea(newPos, scrollElement, 1 - i)) {
+                        return newPos;
+                    }
                 }
             }
 
@@ -172,10 +178,6 @@ function attachToWithFlip(element, target, options) {
     return offsetPosition;
 }
 
-function moveBy(start, end, dim) {
-    return start === 'center' ? dim / 2 : start === end ? dim : 0;
-}
-
 function getIntersectionArea(...rects) {
     let area = {};
     for (const rect of rects) {
@@ -188,7 +190,7 @@ function getIntersectionArea(...rects) {
 }
 
 function isInScrollArea(position, scrollElement, dir) {
-    const viewport = offsetViewport(scrollElement);
+    const viewport = offsetViewport(scrollElement, false);
     const [prop, , start, end] = dirs[dir];
     viewport[start] -= scrollElement[`scroll${ucfirst(start)}`];
     viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`];

@@ -1400,33 +1400,25 @@
 
                     <nav class="uk-navbar uk-navbar-container uk-margin">
                         <div class="uk-navbar-left">
-                            <div>
-                                <a class="uk-navbar-item uk-logo" href="#">Logo</a>
-                                <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
-                            </div>
+                            <a class="uk-navbar-item uk-logo" href="#">Logo</a>
+                            <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
                         </div>
                         <div class="uk-navbar-right">
-                            <div>
-                                <a class="uk-navbar-toggle" href="#" uk-navbar-toggle-icon></a>
-                                <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
-                            </div>
+                            <a class="uk-navbar-toggle" href="#" uk-navbar-toggle-icon></a>
+                            <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
                         </div>
                     </nav>
 
                     <nav class="uk-navbar uk-navbar-container uk-margin">
                         <div class="uk-navbar-left">
-                            <div>
-                                <a class="uk-navbar-toggle" href="#">Menu</a>
-                                <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
-                            </div>
+                            <a class="uk-navbar-toggle" href="#">Menu</a>
+                            <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
                         </div>
                         <div class="uk-navbar-right">
-                            <div>
-                                <a class="uk-navbar-toggle" href="#">
-                                    <span class="uk-margin-small-right">Menu</span> <span uk-navbar-toggle-icon></span>
-                                </a>
-                                <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
-                            </div>
+                            <a class="uk-navbar-toggle" href="#">
+                                <span class="uk-margin-small-right">Menu</span> <span uk-navbar-toggle-icon></span>
+                            </a>
+                            <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
                         </div>
                     </nav>
 
@@ -1767,8 +1759,6 @@
                 <div class="uk-navbar">
                     <div class="uk-navbar-left">
 
-                        <a class="uk-navbar-item uk-logo" href="#">Logo</a>
-
                         <ul class="uk-navbar-nav">
                             <li class="uk-active"><a href="#">Active</a></li>
                             <li><a href="#">Parent</a></li>
@@ -1817,6 +1807,8 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <a class="uk-navbar-toggle" uk-navbar-toggle-icon href="#"></a>
 
                     </div>
                 </div>
@@ -1843,19 +1835,7 @@
                     </div>
                     <div class="uk-navbar-right">
 
-                        <div class="uk-navbar-item">
-                            <ul class="uk-grid-small" uk-grid>
-                                <li>
-                                    <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                </li>
-                                <li>
-                                    <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                </li>
-                                <li>
-                                    <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                </li>
-                            </ul>
-                        </div>
+                        <a class="uk-navbar-toggle" uk-navbar-toggle-icon href="#"></a>
 
                     </div>
                 </div>
@@ -1906,19 +1886,7 @@
                             <li><a href="#">Item</a></li>
                         </ul>
 
-                        <div class="uk-navbar-item">
-                            <ul class="uk-grid-small" uk-grid>
-                                <li>
-                                    <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                </li>
-                                <li>
-                                    <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                </li>
-                                <li>
-                                    <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                </li>
-                            </ul>
-                        </div>
+                        <a class="uk-navbar-toggle" uk-navbar-toggle-icon href="#"></a>
 
                     </div>
                 </div>
@@ -1945,19 +1913,7 @@
                     </div>
                     <div class="uk-navbar-right">
 
-                        <div class="uk-navbar-item">
-                            <ul class="uk-grid-small" uk-grid>
-                                <li>
-                                    <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                </li>
-                                <li>
-                                    <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                </li>
-                                <li>
-                                    <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                </li>
-                            </ul>
-                        </div>
+                        <a class="uk-navbar-toggle" uk-navbar-toggle-icon href="#"></a>
 
                     </div>
                 </div>
@@ -2038,6 +1994,12 @@
                             <td>Number</td>
                             <td>200</td>
                             <td>The dropbar transition duration.</td>
+                        </tr>
+                        <tr>
+                            <td><code>container</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Define a target container via a selector to specify where the drops should be appended in the DOM.</td>
                         </tr>
                     </tbody>
                 </table>
