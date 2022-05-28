@@ -40,7 +40,7 @@
 @navbar-color-mode:                             none;
 
 @navbar-nav-item-height:                        80px;
-@navbar-nav-item-gap:                           0;
+@navbar-nav-item-gap:                           0px; // Must have a unit because of `calc`
 @navbar-nav-item-padding-horizontal:            15px;
 @navbar-nav-item-color:                         @global-muted-color;
 @navbar-nav-item-font-size:                     @global-font-size;
@@ -175,14 +175,8 @@
    top: 0;
 }
 
-.uk-navbar-center-left {
-    right: 100%; // Fallback if gap is 0
-    right:  ~'calc(100% + var(--uk-navbar-nav-item-gap))';
-}
-.uk-navbar-center-right {
-    left: 100%; // Fallback if gap is 0
-    left: ~'calc(100% + var(--uk-navbar-nav-item-gap))';
-}
+.uk-navbar-center-left { right:  ~'calc(100% + var(--uk-navbar-nav-item-gap))'; }
+.uk-navbar-center-right { left: ~'calc(100% + var(--uk-navbar-nav-item-gap))'; }
 
 [class*='uk-navbar-center-'] {
     width: max-content;
