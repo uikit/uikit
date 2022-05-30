@@ -37,10 +37,12 @@
 // ========================================================================
 
 @navbar-background:                             @global-muted-background;
+@navbar-gap:                                    0px; // Must have a unit because of `calc`
 @navbar-color-mode:                             none;
 
+@navbar-nav-gap:                                0px; // Must have a unit because of `calc`
+
 @navbar-nav-item-height:                        80px;
-@navbar-nav-item-gap:                           0px; // Must have a unit because of `calc`
 @navbar-nav-item-padding-horizontal:            15px;
 @navbar-nav-item-color:                         @global-muted-color;
 @navbar-nav-item-font-size:                     @global-font-size;
@@ -98,7 +100,6 @@
 
 .uk-navbar {
     display: flex;
-    --uk-navbar-nav-item-gap: @navbar-nav-item-gap;
     /* 1 */
     position: relative;
     .hook-navbar();
@@ -129,7 +130,7 @@
 .uk-navbar-right,
 [class*='uk-navbar-center'] {
     display: flex;
-    gap: var(--uk-navbar-nav-item-gap);
+    gap: @navbar-gap;
     /* 1 */
     align-items: center;
 }
@@ -171,8 +172,8 @@
    top: 0;
 }
 
-.uk-navbar-center-left { right:  ~'calc(100% + var(--uk-navbar-nav-item-gap))'; }
-.uk-navbar-center-right { left: ~'calc(100% + var(--uk-navbar-nav-item-gap))'; }
+.uk-navbar-center-left { right:  ~'calc(100% + @{navbar-gap})'; }
+.uk-navbar-center-right { left: ~'calc(100% + @{navbar-gap})'; }
 
 [class*='uk-navbar-center-'] {
     width: max-content;
@@ -189,7 +190,7 @@
 
 .uk-navbar-nav {
     display: flex;
-    gap: var(--uk-navbar-nav-item-gap);
+    gap: @navbar-nav-gap;
     /* 1 */
     margin: 0;
     padding: 0;
