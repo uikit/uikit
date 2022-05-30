@@ -151,18 +151,33 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden|clip/, s
 }
 
 export function offsetViewport(scrollElement) {
-    let viewportElement = getViewport(scrollElement);
+    const window = toWindow(scrollElement);
+    const {
+        document: { body, documentElement },
+    } = window;
+    let viewportElement =
+        scrollElement === scrollingElement(scrollElement) || scrollElement === body
+            ? window
+            : scrollElement;
+
+    const { visualViewport } = window;
+    if (isWindow(viewportElement) && visualViewport) {
+        let { height, width, scale, pageTop: top, pageLeft: left } = visualViewport;
+        height = Math.round(height * scale);
+        width = Math.round(width * scale);
+        return { height, width, top, left, bottom: top + height, right: left + width };
+    }
 
     let rect = offset(viewportElement);
     for (let [prop, dir, start, end] of [
         ['width', 'x', 'left', 'right'],
         ['height', 'y', 'top', 'bottom'],
     ]) {
-        if (!isWindow(viewportElement)) {
-            rect[start] += toFloat(css(viewportElement, `border${ucfirst(start)}Width`));
-        } else {
+        if (isWindow(viewportElement)) {
             // iOS 12 returns <body> as scrollingElement
-            viewportElement = viewportElement.document.documentElement;
+            viewportElement = documentElement;
+        } else {
+            rect[start] += toFloat(css(viewportElement, `border${ucfirst(start)}Width`));
         }
         rect[prop] = rect[dir] = viewportElement[`client${ucfirst(prop)}`];
         rect[end] = rect[prop] + rect[start];
@@ -172,8 +187,4 @@ export function offsetViewport(scrollElement) {
 
 function scrollingElement(element) {
     return toWindow(element).document.scrollingElement;
-}
-
-function getViewport(scrollElement) {
-    return scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
 }
