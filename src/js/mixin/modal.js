@@ -2,6 +2,7 @@ import {
     $,
     addClass,
     append,
+    apply,
     attr,
     css,
     endsWith,
@@ -15,6 +16,7 @@ import {
     pointerDown,
     pointerUp,
     removeClass,
+    scrollParents,
     toFloat,
     width,
     within,
@@ -121,17 +123,26 @@ export default {
             self: true,
 
             handler() {
-                const docEl = document.documentElement;
+                once(
+                    this.$el,
+                    'hide',
+                    on(document, 'focusin', (e) => {
+                        if (!within(e.target, this.panel)) {
+                            this.$el.focus();
+                        }
+                    })
+                );
 
-                if (width(window) > docEl.clientWidth && this.overlay) {
-                    css(document.body, 'overflowY', 'scroll');
+                if (this.overlay) {
+                    once(this.$el, 'hide', preventOverscroll(this.$el));
+                    once(this.$el, 'hide', preventBackgroundScroll());
                 }
 
                 if (this.stack) {
                     css(this.$el, 'zIndex', toFloat(css(this.$el, 'zIndex')) + active.length);
                 }
 
-                addClass(docEl, this.clsPage);
+                addClass(document.documentElement, this.clsPage);
 
                 if (this.bgClose) {
                     once(
@@ -272,4 +283,79 @@ function animate({ transitionElement, _toggle }) {
 
 function toMs(time) {
     return time ? (endsWith(time, 'ms') ? toFloat(time) : toFloat(time) * 1000) : 0;
+}
+
+export function preventOverscroll(el) {
+    if (CSS.supports('overscroll-behavior', 'contain')) {
+        const elements = filterChildren(el, (child) => /auto|scroll/.test(css(child, 'overflow')));
+        css(elements, 'overscrollBehavior', 'contain');
+        return () => css(elements, 'overscrollBehavior', '');
+    }
+
+    let startClientY;
+
+    const events = [
+        on(
+            el,
+            'touchstart',
+            ({ targetTouches }) => {
+                if (targetTouches.length === 1) {
+                    startClientY = targetTouches[0].clientY;
+                }
+            },
+            { passive: true }
+        ),
+
+        on(
+            el,
+            'touchmove',
+            (e) => {
+                if (e.targetTouches.length !== 1) {
+                    return;
+                }
+
+                let [scrollParent] = scrollParents(e.target, /auto|scroll/);
+                if (!within(scrollParent, el)) {
+                    scrollParent = el;
+                }
+
+                const clientY = e.targetTouches[0].clientY - startClientY;
+                const { scrollTop, scrollHeight, clientHeight } = scrollParent;
+
+                if (
+                    clientHeight >= scrollHeight ||
+                    (scrollTop === 0 && clientY > 0) ||
+                    (scrollHeight - scrollTop <= clientHeight && clientY < 0)
+                ) {
+                    e.cancelable && e.preventDefault();
+                }
+            },
+            { passive: false }
+        ),
+    ];
+
+    return () => events.forEach((fn) => fn());
+}
+
+export function preventBackgroundScroll() {
+    const { body, documentElement } = document;
+    css(body, {
+        overflowY: width(window) > documentElement.clientWidth ? 'scroll' : '',
+        touchAction: 'none',
+    });
+    css(documentElement, 'overflowY', 'hidden');
+    return () => {
+        css(documentElement, 'overflowY', '');
+        css(body, { overflowY: '', touchAction: '' });
+    };
+}
+
+function filterChildren(el, fn) {
+    const children = [];
+    apply(el, (node) => {
+        if (fn(node)) {
+            children.push(node);
+        }
+    });
+    return children;
 }

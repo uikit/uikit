@@ -94,22 +94,6 @@ export default {
         },
 
         {
-            name: 'touchstart',
-
-            passive: true,
-
-            el() {
-                return this.panel;
-            },
-
-            handler({ targetTouches }) {
-                if (targetTouches.length === 1) {
-                    this.clientY = targetTouches[0].clientY;
-                }
-            },
-        },
-
-        {
             name: 'touchmove',
 
             self: true,
@@ -125,33 +109,6 @@ export default {
         },
 
         {
-            name: 'touchmove',
-
-            passive: false,
-
-            el() {
-                return this.panel;
-            },
-
-            handler(e) {
-                if (e.targetTouches.length !== 1) {
-                    return;
-                }
-
-                const clientY = e.targetTouches[0].clientY - this.clientY;
-                const { scrollTop, scrollHeight, clientHeight } = this.panel;
-
-                if (
-                    clientHeight >= scrollHeight ||
-                    (scrollTop === 0 && clientY > 0) ||
-                    (scrollHeight - scrollTop <= clientHeight && clientY < 0)
-                ) {
-                    e.cancelable && e.preventDefault();
-                }
-            },
-        },
-
-        {
             name: 'show',
 
             self: true,
@@ -162,7 +119,6 @@ export default {
                     addClass(parent(this.panel), this.clsMode);
                 }
 
-                css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
                 addClass(document.body, this.clsContainer, this.clsFlip);
                 css(document.body, 'touch-action', 'pan-y pinch-zoom');
                 css(this.$el, 'display', 'block');
@@ -170,7 +126,7 @@ export default {
                 addClass(
                     this.panel,
                     this.clsSidebarAnimation,
-                    this.mode !== 'reveal' ? this.clsMode : ''
+                    this.mode === 'reveal' ? '' : this.clsMode
                 );
 
                 height(document.body); // force reflow
@@ -207,8 +163,6 @@ export default {
                 removeClass(this.$el, this.clsOverlay);
                 css(this.$el, 'display', '');
                 removeClass(document.body, this.clsContainer, this.clsFlip);
-
-                css(document.documentElement, 'overflowY', '');
             },
         },
 

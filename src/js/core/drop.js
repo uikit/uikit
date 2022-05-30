@@ -30,6 +30,7 @@ import {
     toggleClass,
     within,
 } from 'uikit-util';
+import { preventBackgroundScroll, preventOverscroll } from '../mixin/modal';
 
 export let active;
 
@@ -48,6 +49,7 @@ export default {
         display: String,
         clsDrop: String,
         animateOut: Boolean,
+        bgScroll: Boolean,
     },
 
     data: {
@@ -63,6 +65,7 @@ export default {
         cls: 'uk-open',
         container: false,
         animateOut: false,
+        bgScroll: true,
     },
 
     created() {
@@ -249,6 +252,10 @@ export default {
                             this.hide(false);
                         }
                     }),
+
+                    ...(this.bgScroll
+                        ? []
+                        : [preventOverscroll(this.$el), preventBackgroundScroll()]),
 
                     ...(this.display === 'static' && this.align !== 'stretch'
                         ? []

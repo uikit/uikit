@@ -10,12 +10,17 @@
 - Add alignment `stretch` to Drop component
 - Add Height Viewport uses scroll parent as viewport
 - Add zero z-index utility class to Position component
+- Add option `bg-scroll` to Drop component
 
 ### Changed
 
 - Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
 - Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
 - Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`
+
+### Fixed
+
+- Fix body is no longer scrollable in Modal component with overlay
 
 ## 3.14.3 (May 27, 2022)
 
