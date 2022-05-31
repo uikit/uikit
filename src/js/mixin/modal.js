@@ -127,7 +127,7 @@ export default {
                     this.$el,
                     'hide',
                     on(document, 'focusin', (e) => {
-                        if (!within(e.target, this.panel)) {
+                        if (!within(e.target, this.$el)) {
                             this.$el.focus();
                         }
                     })
