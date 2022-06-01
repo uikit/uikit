@@ -6,6 +6,7 @@
 
 - Add gap variable to navbar items in Navbar component
 - Add color mode variable to navbar dropdown in Navbar component
+- Add font size variables to nav and sublist in Nav component
 - Add small breakpoint padding variables to Modal component- Add `animate-out` option to Drop component
 - Add alignment `stretch` to Drop component
 - Add Height Viewport uses scroll parent as viewport
@@ -17,6 +18,8 @@
 - Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
 - Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
 - Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`
+- Rename `@nav-primary-item-font-size` to `@nav-primary-font-size`
+- Rename `@nav-primary-item-line-height` to `@nav-primary-line-height`
 
 ### Fixed
 

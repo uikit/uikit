@@ -46,6 +46,8 @@
 @nav-divider-margin-vertical:                   5px;
 @nav-divider-margin-horizontal:                 0;
 
+@nav-default-font-size:                         @global-font-size;
+@nav-default-line-height:                       @global-line-height;
 @nav-default-item-color:                        @global-muted-color;
 @nav-default-item-hover-color:                  @global-color;
 @nav-default-item-active-color:                 @global-emphasis-color;
@@ -53,12 +55,14 @@
 @nav-default-header-color:                      @global-emphasis-color;
 @nav-default-divider-border-width:              @global-border-width;
 @nav-default-divider-border:                    @global-border;
+@nav-default-sublist-font-size:                 @nav-default-font-size;
+@nav-default-sublist-line-height:               @nav-default-line-height;
 @nav-default-sublist-item-color:                @global-muted-color;
 @nav-default-sublist-item-hover-color:          @global-color;
 @nav-default-sublist-item-active-color:         @global-emphasis-color;
 
-@nav-primary-item-font-size:                    @global-large-font-size;
-@nav-primary-item-line-height:                  @global-line-height;
+@nav-primary-font-size:                         @global-large-font-size;
+@nav-primary-line-height:                       @global-line-height;
 @nav-primary-item-color:                        @global-muted-color;
 @nav-primary-item-hover-color:                  @global-color;
 @nav-primary-item-active-color:                 @global-emphasis-color;
@@ -66,6 +70,8 @@
 @nav-primary-header-color:                      @global-emphasis-color;
 @nav-primary-divider-border-width:              @global-border-width;
 @nav-primary-divider-border:                    @global-border;
+@nav-primary-sublist-font-size:                 @global-medium-font-size;
+@nav-primary-sublist-line-height:               @global-line-height;
 @nav-primary-sublist-item-color:                @global-muted-color;
 @nav-primary-sublist-item-hover-color:          @global-color;
 @nav-primary-sublist-item-active-color:         @global-emphasis-color;
@@ -186,6 +192,8 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-default {
+    font-size: @nav-default-font-size;
+    line-height: @nav-default-line-height;
     .hook-nav-default();
 }
 
@@ -241,6 +249,11 @@ ul.uk-nav-sub {
  * Sublists
  */
 
+.uk-nav-default .uk-nav-sub {
+    font-size: @nav-default-sublist-font-size;
+    line-height: @nav-default-sublist-line-height;
+}
+
 .uk-nav-default .uk-nav-sub a { color: @nav-default-sublist-item-color; }
 
 .uk-nav-default .uk-nav-sub a:hover { color: @nav-default-sublist-item-hover-color; }
@@ -252,6 +265,8 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-primary {
+    font-size: @nav-primary-font-size;
+    line-height: @nav-primary-line-height;
     .hook-nav-primary();
 }
 
@@ -260,8 +275,6 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-primary > li > a {
-    font-size: @nav-primary-item-font-size;
-    line-height: @nav-primary-item-line-height;
     color: @nav-primary-item-color;
     .hook-nav-primary-item();
 }
@@ -308,6 +321,11 @@ ul.uk-nav-sub {
 /*
  * Sublists
  */
+
+.uk-nav-primary .uk-nav-sub {
+    font-size: @nav-primary-sublist-font-size;
+    line-height: @nav-primary-sublist-line-height;
+}
 
 .uk-nav-primary .uk-nav-sub a { color: @nav-primary-sublist-item-color; }
 
