@@ -384,22 +384,25 @@
  ========================================================================== */
 
 /*
- * 1. Behave like image
- * 2. Style
- * 3. Required for `a`
+ * 1. Style
+ * 2. Required for `a`
+ * 3. Behave like image but can be overridden through flex utility classes
  */
 
 .uk-logo {
     /* 1 */
-    display: inline-block;
-    vertical-align: middle;
-    /* 2 */
     font-size: @logo-font-size;
     font-family: @logo-font-family;
     color: @logo-color;
-    /* 3 */
+    /* 2 */
     text-decoration: none;
     .hook-logo();
+}
+
+/* 3 */
+:where(.uk-logo) {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* Hover */
