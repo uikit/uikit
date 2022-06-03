@@ -384,14 +384,20 @@
  ========================================================================== */
 
 /*
- * 1. Required for `a`
+ * 1. Behave like image
+ * 2. Style
+ * 3. Required for `a`
  */
 
 .uk-logo {
+    /* 1 */
+    display: inline-block;
+    vertical-align: middle;
+    /* 2 */
     font-size: @logo-font-size;
     font-family: @logo-font-family;
     color: @logo-color;
-    /* 1 */
+    /* 3 */
     text-decoration: none;
     .hook-logo();
 }
@@ -404,7 +410,7 @@
     .hook-logo-hover();
 }
 
-.uk-logo > :where(img, svg, video) { display: inline-block; }
+.uk-logo > :where(img, svg, video) { display: block; }
 
 .uk-logo-inverse { display: none; }
 
