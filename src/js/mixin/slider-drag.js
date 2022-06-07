@@ -5,6 +5,7 @@ import {
     includes,
     isRtl,
     isTouch,
+    noop,
     off,
     on,
     selInput,
@@ -14,7 +15,7 @@ import {
 const pointerOptions = { passive: false, capture: true };
 const pointerDown = 'touchstart mousedown';
 const pointerMove = 'touchmove mousemove';
-const pointerUp = 'touchend touchcancel mouseup click input scroll';
+const pointerUp = 'touchend touchcancel mouseup click input';
 
 export default {
     props: {
@@ -69,6 +70,16 @@ export default {
             handler(e) {
                 e.preventDefault();
             },
+        },
+
+        {
+            // iOS workaround for slider stopping if swiping fast
+            name: `${pointerMove} ${pointerUp}`,
+            el() {
+                return this.list;
+            },
+            handler: noop,
+            ...pointerOptions,
         },
     ],
 
@@ -172,7 +183,7 @@ export default {
             }
         },
 
-        end(e) {
+        end() {
             off(document, pointerMove, this.move, pointerOptions);
             off(document, pointerUp, this.end, pointerOptions);
 
