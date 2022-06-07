@@ -94,13 +94,13 @@ export function position(element) {
 }
 
 export function offsetPosition(element) {
-    const offset = [0, 0];
-
     element = toNode(element);
 
-    do {
-        offset[0] += element.offsetTop;
-        offset[1] += element.offsetLeft;
+    const offset = [element.offsetTop, element.offsetLeft];
+
+    while ((element = element.offsetParent)) {
+        offset[0] += element.offsetTop + toFloat(css(element, `borderTopWidth`));
+        offset[1] += element.offsetLeft + toFloat(css(element, `borderLeftWidth`));
 
         if (css(element, 'position') === 'fixed') {
             const win = toWindow(element);
@@ -108,7 +108,7 @@ export function offsetPosition(element) {
             offset[1] += win.scrollX;
             return offset;
         }
-    } while ((element = element.offsetParent));
+    }
 
     return offset;
 }

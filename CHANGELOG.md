@@ -24,6 +24,7 @@
 ### Fixed
 
 - Fix body is no longer scrollable in Modal component with overlay
+- Fix `offsetPosition()` adds `border-top` of offsetParents 
 
 ## 3.14.3 (May 27, 2022)
 

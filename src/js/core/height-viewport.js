@@ -56,14 +56,18 @@ export default {
                     0
                 );
             } else {
+                const isScrollingElement = document.scrollingElement === scrollElement;
+
                 // on mobile devices (iOS and Android) window.innerHeight !== 100vh
-                minHeight = `calc(${
-                    document.scrollingElement === scrollElement ? '100vh' : `${viewportHeight}px`
-                }`;
+                minHeight = `calc(${isScrollingElement ? '100vh' : `${viewportHeight}px`}`;
 
                 if (this.offsetTop) {
-                    const top = offsetPosition(this.$el)[0] - offsetPosition(scrollElement)[0];
-                    minHeight += top > 0 && top < viewportHeight / 2 ? ` - ${top}px` : '';
+                    if (isScrollingElement) {
+                        const top = offsetPosition(this.$el)[0] - offsetPosition(scrollElement)[0];
+                        minHeight += top > 0 && top < viewportHeight / 2 ? ` - ${top}px` : '';
+                    } else {
+                        minHeight += ` - ${css(scrollElement, 'paddingTop')}`;
+                    }
                 }
 
                 if (this.offsetBottom === true) {
