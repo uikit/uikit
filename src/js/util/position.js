@@ -158,6 +158,8 @@ function attachToWithFlip(element, target, options) {
                     if (newPos && isInScrollArea(newPos, scrollElement, 1 - i)) {
                         return newPos;
                     }
+
+                    continue;
                 }
             }
 

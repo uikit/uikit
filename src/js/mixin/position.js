@@ -6,6 +6,7 @@ import {
     includes,
     isRtl,
     positionAt,
+    scrollParents,
     toPx,
 } from 'uikit-util';
 
@@ -44,6 +45,9 @@ export default {
                 offset = offset.reverse();
             }
 
+            const [scrollElement] = scrollParents(element, /auto|scroll/);
+            const { scrollTop, scrollLeft } = scrollElement;
+
             // Ensure none positioned element does not generate scrollbars
             const elDim = dimensions(element);
             css(element, { top: -elDim.height, left: -elDim.width });
@@ -55,6 +59,10 @@ export default {
                 flip: this.flip,
                 viewportOffset: this.getViewportOffset(element),
             });
+
+            // Restore scroll position
+            scrollElement.scrollTop = scrollTop;
+            scrollElement.scrollLeft = scrollLeft;
         },
 
         getPositionOffset(element) {
