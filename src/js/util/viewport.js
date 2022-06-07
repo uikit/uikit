@@ -1,18 +1,7 @@
 import { css } from './style';
 import { isVisible, parents } from './filter';
 import { offset, offsetPosition } from './dimensions';
-import {
-    clamp,
-    findIndex,
-    intersectRect,
-    isDocument,
-    isUndefined,
-    isWindow,
-    toFloat,
-    toNode,
-    toWindow,
-    ucfirst,
-} from './lang';
+import { clamp, findIndex, intersectRect, isWindow, toFloat, toWindow, ucfirst } from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
     if (!isVisible(element)) {
@@ -33,20 +22,6 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
             })
             .concat(offset(element))
     );
-}
-
-export function scrollTop(element, top) {
-    if (isWindow(element) || isDocument(element)) {
-        element = scrollingElement(element);
-    } else {
-        element = toNode(element);
-    }
-
-    if (isUndefined(top)) {
-        return element.scrollTop;
-    } else {
-        element.scrollTop = top;
-    }
 }
 
 export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
@@ -90,7 +65,7 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
             (function step() {
                 const percent = ease(clamp((Date.now() - start) / duration));
 
-                scrollTop(element, scroll + top * percent);
+                element.scrollTop = scroll + top * percent;
 
                 // scroll more if we have not reached our destination
                 if (percent === 1) {
