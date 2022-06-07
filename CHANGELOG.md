@@ -24,7 +24,8 @@
 ### Fixed
 
 - Fix body is no longer scrollable in Modal component with overlay
-- Fix `offsetPosition()` adds `border-top` of offsetParents 
+- Fix `offsetPosition()` adds `border-top` of offsetParents
+- Fix dragging in Slider component on iOS
 
 ## 3.14.3 (May 27, 2022)
 
