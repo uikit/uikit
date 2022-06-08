@@ -300,6 +300,13 @@
 
             <h2>Dropdown</h2>
 
+            <div class="uk-margin">
+                <select id="js-size-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Default</option>
+                    <option value="uk-navbar-dropdown-large">Large</option>
+                </select>
+            </div>
+
         </div>
 
         <nav class="uk-navbar-container uk-margin">
@@ -3115,6 +3122,20 @@
             util.on(el, 'mouseleave', function () {
                 tracker.cancel();
                 clearInterval(interval);
+            });
+
+        </script>
+
+        <script>
+
+            var options = UIkit.util.$$('#js-size-switcher option').map(function (option) { return option.value; });
+
+            UIkit.util.on('#js-size-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('.uk-navbar-dropdown').forEach(function (table) {
+                    UIkit.util.removeClass(table, options);
+                    UIkit.util.addClass(table, value);
+                });
             });
 
         </script>

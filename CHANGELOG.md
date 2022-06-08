@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add dropdown large modifier to Dropdown and Navbar component
 - Add gap variable to navbar items in Navbar component
 - Add color mode variable to navbar dropdown in Navbar component
 - Add font size variables to nav and sublist in Nav component
