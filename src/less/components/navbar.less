@@ -51,7 +51,7 @@
 @navbar-nav-item-onclick-color:                 @global-emphasis-color;
 @navbar-nav-item-active-color:                  @global-emphasis-color;
 
-@navbar-item-padding-horizontal:                @navbar-nav-item-padding-horizontal;
+@navbar-item-padding-horizontal:                15px;
 @navbar-item-color:                             @global-color;
 
 @navbar-toggle-color:                           @global-muted-color;
@@ -229,7 +229,6 @@
     /* 3 */
     box-sizing: border-box;
     min-height: @navbar-nav-item-height;
-    padding: 0 @navbar-nav-item-padding-horizontal;
     /* 4 */
     font-size: @navbar-nav-item-font-size;
     font-family: @navbar-nav-item-font-family;
@@ -242,6 +241,7 @@
  */
 
 .uk-navbar-nav > li > a {
+    padding: 0 @navbar-nav-item-padding-horizontal;
     color: @navbar-nav-item-color;
     .hook-navbar-nav-item();
 }
@@ -290,6 +290,7 @@
  ========================================================================== */
 
 .uk-navbar-toggle {
+    padding: 0 @navbar-item-padding-horizontal;
     color: @navbar-toggle-color;
     .hook-navbar-toggle();
 }
