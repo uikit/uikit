@@ -1352,7 +1352,7 @@
 
         <nav class="uk-navbar-container uk-margin-top"><!-- Margin top only because of dropbar follows already in markup -->
             <div class="uk-container">
-                <div uk-navbar="dropbar: +.uk-navbar-dropbar">
+                <div uk-navbar="dropbar: !.uk-navbar-container + .uk-navbar-dropbar">
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
@@ -1552,7 +1552,7 @@
 
         <nav class="uk-navbar-container uk-margin">
             <div class="uk-container">
-                <div uk-navbar="dropbar: true; align: right">
+                <div uk-navbar="dropbar: true; dropbar-anchor: !.uk-navbar-container; align: right">
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
@@ -1708,7 +1708,7 @@
 
         <nav class="uk-navbar-container uk-margin uk-position-relative uk-position-z-index"><!-- Position context only needed for demo showcase -->
             <div class="uk-container">
-                <div uk-navbar="dropbar: true; align: center">
+                <div uk-navbar="dropbar: true; dropbar-anchor: !.uk-navbar-container; align: center">
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
