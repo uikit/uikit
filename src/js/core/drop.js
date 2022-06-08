@@ -415,7 +415,8 @@ export default {
 
                 const viewport = offsetViewport(scrollParent);
                 const targetDim = offset(target);
-                const elOffset = Math.abs(this.getPositionOffset(this.$el)) + viewportOffset;
+                const elOffset =
+                    Math.abs(this.getPositionOffset(this.$el, target)) + viewportOffset;
 
                 css(this.$el, {
                     width:

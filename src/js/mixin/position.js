@@ -1,10 +1,14 @@
 import {
+    $,
     css,
     dimensions,
     flipPosition,
     getCssVar,
+    offset as getOffset,
     includes,
+    isNumeric,
     isRtl,
+    isString,
     positionAt,
     scrollParents,
     toPx,
@@ -31,7 +35,7 @@ export default {
 
     methods: {
         positionAt(element, target, boundary) {
-            let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
+            let offset = [this.getPositionOffset(element, target), this.getShiftOffset(element)];
 
             const attach = {
                 element: [flipPosition(this.dir), this.align],
@@ -65,13 +69,23 @@ export default {
             scrollElement.scrollLeft = scrollLeft;
         },
 
-        getPositionOffset(element) {
+        getPositionOffset(element, target) {
+            let { axis, dir, offset } = this;
+
+            if (offset && !isNumeric(offset) && !(isString(offset) && offset.match(/^-?\d/))) {
+                const node = $(offset);
+                offset = node
+                    ? getOffset(node)[axis === 'x' ? 'left' : 'top'] -
+                      getOffset(target)[axis === 'x' ? 'right' : 'bottom']
+                    : 0;
+            }
+
             return (
                 toPx(
-                    this.offset === false ? getCssVar('position-offset', element) : this.offset,
-                    this.axis === 'x' ? 'width' : 'height',
+                    offset === false ? getCssVar('position-offset', element) : offset,
+                    axis === 'x' ? 'width' : 'height',
                     element
-                ) * (includes(['left', 'top'], this.dir) ? -1 : 1)
+                ) * (includes(['left', 'top'], dir) ? -1 : 1)
             );
         },
 
