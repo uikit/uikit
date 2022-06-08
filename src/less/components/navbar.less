@@ -73,6 +73,8 @@
 
 @navbar-dropdown-large-padding:                 40px;
 
+@navbar-dropdown-stretch-background:            @global-muted-background;
+
 @navbar-dropdown-dropbar-padding-top:           @navbar-dropdown-padding;
 @navbar-dropdown-dropbar-padding-bottom:        @navbar-dropdown-dropbar-padding-top;
 @navbar-dropdown-dropbar-padding-horizontal:    @navbar-nav-item-padding-horizontal;
@@ -424,6 +426,7 @@
 /*
  * Stretch modifier
  * 1. Allow scrolling
+ * 2. Style
  */
 
  .uk-navbar-dropdown-stretch {
@@ -433,23 +436,28 @@
     /* 1 */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    /* 2 */
+    background: @navbar-dropdown-stretch-background;
     .hook-navbar-dropdown-stretch();
 }
 
 /*
  * Dropbar modifier
  * 1. Reset dropdown width to prevent to early shifting
- * 2. Vertical padding
- * 3. Horizontal padding
+ * 2. Reset style
+ * 3. Vertical padding
+ * 4. Horizontal padding
  */
 
 .uk-navbar-dropdown-dropbar {
     /* 1 */
     width: auto;
     /* 2 */
+    background: transparent;
+    /* 3 */
     padding-top: @navbar-dropdown-dropbar-padding-top;
     padding-bottom: @navbar-dropdown-dropbar-padding-bottom;
-    /* 3 */
+    /* 4 */
     padding-left: @navbar-dropdown-dropbar-padding-horizontal;
     padding-right: @navbar-dropdown-dropbar-padding-horizontal;
     --uk-position-shift-offset: 0;
