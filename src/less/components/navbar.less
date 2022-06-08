@@ -51,6 +51,10 @@
 @navbar-nav-item-onclick-color:                 @global-emphasis-color;
 @navbar-nav-item-active-color:                  @global-emphasis-color;
 
+@navbar-parent-icon-width:                      14px;
+@navbar-parent-icon-height:                     14px;
+@navbar-parent-icon-color:                      @navbar-nav-item-color;
+
 @navbar-item-padding-horizontal:                15px;
 @navbar-item-color:                             @global-color;
 
@@ -92,6 +96,9 @@
 
 @navbar-dropbar-background:                     @navbar-dropdown-background;
 @navbar-dropbar-z-index:                        @global-z-index - 20;
+
+@internal-navbar-parent-close-image:            "../../images/backgrounds/navbar-parent-close.svg";
+@internal-navbar-parent-open-image:             "../../images/backgrounds/navbar-parent-open.svg";
 
 
 /* ========================================================================
@@ -270,6 +277,24 @@
     color: @navbar-nav-item-active-color;
     .hook-navbar-nav-item-active();
 }
+
+
+/* Parent icon modifier
+ ========================================================================== */
+
+.uk-navbar-parent-icon .uk-navbar-nav > .uk-parent > a::after {
+    content: "";
+    width: @navbar-parent-icon-width;
+    height: @navbar-parent-icon-height;
+    margin-left: auto;
+    .svg-fill(@internal-navbar-parent-close-image, "#000", @navbar-parent-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    .hook-nav-parent-icon();
+}
+
+.uk-navbar-parent-icon .uk-navbar-nav > .uk-parent:hover > a::after,
+.uk-navbar-parent-icon .uk-navbar-nav > .uk-parent > a[aria-expanded="true"]::after { .svg-fill(@internal-navbar-parent-open-image, "#000", @navbar-parent-icon-color); }
 
 
 /* Item
