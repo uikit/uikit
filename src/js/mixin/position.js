@@ -1,17 +1,14 @@
 import {
-    $,
     css,
     dimensions,
     flipPosition,
     getCssVar,
-    offset as getOffset,
     includes,
-    isNumeric,
     isRtl,
-    isString,
     positionAt,
     scrollParents,
     toPx,
+    trigger,
 } from 'uikit-util';
 
 export default {
@@ -35,7 +32,7 @@ export default {
 
     methods: {
         positionAt(element, target, boundary) {
-            let offset = [this.getPositionOffset(element, target), this.getShiftOffset(element)];
+            let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
 
             const attach = {
                 element: [flipPosition(this.dir), this.align],
@@ -56,36 +53,34 @@ export default {
             const elDim = dimensions(element);
             css(element, { top: -elDim.height, left: -elDim.width });
 
-            positionAt(element, target, {
-                attach,
-                offset,
-                boundary,
-                flip: this.flip,
-                viewportOffset: this.getViewportOffset(element),
-            });
+            const args = [
+                element,
+                target,
+                {
+                    attach,
+                    offset,
+                    boundary,
+                    flip: this.flip,
+                    viewportOffset: this.getViewportOffset(element),
+                },
+            ];
+
+            trigger(element, 'beforeposition', args);
+
+            positionAt(...args);
 
             // Restore scroll position
             scrollElement.scrollTop = scrollTop;
             scrollElement.scrollLeft = scrollLeft;
         },
 
-        getPositionOffset(element, target) {
-            let { axis, dir, offset } = this;
-
-            if (offset && !isNumeric(offset) && !(isString(offset) && offset.match(/^-?\d/))) {
-                const node = $(offset);
-                offset = node
-                    ? getOffset(node)[axis === 'x' ? 'left' : 'top'] -
-                      getOffset(target)[axis === 'x' ? 'right' : 'bottom']
-                    : 0;
-            }
-
+        getPositionOffset(element) {
             return (
                 toPx(
-                    offset === false ? getCssVar('position-offset', element) : offset,
-                    axis === 'x' ? 'width' : 'height',
+                    this.offset === false ? getCssVar('position-offset', element) : this.offset,
+                    this.axis === 'x' ? 'width' : 'height',
                     element
-                ) * (includes(['left', 'top'], dir) ? -1 : 1)
+                ) * (includes(['left', 'top'], this.dir) ? -1 : 1)
             );
         },
 

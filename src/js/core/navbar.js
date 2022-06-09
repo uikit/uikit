@@ -124,7 +124,6 @@ export default {
                         ...this.$props,
                         boundary: this.boundary,
                         pos: this.pos,
-                        offset: this.dropbar || this.offset,
                     }
                 );
             },
@@ -285,8 +284,8 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el, align }) {
-                if (!hasClass($el, this.clsDrop) || align === 'stretch') {
+            handler({ target }) {
+                if (!this.isDropbarDrop(target)) {
                     return;
                 }
 
@@ -294,7 +293,7 @@ export default {
                     after(this.dropbarAnchor || this.$el, this.dropbar);
                 }
 
-                addClass($el, `${this.clsDrop}-dropbar`);
+                addClass(target, `${this.clsDrop}-dropbar`);
             },
         },
 
@@ -309,19 +308,44 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el, align }) {
-                if (!hasClass($el, this.clsDrop) || align === 'stretch') {
+            handler({ target }) {
+                if (!this.isDropbarDrop(target)) {
                     return;
                 }
 
-                this._observer = observeResize($el, () =>
+                this._observer = observeResize(target, () =>
                     this.transitionTo(
-                        offset($el).bottom -
+                        offset(target).bottom -
                             offset(this.dropbar).top +
-                            toFloat(css($el, 'marginBottom')),
-                        $el
+                            toFloat(css(target, 'marginBottom')),
+                        target
                     )
                 );
+            },
+        },
+
+        {
+            name: 'beforeposition',
+
+            el() {
+                return this.dropContainer;
+            },
+
+            filter() {
+                return this.dropbar;
+            },
+
+            handler(e, element, target, options) {
+                if (!this.isDropbarDrop(element)) {
+                    return;
+                }
+
+                const dropbarOffset = offset(this.dropbar);
+
+                css(element, 'maxWidth', dropbarOffset.width - options.viewportOffset * 2);
+
+                options.offset[1] = dropbarOffset.top - offset(target).bottom;
+                options.viewportOffset += dropbarOffset.left;
             },
         },
 
@@ -336,12 +360,12 @@ export default {
                 return this.dropbar;
             },
 
-            handler(e, { $el }) {
+            handler(e) {
                 const active = this.getActive();
 
                 if (
                     matches(this.dropbar, ':hover') &&
-                    active?.$el === $el &&
+                    active?.$el === e.target &&
                     !this.toggles.some((el) => active.target !== el && matches(el, ':focus'))
                 ) {
                     e.preventDefault();
@@ -360,8 +384,8 @@ export default {
                 return this.dropbar;
             },
 
-            handler(_, { $el, align }) {
-                if (!hasClass($el, this.clsDrop) || align === 'stretch') {
+            handler({ target }) {
+                if (!this.isDropbarDrop(target)) {
                     return;
                 }
 
@@ -369,7 +393,7 @@ export default {
 
                 const active = this.getActive();
 
-                if (!active || active?.$el === $el) {
+                if (!active || active?.$el === target) {
                     this.transitionTo(0);
                 }
             },
@@ -408,6 +432,11 @@ export default {
 
         getDropdown(el) {
             return this.$getComponent(el, 'drop') || this.$getComponent(el, 'dropdown');
+        },
+
+        isDropbarDrop(el) {
+            const drop = this.getDropdown(el);
+            return drop && hasClass(el, this.clsDrop) && drop.align !== 'stretch';
         },
     },
 };
