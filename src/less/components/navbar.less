@@ -77,6 +77,9 @@
 
 @navbar-dropdown-large-padding:                 40px;
 
+@navbar-dropdown-stretch-padding-top:           15px;
+@navbar-dropdown-stretch-padding-bottom:        @navbar-dropdown-stretch-padding-top;
+@navbar-dropdown-stretch-padding-horizontal:    15px;
 @navbar-dropdown-stretch-background:            @global-background;
 
 @navbar-dropdown-dropbar-padding-top:           @navbar-dropdown-padding;
@@ -462,6 +465,7 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* 2 */
+    padding: @navbar-dropdown-stretch-padding-top @navbar-dropdown-stretch-padding-horizontal @navbar-dropdown-stretch-padding-bottom @navbar-dropdown-stretch-padding-horizontal;
     background: @navbar-dropdown-stretch-background;
     .hook-navbar-dropdown-stretch();
 }
@@ -470,8 +474,7 @@
  * Dropbar modifier
  * 1. Reset dropdown width to prevent to early shifting
  * 2. Reset style
- * 3. Vertical padding
- * 4. Horizontal padding
+ * 3. Padding
  */
 
 .uk-navbar-dropdown-dropbar {
@@ -480,11 +483,7 @@
     /* 2 */
     background: transparent;
     /* 3 */
-    padding-top: @navbar-dropdown-dropbar-padding-top;
-    padding-bottom: @navbar-dropdown-dropbar-padding-bottom;
-    /* 4 */
-    padding-left: @navbar-dropdown-dropbar-padding-horizontal;
-    padding-right: @navbar-dropdown-dropbar-padding-horizontal;
+    padding: @navbar-dropdown-dropbar-padding-top @navbar-dropdown-dropbar-padding-horizontal @navbar-dropdown-dropbar-padding-bottom @navbar-dropdown-dropbar-padding-horizontal;
     --uk-position-shift-offset: 0;
     .hook-navbar-dropdown-dropbar();
 }
