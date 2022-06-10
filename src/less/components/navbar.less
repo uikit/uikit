@@ -76,6 +76,7 @@
 @navbar-dropdown-grid-gutter-horizontal:        @global-gutter;
 @navbar-dropdown-grid-gutter-vertical:          @navbar-dropdown-grid-gutter-horizontal;
 
+@navbar-dropdown-large-shift-margin:            0;
 @navbar-dropdown-large-padding:                 40px;
 
 @navbar-dropdown-stretch-padding-top:           15px;
@@ -452,7 +453,10 @@
  * Size modifier
  */
 
-.uk-navbar-dropdown-large { padding: @navbar-dropdown-large-padding; }
+.uk-navbar-dropdown-large {
+    --uk-position-shift-offset: @navbar-dropdown-large-shift-margin;
+    padding: @navbar-dropdown-large-padding;
+}
 
 /*
  * Stretch modifier
