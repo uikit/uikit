@@ -103,7 +103,7 @@ export default {
                 });
         },
 
-        setState(state, animate = true) {
+        async setState(state, animate = true) {
             state = { filter: { '': '' }, sort: [], ...state };
 
             trigger(this.$el, 'beforeFilter', [this, state]);
@@ -112,7 +112,7 @@ export default {
                 toggleClass(el, this.cls, !!matchFilter(el, this.attrItem, state))
             );
 
-            Promise.all(
+            await Promise.all(
                 $$(this.target, this.$el).map((target) => {
                     const filterFn = () => {
                         applyState(state, target, getChildren(target));
@@ -120,7 +120,9 @@ export default {
                     };
                     return animate ? this.animate(filterFn, target) : filterFn();
                 })
-            ).then(() => trigger(this.$el, 'afterFilter', [this]));
+            );
+
+            trigger(this.$el, 'afterFilter', [this]);
         },
 
         updateState() {
