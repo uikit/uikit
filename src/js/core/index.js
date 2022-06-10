@@ -33,6 +33,7 @@ export { Slidenav as SlidenavNext } from './icon';
 export { Slidenav as SlidenavPrevious } from './icon';
 export { Search as SearchIcon } from './icon';
 export { IconComponent as Marker } from './icon';
+export { IconComponent as NavbarParentIcon } from './icon';
 export { IconComponent as NavbarToggleIcon } from './icon';
 export { IconComponent as OverlayIcon } from './icon';
 export { IconComponent as PaginationNext } from './icon';

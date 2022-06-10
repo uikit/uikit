@@ -2,6 +2,7 @@ import SVG from './svg';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
+import navbarParentIcon from '../../images/components/navbar-parent-icon.svg';
 import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
 import overlayIcon from '../../images/components/overlay-icon.svg';
 import paginationNext from '../../images/components/pagination-next.svg';
@@ -35,6 +36,7 @@ const icons = {
     marker,
     'close-icon': closeIcon,
     'close-large': closeLarge,
+    'navbar-parent-icon': navbarParentIcon,
     'navbar-toggle-icon': navbarToggleIcon,
     'overlay-icon': overlayIcon,
     'pagination-next': paginationNext,

@@ -75,12 +75,12 @@
                     <div class="uk-margin uk-position-relative uk-light">
                         <canvas class="uk-background-cover" style="background-image: url('images/dark.jpg')" width="1000" height="300"></canvas>
                         <div class="uk-position-top">
-                            <nav class="uk-navbar-container uk-navbar-transparent uk-navbar-parent-icon" uk-navbar>
+                            <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
                                 <div class="uk-navbar-left">
                                     <ul class="uk-navbar-nav">
                                         <li class="uk-active"><a href="">Active</a></li>
-                                        <li class="uk-parent">
-                                            <a href="">Parent</a>
+                                        <li>
+                                            <a href="">Parent <span uk-navbar-parent-icon></span></a>
                                             <div class="uk-navbar-dropdown">
                                                 <ul class="uk-nav uk-navbar-dropdown-nav">
                                                     <li class="uk-active"><a href="#">Active</a></li>
@@ -116,12 +116,12 @@
                     <div class="uk-margin uk-position-relative uk-dark">
                         <canvas class="uk-background-cover" style="background-image: url('images/light.jpg')" width="1000" height="300"></canvas>
                         <div class="uk-position-top">
-                            <nav class="uk-navbar-container uk-navbar-transparent uk-navbar-parent-icon" uk-navbar>
+                            <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
                                 <div class="uk-navbar-left">
                                     <ul class="uk-navbar-nav">
                                         <li class="uk-active"><a href="">Active</a></li>
-                                        <li class="uk-parent">
-                                            <a href="">Parent</a>
+                                        <li>
+                                            <a href="">Parent <span uk-navbar-parent-icon></span></a>
                                             <div class="uk-navbar-dropdown">
                                                 <ul class="uk-nav uk-navbar-dropdown-nav">
                                                     <li class="uk-active"><a href="#">Active</a></li>
@@ -807,12 +807,12 @@
 
         <nav class="uk-navbar-container uk-margin">
             <div class="uk-container">
-                <div class="uk-navbar-parent-icon" uk-navbar>
+                <div uk-navbar>
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
-                            <li class="uk-active uk-parent">
-                                <a href="#">Left</a>
+                            <li class="uk-active">
+                                <a href="#">Left <span uk-navbar-parent-icon></span></a>
                                 <div class="uk-navbar-dropdown">
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
                                         <li class="uk-active"><a href="#">Active</a></li>
@@ -831,8 +831,8 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="uk-parent">
-                                <a href="#">2 Columns</a>
+                            <li>
+                                <a href="#">2 Columns <span uk-navbar-parent-icon></span></a>
                                 <div class="uk-navbar-dropdown uk-navbar-dropdown-width-2">
                                     <div class="uk-navbar-dropdown-grid uk-child-width-1-2" uk-grid>
                                         <div>
@@ -860,8 +860,8 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="uk-parent">
-                                <a href="#">3 Columns</a>
+                            <li>
+                                <a href="#">3 Columns <span uk-navbar-parent-icon></span></a>
                                 <div class="uk-navbar-dropdown uk-navbar-dropdown-width-3">
                                     <div class="uk-navbar-dropdown-grid uk-child-width-1-3" uk-grid>
                                         <div>
@@ -886,8 +886,8 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="uk-parent">
-                                <a href="#">Justify</a>
+                            <li>
+                                <a href="#">Justify <span uk-navbar-parent-icon></span></a>
                                 <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; boundary-align: true; pos: bottom-justify; flip: x">
                                     <div class="uk-navbar-dropdown-grid uk-child-width-1-3@m" uk-grid>
                                         <div>
@@ -928,8 +928,8 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="uk-parent">
-                                <a href="#">Justify Full</a>
+                            <li>
+                                <a href="#">Justify Full <span uk-navbar-parent-icon></span></a>
                                 <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar-container; pos: bottom-justify; flip: x">
                                     <div class="uk-navbar-dropdown-grid uk-child-width-1-3@m" uk-grid>
                                         <div>
@@ -976,8 +976,8 @@
                     <div class="uk-navbar-right">
 
                         <ul class="uk-navbar-nav">
-                            <li class="uk-parent">
-                                <a href="#">1 Column</a>
+                            <li>
+                                <a href="#">1 Column <span uk-navbar-parent-icon></span></a>
                                 <div class="uk-navbar-dropdown">
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
                                         <li class="uk-active"><a href="#">Active</a></li>
