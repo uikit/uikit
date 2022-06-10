@@ -56,7 +56,9 @@ export default {
                     0
                 );
             } else {
-                const isScrollingElement = document.scrollingElement === scrollElement;
+                const { body, scrollingElement } = document;
+                const isScrollingElement =
+                    scrollingElement === scrollElement || body === scrollElement;
 
                 // on mobile devices (iOS and Android) window.innerHeight !== 100vh
                 minHeight = `calc(${isScrollingElement ? '100vh' : `${viewportHeight}px`}`;
