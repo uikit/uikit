@@ -10,7 +10,6 @@ import {
     isFunction,
     isVisible,
     noop,
-    offset,
     removeClass,
     scrollParents,
     startsWith,
@@ -232,7 +231,7 @@ function slideHorizontal({ isToggled, duration, velocity, transition, _toggle },
 
         Transition.cancel(el);
 
-        const [scrollElement] = scrollParents(el);
+        const [scrollElement] = scrollParents(el.offsetParent);
         css(scrollElement, 'overflowX', 'hidden');
 
         if (!isToggled(el)) {
@@ -243,17 +242,11 @@ function slideHorizontal({ isToggled, duration, velocity, transition, _toggle },
         duration = velocity * width + duration;
 
         const percent = visible ? ((width + marginLeft * (right ? -1 : 1)) / width) * 100 : 0;
-        const offsetEl = offset(el);
-        const useClipPath = right
-            ? offsetEl.right < scrollElement.clientWidth
-            : Math.round(offsetEl.left) > 0;
 
         css(el, {
-            clipPath: useClipPath
-                ? right
-                    ? `polygon(0 0,${percent}% 0,${percent}% 100%,0 100%)`
-                    : `polygon(${100 - percent}% 0,100% 0,100% 100%,${100 - percent}% 100%)`
-                : '',
+            clipPath: right
+                ? `polygon(0 0,${percent}% 0,${percent}% 100%,0 100%)`
+                : `polygon(${100 - percent}% 0,100% 0,100% 100%,${100 - percent}% 100%)`,
             marginLeft: (((100 - percent) * (right ? 1 : -1)) / 100) * width,
         });
 
@@ -262,7 +255,7 @@ function slideHorizontal({ isToggled, duration, velocity, transition, _toggle },
                 ? Transition.start(
                       el,
                       {
-                          clipPath: useClipPath ? `polygon(0 0,100% 0,100% 100%,0 100%)` : '',
+                          clipPath: `polygon(0 0,100% 0,100% 100%,0 100%)`,
                           marginLeft: 0,
                       },
                       duration * (1 - percent / 100),
@@ -271,11 +264,9 @@ function slideHorizontal({ isToggled, duration, velocity, transition, _toggle },
                 : Transition.start(
                       el,
                       {
-                          clipPath: useClipPath
-                              ? right
-                                  ? `polygon(0 0,0 0,0 100%,0 100%)`
-                                  : `polygon(100% 0,100% 0,100% 100%,100% 100%)`
-                              : '',
+                          clipPath: right
+                              ? `polygon(0 0,0 0,0 100%,0 100%)`
+                              : `polygon(100% 0,100% 0,100% 100%,100% 100%)`,
                           marginLeft: (right ? 1 : -1) * width,
                       },
                       duration * (percent / 100),
