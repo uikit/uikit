@@ -53,6 +53,7 @@
 
 @navbar-parent-icon-width:                      12px;
 @navbar-parent-icon-height:                     12px;
+@navbar-parent-icon-margin-left:                4px;
 @navbar-parent-icon-color:                      @navbar-nav-item-color;
 
 @navbar-item-padding-horizontal:                15px;
@@ -291,7 +292,7 @@
     content: "";
     width: @navbar-parent-icon-width;
     height: @navbar-parent-icon-height;
-    margin-left: auto;
+    margin-left: @navbar-parent-icon-margin-left;
     .svg-fill(@internal-navbar-parent-close-image, "#000", @navbar-parent-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -632,11 +633,16 @@
 @inverse-navbar-nav-item-hover-color:          @inverse-global-color;
 @inverse-navbar-nav-item-onclick-color:        @inverse-global-emphasis-color;
 @inverse-navbar-nav-item-active-color:         @inverse-global-emphasis-color;
+@inverse-navbar-parent-icon-color:             @inverse-navbar-nav-item-color;
 @inverse-navbar-item-color:                    @inverse-global-color;
 @inverse-navbar-toggle-color:                  @inverse-global-muted-color;
 @inverse-navbar-toggle-hover-color:            @inverse-global-color;
 
 .hook-inverse() {
+
+    //
+    // Nav Item
+    //
 
     .uk-navbar-nav > li > a {
         color: @inverse-navbar-nav-item-color;
@@ -659,10 +665,30 @@
         .hook-inverse-navbar-nav-item-active();
     }
 
+    //
+    // Parent icon modifier
+    //
+
+    .uk-navbar-parent-icon .uk-navbar-nav > .uk-parent > a::after {
+        .svg-fill(@internal-navbar-parent-close-image, "#000", @inverse-navbar-parent-icon-color);
+        .hook-inverse-nav-parent-icon();
+    }
+    
+    .uk-navbar-parent-icon .uk-navbar-nav > .uk-parent:hover > a::after,
+    .uk-navbar-parent-icon .uk-navbar-nav > .uk-parent > a[aria-expanded="true"]::after { .svg-fill(@internal-navbar-parent-open-image, "#000", @inverse-navbar-parent-icon-color); }
+
+    //
+    // Item
+    //
+
     .uk-navbar-item {
         color: @inverse-navbar-item-color;
         .hook-inverse-navbar-item();
     }
+
+    //
+    // Toggle
+    //
 
     .uk-navbar-toggle {
         color: @inverse-navbar-toggle-color;
@@ -681,6 +707,7 @@
 .hook-inverse-navbar-nav-item-hover() {}
 .hook-inverse-navbar-nav-item-onclick() {}
 .hook-inverse-navbar-nav-item-active() {}
+.hook-inverse-nav-parent-icon() {}
 .hook-inverse-navbar-item() {}
 .hook-inverse-navbar-toggle() {}
 .hook-inverse-navbar-toggle-hover() {}
