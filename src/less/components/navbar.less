@@ -80,7 +80,9 @@
 @navbar-dropdown-stretch-padding-top:           15px;
 @navbar-dropdown-stretch-padding-bottom:        @navbar-dropdown-stretch-padding-top;
 @navbar-dropdown-stretch-padding-horizontal:    15px;
-@navbar-dropdown-stretch-background:            @global-background;
+@navbar-dropdown-stretch-padding-horizontal-s:  @global-gutter;
+@navbar-dropdown-stretch-padding-horizontal-m:  @global-medium-gutter;
+@navbar-dropdown-stretch-background:            @navbar-dropdown-background;
 
 @navbar-dropdown-dropbar-padding-top:           @navbar-dropdown-padding;
 @navbar-dropdown-dropbar-padding-bottom:        @navbar-dropdown-dropbar-padding-top;
@@ -457,7 +459,7 @@
  * 2. Style
  */
 
- .uk-navbar-dropdown-stretch {
+.uk-navbar-dropdown-stretch {
     --uk-position-offset: 0;
     --uk-position-shift-offset: 0;
     --uk-position-viewport-offset: 0;
@@ -468,6 +470,26 @@
     padding: @navbar-dropdown-stretch-padding-top @navbar-dropdown-stretch-padding-horizontal @navbar-dropdown-stretch-padding-bottom @navbar-dropdown-stretch-padding-horizontal;
     background: @navbar-dropdown-stretch-background;
     .hook-navbar-dropdown-stretch();
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-navbar-dropdown-stretch {
+        padding-left: @navbar-dropdown-stretch-padding-horizontal-s;
+        padding-right: @navbar-dropdown-stretch-padding-horizontal-s;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-navbar-dropdown-stretch {
+        padding-left: @navbar-dropdown-stretch-padding-horizontal-m;
+        padding-right: @navbar-dropdown-stretch-padding-horizontal-m;
+    }
+
 }
 
 /*
