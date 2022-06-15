@@ -3,13 +3,13 @@
 //
 // Component:       `uk-nav`
 //
-// Sub-objects:     `uk-nav-header`
+// Sub-objects:     `uk-nav-parent-icon`
+//                  `uk-nav-header`
 //                  `uk-nav-divider`
 //                  `uk-nav-subtitle`
 //                  `uk-nav-sub`
 //
-// Modifiers:       `uk-nav-parent-icon`
-//                  `uk-nav-default`
+// Modifiers:       `uk-nav-default`
 //                  `uk-nav-primary`
 //                  `uk-nav-center`,
 //                  `uk-nav-divider`
@@ -32,10 +32,6 @@
 @nav-sublist-padding-left:                      15px;
 @nav-sublist-deeper-padding-left:               15px;
 @nav-sublist-item-padding-vertical:             2px;
-
-@nav-parent-icon-width:                         (@global-line-height * 1em);
-@nav-parent-icon-height:                        @nav-parent-icon-width;
-@nav-parent-icon-color:                         @global-color;
 
 @nav-header-padding-vertical:                   @nav-item-padding-vertical;
 @nav-header-padding-horizontal:                 @nav-item-padding-horizontal;
@@ -360,7 +356,6 @@ ul.uk-nav-sub {
 .hook-nav-misc();
 
 .hook-nav-sub() {}
-.hook-nav-parent-icon() {}
 .hook-nav-header() {}
 .hook-nav-divider() {}
 .hook-nav-default() {}
@@ -384,7 +379,6 @@ ul.uk-nav-sub {
 // Inverse
 // ========================================================================
 
-@inverse-nav-parent-icon-color:                 @inverse-global-color;
 @inverse-nav-default-item-color:                @inverse-global-muted-color;
 @inverse-nav-default-item-hover-color:          @inverse-global-color;
 @inverse-nav-default-item-active-color:         @inverse-global-emphasis-color;
@@ -488,7 +482,6 @@ ul.uk-nav-sub {
 
 }
 
-.hook-inverse-nav-parent-icon() {}
 .hook-inverse-nav-default-item() {}
 .hook-inverse-nav-default-item-hover() {}
 .hook-inverse-nav-default-item-active() {}
