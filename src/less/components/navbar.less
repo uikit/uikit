@@ -86,6 +86,9 @@
 @navbar-dropdown-dropbar-padding-top:           @navbar-dropdown-padding;
 @navbar-dropdown-dropbar-padding-bottom:        @navbar-dropdown-dropbar-padding-top;
 @navbar-dropdown-dropbar-padding-horizontal:    @navbar-nav-item-padding-horizontal;
+@navbar-dropdown-dropbar-viewport-margin:       15px;
+@navbar-dropdown-dropbar-viewport-margin-s:     @global-gutter;
+@navbar-dropdown-dropbar-viewport-margin-m:     @global-medium-gutter;
 
 @navbar-dropdown-nav-item-color:                @global-muted-color;
 @navbar-dropdown-nav-item-hover-color:          @global-color;
@@ -496,8 +499,24 @@
     /* 3 */
     padding: @navbar-dropdown-dropbar-padding-top @navbar-dropdown-dropbar-padding-horizontal @navbar-dropdown-dropbar-padding-bottom @navbar-dropdown-dropbar-padding-horizontal;
     --uk-position-shift-offset: 0;
+    --uk-position-viewport-offset: @navbar-dropdown-dropbar-viewport-margin;
     .hook-navbar-dropdown-dropbar();
 }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-navbar-dropdown-dropbar { --uk-position-viewport-offset: @navbar-dropdown-dropbar-viewport-margin-s; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-navbar-dropdown-dropbar { --uk-position-viewport-offset: @navbar-dropdown-dropbar-viewport-margin-m; }
+
+}
+
 
 
 /* Dropdown Nav
