@@ -29,6 +29,7 @@ export { default as Video } from './video';
 // Icon components
 export { Close } from './icon';
 export { Spinner } from './icon';
+export { NavParentIcon} from './icon';
 export { Slidenav as SlidenavNext } from './icon';
 export { Slidenav as SlidenavPrevious } from './icon';
 export { Search as SearchIcon } from './icon';

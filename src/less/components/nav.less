@@ -80,9 +80,6 @@
 @nav-dividers-border-width:                     @global-border-width;
 @nav-dividers-border:                           @global-border;
 
-@internal-nav-parent-close-image:               "../../images/backgrounds/nav-parent-close.svg";
-@internal-nav-parent-open-image:                "../../images/backgrounds/nav-parent-open.svg";
-
 
 /* ========================================================================
    Component: Nav
@@ -152,18 +149,9 @@ ul.uk-nav-sub {
 /* Parent icon modifier
  ========================================================================== */
 
-.uk-nav-parent-icon > .uk-parent > a::after {
-    content: "";
-    width: @nav-parent-icon-width;
-    height: @nav-parent-icon-height;
-    margin-left: auto;
-    .svg-fill(@internal-nav-parent-close-image, "#000", @nav-parent-icon-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    .hook-nav-parent-icon();
-}
+.uk-nav-parent-icon { margin-left: auto; }
 
-.uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-nav-parent-open-image, "#000", @nav-parent-icon-color); }
+.uk-nav > li > a[aria-expanded="true"] .uk-nav-parent-icon { transform: rotate(180deg); }
 
 
 /* Header
@@ -352,7 +340,7 @@ ul.uk-nav-sub {
 .uk-nav-center .uk-nav-sub ul { padding-left: 0; }
 
 /* Parent icon modifier  */
-.uk-nav-center.uk-nav-parent-icon > .uk-parent > a::after { margin-left: 0; }
+.uk-nav-center .uk-nav-parent-icon { margin-left: 0; }
 
 
 /* Style modifier
@@ -418,17 +406,6 @@ ul.uk-nav-sub {
 @inverse-nav-dividers-border:                   @inverse-global-border;
 
 .hook-inverse() {
-
-    //
-    // Parent icon modifier
-    //
-
-    .uk-nav-parent-icon > .uk-parent > a::after {
-        .svg-fill(@internal-nav-parent-close-image, "#000", @inverse-nav-parent-icon-color);
-        .hook-inverse-nav-parent-icon();
-    }
-
-    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-nav-parent-open-image, "#000", @inverse-nav-parent-icon-color); }
 
     //
     // Default

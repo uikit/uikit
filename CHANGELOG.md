@@ -24,7 +24,7 @@
 - Rename `@nav-primary-item-line-height` to `@nav-primary-line-height`
 - Rename `@navbar-dropdown-dropbar-margin-top` to `@navbar-dropdown-dropbar-padding-top`
 - Rename `@navbar-dropdown-dropbar-margin-bottom` to `@navbar-dropdown-dropbar-padding-bottom`
-- Change nav parent icon
+- Use JS icon component instead of compiling icons into CSS for nav parent icon in Nav component
 
 ### Fixed
 
