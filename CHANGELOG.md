@@ -14,6 +14,7 @@
 - Add Height Viewport uses scroll parent as viewport
 - Add zero z-index utility class to Position component
 - Add option `bg-scroll` to Drop component
+- Add support for `picture` element to logo in Utility component
 
 ### Changed
 
