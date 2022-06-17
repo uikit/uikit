@@ -409,6 +409,12 @@
 /* Show */
 .uk-navbar-dropdown.uk-open { display: block; }
 
+/*
+ * Remove margin from the last-child
+ */
+
+ .uk-navbar-dropdown > :last-child { margin-bottom: 0; }
+
 // Color Mode
 .uk-navbar-dropdown:extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
 .uk-navbar-dropdown:extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
