@@ -8,6 +8,7 @@ import {
     isString,
     isUndefined,
     memoize,
+    startsWith,
     toNodes,
 } from './lang';
 
@@ -65,10 +66,8 @@ export function css(element, property, value, priority = '') {
 // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
 export const propName = memoize((name) => vendorPropName(name));
 
-const cssPrefixes = ['webkit', 'moz'];
-
 function vendorPropName(name) {
-    if (name[0] === '-') {
+    if (startsWith(name, '--')) {
         return name;
     }
 
@@ -80,11 +79,8 @@ function vendorPropName(name) {
         return name;
     }
 
-    let i = cssPrefixes.length,
-        prefixedName;
-
-    while (i--) {
-        prefixedName = `-${cssPrefixes[i]}-${name}`;
+    for (const prefix of ['webkit', 'moz']) {
+        const prefixedName = `-${prefix}-${name}`;
         if (prefixedName in style) {
             return prefixedName;
         }
