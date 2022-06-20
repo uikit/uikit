@@ -2,7 +2,6 @@ import {
     css,
     dimensions,
     flipPosition,
-    getCssVar,
     includes,
     isRtl,
     positionAt,
@@ -77,7 +76,7 @@ export default {
         getPositionOffset(element) {
             return (
                 toPx(
-                    this.offset === false ? getCssVar('position-offset', element) : this.offset,
+                    this.offset === false ? css(element, '--uk-position-offset') : this.offset,
                     this.axis === 'x' ? 'width' : 'height',
                     element
                 ) * (includes(['left', 'top'], this.dir) ? -1 : 1)
@@ -88,14 +87,14 @@ export default {
             return includes(['center', 'justify', 'stretch'], this.align)
                 ? 0
                 : toPx(
-                      getCssVar('position-shift-offset', element),
+                      css(element, '--uk-position-shift-offset'),
                       this.axis === 'y' ? 'width' : 'height',
                       element
                   ) * (includes(['left', 'top'], this.align) ? 1 : -1);
         },
 
         getViewportOffset(element) {
-            return toPx(getCssVar('position-viewport-offset', element));
+            return toPx(css(element, '--uk-position-viewport-offset'));
         },
     },
 };

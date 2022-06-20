@@ -62,11 +62,6 @@ export function css(element, property, value, priority = '') {
     return elements[0];
 }
 
-const propertyRe = /^\s*(["'])?(.*?)\1\s*$/;
-export function getCssVar(name, element = document.documentElement) {
-    return css(element, `--uk-${name}`).replace(propertyRe, '$2');
-}
-
 // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
 export const propName = memoize((name) => vendorPropName(name));
 

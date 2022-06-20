@@ -28,6 +28,10 @@
 - Rename `@navbar-dropdown-dropbar-margin-bottom` to `@navbar-dropdown-dropbar-padding-bottom`
 - Use JS icon component instead of compiling icons into CSS for nav parent icon in Nav component
 
+### Removed
+
+- Remove `getCssVar()` utility function
+
 ### Fixed
 
 - Fix body is no longer scrollable in Modal component with overlay

@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import { attr, getCssVar, toggleClass, unwrap, wrapInner } from 'uikit-util';
+import { attr, css, toggleClass, unwrap, wrapInner } from 'uikit-util';
 import Resize from '../mixin/resize';
 
 export default {
@@ -19,7 +19,7 @@ export default {
 
     computed: {
         fill({ fill }) {
-            return fill || getCssVar('leader-fill-content');
+            return fill || css(this.$el, '--uk-leader-fill-content');
         },
     },
 
