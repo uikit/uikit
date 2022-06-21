@@ -128,12 +128,10 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden|clip/, s
 export function offsetViewport(scrollElement) {
     const window = toWindow(scrollElement);
     const {
-        document: { body, documentElement },
+        document: { documentElement },
     } = window;
     let viewportElement =
-        scrollElement === scrollingElement(scrollElement) || scrollElement === body
-            ? window
-            : scrollElement;
+        scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
 
     const { visualViewport } = window;
     if (isWindow(viewportElement) && visualViewport) {

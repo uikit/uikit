@@ -45,8 +45,11 @@ export default {
             let minHeight = '';
             const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
+            const { body, scrollingElement } = document;
             const [scrollElement] = scrollParents(this.$el, /auto|scroll/);
-            const { height: viewportHeight } = offsetViewport(scrollElement);
+            const { height: viewportHeight } = offsetViewport(
+                scrollElement === body ? scrollingElement : scrollElement
+            );
 
             if (this.expand) {
                 minHeight = Math.max(
@@ -56,7 +59,6 @@ export default {
                     0
                 );
             } else {
-                const { body, scrollingElement } = document;
                 const isScrollingElement =
                     scrollingElement === scrollElement || body === scrollElement;
 
