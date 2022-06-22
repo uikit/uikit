@@ -142,7 +142,7 @@ ul.uk-nav-sub {
 .uk-nav-sub a { padding: @nav-sublist-item-padding-vertical 0; }
 
 
-/* Parent icon modifier
+/* Parent icon
  ========================================================================== */
 
 .uk-nav-parent-icon { margin-left: auto; }
@@ -335,12 +335,17 @@ ul.uk-nav-sub {
 .uk-nav-center .uk-nav-sub,
 .uk-nav-center .uk-nav-sub ul { padding-left: 0; }
 
-/* Parent icon modifier  */
+/* Parent icon  */
 .uk-nav-center .uk-nav-parent-icon { margin-left: 0; }
 
 
 /* Style modifier
  ========================================================================== */
+
+/*
+ * Divider
+ * Naming is in plural to prevent conflicts with divider sub object.
+ */
 
 .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
     margin-top: @nav-dividers-margin-top;
@@ -477,7 +482,7 @@ ul.uk-nav-sub {
 
     .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
         border-top-color: @inverse-nav-dividers-border;
-        .hook-nav-dividers();
+        .hook-inverse-nav-dividers();
     }
 
 }
