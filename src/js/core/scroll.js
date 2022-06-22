@@ -51,9 +51,9 @@ function clickHandler(e) {
         return;
     }
 
-    e.preventDefault();
     for (const component of components) {
         if (within(component.$el, e.target)) {
+            e.preventDefault();
             component.scrollTo(getTargetElement(component.$el));
         }
     }
