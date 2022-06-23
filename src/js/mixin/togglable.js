@@ -3,7 +3,6 @@ import {
     addClass,
     Animation,
     css,
-    fastdom,
     hasClass,
     includes,
     isBoolean,
@@ -11,13 +10,15 @@ import {
     isVisible,
     noop,
     removeClass,
-    scrollParents,
     startsWith,
     toFloat,
     toggleClass,
     toNodes,
     Transition,
     trigger,
+    ucfirst,
+    unwrap,
+    wrapInner,
 } from 'uikit-util';
 
 export default {
@@ -39,26 +40,6 @@ export default {
         transition: 'ease',
         clsEnter: 'uk-togglabe-enter',
         clsLeave: 'uk-togglabe-leave',
-
-        initProps: {
-            overflow: '',
-            maxHeight: '',
-            paddingTop: '',
-            paddingBottom: '',
-            marginTop: '',
-            marginBottom: '',
-            boxShadow: '',
-        },
-
-        hideProps: {
-            overflow: 'hidden',
-            maxHeight: 0,
-            paddingTop: 0,
-            paddingBottom: 0,
-            marginTop: 0,
-            marginBottom: 0,
-            boxShadow: 'none',
-        },
     },
 
     computed: {
@@ -67,7 +48,7 @@ export default {
         },
 
         hasTransition({ animation }) {
-            return startsWith(animation[0], 'slide');
+            return ['slide', 'reveal'].some((transition) => startsWith(animation[0], transition));
         },
     },
 
@@ -160,122 +141,147 @@ function toggleInstant({ _toggle }) {
     };
 }
 
-function toggleTransition(cmp) {
-    switch (cmp.animation[0]) {
-        case 'slide-left':
-            return slideHorizontal(cmp);
-        case 'slide-right':
-            return slideHorizontal(cmp, true);
-    }
-    return slide(cmp);
-}
+export function toggleTransition(cmp) {
+    let { animation, static: isStatic = true } = cmp;
+    const [mode, startProp = 'top'] = animation[0].split('-');
+    isStatic = isStatic || mode === 'slide';
 
-export function slide({
-    isToggled,
-    duration,
-    velocity,
-    initProps,
-    hideProps,
-    transition,
-    _toggle,
-}) {
-    return (el, show) => {
+    const dirs = [
+        ['left', 'right'],
+        ['top', 'bottom'],
+    ];
+    const props = ['width', 'height'];
+    const dir = dirs[includes(dirs[0], startProp) ? 0 : 1];
+    const end = dir[1] === startProp;
+    const endProp = dir[end ? 0 : 1];
+    const dimProp = props[dirs.indexOf(dir)];
+
+    const useWrapper = isStatic || end || dirs[0] === dir || true;
+
+    const getBoxProps = (value) => ({
+        [`padding${ucfirst(startProp)}`]: value,
+        [`padding${ucfirst(endProp)}`]: value,
+        [`margin${ucfirst(startProp)}`]: value,
+        [`margin${ucfirst(endProp)}`]: value,
+    });
+
+    const initProps = { [dimProp]: '', ...getBoxProps(''), boxShadow: '' };
+    const hideProps = { [dimProp]: 0, ...getBoxProps(0), boxShadow: 'none' };
+
+    const getBoxDim = (el, outer) => {
+        if (!isVisible(el)) {
+            return { width: 0, height: 0 };
+        }
+
+        const dim = {};
+        for (const [i, prop] of Object.entries(props)) {
+            const startProp = ucfirst(dirs[i][0]);
+            const endProp = ucfirst(dirs[i][1]);
+            dim[prop] =
+                toFloat(css(el, prop)) +
+                (outer
+                    ? toFloat(css(el, `margin${startProp}`)) +
+                      toFloat(css(el, `margin${endProp}`)) +
+                      toFloat(css(el, `border${startProp}Width`)) +
+                      toFloat(css(el, `border${endProp}Width`))
+                    : 0);
+        }
+
+        return dim;
+    };
+
+    return async (el, show) => {
+        let { isToggled, duration, velocity, transition, _toggle } = cmp;
+
         const inProgress = Transition.inProgress(el);
-        const inner =
-            !inProgress && el.hasChildNodes()
-                ? toFloat(css(el.firstElementChild, 'marginTop')) +
-                  toFloat(css(el.lastElementChild, 'marginBottom'))
-                : 0;
-        const currentHeight = isVisible(el) ? toFloat(css(el, 'height')) + inner : 0;
-
+        const currentDim = getBoxDim(el, !inProgress && isStatic)[dimProp];
         const props = inProgress ? css(el, Object.keys(initProps)) : show ? hideProps : initProps;
 
-        Transition.cancel(el);
+        const referenceEl = inProgress && useWrapper ? el.firstElementChild : el;
+
+        Transition.cancel([el, referenceEl]);
 
         if (!isToggled(el)) {
             _toggle(el, true);
         }
 
-        css(el, 'maxHeight', '');
-
-        // Update child components first
-        fastdom.flush();
-
-        const endHeight = toFloat(css(el, 'height')) + inner;
-        duration = velocity * endHeight + duration;
-
-        css(el, { ...props, maxHeight: currentHeight });
-
-        return (
-            show
-                ? Transition.start(
-                      el,
-                      { ...initProps, overflow: 'hidden', maxHeight: endHeight },
-                      duration * (1 - currentHeight / endHeight),
-                      transition
-                  )
-                : Transition.start(
-                      el,
-                      hideProps,
-                      duration * (currentHeight / endHeight),
-                      transition
-                  ).then(() => _toggle(el, false))
-        ).then(() => css(el, initProps));
-    };
-}
-
-function slideHorizontal({ isToggled, duration, velocity, transition, _toggle }, right) {
-    return (el, show) => {
-        const visible = isVisible(el);
-        const marginLeft = toFloat(css(el, 'marginLeft'));
-
-        Transition.cancel(el);
-
-        const [scrollElement] = scrollParents(el.offsetParent);
-        css(scrollElement, 'overflowX', 'hidden');
-
-        if (!isToggled(el)) {
-            _toggle(el, true);
+        if (inProgress && !useWrapper) {
+            css(el, { ...initProps });
         }
 
-        const width = toFloat(css(el, 'width'));
-        duration = velocity * width + duration;
+        const dim = getBoxDim(referenceEl, isStatic && !inProgress);
 
-        const percent = visible ? ((width + marginLeft * (right ? -1 : 1)) / width) * 100 : 0;
+        if (useWrapper && !inProgress) {
+            const wrapper = wrapInner(el, '<div>');
+
+            css(wrapper, { boxSizing: css(el, 'boxSizing'), ...dim });
+            if (isStatic) {
+                css(wrapper, css(el, Object.keys(getBoxProps(''))));
+            }
+        }
+
+        const endDim = toFloat(dim[dimProp]);
+        const percent = currentDim / endDim;
+
+        duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
 
         css(el, {
-            clipPath: right
-                ? `polygon(0 0,${percent}% 0,${percent}% 100%,0 100%)`
-                : `polygon(${100 - percent}% 0,100% 0,100% 100%,${100 - percent}% 100%)`,
-            marginLeft: (((100 - percent) * (right ? 1 : -1)) / 100) * width,
+            ...props,
+            overflow: 'hidden',
+            [dimProp]: currentDim,
+            [`min-${dimProp}`]: 0,
         });
 
-        return (
-            show
-                ? Transition.start(
-                      el,
-                      {
-                          clipPath: `polygon(0 0,100% 0,100% 100%,0 100%)`,
-                          marginLeft: 0,
-                      },
-                      duration * (1 - percent / 100),
-                      transition
-                  )
-                : Transition.start(
-                      el,
-                      {
-                          clipPath: right
-                              ? `polygon(0 0,0 0,0 100%,0 100%)`
-                              : `polygon(100% 0,100% 0,100% 100%,100% 100%)`,
-                          marginLeft: (right ? 1 : -1) * width,
-                      },
-                      duration * (percent / 100),
-                      transition
-                  ).then(() => _toggle(el, false))
-        ).then(() => {
-            css(scrollElement, 'overflowX', '');
-            css(el, { clipPath: '', marginLeft: '' });
-        });
+        let endProps = show ? { ...initProps, [dimProp]: endDim } : hideProps;
+
+        if (isStatic) {
+            const hideBoxProps = getBoxProps(0);
+            css(el, hideBoxProps);
+            endProps = { ...endProps, ...hideBoxProps };
+        }
+        if (end) {
+            const marginProp = `margin${ucfirst(dir[0])}`;
+            css(el, marginProp, endDim * (1 - percent));
+            endProps[marginProp] = show ? 0 : endDim;
+        }
+        if (mode === 'slide') {
+            if (!end) {
+                const marginProp = `margin${ucfirst(dir[0])}`;
+                const wrapper = el.firstElementChild;
+                css(wrapper, marginProp, -endDim * (1 - percent) * (end ? -1 : 1));
+                Transition.start(
+                    wrapper,
+                    { [marginProp]: show ? 0 : -endDim * (end ? -1 : 1) },
+                    duration,
+                    transition
+                ).catch(noop);
+            }
+        }
+
+        if (end && mode === 'reveal') {
+            const marginProp = `margin${ucfirst(dir[0])}`;
+
+            const wrapper = el.firstElementChild;
+            css(wrapper, marginProp, -endDim * (1 - percent));
+            Transition.start(
+                wrapper,
+                { [marginProp]: show ? 0 : -endDim },
+                duration,
+                transition
+            ).catch(noop);
+        }
+
+        await Transition.start(el, endProps, duration, transition);
+
+        if (!show) {
+            _toggle(el, false);
+        }
+
+        css(el, { ...initProps, overflow: '', [`min-${dimProp}`]: '' });
+
+        if (useWrapper) {
+            unwrap(el.firstElementChild.firstChild);
+        }
     };
 }
 

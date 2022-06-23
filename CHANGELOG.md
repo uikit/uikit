@@ -10,7 +10,8 @@
 - Add navbar parent icon to Navbar component
 - Add font size variables to nav and sublist in Nav component
 - Add small breakpoint padding variables to Modal component- Add `animate-out` option to Drop component
-- Add alignment `stretch` to Drop component
+- Add options `stretch` and `pos-direction` to Drop component 
+- Add `slide` and `reveal` animations to Drop component
 - Add Height Viewport uses scroll parent as viewport
 - Add zero z-index utility class to Position component
 - Add option `bg-scroll` to Drop component
@@ -31,6 +32,7 @@
 ### Removed
 
 - Remove `getCssVar()` utility function
+- Remove alignment `justify` from Drop component, use option `stretch` instead
 
 ### Fixed
 

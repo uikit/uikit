@@ -10,6 +10,7 @@ export function transition(element, props, duration = 400, timing = 'linear') {
         toNodes(element).map(
             (element) =>
                 new Promise((resolve, reject) => {
+                    trigger(element, 'beforetransitionstart', [props]);
                     for (const name in props) {
                         const value = css(element, name);
                         if (value === '') {

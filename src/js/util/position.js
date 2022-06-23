@@ -1,5 +1,5 @@
 import { offset } from './dimensions';
-import { clamp, includes, ucfirst } from './lang';
+import { clamp, includes, isArray, ucfirst } from './lang';
 import { offsetViewport, scrollParents } from './viewport';
 
 const dirs = [
@@ -17,6 +17,10 @@ export function positionAt(element, target, options) {
         offset: [0, 0],
         ...options,
     };
+
+    if (!isArray(target)) {
+        target = [target, target];
+    }
 
     const dim = options.flip
         ? attachToWithFlip(element, target, options)
@@ -37,8 +41,9 @@ function attachTo(element, target, options) {
     };
 
     const position = offset(element);
-    const targetOffset = offset(target);
+
     for (const [i, [prop, dir, start, end]] of Object.entries(dirs)) {
+        const targetOffset = offsetViewport(target[i]);
         position[start] = position[dir] =
             targetOffset[start] +
             moveBy(attach.target[i], end, targetOffset[prop]) -
@@ -55,29 +60,25 @@ function moveBy(start, end, dim) {
 
 function attachToWithFlip(element, target, options) {
     const position = attachTo(element, target, options);
-    const targetDim = offset(target);
 
     let {
         flip,
         attach: { element: elAttach, target: targetAttach },
         offset: elOffset,
-        boundary,
         viewport,
         viewportOffset,
     } = options;
-
-    let viewports = scrollParents(element);
-    if (boundary === target) {
-        viewports = viewports.filter((viewport) => viewport !== boundary);
-    }
-    const [scrollElement] = viewports;
-    viewports.push(viewport);
 
     const offsetPosition = { ...position };
     for (const [i, [prop, dir, start, end]] of Object.entries(dirs)) {
         if (flip !== true && !includes(flip, dir)) {
             continue;
         }
+
+        const targetDim = offset(target[i]);
+        let viewports = scrollParents(target[i]);
+        const [scrollElement] = viewports;
+        viewports.push(viewport);
 
         const willFlip =
             !intersectLine(position, targetDim, i) && intersectLine(position, targetDim, 1 - i);
@@ -89,14 +90,10 @@ function attachToWithFlip(element, target, options) {
             viewport[end] -= viewportOffset;
         }
 
-        if (boundary && !willFlip && position[prop] <= offset(boundary)[prop]) {
-            viewport = getIntersectionArea(viewport, offset(boundary));
-        }
+        const isInStartViewport = position[start] >= viewport[start];
+        const isInEndViewport = position[end] <= viewport[end];
 
-        const isInStartBoundary = position[start] >= viewport[start];
-        const isInEndBoundary = position[end] <= viewport[end];
-
-        if (isInStartBoundary && isInEndBoundary) {
+        if (isInStartViewport && isInEndViewport) {
             continue;
         }
 
@@ -105,8 +102,8 @@ function attachToWithFlip(element, target, options) {
         // Flip
         if (willFlip) {
             if (
-                (elAttach[i] === end && isInStartBoundary) ||
-                (elAttach[i] === start && isInEndBoundary)
+                (elAttach[i] === end && isInStartViewport) ||
+                (elAttach[i] === start && isInEndViewport)
             ) {
                 continue;
             }

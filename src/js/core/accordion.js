@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Lazyload from '../mixin/lazyload';
-import { slide, default as Togglable } from '../mixin/togglable';
+import { default as Togglable, toggleTransition } from '../mixin/togglable';
 import {
     $,
     $$,
@@ -14,8 +14,6 @@ import {
     isInView,
     scrollIntoView,
     toggleClass,
-    unwrap,
-    wrapAll,
 } from 'uikit-util';
 
 export default {
@@ -34,7 +32,7 @@ export default {
     data: {
         targets: '> *',
         active: false,
-        animation: ['slide'],
+        animation: ['reveal'],
         collapsible: true,
         multiple: false,
         clsOpen: 'uk-open',
@@ -132,23 +130,14 @@ export default {
                     toggleClass(el, this.clsOpen, show);
                     attr($(this.$props.toggle, el), 'aria-expanded', show);
 
-                    const content = $(`${el._wrapper ? '> * ' : ''}${this.content}`, el);
+                    const content = $(this.content, el);
 
                     if (animate === false || !this.hasTransition) {
                         hide(content, !show);
                         return;
                     }
 
-                    if (!el._wrapper) {
-                        el._wrapper = wrapAll(content, `<div${show ? ' hidden' : ''}>`);
-                    }
-
-                    hide(content, false);
-                    await slide(this)(el._wrapper, show);
-                    hide(content, !show);
-
-                    delete el._wrapper;
-                    unwrap(content);
+                    await toggleTransition(this)(content, show);
 
                     if (show) {
                         const toggle = $(this.$props.toggle, el);

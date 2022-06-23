@@ -11,10 +11,10 @@ export default {
     },
 
     data: {
-        animation: ['slide'],
+        animation: ['reveal'],
         selClose: '.uk-alert-close',
         duration: 150,
-        hideProps: { opacity: 0, ...Togglable.data.hideProps },
+        static: false,
     },
 
     events: [
@@ -28,6 +28,16 @@ export default {
             handler(e) {
                 e.preventDefault();
                 this.close();
+            },
+        },
+
+        {
+            name: 'beforetransitionstart',
+
+            self: true,
+
+            handler(e, props) {
+                props.opacity = 0;
             },
         },
     ],

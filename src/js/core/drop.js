@@ -27,7 +27,6 @@ import {
     query,
     removeClass,
     scrollParents,
-    toggleClass,
     within,
 } from 'uikit-util';
 import { preventBackgroundScroll, preventOverscroll } from '../mixin/modal';
@@ -44,6 +43,7 @@ export default {
         toggle: Boolean,
         boundary: Boolean,
         boundaryAlign: Boolean,
+        stretch: Boolean,
         delayShow: Number,
         delayHide: Number,
         display: String,
@@ -57,15 +57,16 @@ export default {
         toggle: '- *',
         boundary: true,
         boundaryAlign: false,
+        stretch: false,
         delayShow: 0,
         delayHide: 800,
         display: null,
         clsDrop: false,
+        animateOut: false,
+        bgScroll: true,
         animation: ['uk-animation-fade'],
         cls: 'uk-open',
         container: false,
-        animateOut: false,
-        bgScroll: true,
     },
 
     created() {
@@ -257,7 +258,7 @@ export default {
                         ? []
                         : [preventOverscroll(this.$el), preventBackgroundScroll()]),
 
-                    ...(this.display === 'static' && this.align !== 'stretch'
+                    ...(this.display === 'static' && !includes([this.axis, true], this.stretch)
                         ? []
                         : (() => {
                               const handler = () => this.$emit();
@@ -384,60 +385,60 @@ export default {
 
         position() {
             removeClass(this.$el, `${this.clsDrop}-stack`);
-            toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
-            toggleClass(this.$el, `${this.clsDrop}-stretch`, this.align === 'stretch');
+            css(this.$el, 'maxWidth', '');
 
-            const boundary = query(this.boundary, this.$el);
-            const target = boundary && this.boundaryAlign ? boundary : this.target;
-            const [scrollParent] = scrollParents(
-                boundary && this.boundaryAlign ? boundary : this.$el
-            );
-            const scrollParentOffset = offset(scrollParent);
-            const boundaryOffset = boundary ? offset(boundary) : scrollParentOffset;
+            const boundary = query(this.boundary, this.$el) || window;
+            const target = [
+                includes([true, 'x'], this.boundaryAlign) ? boundary : this.target,
+                includes([true, 'y'], this.boundaryAlign) ? boundary : this.target,
+            ];
+
             const viewportOffset = this.getViewportOffset(this.$el);
 
-            css(this.$el, 'maxWidth', '');
-            const maxWidth = scrollParentOffset.width - 2 * viewportOffset;
+            // Ensure none positioned element does not generate scrollbars
+            this.$el.hidden = true;
 
-            if (this.align === 'justify') {
-                const prop = this.axis === 'y' ? 'width' : 'height';
+            const dirs = [
+                ['x', 'width', 'left', 'right'],
+                ['y', 'height', 'top', 'bottom'],
+            ];
+
+            for (const i in dirs) {
+                const [axis, prop, start, end] = dirs[i];
+
+                if (!includes([axis, true], this.stretch)) {
+                    continue;
+                }
+
+                const [scrollParent] = scrollParents(target[i]);
+                const scrollParentOffset = offsetViewport(scrollParent);
+                const targetDim = offset(target[i]);
+                const elOffset = Math.abs(this.getPositionOffset(this.$el)) + viewportOffset;
+
                 css(
                     this.$el,
                     prop,
-                    Math.min(
-                        (boundary ? boundaryOffset : offset(this.target))[prop],
-                        scrollParentOffset[prop] - 2 * viewportOffset
-                    )
+                    this.axis === axis
+                        ? (this.dir === start
+                              ? targetDim[start] - scrollParentOffset[start]
+                              : scrollParentOffset[end] - targetDim[end]) - elOffset
+                        : includes([true, axis], this.boundaryAlign)
+                        ? targetDim[prop]
+                        : scrollParentOffset[prop] - 2 * viewportOffset
                 );
-            } else if (this.align === 'stretch') {
-                this.flip = this.axis === 'y' ? 'x' : 'y';
-                this.display = 'static';
+            }
 
-                const viewport = offsetViewport(scrollParent);
-                const targetDim = offset(target);
-                const elOffset = Math.abs(this.getPositionOffset(this.$el)) + viewportOffset;
+            const maxWidth = offsetViewport(scrollParents(target[0])[0]).width - 2 * viewportOffset;
 
-                css(this.$el, {
-                    width:
-                        this.axis === 'y'
-                            ? viewport.width
-                            : (this.dir === 'left'
-                                  ? targetDim.left - viewport.left
-                                  : viewport.right - targetDim.right) - elOffset,
-                    height:
-                        this.axis === 'x'
-                            ? viewport.height
-                            : (this.dir === 'top'
-                                  ? targetDim.top - viewport.top
-                                  : viewport.bottom - targetDim.bottom) - elOffset,
-                });
-            } else if (this.$el.offsetWidth > maxWidth) {
+            this.$el.hidden = false;
+
+            if (this.$el.offsetWidth > maxWidth) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
             }
 
             css(this.$el, 'maxWidth', maxWidth);
 
-            this.positionAt(this.$el, target, boundary);
+            this.positionAt(this.$el, target, this.boundaryAlign ? null : boundary);
         },
     },
 };

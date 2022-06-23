@@ -436,7 +436,7 @@ export default {
 
         isDropbarDrop(el) {
             const drop = this.getDropdown(el);
-            return drop && hasClass(el, this.clsDrop) && drop.align !== 'stretch';
+            return drop && hasClass(el, this.clsDrop) && !drop.stretch; // TODO drop.stretch
         },
     },
 };

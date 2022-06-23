@@ -13,12 +13,14 @@ import {
 export default {
     props: {
         pos: String,
+        posDirection: String,
         offset: null,
         flip: Boolean,
     },
 
     data: {
         pos: `bottom-${isRtl ? 'right' : 'left'}`,
+        posDirection: 'outside',
         flip: true,
         offset: false,
     },
@@ -30,11 +32,14 @@ export default {
     },
 
     methods: {
-        positionAt(element, target, boundary) {
+        positionAt(element, target, viewport) {
             let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
 
             const attach = {
-                element: [flipPosition(this.dir), this.align],
+                element: [
+                    this.posDirection === 'outside' ? flipPosition(this.dir) : this.dir,
+                    this.align,
+                ],
                 target: [this.dir, this.align],
             };
 
@@ -58,7 +63,7 @@ export default {
                 {
                     attach,
                     offset,
-                    boundary,
+                    viewport,
                     flip: this.flip,
                     viewportOffset: this.getViewportOffset(element),
                 },
@@ -79,12 +84,14 @@ export default {
                     this.offset === false ? css(element, '--uk-position-offset') : this.offset,
                     this.axis === 'x' ? 'width' : 'height',
                     element
-                ) * (includes(['left', 'top'], this.dir) ? -1 : 1)
+                ) *
+                (includes(['left', 'top'], this.dir) ? -1 : 1) *
+                (this.posDirection === 'outside' ? 1 : -1)
             );
         },
 
         getShiftOffset(element) {
-            return includes(['center', 'justify', 'stretch'], this.align)
+            return this.align === 'center'
                 ? 0
                 : toPx(
                       css(element, '--uk-position-shift-offset'),
