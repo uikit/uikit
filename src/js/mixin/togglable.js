@@ -156,14 +156,17 @@ export function toggleTransition(cmp) {
     const endProp = dir[end ? 0 : 1];
     const dimProp = props[dirs.indexOf(dir)];
 
-    const useWrapper = isStatic || end || dirs[0] === dir || true;
+    const useWrapper = isStatic || end || dirs[0] === dir;
 
-    const getBoxProps = (value) => ({
-        [`padding${ucfirst(startProp)}`]: value,
-        [`padding${ucfirst(endProp)}`]: value,
-        [`margin${ucfirst(startProp)}`]: value,
-        [`margin${ucfirst(endProp)}`]: value,
-    });
+    const getBoxProps = (value) =>
+        useWrapper
+            ? { padding: value, margin: value }
+            : {
+                  [`padding${ucfirst(startProp)}`]: value,
+                  [`padding${ucfirst(endProp)}`]: value,
+                  [`margin${ucfirst(startProp)}`]: value,
+                  [`margin${ucfirst(endProp)}`]: value,
+              };
 
     const initProps = { [dimProp]: '', ...getBoxProps(''), boxShadow: '' };
     const hideProps = { [dimProp]: 0, ...getBoxProps(0), boxShadow: 'none' };
@@ -244,31 +247,19 @@ export function toggleTransition(cmp) {
             css(el, marginProp, endDim * (1 - percent));
             endProps[marginProp] = show ? 0 : endDim;
         }
-        if (mode === 'slide') {
+
+        if ((mode === 'slide' && !end) || (end && mode === 'reveal')) {
             if (!end) {
                 const marginProp = `margin${ucfirst(dir[0])}`;
                 const wrapper = el.firstElementChild;
-                css(wrapper, marginProp, -endDim * (1 - percent) * (end ? -1 : 1));
+                css(wrapper, marginProp, -endDim * (1 - percent));
                 Transition.start(
                     wrapper,
-                    { [marginProp]: show ? 0 : -endDim * (end ? -1 : 1) },
+                    { [marginProp]: show ? 0 : -endDim },
                     duration,
                     transition
                 ).catch(noop);
             }
-        }
-
-        if (end && mode === 'reveal') {
-            const marginProp = `margin${ucfirst(dir[0])}`;
-
-            const wrapper = el.firstElementChild;
-            css(wrapper, marginProp, -endDim * (1 - percent));
-            Transition.start(
-                wrapper,
-                { [marginProp]: show ? 0 : -endDim },
-                duration,
-                transition
-            ).catch(noop);
         }
 
         await Transition.start(el, endProps, duration, transition);
