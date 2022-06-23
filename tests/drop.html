@@ -138,13 +138,6 @@
                     </div>
                 </div>
 
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Bottom Justify</button>
-                    <div uk-drop="pos: bottom-justify">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
             </div>
 
             <div class="uk-margin" uk-margin>
@@ -166,13 +159,6 @@
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Top Right</button>
                     <div uk-drop="pos: top-right">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                    </div>
-                </div>
-
-                <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button">Top Justify</button>
-                    <div uk-drop="pos: top-justify">
                         <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
@@ -296,7 +282,7 @@
                         <div>
 
                             <button class="uk-button uk-button-default" type="button">Bottom Justify</button>
-                            <div class="uk-width-medium" uk-dropdown="pos: bottom-justify; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-left; stretch: x; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 
                         </div>
                     </div>
@@ -326,7 +312,7 @@
                         <div>
 
                             <button class="uk-button uk-button-default" type="button">Right Justify</button>
-                            <div class="uk-width-medium" uk-dropdown="pos: right-justify; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-top; stretch: y; boundary: !.boundary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 
                         </div>
                     </div>
@@ -361,7 +347,7 @@
                         <div>
 
                             <button class="uk-button uk-button-default" type="button">Bottom Justify</button>
-                            <div class="uk-width-medium" uk-dropdown="pos: bottom-justify; boundary: ! .boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            <div class="uk-width-medium" uk-dropdown="pos: bottom-left; stretch: x; boundary: ! .boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 
                         </div>
                     </div>
@@ -391,7 +377,7 @@
                         <div>
 
                             <button class="uk-button uk-button-default" type="button">Right Justify</button>
-                            <div class="uk-width-medium" uk-dropdown="pos: right-justify; boundary: ! .boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            <div class="uk-width-medium" uk-dropdown="pos: right-top; stretch: y; boundary: ! .boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 
                         </div>
                     </div>
@@ -420,28 +406,77 @@
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Bottom Fade</button>
-                    <div uk-drop="pos: bottom-stretch; animate-out: true">
+                    <div uk-drop="pos: bottom-left; stretch: true; animate-out: true">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Bottom Slide</button>
-                    <div uk-drop="pos: bottom-stretch; animate-out: true; animation: slide">
-                        <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    <div uk-dropdown="mode: click; pos: bottom-left; stretch: true; animate-out: true; animation: slide-top">
+                        <div class="uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Reveal</button>
+                    <div uk-dropdown="mode: click; pos: bottom-left; stretch: true; animate-out: true; animation: reveal-top">
+                        <div class="uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Bottom Slide Left</button>
-                    <div uk-drop="pos: bottom-stretch; animate-out: true; animation: slide-left">
-                        <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; boundary-align: x; animate-out: true; animation: slide-left">
+                        <div class="uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Reveal Left</button>
+                    <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; boundary-align: x; animate-out: true; animation: reveal-left">
+                        <div class="uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Bottom Slide Right</button>
-                    <div uk-drop="pos: bottom-stretch; animate-out: true; animation: slide-right">
+                    <div uk-dropdown="mode: click; pos: bottom-right; stretch: y; boundary-align: x; animate-out: true; animation: slide-right">
+                        <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Reveal Right</button>
+                    <div uk-dropdown="mode: click; pos: bottom-right; stretch: y; boundary-align: x; animate-out: true; animation: reveal-right">
+                        <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Slide Top</button>
+                    <div uk-dropdown="mode: click; pos: bottom-left; stretch: x; boundary-align: x; animate-out: true; animation: slide-top">
+                        <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Reveal Top</button>
+                    <div uk-dropdown="mode: click; pos: bottom-left; stretch: x; boundary-align: x; animate-out: true; animation: reveal-top">
+                        <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Slide Bottom</button>
+                    <div uk-dropdown="mode: click; pos: bottom-left; pos-direction: inside; stretch: x; boundary-align: y; animate-out: true; animation: slide-bottom">
+                        <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button">Bottom Reveal Bottom</button>
+                    <div uk-dropdown="mode: click; pos: bottom-left; pos-direction: inside; stretch: x; boundary-align: y; animate-out: true; animation: reveal-bottom">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
@@ -452,28 +487,28 @@
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Top Fade</button>
-                    <div uk-drop="pos: top-stretch; animate-out: true">
+                    <div uk-dropdown="pos: top-left; stretch: true; animate-out: true">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Top Slide</button>
-                    <div uk-drop="pos: top-stretch; animate-out: true; animation: slide">
+                    <div uk-dropdown="pos: top-left;  stretch: true; animate-out: true; animation: slide-bottom">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Top Slide Left</button>
-                    <div uk-drop="pos: top-stretch; animate-out: true; animation: slide-left">
+                    <div uk-dropdown="pos: top-left; stretch: y; boundary-align: x; animate-out: true; animation: slide-left">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Top Slide Right</button>
-                    <div uk-drop="pos: top-stretch; animate-out: true; animation: slide-right">
+                    <div uk-dropdown="pos: top-right; stretch: y; boundary-align: x; animate-out: true; animation: slide-right">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
@@ -484,28 +519,28 @@
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Left Fade</button>
-                    <div uk-drop="pos: left-stretch; animate-out: true">
+                    <div uk-dropdown="pos: left-top; stretch: true; animate-out: true">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Left Slide</button>
-                    <div uk-drop="pos: left-stretch; animate-out: true; animation: slide">
+                    <div uk-dropdown="pos: left-top; stretch: true; animate-out: true; animation: slide">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Left Slide Left</button>
-                    <div uk-drop="pos: left-stretch; animate-out: true; animation: slide-left">
+                    <div uk-dropdown="pos: left-top; pos-direction: inside; stretch: y; boundary-align: true; animate-out: true; animation: slide-left; flip: false">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Left Slide Right</button>
-                    <div uk-drop="pos: left-stretch; animate-out: true; animation: slide-right">
+                    <div uk-dropdown="pos: left-top; stretch: y; animation: slide-right">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
@@ -516,28 +551,28 @@
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Right Fade</button>
-                    <div uk-drop="pos: right-stretch; animate-out: true">
+                    <div uk-dropdown="pos: right-top; stretch: true; animate-out: true">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Right Slide</button>
-                    <div uk-drop="pos: right-stretch; animate-out: true; animation: slide">
+                    <div uk-dropdown="pos: right-top; stretch: true; animate-out: true; animation: slide">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Right Slide Left</button>
-                    <div uk-drop="pos: right-stretch; animate-out: true; animation: slide-left">
+                    <div uk-dropdown="pos: right-top; stretch: y; animate-out: true; animation: slide-left">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Right Slide Right</button>
-                    <div uk-drop="pos: right-stretch; animate-out: true; animation: slide-right">
+                    <div uk-dropdown="pos: right-top; pos-direction: inside; stretch: y; boundary-align: true; animate-out: true; animation: slide-right; flip: false">
                         <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
@@ -549,7 +584,7 @@
                     <div class="scroll-container uk-height-large uk-resize-vertical">
 
                         <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Fade</button></div>
-                        <div uk-drop="pos: bottom-stretch; animate-out: true">
+                        <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; animate-out: true">
                             <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                         </div>
 
@@ -558,8 +593,18 @@
                 <div>
                     <div class="scroll-container uk-height-large uk-resize-vertical">
 
-                        <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Slide</button></div>
-                        <div uk-drop="pos: bottom-stretch; animate-out: true; animation: slide">
+                        <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Slide Top</button></div>
+                        <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; animate-out: true; animation: slide-top">
+                            <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="scroll-container uk-height-large uk-resize-vertical">
+
+                        <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Slide Bottom</button></div>
+                        <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; animate-out: true; animation: slide-bottom">
                             <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                         </div>
 
@@ -569,7 +614,7 @@
                     <div class="scroll-container uk-height-large uk-resize-vertical">
 
                         <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Slide Left</button></div>
-                        <div uk-drop="pos: bottom-stretch; animate-out: true; animation: slide-left">
+                        <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; animate-out: true; animation: slide-left">
                             <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                         </div>
 
@@ -579,7 +624,47 @@
                     <div class="scroll-container uk-height-large uk-resize-vertical">
 
                         <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Slide Right</button></div>
-                        <div uk-drop="pos: bottom-stretch; animate-out: true; animation: slide-right">
+                        <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; animate-out: true; animation: slide-right">
+                            <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="scroll-container uk-height-large uk-resize-vertical">
+
+                        <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Reveal Top</button></div>
+                        <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; animate-out: true; animation: reveal-top">
+                            <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="scroll-container uk-height-large uk-resize-vertical">
+
+                        <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Reveal Bottom</button></div>
+                        <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; animate-out: true; animation: reveal-bottom">
+                            <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="scroll-container uk-height-large uk-resize-vertical">
+
+                        <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Reveal Left</button></div>
+                        <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; animate-out: true; animation: reveal-left">
+                            <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="scroll-container uk-height-large uk-resize-vertical">
+
+                        <div class="uk-text-center"><button class="uk-button uk-button-default" type="button">Bottom Reveal Right</button></div>
+                        <div uk-dropdown="mode: click; pos: bottom-left; stretch: y; animate-out: true; animation: reveal-right">
                             <div class="uk-background-muted uk-padding uk-height-1-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                         </div>
 
