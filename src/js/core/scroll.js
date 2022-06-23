@@ -52,7 +52,7 @@ function clickHandler(e) {
     }
 
     for (const component of components) {
-        if (within(component.$el, e.target)) {
+        if (within(e.target, component.$el)) {
             e.preventDefault();
             component.scrollTo(getTargetElement(component.$el));
         }
