@@ -1207,7 +1207,7 @@
                 </div>
             </div>
         </nav>
-    
+
         <nav class="uk-navbar-container uk-margin">
             <div class="uk-container">
                 <div uk-navbar="align: right; boundary-align: true">
@@ -2241,7 +2241,7 @@
 
                         <a class="uk-navbar-toggle" href="#" uk-navbar-toggle-icon></a>
                         <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -2290,7 +2290,7 @@
                             <span class="uk-margin-small-right">Menu</span> <span uk-navbar-toggle-icon></span>
                         </a>
                         <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -2343,7 +2343,7 @@
 
                         <a class="uk-navbar-toggle" href="#" uk-navbar-toggle-icon></a>
                         <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; flip: x">Dropdown</div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -3306,36 +3306,28 @@
 
         <script>
 
-            var util = UIkit.util,
-                tracker = new util.MouseTracker(),
-                el = util.$('#js-mousetracker'),
-                target = util.$('#js-mousetarget'),
-                interval;
+            const {$, addClass, on, removeClass, MouseTracker } = UIkit.util;
+            const tracker = MouseTracker();
+            const el = $('#js-mousetracker');
+            const target = $('#js-mousetarget');
+            let interval;
 
-            util.on(el, 'mouseenter', function () {
+            on(el, 'mouseenter', () => {
                 tracker.init();
-                interval = setInterval(function () {
-                    target.textContent = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Does not move to';
-                });
+                interval = setInterval(() => target.textContent = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Does not move to');
             });
 
-            util.on(el, 'mouseleave', function () {
+            on(el, 'mouseleave', () => {
                 tracker.cancel();
                 clearInterval(interval);
             });
 
-        </script>
-
-        <script>
-
-            var options = UIkit.util.$$('#js-size-switcher option').map(function (option) { return option.value; });
-
-            UIkit.util.on('#js-size-switcher', 'change', function () {
-                var value = this.value;
-                UIkit.util.$$('.uk-navbar-dropdown').forEach(function (table) {
-                    UIkit.util.removeClass(table, options);
-                    UIkit.util.addClass(table, value);
-                });
+            on('#js-size-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.uk-navbar-dropdown')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
             });
 
         </script>

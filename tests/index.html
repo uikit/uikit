@@ -433,10 +433,8 @@
 
                         <script>
 
-                            var date = (new Date(Date.now() + 864e5 * 7)).toISOString();
-
-                            UIkit.util.$$('[js-countdown]').forEach(function(el) {
-                                UIkit.countdown(el, {date: date});
+                            UIkit.countdown('[js-countdown]', {
+                                date: (new Date(Date.now() + 864e5 * 7)).toISOString()
                             });
 
                         </script>

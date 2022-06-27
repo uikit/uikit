@@ -16,15 +16,13 @@
         </style>
         <script>
 
-            var util = UIkit.util;
+            const {on, ready} = UIkit.util;
 
-            util.ready(function () {
-
-                util.on(document.body, 'start moved added removed stop', function (e, sortable, el) {
-                    console.log(e.type, sortable, el);
-                });
-
-            });
+            ready(() =>
+                on(document.body, 'start moved added removed stop', (e, sortable, el) =>
+                    console.log(e.type, sortable, el)
+                )
+            );
 
         </script>
     </head>

@@ -349,7 +349,7 @@
                 );
             }
 
-            on(window, 'dragstart', function (e) {
+            on(window, 'dragstart', e => {
                 e.dataTransfer.setDragImage(new Image(), 0, 0);
 
                 offsetX = Math.round(e.pageX - offset(target).left);
@@ -358,7 +358,7 @@
             });
 
             let lastPos;
-            on(window, 'dragover', function (e) {
+            on(window, 'dragover', e => {
 
                 const pos = getEventPos(e);
 

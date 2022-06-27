@@ -7,13 +7,10 @@
         <title>Scroll - UIkit tests</title>
         <script src="js/test.js"></script>
         <script>
-
-            UIkit.util.on(document, 'change', '#offset', function (e) {
-                UIkit.util.$$('[uk-scroll]').forEach(function (el) {
-                    el.setAttribute('data-offset', e.target.value);
-                })
-            })
-
+            const {$$, attr, on} = UIkit.util;
+            on(document, 'change', '#offset', e =>
+                attr($$('[uk-scroll]'), 'data-offset', e.target.value)
+            )
         </script>
     </head>
 
@@ -87,9 +84,9 @@
 
             <script>
 
-                UIkit.util.on('#js-top-callback', 'scrolled', function () {
-                    alert('Done.');
-                });
+                UIkit.util.on('#js-top-callback', 'scrolled', () =>
+                    alert('Done.')
+                );
 
             </script>
 

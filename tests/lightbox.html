@@ -273,13 +273,13 @@
 
         <script>
 
-            var util = UIkit.util;
+            const {$, attr, on } = UIkit.util;
 
-            util.on('#js-animation-switcher', 'change', function() {
-                util.attr(util.$('#js-lightbox-animation'), 'animation', this.value);
-            });
+            on('#js-animation-switcher', 'change', () =>
+                attr($('#js-lightbox-animation'), 'animation', this.value)
+            );
 
-            util.on('#js-lightbox', 'click', function (e) {
+            on('#js-lightbox', 'click', (e) => {
                 e.preventDefault();
 
                 UIkit.lightboxPanel({

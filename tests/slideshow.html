@@ -442,14 +442,14 @@
         </div>
 
         <script>
+            const {attr, $$, on} = UIkit.util;
+            on('#js-animation-switcher', 'change', e =>
+                attr($$('.js-slideshow-animation'), 'animation', e.target.value)
+            );
 
-            UIkit.util.on('#js-animation-switcher', 'change', function () {
-                UIkit.util.attr(UIkit.util.$$('.js-slideshow-animation'), 'animation', this.value);
-            });
-
-            UIkit.util.on('#js-finite-switcher', 'change', function () {
-                UIkit.util.attr(UIkit.util.$$('[uk-slideshow]'), 'finite', this.value);
-            });
+            on('#js-finite-switcher', 'change', e =>
+                attr($$('[uk-slideshow]'), 'finite', e.target.value)
+            );
 
         </script>
 

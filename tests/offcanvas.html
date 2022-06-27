@@ -769,13 +769,9 @@
 
         <script>
 
-            var util = UIkit.util;
-
-            util.on(util.$('#js-toggle'), 'click', function (e) {
-
+            UIkit.util.on('#js-toggle', 'click', e => {
                 e.preventDefault();
                 UIkit.offcanvas('#js-offcanvas-toggle').toggle();
-
             });
 
         </script>
