@@ -4,19 +4,21 @@
 
 ### Added
 
+- Add `animate-out` option to Drop component
+- Add `stretch` and `pos-direction` options to Drop component 
+- Add `slide` and `reveal` animations to Drop component
+- Add `bg-scroll` option to Drop component
 - Add dropdown large modifier to Dropdown and Navbar component
 - Add gap variable to navbar items in Navbar component
 - Add color mode variable to navbar dropdown in Navbar component
 - Add navbar parent icon to Navbar component
+- Add secondary style modifier to Nav component
 - Add font size variables to nav and sublist in Nav component
-- Add small breakpoint padding variables to Modal component- Add `animate-out` option to Drop component
-- Add options `stretch` and `pos-direction` to Drop component 
-- Add `slide` and `reveal` animations to Drop component
-- Add Height Viewport uses scroll parent as viewport
+- Add padding variables for small breakpoint to Modal component
 - Add zero z-index utility class to Position component
-- Add option `bg-scroll` to Drop component
 - Add support for `picture` element to logo in Utility component
 - Add box sizing classes to Utility component
+- Support scroll parent as viewport in Height Viewport component
 
 ### Changed
 
