@@ -512,11 +512,17 @@
                 <select id="js-stretch-switcher" class="uk-select uk-form-width-small">
                     <option value="true">Stretch</option>
                     <option value="x">Stretch X</option>
-                    <option value="x">Stretch Y</option>
+                    <option value="y">Stretch Y</option>
+                </select>
+                <select id="js-boundary-switcher" class="uk-select uk-form-width-small">
+                    <option value="true">No Boundary</option>
+                    <option value="!.test-boundary">Boundary</option>
                 </select>
                 <select id="js-boundary-align-switcher" class="uk-select uk-form-width-small">
-                    <option>No Boundary</option>
-                    <option value="!.test-boundary">Boundary</option>
+                    <option value="false">No Boundary Align</option>
+                    <option value="true">Boundary Align</option>
+                    <option value="x">Boundary Align X</option>
+                    <option value="y">Boundary Align Y</option>
                 </select>
             </div>
 
@@ -530,17 +536,17 @@
 
                             <div>
                                 <button class="uk-button uk-button-default" type="button">Top Left</button>
-                                <div class="uk-dropdown" uk-drop="pos: top-left; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                <div class="js-options uk-dropdown" uk-drop="pos: top-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
     
                             <div>
                                 <button class="uk-button uk-button-default" type="button">Top Center</button>
-                                <div class="uk-dropdown" uk-drop="pos: top-center; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                <div class="js-options uk-dropdown" uk-drop="pos: top-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
     
                             <div>
                                 <button class="uk-button uk-button-default" type="button">Top Right</button>
-                                <div class="uk-dropdown" uk-drop="pos: top-right; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                <div class="js-options uk-dropdown" uk-drop="pos: top-right">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
 
                         </div>
@@ -550,17 +556,17 @@
 
                                 <div>
                                     <button class="uk-button uk-button-default" type="button">Left Top</button>
-                                    <div class="uk-dropdown" uk-drop="pos: left-top; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                    <div class="js-options uk-dropdown" uk-drop="pos: left-top">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                                 </div>
                     
                                 <div>
                                     <button class="uk-button uk-button-default" type="button">Left Center</button>
-                                    <div class="uk-dropdown" uk-drop="pos: left-center; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                    <div class="js-options uk-dropdown" uk-drop="pos: left-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                                 </div>
                 
                                 <div>
                                     <button class="uk-button uk-button-default" type="button">Left Bottom</button>
-                                    <div class="uk-dropdown" uk-drop="pos: left-bottom; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                    <div class="js-options uk-dropdown" uk-drop="pos: left-bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                                 </div>
 
                             </div>
@@ -569,17 +575,17 @@
 
                                 <div>
                                     <button class="uk-button uk-button-default" type="button">Right Top</button>
-                                    <div class="uk-dropdown" uk-drop="pos: right-top; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                    <div class="js-options uk-dropdown" uk-drop="pos: right-top">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                                 </div>
                 
                                 <div>
                                     <button class="uk-button uk-button-default" type="button">Right Center</button>
-                                    <div class="uk-dropdown" uk-drop="pos: right-center; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                    <div class="js-options uk-dropdown" uk-drop="pos: right-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                                 </div>
                 
                                 <div>
                                     <button class="uk-button uk-button-default" type="button">Right Bottom</button>
-                                    <div class="uk-dropdown" uk-drop="pos: right-bottom; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                    <div class="js-options uk-dropdown" uk-drop="pos: right-bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                                 </div>
 
                             </div>
@@ -589,17 +595,17 @@
 
                             <div>
                                 <button class="uk-button uk-button-default" type="button">Bottom Left</button>
-                                <div class="uk-dropdown" uk-drop="pos: bottom-left; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                <div class="js-options uk-dropdown" uk-drop="pos: bottom-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
     
                             <div>
                                 <button class="uk-button uk-button-default" type="button">Bottom Center</button>
-                                <div class="uk-dropdown" uk-drop="pos: bottom-center; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                <div class="js-options uk-dropdown" uk-drop="pos: bottom-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
     
                             <div>
                                 <button class="uk-button uk-button-default" type="button">Bottom Right</button>
-                                <div class="uk-dropdown" uk-drop="pos: bottom-right; stretch: true; boundary: !.test-boundary; boundary-align: true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                <div class="js-options uk-dropdown" uk-drop="pos: bottom-right">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
     
                         </div>
@@ -1026,6 +1032,22 @@
                     UIkit.util.removeClass(table, options);
                     UIkit.util.addClass(table, value);
                 });
+            });
+
+        </script>
+
+        <script>
+
+            UIkit.util.on('#js-stretch-switcher', 'change', function () {
+                UIkit.util.attr(UIkit.util.$$('.js-options'), 'stretch', this.value);
+            });
+
+            UIkit.util.on('#js-boundary-switcher', 'change', function () {
+                UIkit.util.attr(UIkit.util.$$('.js-options'), 'boundary', this.value);
+            });
+
+            UIkit.util.on('#js-boundary-align-switcher', 'change', function () {
+                UIkit.util.attr(UIkit.util.$$('.js-options'), 'boundary-align', this.value);
             });
 
         </script>
