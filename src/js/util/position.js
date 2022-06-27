@@ -65,7 +65,7 @@ function attachToWithFlip(element, target, options) {
         flip,
         attach: { element: elAttach, target: targetAttach },
         offset: elOffset,
-        viewport,
+        viewport: viewportEl,
         viewportOffset,
     } = options;
 
@@ -78,12 +78,12 @@ function attachToWithFlip(element, target, options) {
         const targetDim = offset(target[i]);
         let viewports = scrollParents(target[i]);
         const [scrollElement] = viewports;
-        viewports.push(viewport);
+        viewports.push(viewportEl);
 
         const willFlip =
             !intersectLine(position, targetDim, i) && intersectLine(position, targetDim, 1 - i);
 
-        viewport = getIntersectionArea(...viewports.filter(Boolean).map(offsetViewport));
+        const viewport = getIntersectionArea(...viewports.filter(Boolean).map(offsetViewport));
 
         if (viewportOffset) {
             viewport[start] += viewportOffset;
