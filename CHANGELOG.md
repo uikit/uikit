@@ -22,19 +22,19 @@
 
 ### Changed
 
-- Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
-- Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
-- Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`
-- Rename `@nav-primary-item-font-size` to `@nav-primary-font-size`
-- Rename `@nav-primary-item-line-height` to `@nav-primary-line-height`
-- Rename `@navbar-dropdown-dropbar-margin-top` to `@navbar-dropdown-dropbar-padding-top`
-- Rename `@navbar-dropdown-dropbar-margin-bottom` to `@navbar-dropdown-dropbar-padding-bottom`
-- Use JS icon component instead of compiling icons into CSS for nav parent icon in Nav component
+- IMPORTANT: Remove `.uk-nav-parent-icon` from Nav component. Use `uk-nav-parent-icon` attribute on items instead
+- IMPORTANT: Remove alignment `*-justify` from Drop and Dropdown component. Use new `stretch` option instead
+- IMPORTANT: Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
+- IMPORTANT: Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
+- IMPORTANT: Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`
+- IMPORTANT: Rename `@nav-primary-item-font-size` to `@nav-primary-font-size`
+- IMPORTANT: Rename `@nav-primary-item-line-height` to `@nav-primary-line-height`
+- IMPORTANT: Rename `@navbar-dropdown-dropbar-margin-top` to `@navbar-dropdown-dropbar-padding-top`
+- IMPORTANT: Rename `@navbar-dropdown-dropbar-margin-bottom` to `@navbar-dropdown-dropbar-padding-bottom`
 
 ### Removed
 
 - Remove `getCssVar()` utility function
-- Remove alignment `justify` from Drop component, use option `stretch` instead
 
 ### Fixed
 
@@ -710,8 +710,8 @@
 
 ### Changed
 
-- IMPORTANT: Change options 'animationMode' to 'animation', 'animation' to 'duration'
-- IMPORTANT: Rename 'shift' animation to 'slide'
+- IMPORTANT: Change options `animationMode` to `animation` and `animation` to `duration`
+- IMPORTANT: Rename `shift` animation to `slide`
 
 ## 3.6.1 (December 17, 2020)
 
@@ -910,7 +910,7 @@
 
 ### Changed
 
-- IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
+- IMPORTANT: Rename Less variable parts `xxlarge` to `2xlarge`
 - Replace clearfix by creating a block formatting context with display flow-root
 
 ### Deprecated
