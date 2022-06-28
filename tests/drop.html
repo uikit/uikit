@@ -904,7 +904,7 @@
                             <td><code>toggle</code></td>
                             <td>String, Boolean</td>
                             <td>'- *'</td>
-                            <td>CSS selector for the element to be used as toggle. By default, the preceding element is used.</td>
+                            <td>CSS selector for the element to be used as toggle. By default, the preceding element.</td>
                         </tr>
                         <tr>
                             <td><code>pos</code></td>
@@ -913,16 +913,10 @@
                             <td>Drop position.</td>
                         </tr>
                         <tr>
-                            <td><code>inset</code></td>
-                            <td>Boolean</td>
-                            <td>false</td>
-                            <td>By default the Drop is positioned outside its target. Inside Drops are placed inside the target.</td>
-                        </tr>
-                        <tr>
                             <td><code>stretch</code></td>
                             <td>false|true|'x'|'y'</td>
                             <td>true</td>
-                            <td>Stretch Drop on both (true) or given axis.</td>
+                            <td>Stretch drop on both (true) or given axis.</td>
                         </tr>
                         <tr>
                             <td><code>mode</code></td>
@@ -934,13 +928,13 @@
                             <td><code>delay-show</code></td>
                             <td>Number</td>
                             <td>0</td>
-                            <td>Delay time in hover mode before a Drop is shown in ms.</td>
+                            <td>Delay time in hover mode before a drop is shown in ms.</td>
                         </tr>
                         <tr>
                             <td><code>delay-hide</code></td>
                             <td>Number</td>
                             <td>800</td>
-                            <td>Delay time in hover mode before a Drop is hidden in ms.</td>
+                            <td>Delay time in hover mode before a drop is hidden in ms.</td>
                         </tr>
                         <tr>
                             <td><code>display</code></td>
@@ -952,37 +946,55 @@
                             <td><code>boundary</code></td>
                             <td>CSS selector</td>
                             <td>true</td>
-                            <td>The area that the element will be checked for overflow, causing the Drop to flip. By default, it's the scrolling containers of the Drop's element.</td>
+                            <td>The area the drop can't exceed causing it to flip and shift. By default, the nearest scrolling ancestor.</td>
                         </tr>
                         <tr>
-                            <td><code>boundary-align</code></td>
-                            <td>false|true|'x'|'y'</td>
+                            <td><code>target</code></td>
+                            <td>CSS selector</td>
+                            <td>'- *'</td>
+                            <td>The element the drop is positioned to.</td>
+                        </tr>
+                        <tr>
+                            <td><code>target-x</code></td>
+                            <td>CSS selector</td>
                             <td>false</td>
-                            <td>Align Drop to boundary.</td>
+                            <td>The element's X axis the drop is positioned to.</td>
+                        </tr>
+                        <tr>
+                            <td><code>target-y</code></td>
+                            <td>CSS selector</td>
+                            <td>false</td>
+                            <td>The element's Y axis the drop is positioned to.</td>
+                        </tr>
+                        <tr>
+                            <td><code>inset</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Position inside its target.</td>
                         </tr>
                         <tr>
                             <td><code>flip</code></td>
                             <td>false|true|'x'|'y'</td>
                             <td>true</td>
-                            <td>Automatic Drop flip.</td>
+                            <td>Automatic drop flip.</td>
                         </tr>
                         <tr>
                             <td><code>offset</code></td>
                             <td>Number</td>
                             <td>0</td>
-                            <td>The offset of the Drop container.</td>
+                            <td>The drop offset.</td>
                         </tr>
                         <tr>
                             <td><code>animation</code></td>
                             <td>String</td>
                             <td>'uk-animation-fade'</td>
-                            <td>The space separated names of animations to use. (Comma separate for animation out)</td>
+                            <td>Space-separated names of animations. Comma-separated for animation out.</td>
                         </tr>
                         <tr>
                             <td><code>animate-out</code></td>
                             <td>Boolean</td>
                             <td>false</td>
-                            <td>Use animation when closing the Drop.</td>
+                            <td>Use animation when closing the drop.</td>
                         </tr>
                         <tr>
                             <td><code>bg-scroll</code></td>
