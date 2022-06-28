@@ -13,16 +13,16 @@ import {
 export default {
     props: {
         pos: String,
-        posDirection: String,
         offset: null,
         flip: Boolean,
+        inset: Boolean,
     },
 
     data: {
         pos: `bottom-${isRtl ? 'right' : 'left'}`,
-        posDirection: 'outside',
         flip: true,
         offset: false,
+        inset: false,
     },
 
     connected() {
@@ -36,10 +36,7 @@ export default {
             let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
 
             const attach = {
-                element: [
-                    this.posDirection === 'outside' ? flipPosition(this.dir) : this.dir,
-                    this.align,
-                ],
+                element: [this.inset ? this.dir : flipPosition(this.dir), this.align],
                 target: [this.dir, this.align],
             };
 
@@ -86,7 +83,7 @@ export default {
                     element
                 ) *
                 (includes(['left', 'top'], this.dir) ? -1 : 1) *
-                (this.posDirection === 'outside' ? 1 : -1)
+                (this.inset ? -1 : 1)
             );
         },
 
