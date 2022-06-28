@@ -385,7 +385,7 @@ export default {
 
         position() {
             removeClass(this.$el, `${this.clsDrop}-stack`);
-            css(this.$el, 'maxWidth', '');
+            css(this.$el, { width: '', height: '', maxWidth: '' });
 
             const boundary = query(this.boundary, this.$el) || window;
             const target = [
