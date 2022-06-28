@@ -249,18 +249,16 @@ export function toggleTransition(cmp) {
             endProps[marginProp] = show ? 0 : endDim;
         }
 
-        if ((mode === 'slide' && !end) || (end && mode === 'reveal')) {
-            if (!end) {
-                const marginProp = `margin${ucfirst(dir[0])}`;
-                const wrapper = el.firstElementChild;
-                css(wrapper, marginProp, -endDim * (1 - percent));
-                Transition.start(
-                    wrapper,
-                    { [marginProp]: show ? 0 : -endDim },
-                    duration,
-                    transition
-                ).catch(noop);
-            }
+        if (!end ^ (mode === 'reveal')) {
+            const marginProp = `margin${ucfirst(dir[0])}`;
+            const wrapper = el.firstElementChild;
+            css(wrapper, marginProp, -endDim * (1 - percent));
+            Transition.start(
+                wrapper,
+                { [marginProp]: show ? 0 : -endDim },
+                duration,
+                transition
+            ).catch(noop);
         }
 
         await Transition.start(el, endProps, duration, transition);
