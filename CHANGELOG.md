@@ -5,9 +5,8 @@
 ### Added
 
 - Add `animate-out` option to Drop component
-- Add `stretch` and `inset` options to Drop component 
+- Add `stretch`, `shift`, `inset` and `bg-scroll` options to Drop component 
 - Add `slide` and `reveal` animations to Drop component
-- Add `bg-scroll` option to Drop component
 - Add dropdown large modifier to Dropdown and Navbar component
 - Add gap variable to navbar items in Navbar component
 - Add color mode variable to navbar dropdown in Navbar component

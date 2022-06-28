@@ -15,13 +15,15 @@ export default {
         pos: String,
         offset: null,
         flip: Boolean,
+        shift: Boolean,
         inset: Boolean,
     },
 
     data: {
         pos: `bottom-${isRtl ? 'right' : 'left'}`,
-        flip: true,
         offset: false,
+        flip: true,
+        shift: true,
         inset: false,
     },
 
@@ -62,6 +64,7 @@ export default {
                     offset,
                     viewport,
                     flip: this.flip,
+                    shift: this.shift,
                     viewportOffset: this.getViewportOffset(element),
                 },
             ];
