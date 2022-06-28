@@ -9,7 +9,8 @@
 - Add color mode variable to navbar dropdown in Navbar component
 - Add navbar parent icon to Navbar component
 - Add font size variables to nav and sublist in Nav component
-- Add small breakpoint padding variables to Modal component- Add `animate-out` option to Drop component
+- Add small breakpoint padding variables to Modal component
+- Add `animate-out` option to Drop component
 - Add alignment `stretch` to Drop component
 - Add Height Viewport uses scroll parent as viewport
 - Add zero z-index utility class to Position component
