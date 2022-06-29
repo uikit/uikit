@@ -445,18 +445,20 @@ export default {
                 const [axis, prop, start, end] = dirs[i];
 
                 if (this.axis === axis && includes([axis, true], this.stretch)) {
-                    const elOffset = Math.abs(this.getPositionOffset(this.$el)) + viewportOffset;
-                    const targetDim = offset(this.target[i]);
+                    const positionOffset = Math.abs(this.getPositionOffset(this.$el));
+                    const targetOffset = offset(this.target[i]);
                     const boundaryOffset = offsetViewport(
                         boundary || scrollParents(this.target[i])[0]
                     );
+                    const elOffset = offset(this.$el);
 
                     css(
                         this.$el,
                         prop,
-                        (getDir(this.$el, this.target[i]) === start
-                            ? targetDim[start] - boundaryOffset[start]
-                            : boundaryOffset[end] - targetDim[end]) - elOffset
+                        (targetOffset[start] > elOffset[start]
+                            ? targetOffset[start] - boundaryOffset[start]
+                            : boundaryOffset[end] - targetOffset[end]) -
+                            (positionOffset + viewportOffset)
                     );
 
                     this.positionAt(this.$el, this.target, boundary);
@@ -470,23 +472,4 @@ function getPositionedElements(el) {
     const result = [];
     apply(el, (el) => css(el, 'position') !== 'static' && result.push(el));
     return result;
-}
-
-function getDir(el, target) {
-    const properties = [
-        ['left', 'right'],
-        ['top', 'bottom'],
-    ];
-
-    const elOffset = offset(el);
-    const targetOffset = offset(target);
-
-    for (const props of properties) {
-        if (elOffset[props[0]] >= targetOffset[props[1]]) {
-            return props[1];
-        }
-        if (elOffset[props[1]] <= targetOffset[props[0]]) {
-            return props[0];
-        }
-    }
 }

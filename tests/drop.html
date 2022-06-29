@@ -109,7 +109,7 @@
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Same</button>
-                    <div id="js-multiple-toggles" class="uk-dropdown" uk-drop="animation: slide-top">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    <div id="js-multiple-toggles" class="uk-dropdown" uk-drop>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                 </div>
 
             </div>
@@ -125,8 +125,16 @@
                     </select>
                 </div>
                 <div class="uk-inline">
-                    <label class="uk-form-label" for="js-target-switcher">Target</label>
-                        <select id="js-target-switcher" class="uk-select uk-form-width-small">
+                    <label class="uk-form-label" for="js-target-x-switcher">Target X</label>
+                        <select id="js-target-x-switcher" class="uk-select uk-form-width-small">
+                        <option value="false">Toggle</option>
+                        <option value="!.test-boundary">Box</option>
+                        <option value="true">Viewport</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-target-y-switcher">Target Y</label>
+                    <select id="js-target-y-switcher" class="uk-select uk-form-width-small">
                         <option value="false">Toggle</option>
                         <option value="!.test-boundary">Box</option>
                         <option value="true">Viewport</option>
@@ -724,7 +732,7 @@
                 }
             });
 
-            for (const option of ['boundary', 'target', 'inset', 'stretch', 'animation', 'animate-out', 'duration']) {
+            for (const option of ['boundary', 'target-x', 'target-y', 'inset', 'stretch', 'animation', 'animate-out', 'duration']) {
                 on(`#js-${option}-switcher`, 'change', (e) =>
                     attr($$('.js-options'), option, e.target.value)
                 );
