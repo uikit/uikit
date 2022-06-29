@@ -26,7 +26,7 @@
 
             <h1>Drop</h1>
 
-            <div class="uk-margin">
+            <div class="uk-margin uk-form-stacked">
                 <select id="js-style-switcher" class="uk-select uk-form-width-small">
                     <option value="uk-dropdown">Dropdown</option>
                     <option value="uk-dropbar">Dropbar</option>
@@ -111,45 +111,66 @@
 
             <h2>Position, Boundary, Target, Inset, Stretch, Animation</h2>
 
-            <div class="uk-margin">
-                <select id="js-boundary-switcher" class="uk-select uk-form-width-small">
-                    <option value="false">No Boundary</option>
-                    <option value="!.test-boundary">Boundary</option>
-                </select>
-                <select id="js-target-switcher" class="uk-select uk-form-width-small">
-                    <option value="false">Toggle</option>
-                    <option value="!.test-boundary">Boundary</option>
-                    <option value="true">Window</option>
-                </select>
-                <select id="js-inset-switcher" class="uk-select uk-form-width-small">
-                    <option value="false">No Inset</option>
-                    <option value="true">Inset</option>
-                </select>
-                <select id="js-stretch-switcher" class="uk-select uk-form-width-small">
-                    <option value="false">No Stretch</option>
-                    <option value="true">Stretch</option>
-                    <option value="x">Stretch X</option>
-                    <option value="y">Stretch Y</option>
-                </select>
-                <select id="js-animation-switcher" class="uk-select uk-form-width-small">
-                    <option value="uk-animation-fade">Fade</option>
-                    <option value="slide-top">Slide Top</option>
-                    <option value="slide-bottom">Slide Bottom</option>
-                    <option value="slide-left">Slide Left</option>
-                    <option value="slide-right">Slide Right</option>
-                    <option value="reveal-top">Reveal Top</option>
-                    <option value="reveal-bottom">Reveal Bottom</option>
-                    <option value="reveal-left">Reveal Left</option>
-                    <option value="reveal-right">Reveal Right</option>
-                </select>
-                <select id="js-animate-out-switcher" class="uk-select uk-form-width-small">
-                    <option value="false">No Animation Out</option>
-                    <option value="true">Animation Out</option>
-                </select>
-                <select id="js-duration-switcher" class="uk-select uk-form-width-small">
-                    <option value="200">Default Duration</option>
-                    <option value="2000">Slow Duration</option>
-                </select>
+            <div class="uk-margin uk-form-stacked">
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-boundary-switcher">Boundary</label>
+                    <select id="js-boundary-switcher" class="uk-select uk-form-width-small">
+                        <option value="false">Viewport</option>
+                        <option value="!.test-boundary">Box</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-target-switcher">Target</label>
+                        <select id="js-target-switcher" class="uk-select uk-form-width-small">
+                        <option value="false">Toggle</option>
+                        <option value="!.test-boundary">Box</option>
+                        <option value="true">Viewport</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-inset-switcher">Inset</label>
+                    <select id="js-inset-switcher" class="uk-select uk-form-width-xsmall">
+                        <option value="false">False</option>
+                        <option value="true">True</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-stretch-switcher">Stretch</label>
+                    <select id="js-stretch-switcher" class="uk-select uk-form-width-xsmall">
+                        <option value="false">False</option>
+                        <option value="true">True</option>
+                        <option value="x">X</option>
+                        <option value="y">Y</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-animation-switcher">Animation</label>
+                    <select id="js-animation-switcher" class="uk-select uk-form-width-small">
+                        <option value="uk-animation-fade">Fade</option>
+                        <option value="slide-top">Slide Top</option>
+                        <option value="slide-bottom">Slide Bottom</option>
+                        <option value="slide-left">Slide Left</option>
+                        <option value="slide-right">Slide Right</option>
+                        <option value="reveal-top">Reveal Top</option>
+                        <option value="reveal-bottom">Reveal Bottom</option>
+                        <option value="reveal-left">Reveal Left</option>
+                        <option value="reveal-right">Reveal Right</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-animate-out-switcher">Out</label>
+                    <select id="js-animate-out-switcher" class="uk-select uk-form-width-xsmall">
+                        <option value="false">False</option>
+                        <option value="true">True</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-duration-switcher">Duration</label>
+                    <select id="js-duration-switcher" class="uk-select uk-form-width-xsmall">
+                        <option value="200">Default</option>
+                        <option value="2000">Slow</option>
+                    </select>
+                </div>
             </div>
 
             <div class="uk-child-width-1-2@m" uk-grid>
