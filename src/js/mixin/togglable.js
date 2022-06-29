@@ -158,7 +158,6 @@ export function toggleTransition(cmp) {
 
     const useWrapper = isStatic || end || dirs[0] === dir;
 
-    // TODO add border props
     const getBoxProps = (value) =>
         useWrapper
             ? { padding: value, margin: value }
@@ -167,6 +166,8 @@ export function toggleTransition(cmp) {
                   [`padding${ucfirst(endProp)}`]: value,
                   [`margin${ucfirst(startProp)}`]: value,
                   [`margin${ucfirst(endProp)}`]: value,
+                  [`border${ucfirst(startProp)}Width`]: value,
+                  [`border${ucfirst(endProp)}Width`]: value,
               };
 
     const initProps = { [dimProp]: '', ...getBoxProps(''), boxShadow: '' };
