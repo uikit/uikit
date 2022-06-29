@@ -104,7 +104,7 @@
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Same</button>
-                    <div id="js-multiple-toggles" class="uk-dropdown" uk-drop>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    <div id="js-multiple-toggles" class="uk-dropdown" uk-drop="animation: slide-top">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                 </div>
 
             </div>
@@ -119,6 +119,7 @@
                 <select id="js-target-switcher" class="uk-select uk-form-width-small">
                     <option value="false">Toggle</option>
                     <option value="!.test-boundary">Boundary</option>
+                    <option value="true">Window</option>
                 </select>
                 <select id="js-inset-switcher" class="uk-select uk-form-width-small">
                     <option value="false">No Inset</option>
@@ -601,21 +602,21 @@
                         </tr>
                         <tr>
                             <td><code>target</code></td>
-                            <td>CSS selector</td>
-                            <td>'- *'</td>
-                            <td>The element the drop is positioned to.</td>
+                            <td>Boolean, CSS selector</td>
+                            <td>false</td>
+                            <td>The element the drop is positioned to. (`true` for window)</td>
                         </tr>
                         <tr>
                             <td><code>target-x</code></td>
-                            <td>CSS selector</td>
+                            <td>Boolean, CSS selector</td>
                             <td>false</td>
-                            <td>The element's X axis the drop is positioned to.</td>
+                            <td>The element's X axis the drop is positioned to. (`true` for window)</td>
                         </tr>
                         <tr>
                             <td><code>target-y</code></td>
-                            <td>CSS selector</td>
+                            <td>Boolean, CSS selector</td>
                             <td>false</td>
-                            <td>The element's Y axis the drop is positioned to.</td>
+                            <td>The element's Y axis the drop is positioned to. (`true` for window)</td>
                         </tr>
                         <tr>
                             <td><code>inset</code></td>

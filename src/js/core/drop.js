@@ -75,9 +75,12 @@ export default {
 
     computed: {
         target({ target, targetX, targetY }, $el) {
+            targetX = targetX || target || this.targetEl;
+            targetY = targetY || target || this.targetEl;
+
             return [
-                query(targetX || target || this.targetEl, $el),
-                query(targetY || target || this.targetEl, $el),
+                targetX === true ? window : query(targetX, $el),
+                targetY === true ? window : query(targetY, $el),
             ];
         },
     },
