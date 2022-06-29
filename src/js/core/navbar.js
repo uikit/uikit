@@ -36,7 +36,7 @@ export default {
         align: String,
         offset: Number,
         boundary: Boolean,
-        boundaryAlign: Boolean,
+        target: Boolean,
         clsDrop: String,
         delayShow: Number,
         delayHide: Number,
@@ -53,10 +53,12 @@ export default {
         offset: undefined,
         delayShow: undefined,
         delayHide: undefined,
-        boundaryAlign: undefined,
         flip: false,
         shift: true,
         boundary: true,
+        target: false,
+        targetX: false,
+        targetY: false,
         dropbar: false,
         dropbarAnchor: false,
         duration: 200,
@@ -66,6 +68,18 @@ export default {
     computed: {
         boundary({ boundary }, $el) {
             return boundary === true ? $el : boundary;
+        },
+
+        target({ target }, $el) {
+            return target === true ? $el : target;
+        },
+
+        targetX({ targetX }, $el) {
+            return targetX === true ? $el : targetX;
+        },
+
+        targetY({ targetY }, $el) {
+            return targetY === true ? $el : targetY;
         },
 
         dropbarAnchor({ dropbarAnchor }, $el) {
@@ -107,7 +121,7 @@ export default {
 
                 if (this.dropContainer !== $el) {
                     for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
-                        const target = this.getDropdown(el)?.target;
+                        const target = this.getDropdown(el)?.targetEl;
                         if (!includes(dropdowns, el) && target && within(target, this.$el)) {
                             dropdowns.push(el);
                         }
@@ -169,8 +183,8 @@ export default {
                 if (
                     active &&
                     includes(active.mode, 'hover') &&
-                    active.target &&
-                    !within(active.target, current) &&
+                    active.targetEl &&
+                    !within(active.targetEl, current) &&
                     !active.isDelaying
                 ) {
                     active.hide(false);
@@ -192,7 +206,7 @@ export default {
                 if (keyCode === keyMap.DOWN && hasAttr(current, 'aria-expanded')) {
                     e.preventDefault();
 
-                    if (!active || active.target !== current) {
+                    if (!active || active.targetEl !== current) {
                         current.click();
                         once(this.dropContainer, 'show', ({ target }) =>
                             focusFirstFocusableElement(target)
@@ -243,7 +257,7 @@ export default {
                 }
 
                 if (keyCode === keyMap.ESC) {
-                    active?.target?.focus();
+                    active?.targetEl?.focus();
                 }
 
                 handleNavItemNavigation(e, this.toggles, active);
@@ -367,7 +381,7 @@ export default {
                 if (
                     matches(this.dropbar, ':hover') &&
                     active?.$el === e.target &&
-                    !this.toggles.some((el) => active.target !== el && matches(el, ':focus'))
+                    !this.toggles.some((el) => active.targetEl !== el && matches(el, ':focus'))
                 ) {
                     e.preventDefault();
                 }
@@ -403,7 +417,7 @@ export default {
 
     methods: {
         getActive() {
-            return active && within(active.target, this.$el) && active;
+            return active && within(active.targetEl, this.$el) && active;
         },
 
         transitionTo(newHeight, el) {
@@ -436,15 +450,14 @@ export default {
         },
 
         isDropbarDrop(el) {
-            const drop = this.getDropdown(el);
-            return drop && hasClass(el, this.clsDrop) && !drop.stretch; // TODO drop.stretch
+            return this.getDropdown(el) && hasClass(el, this.clsDrop);
         },
     },
 };
 
 function handleNavItemNavigation(e, toggles, active) {
     const { current, keyCode } = e;
-    const target = active?.target || current;
+    const target = active?.targetEl || current;
     const i = toggles.indexOf(target);
 
     // Left

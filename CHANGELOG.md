@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add `animate-out`, `stretch`, `shift`, `inset` and `bg-scroll` options to Drop component 
+- Add `animate-out`, `stretch`, `shift`, `inset`, `target`, `target-x`, `target-y` and `bg-scroll` options to Drop component 
 - Add `slide` and `reveal` animations to Drop component
 - Add dropdown large modifier to Dropdown and Navbar component
 - Add gap variable to navbar items in Navbar component
@@ -22,6 +22,7 @@
 
 - IMPORTANT: Remove `.uk-nav-parent-icon` from Nav component. Use `uk-nav-parent-icon` attribute on items instead
 - IMPORTANT: Remove alignment `*-justify` from Drop and Dropdown component. Use new `stretch` option instead
+- IMPORTANT: Remove option `boundary-align` from Drop and Dropdown component. Use new `target` option instead
 - IMPORTANT: Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
 - IMPORTANT: Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
 - IMPORTANT: Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`

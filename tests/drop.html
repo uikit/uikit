@@ -113,14 +113,12 @@
 
             <div class="uk-margin">
                 <select id="js-boundary-switcher" class="uk-select uk-form-width-small">
-                    <option value="true">No Boundary</option>
+                    <option value="false">No Boundary</option>
                     <option value="!.test-boundary">Boundary</option>
                 </select>
-                <select id="js-boundary-align-switcher" class="uk-select uk-form-width-small">
-                    <option value="false">No Boundary Align</option>
-                    <option value="true">Boundary Align</option>
-                    <option value="x">Boundary Align X</option>
-                    <option value="y">Boundary Align Y</option>
+                <select id="js-target-switcher" class="uk-select uk-form-width-small">
+                    <option value="false">Toggle</option>
+                    <option value="!.test-boundary">Boundary</option>
                 </select>
                 <select id="js-inset-switcher" class="uk-select uk-form-width-small">
                     <option value="false">No Inset</option>
@@ -555,7 +553,7 @@
                     <tbody>
                         <tr>
                             <td><code>toggle</code></td>
-                            <td>String, Boolean</td>
+                            <td>CSS Selector</td>
                             <td>'- *'</td>
                             <td>CSS selector for the element to be used as toggle. By default, the preceding element.</td>
                         </tr>
@@ -598,7 +596,7 @@
                         <tr>
                             <td><code>boundary</code></td>
                             <td>CSS selector</td>
-                            <td>true</td>
+                            <td>false</td>
                             <td>The area the drop can't exceed causing it to flip and shift. By default, the nearest scrolling ancestor.</td>
                         </tr>
                         <tr>
@@ -699,33 +697,11 @@
                 }
             });
 
-            on('#js-boundary-switcher', 'change', (e) =>
-                attr($$('.js-options'), 'boundary', e.target.value)
-            );
-
-            on('#js-boundary-align-switcher', 'change', (e) =>
-                attr($$('.js-options'), 'boundary-align', e.target.value)
-            );
-
-            on('#js-inset-switcher', 'change', (e) =>
-                attr($$('.js-options'), 'inset', e.target.value)
-            );
-
-            on('#js-stretch-switcher', 'change', (e) =>
-                attr($$('.js-options'), 'stretch', e.target.value)
-            );
-
-            on('#js-animation-switcher', 'change', (e) =>
-                attr($$('.js-options'), 'animation', e.target.value)
-            );
-
-            on('#js-animate-out-switcher', 'change', (e) =>
-                attr($$('.js-options'), 'animate-out', e.target.value)
-            );
-
-            on('#js-duration-switcher', 'change', (e) =>
-                attr($$('.js-options'), 'duration', e.target.value)
-            );
+            for (const option of ['boundary', 'target', 'inset', 'stretch', 'animation', 'animate-out', 'duration']) {
+                on(`#js-${option}-switcher`, 'change', (e) =>
+                    attr($$('.js-options'), option, e.target.value)
+                );
+            }
 
         </script>
 
