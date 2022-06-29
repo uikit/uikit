@@ -13,13 +13,42 @@
 // New
 //
 
-@dropbar-box-shadow:                            0 5px 12px rgba(0,0,0,0.15);
+@dropbar-border-width:                          12px;
+@dropbar-border:                                rgba(0,0,0,0.08);
 
 
 // Component
 // ========================================================================
 
-.hook-dropbar() { box-shadow: @dropbar-box-shadow; }
+.hook-dropbar() {}
+
+
+// Direction modifier
+// ========================================================================
+
+.hook-dropbar-top() {
+    border-bottom: @dropbar-border-width solid;
+    border-image: linear-gradient(to bottom, @dropbar-border, rgba(0,0,0,0));
+    border-image-slice: 0 0 100% 0;
+}
+
+.hook-dropbar-bottom() {
+    border-top: @dropbar-border-width solid;
+    border-image: linear-gradient(to top, @dropbar-border, rgba(0,0,0,0));
+    border-image-slice: 100% 0 0 0;
+}
+
+.hook-dropbar-left() {
+    border-right: @dropbar-border-width solid;
+    border-image: linear-gradient(to right, @dropbar-border, rgba(0,0,0,0));
+    border-image-slice: 0 100% 0 0;
+}
+
+.hook-dropbar-right() {
+    border-left: @dropbar-border-width solid;
+    border-image: linear-gradient(to left, @dropbar-border, rgba(0,0,0,0));
+    border-image-slice: 0 0 0 100%;
+}
 
 
 // Miscellaneous
