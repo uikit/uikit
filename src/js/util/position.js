@@ -1,5 +1,5 @@
 import { offset } from './dimensions';
-import { clamp, includes, isArray, ucfirst } from './lang';
+import { clamp, isArray, ucfirst } from './lang';
 import { offsetViewport, scrollParents } from './viewport';
 
 const dirs = [
