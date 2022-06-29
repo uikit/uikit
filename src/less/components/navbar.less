@@ -77,13 +77,6 @@
 @navbar-dropdown-large-shift-margin:            0;
 @navbar-dropdown-large-padding:                 40px;
 
-@navbar-dropdown-stretch-padding-top:           15px;
-@navbar-dropdown-stretch-padding-bottom:        @navbar-dropdown-stretch-padding-top;
-@navbar-dropdown-stretch-padding-horizontal:    15px;
-@navbar-dropdown-stretch-padding-horizontal-s:  @global-gutter;
-@navbar-dropdown-stretch-padding-horizontal-m:  @global-medium-gutter;
-@navbar-dropdown-stretch-background:            @navbar-dropdown-background;
-
 @navbar-dropdown-dropbar-padding-top:           @navbar-dropdown-padding;
 @navbar-dropdown-dropbar-padding-bottom:        @navbar-dropdown-dropbar-padding-top;
 @navbar-dropdown-dropbar-padding-horizontal:    @navbar-nav-item-padding-horizontal;
@@ -453,45 +446,6 @@
 }
 
 /*
- * Stretch modifier
- * 1. Allow scrolling
- * 2. Style
- */
-
-.uk-navbar-dropdown-stretch {
-    --uk-position-offset: 0;
-    --uk-position-shift-offset: 0;
-    --uk-position-viewport-offset: 0;
-    /* 1 */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    /* 2 */
-    padding: @navbar-dropdown-stretch-padding-top @navbar-dropdown-stretch-padding-horizontal @navbar-dropdown-stretch-padding-bottom @navbar-dropdown-stretch-padding-horizontal;
-    background: @navbar-dropdown-stretch-background;
-    .hook-navbar-dropdown-stretch();
-}
-
-/* Phone landscape and bigger */
-@media (min-width: @breakpoint-small) {
-
-    .uk-navbar-dropdown-stretch {
-        padding-left: @navbar-dropdown-stretch-padding-horizontal-s;
-        padding-right: @navbar-dropdown-stretch-padding-horizontal-s;
-    }
-
-}
-
-/* Tablet landscape and bigger */
-@media (min-width: @breakpoint-medium) {
-
-    .uk-navbar-dropdown-stretch {
-        padding-left: @navbar-dropdown-stretch-padding-horizontal-m;
-        padding-right: @navbar-dropdown-stretch-padding-horizontal-m;
-    }
-
-}
-
-/*
  * Dropbar modifier
  * 1. Reset dropdown width to prevent to early shifting
  * 2. Reset style
@@ -626,7 +580,6 @@
 .hook-navbar-transparent() {}
 .hook-navbar-sticky() {}
 .hook-navbar-dropdown() {}
-.hook-navbar-dropdown-stretch() {}
 .hook-navbar-dropdown-dropbar() {}
 .hook-navbar-dropdown-nav() {}
 .hook-navbar-dropdown-nav-item() {}

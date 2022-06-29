@@ -83,23 +83,6 @@
 .uk-dropdown-large { padding: @dropdown-large-padding; }
 
 
-/* Stretch modifier
- ========================================================================== */
-
-/*
- * 1. Allow scrolling
- */
-
-.uk-dropdown-stretch {
-    --uk-position-offset: 0;
-    --uk-position-viewport-offset: 0;
-    /* 1 */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    .hook-dropdown-stretch();
-}
-
-
 /* Nav
  * Adopts `uk-nav`
  ========================================================================== */
@@ -174,7 +157,6 @@
 .hook-dropdown-misc();
 
 .hook-dropdown() {}
-.hook-dropdown-stretch() {}
 .hook-dropdown-nav() {}
 .hook-dropdown-nav-item() {}
 .hook-dropdown-nav-item-hover() {}
