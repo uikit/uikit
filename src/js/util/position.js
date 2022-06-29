@@ -39,7 +39,9 @@ function attachTo(element, target, options) {
     const position = offset(element);
 
     for (const [i, [prop, dir, start, end]] of Object.entries(dirs)) {
-        const targetOffset = offset(target[i]);
+        const targetOffset =
+            attach.target[i] === attach.element[i] ? offsetViewport(target[i]) : offset(target[i]);
+
         position[start] = position[dir] =
             targetOffset[start] +
             moveBy(attach.target[i], end, targetOffset[prop]) -
