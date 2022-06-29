@@ -402,7 +402,7 @@ export default {
 
         position() {
             removeClass(this.$el, `${this.clsDrop}-stack`);
-            css(this.$el, { width: '', height: '', maxWidth: '' });
+            css(this.$el, { width: '', height: '', maxWidth: '', top: '', left: '' });
 
             const boundary = query(this.boundary, this.$el);
             const viewportOffset = this.getViewportOffset(this.$el);

@@ -155,7 +155,6 @@ export function toggleTransition(cmp) {
     const end = dir[1] === startProp;
     const endProp = dir[end ? 0 : 1];
     const dimProp = props[dirs.indexOf(dir)];
-
     const useWrapper = isStatic || end || dirs[0] === dir;
 
     const getBoxProps = (value) =>
@@ -225,7 +224,7 @@ export function toggleTransition(cmp) {
             }
         }
 
-        const endDim = toFloat(dim[dimProp]);
+        const endDim = dim[dimProp];
         const percent = currentDim / endDim;
 
         duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
