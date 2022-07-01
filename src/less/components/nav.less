@@ -72,6 +72,24 @@
 @nav-primary-sublist-item-hover-color:          @global-color;
 @nav-primary-sublist-item-active-color:         @global-emphasis-color;
 
+@nav-secondary-font-size:                       @global-font-size;
+@nav-secondary-line-height:                     @global-line-height;
+@nav-secondary-item-color:                      @global-emphasis-color;
+@nav-secondary-item-hover-color:                @global-emphasis-color;
+@nav-secondary-item-active-color:               @global-emphasis-color;
+@nav-secondary-subtitle-font-size:              @global-small-font-size;
+@nav-secondary-subtitle-color:                  @global-muted-color;
+@nav-secondary-subtitle-hover-color:            @global-color;
+@nav-secondary-subtitle-active-color:           @global-emphasis-color;
+@nav-secondary-header-color:                    @global-emphasis-color;
+@nav-secondary-divider-border-width:            @global-border-width;
+@nav-secondary-divider-border:                  @global-border;
+@nav-secondary-sublist-font-size:               @global-small-font-size;
+@nav-secondary-sublist-line-height:             @global-line-height;
+@nav-secondary-sublist-item-color:              @global-muted-color;
+@nav-secondary-sublist-item-hover-color:        @global-color;
+@nav-secondary-sublist-item-active-color:       @global-emphasis-color;
+
 @nav-dividers-margin-top:                       5px;
 @nav-dividers-border-width:                     @global-border-width;
 @nav-dividers-border:                           @global-border;
@@ -318,6 +336,93 @@ ul.uk-nav-sub {
 .uk-nav-primary .uk-nav-sub li.uk-active > a { color: @nav-primary-sublist-item-active-color; }
 
 
+/* Secondary modifier
+ ========================================================================== */
+
+.uk-nav-secondary {
+    font-size: @nav-secondary-font-size;
+    line-height: @nav-secondary-line-height;
+    .hook-nav-secondary();
+}
+
+/*
+ * Items
+ */
+
+.uk-nav-secondary > li > a {
+
+    color: @nav-secondary-item-color;
+    .hook-nav-secondary-item();
+}
+
+/* Hover */
+.uk-nav-secondary > li > a:hover {
+    color: @nav-secondary-item-hover-color;
+    .hook-nav-secondary-item-hover();
+}
+
+/* Active */
+.uk-nav-secondary > li.uk-active > a {
+    color: @nav-secondary-item-active-color;
+    .hook-nav-secondary-item-active();
+}
+
+/*
+ * Subtitle
+ */
+
+.uk-nav-secondary .uk-nav-subtitle {
+    font-size: @nav-secondary-subtitle-font-size;
+    color: @nav-secondary-subtitle-color;
+    .hook-nav-secondary-subtitle();
+}
+
+/* Hover */
+.uk-nav-secondary > li > a:hover .uk-nav-subtitle {
+    color: @nav-secondary-subtitle-hover-color;
+    .hook-nav-secondary-subtitle-hover();
+}
+
+/* Active */
+.uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
+    color: @nav-secondary-subtitle-active-color;
+    .hook-nav-secondary-subtitle-active();
+}
+
+/*
+ * Header
+ */
+
+.uk-nav-secondary .uk-nav-header {
+    color: @nav-secondary-header-color;
+    .hook-nav-secondary-header();
+}
+
+/*
+ * Divider
+ */
+
+.uk-nav-secondary .uk-nav-divider {
+    border-top: @nav-secondary-divider-border-width solid @nav-secondary-divider-border;
+    .hook-nav-secondary-divider();
+}
+
+/*
+ * Sublists
+ */
+
+.uk-nav-secondary .uk-nav-sub {
+    font-size: @nav-secondary-sublist-font-size;
+    line-height: @nav-secondary-sublist-line-height;
+}
+
+.uk-nav-secondary .uk-nav-sub a { color: @nav-secondary-sublist-item-color; }
+
+.uk-nav-secondary .uk-nav-sub a:hover { color: @nav-secondary-sublist-item-hover-color; }
+
+.uk-nav-secondary .uk-nav-sub li.uk-active > a { color: @nav-secondary-sublist-item-active-color; }
+
+
 /* Alignment modifier
  ========================================================================== */
 
@@ -377,6 +482,15 @@ ul.uk-nav-sub {
 .hook-nav-primary-subtitle() {}
 .hook-nav-primary-header() {}
 .hook-nav-primary-divider() {}
+.hook-nav-secondary() {}
+.hook-nav-secondary-item() {}
+.hook-nav-secondary-item-hover() {}
+.hook-nav-secondary-item-active() {}
+.hook-nav-secondary-subtitle() {}
+.hook-nav-secondary-subtitle-hover() {}
+.hook-nav-secondary-subtitle-active() {}
+.hook-nav-secondary-header() {}
+.hook-nav-secondary-divider() {}
 .hook-nav-dividers() {}
 .hook-nav-misc() {}
 
@@ -384,25 +498,37 @@ ul.uk-nav-sub {
 // Inverse
 // ========================================================================
 
-@inverse-nav-default-item-color:                @inverse-global-muted-color;
-@inverse-nav-default-item-hover-color:          @inverse-global-color;
-@inverse-nav-default-item-active-color:         @inverse-global-emphasis-color;
-@inverse-nav-default-header-color:              @inverse-global-emphasis-color;
-@inverse-nav-default-divider-border:            @inverse-global-border;
-@inverse-nav-default-sublist-item-color:        @inverse-global-muted-color;
-@inverse-nav-default-sublist-item-hover-color:  @inverse-global-color;
-@inverse-nav-default-sublist-item-active-color: @inverse-global-emphasis-color;
+@inverse-nav-default-item-color:                    @inverse-global-muted-color;
+@inverse-nav-default-item-hover-color:              @inverse-global-color;
+@inverse-nav-default-item-active-color:             @inverse-global-emphasis-color;
+@inverse-nav-default-header-color:                  @inverse-global-emphasis-color;
+@inverse-nav-default-divider-border:                @inverse-global-border;
+@inverse-nav-default-sublist-item-color:            @inverse-global-muted-color;
+@inverse-nav-default-sublist-item-hover-color:      @inverse-global-color;
+@inverse-nav-default-sublist-item-active-color:     @inverse-global-emphasis-color;
 
-@inverse-nav-primary-item-color:                @inverse-global-muted-color;
-@inverse-nav-primary-item-hover-color:          @inverse-global-color;
-@inverse-nav-primary-item-active-color:         @inverse-global-emphasis-color;
-@inverse-nav-primary-header-color:              @inverse-global-emphasis-color;
-@inverse-nav-primary-divider-border:            @inverse-global-border;
-@inverse-nav-primary-sublist-item-color:        @inverse-global-muted-color;
-@inverse-nav-primary-sublist-item-hover-color:  @inverse-global-color;
-@inverse-nav-primary-sublist-item-active-color: @inverse-global-emphasis-color;
+@inverse-nav-primary-item-color:                    @inverse-global-muted-color;
+@inverse-nav-primary-item-hover-color:              @inverse-global-color;
+@inverse-nav-primary-item-active-color:             @inverse-global-emphasis-color;
+@inverse-nav-primary-header-color:                  @inverse-global-emphasis-color;
+@inverse-nav-primary-divider-border:                @inverse-global-border;
+@inverse-nav-primary-sublist-item-color:            @inverse-global-muted-color;
+@inverse-nav-primary-sublist-item-hover-color:      @inverse-global-color;
+@inverse-nav-primary-sublist-item-active-color:     @inverse-global-emphasis-color;
 
-@inverse-nav-dividers-border:                   @inverse-global-border;
+@inverse-nav-secondary-item-color:                  @inverse-global-emphasis-color;
+@inverse-nav-secondary-item-hover-color:            @inverse-global-emphasis-color;
+@inverse-nav-secondary-item-active-color:           @inverse-global-emphasis-color;
+@inverse-nav-secondary-subtitle-color:              @inverse-global-muted-color;
+@inverse-nav-secondary-subtitle-hover-color:        @inverse-global-color;
+@inverse-nav-secondary-subtitle-active-color:       @inverse-global-emphasis-color;
+@inverse-nav-secondary-header-color:                @inverse-global-emphasis-color;
+@inverse-nav-secondary-divider-border:              @inverse-global-border;
+@inverse-nav-secondary-sublist-item-color:          @inverse-global-muted-color;
+@inverse-nav-secondary-sublist-item-hover-color:    @inverse-global-color;
+@inverse-nav-secondary-sublist-item-active-color:   @inverse-global-emphasis-color;
+
+@inverse-nav-dividers-border:                       @inverse-global-border;
 
 .hook-inverse() {
 
@@ -477,6 +603,56 @@ ul.uk-nav-sub {
     .uk-nav-primary .uk-nav-sub li.uk-active > a { color: @inverse-nav-primary-sublist-item-active-color; }
 
     //
+    // Secondary
+    //
+
+    .uk-nav-secondary > li > a {
+        color: @inverse-nav-secondary-item-color;
+        .hook-inverse-nav-secondary-item();
+    }
+
+    .uk-nav-secondary > li > a:hover {
+        color: @inverse-nav-secondary-item-hover-color;
+        .hook-inverse-nav-secondary-item-hover();
+    }
+
+    .uk-nav-secondary > li.uk-active > a {
+        color: @inverse-nav-secondary-item-active-color;
+        .hook-inverse-nav-secondary-item-active();
+    }
+
+    .uk-nav-secondary .uk-nav-subtitle {
+        color: @inverse-nav-secondary-subtitle-color;
+        .hook-inverse-nav-secondary-subtitle();
+    }
+
+    .uk-nav-secondary > li > a:hover .uk-nav-subtitle {
+        color: @inverse-nav-secondary-subtitle-hover-color;
+        .hook-inverse-nav-secondary-subtitle-hover();
+    }
+
+    .uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
+        color: @inverse-nav-secondary-subtitle-active-color;
+        .hook-inverse-nav-secondary-subtitle-active();
+    }
+
+    .uk-nav-secondary .uk-nav-header {
+        color: @inverse-nav-secondary-header-color;
+        .hook-inverse-nav-secondary-header();
+    }
+
+    .uk-nav-secondary .uk-nav-divider {
+        border-top-color: @inverse-nav-secondary-divider-border;
+        .hook-inverse-nav-secondary-divider();
+    }
+
+    .uk-nav-secondary .uk-nav-sub a { color: @inverse-nav-secondary-sublist-item-color; }
+
+    .uk-nav-secondary .uk-nav-sub a:hover { color: @inverse-nav-secondary-sublist-item-hover-color; }
+
+    .uk-nav-secondary .uk-nav-sub li.uk-active > a { color: @inverse-nav-secondary-sublist-item-active-color; }
+
+    //
     // Dividers
     //
 
@@ -497,4 +673,12 @@ ul.uk-nav-sub {
 .hook-inverse-nav-primary-item-active() {}
 .hook-inverse-nav-primary-header() {}
 .hook-inverse-nav-primary-divider() {}
+.hook-inverse-nav-secondary-item() {}
+.hook-inverse-nav-secondary-item-hover() {}
+.hook-inverse-nav-secondary-item-active() {}
+.hook-inverse-nav-secondary-subtitle() {}
+.hook-inverse-nav-secondary-subtitle-hover() {}
+.hook-inverse-nav-secondary-subtitle-active() {}
+.hook-inverse-nav-secondary-header() {}
+.hook-inverse-nav-secondary-divider() {}
 .hook-inverse-nav-dividers() {}
