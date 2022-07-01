@@ -404,34 +404,30 @@ export default {
             removeClass(this.$el, `${this.clsDrop}-stack`);
             css(this.$el, { width: '', height: '', maxWidth: '', top: '', left: '' });
 
-            const boundary = query(this.boundary, this.$el);
-            const viewportOffset = this.getViewportOffset(this.$el);
-
             // Ensure none positioned element does not generate scrollbars
             this.$el.hidden = true;
 
+            const boundary = query(this.boundary, this.$el);
+            const boundaryOffset = offsetViewport(boundary || window);
+            const viewports = this.target.map((target) => offsetViewport(scrollParents(target)[0]));
+            const viewportOffset = this.getViewportOffset(this.$el);
+
             const dirs = [
-                ['x', 'width', 'left', 'right'],
-                ['y', 'height', 'top', 'bottom'],
+                [0, ['x', 'width', 'left', 'right']],
+                [1, ['y', 'height', 'top', 'bottom']],
             ];
 
-            for (const i in dirs) {
-                const [axis, prop] = dirs[i];
-
+            for (const [i, [axis, prop]] of dirs) {
                 if (this.axis !== axis && includes([axis, true], this.stretch)) {
                     css(
                         this.$el,
                         prop,
-                        offsetViewport(boundary || scrollParents(this.target[i])[0])[prop] -
-                            2 * viewportOffset
+                        Math.min(boundaryOffset[prop], viewports[i][prop] - 2 * viewportOffset)
                     );
                 }
             }
 
-            const maxWidth =
-                offsetViewport(scrollParents(this.target[0])[0]).width - 2 * viewportOffset;
-
-            this.$el.hidden = false;
+            const maxWidth = viewports[0].width - 2 * viewportOffset;
 
             if (this.$el.offsetWidth > maxWidth) {
                 addClass(this.$el, `${this.clsDrop}-stack`);
@@ -439,26 +435,24 @@ export default {
 
             css(this.$el, 'maxWidth', maxWidth);
 
+            this.$el.hidden = false;
+
             this.positionAt(this.$el, this.target, boundary);
 
-            for (const i in dirs) {
-                const [axis, prop, start, end] = dirs[i];
-
+            for (const [i, [axis, prop, start, end]] of dirs) {
                 if (this.axis === axis && includes([axis, true], this.stretch)) {
                     const positionOffset = Math.abs(this.getPositionOffset(this.$el));
                     const targetOffset = offset(this.target[i]);
-                    const boundaryOffset = offsetViewport(
-                        boundary || scrollParents(this.target[i])[0]
-                    );
                     const elOffset = offset(this.$el);
 
                     css(
                         this.$el,
                         prop,
                         (targetOffset[start] > elOffset[start]
-                            ? targetOffset[start] - boundaryOffset[start]
-                            : boundaryOffset[end] - targetOffset[end]) -
-                            (positionOffset + viewportOffset)
+                            ? targetOffset[start] -
+                              Math.max(boundaryOffset[start], viewports[i][start] + viewportOffset)
+                            : Math.min(boundaryOffset[end], viewports[i][end] - viewportOffset) -
+                              targetOffset[end]) - positionOffset
                     );
 
                     this.positionAt(this.$el, this.target, boundary);

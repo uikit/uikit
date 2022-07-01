@@ -34,7 +34,7 @@ export default {
     },
 
     methods: {
-        positionAt(element, target, viewport) {
+        positionAt(element, target, boundary) {
             let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
 
             const attach = {
@@ -62,7 +62,7 @@ export default {
                 {
                     attach,
                     offset,
-                    viewport,
+                    boundary,
                     flip: this.flip,
                     shift: this.shift,
                     viewportOffset: this.getViewportOffset(element),

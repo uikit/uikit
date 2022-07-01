@@ -64,7 +64,7 @@ function getPosition(element, target, options) {
         shift,
         attach: { element: elAttach, target: targetAttach },
         offset: elOffset,
-        viewport: viewportEl,
+        boundary,
         viewportOffset,
     } = options;
 
@@ -74,19 +74,18 @@ function getPosition(element, target, options) {
 
     const offsetPosition = { ...position };
     for (const [i, [prop, dir, start, end]] of Object.entries(dirs)) {
-        const targetDim = offset(target[i]);
         let viewports = scrollParents(target[i]);
         const [scrollElement] = viewports;
-        viewports.push(viewportEl);
 
-        const willFlip =
-            !intersectLine(position, targetDim, i) && intersectLine(position, targetDim, 1 - i);
-
-        const viewport = getIntersectionArea(...viewports.filter(Boolean).map(offsetViewport));
+        let viewport = getIntersectionArea(...viewports.map(offsetViewport));
 
         if (viewportOffset) {
             viewport[start] += viewportOffset;
             viewport[end] -= viewportOffset;
+        }
+
+        if (boundary) {
+            viewport = getIntersectionArea(viewport, offsetViewport(boundary));
         }
 
         const isInStartViewport = position[start] >= viewport[start];
@@ -97,9 +96,10 @@ function getPosition(element, target, options) {
         }
 
         let offsetBy = 0;
+        const targetDim = offset(target[i]);
 
         // Flip
-        if (willFlip) {
+        if (!intersectLine(position, targetDim, i) && intersectLine(position, targetDim, 1 - i)) {
             if (
                 !flip ||
                 (elAttach[i] === end && isInStartViewport) ||
