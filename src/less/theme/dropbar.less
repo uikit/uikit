@@ -13,42 +13,28 @@
 // New
 //
 
-@dropbar-border-width:                          12px;
-@dropbar-border:                                rgba(0,0,0,0.08);
+@dropbar-top-box-shadow:                        0 5px 7px rgba(0, 0, 0, 0.05);
+@dropbar-bottom-box-shadow:                     0 -5px 7px rgba(0, 0, 0, 0.05);
+@dropbar-left-box-shadow:                       5px 0 7px rgba(0, 0, 0, 0.05);
+@dropbar-right-box-shadow:                      -5px 0 7px rgba(0, 0, 0, 0.05);
 
 
 // Component
 // ========================================================================
 
-.hook-dropbar() { background-clip: padding-box; }
+.hook-dropbar() {}
 
 
 // Direction modifier
 // ========================================================================
 
-.hook-dropbar-top() {
-    border-bottom: @dropbar-border-width solid;
-    border-image: linear-gradient(to bottom, @dropbar-border, rgba(0,0,0,0));
-    border-image-slice: 0 0 100% 0;
-}
+.hook-dropbar-top() { box-shadow: @dropbar-top-box-shadow; }
 
-.hook-dropbar-bottom() {
-    border-top: @dropbar-border-width solid;
-    border-image: linear-gradient(to top, @dropbar-border, rgba(0,0,0,0));
-    border-image-slice: 100% 0 0 0;
-}
+.hook-dropbar-bottom() { box-shadow: @dropbar-bottom-box-shadow; }
 
-.hook-dropbar-left() {
-    border-right: @dropbar-border-width solid;
-    border-image: linear-gradient(to right, @dropbar-border, rgba(0,0,0,0));
-    border-image-slice: 0 100% 0 0;
-}
+.hook-dropbar-left() { box-shadow: @dropbar-left-box-shadow; }
 
-.hook-dropbar-right() {
-    border-left: @dropbar-border-width solid;
-    border-image: linear-gradient(to left, @dropbar-border, rgba(0,0,0,0));
-    border-image-slice: 0 0 0 100%;
-}
+.hook-dropbar-right() { box-shadow: @dropbar-right-box-shadow; }
 
 
 // Miscellaneous
