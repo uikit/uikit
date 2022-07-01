@@ -18,6 +18,7 @@
 @dropbar-padding-horizontal-m:                  @global-medium-gutter;
 @dropbar-background:                            @global-muted-background;
 @dropbar-color:                                 @global-color;
+@dropbar-color-mode:                            none;
 
 
 /* ========================================================================
@@ -56,7 +57,6 @@
 
 .uk-dropbar > :last-child { margin-bottom: 0; }
 
-
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
@@ -76,6 +76,10 @@
     }
 
 }
+
+// Color Mode
+.uk-dropbar:extend(.uk-light all) when (@dropbar-color-mode = light) {}
+.uk-dropbar:extend(.uk-dark all) when (@dropbar-color-mode = dark) {}
 
 
 /* Direction modifier

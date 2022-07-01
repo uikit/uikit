@@ -4,11 +4,15 @@
 
 ### Added
 
-- Add `animate-out`, `stretch`, `shift`, `inset`, `target`, `target-x`, `target-y` and `bg-scroll` options to Drop component 
+- Add Dropbar component
+- Add `target`, `target-x`, `target-y` and `inset` options to Drop component 
+- Add `stretch` and `bg-scroll` options to Drop component 
+- Add `shift` and `display` options to Drop component
 - Add `slide` and `reveal` animations to Drop component
+- Add `animate-out` option to Drop component
 - Add dropdown large modifier to Dropdown and Navbar component
-- Add gap variable to navbar items in Navbar component
-- Add color mode variable to navbar dropdown in Navbar component
+- Add gap variables to navbar items in Navbar component
+- Add color mode variables for dropdowns in Dropdown and Navbar component
 - Add navbar parent icon to Navbar component
 - Add secondary style modifier to Nav component
 - Add font size variables to nav and sublist in Nav component
@@ -21,8 +25,9 @@
 ### Changed
 
 - IMPORTANT: Remove `.uk-nav-parent-icon` from Nav component. Use `uk-nav-parent-icon` attribute on items instead
-- IMPORTANT: Remove alignment `*-justify` from Drop and Dropdown component. Use new `stretch` option instead
-- IMPORTANT: Remove option `boundary-align` from Drop and Dropdown component. Use new `target` option instead
+- IMPORTANT: Remove `*-justify` in `pos` option from Drop and Dropdown components. Use new `stretch` option instead
+- IMPORTANT: Remove `boundary-align` option from Drop and Dropdown components. Use new `target` option instead
+- IMPORTANT: Change `flip` option values in Drop and Dropdown components. Use new `shift` option too
 - IMPORTANT: Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
 - IMPORTANT: Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
 - IMPORTANT: Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`

@@ -24,6 +24,7 @@
 @dropdown-padding:                              15px;
 @dropdown-background:                           @global-muted-background;
 @dropdown-color:                                @global-color;
+@dropdown-color-mode:                           none;
 
 @dropdown-large-padding:                        40px;
 
@@ -75,6 +76,10 @@
  */
 
 .uk-dropdown > :last-child { margin-bottom: 0; }
+
+// Color Mode
+.uk-dropdown:extend(.uk-light all) when (@dropdown-color-mode = light) {}
+.uk-dropdown:extend(.uk-dark all) when (@dropdown-color-mode = dark) {}
 
 
 /* Size modifier
