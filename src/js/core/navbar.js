@@ -105,7 +105,7 @@ export default {
             },
 
             watch(dropbar) {
-                addClass(dropbar, 'uk-dropbar', 'uk-navbar-dropbar', 'uk-navbar-dropbar-top');
+                addClass(dropbar, 'uk-dropbar', 'uk-dropbar-top', 'uk-navbar-dropbar');
             },
 
             immediate: true,
