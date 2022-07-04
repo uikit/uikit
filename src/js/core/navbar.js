@@ -340,31 +340,6 @@ export default {
         },
 
         {
-            name: 'beforeposition',
-
-            el() {
-                return this.dropContainer;
-            },
-
-            filter() {
-                return this.dropbar;
-            },
-
-            handler(e, element, target, options) {
-                if (!this.isDropbarDrop(element)) {
-                    return;
-                }
-
-                const dropbarOffset = offset(this.dropbar);
-
-                css(element, 'maxWidth', dropbarOffset.width - options.viewportOffset * 2);
-
-                options.offset[1] = dropbarOffset.top - offset(target).bottom;
-                options.viewportOffset += dropbarOffset.left;
-            },
-        },
-
-        {
             name: 'beforehide',
 
             el() {

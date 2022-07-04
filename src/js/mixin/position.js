@@ -56,22 +56,14 @@ export default {
             const elDim = dimensions(element);
             css(element, { top: -elDim.height, left: -elDim.width });
 
-            const args = [
-                element,
-                target,
-                {
-                    attach,
-                    offset,
-                    boundary,
-                    flip: this.flip,
-                    shift: this.shift,
-                    viewportOffset: this.getViewportOffset(element),
-                },
-            ];
-
-            trigger(element, 'beforeposition', args);
-
-            positionAt(...args);
+            positionAt(element, target, {
+                attach,
+                offset,
+                boundary,
+                flip: this.flip,
+                shift: this.shift,
+                viewportOffset: this.getViewportOffset(element),
+            });
 
             // Restore scroll position
             scrollElement.scrollTop = scrollTop;
