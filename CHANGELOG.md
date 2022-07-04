@@ -35,6 +35,7 @@
 - IMPORTANT: Rename `@nav-primary-item-line-height` to `@nav-primary-line-height`
 - IMPORTANT: Rename `@navbar-dropdown-dropbar-margin-top` to `@navbar-dropdown-dropbar-padding-top`
 - IMPORTANT: Rename `@navbar-dropdown-dropbar-margin-bottom` to `@navbar-dropdown-dropbar-padding-bottom`
+- IMPORTANT: Remove styling from `.uk-navbar-dropdown`. Now uses `uk-dropbar`
 
 ### Removed
 

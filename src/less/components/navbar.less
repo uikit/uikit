@@ -95,7 +95,6 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 @navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
-@navbar-dropbar-background:                     @navbar-dropdown-background;
 @navbar-dropbar-z-index:                        @global-z-index - 20;
 
 
@@ -549,12 +548,19 @@
 /* Dropbar
  ========================================================================== */
 
+/*
+ * 1. Reset dropbar
+ * 2. Width
+ */
+
 .uk-navbar-dropbar {
-    position: absolute;
+    /* 1 */
+    display: block !important;
     z-index: @navbar-dropbar-z-index;
+    padding: 0;
+    /* 2 */
     left: 0;
     right: 0;
-    background: @navbar-dropbar-background;
     .hook-navbar-dropbar();
 }
 
