@@ -418,11 +418,13 @@ export default {
 
             for (const [i, [axis, prop]] of dirs) {
                 if (this.axis !== axis && includes([axis, true], this.stretch)) {
-                    css(
-                        this.$el,
-                        prop,
-                        Math.min(boundaryOffset[prop], viewports[i][prop] - 2 * viewportOffset)
-                    );
+                    css(this.$el, {
+                        [prop]: Math.min(
+                            boundaryOffset[prop],
+                            viewports[i][prop] - 2 * viewportOffset
+                        ),
+                        [`overflow-${axis}`]: 'auto',
+                    });
                 }
             }
 
@@ -444,15 +446,20 @@ export default {
                     const targetOffset = offset(this.target[i]);
                     const elOffset = offset(this.$el);
 
-                    css(
-                        this.$el,
-                        prop,
-                        (targetOffset[start] > elOffset[start]
-                            ? targetOffset[start] -
-                              Math.max(boundaryOffset[start], viewports[i][start] + viewportOffset)
-                            : Math.min(boundaryOffset[end], viewports[i][end] - viewportOffset) -
-                              targetOffset[end]) - positionOffset
-                    );
+                    css(this.$el, {
+                        [prop]:
+                            (targetOffset[start] > elOffset[start]
+                                ? targetOffset[start] -
+                                  Math.max(
+                                      boundaryOffset[start],
+                                      viewports[i][start] + viewportOffset
+                                  )
+                                : Math.min(
+                                      boundaryOffset[end],
+                                      viewports[i][end] - viewportOffset
+                                  ) - targetOffset[end]) - positionOffset,
+                        [`overflow-${axis}`]: 'auto',
+                    });
 
                     this.positionAt(this.$el, this.target, boundary);
                 }
