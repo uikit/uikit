@@ -3,6 +3,7 @@ import {
     addClass,
     Animation,
     css,
+    dimensions,
     hasClass,
     includes,
     isBoolean,
@@ -16,7 +17,6 @@ import {
     toNodes,
     Transition,
     trigger,
-    ucfirst,
     unwrap,
     wrapInner,
 } from 'uikit-util';
@@ -142,135 +142,95 @@ function toggleInstant({ _toggle }) {
 }
 
 export function toggleTransition(cmp) {
-    let { animation, static: isStatic = true } = cmp;
-    const [mode, startProp = 'top'] = animation[0].split('-');
-    isStatic = isStatic || mode === 'slide';
+    const [mode = 'reveal', startProp = 'top'] = cmp.animation[0]?.split('-') || [];
 
     const dirs = [
         ['left', 'right'],
         ['top', 'bottom'],
     ];
-    const props = ['width', 'height'];
     const dir = dirs[includes(dirs[0], startProp) ? 0 : 1];
     const end = dir[1] === startProp;
-    const endProp = dir[end ? 0 : 1];
+    const props = ['width', 'height'];
     const dimProp = props[dirs.indexOf(dir)];
-    const useWrapper = isStatic || end || dirs[0] === dir;
-
-    const getBoxProps = (value) =>
-        useWrapper
-            ? { padding: value, margin: value }
-            : {
-                  [`padding${ucfirst(startProp)}`]: value,
-                  [`padding${ucfirst(endProp)}`]: value,
-                  [`margin${ucfirst(startProp)}`]: value,
-                  [`margin${ucfirst(endProp)}`]: value,
-                  [`border${ucfirst(startProp)}Width`]: value,
-                  [`border${ucfirst(endProp)}Width`]: value,
-              };
-
-    const initProps = { [dimProp]: '', ...getBoxProps(''), boxShadow: '' };
-    const hideProps = { [dimProp]: 0, ...getBoxProps(0), boxShadow: 'none' };
-
-    const getBoxDim = (el, outer) => {
-        if (!isVisible(el)) {
-            return { width: 0, height: 0 };
-        }
-
-        const dim = {};
-        for (const [i, prop] of Object.entries(props)) {
-            const startProp = ucfirst(dirs[i][0]);
-            const endProp = ucfirst(dirs[i][1]);
-            dim[prop] =
-                toFloat(css(el, prop)) +
-                (outer
-                    ? toFloat(css(el, `margin${startProp}`)) +
-                      toFloat(css(el, `margin${endProp}`)) +
-                      toFloat(css(el, `border${startProp}Width`)) +
-                      toFloat(css(el, `border${endProp}Width`))
-                    : 0);
-        }
-
-        return dim;
-    };
+    const marginProp = `margin-${dir[0]}`;
+    const marginStartProp = `margin-${startProp}`;
 
     return async (el, show) => {
-        let { isToggled, duration, velocity, transition, _toggle } = cmp;
+        let { duration, velocity, transition, _toggle } = cmp;
+
+        let currentDim = dimensions(el)[dimProp];
 
         const inProgress = Transition.inProgress(el);
-        const currentDim = getBoxDim(el, !inProgress && isStatic)[dimProp];
-        const props = inProgress ? css(el, Object.keys(initProps)) : show ? hideProps : initProps;
+        await Transition.cancel(el);
 
-        const referenceEl = inProgress && useWrapper ? el.firstElementChild : el;
-
-        Transition.cancel([el, referenceEl]);
-
-        if (!isToggled(el)) {
+        if (show) {
             _toggle(el, true);
         }
 
-        if (inProgress && !useWrapper) {
-            css(el, { ...initProps });
+        const prevProps = Object.fromEntries(
+            ['padding', 'border', 'width', 'height', 'overflow', marginProp, marginStartProp].map(
+                (key) => [key, el.style[key]]
+            )
+        );
+
+        const dim = dimensions(el);
+        const currentMargin = toFloat(css(el, marginProp));
+        const marginStart = toFloat(css(el, marginStartProp));
+        const endDim = dim[dimProp] + marginStart;
+
+        if (!inProgress && !show) {
+            currentDim += marginStart;
         }
 
-        const dim = getBoxDim(referenceEl, isStatic && !inProgress);
-
-        if (useWrapper && !inProgress) {
-            const wrapper = wrapInner(el, '<div>');
-
-            css(wrapper, { ...css(el, ['boxSizing']), ...dim });
-            if (isStatic) {
-                css(wrapper, css(el, Object.keys(getBoxProps(''))));
-            }
-        }
-
-        const endDim = dim[dimProp];
-        const percent = currentDim / endDim;
-
-        duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
-
-        css(el, {
-            ...props,
-            overflow: 'hidden',
-            [dimProp]: currentDim,
-            [`min-${dimProp}`]: 0,
+        const [wrapper] = wrapInner(el, '<div>');
+        css(wrapper, {
+            boxSizing: 'border-box',
+            height: dim.height,
+            width: dim.width,
+            ...css(el, [
+                'padding',
+                'borderTop',
+                'borderRight',
+                'borderBottom',
+                'borderLeft',
+                'borderImage',
+                marginStartProp,
+            ]),
         });
 
-        let endProps = show ? { ...initProps, [dimProp]: endDim } : hideProps;
+        css(el, {
+            padding: 0,
+            border: 0,
+            [marginStartProp]: 0,
+            width: dim.width,
+            height: dim.height,
+            overflow: 'hidden',
+            [dimProp]: currentDim,
+        });
 
-        if (isStatic) {
-            const hideBoxProps = getBoxProps(0);
-            css(el, hideBoxProps);
-            endProps = { ...endProps, ...hideBoxProps };
-        }
+        const percent = currentDim / endDim;
+        duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
+        const endProps = { [dimProp]: show ? endDim : 0 };
+
         if (end) {
-            const marginProp = `margin${ucfirst(dir[0])}`;
-            css(el, marginProp, endDim * (1 - percent));
-            endProps[marginProp] = show ? 0 : endDim;
+            css(el, marginProp, endDim - currentDim + currentMargin);
+            endProps[marginProp] = show ? currentMargin : endDim + currentMargin;
         }
 
         if (!end ^ (mode === 'reveal')) {
-            const marginProp = `margin${ucfirst(dir[0])}`;
-            const wrapper = el.firstElementChild;
-            css(wrapper, marginProp, -endDim * (1 - percent));
-            Transition.start(
-                wrapper,
-                { [marginProp]: show ? 0 : -endDim },
-                duration,
-                transition
-            ).catch(noop);
+            css(wrapper, marginProp, -endDim + currentDim);
+            Transition.start(wrapper, { [marginProp]: show ? 0 : -endDim }, duration, transition);
         }
 
-        await Transition.start(el, endProps, duration, transition);
+        try {
+            await Transition.start(el, endProps, duration, transition);
+        } finally {
+            css(el, prevProps);
+            unwrap(wrapper.firstChild);
 
-        if (!show) {
-            _toggle(el, false);
-        }
-
-        css(el, { ...initProps, overflow: '', [`min-${dimProp}`]: '' });
-
-        if (useWrapper) {
-            unwrap(el.firstElementChild.firstChild);
+            if (!show) {
+                _toggle(el, false);
+            }
         }
     };
 }

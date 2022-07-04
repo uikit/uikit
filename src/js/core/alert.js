@@ -1,5 +1,6 @@
 import Class from '../mixin/class';
 import Togglable from '../mixin/togglable';
+import { css, toFloat, Transition } from 'uikit-util';
 
 export default {
     mixins: [Class, Togglable],
@@ -7,45 +8,55 @@ export default {
     args: 'animation',
 
     props: {
+        animation: Boolean,
         close: String,
     },
 
     data: {
-        animation: ['reveal'],
+        animation: true,
         selClose: '.uk-alert-close',
         duration: 150,
-        static: false,
     },
 
-    events: [
-        {
-            name: 'click',
+    events: {
+        name: 'click',
 
-            delegate() {
-                return this.selClose;
-            },
-
-            handler(e) {
-                e.preventDefault();
-                this.close();
-            },
+        delegate() {
+            return this.selClose;
         },
 
-        {
-            name: 'beforetransitionstart',
-
-            self: true,
-
-            handler(e, props) {
-                props.opacity = 0;
-            },
+        handler(e) {
+            e.preventDefault();
+            this.close();
         },
-    ],
+    },
 
     methods: {
         async close() {
-            await this.toggleElement(this.$el);
+            await this.toggleElement(this.$el, false, animate(this));
             this.$destroy(true);
         },
     },
 };
+
+function animate({ duration, transition, velocity }) {
+    return (el) => {
+        const height = toFloat(css(el, 'height'));
+        css(el, 'height', height);
+        return Transition.start(
+            el,
+            {
+                height: 0,
+                marginTop: 0,
+                marginBottom: 0,
+                paddingTop: 0,
+                paddingBottom: 0,
+                borderTop: 0,
+                borderBottom: 0,
+                opacity: 0,
+            },
+            velocity * height + duration,
+            transition
+        );
+    };
+}

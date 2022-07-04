@@ -20,6 +20,7 @@ export default {
     mixins: [Class, Lazyload, Togglable],
 
     props: {
+        animation: Boolean,
         targets: String,
         active: null,
         collapsible: Boolean,
@@ -32,7 +33,7 @@ export default {
     data: {
         targets: '> *',
         active: false,
-        animation: ['reveal'],
+        animation: true,
         collapsible: true,
         multiple: false,
         clsOpen: 'uk-open',
@@ -132,7 +133,8 @@ export default {
 
                     const content = $(this.content, el);
 
-                    if (animate === false || !this.hasTransition) {
+                    if (animate === false || !this.animation) {
+                        content.hidden = !show;
                         hide(content, !show);
                         return;
                     }
