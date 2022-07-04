@@ -70,18 +70,6 @@ export default {
             return boundary === true ? $el : boundary;
         },
 
-        target({ target }, $el) {
-            return target === true ? $el : target;
-        },
-
-        targetX({ targetX }, $el) {
-            return targetX === true ? $el : targetX;
-        },
-
-        targetY({ targetY }, $el) {
-            return targetY === true ? $el : targetY;
-        },
-
         dropbarAnchor({ dropbarAnchor }, $el) {
             return query(dropbarAnchor, $el);
         },
@@ -106,13 +94,17 @@ export default {
 
             watch(dropbar) {
                 addClass(dropbar, 'uk-dropbar', 'uk-dropbar-top', 'uk-navbar-dropbar');
+
+                if (dropbar && !parent(dropbar)) {
+                    after(this.dropbarAnchor || this.$el, dropbar);
+                }
             },
 
             immediate: true,
         },
 
         dropContainer(_, $el) {
-            return this.container || $el;
+            return this.dropbar || this.container || $el;
         },
 
         dropdowns: {
@@ -138,6 +130,7 @@ export default {
                     {
                         ...this.$props,
                         boundary: this.boundary,
+                        container: this.dropbar || this.$props.container,
                         pos: this.pos,
                     }
                 );
@@ -289,30 +282,6 @@ export default {
         },
 
         {
-            name: 'beforeshow',
-
-            el() {
-                return this.dropContainer;
-            },
-
-            filter() {
-                return this.dropbar;
-            },
-
-            handler({ target }) {
-                if (!this.isDropbarDrop(target)) {
-                    return;
-                }
-
-                if (!parent(this.dropbar)) {
-                    after(this.dropbarAnchor || this.$el, this.dropbar);
-                }
-
-                addClass(target, `${this.clsDrop}-dropbar`);
-            },
-        },
-
-        {
             name: 'show',
 
             el() {
@@ -328,12 +297,13 @@ export default {
                     return;
                 }
 
+                addClass(target, `${this.clsDrop}-dropbar`);
+
                 this._observer = observeResize(target, () =>
                     this.transitionTo(
                         offset(target).bottom -
                             offset(this.dropbar).top +
-                            toFloat(css(target, 'marginBottom')),
-                        target
+                            toFloat(css(target, 'marginBottom'))
                     )
                 );
             },
@@ -395,29 +365,13 @@ export default {
             return active && within(active.targetEl, this.$el) && active;
         },
 
-        transitionTo(newHeight, el) {
+        transitionTo(newHeight) {
             const { dropbar } = this;
+
             const oldHeight = height(dropbar);
-
-            el = oldHeight < newHeight && el;
-
-            css(el, 'clipPath', `polygon(0 0,100% 0,100% ${oldHeight}px,0 ${oldHeight}px)`);
-
+            Transition.cancel(dropbar);
             height(dropbar, oldHeight);
-
-            Transition.cancel([el, dropbar]);
-            Promise.all([
-                Transition.start(dropbar, { height: newHeight }, this.duration),
-                Transition.start(
-                    el,
-                    {
-                        clipPath: `polygon(0 0,100% 0,100% ${newHeight}px,0 ${newHeight}px)`,
-                    },
-                    this.duration
-                ),
-            ])
-                .catch(noop)
-                .then(() => css(el, { clipPath: '' }));
+            Transition.start(dropbar, { height: newHeight }, this.duration).catch(noop);
         },
 
         getDropdown(el) {
