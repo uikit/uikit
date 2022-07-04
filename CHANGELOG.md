@@ -10,6 +10,7 @@
 - Add `shift` and `display` options to Drop component
 - Add `slide` and `reveal` animations to Drop component
 - Add `animate-out` option to Drop component
+- Add open and close animation to toggle icon in Navbar component
 - Add dropdown large modifier to Dropdown and Navbar component
 - Add gap variables to navbar items in Navbar component
 - Add color mode variables for dropdowns in Dropdown and Navbar component
