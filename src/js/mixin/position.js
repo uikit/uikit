@@ -7,7 +7,6 @@ import {
     positionAt,
     scrollParents,
     toPx,
-    trigger,
 } from 'uikit-util';
 
 export default {
