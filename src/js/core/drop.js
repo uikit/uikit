@@ -110,7 +110,6 @@ export default {
         if (this.isActive()) {
             active = null;
         }
-        this.targetEl = null;
     },
 
     events: [
