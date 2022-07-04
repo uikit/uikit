@@ -281,7 +281,7 @@ export default {
                               const handler = () => this.$emit();
                               return [
                                   on(window, 'resize', handler),
-                                  on(document, 'scroll', handler, true),
+                                  on([document, scrollParents(this.$el)], 'scroll', handler),
                                   (() => {
                                       const observer = observeResize(
                                           scrollParents(this.$el),
