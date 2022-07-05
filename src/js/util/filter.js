@@ -51,12 +51,8 @@ export function matches(element, selector) {
 }
 
 export function closest(element, selector) {
-    if (startsWith(selector, '>')) {
-        selector = selector.slice(1);
-    }
-
     return isElement(element)
-        ? element.closest(selector)
+        ? element.closest(startsWith(selector, '>') ? selector.slice(1) : selector)
         : toNodes(element)
               .map((element) => closest(element, selector))
               .filter(Boolean);
@@ -64,8 +60,8 @@ export function closest(element, selector) {
 
 export function within(element, selector) {
     return isString(selector)
-        ? matches(element, selector) || !!closest(element, selector)
-        : element === selector || toNode(selector).contains(toNode(element));
+        ? !!closest(element, selector)
+        : toNode(selector).contains(toNode(element));
 }
 
 export function parents(element, selector) {

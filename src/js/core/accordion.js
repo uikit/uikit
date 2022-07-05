@@ -14,6 +14,7 @@ import {
     isInView,
     scrollIntoView,
     toggleClass,
+    within,
 } from 'uikit-util';
 
 export default {
@@ -79,7 +80,7 @@ export default {
                     hide(
                         el,
                         !hasClass(
-                            this.items.find((item) => item.contains(el)),
+                            this.items.find((item) => within(el, item)),
                             this.clsOpen
                         )
                     );
