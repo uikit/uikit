@@ -19,6 +19,7 @@ import {
     offset,
     once,
     parent,
+    parents,
     query,
     remove,
     selFocusable,
@@ -316,14 +317,19 @@ export default {
                     return;
                 }
 
-                this._observer = observeResize(target, () =>
+                this._observer = observeResize(target, () => {
+                    const targetOffsets = parents(target, `.${this.clsDrop}`)
+                        .concat(target)
+                        .map((el) => offset(el));
+                    const minTop = Math.min(...targetOffsets.map(({ top }) => top));
+                    const maxBottom = Math.max(...targetOffsets.map(({ bottom }) => bottom));
+                    const dropbarOffset = offset(this.dropbar);
+                    css(this.dropbar, 'top', this.dropbar.offsetTop - (dropbarOffset.top - minTop));
                     this.transitionTo(
-                        offset(target).bottom -
-                            offset(this.dropbar).top +
-                            toFloat(css(target, 'marginBottom')),
+                        maxBottom - minTop + toFloat(css(target, 'marginBottom')),
                         target
-                    )
-                );
+                    );
+                });
             },
         },
 
