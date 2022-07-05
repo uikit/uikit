@@ -19,6 +19,7 @@ import {
     offset,
     once,
     parent,
+    parents,
     query,
     remove,
     selFocusable,
@@ -36,7 +37,7 @@ export default {
         align: String,
         offset: Number,
         boundary: Boolean,
-        boundaryAlign: Boolean,
+        target: Boolean,
         clsDrop: String,
         delayShow: Number,
         delayHide: Number,
@@ -53,9 +54,12 @@ export default {
         offset: undefined,
         delayShow: undefined,
         delayHide: undefined,
-        boundaryAlign: undefined,
-        flip: 'x',
+        flip: false,
+        shift: true,
         boundary: true,
+        target: false,
+        targetX: false,
+        targetY: false,
         dropbar: false,
         dropbarAnchor: false,
         duration: 200,
@@ -90,7 +94,7 @@ export default {
             },
 
             watch(dropbar) {
-                addClass(dropbar, 'uk-navbar-dropbar');
+                addClass(dropbar, 'uk-dropbar', 'uk-dropbar-top', 'uk-navbar-dropbar');
             },
 
             immediate: true,
@@ -106,7 +110,7 @@ export default {
 
                 if (this.dropContainer !== $el) {
                     for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
-                        const target = this.getDropdown(el)?.target;
+                        const target = this.getDropdown(el)?.targetEl;
                         if (!includes(dropdowns, el) && target && within(target, this.$el)) {
                             dropdowns.push(el);
                         }
@@ -168,8 +172,8 @@ export default {
                 if (
                     active &&
                     includes(active.mode, 'hover') &&
-                    active.target &&
-                    !within(active.target, current) &&
+                    active.targetEl &&
+                    !within(active.targetEl, current) &&
                     !active.isDelaying
                 ) {
                     active.hide(false);
@@ -191,7 +195,7 @@ export default {
                 if (keyCode === keyMap.DOWN && hasAttr(current, 'aria-expanded')) {
                     e.preventDefault();
 
-                    if (!active || active.target !== current) {
+                    if (!active || active.targetEl !== current) {
                         current.click();
                         once(this.dropContainer, 'show', ({ target }) =>
                             focusFirstFocusableElement(target)
@@ -242,7 +246,7 @@ export default {
                 }
 
                 if (keyCode === keyMap.ESC) {
-                    active?.target?.focus();
+                    active?.targetEl?.focus();
                 }
 
                 handleNavItemNavigation(e, this.toggles, active);
@@ -313,39 +317,19 @@ export default {
                     return;
                 }
 
-                this._observer = observeResize(target, () =>
+                this._observer = observeResize(target, () => {
+                    const targetOffsets = parents(target, `.${this.clsDrop}`)
+                        .concat(target)
+                        .map((el) => offset(el));
+                    const minTop = Math.min(...targetOffsets.map(({ top }) => top));
+                    const maxBottom = Math.max(...targetOffsets.map(({ bottom }) => bottom));
+                    const dropbarOffset = offset(this.dropbar);
+                    css(this.dropbar, 'top', this.dropbar.offsetTop - (dropbarOffset.top - minTop));
                     this.transitionTo(
-                        offset(target).bottom -
-                            offset(this.dropbar).top +
-                            toFloat(css(target, 'marginBottom')),
+                        maxBottom - minTop + toFloat(css(target, 'marginBottom')),
                         target
-                    )
-                );
-            },
-        },
-
-        {
-            name: 'beforeposition',
-
-            el() {
-                return this.dropContainer;
-            },
-
-            filter() {
-                return this.dropbar;
-            },
-
-            handler(e, element, target, options) {
-                if (!this.isDropbarDrop(element)) {
-                    return;
-                }
-
-                const dropbarOffset = offset(this.dropbar);
-
-                css(element, 'maxWidth', dropbarOffset.width - options.viewportOffset * 2);
-
-                options.offset[1] = dropbarOffset.top - offset(target).bottom;
-                options.viewportOffset += dropbarOffset.left;
+                    );
+                });
             },
         },
 
@@ -366,7 +350,7 @@ export default {
                 if (
                     matches(this.dropbar, ':hover') &&
                     active?.$el === e.target &&
-                    !this.toggles.some((el) => active.target !== el && matches(el, ':focus'))
+                    !this.toggles.some((el) => active.targetEl !== el && matches(el, ':focus'))
                 ) {
                     e.preventDefault();
                 }
@@ -402,7 +386,7 @@ export default {
 
     methods: {
         getActive() {
-            return active && within(active.target, this.$el) && active;
+            return active && within(active.targetEl, this.$el) && active;
         },
 
         transitionTo(newHeight, el) {
@@ -435,15 +419,14 @@ export default {
         },
 
         isDropbarDrop(el) {
-            const drop = this.getDropdown(el);
-            return drop && hasClass(el, this.clsDrop) && drop.align !== 'stretch';
+            return this.getDropdown(el) && hasClass(el, this.clsDrop);
         },
     },
 };
 
 function handleNavItemNavigation(e, toggles, active) {
     const { current, keyCode } = e;
-    const target = active?.target || current;
+    const target = active?.targetEl || current;
     const i = toggles.indexOf(target);
 
     // Left

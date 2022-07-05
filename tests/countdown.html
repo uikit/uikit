@@ -114,7 +114,7 @@
             date.setDate(date.getDate() + 7);
             date = date.toISOString();
 
-            for (const el of document.querySelectorAll('[uk-countdown]')) {
+            for (const el of UIkit.util.$$('[uk-countdown]')) {
                 el.setAttribute('date', date);
             }
 

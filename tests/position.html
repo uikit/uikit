@@ -9,7 +9,7 @@
         <style>
 
             /* JavaScript */
-            #js-viewport {
+            #js-boundary {
                 height: 300px;
                 outline: 1px solid rgba(0,0,0,0.1);
                 position: relative;
@@ -237,7 +237,7 @@
 
             <h2>JavaScript</h2>
 
-            <div id="js-viewport" class="uk-margin">
+            <div id="js-boundary" class="uk-margin">
                 <div id="js-target" class="uk-flex uk-flex-center uk-flex-middle" draggable="true">Drag me!</div>
             </div>
 
@@ -302,21 +302,9 @@
                     </div>
 
                     <div class="uk-margin">
-                        <span class="uk-form-label">Flip</span>
-                        <label>
-                            Horizontal
-                            <select id="js-flip_x" class="uk-select uk-form-small uk-form-width-xsmall">
-                                <option value="x">flip</option>
-                                <option value="">none</option>
-                            </select>
-                        </label>
-                        <label>
-                            Vertical
-                            <select id="js-flip_y" class="uk-select uk-form-small uk-form-width-xsmall">
-                                <option value="y">flip</option>
-                                <option value="">none</option>
-                            </select>
-                        </label>
+                        <span class="uk-form-label">Placement</span>
+                        <label><input id="js-flip" class="uk-checkbox" type="checkbox" checked> Flip</label>
+                        <label><input id="js-shift" class="uk-checkbox" type="checkbox" checked> Shift</label>
                     </div>
 
                 </div>
@@ -327,7 +315,7 @@
         <script>
 
             const {$, $$, css, getEventPos, on, offset, positionAt} = UIkit.util;
-            let viewport = $('#js-viewport');
+            let boundary = $('#js-boundary');
             let element = $('#js-element');
             let target = $('#js-target');
             let offsetX;
@@ -338,18 +326,19 @@
                     element,
                     target,
                     {
-                        viewport,
+                        boundary,
                         attach:{
                             element: [$('#js-element_x').value, $('#js-element_y').value],
                             target: [$('#js-target_x').value, $('#js-target_y').value]
                         },
                         offset: [$('#js-offset_x').value, $('#js-offset_y').value],
-                        flip: [$('#js-flip_x').value, $('#js-flip_y').value]
+                        flip: $('#js-flip').checked,
+                        shift: $('#js-shift').checked
                     }
                 );
             }
 
-            on(window, 'dragstart', function (e) {
+            on(window, 'dragstart', e => {
                 e.dataTransfer.setDragImage(new Image(), 0, 0);
 
                 offsetX = Math.round(e.pageX - offset(target).left);
@@ -358,7 +347,7 @@
             });
 
             let lastPos;
-            on(window, 'dragover', function (e) {
+            on(window, 'dragover', e => {
 
                 const pos = getEventPos(e);
 
@@ -372,9 +361,9 @@
                 // positions target at mouse cursor
                 positionAt(
                     target,
-                    viewport,
+                    boundary,
                     {
-                        offset: [e.pageX - offset(viewport).left - offsetX, e.pageY - offset(viewport).top - offsetY]
+                        offset: [e.pageX - offset(boundary).left - offsetX, e.pageY - offset(boundary).top - offsetY]
                     }
                 );
 

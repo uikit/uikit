@@ -50,13 +50,14 @@ export function transition(element, props, duration = 400, timing = 'linear') {
 export const Transition = {
     start: transition,
 
-    stop(element) {
+    async stop(element) {
         trigger(element, 'transitionend');
-        return Promise.resolve();
+        await Promise.resolve();
     },
 
-    cancel(element) {
+    async cancel(element) {
         trigger(element, 'transitioncanceled');
+        await Promise.resolve();
     },
 
     inProgress(element) {

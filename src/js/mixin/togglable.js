@@ -3,7 +3,7 @@ import {
     addClass,
     Animation,
     css,
-    fastdom,
+    dimensions,
     hasClass,
     includes,
     isBoolean,
@@ -11,13 +11,14 @@ import {
     isVisible,
     noop,
     removeClass,
-    scrollParents,
     startsWith,
     toFloat,
     toggleClass,
     toNodes,
     Transition,
     trigger,
+    unwrap,
+    wrapInner,
 } from 'uikit-util';
 
 export default {
@@ -39,26 +40,6 @@ export default {
         transition: 'ease',
         clsEnter: 'uk-togglabe-enter',
         clsLeave: 'uk-togglabe-leave',
-
-        initProps: {
-            overflow: '',
-            maxHeight: '',
-            paddingTop: '',
-            paddingBottom: '',
-            marginTop: '',
-            marginBottom: '',
-            boxShadow: '',
-        },
-
-        hideProps: {
-            overflow: 'hidden',
-            maxHeight: 0,
-            paddingTop: 0,
-            paddingBottom: 0,
-            marginTop: 0,
-            marginBottom: 0,
-            boxShadow: 'none',
-        },
     },
 
     computed: {
@@ -67,7 +48,7 @@ export default {
         },
 
         hasTransition({ animation }) {
-            return startsWith(animation[0], 'slide');
+            return ['slide', 'reveal'].some((transition) => startsWith(animation[0], transition));
         },
     },
 
@@ -160,122 +141,97 @@ function toggleInstant({ _toggle }) {
     };
 }
 
-function toggleTransition(cmp) {
-    switch (cmp.animation[0]) {
-        case 'slide-left':
-            return slideHorizontal(cmp);
-        case 'slide-right':
-            return slideHorizontal(cmp, true);
-    }
-    return slide(cmp);
-}
+export function toggleTransition(cmp) {
+    const [mode = 'reveal', startProp = 'top'] = cmp.animation[0]?.split('-') || [];
 
-export function slide({
-    isToggled,
-    duration,
-    velocity,
-    initProps,
-    hideProps,
-    transition,
-    _toggle,
-}) {
-    return (el, show) => {
+    const dirs = [
+        ['left', 'right'],
+        ['top', 'bottom'],
+    ];
+    const dir = dirs[includes(dirs[0], startProp) ? 0 : 1];
+    const end = dir[1] === startProp;
+    const props = ['width', 'height'];
+    const dimProp = props[dirs.indexOf(dir)];
+    const marginProp = `margin-${dir[0]}`;
+    const marginStartProp = `margin-${startProp}`;
+
+    return async (el, show) => {
+        let { duration, velocity, transition, _toggle } = cmp;
+
+        let currentDim = dimensions(el)[dimProp];
+
         const inProgress = Transition.inProgress(el);
-        const inner =
-            !inProgress && el.hasChildNodes()
-                ? toFloat(css(el.firstElementChild, 'marginTop')) +
-                  toFloat(css(el.lastElementChild, 'marginBottom'))
-                : 0;
-        const currentHeight = isVisible(el) ? toFloat(css(el, 'height')) + inner : 0;
+        await Transition.cancel(el);
 
-        const props = inProgress ? css(el, Object.keys(initProps)) : show ? hideProps : initProps;
-
-        Transition.cancel(el);
-
-        if (!isToggled(el)) {
+        if (show) {
             _toggle(el, true);
         }
 
-        css(el, 'maxHeight', '');
+        const prevProps = Object.fromEntries(
+            ['padding', 'border', 'width', 'height', 'overflow', marginProp, marginStartProp].map(
+                (key) => [key, el.style[key]]
+            )
+        );
 
-        // Update child components first
-        fastdom.flush();
+        const dim = dimensions(el);
+        const currentMargin = toFloat(css(el, marginProp));
+        const marginStart = toFloat(css(el, marginStartProp));
+        const endDim = dim[dimProp] + marginStart;
 
-        const endHeight = toFloat(css(el, 'height')) + inner;
-        duration = velocity * endHeight + duration;
-
-        css(el, { ...props, maxHeight: currentHeight });
-
-        return (
-            show
-                ? Transition.start(
-                      el,
-                      { ...initProps, overflow: 'hidden', maxHeight: endHeight },
-                      duration * (1 - currentHeight / endHeight),
-                      transition
-                  )
-                : Transition.start(
-                      el,
-                      hideProps,
-                      duration * (currentHeight / endHeight),
-                      transition
-                  ).then(() => _toggle(el, false))
-        ).then(() => css(el, initProps));
-    };
-}
-
-function slideHorizontal({ isToggled, duration, velocity, transition, _toggle }, right) {
-    return (el, show) => {
-        const visible = isVisible(el);
-        const marginLeft = toFloat(css(el, 'marginLeft'));
-
-        Transition.cancel(el);
-
-        const [scrollElement] = scrollParents(el.offsetParent);
-        css(scrollElement, 'overflowX', 'hidden');
-
-        if (!isToggled(el)) {
-            _toggle(el, true);
+        if (!inProgress && !show) {
+            currentDim += marginStart;
         }
 
-        const width = toFloat(css(el, 'width'));
-        duration = velocity * width + duration;
-
-        const percent = visible ? ((width + marginLeft * (right ? -1 : 1)) / width) * 100 : 0;
+        const [wrapper] = wrapInner(el, '<div>');
+        css(wrapper, {
+            boxSizing: 'border-box',
+            height: dim.height,
+            width: dim.width,
+            ...css(el, [
+                'padding',
+                'borderTop',
+                'borderRight',
+                'borderBottom',
+                'borderLeft',
+                'borderImage',
+                marginStartProp,
+            ]),
+        });
 
         css(el, {
-            clipPath: right
-                ? `polygon(0 0,${percent}% 0,${percent}% 100%,0 100%)`
-                : `polygon(${100 - percent}% 0,100% 0,100% 100%,${100 - percent}% 100%)`,
-            marginLeft: (((100 - percent) * (right ? 1 : -1)) / 100) * width,
+            padding: 0,
+            border: 0,
+            [marginStartProp]: 0,
+            width: dim.width,
+            height: dim.height,
+            overflow: 'hidden',
+            [dimProp]: currentDim,
         });
 
-        return (
-            show
-                ? Transition.start(
-                      el,
-                      {
-                          clipPath: `polygon(0 0,100% 0,100% 100%,0 100%)`,
-                          marginLeft: 0,
-                      },
-                      duration * (1 - percent / 100),
-                      transition
-                  )
-                : Transition.start(
-                      el,
-                      {
-                          clipPath: right
-                              ? `polygon(0 0,0 0,0 100%,0 100%)`
-                              : `polygon(100% 0,100% 0,100% 100%,100% 100%)`,
-                          marginLeft: (right ? 1 : -1) * width,
-                      },
-                      duration * (percent / 100),
-                      transition
-                  ).then(() => _toggle(el, false))
-        ).then(() => {
-            css(scrollElement, 'overflowX', '');
-            css(el, { clipPath: '', marginLeft: '' });
-        });
+        const percent = currentDim / endDim;
+        duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
+        const endProps = { [dimProp]: show ? endDim : 0 };
+
+        if (end) {
+            css(el, marginProp, endDim - currentDim + currentMargin);
+            endProps[marginProp] = show ? currentMargin : endDim + currentMargin;
+        }
+
+        if (!end ^ (mode === 'reveal')) {
+            css(wrapper, marginProp, -endDim + currentDim);
+            Transition.start(wrapper, { [marginProp]: show ? 0 : -endDim }, duration, transition);
+        }
+
+        try {
+            await Transition.start(el, endProps, duration, transition);
+        } finally {
+            css(el, prevProps);
+            unwrap(wrapper.firstChild);
+
+            if (!show) {
+                _toggle(el, false);
+            }
+        }
     };
 }
 

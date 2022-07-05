@@ -239,7 +239,7 @@
                     <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical" uk-nav>
                         <li class="uk-active"><a href="#">Active</a></li>
                         <li class="uk-parent">
-                            <a href="#">Parent <span uk-nav-parent-icon></span>/a>
+                            <a href="#">Parent <span uk-nav-parent-icon></span></a>
                             <ul class="uk-nav-sub">
                                 <li><a href="#">Sub item</a></li>
                                 <li><a href="#">Sub item</a></li>
@@ -769,13 +769,9 @@
 
         <script>
 
-            var util = UIkit.util;
-
-            util.on(util.$('#js-toggle'), 'click', function (e) {
-
+            UIkit.util.on('#js-toggle', 'click', e => {
                 e.preventDefault();
                 UIkit.offcanvas('#js-offcanvas-toggle').toggle();
-
             });
 
         </script>

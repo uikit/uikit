@@ -142,7 +142,7 @@ function getProps(opts, name) {
 
         value = props[key] === Boolean && value === '' ? true : coerce(props[key], value);
 
-        if (prop === 'target' && (!value || startsWith(value, '_'))) {
+        if (prop === 'target' && startsWith(value, '_')) {
             continue;
         }
 

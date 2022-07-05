@@ -7,7 +7,6 @@ import {
     positionAt,
     scrollParents,
     toPx,
-    trigger,
 } from 'uikit-util';
 
 export default {
@@ -15,12 +14,16 @@ export default {
         pos: String,
         offset: null,
         flip: Boolean,
+        shift: Boolean,
+        inset: Boolean,
     },
 
     data: {
         pos: `bottom-${isRtl ? 'right' : 'left'}`,
-        flip: true,
         offset: false,
+        flip: true,
+        shift: true,
+        inset: false,
     },
 
     connected() {
@@ -34,7 +37,7 @@ export default {
             let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
 
             const attach = {
-                element: [flipPosition(this.dir), this.align],
+                element: [this.inset ? this.dir : flipPosition(this.dir), this.align],
                 target: [this.dir, this.align],
             };
 
@@ -52,21 +55,14 @@ export default {
             const elDim = dimensions(element);
             css(element, { top: -elDim.height, left: -elDim.width });
 
-            const args = [
-                element,
-                target,
-                {
-                    attach,
-                    offset,
-                    boundary,
-                    flip: this.flip,
-                    viewportOffset: this.getViewportOffset(element),
-                },
-            ];
-
-            trigger(element, 'beforeposition', args);
-
-            positionAt(...args);
+            positionAt(element, target, {
+                attach,
+                offset,
+                boundary,
+                flip: this.flip,
+                shift: this.shift,
+                viewportOffset: this.getViewportOffset(element),
+            });
 
             // Restore scroll position
             scrollElement.scrollTop = scrollTop;
@@ -79,12 +75,14 @@ export default {
                     this.offset === false ? css(element, '--uk-position-offset') : this.offset,
                     this.axis === 'x' ? 'width' : 'height',
                     element
-                ) * (includes(['left', 'top'], this.dir) ? -1 : 1)
+                ) *
+                (includes(['left', 'top'], this.dir) ? -1 : 1) *
+                (this.inset ? -1 : 1)
             );
         },
 
         getShiftOffset(element) {
-            return includes(['center', 'justify', 'stretch'], this.align)
+            return this.align === 'center'
                 ? 0
                 : toPx(
                       css(element, '--uk-position-shift-offset'),

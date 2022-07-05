@@ -545,11 +545,12 @@
 
         <script>
 
-            ['finite', 'center', 'sets'].forEach(function(attr) {
-                UIkit.util.on('#js-'+attr+'-switcher', 'change', function () {
-                    UIkit.util.attr(UIkit.util.$$('[uk-slider]'), attr, this.value);
-                });
-            });
+            const {attr, $$, on} = UIkit.util;
+            for (const attribute of ['finite', 'center', 'sets']) {
+                on(`#js-${attribute}-switcher`, 'change', e =>
+                    attr($$('[uk-slider]'), attribute, e.target.value)
+                );
+            }
 
         </script>
 

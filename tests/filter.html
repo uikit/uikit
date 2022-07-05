@@ -20,18 +20,15 @@
 
         <script>
 
-            var util = UIkit.util;
+            const {$$, attr, on, ready} = UIkit.util;
 
-            util.ready(function () {
-
-                util.on(document.body, 'beforeFilter afterFilter', function (e, filter, state) {
-                    console.log(e.type, filter, state);
-                });
-
-                util.on('#js-animation-switcher', 'change', function () {
-                    util.attr(util.$$('.js-filter-animation'), 'animation', this.value);
-                });
-
+            ready(() => {
+                on(document.body, 'beforeFilter afterFilter', (e, filter, state) =>
+                    console.log(e.type, filter, state)
+                );
+                on('#js-animation-switcher', 'change', () =>
+                    attr($$('.js-filter-animation'), 'animation', this.value)
+                );
             });
 
         </script>

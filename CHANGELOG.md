@@ -4,30 +4,39 @@
 
 ### Added
 
-- Add dropdown large modifier to Dropdown and Navbar component
-- Add gap variable to navbar items in Navbar component
-- Add color mode variable to navbar dropdown in Navbar component
-- Add navbar parent icon to Navbar component
-- Add font size variables to nav and sublist in Nav component
-- Add small breakpoint padding variables to Modal component
+- Add Dropbar component
+- Add `target`, `target-x`, `target-y` and `inset` options to Drop component 
+- Add `stretch` and `bg-scroll` options to Drop component 
+- Add `shift` and `display` options to Drop component
+- Add `slide` and `reveal` animations to Drop component
 - Add `animate-out` option to Drop component
-- Add alignment `stretch` to Drop component
-- Add Height Viewport uses scroll parent as viewport
+- Add open and close animation to toggle icon in Navbar component
+- Add dropdown large modifier to Dropdown and Navbar component
+- Add gap variables to navbar items in Navbar component
+- Add color mode variables for dropdowns in Dropdown and Navbar component
+- Add navbar parent icon to Navbar component
+- Add secondary style modifier to Nav component
+- Add font size variables to nav and sublist in Nav component
+- Add padding variables for small breakpoint to Modal component
 - Add zero z-index utility class to Position component
-- Add option `bg-scroll` to Drop component
 - Add support for `picture` element to logo in Utility component
 - Add box sizing classes to Utility component
+- Support scroll parent as viewport in Height Viewport component
 
 ### Changed
 
-- Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
-- Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
-- Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`
-- Rename `@nav-primary-item-font-size` to `@nav-primary-font-size`
-- Rename `@nav-primary-item-line-height` to `@nav-primary-line-height`
-- Rename `@navbar-dropdown-dropbar-margin-top` to `@navbar-dropdown-dropbar-padding-top`
-- Rename `@navbar-dropdown-dropbar-margin-bottom` to `@navbar-dropdown-dropbar-padding-bottom`
-- Use JS icon component instead of compiling icons into CSS for nav parent icon in Nav component
+- IMPORTANT: Remove `.uk-nav-parent-icon` from Nav component. Use `uk-nav-parent-icon` attribute on items instead
+- IMPORTANT: Remove `*-justify` in `pos` option from Drop and Dropdown components. Use new `stretch` option instead
+- IMPORTANT: Remove `boundary-align` option from Drop and Dropdown components. Use new `target` option instead
+- IMPORTANT: Change `flip` option values in Drop and Dropdown components. Use new `shift` option too
+- IMPORTANT: Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
+- IMPORTANT: Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
+- IMPORTANT: Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`
+- IMPORTANT: Rename `@nav-primary-item-font-size` to `@nav-primary-font-size`
+- IMPORTANT: Rename `@nav-primary-item-line-height` to `@nav-primary-line-height`
+- IMPORTANT: Rename `@navbar-dropdown-dropbar-margin-top` to `@navbar-dropdown-dropbar-padding-top`
+- IMPORTANT: Rename `@navbar-dropdown-dropbar-margin-bottom` to `@navbar-dropdown-dropbar-padding-bottom`
+- IMPORTANT: Remove style from `.uk-navbar-dropbar`. Now uses `uk-dropbar`
 
 ### Removed
 
@@ -707,8 +716,8 @@
 
 ### Changed
 
-- IMPORTANT: Change options 'animationMode' to 'animation', 'animation' to 'duration'
-- IMPORTANT: Rename 'shift' animation to 'slide'
+- IMPORTANT: Change options `animationMode` to `animation` and `animation` to `duration`
+- IMPORTANT: Rename `shift` animation to `slide`
 
 ## 3.6.1 (December 17, 2020)
 
@@ -907,7 +916,7 @@
 
 ### Changed
 
-- IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
+- IMPORTANT: Rename Less variable parts `xxlarge` to `2xlarge`
 - Replace clearfix by creating a block formatting context with display flow-root
 
 ### Deprecated
