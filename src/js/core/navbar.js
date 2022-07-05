@@ -70,18 +70,6 @@ export default {
             return boundary === true ? $el : boundary;
         },
 
-        target({ target }, $el) {
-            return target === true ? $el : target;
-        },
-
-        targetX({ targetX }, $el) {
-            return targetX === true ? $el : targetX;
-        },
-
-        targetY({ targetY }, $el) {
-            return targetY === true ? $el : targetY;
-        },
-
         dropbarAnchor({ dropbarAnchor }, $el) {
             return query(dropbarAnchor, $el);
         },
