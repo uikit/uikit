@@ -205,6 +205,7 @@ export async function icons(src) {
                         convertPathData: false,
                         convertShapeToPath: false,
                         mergePaths: false,
+                        minifyStyles: false,
                         removeDimensions: false,
                         removeStyleElement: false,
                         removeScriptElement: false,
