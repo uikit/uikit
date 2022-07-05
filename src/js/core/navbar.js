@@ -37,7 +37,6 @@ export default {
         offset: Number,
         boundary: Boolean,
         target: Boolean,
-        clsDrop: String,
         delayShow: Number,
         delayHide: Number,
         dropbar: Boolean,
@@ -48,7 +47,6 @@ export default {
     data: {
         dropdown: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
         align: isRtl ? 'right' : 'left',
-        clsDrop: 'uk-navbar-dropdown',
         mode: undefined,
         offset: undefined,
         delayShow: undefined,
@@ -68,6 +66,10 @@ export default {
     computed: {
         boundary({ boundary }, $el) {
             return boundary === true ? $el : boundary;
+        },
+
+        clsDrop() {
+            return `uk-navbar${this.dropbar ? '-dropbar' : ''}-dropdown`;
         },
 
         dropbarAnchor({ dropbarAnchor }, $el) {
@@ -129,6 +131,7 @@ export default {
                     dropdowns.filter((el) => !this.getDropdown(el)),
                     {
                         ...this.$props,
+                        clsDrop: this.clsDrop,
                         boundary: this.boundary,
                         container: this.dropbar || this.$props.container,
                         pos: this.pos,
@@ -297,8 +300,6 @@ export default {
                     return;
                 }
 
-                addClass(target, `${this.clsDrop}-dropbar`);
-
                 this._observer = observeResize(target, () =>
                     this.transitionTo(
                         offset(target).bottom -
@@ -349,7 +350,7 @@ export default {
                     return;
                 }
 
-                this._observer.disconnect();
+                this._observer?.disconnect();
 
                 const active = this.getActive();
 
