@@ -77,6 +77,8 @@
 @navbar-dropdown-large-shift-margin:            0;
 @navbar-dropdown-large-padding:                 40px;
 
+@navbar-dropdown-dropbar-padding-top:           @navbar-dropdown-padding;
+@navbar-dropdown-dropbar-padding-bottom:        @navbar-dropdown-dropbar-padding-top;
 @navbar-dropdown-dropbar-padding-horizontal:    @navbar-nav-item-padding-horizontal;
 @navbar-dropdown-dropbar-viewport-margin:       15px;
 @navbar-dropdown-dropbar-viewport-margin-s:     @global-gutter;
@@ -443,19 +445,18 @@
 
 /*
  * Dropbar modifier
- * 1. Position dropdowns relative and reset top value, so they take the vertical dropbar paddings into account.
- * 2. Reset dropdown style
- * 3. Horizontal padding
+ * 1. Reset dropdown width to prevent to early shifting
+ * 2. Reset style
+ * 3. Padding
  */
 
 .uk-navbar-dropdown-dropbar {
     /* 1 */
-    position: relative;
-    top: auto !important;
+    width: auto;
     /* 2 */
     background: transparent;
     /* 3 */
-    padding: 0 @navbar-dropdown-dropbar-padding-horizontal 0 @navbar-dropdown-dropbar-padding-horizontal;
+    padding: @navbar-dropdown-dropbar-padding-top @navbar-dropdown-dropbar-padding-horizontal @navbar-dropdown-dropbar-padding-bottom @navbar-dropdown-dropbar-padding-horizontal;
     --uk-position-shift-offset: 0;
     --uk-position-viewport-offset: @navbar-dropdown-dropbar-viewport-margin;
     .hook-navbar-dropdown-dropbar();
@@ -549,7 +550,6 @@
 /*
  * 1. Reset dropbar
  * 2. Width
- * 3. Clip dropdowns
  */
 
 .uk-navbar-dropbar {
@@ -560,8 +560,6 @@
     /* 2 */
     left: 0;
     right: 0;
-    /* 3 */
-    overflow: hidden;
     .hook-navbar-dropbar();
 }
 

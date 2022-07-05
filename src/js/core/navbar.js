@@ -37,6 +37,7 @@ export default {
         offset: Number,
         boundary: Boolean,
         target: Boolean,
+        clsDrop: String,
         delayShow: Number,
         delayHide: Number,
         dropbar: Boolean,
@@ -47,6 +48,7 @@ export default {
     data: {
         dropdown: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
         align: isRtl ? 'right' : 'left',
+        clsDrop: 'uk-navbar-dropdown',
         mode: undefined,
         offset: undefined,
         delayShow: undefined,
@@ -68,8 +70,16 @@ export default {
             return boundary === true ? $el : boundary;
         },
 
-        clsDrop() {
-            return `uk-navbar${this.dropbar ? '-dropbar' : ''}-dropdown`;
+        target({ target }, $el) {
+            return target === true ? $el : target;
+        },
+
+        targetX({ targetX }, $el) {
+            return targetX === true ? $el : targetX;
+        },
+
+        targetY({ targetY }, $el) {
+            return targetY === true ? $el : targetY;
         },
 
         dropbarAnchor({ dropbarAnchor }, $el) {
@@ -96,17 +106,13 @@ export default {
 
             watch(dropbar) {
                 addClass(dropbar, 'uk-dropbar', 'uk-dropbar-top', 'uk-navbar-dropbar');
-
-                if (dropbar && !parent(dropbar)) {
-                    after(this.dropbarAnchor || this.$el, dropbar);
-                }
             },
 
             immediate: true,
         },
 
         dropContainer(_, $el) {
-            return this.dropbar || this.container || $el;
+            return this.container || $el;
         },
 
         dropdowns: {
@@ -131,9 +137,7 @@ export default {
                     dropdowns.filter((el) => !this.getDropdown(el)),
                     {
                         ...this.$props,
-                        clsDrop: this.clsDrop,
                         boundary: this.boundary,
-                        container: this.dropbar || this.$props.container,
                         pos: this.pos,
                     }
                 );
@@ -285,6 +289,30 @@ export default {
         },
 
         {
+            name: 'beforeshow',
+
+            el() {
+                return this.dropContainer;
+            },
+
+            filter() {
+                return this.dropbar;
+            },
+
+            handler({ target }) {
+                if (!this.isDropbarDrop(target)) {
+                    return;
+                }
+
+                if (!parent(this.dropbar)) {
+                    after(this.dropbarAnchor || this.$el, this.dropbar);
+                }
+
+                addClass(target, `${this.clsDrop}-dropbar`);
+            },
+        },
+
+        {
             name: 'show',
 
             el() {
@@ -304,7 +332,8 @@ export default {
                     this.transitionTo(
                         offset(target).bottom -
                             offset(this.dropbar).top +
-                            toFloat(css(target, 'marginBottom'))
+                            toFloat(css(target, 'marginBottom')),
+                        target
                     )
                 );
             },
@@ -350,7 +379,7 @@ export default {
                     return;
                 }
 
-                this._observer?.disconnect();
+                this._observer.disconnect();
 
                 const active = this.getActive();
 
@@ -366,13 +395,29 @@ export default {
             return active && within(active.targetEl, this.$el) && active;
         },
 
-        transitionTo(newHeight) {
+        transitionTo(newHeight, el) {
             const { dropbar } = this;
-
             const oldHeight = height(dropbar);
-            Transition.cancel(dropbar);
+
+            el = oldHeight < newHeight && el;
+
+            css(el, 'clipPath', `polygon(0 0,100% 0,100% ${oldHeight}px,0 ${oldHeight}px)`);
+
             height(dropbar, oldHeight);
-            Transition.start(dropbar, { height: newHeight }, this.duration).catch(noop);
+
+            Transition.cancel([el, dropbar]);
+            Promise.all([
+                Transition.start(dropbar, { height: newHeight }, this.duration),
+                Transition.start(
+                    el,
+                    {
+                        clipPath: `polygon(0 0,100% 0,100% ${newHeight}px,0 ${newHeight}px)`,
+                    },
+                    this.duration
+                ),
+            ])
+                .catch(noop)
+                .then(() => css(el, { clipPath: '' }));
         },
 
         getDropdown(el) {
