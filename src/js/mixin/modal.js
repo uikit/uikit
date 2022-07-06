@@ -9,6 +9,7 @@ import {
     includes,
     isFocusable,
     last,
+    noop,
     on,
     once,
     parent,
@@ -134,8 +135,8 @@ export default {
                 );
 
                 if (this.overlay) {
-                    once(this.$el, 'hide', preventOverscroll(this.$el));
-                    once(this.$el, 'hide', preventBackgroundScroll());
+                    once(this.$el, 'hidden', preventOverscroll(this.$el));
+                    once(this.$el, 'hidden', preventBackgroundScroll());
                 }
 
                 if (this.stack) {
@@ -215,10 +216,6 @@ export default {
             handler() {
                 if (includes(active, this)) {
                     active.splice(active.indexOf(this), 1);
-                }
-
-                if (!active.length) {
-                    css(document.body, 'overflowY', '');
                 }
 
                 css(this.$el, 'zIndex', '');
@@ -337,7 +334,12 @@ export function preventOverscroll(el) {
     return () => events.forEach((fn) => fn());
 }
 
+let prevented;
 export function preventBackgroundScroll() {
+    if (prevented) {
+        return noop;
+    }
+    prevented = true;
     const { body, documentElement } = document;
     css(body, {
         overflowY: width(window) > documentElement.clientWidth ? 'scroll' : '',
@@ -345,6 +347,7 @@ export function preventBackgroundScroll() {
     });
     css(documentElement, 'overflowY', 'hidden');
     return () => {
+        prevented = false;
         css(documentElement, 'overflowY', '');
         css(body, { overflowY: '', touchAction: '' });
     };
