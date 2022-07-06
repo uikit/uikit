@@ -35,6 +35,7 @@ export default {
     methods: {
         positionAt(element, target, boundary) {
             let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
+            const placement = [this.flip, this.shift];
 
             const attach = {
                 element: [this.inset ? this.dir : flipPosition(this.dir), this.align],
@@ -43,9 +44,10 @@ export default {
 
             if (this.axis === 'y') {
                 for (const prop in attach) {
-                    attach[prop] = attach[prop].reverse();
+                    attach[prop].reverse();
                 }
-                offset = offset.reverse();
+                offset.reverse();
+                placement.reverse();
             }
 
             const [scrollElement] = scrollParents(element, /auto|scroll/);
@@ -59,8 +61,7 @@ export default {
                 attach,
                 offset,
                 boundary,
-                flip: this.flip,
-                shift: this.shift,
+                placement,
                 viewportOffset: this.getViewportOffset(element),
             });
 

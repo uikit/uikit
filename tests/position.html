@@ -303,8 +303,22 @@
 
                     <div class="uk-margin">
                         <span class="uk-form-label">Placement</span>
-                        <label><input id="js-flip" class="uk-checkbox" type="checkbox" checked> Flip</label>
-                        <label><input id="js-shift" class="uk-checkbox" type="checkbox" checked> Shift</label>
+                        <label>
+                            Horizontal
+                            <select id="js-placement_x" class="uk-select uk-form-small uk-form-width-xsmall">
+                                <option value="">None</option>
+                                <option value="flip" selected>Flip</option>
+                                <option value="shift">Shift</option>
+                            </select>
+                        </label>
+                        <label>
+                            Vertical
+                            <select id="js-placement_y" class="uk-select uk-form-small uk-form-width-xsmall">
+                                <option value="">None</option>
+                                <option value="flip" selected>Flip</option>
+                                <option value="shift">Shift</option>
+                            </select>
+                        </label>
                     </div>
 
                 </div>
@@ -332,8 +346,7 @@
                             target: [$('#js-target_x').value, $('#js-target_y').value]
                         },
                         offset: [$('#js-offset_x').value, $('#js-offset_y').value],
-                        flip: $('#js-flip').checked,
-                        shift: $('#js-shift').checked
+                        placement: [$('#js-placement_x').value, $('#js-placement_y').value]
                     }
                 );
             }
