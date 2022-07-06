@@ -153,7 +153,7 @@ function getProps(opts, name) {
 
     for (const key in options) {
         const prop = camelize(key);
-        if (props[prop] !== undefined) {
+        if (!isUndefined(props[prop])) {
             data[prop] = coerce(props[prop], options[key]);
         }
     }
