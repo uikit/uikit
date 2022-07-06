@@ -1,6 +1,7 @@
 import Container from '../mixin/container';
 import Lazyload from '../mixin/lazyload';
 import Position from '../mixin/position';
+import Style from '../mixin/style';
 import Togglable from '../mixin/togglable';
 import {
     addClass,
@@ -34,7 +35,7 @@ import { preventBackgroundScroll, preventOverscroll } from '../mixin/modal';
 export let active;
 
 export default {
-    mixins: [Container, Lazyload, Position, Togglable],
+    mixins: [Container, Lazyload, Position, Style, Togglable],
 
     args: 'pos',
 
@@ -401,7 +402,7 @@ export default {
 
         position() {
             removeClass(this.$el, `${this.clsDrop}-stack`);
-            css(this.$el, { maxWidth: '', top: '', left: '' });
+            attr(this.$el, 'style', this._style);
 
             // Ensure none positioned element does not generate scrollbars
             this.$el.hidden = true;
@@ -417,15 +418,12 @@ export default {
             ];
 
             for (const [i, [axis, prop]] of dirs) {
-                if (includes([axis, true], this.stretch)) {
+                if (this.axis !== axis && includes([axis, true], this.stretch)) {
                     css(this.$el, {
-                        [prop]:
-                            this.axis === axis
-                                ? '' // Reset prop in main axis before positioning to not cause the drop to flip prematurely
-                                : Math.min(
-                                      boundaryOffset[prop],
-                                      viewports[i][prop] - 2 * viewportOffset
-                                  ),
+                        [prop]: Math.min(
+                            boundaryOffset[prop],
+                            viewports[i][prop] - 2 * viewportOffset
+                        ),
                         [`overflow-${axis}`]: 'auto',
                     });
                 }
