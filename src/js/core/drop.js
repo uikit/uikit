@@ -401,7 +401,7 @@ export default {
 
         position() {
             removeClass(this.$el, `${this.clsDrop}-stack`);
-            css(this.$el, { width: '', height: '', maxWidth: '', top: '', left: '' });
+            css(this.$el, { maxWidth: '', top: '', left: '' });
 
             // Ensure none positioned element does not generate scrollbars
             this.$el.hidden = true;
@@ -417,12 +417,15 @@ export default {
             ];
 
             for (const [i, [axis, prop]] of dirs) {
-                if (this.axis !== axis && includes([axis, true], this.stretch)) {
+                if (includes([axis, true], this.stretch)) {
                     css(this.$el, {
-                        [prop]: Math.min(
-                            boundaryOffset[prop],
-                            viewports[i][prop] - 2 * viewportOffset
-                        ),
+                        [prop]:
+                            this.axis === axis
+                                ? '' // Reset prop in main axis before positioning to not cause the drop to flip prematurely
+                                : Math.min(
+                                      boundaryOffset[prop],
+                                      viewports[i][prop] - 2 * viewportOffset
+                                  ),
                         [`overflow-${axis}`]: 'auto',
                     });
                 }

@@ -714,7 +714,7 @@
 
         <script>
 
-            const {$$, addClass, attr, on, removeClass } = UIkit.util;
+            const {$$, addClass, attr, css, on, removeClass } = UIkit.util;
 
             on('#js-style-switcher', 'change', (e) => {
                 const options = $$('option', e.target).map(({value}) => value);
@@ -737,6 +737,8 @@
                     attr($$('.js-options'), option, e.target.value)
                 );
             }
+
+            on(document.body, 'change', () => css($$('[uk-drop]'), {width: '', height: ''}));
 
         </script>
 
