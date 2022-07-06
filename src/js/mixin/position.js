@@ -35,7 +35,7 @@ export default {
     methods: {
         positionAt(element, target, boundary) {
             let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
-            const placement = [this.flip, this.shift];
+            const placement = [this.flip && 'flip', this.shift && 'shift'];
 
             const attach = {
                 element: [this.inset ? this.dir : flipPosition(this.dir), this.align],
