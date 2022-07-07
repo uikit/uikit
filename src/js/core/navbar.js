@@ -38,6 +38,8 @@ export default {
         offset: Number,
         boundary: Boolean,
         target: Boolean,
+        targetX: Boolean,
+        targetY: Boolean,
         clsDrop: String,
         delayShow: Number,
         delayHide: Number,
