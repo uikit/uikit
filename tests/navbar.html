@@ -1556,7 +1556,7 @@
 
         <nav class="uk-navbar-container uk-margin-top"><!-- Margin top only because of dropbar follows already in markup -->
             <div class="uk-container">
-                <div uk-navbar="dropbar: !.uk-navbar-container + .uk-navbar-dropbar">
+                <div uk-navbar="target-y: !.uk-navbar-container; dropbar: !.uk-navbar-container + .uk-navbar-dropbar">
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
@@ -1637,7 +1637,7 @@
                             </li>
                             <li>
                                 <a href="#">Stretch</a>
-                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false">
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false; target-y: !.uk-navbar-container">
                                     <div class="uk-navbar-dropdown-grid uk-child-width-1-3@m" uk-grid>
                                         <div>
                                             <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -1679,7 +1679,7 @@
                             </li>
                             <li>
                                 <a href="#">Stretch Full</a>
-                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar-container; stretch: x; flip: false">
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar-container; stretch: x; flip: false; target-y: !.uk-navbar-container">
                                     <div class="uk-navbar-dropdown-grid uk-child-width-1-3@m" uk-grid>
                                         <div>
                                             <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -1756,7 +1756,7 @@
 
         <nav class="uk-navbar-container uk-margin">
             <div class="uk-container">
-                <div uk-navbar="dropbar: true; dropbar-anchor: !.uk-navbar-container; align: right">
+                <div uk-navbar="target-y: !.uk-navbar-container; dropbar: true; dropbar-anchor: !.uk-navbar-container; align: right">
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
@@ -1863,7 +1863,7 @@
                             </li>
                             <li>
                                 <a href="#">Stretch</a>
-                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false">
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false; target-y: !.uk-navbar-container">
                                     <div class="uk-navbar-dropdown-grid uk-child-width-1-3@m" uk-grid>
                                         <div>
                                             <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -1912,7 +1912,7 @@
 
         <nav class="uk-navbar-container uk-margin">
             <div class="uk-container">
-                <div uk-navbar="dropbar: true; dropbar-anchor: !.uk-navbar-container; align: center">
+                <div uk-navbar="target-y: !.uk-navbar-container; dropbar: true; dropbar-anchor: !.uk-navbar-container; align: center">
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
@@ -2019,7 +2019,7 @@
                             </li>
                             <li>
                                 <a href="#">Stretch</a>
-                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false">
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false; target-y: !.uk-navbar-container">
                                     <div class="uk-navbar-dropdown-grid uk-child-width-1-3@m" uk-grid>
                                         <div>
                                             <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -2788,7 +2788,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li><a href="#">sdaf asdf </a></li>
+                            <li><a href="#">Item</a></li>
                         </ul>
 
                         <div class="uk-navbar-item">
