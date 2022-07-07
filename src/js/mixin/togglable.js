@@ -168,9 +168,16 @@ export function toggleTransition(cmp) {
         }
 
         const prevProps = Object.fromEntries(
-            ['padding', 'border', 'width', 'height', 'overflow', marginProp, marginStartProp].map(
-                (key) => [key, el.style[key]]
-            )
+            [
+                'padding',
+                'border',
+                'width',
+                'height',
+                'overflowY',
+                'overflowX',
+                marginProp,
+                marginStartProp,
+            ].map((key) => [key, el.style[key]])
         );
 
         const dim = dimensions(el);
