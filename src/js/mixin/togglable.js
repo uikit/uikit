@@ -177,6 +177,7 @@ export function toggleTransition(cmp) {
         const currentMargin = toFloat(css(el, marginProp));
         const marginStart = toFloat(css(el, marginStartProp));
         const endDim = dim[dimProp] + marginStart;
+        const overflow = getOverflow(el);
 
         if (!inProgress && !show) {
             currentDim += marginStart;
@@ -199,12 +200,12 @@ export function toggleTransition(cmp) {
         });
 
         css(el, {
+            overflow,
             padding: 0,
             border: 0,
             [marginStartProp]: 0,
             width: dim.width,
             height: dim.height,
-            overflow: 'hidden',
             [dimProp]: currentDim,
         });
 
@@ -250,4 +251,18 @@ function toggleAnimation(cmp) {
             _toggle(el, false)
         );
     };
+}
+
+function getOverflow(el) {
+    return [
+        ['X', 'Width'],
+        ['Y', 'Height'],
+    ]
+        .map(([axis, prop]) =>
+            includes(['auto', 'scroll'], css(el, `overflow${axis}`)) &&
+            el[`scroll${prop}`] > el[`client${prop}`]
+                ? 'scroll'
+                : 'hidden'
+        )
+        .join(' ');
 }
