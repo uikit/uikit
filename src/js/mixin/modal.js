@@ -135,8 +135,8 @@ export default {
                 );
 
                 if (this.overlay) {
-                    once(this.$el, 'hidden', preventOverscroll(this.$el));
-                    once(this.$el, 'hidden', preventBackgroundScroll());
+                    once(this.$el, 'hidden', preventOverscroll(this.$el), { self: true });
+                    once(this.$el, 'hidden', preventBackgroundScroll(), { self: true });
                 }
 
                 if (this.stack) {
