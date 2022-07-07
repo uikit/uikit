@@ -7,7 +7,7 @@
 - Add Dropbar component
 - Add `target`, `target-x`, `target-y` and `inset` options to Drop component 
 - Add `stretch` and `bg-scroll` options to Drop component 
-- Add `shift` and `display` options to Drop component
+- Add `shift` option to Drop component
 - Add `slide` and `reveal` animations to Drop component
 - Add `animate-out` option to Drop component
 - Add open and close animation to toggle icon in Navbar component
@@ -29,6 +29,7 @@
 - IMPORTANT: Remove `*-justify` in `pos` option from Drop and Dropdown components. Use new `stretch` option instead
 - IMPORTANT: Remove `boundary-align` option from Drop and Dropdown components. Use new `target` option instead
 - IMPORTANT: Change `flip` option values in Drop and Dropdown components. Use new `shift` option too
+- IMPORTANT: Remove `display` option in Drop and Dropdown components. Use new `auto-update` option instead.
 - IMPORTANT: Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
 - IMPORTANT: Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
 - IMPORTANT: Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`

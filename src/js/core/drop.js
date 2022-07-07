@@ -49,7 +49,7 @@ export default {
         stretch: Boolean,
         delayShow: Number,
         delayHide: Number,
-        display: String,
+        autoUpdate: Boolean,
         clsDrop: String,
         animateOut: Boolean,
         bgScroll: Boolean,
@@ -65,7 +65,7 @@ export default {
         stretch: false,
         delayShow: 0,
         delayHide: 800,
-        display: null,
+        autoUpdate: true,
         clsDrop: false,
         animateOut: false,
         bgScroll: true,
@@ -275,9 +275,8 @@ export default {
                         ? []
                         : [preventOverscroll(this.$el), preventBackgroundScroll()]),
 
-                    ...(this.display === 'static'
-                        ? []
-                        : (() => {
+                    ...(this.autoUpdate
+                        ? (() => {
                               const handler = () => this.$emit();
                               return [
                                   on(window, 'resize', handler),
@@ -290,7 +289,8 @@ export default {
                                       return () => observer.disconnect();
                                   })(),
                               ];
-                          })()),
+                          })()
+                        : []),
                 ]) {
                     once(this.$el, 'hide', handler, { self: true });
                 }
