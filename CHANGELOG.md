@@ -22,6 +22,7 @@
 - Add support for `picture` element to logo in Utility component
 - Add box sizing classes to Utility component
 - Support scroll parent as viewport in Height Viewport component
+- Add ARIA `role="alert"` to Notification component
 
 ### Changed
 
