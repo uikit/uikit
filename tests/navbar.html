@@ -3197,7 +3197,7 @@
 
         <script>
 
-            const {$, addClass, on, removeClass, MouseTracker } = UIkit.util;
+            const {$, $$, addClass, on, removeClass, MouseTracker } = UIkit.util;
             const tracker = MouseTracker();
             const el = $('#js-mousetracker');
             const target = $('#js-mousetarget');
@@ -3215,7 +3215,7 @@
 
             on('#js-dropdown-size-switcher', 'change', (e) => {
                 const options = $$('option', e.target).map(({value}) => value);
-                for (const el of $$('.uk-navbar-dropdown')) {
+                for (const el of $$('.uk-navbar-dropdown:not(.uk-navbar-dropdown-dropbar)')) {
                     removeClass(el, options);
                     addClass(el, e.target.value);
                 }
