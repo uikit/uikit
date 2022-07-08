@@ -119,9 +119,12 @@ export default {
                     addClass(parent(this.panel), this.clsMode);
                 }
 
-                addClass(document.body, this.clsContainer, this.clsFlip);
-                css(document.body, 'touch-action', 'pan-y pinch-zoom');
+                const { body, scrollingElement } = document;
+
+                addClass(body, this.clsContainer, this.clsFlip);
+                css(body, 'touch-action', 'pan-y pinch-zoom');
                 css(this.$el, 'display', 'block');
+                css(this.panel, 'maxWidth', scrollingElement.clientWidth);
                 addClass(this.$el, this.clsOverlay);
                 addClass(
                     this.panel,
@@ -129,8 +132,8 @@ export default {
                     this.mode === 'reveal' ? '' : this.clsMode
                 );
 
-                height(document.body); // force reflow
-                addClass(document.body, this.clsContainerAnimation);
+                height(body); // force reflow
+                addClass(body, this.clsContainerAnimation);
 
                 this.clsContainerAnimation && suppressUserScale();
             },
@@ -162,6 +165,7 @@ export default {
                 removeClass(this.panel, this.clsSidebarAnimation, this.clsMode);
                 removeClass(this.$el, this.clsOverlay);
                 css(this.$el, 'display', '');
+                css(this.panel, 'maxWidth', '');
                 removeClass(document.body, this.clsContainer, this.clsFlip);
             },
         },
