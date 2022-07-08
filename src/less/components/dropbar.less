@@ -20,6 +20,9 @@
 @dropbar-color:                                 @global-color;
 @dropbar-color-mode:                            none;
 
+@dropbar-large-padding-top:                     40px;
+@dropbar-large-padding-bottom:                  @dropbar-large-padding-top;
+
 
 /* ========================================================================
    Component: Dropbar
@@ -80,6 +83,14 @@
 // Color Mode
 .uk-dropbar:extend(.uk-light all) when (@dropbar-color-mode = light) {}
 .uk-dropbar:extend(.uk-dark all) when (@dropbar-color-mode = dark) {}
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-dropbar-large {
+    padding-top: @dropbar-large-padding-top;
+    padding-bottom: @dropbar-large-padding-bottom;
+}
 
 
 /* Direction modifier

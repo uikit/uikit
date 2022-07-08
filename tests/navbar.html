@@ -255,7 +255,7 @@
             <h2>Dropdown</h2>
 
             <div class="uk-margin">
-                <select id="js-size-switcher" class="uk-select uk-form-width-small">
+                <select id="js-dropdown-size-switcher" class="uk-select uk-form-width-small">
                     <option value="">Default</option>
                     <option value="uk-navbar-dropdown-large">Large</option>
                 </select>
@@ -1549,6 +1549,13 @@
         <div class="uk-container uk-margin-medium-top">
 
             <h2>Dropbar</h2>
+
+            <div class="uk-margin">
+                <select id="js-dropbar-size-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Default</option>
+                    <option value="uk-navbar-dropdown-dropbar-large">Large</option>
+                </select>
+            </div>
 
             <p>First example using <code>dropbar: SELECTOR</code> and second example using <code>dropbar: true</code>.</p>
 
@@ -3206,9 +3213,17 @@
                 clearInterval(interval);
             });
 
-            on('#js-size-switcher', 'change', (e) => {
+            on('#js-dropdown-size-switcher', 'change', (e) => {
                 const options = $$('option', e.target).map(({value}) => value);
                 for (const el of $$('.uk-navbar-dropdown')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
+            });
+
+            on('#js-dropbar-size-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.uk-navbar-dropdown-dropbar')) {
                     removeClass(el, options);
                     addClass(el, e.target.value);
                 }

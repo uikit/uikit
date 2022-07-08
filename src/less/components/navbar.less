@@ -84,6 +84,9 @@
 @navbar-dropdown-dropbar-viewport-margin-s:     @global-gutter;
 @navbar-dropdown-dropbar-viewport-margin-m:     @global-medium-gutter;
 
+@navbar-dropdown-dropbar-large-padding-top:     @navbar-dropdown-large-padding;
+@navbar-dropdown-dropbar-large-padding-bottom:  @navbar-dropdown-dropbar-large-padding-top;
+
 @navbar-dropdown-nav-item-color:                @global-muted-color;
 @navbar-dropdown-nav-item-hover-color:          @global-color;
 @navbar-dropdown-nav-item-active-color:         @global-emphasis-color;
@@ -475,6 +478,11 @@
 
     .uk-navbar-dropdown-dropbar { --uk-position-viewport-offset: @navbar-dropdown-dropbar-viewport-margin-m; }
 
+}
+
+.uk-navbar-dropdown-dropbar-large {
+    padding-top: @navbar-dropdown-dropbar-large-padding-top;
+    padding-bottom: @navbar-dropdown-dropbar-large-padding-bottom;
 }
 
 
