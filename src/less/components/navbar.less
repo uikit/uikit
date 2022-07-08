@@ -77,13 +77,14 @@
 @navbar-dropdown-large-shift-margin:            0;
 @navbar-dropdown-large-padding:                 40px;
 
+@navbar-dropdown-dropbar-shift-margin:          0;
 @navbar-dropdown-dropbar-padding-top:           @navbar-dropdown-padding;
 @navbar-dropdown-dropbar-padding-bottom:        @navbar-dropdown-dropbar-padding-top;
-@navbar-dropdown-dropbar-padding-horizontal:    @navbar-nav-item-padding-horizontal;
 @navbar-dropdown-dropbar-viewport-margin:       15px;
 @navbar-dropdown-dropbar-viewport-margin-s:     @global-gutter;
 @navbar-dropdown-dropbar-viewport-margin-m:     @global-medium-gutter;
 
+@navbar-dropdown-dropbar-large-shift-margin:    0;
 @navbar-dropdown-dropbar-large-padding-top:     @navbar-dropdown-large-padding;
 @navbar-dropdown-dropbar-large-padding-bottom:  @navbar-dropdown-dropbar-large-padding-top;
 
@@ -444,6 +445,7 @@
 .uk-navbar-dropdown-large {
     --uk-position-shift-offset: @navbar-dropdown-large-shift-margin;
     padding: @navbar-dropdown-large-padding;
+    .hook-navbar-dropdown-large();
 }
 
 /*
@@ -459,9 +461,9 @@
     /* 2 */
     background: transparent;
     /* 3 */
-    padding: @navbar-dropdown-dropbar-padding-top @navbar-dropdown-dropbar-padding-horizontal @navbar-dropdown-dropbar-padding-bottom @navbar-dropdown-dropbar-padding-horizontal;
+    padding: @navbar-dropdown-dropbar-padding-top 0 @navbar-dropdown-dropbar-padding-bottom 0;
     --uk-position-offset: 0;
-    --uk-position-shift-offset: 0;
+    --uk-position-shift-offset: @navbar-dropdown-dropbar-shift-margin;
     --uk-position-viewport-offset: @navbar-dropdown-dropbar-viewport-margin;
     .hook-navbar-dropdown-dropbar();
 }
@@ -481,8 +483,10 @@
 }
 
 .uk-navbar-dropdown-dropbar-large {
+    --uk-position-shift-offset: @navbar-dropdown-dropbar-large-shift-margin;
     padding-top: @navbar-dropdown-dropbar-large-padding-top;
     padding-bottom: @navbar-dropdown-dropbar-large-padding-bottom;
+    .hook-navbar-dropdown-dropbar-large();
 }
 
 
@@ -594,7 +598,9 @@
 .hook-navbar-transparent() {}
 .hook-navbar-sticky() {}
 .hook-navbar-dropdown() {}
+.hook-navbar-dropdown-large() {}
 .hook-navbar-dropdown-dropbar() {}
+.hook-navbar-dropdown-dropbar-large() {}
 .hook-navbar-dropdown-nav() {}
 .hook-navbar-dropdown-nav-item() {}
 .hook-navbar-dropdown-nav-item-hover() {}
