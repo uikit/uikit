@@ -340,16 +340,16 @@ export function preventBackgroundScroll() {
         return noop;
     }
     prevented = true;
-    const { body, documentElement } = document;
-    css(body, {
-        overflowY: width(window) > documentElement.clientWidth ? 'scroll' : '',
+
+    const { scrollingElement } = document;
+    css(scrollingElement, {
+        overflowY: 'hidden',
         touchAction: 'none',
+        paddingRight: width(window) - scrollingElement.clientWidth,
     });
-    css(documentElement, 'overflowY', 'hidden');
     return () => {
         prevented = false;
-        css(documentElement, 'overflowY', '');
-        css(body, { overflowY: '', touchAction: '' });
+        css(scrollingElement, { overflowY: '', touchAction: '', paddingRight: '' });
     };
 }
 
