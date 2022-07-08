@@ -109,6 +109,7 @@ export default {
 
     disconnected() {
         if (this.isActive()) {
+            this.hide(false);
             active = null;
         }
     },
