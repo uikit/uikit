@@ -388,7 +388,7 @@ export default {
 
     methods: {
         getActive() {
-            return active && within(active.targetEl, this.$el) && active;
+            return includes(this.dropdowns, active?.$el) && active;
         },
 
         transitionTo(newHeight, el) {
