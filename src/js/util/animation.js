@@ -4,7 +4,7 @@ import { css, propName } from './style';
 import { startsWith, toNodes } from './lang';
 import { addClass, hasClass, removeClass, removeClasses } from './class';
 
-export function transition(element, props, duration = 400, timing = 'linear') {
+function transition(element, props, duration = 400, timing = 'linear') {
     duration = Math.round(duration);
     return Promise.all(
         toNodes(element).map(
@@ -67,7 +67,7 @@ export const Transition = {
 
 const animationPrefix = 'uk-animation-';
 
-export function animate(element, animation, duration = 200, origin, out) {
+function animate(element, animation, duration = 200, origin, out) {
     return Promise.all(
         toNodes(element).map(
             (element) =>
@@ -101,7 +101,8 @@ export function animate(element, animation, duration = 200, origin, out) {
     );
 }
 
-const inProgress = new RegExp(`${animationPrefix}(enter|leave)`);
+const inProgressRe = new RegExp(`${animationPrefix}(enter|leave)`);
+
 export const Animation = {
     in: animate,
 
@@ -110,7 +111,7 @@ export const Animation = {
     },
 
     inProgress(element) {
-        return inProgress.test(attr(element, 'class'));
+        return inProgressRe.test(attr(element, 'class'));
     },
 
     cancel(element) {
