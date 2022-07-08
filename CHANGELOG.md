@@ -51,6 +51,7 @@
 - Fix dragging in Slider component on iOS
 - Fix Drop component no longer flips, if it does not fit into scroll area
 - Fix Drop component alignment within Dropbar
+- Fix ensure write updates aren't called if component is already disconnected
 - Remove margin from the last-child within dropdowns in Dropdown and Navbar components
 
 ## 3.14.3 (May 27, 2022)
