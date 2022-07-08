@@ -242,7 +242,8 @@ export default {
 
                 this.tracker.init();
 
-                for (const handler of [
+                const update = () => this.$emit();
+                const handlers = [
                     on(
                         document,
                         pointerDown,
@@ -271,29 +272,28 @@ export default {
                         }
                     }),
 
+                    on(window, 'resize', update),
+
+                    (() => {
+                        const observer = observeResize(
+                            scrollParents(this.$el).concat(this.targetEl),
+                            update
+                        );
+                        return () => observer.disconnect();
+                    })(),
+
+                    ...(this.autoUpdate
+                        ? [on([document, scrollParents(this.$el)], 'scroll', update)]
+                        : []),
+
                     ...(this.bgScroll
                         ? []
                         : [preventOverscroll(this.$el), preventBackgroundScroll()]),
+                ];
 
-                    ...(this.autoUpdate
-                        ? (() => {
-                              const handler = () => this.$emit();
-                              return [
-                                  on(window, 'resize', handler),
-                                  on([document, scrollParents(this.$el)], 'scroll', handler),
-                                  (() => {
-                                      const observer = observeResize(
-                                          scrollParents(this.$el),
-                                          handler
-                                      );
-                                      return () => observer.disconnect();
-                                  })(),
-                              ];
-                          })()
-                        : []),
-                ]) {
-                    once(this.$el, 'hide', handler, { self: true });
-                }
+                once(this.$el, 'hide', () => handlers.forEach((handler) => handler()), {
+                    self: true,
+                });
             },
         },
 
