@@ -40,15 +40,21 @@ $modal-dialog-background:                        $global-background !default;
 
 $modal-container-width:                          1200px !default;
 
-$modal-body-padding-horizontal:                  $global-gutter !default;
-$modal-body-padding-vertical:                    $global-gutter !default;
+$modal-body-padding-horizontal:                  20px !default;
+$modal-body-padding-vertical:                    20px !default;
+$modal-body-padding-horizontal-s:                $global-gutter !default;
+$modal-body-padding-vertical-s:                  $global-gutter !default;
 
-$modal-header-padding-horizontal:                $global-gutter !default;
+$modal-header-padding-horizontal:                20px !default;
 $modal-header-padding-vertical:                  ($modal-header-padding-horizontal * 0.5) !default;
+$modal-header-padding-horizontal-s:              $global-gutter !default;
+$modal-header-padding-vertical-s:                ($modal-header-padding-horizontal-s * 0.5) !default;
 $modal-header-background:                        $global-muted-background !default;
 
-$modal-footer-padding-horizontal:                $global-gutter !default;
+$modal-footer-padding-horizontal:                20px !default;
 $modal-footer-padding-vertical:                  ($modal-footer-padding-horizontal * 0.5) !default;
+$modal-footer-padding-horizontal-s:              $global-gutter !default;
+$modal-footer-padding-vertical-s:                ($modal-footer-padding-horizontal-s * 0.5) !default;
 $modal-footer-background:                        $global-muted-background !default;
 
 $modal-title-font-size:                          $global-xlarge-font-size !default;
@@ -226,6 +232,15 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
     padding: $modal-footer-padding-vertical $modal-footer-padding-horizontal;
     background: $modal-footer-background;
     @if(mixin-exists(hook-modal-footer)) {@include hook-modal-footer();}
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-modal-body { padding: $modal-body-padding-vertical-s $modal-body-padding-horizontal-s; }
+    .uk-modal-header { padding: $modal-header-padding-vertical-s $modal-header-padding-horizontal-s; }
+    .uk-modal-footer { padding: $modal-footer-padding-vertical-s $modal-footer-padding-horizontal-s; }
+
 }
 
 /*

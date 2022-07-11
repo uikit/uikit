@@ -5,10 +5,7 @@
 //
 // Adopted:         `uk-dropdown-nav`
 //
-// Modifiers:       `uk-dropdown-top-*`
-//                  `uk-dropdown-bottom-*`
-//                  `uk-dropdown-left-*`
-//                  `uk-dropdown-right-*`
+// Modifiers:       `uk-dropdown-large`
 //                  `uk-dropdown-stack`
 //                  `uk-dropdown-grid`
 //
@@ -22,10 +19,14 @@
 
 $dropdown-z-index:                               $global-z-index + 20 !default;
 $dropdown-margin:                                $global-small-margin !default;
+$dropdown-viewport-margin:                       15px !default;
 $dropdown-min-width:                             200px !default;
 $dropdown-padding:                               15px !default;
 $dropdown-background:                            $global-muted-background !default;
 $dropdown-color:                                 $global-color !default;
+$dropdown-color-mode:                            none !default;
+
+$dropdown-large-padding:                         40px !default;
 
 $dropdown-nav-item-color:                        $global-muted-color !default;
 $dropdown-nav-item-hover-color:                  $global-color !default;
@@ -55,11 +56,10 @@ $dropdown-nav-sublist-item-hover-color:          $global-color !default;
     position: absolute;
     z-index: $dropdown-z-index;
     --uk-position-offset: #{$dropdown-margin};
-    --uk-position-viewport-offset: 10;
+    --uk-position-viewport-offset: #{$dropdown-viewport-margin};
     /* 3 */
     box-sizing: border-box;
     min-width: $dropdown-min-width;
-    max-width: 100vw;
     /* 4 */
     padding: $dropdown-padding;
     background: $dropdown-background;
@@ -69,6 +69,22 @@ $dropdown-nav-sublist-item-hover-color:          $global-color !default;
 
 /* Show */
 .uk-dropdown.uk-open { display: block; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-dropdown > :last-child { margin-bottom: 0; }
+
+// Color Mode
+@if ( $dropdown-color-mode == light ) { .uk-dropdown { @extend .uk-light !optional;} }
+@if ( $dropdown-color-mode == dark ) { .uk-dropdown { @extend .uk-dark !optional;} }
+
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-dropdown-large { padding: $dropdown-large-padding; }
 
 
 /* Nav

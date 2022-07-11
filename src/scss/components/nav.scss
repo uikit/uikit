@@ -3,13 +3,13 @@
 //
 // Component:       `uk-nav`
 //
-// Sub-objects:     `uk-nav-header`
+// Sub-objects:     `uk-nav-parent-icon`
+//                  `uk-nav-header`
 //                  `uk-nav-divider`
 //                  `uk-nav-subtitle`
 //                  `uk-nav-sub`
 //
-// Modifiers:       `uk-nav-parent-icon`
-//                  `uk-nav-default`
+// Modifiers:       `uk-nav-default`
 //                  `uk-nav-primary`
 //                  `uk-nav-center`,
 //                  `uk-nav-divider`
@@ -33,9 +33,7 @@ $nav-sublist-padding-left:                       15px !default;
 $nav-sublist-deeper-padding-left:                15px !default;
 $nav-sublist-item-padding-vertical:              2px !default;
 
-$nav-parent-icon-width:                          ($global-line-height * 1em) !default;
-$nav-parent-icon-height:                         $nav-parent-icon-width !default;
-$nav-parent-icon-color:                          $global-color !default;
+$nav-parent-icon-margin-left:                    4px !default;
 
 $nav-header-padding-vertical:                    $nav-item-padding-vertical !default;
 $nav-header-padding-horizontal:                  $nav-item-padding-horizontal !default;
@@ -46,6 +44,8 @@ $nav-header-margin-top:                          $global-margin !default;
 $nav-divider-margin-vertical:                    5px !default;
 $nav-divider-margin-horizontal:                  0 !default;
 
+$nav-default-font-size:                          $global-font-size !default;
+$nav-default-line-height:                        $global-line-height !default;
 $nav-default-item-color:                         $global-muted-color !default;
 $nav-default-item-hover-color:                   $global-color !default;
 $nav-default-item-active-color:                  $global-emphasis-color !default;
@@ -53,12 +53,14 @@ $nav-default-subtitle-font-size:                 $global-small-font-size !defaul
 $nav-default-header-color:                       $global-emphasis-color !default;
 $nav-default-divider-border-width:               $global-border-width !default;
 $nav-default-divider-border:                     $global-border !default;
+$nav-default-sublist-font-size:                  $nav-default-font-size !default;
+$nav-default-sublist-line-height:                $nav-default-line-height !default;
 $nav-default-sublist-item-color:                 $global-muted-color !default;
 $nav-default-sublist-item-hover-color:           $global-color !default;
 $nav-default-sublist-item-active-color:          $global-emphasis-color !default;
 
-$nav-primary-item-font-size:                     $global-large-font-size !default;
-$nav-primary-item-line-height:                   $global-line-height !default;
+$nav-primary-font-size:                          $global-large-font-size !default;
+$nav-primary-line-height:                        $global-line-height !default;
 $nav-primary-item-color:                         $global-muted-color !default;
 $nav-primary-item-hover-color:                   $global-color !default;
 $nav-primary-item-active-color:                  $global-emphasis-color !default;
@@ -66,16 +68,33 @@ $nav-primary-subtitle-font-size:                 $global-medium-font-size !defau
 $nav-primary-header-color:                       $global-emphasis-color !default;
 $nav-primary-divider-border-width:               $global-border-width !default;
 $nav-primary-divider-border:                     $global-border !default;
+$nav-primary-sublist-font-size:                  $global-medium-font-size !default;
+$nav-primary-sublist-line-height:                $global-line-height !default;
 $nav-primary-sublist-item-color:                 $global-muted-color !default;
 $nav-primary-sublist-item-hover-color:           $global-color !default;
 $nav-primary-sublist-item-active-color:          $global-emphasis-color !default;
 
-$nav-dividers-margin-top:                        0 !default;
+$nav-secondary-font-size:                        $global-font-size !default;
+$nav-secondary-line-height:                      $global-line-height !default;
+$nav-secondary-item-color:                       $global-emphasis-color !default;
+$nav-secondary-item-hover-color:                 $global-emphasis-color !default;
+$nav-secondary-item-active-color:                $global-emphasis-color !default;
+$nav-secondary-subtitle-font-size:               $global-small-font-size !default;
+$nav-secondary-subtitle-color:                   $global-muted-color !default;
+$nav-secondary-subtitle-hover-color:             $global-color !default;
+$nav-secondary-subtitle-active-color:            $global-emphasis-color !default;
+$nav-secondary-header-color:                     $global-emphasis-color !default;
+$nav-secondary-divider-border-width:             $global-border-width !default;
+$nav-secondary-divider-border:                   $global-border !default;
+$nav-secondary-sublist-font-size:                $global-small-font-size !default;
+$nav-secondary-sublist-line-height:              $global-line-height !default;
+$nav-secondary-sublist-item-color:               $global-muted-color !default;
+$nav-secondary-sublist-item-hover-color:         $global-color !default;
+$nav-secondary-sublist-item-active-color:        $global-emphasis-color !default;
+
+$nav-dividers-margin-top:                        5px !default;
 $nav-dividers-border-width:                      $global-border-width !default;
 $nav-dividers-border:                            $global-border !default;
-
-$internal-nav-parent-close-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22#000%22%20stroke-width%3D%221.1%22%20points%3D%2210%201%204%207%2010%2013%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
-$internal-nav-parent-open-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22#000%22%20stroke-width%3D%221.1%22%20points%3D%221%204%207%2010%2013%204%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
 
 
 /* ========================================================================
@@ -143,21 +162,12 @@ ul.uk-nav-sub {
 .uk-nav-sub a { padding: $nav-sublist-item-padding-vertical 0; }
 
 
-/* Parent icon modifier
+/* Parent icon
  ========================================================================== */
 
-.uk-nav-parent-icon > .uk-parent > a::after {
-    content: "";
-    width: $nav-parent-icon-width;
-    height: $nav-parent-icon-height;
-    margin-left: auto;
-    @include svg-fill($internal-nav-parent-close-image, "#000", $nav-parent-icon-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    @if(mixin-exists(hook-nav-parent-icon)) {@include hook-nav-parent-icon();}
-}
+.uk-nav-parent-icon { margin-left: auto; }
 
-.uk-nav-parent-icon > .uk-parent.uk-open > a::after { @include svg-fill($internal-nav-parent-open-image, "#000", $nav-parent-icon-color); }
+.uk-nav > li > a[aria-expanded="true"] .uk-nav-parent-icon { transform: rotate(180deg); }
 
 
 /* Header
@@ -186,6 +196,8 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-default {
+    font-size: $nav-default-font-size;
+    line-height: $nav-default-line-height;
     @if(mixin-exists(hook-nav-default)) {@include hook-nav-default();}
 }
 
@@ -241,6 +253,11 @@ ul.uk-nav-sub {
  * Sublists
  */
 
+.uk-nav-default .uk-nav-sub {
+    font-size: $nav-default-sublist-font-size;
+    line-height: $nav-default-sublist-line-height;
+}
+
 .uk-nav-default .uk-nav-sub a { color: $nav-default-sublist-item-color; }
 
 .uk-nav-default .uk-nav-sub a:hover { color: $nav-default-sublist-item-hover-color; }
@@ -252,6 +269,8 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-primary {
+    font-size: $nav-primary-font-size;
+    line-height: $nav-primary-line-height;
     @if(mixin-exists(hook-nav-primary)) {@include hook-nav-primary();}
 }
 
@@ -260,8 +279,6 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-primary > li > a {
-    font-size: $nav-primary-item-font-size;
-    line-height: $nav-primary-item-line-height;
     color: $nav-primary-item-color;
     @if(mixin-exists(hook-nav-primary-item)) {@include hook-nav-primary-item();}
 }
@@ -282,7 +299,7 @@ ul.uk-nav-sub {
  * Subtitle
  */
 
- .uk-nav-primary .uk-nav-subtitle {
+.uk-nav-primary .uk-nav-subtitle {
     font-size: $nav-primary-subtitle-font-size;
     @if(mixin-exists(hook-nav-primary-subtitle)) {@include hook-nav-primary-subtitle();}
 }
@@ -309,11 +326,103 @@ ul.uk-nav-sub {
  * Sublists
  */
 
+.uk-nav-primary .uk-nav-sub {
+    font-size: $nav-primary-sublist-font-size;
+    line-height: $nav-primary-sublist-line-height;
+}
+
 .uk-nav-primary .uk-nav-sub a { color: $nav-primary-sublist-item-color; }
 
 .uk-nav-primary .uk-nav-sub a:hover { color: $nav-primary-sublist-item-hover-color; }
 
 .uk-nav-primary .uk-nav-sub li.uk-active > a { color: $nav-primary-sublist-item-active-color; }
+
+
+/* Secondary modifier
+ ========================================================================== */
+
+.uk-nav-secondary {
+    font-size: $nav-secondary-font-size;
+    line-height: $nav-secondary-line-height;
+    @if(mixin-exists(hook-nav-secondary)) {@include hook-nav-secondary();}
+}
+
+/*
+ * Items
+ */
+
+.uk-nav-secondary > li > a {
+
+    color: $nav-secondary-item-color;
+    @if(mixin-exists(hook-nav-secondary-item)) {@include hook-nav-secondary-item();}
+}
+
+/* Hover */
+.uk-nav-secondary > li > a:hover {
+    color: $nav-secondary-item-hover-color;
+    @if(mixin-exists(hook-nav-secondary-item-hover)) {@include hook-nav-secondary-item-hover();}
+}
+
+/* Active */
+.uk-nav-secondary > li.uk-active > a {
+    color: $nav-secondary-item-active-color;
+    @if(mixin-exists(hook-nav-secondary-item-active)) {@include hook-nav-secondary-item-active();}
+}
+
+/*
+ * Subtitle
+ */
+
+.uk-nav-secondary .uk-nav-subtitle {
+    font-size: $nav-secondary-subtitle-font-size;
+    color: $nav-secondary-subtitle-color;
+    @if(mixin-exists(hook-nav-secondary-subtitle)) {@include hook-nav-secondary-subtitle();}
+}
+
+/* Hover */
+.uk-nav-secondary > li > a:hover .uk-nav-subtitle {
+    color: $nav-secondary-subtitle-hover-color;
+    @if(mixin-exists(hook-nav-secondary-subtitle-hover)) {@include hook-nav-secondary-subtitle-hover();}
+}
+
+/* Active */
+.uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
+    color: $nav-secondary-subtitle-active-color;
+    @if(mixin-exists(hook-nav-secondary-subtitle-active)) {@include hook-nav-secondary-subtitle-active();}
+}
+
+/*
+ * Header
+ */
+
+.uk-nav-secondary .uk-nav-header {
+    color: $nav-secondary-header-color;
+    @if(mixin-exists(hook-nav-secondary-header)) {@include hook-nav-secondary-header();}
+}
+
+/*
+ * Divider
+ */
+
+.uk-nav-secondary .uk-nav-divider {
+    border-top: $nav-secondary-divider-border-width solid $nav-secondary-divider-border;
+    @if(mixin-exists(hook-nav-secondary-divider)) {@include hook-nav-secondary-divider();}
+}
+
+/*
+ * Sublists
+ */
+
+.uk-nav-secondary .uk-nav-sub {
+    font-size: $nav-secondary-sublist-font-size;
+    line-height: $nav-secondary-sublist-line-height;
+}
+
+.uk-nav-secondary .uk-nav-sub a { color: $nav-secondary-sublist-item-color; }
+
+.uk-nav-secondary .uk-nav-sub a:hover { color: $nav-secondary-sublist-item-hover-color; }
+
+.uk-nav-secondary .uk-nav-sub li.uk-active > a { color: $nav-secondary-sublist-item-active-color; }
 
 
 /* Alignment modifier
@@ -333,12 +442,17 @@ ul.uk-nav-sub {
 .uk-nav-center .uk-nav-sub,
 .uk-nav-center .uk-nav-sub ul { padding-left: 0; }
 
-/* Parent icon modifier  */
-.uk-nav-center.uk-nav-parent-icon > .uk-parent > a::after { margin-left: 0; }
+/* Parent icon  */
+.uk-nav-center .uk-nav-parent-icon { margin-left: $nav-parent-icon-margin-left; }
 
 
 /* Style modifier
  ========================================================================== */
+
+/*
+ * Divider
+ * Naming is in plural to prevent conflicts with divider sub object.
+ */
 
 .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
     margin-top: $nav-dividers-margin-top;
@@ -354,7 +468,6 @@ ul.uk-nav-sub {
 @if(mixin-exists(hook-nav-misc)) {@include hook-nav-misc();}
 
 // @mixin hook-nav-sub(){}
-// @mixin hook-nav-parent-icon(){}
 // @mixin hook-nav-header(){}
 // @mixin hook-nav-divider(){}
 // @mixin hook-nav-default(){}
@@ -371,6 +484,15 @@ ul.uk-nav-sub {
 // @mixin hook-nav-primary-subtitle(){}
 // @mixin hook-nav-primary-header(){}
 // @mixin hook-nav-primary-divider(){}
+// @mixin hook-nav-secondary(){}
+// @mixin hook-nav-secondary-item(){}
+// @mixin hook-nav-secondary-item-hover(){}
+// @mixin hook-nav-secondary-item-active(){}
+// @mixin hook-nav-secondary-subtitle(){}
+// @mixin hook-nav-secondary-subtitle-hover(){}
+// @mixin hook-nav-secondary-subtitle-active(){}
+// @mixin hook-nav-secondary-header(){}
+// @mixin hook-nav-secondary-divider(){}
 // @mixin hook-nav-dividers(){}
 // @mixin hook-nav-misc(){}
 
@@ -378,30 +500,40 @@ ul.uk-nav-sub {
 // Inverse
 // ========================================================================
 
-$inverse-nav-parent-icon-color:                  $inverse-global-color !default;
-$inverse-nav-default-item-color:                 $inverse-global-muted-color !default;
-$inverse-nav-default-item-hover-color:           $inverse-global-color !default;
-$inverse-nav-default-item-active-color:          $inverse-global-emphasis-color !default;
-$inverse-nav-default-header-color:               $inverse-global-emphasis-color !default;
-$inverse-nav-default-divider-border:             $inverse-global-border !default;
-$inverse-nav-default-sublist-item-color:         $inverse-global-muted-color !default;
-$inverse-nav-default-sublist-item-hover-color:   $inverse-global-color !default;
-$inverse-nav-default-sublist-item-active-color:  $inverse-global-emphasis-color !default;
+$inverse-nav-default-item-color:                     $inverse-global-muted-color !default;
+$inverse-nav-default-item-hover-color:               $inverse-global-color !default;
+$inverse-nav-default-item-active-color:              $inverse-global-emphasis-color !default;
+$inverse-nav-default-header-color:                   $inverse-global-emphasis-color !default;
+$inverse-nav-default-divider-border:                 $inverse-global-border !default;
+$inverse-nav-default-sublist-item-color:             $inverse-global-muted-color !default;
+$inverse-nav-default-sublist-item-hover-color:       $inverse-global-color !default;
+$inverse-nav-default-sublist-item-active-color:      $inverse-global-emphasis-color !default;
 
-$inverse-nav-primary-item-color:                 $inverse-global-muted-color !default;
-$inverse-nav-primary-item-hover-color:           $inverse-global-color !default;
-$inverse-nav-primary-item-active-color:          $inverse-global-emphasis-color !default;
-$inverse-nav-primary-header-color:               $inverse-global-emphasis-color !default;
-$inverse-nav-primary-divider-border:             $inverse-global-border !default;
-$inverse-nav-primary-sublist-item-color:         $inverse-global-muted-color !default;
-$inverse-nav-primary-sublist-item-hover-color:   $inverse-global-color !default;
-$inverse-nav-primary-sublist-item-active-color:  $inverse-global-emphasis-color !default;
+$inverse-nav-primary-item-color:                     $inverse-global-muted-color !default;
+$inverse-nav-primary-item-hover-color:               $inverse-global-color !default;
+$inverse-nav-primary-item-active-color:              $inverse-global-emphasis-color !default;
+$inverse-nav-primary-header-color:                   $inverse-global-emphasis-color !default;
+$inverse-nav-primary-divider-border:                 $inverse-global-border !default;
+$inverse-nav-primary-sublist-item-color:             $inverse-global-muted-color !default;
+$inverse-nav-primary-sublist-item-hover-color:       $inverse-global-color !default;
+$inverse-nav-primary-sublist-item-active-color:      $inverse-global-emphasis-color !default;
 
-$inverse-nav-dividers-border:                    $inverse-global-border !default;
+$inverse-nav-secondary-item-color:                   $inverse-global-emphasis-color !default;
+$inverse-nav-secondary-item-hover-color:             $inverse-global-emphasis-color !default;
+$inverse-nav-secondary-item-active-color:            $inverse-global-emphasis-color !default;
+$inverse-nav-secondary-subtitle-color:               $inverse-global-muted-color !default;
+$inverse-nav-secondary-subtitle-hover-color:         $inverse-global-color !default;
+$inverse-nav-secondary-subtitle-active-color:        $inverse-global-emphasis-color !default;
+$inverse-nav-secondary-header-color:                 $inverse-global-emphasis-color !default;
+$inverse-nav-secondary-divider-border:               $inverse-global-border !default;
+$inverse-nav-secondary-sublist-item-color:           $inverse-global-muted-color !default;
+$inverse-nav-secondary-sublist-item-hover-color:     $inverse-global-color !default;
+$inverse-nav-secondary-sublist-item-active-color:    $inverse-global-emphasis-color !default;
+
+$inverse-nav-dividers-border:                        $inverse-global-border !default;
 
 
 
-// @mixin hook-inverse-nav-parent-icon(){}
 // @mixin hook-inverse-nav-default-item(){}
 // @mixin hook-inverse-nav-default-item-hover(){}
 // @mixin hook-inverse-nav-default-item-active(){}
@@ -412,4 +544,12 @@ $inverse-nav-dividers-border:                    $inverse-global-border !default
 // @mixin hook-inverse-nav-primary-item-active(){}
 // @mixin hook-inverse-nav-primary-header(){}
 // @mixin hook-inverse-nav-primary-divider(){}
+// @mixin hook-inverse-nav-secondary-item(){}
+// @mixin hook-inverse-nav-secondary-item-hover(){}
+// @mixin hook-inverse-nav-secondary-item-active(){}
+// @mixin hook-inverse-nav-secondary-subtitle(){}
+// @mixin hook-inverse-nav-secondary-subtitle-hover(){}
+// @mixin hook-inverse-nav-secondary-subtitle-active(){}
+// @mixin hook-inverse-nav-secondary-header(){}
+// @mixin hook-inverse-nav-secondary-divider(){}
 // @mixin hook-inverse-nav-dividers(){}

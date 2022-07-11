@@ -26,19 +26,19 @@
 $offcanvas-z-index:                              $global-z-index !default;
 
 $offcanvas-bar-width:                            270px !default;
-$offcanvas-bar-padding-vertical:                 $global-margin !default;
-$offcanvas-bar-padding-horizontal:               $global-margin !default;
+$offcanvas-bar-padding-vertical:                 20px !default;
+$offcanvas-bar-padding-horizontal:               20px !default;
 $offcanvas-bar-background:                       $global-secondary-background !default;
 $offcanvas-bar-color-mode:                       light !default;
 
-$offcanvas-bar-width-m:                          350px !default;
-$offcanvas-bar-padding-vertical-m:               $global-medium-gutter !default;
-$offcanvas-bar-padding-horizontal-m:             $global-medium-gutter !default;
+$offcanvas-bar-width-s:                          350px !default;
+$offcanvas-bar-padding-vertical-s:               $global-gutter !default;
+$offcanvas-bar-padding-horizontal-s:             $global-gutter !default;
 
 $offcanvas-close-position:                       5px !default;
 $offcanvas-close-padding:                        5px !default;
 
-$offcanvas-close-position-m:                     20px !default;
+$offcanvas-close-position-s:                     10px !default;
 
 $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 
@@ -99,13 +99,13 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
     @if(mixin-exists(hook-offcanvas-bar)) {@include hook-offcanvas-bar();}
 }
 
-/* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
 
     .uk-offcanvas-bar {
-        left: (-$offcanvas-bar-width-m);
-        width: $offcanvas-bar-width-m;
-        padding: $offcanvas-bar-padding-vertical-m $offcanvas-bar-padding-horizontal-m;
+        left: (-$offcanvas-bar-width-s);
+        width: $offcanvas-bar-width-s;
+        padding: $offcanvas-bar-padding-vertical-s $offcanvas-bar-padding-horizontal-s;
     }
 
 }
@@ -121,9 +121,9 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: $breakpoint-small) {
 
-    .uk-offcanvas-flip .uk-offcanvas-bar { right: (-$offcanvas-bar-width-m); }
+    .uk-offcanvas-flip .uk-offcanvas-bar { right: (-$offcanvas-bar-width-s); }
 
 }
 
@@ -179,9 +179,9 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 .uk-open > .uk-offcanvas-reveal { width: $offcanvas-bar-width; }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: $breakpoint-small) {
 
-    .uk-open > .uk-offcanvas-reveal { width: $offcanvas-bar-width-m; }
+    .uk-open > .uk-offcanvas-reveal { width: $offcanvas-bar-width-s; }
 
 }
 
@@ -209,11 +209,11 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: $breakpoint-small) {
 
     .uk-offcanvas-close {
-        top: $offcanvas-close-position-m;
-        right: $offcanvas-close-position-m;
+        top: $offcanvas-close-position-s;
+        right: $offcanvas-close-position-s;
     }
 
 }
@@ -304,11 +304,11 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 .uk-offcanvas-flip.uk-offcanvas-container-animation { left: (-$offcanvas-bar-width); }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: $breakpoint-small) {
 
-    :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: $offcanvas-bar-width-m; }
+    :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: $offcanvas-bar-width-s; }
 
-    .uk-offcanvas-flip.uk-offcanvas-container-animation { left: (-$offcanvas-bar-width-m); }
+    .uk-offcanvas-flip.uk-offcanvas-container-animation { left: (-$offcanvas-bar-width-s); }
 
 }
 
