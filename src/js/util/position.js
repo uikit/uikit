@@ -40,7 +40,7 @@ function getPosition(element, target, options) {
     let offsetPosition = position;
     for (const [i, [prop, , start, end]] of Object.entries(dirs)) {
         let viewports = scrollParents(target[i]);
-        const [scrollElement] = viewports;
+        const scrollArea = getScrollArea(viewports[0], viewportOffset, i);
 
         let viewport = getIntersectionArea(...viewports.map(offsetViewport));
 
@@ -53,10 +53,7 @@ function getPosition(element, target, options) {
             viewport = getIntersectionArea(viewport, offsetViewport(boundary));
         }
 
-        const isInStartViewport = position[start] >= viewport[start];
-        const isInEndViewport = position[end] <= viewport[end];
-
-        if (isInStartViewport && isInEndViewport) {
+        if (isWithin(position, viewport, i)) {
             continue;
         }
 
@@ -65,16 +62,16 @@ function getPosition(element, target, options) {
         // Flip
         if (placement[i] === 'flip') {
             if (
-                (targetAttach[i] === end && isInEndViewport) ||
-                (targetAttach[i] === start && isInStartViewport)
+                (targetAttach[i] === end && position[end] <= viewport[end]) ||
+                (targetAttach[i] === start && position[start] >= viewport[start])
             ) {
                 continue;
             }
 
             offsetBy = flip(element, target, options, i)[start] - position[start];
 
-            if (!isInScrollArea(applyOffset(position, offsetBy, i), scrollElement, i)) {
-                if (isInScrollArea(position, scrollElement, i)) {
+            if (!isWithin(applyOffset(position, offsetBy, i), scrollArea, i)) {
+                if (isWithin(position, scrollArea, i)) {
                     continue;
                 }
 
@@ -93,7 +90,7 @@ function getPosition(element, target, options) {
                     recursion: true,
                 });
 
-                if (newPos && isInScrollArea(newPos, scrollElement, 1 - i)) {
+                if (newPos && isWithin(newPos, scrollArea, 1 - i)) {
                     return newPos;
                 }
 
@@ -170,13 +167,17 @@ function getIntersectionArea(...rects) {
     return area;
 }
 
-function isInScrollArea(position, scrollElement, dir) {
-    const viewport = offsetViewport(scrollElement, false);
-    const [prop, , start, end] = dirs[dir];
-    viewport[start] -= scrollElement[`scroll${ucfirst(start)}`];
-    viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`];
+function getScrollArea(scrollElement, viewportOffset, i) {
+    const [prop, , start, end] = dirs[i];
+    const viewport = offsetViewport(scrollElement);
+    viewport[start] -= scrollElement[`scroll${ucfirst(start)}`] - viewportOffset;
+    viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`] - viewportOffset;
+    return viewport;
+}
 
-    return position[start] >= viewport[start] && position[end] <= viewport[end];
+function isWithin(positionA, positionB, i) {
+    const [, , start, end] = dirs[i];
+    return positionA[start] >= positionB[start] && positionA[end] <= positionB[end];
 }
 
 function flip(element, target, { offset, attach }, i) {
