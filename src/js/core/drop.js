@@ -409,7 +409,7 @@ export default {
             this.$el.hidden = true;
 
             const boundary = query(this.boundary, this.$el);
-            const boundaryOffset = offsetViewport(boundary || window);
+            const boundaryOffset = offset(boundary || window);
             const viewports = this.target.map((target) => offsetViewport(scrollParents(target)[0]));
             const viewportOffset = this.getViewportOffset(this.$el);
 

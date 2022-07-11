@@ -50,7 +50,7 @@ function getPosition(element, target, options) {
         }
 
         if (boundary) {
-            viewport = getIntersectionArea(viewport, offsetViewport(boundary));
+            viewport = getIntersectionArea(viewport, offset(boundary));
         }
 
         if (isWithin(position, viewport, i)) {
