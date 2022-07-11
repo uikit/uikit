@@ -407,14 +407,14 @@
 
         <script>
 
-            var options = UIkit.util.$$('#js-height-switcher option').map(function (option) { return option.value; });
+            const {$$, addClass, on, removeClass } = UIkit.util;
 
-            UIkit.util.on('#js-height-switcher', 'change', function () {
-                var value = this.value;
-                UIkit.util.$$('.js-overflow-flip').forEach(function (table) {
-                    UIkit.util.removeClass(table, options);
-                    UIkit.util.addClass(table, value);
-                });
+            on('#js-height-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.js-overflow-flip')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
             });
 
         </script>

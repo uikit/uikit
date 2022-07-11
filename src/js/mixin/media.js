@@ -1,6 +1,6 @@
 import {
     createEvent,
-    getCssVar,
+    css,
     isNumeric,
     isString,
     on,
@@ -19,7 +19,7 @@ export default {
     },
 
     connected() {
-        const media = toMedia(this.media);
+        const media = toMedia(this.media, this.$el);
         this.matchMedia = true;
         if (media) {
             this.mediaObj = window.matchMedia(media);
@@ -40,11 +40,10 @@ export default {
     },
 };
 
-function toMedia(value) {
+function toMedia(value, element) {
     if (isString(value)) {
         if (startsWith(value, '@')) {
-            const name = `breakpoint-${value.substr(1)}`;
-            value = toFloat(getCssVar(name));
+            value = toFloat(css(element, `--uk-breakpoint-${value.substr(1)}`));
         } else if (isNaN(value)) {
             return value;
         }

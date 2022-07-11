@@ -235,7 +235,7 @@
 
                     <div>
                         <a class="uk-navbar-toggle" href="#" uk-search-icon></a>
-                        <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
+                        <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; flip: false">
 
                             <div class="uk-grid-small uk-flex-middle" uk-grid>
                                 <div class="uk-width-expand">
@@ -257,7 +257,7 @@
             <nav class="uk-navbar-container uk-margin" uk-navbar>
                 <div class="uk-navbar-left">
 
-                    <a class="uk-navbar-item uk-logo" href="#">Justify</a>
+                    <a class="uk-navbar-item uk-logo" href="#">Stretch</a>
 
                     <ul class="uk-navbar-nav">
                         <li class="uk-active"><a href="#">Active</a></li>
@@ -275,7 +275,7 @@
 
                     <div>
                         <a class="uk-navbar-toggle" href="#" uk-search-icon></a>
-                        <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; boundary-align: true; pos: bottom-justify; flip: x">
+                        <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false">
 
                             <div class="uk-grid-small uk-flex-middle" uk-grid>
                                 <div class="uk-width-expand">
@@ -294,7 +294,7 @@
                 </div>
             </nav>
 
-            <nav class="uk-navbar-container uk-margin" uk-navbar="dropbar: +.uk-navbar-dropbar">
+            <nav class="uk-navbar-container uk-margin" uk-navbar="target-y: !.uk-navbar-container; dropbar: +.uk-navbar-dropbar">
                 <div class="uk-navbar-left">
 
                     <a class="uk-navbar-item uk-logo" href="#">Dropbar</a>
@@ -315,7 +315,7 @@
 
                     <div>
                         <a class="uk-navbar-toggle" href="#" uk-search-icon></a>
-                        <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav; boundary-align: true; pos: bottom-justify; flip: x">
+                        <div class="uk-dropbar uk-dropbar-top" uk-drop="mode: click; cls-drop: uk-dropbar; boundary: !.uk-navbar; stretch: x; flip: false; target-y: !.uk-navbar-container">
 
                             <div class="uk-grid-small uk-flex-middle" uk-grid>
                                 <div class="uk-width-expand">
@@ -324,7 +324,7 @@
                                     </form>
                                 </div>
                                 <div class="uk-width-auto">
-                                    <a class="uk-navbar-dropdown-close" href="#" uk-close></a>
+                                    <a class="uk-dropbar-close" href="#" uk-close></a>
                                 </div>
                             </div>
 

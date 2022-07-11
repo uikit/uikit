@@ -7,25 +7,25 @@
 // Variables
 // ========================================================================
 
+$nav-default-font-size:                          $global-small-font-size !default;
+
 $nav-default-subtitle-font-size:                 12px !default;
 
 //
 // New
 //
 
-$nav-default-font-size:                          $global-small-font-size !default;
+$nav-background-margin-top:                      0 !default;
+$nav-background-item-padding-horizontal:         10px !default;
+$nav-background-item-padding-vertical:           10px !default;
+$nav-background-item-hover-background:           $global-muted-background !default;
+$nav-background-item-active-background:          $global-muted-background !default;
 
 
 // Sublists
 // ========================================================================
 
 // @mixin hook-nav-sub(){}
-
-
-// Parent icon modifier
-// ========================================================================
-
-// @mixin hook-nav-parent-icon(){}
 
 
 // Header
@@ -43,7 +43,7 @@ $nav-default-font-size:                          $global-small-font-size !defaul
 // Default style modifier
 // ========================================================================
 
-
+// @mixin hook-nav-default(){}
 
 // @mixin hook-nav-default-item(){}
 
@@ -76,6 +76,28 @@ $nav-default-font-size:                          $global-small-font-size !defaul
 // @mixin hook-nav-primary-divider(){}
 
 
+// Secondary style modifier
+// ========================================================================
+
+
+
+
+
+
+
+
+
+// @mixin hook-nav-secondary-subtitle(){}
+
+// @mixin hook-nav-secondary-subtitle-hover(){}
+
+// @mixin hook-nav-secondary-subtitle-active(){}
+
+// @mixin hook-nav-secondary-header(){}
+
+// @mixin hook-nav-secondary-divider(){}
+
+
 // Style modifier
 // ========================================================================
 
@@ -91,7 +113,8 @@ $nav-default-font-size:                          $global-small-font-size !defaul
 // Inverse
 // ========================================================================
 
-// @mixin hook-inverse-nav-parent-icon(){}
+$inverse-nav-background-item-hover-background:   $inverse-global-muted-background !default;
+$inverse-nav-background-item-active-background:  $inverse-global-muted-background !default;
 
 // @mixin hook-inverse-nav-default-item(){}
 // @mixin hook-inverse-nav-default-item-hover(){}
@@ -104,5 +127,14 @@ $nav-default-font-size:                          $global-small-font-size !defaul
 // @mixin hook-inverse-nav-primary-item-active(){}
 // @mixin hook-inverse-nav-primary-header(){}
 // @mixin hook-inverse-nav-primary-divider(){}
+
+// @mixin hook-inverse-nav-secondary-item(){}
+
+
+// @mixin hook-inverse-nav-secondary-subtitle(){}
+// @mixin hook-inverse-nav-secondary-subtitle-hover(){}
+// @mixin hook-inverse-nav-secondary-subtitle-active(){}
+// @mixin hook-inverse-nav-secondary-header(){}
+// @mixin hook-inverse-nav-secondary-divider(){}
 
 // @mixin hook-inverse-nav-dividers(){}

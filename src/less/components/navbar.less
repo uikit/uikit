@@ -10,6 +10,7 @@
 //                  `uk-navbar-center-left`
 //                  `uk-navbar-center-right`
 //                  `uk-navbar-nav`
+//                  `uk-navbar-parent-icon`
 //                  `uk-navbar-item`
 //                  `uk-navbar-toggle`
 //                  `uk-navbar-subtitle`
@@ -37,7 +38,10 @@
 // ========================================================================
 
 @navbar-background:                             @global-muted-background;
+@navbar-gap:                                    0px; // Must have a unit because of `calc`
 @navbar-color-mode:                             none;
+
+@navbar-nav-gap:                                0px; // Must have a unit because of `calc`
 
 @navbar-nav-item-height:                        80px;
 @navbar-nav-item-padding-horizontal:            15px;
@@ -48,6 +52,9 @@
 @navbar-nav-item-onclick-color:                 @global-emphasis-color;
 @navbar-nav-item-active-color:                  @global-emphasis-color;
 
+@navbar-parent-icon-margin-left:                4px;
+
+@navbar-item-padding-horizontal:                15px;
 @navbar-item-color:                             @global-color;
 
 @navbar-toggle-color:                           @global-muted-color;
@@ -56,17 +63,30 @@
 @navbar-subtitle-font-size:                     @global-small-font-size;
 
 @navbar-dropdown-z-index:                       @global-z-index + 20;
-@navbar-dropdown-margin:                        0px;
+@navbar-dropdown-margin:                        0;
+@navbar-dropdown-shift-margin:                  0;
+@navbar-dropdown-viewport-margin:               15px;
 @navbar-dropdown-width:                         200px;
 @navbar-dropdown-padding:                       15px;
 @navbar-dropdown-background:                    @global-muted-background;
 @navbar-dropdown-color:                         @global-color;
+@navbar-dropdown-color-mode:                    none;
 @navbar-dropdown-grid-gutter-horizontal:        @global-gutter;
 @navbar-dropdown-grid-gutter-vertical:          @navbar-dropdown-grid-gutter-horizontal;
 
-@navbar-dropdown-dropbar-margin-top:            0px;
-@navbar-dropdown-dropbar-margin-bottom:         @navbar-dropdown-dropbar-margin-top;
-@navbar-dropdown-dropbar-padding-horizontal:    @navbar-nav-item-padding-horizontal;
+@navbar-dropdown-large-shift-margin:            0;
+@navbar-dropdown-large-padding:                 40px;
+
+@navbar-dropdown-dropbar-shift-margin:          0;
+@navbar-dropdown-dropbar-padding-top:           @navbar-dropdown-padding;
+@navbar-dropdown-dropbar-padding-bottom:        @navbar-dropdown-dropbar-padding-top;
+@navbar-dropdown-dropbar-viewport-margin:       15px;
+@navbar-dropdown-dropbar-viewport-margin-s:     @global-gutter;
+@navbar-dropdown-dropbar-viewport-margin-m:     @global-medium-gutter;
+
+@navbar-dropdown-dropbar-large-shift-margin:    0;
+@navbar-dropdown-dropbar-large-padding-top:     @navbar-dropdown-large-padding;
+@navbar-dropdown-dropbar-large-padding-bottom:  @navbar-dropdown-dropbar-large-padding-top;
 
 @navbar-dropdown-nav-item-color:                @global-muted-color;
 @navbar-dropdown-nav-item-hover-color:          @global-color;
@@ -79,7 +99,6 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 @navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
-@navbar-dropbar-background:                     @navbar-dropdown-background;
 @navbar-dropbar-z-index:                        @global-z-index - 20;
 
 
@@ -117,16 +136,13 @@
 
 /*
  * 1. Align navs and items vertically if they have a different height
- * 2. Note: IE 11 requires an extra `div` which affects the center selector
  */
 
 .uk-navbar-left,
 .uk-navbar-right,
-// 2. [class*='uk-navbar-center'],
-.uk-navbar-center,
-.uk-navbar-center-left > *,
-.uk-navbar-center-right > * {
+[class*='uk-navbar-center'] {
     display: flex;
+    gap: @navbar-gap;
     /* 1 */
     align-items: center;
 }
@@ -168,8 +184,8 @@
    top: 0;
 }
 
-.uk-navbar-center-left { right: 100%; }
-.uk-navbar-center-right { left: 100%; }
+.uk-navbar-center-left { right:  ~'calc(100% + @{navbar-gap})'; }
+.uk-navbar-center-right { left: ~'calc(100% + @{navbar-gap})'; }
 
 [class*='uk-navbar-center-'] {
     width: max-content;
@@ -186,6 +202,7 @@
 
 .uk-navbar-nav {
     display: flex;
+    gap: @navbar-nav-gap;
     /* 1 */
     margin: 0;
     padding: 0;
@@ -222,7 +239,6 @@
     /* 3 */
     box-sizing: border-box;
     min-height: @navbar-nav-item-height;
-    padding: 0 @navbar-nav-item-padding-horizontal;
     /* 4 */
     font-size: @navbar-nav-item-font-size;
     font-family: @navbar-nav-item-font-family;
@@ -235,6 +251,7 @@
  */
 
 .uk-navbar-nav > li > a {
+    padding: 0 @navbar-nav-item-padding-horizontal;
     color: @navbar-nav-item-color;
     .hook-navbar-nav-item();
 }
@@ -263,10 +280,19 @@
 }
 
 
+/* Parent icon modifier
+ ========================================================================== */
+
+.uk-navbar-parent-icon { margin-left: @navbar-parent-icon-margin-left; }
+
+.uk-navbar-nav > li > a[aria-expanded="true"] .uk-navbar-parent-icon { transform: rotate(180deg); }
+
+
 /* Item
  ========================================================================== */
 
 .uk-navbar-item {
+    padding: 0 @navbar-item-padding-horizontal;
     color: @navbar-item-color;
     .hook-navbar-item();
 }
@@ -282,6 +308,7 @@
  ========================================================================== */
 
 .uk-navbar-toggle {
+    padding: 0 @navbar-item-padding-horizontal;
     color: @navbar-toggle-color;
     .hook-navbar-toggle();
 }
@@ -362,11 +389,11 @@
     position: absolute;
     z-index: @navbar-dropdown-z-index;
     --uk-position-offset: @navbar-dropdown-margin;
-    --uk-position-viewport-offset: 10;
+    --uk-position-shift-offset: @navbar-dropdown-shift-margin;
+    --uk-position-viewport-offset: @navbar-dropdown-viewport-margin;
     /* 3 */
     box-sizing: border-box;
     width: @navbar-dropdown-width;
-    max-width: 100vw;
     /* 4 */
     padding: @navbar-dropdown-padding;
     background: @navbar-dropdown-background;
@@ -376,6 +403,16 @@
 
 /* Show */
 .uk-navbar-dropdown.uk-open { display: block; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+ .uk-navbar-dropdown > :last-child { margin-bottom: 0; }
+
+// Color Mode
+.uk-navbar-dropdown:extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
+.uk-navbar-dropdown:extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
 
 /*
  * Grid
@@ -402,22 +439,54 @@
 .uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 5); }
 
 /*
+ * Size modifier
+ */
+
+.uk-navbar-dropdown-large {
+    --uk-position-shift-offset: @navbar-dropdown-large-shift-margin;
+    padding: @navbar-dropdown-large-padding;
+    .hook-navbar-dropdown-large();
+}
+
+/*
  * Dropbar modifier
- * 1. Set position
- * 2. Bottom padding for dropbar
- * 3. Horizontal padding
+ * 1. Reset dropdown width to prevent to early shifting
+ * 2. Reset style
+ * 3. Padding
  */
 
 .uk-navbar-dropdown-dropbar {
     /* 1 */
-    --uk-position-offset: @navbar-dropdown-dropbar-margin-top;
-    --uk-position-viewport-offset: 0;
+    width: auto;
     /* 2 */
-    margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
+    background: transparent;
     /* 3 */
-    padding-left: @navbar-dropdown-dropbar-padding-horizontal;
-    padding-right: @navbar-dropdown-dropbar-padding-horizontal;
+    padding: @navbar-dropdown-dropbar-padding-top 0 @navbar-dropdown-dropbar-padding-bottom 0;
+    --uk-position-offset: 0;
+    --uk-position-shift-offset: @navbar-dropdown-dropbar-shift-margin;
+    --uk-position-viewport-offset: @navbar-dropdown-dropbar-viewport-margin;
     .hook-navbar-dropdown-dropbar();
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-navbar-dropdown-dropbar { --uk-position-viewport-offset: @navbar-dropdown-dropbar-viewport-margin-s; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-navbar-dropdown-dropbar { --uk-position-viewport-offset: @navbar-dropdown-dropbar-viewport-margin-m; }
+
+}
+
+.uk-navbar-dropdown-dropbar-large {
+    --uk-position-shift-offset: @navbar-dropdown-dropbar-large-shift-margin;
+    padding-top: @navbar-dropdown-dropbar-large-padding-top;
+    padding-bottom: @navbar-dropdown-dropbar-large-padding-bottom;
+    .hook-navbar-dropdown-dropbar-large();
 }
 
 
@@ -491,12 +560,19 @@
 /* Dropbar
  ========================================================================== */
 
+/*
+ * 1. Reset dropbar
+ * 2. Width
+ */
+
 .uk-navbar-dropbar {
-    position: absolute;
+    /* 1 */
+    display: block !important;
     z-index: @navbar-dropbar-z-index;
+    padding: 0;
+    /* 2 */
     left: 0;
     right: 0;
-    background: @navbar-dropbar-background;
     .hook-navbar-dropbar();
 }
 
@@ -513,24 +589,26 @@
 .hook-navbar-nav-item-onclick() {}
 .hook-navbar-nav-item-active() {}
 .hook-navbar-item() {}
-.hook-navbar-toggle(){}
-.hook-navbar-toggle-hover(){}
-.hook-navbar-toggle-icon(){}
-.hook-navbar-toggle-icon-hover(){}
+.hook-navbar-toggle() {}
+.hook-navbar-toggle-hover() {}
+.hook-navbar-toggle-icon() {}
+.hook-navbar-toggle-icon-hover() {}
 .hook-navbar-subtitle() {}
-.hook-navbar-primary(){}
-.hook-navbar-transparent(){}
-.hook-navbar-sticky(){}
-.hook-navbar-dropdown(){}
-.hook-navbar-dropdown-dropbar(){}
-.hook-navbar-dropdown-nav(){}
+.hook-navbar-primary() {}
+.hook-navbar-transparent() {}
+.hook-navbar-sticky() {}
+.hook-navbar-dropdown() {}
+.hook-navbar-dropdown-large() {}
+.hook-navbar-dropdown-dropbar() {}
+.hook-navbar-dropdown-dropbar-large() {}
+.hook-navbar-dropdown-nav() {}
 .hook-navbar-dropdown-nav-item() {}
 .hook-navbar-dropdown-nav-item-hover() {}
 .hook-navbar-dropdown-nav-item-active() {}
 .hook-navbar-dropdown-nav-subtitle() {}
 .hook-navbar-dropdown-nav-header() {}
 .hook-navbar-dropdown-nav-divider() {}
-.hook-navbar-dropbar(){}
+.hook-navbar-dropbar() {}
 .hook-navbar-misc() {}
 
 
@@ -546,6 +624,10 @@
 @inverse-navbar-toggle-hover-color:            @inverse-global-color;
 
 .hook-inverse() {
+
+    //
+    // Nav Item
+    //
 
     .uk-navbar-nav > li > a {
         color: @inverse-navbar-nav-item-color;
@@ -568,10 +650,18 @@
         .hook-inverse-navbar-nav-item-active();
     }
 
+    //
+    // Item
+    //
+
     .uk-navbar-item {
         color: @inverse-navbar-item-color;
         .hook-inverse-navbar-item();
     }
+
+    //
+    // Toggle
+    //
 
     .uk-navbar-toggle {
         color: @inverse-navbar-toggle-color;

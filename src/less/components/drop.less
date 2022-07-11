@@ -3,11 +3,7 @@
 //
 // Component:       `uk-drop`
 //
-// Modifiers:       `uk-drop-top-*`
-//                  `uk-drop-bottom-*`
-//                  `uk-drop-left-*`
-//                  `uk-drop-right-*`
-//                  `uk-drop-stack`
+// Modifiers:       `uk-drop-stack`
 //                  `uk-drop-grid`
 //
 // States:          `uk-open`
@@ -22,6 +18,7 @@
 
 @drop-z-index:                              @global-z-index + 20;
 @drop-margin:                               @global-margin;
+@drop-viewport-margin:                      15px;
 @drop-width:                                300px;
 
 
@@ -42,7 +39,7 @@
     position: absolute;
     z-index: @drop-z-index;
     --uk-position-offset: @drop-margin;
-    --uk-position-viewport-offset: 10;
+    --uk-position-viewport-offset: @drop-viewport-margin;
     /* 3 */
     box-sizing: border-box;
     width: @drop-width;

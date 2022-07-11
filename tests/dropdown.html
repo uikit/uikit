@@ -14,6 +14,13 @@
                 width: 100%;
             }
 
+            .scroll-container {
+                padding: 15px;
+                border: 1px dashed rgba(0,0,0,0.2);
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
         </style>
     </head>
 
@@ -22,6 +29,13 @@
         <div class="uk-container">
 
             <h1>Dropdown</h1>
+
+            <div class="uk-margin">
+                <select id="js-size-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Default</option>
+                    <option value="uk-dropdown-large">Large</option>
+                </select>
+            </div>
 
             <div uk-grid>
                 <div class="uk-width-1-4@m">
@@ -63,7 +77,7 @@
 
                     <div class="uk-dropdown test">
 
-                        <ul class="uk-nav uk-dropdown-nav">
+                        <ul class="uk-nav uk-nav-secondary">
                             <li class="uk-active"><a href="#"><div>Active<div class="uk-nav-subtitle">Subtitle lorem ipsum dolor sit amet, consectetur adipiscing.</div></div></a></li>
                             <li><a href="#"><div>Item<div class="uk-nav-subtitle">Subtitle lorem ipsum dolor sit amet, consectetur adipiscing.</div></div></a></li>
                             <li><a href="#"><div>Item<div class="uk-nav-subtitle">Subtitle lorem ipsum dolor sit amet, consectetur adipiscing.</div></div></a></li>
@@ -76,59 +90,6 @@
                 <div class="uk-width-1-2@m">
 
                     <div class="uk-margin" uk-margin>
-
-                        <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button">Hover</button>
-                            <div uk-dropdown>
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                            <li><a href="#">Sub item</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button">Click</button>
-                            <div uk-dropdown="mode: click">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                            <li><a href="#">Sub item</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button" disabled>Disabled</button>
-                            <div uk-dropdown="mode: click">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
 
                         <div class="uk-inline">
                             <button class="uk-button uk-button-default" type="button">Scrollable</button>
@@ -147,30 +108,6 @@
                                     <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                                     <li class="uk-nav-divider"></li>
                                     <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button">Hover only</button>
-                            <div uk-dropdown="mode: hover; delay-hide: 0">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~div; mode: click,hover">Same</button>
-                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~div; mode: click,hover">Same</button>
-                            <button class="uk-button uk-button-default" type="button">Target</button>
-                            <div uk-dropdown>
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Item</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -214,17 +151,6 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button">Bottom Justify</button>
-                            <div uk-dropdown="pos: bottom-justify">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div class="uk-margin" uk-margin>
@@ -254,17 +180,6 @@
                         <div class="uk-inline">
                             <button class="uk-button uk-button-default" type="button">Top Right</button>
                             <div uk-dropdown="pos: top-right">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button">Top Justify</button>
-                            <div uk-dropdown="pos: top-justify">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -352,96 +267,21 @@
                 </div>
             </div>
 
-            <h2>JavaScript Options</h2>
-
-            <div class="uk-overflow-auto">
-                <table class="uk-table uk-table-striped">
-                    <thead>
-                        <tr>
-                            <th>Option</th>
-                            <th>Value</th>
-                            <th>Default</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>toggle</code></td>
-                            <td>String, Boolean</td>
-                            <td>'- *'</td>
-                            <td>CSS selector for the element to be used as toggle. By default, the preceding element is used.</td>
-                        </tr>
-                        <tr>
-                            <td><code>pos</code></td>
-                            <td>String</td>
-                            <td>'bottom-left'</td>
-                            <td>Dropdown position.</td>
-                        </tr>
-                        <tr>
-                            <td><code>mode</code></td>
-                            <td>hover | click</td>
-                            <td>click,hover</td>
-                            <td>Comma separated list of dropdown trigger behaviour modes.</td>
-                        </tr>
-                        <tr>
-                            <td><code>delay-show</code></td>
-                            <td>Number</td>
-                            <td>0</td>
-                            <td>Delay time in hover mode before a Dropdown is shown in ms.</td>
-                        </tr>
-                        <tr>
-                            <td><code>delay-hide</code></td>
-                            <td>Number</td>
-                            <td>800</td>
-                            <td>Delay time in hover mode before a Dropdown is hidden in ms.</td>
-                        </tr>
-                        <tr>
-                            <td><code>boundary</code></td>
-                            <td>CSS selector</td>
-                            <td>true</td>
-                            <td>The area that the element will be checked for overflow, causing the Drop to flip. By default, it's the scrolling containers of the Drop's element.</td>
-                        </tr>
-                        <tr>
-                            <td><code>boundary-align</code></td>
-                            <td>Boolean</td>
-                            <td>false</td>
-                            <td>Align Drop to boundary.</td>
-                        </tr>
-                        <tr>
-                            <td><code>flip</code></td>
-                            <td>false|true|'x'|'y'</td>
-                            <td>true</td>
-                            <td>Automatic Dropdown flip.</td>
-                        </tr>
-                        <tr>
-                            <td><code>offset</code></td>
-                            <td>Number</td>
-                            <td>0</td>
-                            <td>The offset of the Dropdown container.</td>
-                        </tr>
-                        <tr>
-                            <td><code>animation</code></td>
-                            <td>String</td>
-                            <td>false</td>
-                            <td>The space separated names of animations to use.</td>
-                        </tr>
-                        <tr>
-                            <td><code>duration</code></td>
-                            <td>Number</td>
-                            <td>200</td>
-                            <td>The animation duration.</td>
-                        </tr>
-                        <tr>
-                            <td><code>container</code></td>
-                            <td>Boolean</td>
-                            <td>false</td>
-                            <td>Define a target container via a selector to specify where the drop should be appended in the DOM.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
         </div>
+
+        <script>
+
+            const {$$, addClass, on, removeClass } = UIkit.util;
+
+            on('#js-size-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const dropdown of $$('.uk-dropdown')) {
+                    removeClass(dropdown, options);
+                    addClass(dropdown, e.target.value);
+                }
+            });
+
+        </script>
 
     </body>
 </html>

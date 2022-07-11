@@ -96,7 +96,11 @@ export default function (UIkit) {
             }
 
             if (write && result !== false) {
-                fastdom.write(() => write.call(this, this._data, types));
+                fastdom.write(() => {
+                    if (this._connected) {
+                        write.call(this, this._data, types);
+                    }
+                });
             }
         }
     }

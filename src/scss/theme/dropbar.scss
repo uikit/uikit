@@ -1,0 +1,44 @@
+//
+// Component: Dropbar
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$dropbar-padding-top:                            25px !default;
+$dropbar-background:                             $global-background !default;
+
+//
+// New
+//
+
+$dropbar-top-box-shadow:                         0 12px 7px -6px rgba(0, 0, 0, 0.05) !default;
+$dropbar-bottom-box-shadow:                      0 -12px 7px -6px rgba(0, 0, 0, 0.05) !default;
+$dropbar-left-box-shadow:                        12px 0 7px -6px rgba(0, 0, 0, 0.05) !default;
+$dropbar-right-box-shadow:                       -12px 0 7px -6px rgba(0, 0, 0, 0.05) !default;
+
+
+// Component
+// ========================================================================
+
+// @mixin hook-dropbar(){}
+
+
+// Direction modifier
+// ========================================================================
+
+
+
+
+
+
+
+
+
+
+// Miscellaneous
+// ========================================================================
+
+// @mixin hook-dropbar-misc(){}

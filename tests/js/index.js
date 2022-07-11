@@ -16,15 +16,12 @@ const themes = request.status === 200 ? JSON.parse(request.responseText) : {};
 const styles = {
     core: { css: '../dist/css/uikit-core.css' },
     theme: { css: '../dist/css/uikit.css' },
+    ...themes,
 };
 const component = location.pathname
     .split('/')
     .pop()
     .replace(/.html$/, '');
-
-for (const theme in themes) {
-    styles[theme] = themes[theme];
-}
 
 const variations = {
     '': 'Default',

@@ -20,8 +20,28 @@
                         <ul class="uk-navbar-nav">
                             <li class="uk-active"><a href="#">Active</a></li>
                             <li>
-                                <a href="#">Parent</a>
+                                <a href="#">Dropdown <span uk-navbar-parent-icon></span></a>
                                 <div class="uk-navbar-dropdown">
+                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#">Dropbar <span uk-navbar-parent-icon></span></a>
+                                <div class="uk-dropbar uk-dropbar-top" uk-drop="pos: bottom-left; stretch: x; target-y: !.uk-navbar-container; animation: slide-top; animate-out: true">
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
                                         <li class="uk-active"><a href="#">Active</a></li>
                                         <li class="uk-parent">
@@ -166,7 +186,7 @@
                                 </div>
                             </div>
 
-                            <pre class="uk-pre uk-margin-medium"><code>&lt;div class="myclass">...&lt;div></code></pre>
+                            <pre class="uk-pre uk-margin-medium"><code>&lt;div class="myclass"&gt;…&lt;div&gt;</code></pre>
 
                             <blockquote class="uk-margin-medium" cite="#">
                                 <p>The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a footer or cite element.</p>
@@ -214,7 +234,7 @@
                         <ul class="uk-pagination uk-flex-center" uk-margin>
                             <li><a href="#"><span uk-pagination-previous></span></a></li>
                             <li><a href="#">1</a></li>
-                            <li class="uk-disabled"><span>...</span></li>
+                            <li class="uk-disabled"><span>…</span></li>
                             <li><a href="#">4</a></li>
                             <li><a href="#">5</a></li>
                             <li><a href="#">6</a></li>
@@ -222,7 +242,7 @@
                             <li><a href="#">8</a></li>
                             <li><a href="#">9</a></li>
                             <li><a href="#">10</a></li>
-                            <li class="uk-disabled"><span>...</span></li>
+                            <li class="uk-disabled"><span>…</span></li>
                             <li><a href="#">20</a></li>
                             <li><a href="#"><span uk-pagination-next></span></a></li>
                         </ul>
@@ -237,10 +257,10 @@
                             </form>
                         </div>
 
-                        <ul class="uk-nav-default uk-nav-parent-icon uk-margin-medium" uk-nav>
+                        <ul class="uk-nav-default uk-margin-medium" uk-nav>
                             <li class="uk-active"><a href="#">Active</a></li>
                             <li class="uk-parent">
-                                <a href="#">Parent</a>
+                                <a href="#">Parent <span uk-nav-parent-icon></span></a>
                                 <ul class="uk-nav-sub">
                                     <li><a href="#">Sub item</a></li>
                                     <li><a href="#">Sub item</a>
@@ -252,7 +272,7 @@
                                 </ul>
                             </li>
                             <li class="uk-parent">
-                                <a href="#">Parent</a>
+                                <a href="#">Parent <span uk-nav-parent-icon></span></a>
                                 <ul class="uk-nav-sub">
                                     <li><a href="#">Sub item</a></li>
                                     <li><a href="#">Sub item</a></li>
@@ -291,68 +311,24 @@
                 <hr class="uk-margin-large">
 
                 <div class="uk-grid-divider" uk-grid>
-                    <div class="uk-width-3-5@m">
+                    <div class="uk-width-2-3@m">
 
-                        <div class="uk-child-width-expand@s" uk-grid>
-                            <div>
+                        <h1 class="uk-heading-2xlarge uk-margin-small">2X-Large</h1>
+                        <h1 class="uk-heading-xlarge uk-margin-small">X-Large</h1>
+                        <h1 class="uk-heading-large uk-margin-small">Heading L</h1>
+                        <h1 class="uk-heading-medium uk-margin-small">Heading M</h1>
+                        <h1 class="uk-heading-small uk-margin-small">Heading S</h1>
 
-                                <form class="uk-form-stacked">
+                        <h1 class="uk-margin-small">Heading H1</h1>
+                        <h2 class="uk-margin-small">Heading H2</h2>
+                        <h3 class="uk-margin-small">Heading H3</h3>
+                        <h4 class="uk-margin-small">Heading H4</h4>
+                        <h5 class="uk-margin-small">Heading H5</h5>
+                        <h6 class="uk-margin-small">Heading H6</h6>
 
-                                    <div class="uk-margin-small">
-                                        <label class="uk-form-label">Text</label>
-                                        <input class="uk-input" type="text" placeholder="Some text...">
-                                    </div>
-
-                                    <div class="uk-margin-small">
-                                        <select class="uk-select">
-                                            <option>Option 01</option>
-                                            <option>Option 02</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="uk-margin-small">
-                                         <textarea class="uk-textarea" rows="2" placeholder="Some text..."></textarea>
-                                    </div>
-
-                                    <div class="uk-grid-small uk-child-width-auto" uk-grid>
-                                        <div>
-                                            <label><input class="uk-radio" type="radio" name="radio"> Radio</label>
-                                        </div>
-                                        <div>
-                                            <label><input class="uk-checkbox" type="checkbox"> Checkbox</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="uk-margin-small">
-                                        <input class="uk-range" type="range" value="2" min="0" max="10" step="0.1">
-                                    </div>
-
-                                </form>
-
-                            </div>
-                            <div>
-
-                                <form class="uk-form-stacked">
-
-                                    <div class="uk-margin-small">
-                                        <label class="uk-form-label">States</label>
-                                        <input class="uk-input" type="text" placeholder=":disabled" disabled>
-                                    </div>
-
-                                    <div class="uk-margin-small">
-                                        <input class="uk-input uk-form-danger" type="text" placeholder="form-danger" value="form-danger">
-                                    </div>
-                                    <div class="uk-margin-small">
-                                        <input class="uk-input uk-form-success" type="text" placeholder="form-success" value="form-success">
-                                    </div>
-                                    <div class="uk-margin-small">
-                                        <input class="uk-input uk-form-blank" type="text" placeholder="form-blank">
-                                    </div>
-
-                                </form>
-
-                            </div>
-                        </div>
+                        <h3 class="uk-heading-divider">Heading Divider</h3>
+                        <h3 class="uk-heading-bullet">Heading Bullet</h3>
+                        <h3 class="uk-heading-line"><span>Heading Line</span></h3>
 
                         <div class="uk-overflow-auto uk-margin-medium-top">
                             <table class="uk-table uk-table-divider uk-table-hover uk-table-small">
@@ -388,6 +364,97 @@
                             </table>
                         </div>
 
+                        <div class="uk-grid-small uk-child-width-auto uk-margin-medium-top" uk-grid js-countdown>
+                            <div>
+                                <div class="uk-countdown-number uk-countdown-days"></div>
+                            </div>
+                            <div class="uk-countdown-separator">:</div>
+                            <div>
+                                <div class="uk-countdown-number uk-countdown-hours"></div>
+                            </div>
+                            <div class="uk-countdown-separator">:</div>
+                            <div>
+                                <div class="uk-countdown-number uk-countdown-minutes"></div>
+                            </div>
+                            <div class="uk-countdown-separator">:</div>
+                            <div>
+                                <div class="uk-countdown-number uk-countdown-seconds"></div>
+                            </div>
+                        </div>
+
+                        <script>
+
+                            UIkit.countdown('[js-countdown]', {
+                                date: (new Date(Date.now() + 864e5 * 7)).toISOString()
+                            });
+
+                        </script>
+
+                    </div>
+                    <div class="uk-width-1-3@m">
+
+                        <form class="uk-form-stacked">
+
+                            <div class="uk-margin-small">
+                                <label class="uk-form-label">Text</label>
+                                <input class="uk-input" type="text" placeholder="Some text...">
+                            </div>
+
+                            <div class="uk-margin-small">
+                                <select class="uk-select">
+                                    <option>Option 01</option>
+                                    <option>Option 02</option>
+                                </select>
+                            </div>
+
+                            <div class="uk-margin-small">
+                                 <textarea class="uk-textarea" rows="2" placeholder="Some text..."></textarea>
+                            </div>
+
+                            <div class="uk-grid-small uk-child-width-auto" uk-grid>
+                                <div>
+                                    <label><input class="uk-radio" type="radio" name="radio"> Radio</label>
+                                </div>
+                                <div>
+                                    <label><input class="uk-checkbox" type="checkbox"> Checkbox</label>
+                                </div>
+                            </div>
+
+                            <div class="uk-margin-small">
+                                <input class="uk-range" type="range" value="2" min="0" max="10" step="0.1">
+                            </div>
+
+                            <div class="uk-margin-small">
+                                <label class="uk-form-label">States</label>
+                                <input class="uk-input" type="text" placeholder=":disabled" disabled>
+                            </div>
+
+                            <div class="uk-margin-small">
+                                <input class="uk-input uk-form-danger" type="text" placeholder="form-danger" value="form-danger">
+                            </div>
+                            <div class="uk-margin-small">
+                                <input class="uk-input uk-form-success" type="text" placeholder="form-success" value="form-success">
+                            </div>
+                            <div class="uk-margin-small">
+                                <input class="uk-input uk-form-blank" type="text" placeholder="form-blank">
+                            </div>
+
+                        </form>
+
+                        <ul class="uk-nav uk-nav-primary uk-margin-medium">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+
+                        <ul class="uk-nav uk-nav-secondary uk-margin-medium">
+                            <li class="uk-active"><a href="#"><div>Active<div class="uk-nav-subtitle">Subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</div></div></a></li>
+                            <li><a href="#"><div>Item<div class="uk-nav-subtitle">Subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</div></div></a></li>
+                            <li><a href="#"><div>Item<div class="uk-nav-subtitle">Subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</div></div></a></li>
+                            <li><a href="#"><div>Item<div class="uk-nav-subtitle">Subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</div></div></a></li>
+                        </ul>
+
                         <div class="uk-margin-medium-top" uk-alert>
                             <a href="#" class="uk-alert-close" uk-close></a>
                             <p>Default</p>
@@ -412,54 +479,6 @@
                             <a href="#" class="uk-alert-close" uk-close></a>
                             <p>Danger</p>
                         </div>
-
-                        <div class="uk-grid-small uk-child-width-auto uk-margin-medium-top" uk-grid js-countdown>
-                            <div>
-                                <div class="uk-countdown-number uk-countdown-days"></div>
-                            </div>
-                            <div class="uk-countdown-separator">:</div>
-                            <div>
-                                <div class="uk-countdown-number uk-countdown-hours"></div>
-                            </div>
-                            <div class="uk-countdown-separator">:</div>
-                            <div>
-                                <div class="uk-countdown-number uk-countdown-minutes"></div>
-                            </div>
-                            <div class="uk-countdown-separator">:</div>
-                            <div>
-                                <div class="uk-countdown-number uk-countdown-seconds"></div>
-                            </div>
-                        </div>
-
-                        <script>
-
-                            var date = (new Date(Date.now() + 864e5 * 7)).toISOString();
-
-                            UIkit.util.$$('[js-countdown]').forEach(function(el) {
-                                UIkit.countdown(el, {date: date});
-                            });
-
-                        </script>
-
-                    </div>
-                    <div class="uk-width-2-5@m">
-
-                        <h1 class="uk-heading-2xlarge uk-margin-small">2XL</h1>
-                        <h1 class="uk-heading-xlarge uk-margin-small">X-Large</h1>
-                        <h1 class="uk-heading-large uk-margin-small">Heading L</h1>
-                        <h1 class="uk-heading-medium uk-margin-small">Heading M</h1>
-                        <h1 class="uk-heading-small uk-margin-small">Heading S</h1>
-
-                        <h1 class="uk-margin-small">Heading H1</h1>
-                        <h2 class="uk-margin-small">Heading H2</h2>
-                        <h3 class="uk-margin-small">Heading H3</h3>
-                        <h4 class="uk-margin-small">Heading H4</h4>
-                        <h5 class="uk-margin-small">Heading H5</h5>
-                        <h6 class="uk-margin-small">Heading H6</h6>
-
-                        <h3 class="uk-heading-divider">Heading Divider</h3>
-                        <h3 class="uk-heading-bullet">Heading Bullet</h3>
-                        <h3 class="uk-heading-line"><span>Heading Line</span></h3>
 
                     </div>
                 </div>

@@ -805,6 +805,12 @@
 
 }
 @mixin hook-drop-misc(){}
+@mixin hook-dropbar(){}
+@mixin hook-dropbar-top(){ box-shadow: $dropbar-top-box-shadow; }
+@mixin hook-dropbar-bottom(){ box-shadow: $dropbar-bottom-box-shadow; }
+@mixin hook-dropbar-left(){ box-shadow: $dropbar-left-box-shadow; }
+@mixin hook-dropbar-right(){ box-shadow: $dropbar-right-box-shadow; }
+@mixin hook-dropbar-misc(){}
 @mixin hook-dropdown(){ box-shadow: $dropdown-box-shadow; }
 @mixin hook-dropdown-nav(){ font-size: $dropdown-nav-font-size; }
 @mixin hook-dropdown-nav-item(){}
@@ -1266,17 +1272,6 @@
 @mixin hook-inverse-component-nav(){
 
     //
-    // Parent icon modifier
-    //
-
-    .uk-nav-parent-icon > .uk-parent > a::after {
-        @include svg-fill($internal-nav-parent-close-image, "#000", $inverse-nav-parent-icon-color);
-        @if(mixin-exists(hook-inverse-nav-parent-icon)) {@include hook-inverse-nav-parent-icon();}
-    }
-
-    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { @include svg-fill($internal-nav-parent-open-image, "#000", $inverse-nav-parent-icon-color); }
-
-    //
     // Default
     //
 
@@ -1347,16 +1342,70 @@
     .uk-nav-primary .uk-nav-sub li.uk-active > a { color: $inverse-nav-primary-sublist-item-active-color; }
 
     //
+    // Secondary
+    //
+
+    .uk-nav-secondary > li > a {
+        color: $inverse-nav-secondary-item-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-item)) {@include hook-inverse-nav-secondary-item();}
+    }
+
+    .uk-nav-secondary > li > a:hover {
+        color: $inverse-nav-secondary-item-hover-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-item-hover)) {@include hook-inverse-nav-secondary-item-hover();}
+    }
+
+    .uk-nav-secondary > li.uk-active > a {
+        color: $inverse-nav-secondary-item-active-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-item-active)) {@include hook-inverse-nav-secondary-item-active();}
+    }
+
+    .uk-nav-secondary .uk-nav-subtitle {
+        color: $inverse-nav-secondary-subtitle-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-subtitle)) {@include hook-inverse-nav-secondary-subtitle();}
+    }
+
+    .uk-nav-secondary > li > a:hover .uk-nav-subtitle {
+        color: $inverse-nav-secondary-subtitle-hover-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-subtitle-hover)) {@include hook-inverse-nav-secondary-subtitle-hover();}
+    }
+
+    .uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
+        color: $inverse-nav-secondary-subtitle-active-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-subtitle-active)) {@include hook-inverse-nav-secondary-subtitle-active();}
+    }
+
+    .uk-nav-secondary .uk-nav-header {
+        color: $inverse-nav-secondary-header-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-header)) {@include hook-inverse-nav-secondary-header();}
+    }
+
+    .uk-nav-secondary .uk-nav-divider {
+        border-top-color: $inverse-nav-secondary-divider-border;
+        @if(mixin-exists(hook-inverse-nav-secondary-divider)) {@include hook-inverse-nav-secondary-divider();}
+    }
+
+    .uk-nav-secondary .uk-nav-sub a { color: $inverse-nav-secondary-sublist-item-color; }
+
+    .uk-nav-secondary .uk-nav-sub a:hover { color: $inverse-nav-secondary-sublist-item-hover-color; }
+
+    .uk-nav-secondary .uk-nav-sub li.uk-active > a { color: $inverse-nav-secondary-sublist-item-active-color; }
+
+    //
     // Dividers
     //
 
     .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
         border-top-color: $inverse-nav-dividers-border;
-        @if(mixin-exists(hook-nav-dividers)) {@include hook-nav-dividers();}
+        @if(mixin-exists(hook-inverse-nav-dividers)) {@include hook-inverse-nav-dividers();}
     }
 
 }
 @mixin hook-inverse-component-navbar(){
+
+    //
+    // Nav Item
+    //
 
     .uk-navbar-nav > li > a {
         color: $inverse-navbar-nav-item-color;
@@ -1379,10 +1428,18 @@
         @if(mixin-exists(hook-inverse-navbar-nav-item-active)) {@include hook-inverse-navbar-nav-item-active();}
     }
 
+    //
+    // Item
+    //
+
     .uk-navbar-item {
         color: $inverse-navbar-item-color;
         @if(mixin-exists(hook-inverse-navbar-item)) {@include hook-inverse-navbar-item();}
     }
+
+    //
+    // Toggle
+    //
 
     .uk-navbar-toggle {
         color: $inverse-navbar-toggle-color;
@@ -1563,7 +1620,8 @@
         @if(mixin-exists(hook-inverse-logo-hover)) {@include hook-inverse-logo-hover();}
     }
 
-    .uk-logo > :not(.uk-logo-inverse):not(:only-of-type) { display: none; }
+    .uk-logo > picture:not(:only-of-type) > :not(.uk-logo-inverse),
+    .uk-logo > :not(picture):not(.uk-logo-inverse):not(:only-of-type) { display: none; }
     .uk-logo-inverse { display: block; }
 
 }
@@ -1700,10 +1758,9 @@
 @mixin hook-modal-close-full-hover(){}
 @mixin hook-modal-misc(){}
 @mixin hook-nav-sub(){}
-@mixin hook-nav-parent-icon(){}
 @mixin hook-nav-header(){}
 @mixin hook-nav-divider(){}
-@mixin hook-nav-default(){ font-size: $nav-default-font-size; }
+@mixin hook-nav-default(){}
 @mixin hook-nav-default-item(){}
 @mixin hook-nav-default-item-hover(){}
 @mixin hook-nav-default-item-active(){}
@@ -1717,9 +1774,19 @@
 @mixin hook-nav-primary-subtitle(){}
 @mixin hook-nav-primary-header(){}
 @mixin hook-nav-primary-divider(){}
+@mixin hook-nav-secondary(){
+    > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {  margin-top: $nav-background-margin-top; }
+}
+@mixin hook-nav-secondary-item(){ padding: $nav-background-item-padding-vertical $nav-background-item-padding-horizontal; }
+@mixin hook-nav-secondary-item-hover(){ background-color: $nav-background-item-hover-background; }
+@mixin hook-nav-secondary-item-active(){ background-color: $nav-background-item-active-background; }
+@mixin hook-nav-secondary-subtitle(){}
+@mixin hook-nav-secondary-subtitle-hover(){}
+@mixin hook-nav-secondary-subtitle-active(){}
+@mixin hook-nav-secondary-header(){}
+@mixin hook-nav-secondary-divider(){}
 @mixin hook-nav-dividers(){}
 @mixin hook-nav-misc(){}
-@mixin hook-inverse-nav-parent-icon(){}
 @mixin hook-inverse-nav-default-item(){}
 @mixin hook-inverse-nav-default-item-hover(){}
 @mixin hook-inverse-nav-default-item-active(){}
@@ -1730,6 +1797,15 @@
 @mixin hook-inverse-nav-primary-item-active(){}
 @mixin hook-inverse-nav-primary-header(){}
 @mixin hook-inverse-nav-primary-divider(){}
+@mixin hook-inverse-nav-secondary-item(){}
+@mixin hook-inverse-nav-secondary-item-hover(){ background-color: $inverse-nav-background-item-hover-background; }
+@mixin hook-inverse-nav-secondary-item-active(){ background-color: $inverse-nav-background-item-active-background; }
+@mixin hook-inverse-nav-secondary-subtitle(){}
+@mixin hook-inverse-nav-secondary-subtitle-hover(){}
+@mixin hook-inverse-nav-secondary-subtitle-active(){}
+@mixin hook-inverse-nav-secondary-header(){}
+@mixin hook-inverse-nav-secondary-divider(){}
+@mixin hook-inverse-nav-dividers(){}
 @mixin hook-navbar(){}
 @mixin hook-navbar-container(){}
 @mixin hook-navbar-nav-item(){
@@ -1750,7 +1826,9 @@
 @mixin hook-navbar-transparent(){}
 @mixin hook-navbar-sticky(){}
 @mixin hook-navbar-dropdown(){ box-shadow: $navbar-dropdown-box-shadow; }
+@mixin hook-navbar-dropdown-large(){}
 @mixin hook-navbar-dropdown-dropbar(){ box-shadow: none; }
+@mixin hook-navbar-dropdown-dropbar-large(){}
 @mixin hook-navbar-dropdown-nav(){ font-size: $navbar-dropdown-nav-font-size; }
 @mixin hook-navbar-dropdown-nav-item(){}
 @mixin hook-navbar-dropdown-nav-item-hover(){}
@@ -1758,47 +1836,8 @@
 @mixin hook-navbar-dropdown-nav-subtitle(){}
 @mixin hook-navbar-dropdown-nav-header(){}
 @mixin hook-navbar-dropdown-nav-divider(){}
-@mixin hook-navbar-dropbar(){ box-shadow: $navbar-dropbar-box-shadow; }
-@mixin hook-navbar-misc(){
-
-    /*
-     * Navbar
-     */
-
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-nav:first-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-item:first-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-toggle:first-child { margin-left: (-$navbar-nav-item-padding-horizontal); }
-
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-nav:last-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-item:last-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-toggle:last-child { margin-right: (-$navbar-nav-item-padding-horizontal); }
-
-    /*
-     * Grid Divider
-     */
-
-    .uk-navbar-dropdown-grid > * { position: relative; }
-
-    .uk-navbar-dropdown-grid > :not(.uk-first-column)::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: ($navbar-dropdown-grid-gutter-horizontal * 0.5);
-        border-left: $navbar-dropdown-grid-divider-border-width solid $navbar-dropdown-grid-divider-border;
-    }
-
-    /* Vertical */
-    .uk-navbar-dropdown-grid.uk-grid-stack > .uk-grid-margin::before {
-        content: "";
-        position: absolute;
-        top: -($navbar-dropdown-grid-gutter-vertical * 0.5);
-        left: $navbar-dropdown-grid-gutter-horizontal;
-        right: 0;
-        border-top: $navbar-dropdown-grid-divider-border-width solid $navbar-dropdown-grid-divider-border;
-    }
-
-}
+@mixin hook-navbar-dropbar(){}
+@mixin hook-navbar-misc(){}
 @mixin hook-inverse-navbar-nav-item(){}
 @mixin hook-inverse-navbar-nav-item-hover(){}
 @mixin hook-inverse-navbar-nav-item-onclick(){}

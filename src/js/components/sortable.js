@@ -26,7 +26,6 @@ import {
     remove,
     removeClass,
     scrollParents,
-    scrollTop,
     toggleClass,
     Transition,
     trigger,
@@ -313,7 +312,7 @@ function trackScroll(pos) {
     let last = Date.now();
     trackTimer = setInterval(() => {
         let { x, y } = pos;
-        y += scrollTop(window);
+        y += document.scrollingElement.scrollTop;
 
         const dist = (Date.now() - last) * 0.3;
         last = Date.now();
@@ -334,7 +333,7 @@ function trackScroll(pos) {
                 }
 
                 if (scroll > 0 && scroll < scrollHeight - height) {
-                    scrollTop(scrollEl, scroll);
+                    scrollEl.scrollTop = scroll;
                     return true;
                 }
             });

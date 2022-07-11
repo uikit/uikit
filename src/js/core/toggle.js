@@ -181,7 +181,7 @@ export default {
         },
 
         {
-            name: 'toggled',
+            name: 'hide show',
 
             self: true,
 
@@ -189,10 +189,8 @@ export default {
                 return this.target;
             },
 
-            handler(e, toggled) {
-                if (e.target === this.target[0]) {
-                    this.updateAria(toggled);
-                }
+            handler({ type }) {
+                this.updateAria(type === 'show');
             },
         },
 

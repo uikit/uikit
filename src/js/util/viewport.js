@@ -1,18 +1,7 @@
 import { css } from './style';
 import { isVisible, parents } from './filter';
 import { offset, offsetPosition } from './dimensions';
-import {
-    clamp,
-    findIndex,
-    intersectRect,
-    isDocument,
-    isUndefined,
-    isWindow,
-    toFloat,
-    toNode,
-    toWindow,
-    ucfirst,
-} from './lang';
+import { clamp, findIndex, intersectRect, isWindow, toFloat, toWindow, ucfirst } from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
     if (!isVisible(element)) {
@@ -33,20 +22,6 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
             })
             .concat(offset(element))
     );
-}
-
-export function scrollTop(element, top) {
-    if (isWindow(element) || isDocument(element)) {
-        element = scrollingElement(element);
-    } else {
-        element = toNode(element);
-    }
-
-    if (isUndefined(top)) {
-        return element.scrollTop;
-    } else {
-        element.scrollTop = top;
-    }
 }
 
 export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
@@ -90,7 +65,7 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
             (function step() {
                 const percent = ease(clamp((Date.now() - start) / duration));
 
-                scrollTop(element, scroll + top * percent);
+                element.scrollTop = scroll + top * percent;
 
                 // scroll more if we have not reached our destination
                 if (percent === 1) {
@@ -128,7 +103,7 @@ export function scrolledOver(element, startOffset = 0, endOffset = 0) {
     return clamp((scrollTop - start) / (end - start));
 }
 
-export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scrollable = false) {
+export function scrollParents(element, overflowRe = /auto|scroll|hidden|clip/, scrollable = false) {
     const scrollEl = scrollingElement(element);
 
     let ancestors = parents(element).reverse();
@@ -151,18 +126,31 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden/, scroll
 }
 
 export function offsetViewport(scrollElement) {
-    let viewportElement = getViewport(scrollElement);
+    const window = toWindow(scrollElement);
+    const {
+        document: { documentElement },
+    } = window;
+    let viewportElement =
+        scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
+
+    const { visualViewport } = window;
+    if (isWindow(viewportElement) && visualViewport) {
+        let { height, width, scale, pageTop: top, pageLeft: left } = visualViewport;
+        height = Math.round(height * scale);
+        width = Math.round(width * scale);
+        return { height, width, top, left, bottom: top + height, right: left + width };
+    }
 
     let rect = offset(viewportElement);
     for (let [prop, dir, start, end] of [
         ['width', 'x', 'left', 'right'],
         ['height', 'y', 'top', 'bottom'],
     ]) {
-        if (!isWindow(viewportElement)) {
-            rect[start] += toFloat(css(viewportElement, `border${ucfirst(start)}Width`));
-        } else {
+        if (isWindow(viewportElement)) {
             // iOS 12 returns <body> as scrollingElement
-            viewportElement = viewportElement.document.documentElement;
+            viewportElement = documentElement;
+        } else {
+            rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
         }
         rect[prop] = rect[dir] = viewportElement[`client${ucfirst(prop)}`];
         rect[end] = rect[prop] + rect[start];
@@ -172,8 +160,4 @@ export function offsetViewport(scrollElement) {
 
 function scrollingElement(element) {
     return toWindow(element).document.scrollingElement;
-}
-
-function getViewport(scrollElement) {
-    return scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
 }

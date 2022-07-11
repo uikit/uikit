@@ -1,5 +1,60 @@
 # Changelog
 
+## 3.15.0 (July 11, 2022)
+
+### Added
+
+- Add Dropbar component
+- Add `target`, `target-x`, `target-y` and `inset` options to Drop component 
+- Add `stretch` and `bg-scroll` options to Drop component 
+- Add `shift` option to Drop component
+- Add `slide` and `reveal` animations to Drop component
+- Add `animate-out` option to Drop component
+- Add open and close animation to toggle icon in Navbar component
+- Add dropdown large modifier to Dropdown and Navbar component
+- Add gap variables to navbar items in Navbar component
+- Add color mode variables for dropdowns in Dropdown and Navbar component
+- Add navbar parent icon to Navbar component
+- Add secondary style modifier to Nav component
+- Add font size variables to nav and sublist in Nav component
+- Add padding variables for small breakpoint to Modal component
+- Add zero z-index utility class to Position component
+- Add support for `picture` element to logo in Utility component
+- Add box sizing classes to Utility component
+- Support scroll parent as viewport in Height Viewport component
+- Add ARIA `role="alert"` to Notification component
+
+### Changed
+
+- IMPORTANT: Remove `.uk-nav-parent-icon` from Nav component. Use `uk-nav-parent-icon` attribute on items instead
+- IMPORTANT: Remove `*-justify` in `pos` option from Drop and Dropdown components. Use new `stretch` option instead
+- IMPORTANT: Remove `boundary-align` option from Drop and Dropdown components. Use new `target` option instead
+- IMPORTANT: Change `flip` option values in Drop and Dropdown components. Use new `shift` option too
+- IMPORTANT: Remove `display` option in Drop and Dropdown components. Use new `auto-update` option instead.
+- IMPORTANT: Rename `@offcanvas-bar-width-m` to `@offcanvas-bar-width-s`
+- IMPORTANT: Rename `@offcanvas-bar-padding-vertical-m` to `@offcanvas-bar-padding-vertical-s`
+- IMPORTANT: Rename `@offcanvas-bar-padding-horizontal-m` to `@offcanvas-bar-padding-horizontal-s`
+- IMPORTANT: Rename `@nav-primary-item-font-size` to `@nav-primary-font-size`
+- IMPORTANT: Rename `@nav-primary-item-line-height` to `@nav-primary-line-height`
+- IMPORTANT: Rename `@navbar-dropdown-dropbar-margin-top` to `@navbar-dropdown-dropbar-padding-top`
+- IMPORTANT: Rename `@navbar-dropdown-dropbar-margin-bottom` to `@navbar-dropdown-dropbar-padding-bottom`
+- IMPORTANT: Remove style from `.uk-navbar-dropbar`. Now uses `uk-dropbar`
+
+### Removed
+
+- Remove `getCssVar()` utility function
+
+### Fixed
+
+- Fix body is no longer scrollable in Modal component with overlay
+- Fix `offsetPosition()` adds `border-top` of offsetParents
+- Fix dragging in Slider component on iOS
+- Fix Drop component no longer flips, if it does not fit into scroll area
+- Fix Drop component alignment within Dropbar
+- Fix ensure write updates aren't called if component is already disconnected
+- Fix Offcanvas component no longer overflows document if isn't wide enough
+- Remove margin from the last-child within dropdowns in Dropdown and Navbar components
+
 ## 3.14.3 (May 27, 2022)
 
 ### Fixed
@@ -665,8 +720,8 @@
 
 ### Changed
 
-- IMPORTANT: Change options 'animationMode' to 'animation', 'animation' to 'duration'
-- IMPORTANT: Rename 'shift' animation to 'slide'
+- IMPORTANT: Change options `animationMode` to `animation` and `animation` to `duration`
+- IMPORTANT: Rename `shift` animation to `slide`
 
 ## 3.6.1 (December 17, 2020)
 
@@ -865,7 +920,7 @@
 
 ### Changed
 
-- IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
+- IMPORTANT: Rename Less variable parts `xxlarge` to `2xlarge`
 - Replace clearfix by creating a block formatting context with display flow-root
 
 ### Deprecated

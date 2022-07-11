@@ -137,7 +137,6 @@
 
 /*
  * Enable scrollbars if content is clipped
- * Note: Firefox ignores `padding-bottom` for the scrollable overflow https://bugzilla.mozilla.org/show_bug.cgi?id=748518
  */
 
 .uk-overflow-auto {
@@ -146,6 +145,13 @@
 }
 
 .uk-overflow-auto > :last-child { margin-bottom: 0; }
+
+
+/* Box Sizing
+ ========================================================================== */
+
+.uk-box-sizing-content { box-sizing: content-box; }
+.uk-box-sizing-border { box-sizing: border-box; }
 
 
 /* Resize
@@ -385,16 +391,25 @@
  ========================================================================== */
 
 /*
- * 1. Required for `a`
+ * 1. Style
+ * 2. Required for `a`
+ * 3. Behave like image but can be overridden through flex utility classes
  */
 
 .uk-logo {
+    /* 1 */
     font-size: @logo-font-size;
     font-family: @logo-font-family;
     color: @logo-color;
-    /* 1 */
+    /* 2 */
     text-decoration: none;
     .hook-logo();
+}
+
+/* 3 */
+:where(.uk-logo) {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* Hover */
@@ -405,7 +420,7 @@
     .hook-logo-hover();
 }
 
-.uk-logo > :where(img, svg, video) { display: inline-block; }
+.uk-logo :where(img, svg, video) { display: block; }
 
 .uk-logo-inverse { display: none; }
 
@@ -517,7 +532,8 @@
         .hook-inverse-logo-hover();
     }
 
-    .uk-logo > :not(.uk-logo-inverse):not(:only-of-type) { display: none; }
+    .uk-logo > picture:not(:only-of-type) > :not(.uk-logo-inverse),
+    .uk-logo > :not(picture):not(.uk-logo-inverse):not(:only-of-type) { display: none; }
     .uk-logo-inverse { display: block; }
 
 }

@@ -2,6 +2,9 @@ import SVG from './svg';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
+import navParentIcon from '../../images/components/nav-parent-icon.svg';
+import navParentIconLarge from '../../images/components/nav-parent-icon-large.svg';
+import navbarParentIcon from '../../images/components/navbar-parent-icon.svg';
 import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
 import overlayIcon from '../../images/components/overlay-icon.svg';
 import paginationNext from '../../images/components/pagination-next.svg';
@@ -19,6 +22,7 @@ import {
     $,
     addClass,
     apply,
+    closest,
     css,
     each,
     hasClass,
@@ -35,6 +39,9 @@ const icons = {
     marker,
     'close-icon': closeIcon,
     'close-large': closeLarge,
+    'nav-parent-icon': navParentIcon,
+    'nav-parent-icon-large': navParentIconLarge,
+    'navbar-parent-icon': navbarParentIcon,
     'navbar-toggle-icon': navbarToggleIcon,
     'overlay-icon': overlayIcon,
     'pagination-next': paginationNext,
@@ -93,6 +100,15 @@ export const IconComponent = {
 
     beforeConnect() {
         addClass(this.$el, this.$name);
+    },
+};
+
+export const NavParentIcon = {
+    extends: IconComponent,
+
+    beforeConnect() {
+        const icon = this.$props.icon;
+        this.icon = closest(this.$el, '.uk-nav-primary') ? `${icon}-large` : icon;
     },
 };
 

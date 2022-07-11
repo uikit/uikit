@@ -580,6 +580,12 @@
 
 }
 @mixin hook-drop-misc(){}
+@mixin hook-dropbar(){}
+@mixin hook-dropbar-top(){}
+@mixin hook-dropbar-bottom(){}
+@mixin hook-dropbar-left(){}
+@mixin hook-dropbar-right(){}
+@mixin hook-dropbar-misc(){}
 @mixin hook-dropdown(){}
 @mixin hook-dropdown-nav(){}
 @mixin hook-dropdown-nav-item(){}
@@ -1020,17 +1026,6 @@
 @mixin hook-inverse-component-nav(){
 
     //
-    // Parent icon modifier
-    //
-
-    .uk-nav-parent-icon > .uk-parent > a::after {
-        @include svg-fill($internal-nav-parent-close-image, "#000", $inverse-nav-parent-icon-color);
-        @if(mixin-exists(hook-inverse-nav-parent-icon)) {@include hook-inverse-nav-parent-icon();}
-    }
-
-    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { @include svg-fill($internal-nav-parent-open-image, "#000", $inverse-nav-parent-icon-color); }
-
-    //
     // Default
     //
 
@@ -1101,16 +1096,70 @@
     .uk-nav-primary .uk-nav-sub li.uk-active > a { color: $inverse-nav-primary-sublist-item-active-color; }
 
     //
+    // Secondary
+    //
+
+    .uk-nav-secondary > li > a {
+        color: $inverse-nav-secondary-item-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-item)) {@include hook-inverse-nav-secondary-item();}
+    }
+
+    .uk-nav-secondary > li > a:hover {
+        color: $inverse-nav-secondary-item-hover-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-item-hover)) {@include hook-inverse-nav-secondary-item-hover();}
+    }
+
+    .uk-nav-secondary > li.uk-active > a {
+        color: $inverse-nav-secondary-item-active-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-item-active)) {@include hook-inverse-nav-secondary-item-active();}
+    }
+
+    .uk-nav-secondary .uk-nav-subtitle {
+        color: $inverse-nav-secondary-subtitle-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-subtitle)) {@include hook-inverse-nav-secondary-subtitle();}
+    }
+
+    .uk-nav-secondary > li > a:hover .uk-nav-subtitle {
+        color: $inverse-nav-secondary-subtitle-hover-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-subtitle-hover)) {@include hook-inverse-nav-secondary-subtitle-hover();}
+    }
+
+    .uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
+        color: $inverse-nav-secondary-subtitle-active-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-subtitle-active)) {@include hook-inverse-nav-secondary-subtitle-active();}
+    }
+
+    .uk-nav-secondary .uk-nav-header {
+        color: $inverse-nav-secondary-header-color;
+        @if(mixin-exists(hook-inverse-nav-secondary-header)) {@include hook-inverse-nav-secondary-header();}
+    }
+
+    .uk-nav-secondary .uk-nav-divider {
+        border-top-color: $inverse-nav-secondary-divider-border;
+        @if(mixin-exists(hook-inverse-nav-secondary-divider)) {@include hook-inverse-nav-secondary-divider();}
+    }
+
+    .uk-nav-secondary .uk-nav-sub a { color: $inverse-nav-secondary-sublist-item-color; }
+
+    .uk-nav-secondary .uk-nav-sub a:hover { color: $inverse-nav-secondary-sublist-item-hover-color; }
+
+    .uk-nav-secondary .uk-nav-sub li.uk-active > a { color: $inverse-nav-secondary-sublist-item-active-color; }
+
+    //
     // Dividers
     //
 
     .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
         border-top-color: $inverse-nav-dividers-border;
-        @if(mixin-exists(hook-nav-dividers)) {@include hook-nav-dividers();}
+        @if(mixin-exists(hook-inverse-nav-dividers)) {@include hook-inverse-nav-dividers();}
     }
 
 }
 @mixin hook-inverse-component-navbar(){
+
+    //
+    // Nav Item
+    //
 
     .uk-navbar-nav > li > a {
         color: $inverse-navbar-nav-item-color;
@@ -1133,10 +1182,18 @@
         @if(mixin-exists(hook-inverse-navbar-nav-item-active)) {@include hook-inverse-navbar-nav-item-active();}
     }
 
+    //
+    // Item
+    //
+
     .uk-navbar-item {
         color: $inverse-navbar-item-color;
         @if(mixin-exists(hook-inverse-navbar-item)) {@include hook-inverse-navbar-item();}
     }
+
+    //
+    // Toggle
+    //
 
     .uk-navbar-toggle {
         color: $inverse-navbar-toggle-color;
@@ -1317,7 +1374,8 @@
         @if(mixin-exists(hook-inverse-logo-hover)) {@include hook-inverse-logo-hover();}
     }
 
-    .uk-logo > :not(.uk-logo-inverse):not(:only-of-type) { display: none; }
+    .uk-logo > picture:not(:only-of-type) > :not(.uk-logo-inverse),
+    .uk-logo > :not(picture):not(.uk-logo-inverse):not(:only-of-type) { display: none; }
     .uk-logo-inverse { display: block; }
 
 }
@@ -1430,7 +1488,6 @@
 @mixin hook-modal-close-full-hover(){}
 @mixin hook-modal-misc(){}
 @mixin hook-nav-sub(){}
-@mixin hook-nav-parent-icon(){}
 @mixin hook-nav-header(){}
 @mixin hook-nav-divider(){}
 @mixin hook-nav-default(){}
@@ -1447,9 +1504,17 @@
 @mixin hook-nav-primary-subtitle(){}
 @mixin hook-nav-primary-header(){}
 @mixin hook-nav-primary-divider(){}
+@mixin hook-nav-secondary(){}
+@mixin hook-nav-secondary-item(){}
+@mixin hook-nav-secondary-item-hover(){}
+@mixin hook-nav-secondary-item-active(){}
+@mixin hook-nav-secondary-subtitle(){}
+@mixin hook-nav-secondary-subtitle-hover(){}
+@mixin hook-nav-secondary-subtitle-active(){}
+@mixin hook-nav-secondary-header(){}
+@mixin hook-nav-secondary-divider(){}
 @mixin hook-nav-dividers(){}
 @mixin hook-nav-misc(){}
-@mixin hook-inverse-nav-parent-icon(){}
 @mixin hook-inverse-nav-default-item(){}
 @mixin hook-inverse-nav-default-item-hover(){}
 @mixin hook-inverse-nav-default-item-active(){}
@@ -1460,6 +1525,15 @@
 @mixin hook-inverse-nav-primary-item-active(){}
 @mixin hook-inverse-nav-primary-header(){}
 @mixin hook-inverse-nav-primary-divider(){}
+@mixin hook-inverse-nav-secondary-item(){}
+@mixin hook-inverse-nav-secondary-item-hover(){}
+@mixin hook-inverse-nav-secondary-item-active(){}
+@mixin hook-inverse-nav-secondary-subtitle(){}
+@mixin hook-inverse-nav-secondary-subtitle-hover(){}
+@mixin hook-inverse-nav-secondary-subtitle-active(){}
+@mixin hook-inverse-nav-secondary-header(){}
+@mixin hook-inverse-nav-secondary-divider(){}
+@mixin hook-inverse-nav-dividers(){}
 @mixin hook-navbar(){}
 @mixin hook-navbar-container(){}
 @mixin hook-navbar-nav-item(){}
@@ -1476,7 +1550,9 @@
 @mixin hook-navbar-transparent(){}
 @mixin hook-navbar-sticky(){}
 @mixin hook-navbar-dropdown(){}
+@mixin hook-navbar-dropdown-large(){}
 @mixin hook-navbar-dropdown-dropbar(){}
+@mixin hook-navbar-dropdown-dropbar-large(){}
 @mixin hook-navbar-dropdown-nav(){}
 @mixin hook-navbar-dropdown-nav-item(){}
 @mixin hook-navbar-dropdown-nav-item-hover(){}

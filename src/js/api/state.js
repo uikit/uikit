@@ -142,7 +142,7 @@ function getProps(opts, name) {
 
         value = props[key] === Boolean && value === '' ? true : coerce(props[key], value);
 
-        if (prop === 'target' && (!value || startsWith(value, '_'))) {
+        if (prop === 'target' && startsWith(value, '_')) {
             continue;
         }
 
@@ -153,7 +153,7 @@ function getProps(opts, name) {
 
     for (const key in options) {
         const prop = camelize(key);
-        if (props[prop] !== undefined) {
+        if (!isUndefined(props[prop])) {
             data[prop] = coerce(props[prop], options[key]);
         }
     }

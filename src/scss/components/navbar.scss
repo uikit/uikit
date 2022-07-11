@@ -10,6 +10,7 @@
 //                  `uk-navbar-center-left`
 //                  `uk-navbar-center-right`
 //                  `uk-navbar-nav`
+//                  `uk-navbar-parent-icon`
 //                  `uk-navbar-item`
 //                  `uk-navbar-toggle`
 //                  `uk-navbar-subtitle`
@@ -37,7 +38,10 @@
 // ========================================================================
 
 $navbar-background:                              $global-muted-background !default;
+$navbar-gap:                                     0px !default; // Must have a unit because of `calc`
 $navbar-color-mode:                              none !default;
+
+$navbar-nav-gap:                                 0px !default; // Must have a unit because of `calc`
 
 $navbar-nav-item-height:                         80px !default;
 $navbar-nav-item-padding-horizontal:             15px !default;
@@ -48,6 +52,9 @@ $navbar-nav-item-hover-color:                    $global-color !default;
 $navbar-nav-item-onclick-color:                  $global-emphasis-color !default;
 $navbar-nav-item-active-color:                   $global-emphasis-color !default;
 
+$navbar-parent-icon-margin-left:                 4px !default;
+
+$navbar-item-padding-horizontal:                 15px !default;
 $navbar-item-color:                              $global-color !default;
 
 $navbar-toggle-color:                            $global-muted-color !default;
@@ -56,17 +63,30 @@ $navbar-toggle-hover-color:                      $global-color !default;
 $navbar-subtitle-font-size:                      $global-small-font-size !default;
 
 $navbar-dropdown-z-index:                        $global-z-index + 20 !default;
-$navbar-dropdown-margin:                         0px !default;
+$navbar-dropdown-margin:                         0 !default;
+$navbar-dropdown-shift-margin:                   0 !default;
+$navbar-dropdown-viewport-margin:                15px !default;
 $navbar-dropdown-width:                          200px !default;
 $navbar-dropdown-padding:                        15px !default;
 $navbar-dropdown-background:                     $global-muted-background !default;
 $navbar-dropdown-color:                          $global-color !default;
+$navbar-dropdown-color-mode:                     none !default;
 $navbar-dropdown-grid-gutter-horizontal:         $global-gutter !default;
 $navbar-dropdown-grid-gutter-vertical:           $navbar-dropdown-grid-gutter-horizontal !default;
 
-$navbar-dropdown-dropbar-margin-top:             0px !default;
-$navbar-dropdown-dropbar-margin-bottom:          $navbar-dropdown-dropbar-margin-top !default;
-$navbar-dropdown-dropbar-padding-horizontal:     $navbar-nav-item-padding-horizontal !default;
+$navbar-dropdown-large-shift-margin:             0 !default;
+$navbar-dropdown-large-padding:                  40px !default;
+
+$navbar-dropdown-dropbar-shift-margin:           0 !default;
+$navbar-dropdown-dropbar-padding-top:            $navbar-dropdown-padding !default;
+$navbar-dropdown-dropbar-padding-bottom:         $navbar-dropdown-dropbar-padding-top !default;
+$navbar-dropdown-dropbar-viewport-margin:        15px !default;
+$navbar-dropdown-dropbar-viewport-margin-s:      $global-gutter !default;
+$navbar-dropdown-dropbar-viewport-margin-m:      $global-medium-gutter !default;
+
+$navbar-dropdown-dropbar-large-shift-margin:     0 !default;
+$navbar-dropdown-dropbar-large-padding-top:      $navbar-dropdown-large-padding !default;
+$navbar-dropdown-dropbar-large-padding-bottom:   $navbar-dropdown-dropbar-large-padding-top !default;
 
 $navbar-dropdown-nav-item-color:                 $global-muted-color !default;
 $navbar-dropdown-nav-item-hover-color:           $global-color !default;
@@ -79,7 +99,6 @@ $navbar-dropdown-nav-sublist-item-color:         $global-muted-color !default;
 $navbar-dropdown-nav-sublist-item-hover-color:   $global-color !default;
 $navbar-dropdown-nav-sublist-item-active-color:  $global-emphasis-color !default;
 
-$navbar-dropbar-background:                      $navbar-dropdown-background !default;
 $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 
 
@@ -117,16 +136,13 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 
 /*
  * 1. Align navs and items vertically if they have a different height
- * 2. Note: IE 11 requires an extra `div` which affects the center selector
  */
 
 .uk-navbar-left,
 .uk-navbar-right,
-// 2. [class*='uk-navbar-center'],
-.uk-navbar-center,
-.uk-navbar-center-left > *,
-.uk-navbar-center-right > * {
+[class*='uk-navbar-center'] {
     display: flex;
+    gap: $navbar-gap;
     /* 1 */
     align-items: center;
 }
@@ -168,8 +184,8 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
    top: 0;
 }
 
-.uk-navbar-center-left { right: 100%; }
-.uk-navbar-center-right { left: 100%; }
+.uk-navbar-center-left { right:  unquote('calc(100% + #{$navbar-gap})'); }
+.uk-navbar-center-right { left: unquote('calc(100% + #{$navbar-gap})'); }
 
 [class*='uk-navbar-center-'] {
     width: max-content;
@@ -186,6 +202,7 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 
 .uk-navbar-nav {
     display: flex;
+    gap: $navbar-nav-gap;
     /* 1 */
     margin: 0;
     padding: 0;
@@ -222,7 +239,6 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
     /* 3 */
     box-sizing: border-box;
     min-height: $navbar-nav-item-height;
-    padding: 0 $navbar-nav-item-padding-horizontal;
     /* 4 */
     font-size: $navbar-nav-item-font-size;
     font-family: $navbar-nav-item-font-family;
@@ -235,6 +251,7 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
  */
 
 .uk-navbar-nav > li > a {
+    padding: 0 $navbar-nav-item-padding-horizontal;
     color: $navbar-nav-item-color;
     @if(mixin-exists(hook-navbar-nav-item)) {@include hook-navbar-nav-item();}
 }
@@ -263,10 +280,19 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 }
 
 
+/* Parent icon modifier
+ ========================================================================== */
+
+.uk-navbar-parent-icon { margin-left: $navbar-parent-icon-margin-left; }
+
+.uk-navbar-nav > li > a[aria-expanded="true"] .uk-navbar-parent-icon { transform: rotate(180deg); }
+
+
 /* Item
  ========================================================================== */
 
 .uk-navbar-item {
+    padding: 0 $navbar-item-padding-horizontal;
     color: $navbar-item-color;
     @if(mixin-exists(hook-navbar-item)) {@include hook-navbar-item();}
 }
@@ -282,6 +308,7 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
  ========================================================================== */
 
 .uk-navbar-toggle {
+    padding: 0 $navbar-item-padding-horizontal;
     color: $navbar-toggle-color;
     @if(mixin-exists(hook-navbar-toggle)) {@include hook-navbar-toggle();}
 }
@@ -362,11 +389,11 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
     position: absolute;
     z-index: $navbar-dropdown-z-index;
     --uk-position-offset: #{$navbar-dropdown-margin};
-    --uk-position-viewport-offset: 10;
+    --uk-position-shift-offset: #{$navbar-dropdown-shift-margin};
+    --uk-position-viewport-offset: #{$navbar-dropdown-viewport-margin};
     /* 3 */
     box-sizing: border-box;
     width: $navbar-dropdown-width;
-    max-width: 100vw;
     /* 4 */
     padding: $navbar-dropdown-padding;
     background: $navbar-dropdown-background;
@@ -376,6 +403,16 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 
 /* Show */
 .uk-navbar-dropdown.uk-open { display: block; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+ .uk-navbar-dropdown > :last-child { margin-bottom: 0; }
+
+// Color Mode
+@if ( $navbar-dropdown-color-mode == light ) { .uk-navbar-dropdown { @extend .uk-light !optional;} }
+@if ( $navbar-dropdown-color-mode == dark ) { .uk-navbar-dropdown { @extend .uk-dark !optional;} }
 
 /*
  * Grid
@@ -402,22 +439,54 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 .uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: ($navbar-dropdown-width * 5); }
 
 /*
+ * Size modifier
+ */
+
+.uk-navbar-dropdown-large {
+    --uk-position-shift-offset: #{$navbar-dropdown-large-shift-margin};
+    padding: $navbar-dropdown-large-padding;
+    @if(mixin-exists(hook-navbar-dropdown-large)) {@include hook-navbar-dropdown-large();}
+}
+
+/*
  * Dropbar modifier
- * 1. Set position
- * 2. Bottom padding for dropbar
- * 3. Horizontal padding
+ * 1. Reset dropdown width to prevent to early shifting
+ * 2. Reset style
+ * 3. Padding
  */
 
 .uk-navbar-dropdown-dropbar {
     /* 1 */
-    --uk-position-offset: #{$navbar-dropdown-dropbar-margin-top};
-    --uk-position-viewport-offset: 0;
+    width: auto;
     /* 2 */
-    margin-bottom: $navbar-dropdown-dropbar-margin-bottom;
+    background: transparent;
     /* 3 */
-    padding-left: $navbar-dropdown-dropbar-padding-horizontal;
-    padding-right: $navbar-dropdown-dropbar-padding-horizontal;
+    padding: $navbar-dropdown-dropbar-padding-top 0 $navbar-dropdown-dropbar-padding-bottom 0;
+    --uk-position-offset: 0;
+    --uk-position-shift-offset: #{$navbar-dropdown-dropbar-shift-margin};
+    --uk-position-viewport-offset: #{$navbar-dropdown-dropbar-viewport-margin};
     @if(mixin-exists(hook-navbar-dropdown-dropbar)) {@include hook-navbar-dropdown-dropbar();}
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-navbar-dropdown-dropbar { --uk-position-viewport-offset: #{$navbar-dropdown-dropbar-viewport-margin-s}; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-navbar-dropdown-dropbar { --uk-position-viewport-offset: #{$navbar-dropdown-dropbar-viewport-margin-m}; }
+
+}
+
+.uk-navbar-dropdown-dropbar-large {
+    --uk-position-shift-offset: #{$navbar-dropdown-dropbar-large-shift-margin};
+    padding-top: $navbar-dropdown-dropbar-large-padding-top;
+    padding-bottom: $navbar-dropdown-dropbar-large-padding-bottom;
+    @if(mixin-exists(hook-navbar-dropdown-dropbar-large)) {@include hook-navbar-dropdown-dropbar-large();}
 }
 
 
@@ -491,12 +560,19 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 /* Dropbar
  ========================================================================== */
 
+/*
+ * 1. Reset dropbar
+ * 2. Width
+ */
+
 .uk-navbar-dropbar {
-    position: absolute;
+    /* 1 */
+    display: block !important;
     z-index: $navbar-dropbar-z-index;
+    padding: 0;
+    /* 2 */
     left: 0;
     right: 0;
-    background: $navbar-dropbar-background;
     @if(mixin-exists(hook-navbar-dropbar)) {@include hook-navbar-dropbar();}
 }
 
@@ -522,7 +598,9 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 // @mixin hook-navbar-transparent(){}
 // @mixin hook-navbar-sticky(){}
 // @mixin hook-navbar-dropdown(){}
+// @mixin hook-navbar-dropdown-large(){}
 // @mixin hook-navbar-dropdown-dropbar(){}
+// @mixin hook-navbar-dropdown-dropbar-large(){}
 // @mixin hook-navbar-dropdown-nav(){}
 // @mixin hook-navbar-dropdown-nav-item(){}
 // @mixin hook-navbar-dropdown-nav-item-hover(){}

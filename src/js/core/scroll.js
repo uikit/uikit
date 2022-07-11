@@ -1,4 +1,4 @@
-import { $, scrollIntoView, trigger } from 'uikit-util';
+import { $, off, on, scrollIntoView, trigger, within } from 'uikit-util';
 
 export default {
     props: {
@@ -7,6 +7,14 @@ export default {
 
     data: {
         offset: 0,
+    },
+
+    connected() {
+        registerClick(this);
+    },
+
+    disconnected() {
+        unregisterClick(this);
     },
 
     methods: {
@@ -19,18 +27,37 @@ export default {
             }
         },
     },
-
-    events: {
-        click(e) {
-            if (e.defaultPrevented) {
-                return;
-            }
-
-            e.preventDefault();
-            this.scrollTo(getTargetElement(this.$el));
-        },
-    },
 };
+
+const components = new Set();
+function registerClick(cmp) {
+    if (!components.size) {
+        on(document, 'click', clickHandler);
+    }
+
+    components.add(cmp);
+}
+
+function unregisterClick(cmp) {
+    components.delete(cmp);
+
+    if (!components.length) {
+        off(document, 'click', clickHandler);
+    }
+}
+
+function clickHandler(e) {
+    if (e.defaultPrevented) {
+        return;
+    }
+
+    for (const component of components) {
+        if (within(e.target, component.$el)) {
+            e.preventDefault();
+            component.scrollTo(getTargetElement(component.$el));
+        }
+    }
+}
 
 export function getTargetElement(el) {
     return document.getElementById(decodeURIComponent(el.hash).substring(1));

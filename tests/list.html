@@ -474,14 +474,14 @@
 
         <script>
 
-            var options = UIkit.util.$$('#js-color-switcher option').map(function (option) { return option.value; });
+            const {$$, addClass, on, removeClass } = UIkit.util;
 
-            UIkit.util.on('#js-color-switcher', 'change', function () {
-                var value = this.value;
-                UIkit.util.$$('.uk-list').forEach(function (table) {
-                    UIkit.util.removeClass(table, options);
-                    UIkit.util.addClass(table, value);
-                });
+            on('#js-color-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.uk-list')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
             });
 
         </script>

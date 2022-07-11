@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Lazyload from '../mixin/lazyload';
-import { default as Togglable, toggleHeight } from '../mixin/togglable';
+import { default as Togglable, toggleTransition } from '../mixin/togglable';
 import {
     $,
     $$,
@@ -14,14 +14,14 @@ import {
     isInView,
     scrollIntoView,
     toggleClass,
-    unwrap,
-    wrapAll,
+    within,
 } from 'uikit-util';
 
 export default {
     mixins: [Class, Lazyload, Togglable],
 
     props: {
+        animation: Boolean,
         targets: String,
         active: null,
         collapsible: Boolean,
@@ -34,7 +34,7 @@ export default {
     data: {
         targets: '> *',
         active: false,
-        animation: [true],
+        animation: true,
         collapsible: true,
         multiple: false,
         clsOpen: 'uk-open',
@@ -80,7 +80,7 @@ export default {
                     hide(
                         el,
                         !hasClass(
-                            this.items.find((item) => item.contains(el)),
+                            this.items.find((item) => within(el, item)),
                             this.clsOpen
                         )
                     );
@@ -132,23 +132,15 @@ export default {
                     toggleClass(el, this.clsOpen, show);
                     attr($(this.$props.toggle, el), 'aria-expanded', show);
 
-                    const content = $(`${el._wrapper ? '> * ' : ''}${this.content}`, el);
+                    const content = $(this.content, el);
 
-                    if (animate === false || !this.hasTransition) {
+                    if (animate === false || !this.animation) {
+                        content.hidden = !show;
                         hide(content, !show);
                         return;
                     }
 
-                    if (!el._wrapper) {
-                        el._wrapper = wrapAll(content, `<div${show ? ' hidden' : ''}>`);
-                    }
-
-                    hide(content, false);
-                    await toggleHeight(this)(el._wrapper, show);
-                    hide(content, !show);
-
-                    delete el._wrapper;
-                    unwrap(content);
+                    await toggleTransition(this)(content, show);
 
                     if (show) {
                         const toggle = $(this.$props.toggle, el);

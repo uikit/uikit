@@ -7,12 +7,19 @@
 // Variables
 // ========================================================================
 
+@navbar-gap:                                    30px;
+
+@navbar-nav-gap:                                30px;
+
+@navbar-nav-item-padding-horizontal:            0;
+
 @navbar-nav-item-font-size:                     @global-small-font-size;
+
+@navbar-item-padding-horizontal:                0;
 
 @navbar-dropdown-margin:                        15px;
 @navbar-dropdown-padding:                       25px;
 @navbar-dropdown-background:                    @global-background;
-@navbar-dropdown-grid-gutter-horizontal:        (@navbar-dropdown-padding * 2);
 
 @navbar-dropdown-nav-subtitle-font-size:        12px;
 
@@ -25,11 +32,6 @@
 @navbar-dropdown-nav-font-size:                 @global-small-font-size;
 
 @navbar-dropdown-box-shadow:                    0 5px 12px rgba(0,0,0,0.15);
-
-@navbar-dropbar-box-shadow:                     0 5px 7px rgba(0, 0, 0, 0.05);
-
-@navbar-dropdown-grid-divider-border-width:     @global-border-width;
-@navbar-dropdown-grid-divider-border:           @navbar-dropdown-nav-divider-border;
 
 
 // Component
@@ -99,7 +101,11 @@
 
 .hook-navbar-dropdown() { box-shadow: @navbar-dropdown-box-shadow; }
 
+.hook-navbar-dropdown-large() {}
+
 .hook-navbar-dropdown-dropbar() { box-shadow: none; }
+
+.hook-navbar-dropdown-dropbar-large() {}
 
 
 // Dropdown nav
@@ -121,52 +127,13 @@
 // Dropbar
 // ========================================================================
 
-.hook-navbar-dropbar() { box-shadow: @navbar-dropbar-box-shadow; }
+.hook-navbar-dropbar() {}
 
 
 // Miscellaneous
 // ========================================================================
 
-.hook-navbar-misc() {
-
-    /*
-     * Navbar
-     */
-
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-nav:first-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-item:first-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-left .uk-navbar-toggle:first-child { margin-left: -@navbar-nav-item-padding-horizontal; }
-
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-nav:last-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-item:last-child,
-    .uk-container > :not(.uk-navbar-justified) > .uk-navbar-right .uk-navbar-toggle:last-child { margin-right: -@navbar-nav-item-padding-horizontal; }
-
-    /*
-     * Grid Divider
-     */
-
-    .uk-navbar-dropdown-grid > * { position: relative; }
-
-    .uk-navbar-dropdown-grid > :not(.uk-first-column)::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: (@navbar-dropdown-grid-gutter-horizontal / 2);
-        border-left: @navbar-dropdown-grid-divider-border-width solid @navbar-dropdown-grid-divider-border;
-    }
-
-    /* Vertical */
-    .uk-navbar-dropdown-grid.uk-grid-stack > .uk-grid-margin::before {
-        content: "";
-        position: absolute;
-        top: -(@navbar-dropdown-grid-gutter-vertical / 2);
-        left: @navbar-dropdown-grid-gutter-horizontal;
-        right: 0;
-        border-top: @navbar-dropdown-grid-divider-border-width solid @navbar-dropdown-grid-divider-border;
-    }
-
-}
+.hook-navbar-misc() {}
 
 
 // Inverse

@@ -1,5 +1,27 @@
 <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-    <rect y="9" width="20" height="2" />
-    <rect y="3" width="20" height="2" />
-    <rect y="15" width="20" height="2" />
+    <style>
+
+        .uk-navbar-toggle-animate svg > [class*='line-'] {
+            transition: 0.2s ease-in-out;
+            transition-property: transform, opacity,;
+            transform-origin: center;
+            opacity: 1;
+        }
+
+        .uk-navbar-toggle svg > .line-3 { opacity: 0; }
+        .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-3 { opacity: 1; }
+
+        .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-2 { transform: rotate(45deg); }
+        .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-3 { transform: rotate(-45deg); }
+
+        .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-1,
+        .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-4 { opacity: 0; }
+        .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-1 { transform: translateY(6px) scaleX(0); }
+        .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-4 { transform: translateY(-6px) scaleX(0); }
+
+    </style>
+    <rect class="line-1" y="3" width="20" height="2" />
+    <rect class="line-2" y="9" width="20" height="2" />
+    <rect class="line-3" y="9" width="20" height="2" />
+    <rect class="line-4" y="15" width="20" height="2" />
 </svg>

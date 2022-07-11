@@ -3,13 +3,13 @@
 //
 // Component:       `uk-nav`
 //
-// Sub-objects:     `uk-nav-header`
+// Sub-objects:     `uk-nav-parent-icon`
+//                  `uk-nav-header`
 //                  `uk-nav-divider`
 //                  `uk-nav-subtitle`
 //                  `uk-nav-sub`
 //
-// Modifiers:       `uk-nav-parent-icon`
-//                  `uk-nav-default`
+// Modifiers:       `uk-nav-default`
 //                  `uk-nav-primary`
 //                  `uk-nav-center`,
 //                  `uk-nav-divider`
@@ -33,9 +33,7 @@
 @nav-sublist-deeper-padding-left:               15px;
 @nav-sublist-item-padding-vertical:             2px;
 
-@nav-parent-icon-width:                         (@global-line-height * 1em);
-@nav-parent-icon-height:                        @nav-parent-icon-width;
-@nav-parent-icon-color:                         @global-color;
+@nav-parent-icon-margin-left:                   4px;
 
 @nav-header-padding-vertical:                   @nav-item-padding-vertical;
 @nav-header-padding-horizontal:                 @nav-item-padding-horizontal;
@@ -46,6 +44,8 @@
 @nav-divider-margin-vertical:                   5px;
 @nav-divider-margin-horizontal:                 0;
 
+@nav-default-font-size:                         @global-font-size;
+@nav-default-line-height:                       @global-line-height;
 @nav-default-item-color:                        @global-muted-color;
 @nav-default-item-hover-color:                  @global-color;
 @nav-default-item-active-color:                 @global-emphasis-color;
@@ -53,12 +53,14 @@
 @nav-default-header-color:                      @global-emphasis-color;
 @nav-default-divider-border-width:              @global-border-width;
 @nav-default-divider-border:                    @global-border;
+@nav-default-sublist-font-size:                 @nav-default-font-size;
+@nav-default-sublist-line-height:               @nav-default-line-height;
 @nav-default-sublist-item-color:                @global-muted-color;
 @nav-default-sublist-item-hover-color:          @global-color;
 @nav-default-sublist-item-active-color:         @global-emphasis-color;
 
-@nav-primary-item-font-size:                    @global-large-font-size;
-@nav-primary-item-line-height:                  @global-line-height;
+@nav-primary-font-size:                         @global-large-font-size;
+@nav-primary-line-height:                       @global-line-height;
 @nav-primary-item-color:                        @global-muted-color;
 @nav-primary-item-hover-color:                  @global-color;
 @nav-primary-item-active-color:                 @global-emphasis-color;
@@ -66,16 +68,33 @@
 @nav-primary-header-color:                      @global-emphasis-color;
 @nav-primary-divider-border-width:              @global-border-width;
 @nav-primary-divider-border:                    @global-border;
+@nav-primary-sublist-font-size:                 @global-medium-font-size;
+@nav-primary-sublist-line-height:               @global-line-height;
 @nav-primary-sublist-item-color:                @global-muted-color;
 @nav-primary-sublist-item-hover-color:          @global-color;
 @nav-primary-sublist-item-active-color:         @global-emphasis-color;
 
-@nav-dividers-margin-top:                       0;
+@nav-secondary-font-size:                       @global-font-size;
+@nav-secondary-line-height:                     @global-line-height;
+@nav-secondary-item-color:                      @global-emphasis-color;
+@nav-secondary-item-hover-color:                @global-emphasis-color;
+@nav-secondary-item-active-color:               @global-emphasis-color;
+@nav-secondary-subtitle-font-size:              @global-small-font-size;
+@nav-secondary-subtitle-color:                  @global-muted-color;
+@nav-secondary-subtitle-hover-color:            @global-color;
+@nav-secondary-subtitle-active-color:           @global-emphasis-color;
+@nav-secondary-header-color:                    @global-emphasis-color;
+@nav-secondary-divider-border-width:            @global-border-width;
+@nav-secondary-divider-border:                  @global-border;
+@nav-secondary-sublist-font-size:               @global-small-font-size;
+@nav-secondary-sublist-line-height:             @global-line-height;
+@nav-secondary-sublist-item-color:              @global-muted-color;
+@nav-secondary-sublist-item-hover-color:        @global-color;
+@nav-secondary-sublist-item-active-color:       @global-emphasis-color;
+
+@nav-dividers-margin-top:                       5px;
 @nav-dividers-border-width:                     @global-border-width;
 @nav-dividers-border:                           @global-border;
-
-@internal-nav-parent-close-image:               "../../images/backgrounds/nav-parent-close.svg";
-@internal-nav-parent-open-image:                "../../images/backgrounds/nav-parent-open.svg";
 
 
 /* ========================================================================
@@ -143,21 +162,12 @@ ul.uk-nav-sub {
 .uk-nav-sub a { padding: @nav-sublist-item-padding-vertical 0; }
 
 
-/* Parent icon modifier
+/* Parent icon
  ========================================================================== */
 
-.uk-nav-parent-icon > .uk-parent > a::after {
-    content: "";
-    width: @nav-parent-icon-width;
-    height: @nav-parent-icon-height;
-    margin-left: auto;
-    .svg-fill(@internal-nav-parent-close-image, "#000", @nav-parent-icon-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    .hook-nav-parent-icon();
-}
+.uk-nav-parent-icon { margin-left: auto; }
 
-.uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-nav-parent-open-image, "#000", @nav-parent-icon-color); }
+.uk-nav > li > a[aria-expanded="true"] .uk-nav-parent-icon { transform: rotate(180deg); }
 
 
 /* Header
@@ -186,6 +196,8 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-default {
+    font-size: @nav-default-font-size;
+    line-height: @nav-default-line-height;
     .hook-nav-default();
 }
 
@@ -241,6 +253,11 @@ ul.uk-nav-sub {
  * Sublists
  */
 
+.uk-nav-default .uk-nav-sub {
+    font-size: @nav-default-sublist-font-size;
+    line-height: @nav-default-sublist-line-height;
+}
+
 .uk-nav-default .uk-nav-sub a { color: @nav-default-sublist-item-color; }
 
 .uk-nav-default .uk-nav-sub a:hover { color: @nav-default-sublist-item-hover-color; }
@@ -252,6 +269,8 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-primary {
+    font-size: @nav-primary-font-size;
+    line-height: @nav-primary-line-height;
     .hook-nav-primary();
 }
 
@@ -260,8 +279,6 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-primary > li > a {
-    font-size: @nav-primary-item-font-size;
-    line-height: @nav-primary-item-line-height;
     color: @nav-primary-item-color;
     .hook-nav-primary-item();
 }
@@ -282,7 +299,7 @@ ul.uk-nav-sub {
  * Subtitle
  */
 
- .uk-nav-primary .uk-nav-subtitle {
+.uk-nav-primary .uk-nav-subtitle {
     font-size: @nav-primary-subtitle-font-size;
     .hook-nav-primary-subtitle();
 }
@@ -309,11 +326,103 @@ ul.uk-nav-sub {
  * Sublists
  */
 
+.uk-nav-primary .uk-nav-sub {
+    font-size: @nav-primary-sublist-font-size;
+    line-height: @nav-primary-sublist-line-height;
+}
+
 .uk-nav-primary .uk-nav-sub a { color: @nav-primary-sublist-item-color; }
 
 .uk-nav-primary .uk-nav-sub a:hover { color: @nav-primary-sublist-item-hover-color; }
 
 .uk-nav-primary .uk-nav-sub li.uk-active > a { color: @nav-primary-sublist-item-active-color; }
+
+
+/* Secondary modifier
+ ========================================================================== */
+
+.uk-nav-secondary {
+    font-size: @nav-secondary-font-size;
+    line-height: @nav-secondary-line-height;
+    .hook-nav-secondary();
+}
+
+/*
+ * Items
+ */
+
+.uk-nav-secondary > li > a {
+
+    color: @nav-secondary-item-color;
+    .hook-nav-secondary-item();
+}
+
+/* Hover */
+.uk-nav-secondary > li > a:hover {
+    color: @nav-secondary-item-hover-color;
+    .hook-nav-secondary-item-hover();
+}
+
+/* Active */
+.uk-nav-secondary > li.uk-active > a {
+    color: @nav-secondary-item-active-color;
+    .hook-nav-secondary-item-active();
+}
+
+/*
+ * Subtitle
+ */
+
+.uk-nav-secondary .uk-nav-subtitle {
+    font-size: @nav-secondary-subtitle-font-size;
+    color: @nav-secondary-subtitle-color;
+    .hook-nav-secondary-subtitle();
+}
+
+/* Hover */
+.uk-nav-secondary > li > a:hover .uk-nav-subtitle {
+    color: @nav-secondary-subtitle-hover-color;
+    .hook-nav-secondary-subtitle-hover();
+}
+
+/* Active */
+.uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
+    color: @nav-secondary-subtitle-active-color;
+    .hook-nav-secondary-subtitle-active();
+}
+
+/*
+ * Header
+ */
+
+.uk-nav-secondary .uk-nav-header {
+    color: @nav-secondary-header-color;
+    .hook-nav-secondary-header();
+}
+
+/*
+ * Divider
+ */
+
+.uk-nav-secondary .uk-nav-divider {
+    border-top: @nav-secondary-divider-border-width solid @nav-secondary-divider-border;
+    .hook-nav-secondary-divider();
+}
+
+/*
+ * Sublists
+ */
+
+.uk-nav-secondary .uk-nav-sub {
+    font-size: @nav-secondary-sublist-font-size;
+    line-height: @nav-secondary-sublist-line-height;
+}
+
+.uk-nav-secondary .uk-nav-sub a { color: @nav-secondary-sublist-item-color; }
+
+.uk-nav-secondary .uk-nav-sub a:hover { color: @nav-secondary-sublist-item-hover-color; }
+
+.uk-nav-secondary .uk-nav-sub li.uk-active > a { color: @nav-secondary-sublist-item-active-color; }
 
 
 /* Alignment modifier
@@ -333,12 +442,17 @@ ul.uk-nav-sub {
 .uk-nav-center .uk-nav-sub,
 .uk-nav-center .uk-nav-sub ul { padding-left: 0; }
 
-/* Parent icon modifier  */
-.uk-nav-center.uk-nav-parent-icon > .uk-parent > a::after { margin-left: 0; }
+/* Parent icon  */
+.uk-nav-center .uk-nav-parent-icon { margin-left: @nav-parent-icon-margin-left; }
 
 
 /* Style modifier
  ========================================================================== */
+
+/*
+ * Divider
+ * Naming is in plural to prevent conflicts with divider sub object.
+ */
 
 .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
     margin-top: @nav-dividers-margin-top;
@@ -354,7 +468,6 @@ ul.uk-nav-sub {
 .hook-nav-misc();
 
 .hook-nav-sub() {}
-.hook-nav-parent-icon() {}
 .hook-nav-header() {}
 .hook-nav-divider() {}
 .hook-nav-default() {}
@@ -371,6 +484,15 @@ ul.uk-nav-sub {
 .hook-nav-primary-subtitle() {}
 .hook-nav-primary-header() {}
 .hook-nav-primary-divider() {}
+.hook-nav-secondary() {}
+.hook-nav-secondary-item() {}
+.hook-nav-secondary-item-hover() {}
+.hook-nav-secondary-item-active() {}
+.hook-nav-secondary-subtitle() {}
+.hook-nav-secondary-subtitle-hover() {}
+.hook-nav-secondary-subtitle-active() {}
+.hook-nav-secondary-header() {}
+.hook-nav-secondary-divider() {}
 .hook-nav-dividers() {}
 .hook-nav-misc() {}
 
@@ -378,39 +500,39 @@ ul.uk-nav-sub {
 // Inverse
 // ========================================================================
 
-@inverse-nav-parent-icon-color:                 @inverse-global-color;
-@inverse-nav-default-item-color:                @inverse-global-muted-color;
-@inverse-nav-default-item-hover-color:          @inverse-global-color;
-@inverse-nav-default-item-active-color:         @inverse-global-emphasis-color;
-@inverse-nav-default-header-color:              @inverse-global-emphasis-color;
-@inverse-nav-default-divider-border:            @inverse-global-border;
-@inverse-nav-default-sublist-item-color:        @inverse-global-muted-color;
-@inverse-nav-default-sublist-item-hover-color:  @inverse-global-color;
-@inverse-nav-default-sublist-item-active-color: @inverse-global-emphasis-color;
+@inverse-nav-default-item-color:                    @inverse-global-muted-color;
+@inverse-nav-default-item-hover-color:              @inverse-global-color;
+@inverse-nav-default-item-active-color:             @inverse-global-emphasis-color;
+@inverse-nav-default-header-color:                  @inverse-global-emphasis-color;
+@inverse-nav-default-divider-border:                @inverse-global-border;
+@inverse-nav-default-sublist-item-color:            @inverse-global-muted-color;
+@inverse-nav-default-sublist-item-hover-color:      @inverse-global-color;
+@inverse-nav-default-sublist-item-active-color:     @inverse-global-emphasis-color;
 
-@inverse-nav-primary-item-color:                @inverse-global-muted-color;
-@inverse-nav-primary-item-hover-color:          @inverse-global-color;
-@inverse-nav-primary-item-active-color:         @inverse-global-emphasis-color;
-@inverse-nav-primary-header-color:              @inverse-global-emphasis-color;
-@inverse-nav-primary-divider-border:            @inverse-global-border;
-@inverse-nav-primary-sublist-item-color:        @inverse-global-muted-color;
-@inverse-nav-primary-sublist-item-hover-color:  @inverse-global-color;
-@inverse-nav-primary-sublist-item-active-color: @inverse-global-emphasis-color;
+@inverse-nav-primary-item-color:                    @inverse-global-muted-color;
+@inverse-nav-primary-item-hover-color:              @inverse-global-color;
+@inverse-nav-primary-item-active-color:             @inverse-global-emphasis-color;
+@inverse-nav-primary-header-color:                  @inverse-global-emphasis-color;
+@inverse-nav-primary-divider-border:                @inverse-global-border;
+@inverse-nav-primary-sublist-item-color:            @inverse-global-muted-color;
+@inverse-nav-primary-sublist-item-hover-color:      @inverse-global-color;
+@inverse-nav-primary-sublist-item-active-color:     @inverse-global-emphasis-color;
 
-@inverse-nav-dividers-border:                   @inverse-global-border;
+@inverse-nav-secondary-item-color:                  @inverse-global-emphasis-color;
+@inverse-nav-secondary-item-hover-color:            @inverse-global-emphasis-color;
+@inverse-nav-secondary-item-active-color:           @inverse-global-emphasis-color;
+@inverse-nav-secondary-subtitle-color:              @inverse-global-muted-color;
+@inverse-nav-secondary-subtitle-hover-color:        @inverse-global-color;
+@inverse-nav-secondary-subtitle-active-color:       @inverse-global-emphasis-color;
+@inverse-nav-secondary-header-color:                @inverse-global-emphasis-color;
+@inverse-nav-secondary-divider-border:              @inverse-global-border;
+@inverse-nav-secondary-sublist-item-color:          @inverse-global-muted-color;
+@inverse-nav-secondary-sublist-item-hover-color:    @inverse-global-color;
+@inverse-nav-secondary-sublist-item-active-color:   @inverse-global-emphasis-color;
+
+@inverse-nav-dividers-border:                       @inverse-global-border;
 
 .hook-inverse() {
-
-    //
-    // Parent icon modifier
-    //
-
-    .uk-nav-parent-icon > .uk-parent > a::after {
-        .svg-fill(@internal-nav-parent-close-image, "#000", @inverse-nav-parent-icon-color);
-        .hook-inverse-nav-parent-icon();
-    }
-
-    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-nav-parent-open-image, "#000", @inverse-nav-parent-icon-color); }
 
     //
     // Default
@@ -483,17 +605,66 @@ ul.uk-nav-sub {
     .uk-nav-primary .uk-nav-sub li.uk-active > a { color: @inverse-nav-primary-sublist-item-active-color; }
 
     //
+    // Secondary
+    //
+
+    .uk-nav-secondary > li > a {
+        color: @inverse-nav-secondary-item-color;
+        .hook-inverse-nav-secondary-item();
+    }
+
+    .uk-nav-secondary > li > a:hover {
+        color: @inverse-nav-secondary-item-hover-color;
+        .hook-inverse-nav-secondary-item-hover();
+    }
+
+    .uk-nav-secondary > li.uk-active > a {
+        color: @inverse-nav-secondary-item-active-color;
+        .hook-inverse-nav-secondary-item-active();
+    }
+
+    .uk-nav-secondary .uk-nav-subtitle {
+        color: @inverse-nav-secondary-subtitle-color;
+        .hook-inverse-nav-secondary-subtitle();
+    }
+
+    .uk-nav-secondary > li > a:hover .uk-nav-subtitle {
+        color: @inverse-nav-secondary-subtitle-hover-color;
+        .hook-inverse-nav-secondary-subtitle-hover();
+    }
+
+    .uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
+        color: @inverse-nav-secondary-subtitle-active-color;
+        .hook-inverse-nav-secondary-subtitle-active();
+    }
+
+    .uk-nav-secondary .uk-nav-header {
+        color: @inverse-nav-secondary-header-color;
+        .hook-inverse-nav-secondary-header();
+    }
+
+    .uk-nav-secondary .uk-nav-divider {
+        border-top-color: @inverse-nav-secondary-divider-border;
+        .hook-inverse-nav-secondary-divider();
+    }
+
+    .uk-nav-secondary .uk-nav-sub a { color: @inverse-nav-secondary-sublist-item-color; }
+
+    .uk-nav-secondary .uk-nav-sub a:hover { color: @inverse-nav-secondary-sublist-item-hover-color; }
+
+    .uk-nav-secondary .uk-nav-sub li.uk-active > a { color: @inverse-nav-secondary-sublist-item-active-color; }
+
+    //
     // Dividers
     //
 
     .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
         border-top-color: @inverse-nav-dividers-border;
-        .hook-nav-dividers();
+        .hook-inverse-nav-dividers();
     }
 
 }
 
-.hook-inverse-nav-parent-icon() {}
 .hook-inverse-nav-default-item() {}
 .hook-inverse-nav-default-item-hover() {}
 .hook-inverse-nav-default-item-active() {}
@@ -504,4 +675,12 @@ ul.uk-nav-sub {
 .hook-inverse-nav-primary-item-active() {}
 .hook-inverse-nav-primary-header() {}
 .hook-inverse-nav-primary-divider() {}
+.hook-inverse-nav-secondary-item() {}
+.hook-inverse-nav-secondary-item-hover() {}
+.hook-inverse-nav-secondary-item-active() {}
+.hook-inverse-nav-secondary-subtitle() {}
+.hook-inverse-nav-secondary-subtitle-hover() {}
+.hook-inverse-nav-secondary-subtitle-active() {}
+.hook-inverse-nav-secondary-header() {}
+.hook-inverse-nav-secondary-divider() {}
 .hook-inverse-nav-dividers() {}

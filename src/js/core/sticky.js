@@ -23,7 +23,6 @@ import {
     remove,
     removeClass,
     replaceClass,
-    scrollTop,
     toFloat,
     toggleClass,
     toPx,
@@ -125,7 +124,9 @@ export default {
             },
 
             handler() {
-                if (!location.hash || scrollTop(window) === 0) {
+                const { scrollingElement } = document;
+
+                if (!location.hash || scrollingElement.scrollTop === 0) {
                     return;
                 }
 
@@ -134,13 +135,11 @@ export default {
                     const elOffset = getOffset(this.$el);
 
                     if (this.isFixed && intersectRect(targetOffset, elOffset)) {
-                        scrollTop(
-                            window,
+                        scrollingElement.scrollTop =
                             targetOffset.top -
-                                elOffset.height -
-                                toPx(this.targetOffset, 'height', this.placeholder) -
-                                toPx(this.offset, 'height', this.placeholder)
-                        );
+                            elOffset.height -
+                            toPx(this.targetOffset, 'height', this.placeholder) -
+                            toPx(this.offset, 'height', this.placeholder);
                     }
                 });
             },
@@ -238,7 +237,7 @@ export default {
                 start,
                 end,
             }) {
-                const scroll = scrollTop(window);
+                const scroll = document.scrollingElement.scrollTop;
                 const dir = prevScroll <= scroll ? 'down' : 'up';
 
                 return {

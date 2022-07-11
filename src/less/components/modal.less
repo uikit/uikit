@@ -40,15 +40,21 @@
 
 @modal-container-width:                         1200px;
 
-@modal-body-padding-horizontal:                 @global-gutter;
-@modal-body-padding-vertical:                   @global-gutter;
+@modal-body-padding-horizontal:                 20px;
+@modal-body-padding-vertical:                   20px;
+@modal-body-padding-horizontal-s:               @global-gutter;
+@modal-body-padding-vertical-s:                 @global-gutter;
 
-@modal-header-padding-horizontal:               @global-gutter;
+@modal-header-padding-horizontal:               20px;
 @modal-header-padding-vertical:                 (@modal-header-padding-horizontal / 2);
+@modal-header-padding-horizontal-s:             @global-gutter;
+@modal-header-padding-vertical-s:               (@modal-header-padding-horizontal-s / 2);
 @modal-header-background:                       @global-muted-background;
 
-@modal-footer-padding-horizontal:               @global-gutter;
+@modal-footer-padding-horizontal:               20px;
 @modal-footer-padding-vertical:                 (@modal-footer-padding-horizontal / 2);
+@modal-footer-padding-horizontal-s:             @global-gutter;
+@modal-footer-padding-vertical-s:               (@modal-footer-padding-horizontal-s / 2);
 @modal-footer-background:                       @global-muted-background;
 
 @modal-title-font-size:                         @global-xlarge-font-size;
@@ -226,6 +232,15 @@
     padding: @modal-footer-padding-vertical @modal-footer-padding-horizontal;
     background: @modal-footer-background;
     .hook-modal-footer();
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-modal-body { padding: @modal-body-padding-vertical-s @modal-body-padding-horizontal-s; }
+    .uk-modal-header { padding: @modal-header-padding-vertical-s @modal-header-padding-horizontal-s; }
+    .uk-modal-footer { padding: @modal-footer-padding-vertical-s @modal-footer-padding-horizontal-s; }
+
 }
 
 /*

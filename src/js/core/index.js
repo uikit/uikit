@@ -29,10 +29,12 @@ export { default as Video } from './video';
 // Icon components
 export { Close } from './icon';
 export { Spinner } from './icon';
+export { NavParentIcon } from './icon';
 export { Slidenav as SlidenavNext } from './icon';
 export { Slidenav as SlidenavPrevious } from './icon';
 export { Search as SearchIcon } from './icon';
 export { IconComponent as Marker } from './icon';
+export { IconComponent as NavbarParentIcon } from './icon';
 export { IconComponent as NavbarToggleIcon } from './icon';
 export { IconComponent as OverlayIcon } from './icon';
 export { IconComponent as PaginationNext } from './icon';
