@@ -7,12 +7,19 @@
 // Variables
 // ========================================================================
 
+$navbar-gap:                                     30px !default;
+
+$navbar-nav-gap:                                 30px !default;
+
+$navbar-nav-item-padding-horizontal:             0 !default;
+
 $navbar-nav-item-font-size:                      $global-small-font-size !default;
+
+$navbar-item-padding-horizontal:                 0 !default;
 
 $navbar-dropdown-margin:                         15px !default;
 $navbar-dropdown-padding:                        25px !default;
 $navbar-dropdown-background:                     $global-background !default;
-$navbar-dropdown-grid-gutter-horizontal:         ($navbar-dropdown-padding * 2) !default;
 
 $navbar-dropdown-nav-subtitle-font-size:         12px !default;
 
@@ -25,11 +32,6 @@ $navbar-nav-item-text-transform:                 uppercase !default;
 $navbar-dropdown-nav-font-size:                  $global-small-font-size !default;
 
 $navbar-dropdown-box-shadow:                     0 5px 12px rgba(0,0,0,0.15) !default;
-
-$navbar-dropbar-box-shadow:                      0 5px 7px rgba(0, 0, 0, 0.05) !default;
-
-$navbar-dropdown-grid-divider-border-width:      $global-border-width !default;
-$navbar-dropdown-grid-divider-border:            $navbar-dropdown-nav-divider-border !default;
 
 
 // Component
@@ -95,7 +97,11 @@ $navbar-dropdown-grid-divider-border:            $navbar-dropdown-nav-divider-bo
 
 
 
+// @mixin hook-navbar-dropdown-large(){}
 
+
+
+// @mixin hook-navbar-dropdown-dropbar-large(){}
 
 
 // Dropdown nav
@@ -117,13 +123,13 @@ $navbar-dropdown-grid-divider-border:            $navbar-dropdown-nav-divider-bo
 // Dropbar
 // ========================================================================
 
-
+// @mixin hook-navbar-dropbar(){}
 
 
 // Miscellaneous
 // ========================================================================
 
-
+// @mixin hook-navbar-misc(){}
 
 
 // Inverse
