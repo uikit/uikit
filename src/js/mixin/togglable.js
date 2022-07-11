@@ -209,6 +209,8 @@ export function toggleTransition(cmp) {
         css(el, {
             padding: 0,
             border: 0,
+            minWidth: 0,
+            minHeight: 0,
             [marginStartProp]: 0,
             width: dim.width,
             height: dim.height,
