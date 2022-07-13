@@ -318,7 +318,8 @@ export default {
                     return;
                 }
 
-                this._observer = observeResize(target, () => {
+                const drop = this.getDropdown(target);
+                this._observer = observeResize([drop.$el, ...drop.target], () => {
                     const targetOffsets = parents(target, `.${this.clsDrop}`)
                         .concat(target)
                         .map((el) => offset(el));

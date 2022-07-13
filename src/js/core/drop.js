@@ -277,7 +277,7 @@ export default {
 
                     (() => {
                         const observer = observeResize(
-                            scrollParents(this.$el).concat(this.targetEl),
+                            scrollParents(this.$el).concat(this.target),
                             update
                         );
                         return () => observer.disconnect();
