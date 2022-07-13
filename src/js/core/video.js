@@ -2,6 +2,7 @@ import {
     css,
     hasAttr,
     isInView,
+    isTag,
     isVideo,
     isVisible,
     mute,
@@ -28,6 +29,10 @@ export default {
 
         if (this.inView && !hasAttr(this.$el, 'preload')) {
             this.$el.preload = 'none';
+        }
+
+        if (isTag(this.$el, 'iframe') && !hasAttr(this.$el, 'allow')) {
+            this.$el.allow = 'autoplay';
         }
 
         if (this.automute) {

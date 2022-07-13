@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Video component will set `allow="autoplay"` on iframe elements
+
 ### Fixed
 
 - Fix Navbar component resize does not trigger reposition of dropbar
