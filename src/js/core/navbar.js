@@ -18,7 +18,6 @@ import {
     observeResize,
     offset,
     once,
-    parent,
     parents,
     query,
     remove,
@@ -74,7 +73,7 @@ export default {
         },
 
         dropbarAnchor({ dropbarAnchor }, $el) {
-            return query(dropbarAnchor, $el);
+            return query(dropbarAnchor, $el) || $el;
         },
 
         pos({ align }) {
@@ -295,8 +294,8 @@ export default {
                     return;
                 }
 
-                if (!parent(this.dropbar)) {
-                    after(this.dropbarAnchor || this.$el, this.dropbar);
+                if (this.dropbar.previousElementSibling !== this.dropbarAnchor) {
+                    after(this.dropbarAnchor, this.dropbar);
                 }
 
                 addClass(target, `${this.clsDrop}-dropbar`);
