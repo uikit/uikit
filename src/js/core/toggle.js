@@ -51,6 +51,7 @@ export default {
 
             watch() {
                 this.updateAria();
+                this.lazyload(this.$el, this.target);
             },
 
             immediate: true,
@@ -61,8 +62,6 @@ export default {
         if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
             attr(this.$el, 'tabindex', '0');
         }
-
-        this.lazyload(this.$el, this.target);
 
         // check for target
         ready(() => this.$emit());
