@@ -207,7 +207,6 @@ export default {
                 let matches;
                 const iframeAttrs = {
                     frameborder: '0',
-                    allow: 'autoplay',
                     allowfullscreen: '',
                     style: 'max-width: 100%; box-sizing: border-box;',
                     'uk-responsive': '',
