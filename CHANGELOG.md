@@ -10,6 +10,7 @@
 ### Fixed
 
 - Fix Navbar component resize does not trigger reposition of dropbar
+- Fix register scroll listener as passive
 
 ## 3.15.0 (July 11, 2022)
 

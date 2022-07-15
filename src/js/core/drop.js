@@ -284,7 +284,11 @@ export default {
                     })(),
 
                     ...(this.autoUpdate
-                        ? [on([document, scrollParents(this.$el)], 'scroll', update)]
+                        ? [
+                              on([document, scrollParents(this.$el)], 'scroll', update, {
+                                  passive: true,
+                              }),
+                          ]
                         : []),
 
                     ...(this.bgScroll
