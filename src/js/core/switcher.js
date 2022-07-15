@@ -52,9 +52,10 @@ export default {
                 }
 
                 const index = this.index();
-                this.connects.forEach((el) =>
-                    children(el).forEach((child, i) => toggleClass(child, this.cls, i === index))
-                );
+                this.connects.forEach((el) => {
+                    children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
+                    this.lazyload(this.$el, children(el));
+                });
             },
 
             immediate: true,
@@ -87,8 +88,6 @@ export default {
     },
 
     connected() {
-        this.lazyload(this.$el, this.connects);
-
         // check for connects
         ready(() => this.$emit());
     },

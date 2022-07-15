@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.15.1 (July 15, 2022)
+
+### Changed
+
+- Video component will set `allow="autoplay"` on iframe elements
+- Allow additional props to be set on Navbar component to initialize its Drops with
+
+### Fixed
+
+- Fix Navbar component resize does not trigger reposition of dropbar
+- Fix register scroll listener as passive
+
 ## 3.15.0 (July 11, 2022)
 
 ### Added

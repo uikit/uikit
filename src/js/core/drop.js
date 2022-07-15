@@ -277,14 +277,18 @@ export default {
 
                     (() => {
                         const observer = observeResize(
-                            scrollParents(this.$el).concat(this.targetEl),
+                            scrollParents(this.$el).concat(this.target),
                             update
                         );
                         return () => observer.disconnect();
                     })(),
 
                     ...(this.autoUpdate
-                        ? [on([document, scrollParents(this.$el)], 'scroll', update)]
+                        ? [
+                              on([document, scrollParents(this.$el)], 'scroll', update, {
+                                  passive: true,
+                              }),
+                          ]
                         : []),
 
                     ...(this.bgScroll

@@ -385,7 +385,7 @@
             });
 
             on($$('select,input'), 'change', position);
-            on(window, 'scroll', position);
+            on(window, 'scroll', position, { passive: true });
 
             position();
 
