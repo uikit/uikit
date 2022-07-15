@@ -1,4 +1,4 @@
-/*! UIkit 3.15.0 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2942,7 +2942,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.0';
+    UIkit.version = '3.15.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3013,13 +3013,20 @@
       } };
 
     var Lazyload = {
+      data: {
+        preload: 5 },
+
+
       methods: {
         lazyload(observeTargets, targets) {if (observeTargets === void 0) {observeTargets = this.$el;}if (targets === void 0) {targets = this.$el;}
           this.registerObserver(
           observeIntersection(observeTargets, (entries, observer) => {
             for (const el of toNodes(isFunction(targets) ? targets() : targets)) {
-              $$('[loading="lazy"]', el).forEach((el) => removeAttr(el, 'loading'));
+              $$('[loading="lazy"]', el).
+              slice(0, this.preload - 1).
+              forEach((el) => removeAttr(el, 'loading'));
             }
+
             for (const el of entries.
             filter((_ref) => {let { isIntersecting } = _ref;return isIntersecting;}).
             map((_ref2) => {let { target } = _ref2;return target;})) {
@@ -3490,6 +3497,10 @@
 
         if (this.inView && !hasAttr(this.$el, 'preload')) {
           this.$el.preload = 'none';
+        }
+
+        if (isTag(this.$el, 'iframe') && !hasAttr(this.$el, 'allow')) {
+          this.$el.allow = 'autoplay';
         }
 
         if (this.automute) {
@@ -4294,14 +4305,18 @@
 
           (() => {
             const observer = observeResize(
-            scrollParents(this.$el).concat(this.targetEl),
+            scrollParents(this.$el).concat(this.target),
             update);
 
             return () => observer.disconnect();
           })(),
 
           ...(this.autoUpdate ?
-          [on([document, scrollParents(this.$el)], 'scroll', update)] :
+          [
+          on([document, scrollParents(this.$el)], 'scroll', update, {
+            passive: true })] :
+
+
           []),
 
           ...(this.bgScroll ?
@@ -5852,35 +5867,29 @@
 
       props: {
         dropdown: String,
-        mode: 'list',
         align: String,
-        offset: Number,
+        clsDrop: String,
         boundary: Boolean,
+        dropbar: Boolean,
+        dropbarAnchor: Boolean,
+        duration: Number,
+        mode: Boolean,
+        offset: Boolean,
+        stretch: Boolean,
+        delayShow: Boolean,
+        delayHide: Boolean,
         target: Boolean,
         targetX: Boolean,
         targetY: Boolean,
-        clsDrop: String,
-        delayShow: Number,
-        delayHide: Number,
-        dropbar: Boolean,
-        dropbarAnchor: Boolean,
-        duration: Number },
+        animation: Boolean,
+        animateOut: Boolean },
 
 
       data: {
         dropdown: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
         align: isRtl ? 'right' : 'left',
         clsDrop: 'uk-navbar-dropdown',
-        mode: undefined,
-        offset: undefined,
-        delayShow: undefined,
-        delayHide: undefined,
-        flip: false,
-        shift: true,
         boundary: true,
-        target: false,
-        targetX: false,
-        targetY: false,
         dropbar: false,
         dropbarAnchor: false,
         duration: 200,
@@ -5888,20 +5897,12 @@
 
 
       computed: {
-        boundary(_ref, $el) {let { boundary } = _ref;
-          return boundary === true ? $el : boundary;
-        },
-
-        dropbarAnchor(_ref2, $el) {let { dropbarAnchor } = _ref2;
-          return query(dropbarAnchor, $el);
-        },
-
-        pos(_ref3) {let { align } = _ref3;
-          return "bottom-" + align;
+        dropbarAnchor(_ref, $el) {let { dropbarAnchor } = _ref;
+          return query(dropbarAnchor, $el) || $el;
         },
 
         dropbar: {
-          get(_ref4) {let { dropbar } = _ref4;
+          get(_ref2) {let { dropbar } = _ref2;
             if (!dropbar) {
               return null;
             }
@@ -5926,7 +5927,7 @@
         },
 
         dropdowns: {
-          get(_ref5, $el) {let { clsDrop } = _ref5;
+          get(_ref3, $el) {let { clsDrop } = _ref3;
             const dropdowns = $$("." + clsDrop, $el);
 
             if (this.dropContainer !== $el) {
@@ -5947,8 +5948,10 @@
             dropdowns.filter((el) => !this.getDropdown(el)),
             {
               ...this.$props,
-              boundary: this.boundary,
-              pos: this.pos });
+              flip: false,
+              shift: true,
+              pos: "bottom-" + this.align,
+              boundary: this.boundary === true ? this.$el : this.boundary });
 
 
           },
@@ -5957,7 +5960,7 @@
 
 
         toggles: {
-          get(_ref6, $el) {let { dropdown } = _ref6;
+          get(_ref4, $el) {let { dropdown } = _ref4;
             return $$(dropdown, $el);
           },
 
@@ -5988,7 +5991,7 @@
           return this.dropdown;
         },
 
-        handler(_ref7) {let { current } = _ref7;
+        handler(_ref5) {let { current } = _ref5;
           const active = this.getActive();
           if (
           active &&
@@ -6018,7 +6021,7 @@
 
             if (!active || active.targetEl !== current) {
               current.click();
-              once(this.dropContainer, 'show', (_ref8) => {let { target } = _ref8;return (
+              once(this.dropContainer, 'show', (_ref6) => {let { target } = _ref6;return (
                   focusFirstFocusableElement(target));});
 
             } else {
@@ -6109,13 +6112,13 @@
           return this.dropbar;
         },
 
-        handler(_ref9) {let { target } = _ref9;
+        handler(_ref7) {let { target } = _ref7;
           if (!this.isDropbarDrop(target)) {
             return;
           }
 
-          if (!parent(this.dropbar)) {
-            after(this.dropbarAnchor || this.$el, this.dropbar);
+          if (this.dropbar.previousElementSibling !== this.dropbarAnchor) {
+            after(this.dropbarAnchor, this.dropbar);
           }
 
           addClass(target, this.clsDrop + "-dropbar");
@@ -6133,17 +6136,18 @@
           return this.dropbar;
         },
 
-        handler(_ref10) {let { target } = _ref10;
+        handler(_ref8) {let { target } = _ref8;
           if (!this.isDropbarDrop(target)) {
             return;
           }
 
-          this._observer = observeResize(target, () => {
+          const drop = this.getDropdown(target);
+          this._observer = observeResize([drop.$el, ...drop.target], () => {
             const targetOffsets = parents(target, "." + this.clsDrop).
             concat(target).
             map((el) => offset(el));
-            const minTop = Math.min(...targetOffsets.map((_ref11) => {let { top } = _ref11;return top;}));
-            const maxBottom = Math.max(...targetOffsets.map((_ref12) => {let { bottom } = _ref12;return bottom;}));
+            const minTop = Math.min(...targetOffsets.map((_ref9) => {let { top } = _ref9;return top;}));
+            const maxBottom = Math.max(...targetOffsets.map((_ref10) => {let { bottom } = _ref10;return bottom;}));
             const dropbarOffset = offset(this.dropbar);
             css(this.dropbar, 'top', this.dropbar.offsetTop - (dropbarOffset.top - minTop));
             this.transitionTo(
@@ -6189,12 +6193,12 @@
           return this.dropbar;
         },
 
-        handler(_ref13) {let { target } = _ref13;
+        handler(_ref11) {var _this$_observer;let { target } = _ref11;
           if (!this.isDropbarDrop(target)) {
             return;
           }
 
-          this._observer.disconnect();
+          (_this$_observer = this._observer) == null ? void 0 : _this$_observer.disconnect();
 
           const active = this.getActive();
 
@@ -7330,9 +7334,10 @@
             }
 
             const index = this.index();
-            this.connects.forEach((el) =>
-            children(el).forEach((child, i) => toggleClass(child, this.cls, i === index)));
-
+            this.connects.forEach((el) => {
+              children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
+              this.lazyload(this.$el, children(el));
+            });
           },
 
           immediate: true },
@@ -7365,8 +7370,6 @@
 
 
       connected() {
-        this.lazyload(this.$el, this.connects);
-
         // check for connects
         ready(() => this.$emit());
       },
@@ -7500,6 +7503,7 @@
 
           watch() {
             this.updateAria();
+            this.lazyload(this.$el, this.target);
           },
 
           immediate: true } },
@@ -7510,8 +7514,6 @@
         if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
           attr(this.$el, 'tabindex', '0');
         }
-
-        this.lazyload(this.$el, this.target);
 
         // check for target
         ready(() => this.$emit());
@@ -9253,7 +9255,6 @@
           let matches;
           const iframeAttrs = {
             frameborder: '0',
-            allow: 'autoplay',
             allowfullscreen: '',
             style: 'max-width: 100%; box-sizing: border-box;',
             'uk-responsive': '',
