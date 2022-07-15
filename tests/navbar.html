@@ -3109,64 +3109,22 @@
                             <td>Drop alignment.</td>
                         </tr>
                         <tr>
-                            <td><code>mode</code></td>
-                            <td>hover | click</td>
-                            <td>click,hover</td>
-                            <td>Comma-separated list of dropdown trigger behavior modes.</td>
-                        </tr>
-                        <tr>
-                            <td><code>delay-show</code></td>
-                            <td>Number</td>
-                            <td>0</td>
-                            <td>Delay time in hover mode before a Drop is shown in ms.</td>
-                        </tr>
-                        <tr>
-                            <td><code>delay-hide</code></td>
-                            <td>Number</td>
-                            <td>800</td>
-                            <td>Delay time in hover mode before a Drop is hidden in ms.</td>
-                        </tr>
-                        <tr>
                             <td><code>boundary</code></td>
                             <td>Boolean, CSS selector</td>
                             <td>true</td>
                             <td>Referenced element to keep Drop's visibility. By default, it's the navbar component's element.</td>
                         </tr>
                         <tr>
-                            <td><code>target</code></td>
-                            <td>Boolean, CSS selector</td>
-                            <td>false</td>
-                            <td>The element the drops are positioned to (`true` for window).</td>
-                        </tr>
-                        <tr>
-                            <td><code>target-x</code></td>
-                            <td>Boolean, CSS selector</td>
-                            <td>false</td>
-                            <td>The element's X axis the drops are positioned to (`true` for window).</td>
-                        </tr>
-                        <tr>
-                            <td><code>target-y</code></td>
-                            <td>Boolean, CSS selector</td>
-                            <td>false</td>
-                            <td>The element's Y axis the drop are positioned to (`true` for window).</td>
-                        </tr>
-                        <tr>
-                            <td><code>cls-drop</code></td>
-                            <td>String</td>
-                            <td>'uk-navbar-dropdown'</td>
-                            <td>The Drop container class.</td>
-                        </tr>
-                        <tr>
-                            <td><code>offset</code></td>
-                            <td>Number</td>
-                            <td>0</td>
-                            <td>The offset of the Drop container.</td>
-                        </tr>
-                        <tr>
                             <td><code>dropbar</code></td>
                             <td>Boolean | CSS selector</td>
                             <td>false</td>
                             <td>The dropbar selector. If true the dropbar will be inserted automatically.</td>
+                        </tr>
+                        <tr>
+                            <td><code>dropbar-anchor</code></td>
+                            <td>Boolean | CSS selector</td>
+                            <td>false</td>
+                            <td>The dropbar anchor selector. If set, dropbar will be inserted after the anchor element.</td>
                         </tr>
                         <tr>
                             <td><code>duration</code></td>
@@ -3179,6 +3137,66 @@
                             <td>Boolean</td>
                             <td>false</td>
                             <td>Define a target container via a selector to specify where the drops should be appended in the DOM.</td>
+                        </tr>
+                        <tr>
+                            <td><code>stretch</code></td>
+                            <td>false|true|'x'|'y'</td>
+                            <td>true</td>
+                            <td>Stretch drop on both (true) or given axis.</td>
+                        </tr>
+                        <tr>
+                            <td><code>mode</code></td>
+                            <td>hover | click</td>
+                            <td>click,hover</td>
+                            <td>Comma-separated list of drop trigger behavior modes.</td>
+                        </tr>
+                        <tr>
+                            <td><code>delay-show</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Delay time in hover mode before a drop is shown in ms.</td>
+                        </tr>
+                        <tr>
+                            <td><code>delay-hide</code></td>
+                            <td>Number</td>
+                            <td>800</td>
+                            <td>Delay time in hover mode before a drop is hidden in ms.</td>
+                        </tr>
+                        <tr>
+                            <td><code>target</code></td>
+                            <td>Boolean, CSS selector</td>
+                            <td>false</td>
+                            <td>The element the drop is positioned to (`true` for window).</td>
+                        </tr>
+                        <tr>
+                            <td><code>target-x</code></td>
+                            <td>Boolean, CSS selector</td>
+                            <td>false</td>
+                            <td>The element's X axis the drop is positioned to (`true` for window).</td>
+                        </tr>
+                        <tr>
+                            <td><code>target-y</code></td>
+                            <td>Boolean, CSS selector</td>
+                            <td>false</td>
+                            <td>The element's Y axis the drop is positioned to (`true` for window).</td>
+                        </tr>
+                        <tr>
+                            <td><code>offset</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>The drop offset.</td>
+                        </tr>
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>'uk-animation-fade'</td>
+                            <td>Space-separated names of animations. Comma-separated for animation out.</td>
+                        </tr>
+                        <tr>
+                            <td><code>animate-out</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Use animation when closing the drop.</td>
                         </tr>
                     </tbody>
                 </table>

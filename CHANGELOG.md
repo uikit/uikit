@@ -5,6 +5,7 @@
 ### Changed
 
 - Video component will set `allow="autoplay"` on iframe elements
+- Allow additional props to be set on Navbar component to initialize its Drops with
 
 ### Fixed
 

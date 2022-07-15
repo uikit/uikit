@@ -32,35 +32,29 @@ export default {
 
     props: {
         dropdown: String,
-        mode: 'list',
         align: String,
-        offset: Number,
-        boundary: Boolean,
-        target: Boolean,
-        targetX: Boolean,
-        targetY: Boolean,
         clsDrop: String,
-        delayShow: Number,
-        delayHide: Number,
+        boundary: Boolean,
         dropbar: Boolean,
         dropbarAnchor: Boolean,
         duration: Number,
+        mode: Boolean,
+        offset: Boolean,
+        stretch: Boolean,
+        delayShow: Boolean,
+        delayHide: Boolean,
+        target: Boolean,
+        targetX: Boolean,
+        targetY: Boolean,
+        animation: Boolean,
+        animateOut: Boolean,
     },
 
     data: {
         dropdown: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
         align: isRtl ? 'right' : 'left',
         clsDrop: 'uk-navbar-dropdown',
-        mode: undefined,
-        offset: undefined,
-        delayShow: undefined,
-        delayHide: undefined,
-        flip: false,
-        shift: true,
         boundary: true,
-        target: false,
-        targetX: false,
-        targetY: false,
         dropbar: false,
         dropbarAnchor: false,
         duration: 200,
@@ -68,16 +62,8 @@ export default {
     },
 
     computed: {
-        boundary({ boundary }, $el) {
-            return boundary === true ? $el : boundary;
-        },
-
         dropbarAnchor({ dropbarAnchor }, $el) {
             return query(dropbarAnchor, $el) || $el;
-        },
-
-        pos({ align }) {
-            return `bottom-${align}`;
         },
 
         dropbar: {
@@ -127,8 +113,10 @@ export default {
                     dropdowns.filter((el) => !this.getDropdown(el)),
                     {
                         ...this.$props,
-                        boundary: this.boundary,
-                        pos: this.pos,
+                        flip: false,
+                        shift: true,
+                        pos: `bottom-${this.align}`,
+                        boundary: this.boundary === true ? this.$el : this.boundary,
                     }
                 );
             },
@@ -375,7 +363,7 @@ export default {
                     return;
                 }
 
-                this._observer.disconnect();
+                this._observer?.disconnect();
 
                 const active = this.getActive();
 
