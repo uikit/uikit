@@ -32,7 +32,7 @@ You have the following options to get UIkit:
 - Install with [npm](https://npmjs.com) to get all source files as they are available on GitHub: ```npm install uikit```
 - Install with [yarn](https://yarnpkg.com/) to get all source files as they are available on GitHub: ```yarn add uikit```
 - Directly load UIkit from [jsDelivr](https://www.jsdelivr.com): https://www.jsdelivr.com/package/npm/uikit
-- Clone the repo to get all source files including build scripts: `git clone git://github.com/uikit/uikit.git`
+- Clone the repo to get all source files including build scripts: `git clone git@github.com:uikit/uikit.git`
 
 ## Developers
 
