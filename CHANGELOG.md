@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+## Fixed
+
+- Remove click event listener in Scroll component correctly 
+
 ## 3.15.1 (July 15, 2022)
 
 ### Changed
