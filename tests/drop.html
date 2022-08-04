@@ -157,6 +157,20 @@
                     </select>
                 </div>
                 <div class="uk-inline">
+                    <label class="uk-form-label" for="js-flip-switcher">Flip</label>
+                    <select id="js-flip-switcher" class="uk-select uk-form-width-xsmall">
+                        <option value="false">False</option>
+                        <option value="true" selected>True</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-shift-switcher">Shift</label>
+                    <select id="js-shift-switcher" class="uk-select uk-form-width-xsmall">
+                        <option value="false">False</option>
+                        <option value="true" selected>True</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
                     <label class="uk-form-label" for="js-animation-switcher">Animation</label>
                     <select id="js-animation-switcher" class="uk-select uk-form-width-small">
                         <option value="uk-animation-fade">Fade</option>
@@ -732,7 +746,7 @@
                 }
             });
 
-            for (const option of ['boundary', 'target-x', 'target-y', 'inset', 'stretch', 'animation', 'animate-out', 'duration']) {
+            for (const option of ['boundary', 'target-x', 'target-y', 'inset', 'stretch', 'flip', 'shift', 'animation', 'animate-out', 'duration']) {
                 on(`#js-${option}-switcher`, 'change', (e) =>
                     attr($$('.js-options'), option, e.target.value)
                 );
