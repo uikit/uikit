@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add `boundary-x` and `boundary-y` options to Drop component
+
 ## Fixed
 
 - Remove click event listener in Scroll component correctly 

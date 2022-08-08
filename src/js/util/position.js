@@ -141,7 +141,10 @@ function getViewport(element, viewportOffset, boundary, i) {
     }
 
     if (boundary) {
-        viewport = getIntersectionArea(viewport, offset(boundary));
+        viewport = getIntersectionArea(
+            viewport,
+            offset(isArray(boundary) ? boundary[i] : boundary)
+        );
     }
 
     return viewport;
