@@ -118,8 +118,15 @@
 
             <div class="uk-margin uk-form-stacked">
                 <div class="uk-inline">
-                    <label class="uk-form-label" for="js-boundary-switcher">Boundary</label>
-                    <select id="js-boundary-switcher" class="uk-select uk-form-width-small">
+                    <label class="uk-form-label" for="js-boundary-x-switcher">Boundary X</label>
+                    <select id="js-boundary-x-switcher" class="uk-select uk-form-width-small">
+                        <option value="false">Viewport</option>
+                        <option value="!.test-boundary">Box</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-boundary-y-switcher">Boundary Y</label>
+                    <select id="js-boundary-y-switcher" class="uk-select uk-form-width-small">
                         <option value="false">Viewport</option>
                         <option value="!.test-boundary">Box</option>
                     </select>
@@ -154,6 +161,20 @@
                         <option value="true">True</option>
                         <option value="x">X</option>
                         <option value="y">Y</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-flip-switcher">Flip</label>
+                    <select id="js-flip-switcher" class="uk-select uk-form-width-xsmall">
+                        <option value="false">False</option>
+                        <option value="true" selected>True</option>
+                    </select>
+                </div>
+                <div class="uk-inline">
+                    <label class="uk-form-label" for="js-shift-switcher">Shift</label>
+                    <select id="js-shift-switcher" class="uk-select uk-form-width-xsmall">
+                        <option value="false">False</option>
+                        <option value="true" selected>True</option>
                     </select>
                 </div>
                 <div class="uk-inline">
@@ -635,6 +656,18 @@
                             <td>The area the drop can't exceed causing it to flip and shift. By default, the nearest scrolling ancestor.</td>
                         </tr>
                         <tr>
+                            <td><code>boundary-x</code></td>
+                            <td>Boolean, CSS selector</td>
+                            <td>false</td>
+                            <td>The area on the x-axis the drop can't exceed causing it to flip and shift.</td>
+                        </tr>
+                        <tr>
+                            <td><code>boundary-y</code></td>
+                            <td>Boolean, CSS selector</td>
+                            <td>false</td>
+                            <td>The area on the y-axis the drop can't exceed causing it to flip and shift.</td>
+                        </tr>
+                        <tr>
                             <td><code>target</code></td>
                             <td>Boolean, CSS selector</td>
                             <td>false</td>
@@ -732,7 +765,7 @@
                 }
             });
 
-            for (const option of ['boundary', 'target-x', 'target-y', 'inset', 'stretch', 'animation', 'animate-out', 'duration']) {
+            for (const option of ['boundary-x', 'boundary-y', 'target-x', 'target-y', 'inset', 'stretch', 'flip', 'shift', 'animation', 'animate-out', 'duration']) {
                 on(`#js-${option}-switcher`, 'change', (e) =>
                     attr($$('.js-options'), option, e.target.value)
                 );

@@ -43,6 +43,8 @@ export default {
         mode: 'list',
         toggle: Boolean,
         boundary: Boolean,
+        boundaryX: Boolean,
+        boundaryY: Boolean,
         target: Boolean,
         targetX: Boolean,
         targetY: Boolean,
@@ -59,6 +61,8 @@ export default {
         mode: ['click', 'hover'],
         toggle: '- *',
         boundary: false,
+        boundaryX: false,
+        boundaryY: false,
         target: false,
         targetX: false,
         targetY: false,
@@ -75,6 +79,13 @@ export default {
     },
 
     computed: {
+        boundary({ boundary, boundaryX, boundaryY }, $el) {
+            return [
+                query(boundaryX || boundary, $el) || window,
+                query(boundaryY || boundary, $el) || window,
+            ];
+        },
+
         target({ target, targetX, targetY }, $el) {
             targetX = targetX || target || this.targetEl;
             targetY = targetY || target || this.targetEl;
@@ -412,8 +423,6 @@ export default {
             // Ensure none positioned element does not generate scrollbars
             this.$el.hidden = true;
 
-            const boundary = query(this.boundary, this.$el);
-            const boundaryOffset = offset(boundary || window);
             const viewports = this.target.map((target) => offsetViewport(scrollParents(target)[0]));
             const viewportOffset = this.getViewportOffset(this.$el);
 
@@ -426,7 +435,7 @@ export default {
                 if (this.axis !== axis && includes([axis, true], this.stretch)) {
                     css(this.$el, {
                         [prop]: Math.min(
-                            boundaryOffset[prop],
+                            offset(this.boundary[i])[prop],
                             viewports[i][prop] - 2 * viewportOffset
                         ),
                         [`overflow-${axis}`]: 'auto',
@@ -444,7 +453,7 @@ export default {
 
             this.$el.hidden = false;
 
-            this.positionAt(this.$el, this.target, boundary);
+            this.positionAt(this.$el, this.target, this.boundary);
 
             for (const [i, [axis, prop, start, end]] of dirs) {
                 if (this.axis === axis && includes([axis, true], this.stretch)) {
@@ -457,17 +466,17 @@ export default {
                             (targetOffset[start] > elOffset[start]
                                 ? targetOffset[start] -
                                   Math.max(
-                                      boundaryOffset[start],
+                                      offset(this.boundary[i])[start],
                                       viewports[i][start] + viewportOffset
                                   )
                                 : Math.min(
-                                      boundaryOffset[end],
+                                      offset(this.boundary[i])[end],
                                       viewports[i][end] - viewportOffset
                                   ) - targetOffset[end]) - positionOffset,
                         [`overflow-${axis}`]: 'auto',
                     });
 
-                    this.positionAt(this.$el, this.target, boundary);
+                    this.positionAt(this.$el, this.target, this.boundary);
                 }
             }
         },

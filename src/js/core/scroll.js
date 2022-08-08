@@ -41,7 +41,7 @@ function registerClick(cmp) {
 function unregisterClick(cmp) {
     components.delete(cmp);
 
-    if (!components.length) {
+    if (!components.size) {
         off(document, 'click', clickHandler);
     }
 }
