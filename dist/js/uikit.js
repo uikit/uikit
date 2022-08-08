@@ -1,4 +1,4 @@
-/*! UIkit 3.15.1 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.2 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2062,7 +2062,10 @@
       }
 
       if (boundary) {
-        viewport = getIntersectionArea(viewport, offset(boundary));
+        viewport = getIntersectionArea(
+        viewport,
+        offset(isArray(boundary) ? boundary[i] : boundary));
+
       }
 
       return viewport;
@@ -2942,7 +2945,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.1';
+    UIkit.version = '3.15.2';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4071,6 +4074,8 @@
         mode: 'list',
         toggle: Boolean,
         boundary: Boolean,
+        boundaryX: Boolean,
+        boundaryY: Boolean,
         target: Boolean,
         targetX: Boolean,
         targetY: Boolean,
@@ -4087,6 +4092,8 @@
         mode: ['click', 'hover'],
         toggle: '- *',
         boundary: false,
+        boundaryX: false,
+        boundaryY: false,
         target: false,
         targetX: false,
         targetY: false,
@@ -4103,7 +4110,14 @@
 
 
       computed: {
-        target(_ref, $el) {let { target, targetX, targetY } = _ref;
+        boundary(_ref, $el) {let { boundary, boundaryX, boundaryY } = _ref;
+          return [
+          query(boundaryX || boundary, $el) || window,
+          query(boundaryY || boundary, $el) || window];
+
+        },
+
+        target(_ref2, $el) {let { target, targetX, targetY } = _ref2;
           targetX = targetX || target || this.targetEl;
           targetY = targetY || target || this.targetEl;
 
@@ -4163,7 +4177,7 @@
           return 'a[href^="#"]';
         },
 
-        handler(_ref2) {let { defaultPrevented, current: { hash } } = _ref2;
+        handler(_ref3) {let { defaultPrevented, current: { hash } } = _ref3;
           if (!defaultPrevented && hash && !within(hash, this.$el)) {
             this.hide(false);
           }
@@ -4276,12 +4290,12 @@
           on(
           document,
           pointerDown$1,
-          (_ref3) => {let { target } = _ref3;return (
+          (_ref4) => {let { target } = _ref4;return (
               !within(target, this.$el) &&
               once(
               document,
               pointerUp$1 + " " + pointerCancel + " scroll",
-              (_ref4) => {let { defaultPrevented, type, target: newTarget } = _ref4;
+              (_ref5) => {let { defaultPrevented, type, target: newTarget } = _ref5;
                 if (
                 !defaultPrevented &&
                 type === pointerUp$1 &&
@@ -4343,7 +4357,7 @@
       {
         name: 'hide',
 
-        handler(_ref5) {let { target } = _ref5;
+        handler(_ref6) {let { target } = _ref6;
           if (this.$el !== target) {
             active =
             active === null && within(target, this.$el) && this.isToggled() ?
@@ -4440,8 +4454,6 @@
           // Ensure none positioned element does not generate scrollbars
           this.$el.hidden = true;
 
-          const boundary = query(this.boundary, this.$el);
-          const boundaryOffset = offset(boundary || window);
           const viewports = this.target.map((target) => offsetViewport(scrollParents(target)[0]));
           const viewportOffset = this.getViewportOffset(this.$el);
 
@@ -4454,7 +4466,7 @@
             if (this.axis !== axis && includes([axis, true], this.stretch)) {
               css(this.$el, {
                 [prop]: Math.min(
-                boundaryOffset[prop],
+                offset(this.boundary[i])[prop],
                 viewports[i][prop] - 2 * viewportOffset),
 
                 ["overflow-" + axis]: 'auto' });
@@ -4472,7 +4484,7 @@
 
           this.$el.hidden = false;
 
-          this.positionAt(this.$el, this.target, boundary);
+          this.positionAt(this.$el, this.target, this.boundary);
 
           for (const [i, [axis, prop, start, end]] of dirs) {
             if (this.axis === axis && includes([axis, true], this.stretch)) {
@@ -4485,17 +4497,17 @@
                 (targetOffset[start] > elOffset[start] ?
                 targetOffset[start] -
                 Math.max(
-                boundaryOffset[start],
+                offset(this.boundary[i])[start],
                 viewports[i][start] + viewportOffset) :
 
                 Math.min(
-                boundaryOffset[end],
+                offset(this.boundary[i])[end],
                 viewports[i][end] - viewportOffset) -
                 targetOffset[end]) - positionOffset,
                 ["overflow-" + axis]: 'auto' });
 
 
-              this.positionAt(this.$el, this.target, boundary);
+              this.positionAt(this.$el, this.target, this.boundary);
             }
           }
         } } };
@@ -6655,7 +6667,7 @@
     function unregisterClick(cmp) {
       components$2.delete(cmp);
 
-      if (!components$2.length) {
+      if (!components$2.size) {
         off(document, 'click', clickHandler);
       }
     }
