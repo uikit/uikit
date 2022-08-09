@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Slideshow no longer completely resets upon adding slides 
+
 ## 3.15.2 (August 8, 2022)
 
 ### Added

@@ -74,7 +74,7 @@ export default {
             },
 
             watch() {
-                this.$reset();
+                this.$emit('resize');
             },
         },
 

@@ -21,7 +21,7 @@ export default {
     },
 
     resizeTargets() {
-        return [this.$el, parent(this.$el)];
+        return [this.$el, getPositionedParent(this.$el) || parent(this.$el)];
     },
 
     update: {
