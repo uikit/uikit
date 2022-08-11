@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Remove divider from nav header for divider modifier in Nav component
+
 ### Fixed
 
 - Fix Slideshow no longer completely resets upon adding slides 
