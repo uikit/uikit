@@ -12,63 +12,54 @@ import {
     Transition,
 } from 'uikit-util';
 
-export default function (action, target, duration) {
-    return new Promise((resolve) =>
-        requestAnimationFrame(() => {
-            let nodes = children(target);
+export default async function (action, target, duration) {
+    await awaitFrame();
 
-            // Get current state
-            const currentProps = nodes.map((el) => getProps(el, true));
-            const targetProps = css(target, ['height', 'padding']);
+    let nodes = children(target);
 
-            // Cancel previous animations
-            Transition.cancel(target);
-            nodes.forEach(Transition.cancel);
-            reset(target);
+    // Get current state
+    const currentProps = nodes.map((el) => getProps(el, true));
+    const targetProps = css(target, ['height', 'padding']);
 
-            // Adding, sorting, removing nodes
-            action();
+    // Cancel previous animations
+    Transition.cancel(target);
+    nodes.forEach(Transition.cancel);
+    reset(target);
 
-            // Find new nodes
-            nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
+    // Adding, sorting, removing nodes
+    action();
 
-            // Wait for update to propagate
-            Promise.resolve().then(() => {
-                // Force update
-                fastdom.flush();
+    // Find new nodes
+    nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
 
-                // Get new state
-                const targetPropsTo = css(target, ['height', 'padding']);
-                const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
+    // Wait for update to propagate
+    await Promise.resolve();
 
-                // Reset to previous state
-                nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-                css(target, { display: 'block', ...targetProps });
+    // Force update
+    fastdom.flush();
 
-                // Start transitions on next frame
-                requestAnimationFrame(() => {
-                    const transitions = nodes
-                        .map(
-                            (el, i) =>
-                                parent(el) === target &&
-                                Transition.start(el, propsTo[i], duration, 'ease')
-                        )
-                        .concat(Transition.start(target, targetPropsTo, duration, 'ease'));
+    // Get new state
+    const targetPropsTo = css(target, ['height', 'padding']);
+    const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
 
-                    Promise.all(transitions)
-                        .then(() => {
-                            nodes.forEach(
-                                (el, i) =>
-                                    parent(el) === target &&
-                                    css(el, 'display', propsTo[i].opacity === 0 ? 'none' : '')
-                            );
-                            reset(target);
-                        }, noop)
-                        .then(resolve);
-                });
-            });
-        })
-    );
+    // Reset to previous state
+    nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
+    css(target, { display: 'block', ...targetProps });
+
+    // Start transitions on next frame
+    await awaitFrame();
+
+    const transitions = nodes
+        .map((el, i) => parent(el) === target && Transition.start(el, propsTo[i], duration, 'ease'))
+        .concat(Transition.start(target, targetPropsTo, duration, 'ease'));
+
+    await Promise.all(transitions).then(() => {
+        nodes.forEach(
+            (el, i) =>
+                parent(el) === target && css(el, 'display', propsTo[i].opacity === 0 ? 'none' : '')
+        );
+        reset(target);
+    }, noop);
 }
 
 function getProps(el, opacity) {
@@ -145,4 +136,8 @@ function getPositionWithMargin(el) {
     const { marginLeft, marginTop } = css(el, ['marginTop', 'marginLeft']);
 
     return { top, left, height, width, marginLeft, marginTop, transform: '' };
+}
+
+function awaitFrame() {
+    return new Promise((resolve) => requestAnimationFrame(resolve));
 }

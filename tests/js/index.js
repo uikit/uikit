@@ -1,5 +1,5 @@
 /* global TESTS */
-import { addClass, css, fastdom, on, prepend, removeClass, ucfirst } from 'uikit-util';
+import { addClass, css, on, prepend, removeClass, ucfirst } from 'uikit-util';
 
 const tests = TESTS;
 const storage = window.sessionStorage;
@@ -59,7 +59,7 @@ document.writeln(
 on(window, 'load', () =>
     setTimeout(
         () =>
-            fastdom.write(() => {
+            requestAnimationFrame(() => {
                 const $body = document.body;
                 const $container = prepend(
                     $body,

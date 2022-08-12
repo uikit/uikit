@@ -23,10 +23,10 @@ export default function fade(action, target, duration, stagger = 0) {
 
     const wrapIndexFn = (fn) => () => index === transitionIndex(target) ? fn() : Promise.reject();
 
-    const leaveFn = wrapIndexFn(() => {
+    const leaveFn = wrapIndexFn(async () => {
         addClass(target, clsLeave);
 
-        return Promise.all(
+        await Promise.all(
             getTransitionNodes(target).map(
                 (child, i) =>
                     new Promise((resolve) =>
@@ -39,10 +39,12 @@ export default function fade(action, target, duration, stagger = 0) {
                         )
                     )
             )
-        ).then(() => removeClass(target, clsLeave));
+        );
+
+        removeClass(target, clsLeave);
     });
 
-    const enterFn = wrapIndexFn(() => {
+    const enterFn = wrapIndexFn(async () => {
         const oldHeight = height(target);
 
         addClass(target, clsEnter);
@@ -51,53 +53,42 @@ export default function fade(action, target, duration, stagger = 0) {
         css(children(target), { opacity: 0 });
 
         // Ensure UIkit updates have propagated
-        return new Promise((resolve) =>
-            requestAnimationFrame(() => {
-                const nodes = children(target);
-                const newHeight = height(target);
+        await awaitFrame();
 
-                // Ensure Grid cells do not stretch when height is applied
-                css(target, 'alignContent', 'flex-start');
-                height(target, oldHeight);
+        const nodes = children(target);
+        const newHeight = height(target);
 
-                const transitionNodes = getTransitionNodes(target);
-                css(nodes, propsOut);
+        // Ensure Grid cells do not stretch when height is applied
+        css(target, 'alignContent', 'flex-start');
+        height(target, oldHeight);
 
-                const transitions = transitionNodes.map(
-                    (child, i) =>
-                        new Promise((resolve) =>
-                            setTimeout(
-                                () =>
-                                    Transition.start(child, propsIn, duration / 2, 'ease').then(
-                                        resolve
-                                    ),
-                                i * stagger
-                            )
-                        )
-                );
+        const transitionNodes = getTransitionNodes(target);
+        css(nodes, propsOut);
 
-                if (oldHeight !== newHeight) {
-                    transitions.push(
-                        Transition.start(
-                            target,
-                            { height: newHeight },
-                            duration / 2 + transitionNodes.length * stagger,
-                            'ease'
-                        )
-                    );
-                }
+        const transitions = transitionNodes.map(async (child, i) => {
+            await awaitTimeout(i * stagger);
+            await Transition.start(child, propsIn, duration / 2, 'ease');
+        });
 
-                Promise.all(transitions).then(() => {
-                    removeClass(target, clsEnter);
-                    if (index === transitionIndex(target)) {
-                        css(target, { height: '', alignContent: '' });
-                        css(nodes, { opacity: '' });
-                        delete target.dataset.transition;
-                    }
-                    resolve();
-                });
-            })
-        );
+        if (oldHeight !== newHeight) {
+            transitions.push(
+                Transition.start(
+                    target,
+                    { height: newHeight },
+                    duration / 2 + transitionNodes.length * stagger,
+                    'ease'
+                )
+            );
+        }
+
+        await Promise.all(transitions).then(() => {
+            removeClass(target, clsEnter);
+            if (index === transitionIndex(target)) {
+                css(target, { height: '', alignContent: '' });
+                css(nodes, { opacity: '' });
+                delete target.dataset.transition;
+            }
+        });
     });
 
     return hasClass(target, clsLeave)
@@ -137,4 +128,12 @@ function getTransitionNodes(target) {
             ),
         []
     );
+}
+
+function awaitFrame() {
+    return new Promise((resolve) => requestAnimationFrame(resolve));
+}
+
+function awaitTimeout(timeout) {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
 }

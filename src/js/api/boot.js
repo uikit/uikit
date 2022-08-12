@@ -1,5 +1,5 @@
 import { getComponentName } from './component';
-import { apply, fastdom, hasAttr, inBrowser } from 'uikit-util';
+import { apply, hasAttr, inBrowser } from 'uikit-util';
 
 export default function (UIkit) {
     const { connect, disconnect } = UIkit;
@@ -8,7 +8,7 @@ export default function (UIkit) {
         return;
     }
 
-    fastdom.read(function () {
+    requestAnimationFrame(function () {
         if (document.body) {
             apply(document.body, connect);
         }

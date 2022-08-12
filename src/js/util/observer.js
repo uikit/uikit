@@ -1,6 +1,5 @@
 import { on } from './event';
 import { toNodes } from './lang';
-import { fastdom } from './fastdom';
 import { inBrowser } from './env';
 
 export function observeIntersection(targets, cb, options, intersecting = true) {
@@ -53,7 +52,7 @@ function initResizeListener() {
             return;
         }
         pendingResize = true;
-        fastdom.read(() => (pendingResize = false));
+        requestAnimationFrame(() => (pendingResize = false));
         for (const listener of listeners) {
             listener();
         }

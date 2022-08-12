@@ -5,7 +5,6 @@ import {
     css,
     data,
     each,
-    fastdom,
     children as getChildren,
     hasClass,
     includes,
@@ -43,7 +42,7 @@ export default {
             },
 
             watch() {
-                this.updateState();
+                this.$emit();
 
                 if (this.selActive !== false) {
                     const actives = $$(this.selActive, this.$el);
@@ -61,11 +60,17 @@ export default {
 
             watch(list, old) {
                 if (old && !isEqualList(list, old)) {
-                    this.updateState();
+                    this.$emit();
                 }
             },
 
             immediate: true,
+        },
+    },
+
+    update: {
+        write() {
+            this.setState(this.getState(), false);
         },
     },
 
@@ -108,25 +113,18 @@ export default {
 
             trigger(this.$el, 'beforeFilter', [this, state]);
 
-            this.toggles.forEach((el) =>
-                toggleClass(el, this.cls, !!matchFilter(el, this.attrItem, state))
-            );
+            for (const el of this.toggles) {
+                toggleClass(el, this.cls, !!matchFilter(el, this.attrItem, state));
+            }
 
             await Promise.all(
                 $$(this.target, this.$el).map((target) => {
-                    const filterFn = () => {
-                        applyState(state, target, getChildren(target));
-                        this.$update(this.$el);
-                    };
+                    const filterFn = () => applyState(state, target, getChildren(target));
                     return animate ? this.animate(filterFn, target) : filterFn();
                 })
             );
 
             trigger(this.$el, 'afterFilter', [this]);
-        },
-
-        updateState() {
-            fastdom.write(() => this.setState(this.getState(), false));
         },
     },
 };

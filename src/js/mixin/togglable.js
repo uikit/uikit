@@ -82,7 +82,6 @@ export default {
                         const done = () => {
                             removeClass(el, cls);
                             trigger(el, show ? 'shown' : 'hidden', [this]);
-                            this.$update(el);
                         };
 
                         return promise
@@ -127,7 +126,6 @@ export default {
 
             if (changed) {
                 trigger(el, 'toggled', [toggled, this]);
-                this.$update(el);
             }
         },
     },

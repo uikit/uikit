@@ -1,4 +1,4 @@
-import { $$, camelize, fastdom, hyphenate, isPlainObject, memoize, startsWith } from 'uikit-util';
+import { $$, camelize, hyphenate, isPlainObject, memoize, startsWith } from 'uikit-util';
 
 export default function (UIkit) {
     const DATA = UIkit.data;
@@ -49,7 +49,7 @@ export default function (UIkit) {
         opt.install?.(UIkit, opt, name);
 
         if (UIkit._initialized && !opt.functional) {
-            fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
+            requestAnimationFrame(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
         }
 
         return (components[name] = isPlainObject(options) ? opt : options);

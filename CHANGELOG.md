@@ -1,12 +1,22 @@
 # Changelog
 
+## 3.15.3 (August 12, 2022)
+
+### Changed
+
+- Remove divider from nav header for divider modifier in Nav component
+
+### Fixed
+
+- Fix Slideshow no longer completely resets upon adding slides 
+
 ## 3.15.2 (August 8, 2022)
 
 ### Added
 
 - Add `boundary-x` and `boundary-y` options to Drop component
 
-## Fixed
+### Fixed
 
 - Remove click event listener in Scroll component correctly 
 
