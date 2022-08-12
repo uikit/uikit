@@ -151,8 +151,6 @@ export default {
             trigger(el, inview ? 'inview' : 'outview');
 
             state.inview = inview;
-
-            this.$update(el);
         },
     },
 };

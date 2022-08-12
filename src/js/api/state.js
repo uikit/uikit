@@ -267,7 +267,7 @@ function normalizeData({ data = {} }, { args = [], props = {} }) {
 function initChildListObserver(component) {
     const { el } = component.$options;
 
-    const observer = new MutationObserver(() => component.$emit());
+    const observer = new MutationObserver(() => component._callWatches());
     observer.observe(el, {
         childList: true,
         subtree: true,
