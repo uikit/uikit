@@ -6,7 +6,6 @@ import {
     $,
     $$,
     clamp,
-    fastdom,
     getIndex,
     hasClass,
     isNumber,
@@ -137,7 +136,7 @@ export default {
                 trigger(next, 'itemshown', [this]);
 
                 return new Promise((resolve) => {
-                    fastdom.write(() => {
+                    requestAnimationFrame(() => {
                         stack.shift();
                         if (stack.length) {
                             this.show(stack.shift(), true);

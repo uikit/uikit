@@ -5,7 +5,6 @@ import {
     $,
     $$,
     attr,
-    fastdom,
     filter,
     getIndex,
     hasClass,
@@ -144,7 +143,7 @@ export default {
 
                     if (show) {
                         const toggle = $(this.$props.toggle, el);
-                        fastdom.read(() => {
+                        requestAnimationFrame(() => {
                             if (!isInView(toggle)) {
                                 scrollIntoView(toggle, { offset: this.offset });
                             }
