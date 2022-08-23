@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.15.4 (August 23, 2022)
 
 ### Fixed
 
