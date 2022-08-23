@@ -1,4 +1,4 @@
-/*! UIkit 3.15.3 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.4 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2945,7 +2945,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.3';
+    UIkit.version = '3.15.4';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3189,6 +3189,8 @@
         'border',
         'width',
         'height',
+        'minWidth',
+        'minHeight',
         'overflowY',
         'overflowX',
         marginProp,
@@ -4751,7 +4753,7 @@
     var grid = {
       extends: Margin,
 
-      mixins: [Class, Scroll],
+      mixins: [Class],
 
       name: 'grid',
 
@@ -4769,6 +4771,11 @@
 
       connected() {
         this.masonry && addClass(this.$el, 'uk-flex-top uk-flex-wrap-top');
+        this.parallax && registerScrollListener(this._uid, () => this.$emit('scroll'));
+      },
+
+      disconnected() {
+        unregisterScrollListener(this._uid);
       },
 
       update: [
@@ -8173,7 +8180,7 @@
           },
 
           watch() {
-            this.$emit();
+            this.updateState();
 
             if (this.selActive !== false) {
               const actives = $$(this.selActive, this.$el);
@@ -8191,18 +8198,12 @@
 
           watch(list, old) {
             if (old && !isEqualList(list, old)) {
-              this.$emit();
+              this.updateState();
             }
           },
 
           immediate: true } },
 
-
-
-      update: {
-        write() {
-          this.setState(this.getState(), false);
-        } },
 
 
       events: [
@@ -8244,18 +8245,25 @@
 
           trigger(this.$el, 'beforeFilter', [this, state]);
 
-          for (const el of this.toggles) {
-            toggleClass(el, this.cls, !!matchFilter(el, this.attrItem, state));
-          }
+          this.toggles.forEach((el) =>
+          toggleClass(el, this.cls, !!matchFilter(el, this.attrItem, state)));
+
 
           await Promise.all(
           $$(this.target, this.$el).map((target) => {
-            const filterFn = () => applyState(state, target, children(target));
+            const filterFn = () => {
+              applyState(state, target, children(target));
+              this.$update(this.$el);
+            };
             return animate ? this.animate(filterFn, target) : filterFn();
           }));
 
 
           trigger(this.$el, 'afterFilter', [this]);
+        },
+
+        updateState() {
+          fastdom.write(() => this.setState(this.getState(), false));
         } } };
 
 
@@ -9940,7 +9948,7 @@
       return isNumber(start) ? start + Math.abs(start - end) * p * (start < end ? 1 : -1) : +end;
     }
 
-    const unitRe = /^-?\d+(\S*)/;
+    const unitRe = /^-?\d+(\S+)/;
     function getUnit(stops, defaultUnit) {
       for (const stop of stops) {
         const match = stop.match == null ? void 0 : stop.match(unitRe);
