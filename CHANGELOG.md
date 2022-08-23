@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.15.4 (August 23, 2022)
+
+### Fixed
+
+- Fix detecting unit in Parallax component stops
+- Fix regression in transition animations in Drop component
+- Fix regression in Filter component
+
 ## 3.15.3 (August 12, 2022)
 
 ### Changed

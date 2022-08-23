@@ -1,6 +1,6 @@
 import Margin from './margin';
 import Class from '../mixin/class';
-import Scroll from '../mixin/scroll';
+import { registerScrollListener, unregisterScrollListener } from '../mixin/scroll';
 import {
     addClass,
     children,
@@ -15,7 +15,7 @@ import {
 export default {
     extends: Margin,
 
-    mixins: [Class, Scroll],
+    mixins: [Class],
 
     name: 'grid',
 
@@ -33,6 +33,11 @@ export default {
 
     connected() {
         this.masonry && addClass(this.$el, 'uk-flex-top uk-flex-wrap-top');
+        this.parallax && registerScrollListener(this._uid, () => this.$emit('scroll'));
+    },
+
+    disconnected() {
+        unregisterScrollListener(this._uid);
     },
 
     update: [

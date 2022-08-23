@@ -45,7 +45,7 @@ async function compile(file, dist, develop, rtl) {
 
     let output = (
         await renderLess(less, {
-            relativeUrls: true,
+            rewriteUrls: 'all',
             rootpath: '../../',
             paths: ['src/less/', 'custom/'],
         })

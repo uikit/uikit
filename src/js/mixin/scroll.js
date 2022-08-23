@@ -12,7 +12,7 @@ export default {
 
 const scrollListeners = new Map();
 let unbindScrollListener;
-function registerScrollListener(id, listener) {
+export function registerScrollListener(id, listener) {
     unbindScrollListener =
         unbindScrollListener ||
         on(window, 'scroll', () => scrollListeners.forEach((listener) => listener()), {
@@ -23,7 +23,7 @@ function registerScrollListener(id, listener) {
     scrollListeners.set(id, listener);
 }
 
-function unregisterScrollListener(id) {
+export function unregisterScrollListener(id) {
     scrollListeners.delete(id);
     if (unbindScrollListener && !scrollListeners.size) {
         unbindScrollListener();
