@@ -171,6 +171,8 @@ export function toggleTransition(cmp) {
                 'border',
                 'width',
                 'height',
+                'minWidth',
+                'minHeight',
                 'overflowY',
                 'overflowX',
                 marginProp,
