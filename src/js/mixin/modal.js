@@ -240,42 +240,41 @@ export default {
                 );
             }
 
-            return this.toggleElement(this.$el, true, animate(this));
+            return this.toggleElement(this.$el, true, animate);
         },
 
         hide() {
-            return this.toggleElement(this.$el, false, animate(this));
+            return this.toggleElement(this.$el, false, animate);
         },
     },
 };
 
-function animate({ transitionElement, _toggle }) {
-    return (el, show) =>
-        new Promise((resolve, reject) =>
-            once(el, 'show hide', () => {
-                el._reject?.();
-                el._reject = reject;
+function animate(el, show, { transitionElement, _toggle }) {
+    return new Promise((resolve, reject) =>
+        once(el, 'show hide', () => {
+            el._reject?.();
+            el._reject = reject;
 
-                _toggle(el, show);
+            _toggle(el, show);
 
-                const off = once(
-                    transitionElement,
-                    'transitionstart',
-                    () => {
-                        once(transitionElement, 'transitionend transitioncancel', resolve, {
-                            self: true,
-                        });
-                        clearTimeout(timer);
-                    },
-                    { self: true }
-                );
+            const off = once(
+                transitionElement,
+                'transitionstart',
+                () => {
+                    once(transitionElement, 'transitionend transitioncancel', resolve, {
+                        self: true,
+                    });
+                    clearTimeout(timer);
+                },
+                { self: true }
+            );
 
-                const timer = setTimeout(() => {
-                    off();
-                    resolve();
-                }, toMs(css(transitionElement, 'transitionDuration')));
-            })
-        ).then(() => delete el._reject);
+            const timer = setTimeout(() => {
+                off();
+                resolve();
+            }, toMs(css(transitionElement, 'transitionDuration')));
+        })
+    ).then(() => delete el._reject);
 }
 
 function toMs(time) {
