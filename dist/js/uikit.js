@@ -1,4 +1,4 @@
-/*! UIkit 3.15.4 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.5 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -855,7 +855,7 @@
       return String(str).split(/\s|,/).filter(Boolean);
     }
 
-    function transition(element, props, duration, timing) {if (duration === void 0) {duration = 400;}if (timing === void 0) {timing = 'linear';}
+    function transition$1(element, props, duration, timing) {if (duration === void 0) {duration = 400;}if (timing === void 0) {timing = 'linear';}
       duration = Math.round(duration);
       return Promise.all(
       toNodes(element).map(
@@ -899,7 +899,7 @@
     }
 
     const Transition = {
-      start: transition,
+      start: transition$1,
 
       async stop(element) {
         trigger(element, 'transitionend');
@@ -2945,7 +2945,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.4';
+    UIkit.version = '3.15.5';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3085,11 +3085,11 @@
             isFunction(animate) ?
             animate :
             animate === false || !this.hasAnimation ?
-            toggleInstant(this) :
+            toggleInstant :
             this.hasTransition ?
-            toggleTransition(this) :
-            toggleAnimation(this))(
-            el, show);
+            toggleTransition :
+            toggleAnimation)(
+            el, show, this);
 
             const cls = show ? this.clsEnter : this.clsLeave;
 
@@ -3149,16 +3149,18 @@
 
 
 
-    function toggleInstant(_ref3) {let { _toggle } = _ref3;
-      return (el, show) => {
-        Animation.cancel(el);
-        Transition.cancel(el);
-        return _toggle(el, show);
-      };
+    function toggleInstant(el, show, _ref3) {let { _toggle } = _ref3;
+      Animation.cancel(el);
+      Transition.cancel(el);
+      return _toggle(el, show);
     }
 
-    function toggleTransition(cmp) {var _cmp$animation$;
-      const [mode = 'reveal', startProp = 'top'] = ((_cmp$animation$ = cmp.animation[0]) == null ? void 0 : _cmp$animation$.split('-')) || [];
+    async function toggleTransition(
+    el,
+    show, _ref4)
+
+    {var _animation$;let { animation, duration, velocity, transition, _toggle } = _ref4;
+      const [mode = 'reveal', startProp = 'top'] = ((_animation$ = animation[0]) == null ? void 0 : _animation$.split('-')) || [];
 
       const dirs = [
       ['left', 'right'],
@@ -3171,113 +3173,107 @@
       const marginProp = "margin-" + dir[0];
       const marginStartProp = "margin-" + startProp;
 
-      return async (el, show) => {
-        let { duration, velocity, transition, _toggle } = cmp;
+      let currentDim = dimensions$1(el)[dimProp];
 
-        let currentDim = dimensions$1(el)[dimProp];
+      const inProgress = Transition.inProgress(el);
+      await Transition.cancel(el);
 
-        const inProgress = Transition.inProgress(el);
-        await Transition.cancel(el);
+      if (show) {
+        _toggle(el, true);
+      }
 
-        if (show) {
-          _toggle(el, true);
-        }
+      const prevProps = Object.fromEntries(
+      [
+      'padding',
+      'border',
+      'width',
+      'height',
+      'minWidth',
+      'minHeight',
+      'overflowY',
+      'overflowX',
+      marginProp,
+      marginStartProp].
+      map((key) => [key, el.style[key]]));
 
-        const prevProps = Object.fromEntries(
-        [
+
+      const dim = dimensions$1(el);
+      const currentMargin = toFloat(css(el, marginProp));
+      const marginStart = toFloat(css(el, marginStartProp));
+      const endDim = dim[dimProp] + marginStart;
+
+      if (!inProgress && !show) {
+        currentDim += marginStart;
+      }
+
+      const [wrapper] = wrapInner(el, '<div>');
+      css(wrapper, {
+        boxSizing: 'border-box',
+        height: dim.height,
+        width: dim.width,
+        ...css(el, [
+        'overflow',
         'padding',
-        'border',
-        'width',
-        'height',
-        'minWidth',
-        'minHeight',
-        'overflowY',
-        'overflowX',
-        marginProp,
-        marginStartProp].
-        map((key) => [key, el.style[key]]));
+        'borderTop',
+        'borderRight',
+        'borderBottom',
+        'borderLeft',
+        'borderImage',
+        marginStartProp]) });
 
 
-        const dim = dimensions$1(el);
-        const currentMargin = toFloat(css(el, marginProp));
-        const marginStart = toFloat(css(el, marginStartProp));
-        const endDim = dim[dimProp] + marginStart;
 
-        if (!inProgress && !show) {
-          currentDim += marginStart;
+      css(el, {
+        padding: 0,
+        border: 0,
+        minWidth: 0,
+        minHeight: 0,
+        [marginStartProp]: 0,
+        width: dim.width,
+        height: dim.height,
+        overflow: 'hidden',
+        [dimProp]: currentDim });
+
+
+      const percent = currentDim / endDim;
+      duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
+      const endProps = { [dimProp]: show ? endDim : 0 };
+
+      if (end) {
+        css(el, marginProp, endDim - currentDim + currentMargin);
+        endProps[marginProp] = show ? currentMargin : endDim + currentMargin;
+      }
+
+      if (!end ^ mode === 'reveal') {
+        css(wrapper, marginProp, -endDim + currentDim);
+        Transition.start(wrapper, { [marginProp]: show ? 0 : -endDim }, duration, transition);
+      }
+
+      try {
+        await Transition.start(el, endProps, duration, transition);
+      } finally {
+        css(el, prevProps);
+        unwrap(wrapper.firstChild);
+
+        if (!show) {
+          _toggle(el, false);
         }
-
-        const [wrapper] = wrapInner(el, '<div>');
-        css(wrapper, {
-          boxSizing: 'border-box',
-          height: dim.height,
-          width: dim.width,
-          ...css(el, [
-          'overflow',
-          'padding',
-          'borderTop',
-          'borderRight',
-          'borderBottom',
-          'borderLeft',
-          'borderImage',
-          marginStartProp]) });
-
-
-
-        css(el, {
-          padding: 0,
-          border: 0,
-          minWidth: 0,
-          minHeight: 0,
-          [marginStartProp]: 0,
-          width: dim.width,
-          height: dim.height,
-          overflow: 'hidden',
-          [dimProp]: currentDim });
-
-
-        const percent = currentDim / endDim;
-        duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
-        const endProps = { [dimProp]: show ? endDim : 0 };
-
-        if (end) {
-          css(el, marginProp, endDim - currentDim + currentMargin);
-          endProps[marginProp] = show ? currentMargin : endDim + currentMargin;
-        }
-
-        if (!end ^ mode === 'reveal') {
-          css(wrapper, marginProp, -endDim + currentDim);
-          Transition.start(wrapper, { [marginProp]: show ? 0 : -endDim }, duration, transition);
-        }
-
-        try {
-          await Transition.start(el, endProps, duration, transition);
-        } finally {
-          css(el, prevProps);
-          unwrap(wrapper.firstChild);
-
-          if (!show) {
-            _toggle(el, false);
-          }
-        }
-      };
+      }
     }
 
-    function toggleAnimation(cmp) {
-      return (el, show) => {
-        Animation.cancel(el);
+    function toggleAnimation(el, show, cmp) {
+      Animation.cancel(el);
 
-        const { animation, duration, _toggle } = cmp;
+      const { animation, duration, _toggle } = cmp;
 
-        if (show) {
-          _toggle(el, true);
-          return Animation.in(el, animation[0], duration, cmp.origin);
-        }
+      if (show) {
+        _toggle(el, true);
+        return Animation.in(el, animation[0], duration, cmp.origin);
+      }
 
-        return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() =>
-        _toggle(el, false));
+      return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() =>
+      _toggle(el, false));
 
-      };
     }
 
     var Accordion = {
@@ -3391,28 +3387,25 @@
           }
 
           for (const el of items) {
-            this.toggleElement(el, !hasClass(el, this.clsOpen), async (el, show) => {
+            this.toggleElement(el, !hasClass(el, this.clsOpen), (el, show) => {
               toggleClass(el, this.clsOpen, show);
               attr($(this.$props.toggle, el), 'aria-expanded', show);
 
-              const content = $(this.content, el);
-
               if (animate === false || !this.animation) {
-                content.hidden = !show;
-                hide(content, !show);
+                hide($(this.content, el), !show);
                 return;
               }
 
-              await toggleTransition(this)(content, show);
-
-              if (show) {
-                const toggle = $(this.$props.toggle, el);
-                requestAnimationFrame(() => {
-                  if (!isInView(toggle)) {
-                    scrollIntoView(toggle, { offset: this.offset });
-                  }
-                });
-              }
+              return transition(el, show, this).then(() => {
+                if (show) {
+                  const toggle = $(this.$props.toggle, el);
+                  requestAnimationFrame(() => {
+                    if (!isInView(toggle)) {
+                      scrollIntoView(toggle, { offset: this.offset });
+                    }
+                  });
+                }
+              }, noop);
             });
           }
         } } };
@@ -3421,6 +3414,38 @@
 
     function hide(el, hide) {
       el && (el.hidden = hide);
+    }
+
+    async function transition(el, show, _ref4) {var _el$_wrapper;let { content, duration, velocity, transition } = _ref4;
+      content = ((_el$_wrapper = el._wrapper) == null ? void 0 : _el$_wrapper.firstElementChild) || $(content, el);
+
+      if (!el._wrapper) {
+        el._wrapper = wrapAll(content, '<div>');
+      }
+
+      const wrapper = el._wrapper;
+      css(wrapper, 'overflow', 'hidden');
+      const currentHeight = toFloat(css(wrapper, 'height'));
+
+      await Transition.cancel(wrapper);
+      hide(content, false);
+
+      const endHeight =
+      toFloat(css(content, 'height')) +
+      toFloat(css(content, 'marginTop')) +
+      toFloat(css(content, 'marginBottom'));
+      const percent = currentHeight / endHeight;
+      duration = (velocity * endHeight + duration) * (show ? 1 - percent : percent);
+      css(wrapper, 'height', currentHeight);
+
+      await Transition.start(wrapper, { height: show ? endHeight : 0 }, duration, transition);
+
+      unwrap(content);
+      delete el._wrapper;
+
+      if (!show) {
+        hide(content, true);
+      }
     }
 
     var alert = {
@@ -3454,32 +3479,30 @@
 
       methods: {
         async close() {
-          await this.toggleElement(this.$el, false, animate$1(this));
+          await this.toggleElement(this.$el, false, animate$1);
           this.$destroy(true);
         } } };
 
 
 
-    function animate$1(_ref) {let { duration, transition, velocity } = _ref;
-      return (el) => {
-        const height = toFloat(css(el, 'height'));
-        css(el, 'height', height);
-        return Transition.start(
-        el,
-        {
-          height: 0,
-          marginTop: 0,
-          marginBottom: 0,
-          paddingTop: 0,
-          paddingBottom: 0,
-          borderTop: 0,
-          borderBottom: 0,
-          opacity: 0 },
+    function animate$1(el, show, _ref) {let { duration, transition, velocity } = _ref;
+      const height = toFloat(css(el, 'height'));
+      css(el, 'height', height);
+      return Transition.start(
+      el,
+      {
+        height: 0,
+        marginTop: 0,
+        marginBottom: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        borderTop: 0,
+        borderBottom: 0,
+        opacity: 0 },
 
-        velocity * height + duration,
-        transition);
+      velocity * height + duration,
+      transition);
 
-      };
     }
 
     var Video = {
@@ -3940,18 +3963,17 @@
 
           }
 
-          return this.toggleElement(this.$el, true, animate(this));
+          return this.toggleElement(this.$el, true, animate);
         },
 
         hide() {
-          return this.toggleElement(this.$el, false, animate(this));
+          return this.toggleElement(this.$el, false, animate);
         } } };
 
 
 
-    function animate(_ref5) {let { transitionElement, _toggle } = _ref5;
-      return (el, show) =>
-      new Promise((resolve, reject) =>
+    function animate(el, show, _ref5) {let { transitionElement, _toggle } = _ref5;
+      return new Promise((resolve, reject) =>
       once(el, 'show hide', () => {
         el._reject == null ? void 0 : el._reject();
         el._reject = reject;
@@ -6831,6 +6853,9 @@
           trigger(el, inview ? 'inview' : 'outview');
 
           state.inview = inview;
+
+          // change to `visibility: hidden` does not trigger observers
+          this.$update(el);
         } } };
 
     var scrollspyNav = {

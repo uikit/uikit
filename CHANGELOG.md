@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.15.5 (August 24, 2022)
+
+### Fixed
+
+- Fix accordion items wrap themselves during transition
+- Fix regression in Video component (no autoplay if within a Scrollspy)
+
 ## 3.15.4 (August 23, 2022)
 
 ### Fixed

@@ -151,6 +151,9 @@ export default {
             trigger(el, inview ? 'inview' : 'outview');
 
             state.inview = inview;
+
+            // change to `visibility: hidden` does not trigger observers
+            this.$update(el);
         },
     },
 };

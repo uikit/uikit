@@ -33,30 +33,28 @@ export default {
 
     methods: {
         async close() {
-            await this.toggleElement(this.$el, false, animate(this));
+            await this.toggleElement(this.$el, false, animate);
             this.$destroy(true);
         },
     },
 };
 
-function animate({ duration, transition, velocity }) {
-    return (el) => {
-        const height = toFloat(css(el, 'height'));
-        css(el, 'height', height);
-        return Transition.start(
-            el,
-            {
-                height: 0,
-                marginTop: 0,
-                marginBottom: 0,
-                paddingTop: 0,
-                paddingBottom: 0,
-                borderTop: 0,
-                borderBottom: 0,
-                opacity: 0,
-            },
-            velocity * height + duration,
-            transition
-        );
-    };
+function animate(el, show, { duration, transition, velocity }) {
+    const height = toFloat(css(el, 'height'));
+    css(el, 'height', height);
+    return Transition.start(
+        el,
+        {
+            height: 0,
+            marginTop: 0,
+            marginBottom: 0,
+            paddingTop: 0,
+            paddingBottom: 0,
+            borderTop: 0,
+            borderBottom: 0,
+            opacity: 0,
+        },
+        velocity * height + duration,
+        transition
+    );
 }

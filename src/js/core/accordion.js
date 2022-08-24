@@ -1,19 +1,25 @@
 import Class from '../mixin/class';
 import Lazyload from '../mixin/lazyload';
-import { default as Togglable, toggleTransition } from '../mixin/togglable';
+import Togglable from '../mixin/togglable';
 import {
     $,
     $$,
     attr,
+    css,
     filter,
     getIndex,
     hasClass,
     includes,
     index,
     isInView,
+    noop,
     scrollIntoView,
+    toFloat,
     toggleClass,
+    Transition,
+    unwrap,
     within,
+    wrapAll,
 } from 'uikit-util';
 
 export default {
@@ -127,28 +133,25 @@ export default {
             }
 
             for (const el of items) {
-                this.toggleElement(el, !hasClass(el, this.clsOpen), async (el, show) => {
+                this.toggleElement(el, !hasClass(el, this.clsOpen), (el, show) => {
                     toggleClass(el, this.clsOpen, show);
                     attr($(this.$props.toggle, el), 'aria-expanded', show);
 
-                    const content = $(this.content, el);
-
                     if (animate === false || !this.animation) {
-                        content.hidden = !show;
-                        hide(content, !show);
+                        hide($(this.content, el), !show);
                         return;
                     }
 
-                    await toggleTransition(this)(content, show);
-
-                    if (show) {
-                        const toggle = $(this.$props.toggle, el);
-                        requestAnimationFrame(() => {
-                            if (!isInView(toggle)) {
-                                scrollIntoView(toggle, { offset: this.offset });
-                            }
-                        });
-                    }
+                    return transition(el, show, this).then(() => {
+                        if (show) {
+                            const toggle = $(this.$props.toggle, el);
+                            requestAnimationFrame(() => {
+                                if (!isInView(toggle)) {
+                                    scrollIntoView(toggle, { offset: this.offset });
+                                }
+                            });
+                        }
+                    }, noop);
                 });
             }
         },
@@ -157,4 +160,36 @@ export default {
 
 function hide(el, hide) {
     el && (el.hidden = hide);
+}
+
+async function transition(el, show, { content, duration, velocity, transition }) {
+    content = el._wrapper?.firstElementChild || $(content, el);
+
+    if (!el._wrapper) {
+        el._wrapper = wrapAll(content, '<div>');
+    }
+
+    const wrapper = el._wrapper;
+    css(wrapper, 'overflow', 'hidden');
+    const currentHeight = toFloat(css(wrapper, 'height'));
+
+    await Transition.cancel(wrapper);
+    hide(content, false);
+
+    const endHeight =
+        toFloat(css(content, 'height')) +
+        toFloat(css(content, 'marginTop')) +
+        toFloat(css(content, 'marginBottom'));
+    const percent = currentHeight / endHeight;
+    duration = (velocity * endHeight + duration) * (show ? 1 - percent : percent);
+    css(wrapper, 'height', currentHeight);
+
+    await Transition.start(wrapper, { height: show ? endHeight : 0 }, duration, transition);
+
+    unwrap(content);
+    delete el._wrapper;
+
+    if (!show) {
+        hide(content, true);
+    }
 }

@@ -67,11 +67,11 @@ export default {
                             isFunction(animate)
                                 ? animate
                                 : animate === false || !this.hasAnimation
-                                ? toggleInstant(this)
+                                ? toggleInstant
                                 : this.hasTransition
-                                ? toggleTransition(this)
-                                : toggleAnimation(this)
-                        )(el, show);
+                                ? toggleTransition
+                                : toggleAnimation
+                        )(el, show, this);
 
                         const cls = show ? this.clsEnter : this.clsLeave;
 
@@ -131,16 +131,18 @@ export default {
     },
 };
 
-function toggleInstant({ _toggle }) {
-    return (el, show) => {
-        Animation.cancel(el);
-        Transition.cancel(el);
-        return _toggle(el, show);
-    };
+function toggleInstant(el, show, { _toggle }) {
+    Animation.cancel(el);
+    Transition.cancel(el);
+    return _toggle(el, show);
 }
 
-export function toggleTransition(cmp) {
-    const [mode = 'reveal', startProp = 'top'] = cmp.animation[0]?.split('-') || [];
+export async function toggleTransition(
+    el,
+    show,
+    { animation, duration, velocity, transition, _toggle }
+) {
+    const [mode = 'reveal', startProp = 'top'] = animation[0]?.split('-') || [];
 
     const dirs = [
         ['left', 'right'],
@@ -153,111 +155,105 @@ export function toggleTransition(cmp) {
     const marginProp = `margin-${dir[0]}`;
     const marginStartProp = `margin-${startProp}`;
 
-    return async (el, show) => {
-        let { duration, velocity, transition, _toggle } = cmp;
+    let currentDim = dimensions(el)[dimProp];
 
-        let currentDim = dimensions(el)[dimProp];
+    const inProgress = Transition.inProgress(el);
+    await Transition.cancel(el);
 
-        const inProgress = Transition.inProgress(el);
-        await Transition.cancel(el);
+    if (show) {
+        _toggle(el, true);
+    }
 
-        if (show) {
-            _toggle(el, true);
+    const prevProps = Object.fromEntries(
+        [
+            'padding',
+            'border',
+            'width',
+            'height',
+            'minWidth',
+            'minHeight',
+            'overflowY',
+            'overflowX',
+            marginProp,
+            marginStartProp,
+        ].map((key) => [key, el.style[key]])
+    );
+
+    const dim = dimensions(el);
+    const currentMargin = toFloat(css(el, marginProp));
+    const marginStart = toFloat(css(el, marginStartProp));
+    const endDim = dim[dimProp] + marginStart;
+
+    if (!inProgress && !show) {
+        currentDim += marginStart;
+    }
+
+    const [wrapper] = wrapInner(el, '<div>');
+    css(wrapper, {
+        boxSizing: 'border-box',
+        height: dim.height,
+        width: dim.width,
+        ...css(el, [
+            'overflow',
+            'padding',
+            'borderTop',
+            'borderRight',
+            'borderBottom',
+            'borderLeft',
+            'borderImage',
+            marginStartProp,
+        ]),
+    });
+
+    css(el, {
+        padding: 0,
+        border: 0,
+        minWidth: 0,
+        minHeight: 0,
+        [marginStartProp]: 0,
+        width: dim.width,
+        height: dim.height,
+        overflow: 'hidden',
+        [dimProp]: currentDim,
+    });
+
+    const percent = currentDim / endDim;
+    duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
+    const endProps = { [dimProp]: show ? endDim : 0 };
+
+    if (end) {
+        css(el, marginProp, endDim - currentDim + currentMargin);
+        endProps[marginProp] = show ? currentMargin : endDim + currentMargin;
+    }
+
+    if (!end ^ (mode === 'reveal')) {
+        css(wrapper, marginProp, -endDim + currentDim);
+        Transition.start(wrapper, { [marginProp]: show ? 0 : -endDim }, duration, transition);
+    }
+
+    try {
+        await Transition.start(el, endProps, duration, transition);
+    } finally {
+        css(el, prevProps);
+        unwrap(wrapper.firstChild);
+
+        if (!show) {
+            _toggle(el, false);
         }
-
-        const prevProps = Object.fromEntries(
-            [
-                'padding',
-                'border',
-                'width',
-                'height',
-                'minWidth',
-                'minHeight',
-                'overflowY',
-                'overflowX',
-                marginProp,
-                marginStartProp,
-            ].map((key) => [key, el.style[key]])
-        );
-
-        const dim = dimensions(el);
-        const currentMargin = toFloat(css(el, marginProp));
-        const marginStart = toFloat(css(el, marginStartProp));
-        const endDim = dim[dimProp] + marginStart;
-
-        if (!inProgress && !show) {
-            currentDim += marginStart;
-        }
-
-        const [wrapper] = wrapInner(el, '<div>');
-        css(wrapper, {
-            boxSizing: 'border-box',
-            height: dim.height,
-            width: dim.width,
-            ...css(el, [
-                'overflow',
-                'padding',
-                'borderTop',
-                'borderRight',
-                'borderBottom',
-                'borderLeft',
-                'borderImage',
-                marginStartProp,
-            ]),
-        });
-
-        css(el, {
-            padding: 0,
-            border: 0,
-            minWidth: 0,
-            minHeight: 0,
-            [marginStartProp]: 0,
-            width: dim.width,
-            height: dim.height,
-            overflow: 'hidden',
-            [dimProp]: currentDim,
-        });
-
-        const percent = currentDim / endDim;
-        duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
-        const endProps = { [dimProp]: show ? endDim : 0 };
-
-        if (end) {
-            css(el, marginProp, endDim - currentDim + currentMargin);
-            endProps[marginProp] = show ? currentMargin : endDim + currentMargin;
-        }
-
-        if (!end ^ (mode === 'reveal')) {
-            css(wrapper, marginProp, -endDim + currentDim);
-            Transition.start(wrapper, { [marginProp]: show ? 0 : -endDim }, duration, transition);
-        }
-
-        try {
-            await Transition.start(el, endProps, duration, transition);
-        } finally {
-            css(el, prevProps);
-            unwrap(wrapper.firstChild);
-
-            if (!show) {
-                _toggle(el, false);
-            }
-        }
-    };
+    }
 }
 
-function toggleAnimation(cmp) {
-    return (el, show) => {
-        Animation.cancel(el);
+function toggleAnimation(el, show, cmp) {
+    Animation.cancel(el);
 
-        const { animation, duration, _toggle } = cmp;
+    const { animation, duration, _toggle } = cmp;
 
-        if (show) {
-            _toggle(el, true);
-            return Animation.in(el, animation[0], duration, cmp.origin);
-        }
+    if (show) {
+        _toggle(el, true);
+        return Animation.in(el, animation[0], duration, cmp.origin);
+    }
 
-        return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() =>
-            _toggle(el, false)
-        );
-    };
+    return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() =>
+        _toggle(el, false)
+    );
 }
