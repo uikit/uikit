@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix accordion items wrap themselves during transition
+
 ## 3.15.4 (August 23, 2022)
 
 ### Fixed
