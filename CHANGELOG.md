@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix check for selectable Text in Slider drag
+
+
 ## 3.15.5 (August 24, 2022)
 
 ### Fixed
