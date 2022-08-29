@@ -82,6 +82,25 @@ export default {
         },
 
         {
+            name: 'click',
+
+            delegate() {
+                return 'a[href^="#"]';
+            },
+
+            handler({ current: { hash }, defaultPrevented }) {
+                if (
+                    !defaultPrevented &&
+                    hash &&
+                    !within(hash, this.$el) &&
+                    $(hash, document.body)
+                ) {
+                    this.hide();
+                }
+            },
+        },
+
+        {
             name: 'toggle',
 
             self: true,

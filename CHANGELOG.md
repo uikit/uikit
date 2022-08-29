@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Modal closes on click on hash links
+
 ### Fixed
 
 - Fix check for selectable Text in Slider drag

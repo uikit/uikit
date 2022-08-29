@@ -80,20 +80,6 @@ export default {
 
     events: [
         {
-            name: 'click',
-
-            delegate() {
-                return 'a[href^="#"]';
-            },
-
-            handler({ current: { hash }, defaultPrevented }) {
-                if (!defaultPrevented && hash && $(hash, document.body)) {
-                    this.hide();
-                }
-            },
-        },
-
-        {
             name: 'touchmove',
 
             self: true,
