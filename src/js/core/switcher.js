@@ -12,6 +12,7 @@ import {
     getIndex,
     hasClass,
     matches,
+    observeMutation,
     queryAll,
     ready,
     toggleClass,
@@ -51,11 +52,22 @@ export default {
                     css(connects, 'touchAction', 'pan-y pinch-zoom');
                 }
 
-                const index = this.index();
-                this.connects.forEach((el) => {
-                    children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
-                    this.lazyload(this.$el, children(el));
-                });
+                this._observer?.disconnect();
+                this.registerObserver(
+                    (this._observer = observeMutation(
+                        connects,
+                        (records) => {
+                            const index = this.index();
+                            for (const { target: el } of records) {
+                                children(el).forEach((child, i) =>
+                                    toggleClass(child, this.cls, i === index)
+                                );
+                                this.lazyload(this.$el, children(el));
+                            }
+                        },
+                        { childList: true }
+                    ))
+                );
             },
 
             immediate: true,

@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.15.6 (August 31, 2022)
+
+### Changed
+
+- Modal closes on click on hash links
+
+### Fixed
+
+- Fix check for selectable Text in Slider drag
+- Fix reactivity in Switcher component
+
+
 ## 3.15.5 (August 24, 2022)
 
 ### Fixed

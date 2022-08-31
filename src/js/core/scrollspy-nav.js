@@ -11,6 +11,7 @@ import {
     trigger,
 } from 'uikit-util';
 import { getTargetElement } from './scroll';
+import { isSameSiteAnchor } from '../mixin/modal';
 
 export default {
     mixins: [Scroll],
@@ -34,7 +35,7 @@ export default {
     computed: {
         links: {
             get(_, $el) {
-                return $$('a[href^="#"]', $el).filter((el) => el.hash);
+                return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
             },
 
             watch(links) {

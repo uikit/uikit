@@ -9,6 +9,7 @@ import {
     off,
     on,
     selInput,
+    toNodes,
     trigger,
 } from 'uikit-util';
 
@@ -52,7 +53,7 @@ export default {
             handler(e) {
                 if (
                     !this.draggable ||
-                    (!isTouch(e) && hasTextNodesOnly(e.target)) ||
+                    (!isTouch(e) && hasSelectableText(e.target)) ||
                     closest(e.target, selInput) ||
                     e.button > 0 ||
                     this.length < 2
@@ -221,6 +222,9 @@ export default {
     },
 };
 
-function hasTextNodesOnly(el) {
-    return !el.children.length && el.childNodes.length;
+function hasSelectableText(el) {
+    return (
+        css(el, 'userSelect') !== 'none' &&
+        toNodes(el.childNodes).some((el) => el.nodeType === 3 && el.textContent.trim())
+    );
 }

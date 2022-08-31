@@ -82,6 +82,27 @@ export default {
         },
 
         {
+            name: 'click',
+
+            delegate() {
+                return 'a[href*="#"]';
+            },
+
+            handler({ current, defaultPrevented }) {
+                const { hash } = current;
+                if (
+                    !defaultPrevented &&
+                    hash &&
+                    isSameSiteAnchor(current) &&
+                    !within(hash, this.$el) &&
+                    $(hash, document.body)
+                ) {
+                    this.hide();
+                }
+            },
+        },
+
+        {
             name: 'toggle',
 
             self: true,
@@ -360,4 +381,8 @@ function filterChildren(el, fn) {
         }
     });
     return children;
+}
+
+export function isSameSiteAnchor(a) {
+    return ['origin', 'pathname', 'search'].every((part) => a[part] === location[part]);
 }

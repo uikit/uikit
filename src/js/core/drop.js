@@ -30,7 +30,7 @@ import {
     scrollParents,
     within,
 } from 'uikit-util';
-import { preventBackgroundScroll, preventOverscroll } from '../mixin/modal';
+import { isSameSiteAnchor, preventBackgroundScroll, preventOverscroll } from '../mixin/modal';
 
 export let active;
 
@@ -143,11 +143,17 @@ export default {
             name: 'click',
 
             delegate() {
-                return 'a[href^="#"]';
+                return 'a[href*="#"]';
             },
 
-            handler({ defaultPrevented, current: { hash } }) {
-                if (!defaultPrevented && hash && !within(hash, this.$el)) {
+            handler({ defaultPrevented, current }) {
+                const { hash } = current;
+                if (
+                    !defaultPrevented &&
+                    hash &&
+                    isSameSiteAnchor(current) &&
+                    !within(hash, this.$el)
+                ) {
                     this.hide(false);
                 }
             },
