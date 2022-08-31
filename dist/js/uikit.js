@@ -1,4 +1,4 @@
-/*! UIkit 3.15.5 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.6 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2945,7 +2945,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.5';
+    UIkit.version = '3.15.6';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3805,6 +3805,27 @@
 
 
       {
+        name: 'click',
+
+        delegate() {
+          return 'a[href*="#"]';
+        },
+
+        handler(_ref3) {let { current, defaultPrevented } = _ref3;
+          const { hash } = current;
+          if (
+          !defaultPrevented &&
+          hash &&
+          isSameSiteAnchor(current) &&
+          !within(hash, this.$el) &&
+          $(hash, document.body))
+          {
+            this.hide();
+          }
+        } },
+
+
+      {
         name: 'toggle',
 
         self: true,
@@ -3872,7 +3893,7 @@
             once(
             this.$el,
             'hide',
-            on(document, pointerDown$1, (_ref3) => {let { target } = _ref3;
+            on(document, pointerDown$1, (_ref4) => {let { target } = _ref4;
               if (
               last(active$1) !== this ||
               this.overlay && !within(target, this.$el) ||
@@ -3884,7 +3905,7 @@
               once(
               document,
               pointerUp$1 + " " + pointerCancel + " scroll",
-              (_ref4) => {let { defaultPrevented, type, target: newTarget } = _ref4;
+              (_ref5) => {let { defaultPrevented, type, target: newTarget } = _ref5;
                 if (
                 !defaultPrevented &&
                 type === pointerUp$1 &&
@@ -3972,7 +3993,7 @@
 
 
 
-    function animate(el, show, _ref5) {let { transitionElement, _toggle } = _ref5;
+    function animate(el, show, _ref6) {let { transitionElement, _toggle } = _ref6;
       return new Promise((resolve, reject) =>
       once(el, 'show hide', () => {
         el._reject == null ? void 0 : el._reject();
@@ -4017,7 +4038,7 @@
       on(
       el,
       'touchstart',
-      (_ref6) => {let { targetTouches } = _ref6;
+      (_ref7) => {let { targetTouches } = _ref7;
         if (targetTouches.length === 1) {
           startClientY = targetTouches[0].clientY;
         }
@@ -4083,6 +4104,10 @@
         }
       });
       return children;
+    }
+
+    function isSameSiteAnchor(a) {
+      return ['origin', 'pathname', 'search'].every((part) => a[part] === location[part]);
     }
 
     let active;
@@ -4196,11 +4221,17 @@
         name: 'click',
 
         delegate() {
-          return 'a[href^="#"]';
+          return 'a[href*="#"]';
         },
 
-        handler(_ref3) {let { defaultPrevented, current: { hash } } = _ref3;
-          if (!defaultPrevented && hash && !within(hash, this.$el)) {
+        handler(_ref3) {let { defaultPrevented, current } = _ref3;
+          const { hash } = current;
+          if (
+          !defaultPrevented &&
+          hash &&
+          isSameSiteAnchor(current) &&
+          !within(hash, this.$el))
+          {
             this.hide(false);
           }
         } },
@@ -6451,20 +6482,6 @@
 
       events: [
       {
-        name: 'click',
-
-        delegate() {
-          return 'a[href^="#"]';
-        },
-
-        handler(_ref7) {let { current: { hash }, defaultPrevented } = _ref7;
-          if (!defaultPrevented && hash && $(hash, document.body)) {
-            this.hide();
-          }
-        } },
-
-
-      {
         name: 'touchmove',
 
         self: true,
@@ -6880,7 +6897,7 @@
       computed: {
         links: {
           get(_, $el) {
-            return $$('a[href^="#"]', $el).filter((el) => el.hash);
+            return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
           },
 
           watch(links) {
@@ -7368,16 +7385,27 @@
             return queryAll(connect, $el);
           },
 
-          watch(connects) {
+          watch(connects) {var _this$_observer;
             if (this.swiping) {
               css(connects, 'touchAction', 'pan-y pinch-zoom');
             }
 
-            const index = this.index();
-            this.connects.forEach((el) => {
-              children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
-              this.lazyload(this.$el, children(el));
-            });
+            (_this$_observer = this._observer) == null ? void 0 : _this$_observer.disconnect();
+            this.registerObserver(
+            this._observer = observeMutation(
+            connects,
+            (records) => {
+              const index = this.index();
+              for (const { target: el } of records) {
+                children(el).forEach((child, i) =>
+                toggleClass(child, this.cls, i === index));
+
+                this.lazyload(this.$el, children(el));
+              }
+            },
+            { childList: true }));
+
+
           },
 
           immediate: true },
@@ -8614,7 +8642,7 @@
         handler(e) {
           if (
           !this.draggable ||
-          !isTouch(e) && hasTextNodesOnly(e.target) ||
+          !isTouch(e) && hasSelectableText(e.target) ||
           closest(e.target, selInput) ||
           e.button > 0 ||
           this.length < 2)
@@ -8783,8 +8811,11 @@
 
 
 
-    function hasTextNodesOnly(el) {
-      return !el.children.length && el.childNodes.length;
+    function hasSelectableText(el) {
+      return (
+        css(el, 'userSelect') !== 'none' &&
+        toNodes(el.childNodes).some((el) => el.nodeType === 3 && el.textContent.trim()));
+
     }
 
     var SliderNav = {
