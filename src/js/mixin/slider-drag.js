@@ -106,7 +106,7 @@ export default {
             on(document, pointerMove, this.move, pointerOptions);
 
             // 'input' event is triggered by video controls
-            on(document, pointerUp, this.end, pointerUpOptions;
+            on(document, pointerUp, this.end, pointerUpOptions);
 
             css(this.list, 'userSelect', 'none');
         },
@@ -187,7 +187,7 @@ export default {
 
         end() {
             off(document, pointerMove, this.move, pointerOptions);
-            off(document, pointerUp, this.end, pointerUpOptions;
+            off(document, pointerUp, this.end, pointerUpOptions);
 
             if (this.dragging) {
                 this.dragging = null;
