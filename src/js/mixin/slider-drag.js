@@ -14,9 +14,10 @@ import {
 } from 'uikit-util';
 
 const pointerOptions = { passive: false, capture: true };
+const pointerUpOptions = { passive: true, capture: true };
 const pointerDown = 'touchstart mousedown';
 const pointerMove = 'touchmove mousemove';
-const pointerUp = 'touchend touchcancel mouseup click input';
+const pointerUp = 'touchend touchcancel mouseup click input scroll';
 
 export default {
     props: {
@@ -75,7 +76,7 @@ export default {
 
         {
             // iOS workaround for slider stopping if swiping fast
-            name: `${pointerMove} ${pointerUp}`,
+            name: pointerMove,
             el() {
                 return this.list;
             },
@@ -105,7 +106,7 @@ export default {
             on(document, pointerMove, this.move, pointerOptions);
 
             // 'input' event is triggered by video controls
-            on(document, pointerUp, this.end, pointerOptions);
+            on(document, pointerUp, this.end, pointerUpOptions;
 
             css(this.list, 'userSelect', 'none');
         },
@@ -186,7 +187,7 @@ export default {
 
         end() {
             off(document, pointerMove, this.move, pointerOptions);
-            off(document, pointerUp, this.end, pointerOptions);
+            off(document, pointerUp, this.end, pointerUpOptions;
 
             if (this.dragging) {
                 this.dragging = null;
