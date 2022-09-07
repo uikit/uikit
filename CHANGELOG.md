@@ -3,6 +3,7 @@
 ### Fixed
 
 - Fix Slider drag stops on scroll now
+- Fix Accordion scrolls toggle into view if needed
 
 ## 3.15.6 (August 31, 2022)
 
