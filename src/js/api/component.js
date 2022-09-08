@@ -44,6 +44,7 @@ export default function (UIkit) {
 
         const opt = isPlainObject(options) ? { ...options } : options.options;
 
+        opt.id = id;
         opt.name = name;
 
         opt.install?.(UIkit, opt, name);
