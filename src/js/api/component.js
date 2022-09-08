@@ -1,22 +1,22 @@
-import { $$, camelize, hyphenate, isPlainObject, memoize, startsWith } from 'uikit-util';
+import { $$, camelize, hyphenate, isPlainObject } from 'uikit-util';
 
+const components = {};
 export default function (UIkit) {
-    const DATA = UIkit.data;
-
-    const components = {};
+    const { data: DATA, prefix: PREFIX } = UIkit;
 
     UIkit.component = function (name, options) {
-        const id = hyphenate(name);
-
-        name = camelize(id);
+        name = hyphenate(name);
+        const id = PREFIX + name;
 
         if (!options) {
-            if (isPlainObject(components[name])) {
-                components[name] = UIkit.extend(components[name]);
+            if (isPlainObject(components[id])) {
+                components[id] = components[`data-${id}`] = UIkit.extend(components[id]);
             }
 
-            return components[name];
+            return components[id];
         }
+
+        name = camelize(name);
 
         UIkit[name] = function (element, data) {
             const component = UIkit.component(name);
@@ -49,10 +49,10 @@ export default function (UIkit) {
         opt.install?.(UIkit, opt, name);
 
         if (UIkit._initialized && !opt.functional) {
-            requestAnimationFrame(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
+            requestAnimationFrame(() => UIkit[name](`[${id}],[data-${id}]`));
         }
 
-        return (components[name] = isPlainObject(options) ? opt : options);
+        return (components[id] = components[`data-${id}`] = isPlainObject(options) ? opt : options);
     };
 
     UIkit.getComponents = (element) => element?.[DATA] || {};
@@ -67,10 +67,7 @@ export default function (UIkit) {
 
         for (const attribute of node.attributes) {
             const name = getComponentName(attribute.name);
-
-            if (name && name in components) {
-                UIkit[name](node);
-            }
+            name && UIkit[name](node);
         }
     };
 
@@ -81,8 +78,7 @@ export default function (UIkit) {
     };
 }
 
-export const getComponentName = memoize((attribute) => {
-    return startsWith(attribute, 'uk-') || startsWith(attribute, 'data-uk-')
-        ? camelize(attribute.replace('data-uk-', '').replace('uk-', ''))
-        : false;
-});
+export function getComponentName(attribute) {
+    const cmp = components[attribute];
+    return cmp && (isPlainObject(cmp) ? cmp : cmp.options).name;
+}
