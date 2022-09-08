@@ -11,8 +11,7 @@ import {
     hasClass,
     includes,
     index,
-    isInView,
-    scrollIntoView,
+    scrollParents,
     toFloat,
     toggleClass,
     Transition,
@@ -107,9 +106,13 @@ export default {
                 return `${this.targets} ${this.$props.toggle}`;
             },
 
-            handler(e) {
+            async handler(e) {
                 e.preventDefault();
-                this.toggle(index(this.toggles, e.current));
+
+                this._off?.();
+                this._off = keepScrollPosition(e.target);
+                await this.toggle(index(this.toggles, e.current));
+                this._off();
             },
         },
     ],
@@ -143,15 +146,6 @@ export default {
                     })
                 )
             );
-
-            if (animate !== false && this.animation && !includes(activeItems, item)) {
-                const toggle = $(this.$props.toggle, item);
-                requestAnimationFrame(() => {
-                    if (!isInView(toggle)) {
-                        scrollIntoView(toggle, { offset: this.offset });
-                    }
-                });
-            }
         },
     },
 };
@@ -190,4 +184,20 @@ async function transition(el, show, { content, duration, velocity, transition })
     if (!show) {
         hide(content, true);
     }
+}
+
+function keepScrollPosition(el) {
+    const scrollParent = scrollParents(el)[0];
+    let frame;
+    (function scroll() {
+        frame = requestAnimationFrame(() => {
+            const { top } = el.getBoundingClientRect();
+            if (top < 0) {
+                scrollParent.scrollTop += top;
+            }
+            scroll();
+        });
+    })();
+
+    return () => requestAnimationFrame(() => cancelAnimationFrame(frame));
 }
