@@ -155,8 +155,7 @@ function applyState(state, target, children) {
 }
 
 function mergeState(el, attr, state) {
-    const filterBy = getFilter(el, attr);
-    const { filter, group, sort, order = 'asc' } = filterBy;
+    const { filter, group, sort, order = 'asc' } = getFilter(el, attr);
 
     if (filter || isUndefined(sort)) {
         if (group) {
