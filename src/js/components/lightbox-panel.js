@@ -206,7 +206,6 @@ export default {
 
                 let matches;
                 const iframeAttrs = {
-                    frameborder: '0',
                     allowfullscreen: '',
                     style: 'max-width: 100%; box-sizing: border-box;',
                     'uk-responsive': '',
@@ -248,7 +247,6 @@ export default {
                         item,
                         createEl('iframe', {
                             src,
-                            frameborder: '0',
                             allowfullscreen: '',
                             class: 'uk-lightbox-iframe',
                             ...attrs,

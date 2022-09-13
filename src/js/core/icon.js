@@ -99,7 +99,7 @@ export const IconComponent = {
     }),
 
     beforeConnect() {
-        addClass(this.$el, this.$name);
+        addClass(this.$el, this.$options.id);
     },
 };
 

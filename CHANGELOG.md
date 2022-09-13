@@ -1,5 +1,13 @@
 # Changelog
 
+### Changed
+
+- Improve Accordion component keeps toggle in view when toggling 
+
+### Fixed
+
+- Fix Slider drag stops on scroll now
+
 ## 3.15.6 (August 31, 2022)
 
 ### Changed

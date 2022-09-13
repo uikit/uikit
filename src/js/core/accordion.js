@@ -11,9 +11,7 @@ import {
     hasClass,
     includes,
     index,
-    isInView,
-    noop,
-    scrollIntoView,
+    scrollParents,
     toFloat,
     toggleClass,
     Transition,
@@ -108,52 +106,46 @@ export default {
                 return `${this.targets} ${this.$props.toggle}`;
             },
 
-            handler(e) {
+            async handler(e) {
                 e.preventDefault();
-                this.toggle(index(this.toggles, e.current));
+
+                this._off?.();
+                this._off = keepScrollPosition(e.target);
+                await this.toggle(index(this.toggles, e.current));
+                this._off();
             },
         },
     ],
 
     methods: {
-        toggle(item, animate) {
-            let items = [this.items[getIndex(item, this.items)]];
+        async toggle(item, animate) {
+            item = this.items[getIndex(item, this.items)];
+            let items = [item];
             const activeItems = filter(this.items, `.${this.clsOpen}`);
 
             if (!this.multiple && !includes(activeItems, items[0])) {
                 items = items.concat(activeItems);
             }
 
-            if (
-                !this.collapsible &&
-                activeItems.length < 2 &&
-                !filter(items, `:not(.${this.clsOpen})`).length
-            ) {
+            if (!this.collapsible && activeItems.length < 2 && includes(activeItems, item)) {
                 return;
             }
 
-            for (const el of items) {
-                this.toggleElement(el, !hasClass(el, this.clsOpen), (el, show) => {
-                    toggleClass(el, this.clsOpen, show);
-                    attr($(this.$props.toggle, el), 'aria-expanded', show);
+            await Promise.all(
+                items.map((el) =>
+                    this.toggleElement(el, !includes(activeItems, el), (el, show) => {
+                        toggleClass(el, this.clsOpen, show);
+                        attr($(this.$props.toggle, el), 'aria-expanded', show);
 
-                    if (animate === false || !this.animation) {
-                        hide($(this.content, el), !show);
-                        return;
-                    }
-
-                    return transition(el, show, this).then(() => {
-                        if (show) {
-                            const toggle = $(this.$props.toggle, el);
-                            requestAnimationFrame(() => {
-                                if (!isInView(toggle)) {
-                                    scrollIntoView(toggle, { offset: this.offset });
-                                }
-                            });
+                        if (animate === false || !this.animation) {
+                            hide($(this.content, el), !show);
+                            return;
                         }
-                    }, noop);
-                });
-            }
+
+                        return transition(el, show, this);
+                    })
+                )
+            );
         },
     },
 };
@@ -192,4 +184,20 @@ async function transition(el, show, { content, duration, velocity, transition })
     if (!show) {
         hide(content, true);
     }
+}
+
+function keepScrollPosition(el) {
+    const scrollParent = scrollParents(el)[0];
+    let frame;
+    (function scroll() {
+        frame = requestAnimationFrame(() => {
+            const { top } = el.getBoundingClientRect();
+            if (top < 0) {
+                scrollParent.scrollTop += top;
+            }
+            scroll();
+        });
+    })();
+
+    return () => requestAnimationFrame(() => cancelAnimationFrame(frame));
 }

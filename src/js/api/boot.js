@@ -45,15 +45,13 @@ export default function (UIkit) {
     function applyAttributeMutation({ target, attributeName }) {
         const name = getComponentName(attributeName);
 
-        if (!name || !(name in UIkit)) {
-            return;
-        }
+        if (name) {
+            if (hasAttr(target, attributeName)) {
+                UIkit[name](target);
+                return;
+            }
 
-        if (hasAttr(target, attributeName)) {
-            UIkit[name](target);
-            return;
+            UIkit.getComponent(target, name)?.$destroy();
         }
-
-        UIkit.getComponent(target, name)?.$destroy();
     }
 }

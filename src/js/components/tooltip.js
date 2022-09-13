@@ -59,13 +59,12 @@ export default {
 
             this._unbind = once(
                 document,
-                `show keydown ${pointerDown}`,
+                `keydown ${pointerDown}`,
                 this.hide,
                 false,
                 (e) =>
                     (e.type === pointerDown && !within(e.target, this.$el)) ||
-                    (e.type === 'keydown' && e.keyCode === 27) ||
-                    (e.type === 'show' && e.detail[0] !== this && e.detail[0].$name === this.$name)
+                    (e.type === 'keydown' && e.keyCode === 27)
             );
 
             clearTimeout(this.showTimer);

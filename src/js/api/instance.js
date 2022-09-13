@@ -1,4 +1,4 @@
-import { hyphenate, isEmpty, memoize, remove, within } from 'uikit-util';
+import { isEmpty, remove, within } from 'uikit-util';
 
 export default function (UIkit) {
     const DATA = UIkit.data;
@@ -66,14 +66,9 @@ export default function (UIkit) {
 
     UIkit.prototype.$getComponent = UIkit.getComponent;
 
-    const componentName = memoize((name) => UIkit.prefix + hyphenate(name));
-    Object.defineProperties(UIkit.prototype, {
-        $container: Object.getOwnPropertyDescriptor(UIkit, 'container'),
-
-        $name: {
-            get() {
-                return componentName(this.$options.name);
-            },
-        },
-    });
+    Object.defineProperty(
+        UIkit.prototype,
+        '$container',
+        Object.getOwnPropertyDescriptor(UIkit, 'container')
+    );
 }

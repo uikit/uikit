@@ -73,7 +73,7 @@ export default function (UIkit) {
     UIkit.prototype._initProps = function (props) {
         let key;
 
-        props = props || getProps(this.$options, this.$name);
+        props = props || getProps(this.$options);
 
         for (key in props) {
             if (!isUndefined(props[key])) {
@@ -124,9 +124,9 @@ export default function (UIkit) {
     };
 }
 
-function getProps(opts, name) {
+function getProps(opts) {
     const data = {};
-    const { args = [], props = {}, el } = opts;
+    const { args = [], props = {}, el, id } = opts;
 
     if (!props) {
         return data;
@@ -149,7 +149,7 @@ function getProps(opts, name) {
         data[key] = value;
     }
 
-    const options = parseOptions(getData(el, name), args);
+    const options = parseOptions(getData(el, id), args);
 
     for (const key in options) {
         const prop = camelize(key);
@@ -277,24 +277,24 @@ function initChildListObserver(component) {
 }
 
 function initPropsObserver(component) {
-    const { $name, $options, $props } = component;
-    const { attrs, props, el } = $options;
+    const { $options, $props } = component;
+    const { id, attrs, props, el } = $options;
 
     if (!props || attrs === false) {
         return;
     }
 
     const attributes = isArray(attrs) ? attrs : Object.keys(props);
-    const filter = attributes.map((key) => hyphenate(key)).concat($name);
+    const filter = attributes.map((key) => hyphenate(key)).concat(id);
 
     const observer = new MutationObserver((records) => {
-        const data = getProps($options, $name);
+        const data = getProps($options);
         if (
             records.some(({ attributeName }) => {
                 const prop = attributeName.replace('data-', '');
-                return (
-                    prop === $name ? attributes : [camelize(prop), camelize(attributeName)]
-                ).some((prop) => !isUndefined(data[prop]) && data[prop] !== $props[prop]);
+                return (prop === id ? attributes : [camelize(prop), camelize(attributeName)]).some(
+                    (prop) => !isUndefined(data[prop]) && data[prop] !== $props[prop]
+                );
             })
         ) {
             component.$reset();
