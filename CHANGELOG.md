@@ -1,5 +1,7 @@
 # Changelog
 
+## 3.15.7 (September 13, 2022)
+
 ### Changed
 
 - Improve Accordion component keeps toggle in view when toggling 
