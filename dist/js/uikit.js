@@ -1,4 +1,4 @@
-/*! UIkit 3.15.6 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.7 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2536,7 +2536,7 @@
       UIkit.prototype._initProps = function (props) {
         let key;
 
-        props = props || getProps$1(this.$options, this.$name);
+        props = props || getProps$1(this.$options);
 
         for (key in props) {
           if (!isUndefined(props[key])) {
@@ -2587,9 +2587,9 @@
       };
     }
 
-    function getProps$1(opts, name) {
+    function getProps$1(opts) {
       const data$1 = {};
-      const { args = [], props = {}, el } = opts;
+      const { args = [], props = {}, el, id } = opts;
 
       if (!props) {
         return data$1;
@@ -2612,7 +2612,7 @@
         data$1[key] = value;
       }
 
-      const options = parseOptions(data(el, name), args);
+      const options = parseOptions(data(el, id), args);
 
       for (const key in options) {
         const prop = camelize(key);
@@ -2740,24 +2740,24 @@
     }
 
     function initPropsObserver(component) {
-      const { $name, $options, $props } = component;
-      const { attrs, props, el } = $options;
+      const { $options, $props } = component;
+      const { id, attrs, props, el } = $options;
 
       if (!props || attrs === false) {
         return;
       }
 
       const attributes = isArray(attrs) ? attrs : Object.keys(props);
-      const filter = attributes.map((key) => hyphenate(key)).concat($name);
+      const filter = attributes.map((key) => hyphenate(key)).concat(id);
 
       const observer = new MutationObserver((records) => {
-        const data = getProps$1($options, $name);
+        const data = getProps$1($options);
         if (
         records.some((_ref3) => {let { attributeName } = _ref3;
           const prop = attributeName.replace('data-', '');
-          return (
-          prop === $name ? attributes : [camelize(prop), camelize(attributeName)]).
-          some((prop) => !isUndefined(data[prop]) && data[prop] !== $props[prop]);
+          return (prop === id ? attributes : [camelize(prop), camelize(attributeName)]).some(
+          (prop) => !isUndefined(data[prop]) && data[prop] !== $props[prop]);
+
         }))
         {
           component.$reset();
@@ -2838,35 +2838,30 @@
 
       UIkit.prototype.$getComponent = UIkit.getComponent;
 
-      const componentName = memoize((name) => UIkit.prefix + hyphenate(name));
-      Object.defineProperties(UIkit.prototype, {
-        $container: Object.getOwnPropertyDescriptor(UIkit, 'container'),
-
-        $name: {
-          get() {
-            return componentName(this.$options.name);
-          } } });
-
+      Object.defineProperty(
+      UIkit.prototype,
+      '$container',
+      Object.getOwnPropertyDescriptor(UIkit, 'container'));
 
     }
 
+    const components$3 = {};
     function componentAPI (UIkit) {
-      const DATA = UIkit.data;
-
-      const components = {};
+      const { data: DATA, prefix: PREFIX } = UIkit;
 
       UIkit.component = function (name, options) {
-        const id = hyphenate(name);
-
-        name = camelize(id);
+        name = hyphenate(name);
+        const id = PREFIX + name;
 
         if (!options) {
-          if (isPlainObject(components[name])) {
-            components[name] = UIkit.extend(components[name]);
+          if (isPlainObject(components$3[id])) {
+            components$3[id] = components$3["data-" + id] = UIkit.extend(components$3[id]);
           }
 
-          return components[name];
+          return components$3[id];
         }
+
+        name = camelize(name);
 
         UIkit[name] = function (element, data) {
           const component = UIkit.component(name);
@@ -2894,15 +2889,16 @@
 
         const opt = isPlainObject(options) ? { ...options } : options.options;
 
+        opt.id = id;
         opt.name = name;
 
         opt.install == null ? void 0 : opt.install(UIkit, opt, name);
 
         if (UIkit._initialized && !opt.functional) {
-          requestAnimationFrame(() => UIkit[name]("[uk-" + id + "],[data-uk-" + id + "]"));
+          requestAnimationFrame(() => UIkit[name]("[" + id + "],[data-" + id + "]"));
         }
 
-        return components[name] = isPlainObject(options) ? opt : options;
+        return components$3[id] = components$3["data-" + id] = isPlainObject(options) ? opt : options;
       };
 
       UIkit.getComponents = (element) => (element == null ? void 0 : element[DATA]) || {};
@@ -2917,10 +2913,7 @@
 
         for (const attribute of node.attributes) {
           const name = getComponentName(attribute.name);
-
-          if (name && name in components) {
-            UIkit[name](node);
-          }
+          name && UIkit[name](node);
         }
       };
 
@@ -2931,11 +2924,10 @@
       };
     }
 
-    const getComponentName = memoize((attribute) => {
-      return startsWith(attribute, 'uk-') || startsWith(attribute, 'data-uk-') ?
-      camelize(attribute.replace('data-uk-', '').replace('uk-', '')) :
-      false;
-    });
+    function getComponentName(attribute) {
+      const cmp = components$3[attribute];
+      return cmp && (isPlainObject(cmp) ? cmp : cmp.options).name;
+    }
 
     const UIkit = function (options) {
       this._init(options);
@@ -2945,7 +2937,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.6';
+    UIkit.version = '3.15.7';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -2994,25 +2986,23 @@
         }
       }
 
-      function applyAttributeMutation(_ref2) {var _UIkit$getComponent;let { target, attributeName } = _ref2;
+      function applyAttributeMutation(_ref2) {let { target, attributeName } = _ref2;
         const name = getComponentName(attributeName);
 
-        if (!name || !(name in UIkit)) {
-          return;
-        }
+        if (name) {var _UIkit$getComponent;
+          if (hasAttr(target, attributeName)) {
+            UIkit[name](target);
+            return;
+          }
 
-        if (hasAttr(target, attributeName)) {
-          UIkit[name](target);
-          return;
+          (_UIkit$getComponent = UIkit.getComponent(target, name)) == null ? void 0 : _UIkit$getComponent.$destroy();
         }
-
-        (_UIkit$getComponent = UIkit.getComponent(target, name)) == null ? void 0 : _UIkit$getComponent.$destroy();
       }
     }
 
     var Class = {
       connected() {
-        !hasClass(this.$el, this.$name) && addClass(this.$el, this.$name);
+        addClass(this.$el, this.$options.id);
       } };
 
     var Lazyload = {
@@ -3362,52 +3352,46 @@
           return this.targets + " " + this.$props.toggle;
         },
 
-        handler(e) {
+        async handler(e) {var _this$_off;
           e.preventDefault();
-          this.toggle(index(this.toggles, e.current));
+
+          (_this$_off = this._off) == null ? void 0 : _this$_off.call(this);
+          this._off = keepScrollPosition(e.target);
+          await this.toggle(index(this.toggles, e.current));
+          this._off();
         } }],
 
 
 
       methods: {
-        toggle(item, animate) {
-          let items = [this.items[getIndex(item, this.items)]];
+        async toggle(item, animate) {
+          item = this.items[getIndex(item, this.items)];
+          let items = [item];
           const activeItems = filter$1(this.items, "." + this.clsOpen);
 
           if (!this.multiple && !includes(activeItems, items[0])) {
             items = items.concat(activeItems);
           }
 
-          if (
-          !this.collapsible &&
-          activeItems.length < 2 &&
-          !filter$1(items, ":not(." + this.clsOpen + ")").length)
-          {
+          if (!this.collapsible && activeItems.length < 2 && includes(activeItems, item)) {
             return;
           }
 
-          for (const el of items) {
-            this.toggleElement(el, !hasClass(el, this.clsOpen), (el, show) => {
-              toggleClass(el, this.clsOpen, show);
-              attr($(this.$props.toggle, el), 'aria-expanded', show);
+          await Promise.all(
+          items.map((el) =>
+          this.toggleElement(el, !includes(activeItems, el), (el, show) => {
+            toggleClass(el, this.clsOpen, show);
+            attr($(this.$props.toggle, el), 'aria-expanded', show);
 
-              if (animate === false || !this.animation) {
-                hide($(this.content, el), !show);
-                return;
-              }
+            if (animate === false || !this.animation) {
+              hide($(this.content, el), !show);
+              return;
+            }
 
-              return transition(el, show, this).then(() => {
-                if (show) {
-                  const toggle = $(this.$props.toggle, el);
-                  requestAnimationFrame(() => {
-                    if (!isInView(toggle)) {
-                      scrollIntoView(toggle, { offset: this.offset });
-                    }
-                  });
-                }
-              }, noop);
-            });
-          }
+            return transition(el, show, this);
+          })));
+
+
         } } };
 
 
@@ -3446,6 +3430,22 @@
       if (!show) {
         hide(content, true);
       }
+    }
+
+    function keepScrollPosition(el) {
+      const scrollParent = scrollParents(el)[0];
+      let frame;
+      (function scroll() {
+        frame = requestAnimationFrame(() => {
+          const { top } = el.getBoundingClientRect();
+          if (top < 0) {
+            scrollParent.scrollTop += top;
+          }
+          scroll();
+        });
+      })();
+
+      return () => requestAnimationFrame(() => cancelAnimationFrame(frame));
     }
 
     var alert = {
@@ -5427,7 +5427,7 @@
 
 
       beforeConnect() {
-        addClass(this.$el, this.$name);
+        addClass(this.$el, this.$options.id);
       } };
 
 
@@ -8345,8 +8345,7 @@
     }
 
     function mergeState(el, attr, state) {
-      const filterBy = getFilter(el, attr);
-      const { filter, group, sort, order = 'asc' } = filterBy;
+      const { filter, group, sort, order = 'asc' } = getFilter(el, attr);
 
       if (filter || isUndefined(sort)) {
         if (group) {
@@ -8603,9 +8602,10 @@
         } } };
 
     const pointerOptions = { passive: false, capture: true };
+    const pointerUpOptions = { passive: true, capture: true };
     const pointerDown = 'touchstart mousedown';
     const pointerMove = 'touchmove mousemove';
-    const pointerUp = 'touchend touchcancel mouseup click input';
+    const pointerUp = 'touchend touchcancel mouseup click input scroll';
 
     var SliderDrag = {
       props: {
@@ -8664,7 +8664,7 @@
 
       {
         // iOS workaround for slider stopping if swiping fast
-        name: pointerMove + " " + pointerUp,
+        name: pointerMove,
         el() {
           return this.list;
         },
@@ -8694,7 +8694,7 @@
           on(document, pointerMove, this.move, pointerOptions);
 
           // 'input' event is triggered by video controls
-          on(document, pointerUp, this.end, pointerOptions);
+          on(document, pointerUp, this.end, pointerUpOptions);
 
           css(this.list, 'userSelect', 'none');
         },
@@ -8775,7 +8775,7 @@
 
         end() {
           off(document, pointerMove, this.move, pointerOptions);
-          off(document, pointerUp, this.end, pointerOptions);
+          off(document, pointerUp, this.end, pointerUpOptions);
 
           if (this.dragging) {
             this.dragging = null;
@@ -9319,7 +9319,6 @@
 
           let matches;
           const iframeAttrs = {
-            frameborder: '0',
             allowfullscreen: '',
             style: 'max-width: 100%; box-sizing: border-box;',
             'uk-responsive': '',
@@ -9361,7 +9360,6 @@
             item,
             createEl('iframe', {
               src,
-              frameborder: '0',
               allowfullscreen: '',
               class: 'uk-lightbox-iframe',
               ...attrs }));
@@ -11246,14 +11244,13 @@
           }
 
           this._unbind = once(
-          document, "show keydown " +
+          document, "keydown " +
           pointerDown$1,
           this.hide,
           false,
           (e) =>
           e.type === pointerDown$1 && !within(e.target, this.$el) ||
-          e.type === 'keydown' && e.keyCode === 27 ||
-          e.type === 'show' && e.detail[0] !== this && e.detail[0].$name === this.$name);
+          e.type === 'keydown' && e.keyCode === 27);
 
 
           clearTimeout(this.showTimer);
