@@ -63,6 +63,12 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 }
 
 /*
+ * Avoid column break within the list item, when using `column-count`
+ */
+
+.uk-list > * { break-inside: avoid-column; }
+
+/*
  * Remove margin from the last-child
  */
 
