@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix column break within the list item in List component
+
 ## 3.15.7 (September 13, 2022)
 
 ### Changed
