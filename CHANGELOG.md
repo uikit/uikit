@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.15.8 (September 14, 2022)
+
+### Fixed
+
+- Fix column break within the list item in List component
+- Fix Toggle component when using mouse and keyboard simultaneously
+- Fix register passive event handler in Slider component
+
+## 3.15.7 (September 13, 2022)
+
 ### Changed
 
 - Improve Accordion component keeps toggle in view when toggling 

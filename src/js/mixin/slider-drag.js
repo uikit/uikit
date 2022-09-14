@@ -47,6 +47,8 @@ export default {
         {
             name: pointerDown,
 
+            passive: true,
+
             delegate() {
                 return this.selSlides;
             },

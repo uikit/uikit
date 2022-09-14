@@ -1,4 +1,4 @@
-/*! UIkit 3.15.7 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.8 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2937,7 +2937,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.7';
+    UIkit.version = '3.15.8';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -7708,8 +7708,8 @@
           return this.target;
         },
 
-        handler(_ref2) {let { type } = _ref2;
-          this.updateAria(type === 'show');
+        handler(_ref2) {let { target, type } = _ref2;
+          this.updateAria(target === this.target[0] && type === 'show');
         } },
 
 
@@ -8634,6 +8634,8 @@
       events: [
       {
         name: pointerDown,
+
+        passive: true,
 
         delegate() {
           return this.selSlides;

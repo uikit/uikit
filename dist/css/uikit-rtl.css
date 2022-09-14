@@ -1,4 +1,4 @@
-/*! UIkit 3.15.7 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.8 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -704,6 +704,12 @@ a.uk-link-reset,
 .uk-list {
   padding: 0;
   list-style: none;
+}
+/*
+ * Avoid column break within the list item, when using `column-count`
+ */
+.uk-list > * {
+  break-inside: avoid-column;
 }
 /*
  * Remove margin from the last-child
