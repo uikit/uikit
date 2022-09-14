@@ -188,8 +188,8 @@ export default {
                 return this.target;
             },
 
-            handler({ type }) {
-                this.updateAria(type === 'show');
+            handler({ target, type }) {
+                this.updateAria(target === this.target[0] && type === 'show');
             },
         },
 
