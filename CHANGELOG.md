@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix WAI-ARIA rules for Tooltip component
+
 ## 3.15.8 (September 14, 2022)
 
 ### Fixed
