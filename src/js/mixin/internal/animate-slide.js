@@ -24,11 +24,8 @@ export default async function (action, target, duration) {
     const targetProps = css(target, ['height', 'padding']);
 
     // Cancel previous animations
-    Transition.cancel(target);
-    nodes.forEach(Transition.cancel);
+    nodes.concat(target).forEach(Transition.cancel);
     reset(target);
-
-    const { promise, observer } = awaitMutation(target);
 
     // Adding, sorting, removing nodes
     action();
@@ -37,12 +34,7 @@ export default async function (action, target, duration) {
     nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
 
     // Wait for update to propagate
-    if (isEqual(children(target), nodes)) {
-        observer.disconnect();
-        await Promise.resolve();
-    } else {
-        await promise;
-    }
+    await awaitMutation();
 
     // Force update
     fastdom.flush();
@@ -151,18 +143,18 @@ function awaitFrame() {
     return new Promise((resolve) => requestAnimationFrame(resolve));
 }
 
-function awaitMutation(target) {
-    let observer;
-    const promise = new Promise(
-        (resolve) =>
-            (observer = observeMutation(
-                target,
-                (records, observer) => {
-                    resolve();
-                    observer.disconnect();
-                },
-                { childList: true, attributes: true }
-            ))
+function awaitMutation() {
+    const text = document.createTextNode('');
+    const promise = new Promise((resolve) =>
+        observeMutation(
+            text,
+            (_, observer) => {
+                resolve();
+                observer.disconnect();
+            },
+            { characterData: true }
+        )
     );
-    return { promise, observer };
+    text.data = 1;
+    return promise;
 }
