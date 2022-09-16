@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix WAI-ARIA rules for Tooltip component
+- Fix slide animation in Sortable component
 
 ## 3.15.8 (September 14, 2022)
 

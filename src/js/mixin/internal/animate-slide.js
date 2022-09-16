@@ -4,8 +4,10 @@ import {
     fastdom,
     includes,
     index,
+    isEqual,
     isVisible,
     noop,
+    observeMutation,
     offset,
     parent,
     position,
@@ -26,6 +28,8 @@ export default async function (action, target, duration) {
     nodes.forEach(Transition.cancel);
     reset(target);
 
+    const { promise, observer } = awaitMutation(target);
+
     // Adding, sorting, removing nodes
     action();
 
@@ -33,7 +37,12 @@ export default async function (action, target, duration) {
     nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
 
     // Wait for update to propagate
-    await Promise.resolve();
+    if (isEqual(children(target), nodes)) {
+        observer.disconnect();
+        await Promise.resolve();
+    } else {
+        await promise;
+    }
 
     // Force update
     fastdom.flush();
@@ -140,4 +149,20 @@ function getPositionWithMargin(el) {
 
 function awaitFrame() {
     return new Promise((resolve) => requestAnimationFrame(resolve));
+}
+
+function awaitMutation(target) {
+    let observer;
+    const promise = new Promise(
+        (resolve) =>
+            (observer = observeMutation(
+                target,
+                (records, observer) => {
+                    resolve();
+                    observer.disconnect();
+                },
+                { childList: true, attributes: true }
+            ))
+    );
+    return { promise, observer };
 }
