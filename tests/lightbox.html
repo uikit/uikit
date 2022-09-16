@@ -275,8 +275,8 @@
 
             const {$, attr, on } = UIkit.util;
 
-            on('#js-animation-switcher', 'change', () =>
-                attr($('#js-lightbox-animation'), 'animation', this.value)
+            on('#js-animation-switcher', 'change', (e) =>
+                attr($('#js-lightbox-animation'), 'animation', e.target.value)
             );
 
             on('#js-lightbox', 'click', (e) => {

@@ -26,8 +26,8 @@
                 on(document.body, 'beforeFilter afterFilter', (e, filter, state) =>
                     console.log(e.type, filter, state)
                 );
-                on('#js-animation-switcher', 'change', () =>
-                    attr($$('.js-filter-animation'), 'animation', this.value)
+                on('#js-animation-switcher', 'change', (e) =>
+                    attr($$('.js-filter-animation'), 'animation', e.target.value)
                 );
             });
 
