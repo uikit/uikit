@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Filter component animation
+
 ## 3.15.9 (September 19, 2022)
 
 ### Fixed

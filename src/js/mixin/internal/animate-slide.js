@@ -67,7 +67,7 @@ export default async function (action, target, duration) {
         });
         attr(target, 'style', targetStyle);
     } catch (e) {
-        nodes.forEach((el, i) => attr(el, 'style', ''));
+        attr(nodes, 'style', '');
         resetProps(target, targetProps);
     }
 }
