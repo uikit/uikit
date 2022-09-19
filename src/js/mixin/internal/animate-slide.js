@@ -6,7 +6,6 @@ import {
     includes,
     index,
     isVisible,
-    observeMutation,
     offset,
     parent,
     position,
