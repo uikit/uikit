@@ -115,8 +115,8 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype.registerObserver = function (observer) {
-        this._observers.push(observer);
+    UIkit.prototype.registerObserver = function (...observer) {
+        this._observers.push(...observer);
     };
 
     UIkit.prototype._disconnectObservers = function () {

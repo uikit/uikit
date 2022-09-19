@@ -40,9 +40,12 @@ export default {
     },
 
     beforeConnect() {
+        this.id = `uk-tooltip-${this._uid}`;
         this._hasTitle = hasAttr(this.$el, 'title');
-        attr(this.$el, 'title', '');
-        this.updateAria(false);
+        attr(this.$el, {
+            title: '',
+            'aria-describedby': this.id,
+        });
         makeFocusable(this.$el);
     },
 
@@ -91,14 +94,12 @@ export default {
         _show() {
             this.tooltip = append(
                 this.container,
-                `<div class="uk-${this.$options.name}">
+                `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip">
                     <div class="uk-${this.$options.name}-inner">${this.title}</div>
                  </div>`
             );
 
             on(this.tooltip, 'toggled', (e, toggled) => {
-                this.updateAria(toggled);
-
                 if (!toggled) {
                     return;
                 }
@@ -114,10 +115,6 @@ export default {
             });
 
             this.toggleElement(this.tooltip, true);
-        },
-
-        updateAria(toggled) {
-            attr(this.$el, 'aria-expanded', toggled);
         },
     },
 

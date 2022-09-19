@@ -114,10 +114,7 @@ export default {
 
             await Promise.all(
                 $$(this.target, this.$el).map((target) => {
-                    const filterFn = () => {
-                        applyState(state, target, getChildren(target));
-                        this.$update(this.$el);
-                    };
+                    const filterFn = () => applyState(state, target, getChildren(target));
                     return animate ? this.animate(filterFn, target) : filterFn();
                 })
             );

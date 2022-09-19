@@ -1,10 +1,12 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
 import {
+    $,
     $$,
     addClass,
     append,
     assign,
+    attr,
     before,
     children,
     css,
@@ -15,6 +17,7 @@ import {
     index,
     isEmpty,
     isInput,
+    isTag,
     off,
     offsetViewport,
     on,
@@ -345,10 +348,18 @@ function untrackScroll() {
 }
 
 function appendDrag(container, element) {
-    const clone = append(
-        container,
-        element.outerHTML.replace(/(^<)(?:li|tr)|(?:li|tr)(\/>$)/g, '$1div$2')
-    );
+    let clone;
+    if (['li', 'tr'].some((tag) => isTag(element, tag))) {
+        clone = $('<div>');
+        append(clone, element.cloneNode(true).children);
+        for (const { nodeName, nodeValue } of element.attributes) {
+            attr(clone, nodeName, nodeValue);
+        }
+    } else {
+        clone = element.cloneNode(true);
+    }
+
+    append(container, clone);
 
     css(clone, 'margin', '0', 'important');
     css(clone, {

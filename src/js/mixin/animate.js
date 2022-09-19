@@ -28,10 +28,7 @@ export default {
                           return Promise.resolve();
                       };
 
-            return animationFn(action, target, this.duration).then(
-                () => this.$update(target, 'resize'),
-                noop
-            );
+            return animationFn(action, target, this.duration).catch(noop);
         },
     },
 };

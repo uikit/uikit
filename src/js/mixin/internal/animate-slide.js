@@ -1,11 +1,12 @@
 import {
+    attr,
     children,
     css,
     fastdom,
     includes,
     index,
     isVisible,
-    noop,
+    observeMutation,
     offset,
     parent,
     position,
@@ -19,12 +20,10 @@ export default async function (action, target, duration) {
 
     // Get current state
     const currentProps = nodes.map((el) => getProps(el, true));
-    const targetProps = css(target, ['height', 'padding']);
+    const targetProps = { ...css(target, ['height', 'padding']), display: 'block' };
 
     // Cancel previous animations
-    Transition.cancel(target);
-    nodes.forEach(Transition.cancel);
-    reset(target);
+    await Promise.all(nodes.concat(target).map(Transition.cancel));
 
     // Adding, sorting, removing nodes
     action();
@@ -33,18 +32,23 @@ export default async function (action, target, duration) {
     nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
 
     // Wait for update to propagate
-    await Promise.resolve();
+    await awaitMutation();
 
     // Force update
     fastdom.flush();
 
     // Get new state
+    const targetStyle = attr(target, 'style');
     const targetPropsTo = css(target, ['height', 'padding']);
     const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
+    const attrsTo = nodes.map((el) => ({
+        class: attr(el, 'class'),
+        style: attr(el, 'style'),
+    }));
 
     // Reset to previous state
     nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-    css(target, { display: 'block', ...targetProps });
+    css(target, targetProps);
 
     // Start transitions on next frame
     await awaitFrame();
@@ -53,13 +57,19 @@ export default async function (action, target, duration) {
         .map((el, i) => parent(el) === target && Transition.start(el, propsTo[i], duration, 'ease'))
         .concat(Transition.start(target, targetPropsTo, duration, 'ease'));
 
-    await Promise.all(transitions).then(() => {
-        nodes.forEach(
-            (el, i) =>
-                parent(el) === target && css(el, 'display', propsTo[i].opacity === 0 ? 'none' : '')
-        );
-        reset(target);
-    }, noop);
+    try {
+        await Promise.all(transitions);
+        nodes.forEach((el, i) => {
+            attr(el, attrsTo[i]);
+            if (parent(el) === target) {
+                css(el, 'display', propsTo[i].opacity === 0 ? 'none' : '');
+            }
+        });
+        attr(target, 'style', targetStyle);
+    } catch (e) {
+        nodes.forEach((el, i) => attr(el, 'style', ''));
+        resetProps(target, targetProps);
+    }
 }
 
 function getProps(el, opacity) {
@@ -113,31 +123,40 @@ function getTransitionProps(target, nodes, currentProps) {
     return [propsTo, propsFrom];
 }
 
-function reset(el) {
-    css(el.children, {
-        height: '',
-        left: '',
-        opacity: '',
-        pointerEvents: '',
-        position: '',
-        top: '',
-        marginTop: '',
-        marginLeft: '',
-        transform: '',
-        width: '',
-        zIndex: '',
-    });
-    css(el, { height: '', display: '', padding: '' });
+function resetProps(el, props) {
+    for (const prop in props) {
+        css(el, prop, '');
+    }
 }
 
 function getPositionWithMargin(el) {
     const { height, width } = offset(el);
-    const { top, left } = position(el);
-    const { marginLeft, marginTop } = css(el, ['marginTop', 'marginLeft']);
 
-    return { top, left, height, width, marginLeft, marginTop, transform: '' };
+    return {
+        height,
+        width,
+        transform: '',
+        ...position(el),
+        ...css(el, ['marginTop', 'marginLeft']),
+    };
 }
 
 function awaitFrame() {
     return new Promise((resolve) => requestAnimationFrame(resolve));
+}
+
+function awaitMutation() {
+    const text = document.createTextNode('');
+    const promise = new Promise((resolve) =>
+        observeMutation(
+            text,
+            (_, observer) => {
+                resolve();
+                observer.disconnect();
+            },
+            { characterData: true }
+        )
+    );
+    text.data = 1;
+    return promise;
 }
