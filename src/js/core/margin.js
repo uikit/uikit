@@ -29,11 +29,6 @@ export default {
         this.registerObserver(
             observeMutation(this.$el, () => this.$reset(), {
                 childList: true,
-            }),
-            observeMutation(this.$el, () => this.$emit(), {
-                childList: true,
-                attributes: true,
-                attributeFilter: ['style'],
             })
         );
     },

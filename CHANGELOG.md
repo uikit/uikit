@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.15.10 (September 21, 2022)
+
+### Fixed
+
+- Fix regression in Filter component animation
+- Fix case where UIkit breaks if a form with an input named `attributes` exits
+
 ## 3.15.9 (September 19, 2022)
 
 ### Fixed

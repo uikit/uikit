@@ -6,7 +6,6 @@ import {
     includes,
     index,
     isVisible,
-    observeMutation,
     offset,
     parent,
     position,
@@ -32,7 +31,7 @@ export default async function (action, target, duration) {
     nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
 
     // Wait for update to propagate
-    await awaitMutation();
+    await Promise.resolve();
 
     // Force update
     fastdom.flush();
@@ -67,7 +66,7 @@ export default async function (action, target, duration) {
         });
         attr(target, 'style', targetStyle);
     } catch (e) {
-        nodes.forEach((el, i) => attr(el, 'style', ''));
+        attr(nodes, 'style', '');
         resetProps(target, targetProps);
     }
 }
@@ -143,20 +142,4 @@ function getPositionWithMargin(el) {
 
 function awaitFrame() {
     return new Promise((resolve) => requestAnimationFrame(resolve));
-}
-
-function awaitMutation() {
-    const text = document.createTextNode('');
-    const promise = new Promise((resolve) =>
-        observeMutation(
-            text,
-            (_, observer) => {
-                resolve();
-                observer.disconnect();
-            },
-            { characterData: true }
-        )
-    );
-    text.data = 1;
-    return promise;
 }

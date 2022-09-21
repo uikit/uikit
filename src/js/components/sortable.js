@@ -352,8 +352,8 @@ function appendDrag(container, element) {
     if (['li', 'tr'].some((tag) => isTag(element, tag))) {
         clone = $('<div>');
         append(clone, element.cloneNode(true).children);
-        for (const { nodeName, nodeValue } of element.attributes) {
-            attr(clone, nodeName, nodeValue);
+        for (const attribute of element.getAttributeNames()) {
+            attr(clone, attribute, element.getAttribute(attribute));
         }
     } else {
         clone = element.cloneNode(true);
