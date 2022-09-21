@@ -1,4 +1,4 @@
-/*! UIkit 3.15.9 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.10 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2911,8 +2911,8 @@
           }
         }
 
-        for (const attribute of node.attributes) {
-          const name = getComponentName(attribute.name);
+        for (const attribute of node.getAttributeNames()) {
+          const name = getComponentName(attribute);
           name && UIkit[name](node);
         }
       };
@@ -2937,7 +2937,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.9';
+    UIkit.version = '3.15.10';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4666,12 +4666,7 @@
       connected() {
         this.registerObserver(
         observeMutation(this.$el, () => this.$reset(), {
-          childList: true }),
-
-        observeMutation(this.$el, () => this.$emit(), {
-          childList: true,
-          attributes: true,
-          attributeFilter: ['style'] }));
+          childList: true }));
 
 
       },
@@ -8070,7 +8065,7 @@
       nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
 
       // Wait for update to propagate
-      await awaitMutation();
+      await Promise.resolve();
 
       // Force update
       fastdom.flush();
@@ -8105,7 +8100,7 @@
         });
         attr(target, 'style', targetStyle);
       } catch (e) {
-        nodes.forEach((el, i) => attr(el, 'style', ''));
+        attr(nodes, 'style', '');
         resetProps(target, targetProps);
       }
     }
@@ -8181,22 +8176,6 @@
 
     function awaitFrame() {
       return new Promise((resolve) => requestAnimationFrame(resolve));
-    }
-
-    function awaitMutation() {
-      const text = document.createTextNode('');
-      const promise = new Promise((resolve) =>
-      observeMutation(
-      text,
-      (_, observer) => {
-        resolve();
-        observer.disconnect();
-      },
-      { characterData: true }));
-
-
-      text.data = 1;
-      return promise;
     }
 
     var Animate = {
@@ -8324,7 +8303,10 @@
 
           await Promise.all(
           $$(this.target, this.$el).map((target) => {
-            const filterFn = () => applyState(state, target, children(target));
+            const filterFn = () => {
+              applyState(state, target, children(target));
+              this.$update(this.$el);
+            };
             return animate ? this.animate(filterFn, target) : filterFn();
           }));
 
@@ -11135,8 +11117,8 @@
       if (['li', 'tr'].some((tag) => isTag(element, tag))) {
         clone = $('<div>');
         append(clone, element.cloneNode(true).children);
-        for (const { nodeName, nodeValue } of element.attributes) {
-          attr(clone, nodeName, nodeValue);
+        for (const attribute of element.getAttributeNames()) {
+          attr(clone, attribute, element.getAttribute(attribute));
         }
       } else {
         clone = element.cloneNode(true);
