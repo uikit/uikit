@@ -1,5 +1,9 @@
 # Changelog
 
+## WIP
+
+- Add Crosshairs icon
+
 ## 3.15.10 (September 21, 2022)
 
 ### Fixed
