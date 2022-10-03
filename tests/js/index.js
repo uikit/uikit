@@ -65,7 +65,7 @@ on(window, 'load', () =>
                     $body,
                     `
         <div class="uk-container">
-            <select class="uk-select uk-form-width-small" style="margin: 20px 20px 20px 0">
+            <select class="uk-select uk-form-width-small" style="margin: 20px 20px 20px 0" aria-label="Component switcher">
                 <option value="index.html">Overview</option>
                 ${tests
                     .map(
@@ -77,12 +77,12 @@ on(window, 'load', () =>
                     )
                     .join('')}
             </select>
-            <select class="uk-select uk-form-width-small" style="margin: 20px">
+            <select class="uk-select uk-form-width-small" style="margin: 20px" aria-label="Theme switcher">
                 ${Object.keys(styles)
                     .map((style) => `<option value="${style}">${ucfirst(style)}</option>`)
                     .join('')}
             </select>
-            <select class="uk-select uk-form-width-small" style="margin: 20px">
+            <select class="uk-select uk-form-width-small" style="margin: 20px" aria-label="Inverse switcher">
                 ${Object.keys(variations)
                     .map((name) => `<option value="${name}">${variations[name]}</option>`)
                     .join('')}
