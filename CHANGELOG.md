@@ -6,6 +6,10 @@
 
 - Add Crosshairs icon
 
+### Fixed
+
+- Fix content not focusable with keyboard in Scrollspy component
+
 ## 3.15.10 (September 21, 2022)
 
 ### Fixed
