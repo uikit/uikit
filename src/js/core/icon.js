@@ -64,6 +64,8 @@ const Icon = {
 
     props: ['icon'],
 
+    data: { include: [] },
+
     isIcon: true,
 
     beforeConnect() {
