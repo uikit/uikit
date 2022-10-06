@@ -64,10 +64,6 @@ const Icon = {
 
     props: ['icon'],
 
-    data: {
-        include: ['focusable'],
-    },
-
     isIcon: true,
 
     beforeConnect() {

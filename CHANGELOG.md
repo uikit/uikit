@@ -6,6 +6,10 @@
 
 - Add Crosshairs icon
 
+### Removed
+
+- Remove `focusable` option from Icon and SVG component
+
 ### Fixed
 
 - Fix content not focusable with keyboard in Scrollspy component
@@ -991,7 +995,7 @@
 ### Fixed
 
 - Fix prop observer for dataSrc option in Image component
-- Fix ajax function supports responseType 'json' in IE 11
+- Fix ajax function supports responseType 'json' in IE11
 - Fix Accordion component with `multiple: true` and `collapsible: false`
 
 ## 3.5.3 (May 29, 2020)
@@ -1093,7 +1097,7 @@
 - Fix Sticky component sets its width with fraction
 - Fix Sticky component with `show-on-up` and `bottom` option updates correctly
 - Fix Tooltip component no longer disappears on SVG shape elements
-- Fix regression with Modal/Offcanvas component not opening in IE 11
+- Fix regression with Modal/Offcanvas component not opening in IE11
 
 ## 3.4.0 (April 9, 2020)
 
@@ -1173,7 +1177,7 @@
 
 - Fix style for breadcrumbs without last active item
 - Fix infinite loop in Slider component
-- Fix IE 11 compatibility
+- Fix IE11 compatibility
 - Fix Spinner component in RTL mode
 - Fix animating `stroke` in Parallax component when element is hidden
 
@@ -1332,7 +1336,7 @@
 - Fix Modal close on bgClick behaviour
 - Fix spreading event args on delegated event listeners
 - Fix clicking an empty link within itself no longer closes the Drop
-- Fix IE 11 compatibility
+- Fix IE11 compatibility
 - Fix empty tooltips will no longer show
 
 ## 3.1.7 (July 31, 2019)
@@ -1541,7 +1545,7 @@
 
 ### Fixed
 
-- Fix `flex bug` mixin (IE 11)
+- Fix `flex bug` mixin (IE11)
 - Fix properly resolving css custom properties in scss
 - Fix order of variable assignments in scss
 - Fix background images are shown too large on retina displays in Image component
@@ -1782,11 +1786,11 @@
 ### Fixed
 
 - Fix Filter component height during transition
-- Fix Filter/Sortable component in IE 11
+- Fix Filter/Sortable component in IE11
 - Fix Overflow Auto component triggering `resize` event indefinitely
 - Fix Slider/Slideshow capture slide during transition in Safari 11
 - Fix Slider/Slideshow drag behavior in iOS 11.3+ (https://bugs.webkit.org/show_bug.cgi?id=184250)
-- Fix `toEventTargets` in IE 11
+- Fix `toEventTargets` in IE11
 
 ## 3.0.0 rc 8 (July 5, 2018)
 
@@ -1808,7 +1812,7 @@
 
 ### Fixed
 
-- Fix Dropbar in Navbar in IE 11
+- Fix Dropbar in Navbar in IE11
 - Fix single components did not get exported from their modules
 - Fix Lightbox reactivity
 
@@ -1869,7 +1873,7 @@
 
 ### Fixed
 
-- Fix regression in Scrollspy in IE 11
+- Fix regression in Scrollspy in IE11
 - Fix Sass distribution
 - Fix large close icon
 
@@ -1981,7 +1985,7 @@
 - Fix Slider Nav initially has no state
 - Fix Esc closing on Confirm and Prompt dialogs
 - Fix using Grids in Slider component in Safari
-- Fix edge scrolling in Sortable component in IE 11
+- Fix edge scrolling in Sortable component in IE11
 - Fix touch scrolling in Slideshow/Slider in Edge
 - Fix tap event on touch devices
 - Fix initial Drop positioning
@@ -2085,7 +2089,7 @@
 - Fix Scrollspy triggering before other components have been applied at least once
 - Fix Accordion title click behavior
 - Fix Sortable on iOS
-- Fix Sticky Navbar (IE 11)
+- Fix Sticky Navbar (IE11)
 
 ## 3.0.0 beta 34 (November 7, 2017)
 
@@ -2432,7 +2436,7 @@
 
 - Fix deferred UIKit loading
 - Fix Dropdowns not closing immediately upon hovering other navbar item in Navbar component
-- Fix navbar groups center left/right (IE 11)
+- Fix navbar groups center left/right (IE11)
 - Fix "sticky on up" behaviour in Sticky component
 - Fix Offcanvas closing without animation
 - Fix links in Notification message clickable
