@@ -35,7 +35,7 @@ export default {
 
     data: {
         ratio: 1,
-        include: ['style', 'class', 'focusable'],
+        include: ['style', 'class'],
         class: '',
         strokeAnimation: false,
     },
