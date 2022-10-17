@@ -14,6 +14,7 @@
 
 - Fix content not focusable with keyboard in Scrollspy component
 - Fix removing Lightbox causes JavaScript error
+- Fix cases where Switcher component wouldn't correctly initialize in Chrome
 
 ## 3.15.10 (September 21, 2022)
 
