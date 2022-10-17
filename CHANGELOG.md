@@ -13,6 +13,7 @@
 ### Fixed
 
 - Fix content not focusable with keyboard in Scrollspy component
+- Fix removing Lightbox causes JavaScript error
 
 ## 3.15.10 (September 21, 2022)
 
