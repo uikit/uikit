@@ -103,7 +103,11 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                 include: '**/*.svg',
                 htmlMinifierOptions: {
                     collapseWhitespace: true,
-                    minifyCSS: true,
+                    minifyCSS: {
+                        advanced: false,
+                        keepSpecialComments: 0,
+                        rebase: false,
+                    },
                 },
             }),
             babel({
