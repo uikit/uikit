@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.15.11 (October 25, 2022)
 
 ### Added
 
