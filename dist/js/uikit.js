@@ -1,4 +1,4 @@
-/*! UIkit 3.15.10 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.11 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -215,8 +215,8 @@
         [aProp]: dimensions[prop] ?
         Math.round(value * dimensions[aProp] / dimensions[prop]) :
         dimensions[aProp],
-        [prop]: value };
-
+        [prop]: value
+      };
     }
 
     function contain(dimensions, maxDimensions) {
@@ -284,7 +284,8 @@
           this.reject = reject;
           this.resolve = resolve;
         });
-      }}
+      }
+    }
 
     function attr(element, name, value) {
       if (isObject(name)) {
@@ -348,8 +349,8 @@
       param: true,
       source: true,
       track: true,
-      wbr: true };
-
+      wbr: true
+    };
     function isVoidElement(element) {
       return toNodes(element).some((element) => voidElements[element.tagName.toLowerCase()]);
     }
@@ -666,8 +667,8 @@
         xhr: new XMLHttpRequest(),
         beforeSend: noop,
         responseType: '',
-        ...options };
-
+        ...options
+      };
       return Promise.resolve().
       then(() => env.beforeSend(env)).
       then(() => send(url, env));
@@ -700,8 +701,8 @@
             reject(
             assign(Error(xhr.statusText), {
               xhr,
-              status: xhr.status }));
-
+              status: xhr.status
+            }));
 
           }
         });
@@ -745,8 +746,8 @@
       'stroke-dashoffset': true,
       widows: true,
       'z-index': true,
-      zoom: true };
-
+      zoom: true
+    };
 
     function css(element, property, value, priority) {if (priority === void 0) {priority = '';}
       const elements = toNodes(element);
@@ -879,8 +880,8 @@
           css(element, {
             transitionProperty: '',
             transitionDuration: '',
-            transitionTimingFunction: '' });
-
+            transitionTimingFunction: ''
+          });
           type === 'transitioncanceled' ? reject() : resolve(element);
         },
         { self: true });
@@ -891,8 +892,8 @@
           transitionProperty: Object.keys(props).map(propName).join(','),
           transitionDuration: duration + "ms",
           transitionTimingFunction: timing,
-          ...props });
-
+          ...props
+        });
       })));
 
 
@@ -913,8 +914,8 @@
 
       inProgress(element) {
         return hasClass(element, 'uk-transition');
-      } };
-
+      }
+    };
 
     const animationPrefix = 'uk-animation-';
 
@@ -967,12 +968,13 @@
 
       cancel(element) {
         trigger(element, 'animationcanceled');
-      } };
+      }
+    };
 
     const dirs$1 = {
       width: ['left', 'right'],
-      height: ['top', 'bottom'] };
-
+      height: ['top', 'bottom']
+    };
 
     function dimensions$1(element) {
       const rect = isElement(element) ?
@@ -985,8 +987,8 @@
         top: rect.top,
         left: rect.left,
         bottom: rect.top + rect.height,
-        right: rect.left + rect.width };
-
+        right: rect.left + rect.width
+      };
     }
 
     function offset(element, coordinates) {
@@ -1025,8 +1027,8 @@
 
       const {
         ownerDocument: { body, documentElement },
-        offsetParent } =
-      toNode(element);
+        offsetParent
+      } = toNode(element);
       let parent = offsetParent || documentElement;
 
       while (
@@ -1045,8 +1047,8 @@
 
       return {
         top: top - toFloat(css(element, 'marginTop')),
-        left: left - toFloat(css(element, 'marginLeft')) };
-
+        left: left - toFloat(css(element, 'marginLeft'))
+      };
     }
 
     function offsetPosition(element) {
@@ -1317,8 +1319,8 @@
         remove(this.writes, task);
       },
 
-      flush };
-
+      flush
+    };
 
     function flush(recursion) {
       runTasks(fastdom.reads);
@@ -1420,8 +1422,8 @@
           const intersection = intersect(path, diagonal);
           return intersection && pointInRect(intersection, p);
         });
-      } };
-
+      }
+    };
 
     // Inspired by http://paulbourke.net/geometry/pointlineplane/
     function intersect(_ref, _ref2) {let [{ x: x1, y: y1 }, { x: x2, y: y2 }] = _ref;let [{ x: x3, y: y3 }, { x: x4, y: y4 }] = _ref2;
@@ -1473,8 +1475,8 @@
       return {
         disconnect() {
           listeners.delete(cb);
-        } };
-
+        }
+      };
     }
 
     let listeners;
@@ -1778,8 +1780,8 @@
           top: top - offsetTop,
           left: left - offsetLeft,
           bottom: bottom + offsetTop,
-          right: right + offsetLeft };
-
+          right: right + offsetLeft
+        };
       }).
       concat(offset(element)));
 
@@ -1889,8 +1891,8 @@
     function offsetViewport(scrollElement) {
       const window = toWindow(scrollElement);
       const {
-        document: { documentElement } } =
-      window;
+        document: { documentElement }
+      } = window;
       let viewportElement =
       scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
 
@@ -1933,12 +1935,12 @@
         attach: {
           element: ['left', 'top'],
           target: ['left', 'top'],
-          ...options.attach },
-
+          ...options.attach
+        },
         offset: [0, 0],
         placement: [],
-        ...options };
-
+        ...options
+      };
 
       if (!isArray(target)) {
         target = [target, target];
@@ -1953,7 +1955,7 @@
 
       let offsetPosition = position;
       for (const [i, [prop,, start, end]] of Object.entries(dirs)) {
-        const viewport = getViewport$1(target[i], viewportOffset, boundary, i);
+        const viewport = getViewport$2(element, target[i], viewportOffset, boundary, i);
 
         if (isWithin(position, viewport, i)) {
           continue;
@@ -1973,7 +1975,7 @@
 
           offsetBy = flip(element, target, options, i)[start] - position[start];
 
-          const scrollArea = getScrollArea(target[i], viewportOffset, i);
+          const scrollArea = getScrollArea(element, target[i], viewportOffset, i);
 
           if (!isWithin(applyOffset(position, offsetBy, i), scrollArea, i)) {
             if (isWithin(position, scrollArea, i)) {
@@ -2016,11 +2018,11 @@
         attach: {
           element: ['left', 'top'],
           target: ['left', 'top'],
-          ...options.attach },
-
+          ...options.attach
+        },
         offset: [0, 0],
-        ...options };
-
+        ...options
+      };
 
       let elOffset = offset(element);
 
@@ -2053,8 +2055,8 @@
       return attach === 'center' ? dim / 2 : attach === end ? dim : 0;
     }
 
-    function getViewport$1(element, viewportOffset, boundary, i) {
-      let viewport = getIntersectionArea(...scrollParents(element).map(offsetViewport));
+    function getViewport$2(element, target, viewportOffset, boundary, i) {
+      let viewport = getIntersectionArea(...commonScrollParents(element, target).map(offsetViewport));
 
       if (viewportOffset) {
         viewport[dirs[i][2]] += viewportOffset;
@@ -2071,13 +2073,17 @@
       return viewport;
     }
 
-    function getScrollArea(element, viewportOffset, i) {
+    function getScrollArea(element, target, viewportOffset, i) {
       const [prop,, start, end] = dirs[i];
-      const [scrollElement] = scrollParents(element);
+      const [scrollElement] = commonScrollParents(element, target);
       const viewport = offsetViewport(scrollElement);
       viewport[start] -= scrollElement["scroll" + ucfirst(start)] - viewportOffset;
       viewport[end] = viewport[start] + scrollElement["scroll" + ucfirst(prop)] - viewportOffset;
       return viewport;
+    }
+
+    function commonScrollParents(element, target) {
+      return scrollParents(target).filter((parent) => within(element, parent));
     }
 
     function getIntersectionArea() {
@@ -2100,10 +2106,10 @@
       return attachTo(element, target, {
         attach: {
           element: flipAttach(attach.element, i),
-          target: flipAttach(attach.target, i) },
-
-        offset: flipOffset(offset, i) });
-
+          target: flipAttach(attach.target, i)
+        },
+        offset: flipOffset(offset, i)
+      });
     }
 
     function flipAxis(element, target, options) {
@@ -2111,12 +2117,12 @@
         ...options,
         attach: {
           element: options.attach.element.map(flipAttachAxis).reverse(),
-          target: options.attach.target.map(flipAttachAxis).reverse() },
-
+          target: options.attach.target.map(flipAttachAxis).reverse()
+        },
         offset: options.offset.reverse(),
         placement: options.placement.reverse(),
-        recursion: true });
-
+        recursion: true
+      });
     }
 
     function flipAttach(attach, i) {
@@ -2340,8 +2346,8 @@
 
         set(element) {
           container = $(element);
-        } });
-
+        }
+      });
 
       function update(data, e) {
         if (!data) {
@@ -2463,8 +2469,8 @@
 
       function runWatches(initial) {
         const {
-          $options: { computed } } =
-        this;
+          $options: { computed }
+        } = this;
         const values = { ...this._computed };
         this._computed = {};
 
@@ -2571,11 +2577,7 @@
       };
 
       UIkit.prototype._initObservers = function () {
-        this._observers = [initPropsObserver(this)];
-
-        if (this.$options.computed) {
-          this.registerObserver(initChildListObserver(this));
-        }
+        this._observers = [initPropsObserver(this), initChildListObserver(this)];
       };
 
       UIkit.prototype.registerObserver = function () {
@@ -2646,8 +2648,8 @@
           if (isUndefined(_computed[key])) {
             delete _computed[key];
           }
-        } });
-
+        }
+      });
     }
 
     function registerEvent(component, event, key) {
@@ -2728,13 +2730,24 @@
     }
 
     function initChildListObserver(component) {
-      const { el } = component.$options;
+      let { el, computed } = component.$options;
+
+      if (!computed) {
+        return;
+      }
+
+      for (const key in computed) {
+        if (computed[key].document) {
+          el = el.ownerDocument;
+          break;
+        }
+      }
 
       const observer = new MutationObserver(() => component._callWatches());
       observer.observe(el, {
         childList: true,
-        subtree: true });
-
+        subtree: true
+      });
 
       return observer;
     }
@@ -2766,8 +2779,8 @@
 
       observer.observe(el, {
         attributes: true,
-        attributeFilter: filter.concat(filter.map((key) => "data-" + key)) });
-
+        attributeFilter: filter.concat(filter.map((key) => "data-" + key))
+      });
 
       return observer;
     }
@@ -2937,7 +2950,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.10';
+    UIkit.version = '3.15.11';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -2961,16 +2974,16 @@
         document,
         {
           childList: true,
-          subtree: true });
-
+          subtree: true
+        });
 
 
         new MutationObserver((records) => records.forEach(applyAttributeMutation)).observe(
         document,
         {
           attributes: true,
-          subtree: true });
-
+          subtree: true
+        });
 
 
         UIkit._initialized = true;
@@ -3003,12 +3016,13 @@
     var Class = {
       connected() {
         addClass(this.$el, this.$options.id);
-      } };
+      }
+    };
 
     var Lazyload = {
       data: {
-        preload: 5 },
-
+        preload: 5
+      },
 
       methods: {
         lazyload(observeTargets, targets) {if (observeTargets === void 0) {observeTargets = this.$el;}if (targets === void 0) {targets = this.$el;}
@@ -3027,7 +3041,9 @@
             }
           }));
 
-        } } };
+        }
+      }
+    };
 
     var Togglable = {
       props: {
@@ -3036,8 +3052,8 @@
         duration: Number,
         velocity: Number,
         origin: String,
-        transition: String },
-
+        transition: String
+      },
 
       data: {
         cls: false,
@@ -3047,8 +3063,8 @@
         origin: false,
         transition: 'ease',
         clsEnter: 'uk-togglabe-enter',
-        clsLeave: 'uk-togglabe-leave' },
-
+        clsLeave: 'uk-togglabe-leave'
+      },
 
       computed: {
         hasAnimation(_ref) {let { animation } = _ref;
@@ -3057,8 +3073,8 @@
 
         hasTransition(_ref2) {let { animation } = _ref2;
           return ['slide', 'reveal'].some((transition) => startsWith(animation[0], transition));
-        } },
-
+        }
+      },
 
       methods: {
         toggleElement(targets, toggle, animate) {
@@ -3135,9 +3151,9 @@
           if (changed) {
             trigger(el, 'toggled', [toggled, this]);
           }
-        } } };
-
-
+        }
+      }
+    };
 
     function toggleInstant(el, show, _ref3) {let { _toggle } = _ref3;
       Animation.cancel(el);
@@ -3209,9 +3225,9 @@
         'borderBottom',
         'borderLeft',
         'borderImage',
-        marginStartProp]) });
+        marginStartProp])
 
-
+      });
 
       css(el, {
         padding: 0,
@@ -3222,8 +3238,8 @@
         width: dim.width,
         height: dim.height,
         overflow: 'hidden',
-        [dimProp]: currentDim });
-
+        [dimProp]: currentDim
+      });
 
       const percent = currentDim / endDim;
       duration = (velocity * endDim + duration) * (show ? 1 - percent : percent);
@@ -3277,8 +3293,8 @@
         multiple: Boolean,
         toggle: String,
         content: String,
-        offset: Number },
-
+        offset: Number
+      },
 
       data: {
         targets: '> *',
@@ -3289,8 +3305,8 @@
         clsOpen: 'uk-open',
         toggle: '> .uk-accordion-title',
         content: '> .uk-accordion-content',
-        offset: 0 },
-
+        offset: 0
+      },
 
       computed: {
         items: {
@@ -3312,8 +3328,8 @@
             }
           },
 
-          immediate: true },
-
+          immediate: true
+        },
 
         toggles(_ref2) {let { toggle } = _ref2;
           return this.items.map((item) => $(toggle, item));
@@ -3336,9 +3352,9 @@
             }
           },
 
-          immediate: true } },
-
-
+          immediate: true
+        }
+      },
 
       connected() {
         this.lazyload();
@@ -3359,8 +3375,8 @@
           this._off = keepScrollPosition(e.target);
           await this.toggle(index(this.toggles, e.current));
           this._off();
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -3392,9 +3408,9 @@
           })));
 
 
-        } } };
-
-
+        }
+      }
+    };
 
     function hide(el, hide) {
       el && (el.hidden = hide);
@@ -3455,14 +3471,14 @@
 
       props: {
         animation: Boolean,
-        close: String },
-
+        close: String
+      },
 
       data: {
         animation: true,
         selClose: '.uk-alert-close',
-        duration: 150 },
-
+        duration: 150
+      },
 
       events: {
         name: 'click',
@@ -3474,16 +3490,16 @@
         handler(e) {
           e.preventDefault();
           this.close();
-        } },
-
+        }
+      },
 
       methods: {
         async close() {
           await this.toggleElement(this.$el, false, animate$1);
           this.$destroy(true);
-        } } };
-
-
+        }
+      }
+    };
 
     function animate$1(el, show, _ref) {let { duration, transition, velocity } = _ref;
       const height = toFloat(css(el, 'height'));
@@ -3498,8 +3514,8 @@
         paddingBottom: 0,
         borderTop: 0,
         borderBottom: 0,
-        opacity: 0 },
-
+        opacity: 0
+      },
       velocity * height + duration,
       transition);
 
@@ -3510,13 +3526,13 @@
 
       props: {
         automute: Boolean,
-        autoplay: Boolean },
-
+        autoplay: Boolean
+      },
 
       data: {
         automute: false,
-        autoplay: true },
-
+        autoplay: true
+      },
 
       connected() {
         this.inView = this.autoplay === 'inview';
@@ -3544,8 +3560,8 @@
 
           return {
             visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
-            inView: this.inView && isInView(this.$el) };
-
+            inView: this.inView && isInView(this.$el)
+          };
         },
 
         write(_ref) {let { visible, inView } = _ref;
@@ -3554,7 +3570,9 @@
           } else if (this.autoplay === true || this.inView && inView) {
             play(this.$el);
           }
-        } } };
+        }
+      }
+    };
 
     var Resize = {
       connected() {var _this$$options$resize;
@@ -3563,25 +3581,26 @@
         this.$emit('resize')));
 
 
-      } };
+      }
+    };
 
     var cover = {
       mixins: [Resize, Video],
 
       props: {
         width: Number,
-        height: Number },
-
+        height: Number
+      },
 
       data: {
-        automute: true },
-
+        automute: true
+      },
 
       events: {
         'load loadedmetadata'() {
           this.$emit('resize');
-        } },
-
+        }
+      },
 
       resizeTargets() {
         return [this.$el, getPositionedParent(this.$el) || parent(this.$el)];
@@ -3597,8 +3616,8 @@
           if (!dim.width || !dim.height) {
             const intrinsic = {
               width: $el.naturalWidth || $el.videoWidth || $el.clientWidth,
-              height: $el.naturalHeight || $el.videoHeight || $el.clientHeight };
-
+              height: $el.naturalHeight || $el.videoHeight || $el.clientHeight
+            };
 
             if (dim.width) {
               dim = ratio(intrinsic, 'width', dim.width);
@@ -3613,8 +3632,8 @@
           getPositionedParent($el) || parent($el);
           const coverDim = cover(dim, {
             width: coverWidth + (coverWidth % 2 ? 1 : 0),
-            height: coverHeight + (coverHeight % 2 ? 1 : 0) });
-
+            height: coverHeight + (coverHeight % 2 ? 1 : 0)
+          });
 
           if (!coverDim.width || !coverDim.height) {
             return false;
@@ -3627,9 +3646,9 @@
           css(this.$el, { height, width });
         },
 
-        events: ['resize'] } };
-
-
+        events: ['resize']
+      }
+    };
 
     function getPositionedParent(el) {
       while (el = parent(el)) {
@@ -3641,17 +3660,19 @@
 
     var Container = {
       props: {
-        container: Boolean },
-
+        container: Boolean
+      },
 
       data: {
-        container: true },
-
+        container: true
+      },
 
       computed: {
         container(_ref) {let { container } = _ref;
           return container === true && this.$container || container && $(container);
-        } } };
+        }
+      }
+    };
 
     var Position = {
       props: {
@@ -3659,16 +3680,16 @@
         offset: null,
         flip: Boolean,
         shift: Boolean,
-        inset: Boolean },
-
+        inset: Boolean
+      },
 
       data: {
         pos: "bottom-" + (isRtl ? 'right' : 'left'),
         offset: false,
         flip: true,
         shift: true,
-        inset: false },
-
+        inset: false
+      },
 
       connected() {
         this.pos = this.$props.pos.split('-').concat('center').slice(0, 2);
@@ -3683,8 +3704,8 @@
 
           const attach = {
             element: [this.inset ? this.dir : flipPosition(this.dir), this.align],
-            target: [this.dir, this.align] };
-
+            target: [this.dir, this.align]
+          };
 
           if (this.axis === 'y') {
             for (const prop in attach) {
@@ -3706,8 +3727,8 @@
             offset,
             boundary,
             placement,
-            viewportOffset: this.getViewportOffset(element) });
-
+            viewportOffset: this.getViewportOffset(element)
+          });
 
           // Restore scroll position
           scrollElement.scrollTop = scrollTop;
@@ -3738,7 +3759,9 @@
 
         getViewportOffset(element) {
           return toPx(css(element, '--uk-position-viewport-offset'));
-        } } };
+        }
+      }
+    };
 
     var Style = {
       beforeConnect() {
@@ -3747,7 +3770,8 @@
 
       disconnected() {
         attr(this.$el, 'style', this._style);
-      } };
+      }
+    };
 
     const active$1 = [];
 
@@ -3759,16 +3783,16 @@
         selClose: String,
         escClose: Boolean,
         bgClose: Boolean,
-        stack: Boolean },
-
+        stack: Boolean
+      },
 
       data: {
         cls: 'uk-open',
         escClose: true,
         bgClose: true,
         overlay: true,
-        stack: false },
-
+        stack: false
+      },
 
       computed: {
         panel(_ref, $el) {let { selPanel } = _ref;
@@ -3781,8 +3805,8 @@
 
         bgClose(_ref2) {let { bgClose } = _ref2;
           return bgClose && this.panel;
-        } },
-
+        }
+      },
 
       beforeDisconnect() {
         if (includes(active$1, this)) {
@@ -3801,8 +3825,8 @@
         handler(e) {
           e.preventDefault();
           this.hide();
-        } },
-
+        }
+      },
 
       {
         name: 'click',
@@ -3822,8 +3846,8 @@
           {
             this.hide();
           }
-        } },
-
+        }
+      },
 
       {
         name: 'toggle',
@@ -3840,8 +3864,8 @@
           if (this.isToggled() === includes(active$1, this)) {
             this.toggle();
           }
-        } },
-
+        }
+      },
 
       {
         name: 'beforeshow',
@@ -3859,8 +3883,8 @@
           } else {
             active$1.push(this);
           }
-        } },
-
+        }
+      },
 
       {
         name: 'show',
@@ -3933,8 +3957,8 @@
             { self: true });
 
           }
-        } },
-
+        }
+      },
 
       {
         name: 'shown',
@@ -3949,8 +3973,8 @@
           if (!$(':focus', this.$el)) {
             this.$el.focus();
           }
-        } },
-
+        }
+      },
 
       {
         name: 'hidden',
@@ -3967,8 +3991,8 @@
           if (!active$1.some((modal) => modal.clsPage === this.clsPage)) {
             removeClass(document.documentElement, this.clsPage);
           }
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -3989,9 +4013,9 @@
 
         hide() {
           return this.toggleElement(this.$el, false, animate);
-        } } };
-
-
+        }
+      }
+    };
 
     function animate(el, show, _ref6) {let { transitionElement, _toggle } = _ref6;
       return new Promise((resolve, reject) =>
@@ -4006,8 +4030,8 @@
         'transitionstart',
         () => {
           once(transitionElement, 'transitionend transitioncancel', resolve, {
-            self: true });
-
+            self: true
+          });
           clearTimeout(timer);
         },
         { self: true });
@@ -4088,8 +4112,8 @@
       css(scrollingElement, {
         overflowY: 'hidden',
         touchAction: 'none',
-        paddingRight: width(window) - scrollingElement.clientWidth });
-
+        paddingRight: width(window) - scrollingElement.clientWidth
+      });
       return () => {
         prevented = false;
         css(scrollingElement, { overflowY: '', touchAction: '', paddingRight: '' });
@@ -4132,8 +4156,8 @@
         autoUpdate: Boolean,
         clsDrop: String,
         animateOut: Boolean,
-        bgScroll: Boolean },
-
+        bgScroll: Boolean
+      },
 
       data: {
         mode: ['click', 'hover'],
@@ -4153,8 +4177,8 @@
         bgScroll: true,
         animation: ['uk-animation-fade'],
         cls: 'uk-open',
-        container: false },
-
+        container: false
+      },
 
       computed: {
         boundary(_ref, $el) {let { boundary, boundaryX, boundaryY } = _ref;
@@ -4172,8 +4196,8 @@
           targetX === true ? window : query(targetX, $el),
           targetY === true ? window : query(targetY, $el)];
 
-        } },
-
+        }
+      },
 
       created() {
         this.tracker = new MouseTracker();
@@ -4189,8 +4213,8 @@
         if (this.toggle && !this.targetEl) {
           this.targetEl = this.$create('toggle', query(this.toggle, this.$el), {
             target: this.$el,
-            mode: this.mode }).
-          $el;
+            mode: this.mode
+          }).$el;
           attr(this.targetEl, 'aria-haspopup', true);
           this.lazyload(this.targetEl);
         }
@@ -4214,8 +4238,8 @@
         handler(e) {
           e.preventDefault();
           this.hide(false);
-        } },
-
+        }
+      },
 
       {
         name: 'click',
@@ -4234,16 +4258,16 @@
           {
             this.hide(false);
           }
-        } },
-
+        }
+      },
 
       {
         name: 'beforescroll',
 
         handler() {
           this.hide(false);
-        } },
-
+        }
+      },
 
       {
         name: 'toggle',
@@ -4258,8 +4282,8 @@
           } else {
             this.show(toggle == null ? void 0 : toggle.$el, false);
           }
-        } },
-
+        }
+      },
 
       {
         name: 'toggleshow',
@@ -4269,8 +4293,8 @@
         handler(e, toggle) {
           e.preventDefault();
           this.show(toggle == null ? void 0 : toggle.$el);
-        } },
-
+        }
+      },
 
       {
         name: 'togglehide',
@@ -4282,8 +4306,8 @@
           if (!matches(this.$el, ':focus,:hover')) {
             this.hide();
           }
-        } },
-
+        }
+      },
 
       {
         name: pointerEnter + " focusin",
@@ -4296,8 +4320,8 @@
           if (!isTouch(e)) {
             this.clearTimers();
           }
-        } },
-
+        }
+      },
 
       {
         name: pointerLeave + " focusout",
@@ -4310,8 +4334,8 @@
           if (!isTouch(e) && e.relatedTarget) {
             this.hide();
           }
-        } },
-
+        }
+      },
 
       {
         name: 'toggled',
@@ -4325,8 +4349,8 @@
 
           this.clearTimers();
           this.position();
-        } },
-
+        }
+      },
 
       {
         name: 'show',
@@ -4381,8 +4405,8 @@
           ...(this.autoUpdate ?
           [
           on([document, scrollParents(this.$el)], 'scroll', update, {
-            passive: true })] :
-
+            passive: true
+          })] :
 
           []),
 
@@ -4392,10 +4416,10 @@
 
 
           once(this.$el, 'hide', () => handlers.forEach((handler) => handler()), {
-            self: true });
-
-        } },
-
+            self: true
+          });
+        }
+      },
 
       {
         name: 'beforehide',
@@ -4404,8 +4428,8 @@
 
         handler() {
           this.clearTimers();
-        } },
-
+        }
+      },
 
       {
         name: 'hide',
@@ -4421,8 +4445,8 @@
 
           active = this.isActive() ? null : active;
           this.tracker.cancel();
-        } }],
-
+        }
+      }],
 
 
       update: {
@@ -4430,8 +4454,8 @@
           if (this.isToggled() && !hasClass(this.$el, this.clsEnter)) {
             this.position();
           }
-        } },
-
+        }
+      },
 
       methods: {
         show(target, delay) {if (target === void 0) {target = this.targetEl;}if (delay === void 0) {delay = true;}
@@ -4507,7 +4531,7 @@
           // Ensure none positioned element does not generate scrollbars
           this.$el.hidden = true;
 
-          const viewports = this.target.map((target) => offsetViewport(scrollParents(target)[0]));
+          const viewports = this.target.map((target) => getViewport$1(this.$el, target));
           const viewportOffset = this.getViewportOffset(this.$el);
 
           const dirs = [
@@ -4522,8 +4546,8 @@
                 offset(this.boundary[i])[prop],
                 viewports[i][prop] - 2 * viewportOffset),
 
-                ["overflow-" + axis]: 'auto' });
-
+                ["overflow-" + axis]: 'auto'
+              });
             }
           }
 
@@ -4557,20 +4581,24 @@
                 offset(this.boundary[i])[end],
                 viewports[i][end] - viewportOffset) -
                 targetOffset[end]) - positionOffset,
-                ["overflow-" + axis]: 'auto' });
-
+                ["overflow-" + axis]: 'auto'
+              });
 
               this.positionAt(this.$el, this.target, this.boundary);
             }
           }
-        } } };
-
-
+        }
+      }
+    };
 
     function getPositionedElements(el) {
       const result = [];
       apply(el, (el) => css(el, 'position') !== 'static' && result.push(el));
       return result;
+    }
+
+    function getViewport$1(el, target) {
+      return offsetViewport(scrollParents(target).find((parent) => within(el, parent)));
     }
 
     var formCustom = {
@@ -4579,12 +4607,12 @@
       args: 'target',
 
       props: {
-        target: Boolean },
-
+        target: Boolean
+      },
 
       data: {
-        target: false },
-
+        target: false
+      },
 
       computed: {
         input(_, $el) {
@@ -4601,8 +4629,8 @@
             target === true && parent(this.input) === $el && this.input.nextElementSibling ||
             $(target, $el)));
 
-        } },
-
+        }
+      },
 
       update() {var _input$files;
         const { target, input } = this;
@@ -4632,8 +4660,8 @@
 
         handler() {
           this.$emit();
-        } },
-
+        }
+      },
 
       {
         name: 'reset',
@@ -4644,20 +4672,23 @@
 
         handler() {
           this.$emit();
-        } }] };
+        }
+      }]
+
+    };
 
     var Margin = {
       mixins: [Resize],
 
       props: {
         margin: String,
-        firstColumn: Boolean },
-
+        firstColumn: Boolean
+      },
 
       data: {
         margin: 'uk-margin-small-top',
-        firstColumn: 'uk-first-column' },
-
+        firstColumn: 'uk-first-column'
+      },
 
       resizeTargets() {
         return [this.$el, ...toArray(this.$el.children)];
@@ -4666,8 +4697,8 @@
       connected() {
         this.registerObserver(
         observeMutation(this.$el, () => this.$reset(), {
-          childList: true }));
-
+          childList: true
+        }));
 
       },
 
@@ -4677,8 +4708,8 @@
 
           return {
             rows,
-            columns: getColumns(rows) };
-
+            columns: getColumns(rows)
+          };
         },
 
         write(_ref) {let { columns, rows } = _ref;
@@ -4690,9 +4721,9 @@
           }
         },
 
-        events: ['resize'] } };
-
-
+        events: ['resize']
+      }
+    };
 
     function getRows(items) {
       return sortBy(items, 'top', 'bottom');
@@ -4768,8 +4799,8 @@
         top: offsetTop,
         left: offsetLeft,
         bottom: offsetTop + offsetHeight,
-        right: offsetLeft + offsetWidth };
-
+        right: offsetLeft + offsetWidth
+      };
     }
 
     var Scroll = {
@@ -4779,8 +4810,8 @@
 
       disconnected() {
         unregisterScrollListener(this._uid);
-      } };
-
+      }
+    };
 
     const scrollListeners = new Map();
     let unbindScrollListener;
@@ -4789,8 +4820,8 @@
       unbindScrollListener ||
       on(window, 'scroll', () => scrollListeners.forEach((listener) => listener()), {
         passive: true,
-        capture: true });
-
+        capture: true
+      });
 
       scrollListeners.set(id, listener);
     }
@@ -4812,15 +4843,15 @@
 
       props: {
         masonry: Boolean,
-        parallax: Number },
-
+        parallax: Number
+      },
 
       data: {
         margin: 'uk-grid-margin',
         clsStack: 'uk-grid-stack',
         masonry: false,
-        parallax: 0 },
-
+        parallax: 0
+      },
 
       connected() {
         this.masonry && addClass(this.$el, 'uk-flex-top uk-flex-wrap-top');
@@ -4837,8 +4868,8 @@
           toggleClass(this.$el, this.clsStack, columns.length < 2);
         },
 
-        events: ['resize'] },
-
+        events: ['resize']
+      },
 
       {
         read(data) {
@@ -4886,8 +4917,8 @@
           height !== false && css(this.$el, 'height', height);
         },
 
-        events: ['resize'] },
-
+        events: ['resize']
+      },
 
       {
         read() {
@@ -4898,8 +4929,8 @@
           return {
             scrolled: this.parallax ?
             scrolledOver(this.$el) * Math.abs(this.parallax) :
-            false };
-
+            false
+          };
         },
 
         write(_ref3) {let { columns, scrolled, translates } = _ref3;
@@ -4923,10 +4954,10 @@
 
         },
 
-        events: ['scroll', 'resize'] }] };
+        events: ['scroll', 'resize']
+      }]
 
-
-
+    };
 
     function positionedAbsolute(el) {
       return children(el).some((el) => css(el, 'position') === 'absolute');
@@ -4961,13 +4992,13 @@
 
       props: {
         target: String,
-        row: Boolean },
-
+        row: Boolean
+      },
 
       data: {
         target: '> *',
-        row: true },
-
+        row: true
+      },
 
       computed: {
         elements: {
@@ -4977,9 +5008,9 @@
 
           watch() {
             this.$reset();
-          } } },
-
-
+          }
+        }
+      },
 
       resizeTargets() {
         return [this.$el, ...this.elements];
@@ -4988,8 +5019,8 @@
       update: {
         read() {
           return {
-            rows: (this.row ? getRows(this.elements) : [this.elements]).map(match$1) };
-
+            rows: (this.row ? getRows(this.elements) : [this.elements]).map(match$1)
+          };
         },
 
         write(_ref2) {let { rows } = _ref2;
@@ -4998,9 +5029,9 @@
           }
         },
 
-        events: ['resize'] } };
-
-
+        events: ['resize']
+      }
+    };
 
     function match$1(elements) {
       if (elements.length < 2) {
@@ -5013,8 +5044,8 @@
 
       return {
         heights: elements.map((el, i) => heights[i].toFixed(2) === max.toFixed(2) ? '' : max),
-        elements };
-
+        elements
+      };
     }
 
     function getHeight(element) {
@@ -5040,15 +5071,15 @@
         expand: Boolean,
         offsetTop: Boolean,
         offsetBottom: Boolean,
-        minHeight: Number },
-
+        minHeight: Number
+      },
 
       data: {
         expand: false,
         offsetTop: false,
         offsetBottom: false,
-        minHeight: 0 },
-
+        minHeight: 0
+      },
 
       resizeTargets() {
         // check for offsetTop change
@@ -5117,7 +5148,9 @@
           }
         },
 
-        events: ['resize'] } };
+        events: ['resize']
+      }
+    };
 
     var SVG = {
       args: 'src',
@@ -5132,16 +5165,15 @@
         ratio: Number,
         class: String,
         strokeAnimation: Boolean,
-        focusable: Boolean, // IE 11
-        attributes: 'list' },
-
+        attributes: 'list'
+      },
 
       data: {
         ratio: 1,
-        include: ['style', 'class', 'focusable'],
+        include: ['style', 'class'],
         class: '',
-        strokeAnimation: false },
-
+        strokeAnimation: false
+      },
 
       beforeConnect() {
         this.class += ' uk-svg';
@@ -5238,9 +5270,9 @@
           }
 
           dimensions.forEach((val, i) => attr(el, props[i], toFloat(val) * this.ratio || null));
-        } } };
-
-
+        }
+      }
+    };
 
     const loadSVG = memoize(async (src) => {
       if (src) {
@@ -5317,14 +5349,7 @@
     }
 
     function equals(el, other) {
-      return isTag(el, 'svg') && isTag(other, 'svg') && innerHTML(el) === innerHTML(other);
-    }
-
-    function innerHTML(el) {
-      return (
-      el.innerHTML ||
-      new XMLSerializer().serializeToString(el).replace(/<svg.*?>(.*?)<\/svg>/g, '$1')).
-      replace(/\s/g, '');
+      return isTag(el, 'svg') && isTag(other, 'svg') && el.innerHTML === other.innerHTML;
     }
 
     var closeIcon = "<svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" xmlns=\"http://www.w3.org/2000/svg\"><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"1\" y1=\"1\" x2=\"13\" y2=\"13\"/><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"13\" y1=\"1\" x2=\"1\" y2=\"13\"/></svg>";
@@ -5339,7 +5364,7 @@
 
     var navbarParentIcon = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" points=\"1 3.5 6 8.5 11 3.5\"/></svg>";
 
-    var navbarToggleIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><style>.uk-navbar-toggle-animate svg > [class*='line-'] {\n            transition: 0.2s ease-in-out;\n            transition-property: transform, opacity,;\n            transform-origin: center;\n            opacity: 1;\n        }\n\n        .uk-navbar-toggle svg > .line-3 { opacity: 0; }\n        .uk-navbar-toggle-animate[aria-expanded=\"true\"] svg > .line-3 { opacity: 1; }\n\n        .uk-navbar-toggle-animate[aria-expanded=\"true\"] svg > .line-2 { transform: rotate(45deg); }\n        .uk-navbar-toggle-animate[aria-expanded=\"true\"] svg > .line-3 { transform: rotate(-45deg); }\n\n        .uk-navbar-toggle-animate[aria-expanded=\"true\"] svg > .line-1,\n        .uk-navbar-toggle-animate[aria-expanded=\"true\"] svg > .line-4 { opacity: 0; }\n        .uk-navbar-toggle-animate[aria-expanded=\"true\"] svg > .line-1 { transform: translateY(6px) scaleX(0); }\n        .uk-navbar-toggle-animate[aria-expanded=\"true\"] svg > .line-4 { transform: translateY(-6px) scaleX(0); }</style><rect class=\"line-1\" y=\"3\" width=\"20\" height=\"2\"/><rect class=\"line-2\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-3\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-4\" y=\"15\" width=\"20\" height=\"2\"/></svg>";
+    var navbarToggleIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><style>.uk-navbar-toggle-animate svg>[class*=line-]{transition:.2s ease-in-out;transition-property:transform,opacity,;transform-origin:center;opacity:1}.uk-navbar-toggle svg>.line-3{opacity:0}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-3{opacity:1}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-2{transform:rotate(45deg)}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-3{transform:rotate(-45deg)}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-1,.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-4{opacity:0}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-1{transform:translateY(6px) scaleX(0)}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-4{transform:translateY(-6px) scaleX(0)}</style><rect class=\"line-1\" y=\"3\" width=\"20\" height=\"2\"/><rect class=\"line-2\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-3\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-4\" y=\"15\" width=\"20\" height=\"2\"/></svg>";
 
     var overlayIcon = "<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"19\" y=\"0\" width=\"1\" height=\"40\"/><rect x=\"0\" y=\"19\" width=\"40\" height=\"1\"/></svg>";
 
@@ -5384,8 +5409,8 @@
       'slidenav-next': slidenavNext,
       'slidenav-next-large': slidenavNextLarge,
       'slidenav-previous': slidenavPrevious,
-      'slidenav-previous-large': slidenavPreviousLarge };
-
+      'slidenav-previous-large': slidenavPreviousLarge
+    };
 
     const Icon = {
       install: install$3,
@@ -5396,9 +5421,7 @@
 
       props: ['icon'],
 
-      data: {
-        include: ['focusable'] },
-
+      data: { include: [] },
 
       isIcon: true,
 
@@ -5415,7 +5438,9 @@
           }
 
           return icon;
-        } } };
+        }
+      }
+    };
 
     const IconComponent = {
       args: false,
@@ -5423,13 +5448,13 @@
       extends: Icon,
 
       data: (vm) => ({
-        icon: hyphenate(vm.constructor.options.name) }),
-
+        icon: hyphenate(vm.constructor.options.name)
+      }),
 
       beforeConnect() {
         addClass(this.$el, this.$options.id);
-      } };
-
+      }
+    };
 
     const NavParentIcon = {
       extends: IconComponent,
@@ -5437,8 +5462,8 @@
       beforeConnect() {
         const icon = this.$props.icon;
         this.icon = closest(this.$el, '.uk-nav-primary') ? icon + "-large" : icon;
-      } };
-
+      }
+    };
 
     const Slidenav = {
       extends: IconComponent,
@@ -5447,8 +5472,8 @@
         addClass(this.$el, 'uk-slidenav');
         const icon = this.$props.icon;
         this.icon = hasClass(this.$el, 'uk-slidenav-large') ? icon + "-large" : icon;
-      } };
-
+      }
+    };
 
     const Search = {
       extends: IconComponent,
@@ -5460,16 +5485,16 @@
         parents(this.$el, '.uk-search-navbar').length ?
         'search-navbar' :
         this.$props.icon;
-      } };
-
+      }
+    };
 
     const Close = {
       extends: IconComponent,
 
       beforeConnect() {
         this.icon = "close-" + (hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon');
-      } };
-
+      }
+    };
 
     const Spinner = {
       extends: IconComponent,
@@ -5483,9 +5508,9 @@
           }
 
           return icon;
-        } } };
-
-
+        }
+      }
+    };
 
     const parsed = {};
     function install$3(UIkit) {
@@ -5533,8 +5558,8 @@
         offsetTop: String,
         offsetLeft: String,
         target: String,
-        loading: String },
-
+        loading: String
+      },
 
       data: {
         dataSrc: '',
@@ -5542,8 +5567,8 @@
         offsetTop: '50vh',
         offsetLeft: '50vw',
         target: false,
-        loading: 'lazy' },
-
+        loading: 'lazy'
+      },
 
       connected() {
         if (this.loading !== 'lazy') {
@@ -5574,9 +5599,9 @@
         {
           rootMargin: toPx(this.offsetTop, 'height') + "px " + toPx(
           this.offsetLeft,
-          'width') + "px" }));
+          'width') + "px"
 
-
+        }));
 
 
       },
@@ -5600,9 +5625,9 @@
           removeAttr(image, 'loading');
           setSrcAttrs(this.$el, image.currentSrc);
           return this._data.image = image;
-        } } };
-
-
+        }
+      }
+    };
 
     function setSrcAttrs(el, src) {
       if (isImg(el)) {
@@ -5692,12 +5717,12 @@
 
     var Media = {
       props: {
-        media: Boolean },
-
+        media: Boolean
+      },
 
       data: {
-        media: false },
-
+        media: false
+      },
 
       connected() {
         const media = toMedia(this.media, this.$el);
@@ -5718,8 +5743,8 @@
 
       disconnected() {var _this$offMediaObj;
         (_this$offMediaObj = this.offMediaObj) == null ? void 0 : _this$offMediaObj.call(this);
-      } };
-
+      }
+    };
 
     function toMedia(value, element) {
       if (isString(value)) {
@@ -5737,21 +5762,21 @@
       mixins: [Class, Media, Resize],
 
       props: {
-        fill: String },
-
+        fill: String
+      },
 
       data: {
         fill: '',
         clsWrapper: 'uk-leader-fill',
         clsHide: 'uk-leader-hide',
-        attrFill: 'data-fill' },
-
+        attrFill: 'data-fill'
+      },
 
       computed: {
         fill(_ref) {let { fill } = _ref;
           return fill || css(this.$el, '--uk-leader-fill-content');
-        } },
-
+        }
+      },
 
       connected() {
         [this.wrapper] = wrapInner(this.$el, "<span class=\"" + this.clsWrapper + "\">");
@@ -5768,8 +5793,8 @@
           return {
             width,
             fill: this.fill,
-            hide: !this.matchMedia };
-
+            hide: !this.matchMedia
+          };
         },
 
         write(_ref2) {let { width, fill, hide } = _ref2;
@@ -5777,7 +5802,9 @@
           attr(this.wrapper, this.attrFill, new Array(width).join(fill));
         },
 
-        events: ['resize'] } };
+        events: ['resize']
+      }
+    };
 
     var modal = {
       install: install$2,
@@ -5788,8 +5815,8 @@
         clsPage: 'uk-modal-page',
         selPanel: '.uk-modal-dialog',
         selClose:
-        '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full' },
-
+        '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
+      },
 
       events: [
       {
@@ -5805,8 +5832,8 @@
           }
 
           height(this.$el); // force reflow
-        } },
-
+        }
+      },
 
       {
         name: 'hidden',
@@ -5816,10 +5843,10 @@
         handler() {
           css(this.$el, 'display', '');
           removeClass(this.$el, 'uk-flex');
-        } }] };
+        }
+      }]
 
-
-
+    };
 
     function install$2(_ref) {let { modal } = _ref;
       modal.dialog = function (content, options) {
@@ -5898,8 +5925,8 @@
 
       modal.labels = {
         ok: 'Ok',
-        cancel: 'Cancel' };
-
+        cancel: 'Cancel'
+      };
 
       function openDialog(tmpl, options, hideFn, submitFn) {
         options = { bgClose: false, escClose: true, labels: modal.labels, ...options };
@@ -5930,7 +5957,9 @@
       data: {
         targets: '> .uk-parent',
         toggle: '> a',
-        content: '> ul' } };
+        content: '> ul'
+      }
+    };
 
     var navbar = {
       mixins: [Class, Container],
@@ -5952,8 +5981,8 @@
         targetX: Boolean,
         targetY: Boolean,
         animation: Boolean,
-        animateOut: Boolean },
-
+        animateOut: Boolean
+      },
 
       data: {
         dropdown: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
@@ -5963,8 +5992,8 @@
         dropbar: false,
         dropbarAnchor: false,
         duration: 200,
-        container: false },
-
+        container: false
+      },
 
       computed: {
         dropbarAnchor(_ref, $el) {let { dropbarAnchor } = _ref;
@@ -5989,8 +6018,8 @@
             addClass(dropbar, 'uk-dropbar', 'uk-dropbar-top', 'uk-navbar-dropbar');
           },
 
-          immediate: true },
-
+          immediate: true
+        },
 
         dropContainer(_, $el) {
           return this.container || $el;
@@ -6021,13 +6050,13 @@
               flip: false,
               shift: true,
               pos: "bottom-" + this.align,
-              boundary: this.boundary === true ? this.$el : this.boundary });
-
+              boundary: this.boundary === true ? this.$el : this.boundary
+            });
 
           },
 
-          immediate: true },
-
+          immediate: true
+        },
 
         toggles: {
           get(_ref4, $el) {let { dropdown } = _ref4;
@@ -6044,9 +6073,9 @@
             }
           },
 
-          immediate: true } },
-
-
+          immediate: true
+        }
+      },
 
       disconnected() {
         this.dropbar && remove$1(this.dropbar);
@@ -6072,8 +6101,8 @@
           {
             active.hide(false);
           }
-        } },
-
+        }
+      },
 
       {
         name: 'keydown',
@@ -6100,8 +6129,8 @@
           }
 
           handleNavItemNavigation(e, this.toggles, active);
-        } },
-
+        }
+      },
 
       {
         name: 'keydown',
@@ -6144,8 +6173,8 @@
           }
 
           handleNavItemNavigation(e, this.toggles, active);
-        } },
-
+        }
+      },
 
       {
         name: 'mouseleave',
@@ -6168,8 +6197,8 @@
           {
             active.hide();
           }
-        } },
-
+        }
+      },
 
       {
         name: 'beforeshow',
@@ -6192,8 +6221,8 @@
           }
 
           addClass(target, this.clsDrop + "-dropbar");
-        } },
-
+        }
+      },
 
       {
         name: 'show',
@@ -6225,8 +6254,8 @@
             target);
 
           });
-        } },
-
+        }
+      },
 
       {
         name: 'beforehide',
@@ -6249,8 +6278,8 @@
           {
             e.preventDefault();
           }
-        } },
-
+        }
+      },
 
       {
         name: 'hide',
@@ -6275,8 +6304,8 @@
           if (!active || (active == null ? void 0 : active.$el) === target) {
             this.transitionTo(0);
           }
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -6300,8 +6329,8 @@
           Transition.start(
           el,
           {
-            clipPath: "polygon(0 0,100% 0,100% " + newHeight + "px,0 " + newHeight + "px)" },
-
+            clipPath: "polygon(0 0,100% 0,100% " + newHeight + "px,0 " + newHeight + "px)"
+          },
           this.duration)]).
 
 
@@ -6315,9 +6344,9 @@
 
         isDropbarDrop(el) {
           return this.getDropdown(el) && hasClass(el, this.clsDrop);
-        } } };
-
-
+        }
+      }
+    };
 
     function handleNavItemNavigation(e, toggles, active) {
       const { current, keyCode } = e;
@@ -6354,22 +6383,23 @@
       LEFT: 37,
       UP: 38,
       RIGHT: 39,
-      DOWN: 40 };
+      DOWN: 40
+    };
 
     var Swipe = {
       props: {
-        swiping: Boolean },
-
+        swiping: Boolean
+      },
 
       data: {
-        swiping: true },
-
+        swiping: true
+      },
 
       computed: {
         swipeTarget(props, $el) {
           return $el;
-        } },
-
+        }
+      },
 
       connected() {
         if (!this.swiping) {
@@ -6402,10 +6432,10 @@
                 });
               }
             });
-          } });
-
-      } };
-
+          }
+        });
+      }
+    };
 
     function swipeDirection(x1, y1, x2, y2) {
       return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ?
@@ -6425,8 +6455,8 @@
       props: {
         mode: String,
         flip: Boolean,
-        overlay: Boolean },
-
+        overlay: Boolean
+      },
 
       data: {
         mode: 'slide',
@@ -6441,8 +6471,8 @@
         clsMode: 'uk-offcanvas',
         clsOverlay: 'uk-offcanvas-overlay',
         selClose: '.uk-offcanvas-close',
-        container: false },
-
+        container: false
+      },
 
       computed: {
         clsFlip(_ref) {let { flip, clsFlip } = _ref;
@@ -6467,8 +6497,8 @@
 
         transitionElement(_ref6) {let { mode } = _ref6;
           return mode === 'reveal' ? parent(this.panel) : this.panel;
-        } },
-
+        }
+      },
 
       update: {
         read() {
@@ -6477,8 +6507,8 @@
           }
         },
 
-        events: ['resize'] },
-
+        events: ['resize']
+      },
 
       events: [
       {
@@ -6493,8 +6523,8 @@
 
         handler(e) {
           e.cancelable && e.preventDefault();
-        } },
-
+        }
+      },
 
       {
         name: 'show',
@@ -6524,8 +6554,8 @@
           addClass(body, this.clsContainerAnimation);
 
           this.clsContainerAnimation && suppressUserScale();
-        } },
-
+        }
+      },
 
       {
         name: 'hide',
@@ -6535,8 +6565,8 @@
         handler() {
           removeClass(document.body, this.clsContainerAnimation);
           css(document.body, 'touch-action', '');
-        } },
-
+        }
+      },
 
       {
         name: 'hidden',
@@ -6555,8 +6585,8 @@
           css(this.$el, 'display', '');
           css(this.panel, 'maxWidth', '');
           removeClass(document.body, this.clsContainer, this.clsFlip);
-        } },
-
+        }
+      },
 
       {
         name: 'swipeLeft swipeRight',
@@ -6565,10 +6595,10 @@
           if (this.isToggled() && endsWith(e.type, 'Left') ^ this.flip) {
             this.hide();
           }
-        } }] };
+        }
+      }]
 
-
-
+    };
 
     // Chrome in responsive mode zooms page upon opening offcanvas
     function suppressUserScale() {
@@ -6592,14 +6622,14 @@
       props: {
         selContainer: String,
         selContent: String,
-        minHeight: Number },
-
+        minHeight: Number
+      },
 
       data: {
         selContainer: '.uk-modal',
         selContent: '.uk-modal-dialog',
-        minHeight: 150 },
-
+        minHeight: 150
+      },
 
       computed: {
         container(_ref, $el) {let { selContainer } = _ref;
@@ -6608,8 +6638,8 @@
 
         content(_ref2, $el) {let { selContent } = _ref2;
           return closest($el, selContent);
-        } },
-
+        }
+      },
 
       resizeTargets() {
         return [this.container, this.content];
@@ -6624,16 +6654,18 @@
           return {
             max: Math.max(
             this.minHeight,
-            height(this.container) - (dimensions$1(this.content).height - height(this.$el))) };
+            height(this.container) - (dimensions$1(this.content).height - height(this.$el)))
 
-
+          };
         },
 
         write(_ref3) {let { max } = _ref3;
           css(this.$el, { minHeight: this.minHeight, maxHeight: max });
         },
 
-        events: ['resize'] } };
+        events: ['resize']
+      }
+    };
 
     var responsive = {
       mixins: [Resize],
@@ -6661,23 +6693,25 @@
           Dimensions.contain(
           {
             height: this.height,
-            width: this.width },
-
+            width: this.width
+          },
           dim).
           height);
 
         },
 
-        events: ['resize'] } };
+        events: ['resize']
+      }
+    };
 
     var scroll = {
       props: {
-        offset: Number },
-
+        offset: Number
+      },
 
       data: {
-        offset: 0 },
-
+        offset: 0
+      },
 
       connected() {
         registerClick(this);
@@ -6695,9 +6729,9 @@
             await scrollIntoView(el, { offset: this.offset });
             trigger(this.$el, 'scrolled', [this, el]);
           }
-        } } };
-
-
+        }
+      }
+    };
 
     const components$2 = new Set();
     function registerClick(cmp) {
@@ -6745,8 +6779,8 @@
         offsetTop: Number,
         offsetLeft: Number,
         repeat: Boolean,
-        delay: Number },
-
+        delay: Number
+      },
 
       data: () => ({
         cls: '',
@@ -6756,8 +6790,8 @@
         offsetLeft: 0,
         repeat: false,
         delay: 0,
-        inViewClass: 'uk-scrollspy-inview' }),
-
+        inViewClass: 'uk-scrollspy-inview'
+      }),
 
       computed: {
         elements: {
@@ -6767,7 +6801,8 @@
 
           watch(elements, prev) {
             if (this.hidden) {
-              css(filter$1(elements, ":not(." + this.inViewClass + ")"), 'visibility', 'hidden');
+              // use `opacity:0` instead of `visibility:hidden` to make content focusable with keyboard
+              css(filter$1(elements, ":not(." + this.inViewClass + ")"), 'opacity', 0);
             }
 
             if (!isEqual(elements, prev)) {
@@ -6775,9 +6810,9 @@
             }
           },
 
-          immediate: true } },
-
-
+          immediate: true
+        }
+      },
 
       connected() {
         this._data.elements = new Map();
@@ -6789,8 +6824,8 @@
           for (const { target: el, isIntersecting } of records) {
             if (!elements.has(el)) {
               elements.set(el, {
-                cls: data(el, 'uk-scrollspy-class') || this.cls });
-
+                cls: data(el, 'uk-scrollspy-class') || this.cls
+              });
             }
 
             const state = elements.get(el);
@@ -6805,9 +6840,9 @@
         },
         {
           rootMargin: toPx(this.offsetTop, 'height') - 1 + "px " + (
-          toPx(this.offsetLeft, 'width') - 1) + "px" },
+          toPx(this.offsetLeft, 'width') - 1) + "px"
 
-
+        },
         false));
 
 
@@ -6839,8 +6874,8 @@
               this.toggle(el, false);
             }
           }
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -6853,7 +6888,7 @@
 
           state.off == null ? void 0 : state.off();
 
-          css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
+          css(el, 'opacity', !inview && this.hidden ? 0 : '');
 
           toggleClass(el, this.inViewClass, inview);
           toggleClass(el, state.cls);
@@ -6873,7 +6908,9 @@
 
           // change to `visibility: hidden` does not trigger observers
           this.$update(el);
-        } } };
+        }
+      }
+    };
 
     var scrollspyNav = {
       mixins: [Scroll],
@@ -6883,16 +6920,16 @@
         closest: String,
         scroll: Boolean,
         overflow: Boolean,
-        offset: Number },
-
+        offset: Number
+      },
 
       data: {
         cls: 'uk-active',
         closest: false,
         scroll: false,
         overflow: true,
-        offset: 0 },
-
+        offset: 0
+      },
 
       computed: {
         links: {
@@ -6906,13 +6943,13 @@
             }
           },
 
-          immediate: true },
-
+          immediate: true
+        },
 
         elements(_ref) {let { closest: selector } = _ref;
           return closest(this.links, selector || '*');
-        } },
-
+        }
+      },
 
       update: [
       {
@@ -6962,7 +6999,10 @@
           }
         },
 
-        events: ['scroll', 'resize'] }] };
+        events: ['scroll', 'resize']
+      }]
+
+    };
 
     var sticky = {
       mixins: [Class, Media, Resize, Scroll],
@@ -6982,8 +7022,8 @@
         clsBelow: String,
         selTarget: String,
         showOnUp: Boolean,
-        targetOffset: Number },
-
+        targetOffset: Number
+      },
 
       data: {
         position: 'top',
@@ -7000,14 +7040,14 @@
         clsBelow: 'uk-sticky-below',
         selTarget: '',
         showOnUp: false,
-        targetOffset: false },
-
+        targetOffset: false
+      },
 
       computed: {
         selTarget(_ref, $el) {let { selTarget } = _ref;
           return selTarget && $(selTarget, $el) || $el;
-        } },
-
+        }
+      },
 
       resizeTargets() {
         return document.documentElement;
@@ -7044,8 +7084,8 @@
 
         handler() {
           this.$emit('resize');
-        } },
-
+        }
+      },
       {
         name: 'load hashchange popstate',
 
@@ -7076,8 +7116,8 @@
               toPx(this.offset, 'height', this.placeholder);
             }
           });
-        } }],
-
+        }
+      }],
 
 
       update: [
@@ -7144,8 +7184,8 @@
             height: height$1,
             margin,
             width: dimensions$1(referenceElement).width,
-            top: offsetPosition(referenceElement)[0] };
-
+            top: offsetPosition(referenceElement)[0]
+          };
         },
 
         write(_ref3) {let { height, margin } = _ref3;
@@ -7159,8 +7199,8 @@
           }
         },
 
-        events: ['resize'] },
-
+        events: ['resize']
+      },
 
       {
         read(_ref4)
@@ -7185,9 +7225,9 @@
             overflowScroll: clamp(
             overflowScroll + clamp(scroll, start, end) - clamp(prevScroll, start, end),
             0,
-            overflow) };
+            overflow)
 
-
+          };
         },
 
         write(data, types) {
@@ -7201,8 +7241,8 @@
             top,
             start,
             topOffset,
-            height } =
-          data;
+            height
+          } = data;
 
           if (
           scroll < 0 ||
@@ -7263,8 +7303,8 @@
           }
         },
 
-        events: ['resize', 'scroll'] }],
-
+        events: ['resize', 'scroll']
+      }],
 
 
       methods: {
@@ -7292,8 +7332,8 @@
             offset,
             topOffset,
             height,
-            offsetParentTop } =
-          this._data;
+            offsetParentTop
+          } = this._data;
           const active = start !== 0 || scroll > start;
           let position = 'fixed';
 
@@ -7309,8 +7349,8 @@
           css(this.$el, {
             position,
             top: offset + "px",
-            width });
-
+            width
+          });
 
           this.setActive(active);
           toggleClass(this.$el, this.clsBelow, scroll > topOffset + height);
@@ -7327,9 +7367,9 @@
             replaceClass(this.selTarget, this.clsActive, this.clsInactive);
             prev !== active && trigger(this.$el, 'inactive');
           }
-        } } };
-
-
+        }
+      }
+    };
 
     function parseProp(value, el, propOffset, padding) {
       if (!value) {
@@ -7367,8 +7407,8 @@
         connect: String,
         toggle: String,
         itemNav: String,
-        active: Number },
-
+        active: Number
+      },
 
       data: {
         connect: '~.uk-switcher',
@@ -7376,8 +7416,8 @@
         itemNav: false,
         active: 0,
         cls: 'uk-active',
-        attrItem: 'uk-switcher-item' },
-
+        attrItem: 'uk-switcher-item'
+      },
 
       computed: {
         connects: {
@@ -7385,31 +7425,31 @@
             return queryAll(connect, $el);
           },
 
-          watch(connects) {var _this$_observer;
+          watch(connects) {
             if (this.swiping) {
               css(connects, 'touchAction', 'pan-y pinch-zoom');
             }
-
-            (_this$_observer = this._observer) == null ? void 0 : _this$_observer.disconnect();
-            this.registerObserver(
-            this._observer = observeMutation(
-            connects,
-            (records) => {
-              const index = this.index();
-              for (const { target: el } of records) {
-                children(el).forEach((child, i) =>
-                toggleClass(child, this.cls, i === index));
-
-                this.lazyload(this.$el, children(el));
-              }
-            },
-            { childList: true }));
-
-
           },
 
-          immediate: true },
+          document: true,
+          immediate: true
+        },
 
+        connectChildren: {
+          get() {
+            return this.connects.map((el) => children(el)).flat();
+          },
+
+          watch() {
+            const index = this.index();
+            for (const el of this.connects) {
+              children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
+              this.lazyload(this.$el, children(el));
+            }
+          },
+
+          immediate: true
+        },
 
         toggles: {
           get(_ref2, $el) {let { toggle } = _ref2;
@@ -7423,8 +7463,8 @@
             this.show(~active ? active : toggles[this.active] || toggles[0]);
           },
 
-          immediate: true },
-
+          immediate: true
+        },
 
         children() {
           return children(this.$el).filter((child) =>
@@ -7434,12 +7474,7 @@
 
         swipeTarget() {
           return this.connects;
-        } },
-
-
-      connected() {
-        // check for connects
-        ready(() => this.$emit());
+        }
       },
 
       events: [
@@ -7453,8 +7488,8 @@
         handler(e) {
           e.preventDefault();
           this.show(e.current);
-        } },
-
+        }
+      },
 
       {
         name: 'click',
@@ -7470,8 +7505,8 @@
         handler(e) {
           e.preventDefault();
           this.show(data(e.current, this.attrItem));
-        } },
-
+        }
+      },
 
       {
         name: 'swipeRight swipeLeft',
@@ -7486,8 +7521,8 @@
 
         handler(_ref3) {let { type } = _ref3;
           this.show(endsWith(type, 'Left') ? 'next' : 'previous');
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -7513,7 +7548,9 @@
 
             await this.toggleElement(children[active], true, animate);
           });
-        } } };
+        }
+      }
+    };
 
     var tab = {
       mixins: [Class],
@@ -7521,13 +7558,13 @@
       extends: Switcher,
 
       props: {
-        media: Boolean },
-
+        media: Boolean
+      },
 
       data: {
         media: 960,
-        attrItem: 'uk-tab-item' },
-
+        attrItem: 'uk-tab-item'
+      },
 
       connected() {
         const cls = hasClass(this.$el, 'uk-tab-left') ?
@@ -7539,7 +7576,8 @@
         if (cls) {
           this.$create('toggle', this.$el, { cls, mode: 'media', media: this.media });
         }
-      } };
+      }
+    };
 
     const KEY_SPACE = 32;
 
@@ -7552,15 +7590,15 @@
         href: String,
         target: null,
         mode: 'list',
-        queued: Boolean },
-
+        queued: Boolean
+      },
 
       data: {
         href: false,
         target: false,
         mode: 'click',
-        queued: true },
-
+        queued: true
+      },
 
       computed: {
         target: {
@@ -7574,17 +7612,15 @@
             this.lazyload(this.$el, this.target);
           },
 
-          immediate: true } },
-
-
+          document: true,
+          immediate: true
+        }
+      },
 
       connected() {
         if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
           attr(this.$el, 'tabindex', '0');
         }
-
-        // check for target
-        ready(() => this.$emit());
       },
 
       events: [
@@ -7617,8 +7653,8 @@
           if (includes(this.mode, 'click')) {
             this._preventClick = true;
           }
-        } },
-
+        }
+      },
 
       {
         name: pointerEnter + " " + pointerLeave + " focus blur",
@@ -7656,8 +7692,8 @@
           this._showState = show ? expanded : null;
 
           this.toggle("toggle" + (show ? 'show' : 'hide'));
-        } },
-
+        }
+      },
 
       {
         name: 'keydown',
@@ -7671,8 +7707,8 @@
             e.preventDefault();
             this.$el.click();
           }
-        } },
-
+        }
+      },
 
       {
         name: 'click',
@@ -7696,8 +7732,8 @@
           if (!this._preventClick && includes(this.mode, 'click')) {
             this.toggle();
           }
-        } },
-
+        }
+      },
 
       {
         name: 'hide show',
@@ -7710,8 +7746,8 @@
 
         handler(_ref2) {let { target, type } = _ref2;
           this.updateAria(target === this.target[0] && type === 'show');
-        } },
-
+        }
+      },
 
       {
         name: 'mediachange',
@@ -7728,8 +7764,8 @@
           if (mediaObj.matches ^ this.isToggled(this.target)) {
             this.toggle();
           }
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -7770,7 +7806,9 @@
           'aria-expanded',
           isBoolean(toggled) ? toggled : this.isToggled(this.target));
 
-        } } };
+        }
+      }
+    };
 
     var components$1 = /*#__PURE__*/Object.freeze({
         __proto__: null,
@@ -7829,13 +7867,13 @@
 
       props: {
         date: String,
-        clsWrapper: String },
-
+        clsWrapper: String
+      },
 
       data: {
         date: '',
-        clsWrapper: '.uk-countdown-%unit%' },
-
+        clsWrapper: '.uk-countdown-%unit%'
+      },
 
       connected() {
         this.date = Date.parse(this.$props.date);
@@ -7860,8 +7898,8 @@
           } else {
             this.start();
           }
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -7905,9 +7943,9 @@
               digits.forEach((digit, i) => el.children[i].textContent = digit);
             }
           }
-        } } };
-
-
+        }
+      }
+    };
 
     function getTimeSpan(date) {
       const total = date - Date.now();
@@ -7917,8 +7955,8 @@
         seconds: total / 1000 % 60,
         minutes: total / 1000 / 60 % 60,
         hours: total / 1000 / 60 / 60 % 24,
-        days: total / 1000 / 60 / 60 / 24 };
-
+        days: total / 1000 / 60 / 60 / 24
+      };
     }
 
     const clsLeave = 'uk-transition-leave';
@@ -8076,8 +8114,8 @@
       const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
       const attrsTo = nodes.map((el) => ({
         class: attr(el, 'class'),
-        style: attr(el, 'style') }));
-
+        style: attr(el, 'style')
+      }));
 
       // Reset to previous state
       nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
@@ -8115,8 +8153,8 @@
         pointerEvents: 'none',
         position: 'absolute',
         zIndex: zIndex === 'auto' ? index(el) : zIndex,
-        ...getPositionWithMargin(el) } :
-
+        ...getPositionWithMargin(el)
+      } :
       false;
     }
 
@@ -8170,8 +8208,8 @@
         width,
         transform: '',
         ...position(el),
-        ...css(el, ['marginTop', 'marginLeft']) };
-
+        ...css(el, ['marginTop', 'marginLeft'])
+      };
     }
 
     function awaitFrame() {
@@ -8181,13 +8219,13 @@
     var Animate = {
       props: {
         duration: Number,
-        animation: Boolean },
-
+        animation: Boolean
+      },
 
       data: {
         duration: 150,
-        animation: 'slide' },
-
+        animation: 'slide'
+      },
 
       methods: {
         animate(action, target) {if (target === void 0) {target = this.$el;}
@@ -8205,7 +8243,9 @@
           };
 
           return animationFn(action, target, this.duration).catch(noop);
-        } } };
+        }
+      }
+    };
 
     var filter = {
       mixins: [Animate],
@@ -8214,16 +8254,16 @@
 
       props: {
         target: Boolean,
-        selActive: Boolean },
-
+        selActive: Boolean
+      },
 
       data: {
         target: null,
         selActive: false,
         attrItem: 'uk-filter-control',
         cls: 'uk-active',
-        duration: 250 },
-
+        duration: 250
+      },
 
       computed: {
         toggles: {
@@ -8240,8 +8280,8 @@
             }
           },
 
-          immediate: true },
-
+          immediate: true
+        },
 
         children: {
           get(_ref2, $el) {let { target } = _ref2;
@@ -8254,9 +8294,9 @@
             }
           },
 
-          immediate: true } },
-
-
+          immediate: true
+        }
+      },
 
       events: [
       {
@@ -8269,8 +8309,8 @@
         handler(e) {
           e.preventDefault();
           this.apply(e.current);
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -8288,8 +8328,8 @@
           filter((item) => hasClass(item, this.cls)).
           reduce((state, el) => mergeState(el, this.attrItem, state), {
             filter: { '': '' },
-            sort: [] });
-
+            sort: []
+          });
         },
 
         async setState(state, animate) {if (animate === void 0) {animate = true;}
@@ -8316,9 +8356,9 @@
 
         updateState() {
           fastdom.write(() => this.setState(this.getState(), false));
-        } } };
-
-
+        }
+      }
+    };
 
     function getFilter(el, attr) {
       return parseOptions(data(el, attr), ['filter']);
@@ -8416,9 +8456,9 @@
           { transform: translate(dir * -100 * percent) },
           { transform: translate(dir * 100 * (1 - percent)) }];
 
-        } } };
-
-
+        }
+      }
+    };
 
     function translated(el) {
       return Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth) || 0;
@@ -8446,8 +8486,8 @@
 
         translate(percent) {
           return [{ opacity: 1 - percent }, { opacity: percent }];
-        } },
-
+        }
+      },
 
       scale: {
         show() {
@@ -8466,7 +8506,9 @@
           { opacity: 1 - percent, transform: scale3d(1 - 0.2 * percent) },
           { opacity: percent, transform: scale3d(1 - 0.2 + 0.2 * percent) }];
 
-        } } };
+        }
+      }
+    };
 
     function Transitioner$1(prev, next, dir, _ref) {let { animation, easing } = _ref;
       const { percent, translate, show = noop } = animation;
@@ -8527,8 +8569,8 @@
 
         getDistance() {
           return prev == null ? void 0 : prev.offsetWidth;
-        } };
-
+        }
+      };
     }
 
     function triggerUpdate$1(el, type, data) {
@@ -8539,14 +8581,14 @@
       props: {
         autoplay: Boolean,
         autoplayInterval: Number,
-        pauseOnHover: Boolean },
-
+        pauseOnHover: Boolean
+      },
 
       data: {
         autoplay: false,
         autoplayInterval: 7000,
-        pauseOnHover: true },
-
+        pauseOnHover: true
+      },
 
       connected() {
         this.autoplay && this.startAutoplay();
@@ -8578,8 +8620,8 @@
           } else {
             this.startAutoplay();
           }
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -8598,7 +8640,9 @@
 
         stopAutoplay() {
           this.interval && clearInterval(this.interval);
-        } } };
+        }
+      }
+    };
 
     const pointerOptions = { passive: false, capture: true };
     const pointerUpOptions = { passive: true, capture: true };
@@ -8608,13 +8652,13 @@
 
     var SliderDrag = {
       props: {
-        draggable: Boolean },
-
+        draggable: Boolean
+      },
 
       data: {
         draggable: true,
-        threshold: 10 },
-
+        threshold: 10
+      },
 
       created() {
         for (const key of ['start', 'move', 'end']) {
@@ -8652,16 +8696,16 @@
           }
 
           this.start(e);
-        } },
-
+        }
+      },
 
       {
         name: 'dragstart',
 
         handler(e) {
           e.preventDefault();
-        } },
-
+        }
+      },
 
       {
         // iOS workaround for slider stopping if swiping fast
@@ -8670,8 +8714,8 @@
           return this.list;
         },
         handler: noop,
-        ...pointerOptions }],
-
+        ...pointerOptions
+      }],
 
 
       methods: {
@@ -8808,9 +8852,9 @@
           css(this.list, { userSelect: '', pointerEvents: '' });
 
           this.drag = this.percent = null;
-        } } };
-
-
+        }
+      }
+    };
 
     function hasSelectableText(el) {
       return (
@@ -8821,8 +8865,8 @@
 
     var SliderNav = {
       data: {
-        selNav: false },
-
+        selNav: false
+      },
 
       computed: {
         nav(_ref, $el) {let { selNav } = _ref;
@@ -8835,8 +8879,8 @@
 
         navItems(_, $el) {
           return $$(this.selNavItem, $el);
-        } },
-
+        }
+      },
 
       update: {
         write() {
@@ -8854,8 +8898,8 @@
           this.updateNav();
         },
 
-        events: ['resize'] },
-
+        events: ['resize']
+      },
 
       events: [
       {
@@ -8868,13 +8912,13 @@
         handler(e) {
           e.preventDefault();
           this.show(data(e.current, this.attrItem));
-        } },
-
+        }
+      },
 
       {
         name: 'itemshow',
-        handler: 'updateNav' }],
-
+        handler: 'updateNav'
+      }],
 
 
       methods: {
@@ -8891,7 +8935,9 @@
             cmd === 'previous' && i === 0 || cmd === 'next' && i >= this.maxIndex));
 
           }
-        } } };
+        }
+      }
+    };
 
     var Slider = {
       mixins: [SliderAutoplay, SliderDrag, SliderNav, Resize],
@@ -8902,8 +8948,8 @@
         index: Number,
         finite: Boolean,
         velocity: Number,
-        selSlides: String },
-
+        selSlides: String
+      },
 
       data: () => ({
         easing: 'ease',
@@ -8916,8 +8962,8 @@
         clsActive: 'uk-active',
         clsActivated: false,
         Transitioner: false,
-        transitionOptions: {} }),
-
+        transitionOptions: {}
+      }),
 
       connected() {
         this.prevIndex = -1;
@@ -8953,13 +8999,13 @@
 
           watch() {
             this.$emit('resize');
-          } },
-
+          }
+        },
 
         length() {
           return this.slides.length;
-        } },
-
+        }
+      },
 
       methods: {
         show(index, force) {if (force === void 0) {force = false;}
@@ -9048,8 +9094,8 @@
             'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */ :
             'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */ :
             this.easing,
-            ...this.transitionOptions });
-
+            ...this.transitionOptions
+          });
 
           if (!force && !prev) {
             this._translate(1);
@@ -9085,9 +9131,9 @@
           dir * (isRtl ? -1 : 1),
           options);
 
-        } } };
-
-
+        }
+      }
+    };
 
     function getDirection(index, prevIndex) {
       return index === 'next' ? 1 : index === 'previous' ? -1 : index < prevIndex ? -1 : 1;
@@ -9101,15 +9147,15 @@
       mixins: [Slider],
 
       props: {
-        animation: String },
-
+        animation: String
+      },
 
       data: {
         animation: 'slide',
         clsActivated: 'uk-transition-active',
         Animations: Animations$2,
-        Transitioner: Transitioner$1 },
-
+        Transitioner: Transitioner$1
+      },
 
       computed: {
         animation(_ref) {let { animation, Animations } = _ref;
@@ -9118,8 +9164,8 @@
 
         transitionOptions() {
           return { animation: this.animation };
-        } },
-
+        }
+      },
 
       events: {
         beforeitemshow(_ref2) {let { target } = _ref2;
@@ -9132,7 +9178,9 @@
 
         itemhidden(_ref4) {let { target } = _ref4;
           removeClass(target, this.clsActive, this.clsActivated);
-        } } };
+        }
+      }
+    };
 
     var LightboxPanel = {
       mixins: [Container, Modal, Togglable, Slideshow],
@@ -9143,8 +9191,8 @@
         delayControls: Number,
         preload: Number,
         videoAutoplay: Boolean,
-        template: String },
-
+        template: String
+      },
 
       data: () => ({
         preload: 1,
@@ -9160,7 +9208,7 @@
         pauseOnHover: false,
         velocity: 2,
         Animations: Animations$1,
-        template: "<div class=\"uk-lightbox uk-overflow-hidden\"> <ul class=\"uk-lightbox-items\"></ul> <div class=\"uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque\"> <button class=\"uk-lightbox-toolbar-icon uk-close-large\" type=\"button\" uk-close></button> </div> <a class=\"uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade\" href uk-slidenav-previous uk-lightbox-item=\"previous\"></a> <a class=\"uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade\" href uk-slidenav-next uk-lightbox-item=\"next\"></a> <div class=\"uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque\"></div> </div>" }),
+        template: "<div class=\"uk-lightbox uk-overflow-hidden\"> <ul class=\"uk-lightbox-items\"></ul> <div class=\"uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque\"> <button class=\"uk-lightbox-toolbar-icon uk-close-large\" type=\"button\" uk-close></button> </div> <a class=\"uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade\" href uk-slidenav-previous uk-lightbox-item=\"previous\"></a> <a class=\"uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade\" href uk-slidenav-next uk-lightbox-item=\"next\"></a> <div class=\"uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque\"></div> </div>"
 
 
 
@@ -9169,7 +9217,7 @@
 
 
 
-
+      }),
 
       created() {
         const $el = $(this.template);
@@ -9182,15 +9230,15 @@
       computed: {
         caption(_ref, $el) {let { selCaption } = _ref;
           return $(selCaption, $el);
-        } },
-
+        }
+      },
 
       events: [
       {
         name: pointerMove$1 + " " + pointerDown$1 + " keydown",
 
-        handler: 'showControls' },
-
+        handler: 'showControls'
+      },
 
       {
         name: 'click',
@@ -9207,8 +9255,8 @@
           }
 
           this.hide();
-        } },
-
+        }
+      },
 
       {
         name: 'shown',
@@ -9217,8 +9265,8 @@
 
         handler() {
           this.showControls();
-        } },
-
+        }
+      },
 
       {
         name: 'hide',
@@ -9230,8 +9278,8 @@
 
           removeClass(this.slides, this.clsActive);
           Transition.stop(this.slides);
-        } },
-
+        }
+      },
 
       {
         name: 'hidden',
@@ -9240,8 +9288,8 @@
 
         handler() {
           this.$destroy(true);
-        } },
-
+        }
+      },
 
       {
         name: 'keyup',
@@ -9263,8 +9311,8 @@
               this.show('next');
               break;}
 
-        } },
-
+        }
+      },
 
       {
         name: 'beforeitemshow',
@@ -9283,8 +9331,8 @@
           this.animation = Animations$1['scale'];
           removeClass(e.target, this.clsActive);
           this.stack.splice(1, 0, this.index);
-        } },
-
+        }
+      },
 
       {
         name: 'itemshow',
@@ -9295,16 +9343,16 @@
           for (let j = -this.preload; j <= this.preload; j++) {
             this.loadItem(this.index + j);
           }
-        } },
-
+        }
+      },
 
       {
         name: 'itemshown',
 
         handler() {
           this.draggable = this.$props.draggable;
-        } },
-
+        }
+      },
 
       {
         name: 'itemload',
@@ -9323,8 +9371,8 @@
             allowfullscreen: '',
             style: 'max-width: 100%; box-sizing: border-box;',
             'uk-responsive': '',
-            'uk-video': "" + this.videoAutoplay };
-
+            'uk-video': "" + this.videoAutoplay
+          };
 
           // Image
           if (
@@ -9346,8 +9394,8 @@
               controls: '',
               playsinline: '',
               'uk-video': "" + this.videoAutoplay,
-              ...attrs });
-
+              ...attrs
+            });
 
             on(video, 'loadedmetadata', () => {
               attr(video, { width: video.videoWidth, height: video.videoHeight });
@@ -9363,8 +9411,8 @@
               src,
               allowfullscreen: '',
               class: 'uk-lightbox-iframe',
-              ...attrs }));
-
+              ...attrs
+            }));
 
 
             // YouTube
@@ -9382,8 +9430,8 @@
               width: 1920,
               height: 1080,
               ...iframeAttrs,
-              ...attrs }));
-
+              ...attrs
+            }));
 
 
             // Vimeo
@@ -9395,8 +9443,8 @@
               src),
 
               {
-                credentials: 'omit' })).
-
+                credentials: 'omit'
+              })).
 
               json();
 
@@ -9409,15 +9457,15 @@
                 width,
                 height,
                 ...iframeAttrs,
-                ...attrs }));
-
+                ...attrs
+              }));
 
             } catch (e) {
               this.setError(item);
             }
           }
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -9454,9 +9502,9 @@
 
         hideControls() {
           removeClass(this.$el, 'uk-active', 'uk-transition-active');
-        } } };
-
-
+        }
+      }
+    };
 
     function createEl(tag, attrs) {
       const el = fragment("<" + tag + ">");
@@ -9479,9 +9527,9 @@
 
           watch() {
             this.hide();
-          } } },
-
-
+          }
+        }
+      },
 
       disconnected() {
         this.hide();
@@ -9498,8 +9546,8 @@
         handler(e) {
           e.preventDefault();
           this.show(e.current);
-        } }],
-
+        }
+      }],
 
 
       methods: {
@@ -9513,16 +9561,16 @@
 
           this.panel = this.panel || this.$create('lightboxPanel', { ...this.$props, items });
 
-          on(this.panel.$el, 'hidden', () => this.panel = false);
+          on(this.panel.$el, 'hidden', () => this.panel = null);
 
           return this.panel.show(index);
         },
 
         hide() {var _this$panel;
           return (_this$panel = this.panel) == null ? void 0 : _this$panel.hide();
-        } } };
-
-
+        }
+      }
+    };
 
     function install$1(UIkit, Lightbox) {
       if (!UIkit.lightboxPanel) {
@@ -9559,8 +9607,8 @@
         pos: 'top-center',
         clsContainer: 'uk-notification',
         clsClose: 'uk-notification-close',
-        clsMsg: 'uk-notification-message' },
-
+        clsMsg: 'uk-notification-message'
+      },
 
       install,
 
@@ -9571,8 +9619,8 @@
 
         startProps() {
           return { opacity: 0, [this.marginProp]: -this.$el.offsetHeight };
-        } },
-
+        }
+      },
 
       created() {
         const container =
@@ -9599,8 +9647,8 @@
         const margin = toFloat(css(this.$el, this.marginProp));
         await Transition.start(css(this.$el, this.startProps), {
           opacity: 1,
-          [this.marginProp]: margin });
-
+          [this.marginProp]: margin
+        });
 
         if (this.timeout) {
           this.timer = setTimeout(this.close, this.timeout);
@@ -9625,8 +9673,8 @@
           if (this.timeout) {
             this.timer = setTimeout(this.close, this.timeout);
           }
-        } },
-
+        }
+      },
 
       methods: {
         async close(immediate) {
@@ -9650,9 +9698,9 @@
           }
 
           removeFn(this.$el);
-        } } };
-
-
+        }
+      }
+    };
 
     function install(UIkit) {
       UIkit.notification.closeAll = function (group, immediate) {
@@ -9683,8 +9731,8 @@
       opacity: cssPropFn,
       stroke: strokeFn,
       bgx: backgroundFn,
-      bgy: backgroundFn };
-
+      bgy: backgroundFn
+    };
 
     const { keys } = Object;
 
@@ -9708,14 +9756,14 @@
             result[prop] = props[prop](prop, $el, stops[prop], stops);
           }
           return result;
-        } },
-
+        }
+      },
 
       events: {
         load() {
           this.$emit();
-        } },
-
+        }
+      },
 
       methods: {
         reset() {
@@ -9730,9 +9778,9 @@
             this.props[prop](css, percent);
           }
           return css;
-        } } };
-
-
+        }
+      }
+    };
 
     function transformFn(prop, el, stops) {
       let unit = getUnit(stops) || { x: 'px', y: 'px', rotate: 'deg' }[prop] || '';
@@ -9870,8 +9918,8 @@
 
       const dimEl = {
         width: el.offsetWidth,
-        height: el.offsetHeight };
-
+        height: el.offsetHeight
+      };
 
       const bgProps = ['bgx', 'bgy'].filter((prop) => prop in props);
 
@@ -9943,8 +9991,8 @@
     function toDimensions(image) {
       return {
         width: image.naturalWidth,
-        height: image.naturalHeight };
-
+        height: image.naturalHeight
+      };
     }
 
     function parseStops(stops, fn) {if (fn === void 0) {fn = toFloat;}
@@ -10036,16 +10084,16 @@
         viewport: Number, // Deprecated
         easing: Number,
         start: String,
-        end: String },
-
+        end: String
+      },
 
       data: {
         target: false,
         viewport: 1,
         easing: 1,
         start: 0,
-        end: 0 },
-
+        end: 0
+      },
 
       computed: {
         target(_ref, $el) {let { target } = _ref;
@@ -10063,8 +10111,8 @@
           this.target,
           true);
 
-        } },
-
+        }
+      },
 
       update: {
         read(_ref4, types) {let { percent } = _ref4;
@@ -10081,8 +10129,8 @@
 
           return {
             percent,
-            style: prev === percent ? false : this.getCss(percent) };
-
+            style: prev === percent ? false : this.getCss(percent)
+          };
         },
 
         write(_ref5) {let { style } = _ref5;
@@ -10094,9 +10142,9 @@
           style && css(this.$el, style);
         },
 
-        events: ['scroll', 'resize'] } };
-
-
+        events: ['scroll', 'resize']
+      }
+    };
 
     /*
      * Inspired by https://gist.github.com/gre/1650294?permalink_comment_id=3477425#gistcomment-3477425
@@ -10138,14 +10186,17 @@
           }
         },
 
-        events: ['resize'] } };
+        events: ['resize']
+      }
+    };
 
     var SliderPreload = {
       mixins: [Lazyload],
 
       connected() {
         this.lazyload(this.slides, this.getAdjacentSlides);
-      } };
+      }
+    };
 
     function Transitioner (prev, next, dir, _ref) {let { center, easing, list } = _ref;
       const deferred = new Deferred();
@@ -10173,8 +10224,8 @@
             percent: 1 - percent,
             duration,
             timing,
-            dir });
-
+            dir
+          });
 
           Transition.start(
           list,
@@ -10234,8 +10285,8 @@
 
             triggerUpdate(slide, "itemtranslate" + (translateIn ? 'in' : 'out'), {
               dir,
-              percent: isOut ? 1 - percent : isIn ? percent : isActive ? 1 : 0 });
-
+              percent: isOut ? 1 - percent : isIn ? percent : isActive ? 1 : 0
+            });
           }
         },
 
@@ -10264,8 +10315,8 @@
 
         getActives() {
           return inView(list, getLeft(prev || next, list, center));
-        } };
-
+        }
+      };
     }
 
     function getLeft(el, list, center) {
@@ -10317,8 +10368,8 @@
 
       props: {
         center: Boolean,
-        sets: Boolean },
-
+        sets: Boolean
+      },
 
       data: {
         center: false,
@@ -10327,8 +10378,8 @@
         selList: '.uk-slider-items',
         selNav: '.uk-slider-nav',
         clsContainer: 'uk-slider-container',
-        Transitioner },
-
+        Transitioner
+      },
 
       computed: {
         avgWidth() {
@@ -10403,10 +10454,10 @@
         transitionOptions() {
           return {
             center: this.center,
-            list: this.list };
-
-        } },
-
+            list: this.list
+          };
+        }
+      },
 
       connected() {
         toggleClass(this.$el, this.clsContainer, !$("." + this.clsContainer, this.$el));
@@ -10432,8 +10483,8 @@
           this.updateActiveClasses();
         },
 
-        events: ['resize'] },
-
+        events: ['resize']
+      },
 
       events: {
         beforeitemshow(e) {
@@ -10481,8 +10532,8 @@
 
         itemshown() {
           this.updateActiveClasses();
-        } },
-
+        }
+      },
 
       methods: {
         reorder() {
@@ -10568,9 +10619,9 @@
             } while (this.slides.length > j && currentLeft > left && currentLeft < right);
           }
           return Array.from(slides);
-        } } };
-
-
+        }
+      }
+    };
 
     function getMaxElWidth(list) {
       return Math.max(0, ...children(list).map((el) => dimensions$1(el).width));
@@ -10580,8 +10631,8 @@
       mixins: [Parallax],
 
       data: {
-        selItem: '!li' },
-
+        selItem: '!li'
+      },
 
       beforeConnect() {
         this.item = query(this.selItem, this.$el);
@@ -10610,8 +10661,8 @@
               Transition.start(this.$el, propsTo, duration, timing).catch(noop);
             });
           });
-        } },
-
+        }
+      },
 
       {
         name: 'transitioncanceled transitionend',
@@ -10624,8 +10675,8 @@
 
         handler() {
           Transition.cancel(this.$el);
-        } },
-
+        }
+      },
 
       {
         name: 'itemtranslatein itemtranslateout',
@@ -10641,10 +10692,10 @@
             const props = this.getCss(getCurrentPercent(type, dir, percent));
             fastdom.write(() => css(this.$el, props));
           });
-        } }] };
+        }
+      }]
 
-
-
+    };
 
     function isIn(type) {
       return endsWith(type, 'in');
@@ -10669,8 +10720,8 @@
 
         translate(percent) {
           return [{ opacity: 1 - percent, zIndex: 0 }, { zIndex: -1 }];
-        } },
-
+        }
+      },
 
       scale: {
         show() {
@@ -10686,8 +10737,8 @@
           { opacity: 1 - percent, transform: scale3d(1 + 0.5 * percent), zIndex: 0 },
           { zIndex: -1 }];
 
-        } },
-
+        }
+      },
 
       pull: {
         show(dir) {
@@ -10716,8 +10767,8 @@
           { transform: translate(-percent * 100), zIndex: 0 },
           { transform: translate(30 * (1 - percent)), zIndex: -1 }];
 
-        } },
-
+        }
+      },
 
       push: {
         show(dir) {
@@ -10746,7 +10797,9 @@
           { transform: translate(-30 * percent), zIndex: -1 },
           { transform: translate(100 * (1 - percent)), zIndex: 0 }];
 
-        } } };
+        }
+      }
+    };
 
     var slideshow = {
       mixins: [Class, Slideshow, SliderReactive, SliderPreload],
@@ -10754,8 +10807,8 @@
       props: {
         ratio: String,
         minHeight: Number,
-        maxHeight: Number },
-
+        maxHeight: Number
+      },
 
       data: {
         ratio: '16:9',
@@ -10764,8 +10817,8 @@
         selList: '.uk-slideshow-items',
         attrItem: 'uk-slideshow-item',
         selNav: '.uk-slideshow-nav',
-        Animations },
-
+        Animations
+      },
 
       update: {
         read() {
@@ -10792,13 +10845,15 @@
           height > 0 && css(this.list, 'minHeight', height);
         },
 
-        events: ['resize'] },
-
+        events: ['resize']
+      },
 
       methods: {
         getAdjacentSlides() {
           return [1, -1].map((i) => this.slides[this.getIndex(this.index + i)]);
-        } } };
+        }
+      }
+    };
 
     var sortable = {
       mixins: [Class, Animate],
@@ -10814,8 +10869,8 @@
         clsNoDrag: String,
         clsEmpty: String,
         clsCustom: String,
-        handle: String },
-
+        handle: String
+      },
 
       data: {
         group: false,
@@ -10829,8 +10884,8 @@
         clsEmpty: 'uk-sortable-empty',
         clsCustom: '',
         handle: false,
-        pos: {} },
-
+        pos: {}
+      },
 
       created() {
         for (const key of ['init', 'start', 'move', 'end']) {
@@ -10845,8 +10900,8 @@
       events: {
         name: pointerDown$1,
         passive: false,
-        handler: 'init' },
-
+        handler: 'init'
+      },
 
       computed: {
         target() {
@@ -10866,8 +10921,8 @@
             toggleClass(this.target, this.clsEmpty, empty);
           },
 
-          immediate: true },
-
+          immediate: true
+        },
 
         handles: {
           get(_ref, el) {let { handle } = _ref;
@@ -10879,9 +10934,9 @@
             css(handles, { touchAction: hasTouch ? 'none' : '', userSelect: 'none' }); // touchAction set to 'none' causes a performance drop in Chrome 80
           },
 
-          immediate: true } },
-
-
+          immediate: true
+        }
+      },
 
       update: {
         write(data) {
@@ -10892,13 +10947,13 @@
           const {
             pos: { x, y },
             origin: { offsetTop, offsetLeft },
-            placeholder } =
-          this;
+            placeholder
+          } = this;
 
           css(this.drag, {
             top: y - offsetTop,
-            left: x - offsetLeft });
-
+            left: x - offsetLeft
+          });
 
           const sortable = this.getSortable(document.elementFromPoint(x, y));
 
@@ -10948,8 +11003,8 @@
           this.touched.add(sortable);
         },
 
-        events: ['move'] },
-
+        events: ['move']
+      },
 
       methods: {
         init(e) {
@@ -11071,9 +11126,9 @@
               return sortable;
             }
           } while (element = parent(element));
-        } } };
-
-
+        }
+      }
+    };
 
     let trackTimer;
     function trackScroll(pos) {
@@ -11131,8 +11186,8 @@
         boxSizing: 'border-box',
         width: element.offsetWidth,
         height: element.offsetHeight,
-        padding: css(element, 'padding') });
-
+        padding: css(element, 'padding')
+      });
 
       height(clone.firstElementChild, height(element.firstElementChild));
 
@@ -11222,8 +11277,8 @@
 
       props: {
         delay: Number,
-        title: String },
-
+        title: String
+      },
 
       data: {
         pos: 'top',
@@ -11231,22 +11286,25 @@
         delay: 0,
         animation: ['uk-animation-scale-up'],
         duration: 100,
-        cls: 'uk-active' },
-
+        cls: 'uk-active'
+      },
 
       beforeConnect() {
         this.id = "uk-tooltip-" + this._uid;
         this._hasTitle = hasAttr(this.$el, 'title');
         attr(this.$el, {
           title: '',
-          'aria-describedby': this.id });
-
+          'aria-describedby': this.id
+        });
         makeFocusable(this.$el);
       },
 
       disconnected() {
         this.hide();
-        attr(this.$el, 'title', this._hasTitle ? this.title : null);
+
+        if (!attr(this.$el, 'title')) {
+          attr(this.$el, 'title', this._hasTitle ? this.title : null);
+        }
       },
 
       methods: {
@@ -11310,8 +11368,8 @@
           });
 
           this.toggleElement(this.tooltip, true);
-        } },
-
+        }
+      },
 
       events: {
         focus: 'show',
@@ -11329,9 +11387,9 @@
           if (isTouch(e)) {
             this.show();
           }
-        } } };
-
-
+        }
+      }
+    };
 
     function makeFocusable(el) {
       if (!isFocusable(el)) {
@@ -11385,8 +11443,8 @@
         name: String,
         params: Object,
         type: String,
-        url: String },
-
+        url: String
+      },
 
       data: {
         allow: false,
@@ -11413,8 +11471,8 @@
         load: noop,
         loadEnd: noop,
         loadStart: noop,
-        progress: noop },
-
+        progress: noop
+      },
 
       events: {
         change(e) {
@@ -11457,8 +11515,8 @@
         dragleave(e) {
           stop(e);
           removeClass(this.$el, this.clsDragover);
-        } },
-
+        }
+      },
 
       methods: {
         async upload(files) {
@@ -11516,8 +11574,8 @@
                   }
 
                   return this.beforeSend(env);
-                } });
-
+                }
+              });
 
               this.complete(xhr);
 
@@ -11532,9 +11590,9 @@
           };
 
           await upload(chunks.shift());
-        } } };
-
-
+        }
+      }
+    };
 
     function match(pattern, path) {
       return path.match(

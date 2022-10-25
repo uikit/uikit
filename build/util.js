@@ -103,6 +103,11 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                 include: '**/*.svg',
                 htmlMinifierOptions: {
                     collapseWhitespace: true,
+                    minifyCSS: {
+                        advanced: false,
+                        keepSpecialComments: 0,
+                        rebase: false,
+                    },
                 },
             }),
             babel({
@@ -206,11 +211,9 @@ export async function icons(src) {
                         convertShapeToPath: false,
                         mergePaths: false,
                         minifyStyles: false,
-                        removeDimensions: false,
-                        removeStyleElement: false,
-                        removeScriptElement: false,
                         removeUnknownsAndDefaults: false,
                         removeUselessStrokeAndFill: false,
+                        sortAttrs: false,
                     },
                 },
             },
