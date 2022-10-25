@@ -12,9 +12,7 @@ import {
     getIndex,
     hasClass,
     matches,
-    observeMutation,
     queryAll,
-    ready,
     toggleClass,
     toNodes,
     within,
@@ -51,23 +49,23 @@ export default {
                 if (this.swiping) {
                     css(connects, 'touchAction', 'pan-y pinch-zoom');
                 }
+            },
 
-                this._observer?.disconnect();
-                this.registerObserver(
-                    (this._observer = observeMutation(
-                        connects,
-                        (records) => {
-                            const index = this.index();
-                            for (const { target: el } of records) {
-                                children(el).forEach((child, i) =>
-                                    toggleClass(child, this.cls, i === index)
-                                );
-                                this.lazyload(this.$el, children(el));
-                            }
-                        },
-                        { childList: true }
-                    ))
-                );
+            document: true,
+            immediate: true,
+        },
+
+        connectChildren: {
+            get() {
+                return this.connects.map((el) => children(el)).flat();
+            },
+
+            watch() {
+                const index = this.index();
+                for (const el of this.connects) {
+                    children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
+                    this.lazyload(this.$el, children(el));
+                }
             },
 
             immediate: true,
@@ -97,11 +95,6 @@ export default {
         swipeTarget() {
             return this.connects;
         },
-    },
-
-    connected() {
-        // check for connects
-        ready(() => this.$emit());
     },
 
     events: [

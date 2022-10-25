@@ -51,7 +51,10 @@ export default {
 
     disconnected() {
         this.hide();
-        attr(this.$el, 'title', this._hasTitle ? this.title : null);
+
+        if (!attr(this.$el, 'title')) {
+            attr(this.$el, 'title', this._hasTitle ? this.title : null);
+        }
     },
 
     methods: {

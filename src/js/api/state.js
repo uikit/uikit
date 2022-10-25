@@ -108,11 +108,7 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._initObservers = function () {
-        this._observers = [initPropsObserver(this)];
-
-        if (this.$options.computed) {
-            this.registerObserver(initChildListObserver(this));
-        }
+        this._observers = [initPropsObserver(this), initChildListObserver(this)];
     };
 
     UIkit.prototype.registerObserver = function (...observer) {
@@ -265,7 +261,18 @@ function normalizeData({ data = {} }, { args = [], props = {} }) {
 }
 
 function initChildListObserver(component) {
-    const { el } = component.$options;
+    let { el, computed } = component.$options;
+
+    if (!computed) {
+        return;
+    }
+
+    for (const key in computed) {
+        if (computed[key].document) {
+            el = el.ownerDocument;
+            break;
+        }
+    }
 
     const observer = new MutationObserver(() => component._callWatches());
     observer.observe(el, {

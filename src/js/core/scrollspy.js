@@ -48,7 +48,8 @@ export default {
 
             watch(elements, prev) {
                 if (this.hidden) {
-                    css(filter(elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
+                    // use `opacity:0` instead of `visibility:hidden` to make content focusable with keyboard
+                    css(filter(elements, `:not(.${this.inViewClass})`), 'opacity', 0);
                 }
 
                 if (!isEqual(elements, prev)) {
@@ -134,7 +135,7 @@ export default {
 
             state.off?.();
 
-            css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
+            css(el, 'opacity', !inview && this.hidden ? 0 : '');
 
             toggleClass(el, this.inViewClass, inview);
             toggleClass(el, state.cls);

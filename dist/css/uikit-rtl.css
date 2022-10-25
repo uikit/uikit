@@ -1,4 +1,4 @@
-/*! UIkit 3.15.10 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.11 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5951,12 +5951,12 @@ ul.uk-nav-sub {
   border-bottom: none;
 }
 .uk-tab-right > * > a {
-  justify-content: left;
+  justify-content: right;
   border-left: 1px solid transparent;
   border-bottom: none;
 }
 .uk-tab-left > * > a {
-  justify-content: left;
+  justify-content: right;
   border-right: 1px solid transparent;
   border-bottom: none;
 }

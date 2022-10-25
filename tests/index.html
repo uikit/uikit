@@ -79,12 +79,14 @@
                 <div uk-grid>
                     <div class="uk-width-2-3@m">
 
-                        <ul class="uk-breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li class="uk-disabled"><a>Category</a></li>
-                            <li><span>Post</span></li>
-                        </ul>
+                        <nav aria-label="Breadcrumb">
+                            <ul class="uk-breadcrumb">
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li class="uk-disabled"><a>Category</a></li>
+                                <li><span>Post</span></li>
+                            </ul>
+                        </nav>
 
                         <article class="uk-article">
 
@@ -211,7 +213,7 @@
 
                         <ul class="uk-comment-list uk-margin-medium">
                             <li>
-                                <article class="uk-comment uk-visible-toggle" tabindex="-1">
+                                <article class="uk-comment uk-visible-toggle" tabindex="-1" role="comment">
                                     <header class="uk-comment-header uk-position-relative">
                                         <div class="uk-grid-medium uk-flex-middle" uk-grid>
                                             <div class="uk-width-auto">
@@ -253,7 +255,7 @@
                         <div class="uk-margin-medium-bottom">
                             <form class="uk-search uk-search-default uk-width-1-1">
                                 <span uk-search-icon></span>
-                                <input class="uk-search-input" type="search" placeholder="Search">
+                                <input class="uk-search-input" type="search" placeholder="Search" aria-label="Search">
                             </form>
                         </div>
 
@@ -396,19 +398,19 @@
                         <form class="uk-form-stacked">
 
                             <div class="uk-margin-small">
-                                <label class="uk-form-label">Text</label>
-                                <input class="uk-input" type="text" placeholder="Some text...">
+                                <label class="uk-form-label" for="form-input-text">Text</label>
+                                <input id="form-input-text" class="uk-input" type="text" placeholder="Some text...">
                             </div>
 
                             <div class="uk-margin-small">
-                                <select class="uk-select">
+                                <select class="uk-select" aria-label="Select">
                                     <option>Option 01</option>
                                     <option>Option 02</option>
                                 </select>
                             </div>
 
                             <div class="uk-margin-small">
-                                 <textarea class="uk-textarea" rows="2" placeholder="Some text..."></textarea>
+                                <textarea class="uk-textarea" rows="2" placeholder="Some text..." aria-label="Textarea"></textarea>
                             </div>
 
                             <div class="uk-grid-small uk-child-width-auto" uk-grid>
@@ -421,22 +423,23 @@
                             </div>
 
                             <div class="uk-margin-small">
-                                <input class="uk-range" type="range" value="2" min="0" max="10" step="0.1">
+                                <input class="uk-range" type="range" value="2" min="0" max="10" step="0.1" aria-label="Range">
                             </div>
 
                             <div class="uk-margin-small">
-                                <label class="uk-form-label">States</label>
-                                <input class="uk-input" type="text" placeholder=":disabled" disabled>
+                                <label class="uk-form-label" for="form-input-states">States</label>
+                                <input id="form-input-states" class="uk-input" type="text" placeholder=":disabled" disabled>
+       
                             </div>
 
                             <div class="uk-margin-small">
-                                <input class="uk-input uk-form-danger" type="text" placeholder="form-danger" value="form-danger">
+                                <input class="uk-input uk-form-danger" type="text" placeholder="form-danger" aria-label="form-danger" value="form-danger">
                             </div>
                             <div class="uk-margin-small">
-                                <input class="uk-input uk-form-success" type="text" placeholder="form-success" value="form-success">
+                                <input class="uk-input uk-form-success" type="text" placeholder="form-success" aria-label="form-success" value="form-success">
                             </div>
                             <div class="uk-margin-small">
-                                <input class="uk-input uk-form-blank" type="text" placeholder="form-blank">
+                                <input class="uk-input uk-form-blank" type="text" placeholder="form-blank" aria-label="form-blank">
                             </div>
 
                         </form>
@@ -799,7 +802,7 @@
 
                     <div class="uk-margin">
                         <form class="uk-search uk-search-large">
-                            <input class="uk-search-input uk-text-center" type="search" placeholder="Search">
+                            <input class="uk-search-input uk-text-center" type="search" placeholder="Search" aria-label="Search">
                         </form>
                     </div>
 

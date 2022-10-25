@@ -50,7 +50,7 @@ export default {
 
             this.panel = this.panel || this.$create('lightboxPanel', { ...this.$props, items });
 
-            on(this.panel.$el, 'hidden', () => (this.panel = false));
+            on(this.panel.$el, 'hidden', () => (this.panel = null));
 
             return this.panel.show(index);
         },

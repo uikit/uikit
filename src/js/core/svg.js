@@ -30,13 +30,12 @@ export default {
         ratio: Number,
         class: String,
         strokeAnimation: Boolean,
-        focusable: Boolean, // IE 11
         attributes: 'list',
     },
 
     data: {
         ratio: 1,
-        include: ['style', 'class', 'focusable'],
+        include: ['style', 'class'],
         class: '',
         strokeAnimation: false,
     },
@@ -215,12 +214,5 @@ function insertSVG(el, root) {
 }
 
 function equals(el, other) {
-    return isTag(el, 'svg') && isTag(other, 'svg') && innerHTML(el) === innerHTML(other);
-}
-
-function innerHTML(el) {
-    return (
-        el.innerHTML ||
-        new XMLSerializer().serializeToString(el).replace(/<svg.*?>(.*?)<\/svg>/g, '$1')
-    ).replace(/\s/g, '');
+    return isTag(el, 'svg') && isTag(other, 'svg') && el.innerHTML === other.innerHTML;
 }
