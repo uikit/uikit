@@ -1,3 +1,4 @@
+import { within } from './filter';
 import { offset } from './dimensions';
 import { clamp, isArray, ucfirst } from './lang';
 import { offsetViewport, scrollParents } from './viewport';
@@ -32,7 +33,7 @@ function getPosition(element, target, options) {
 
     let offsetPosition = position;
     for (const [i, [prop, , start, end]] of Object.entries(dirs)) {
-        const viewport = getViewport(target[i], viewportOffset, boundary, i);
+        const viewport = getViewport(element, target[i], viewportOffset, boundary, i);
 
         if (isWithin(position, viewport, i)) {
             continue;
@@ -52,7 +53,7 @@ function getPosition(element, target, options) {
 
             offsetBy = flip(element, target, options, i)[start] - position[start];
 
-            const scrollArea = getScrollArea(target[i], viewportOffset, i);
+            const scrollArea = getScrollArea(element, target[i], viewportOffset, i);
 
             if (!isWithin(applyOffset(position, offsetBy, i), scrollArea, i)) {
                 if (isWithin(position, scrollArea, i)) {
@@ -132,8 +133,8 @@ function moveBy(attach, end, dim) {
     return attach === 'center' ? dim / 2 : attach === end ? dim : 0;
 }
 
-function getViewport(element, viewportOffset, boundary, i) {
-    let viewport = getIntersectionArea(...scrollParents(element).map(offsetViewport));
+function getViewport(element, target, viewportOffset, boundary, i) {
+    let viewport = getIntersectionArea(...commonScrollParents(element, target).map(offsetViewport));
 
     if (viewportOffset) {
         viewport[dirs[i][2]] += viewportOffset;
@@ -150,13 +151,17 @@ function getViewport(element, viewportOffset, boundary, i) {
     return viewport;
 }
 
-function getScrollArea(element, viewportOffset, i) {
+function getScrollArea(element, target, viewportOffset, i) {
     const [prop, , start, end] = dirs[i];
-    const [scrollElement] = scrollParents(element);
+    const [scrollElement] = commonScrollParents(element, target);
     const viewport = offsetViewport(scrollElement);
     viewport[start] -= scrollElement[`scroll${ucfirst(start)}`] - viewportOffset;
     viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`] - viewportOffset;
     return viewport;
+}
+
+function commonScrollParents(element, target) {
+    return scrollParents(target).filter((parent) => within(element, parent));
 }
 
 function getIntersectionArea(...rects) {

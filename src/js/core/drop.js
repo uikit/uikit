@@ -429,7 +429,7 @@ export default {
             // Ensure none positioned element does not generate scrollbars
             this.$el.hidden = true;
 
-            const viewports = this.target.map((target) => offsetViewport(scrollParents(target)[0]));
+            const viewports = this.target.map((target) => getViewport(this.$el, target));
             const viewportOffset = this.getViewportOffset(this.$el);
 
             const dirs = [
@@ -493,4 +493,8 @@ function getPositionedElements(el) {
     const result = [];
     apply(el, (el) => css(el, 'position') !== 'static' && result.push(el));
     return result;
+}
+
+function getViewport(el, target) {
+    return offsetViewport(scrollParents(target).find((parent) => within(el, parent)));
 }

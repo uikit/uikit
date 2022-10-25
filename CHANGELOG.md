@@ -15,6 +15,7 @@
 - Fix content not focusable with keyboard in Scrollspy component
 - Fix removing Lightbox causes JavaScript error
 - Fix cases where Switcher component wouldn't correctly initialize in Chrome
+- Fix Drop component positioning if target and element are not within same scroll parent
 
 ## 3.15.10 (September 21, 2022)
 
