@@ -110,22 +110,25 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                     },
                 },
             }),
-            babel({
-                presets: [
-                    [
-                        '@babel/preset-env',
-                        {
-                            loose: true,
-                            targets: {
-                                safari: '12',
-                            },
-                        },
-                    ],
-                ],
-                extensions: ['.js'],
-                babelHelpers: 'bundled',
-                retainLines: true,
-            }),
+            debug
+                ? undefined
+                : babel({
+                      presets: [
+                          [
+                              '@babel/preset-env',
+                              {
+                                  loose: true,
+                                  targets: {
+                                      safari: '12',
+                                  },
+                              },
+                          ],
+                      ],
+                      extensions: ['.js'],
+                      babelHelpers: 'bundled',
+                      retainLines: true,
+                      compact: false,
+                  }),
             modify({
                 find: /(>)\\n\s+|\\n\s+(<)/,
                 replace: (m, m1, m2) => `${m1 || ''} ${m2 || ''}`,
@@ -192,7 +195,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
             }
         });
 
-        watcher.close();
+        await watcher.close();
     }
 }
 
