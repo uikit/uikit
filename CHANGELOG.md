@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix placeholder has no width if Sticky element's width dependes on its content
+
 ## 3.15.11 (October 25, 2022)
 
 ### Added

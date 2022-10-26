@@ -9,7 +9,6 @@ import {
     Animation,
     clamp,
     css,
-    dimensions,
     height as getHeight,
     offset as getOffset,
     intersectRect,
@@ -148,7 +147,7 @@ export default {
 
     update: [
         {
-            read({ height, margin }, types) {
+            read({ height, width, margin }, types) {
                 this.inactive = !this.matchMedia || !isVisible(this.$el);
 
                 if (this.inactive) {
@@ -162,7 +161,7 @@ export default {
                 }
 
                 if (!this.active) {
-                    height = getOffset(this.$el).height;
+                    ({ height, width } = getOffset(this.$el));
                     margin = css(this.$el, 'margin');
                 }
 
@@ -171,7 +170,6 @@ export default {
                     requestAnimationFrame(() => css(this.selTarget, 'transition', ''));
                 }
 
-                const referenceElement = this.isFixed ? this.placeholder : this.$el;
                 const windowHeight = getHeight(window);
 
                 let position = this.position;
@@ -179,6 +177,7 @@ export default {
                     position = position === 'top' ? 'bottom' : 'top';
                 }
 
+                const referenceElement = this.isFixed ? this.placeholder : this.$el;
                 let offset = toPx(this.offset, 'height', referenceElement);
                 if (position === 'bottom' && (height < windowHeight || this.overflowFlip)) {
                     offset += windowHeight - height;
@@ -208,16 +207,16 @@ export default {
                     overflow,
                     topOffset,
                     height,
+                    width,
                     margin,
-                    width: dimensions(referenceElement).width,
                     top: offsetPosition(referenceElement)[0],
                 };
             },
 
-            write({ height, margin }) {
+            write({ height, width, margin }) {
                 const { placeholder } = this;
 
-                css(placeholder, { height, margin });
+                css(placeholder, { height, width, margin });
 
                 if (!within(placeholder, document)) {
                     after(this.$el, placeholder);
