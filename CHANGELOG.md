@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add `uikit:init` event triggered on document before components initialize
+
 ### Fixed
 
 - Fix placeholder has no width if Sticky element's width dependes on its content
