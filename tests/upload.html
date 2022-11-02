@@ -55,6 +55,9 @@
                     error() {
                         console.log('error', arguments);
                     },
+                    fail() {
+                        console.log('fail', arguments);
+                    },
                     complete() {
                         console.log('complete', arguments);
                     },
@@ -169,16 +172,10 @@
                             <td>The expected response data type.</td>
                         </tr>
                         <tr>
-                            <td><code>msg-invalid-mime</code></td>
-                            <td>String</td>
-                            <td>Invalid File Type: %s</td>
-                            <td>Invalid MIME type message.</td>
-                        </tr>
-                        <tr>
-                            <td><code>msg-invalid-name</code></td>
-                            <td>String</td>
-                            <td>Invalid File Name: %s</td>
-                            <td>Invalid name message.</td>
+                            <td><code>i18n</code></td>
+                            <td>Object</td>
+                            <td>null</td>
+                            <td>Override default translation texts.</td>
                         </tr>
                         <tr>
                             <td><code>cls-dragover</code></td>
@@ -251,6 +248,37 @@
                             <td>Function</td>
                             <td>alert</td>
                             <td>The fail callback. If name or MIME type are invalid.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>i18n</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>invalidMime</code></td>
+                            <td>Invalid File Type: %s</td>
+                            <td>Error message for invalid file type.</td>
+                        </tr>
+                        <tr>
+                            <td><code>invalidName</code></td>
+                            <td>Invalid File Name: %s</td>
+                            <td>Error message for invalid file name.</td>
+                        </tr>
+                        <tr>
+                            <td><code>invalidSize</code></td>
+                            <td>Invalid File Size: %s Kilobytes Max</td>
+                            <td>Error message for invalid file size.</td>
                         </tr>
                     </tbody>
                 </table>

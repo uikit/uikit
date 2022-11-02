@@ -1,6 +1,15 @@
+import I18n from '../mixin/i18n';
 import { addClass, ajax, matches, noop, on, removeClass, toArray, trigger } from 'uikit-util';
 
 export default {
+    mixins: [I18n],
+
+    i18n: {
+        invalidMime: 'Invalid File Type: %s',
+        invalidName: 'Invalid File Name: %s',
+        invalidSize: 'Invalid File Size: %s Kilobytes Max',
+    },
+
     props: {
         allow: String,
         clsDragover: String,
@@ -8,9 +17,6 @@ export default {
         maxSize: Number,
         method: String,
         mime: String,
-        msgInvalidMime: String,
-        msgInvalidName: String,
-        msgInvalidSize: String,
         multiple: Boolean,
         name: String,
         params: Object,
@@ -25,9 +31,6 @@ export default {
         maxSize: 0,
         method: 'POST',
         mime: false,
-        msgInvalidMime: 'Invalid File Type: %s',
-        msgInvalidName: 'Invalid File Name: %s',
-        msgInvalidSize: 'Invalid File Size: %s Kilobytes Max',
         multiple: false,
         name: 'files[]',
         params: {},
@@ -102,17 +105,17 @@ export default {
 
             for (const file of files) {
                 if (this.maxSize && this.maxSize * 1000 < file.size) {
-                    this.fail(this.msgInvalidSize.replace('%s', this.maxSize));
+                    this.fail(this.t('invalidSize', this.maxSize));
                     return;
                 }
 
                 if (this.allow && !match(this.allow, file.name)) {
-                    this.fail(this.msgInvalidName.replace('%s', this.allow));
+                    this.fail(this.t('invalidName', this.allow));
                     return;
                 }
 
                 if (this.mime && !match(this.mime, file.type)) {
-                    this.fail(this.msgInvalidMime.replace('%s', this.mime));
+                    this.fail(this.t('invalidMime', this.mime));
                     return;
                 }
             }

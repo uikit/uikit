@@ -5,6 +5,7 @@ import {
     $$,
     attr,
     children,
+    closest,
     css,
     data,
     endsWith,
@@ -17,6 +18,7 @@ import {
     toNodes,
     within,
 } from 'uikit-util';
+import { generateId } from '../mixin/utils';
 
 export default {
     mixins: [Lazyload, Swipe, Togglable],
@@ -49,6 +51,7 @@ export default {
                 if (this.swiping) {
                     css(connects, 'touchAction', 'pan-y pinch-zoom');
                 }
+                this.$emit();
             },
 
             document: true,
@@ -66,6 +69,7 @@ export default {
                     children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
                     this.lazyload(this.$el, children(el));
                 }
+                this.$emit();
             },
 
             immediate: true,
@@ -79,6 +83,7 @@ export default {
             },
 
             watch(toggles) {
+                this.$emit();
                 const active = this.index();
                 this.show(~active ? active : toggles[this.active] || toggles[0]);
             },
@@ -95,6 +100,10 @@ export default {
         swipeTarget() {
             return this.connects;
         },
+    },
+
+    connected() {
+        attr(this.$el, 'role', 'tablist');
     },
 
     events: [
@@ -123,8 +132,10 @@ export default {
             },
 
             handler(e) {
-                e.preventDefault();
-                this.show(data(e.current, this.attrItem));
+                if (closest(e.target, 'a,button')) {
+                    e.preventDefault();
+                    this.show(data(e.current, this.attrItem));
+                }
             },
         },
 
@@ -145,6 +156,24 @@ export default {
         },
     ],
 
+    update() {
+        const toggles = $$(this.toggle, this.$el);
+        for (const index in toggles) {
+            const toggle = toggles[index];
+            const item = this.connects[0]?.children[index];
+
+            if (!item) {
+                continue;
+            }
+
+            toggle.id = generateId(this, toggle, `-tab-${index}`);
+            item.id = generateId(this, item, `-tabpanel-${index}`);
+
+            attr(toggle, { role: 'tab', 'aria-controls': item.id });
+            attr(item, { role: 'tabpanel', 'aria-labelledby': toggle.id });
+        }
+    },
+
     methods: {
         index() {
             return findIndex(this.children, (el) => hasClass(el, this.cls));
@@ -156,7 +185,7 @@ export default {
             const active = getIndex(this.children[next], children(this.$el));
             children(this.$el).forEach((child, i) => {
                 toggleClass(child, this.cls, active === i);
-                attr(this.toggles[i], 'aria-expanded', active === i);
+                attr(this.toggles[i], 'aria-selected', active === i);
             });
 
             const animate = prev >= 0 && prev !== next;

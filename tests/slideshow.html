@@ -68,16 +68,16 @@
                                 </li>
                             </ul>
 
-                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slideshow-item="previous"></a>
+                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slideshow-item="next"></a>
 
                         </div>
 
                         <ul class="uk-dotnav uk-flex-center uk-margin">
-                            <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
-                            <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
-                            <li uk-slideshow-item="2"><a href="#">Item 3</a></li>
-                            <li uk-slideshow-item="3"><a href="#">Item 4</a></li>
+                            <li uk-slideshow-item="0"><a href>Item 1</a></li>
+                            <li uk-slideshow-item="1"><a href>Item 2</a></li>
+                            <li uk-slideshow-item="2"><a href>Item 3</a></li>
+                            <li uk-slideshow-item="3"><a href>Item 4</a></li>
                         </ul>
 
                     </div>
@@ -120,8 +120,8 @@
                                 </li>
                             </ul>
 
-                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slideshow-item="previous"></a>
+                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slideshow-item="next"></a>
 
                         </div>
 
@@ -189,8 +189,8 @@
                         </li>
                     </ul>
 
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slideshow-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slideshow-item="next"></a>
 
                 </div>
 
@@ -243,8 +243,8 @@
                         </li>
                     </ul>
 
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slideshow-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slideshow-item="next"></a>
 
                 </div>
 
@@ -291,8 +291,8 @@
                     </li>
                 </ul>
 
-                <a class="uk-slidenav-large uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                <a class="uk-slidenav-large uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+                <a class="uk-slidenav-large uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-slidenav-large uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slideshow-item="next"></a>
 
                 <div class="uk-position-bottom-center uk-position-medium">
                     <ul class="uk-slideshow-nav uk-dotnav"></ul>
@@ -343,8 +343,8 @@
                     </li>
                 </ul>
 
-                <a class="uk-slidenav-large uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                <a class="uk-slidenav-large uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+                <a class="uk-slidenav-large uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-slidenav-large uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slideshow-item="next"></a>
 
                 <div class="uk-position-bottom-center uk-position-medium">
                     <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
@@ -434,6 +434,43 @@
                             <td>Boolean, Number</td>
                             <td>false</td>
                             <td>The maximum height.</td>
+                        </tr>
+                        <tr>
+                            <td><code>i18n</code></td>
+                            <td>Object</td>
+                            <td>null</td>
+                            <td>Override default translation texts.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>i18n</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>next</code></td>
+                            <td>Next Slide</td>
+                            <td><code>aria-label</code> for next slide button.</td>
+                        </tr>
+                        <tr>
+                            <td><code>previous</code></td>
+                            <td>Previous Slide</td>
+                            <td><code>aria-label</code> for previous slide button.</td>
+                        </tr>
+                        <tr>
+                            <td><code>slideX</code></td>
+                            <td>Slide %s</td>
+                            <td><code>aria-label</code> for pagination slide button.</td>
                         </tr>
                     </tbody>
                 </table>

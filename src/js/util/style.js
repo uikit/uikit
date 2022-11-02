@@ -30,7 +30,7 @@ const cssNumber = {
     zoom: true,
 };
 
-export function css(element, property, value, priority = '') {
+export function css(element, property, value, priority) {
     const elements = toNodes(element);
     for (const element of elements) {
         if (isString(property)) {

@@ -28,16 +28,16 @@ export { default as Video } from './video';
 
 // Icon components
 export { Close } from './icon';
-export { Spinner } from './icon';
+export { Marker } from './icon';
+export { NavbarToggleIcon } from './icon';
 export { NavParentIcon } from './icon';
+export { PaginationNext } from './icon';
+export { PaginationPrevious } from './icon';
+export { Search as SearchIcon } from './icon';
 export { Slidenav as SlidenavNext } from './icon';
 export { Slidenav as SlidenavPrevious } from './icon';
-export { Search as SearchIcon } from './icon';
-export { IconComponent as Marker } from './icon';
+export { Spinner } from './icon';
+export { Totop } from './icon';
 export { IconComponent as NavbarParentIcon } from './icon';
-export { IconComponent as NavbarToggleIcon } from './icon';
 export { IconComponent as OverlayIcon } from './icon';
-export { IconComponent as PaginationNext } from './icon';
-export { IconComponent as PaginationPrevious } from './icon';
-export { IconComponent as Totop } from './icon';
 export { IconComponent as SubnavParentIcon } from './icon';

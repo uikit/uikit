@@ -59,12 +59,22 @@ export default {
         const list = $(this.selList, $el);
         this.items.forEach(() => append(list, '<li>'));
 
+        const close = $('[uk-close]', $el);
+        const closeLabel = this.t('close');
+        if (close && closeLabel) {
+            close.dataset.i18n = JSON.stringify({ label: closeLabel });
+        }
+
         this.$mount(append(this.container, $el));
     },
 
     computed: {
         caption({ selCaption }, $el) {
             return $(selCaption, $el);
+        },
+
+        panel({ selPanel }, $el) {
+            return $(selPanel, $el);
         },
     },
 

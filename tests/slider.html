@@ -103,20 +103,20 @@
                     </div>
 
                     <div class="uk-hidden@xl uk-light">
-                        <a class="uk-position-center-left uk-position-small" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                        <a class="uk-position-center-right uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                        <a class="uk-position-center-left uk-position-small" href uk-slidenav-previous uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right uk-position-small" href uk-slidenav-next uk-slider-item="next"></a>
                     </div>
 
                     <div class="uk-visible@xl">
-                        <a class="uk-position-center-left-out uk-position-small" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                        <a class="uk-position-center-right-out uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                        <a class="uk-position-center-left-out uk-position-small" href uk-slidenav-previous uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right-out uk-position-small" href uk-slidenav-next uk-slider-item="next"></a>
                     </div>
 
                     <!-- Alternative markup
 
                     <div class="uk-visible@s uk-dark"  uk-toggle="cls: uk-dark uk-light; mode: media; media: @xl">
-                        <a class="uk-position-center-left-out uk-position-small" uk-toggle="cls: uk-position-center-left-out uk-position-center-left; mode: media; media: @xl" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                        <a class="uk-position-center-right-out uk-position-small" uk-toggle="cls: uk-position-center-right-out uk-position-center-right; mode: media; media: @xl" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                        <a class="uk-position-center-left-out uk-position-small" uk-toggle="cls: uk-position-center-left-out uk-position-center-left; mode: media; media: @xl" href uk-slidenav-previous uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right-out uk-position-small" uk-toggle="cls: uk-position-center-right-out uk-position-center-right; mode: media; media: @xl" href uk-slidenav-next uk-slider-item="next"></a>
                     </div>
 
                     -->
@@ -184,8 +184,8 @@
                         </li>
                     </ul>
 
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slider-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slider-item="next"></a>
 
                 </div>
 
@@ -242,8 +242,8 @@
                         </li>
                     </ul>
 
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slider-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slider-item="next"></a>
 
                 </div>
 
@@ -320,8 +320,8 @@
                         </li>
                     </ul>
 
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slider-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slider-item="next"></a>
 
                 </div>
 
@@ -394,8 +394,8 @@
 
                     </div>
 
-                    <a class="uk-position-center-left-out uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                    <a class="uk-position-center-right-out uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                    <a class="uk-position-center-left-out uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slider-item="previous"></a>
+                    <a class="uk-position-center-right-out uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slider-item="next"></a>
 
                 </div>
 
@@ -459,8 +459,8 @@
                     </li>
                 </ul>
 
-                <a class="uk-position-center-left uk-position-large uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                <a class="uk-position-center-right uk-position-large uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                <a class="uk-position-center-left uk-position-large uk-hidden-hover" href uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-large uk-hidden-hover" href uk-slidenav-next uk-slider-item="next"></a>
 
             </div>
 
@@ -536,6 +536,43 @@
                             <td>Number</td>
                             <td>1</td>
                             <td>The animation velocity (pixel/ms).</td>
+                        </tr>
+                        <tr>
+                            <td><code>i18n</code></td>
+                            <td>Object</td>
+                            <td>null</td>
+                            <td>Override default translation texts.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>i18n</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>next</code></td>
+                            <td>Next slide</td>
+                            <td><code>aria-label</code> for next slide button.</td>
+                        </tr>
+                        <tr>
+                            <td><code>previous</code></td>
+                            <td>Previous slide</td>
+                            <td><code>aria-label</code> for previous slide button.</td>
+                        </tr>
+                        <tr>
+                            <td><code>slideX</code></td>
+                            <td>Slide %s</td>
+                            <td><code>aria-label</code> for pagination slide button.</td>
                         </tr>
                     </tbody>
                 </table>

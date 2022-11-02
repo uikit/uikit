@@ -1,5 +1,5 @@
 import { $, off, on, scrollIntoView, trigger, within } from 'uikit-util';
-import { isSameSiteAnchor } from '../mixin/modal';
+import { getTargetElement, isSameSiteAnchor } from '../mixin/utils';
 
 export default {
     props: {
@@ -57,12 +57,5 @@ function clickHandler(e) {
             e.preventDefault();
             component.scrollTo(getTargetElement(component.$el));
         }
-    }
-}
-
-export function getTargetElement(el) {
-    if (isSameSiteAnchor(el)) {
-        const id = decodeURIComponent(el.hash).substring(1);
-        return document.getElementById(id) || document.getElementsByName(id)[0];
     }
 }

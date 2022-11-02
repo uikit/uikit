@@ -1,6 +1,24 @@
-import { $, $$, data, html, toggleClass, toNumber } from 'uikit-util';
+import {
+    $,
+    $$,
+    attr,
+    closest,
+    data,
+    html,
+    isNumeric,
+    toFloat,
+    toggleClass,
+    toNumber,
+} from 'uikit-util';
+import { generateId } from './utils';
 
 export default {
+    i18n: {
+        next: 'Next slide',
+        previous: 'Previous slide',
+        slideX: 'Slide %s',
+    },
+
     data: {
         selNav: false,
     },
@@ -14,8 +32,14 @@ export default {
             return `[${attrItem}],[data-${attrItem}]`;
         },
 
-        navItems(_, $el) {
-            return $$(this.selNavItem, $el);
+        navItems: {
+            get(_, $el) {
+                return $$(this.selNavItem, $el);
+            },
+
+            watch() {
+                this.$emit();
+            },
         },
     },
 
@@ -47,8 +71,10 @@ export default {
             },
 
             handler(e) {
-                e.preventDefault();
-                this.show(data(e.current, this.attrItem));
+                if (closest(e.target, 'a,button')) {
+                    e.preventDefault();
+                    this.show(data(e.current, this.attrItem));
+                }
             },
         },
 
@@ -60,17 +86,58 @@ export default {
 
     methods: {
         updateNav() {
-            const i = this.getValidIndex();
+            const index = this.getValidIndex();
             for (const el of this.navItems) {
                 const cmd = data(el, this.attrItem);
+                const button = $('a,button', el) || el;
 
-                toggleClass(el, this.clsActive, toNumber(cmd) === i);
-                toggleClass(
-                    el,
-                    'uk-invisible',
-                    this.finite &&
-                        ((cmd === 'previous' && i === 0) || (cmd === 'next' && i >= this.maxIndex))
-                );
+                let ariaLabel;
+                let ariaControls;
+                if (isNumeric(cmd)) {
+                    const item = toNumber(cmd);
+                    const slide = this.slides[item];
+
+                    if (slide) {
+                        if (!slide.id) {
+                            slide.id = generateId(this, slide, `-item-${cmd}`);
+                        }
+                        ariaControls = slide.id;
+                    }
+
+                    ariaLabel = this.t('slideX', toFloat(cmd) + 1);
+
+                    const active = item === index;
+
+                    toggleClass(el, this.clsActive, active);
+
+                    attr(button, {
+                        role: 'tab',
+                        'aria-selected': active,
+                    });
+                } else {
+                    if (this.list) {
+                        if (!this.list.id) {
+                            this.list.id = generateId(this, this.list, '-items');
+                        }
+
+                        ariaControls = this.list.id;
+                    }
+
+                    ariaLabel = this.t(cmd);
+
+                    toggleClass(
+                        el,
+                        'uk-invisible',
+                        this.finite &&
+                            ((cmd === 'previous' && index === 0) ||
+                                (cmd === 'next' && index >= this.maxIndex))
+                    );
+                }
+
+                attr(button, {
+                    'aria-controls': ariaControls,
+                    'aria-label': attr(button, 'aria-label') || ariaLabel,
+                });
             }
         },
     },

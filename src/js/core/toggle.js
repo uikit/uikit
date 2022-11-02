@@ -59,8 +59,13 @@ export default {
     },
 
     connected() {
-        if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
-            attr(this.$el, 'tabindex', '0');
+        if (!includes(this.mode, 'media')) {
+            if (!isFocusable(this.$el)) {
+                attr(this.$el, 'tabindex', '0');
+            }
+            if (!this.cls && isTag(this.$el, 'a')) {
+                attr(this.$el, 'role', 'button');
+            }
         }
     },
 

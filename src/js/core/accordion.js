@@ -1,6 +1,7 @@
 import Class from '../mixin/class';
 import Lazyload from '../mixin/lazyload';
 import Togglable from '../mixin/togglable';
+import { generateId } from '../mixin/utils';
 import {
     $,
     $$,
@@ -12,6 +13,7 @@ import {
     hasClass,
     includes,
     index,
+    isTag,
     scrollParents,
     sumBy,
     toFloat,
@@ -71,8 +73,16 @@ export default {
             immediate: true,
         },
 
-        toggles({ toggle }) {
-            return this.items.map((item) => $(toggle, item));
+        toggles: {
+            get({ toggle }) {
+                return this.items.map((item) => $(toggle, item));
+            },
+
+            watch() {
+                this.$emit();
+            },
+
+            immediate: true,
         },
 
         contents: {
@@ -90,6 +100,7 @@ export default {
                         )
                     );
                 }
+                this.$emit();
             },
 
             immediate: true,
@@ -118,6 +129,28 @@ export default {
             },
         },
     ],
+
+    update() {
+        for (const index in this.items) {
+            const toggle = this.toggles[index];
+            const content = this.contents[index];
+
+            if (!toggle || !content) {
+                continue;
+            }
+
+            toggle.id = generateId(this, toggle, `-title-${index}`);
+            content.id = generateId(this, content, `-content-${index}`);
+
+            attr(toggle, {
+                role: isTag(toggle, 'a') ? 'button' : null,
+                'aria-controls': content.id,
+                'aria-expanded': hasClass(this.items[index], this.clsOpen),
+            });
+
+            attr(content, { role: 'region', 'aria-labelledby': toggle.id });
+        }
+    },
 
     methods: {
         async toggle(item, animate) {

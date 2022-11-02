@@ -1,3 +1,21 @@
+## WIP (Feature Accessibility)
+
+### Added
+
+- Make Lightbox component accessible
+- Make Accordion, Switcher and Tab component accessible
+- Make Slider and Slideshow components accessible
+- Add `countdownstart`, `countdownstop` and `countdownend` events to Countdown component
+- Add WAI-ARIA roles to several components
+- Add `i18n` option to Lightbox, Slider and Slideshow components
+- Add `i18n` option to Close, NavbarToggleIcon, Marker, Pagination and ToTop components
+- Add `uikit:init` event triggered on document before components initialize
+
+### Changed
+
+- IMPORTANT: Remove error message options in Upload component, use `i18n` option
+- IMPORTANT: Rename `labels` default property and option on `UIkit.modal` to `i18n`
+
 # Changelog
 
 ## WIP

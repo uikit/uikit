@@ -1,4 +1,4 @@
-import { $, attr, matches } from 'uikit-util';
+import { attr, matches, pointerEnter, pointerLeave } from 'uikit-util';
 
 export default {
     props: {
@@ -14,6 +14,7 @@ export default {
     },
 
     connected() {
+        attr(this.list, 'aria-live', 'polite');
         this.autoplay && this.startAutoplay();
     },
 
@@ -45,24 +46,48 @@ export default {
                 }
             },
         },
+        {
+            name: `${pointerEnter} focusin`,
+
+            filter() {
+                return this.autoplay;
+            },
+
+            handler: 'stopAutoplay',
+        },
+        {
+            name: `${pointerLeave} focusout`,
+
+            filter() {
+                return this.autoplay;
+            },
+
+            handler: 'startAutoplay',
+        },
     ],
 
     methods: {
         startAutoplay() {
+            if (
+                (this.draggable && matches(this.$el, ':focus-within')) ||
+                (this.pauseOnHover && matches(this.$el, ':hover'))
+            ) {
+                return;
+            }
+
             this.stopAutoplay();
 
             this.interval = setInterval(
-                () =>
-                    (!this.draggable || !$(':focus', this.$el)) &&
-                    (!this.pauseOnHover || !matches(this.$el, ':hover')) &&
-                    !this.stack.length &&
-                    this.show('next'),
+                () => !this.stack.length && this.show('next'),
                 this.autoplayInterval
             );
+
+            attr(this.list, 'aria-live', 'off');
         },
 
         stopAutoplay() {
             clearInterval(this.interval);
+            attr(this.list, 'aria-live', 'polite');
         },
     },
 };

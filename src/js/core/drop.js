@@ -29,7 +29,7 @@ import {
     removeClass,
     within,
 } from 'uikit-util';
-import { isSameSiteAnchor, preventBackgroundScroll } from '../mixin/modal';
+import { isSameSiteAnchor, preventBackgroundScroll } from '../mixin/utils';
 
 export let active;
 
@@ -258,9 +258,9 @@ export default {
                 this.tracker.init();
 
                 const handlers = [
-                    listenForBackgroundClick(this),
-                    listenForEscClose(this),
                     listenForResize(this),
+                    listenForEscClose(this),
+                    listenForBackgroundClose(this),
                     this.autoUpdate && listenForScroll(this),
                     !this.bgScroll && preventBackgroundScroll(this.$el),
                 ];
@@ -486,7 +486,7 @@ function listenForEscClose(drop) {
     });
 }
 
-function listenForBackgroundClick(drop) {
+function listenForBackgroundClose(drop) {
     return on(document, pointerDown, ({ target }) => {
         if (!within(target, drop.$el)) {
             once(

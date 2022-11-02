@@ -80,12 +80,12 @@ function install({ modal }) {
 
     modal.alert = function (message, options) {
         return openDialog(
-            ({ labels }) => `<div class="uk-modal-body">${
+            ({ i18n }) => `<div class="uk-modal-body">${
                 isString(message) ? message : html(message)
             }</div>
             <div class="uk-modal-footer uk-text-right">
                 <button class="uk-button uk-button-primary uk-modal-close" autofocus>${
-                    labels.ok
+                    i18n.ok
                 }</button>
             </div>`,
             options,
@@ -95,13 +95,13 @@ function install({ modal }) {
 
     modal.confirm = function (message, options) {
         return openDialog(
-            ({ labels }) => `<form>
+            ({ i18n }) => `<form>
                 <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
                 <div class="uk-modal-footer uk-text-right">
                     <button class="uk-button uk-button-default uk-modal-close" type="button">${
-                        labels.cancel
+                        i18n.cancel
                     }</button>
-                    <button class="uk-button uk-button-primary" autofocus>${labels.ok}</button>
+                    <button class="uk-button uk-button-primary" autofocus>${i18n.ok}</button>
                 </div>
             </form>`,
             options,
@@ -111,16 +111,16 @@ function install({ modal }) {
 
     modal.prompt = function (message, value, options) {
         return openDialog(
-            ({ labels }) => `<form class="uk-form-stacked">
+            ({ i18n }) => `<form class="uk-form-stacked">
                 <div class="uk-modal-body">
                     <label>${isString(message) ? message : html(message)}</label>
                     <input class="uk-input" value="${value || ''}" autofocus>
                 </div>
                 <div class="uk-modal-footer uk-text-right">
                     <button class="uk-button uk-button-default uk-modal-close" type="button">${
-                        labels.cancel
+                        i18n.cancel
                     }</button>
-                    <button class="uk-button uk-button-primary">${labels.ok}</button>
+                    <button class="uk-button uk-button-primary">${i18n.ok}</button>
                 </div>
             </form>`,
             options,
@@ -129,13 +129,19 @@ function install({ modal }) {
         );
     };
 
-    modal.labels = {
+    modal.i18n = {
         ok: 'Ok',
         cancel: 'Cancel',
     };
 
     function openDialog(tmpl, options, hideFn, submitFn) {
-        options = { bgClose: false, escClose: true, labels: modal.labels, ...options };
+        options = {
+            bgClose: false,
+            escClose: true,
+            role: 'alertdialog',
+            i18n: modal.i18n,
+            ...options,
+        };
 
         const dialog = modal.dialog(tmpl(options), options);
         const deferred = new Deferred();
