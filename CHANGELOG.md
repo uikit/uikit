@@ -10,6 +10,7 @@
 
 - Fix placeholder has no width if Sticky element's width dependes on its content
 - Fix Slider/Slideshow Parallax respect `media` option
+- Fix Video component with `autoplay: true` no longer resumes autoplay on scroll after being paused
 
 ## 3.15.11 (October 25, 2022)
 
