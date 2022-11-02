@@ -28,6 +28,10 @@ export default {
 
             handler({ type, detail: { percent, duration, timing, dir } }) {
                 fastdom.read(() => {
+                    if (!this.matchMedia) {
+                        return;
+                    }
+
                     const propsFrom = this.getCss(getCurrentPercent(type, dir, percent));
                     const propsTo = this.getCss(isIn(type) ? 0.5 : dir > 0 ? 1 : 0);
                     fastdom.write(() => {
@@ -63,6 +67,11 @@ export default {
 
             handler({ type, detail: { percent, dir } }) {
                 fastdom.read(() => {
+                    if (!this.matchMedia) {
+                        this.reset();
+                        return;
+                    }
+
                     const props = this.getCss(getCurrentPercent(type, dir, percent));
                     fastdom.write(() => css(this.$el, props));
                 });

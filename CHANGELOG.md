@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix placeholder has no width if Sticky element's width dependes on its content
+- Fix Slider/Slideshow Parallax respect `media` option
 
 ## 3.15.11 (October 25, 2022)
 
