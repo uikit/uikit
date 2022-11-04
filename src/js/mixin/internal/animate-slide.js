@@ -40,10 +40,7 @@ export default async function (action, target, duration) {
     const targetStyle = attr(target, 'style');
     const targetPropsTo = css(target, ['height', 'padding']);
     const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
-    const attrsTo = nodes.map((el) => ({
-        class: attr(el, 'class'),
-        style: attr(el, 'style'),
-    }));
+    const attrsTo = nodes.map((el) => ({ style: attr(el, 'style') }));
 
     // Reset to previous state
     nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
