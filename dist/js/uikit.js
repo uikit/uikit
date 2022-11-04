@@ -1,4 +1,4 @@
-/*! UIkit 3.15.11 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.12 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -683,9 +683,9 @@
             try {
               xhr[prop] = env[prop];
             } catch (e) {
+
               // noop
-            }
-          }
+            }}
         }
 
         xhr.open(env.method.toUpperCase(), url);
@@ -1280,7 +1280,7 @@
     }
 
     const inBrowser = typeof window !== 'undefined';
-    const isRtl = inBrowser && attr(document.documentElement, 'dir') === 'rtl';
+    const isRtl = inBrowser && document.dir === 'rtl';
 
     const hasTouch = inBrowser && 'ontouchstart' in window;
     const hasPointerEvents = inBrowser && window.PointerEvent;
@@ -1666,9 +1666,9 @@
         try {
           el.play().catch(noop);
         } catch (e) {
+
           // noop
-        }
-      }
+        }}
     }
 
     function pause(el) {
@@ -1722,9 +1722,9 @@
       try {
         el.contentWindow.postMessage(JSON.stringify({ event: 'command', ...cmd }), '*');
       } catch (e) {
+
         // noop
-      }
-    }
+      }}
 
     const stateKey = '_ukPlayer';
     let counter = 0;
@@ -1756,9 +1756,9 @@
               vimeo && Number(data.player_id) === id));
 
           } catch (e) {
+
             // noop
-          }
-        });
+          }});
 
         el.src = "" + el.src + (includes(el.src, '?') ? '&' : '?') + (
         youtube ? 'enablejsapi=1' : "api=1&player_id=" + id);
@@ -2950,7 +2950,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.11';
+    UIkit.version = '3.15.12';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -2966,6 +2966,8 @@
       }
 
       requestAnimationFrame(function () {
+        trigger(document, 'uikit:init', UIkit);
+
         if (document.body) {
           apply(document.body, connect);
         }
@@ -3553,21 +3555,22 @@
       },
 
       update: {
-        read() {
+        read(_ref) {let { visible } = _ref;
           if (!isVideo(this.$el)) {
             return false;
           }
 
           return {
+            prev: visible,
             visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
             inView: this.inView && isInView(this.$el)
           };
         },
 
-        write(_ref) {let { visible, inView } = _ref;
+        write(_ref2) {let { prev, visible, inView } = _ref2;
           if (!visible || this.inView && !inView) {
             pause(this.$el);
-          } else if (this.autoplay === true || this.inView && inView) {
+          } else if (this.autoplay === true && !prev || this.inView && inView) {
             play(this.$el);
           }
         }
@@ -4697,7 +4700,9 @@
       connected() {
         this.registerObserver(
         observeMutation(this.$el, () => this.$reset(), {
-          childList: true
+          childList: true,
+          attributes: true,
+          attributeFilter: ['style']
         }));
 
       },
@@ -7122,7 +7127,7 @@
 
       update: [
       {
-        read(_ref2, types) {let { height: height$1, margin } = _ref2;
+        read(_ref2, types) {let { height: height$1, width, margin } = _ref2;
           this.inactive = !this.matchMedia || !isVisible(this.$el);
 
           if (this.inactive) {
@@ -7136,7 +7141,7 @@
           }
 
           if (!this.active) {
-            height$1 = offset(this.$el).height;
+            ({ height: height$1, width } = offset(this.$el));
             margin = css(this.$el, 'margin');
           }
 
@@ -7145,7 +7150,6 @@
             requestAnimationFrame(() => css(this.selTarget, 'transition', ''));
           }
 
-          const referenceElement = this.isFixed ? this.placeholder : this.$el;
           const windowHeight = height(window);
 
           let position = this.position;
@@ -7153,6 +7157,7 @@
             position = position === 'top' ? 'bottom' : 'top';
           }
 
+          const referenceElement = this.isFixed ? this.placeholder : this.$el;
           let offset$1 = toPx(this.offset, 'height', referenceElement);
           if (position === 'bottom' && (height$1 < windowHeight || this.overflowFlip)) {
             offset$1 += windowHeight - height$1;
@@ -7182,16 +7187,16 @@
             overflow,
             topOffset,
             height: height$1,
+            width,
             margin,
-            width: dimensions$1(referenceElement).width,
             top: offsetPosition(referenceElement)[0]
           };
         },
 
-        write(_ref3) {let { height, margin } = _ref3;
+        write(_ref3) {let { height, width, margin } = _ref3;
           const { placeholder } = this;
 
-          css(placeholder, { height, margin });
+          css(placeholder, { height, width, margin });
 
           if (!within(placeholder, document)) {
             after(this.$el, placeholder);
@@ -8112,10 +8117,7 @@
       const targetStyle = attr(target, 'style');
       const targetPropsTo = css(target, ['height', 'padding']);
       const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
-      const attrsTo = nodes.map((el) => ({
-        class: attr(el, 'class'),
-        style: attr(el, 'style')
-      }));
+      const attrsTo = nodes.map((el) => ({ style: attr(el, 'style') }));
 
       // Reset to previous state
       nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
@@ -9393,12 +9395,15 @@
               poster,
               controls: '',
               playsinline: '',
-              'uk-video': "" + this.videoAutoplay,
-              ...attrs
+              'uk-video': "" + this.videoAutoplay
             });
 
             on(video, 'loadedmetadata', () => {
-              attr(video, { width: video.videoWidth, height: video.videoHeight });
+              attr(video, {
+                width: video.videoWidth,
+                height: video.videoHeight,
+                ...attrs
+              });
               this.setItem(item, video);
             });
             on(video, 'error', () => this.setError(item));
@@ -10654,6 +10659,10 @@
 
         handler(_ref) {let { type, detail: { percent, duration, timing, dir } } = _ref;
           fastdom.read(() => {
+            if (!this.matchMedia) {
+              return;
+            }
+
             const propsFrom = this.getCss(getCurrentPercent(type, dir, percent));
             const propsTo = this.getCss(isIn(type) ? 0.5 : dir > 0 ? 1 : 0);
             fastdom.write(() => {
@@ -10689,6 +10698,11 @@
 
         handler(_ref2) {let { type, detail: { percent, dir } } = _ref2;
           fastdom.read(() => {
+            if (!this.matchMedia) {
+              this.reset();
+              return;
+            }
+
             const props = this.getCss(getCurrentPercent(type, dir, percent));
             fastdom.write(() => css(this.$el, props));
           });
