@@ -232,11 +232,14 @@ export default {
                         controls: '',
                         playsinline: '',
                         'uk-video': `${this.videoAutoplay}`,
-                        ...attrs,
                     });
 
                     on(video, 'loadedmetadata', () => {
-                        attr(video, { width: video.videoWidth, height: video.videoHeight });
+                        attr(video, {
+                            width: video.videoWidth,
+                            height: video.videoHeight,
+                            ...attrs,
+                        });
                         this.setItem(item, video);
                     });
                     on(video, 'error', () => this.setError(item));

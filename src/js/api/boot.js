@@ -1,5 +1,5 @@
 import { getComponentName } from './component';
-import { apply, hasAttr, inBrowser } from 'uikit-util';
+import { apply, hasAttr, inBrowser, trigger } from 'uikit-util';
 
 export default function (UIkit) {
     const { connect, disconnect } = UIkit;
@@ -9,6 +9,8 @@ export default function (UIkit) {
     }
 
     requestAnimationFrame(function () {
+        trigger(document, 'uikit:init', UIkit);
+
         if (document.body) {
             apply(document.body, connect);
         }

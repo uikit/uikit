@@ -43,21 +43,22 @@ export default {
     },
 
     update: {
-        read() {
+        read({ visible }) {
             if (!isVideo(this.$el)) {
                 return false;
             }
 
             return {
+                prev: visible,
                 visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
                 inView: this.inView && isInView(this.$el),
             };
         },
 
-        write({ visible, inView }) {
+        write({ prev, visible, inView }) {
             if (!visible || (this.inView && !inView)) {
                 pause(this.$el);
-            } else if (this.autoplay === true || (this.inView && inView)) {
+            } else if ((this.autoplay === true && !prev) || (this.inView && inView)) {
                 play(this.$el);
             }
         },

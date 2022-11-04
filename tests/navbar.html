@@ -3216,7 +3216,7 @@
         <script>
 
             const {$, $$, addClass, on, removeClass, MouseTracker } = UIkit.util;
-            const tracker = MouseTracker();
+            const tracker = new MouseTracker();
             const el = $('#js-mousetracker');
             const target = $('#js-mousetarget');
             let interval;

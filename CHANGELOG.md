@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.15.12 (November 4, 2022)
+
+### Added
+
+- Add `uikit:init` event triggered on document before components initialize
+
+### Fixed
+
+- Fix placeholder has no width if Sticky element's width depends on its content
+- Fix Slider/Slideshow Parallax respect `media` option
+- Fix Video component with `autoplay: true` no longer resumes autoplay on scroll after being paused
+- Fix width/height passed through `attrs` to video item in Lightbox component
+- Fix regression in Sortable component (elements are hidden after sorting)
+
 ## 3.15.11 (October 25, 2022)
 
 ### Added
@@ -44,7 +58,7 @@
 
 ### Changed
 
-- Improve Accordion component keeps toggle in view when toggling 
+- Improve Accordion component keeps toggle in view when toggling
 
 ### Fixed
 
@@ -85,7 +99,7 @@
 
 ### Fixed
 
-- Fix Slideshow no longer completely resets upon adding slides 
+- Fix Slideshow no longer completely resets upon adding slides
 
 ## 3.15.2 (August 8, 2022)
 
@@ -95,7 +109,7 @@
 
 ### Fixed
 
-- Remove click event listener in Scroll component correctly 
+- Remove click event listener in Scroll component correctly
 
 ## 3.15.1 (July 15, 2022)
 
@@ -114,8 +128,8 @@
 ### Added
 
 - Add Dropbar component
-- Add `target`, `target-x`, `target-y` and `inset` options to Drop component 
-- Add `stretch` and `bg-scroll` options to Drop component 
+- Add `target`, `target-x`, `target-y` and `inset` options to Drop component
+- Add `stretch` and `bg-scroll` options to Drop component
 - Add `shift` option to Drop component
 - Add `slide` and `reveal` animations to Drop component
 - Add `animate-out` option to Drop component
@@ -192,7 +206,7 @@
 
 - Add `box-shadow` to `toggleHeight()` hide properties
 - Add adaptive velocity to Alert and Accordion components
- 
+
 ### Changed
 
 - Set `transition` option to `ease` by default in Togglable mixin
