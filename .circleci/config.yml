@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Compile
           command: |
-            if [ "${CIRCLE_BRANCH}" = "master" ];then
+            if [ "${CIRCLE_BRANCH}" = "main" ];then
               yarn compile
             fi
       - run:
