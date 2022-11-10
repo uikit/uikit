@@ -87,7 +87,9 @@ export default {
 
         contents: {
             get({ content }) {
-                return this.items.map((item) => $(content, item));
+                return this.items.map(
+                    (item) => item._wrapper?.firstElementChild || $(content, item)
+                );
             },
 
             watch(items) {
@@ -128,9 +130,24 @@ export default {
                 this._off();
             },
         },
+        {
+            name: 'shown hidden',
+
+            self: true,
+
+            delegate() {
+                return this.targets;
+            },
+
+            handler() {
+                this.$emit();
+            },
+        },
     ],
 
     update() {
+        const activeItems = filter(this.items, `.${this.clsOpen}`);
+
         for (const index in this.items) {
             const toggle = this.toggles[index];
             const content = this.contents[index];
@@ -142,10 +159,12 @@ export default {
             toggle.id = generateId(this, toggle, `-title-${index}`);
             content.id = generateId(this, content, `-content-${index}`);
 
+            const active = includes(activeItems, this.items[index]);
             attr(toggle, {
                 role: isTag(toggle, 'a') ? 'button' : null,
                 'aria-controls': content.id,
-                'aria-expanded': hasClass(this.items[index], this.clsOpen),
+                'aria-expanded': active,
+                'aria-disabled': !this.collapsible && activeItems.length < 2 && active,
             });
 
             attr(content, { role: 'region', 'aria-labelledby': toggle.id });
@@ -170,7 +189,6 @@ export default {
                 items.map((el) =>
                     this.toggleElement(el, !includes(activeItems, el), (el, show) => {
                         toggleClass(el, this.clsOpen, show);
-                        attr($(this.$props.toggle, el), 'aria-expanded', show);
 
                         if (animate === false || !this.animation) {
                             hide($(this.content, el), !show);
