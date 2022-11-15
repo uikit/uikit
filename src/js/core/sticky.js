@@ -154,7 +154,7 @@ export default {
                     return false;
                 }
 
-                const hide = this.active && types.has('resize');
+                const hide = this.isFixed && types.has('resize');
                 if (hide) {
                     css(this.selTarget, 'transition', '0s');
                     this.hide();
@@ -309,8 +309,6 @@ export default {
                         return;
                     }
 
-                    this.isFixed = false;
-
                     if (this.animation && scroll > topOffset) {
                         Animation.cancel(this.$el);
                         Animation.out(this.$el, this.animation).then(() => this.hide(), noop);
@@ -344,6 +342,7 @@ export default {
             removeClass(this.$el, this.clsFixed, this.clsBelow);
             css(this.$el, { position: '', top: '', width: '' });
             this.placeholder.hidden = true;
+            this.isFixed = false;
         },
 
         update() {
