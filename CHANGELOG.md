@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.15.13 (November 17, 2022)
+
+### Fixed
+
+- Fix Sticky component does not reset width on resize
+
 ## 3.15.12 (November 4, 2022)
 
 ### Added

@@ -11,7 +11,6 @@ const voidElements = {
     input: true,
     keygen: true,
     link: true,
-    menuitem: true,
     meta: true,
     param: true,
     source: true,
