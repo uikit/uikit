@@ -1,4 +1,4 @@
-/*! UIkit 3.15.12 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.13 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -344,7 +344,6 @@
       input: true,
       keygen: true,
       link: true,
-      menuitem: true,
       meta: true,
       param: true,
       source: true,
@@ -2950,7 +2949,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.12';
+    UIkit.version = '3.15.13';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -7134,7 +7133,7 @@
             return false;
           }
 
-          const hide = this.active && types.has('resize');
+          const hide = this.isFixed && types.has('resize');
           if (hide) {
             css(this.selTarget, 'transition', '0s');
             this.hide();
@@ -7289,8 +7288,6 @@
               return;
             }
 
-            this.isFixed = false;
-
             if (this.animation && scroll > topOffset) {
               Animation.cancel(this.$el);
               Animation.out(this.$el, this.animation).then(() => this.hide(), noop);
@@ -7324,6 +7321,7 @@
           removeClass(this.$el, this.clsFixed, this.clsBelow);
           css(this.$el, { position: '', top: '', width: '' });
           this.placeholder.hidden = true;
+          this.isFixed = false;
         },
 
         update() {
