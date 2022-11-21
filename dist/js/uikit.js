@@ -1,4 +1,4 @@
-/*! UIkit 3.15.13 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.14 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2949,7 +2949,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.13';
+    UIkit.version = '3.15.14';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -6173,7 +6173,7 @@
           }
 
           if (keyCode === keyMap.ESC) {var _active$targetEl;
-            active == null ? void 0 : (_active$targetEl = active.targetEl) == null ? void 0 : _active$targetEl.focus();
+            (_active$targetEl = active.targetEl) == null ? void 0 : _active$targetEl.focus();
           }
 
           handleNavItemNavigation(e, this.toggles, active);
@@ -6277,7 +6277,7 @@
 
           if (
           matches(this.dropbar, ':hover') &&
-          (active == null ? void 0 : active.$el) === e.target &&
+          active.$el === e.target &&
           !this.toggles.some((el) => active.targetEl !== el && matches(el, ':focus')))
           {
             e.preventDefault();
@@ -6305,7 +6305,7 @@
 
           const active = this.getActive();
 
-          if (!active || (active == null ? void 0 : active.$el) === target) {
+          if (!active || active.$el === target) {
             this.transitionTo(0);
           }
         }
@@ -6354,24 +6354,24 @@
 
     function handleNavItemNavigation(e, toggles, active) {
       const { current, keyCode } = e;
-      const target = (active == null ? void 0 : active.targetEl) || current;
+      const target = active.targetEl || current;
       const i = toggles.indexOf(target);
 
       // Left
       if (keyCode === keyMap.LEFT && i > 0) {
-        active == null ? void 0 : active.hide(false);
+        active.hide == null ? void 0 : active.hide(false);
         toggles[i - 1].focus();
       }
 
       // Right
       if (keyCode === keyMap.RIGHT && i < toggles.length - 1) {
-        active == null ? void 0 : active.hide(false);
+        active.hide == null ? void 0 : active.hide(false);
         toggles[i + 1].focus();
       }
 
       if (keyCode === keyMap.TAB) {
         target.focus();
-        active == null ? void 0 : active.hide(false);
+        active.hide == null ? void 0 : active.hide(false);
       }
     }
 
