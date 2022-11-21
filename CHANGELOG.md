@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.15.14 (November 21, 2022)
+
+### Fixed
+
+- Fix error thrown when keyboard navigating Navbar component
+
 ## 3.15.13 (November 17, 2022)
 
 ### Fixed

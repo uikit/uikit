@@ -235,7 +235,7 @@ export default {
                 }
 
                 if (keyCode === keyMap.ESC) {
-                    active?.targetEl?.focus();
+                    active.targetEl?.focus();
                 }
 
                 handleNavItemNavigation(e, this.toggles, active);
@@ -339,7 +339,7 @@ export default {
 
                 if (
                     matches(this.dropbar, ':hover') &&
-                    active?.$el === e.target &&
+                    active.$el === e.target &&
                     !this.toggles.some((el) => active.targetEl !== el && matches(el, ':focus'))
                 ) {
                     e.preventDefault();
@@ -367,7 +367,7 @@ export default {
 
                 const active = this.getActive();
 
-                if (!active || active?.$el === target) {
+                if (!active || active.$el === target) {
                     this.transitionTo(0);
                 }
             },
@@ -416,24 +416,24 @@ export default {
 
 function handleNavItemNavigation(e, toggles, active) {
     const { current, keyCode } = e;
-    const target = active?.targetEl || current;
+    const target = active.targetEl || current;
     const i = toggles.indexOf(target);
 
     // Left
     if (keyCode === keyMap.LEFT && i > 0) {
-        active?.hide(false);
+        active.hide?.(false);
         toggles[i - 1].focus();
     }
 
     // Right
     if (keyCode === keyMap.RIGHT && i < toggles.length - 1) {
-        active?.hide(false);
+        active.hide?.(false);
         toggles[i + 1].focus();
     }
 
     if (keyCode === keyMap.TAB) {
         target.focus();
-        active?.hide(false);
+        active.hide?.(false);
     }
 }
 
