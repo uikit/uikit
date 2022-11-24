@@ -52,22 +52,19 @@ function clickHandler(e) {
     }
 
     for (const component of components) {
-        if (within(e.target, component.$el)) {
-            const targetElement = getTargetElement(component.$el);
-            if (targetElement) {
-                e.preventDefault();
-                component.scrollTo(targetElement);
-            }
+        if (within(e.target, component.$el) && isSameSiteLink(component.$el)) {
+            e.preventDefault();
+            component.scrollTo(getTargetElement(component.$el));
         }
     }
 }
 
-export function getTargetElement(el) {
-    for (const part of ['origin', 'pathname', 'search']) {
-        if (location[part] !== el[part]) {
-            return;
-        }
-    }
+function isSameSiteLink(el) {
+    return ['origin', 'pathname', 'search'].every((part) => location[part] === el[part]);
+}
 
-    return document.getElementById(decodeURIComponent(el.hash).substring(1));
+export function getTargetElement(el) {
+    if (isSameSiteLink(el)) {
+        return document.getElementById(decodeURIComponent(el.hash).substring(1));
+    }
 }
