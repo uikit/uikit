@@ -53,12 +53,21 @@ function clickHandler(e) {
 
     for (const component of components) {
         if (within(e.target, component.$el)) {
-            e.preventDefault();
-            component.scrollTo(getTargetElement(component.$el));
+            const targetElement = getTargetElement(component.$el);
+            if (targetElement) {
+                e.preventDefault();
+                component.scrollTo(targetElement);
+            }
         }
     }
 }
 
 export function getTargetElement(el) {
+    for (const part of ['origin', 'pathname', 'search']) {
+        if (location[part] !== el[part]) {
+            return;
+        }
+    }
+
     return document.getElementById(decodeURIComponent(el.hash).substring(1));
 }

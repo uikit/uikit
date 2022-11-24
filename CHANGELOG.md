@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Scroll and Scrollspy Nav components handle same site links only
+
 ## 3.15.14 (November 21, 2022)
 
 ### Fixed
