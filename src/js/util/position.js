@@ -1,3 +1,4 @@
+import { css } from './style';
 import { within } from './filter';
 import { offset } from './dimensions';
 import { clamp, isArray, ucfirst } from './lang';
@@ -152,11 +153,18 @@ function getViewport(element, target, viewportOffset, boundary, i) {
 }
 
 function getScrollArea(element, target, viewportOffset, i) {
-    const [prop, , start, end] = dirs[i];
+    const [prop, axis, start, end] = dirs[i];
     const [scrollElement] = commonScrollParents(element, target);
     const viewport = offsetViewport(scrollElement);
-    viewport[start] -= scrollElement[`scroll${ucfirst(start)}`] - viewportOffset;
-    viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`] - viewportOffset;
+
+    if (['auto', 'scroll'].includes(css(scrollElement, `overflow-${axis}`))) {
+        viewport[start] -= scrollElement[`scroll${ucfirst(start)}`];
+        viewport[end] = scrollElement[`scroll${ucfirst(prop)}`];
+    }
+
+    viewport[start] += viewportOffset;
+    viewport[end] -= viewportOffset;
+
     return viewport;
 }
 
