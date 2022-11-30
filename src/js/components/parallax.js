@@ -1,7 +1,7 @@
 import Resize from '../mixin/resize';
 import Scroll from '../mixin/scroll';
 import Parallax from '../mixin/parallax';
-import { css, parent, query, scrolledOver, toPx } from 'uikit-util';
+import { css, isVisible, parent, query, scrolledOver, toPx } from 'uikit-util';
 
 export default {
     mixins: [Parallax, Resize, Scroll],
@@ -41,10 +41,18 @@ export default {
         },
     },
 
+    resizeTargets() {
+        return [this.$el, this.target];
+    },
+
     update: {
         read({ percent }, types) {
             if (!types.has('scroll')) {
                 percent = false;
+            }
+
+            if (!isVisible(this.$el)) {
+                return false;
             }
 
             if (!this.matchMedia) {
