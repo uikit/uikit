@@ -3,7 +3,7 @@
 
         .uk-navbar-toggle-animate svg > [class*='line-'] {
             transition: 0.2s ease-in-out;
-            transition-property: transform, opacity,;
+            transition-property: transform, opacity;
             transform-origin: center;
             opacity: 1;
         }
