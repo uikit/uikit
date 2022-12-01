@@ -17,7 +17,7 @@
             <div class="uk-height-large uk-background-cover uk-margin-medium uk-flex uk-flex-center uk-flex-middle uk-light" data-src="https://images.unsplash.com/photo-1495321308589-43affb814eee?fit=crop&w=1200&h=450&q=80" uk-img="loading: eager">
                 <h1>Background Image Loading Eager</h1>
             </div>
-            
+
             <h2>Loading Lazy Attribute</h2>
 
             <div class="uk-child-width-1-2@m" uk-grid>
@@ -265,7 +265,7 @@
                  sizes="(min-width: 1200px) 1200px, 100vw" uk-img>
                 <h1>Background Picture with Srcset</h1>
             </div>
-                
+
             <div class="uk-height-large uk-background-cover uk-margin-medium uk-flex uk-flex-center uk-flex-middle"
                  sources="[{&quot;srcset&quot;: &quot;images/image-type.avif&quot;,
                             &quot;type&quot;: &quot;image\/avif&quot;
@@ -491,7 +491,7 @@
                          width="746" height="498" alt="" uk-img>
                 </div>
             </div>
-            
+
             <div class="uk-child-width-1-2@m" uk-grid>
                 <div>
 
@@ -621,16 +621,10 @@
                             <td>Enable lazy/eager loading. Set to `eager` for images within the first visible viewport.</td>
                         </tr>
                         <tr>
-                            <td><code>offsetTop</code></td>
+                            <td><code>margin</code></td>
                             <td>String</td>
-                            <td>'50vh'</td>
-                            <td>The offset increases the viewport's bounding box vertically, before computing an intersection with the image.</td>
-                        </tr>
-                        <tr>
-                            <td><code>offsetLeft</code></td>
-                            <td>String</td>
-                            <td>0</td>
-                            <td>The offset increases the viewport's bounding box horizontally, before computing an intersection with the image.</td>
+                            <td>'50%'</td>
+                            <td>The margin increases the viewport's bounding box, before computing an intersection with the image. (Must be px or % units)</td>
                         </tr>
                         <tr>
                             <td><code>target</code></td>

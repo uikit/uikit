@@ -56,11 +56,11 @@ $spinner-duration:                               1.4s !default;
     0% { stroke-dashoffset: $spinner-circumference; }
     50% {
         stroke-dashoffset: ($spinner-circumference * 0.25);
-        transform:rotate(135deg);
+        transform: rotate(135deg);
     }
     100% {
         stroke-dashoffset: $spinner-circumference;
-        transform:rotate(450deg);
+        transform: rotate(450deg);
     }
 }
 

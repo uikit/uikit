@@ -52,13 +52,19 @@ function clickHandler(e) {
     }
 
     for (const component of components) {
-        if (within(e.target, component.$el)) {
+        if (within(e.target, component.$el) && isSameSiteLink(component.$el)) {
             e.preventDefault();
             component.scrollTo(getTargetElement(component.$el));
         }
     }
 }
 
+function isSameSiteLink(el) {
+    return ['origin', 'pathname', 'search'].every((part) => location[part] === el[part]);
+}
+
 export function getTargetElement(el) {
-    return document.getElementById(decodeURIComponent(el.hash).substring(1));
+    if (isSameSiteLink(el)) {
+        return document.getElementById(decodeURIComponent(el.hash).substring(1));
+    }
 }

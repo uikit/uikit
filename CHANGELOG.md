@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.15.15 (December 1, 2022)
+
+### Changed
+
+- Remove `offsetTop` and `offsetLeft` options from Image and Scrollspy component. Use `margin` instead.
+- Sticky component uses native `position: sticky` if possible
+
+### Fixed
+
+- Fix Scroll and Scrollspy Nav components handle same site links only
+- Fix Drop positioning within not scrollable viewport
+- Fix overscroll behavior in Dropbar
+- Fix conversion of viewport height units with `toPx()` on mobile devices  
+
 ## 3.15.14 (November 21, 2022)
 
 ### Fixed
@@ -427,7 +441,7 @@
 ### Removed
 
 - Remove IE11 support
-- Removed `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
+- Remove `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
 
 ### Fixed
 
@@ -1166,7 +1180,7 @@
 
 ### Changed
 
-- Removed `duration` option from Scroll component
+- Remove `duration` option from Scroll component
 
 ### Fixed
 

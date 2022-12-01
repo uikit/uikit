@@ -19,7 +19,6 @@ import {
     queryAll,
     removeAttr,
     startsWith,
-    toPx,
     trigger,
 } from 'uikit-util';
 
@@ -31,8 +30,7 @@ export default {
     props: {
         dataSrc: String,
         sources: String,
-        offsetTop: String,
-        offsetLeft: String,
+        margin: String,
         target: String,
         loading: String,
     },
@@ -40,8 +38,7 @@ export default {
     data: {
         dataSrc: '',
         sources: false,
-        offsetTop: '50vh',
-        offsetLeft: '50vw',
+        margin: '50%',
         target: false,
         loading: 'lazy',
     },
@@ -72,12 +69,7 @@ export default {
                     this.load();
                     observer.disconnect();
                 },
-                {
-                    rootMargin: `${toPx(this.offsetTop, 'height')}px ${toPx(
-                        this.offsetLeft,
-                        'width'
-                    )}px`,
-                }
+                { rootMargin: this.margin }
             )
         );
     },

@@ -304,7 +304,10 @@ function toMs(time) {
 
 export function preventOverscroll(el) {
     if (CSS.supports('overscroll-behavior', 'contain')) {
-        const elements = filterChildren(el, (child) => /auto|scroll/.test(css(child, 'overflow')));
+        const elements = [
+            el,
+            ...filterChildren(el, (child) => /auto|scroll/.test(css(child, 'overflow'))),
+        ];
         css(elements, 'overscrollBehavior', 'contain');
         return () => css(elements, 'overscrollBehavior', '');
     }

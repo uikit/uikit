@@ -1,7 +1,6 @@
 import Container from '../mixin/container';
 import Lazyload from '../mixin/lazyload';
 import Position from '../mixin/position';
-import Style from '../mixin/style';
 import Togglable from '../mixin/togglable';
 import {
     addClass,
@@ -35,7 +34,7 @@ import { isSameSiteAnchor, preventBackgroundScroll, preventOverscroll } from '..
 export let active;
 
 export default {
-    mixins: [Container, Lazyload, Position, Style, Togglable],
+    mixins: [Container, Lazyload, Position, Togglable],
 
     args: 'pos',
 
@@ -116,6 +115,8 @@ export default {
             attr(this.targetEl, 'aria-haspopup', true);
             this.lazyload(this.targetEl);
         }
+
+        this._style = (({ width, height }) => ({ width, height }))(this.$el.style);
     },
 
     disconnected() {
@@ -123,6 +124,7 @@ export default {
             this.hide(false);
             active = null;
         }
+        css(this.$el, this._style);
     },
 
     events: [
@@ -424,7 +426,7 @@ export default {
 
         position() {
             removeClass(this.$el, `${this.clsDrop}-stack`);
-            attr(this.$el, 'style', this._style);
+            css(this.$el, this._style);
 
             // Ensure none positioned element does not generate scrollbars
             this.$el.hidden = true;
