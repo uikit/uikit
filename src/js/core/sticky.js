@@ -7,6 +7,7 @@ import {
     addClass,
     after,
     Animation,
+    before,
     clamp,
     css,
     height as getHeight,
@@ -94,6 +95,7 @@ export default {
             this.hide();
             removeClass(this.selTarget, this.clsInactive);
         }
+        css(this.$el, { position: '', top: '' });
 
         remove(this.placeholder);
         this.placeholder = null;
@@ -147,7 +149,7 @@ export default {
 
     update: [
         {
-            read({ height, width, margin }, types) {
+            read({ height, width, margin, sticky }, types) {
                 this.inactive = !this.matchMedia || !isVisible(this.$el);
 
                 if (this.inactive) {
@@ -171,6 +173,7 @@ export default {
                 }
 
                 const windowHeight = getHeight(window);
+                const maxScrollHeight = document.scrollingElement.scrollHeight - windowHeight;
 
                 let position = this.position;
                 if (this.overflowFlip && height > windowHeight) {
@@ -178,7 +181,7 @@ export default {
                 }
 
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
-                let offset = toPx(this.offset, 'height', referenceElement);
+                let offset = toPx(this.offset, 'height', sticky ? this.$el : referenceElement);
                 if (position === 'bottom' && (height < windowHeight || this.overflowFlip)) {
                     offset += windowHeight - height;
                 }
@@ -187,6 +190,7 @@ export default {
                     ? 0
                     : Math.max(0, height + offset - windowHeight);
                 const topOffset = getOffset(referenceElement).top;
+                const elHeight = getOffset(this.$el).height;
 
                 const start =
                     (this.start === false
@@ -194,11 +198,23 @@ export default {
                         : parseProp(this.start, this.$el, topOffset)) - offset;
                 const end =
                     this.end === false
-                        ? document.scrollingElement.scrollHeight - windowHeight
-                        : parseProp(this.end, this.$el, topOffset + height, true) -
-                          getOffset(this.$el).height +
-                          overflow -
-                          offset;
+                        ? maxScrollHeight
+                        : Math.min(
+                              maxScrollHeight,
+                              parseProp(this.end, this.$el, topOffset + height, true) -
+                                  elHeight -
+                                  offset +
+                                  overflow
+                          );
+
+                sticky =
+                    !this.showOnUp &&
+                    start + offset === topOffset &&
+                    end ===
+                        Math.min(
+                            maxScrollHeight,
+                            parseProp('!*', this.$el, 0, true) - elHeight - offset + overflow
+                        );
 
                 return {
                     start,
@@ -210,18 +226,23 @@ export default {
                     width,
                     margin,
                     top: offsetPosition(referenceElement)[0],
+                    sticky,
                 };
             },
 
-            write({ height, width, margin }) {
+            write({ height, width, margin, offset, sticky }) {
+                if (sticky) {
+                    height = width = margin = 0;
+                    css(this.$el, { position: 'sticky', top: offset });
+                }
                 const { placeholder } = this;
 
                 css(placeholder, { height, width, margin });
 
                 if (!within(placeholder, document)) {
-                    after(this.$el, placeholder);
                     placeholder.hidden = true;
                 }
+                (sticky ? before : after)(this.$el, placeholder);
             },
 
             events: ['resize'],
@@ -338,9 +359,19 @@ export default {
         },
 
         hide() {
+            const { offset, sticky } = this._data;
             this.setActive(false);
             removeClass(this.$el, this.clsFixed, this.clsBelow);
-            css(this.$el, { position: '', top: '', width: '' });
+            if (sticky) {
+                css(this.$el, 'top', offset);
+            } else {
+                css(this.$el, {
+                    position: '',
+                    top: '',
+                    width: '',
+                    marginTop: '',
+                });
+            }
             this.placeholder.hidden = true;
             this.isFixed = false;
         },
@@ -357,24 +388,30 @@ export default {
                 topOffset,
                 height,
                 offsetParentTop,
+                sticky,
             } = this._data;
             const active = start !== 0 || scroll > start;
-            let position = 'fixed';
 
-            if (scroll > end) {
-                offset += end - offsetParentTop;
-                position = 'absolute';
+            if (!sticky) {
+                let position = 'fixed';
+
+                if (scroll > end) {
+                    offset += end - offsetParentTop;
+                    position = 'absolute';
+                }
+
+                css(this.$el, {
+                    position,
+                    width,
+                });
+                css(this.$el, 'marginTop', 0, 'important');
             }
 
             if (overflow) {
                 offset -= overflowScroll;
             }
 
-            css(this.$el, {
-                position,
-                top: `${offset}px`,
-                width,
-            });
+            css(this.$el, 'top', offset);
 
             this.setActive(active);
             toggleClass(this.$el, this.clsBelow, scroll > topOffset + height);

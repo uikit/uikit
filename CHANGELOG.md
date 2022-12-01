@@ -5,6 +5,7 @@
 ### Changed
 
 - Remove `offsetTop` and `offsetLeft` options from Image and Scrollspy component. Use `margin` instead.
+- Sticky component uses native `position: sticky` if possible
 
 ### Fixed
 
