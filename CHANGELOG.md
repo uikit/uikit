@@ -440,7 +440,7 @@
 ### Removed
 
 - Remove IE11 support
-- Removed `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
+- Remove `data-width` and `data-height` for `<img>` element from Image component. Use native attributes instead.
 
 ### Fixed
 
@@ -1179,7 +1179,7 @@
 
 ### Changed
 
-- Removed `duration` option from Scroll component
+- Remove `duration` option from Scroll component
 
 ### Fixed
 
