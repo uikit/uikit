@@ -1,4 +1,6 @@
+import { on } from './event';
 import { css } from './style';
+import { $, append, remove } from './dom';
 import {
     each,
     isDocument,
@@ -180,7 +182,7 @@ export function toPx(value, property = 'width', element = window, offsetDim = fa
         if (unit) {
             value = percent(
                 unit === 'vh'
-                    ? height(toWindow(element))
+                    ? getViewportHeight()
                     : unit === 'vw'
                     ? width(toWindow(element))
                     : offsetDim
@@ -201,4 +203,26 @@ const parseUnit = memoize((str) => (str.match(unitRe) || [])[0]);
 
 function percent(base, value) {
     return (base * toFloat(value)) / 100;
+}
+
+let vh;
+let vhEl;
+
+function getViewportHeight() {
+    if (vh) {
+        return vh;
+    }
+    if (!vhEl) {
+        vhEl = $('<div>');
+        css(vhEl, {
+            height: '100vh',
+            position: 'fixed',
+        });
+        on(window, 'resize', () => (vh = null));
+    }
+
+    append(document.body, vhEl);
+    vh = vhEl.clientHeight;
+    remove(vhEl);
+    return vh;
 }
