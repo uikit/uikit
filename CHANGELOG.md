@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Remove `offsetTop` and `offsetLeft` options from Image component. Use `margin` instead.
+
 ### Fixed
 
 - Fix Scroll and Scrollspy Nav components handle same site links only
