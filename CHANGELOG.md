@@ -762,7 +762,7 @@
 
 ### Fixed
 
-- Fix showing/hidding Modal/Offcanvas programmatically
+- Fix showing/hiding Modal/Offcanvas programmatically
 
 ## 3.6.14 (January 26, 2021)
 
@@ -1948,7 +1948,7 @@
 - Fix Slideshow combined with Height Viewport component
 - Fix Height Match component's `row` matching
 - Fix height calculation in Height Match component
-- Fix regression with Video component not auto play/pause
+- Fix regression with Video component not autoplay/pause
 
 ## 3.0.0 beta 42 (April 5, 2018)
 
@@ -2273,7 +2273,7 @@
 ### Fixed
 
 - Remove stacking context for `uk-inline`
-- Prevent scrolling in Lightboxes with one slide only
+- Prevent scrolling in Lightbox with one slide only
 
 ## 3.0.0 beta 26 (July 20, 2017)
 
