@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix for elements with `position: sticky` to keep their position when Offcanvas is opened
+
 ## 3.15.15 (December 1, 2022)
 
 ### Changed
