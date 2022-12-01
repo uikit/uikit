@@ -31,7 +31,7 @@ export default {
         cls: '',
         target: false,
         hidden: true,
-        margin: '-1px -1px',
+        margin: '-1px',
         repeat: false,
         delay: 0,
         inViewClass: 'uk-scrollspy-inview',

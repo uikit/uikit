@@ -38,7 +38,7 @@ export default {
     data: {
         dataSrc: '',
         sources: false,
-        margin: '50% 50%',
+        margin: '50%',
         target: false,
         loading: 'lazy',
     },
