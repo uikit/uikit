@@ -10,7 +10,6 @@ import {
     removeClass,
     removeClasses,
     toggleClass,
-    toPx,
     trigger,
 } from 'uikit-util';
 
@@ -23,8 +22,7 @@ export default {
         cls: String,
         target: String,
         hidden: Boolean,
-        offsetTop: Number,
-        offsetLeft: Number,
+        margin: String,
         repeat: Boolean,
         delay: Number,
     },
@@ -33,8 +31,7 @@ export default {
         cls: '',
         target: false,
         hidden: true,
-        offsetTop: 0,
-        offsetLeft: 0,
+        margin: '-1px -1px',
         repeat: false,
         delay: 0,
         inViewClass: 'uk-scrollspy-inview',
@@ -85,11 +82,7 @@ export default {
 
                     this.$emit();
                 },
-                {
-                    rootMargin: `${toPx(this.offsetTop, 'height') - 1}px ${
-                        toPx(this.offsetLeft, 'width') - 1
-                    }px`,
-                },
+                { rootMargin: this.margin },
                 false
             )
         );

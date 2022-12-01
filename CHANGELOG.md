@@ -4,13 +4,14 @@
 
 ### Changed
 
-- Remove `offsetTop` and `offsetLeft` options from Image component. Use `margin` instead.
+- Remove `offsetTop` and `offsetLeft` options from Image and Scrollspy component. Use `margin` instead.
 
 ### Fixed
 
 - Fix Scroll and Scrollspy Nav components handle same site links only
 - Fix Drop positioning within not scrollable viewport
 - Fix overscroll behavior in Dropbar
+- Fix conversion of viewport height units with `toPx()` on mobile devices  
 
 ## 3.15.14 (November 21, 2022)
 
