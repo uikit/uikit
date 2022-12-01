@@ -1,4 +1,4 @@
-/*! UIkit 3.15.14 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.15 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -970,6 +970,124 @@
       }
     };
 
+    function ready(fn) {
+      if (document.readyState !== 'loading') {
+        fn();
+        return;
+      }
+
+      once(document, 'DOMContentLoaded', fn);
+    }
+
+    function isTag(element, tagName) {var _element$tagName;
+      return (element == null ? void 0 : (_element$tagName = element.tagName) == null ? void 0 : _element$tagName.toLowerCase()) === tagName.toLowerCase();
+    }
+
+    function empty(element) {
+      element = $(element);
+      element.innerHTML = '';
+      return element;
+    }
+
+    function html(parent, html) {
+      return isUndefined(html) ? $(parent).innerHTML : append(empty(parent), html);
+    }
+
+    const prepend = applyFn('prepend');
+    const append = applyFn('append');
+    const before = applyFn('before');
+    const after = applyFn('after');
+
+    function applyFn(fn) {
+      return function (ref, element) {var _$;
+        const nodes = toNodes(isString(element) ? fragment(element) : element);
+        (_$ = $(ref)) == null ? void 0 : _$[fn](...nodes);
+        return unwrapSingle(nodes);
+      };
+    }
+
+    function remove$1(element) {
+      toNodes(element).forEach((element) => element.remove());
+    }
+
+    function wrapAll(element, structure) {
+      structure = toNode(before(element, structure));
+
+      while (structure.firstChild) {
+        structure = structure.firstChild;
+      }
+
+      append(structure, element);
+
+      return structure;
+    }
+
+    function wrapInner(element, structure) {
+      return toNodes(
+      toNodes(element).map((element) =>
+      element.hasChildNodes() ?
+      wrapAll(toNodes(element.childNodes), structure) :
+      append(element, structure)));
+
+
+    }
+
+    function unwrap(element) {
+      toNodes(element).
+      map(parent).
+      filter((value, index, self) => self.indexOf(value) === index).
+      forEach((parent) => parent.replaceWith(...parent.childNodes));
+    }
+
+    const fragmentRe = /^\s*<(\w+|!)[^>]*>/;
+    const singleTagRe = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
+
+    function fragment(html) {
+      const matches = singleTagRe.exec(html);
+      if (matches) {
+        return document.createElement(matches[1]);
+      }
+
+      const container = document.createElement('div');
+      if (fragmentRe.test(html)) {
+        container.insertAdjacentHTML('beforeend', html.trim());
+      } else {
+        container.textContent = html;
+      }
+
+      return unwrapSingle(container.childNodes);
+    }
+
+    function unwrapSingle(nodes) {
+      return nodes.length > 1 ? nodes : nodes[0];
+    }
+
+    function apply(node, fn) {
+      if (!isElement(node)) {
+        return;
+      }
+
+      fn(node);
+      node = node.firstElementChild;
+      while (node) {
+        const next = node.nextElementSibling;
+        apply(node, fn);
+        node = next;
+      }
+    }
+
+    function $(selector, context) {
+      return isHtml(selector) ? toNode(fragment(selector)) : find(selector, context);
+    }
+
+    function $$(selector, context) {
+      return isHtml(selector) ? toNodes(fragment(selector)) : findAll(selector, context);
+    }
+
+    function isHtml(str) {
+      return isString(str) && startsWith(str.trim(), '<');
+    }
+
     const dirs$1 = {
       width: ['left', 'right'],
       height: ['top', 'bottom']
@@ -1137,7 +1255,7 @@
         if (unit) {
           value = percent(
           unit === 'vh' ?
-          height(toWindow(element)) :
+          getViewportHeight() :
           unit === 'vw' ?
           width(toWindow(element)) :
           offsetDim ?
@@ -1160,122 +1278,26 @@
       return base * toFloat(value) / 100;
     }
 
-    function ready(fn) {
-      if (document.readyState !== 'loading') {
-        fn();
-        return;
+    let vh;
+    let vhEl;
+
+    function getViewportHeight() {
+      if (vh) {
+        return vh;
+      }
+      if (!vhEl) {
+        vhEl = $('<div>');
+        css(vhEl, {
+          height: '100vh',
+          position: 'fixed'
+        });
+        on(window, 'resize', () => vh = null);
       }
 
-      once(document, 'DOMContentLoaded', fn);
-    }
-
-    function isTag(element, tagName) {var _element$tagName;
-      return (element == null ? void 0 : (_element$tagName = element.tagName) == null ? void 0 : _element$tagName.toLowerCase()) === tagName.toLowerCase();
-    }
-
-    function empty(element) {
-      element = $(element);
-      element.innerHTML = '';
-      return element;
-    }
-
-    function html(parent, html) {
-      return isUndefined(html) ? $(parent).innerHTML : append(empty(parent), html);
-    }
-
-    const prepend = applyFn('prepend');
-    const append = applyFn('append');
-    const before = applyFn('before');
-    const after = applyFn('after');
-
-    function applyFn(fn) {
-      return function (ref, element) {var _$;
-        const nodes = toNodes(isString(element) ? fragment(element) : element);
-        (_$ = $(ref)) == null ? void 0 : _$[fn](...nodes);
-        return unwrapSingle(nodes);
-      };
-    }
-
-    function remove$1(element) {
-      toNodes(element).forEach((element) => element.remove());
-    }
-
-    function wrapAll(element, structure) {
-      structure = toNode(before(element, structure));
-
-      while (structure.firstChild) {
-        structure = structure.firstChild;
-      }
-
-      append(structure, element);
-
-      return structure;
-    }
-
-    function wrapInner(element, structure) {
-      return toNodes(
-      toNodes(element).map((element) =>
-      element.hasChildNodes() ?
-      wrapAll(toNodes(element.childNodes), structure) :
-      append(element, structure)));
-
-
-    }
-
-    function unwrap(element) {
-      toNodes(element).
-      map(parent).
-      filter((value, index, self) => self.indexOf(value) === index).
-      forEach((parent) => parent.replaceWith(...parent.childNodes));
-    }
-
-    const fragmentRe = /^\s*<(\w+|!)[^>]*>/;
-    const singleTagRe = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
-
-    function fragment(html) {
-      const matches = singleTagRe.exec(html);
-      if (matches) {
-        return document.createElement(matches[1]);
-      }
-
-      const container = document.createElement('div');
-      if (fragmentRe.test(html)) {
-        container.insertAdjacentHTML('beforeend', html.trim());
-      } else {
-        container.textContent = html;
-      }
-
-      return unwrapSingle(container.childNodes);
-    }
-
-    function unwrapSingle(nodes) {
-      return nodes.length > 1 ? nodes : nodes[0];
-    }
-
-    function apply(node, fn) {
-      if (!isElement(node)) {
-        return;
-      }
-
-      fn(node);
-      node = node.firstElementChild;
-      while (node) {
-        const next = node.nextElementSibling;
-        apply(node, fn);
-        node = next;
-      }
-    }
-
-    function $(selector, context) {
-      return isHtml(selector) ? toNode(fragment(selector)) : find(selector, context);
-    }
-
-    function $$(selector, context) {
-      return isHtml(selector) ? toNodes(fragment(selector)) : findAll(selector, context);
-    }
-
-    function isHtml(str) {
-      return isString(str) && startsWith(str.trim(), '<');
+      append(document.body, vhEl);
+      vh = vhEl.clientHeight;
+      remove$1(vhEl);
+      return vh;
     }
 
     const inBrowser = typeof window !== 'undefined';
@@ -2073,11 +2095,18 @@
     }
 
     function getScrollArea(element, target, viewportOffset, i) {
-      const [prop,, start, end] = dirs[i];
+      const [prop, axis, start, end] = dirs[i];
       const [scrollElement] = commonScrollParents(element, target);
       const viewport = offsetViewport(scrollElement);
-      viewport[start] -= scrollElement["scroll" + ucfirst(start)] - viewportOffset;
-      viewport[end] = viewport[start] + scrollElement["scroll" + ucfirst(prop)] - viewportOffset;
+
+      if (['auto', 'scroll'].includes(css(scrollElement, "overflow-" + axis))) {
+        viewport[start] -= scrollElement["scroll" + ucfirst(start)];
+        viewport[end] = scrollElement["scroll" + ucfirst(prop)];
+      }
+
+      viewport[start] += viewportOffset;
+      viewport[end] -= viewportOffset;
+
       return viewport;
     }
 
@@ -2949,7 +2978,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.14';
+    UIkit.version = '3.15.15';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3765,16 +3794,6 @@
       }
     };
 
-    var Style = {
-      beforeConnect() {
-        this._style = attr(this.$el, 'style');
-      },
-
-      disconnected() {
-        attr(this.$el, 'style', this._style);
-      }
-    };
-
     const active$1 = [];
 
     var Modal = {
@@ -4053,7 +4072,10 @@
 
     function preventOverscroll(el) {
       if (CSS.supports('overscroll-behavior', 'contain')) {
-        const elements = filterChildren(el, (child) => /auto|scroll/.test(css(child, 'overflow')));
+        const elements = [
+        el,
+        ...filterChildren(el, (child) => /auto|scroll/.test(css(child, 'overflow')))];
+
         css(elements, 'overscrollBehavior', 'contain');
         return () => css(elements, 'overscrollBehavior', '');
       }
@@ -4139,7 +4161,7 @@
     let active;
 
     var drop = {
-      mixins: [Container, Lazyload, Position, Style, Togglable],
+      mixins: [Container, Lazyload, Position, Togglable],
 
       args: 'pos',
 
@@ -4220,6 +4242,8 @@
           attr(this.targetEl, 'aria-haspopup', true);
           this.lazyload(this.targetEl);
         }
+
+        this._style = ((_ref3) => {let { width, height } = _ref3;return { width, height };})(this.$el.style);
       },
 
       disconnected() {
@@ -4227,6 +4251,7 @@
           this.hide(false);
           active = null;
         }
+        css(this.$el, this._style);
       },
 
       events: [
@@ -4250,7 +4275,7 @@
           return 'a[href*="#"]';
         },
 
-        handler(_ref3) {let { defaultPrevented, current } = _ref3;
+        handler(_ref4) {let { defaultPrevented, current } = _ref4;
           const { hash } = current;
           if (
           !defaultPrevented &&
@@ -4369,12 +4394,12 @@
           on(
           document,
           pointerDown$1,
-          (_ref4) => {let { target } = _ref4;return (
+          (_ref5) => {let { target } = _ref5;return (
               !within(target, this.$el) &&
               once(
               document,
               pointerUp$1 + " " + pointerCancel + " scroll",
-              (_ref5) => {let { defaultPrevented, type, target: newTarget } = _ref5;
+              (_ref6) => {let { defaultPrevented, type, target: newTarget } = _ref6;
                 if (
                 !defaultPrevented &&
                 type === pointerUp$1 &&
@@ -4436,7 +4461,7 @@
       {
         name: 'hide',
 
-        handler(_ref6) {let { target } = _ref6;
+        handler(_ref7) {let { target } = _ref7;
           if (this.$el !== target) {
             active =
             active === null && within(target, this.$el) && this.isToggled() ?
@@ -4528,7 +4553,7 @@
 
         position() {
           removeClass(this.$el, this.clsDrop + "-stack");
-          attr(this.$el, 'style', this._style);
+          css(this.$el, this._style);
 
           // Ensure none positioned element does not generate scrollbars
           this.$el.hidden = true;
@@ -5368,7 +5393,7 @@
 
     var navbarParentIcon = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" points=\"1 3.5 6 8.5 11 3.5\"/></svg>";
 
-    var navbarToggleIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><style>.uk-navbar-toggle-animate svg>[class*=line-]{transition:.2s ease-in-out;transition-property:transform,opacity,;transform-origin:center;opacity:1}.uk-navbar-toggle svg>.line-3{opacity:0}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-3{opacity:1}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-2{transform:rotate(45deg)}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-3{transform:rotate(-45deg)}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-1,.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-4{opacity:0}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-1{transform:translateY(6px) scaleX(0)}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-4{transform:translateY(-6px) scaleX(0)}</style><rect class=\"line-1\" y=\"3\" width=\"20\" height=\"2\"/><rect class=\"line-2\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-3\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-4\" y=\"15\" width=\"20\" height=\"2\"/></svg>";
+    var navbarToggleIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><style>.uk-navbar-toggle-animate svg>[class*=line-]{transition:.2s ease-in-out;transition-property:transform,opacity;transform-origin:center;opacity:1}.uk-navbar-toggle svg>.line-3{opacity:0}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-3{opacity:1}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-2{transform:rotate(45deg)}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-3{transform:rotate(-45deg)}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-1,.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-4{opacity:0}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-1{transform:translateY(6px) scaleX(0)}.uk-navbar-toggle-animate[aria-expanded=true] svg>.line-4{transform:translateY(-6px) scaleX(0)}</style><rect class=\"line-1\" y=\"3\" width=\"20\" height=\"2\"/><rect class=\"line-2\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-3\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-4\" y=\"15\" width=\"20\" height=\"2\"/></svg>";
 
     var overlayIcon = "<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"19\" y=\"0\" width=\"1\" height=\"40\"/><rect x=\"0\" y=\"19\" width=\"40\" height=\"1\"/></svg>";
 
@@ -5559,8 +5584,7 @@
       props: {
         dataSrc: String,
         sources: String,
-        offsetTop: String,
-        offsetLeft: String,
+        margin: String,
         target: String,
         loading: String
       },
@@ -5568,8 +5592,7 @@
       data: {
         dataSrc: '',
         sources: false,
-        offsetTop: '50vh',
-        offsetLeft: '50vw',
+        margin: '50%',
         target: false,
         loading: 'lazy'
       },
@@ -5600,12 +5623,7 @@
           this.load();
           observer.disconnect();
         },
-        {
-          rootMargin: toPx(this.offsetTop, 'height') + "px " + toPx(
-          this.offsetLeft,
-          'width') + "px"
-
-        }));
+        { rootMargin: this.margin }));
 
 
       },
@@ -6760,15 +6778,21 @@
       }
 
       for (const component of components$2) {
-        if (within(e.target, component.$el)) {
+        if (within(e.target, component.$el) && isSameSiteLink(component.$el)) {
           e.preventDefault();
           component.scrollTo(getTargetElement(component.$el));
         }
       }
     }
 
+    function isSameSiteLink(el) {
+      return ['origin', 'pathname', 'search'].every((part) => location[part] === el[part]);
+    }
+
     function getTargetElement(el) {
-      return document.getElementById(decodeURIComponent(el.hash).substring(1));
+      if (isSameSiteLink(el)) {
+        return document.getElementById(decodeURIComponent(el.hash).substring(1));
+      }
     }
 
     var scrollspy = {
@@ -6780,8 +6804,7 @@
         cls: String,
         target: String,
         hidden: Boolean,
-        offsetTop: Number,
-        offsetLeft: Number,
+        margin: String,
         repeat: Boolean,
         delay: Number
       },
@@ -6790,8 +6813,7 @@
         cls: '',
         target: false,
         hidden: true,
-        offsetTop: 0,
-        offsetLeft: 0,
+        margin: '-1px',
         repeat: false,
         delay: 0,
         inViewClass: 'uk-scrollspy-inview'
@@ -6842,11 +6864,7 @@
 
           this.$emit();
         },
-        {
-          rootMargin: toPx(this.offsetTop, 'height') - 1 + "px " + (
-          toPx(this.offsetLeft, 'width') - 1) + "px"
-
-        },
+        { rootMargin: this.margin },
         false));
 
 
@@ -7073,6 +7091,7 @@
           this.hide();
           removeClass(this.selTarget, this.clsInactive);
         }
+        css(this.$el, { position: '', top: '' });
 
         remove$1(this.placeholder);
         this.placeholder = null;
@@ -7126,7 +7145,7 @@
 
       update: [
       {
-        read(_ref2, types) {let { height: height$1, width, margin } = _ref2;
+        read(_ref2, types) {let { height: height$1, width, margin, sticky } = _ref2;
           this.inactive = !this.matchMedia || !isVisible(this.$el);
 
           if (this.inactive) {
@@ -7150,6 +7169,7 @@
           }
 
           const windowHeight = height(window);
+          const maxScrollHeight = document.scrollingElement.scrollHeight - windowHeight;
 
           let position = this.position;
           if (this.overflowFlip && height$1 > windowHeight) {
@@ -7157,7 +7177,7 @@
           }
 
           const referenceElement = this.isFixed ? this.placeholder : this.$el;
-          let offset$1 = toPx(this.offset, 'height', referenceElement);
+          let offset$1 = toPx(this.offset, 'height', sticky ? this.$el : referenceElement);
           if (position === 'bottom' && (height$1 < windowHeight || this.overflowFlip)) {
             offset$1 += windowHeight - height$1;
           }
@@ -7166,6 +7186,7 @@
           0 :
           Math.max(0, height$1 + offset$1 - windowHeight);
           const topOffset = offset(referenceElement).top;
+          const elHeight = offset(this.$el).height;
 
           const start =
           (this.start === false ?
@@ -7173,11 +7194,23 @@
           parseProp(this.start, this.$el, topOffset)) - offset$1;
           const end =
           this.end === false ?
-          document.scrollingElement.scrollHeight - windowHeight :
+          maxScrollHeight :
+          Math.min(
+          maxScrollHeight,
           parseProp(this.end, this.$el, topOffset + height$1, true) -
-          offset(this.$el).height +
-          overflow -
-          offset$1;
+          elHeight -
+          offset$1 +
+          overflow);
+
+
+          sticky =
+          !this.showOnUp &&
+          start + offset$1 === topOffset &&
+          end ===
+          Math.min(
+          maxScrollHeight,
+          parseProp('!*', this.$el, 0, true) - elHeight - offset$1 + overflow);
+
 
           return {
             start,
@@ -7188,19 +7221,24 @@
             height: height$1,
             width,
             margin,
-            top: offsetPosition(referenceElement)[0]
+            top: offsetPosition(referenceElement)[0],
+            sticky
           };
         },
 
-        write(_ref3) {let { height, width, margin } = _ref3;
+        write(_ref3) {let { height, width, margin, offset, sticky } = _ref3;
+          if (sticky) {
+            height = width = margin = 0;
+            css(this.$el, { position: 'sticky', top: offset });
+          }
           const { placeholder } = this;
 
           css(placeholder, { height, width, margin });
 
           if (!within(placeholder, document)) {
-            after(this.$el, placeholder);
             placeholder.hidden = true;
           }
+          (sticky ? before : after)(this.$el, placeholder);
         },
 
         events: ['resize']
@@ -7317,9 +7355,19 @@
         },
 
         hide() {
+          const { offset, sticky } = this._data;
           this.setActive(false);
           removeClass(this.$el, this.clsFixed, this.clsBelow);
-          css(this.$el, { position: '', top: '', width: '' });
+          if (sticky) {
+            css(this.$el, 'top', offset);
+          } else {
+            css(this.$el, {
+              position: '',
+              top: '',
+              width: '',
+              marginTop: ''
+            });
+          }
           this.placeholder.hidden = true;
           this.isFixed = false;
         },
@@ -7335,25 +7383,31 @@
             offset,
             topOffset,
             height,
-            offsetParentTop
+            offsetParentTop,
+            sticky
           } = this._data;
           const active = start !== 0 || scroll > start;
-          let position = 'fixed';
 
-          if (scroll > end) {
-            offset += end - offsetParentTop;
-            position = 'absolute';
+          if (!sticky) {
+            let position = 'fixed';
+
+            if (scroll > end) {
+              offset += end - offsetParentTop;
+              position = 'absolute';
+            }
+
+            css(this.$el, {
+              position,
+              width
+            });
+            css(this.$el, 'marginTop', 0, 'important');
           }
 
           if (overflow) {
             offset -= overflowScroll;
           }
 
-          css(this.$el, {
-            position,
-            top: offset + "px",
-            width
-          });
+          css(this.$el, 'top', offset);
 
           this.setActive(active);
           toggleClass(this.$el, this.clsBelow, scroll > topOffset + height);
@@ -10117,10 +10171,18 @@
         }
       },
 
+      resizeTargets() {
+        return [this.$el, this.target];
+      },
+
       update: {
         read(_ref4, types) {let { percent } = _ref4;
           if (!types.has('scroll')) {
             percent = false;
+          }
+
+          if (!isVisible(this.$el)) {
+            return false;
           }
 
           if (!this.matchMedia) {

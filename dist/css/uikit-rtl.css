@@ -1,4 +1,4 @@
-/*! UIkit 3.15.14 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.15 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1404,7 +1404,7 @@ button.uk-icon:not(:disabled) {
   padding: 0;
 }
 /* Input, select and textarea
- * Allowed: `text`, `password`, `datetime`, `datetime-local`, `date`,  `month`,
+ * Allowed: `text`, `password`, `datetime-local`, `date`,  `month`,
             `time`, `week`, `number`, `email`, `url`, `search`, `tel`, `color`
  * Disallowed: `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
  ========================================================================== */
