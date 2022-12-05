@@ -1,4 +1,4 @@
-/*! UIkit 3.15.15 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.16 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -173,6 +173,13 @@
       slice().
       sort((_ref, _ref2) => {let { [prop]: propA = 0 } = _ref;let { [prop]: propB = 0 } = _ref2;return (
           propA > propB ? 1 : propB > propA ? -1 : 0);});
+
+    }
+
+    function sumBy(array, iteratee) {
+      return array.reduce(
+      (sum, item) => sum + toFloat(isFunction(iteratee) ? iteratee(item) : item[iteratee]),
+      0);
 
     }
 
@@ -1222,14 +1229,11 @@
 
     function boxModelAdjust(element, prop, sizing) {if (sizing === void 0) {sizing = 'border-box';}
       return css(element, 'boxSizing') === sizing ?
-      dirs$1[prop].
-      map(ucfirst).
-      reduce(
-      (value, prop) =>
-      value +
+      sumBy(
+      dirs$1[prop].map(ucfirst),
+      (prop) =>
       toFloat(css(element, "padding" + prop)) +
-      toFloat(css(element, "border" + prop + "Width")),
-      0) :
+      toFloat(css(element, "border" + prop + "Width"))) :
 
       0;
     }
@@ -1250,23 +1254,22 @@
         return toFloat(value);
       }
 
-      return parseCalc(value).reduce((result, value) => {
+      return sumBy(parseCalc(value), (value) => {
         const unit = parseUnit(value);
-        if (unit) {
-          value = percent(
-          unit === 'vh' ?
-          getViewportHeight() :
-          unit === 'vw' ?
-          width(toWindow(element)) :
-          offsetDim ?
-          element["offset" + ucfirst(property)] :
-          dimensions$1(element)[property],
-          value);
 
-        }
+        return unit ?
+        percent(
+        unit === 'vh' ?
+        getViewportHeight() :
+        unit === 'vw' ?
+        width(toWindow(element)) :
+        offsetDim ?
+        element["offset" + ucfirst(property)] :
+        dimensions$1(element)[property],
+        value) :
 
-        return result + toFloat(value);
-      }, 0);
+        value;
+      });
     }
 
     const calcRe = /-?\d+(?:\.\d+)?(?:v[wh]|%|px)?/g;
@@ -2285,6 +2288,7 @@
         last: last,
         each: each,
         sortBy: sortBy$1,
+        sumBy: sumBy,
         uniqueBy: uniqueBy,
         clamp: clamp,
         noop: noop,
@@ -2978,7 +2982,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.15';
+    UIkit.version = '3.15.16';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3460,10 +3464,10 @@
       await Transition.cancel(wrapper);
       hide(content, false);
 
-      const endHeight =
-      toFloat(css(content, 'height')) +
-      toFloat(css(content, 'marginTop')) +
-      toFloat(css(content, 'marginBottom'));
+      const endHeight = sumBy(
+      ['height', 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom'],
+      (prop) => css(content, prop));
+
       const percent = currentHeight / endHeight;
       duration = (velocity * endHeight + duration) * (show ? 1 - percent : percent);
       css(wrapper, 'height', currentHeight);
@@ -3840,23 +3844,11 @@
         name: 'click',
 
         delegate() {
-          return this.selClose;
+          return this.selClose + ",a[href*=\"#\"]";
         },
 
         handler(e) {
-          e.preventDefault();
-          this.hide();
-        }
-      },
-
-      {
-        name: 'click',
-
-        delegate() {
-          return 'a[href*="#"]';
-        },
-
-        handler(_ref3) {let { current, defaultPrevented } = _ref3;
+          const { current, defaultPrevented } = e;
           const { hash } = current;
           if (
           !defaultPrevented &&
@@ -3865,6 +3857,9 @@
           !within(hash, this.$el) &&
           $(hash, document.body))
           {
+            this.hide();
+          } else if (matches(current, this.selClose)) {
+            e.preventDefault();
             this.hide();
           }
         }
@@ -3938,7 +3933,7 @@
             once(
             this.$el,
             'hide',
-            on(document, pointerDown$1, (_ref4) => {let { target } = _ref4;
+            on(document, pointerDown$1, (_ref3) => {let { target } = _ref3;
               if (
               last(active$1) !== this ||
               this.overlay && !within(target, this.$el) ||
@@ -3950,7 +3945,7 @@
               once(
               document,
               pointerUp$1 + " " + pointerCancel + " scroll",
-              (_ref5) => {let { defaultPrevented, type, target: newTarget } = _ref5;
+              (_ref4) => {let { defaultPrevented, type, target: newTarget } = _ref4;
                 if (
                 !defaultPrevented &&
                 type === pointerUp$1 &&
@@ -4038,7 +4033,7 @@
       }
     };
 
-    function animate(el, show, _ref6) {let { transitionElement, _toggle } = _ref6;
+    function animate(el, show, _ref5) {let { transitionElement, _toggle } = _ref5;
       return new Promise((resolve, reject) =>
       once(el, 'show hide', () => {
         el._reject == null ? void 0 : el._reject();
@@ -4086,7 +4081,7 @@
       on(
       el,
       'touchstart',
-      (_ref7) => {let { targetTouches } = _ref7;
+      (_ref6) => {let { targetTouches } = _ref6;
         if (targetTouches.length === 1) {
           startClientY = targetTouches[0].clientY;
         }
@@ -4917,7 +4912,7 @@
           let translates = false;
 
           const nodes = children(this.$el);
-          const columnHeights = getColumnHeights(columns);
+          const columnHeights = columns.map((column) => sumBy(column, 'offsetHeight'));
           const margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
           const elHeight = Math.max(...columnHeights) + margin;
 
@@ -5008,10 +5003,6 @@
       const [node] = nodes.filter((el) => hasClass(el, cls));
 
       return toFloat(node ? css(node, 'marginTop') : css(nodes[0], 'paddingLeft'));
-    }
-
-    function getColumnHeights(columns) {
-      return columns.map((column) => column.reduce((sum, el) => sum + el.offsetHeight, 0));
     }
 
     var heightMatch = {
@@ -7084,6 +7075,8 @@
         $('<div class="uk-sticky-placeholder"></div>');
         this.isFixed = false;
         this.setActive(false);
+
+        this.registerObserver(observeResize(this.$el, () => !this.isFixed && this.$emit('resize')));
       },
 
       disconnected() {
@@ -7102,11 +7095,11 @@
         name: 'resize',
 
         el() {
-          return window;
+          return [window, window.visualViewport];
         },
 
         handler() {
-          this.$emit('resize');
+          this.$emit('resizeViewport');
         }
       },
       {
@@ -7168,23 +7161,22 @@
             requestAnimationFrame(() => css(this.selTarget, 'transition', ''));
           }
 
-          const windowHeight = height(window);
-          const maxScrollHeight = document.scrollingElement.scrollHeight - windowHeight;
+          const viewport = toPx('100vh', 'height');
+          const dynamicViewport = height(window);
+          const maxScrollHeight = document.scrollingElement.scrollHeight - viewport;
 
           let position = this.position;
-          if (this.overflowFlip && height$1 > windowHeight) {
+          if (this.overflowFlip && height$1 > viewport) {
             position = position === 'top' ? 'bottom' : 'top';
           }
 
           const referenceElement = this.isFixed ? this.placeholder : this.$el;
           let offset$1 = toPx(this.offset, 'height', sticky ? this.$el : referenceElement);
-          if (position === 'bottom' && (height$1 < windowHeight || this.overflowFlip)) {
-            offset$1 += windowHeight - height$1;
+          if (position === 'bottom' && (height$1 < dynamicViewport || this.overflowFlip)) {
+            offset$1 += dynamicViewport - height$1;
           }
 
-          const overflow = this.overflowFlip ?
-          0 :
-          Math.max(0, height$1 + offset$1 - windowHeight);
+          const overflow = this.overflowFlip ? 0 : Math.max(0, height$1 + offset$1 - viewport);
           const topOffset = offset(referenceElement).top;
           const elHeight = offset(this.$el).height;
 
@@ -7241,7 +7233,7 @@
           (sticky ? before : after)(this.$el, placeholder);
         },
 
-        events: ['resize']
+        events: ['resize', 'resizeViewport']
       },
 
       {
@@ -9834,6 +9826,9 @@
           for (const prop in this.props) {
             this.props[prop](css, percent);
           }
+          css.willChange = Object.keys(css).
+          filter((key) => css[key] !== '').
+          join(',');
           return css;
         }
       }
@@ -10395,7 +10390,7 @@
     }
 
     function getWidth(list) {
-      return children(list).reduce((right, el) => dimensions$1(el).width + right, 0);
+      return sumBy(children(list), (el) => dimensions$1(el).width);
     }
 
     function centerEl(el, list) {
