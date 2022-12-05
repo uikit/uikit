@@ -169,8 +169,9 @@ async function transition(el, show, { content, duration, velocity, transition })
     await Transition.cancel(wrapper);
     hide(content, false);
 
-    const endHeight = sumBy(['height', 'paddingBottom', 'marginTop', 'marginBottom'], (prop) =>
-        css(content, prop)
+    const endHeight = sumBy(
+        ['height', 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom'],
+        (prop) => css(content, prop)
     );
     const percent = currentHeight / endHeight;
     duration = (velocity * endHeight + duration) * (show ? 1 - percent : percent);
