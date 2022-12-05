@@ -1,4 +1,4 @@
-/*! UIkit 3.15.15 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.16 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4244,10 +4244,13 @@ select.uk-form-width-xsmall {
 /*
  * Prevent horizontal scrollbar when the content is slide-out
  * Has to be on the `html` element too to make it work on the `body`
+ * 1. `clip` is needed for `position: sticky` elements to keep their position
  */
 .uk-offcanvas-page,
 .uk-offcanvas-container {
   overflow-x: hidden;
+  /* 1 */
+  overflow-x: clip;
 }
 /* Container
  ========================================================================== */
