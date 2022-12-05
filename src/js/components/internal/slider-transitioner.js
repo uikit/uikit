@@ -11,6 +11,7 @@ import {
     isRtl,
     noop,
     position,
+    sumBy,
     Transition,
     trigger,
 } from 'uikit-util';
@@ -147,7 +148,7 @@ export function getMax(list) {
 }
 
 export function getWidth(list) {
-    return children(list).reduce((right, el) => dimensions(el).width + right, 0);
+    return sumBy(children(list), (el) => dimensions(el).width);
 }
 
 function centerEl(el, list) {

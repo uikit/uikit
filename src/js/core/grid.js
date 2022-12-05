@@ -8,6 +8,7 @@ import {
     hasClass,
     scrolledOver,
     sortBy,
+    sumBy,
     toFloat,
     toggleClass,
 } from 'uikit-util';
@@ -66,7 +67,7 @@ export default {
                 let translates = false;
 
                 const nodes = children(this.$el);
-                const columnHeights = getColumnHeights(columns);
+                const columnHeights = columns.map((column) => sumBy(column, 'offsetHeight'));
                 const margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
                 const elHeight = Math.max(...columnHeights) + margin;
 
@@ -157,8 +158,4 @@ function getMarginTop(nodes, cls) {
     const [node] = nodes.filter((el) => hasClass(el, cls));
 
     return toFloat(node ? css(node, 'marginTop') : css(nodes[0], 'paddingLeft'));
-}
-
-function getColumnHeights(columns) {
-    return columns.map((column) => column.reduce((sum, el) => sum + el.offsetHeight, 0));
 }

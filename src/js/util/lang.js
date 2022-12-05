@@ -168,6 +168,13 @@ export function sortBy(array, prop) {
         );
 }
 
+export function sumBy(array, iteratee) {
+    return array.reduce(
+        (sum, item) => sum + toFloat(isFunction(iteratee) ? iteratee(item) : item[iteratee]),
+        0
+    );
+}
+
 export function uniqueBy(array, prop) {
     const seen = new Set();
     return array.filter(({ [prop]: check }) => (seen.has(check) ? false : seen.add(check)));
