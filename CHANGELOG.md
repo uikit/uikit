@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Add `will-change` css property to Parallax elements  
+
 ### Fixed
 
 - Fix for elements with `position: sticky` to keep their position when Offcanvas is opened
