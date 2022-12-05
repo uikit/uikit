@@ -6,6 +6,7 @@
 
 - Fix for elements with `position: sticky` to keep their position when Offcanvas is opened
 - Fix regression in clicking hash links in Modal component that match `sel-close` option
+- Fix jump after animation if Accordion content has `padding-bottom`
 
 ## 3.15.15 (December 1, 2022)
 

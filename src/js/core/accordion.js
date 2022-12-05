@@ -12,6 +12,7 @@ import {
     includes,
     index,
     scrollParents,
+    sumBy,
     toFloat,
     toggleClass,
     Transition,
@@ -168,10 +169,9 @@ async function transition(el, show, { content, duration, velocity, transition })
     await Transition.cancel(wrapper);
     hide(content, false);
 
-    const endHeight =
-        toFloat(css(content, 'height')) +
-        toFloat(css(content, 'marginTop')) +
-        toFloat(css(content, 'marginBottom'));
+    const endHeight = sumBy(['height', 'paddingBottom', 'marginTop', 'marginBottom'], (prop) =>
+        css(content, prop)
+    );
     const percent = currentHeight / endHeight;
     duration = (velocity * endHeight + duration) * (show ? 1 - percent : percent);
     css(wrapper, 'height', currentHeight);
