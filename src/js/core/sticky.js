@@ -17,6 +17,7 @@ import {
     isString,
     isVisible,
     noop,
+    observeResize,
     offsetPosition,
     parent,
     query,
@@ -88,6 +89,8 @@ export default {
             $('<div class="uk-sticky-placeholder"></div>');
         this.isFixed = false;
         this.setActive(false);
+
+        this.registerObserver(observeResize(this.$el, () => !this.isFixed && this.$emit('resize')));
     },
 
     disconnected() {
