@@ -8,6 +8,7 @@
 - Fix regression in clicking hash links in Modal component that match `sel-close` option
 - Fix jump after animation if Accordion content has `padding-bottom`
 - Fix Sticky listens for resize of itself while not positioned `fixed`
+- Fix Sticky positioning on mobile devices
 
 ## 3.15.15 (December 1, 2022)
 

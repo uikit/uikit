@@ -109,11 +109,11 @@ export default {
             name: 'resize',
 
             el() {
-                return window;
+                return [window, window.visualViewport];
             },
 
             handler() {
-                this.$emit('resize');
+                this.$emit('resizeViewport');
             },
         },
         {
@@ -175,23 +175,22 @@ export default {
                     requestAnimationFrame(() => css(this.selTarget, 'transition', ''));
                 }
 
-                const windowHeight = getHeight(window);
-                const maxScrollHeight = document.scrollingElement.scrollHeight - windowHeight;
+                const viewport = toPx('100vh', 'height');
+                const dynamicViewport = getHeight(window);
+                const maxScrollHeight = document.scrollingElement.scrollHeight - viewport;
 
                 let position = this.position;
-                if (this.overflowFlip && height > windowHeight) {
+                if (this.overflowFlip && height > viewport) {
                     position = position === 'top' ? 'bottom' : 'top';
                 }
 
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
                 let offset = toPx(this.offset, 'height', sticky ? this.$el : referenceElement);
-                if (position === 'bottom' && (height < windowHeight || this.overflowFlip)) {
-                    offset += windowHeight - height;
+                if (position === 'bottom' && (height < dynamicViewport || this.overflowFlip)) {
+                    offset += dynamicViewport - height;
                 }
 
-                const overflow = this.overflowFlip
-                    ? 0
-                    : Math.max(0, height + offset - windowHeight);
+                const overflow = this.overflowFlip ? 0 : Math.max(0, height + offset - viewport);
                 const topOffset = getOffset(referenceElement).top;
                 const elHeight = getOffset(this.$el).height;
 
@@ -248,7 +247,7 @@ export default {
                 (sticky ? before : after)(this.$el, placeholder);
             },
 
-            events: ['resize'],
+            events: ['resize', 'resizeViewport'],
         },
 
         {
