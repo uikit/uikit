@@ -79,6 +79,9 @@ export default {
             for (const prop in this.props) {
                 this.props[prop](css, percent);
             }
+            css.willChange = Object.keys(css)
+                .filter((key) => css[key] !== '')
+                .join(',');
             return css;
         },
     },

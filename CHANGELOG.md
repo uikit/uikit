@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.15.16 (December 5, 2022)
+
+### Changed
+
+- Add `will-change` css property to Parallax elements  
+
+### Fixed
+
+- Fix for elements with `position: sticky` to keep their position when Offcanvas is opened
+- Fix regression in clicking hash links in Modal component that match `sel-close` option
+- Fix jump after animation if Accordion content has `padding-bottom`
+- Fix Sticky listens for resize of itself while not positioned `fixed`
+- Fix Sticky positioning on mobile devices
+
 ## 3.15.15 (December 1, 2022)
 
 ### Changed
@@ -762,7 +776,7 @@
 
 ### Fixed
 
-- Fix showing/hidding Modal/Offcanvas programmatically
+- Fix showing/hiding Modal/Offcanvas programmatically
 
 ## 3.6.14 (January 26, 2021)
 
@@ -1948,7 +1962,7 @@
 - Fix Slideshow combined with Height Viewport component
 - Fix Height Match component's `row` matching
 - Fix height calculation in Height Match component
-- Fix regression with Video component not auto play/pause
+- Fix regression with Video component not autoplay/pause
 
 ## 3.0.0 beta 42 (April 5, 2018)
 
@@ -2273,7 +2287,7 @@
 ### Fixed
 
 - Remove stacking context for `uk-inline`
-- Prevent scrolling in Lightboxes with one slide only
+- Prevent scrolling in Lightbox with one slide only
 
 ## 3.0.0 beta 26 (July 20, 2017)
 

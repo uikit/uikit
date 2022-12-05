@@ -9,6 +9,7 @@ import {
     includes,
     isFocusable,
     last,
+    matches,
     noop,
     on,
     once,
@@ -72,23 +73,11 @@ export default {
             name: 'click',
 
             delegate() {
-                return this.selClose;
+                return `${this.selClose},a[href*="#"]`;
             },
 
             handler(e) {
-                e.preventDefault();
-                this.hide();
-            },
-        },
-
-        {
-            name: 'click',
-
-            delegate() {
-                return 'a[href*="#"]';
-            },
-
-            handler({ current, defaultPrevented }) {
+                const { current, defaultPrevented } = e;
                 const { hash } = current;
                 if (
                     !defaultPrevented &&
@@ -97,6 +86,9 @@ export default {
                     !within(hash, this.$el) &&
                     $(hash, document.body)
                 ) {
+                    this.hide();
+                } else if (matches(current, this.selClose)) {
+                    e.preventDefault();
                     this.hide();
                 }
             },

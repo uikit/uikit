@@ -9,6 +9,7 @@ import {
     isUndefined,
     isWindow,
     memoize,
+    sumBy,
     toFloat,
     toNode,
     toWindow,
@@ -149,15 +150,12 @@ function dimension(prop) {
 
 export function boxModelAdjust(element, prop, sizing = 'border-box') {
     return css(element, 'boxSizing') === sizing
-        ? dirs[prop]
-              .map(ucfirst)
-              .reduce(
-                  (value, prop) =>
-                      value +
-                      toFloat(css(element, `padding${prop}`)) +
-                      toFloat(css(element, `border${prop}Width`)),
-                  0
-              )
+        ? sumBy(
+              dirs[prop].map(ucfirst),
+              (prop) =>
+                  toFloat(css(element, `padding${prop}`)) +
+                  toFloat(css(element, `border${prop}Width`))
+          )
         : 0;
 }
 
@@ -177,23 +175,22 @@ export function toPx(value, property = 'width', element = window, offsetDim = fa
         return toFloat(value);
     }
 
-    return parseCalc(value).reduce((result, value) => {
+    return sumBy(parseCalc(value), (value) => {
         const unit = parseUnit(value);
-        if (unit) {
-            value = percent(
-                unit === 'vh'
-                    ? getViewportHeight()
-                    : unit === 'vw'
-                    ? width(toWindow(element))
-                    : offsetDim
-                    ? element[`offset${ucfirst(property)}`]
-                    : dimensions(element)[property],
-                value
-            );
-        }
 
-        return result + toFloat(value);
-    }, 0);
+        return unit
+            ? percent(
+                  unit === 'vh'
+                      ? getViewportHeight()
+                      : unit === 'vw'
+                      ? width(toWindow(element))
+                      : offsetDim
+                      ? element[`offset${ucfirst(property)}`]
+                      : dimensions(element)[property],
+                  value
+              )
+            : value;
+    });
 }
 
 const calcRe = /-?\d+(?:\.\d+)?(?:v[wh]|%|px)?/g;
