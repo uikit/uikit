@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.15.17 (December 6, 2022)
+
+### Fixed
+
+- Fix detecting unit in Parallax component stops
+
 ## 3.15.16 (December 5, 2022)
 
 ### Changed
