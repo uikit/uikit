@@ -142,6 +142,10 @@ export function offsetViewport(scrollElement) {
     }
 
     let rect = offset(viewportElement);
+    if (css(viewportElement, 'display') === 'inline') {
+        return rect;
+    }
+
     for (let [prop, dir, start, end] of [
         ['width', 'x', 'left', 'right'],
         ['height', 'y', 'top', 'bottom'],

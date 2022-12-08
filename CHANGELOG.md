@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix positioning of Tooltip and Drop components if target is inline element
+
 ## 3.15.17 (December 6, 2022)
 
 ### Fixed
