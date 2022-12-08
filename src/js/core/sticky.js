@@ -210,6 +210,7 @@ export default {
                           );
 
                 sticky =
+                    maxScrollHeight &&
                     !this.showOnUp &&
                     start + offset === topOffset &&
                     end ===
@@ -236,6 +237,8 @@ export default {
                 if (sticky) {
                     height = width = margin = 0;
                     css(this.$el, { position: 'sticky', top: offset });
+                } else if (!this.isFixed) {
+                    css(this.$el, { position: '', top: '' });
                 }
                 const { placeholder } = this;
 
