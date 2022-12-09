@@ -235,17 +235,19 @@ export default {
             },
 
             write({ height, width, margin, offset, sticky }) {
-                if (this.inactive) {
+                if (this.inactive || sticky || !this.isFixed) {
                     reset(this.$el);
+                }
+
+                if (this.inactive) {
                     return;
                 }
 
                 if (sticky) {
                     height = width = margin = 0;
                     css(this.$el, { position: 'sticky', top: offset });
-                } else if (!this.isFixed) {
-                    reset(this.$el);
                 }
+
                 const { placeholder } = this;
 
                 css(placeholder, { height, width, margin });
