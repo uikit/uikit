@@ -5,6 +5,8 @@
 ### Fixed
 
 - Fix positioning of Tooltip and Drop components if target is inline element
+- Fix Sticky component resizing on `clsBelow` class causes stutter
+- Fix Sticky component correctly resets on becoming inactive
 
 ## 3.15.17 (December 6, 2022)
 
