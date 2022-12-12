@@ -118,9 +118,8 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                               '@babel/preset-env',
                               {
                                   loose: true,
-                                  targets: {
-                                      safari: '12',
-                                  },
+                                  targets: { safari: '12' },
+                                  bugfixes: true,
                               },
                           ],
                       ],
