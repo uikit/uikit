@@ -414,10 +414,7 @@ export default {
                     position = 'absolute';
                 }
 
-                css(this.$el, {
-                    position,
-                    width,
-                });
+                css(this.$el, { position, width });
                 css(this.$el, 'marginTop', 0, 'important');
             }
 
