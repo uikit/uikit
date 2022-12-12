@@ -50,7 +50,7 @@ export default {
             passive: true,
 
             delegate() {
-                return this.selSlides;
+                return `${this.selList} > *`;
             },
 
             handler(e) {

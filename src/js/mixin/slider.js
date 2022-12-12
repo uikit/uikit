@@ -4,7 +4,7 @@ import SliderDrag from './slider-drag';
 import SliderNav from './slider-nav';
 import {
     $,
-    $$,
+    children,
     clamp,
     getIndex,
     hasClass,
@@ -23,7 +23,6 @@ export default {
         index: Number,
         finite: Boolean,
         velocity: Number,
-        selSlides: String,
     },
 
     data: () => ({
@@ -63,13 +62,9 @@ export default {
             return this.length - 1;
         },
 
-        selSlides({ selList, selSlides }) {
-            return `${selList} ${selSlides || '> *'}`;
-        },
-
         slides: {
             get() {
-                return $$(this.selSlides, this.$el);
+                return children(this.list);
             },
 
             watch() {
