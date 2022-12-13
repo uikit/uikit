@@ -26,6 +26,7 @@ import {
     Transition,
     within,
 } from 'uikit-util';
+import { keyMap } from '../mixin/utils';
 
 export default {
     mixins: [Class, Container],
@@ -424,12 +425,3 @@ function focusFirstFocusableElement(el) {
         $(selFocusable, el)?.focus();
     }
 }
-
-const keyMap = {
-    TAB: 9,
-    ESC: 27,
-    LEFT: 37,
-    UP: 38,
-    RIGHT: 39,
-    DOWN: 40,
-};

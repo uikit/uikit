@@ -18,7 +18,7 @@ import {
     toNodes,
     within,
 } from 'uikit-util';
-import { generateId } from '../mixin/utils';
+import { generateId, keyMap } from '../mixin/utils';
 
 export default {
     mixins: [Lazyload, Swipe, Togglable],
@@ -30,6 +30,7 @@ export default {
         toggle: String,
         itemNav: String,
         active: Number,
+        followFocus: Boolean,
     },
 
     data: {
@@ -39,6 +40,8 @@ export default {
         active: 0,
         cls: 'uk-active',
         attrItem: 'uk-switcher-item',
+        selVertical: '.uk-nav',
+        followFocus: false,
     },
 
     computed: {
@@ -108,15 +111,53 @@ export default {
 
     events: [
         {
-            name: 'click',
+            name: 'click keydown',
 
             delegate() {
                 return this.toggle;
             },
 
             handler(e) {
-                e.preventDefault();
-                this.show(e.current);
+                if (e.type === 'click' || e.keyCode === keyMap.SPACE) {
+                    e.preventDefault();
+                    this.show(e.current);
+                }
+            },
+        },
+
+        {
+            name: 'keydown',
+
+            delegate() {
+                return this.toggle;
+            },
+
+            handler(e) {
+                const { current, keyCode } = e;
+                const currentIndex = this.toggles.indexOf(current);
+                const isVertical = matches(this.$el, this.selVertical);
+
+                let i =
+                    keyCode === keyMap.HOME
+                        ? 0
+                        : keyCode === keyMap.END
+                        ? 'last'
+                        : (keyCode === keyMap.LEFT && !isVertical) ||
+                          (keyCode === keyMap.UP && isVertical)
+                        ? 'previous'
+                        : (keyCode === keyMap.RIGHT && !isVertical) ||
+                          (keyCode === keyMap.DOWN && isVertical)
+                        ? 'next'
+                        : -1;
+
+                if (~i) {
+                    e.preventDefault();
+                    const next = this.toggles[getIndex(i, this.toggles, currentIndex)];
+                    next.focus();
+                    if (this.followFocus) {
+                        this.show(i);
+                    }
+                }
             },
         },
 
@@ -172,6 +213,7 @@ export default {
             attr(toggle, { role: 'tab', 'aria-controls': item.id });
             attr(item, { role: 'tabpanel', 'aria-labelledby': toggle.id });
         }
+        attr(this.$el, 'aria-orientation', matches(this.$el, this.selVertical) ? 'vertical' : null);
     },
 
     methods: {
@@ -185,7 +227,10 @@ export default {
             const active = getIndex(this.children[next], children(this.$el));
             children(this.$el).forEach((child, i) => {
                 toggleClass(child, this.cls, active === i);
-                attr(this.toggles[i], 'aria-selected', active === i);
+                attr(this.toggles[i], {
+                    'aria-selected': active === i,
+                    tabindex: active === i ? null : -1,
+                });
             });
 
             const animate = prev >= 0 && prev !== next;

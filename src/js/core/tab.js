@@ -14,6 +14,7 @@ export default {
     data: {
         media: 960,
         attrItem: 'uk-tab-item',
+        selVertical: '.uk-tab-left,.uk-tab-right',
     },
 
     connected() {

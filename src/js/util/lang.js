@@ -261,6 +261,8 @@ export function getIndex(i, elements, current = 0, finite = false) {
         ? current + 1
         : i === 'previous'
         ? current - 1
+        : i === 'last'
+        ? length - 1
         : elements.indexOf(toNode(i));
 
     if (finite) {

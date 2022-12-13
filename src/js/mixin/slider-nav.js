@@ -4,13 +4,16 @@ import {
     attr,
     closest,
     data,
+    getIndex,
+    hasClass,
     html,
     isNumeric,
+    matches,
     toFloat,
     toggleClass,
     toNumber,
 } from 'uikit-util';
-import { generateId } from './utils';
+import { generateId, keyMap } from './utils';
 
 export default {
     i18n: {
@@ -64,14 +67,17 @@ export default {
 
     events: [
         {
-            name: 'click',
+            name: 'click keydown',
 
             delegate() {
                 return this.selNavItem;
             },
 
             handler(e) {
-                if (closest(e.target, 'a,button')) {
+                if (
+                    closest(e.target, 'a,button') &&
+                    (e.type === 'click' || e.keyCode === keyMap.SPACE)
+                ) {
                     e.preventDefault();
                     this.show(data(e.current, this.attrItem));
                 }
@@ -82,11 +88,46 @@ export default {
             name: 'itemshow',
             handler: 'updateNav',
         },
+
+        {
+            name: 'keydown',
+
+            delegate() {
+                return this.selNavItem;
+            },
+
+            handler(e) {
+                const { current, keyCode } = e;
+                const cmd = data(current, this.attrItem);
+
+                if (!isNumeric(cmd)) {
+                    return;
+                }
+
+                let i =
+                    keyCode === keyMap.HOME
+                        ? 0
+                        : keyCode === keyMap.END
+                        ? 'last'
+                        : keyCode === keyMap.LEFT
+                        ? 'previous'
+                        : keyCode === keyMap.RIGHT
+                        ? 'next'
+                        : -1;
+
+                if (~i) {
+                    e.preventDefault();
+                    this.show(i);
+                }
+            },
+        },
     ],
 
     methods: {
         updateNav() {
             const index = this.getValidIndex();
+            let focus;
+            let focusEl;
             for (const el of this.navItems) {
                 const cmd = data(el, this.attrItem);
                 const button = $('a,button', el) || el;
@@ -113,7 +154,14 @@ export default {
                     attr(button, {
                         role: 'tab',
                         'aria-selected': active,
+                        tabindex: active ? null : -1,
                     });
+
+                    if (active) {
+                        focusEl = button;
+                    }
+
+                    focus = focus || matches(button, ':focus');
                 } else {
                     if (this.list) {
                         if (!this.list.id) {
@@ -138,6 +186,10 @@ export default {
                     'aria-controls': ariaControls,
                     'aria-label': attr(button, 'aria-label') || ariaLabel,
                 });
+
+                if (focus && focusEl) {
+                    focusEl.focus();
+                }
             }
         },
     },

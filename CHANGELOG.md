@@ -10,6 +10,8 @@
 - Add `i18n` option to Lightbox, Slider and Slideshow components
 - Add `i18n` option to Close, NavbarToggleIcon, Marker, Pagination and ToTop components
 - Add `uikit:init` event triggered on document before components initialize
+- Add tab pattern keyboard interaction for Switcher and Tab components
+- Add tab pattern keyboard interaction for Slider and Slideshow components
 
 ### Changed
 
