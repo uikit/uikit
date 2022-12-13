@@ -84,15 +84,13 @@ export default {
             self: true,
 
             delegate() {
-                return this.selSlides;
+                return `${this.selList} > *`;
             },
 
             handler(e) {
-                if (e.defaultPrevented) {
-                    return;
+                if (!e.defaultPrevented) {
+                    this.hide();
                 }
-
-                this.hide();
             },
         },
 

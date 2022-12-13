@@ -98,7 +98,7 @@ export default {
             this.hide();
             removeClass(this.selTarget, this.clsInactive);
         }
-        css(this.$el, { position: '', top: '' });
+        reset(this.$el);
 
         remove(this.placeholder);
         this.placeholder = null;
@@ -156,10 +156,10 @@ export default {
                 this.inactive = !this.matchMedia || !isVisible(this.$el);
 
                 if (this.inactive) {
-                    return false;
+                    return;
                 }
 
-                const hide = this.isFixed && types.has('resize');
+                const hide = this.isFixed && types.has('resize') && !sticky;
                 if (hide) {
                     css(this.selTarget, 'transition', '0s');
                     this.hide();
@@ -210,6 +210,7 @@ export default {
                           );
 
                 sticky =
+                    maxScrollHeight &&
                     !this.showOnUp &&
                     start + offset === topOffset &&
                     end ===
@@ -225,6 +226,7 @@ export default {
                     overflow,
                     topOffset,
                     height,
+                    elHeight,
                     width,
                     margin,
                     top: offsetPosition(referenceElement)[0],
@@ -233,10 +235,19 @@ export default {
             },
 
             write({ height, width, margin, offset, sticky }) {
+                if (this.inactive || sticky || !this.isFixed) {
+                    reset(this.$el);
+                }
+
+                if (this.inactive) {
+                    return;
+                }
+
                 if (sticky) {
                     height = width = margin = 0;
                     css(this.$el, { position: 'sticky', top: offset });
                 }
+
                 const { placeholder } = this;
 
                 css(placeholder, { height, width, margin });
@@ -349,7 +360,7 @@ export default {
                 }
             },
 
-            events: ['resize', 'scroll'],
+            events: ['resize', 'resizeViewport', 'scroll'],
         },
     ],
 
@@ -389,6 +400,7 @@ export default {
                 offset,
                 topOffset,
                 height,
+                elHeight,
                 offsetParentTop,
                 sticky,
             } = this._data;
@@ -402,10 +414,7 @@ export default {
                     position = 'absolute';
                 }
 
-                css(this.$el, {
-                    position,
-                    width,
-                });
+                css(this.$el, { position, width });
                 css(this.$el, 'marginTop', 0, 'important');
             }
 
@@ -416,7 +425,11 @@ export default {
             css(this.$el, 'top', offset);
 
             this.setActive(active);
-            toggleClass(this.$el, this.clsBelow, scroll > topOffset + height);
+            toggleClass(
+                this.$el,
+                this.clsBelow,
+                scroll > topOffset + (sticky ? Math.min(height, elHeight) : height)
+            );
             addClass(this.$el, this.clsFixed);
         },
 
@@ -459,4 +472,8 @@ function coerce(value) {
         return false;
     }
     return value;
+}
+
+function reset(el) {
+    css(el, { position: '', top: '', marginTop: '', width: '' });
 }
