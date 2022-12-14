@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Fixed
+
+- Fix stacking context if using `position: sticky` in Sticky component
+
 ### Changed
 
 - `removeAttr` no longer accepts a space separated list of attribute names
