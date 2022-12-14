@@ -6,6 +6,7 @@
 
 - Fix stacking context if using `position: sticky` in Sticky component
 - Fix height calculation for `box-sizing: border-box` on Accordion content
+- Fix error in console if image can't be loaded in Svg component with `stroke-animation: true`
 
 ### Changed
 

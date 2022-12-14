@@ -65,7 +65,7 @@ export default {
 
         if (this.strokeAnimation) {
             this.svg.then((el) => {
-                if (this._connected) {
+                if (this._connected && el) {
                     applyAnimation(el);
                     this.registerObserver(
                         observeIntersection(el, (records, observer) => {
