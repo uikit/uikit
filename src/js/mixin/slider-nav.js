@@ -4,8 +4,6 @@ import {
     attr,
     closest,
     data,
-    getIndex,
-    hasClass,
     html,
     isNumeric,
     matches,
@@ -20,6 +18,7 @@ export default {
         next: 'Next slide',
         previous: 'Previous slide',
         slideX: 'Slide %s',
+        slideLabel: '%s of %s',
     },
 
     data: {
@@ -27,8 +26,20 @@ export default {
     },
 
     computed: {
-        nav({ selNav }, $el) {
-            return $(selNav, $el);
+        nav: {
+            get({ selNav }, $el) {
+                return $(selNav, $el);
+            },
+
+            watch(nav, prev) {
+                attr(nav, 'role', 'tablist');
+
+                if (prev) {
+                    this.$emit();
+                }
+            },
+
+            immediate: true,
         },
 
         selNavItem({ attrItem }) {
@@ -46,24 +57,79 @@ export default {
         },
     },
 
-    update: {
-        write() {
-            if (this.nav && this.length !== this.nav.children.length) {
-                html(
-                    this.nav,
-                    this.slides
-                        .map((_, i) => `<li ${this.attrItem}="${i}"><a href></a></li>`)
-                        .join('')
+    connected() {
+        attr(this.$el, 'aria-roledescription', 'carousel');
+    },
+
+    update: [
+        {
+            write() {
+                this.slides.forEach((slide, i) =>
+                    attr(slide, {
+                        role: this.nav ? 'tabpanel' : 'group',
+                        'aria-label': this.t('slideLabel', i + 1, this.length),
+                        'aria-roledescription': this.nav ? null : 'slide',
+                    })
                 );
-            }
 
-            this.navItems.concat(this.nav).forEach((el) => el && (el.hidden = !this.maxIndex));
+                if (this.nav && this.length !== this.nav.children.length) {
+                    html(
+                        this.nav,
+                        this.slides
+                            .map((_, i) => `<li ${this.attrItem}="${i}"><a href></a></li>`)
+                            .join('')
+                    );
+                }
 
-            this.updateNav();
+                for (const el of this.navItems) {
+                    const cmd = data(el, this.attrItem);
+                    const button = $('a,button', el) || el;
+
+                    let ariaLabel;
+                    let ariaControls = null;
+                    if (isNumeric(cmd)) {
+                        const item = toNumber(cmd);
+                        const slide = this.slides[item];
+
+                        if (slide) {
+                            if (!slide.id) {
+                                slide.id = generateId(this, slide, `-item-${cmd}`);
+                            }
+                            ariaControls = slide.id;
+                        }
+
+                        ariaLabel = this.t('slideX', toFloat(cmd) + 1);
+
+                        attr(button, 'role', 'tab');
+                    } else {
+                        if (this.list) {
+                            if (!this.list.id) {
+                                this.list.id = generateId(this, this.list, '-items');
+                            }
+
+                            ariaControls = this.list.id;
+                        }
+
+                        ariaLabel = this.t(cmd);
+                    }
+
+                    attr(button, {
+                        'aria-controls': ariaControls,
+                        'aria-label': attr(button, 'aria-label') || ariaLabel,
+                    });
+                }
+            },
         },
 
-        events: ['resize'],
-    },
+        {
+            write() {
+                this.navItems.concat(this.nav).forEach((el) => el && (el.hidden = !this.maxIndex));
+                this.updateNav();
+            },
+
+            events: ['resize'],
+        },
+    ],
 
     events: [
         {
@@ -132,27 +198,13 @@ export default {
                 const cmd = data(el, this.attrItem);
                 const button = $('a,button', el) || el;
 
-                let ariaLabel;
-                let ariaControls;
                 if (isNumeric(cmd)) {
                     const item = toNumber(cmd);
-                    const slide = this.slides[item];
-
-                    if (slide) {
-                        if (!slide.id) {
-                            slide.id = generateId(this, slide, `-item-${cmd}`);
-                        }
-                        ariaControls = slide.id;
-                    }
-
-                    ariaLabel = this.t('slideX', toFloat(cmd) + 1);
-
                     const active = item === index;
 
                     toggleClass(el, this.clsActive, active);
 
                     attr(button, {
-                        role: 'tab',
                         'aria-selected': active,
                         tabindex: active ? null : -1,
                     });
@@ -163,16 +215,6 @@ export default {
 
                     focus = focus || matches(button, ':focus');
                 } else {
-                    if (this.list) {
-                        if (!this.list.id) {
-                            this.list.id = generateId(this, this.list, '-items');
-                        }
-
-                        ariaControls = this.list.id;
-                    }
-
-                    ariaLabel = this.t(cmd);
-
                     toggleClass(
                         el,
                         'uk-invisible',
@@ -181,11 +223,6 @@ export default {
                                 (cmd === 'next' && index >= this.maxIndex))
                     );
                 }
-
-                attr(button, {
-                    'aria-controls': ariaControls,
-                    'aria-label': attr(button, 'aria-label') || ariaLabel,
-                });
 
                 if (focus && focusEl) {
                     focusEl.focus();

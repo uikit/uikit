@@ -69,7 +69,7 @@ export default {
             },
 
             watch() {
-                this.$emit('resize');
+                this.$emit();
             },
         },
 
@@ -178,7 +178,7 @@ export default {
         },
 
         _translate(percent, prev = this.prevIndex, next = this.index) {
-            const transitioner = this._getTransitioner(prev !== next ? prev : false, next);
+            const transitioner = this._getTransitioner(prev === next ? false : prev, next);
             transitioner.translate(percent);
             return transitioner;
         },

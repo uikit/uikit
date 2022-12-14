@@ -6,6 +6,7 @@ import Transitioner, { getMax, getWidth } from './internal/slider-transitioner';
 import {
     $,
     addClass,
+    attr,
     children,
     css,
     data,
@@ -230,7 +231,9 @@ export default {
                     '',
             ];
             for (const slide of this.slides) {
-                toggleClass(slide, activeClasses, includes(actives, slide));
+                const active = includes(actives, slide);
+                toggleClass(slide, activeClasses, active);
+                attr(slide, 'aria-hidden', !active);
             }
         },
 
