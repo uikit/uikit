@@ -32,7 +32,7 @@
 
 ### Changed
 
-- Add `will-change` css property to Parallax elements  
+- Add `will-change` css property to Parallax elements 
 
 ### Fixed
 
@@ -54,7 +54,7 @@
 - Fix Scroll and Scrollspy Nav components handle same site links only
 - Fix Drop positioning within not scrollable viewport
 - Fix overscroll behavior in Dropbar
-- Fix conversion of viewport height units with `toPx()` on mobile devices  
+- Fix conversion of viewport height units with `toPx()` on mobile devices 
 
 ## 3.15.14 (November 21, 2022)
 
