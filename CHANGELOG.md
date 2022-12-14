@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix stacking context if using `position: sticky` in Sticky component
+- Fix height calculation for `box-sizing: border-box` on Accordion content
 
 ### Changed
 
