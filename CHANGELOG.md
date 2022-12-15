@@ -8,6 +8,7 @@
 - Fix height calculation for `box-sizing: border-box` on Accordion content
 - Fix error in console if image can't be loaded in Svg component with `stroke-animation: true`
 - Fix `scrollIntoView()` no longer considers elements with `position: clip` as scrollable parents
+- Fix Slider shows not centered initially with `center: true`
 
 ### Changed
 
