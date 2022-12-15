@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- `removeAttr` no longer accepts a space separated list of attribute names
+
 ### Fixed
 
 - Fix stacking context if using `position: sticky` in Sticky component
@@ -9,10 +13,6 @@
 - Fix error in console if image can't be loaded in Svg component with `stroke-animation: true`
 - Fix `scrollIntoView()` no longer considers elements with `position: clip` as scrollable parents
 - Fix Slider shows not centered initially with `center: true`
-
-### Changed
-
-- `removeAttr` no longer accepts a space separated list of attribute names
 
 ## 3.15.18 (December 13, 2022)
 
