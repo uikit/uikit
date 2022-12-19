@@ -209,16 +209,6 @@ export default {
                                   overflow
                           );
 
-                sticky =
-                    maxScrollHeight &&
-                    !this.showOnUp &&
-                    start + offset === topOffset &&
-                    end ===
-                        Math.min(
-                            maxScrollHeight,
-                            parseProp('!*', this.$el, 0, true) - elHeight - offset + overflow
-                        );
-
                 return {
                     start,
                     end,
