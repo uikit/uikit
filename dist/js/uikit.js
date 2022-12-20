@@ -1,4 +1,4 @@
-/*! UIkit 3.15.18 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.19 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -321,12 +321,7 @@
     }
 
     function removeAttr(element, name) {
-      const elements = toNodes(element);
-      for (const attribute of name.split(' ')) {
-        for (const element of elements) {
-          element.removeAttribute(attribute);
-        }
-      }
+      toNodes(element).forEach((element) => element.removeAttribute(name));
     }
 
     function data(element, attribute) {
@@ -1802,7 +1797,7 @@
     }
 
     function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
-      const parents = isVisible(element) ? scrollParents(element) : [];
+      const parents = isVisible(element) ? scrollParents(element, /auto|scroll|hidden/) : [];
       return parents.reduce(
       (fn, scrollElement, i) => {
         const { scrollTop, scrollHeight, offsetHeight } = scrollElement;
@@ -2975,7 +2970,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.18';
+    UIkit.version = '3.15.19';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3454,9 +3449,9 @@
       await Transition.cancel(wrapper);
       hide(content, false);
 
-      const endHeight = sumBy(
-      ['height', 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom'],
-      (prop) => css(content, prop));
+      const endHeight =
+      sumBy(['marginTop', 'marginBottom'], (prop) => css(content, prop)) +
+      dimensions$1(content).height;
 
       const percent = currentHeight / endHeight;
       duration = (velocity * endHeight + duration) * (show ? 1 - percent : percent);
@@ -3473,7 +3468,7 @@
     }
 
     function keepScrollPosition(el) {
-      const scrollParent = scrollParents(el)[0];
+      const [scrollParent] = scrollParents(el, /auto|scroll/, true);
       let frame;
       (function scroll() {
         frame = requestAnimationFrame(() => {
@@ -5201,7 +5196,7 @@
 
         if (this.strokeAnimation) {
           this.svg.then((el) => {
-            if (this._connected) {
+            if (this._connected && el) {
               applyAnimation(el);
               this.registerObserver(
               observeIntersection(el, (records, observer) => {
@@ -9032,8 +9027,8 @@
           stack[force ? 'unshift' : 'push'](index);
 
           if (!force && stack.length > 1) {
-            if (stack.length === 2) {
-              this._transitioner.forward(Math.min(this.duration, 200));
+            if (stack.length === 2) {var _this$_transitioner;
+              (_this$_transitioner = this._transitioner) == null ? void 0 : _this$_transitioner.forward(Math.min(this.duration, 200));
             }
 
             return;
@@ -9066,17 +9061,10 @@
             prev && trigger(prev, 'itemhidden', [this]);
             trigger(next, 'itemshown', [this]);
 
-            return new Promise((resolve) => {
-              requestAnimationFrame(() => {
-                stack.shift();
-                if (stack.length) {
-                  this.show(stack.shift(), true);
-                } else {
-                  this._transitioner = null;
-                }
-                resolve();
-              });
-            });
+            stack.shift();
+            this._transitioner = null;
+
+            requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
           });
 
           prev && trigger(prev, 'itemhide', [this]);
