@@ -25,7 +25,7 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 }
 
 export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
-    const parents = isVisible(element) ? scrollParents(element) : [];
+    const parents = isVisible(element) ? scrollParents(element, /auto|scroll|hidden/) : [];
     return parents.reduce(
         (fn, scrollElement, i) => {
             const { scrollTop, scrollHeight, offsetHeight } = scrollElement;

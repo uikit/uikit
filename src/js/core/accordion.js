@@ -6,6 +6,7 @@ import {
     $$,
     attr,
     css,
+    dimensions,
     filter,
     getIndex,
     hasClass,
@@ -169,10 +170,10 @@ async function transition(el, show, { content, duration, velocity, transition })
     await Transition.cancel(wrapper);
     hide(content, false);
 
-    const endHeight = sumBy(
-        ['height', 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom'],
-        (prop) => css(content, prop)
-    );
+    const endHeight =
+        sumBy(['marginTop', 'marginBottom'], (prop) => css(content, prop)) +
+        dimensions(content).height;
+
     const percent = currentHeight / endHeight;
     duration = (velocity * endHeight + duration) * (show ? 1 - percent : percent);
     css(wrapper, 'height', currentHeight);
@@ -188,7 +189,7 @@ async function transition(el, show, { content, duration, velocity, transition })
 }
 
 function keepScrollPosition(el) {
-    const scrollParent = scrollParents(el)[0];
+    const [scrollParent] = scrollParents(el, /auto|scroll/, true);
     let frame;
     (function scroll() {
         frame = requestAnimationFrame(() => {

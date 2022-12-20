@@ -25,6 +25,8 @@
 
 /*
  * 1. Create position context so it's t the same like when fixed.
+ * 2. Create stacking context already when not sticky to have the same context
+*     for position set to `sticky` and `relative`
  * 2. More robust if padding and border are used and the sticky height is transitioned
  */
 
@@ -32,6 +34,8 @@
     /* 1 */
     position: relative;
     /* 2 */
+    z-index: @sticky-z-index;
+    /* 3 */
     box-sizing: border-box;
 }
 
@@ -40,7 +44,6 @@
  */
 
 .uk-sticky-fixed {
-    z-index: @sticky-z-index;
     margin: 0 !important;
     /* 1 */
     -webkit-backface-visibility: hidden;

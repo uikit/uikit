@@ -97,7 +97,7 @@ export default {
 
             if (!force && stack.length > 1) {
                 if (stack.length === 2) {
-                    this._transitioner.forward(Math.min(this.duration, 200));
+                    this._transitioner?.forward(Math.min(this.duration, 200));
                 }
 
                 return;
@@ -130,17 +130,10 @@ export default {
                 prev && trigger(prev, 'itemhidden', [this]);
                 trigger(next, 'itemshown', [this]);
 
-                return new Promise((resolve) => {
-                    requestAnimationFrame(() => {
-                        stack.shift();
-                        if (stack.length) {
-                            this.show(stack.shift(), true);
-                        } else {
-                            this._transitioner = null;
-                        }
-                        resolve();
-                    });
-                });
+                stack.shift();
+                this._transitioner = null;
+
+                requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
             });
 
             prev && trigger(prev, 'itemhide', [this]);

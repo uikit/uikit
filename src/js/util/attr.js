@@ -30,12 +30,7 @@ export function hasAttr(element, name) {
 }
 
 export function removeAttr(element, name) {
-    const elements = toNodes(element);
-    for (const attribute of name.split(' ')) {
-        for (const element of elements) {
-            element.removeAttribute(attribute);
-        }
-    }
+    toNodes(element).forEach((element) => element.removeAttribute(name));
 }
 
 export function data(element, attribute) {
