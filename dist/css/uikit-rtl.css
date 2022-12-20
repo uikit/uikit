@@ -1,4 +1,4 @@
-/*! UIkit 3.15.18 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.19 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4021,19 +4021,22 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 /*
  * 1. Create position context so it's t the same like when fixed.
+ * 2. Create stacking context already when not sticky to have the same context
+*     for position set to `sticky` and `relative`
  * 2. More robust if padding and border are used and the sticky height is transitioned
  */
 .uk-sticky {
   /* 1 */
   position: relative;
   /* 2 */
+  z-index: 980;
+  /* 3 */
   box-sizing: border-box;
 }
 /*
  * 1. Force new layer to resolve frame rate issues on devices with lower frame rates
  */
 .uk-sticky-fixed {
-  z-index: 980;
   margin: 0 !important;
   /* 1 */
   -webkit-backface-visibility: hidden;
@@ -8132,7 +8135,7 @@ iframe[data-uk-cover] {
 .uk-object-scale-down {
   object-fit: scale-down;
 }
-/* 
+/*
  * Position
  */
 .uk-object-top-right {
