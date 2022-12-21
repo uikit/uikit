@@ -217,7 +217,8 @@ export default {
                         Math.min(
                             maxScrollHeight,
                             parseProp('!*', this.$el, 0, true) - elHeight - offset + overflow
-                        );
+                        ) &&
+                    css(parent(this.$el), 'overflowY') === 'visible';
 
                 return {
                     start,

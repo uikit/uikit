@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix disable native position sticky in Sticky component if parents `overflow` is not set to visible
+
 ## 3.15.19 (December 20, 2022)
 
 ### Changed
