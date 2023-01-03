@@ -12,6 +12,7 @@
 - Add `uikit:init` event triggered on document before components initialize
 - Add tab pattern keyboard interaction for Switcher and Tab components
 - Add tab pattern keyboard interaction for Slider and Slideshow components
+- Add menubar pattern keyboard interaction to Navbar component
 
 ### Changed
 

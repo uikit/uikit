@@ -6,7 +6,6 @@ import {
     closest,
     hasClass,
     includes,
-    isBoolean,
     isFocusable,
     isTag,
     isTouch,
@@ -49,7 +48,6 @@ export default {
             },
 
             watch() {
-                this.updateAria();
                 this.lazyload(this.$el, this.target);
             },
 
@@ -115,7 +113,7 @@ export default {
                 }
 
                 const show = includes([pointerEnter, 'focus'], e.type);
-                const expanded = attr(this.$el, 'aria-expanded');
+                const expanded = this.isToggled(this.target);
 
                 // Skip hide if still hovered or focused
                 if (
@@ -169,7 +167,7 @@ export default {
                     this._preventClick ||
                     closest(e.target, 'a[href="#"], a[href=""]') ||
                     ((link = closest(e.target, 'a[href]')) &&
-                        (attr(this.$el, 'aria-expanded') !== 'true' ||
+                        (!this.isToggled(this.target) ||
                             (link.hash && matches(this.target, link.hash))))
                 ) {
                     e.preventDefault();
@@ -178,20 +176,6 @@ export default {
                 if (!this._preventClick && includes(this.mode, 'click')) {
                     this.toggle();
                 }
-            },
-        },
-
-        {
-            name: 'hide show',
-
-            self: true,
-
-            el() {
-                return this.target;
-            },
-
-            handler({ target, type }) {
-                this.updateAria(target === this.target[0] && type === 'show');
             },
         },
 
@@ -239,18 +223,6 @@ export default {
             await this.toggleElement(
                 this.target.filter((el) => !includes(toggled, el)),
                 true
-            );
-        },
-
-        updateAria(toggled) {
-            if (includes(this.mode, 'media')) {
-                return;
-            }
-
-            attr(
-                this.$el,
-                'aria-expanded',
-                isBoolean(toggled) ? toggled : this.isToggled(this.target)
             );
         },
     },

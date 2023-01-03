@@ -6,8 +6,10 @@ import {
     $$,
     addClass,
     after,
+    attr,
     css,
     findIndex,
+    getIndex,
     hasAttr,
     hasClass,
     height,
@@ -130,7 +132,7 @@ export default {
                 return $$(dropdown, $el);
             },
 
-            watch() {
+            watch(toggles) {
                 const justify = hasClass(this.$el, 'uk-navbar-justify');
                 for (const container of $$(
                     '.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right',
@@ -138,10 +140,17 @@ export default {
                 )) {
                     css(container, 'flexGrow', justify ? $$(this.dropdown, container).length : '');
                 }
+
+                attr(toggles, { tabindex: -1, role: 'menuitem' });
+                attr(toggles[0], 'tabindex', 0);
             },
 
             immediate: true,
         },
+    },
+
+    connected() {
+        attr(this.$el, 'role', 'menubar');
     },
 
     disconnected() {
@@ -157,7 +166,7 @@ export default {
                 return this.dropdown;
             },
 
-            handler({ current }) {
+            handler({ current, type }) {
                 const active = this.getActive();
                 if (
                     active &&
@@ -167,6 +176,12 @@ export default {
                     !active.isDelaying
                 ) {
                     active.hide(false);
+                }
+
+                if (type === 'focusin') {
+                    for (const toggle of this.toggles) {
+                        attr(toggle, 'tabindex', current === toggle ? 0 : -1);
+                    }
                 }
             },
         },
@@ -218,25 +233,30 @@ export default {
                 }
 
                 const active = this.getActive();
-                const elements = $$(selFocusable, current);
-                const i = findIndex(elements, (el) => matches(el, ':focus'));
+                let next = -1;
 
-                if (keyCode === keyMap.UP) {
-                    e.preventDefault();
-                    if (i > 0) {
-                        elements[i - 1].focus();
-                    }
-                }
-
-                if (keyCode === keyMap.DOWN) {
-                    e.preventDefault();
-                    if (i < elements.length - 1) {
-                        elements[i + 1].focus();
-                    }
-                }
-
-                if (keyCode === keyMap.ESC) {
+                if (keyCode === keyMap.HOME) {
+                    next = 0;
+                } else if (keyCode === keyMap.END) {
+                    next = 'last';
+                } else if (keyCode === keyMap.UP) {
+                    next = 'previous';
+                } else if (keyCode === keyMap.DOWN) {
+                    next = 'next';
+                } else if (keyCode === keyMap.ESC) {
                     active.targetEl?.focus();
+                }
+
+                if (~next) {
+                    e.preventDefault();
+                    const elements = $$(selFocusable, current);
+                    elements[
+                        getIndex(
+                            next,
+                            elements,
+                            findIndex(elements, (el) => matches(el, ':focus'))
+                        )
+                    ].focus();
                 }
 
                 handleNavItemNavigation(e, this.toggles, active);
@@ -399,24 +419,20 @@ export default {
 
 function handleNavItemNavigation(e, toggles, active) {
     const { current, keyCode } = e;
-    const target = active.targetEl || current;
-    const i = toggles.indexOf(target);
+    let next = -1;
 
-    // Left
-    if (keyCode === keyMap.LEFT && i > 0) {
+    if (keyCode === keyMap.LEFT) {
+        next = 'previous';
+    } else if (keyCode === keyMap.RIGHT) {
+        next = 'next';
+    } else if (keyCode === keyMap.TAB) {
+        active.targetEl?.focus();
         active.hide?.(false);
-        toggles[i - 1].focus();
     }
 
-    // Right
-    if (keyCode === keyMap.RIGHT && i < toggles.length - 1) {
+    if (~next) {
         active.hide?.(false);
-        toggles[i + 1].focus();
-    }
-
-    if (keyCode === keyMap.TAB) {
-        target.focus();
-        active.hide?.(false);
+        toggles[getIndex(next, toggles, toggles.indexOf(active.targetEl || current))].focus();
     }
 }
 

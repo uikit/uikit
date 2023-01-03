@@ -238,6 +238,8 @@ export default {
             self: true,
 
             handler(e, toggled) {
+                attr(this.targetEl, 'aria-expanded', toggled ? true : null);
+
                 if (!toggled) {
                     return;
                 }
