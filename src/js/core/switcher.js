@@ -12,6 +12,8 @@ import {
     findIndex,
     getIndex,
     hasClass,
+    includes,
+    isNode,
     matches,
     queryAll,
     toggleClass,
@@ -19,6 +21,8 @@ import {
     within,
 } from 'uikit-util';
 import { generateId, keyMap } from '../mixin/utils';
+
+const selDisabled = '.uk-disabled *, .uk-disabled, [disabled]';
 
 export default {
     mixins: [Lazyload, Swipe, Togglable],
@@ -80,9 +84,7 @@ export default {
 
         toggles: {
             get({ toggle }, $el) {
-                return $$(toggle, $el).filter(
-                    (el) => !matches(el, '.uk-disabled *, .uk-disabled, [disabled]')
-                );
+                return $$(toggle, $el);
             },
 
             watch(toggles) {
@@ -118,7 +120,10 @@ export default {
             },
 
             handler(e) {
-                if (e.type === 'click' || e.keyCode === keyMap.SPACE) {
+                if (
+                    !matches(e.current, selDisabled) &&
+                    (e.type === 'click' || e.keyCode === keyMap.SPACE)
+                ) {
                     e.preventDefault();
                     this.show(e.current);
                 }
@@ -198,9 +203,8 @@ export default {
     ],
 
     update() {
-        const toggles = $$(this.toggle, this.$el);
-        for (const index in toggles) {
-            const toggle = toggles[index];
+        for (const index in this.toggles) {
+            const toggle = this.toggles[index];
             const item = this.connects[0]?.children[index];
 
             if (!item) {
@@ -222,10 +226,16 @@ export default {
         },
 
         show(item) {
+            const toggles = this.toggles.filter((el) => !matches(el, selDisabled));
             const prev = this.index();
-            const next = getIndex(item, this.toggles, prev);
-            const active = getIndex(this.children[next], children(this.$el));
-            children(this.$el).forEach((child, i) => {
+            const next = getIndex(
+                !isNode(item) || includes(toggles, item) ? item : 0,
+                toggles,
+                getIndex(this.toggles[prev], toggles)
+            );
+            const active = getIndex(toggles[next], this.toggles);
+
+            this.children.forEach((child, i) => {
                 toggleClass(child, this.cls, active === i);
                 attr(this.toggles[i], {
                     'aria-selected': active === i,
