@@ -41,18 +41,9 @@ export default {
     },
 
     computed: {
-        target: {
-            get({ href, target }, $el) {
-                target = queryAll(target || href, $el);
-                return (target.length && target) || [$el];
-            },
-
-            watch() {
-                this.lazyload(this.$el, this.target);
-            },
-
-            document: true,
-            immediate: true,
+        target({ href, target }, $el) {
+            target = queryAll(target || href, $el);
+            return (target.length && target) || [$el];
         },
     },
 
@@ -65,6 +56,8 @@ export default {
                 attr(this.$el, 'role', 'button');
             }
         }
+
+        this.lazyload(this.$el, () => this.target);
     },
 
     events: [
