@@ -421,7 +421,11 @@ function handleNavItemNavigation(e, toggles, active) {
     const { current, keyCode } = e;
     let next = -1;
 
-    if (keyCode === keyMap.LEFT) {
+    if (keyCode === keyMap.HOME) {
+        next = 0;
+    } else if (keyCode === keyMap.END) {
+        next = 'last';
+    } else if (keyCode === keyMap.LEFT) {
         next = 'previous';
     } else if (keyCode === keyMap.RIGHT) {
         next = 'next';
@@ -431,6 +435,7 @@ function handleNavItemNavigation(e, toggles, active) {
     }
 
     if (~next) {
+        e.preventDefault();
         active.hide?.(false);
         toggles[getIndex(next, toggles, toggles.indexOf(active.targetEl || current))].focus();
     }
