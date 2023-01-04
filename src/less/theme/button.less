@@ -37,7 +37,7 @@
 @button-disabled-border:                        @global-border;
 
 @button-text-border-width:                      @global-border-width;
-@button-text-border:                            @button-text-hover-color;
+@button-text-border:                            currentColor;
 
 
 // Component
@@ -169,6 +169,7 @@
      */
 
     .uk-button-group .uk-button:hover,
+    .uk-button-group .uk-button:focus,
     .uk-button-group .uk-button:active,
     .uk-button-group .uk-button.uk-active {
         position: relative;
