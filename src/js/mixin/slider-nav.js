@@ -2,6 +2,7 @@ import {
     $,
     $$,
     attr,
+    children,
     closest,
     data,
     html,
@@ -80,6 +81,8 @@ export default {
                             .join('')
                     );
                 }
+
+                attr(children(this.nav).concat(this.list), 'role', 'presentation');
 
                 for (const el of this.navItems) {
                     const cmd = data(el, this.attrItem);

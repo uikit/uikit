@@ -203,9 +203,14 @@ export default {
     ],
 
     update() {
+        attr(this.connects, 'role', 'presentation');
+        attr(children(this.$el), 'role', 'presentation');
+
         for (const index in this.toggles) {
             const toggle = this.toggles[index];
             const item = this.connects[0]?.children[index];
+
+            attr(toggle, 'role', 'tab');
 
             if (!item) {
                 continue;
@@ -214,7 +219,7 @@ export default {
             toggle.id = generateId(this, toggle, `-tab-${index}`);
             item.id = generateId(this, item, `-tabpanel-${index}`);
 
-            attr(toggle, { role: 'tab', 'aria-controls': item.id });
+            attr(toggle, 'aria-controls', item.id);
             attr(item, { role: 'tabpanel', 'aria-labelledby': toggle.id });
         }
         attr(this.$el, 'aria-orientation', matches(this.$el, this.selVertical) ? 'vertical' : null);

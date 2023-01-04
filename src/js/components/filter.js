@@ -121,9 +121,7 @@ export default {
             trigger(this.$el, 'beforeFilter', [this, state]);
 
             for (const toggle of this.toggles) {
-                const active = !!matchFilter(toggle, this.attrItem, state);
-                toggleClass(toggle, this.cls, active);
-                attr(findButton(toggle), 'aria-selected', active);
+                toggleClass(toggle, this.cls, matchFilter(toggle, this.attrItem, state));
             }
 
             await Promise.all(

@@ -7,6 +7,7 @@ import {
     addClass,
     after,
     attr,
+    children,
     css,
     findIndex,
     getIndex,
@@ -127,12 +128,12 @@ export default {
             immediate: true,
         },
 
-        toggles: {
+        items: {
             get({ dropdown }, $el) {
                 return $$(dropdown, $el);
             },
 
-            watch(toggles) {
+            watch(items) {
                 const justify = hasClass(this.$el, 'uk-navbar-justify');
                 for (const container of $$(
                     '.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right',
@@ -141,8 +142,10 @@ export default {
                     css(container, 'flexGrow', justify ? $$(this.dropdown, container).length : '');
                 }
 
-                attr(toggles, { tabindex: -1, role: 'menuitem' });
-                attr(toggles[0], 'tabindex', 0);
+                attr($$('.uk-navbar-nav', this.$el), 'role', 'group');
+                attr($$('.uk-navbar-nav > *', this.$el), 'role', 'presentation');
+                attr(items, { tabindex: -1, role: 'menuitem' });
+                attr(items[0], 'tabindex', 0);
             },
 
             immediate: true,
@@ -179,7 +182,7 @@ export default {
                 }
 
                 if (type === 'focusin') {
-                    for (const toggle of this.toggles) {
+                    for (const toggle of this.items) {
                         attr(toggle, 'tabindex', current === toggle ? 0 : -1);
                     }
                 }
@@ -210,7 +213,7 @@ export default {
                     }
                 }
 
-                handleNavItemNavigation(e, this.toggles, active);
+                handleNavItemNavigation(e, this.items, active);
             },
         },
 
@@ -259,7 +262,7 @@ export default {
                     ].focus();
                 }
 
-                handleNavItemNavigation(e, this.toggles, active);
+                handleNavItemNavigation(e, this.items, active);
             },
         },
 
@@ -345,7 +348,7 @@ export default {
                 if (
                     matches(this.dropbar, ':hover') &&
                     active.$el === e.target &&
-                    !this.toggles.some((el) => active.targetEl !== el && matches(el, ':focus'))
+                    !this.items.some((el) => active.targetEl !== el && matches(el, ':focus'))
                 ) {
                     e.preventDefault();
                 }
