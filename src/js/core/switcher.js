@@ -139,7 +139,6 @@ export default {
 
             handler(e) {
                 const { current, keyCode } = e;
-                const currentIndex = this.toggles.indexOf(current);
                 const isVertical = matches(this.$el, this.selVertical);
 
                 let i =
@@ -157,10 +156,11 @@ export default {
 
                 if (~i) {
                     e.preventDefault();
-                    const next = this.toggles[getIndex(i, this.toggles, currentIndex)];
+                    const toggles = this.toggles.filter((el) => !matches(el, selDisabled));
+                    const next = toggles[getIndex(i, toggles, toggles.indexOf(current))];
                     next.focus();
                     if (this.followFocus) {
-                        this.show(i);
+                        this.show(next);
                     }
                 }
             },
