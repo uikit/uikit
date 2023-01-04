@@ -4,6 +4,7 @@ import Togglable from '../mixin/togglable';
 import {
     attr,
     closest,
+    hasAttr,
     hasClass,
     includes,
     isFocusable,
@@ -195,6 +196,10 @@ export default {
         async toggle(type) {
             if (!trigger(this.target, type || 'toggle', [this])) {
                 return;
+            }
+
+            if (hasAttr(this.$el, 'aria-expanded')) {
+                attr(this.$el, 'aria-expanded', !this.isToggled(this.target));
             }
 
             if (!this.queued) {
