@@ -349,7 +349,7 @@ function untrackScroll() {
 
 function appendDrag(container, element) {
     let clone;
-    if (['li', 'tr'].some((tag) => isTag(element, tag))) {
+    if (isTag(element, 'li', 'tr')) {
         clone = $('<div>');
         append(clone, element.cloneNode(true).children);
         for (const attribute of element.getAttributeNames()) {
