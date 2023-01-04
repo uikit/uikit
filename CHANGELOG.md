@@ -2,8 +2,13 @@
 
 ## WIP
 
+### Changed
+
+- Improve close icon not overlaying content in Modal component for UIkit theme
+
 ### Fixed
 
+- Fix nav in Dropdown component not overriding properties of Nav component
 - Fix disable native position sticky in Sticky component if parents `overflow` is not set to visible
 
 ## 3.15.19 (December 20, 2022)
