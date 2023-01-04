@@ -71,7 +71,7 @@ export default {
             handler(e) {
                 this._preventClick = null;
 
-                if (!isTouch(e) || this._showState) {
+                if (!isTouch(e) || this._showState || this.$el.disabled) {
                     return;
                 }
 
@@ -101,7 +101,7 @@ export default {
             },
 
             handler(e) {
-                if (isTouch(e)) {
+                if (isTouch(e) || this.$el.disabled) {
                     return;
                 }
 
