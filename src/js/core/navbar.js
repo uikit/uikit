@@ -7,7 +7,6 @@ import {
     addClass,
     after,
     attr,
-    children,
     css,
     findIndex,
     getIndex,
