@@ -5,8 +5,9 @@
 ### Changed
 
 - Add larger gap on larger viewports to Navbar component in UIkit theme
-- Add gradient to text background in Text component in UIkit theme
-- Improve close icon not overlaying content in Modal component for UIkit theme
+- Add gradient for text background to Text component in UIkit theme
+- Add gradient for thumbnav item to Thumbnav component in UIkit theme
+- Improve close icon not overlaying content in Modal component in UIkit theme
 
 ### Fixed
 
