@@ -12,8 +12,8 @@ export function ready(fn) {
     once(document, 'DOMContentLoaded', fn);
 }
 
-export function isTag(element, tagName) {
-    return element?.tagName?.toLowerCase() === tagName.toLowerCase();
+export function isTag(element, ...tagNames) {
+    return tagNames.some((tagName) => element?.tagName?.toLowerCase() === tagName.toLowerCase());
 }
 
 export function empty(element) {

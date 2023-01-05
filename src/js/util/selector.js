@@ -11,11 +11,11 @@ export function queryAll(selector, context) {
 }
 
 export function find(selector, context) {
-    return toNode(_query(selector, context, 'querySelector'));
+    return toNode(_query(selector, toNode(context), 'querySelector'));
 }
 
 export function findAll(selector, context) {
-    return toNodes(_query(selector, context, 'querySelectorAll'));
+    return toNodes(_query(selector, toNode(context), 'querySelectorAll'));
 }
 
 const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;

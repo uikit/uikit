@@ -100,7 +100,7 @@ export default {
 function setSrcAttrs(el, src) {
     if (isImg(el)) {
         const parentNode = parent(el);
-        const elements = isPicture(parentNode) ? children(parentNode) : [el];
+        const elements = isTag(parentNode, 'picture') ? children(parentNode) : [el];
         elements.forEach((el) => setSourceProps(el, el));
     } else if (src) {
         const change = !includes(el.style.backgroundImage, src);
@@ -173,10 +173,6 @@ function ensureSrcAttribute(el) {
     if (isImg(el) && !hasAttr(el, 'src')) {
         attr(el, 'src', 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"></svg>');
     }
-}
-
-function isPicture(el) {
-    return isTag(el, 'picture');
 }
 
 function isImg(el) {
