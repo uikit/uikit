@@ -20,8 +20,10 @@ $modal-header-border:                           $global-border !default;
 $modal-footer-border-width:                     $global-border-width !default;
 $modal-footer-border:                           $global-border !default;
 
-$modal-close-full-padding:                      $global-margin !default;
+$modal-close-full-padding:                      10px !default;
 $modal-close-full-background:                   $modal-dialog-background !default;
+
+$modal-close-full-padding-m:                    $global-margin !default;
 
 
 // Component
@@ -81,4 +83,3 @@ $modal-close-full-background:                   $modal-dialog-background !defaul
 // Miscellaneous
 // ========================================================================
 
-// @mixin hook-modal-misc(){}

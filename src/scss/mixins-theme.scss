@@ -389,6 +389,7 @@
      */
 
     .uk-button-group .uk-button:hover,
+    .uk-button-group .uk-button:focus,
     .uk-button-group .uk-button:active,
     .uk-button-group .uk-button.uk-active {
         position: relative;
@@ -1756,7 +1757,18 @@
     background: $modal-close-full-background;
 }
 @mixin hook-modal-close-full-hover(){}
-@mixin hook-modal-misc(){}
+@mixin hook-modal-misc(){
+
+    /* Tablet landscape and bigger */
+    @media (min-width: $breakpoint-medium) {
+
+        .uk-modal-close-full {
+            padding: $modal-close-full-padding-m;
+        }
+
+    }
+
+}
 @mixin hook-nav-sub(){}
 @mixin hook-nav-header(){}
 @mixin hook-nav-divider(){}

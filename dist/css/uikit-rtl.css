@@ -1,4 +1,4 @@
-/*! UIkit 3.15.19 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.20 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2071,7 +2071,7 @@ select.uk-form-width-xsmall {
   bottom: 0;
   right: 0;
   left: 100%;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid currentColor;
   transition: left 0.3s ease-out;
 }
 /* Hover */
@@ -2142,6 +2142,7 @@ select.uk-form-width-xsmall {
      * Workaround: Just use a `button` or `input` element as button
      */
 .uk-button-group .uk-button:hover,
+.uk-button-group .uk-button:focus,
 .uk-button-group .uk-button:active,
 .uk-button-group .uk-button.uk-active {
   position: relative;
@@ -3513,97 +3514,6 @@ select.uk-form-width-xsmall {
   width: 100% !important;
 }
 /* ========================================================================
-   Component: Dropdown
- ========================================================================== */
-/*
- * 1. Hide by default
- * 2. Set position
- * 3. Set a default width
- * 4. Style
- */
-.uk-dropdown {
-  /* 1 */
-  display: none;
-  /* 2 */
-  position: absolute;
-  z-index: 1020;
-  --uk-position-offset: 10px;
-  --uk-position-viewport-offset: 15px;
-  /* 3 */
-  box-sizing: border-box;
-  min-width: 200px;
-  /* 4 */
-  padding: 25px;
-  background: #fff;
-  color: #666;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
-}
-/* Show */
-.uk-dropdown.uk-open {
-  display: block;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-dropdown > :last-child {
-  margin-bottom: 0;
-}
-/* Size modifier
- ========================================================================== */
-.uk-dropdown-large {
-  padding: 40px;
-}
-/* Nav
- * Adopts `uk-nav`
- ========================================================================== */
-.uk-dropdown-nav {
-  font-size: 0.875rem;
-}
-/*
- * Items
- */
-.uk-dropdown-nav > li > a {
-  color: #999;
-}
-/* Hover + Active */
-.uk-dropdown-nav > li > a:hover,
-.uk-dropdown-nav > li.uk-active > a {
-  color: #666;
-}
-/*
- * Subtitle
- */
-.uk-dropdown-nav .uk-nav-subtitle {
-  font-size: 12px;
-}
-/*
- * Header
- */
-.uk-dropdown-nav .uk-nav-header {
-  color: #333;
-}
-/*
- * Divider
- */
-.uk-dropdown-nav .uk-nav-divider {
-  border-top: 1px solid #e5e5e5;
-}
-/*
- * Sublists
- */
-.uk-dropdown-nav .uk-nav-sub a {
-  color: #999;
-}
-.uk-dropdown-nav .uk-nav-sub a:hover,
-.uk-dropdown-nav .uk-nav-sub li.uk-active > a {
-  color: #666;
-}
-/* Grid modifiers
- ========================================================================== */
-.uk-dropdown-stack .uk-dropdown-grid > * {
-  width: 100% !important;
-}
-/* ========================================================================
    Component: Dropbar
  ========================================================================== */
 /*
@@ -3882,8 +3792,14 @@ select.uk-form-width-xsmall {
 .uk-modal-close-full {
   top: 0;
   left: 0;
-  padding: 20px;
+  padding: 10px;
   background: #fff;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-modal-close-full {
+    padding: 20px;
+  }
 }
 /* ========================================================================
    Component: Slideshow
@@ -6239,6 +6155,97 @@ ul.uk-nav-sub {
 .uk-iconnav-vertical > * {
   padding-right: 0;
   padding-top: 10px;
+}
+/* ========================================================================
+   Component: Dropdown
+ ========================================================================== */
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ * 4. Style
+ */
+.uk-dropdown {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: absolute;
+  z-index: 1020;
+  --uk-position-offset: 10px;
+  --uk-position-viewport-offset: 15px;
+  /* 3 */
+  box-sizing: border-box;
+  min-width: 200px;
+  /* 4 */
+  padding: 25px;
+  background: #fff;
+  color: #666;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+/* Show */
+.uk-dropdown.uk-open {
+  display: block;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-dropdown > :last-child {
+  margin-bottom: 0;
+}
+/* Size modifier
+ ========================================================================== */
+.uk-dropdown-large {
+  padding: 40px;
+}
+/* Nav
+ * Adopts `uk-nav`
+ ========================================================================== */
+.uk-dropdown-nav {
+  font-size: 0.875rem;
+}
+/*
+ * Items
+ */
+.uk-dropdown-nav > li > a {
+  color: #999;
+}
+/* Hover + Active */
+.uk-dropdown-nav > li > a:hover,
+.uk-dropdown-nav > li.uk-active > a {
+  color: #666;
+}
+/*
+ * Subtitle
+ */
+.uk-dropdown-nav .uk-nav-subtitle {
+  font-size: 12px;
+}
+/*
+ * Header
+ */
+.uk-dropdown-nav .uk-nav-header {
+  color: #333;
+}
+/*
+ * Divider
+ */
+.uk-dropdown-nav .uk-nav-divider {
+  border-top: 1px solid #e5e5e5;
+}
+/*
+ * Sublists
+ */
+.uk-dropdown-nav .uk-nav-sub a {
+  color: #999;
+}
+.uk-dropdown-nav .uk-nav-sub a:hover,
+.uk-dropdown-nav .uk-nav-sub li.uk-active > a {
+  color: #666;
+}
+/* Grid modifiers
+ ========================================================================== */
+.uk-dropdown-stack .uk-dropdown-grid > * {
+  width: 100% !important;
 }
 /* ========================================================================
    Component: Lightbox
