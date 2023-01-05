@@ -7,9 +7,9 @@
 // Variables
 // ========================================================================
 
-@navbar-gap:                                    30px;
+@navbar-gap:                                    15px;
 
-@navbar-nav-gap:                                30px;
+@navbar-nav-gap:                                15px;
 
 @navbar-nav-item-padding-horizontal:            0;
 
@@ -26,6 +26,9 @@
 //
 // New
 //
+
+@navbar-gap-m:                                  30px;
+@navbar-nav-gap-m:                              30px;
 
 @navbar-nav-item-text-transform:                uppercase;
 
@@ -133,7 +136,28 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-navbar-misc() {}
+.hook-navbar-misc() {
+
+    /* Tablet landscape and bigger */
+    @media (min-width: @breakpoint-medium) {
+
+        .uk-navbar-left,
+        .uk-navbar-right,
+        [class*='uk-navbar-center'] { gap: @navbar-gap-m; }
+
+        .uk-navbar-center-left { right:  ~'calc(100% + @{navbar-gap-m})'; }
+        .uk-navbar-center-right { left: ~'calc(100% + @{navbar-gap-m})'; }
+
+    }
+
+    /* Tablet landscape and bigger */
+    @media (min-width: @breakpoint-medium) {
+
+        .uk-navbar-nav { gap: @navbar-nav-gap-m; }
+
+    }
+
+}
 
 
 // Inverse
