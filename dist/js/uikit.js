@@ -1,4 +1,4 @@
-/*! UIkit 3.15.19 | https://www.getuikit.com | (c) 2014 - 2022 YOOtheme | MIT License */
+/*! UIkit 3.15.20 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -426,11 +426,11 @@
     }
 
     function find(selector, context) {
-      return toNode(_query(selector, context, 'querySelector'));
+      return toNode(_query(selector, toNode(context), 'querySelector'));
     }
 
     function findAll(selector, context) {
-      return toNodes(_query(selector, context, 'querySelectorAll'));
+      return toNodes(_query(selector, toNode(context), 'querySelectorAll'));
     }
 
     const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
@@ -974,8 +974,8 @@
       once(document, 'DOMContentLoaded', fn);
     }
 
-    function isTag(element, tagName) {var _element$tagName;
-      return (element == null ? void 0 : (_element$tagName = element.tagName) == null ? void 0 : _element$tagName.toLowerCase()) === tagName.toLowerCase();
+    function isTag(element, ...tagNames) {
+      return tagNames.some((tagName) => {var _element$tagName;return (element == null ? void 0 : (_element$tagName = element.tagName) == null ? void 0 : _element$tagName.toLowerCase()) === tagName.toLowerCase();});
     }
 
     function empty(element) {
@@ -2092,7 +2092,7 @@
 
       if (['auto', 'scroll'].includes(css(scrollElement, `overflow-${axis}`))) {
         viewport[start] -= scrollElement[`scroll${ucfirst(start)}`];
-        viewport[end] = scrollElement[`scroll${ucfirst(prop)}`];
+        viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`];
       }
 
       viewport[start] += viewportOffset;
@@ -2170,145 +2170,145 @@
 
     var util = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        ajax: ajax,
-        getImage: getImage,
-        Transition: Transition,
+        $: $,
+        $$: $$,
         Animation: Animation,
-        attr: attr,
-        hasAttr: hasAttr,
-        removeAttr: removeAttr,
-        data: data,
+        Deferred: Deferred,
+        Dimensions: Dimensions,
+        MouseTracker: MouseTracker,
+        Transition: Transition,
         addClass: addClass,
+        after: after,
+        ajax: ajax,
+        append: append,
+        apply: apply,
+        assign: assign,
+        attr: attr,
+        before: before,
+        boxModelAdjust: boxModelAdjust,
+        camelize: camelize,
+        children: children,
+        clamp: clamp,
+        closest: closest,
+        createEvent: createEvent,
+        css: css,
+        data: data,
+        dimensions: dimensions$1,
+        each: each,
+        empty: empty,
+        endsWith: endsWith,
+        escape: escape,
+        fastdom: fastdom,
+        filter: filter$1,
+        find: find,
+        findAll: findAll,
+        findIndex: findIndex,
+        flipPosition: flipPosition,
+        fragment: fragment,
+        getEventPos: getEventPos,
+        getImage: getImage,
+        getIndex: getIndex,
+        hasAttr: hasAttr,
+        hasClass: hasClass,
+        hasOwn: hasOwn,
+        hasTouch: hasTouch,
+        height: height,
+        html: html,
+        hyphenate: hyphenate,
+        inBrowser: inBrowser,
+        includes: includes,
+        index: index,
+        intersectRect: intersectRect,
+        isArray: isArray,
+        isBoolean: isBoolean,
+        isDocument: isDocument,
+        isElement: isElement,
+        isEmpty: isEmpty,
+        isEqual: isEqual,
+        isFocusable: isFocusable,
+        isFunction: isFunction,
+        isInView: isInView,
+        isInput: isInput,
+        isNode: isNode,
+        isNumber: isNumber,
+        isNumeric: isNumeric,
+        isObject: isObject,
+        isPlainObject: isPlainObject,
+        isRtl: isRtl,
+        isString: isString,
+        isTag: isTag,
+        isTouch: isTouch,
+        isUndefined: isUndefined,
+        isVideo: isVideo,
+        isVisible: isVisible,
+        isVoidElement: isVoidElement,
+        isWindow: isWindow,
+        last: last,
+        matches: matches,
+        memoize: memoize,
+        mergeOptions: mergeOptions,
+        mute: mute,
+        noop: noop,
+        observeIntersection: observeIntersection,
+        observeMutation: observeMutation,
+        observeResize: observeResize,
+        off: off,
+        offset: offset,
+        offsetPosition: offsetPosition,
+        offsetViewport: offsetViewport,
+        on: on,
+        once: once,
+        parent: parent,
+        parents: parents,
+        parseOptions: parseOptions,
+        pause: pause,
+        play: play,
+        pointInRect: pointInRect,
+        pointerCancel: pointerCancel,
+        pointerDown: pointerDown$1,
+        pointerEnter: pointerEnter,
+        pointerLeave: pointerLeave,
+        pointerMove: pointerMove$1,
+        pointerUp: pointerUp$1,
+        position: position,
+        positionAt: positionAt,
+        prepend: prepend,
+        propName: propName,
+        query: query,
+        queryAll: queryAll,
+        ready: ready,
+        remove: remove$1,
+        removeAttr: removeAttr,
         removeClass: removeClass,
         removeClasses: removeClasses,
         replaceClass: replaceClass,
-        hasClass: hasClass,
-        toggleClass: toggleClass,
-        dimensions: dimensions$1,
-        offset: offset,
-        position: position,
-        offsetPosition: offsetPosition,
-        height: height,
-        width: width,
-        boxModelAdjust: boxModelAdjust,
-        flipPosition: flipPosition,
-        toPx: toPx,
-        ready: ready,
-        isTag: isTag,
-        empty: empty,
-        html: html,
-        prepend: prepend,
-        append: append,
-        before: before,
-        after: after,
-        remove: remove$1,
-        wrapAll: wrapAll,
-        wrapInner: wrapInner,
-        unwrap: unwrap,
-        fragment: fragment,
-        apply: apply,
-        $: $,
-        $$: $$,
-        inBrowser: inBrowser,
-        isRtl: isRtl,
-        hasTouch: hasTouch,
-        pointerDown: pointerDown$1,
-        pointerMove: pointerMove$1,
-        pointerUp: pointerUp$1,
-        pointerEnter: pointerEnter,
-        pointerLeave: pointerLeave,
-        pointerCancel: pointerCancel,
-        on: on,
-        off: off,
-        once: once,
-        trigger: trigger,
-        createEvent: createEvent,
-        toEventTargets: toEventTargets,
-        isTouch: isTouch,
-        getEventPos: getEventPos,
-        fastdom: fastdom,
-        isVoidElement: isVoidElement,
-        isVisible: isVisible,
-        selInput: selInput,
-        isInput: isInput,
+        scrollIntoView: scrollIntoView,
+        scrollParents: scrollParents,
+        scrolledOver: scrolledOver,
         selFocusable: selFocusable,
-        isFocusable: isFocusable,
-        parent: parent,
-        filter: filter$1,
-        matches: matches,
-        closest: closest,
-        within: within,
-        parents: parents,
-        children: children,
-        index: index,
-        hasOwn: hasOwn,
-        hyphenate: hyphenate,
-        camelize: camelize,
-        ucfirst: ucfirst,
+        selInput: selInput,
+        sortBy: sortBy$1,
         startsWith: startsWith,
-        endsWith: endsWith,
-        includes: includes,
-        findIndex: findIndex,
-        isArray: isArray,
+        sumBy: sumBy,
+        swap: swap,
         toArray: toArray,
-        assign: assign,
-        isFunction: isFunction,
-        isObject: isObject,
-        isPlainObject: isPlainObject,
-        isWindow: isWindow,
-        isDocument: isDocument,
-        isNode: isNode,
-        isElement: isElement,
-        isBoolean: isBoolean,
-        isString: isString,
-        isNumber: isNumber,
-        isNumeric: isNumeric,
-        isEmpty: isEmpty,
-        isUndefined: isUndefined,
         toBoolean: toBoolean,
-        toNumber: toNumber,
+        toEventTargets: toEventTargets,
         toFloat: toFloat,
         toNode: toNode,
         toNodes: toNodes,
+        toNumber: toNumber,
+        toPx: toPx,
         toWindow: toWindow,
-        isEqual: isEqual,
-        swap: swap,
-        last: last,
-        each: each,
-        sortBy: sortBy$1,
-        sumBy: sumBy,
+        toggleClass: toggleClass,
+        trigger: trigger,
+        ucfirst: ucfirst,
         uniqueBy: uniqueBy,
-        clamp: clamp,
-        noop: noop,
-        intersectRect: intersectRect,
-        pointInRect: pointInRect,
-        Dimensions: Dimensions,
-        getIndex: getIndex,
-        memoize: memoize,
-        Deferred: Deferred,
-        MouseTracker: MouseTracker,
-        observeIntersection: observeIntersection,
-        observeResize: observeResize,
-        observeMutation: observeMutation,
-        mergeOptions: mergeOptions,
-        parseOptions: parseOptions,
-        play: play,
-        pause: pause,
-        mute: mute,
-        isVideo: isVideo,
-        positionAt: positionAt,
-        query: query,
-        queryAll: queryAll,
-        find: find,
-        findAll: findAll,
-        escape: escape,
-        css: css,
-        propName: propName,
-        isInView: isInView,
-        scrollIntoView: scrollIntoView,
-        scrolledOver: scrolledOver,
-        scrollParents: scrollParents,
-        offsetViewport: offsetViewport
+        unwrap: unwrap,
+        width: width,
+        within: within,
+        wrapAll: wrapAll,
+        wrapInner: wrapInner
     });
 
     function globalAPI (UIkit) {
@@ -2970,7 +2970,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.19';
+    UIkit.version = '3.15.20';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -5619,7 +5619,7 @@
     function setSrcAttrs(el, src) {
       if (isImg(el)) {
         const parentNode = parent(el);
-        const elements = isPicture(parentNode) ? children(parentNode) : [el];
+        const elements = isTag(parentNode, 'picture') ? children(parentNode) : [el];
         elements.forEach((el) => setSourceProps(el, el));
       } else if (src) {
         const change = !includes(el.style.backgroundImage, src);
@@ -5692,10 +5692,6 @@
       if (isImg(el) && !hasAttr(el, 'src')) {
         attr(el, 'src', 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"></svg>');
       }
-    }
-
-    function isPicture(el) {
-      return isTag(el, 'picture');
     }
 
     function isImg(el) {
@@ -7155,8 +7151,9 @@
           end ===
           Math.min(
           maxScrollHeight,
-          parseProp('!*', this.$el, 0, true) - elHeight - offset$1 + overflow);
+          parseProp('!*', this.$el, 0, true) - elHeight - offset$1 + overflow) &&
 
+          css(parent(this.$el), 'overflowY') === 'visible';
 
           return {
             start,
@@ -7832,6 +7829,7 @@
         __proto__: null,
         Accordion: Accordion,
         Alert: alert,
+        Close: Close,
         Cover: cover,
         Drop: drop,
         Dropdown: drop,
@@ -7843,34 +7841,33 @@
         Img: img,
         Leader: leader,
         Margin: Margin,
+        Marker: IconComponent,
         Modal: modal,
         Nav: nav,
+        NavParentIcon: NavParentIcon,
         Navbar: navbar,
+        NavbarParentIcon: IconComponent,
+        NavbarToggleIcon: IconComponent,
         Offcanvas: offcanvas,
         OverflowAuto: overflowAuto,
+        OverlayIcon: IconComponent,
+        PaginationNext: IconComponent,
+        PaginationPrevious: IconComponent,
         Responsive: responsive,
         Scroll: scroll,
         Scrollspy: scrollspy,
         ScrollspyNav: scrollspyNav,
+        SearchIcon: Search,
+        SlidenavNext: Slidenav,
+        SlidenavPrevious: Slidenav,
+        Spinner: Spinner,
         Sticky: sticky,
         Svg: SVG,
         Switcher: Switcher,
         Tab: tab,
         Toggle: toggle,
-        Video: Video,
-        Close: Close,
-        Spinner: Spinner,
-        NavParentIcon: NavParentIcon,
-        SlidenavNext: Slidenav,
-        SlidenavPrevious: Slidenav,
-        SearchIcon: Search,
-        Marker: IconComponent,
-        NavbarParentIcon: IconComponent,
-        NavbarToggleIcon: IconComponent,
-        OverlayIcon: IconComponent,
-        PaginationNext: IconComponent,
-        PaginationPrevious: IconComponent,
-        Totop: IconComponent
+        Totop: IconComponent,
+        Video: Video
     });
 
     // register components
@@ -11223,7 +11220,7 @@
 
     function appendDrag(container, element) {
       let clone;
-      if (['li', 'tr'].some((tag) => isTag(element, tag))) {
+      if (isTag(element, 'li', 'tr')) {
         clone = $('<div>');
         append(clone, element.cloneNode(true).children);
         for (const attribute of element.getAttributeNames()) {

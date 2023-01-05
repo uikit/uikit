@@ -37,7 +37,7 @@ $button-default-active-border:                   darken($global-border, 30%) !de
 $button-disabled-border:                         $global-border !default;
 
 $button-text-border-width:                       $global-border-width !default;
-$button-text-border:                             $button-text-hover-color !default;
+$button-text-border:                             currentColor !default;
 
 
 // Component
