@@ -10,6 +10,7 @@
 
 - Fix nav in Dropdown component not overriding properties of Nav component
 - Fix disable native position sticky in Sticky component if parents `overflow` is not set to visible
+- Fix Drop positioning
 
 ## 3.15.19 (December 20, 2022)
 

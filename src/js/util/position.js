@@ -159,7 +159,7 @@ function getScrollArea(element, target, viewportOffset, i) {
 
     if (['auto', 'scroll'].includes(css(scrollElement, `overflow-${axis}`))) {
         viewport[start] -= scrollElement[`scroll${ucfirst(start)}`];
-        viewport[end] = scrollElement[`scroll${ucfirst(prop)}`];
+        viewport[end] = viewport[start] + scrollElement[`scroll${ucfirst(prop)}`];
     }
 
     viewport[start] += viewportOffset;
