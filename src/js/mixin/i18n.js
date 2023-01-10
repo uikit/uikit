@@ -11,7 +11,7 @@ export default {
         t(key, ...params) {
             let i = 0;
             return (
-                (this.i18n?.[key] || this.$options.i18n[key])?.replace(
+                (this.i18n?.[key] || this.$options.i18n?.[key])?.replace(
                     /%s/g,
                     () => params[i++] || ''
                 ) || ''

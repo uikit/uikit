@@ -116,16 +116,6 @@ export const NavParentIcon = {
     },
 };
 
-export const Slidenav = {
-    extends: IconComponent,
-
-    beforeConnect() {
-        addClass(this.$el, 'uk-slidenav');
-        const icon = this.$props.icon;
-        this.icon = hasClass(this.$el, 'uk-slidenav-large') ? `${icon}-large` : icon;
-    },
-};
-
 export const Search = {
     extends: IconComponent,
 
@@ -173,6 +163,16 @@ const ButtonComponent = {
         if (label && !hasAttr(button, 'aria-label')) {
             attr(button, 'aria-label', label);
         }
+    },
+};
+
+export const Slidenav = {
+    extends: ButtonComponent,
+
+    beforeConnect() {
+        addClass(this.$el, 'uk-slidenav');
+        const icon = this.$props.icon;
+        this.icon = hasClass(this.$el, 'uk-slidenav-large') ? `${icon}-large` : icon;
     },
 };
 
