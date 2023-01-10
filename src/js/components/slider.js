@@ -187,6 +187,18 @@ export default {
         itemshown() {
             this.updateActiveClasses();
         },
+
+        focusin: {
+            name: 'focusin',
+
+            delegate() {
+                return `${this.selList} > *`;
+            },
+
+            handler(e) {
+                this.show(e.current);
+            },
+        },
     },
 
     methods: {
