@@ -20,7 +20,7 @@ import {
     remove,
     within,
 } from 'uikit-util';
-import { generateId } from '../mixin/utils';
+import { generateId, keyMap } from '../mixin/utils';
 
 export default {
     mixins: [Container, Togglable, Position],
@@ -116,7 +116,7 @@ export default {
                         false,
                         (e) =>
                             (e.type === pointerDown && !within(e.target, this.$el)) ||
-                            (e.type === 'keydown' && e.keyCode === 27)
+                            (e.type === 'keydown' && e.keyCode === keyMap.ESC)
                     ),
                     on([document, ...overflowParents(this.$el)], 'scroll', update, {
                         passive: true,

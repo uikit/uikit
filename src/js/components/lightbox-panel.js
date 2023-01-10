@@ -1,3 +1,4 @@
+import { keyMap } from '../mixin/utils';
 import Animations from './internal/lightbox-animations';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
@@ -141,18 +142,25 @@ export default {
                 return document;
             },
 
-            handler(e) {
+            handler({ keyCode }) {
                 if (!this.isToggled(this.$el) || !this.draggable) {
                     return;
                 }
 
-                switch (e.keyCode) {
-                    case 37:
-                        this.show('previous');
-                        break;
-                    case 39:
-                        this.show('next');
-                        break;
+                let i = -1;
+
+                if (keyCode === keyMap.LEFT) {
+                    i = 'previous';
+                } else if (keyCode === keyMap.RIGHT) {
+                    i = 'next';
+                } else if (keyCode === keyMap.HOME) {
+                    i = 0;
+                } else if (keyCode === keyMap.END) {
+                    i = 'last';
+                }
+
+                if (~i) {
+                    this.show(i);
                 }
             },
         },

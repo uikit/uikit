@@ -29,7 +29,7 @@ import {
     removeClass,
     within,
 } from 'uikit-util';
-import { isSameSiteAnchor, preventBackgroundScroll } from '../mixin/utils';
+import { isSameSiteAnchor, keyMap, preventBackgroundScroll } from '../mixin/utils';
 
 export let active;
 
@@ -482,7 +482,7 @@ function listenForScroll(drop) {
 
 function listenForEscClose(drop) {
     return on(document, 'keydown', (e) => {
-        if (e.keyCode === 27) {
+        if (e.keyCode === keyMap.ESC) {
             drop.hide(false);
         }
     });
