@@ -21,6 +21,7 @@ import {
     toggleClass,
     trigger,
 } from 'uikit-util';
+import { keyMap } from '../mixin/utils';
 
 export default {
     mixins: [Animate],
@@ -81,13 +82,17 @@ export default {
 
     events: [
         {
-            name: 'click',
+            name: 'click keydown',
 
             delegate() {
                 return `[${this.attrItem}],[data-${this.attrItem}]`;
             },
 
             handler(e) {
+                if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
+                    return;
+                }
+
                 if (closest(e.target, 'a,button')) {
                     e.preventDefault();
                     this.apply(e.current);
