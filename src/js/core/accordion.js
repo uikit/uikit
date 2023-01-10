@@ -1,7 +1,7 @@
 import Class from '../mixin/class';
 import Lazyload from '../mixin/lazyload';
 import Togglable from '../mixin/togglable';
-import { generateId } from '../mixin/utils';
+import { generateId, keyMap } from '../mixin/utils';
 import {
     $,
     $$,
@@ -115,13 +115,17 @@ export default {
 
     events: [
         {
-            name: 'click',
+            name: 'click keydown',
 
             delegate() {
                 return `${this.targets} ${this.$props.toggle}`;
             },
 
             async handler(e) {
+                if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
+                    return;
+                }
+
                 e.preventDefault();
 
                 this._off?.();
