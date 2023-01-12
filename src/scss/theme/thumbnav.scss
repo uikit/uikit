@@ -11,9 +11,9 @@
 // New
 //
 
-$thumbnav-item-background:                       rgba($global-background, 0.4) !default;
-$thumbnav-item-hover-background:                 transparent !default;
-$thumbnav-item-active-background:                transparent !default;
+$thumbnav-item-gradient:                         linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0.4)) !default;
+$thumbnav-item-hover-opacity:                    0 !default;
+$thumbnav-item-active-opacity:                   0 !default;
 
 
 // Component
@@ -37,6 +37,8 @@ $thumbnav-item-active-background:                transparent !default;
 // Inverse
 // ========================================================================
 
-// @mixin hook-inverse-thumbnav-item(){}
+$inverse-thumbnav-item-gradient:                 linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.4)) !default;
+
+
 // @mixin hook-inverse-thumbnav-item-hover(){}
 // @mixin hook-inverse-thumbnav-item-active(){}

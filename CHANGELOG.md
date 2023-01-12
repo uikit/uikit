@@ -1,12 +1,17 @@
 # Changelog
 
-## 3.15.20 (January 5, 2023)
+## 3.15.21 (January 12, 2023)
 
-### Changed
+### Added
 
 - Add larger gap on larger viewports to Navbar component in UIkit theme
 - Add gradient for text background to Text component in UIkit theme
 - Add gradient for thumbnav item to Thumbnav component in UIkit theme
+
+## 3.15.20 (January 5, 2023)
+
+### Changed
+
 - Improve close icon not overlaying content in Modal component in UIkit theme
 
 ### Fixed
