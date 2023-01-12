@@ -1,4 +1,4 @@
-/*! UIkit 3.15.20 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.15.21 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5167,7 +5167,7 @@ ul.uk-nav-sub {
 .uk-navbar-right,
 [class*='uk-navbar-center'] {
   display: flex;
-  gap: 30px;
+  gap: 15px;
   /* 1 */
   align-items: center;
 }
@@ -5206,10 +5206,10 @@ ul.uk-nav-sub {
   top: 0;
 }
 .uk-navbar-center-left {
-  right: calc(100% + 30px);
+  right: calc(100% + 15px);
 }
 .uk-navbar-center-right {
-  left: calc(100% + 30px);
+  left: calc(100% + 15px);
 }
 [class*='uk-navbar-center-'] {
   width: max-content;
@@ -5222,7 +5222,7 @@ ul.uk-nav-sub {
  */
 .uk-navbar-nav {
   display: flex;
-  gap: 30px;
+  gap: 15px;
   /* 1 */
   margin: 0;
   padding: 0;
@@ -5519,6 +5519,26 @@ ul.uk-nav-sub {
   /* 2 */
   left: 0;
   right: 0;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-navbar-left,
+  .uk-navbar-right,
+  [class*='uk-navbar-center'] {
+    gap: 30px;
+  }
+  .uk-navbar-center-left {
+    right: calc(100% + 30px);
+  }
+  .uk-navbar-center-right {
+    left: calc(100% + 30px);
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-navbar-nav {
+    gap: 30px;
+  }
 }
 /* ========================================================================
    Component: Subnav
@@ -6048,16 +6068,16 @@ ul.uk-nav-sub {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.4);
-  transition: background-color 0.1s ease-in-out;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
+  transition: opacity 0.1s ease-in-out;
 }
 /* Hover */
 .uk-thumbnav > * > :hover::after {
-  background-color: transparent;
+  opacity: 0;
 }
 /* Active */
 .uk-thumbnav > .uk-active > *::after {
-  background-color: transparent;
+  opacity: 0;
 }
 /* Modifier: 'uk-thumbnav-vertical'
  ========================================================================== */
@@ -7278,10 +7298,10 @@ ul.uk-nav-sub {
   line-height: 1.4;
   color: #999;
 }
-.uk-text-meta a {
+.uk-text-meta > a {
   color: #999;
 }
-.uk-text-meta a:hover {
+.uk-text-meta > a:hover {
   color: #666;
   text-decoration: none;
 }
@@ -7377,6 +7397,7 @@ ul.uk-nav-sub {
   display: inline-block;
   /* 4 */
   background-color: #1e87f0;
+  background-image: linear-gradient(90deg, #1e87f0 0%, #411ef0 100%);
 }
 /* Alignment modifiers
  ========================================================================== */
@@ -9510,7 +9531,7 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar :not(pre) > kbd,
 .uk-offcanvas-bar :not(pre) > samp {
   color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .uk-light em,
 .uk-section-primary:not(.uk-preserve-color) em,
@@ -10586,7 +10607,7 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar .uk-checkbox:checked,
 .uk-offcanvas-bar .uk-checkbox:indeterminate {
   background-color: #fff;
-  border-color: rgba(255, 255, 255, 0.7);
+  border-color: #fff;
 }
 .uk-light .uk-radio:checked:focus,
 .uk-light .uk-checkbox:checked:focus,
@@ -12135,6 +12156,19 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar .uk-dotnav > .uk-active > * {
   background-color: rgba(255, 255, 255, 0.9);
   border-color: transparent;
+}
+.uk-light .uk-thumbnav > * > *::after,
+.uk-section-primary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-section-secondary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-tile-primary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-card-primary.uk-card-body .uk-thumbnav > * > *::after,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-thumbnav > * > *::after,
+.uk-card-secondary.uk-card-body .uk-thumbnav > * > *::after,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-thumbnav > * > *::after,
+.uk-overlay-primary .uk-thumbnav > * > *::after,
+.uk-offcanvas-bar .uk-thumbnav > * > *::after {
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
 }
 .uk-light .uk-iconnav > * > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a,

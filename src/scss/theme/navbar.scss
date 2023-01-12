@@ -7,9 +7,9 @@
 // Variables
 // ========================================================================
 
-$navbar-gap:                                     30px !default;
+$navbar-gap:                                     15px !default;
 
-$navbar-nav-gap:                                 30px !default;
+$navbar-nav-gap:                                 15px !default;
 
 $navbar-nav-item-padding-horizontal:             0 !default;
 
@@ -26,6 +26,9 @@ $navbar-dropdown-nav-subtitle-font-size:         12px !default;
 //
 // New
 //
+
+$navbar-gap-m:                                   30px !default;
+$navbar-nav-gap-m:                               30px !default;
 
 $navbar-nav-item-text-transform:                 uppercase !default;
 
@@ -129,7 +132,7 @@ $navbar-dropdown-box-shadow:                     0 5px 12px rgba(0,0,0,0.15) !de
 // Miscellaneous
 // ========================================================================
 
-// @mixin hook-navbar-misc(){}
+
 
 
 // Inverse

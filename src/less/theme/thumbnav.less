@@ -11,9 +11,9 @@
 // New
 //
 
-@thumbnav-item-background:                      fade(@global-background, 40%);
-@thumbnav-item-hover-background:                transparent;
-@thumbnav-item-active-background:               transparent;
+@thumbnav-item-gradient:                        linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0.4));
+@thumbnav-item-hover-opacity:                   0;
+@thumbnav-item-active-opacity:                  0;
 
 
 // Component
@@ -32,18 +32,18 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: @thumbnav-item-background;
-        transition: background-color 0.1s ease-in-out;
+        background-image: @thumbnav-item-gradient;
+        transition: opacity 0.1s ease-in-out;
     }
 
 }
 
 .hook-thumbnav-item-hover() {
-    &::after { background-color: @thumbnav-item-hover-background; }
+    &::after { opacity: @thumbnav-item-hover-opacity; }
 }
 
 .hook-thumbnav-item-active() {
-    &::after { background-color: @thumbnav-item-active-background; }
+    &::after { opacity: @thumbnav-item-active-opacity; }
 }
 
 
@@ -56,6 +56,10 @@
 // Inverse
 // ========================================================================
 
-.hook-inverse-thumbnav-item() {}
+@inverse-thumbnav-item-gradient:                linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.4));
+
+.hook-inverse-thumbnav-item() {
+    &::after { background-image: @inverse-thumbnav-item-gradient; }
+}
 .hook-inverse-thumbnav-item-hover() {}
 .hook-inverse-thumbnav-item-active() {}
