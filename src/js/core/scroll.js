@@ -65,6 +65,7 @@ function isSameSiteLink(el) {
 
 export function getTargetElement(el) {
     if (isSameSiteLink(el)) {
-        return document.getElementById(decodeURIComponent(el.hash).substring(1));
+        const id = decodeURIComponent(el.hash).substring(1);
+        return document.getElementById(id) || document.getElementsByName(id)[0];
     }
 }

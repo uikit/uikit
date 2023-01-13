@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Scroll component scrolls to elements by name
+
 ## 3.15.21 (January 12, 2023)
 
 ### Added
