@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add Eye and Eye Slash icons
+
 ### Fixed
 
 - Fix Scroll component scrolls to elements by name
