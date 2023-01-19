@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix Scroll component scrolls to elements by name
+- Fix Tooltip appends itself to the closest scroll container if within element referenced by `container` option
 
 ## 3.15.21 (January 12, 2023)
 
