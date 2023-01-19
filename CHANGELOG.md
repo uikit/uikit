@@ -6,6 +6,10 @@
 
 - Add Eye and Eye Slash icons
 
+### Changed
+
+- Update Lifesaver, Paint Bucket and Video Camera icons to fit outline style
+
 ### Fixed
 
 - Fix Scroll component scrolls to elements by name
