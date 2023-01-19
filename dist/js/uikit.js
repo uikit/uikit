@@ -1,4 +1,4 @@
-/*! UIkit 3.15.21 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.15.22 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1781,7 +1781,7 @@
       }
 
       return intersectRect(
-      ...scrollParents(element).
+      ...overflowParents(element).
       map((parent) => {
         const { top, left, bottom, right } = offsetViewport(parent);
 
@@ -1797,7 +1797,7 @@
     }
 
     function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
-      const parents = isVisible(element) ? scrollParents(element, /auto|scroll|hidden/) : [];
+      const parents = isVisible(element) ? scrollParents(element, false, ['hidden']) : [];
       return parents.reduce(
       (fn, scrollElement, i) => {
         const { scrollTop, scrollHeight, offsetHeight } = scrollElement;
@@ -1863,7 +1863,7 @@
         return 0;
       }
 
-      const [scrollElement] = scrollParents(element, /auto|scroll/, true);
+      const [scrollElement] = scrollParents(element, true);
       const { scrollHeight, scrollTop } = scrollElement;
       const { height: viewportHeight } = offsetViewport(scrollElement);
       const maxScroll = scrollHeight - viewportHeight;
@@ -1875,7 +1875,7 @@
       return clamp((scrollTop - start) / (end - start));
     }
 
-    function scrollParents(element, overflowRe = /auto|scroll|hidden|clip/, scrollable = false) {
+    function scrollParents(element, scrollable = false, props = []) {
       const scrollEl = scrollingElement(element);
 
       let ancestors = parents(element).reverse();
@@ -1889,11 +1889,15 @@
       return [scrollEl].
       concat(
       ancestors.filter(
-      (parent) => overflowRe.test(css(parent, 'overflow')) && (
+      (parent) => includes(['auto', 'scroll', ...props], css(parent, 'overflow')) && (
       !scrollable || parent.scrollHeight > offsetViewport(parent).height))).
 
 
       reverse();
+    }
+
+    function overflowParents(element) {
+      return scrollParents(element, false, ['hidden', 'clip']);
     }
 
     function offsetViewport(scrollElement) {
@@ -2102,7 +2106,7 @@
     }
 
     function commonScrollParents(element, target) {
-      return scrollParents(target).filter((parent) => within(element, parent));
+      return overflowParents(target).filter((parent) => within(element, parent));
     }
 
     function getIntersectionArea(...rects) {
@@ -2258,6 +2262,7 @@
         offsetViewport: offsetViewport,
         on: on,
         once: once,
+        overflowParents: overflowParents,
         parent: parent,
         parents: parents,
         parseOptions: parseOptions,
@@ -2970,7 +2975,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.21';
+    UIkit.version = '3.15.22';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3468,7 +3473,7 @@
     }
 
     function keepScrollPosition(el) {
-      const [scrollParent] = scrollParents(el, /auto|scroll/, true);
+      const [scrollParent] = scrollParents(el, true);
       let frame;
       (function scroll() {
         frame = requestAnimationFrame(() => {
@@ -3734,7 +3739,7 @@
             placement.reverse();
           }
 
-          const [scrollElement] = scrollParents(element, /auto|scroll/);
+          const [scrollElement] = scrollParents(element);
           const { scrollTop, scrollLeft } = scrollElement;
 
           // Ensure none positioned element does not generate scrollbars
@@ -4079,7 +4084,7 @@
           return;
         }
 
-        let [scrollParent] = scrollParents(e.target, /auto|scroll/);
+        let [scrollParent] = scrollParents(e.target);
         if (!within(scrollParent, el)) {
           scrollParent = el;
         }
@@ -4399,7 +4404,7 @@
 
           (() => {
             const observer = observeResize(
-            scrollParents(this.$el).concat(this.target),
+            overflowParents(this.$el).concat(this.target),
             update);
 
             return () => observer.disconnect();
@@ -4407,7 +4412,7 @@
 
           ...(this.autoUpdate ?
           [
-          on([document, scrollParents(this.$el)], 'scroll', update, {
+          on([document, overflowParents(this.$el)], 'scroll', update, {
             passive: true
           })] :
 
@@ -4600,7 +4605,7 @@
     }
 
     function getViewport$1(el, target) {
-      return offsetViewport(scrollParents(target).find((parent) => within(el, parent)));
+      return offsetViewport(overflowParents(target).find((parent) => within(el, parent)));
     }
 
     var formCustom = {
@@ -5079,7 +5084,7 @@
 
       resizeTargets() {
         // check for offsetTop change
-        return [this.$el, ...scrollParents(this.$el, /auto|scroll/)];
+        return [this.$el, ...scrollParents(this.$el)];
       },
 
       update: {
@@ -5092,7 +5097,7 @@
           const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
           const { body, scrollingElement } = document;
-          const [scrollElement] = scrollParents(this.$el, /auto|scroll/);
+          const [scrollElement] = scrollParents(this.$el);
           const { height: viewportHeight } = offsetViewport(
           scrollElement === body ? scrollingElement : scrollElement);
 
@@ -6731,7 +6736,8 @@
 
     function getTargetElement(el) {
       if (isSameSiteLink(el)) {
-        return document.getElementById(decodeURIComponent(el.hash).substring(1));
+        const id = decodeURIComponent(el.hash).substring(1);
+        return document.getElementById(id) || document.getElementsByName(id)[0];
       }
     }
 
@@ -6924,7 +6930,7 @@
             return false;
           }
 
-          const [scrollElement] = scrollParents(targets, /auto|scroll/, true);
+          const [scrollElement] = scrollParents(targets, true);
           const { scrollTop, scrollHeight } = scrollElement;
           const viewport = offsetViewport(scrollElement);
           const max = scrollHeight - viewport.height;
@@ -11191,7 +11197,7 @@
         const dist = (Date.now() - last) * 0.3;
         last = Date.now();
 
-        scrollParents(document.elementFromPoint(x, pos.y), /auto|scroll/).
+        scrollParents(document.elementFromPoint(x, pos.y)).
         reverse().
         some((scrollEl) => {
           let { scrollTop: scroll, scrollHeight } = scrollEl;
@@ -11395,8 +11401,9 @@
         },
 
         _show() {
+          const [scrollParent] = scrollParents(this.$el);
           this.tooltip = append(
-          this.container,
+          within(scrollParent, this.container) ? scrollParent : this.container,
           `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip"> <div class="uk-${this.$options.name}-inner">${this.title}</div> </div>`);
 
 
