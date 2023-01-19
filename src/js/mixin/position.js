@@ -50,7 +50,7 @@ export default {
                 placement.reverse();
             }
 
-            const [scrollElement] = scrollParents(element, /auto|scroll/);
+            const [scrollElement] = scrollParents(element);
             const { scrollTop, scrollLeft } = scrollElement;
 
             // Ensure none positioned element does not generate scrollbars

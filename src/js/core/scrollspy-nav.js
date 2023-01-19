@@ -63,7 +63,7 @@ export default {
                     return false;
                 }
 
-                const [scrollElement] = scrollParents(targets, /auto|scroll/, true);
+                const [scrollElement] = scrollParents(targets, true);
                 const { scrollTop, scrollHeight } = scrollElement;
                 const viewport = offsetViewport(scrollElement);
                 const max = scrollHeight - viewport.height;

@@ -33,7 +33,7 @@ export default {
 
     resizeTargets() {
         // check for offsetTop change
-        return [this.$el, ...scrollParents(this.$el, /auto|scroll/)];
+        return [this.$el, ...scrollParents(this.$el)];
     },
 
     update: {
@@ -46,7 +46,7 @@ export default {
             const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
             const { body, scrollingElement } = document;
-            const [scrollElement] = scrollParents(this.$el, /auto|scroll/);
+            const [scrollElement] = scrollParents(this.$el);
             const { height: viewportHeight } = offsetViewport(
                 scrollElement === body ? scrollingElement : scrollElement
             );

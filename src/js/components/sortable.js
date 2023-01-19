@@ -320,7 +320,7 @@ function trackScroll(pos) {
         const dist = (Date.now() - last) * 0.3;
         last = Date.now();
 
-        scrollParents(document.elementFromPoint(x, pos.y), /auto|scroll/)
+        scrollParents(document.elementFromPoint(x, pos.y))
             .reverse()
             .some((scrollEl) => {
                 let { scrollTop: scroll, scrollHeight } = scrollEl;
