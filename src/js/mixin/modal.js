@@ -326,7 +326,7 @@ export function preventOverscroll(el) {
                     return;
                 }
 
-                let [scrollParent] = scrollParents(e.target, /auto|scroll/);
+                let [scrollParent] = scrollParents(e.target);
                 if (!within(scrollParent, el)) {
                     scrollParent = el;
                 }

@@ -17,6 +17,7 @@ import {
     pointerEnter,
     pointerLeave,
     remove,
+    scrollParents,
     within,
 } from 'uikit-util';
 
@@ -95,8 +96,9 @@ export default {
         },
 
         _show() {
+            const [scrollParent] = scrollParents(this.$el);
             this.tooltip = append(
-                this.container,
+                within(scrollParent, this.container) ? scrollParent : this.container,
                 `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip">
                     <div class="uk-${this.$options.name}-inner">${this.title}</div>
                  </div>`

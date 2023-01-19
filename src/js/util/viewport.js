@@ -1,7 +1,16 @@
 import { css } from './style';
 import { isVisible, parents } from './filter';
 import { offset, offsetPosition } from './dimensions';
-import { clamp, findIndex, intersectRect, isWindow, toFloat, toWindow, ucfirst } from './lang';
+import {
+    clamp,
+    findIndex,
+    includes,
+    intersectRect,
+    isWindow,
+    toFloat,
+    toWindow,
+    ucfirst,
+} from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
     if (!isVisible(element)) {
@@ -9,7 +18,7 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
     }
 
     return intersectRect(
-        ...scrollParents(element)
+        ...overflowParents(element)
             .map((parent) => {
                 const { top, left, bottom, right } = offsetViewport(parent);
 
@@ -25,7 +34,7 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 }
 
 export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
-    const parents = isVisible(element) ? scrollParents(element, /auto|scroll|hidden/) : [];
+    const parents = isVisible(element) ? scrollParents(element, false, ['hidden']) : [];
     return parents.reduce(
         (fn, scrollElement, i) => {
             const { scrollTop, scrollHeight, offsetHeight } = scrollElement;
@@ -91,7 +100,7 @@ export function scrolledOver(element, startOffset = 0, endOffset = 0) {
         return 0;
     }
 
-    const [scrollElement] = scrollParents(element, /auto|scroll/, true);
+    const [scrollElement] = scrollParents(element, true);
     const { scrollHeight, scrollTop } = scrollElement;
     const { height: viewportHeight } = offsetViewport(scrollElement);
     const maxScroll = scrollHeight - viewportHeight;
@@ -103,7 +112,7 @@ export function scrolledOver(element, startOffset = 0, endOffset = 0) {
     return clamp((scrollTop - start) / (end - start));
 }
 
-export function scrollParents(element, overflowRe = /auto|scroll|hidden|clip/, scrollable = false) {
+export function scrollParents(element, scrollable = false, props = []) {
     const scrollEl = scrollingElement(element);
 
     let ancestors = parents(element).reverse();
@@ -118,11 +127,15 @@ export function scrollParents(element, overflowRe = /auto|scroll|hidden|clip/, s
         .concat(
             ancestors.filter(
                 (parent) =>
-                    overflowRe.test(css(parent, 'overflow')) &&
+                    includes(['auto', 'scroll', ...props], css(parent, 'overflow')) &&
                     (!scrollable || parent.scrollHeight > offsetViewport(parent).height)
             )
         )
         .reverse();
+}
+
+export function overflowParents(element) {
+    return scrollParents(element, false, ['hidden', 'clip']);
 }
 
 export function offsetViewport(scrollElement) {

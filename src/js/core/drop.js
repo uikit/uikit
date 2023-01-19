@@ -18,6 +18,7 @@ import {
     offsetViewport,
     on,
     once,
+    overflowParents,
     parent,
     pointerCancel,
     pointerDown,
@@ -26,7 +27,6 @@ import {
     pointerUp,
     query,
     removeClass,
-    scrollParents,
     within,
 } from 'uikit-util';
 import { isSameSiteAnchor, preventBackgroundScroll, preventOverscroll } from '../mixin/modal';
@@ -296,7 +296,7 @@ export default {
 
                     (() => {
                         const observer = observeResize(
-                            scrollParents(this.$el).concat(this.target),
+                            overflowParents(this.$el).concat(this.target),
                             update
                         );
                         return () => observer.disconnect();
@@ -304,7 +304,7 @@ export default {
 
                     ...(this.autoUpdate
                         ? [
-                              on([document, scrollParents(this.$el)], 'scroll', update, {
+                              on([document, overflowParents(this.$el)], 'scroll', update, {
                                   passive: true,
                               }),
                           ]
@@ -498,5 +498,5 @@ function getPositionedElements(el) {
 }
 
 function getViewport(el, target) {
-    return offsetViewport(scrollParents(target).find((parent) => within(el, parent)));
+    return offsetViewport(overflowParents(target).find((parent) => within(el, parent)));
 }

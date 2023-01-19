@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.15.22 (January 19, 2023)
+
+### Added
+
+- Add Eye and Eye Slash icons
+
+### Changed
+
+- Update Lifesaver, Paint Bucket and Video Camera icons to fit outline style
+
+### Fixed
+
+- Fix Scroll component scrolls to elements by name
+- Fix Tooltip appends itself to the closest scroll container if within element referenced by `container` option
+
 ## 3.15.21 (January 12, 2023)
 
 ### Added

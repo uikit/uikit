@@ -189,7 +189,7 @@ async function transition(el, show, { content, duration, velocity, transition })
 }
 
 function keepScrollPosition(el) {
-    const [scrollParent] = scrollParents(el, /auto|scroll/, true);
+    const [scrollParent] = scrollParents(el, true);
     let frame;
     (function scroll() {
         frame = requestAnimationFrame(() => {

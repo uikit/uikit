@@ -2,7 +2,7 @@ import { css } from './style';
 import { within } from './filter';
 import { offset } from './dimensions';
 import { clamp, isArray, ucfirst } from './lang';
-import { offsetViewport, scrollParents } from './viewport';
+import { offsetViewport, overflowParents } from './viewport';
 
 const dirs = [
     ['width', 'x', 'left', 'right'],
@@ -169,7 +169,7 @@ function getScrollArea(element, target, viewportOffset, i) {
 }
 
 function commonScrollParents(element, target) {
-    return scrollParents(target).filter((parent) => within(element, parent));
+    return overflowParents(target).filter((parent) => within(element, parent));
 }
 
 function getIntersectionArea(...rects) {
