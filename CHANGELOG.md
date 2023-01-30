@@ -6,6 +6,10 @@
 
 - Add subnav parent icon to Subnav component
 
+### Fixed
+
+- Fix prevent background scrolling in Safari
+
 ## 3.15.22 (January 19, 2023)
 
 ### Added

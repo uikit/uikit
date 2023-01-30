@@ -358,7 +358,7 @@ export function preventBackgroundScroll() {
 
     const { scrollingElement } = document;
     css(scrollingElement, {
-        overflowY: 'hidden',
+        overflowY: CSS.supports('overflow', 'clip') ? 'clip' : 'hidden',
         touchAction: 'none',
         paddingRight: width(window) - scrollingElement.clientWidth,
     });
