@@ -277,9 +277,7 @@ export default {
 };
 
 function isFinite(list, center) {
-    const { length } = list;
-
-    if (length < 2) {
+    if (!list || list.length < 2) {
         return true;
     }
 
