@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add subnav parent icon to Subnav component
+
 ## 3.15.22 (January 19, 2023)
 
 ### Added
