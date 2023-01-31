@@ -307,10 +307,10 @@ export default {
                             passive: true,
                         }),
 
-                    this.bgScroll && preventBackgroundScroll(this.$el),
+                    !this.bgScroll && preventBackgroundScroll(this.$el),
                 ];
 
-                once(this.$el, 'hide', () => handlers.forEach((handler) => handler?.()), {
+                once(this.$el, 'hide', () => handlers.forEach((handler) => handler && handler()), {
                     self: true,
                 });
             },
