@@ -73,10 +73,6 @@ export default {
         caption({ selCaption }, $el) {
             return $(selCaption, $el);
         },
-
-        panel({ selPanel }, $el) {
-            return $(selPanel, $el);
-        },
     },
 
     events: [
