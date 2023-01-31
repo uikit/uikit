@@ -13,6 +13,7 @@
 - Add tab pattern keyboard interaction for Switcher and Tab components
 - Add tab pattern keyboard interaction for Slider and Slideshow components
 - Add menubar pattern keyboard interaction to Navbar component
+- Add Dropnav component
 
 ### Changed
 
