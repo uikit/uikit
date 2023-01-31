@@ -29,7 +29,7 @@ import {
     removeClass,
     within,
 } from 'uikit-util';
-import { isSameSiteAnchor, preventBackgroundScroll, preventOverscroll } from '../mixin/modal';
+import { isSameSiteAnchor, preventBackgroundScroll } from '../mixin/modal';
 
 export let active;
 
@@ -302,20 +302,15 @@ export default {
                         return () => observer.disconnect();
                     })(),
 
-                    ...(this.autoUpdate
-                        ? [
-                              on([document, overflowParents(this.$el)], 'scroll', update, {
-                                  passive: true,
-                              }),
-                          ]
-                        : []),
+                    this.autoUpdate &&
+                        on([document, ...overflowParents(this.$el)], 'scroll', update, {
+                            passive: true,
+                        }),
 
-                    ...(this.bgScroll
-                        ? []
-                        : [preventOverscroll(this.$el), preventBackgroundScroll()]),
+                    this.bgScroll && preventBackgroundScroll(this.$el),
                 ];
 
-                once(this.$el, 'hide', () => handlers.forEach((handler) => handler()), {
+                once(this.$el, 'hide', () => handlers.forEach((handler) => handler?.()), {
                     self: true,
                 });
             },
