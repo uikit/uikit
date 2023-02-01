@@ -94,7 +94,6 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
     z-index: $modal-z-index;
     /* 3 */
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     /* 4 */
     padding: $modal-padding-vertical $modal-padding-horizontal;
     /* 5 */
