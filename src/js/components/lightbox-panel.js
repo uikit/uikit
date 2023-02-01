@@ -1,8 +1,6 @@
 import Animations from './internal/lightbox-animations';
-import Container from '../mixin/container';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
-import Togglable from '../mixin/togglable';
 import {
     $,
     addClass,
@@ -21,7 +19,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Container, Modal, Togglable, Slideshow],
+    mixins: [Modal, Slideshow],
 
     functional: true,
 

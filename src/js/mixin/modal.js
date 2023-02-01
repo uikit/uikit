@@ -2,7 +2,6 @@ import {
     $,
     addClass,
     append,
-    apply,
     attr,
     css,
     endsWith,
@@ -10,7 +9,6 @@ import {
     isFocusable,
     last,
     matches,
-    noop,
     on,
     once,
     parent,
@@ -148,8 +146,7 @@ export default {
                 );
 
                 if (this.overlay) {
-                    once(this.$el, 'hidden', preventOverscroll(this.$el), { self: true });
-                    once(this.$el, 'hidden', preventBackgroundScroll(), { self: true });
+                    once(this.$el, 'hidden', preventBackgroundScroll(this.$el), { self: true });
                 }
 
                 if (this.stack) {
@@ -294,88 +291,42 @@ function toMs(time) {
     return time ? (endsWith(time, 'ms') ? toFloat(time) : toFloat(time) * 1000) : 0;
 }
 
-export function preventOverscroll(el) {
-    if (CSS.supports('overscroll-behavior', 'contain')) {
-        const elements = [
-            el,
-            ...filterChildren(el, (child) => /auto|scroll/.test(css(child, 'overflow'))),
-        ];
-        css(elements, 'overscrollBehavior', 'contain');
-        return () => css(elements, 'overscrollBehavior', '');
-    }
-
-    let startClientY;
-
-    const events = [
-        on(
-            el,
-            'touchstart',
-            ({ targetTouches }) => {
-                if (targetTouches.length === 1) {
-                    startClientY = targetTouches[0].clientY;
-                }
-            },
-            { passive: true }
-        ),
-
-        on(
-            el,
-            'touchmove',
-            (e) => {
-                if (e.targetTouches.length !== 1) {
-                    return;
-                }
-
-                let [scrollParent] = scrollParents(e.target);
-                if (!within(scrollParent, el)) {
-                    scrollParent = el;
-                }
-
-                const clientY = e.targetTouches[0].clientY - startClientY;
-                const { scrollTop, scrollHeight, clientHeight } = scrollParent;
-
-                if (
-                    clientHeight >= scrollHeight ||
-                    (scrollTop === 0 && clientY > 0) ||
-                    (scrollHeight - scrollTop <= clientHeight && clientY < 0)
-                ) {
-                    e.cancelable && e.preventDefault();
-                }
-            },
-            { passive: false }
-        ),
-    ];
-
-    return () => events.forEach((fn) => fn());
-}
-
 let prevented;
-export function preventBackgroundScroll() {
+export function preventBackgroundScroll(el) {
+    // 'overscroll-behavior: contain' only works consistently if el overflows (Safari)
+    const off = on(
+        el,
+        'touchmove',
+        (e) => {
+            if (e.targetTouches.length !== 1) {
+                return;
+            }
+
+            let [{ scrollHeight, clientHeight }] = scrollParents(e.target);
+
+            if (clientHeight >= scrollHeight && e.cancelable) {
+                e.preventDefault();
+            }
+        },
+        { passive: false }
+    );
+
     if (prevented) {
-        return noop;
+        return off;
     }
     prevented = true;
 
     const { scrollingElement } = document;
     css(scrollingElement, {
-        overflowY: 'hidden',
+        overflowY: CSS.supports('overflow', 'clip') ? 'clip' : 'hidden',
         touchAction: 'none',
-        paddingRight: width(window) - scrollingElement.clientWidth,
+        paddingRight: width(window) - scrollingElement.clientWidth || '',
     });
     return () => {
         prevented = false;
+        off();
         css(scrollingElement, { overflowY: '', touchAction: '', paddingRight: '' });
     };
-}
-
-function filterChildren(el, fn) {
-    const children = [];
-    apply(el, (node) => {
-        if (fn(node)) {
-            children.push(node);
-        }
-    });
-    return children;
 }
 
 export function isSameSiteAnchor(a) {

@@ -110,30 +110,28 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                     },
                 },
             }),
-            ...(debug
-                ? []
-                : [
-                      babel({
-                          presets: [
-                              [
-                                  '@babel/preset-env',
-                                  {
-                                      loose: true,
-                                      targets: { safari: '12' },
-                                      bugfixes: true,
-                                  },
-                              ],
-                          ],
-                          extensions: ['.js'],
-                          babelHelpers: 'bundled',
-                          retainLines: true,
-                          compact: false,
-                      }),
-                      modify({
-                          find: /(>)\n\s+|\n\s+(<)/,
-                          replace: (m, m1, m2) => `${m1 || ''} ${m2 || ''}`,
-                      }),
-                  ]),
+            !debug &&
+                babel({
+                    presets: [
+                        [
+                            '@babel/preset-env',
+                            {
+                                loose: true,
+                                targets: { safari: '12' },
+                                bugfixes: true,
+                            },
+                        ],
+                    ],
+                    extensions: ['.js'],
+                    babelHelpers: 'bundled',
+                    retainLines: true,
+                    compact: false,
+                }),
+            !debug &&
+                modify({
+                    find: /(>)\n\s+|\n\s+(<)/,
+                    replace: (m, m1, m2) => `${m1 || ''} ${m2 || ''}`,
+                }),
         ],
     };
 

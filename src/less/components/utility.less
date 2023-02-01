@@ -87,7 +87,6 @@
     padding: @panel-scrollable-padding;
     border: @panel-scrollable-border-width solid @panel-scrollable-border;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
     resize: both;
     .hook-panel-scrollable();
 }
@@ -139,10 +138,7 @@
  * Enable scrollbars if content is clipped
  */
 
-.uk-overflow-auto {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-}
+.uk-overflow-auto { overflow: auto; }
 
 .uk-overflow-auto > :last-child { margin-bottom: 0; }
 

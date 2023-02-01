@@ -17,6 +17,7 @@ import slidenavNextLarge from '../../images/components/slidenav-next-large.svg';
 import slidenavPrevious from '../../images/components/slidenav-previous.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
 import spinner from '../../images/components/spinner.svg';
+import subnavParentIcon from '../../images/components/subnav-parent-icon.svg';
 import totop from '../../images/components/totop.svg';
 import {
     $,
@@ -53,6 +54,7 @@ const icons = {
     'slidenav-next-large': slidenavNextLarge,
     'slidenav-previous': slidenavPrevious,
     'slidenav-previous-large': slidenavPreviousLarge,
+    'subnav-parent-icon': subnavParentIcon,
 };
 
 const Icon = {

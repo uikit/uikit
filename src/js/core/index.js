@@ -40,3 +40,4 @@ export { IconComponent as OverlayIcon } from './icon';
 export { IconComponent as PaginationNext } from './icon';
 export { IconComponent as PaginationPrevious } from './icon';
 export { IconComponent as Totop } from './icon';
+export { IconComponent as SubnavParentIcon } from './icon';
