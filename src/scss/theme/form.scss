@@ -109,6 +109,12 @@ $form-label-font-size:                           $global-small-font-size !defaul
 // @mixin hook-form-horizontal-label(){}
 
 
+// Icon
+// ========================================================================
+
+// @mixin hook-form-icon(){}
+
+
 // Miscellaneous
 // ========================================================================
 
@@ -129,3 +135,6 @@ $inverse-form-label-color:                       $inverse-global-emphasis-color 
 
 // @mixin hook-inverse-form-radio-checked-focus(){}
 
+
+
+// @mixin hook-inverse-form-icon(){}

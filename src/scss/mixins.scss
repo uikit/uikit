@@ -618,6 +618,7 @@
 @mixin hook-form-label(){}
 @mixin hook-form-stacked-label(){}
 @mixin hook-form-horizontal-label(){}
+@mixin hook-form-icon(){}
 @mixin hook-form-misc(){}
 @mixin hook-inverse-form(){}
 @mixin hook-inverse-form-focus(){}
@@ -626,6 +627,7 @@
 @mixin hook-inverse-form-radio-checked(){}
 @mixin hook-inverse-form-radio-checked-focus(){}
 @mixin hook-inverse-form-label(){}
+@mixin hook-inverse-form-icon(){}
 @mixin hook-inverse-component-form(){
 
     .uk-input,
@@ -708,7 +710,10 @@
     }
 
     // Icon
-    .uk-form-icon { color: $inverse-form-icon-color; }
+    .uk-form-icon {
+        color: $inverse-form-icon-color;
+        @if(mixin-exists(hook-inverse-form-icon)) {@include hook-inverse-form-icon();}
+    }
     .uk-form-icon:hover { color: $inverse-form-icon-hover-color; }
 
 }

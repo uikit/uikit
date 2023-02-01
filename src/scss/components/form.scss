@@ -710,6 +710,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
     align-items: center;
     /* 4 */
     color: $form-icon-color;
+    @if(mixin-exists(hook-form-icon)) {@include hook-form-icon();}
 }
 
 /*
@@ -765,6 +766,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 // @mixin hook-form-label(){}
 // @mixin hook-form-stacked-label(){}
 // @mixin hook-form-horizontal-label(){}
+// @mixin hook-form-icon(){}
 // @mixin hook-form-misc(){}
 
 
@@ -802,3 +804,4 @@ $inverse-form-icon-hover-color:                 $inverse-global-color !default;
 // @mixin hook-inverse-form-radio-checked(){}
 // @mixin hook-inverse-form-radio-checked-focus(){}
 // @mixin hook-inverse-form-label(){}
+// @mixin hook-inverse-form-icon(){}

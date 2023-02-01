@@ -1,4 +1,4 @@
-/*! UIkit 3.15.22 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.15.23 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2975,7 +2975,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.22';
+    UIkit.version = '3.15.23';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3908,8 +3908,7 @@
 
 
           if (this.overlay) {
-            once(this.$el, 'hidden', preventOverscroll(this.$el), { self: true });
-            once(this.$el, 'hidden', preventBackgroundScroll(), { self: true });
+            once(this.$el, 'hidden', preventBackgroundScroll(this.$el), { self: true });
           }
 
           if (this.stack) {
@@ -4052,31 +4051,10 @@
       return time ? endsWith(time, 'ms') ? toFloat(time) : toFloat(time) * 1000 : 0;
     }
 
-    function preventOverscroll(el) {
-      if (CSS.supports('overscroll-behavior', 'contain')) {
-        const elements = [
-        el,
-        ...filterChildren(el, (child) => /auto|scroll/.test(css(child, 'overflow')))];
-
-        css(elements, 'overscrollBehavior', 'contain');
-        return () => css(elements, 'overscrollBehavior', '');
-      }
-
-      let startClientY;
-
-      const events = [
-      on(
-      el,
-      'touchstart',
-      ({ targetTouches }) => {
-        if (targetTouches.length === 1) {
-          startClientY = targetTouches[0].clientY;
-        }
-      },
-      { passive: true }),
-
-
-      on(
+    let prevented;
+    function preventBackgroundScroll(el) {
+      // 'overscroll-behavior: contain' only works consistently if el overflows (Safari)
+      const off = on(
       el,
       'touchmove',
       (e) => {
@@ -4084,56 +4062,31 @@
           return;
         }
 
-        let [scrollParent] = scrollParents(e.target);
-        if (!within(scrollParent, el)) {
-          scrollParent = el;
-        }
+        let [{ scrollHeight, clientHeight }] = scrollParents(e.target);
 
-        const clientY = e.targetTouches[0].clientY - startClientY;
-        const { scrollTop, scrollHeight, clientHeight } = scrollParent;
-
-        if (
-        clientHeight >= scrollHeight ||
-        scrollTop === 0 && clientY > 0 ||
-        scrollHeight - scrollTop <= clientHeight && clientY < 0)
-        {
-          e.cancelable && e.preventDefault();
+        if (clientHeight >= scrollHeight && e.cancelable) {
+          e.preventDefault();
         }
       },
-      { passive: false })];
+      { passive: false });
 
 
-
-      return () => events.forEach((fn) => fn());
-    }
-
-    let prevented;
-    function preventBackgroundScroll() {
       if (prevented) {
-        return noop;
+        return off;
       }
       prevented = true;
 
       const { scrollingElement } = document;
       css(scrollingElement, {
-        overflowY: 'hidden',
+        overflowY: CSS.supports('overflow', 'clip') ? 'clip' : 'hidden',
         touchAction: 'none',
-        paddingRight: width(window) - scrollingElement.clientWidth
+        paddingRight: width(window) - scrollingElement.clientWidth || ''
       });
       return () => {
         prevented = false;
+        off();
         css(scrollingElement, { overflowY: '', touchAction: '', paddingRight: '' });
       };
-    }
-
-    function filterChildren(el, fn) {
-      const children = [];
-      apply(el, (node) => {
-        if (fn(node)) {
-          children.push(node);
-        }
-      });
-      return children;
     }
 
     function isSameSiteAnchor(a) {
@@ -4410,20 +4363,15 @@
             return () => observer.disconnect();
           })(),
 
-          ...(this.autoUpdate ?
-          [
-          on([document, overflowParents(this.$el)], 'scroll', update, {
+          this.autoUpdate &&
+          on([document, ...overflowParents(this.$el)], 'scroll', update, {
             passive: true
-          })] :
+          }),
 
-          []),
-
-          ...(this.bgScroll ?
-          [] :
-          [preventOverscroll(this.$el), preventBackgroundScroll()])];
+          !this.bgScroll && preventBackgroundScroll(this.$el)];
 
 
-          once(this.$el, 'hide', () => handlers.forEach((handler) => handler()), {
+          once(this.$el, 'hide', () => handlers.forEach((handler) => handler && handler()), {
             self: true
           });
         }
@@ -5388,6 +5336,8 @@
 
     var spinner = "<svg width=\"30\" height=\"30\" viewBox=\"0 0 30 30\" xmlns=\"http://www.w3.org/2000/svg\"><circle fill=\"none\" stroke=\"#000\" cx=\"15\" cy=\"15\" r=\"14\"/></svg>";
 
+    var subnavParentIcon = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" points=\"1 3.5 6 8.5 11 3.5\"/></svg>";
+
     var totop = "<svg width=\"18\" height=\"10\" viewBox=\"0 0 18 10\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.2\" points=\"1 9 9 1 17 9 \"/></svg>";
 
     const icons = {
@@ -5409,7 +5359,8 @@
       'slidenav-next': slidenavNext,
       'slidenav-next-large': slidenavNextLarge,
       'slidenav-previous': slidenavPrevious,
-      'slidenav-previous-large': slidenavPreviousLarge
+      'slidenav-previous-large': slidenavPreviousLarge,
+      'subnav-parent-icon': subnavParentIcon
     };
 
     const Icon = {
@@ -7868,6 +7819,7 @@
         SlidenavPrevious: Slidenav,
         Spinner: Spinner,
         Sticky: sticky,
+        SubnavParentIcon: IconComponent,
         Svg: SVG,
         Switcher: Switcher,
         Tab: tab,
@@ -9180,7 +9132,7 @@
     };
 
     var LightboxPanel = {
-      mixins: [Container, Modal, Togglable, Slideshow],
+      mixins: [Modal, Slideshow],
 
       functional: true,
 
@@ -10616,9 +10568,7 @@
     };
 
     function isFinite(list, center) {
-      const { length } = list;
-
-      if (length < 2) {
+      if (!list || list.length < 2) {
         return true;
       }
 

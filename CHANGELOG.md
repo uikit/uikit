@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.15.23 (February 1, 2023)
 
 ### Added
 

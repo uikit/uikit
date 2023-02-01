@@ -95,7 +95,6 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
     background: $offcanvas-bar-background;
     /* 3 */
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     @if(mixin-exists(hook-offcanvas-bar)) {@include hook-offcanvas-bar();}
 }
 
