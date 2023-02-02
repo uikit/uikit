@@ -127,7 +127,9 @@ export function scrollParents(element, scrollable = false, props = []) {
         .concat(
             ancestors.filter(
                 (parent) =>
-                    includes(['auto', 'scroll', ...props], css(parent, 'overflow')) &&
+                    css(parent, 'overflow')
+                        .split(' ')
+                        .some((prop) => includes(['auto', 'scroll', ...props], prop)) &&
                     (!scrollable || parent.scrollHeight > offsetViewport(parent).height)
             )
         )
