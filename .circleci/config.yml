@@ -6,7 +6,6 @@ orbs:
 jobs:
   build:
     executor: node/default
-    working_directory: ~/uikit
     steps:
       # Install node
       - node/install:
