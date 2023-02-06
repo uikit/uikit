@@ -7,6 +7,7 @@ import {
     addClass,
     after,
     attr,
+    children,
     css,
     findIndex,
     getIndex,
@@ -134,7 +135,8 @@ export default {
             },
 
             watch(items) {
-                attr(items, { tabindex: -1 });
+                attr(children(this.$el), 'role', 'presentation');
+                attr(items, { tabindex: -1, role: 'menuitem' });
                 attr(items[0], 'tabindex', 0);
             },
 
@@ -142,8 +144,12 @@ export default {
         },
     },
 
+    connected() {
+        attr(this.$el, 'role', 'menubar');
+    },
+
     disconnected() {
-        this.dropbar && remove(this.dropbar);
+        remove(this._dropbar);
         delete this._dropbar;
     },
 
