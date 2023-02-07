@@ -159,7 +159,6 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                 debug
                     ? undefined
                     : esbuildMinify({
-                          banner: banner.trim(),
                           target: 'safari12',
                       }),
             ],
