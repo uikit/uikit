@@ -55,7 +55,7 @@ export default {
     },
 
     data: {
-        dropdown: '> li > a',
+        dropdown: '> li > a, > ul > li > a',
         align: isRtl ? 'right' : 'left',
         clsDrop: 'uk-dropdown',
         clsDropbar: 'uk-dropnav-dropbar',
