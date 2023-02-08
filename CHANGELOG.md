@@ -14,6 +14,7 @@
 - Add tab pattern keyboard interaction for Slider and Slideshow components
 - Add menubar pattern keyboard interaction to Navbar component
 - Add Dropnav component
+- Add parent icon to Drop component
 
 ### Changed
 
@@ -37,10 +38,6 @@
 - Fix regression in `scrollParents` function
 
 ## 3.15.23 (February 1, 2023)
-
-### Added
-
-- Add subnav parent icon to Subnav component
 
 ### Fixed
 

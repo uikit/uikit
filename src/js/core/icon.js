@@ -2,6 +2,7 @@ import SVG from './svg';
 import I18n from '../mixin/i18n';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
+import dropParentIcon from '../../images/components/drop-parent-icon.svg';
 import marker from '../../images/components/marker.svg';
 import navParentIcon from '../../images/components/nav-parent-icon.svg';
 import navParentIconLarge from '../../images/components/nav-parent-icon-large.svg';
@@ -18,7 +19,6 @@ import slidenavNextLarge from '../../images/components/slidenav-next-large.svg';
 import slidenavPrevious from '../../images/components/slidenav-previous.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
 import spinner from '../../images/components/spinner.svg';
-import subnavParentIcon from '../../images/components/subnav-parent-icon.svg';
 import totop from '../../images/components/totop.svg';
 import {
     $,
@@ -44,6 +44,7 @@ const icons = {
     marker,
     'close-icon': closeIcon,
     'close-large': closeLarge,
+    'drop-parent-icon': dropParentIcon,
     'nav-parent-icon': navParentIcon,
     'nav-parent-icon-large': navParentIconLarge,
     'navbar-parent-icon': navbarParentIcon,
@@ -58,7 +59,6 @@ const icons = {
     'slidenav-next-large': slidenavNextLarge,
     'slidenav-previous': slidenavPrevious,
     'slidenav-previous-large': slidenavPreviousLarge,
-    'subnav-parent-icon': subnavParentIcon,
 };
 
 const Icon = {

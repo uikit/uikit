@@ -3,8 +3,6 @@
 //
 // Component:       `uk-subnav`
 //
-// Sub-objects:     `uk-subnav-parent-icon`
-//
 // Modifiers:       `uk-subnav-divider`
 //                  `uk-subnav-pill`
 //
@@ -23,8 +21,6 @@
 @subnav-item-hover-color:                       @global-color;
 @subnav-item-hover-text-decoration:             none;
 @subnav-item-active-color:                      @global-emphasis-color;
-
-@subnav-parent-icon-margin-left:                4px;
 
 @subnav-divider-margin-horizontal:              @subnav-margin-horizontal;
 @subnav-divider-border-height:                  1.5em;
@@ -120,14 +116,6 @@
     color: @subnav-item-active-color;
     .hook-subnav-item-active();
 }
-
-
-/* Parent icon modifier
- ========================================================================== */
-
-.uk-subnav-parent-icon { margin-left: @subnav-parent-icon-margin-left; }
-
-.uk-subnav > li > a[aria-expanded="true"] .uk-subnav-parent-icon { transform: rotate(180deg); }
 
 
 /* Divider modifier

@@ -39,6 +39,6 @@ export { Slidenav as SlidenavNext } from './icon';
 export { Slidenav as SlidenavPrevious } from './icon';
 export { Spinner } from './icon';
 export { Totop } from './icon';
+export { IconComponent as DropParentIcon } from './icon';
 export { IconComponent as NavbarParentIcon } from './icon';
 export { IconComponent as OverlayIcon } from './icon';
-export { IconComponent as SubnavParentIcon } from './icon';
