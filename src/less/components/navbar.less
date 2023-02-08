@@ -284,9 +284,12 @@
 /* Parent icon modifier
  ========================================================================== */
 
-.uk-navbar-parent-icon { margin-left: @navbar-parent-icon-margin-left; }
+.uk-navbar-parent-icon {
+    margin-left: @navbar-parent-icon-margin-left;
+    transition: transform 0.3s ease-out;
+}
 
-.uk-navbar-nav > li > a[aria-expanded="true"] .uk-navbar-parent-icon { transform: rotate(180deg); }
+.uk-navbar-nav > li > a[aria-expanded="true"] .uk-navbar-parent-icon { transform: rotateX(180deg); }
 
 
 /* Item
