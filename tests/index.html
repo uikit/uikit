@@ -588,46 +588,50 @@
                 <div class="uk-grid-divider uk-child-width-auto@m" uk-grid>
                     <div>
 
-                        <ul class="uk-subnav uk-subnav-divider" uk-margin>
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li>
-                                <a href="#">Parent <span uk-subnav-parent-icon></span></a>
-                                <div uk-dropdown="mode: click">
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li class="uk-active"><a href="#">Active</a></li>
-                                        <li><a href="#">Item</a></li>
-                                        <li class="uk-nav-header">Header</li>
-                                        <li><a href="#">Item</a></li>
-                                        <li><a href="#">Item</a></li>
-                                        <li class="uk-nav-divider"></li>
-                                        <li><a href="#">Item</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="uk-disabled"><a>Disabled</a></li>
-                        </ul>
+                        <nav uk-dropnav="mode: click">
+                            <ul class="uk-subnav uk-subnav-divider" uk-margin>
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                <li>
+                                    <a href="#">Parent <span uk-drop-parent-icon></span></a>
+                                    <div class="uk-dropdown">
+                                        <ul class="uk-nav uk-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#">Item</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="uk-disabled"><a>Disabled</a></li>
+                            </ul>
+                        </nav>
 
                     </div>
                     <div>
 
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li>
-                                <a href="#">Parent <span uk-subnav-parent-icon></span></a>
-                                <div uk-dropdown="mode: click">
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li class="uk-active"><a href="#">Active</a></li>
-                                        <li><a href="#">Item</a></li>
-                                        <li class="uk-nav-header">Header</li>
-                                        <li><a href="#">Item</a></li>
-                                        <li><a href="#">Item</a></li>
-                                        <li class="uk-nav-divider"></li>
-                                        <li><a href="#">Item</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="uk-disabled"><a>Disabled</a></li>
-                        </ul>
+                        <nav uk-dropnav="mode: click">
+                            <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                <li>
+                                    <a href="#">Parent <span uk-drop-parent-icon></span></a>
+                                    <div class="uk-dropdown">
+                                        <ul class="uk-nav uk-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#">Item</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="uk-disabled"><a>Disabled</a></li>
+                            </ul>
+                        </nav>
 
                     </div>
                     <div>
@@ -635,7 +639,7 @@
                         <ul uk-tab>
                             <li class="uk-active"><a href="#">Active</a></li>
                             <li>
-                                <a href="#">Parent <span uk-subnav-parent-icon></span></a>
+                                <a href="#">Parent <span uk-drop-parent-icon></span></a>
                                 <div uk-dropdown="mode: click">
                                     <ul class="uk-nav uk-dropdown-nav">
                                         <li class="uk-active"><a href="#">Active</a></li>
