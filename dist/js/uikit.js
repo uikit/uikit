@@ -1,4 +1,4 @@
-/*! UIkit 3.15.23 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.15.24 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1889,7 +1889,9 @@
       return [scrollEl].
       concat(
       ancestors.filter(
-      (parent) => includes(['auto', 'scroll', ...props], css(parent, 'overflow')) && (
+      (parent) => css(parent, 'overflow').
+      split(' ').
+      some((prop) => includes(['auto', 'scroll', ...props], prop)) && (
       !scrollable || parent.scrollHeight > offsetViewport(parent).height))).
 
 
@@ -2975,7 +2977,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.15.23';
+    UIkit.version = '3.15.24';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -6674,19 +6676,15 @@
       }
 
       for (const component of components$2) {
-        if (within(e.target, component.$el) && isSameSiteLink(component.$el)) {
+        if (within(e.target, component.$el) && isSameSiteAnchor(component.$el)) {
           e.preventDefault();
           component.scrollTo(getTargetElement(component.$el));
         }
       }
     }
 
-    function isSameSiteLink(el) {
-      return ['origin', 'pathname', 'search'].every((part) => location[part] === el[part]);
-    }
-
     function getTargetElement(el) {
-      if (isSameSiteLink(el)) {
+      if (isSameSiteAnchor(el)) {
         const id = decodeURIComponent(el.hash).substring(1);
         return document.getElementById(id) || document.getElementsByName(id)[0];
       }
@@ -11320,15 +11318,6 @@
             return;
           }
 
-          this._unbind = once(
-          document,
-          `keydown ${pointerDown$1}`,
-          this.hide,
-          false,
-          (e) => e.type === pointerDown$1 && !within(e.target, this.$el) ||
-          e.type === 'keydown' && e.keyCode === 27);
-
-
           clearTimeout(this.showTimer);
           this.showTimer = setTimeout(this._show, this.delay);
         },
@@ -11347,13 +11336,11 @@
           await this.toggleElement(this.tooltip, false, false);
           remove$1(this.tooltip);
           this.tooltip = null;
-          this._unbind();
         },
 
         _show() {
-          const [scrollParent] = scrollParents(this.$el);
           this.tooltip = append(
-          within(scrollParent, this.container) ? scrollParent : this.container,
+          this.container,
           `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip"> <div class="uk-${this.$options.name}-inner">${this.title}</div> </div>`);
 
 
@@ -11362,7 +11349,8 @@
               return;
             }
 
-            this.positionAt(this.tooltip, this.$el);
+            const update = () => this.positionAt(this.tooltip, this.$el);
+            update();
 
             const [dir, align] = getAlignment(this.tooltip, this.$el, this.pos);
 
@@ -11370,6 +11358,28 @@
             this.axis === 'y' ?
             `${flipPosition(dir)}-${align}` :
             `${align}-${flipPosition(dir)}`;
+
+            const handlers = [
+            once(
+            document,
+            `keydown ${pointerDown$1}`,
+            this.hide,
+            false,
+            (e) => e.type === pointerDown$1 && !within(e.target, this.$el) ||
+            e.type === 'keydown' && e.keyCode === 27),
+
+            on([document, ...overflowParents(this.$el)], 'scroll', update, {
+              passive: true
+            })];
+
+            once(
+            this.tooltip,
+            'hide',
+            () => handlers.forEach((handler) => handler && handler()),
+            {
+              self: true
+            });
+
           });
 
           this.toggleElement(this.tooltip, true);
