@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix Tooltip component appends to `container` option, prevents margins in scroll container
 - Fix regression in `scrollParents` function
 
 ## 3.15.23 (February 1, 2023)
