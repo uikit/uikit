@@ -13,11 +13,11 @@ import {
     offset,
     on,
     once,
+    overflowParents,
     pointerDown,
     pointerEnter,
     pointerLeave,
     remove,
-    scrollParents,
     within,
 } from 'uikit-util';
 
@@ -64,16 +64,6 @@ export default {
                 return;
             }
 
-            this._unbind = once(
-                document,
-                `keydown ${pointerDown}`,
-                this.hide,
-                false,
-                (e) =>
-                    (e.type === pointerDown && !within(e.target, this.$el)) ||
-                    (e.type === 'keydown' && e.keyCode === 27)
-            );
-
             clearTimeout(this.showTimer);
             this.showTimer = setTimeout(this._show, this.delay);
         },
@@ -92,13 +82,11 @@ export default {
             await this.toggleElement(this.tooltip, false, false);
             remove(this.tooltip);
             this.tooltip = null;
-            this._unbind();
         },
 
         _show() {
-            const [scrollParent] = scrollParents(this.$el);
             this.tooltip = append(
-                within(scrollParent, this.container) ? scrollParent : this.container,
+                this.container,
                 `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip">
                     <div class="uk-${this.$options.name}-inner">${this.title}</div>
                  </div>`
@@ -109,7 +97,8 @@ export default {
                     return;
                 }
 
-                this.positionAt(this.tooltip, this.$el);
+                const update = () => this.positionAt(this.tooltip, this.$el);
+                update();
 
                 const [dir, align] = getAlignment(this.tooltip, this.$el, this.pos);
 
@@ -117,6 +106,29 @@ export default {
                     this.axis === 'y'
                         ? `${flipPosition(dir)}-${align}`
                         : `${align}-${flipPosition(dir)}`;
+
+                const handlers = [
+                    once(
+                        document,
+                        `keydown ${pointerDown}`,
+                        this.hide,
+                        false,
+                        (e) =>
+                            (e.type === pointerDown && !within(e.target, this.$el)) ||
+                            (e.type === 'keydown' && e.keyCode === 27)
+                    ),
+                    on([document, ...overflowParents(this.$el)], 'scroll', update, {
+                        passive: true,
+                    }),
+                ];
+                once(
+                    this.tooltip,
+                    'hide',
+                    () => handlers.forEach((handler) => handler && handler()),
+                    {
+                        self: true,
+                    }
+                );
             });
 
             this.toggleElement(this.tooltip, true);
