@@ -14,12 +14,26 @@
 
             <h1>Dropnav</h1>
 
+            <div class="uk-margin">
+                <select id="js-nav-switcher" class="uk-select uk-form-width-small" aria-label="Nav switcher">
+                    <option value="uk-subnav">Subnav</option>
+                    <option value="uk-tab">Tab</option>
+                </select>
+            </div>
+
             <h2>Dropdown</h2>
+
+            <div class="uk-margin">
+                <select id="js-dropdown-size-switcher" class="uk-select uk-form-width-small" aria-label="Dropdown size switcher">
+                    <option value="">Default</option>
+                    <option value="uk-dropdown-large">Large</option>
+                </select>
+            </div>
 
             <nav uk-dropnav>
                 <ul class="uk-subnav">
                     <li class="uk-active">
-                        <a href="#">Left <span uk-drop-parent-icon></span></a>
+                        <a href="#">Hover <span uk-drop-parent-icon></span></a>
                         <div class="uk-dropdown">
                             <ul class="uk-nav uk-dropdown-nav">
                                 <li class="uk-active"><a href="#">Active</a></li>
@@ -180,10 +194,10 @@
                 </ul>
             </nav>
 
-            <nav uk-dropnav="align: center">
+            <nav uk-dropnav="mode: click; align: center">
                 <ul class="uk-subnav uk-flex-center">
                     <li class="uk-active">
-                        <a href="#">Left <span uk-drop-parent-icon></span></a>
+                        <a href="#">Click <span uk-drop-parent-icon></span></a>
                         <div class="uk-dropdown">
                             <ul class="uk-nav uk-dropdown-nav">
                                 <li class="uk-active"><a href="#">Active</a></li>
@@ -259,7 +273,7 @@
                     </li>
                     <li>
                         <a href="#">Stretch <span uk-drop-parent-icon></span></a>
-                        <div class="uk-dropdown" uk-drop="cls-drop: uk-dropdown; boundary: !.uk-dropnav; stretch: x; flip: false">
+                        <div class="uk-dropdown" uk-drop="mode: click; cls-drop: uk-dropdown; boundary: !.uk-dropnav; stretch: x; flip: false">
                             <div class="uk-child-width-1-3@m" uk-grid>
                                 <div>
                                     <ul class="uk-nav uk-dropdown-nav">
@@ -301,7 +315,7 @@
                     </li>
                     <li>
                         <a href="#">Stretch Full <span uk-drop-parent-icon></span></a>
-                        <div class="uk-dropdown" uk-drop="cls-drop: uk-dropdown; stretch: x; flip: false">
+                        <div class="uk-dropdown" uk-drop="mode: click; cls-drop: uk-dropdown; stretch: x; flip: false">
                             <div class="uk-child-width-1-3@m" uk-grid>
                                 <div>
                                     <ul class="uk-nav uk-dropdown-nav">
@@ -346,10 +360,17 @@
 
             <h2>Dropbar</h2>
 
+            <div class="uk-margin">
+                <select id="js-dropbar-size-switcher" class="uk-select uk-form-width-small" aria-label="Dropbar size switcher">
+                    <option value="">Default</option>
+                    <option value="uk-dropdown-dropbar-large">Large</option>
+                </select>
+            </div>
+
             <nav uk-dropnav="dropbar: true">
                 <ul class="uk-subnav">
                     <li class="uk-active">
-                        <a href="#">Left <span uk-drop-parent-icon></span></a>
+                        <a href="#">Hover <span uk-drop-parent-icon></span></a>
                         <div class="uk-dropdown">
                             <ul class="uk-nav uk-dropdown-nav">
                                 <li class="uk-active"><a href="#">Active</a></li>
@@ -510,10 +531,10 @@
                 </ul>
             </nav>
 
-            <nav uk-dropnav="dropbar: true; align: center">
+            <nav uk-dropnav="dropbar: true; mode: click; align: center">
                 <ul class="uk-subnav uk-flex-center">
                     <li class="uk-active">
-                        <a href="#">Left <span uk-drop-parent-icon></span></a>
+                        <a href="#">Click <span uk-drop-parent-icon></span></a>
                         <div class="uk-dropdown">
                             <ul class="uk-nav uk-dropdown-nav">
                                 <li class="uk-active"><a href="#">Active</a></li>
@@ -589,7 +610,7 @@
                     </li>
                     <li>
                         <a href="#">Stretch <span uk-drop-parent-icon></span></a>
-                        <div class="uk-dropdown" uk-drop="cls-drop: uk-dropdown; boundary: !.uk-dropnav; stretch: x; flip: false">
+                        <div class="uk-dropdown" uk-drop="mode: click; cls-drop: uk-dropdown; boundary: !.uk-dropnav; stretch: x; flip: false">
                             <div class="uk-child-width-1-3@m" uk-grid>
                                 <div>
                                     <ul class="uk-nav uk-dropdown-nav">
@@ -631,7 +652,7 @@
                     </li>
                     <li>
                         <a href="#">Stretch Full <span uk-drop-parent-icon></span></a>
-                        <div class="uk-dropdown" uk-drop="cls-drop: uk-dropdown; stretch: x; flip: false">
+                        <div class="uk-dropdown" uk-drop="mode: click; cls-drop: uk-dropdown; stretch: x; flip: false">
                             <div class="uk-child-width-1-3@m" uk-grid>
                                 <div>
                                     <ul class="uk-nav uk-dropdown-nav">
@@ -788,6 +809,36 @@
             </div>
     
         </div>
+
+        <script>
+
+            const {$$, addClass, on, removeClass } = UIkit.util;
+
+            on('#js-nav-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.uk-subnav')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
+            });
+
+            on('#js-dropdown-size-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.uk-dropdown:not(.uk-dropdown-dropbar)')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
+            });
+
+            on('#js-dropbar-size-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.uk-dropdown-dropbar')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
+            });
+
+        </script>
 
     </body>
 </html>
