@@ -105,7 +105,7 @@ export default {
     },
 
     connected() {
-        addClass(this.$el, this.clsDrop);
+        addClass(this.$el, 'uk-drop', this.clsDrop);
 
         if (this.toggle && !this.targetEl) {
             this.targetEl = createToggleComponent(this);

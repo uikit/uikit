@@ -15,7 +15,6 @@
 // Variables
 // ========================================================================
 
-@dropdown-z-index:                              @global-z-index + 20;
 @dropdown-margin:                               @global-small-margin;
 @dropdown-viewport-margin:                      15px;
 @dropdown-min-width:                            200px;
@@ -41,32 +40,25 @@
  ========================================================================== */
 
 /*
- * 1. Hide by default
- * 2. Set position
- * 3. Set a default width
- * 4. Style
+ * Adopts `uk-drop`
+ * 1. Reset drop and let text expand the width instead of wrapping
+ * 2. Set a default width
+ * 3. Style
  */
 
 .uk-dropdown {
-    /* 1 */
-    display: none;
-    /* 2 */
-    position: absolute;
-    z-index: @dropdown-z-index;
     --uk-position-offset: @dropdown-margin;
     --uk-position-viewport-offset: @dropdown-viewport-margin;
-    /* 3 */
-    box-sizing: border-box;
+    /* 1 */
+    width: auto;
+    /* 2 */
     min-width: @dropdown-min-width;
-    /* 4 */
+    /* 3 */
     padding: @dropdown-padding;
     background: @dropdown-background;
     color: @dropdown-color;
     .hook-dropdown();
 }
-
-/* Show */
-.uk-dropdown.uk-open { display: block; }
 
 /*
  * Remove margin from the last-child

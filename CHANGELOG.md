@@ -24,6 +24,7 @@
 - IMPORTANT: Remove `.uk-navbar-dropdown-grid` from Navbar component. Use `uk-drop-grid` instead
 - IMPORTANT: Remove error message options in Upload component, use `i18n` option
 - IMPORTANT: Rename `labels` default property and option on `UIkit.modal` to `i18n`
+- Move functional CSS from Dropdown, Dropbar and Navbar component to Drop component
 
 # Changelog
 
