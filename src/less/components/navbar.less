@@ -96,8 +96,6 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 @navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
-@navbar-dropbar-z-index:                        @global-z-index - 20;
-
 
 /* ========================================================================
    Component: Navbar
@@ -547,18 +545,10 @@
  ========================================================================== */
 
 /*
- * 1. Reset dropbar
- * 2. Width
+ * Adopts `uk-dropnav-dropbar`
  */
 
 .uk-navbar-dropbar {
-    /* 1 */
-    display: block !important;
-    z-index: @navbar-dropbar-z-index;
-    padding: 0;
-    /* 2 */
-    left: 0;
-    right: 0;
     .hook-navbar-dropbar();
 }
 

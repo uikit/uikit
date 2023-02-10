@@ -25,6 +25,15 @@
 
 @dropdown-large-padding:                        40px;
 
+@dropdown-dropbar-padding-top:                  @dropdown-padding;
+@dropdown-dropbar-padding-bottom:               @dropdown-dropbar-padding-top;
+@dropdown-dropbar-viewport-margin:              15px;
+@dropdown-dropbar-viewport-margin-s:            @global-gutter;
+@dropdown-dropbar-viewport-margin-m:            @global-medium-gutter;
+
+@dropdown-dropbar-large-padding-top:            @dropdown-large-padding;
+@dropdown-dropbar-large-padding-bottom:         @dropdown-dropbar-large-padding-top;
+
 @dropdown-nav-item-color:                       @global-muted-color;
 @dropdown-nav-item-hover-color:                 @global-color;
 @dropdown-nav-subtitle-font-size:               @global-small-font-size;
@@ -75,6 +84,47 @@
  ========================================================================== */
 
 .uk-dropdown-large { padding: @dropdown-large-padding; }
+
+
+/* Dropbar modifier
+ ========================================================================== */
+
+/*
+ * 1. Reset dropdown width to prevent to early shifting
+ * 2. Reset style
+ * 3. Padding
+ */
+
+.uk-dropdown-dropbar {
+    /* 1 */
+    width: auto;
+    /* 2 */
+    background: transparent;
+    /* 3 */
+    padding: @dropdown-dropbar-padding-top 0 @dropdown-dropbar-padding-bottom 0;
+    --uk-position-viewport-offset: @dropdown-dropbar-viewport-margin;
+    .hook-dropdown-dropbar();
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-dropdown-dropbar { --uk-position-viewport-offset: @dropdown-dropbar-viewport-margin-s; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-dropdown-dropbar { --uk-position-viewport-offset: @dropdown-dropbar-viewport-margin-m; }
+
+}
+
+.uk-dropdown-dropbar-large {
+    padding-top: @dropdown-dropbar-large-padding-top;
+    padding-bottom: @dropdown-dropbar-large-padding-bottom;
+    .hook-dropdown-dropbar-large();
+}
 
 
 /* Nav
@@ -144,6 +194,8 @@
 .hook-dropdown-misc();
 
 .hook-dropdown() {}
+.hook-dropdown-dropbar() {}
+.hook-dropdown-dropbar-large() {}
 .hook-dropdown-nav() {}
 .hook-dropdown-nav-item() {}
 .hook-dropdown-nav-item-hover() {}
