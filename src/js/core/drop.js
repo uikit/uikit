@@ -127,7 +127,7 @@ export default {
             name: 'click',
 
             delegate() {
-                return `.${this.clsDrop}-close`;
+                return '.uk-drop-close';
             },
 
             handler(e) {
@@ -377,7 +377,7 @@ export default {
         },
 
         position() {
-            removeClass(this.$el, `${this.clsDrop}-stack`);
+            removeClass(this.$el, 'uk-drop-stack');
             css(this.$el, this._style);
 
             // Ensure none positioned element does not generate scrollbars
@@ -405,13 +405,15 @@ export default {
 
             const maxWidth = viewports[0].width - 2 * viewportOffset;
 
+            this.$el.hidden = false;
+
+            css(this.$el, 'maxWidth', '');
+
             if (this.$el.offsetWidth > maxWidth) {
-                addClass(this.$el, `${this.clsDrop}-stack`);
+                addClass(this.$el, 'uk-drop-stack');
             }
 
             css(this.$el, 'maxWidth', maxWidth);
-
-            this.$el.hidden = false;
 
             this.positionAt(this.$el, this.target, this.boundary);
 

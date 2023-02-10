@@ -18,18 +18,15 @@
 //
 // Adopted:         `uk-navbar-dropdown` + Modifiers
 //                  `uk-navbar-dropdown-nav`
-//                  `uk-navbar-dropdown-grid`
 //                  `uk-navbar-toggle-icon`
 //
 // Modifiers:       `uk-navbar-primary`
 //                  `uk-navbar-transparent`
 //                  `uk-navbar-sticky`
-//                  `uk-navbar-dropdown-stack`
 //
 // States:          `uk-active`
 //                  `uk-parent`
 //                  `uk-open`
-//
 //
 // ========================================================================
 
@@ -424,23 +421,20 @@
  */
 
 /* Gutter Horizontal */
-.uk-navbar-dropdown-grid { margin-left: -@navbar-dropdown-grid-gutter-horizontal; }
-.uk-navbar-dropdown-grid > * { padding-left: @navbar-dropdown-grid-gutter-horizontal; }
+.uk-navbar-dropdown .uk-drop-grid { margin-left: -@navbar-dropdown-grid-gutter-horizontal; }
+.uk-navbar-dropdown .uk-drop-grid > * { padding-left: @navbar-dropdown-grid-gutter-horizontal; }
 
 /* Gutter Vertical */
-.uk-navbar-dropdown-grid > .uk-grid-margin { margin-top: @navbar-dropdown-grid-gutter-vertical; }
-
-/* Stack */
-.uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * { width: 100% !important; }
+.uk-navbar-dropdown .uk-drop-grid > .uk-grid-margin { margin-top: @navbar-dropdown-grid-gutter-vertical; }
 
 /*
  * Width modifier
  */
 
-.uk-navbar-dropdown-width-2:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 2); }
-.uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 3); }
-.uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 4); }
-.uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 5); }
+.uk-navbar-dropdown-width-2:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 2); }
+.uk-navbar-dropdown-width-3:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 3); }
+.uk-navbar-dropdown-width-4:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 4); }
+.uk-navbar-dropdown-width-5:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 5); }
 
 /*
  * Size modifier

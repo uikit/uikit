@@ -18,6 +18,10 @@
 
 ### Changed
 
+- IMPORTANT: Remove `.uk-dropdown-close` from Dropdown component. Use `uk-drop-close` instead
+- IMPORTANT: Remove `.uk-dropdown-grid` from Dropdown component. Use `uk-drop-grid` instead
+- IMPORTANT: Remove `.uk-navbar-dropdown-close` from Navbar component. Use `uk-drop-close` instead
+- IMPORTANT: Remove `.uk-navbar-dropdown-grid` from Navbar component. Use `uk-drop-grid` instead
 - IMPORTANT: Remove error message options in Upload component, use `i18n` option
 - IMPORTANT: Rename `labels` default property and option on `UIkit.modal` to `i18n`
 
