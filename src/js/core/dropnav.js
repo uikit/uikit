@@ -86,7 +86,13 @@ export default {
             },
 
             watch(dropbar) {
-                addClass(dropbar, 'uk-dropbar', 'uk-dropbar-top', this.clsDropbar, `uk-${this.$options.name}-dropbar`);
+                addClass(
+                    dropbar,
+                    'uk-dropbar',
+                    'uk-dropbar-top',
+                    this.clsDropbar,
+                    `uk-${this.$options.name}-dropbar`
+                );
             },
 
             immediate: true,
