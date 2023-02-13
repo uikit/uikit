@@ -26,7 +26,7 @@ MouseTracker.prototype = {
 
     cancel() {
         this.unbind?.();
-        this.interval && clearInterval(this.interval);
+        clearInterval(this.interval);
     },
 
     movesTo(target) {

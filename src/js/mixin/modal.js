@@ -135,70 +135,25 @@ export default {
             self: true,
 
             handler() {
-                once(
-                    this.$el,
-                    'hide',
-                    on(document, 'focusin', (e) => {
-                        if (last(active) === this && !within(e.target, this.$el)) {
-                            this.$el.focus();
-                        }
-                    })
-                );
-
-                if (this.overlay) {
-                    once(this.$el, 'hidden', preventBackgroundScroll(this.$el), { self: true });
-                }
-
                 if (this.stack) {
                     css(this.$el, 'zIndex', toFloat(css(this.$el, 'zIndex')) + active.length);
                 }
 
+                const handlers = [
+                    this.overlay && preventBackgroundFocus(this),
+                    this.overlay && preventBackgroundScroll(this.$el),
+                    this.bgClose && listenForBackgroundClose(this),
+                    this.escClose && listenForEscClose(this),
+                ];
+
+                once(
+                    this.$el,
+                    'hidden',
+                    () => handlers.forEach((handler) => handler && handler()),
+                    { self: true }
+                );
+
                 addClass(document.documentElement, this.clsPage);
-
-                if (this.bgClose) {
-                    once(
-                        this.$el,
-                        'hide',
-                        on(document, pointerDown, ({ target }) => {
-                            if (
-                                last(active) !== this ||
-                                (this.overlay && !within(target, this.$el)) ||
-                                within(target, this.panel)
-                            ) {
-                                return;
-                            }
-
-                            once(
-                                document,
-                                `${pointerUp} ${pointerCancel} scroll`,
-                                ({ defaultPrevented, type, target: newTarget }) => {
-                                    if (
-                                        !defaultPrevented &&
-                                        type === pointerUp &&
-                                        target === newTarget
-                                    ) {
-                                        this.hide();
-                                    }
-                                },
-                                true
-                            );
-                        }),
-                        { self: true }
-                    );
-                }
-
-                if (this.escClose) {
-                    once(
-                        this.$el,
-                        'hide',
-                        on(document, 'keydown', (e) => {
-                            if (e.keyCode === 27 && last(active) === this) {
-                                this.hide();
-                            }
-                        }),
-                        { self: true }
-                    );
-                }
             },
         },
 
@@ -289,6 +244,45 @@ function animate(el, show, { transitionElement, _toggle }) {
 
 function toMs(time) {
     return time ? (endsWith(time, 'ms') ? toFloat(time) : toFloat(time) * 1000) : 0;
+}
+
+function preventBackgroundFocus(modal) {
+    return on(document, 'focusin', (e) => {
+        if (last(active) === modal && !within(e.target, modal.$el)) {
+            modal.$el.focus();
+        }
+    });
+}
+
+function listenForBackgroundClose(modal) {
+    return on(document, pointerDown, ({ target }) => {
+        if (
+            last(active) !== modal ||
+            (modal.overlay && !within(target, modal.$el)) ||
+            within(target, modal.panel)
+        ) {
+            return;
+        }
+
+        once(
+            document,
+            `${pointerUp} ${pointerCancel} scroll`,
+            ({ defaultPrevented, type, target: newTarget }) => {
+                if (!defaultPrevented && type === pointerUp && target === newTarget) {
+                    modal.hide();
+                }
+            },
+            true
+        );
+    });
+}
+
+function listenForEscClose(modal) {
+    return on(document, 'keydown', (e) => {
+        if (e.keyCode === 27 && last(active) === modal) {
+            modal.hide();
+        }
+    });
 }
 
 let prevented;

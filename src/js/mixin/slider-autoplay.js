@@ -62,7 +62,7 @@ export default {
         },
 
         stopAutoplay() {
-            this.interval && clearInterval(this.interval);
+            clearInterval(this.interval);
         },
     },
 };

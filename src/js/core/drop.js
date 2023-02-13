@@ -108,12 +108,7 @@ export default {
         addClass(this.$el, this.clsDrop);
 
         if (this.toggle && !this.targetEl) {
-            this.targetEl = this.$create('toggle', query(this.toggle, this.$el), {
-                target: this.$el,
-                mode: this.mode,
-            }).$el;
-            attr(this.targetEl, 'aria-haspopup', true);
-            this.lazyload(this.targetEl);
+            this.targetEl = createToggleComponent(this);
         }
 
         this._style = (({ width, height }) => ({ width, height }))(this.$el.style);
@@ -262,51 +257,11 @@ export default {
 
                 this.tracker.init();
 
-                const update = () => this.$emit();
                 const handlers = [
-                    on(
-                        document,
-                        pointerDown,
-                        ({ target }) =>
-                            !within(target, this.$el) &&
-                            once(
-                                document,
-                                `${pointerUp} ${pointerCancel} scroll`,
-                                ({ defaultPrevented, type, target: newTarget }) => {
-                                    if (
-                                        !defaultPrevented &&
-                                        type === pointerUp &&
-                                        target === newTarget &&
-                                        !(this.targetEl && within(target, this.targetEl))
-                                    ) {
-                                        this.hide(false);
-                                    }
-                                },
-                                true
-                            )
-                    ),
-
-                    on(document, 'keydown', (e) => {
-                        if (e.keyCode === 27) {
-                            this.hide(false);
-                        }
-                    }),
-
-                    on(window, 'resize', update),
-
-                    (() => {
-                        const observer = observeResize(
-                            overflowParents(this.$el).concat(this.target),
-                            update
-                        );
-                        return () => observer.disconnect();
-                    })(),
-
-                    this.autoUpdate &&
-                        on([document, ...overflowParents(this.$el)], 'scroll', update, {
-                            passive: true,
-                        }),
-
+                    listenForBackgroundClick(this),
+                    listenForEscClose(this),
+                    listenForResize(this),
+                    this.autoUpdate && listenForScroll(this),
                     !this.bgScroll && preventBackgroundScroll(this.$el),
                 ];
 
@@ -494,4 +449,61 @@ function getPositionedElements(el) {
 
 function getViewport(el, target) {
     return offsetViewport(overflowParents(target).find((parent) => within(el, parent)));
+}
+
+function createToggleComponent(drop) {
+    const { $el } = drop.$create('toggle', query(drop.toggle, drop.$el), {
+        target: drop.$el,
+        mode: drop.mode,
+    });
+    attr($el, 'aria-haspopup', true);
+    drop.lazyload($el);
+
+    return $el;
+}
+
+function listenForResize(drop) {
+    const update = () => drop.$emit();
+    const off = on(window, 'resize', update);
+    const observer = observeResize(overflowParents(drop.$el).concat(drop.target), update);
+    return () => {
+        observer.disconnect();
+        off();
+    };
+}
+
+function listenForScroll(drop) {
+    return on([document, ...overflowParents(drop.$el)], 'scroll', () => drop.$emit(), {
+        passive: true,
+    });
+}
+
+function listenForEscClose(drop) {
+    return on(document, 'keydown', (e) => {
+        if (e.keyCode === 27) {
+            drop.hide(false);
+        }
+    });
+}
+
+function listenForBackgroundClick(drop) {
+    return on(document, pointerDown, ({ target }) => {
+        if (!within(target, drop.$el)) {
+            once(
+                document,
+                `${pointerUp} ${pointerCancel} scroll`,
+                ({ defaultPrevented, type, target: newTarget }) => {
+                    if (
+                        !defaultPrevented &&
+                        type === pointerUp &&
+                        target === newTarget &&
+                        !(drop.targetEl && within(target, drop.targetEl))
+                    ) {
+                        drop.hide(false);
+                    }
+                },
+                true
+            );
+        }
+    });
 }
