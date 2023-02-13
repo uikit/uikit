@@ -26,6 +26,11 @@
 - IMPORTANT: Rename `labels` default property and option on `UIkit.modal` to `i18n`
 - Move functional CSS from Dropdown, Dropbar and Navbar component to Drop component
 
+### Removed
+
+- Remove `ajax()` util function, use native `fetch` instead
+- Remove `getImage()` util function
+
 # Changelog
 
 ## WIP
