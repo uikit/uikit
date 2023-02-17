@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Dropbar partially closing before opening when switching between Navbar items
+
 ## 3.15.24 (February 9, 2023)
 
 ### Fixed
