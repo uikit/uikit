@@ -18,7 +18,7 @@ if (args.f || args.force || (await isDevCommit())) {
     await run('pnpm compile && pnpm compile-rtl && pnpm build-scss');
 
     // publish to dev tag
-    await run('pnpm publish --tag dev');
+    await run('pnpm publish --tag dev --no-git-checks');
 }
 
 async function isDevCommit() {
