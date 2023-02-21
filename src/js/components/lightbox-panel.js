@@ -259,7 +259,7 @@ export default {
                     // YouTube
                 } else if (
                     (matches = src.match(
-                        /\/\/(?:.*?youtube(-nocookie)?\..*?[?&]v=|youtu\.be\/)([\w-]{11})[&?]?(.*)?/
+                        /\/\/(?:.*?youtube(-nocookie)?\..*?(?:[?&]v=|\/shorts\/)|youtu\.be\/)([\w-]{11})[&?]?(.*)?/
                     ))
                 ) {
                     this.setItem(

@@ -15,6 +15,7 @@
 - Add menubar pattern keyboard interaction to Navbar component
 - Add Dropnav component
 - Add parent icon to Drop component
+- Add support for YouTube Shorts URLs in Lightbox component
 
 ### Changed
 
