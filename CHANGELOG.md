@@ -16,6 +16,7 @@
 - Add Dropnav component
 - Add parent icon to Drop component
 - Add support for YouTube Shorts URLs in Lightbox component
+- Add Android, Android Robot, Apple and Microsoft icons
 
 ### Changed
 
