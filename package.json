@@ -34,10 +34,7 @@
     },
     "homepage": "https://getuikit.com",
     "devDependencies": {
-        "@babel/core": "^7.21.0",
-        "@babel/preset-env": "^7.20.2",
         "@rollup/plugin-alias": "^4.0.3",
-        "@rollup/plugin-babel": "^6.0.3",
         "@rollup/plugin-replace": "^5.0.2",
         "archiver": "^5.3.1",
         "camelcase": "^7.0.1",
