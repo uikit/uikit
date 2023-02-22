@@ -112,7 +112,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
 
             esbuild({
                 target: 'safari12',
-                sourceMap: debug ? true : false,
+                sourceMap: !!debug,
                 minify: false,
             }),
 
