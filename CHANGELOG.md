@@ -1,3 +1,11 @@
+# Changelog
+
+## 3.16.1 (February 23, 2023)
+
+### Fixed
+
+- Fix missing dropnav.scss file from dist
+
 ## 3.16.0 (February 23, 2023) (Feature Accessibility)
 
 ### Added
@@ -27,8 +35,6 @@
 
 - Remove `ajax()` util function, use native `fetch` instead
 - Remove `getImage()` util function
-
-# Changelog
 
 ## 3.15.25 (February 23, 2023)
 
