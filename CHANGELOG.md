@@ -2,21 +2,16 @@
 
 ### Added
 
-- Make Lightbox component accessible
-- Make Accordion, Switcher and Tab component accessible
-- Make Slider and Slideshow components accessible
-- Add `countdownstart`, `countdownstop` and `countdownend` events to Countdown component
-- Add WAI-ARIA roles to several components
-- Add `i18n` option to Lightbox, Slider and Slideshow components
-- Add `i18n` option to Close, NavbarToggleIcon, Marker, Pagination and ToTop components
-- Add `uikit:init` event triggered on document before components initialize
-- Add tab pattern keyboard interaction for Switcher and Tab components
-- Add tab pattern keyboard interaction for Slider and Slideshow components
-- Add menubar pattern keyboard interaction to Navbar component
+- Add WAI-ARIA roles, states and properties to interactive JavaScript components
+- Add WAI-ARIA keyboard interaction pattern to interactive JavaScript components
+- Add language internationalization (i18n) for interactive JavaScript components
+- Add `i18n` option to corresponding JavaScript components
 - Add Dropnav component
 - Add parent icon to Drop component
 - Add support for YouTube Shorts URLs in Lightbox component
 - Add Android, Android Robot, Apple and Microsoft icons
+- Add `uikit:init` event triggered on document before components initialize
+- Add `countdownstart`, `countdownstop` and `countdownend` events to Countdown component
 
 ### Changed
 
