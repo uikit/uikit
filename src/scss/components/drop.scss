@@ -3,6 +3,8 @@
 //
 // Component:       `uk-drop`
 //
+// Sub-objects:     `uk-drop-parent-icon`
+//
 // Modifiers:       `uk-drop-stack`
 //                  `uk-drop-grid`
 //
@@ -20,6 +22,8 @@ $drop-z-index:                               $global-z-index + 20 !default;
 $drop-margin:                                $global-margin !default;
 $drop-viewport-margin:                       15px !default;
 $drop-width:                                 300px !default;
+
+$drop-parent-icon-margin-left:               0.25em !default;
 
 
 /* ========================================================================
@@ -53,6 +57,17 @@ $drop-width:                                 300px !default;
  ========================================================================== */
 
 .uk-drop-stack .uk-drop-grid > * { width: 100% !important; }
+
+
+/* Parent icon
+ ========================================================================== */
+
+.uk-drop-parent-icon {
+    margin-left: $drop-parent-icon-margin-left;
+    transition: transform 0.3s ease-out;
+}
+
+[aria-expanded="true"] > .uk-drop-parent-icon { transform: rotateX(180deg); }
 
 
 // Hooks
