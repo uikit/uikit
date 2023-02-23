@@ -813,6 +813,8 @@
 @mixin hook-dropbar-right(){ box-shadow: $dropbar-right-box-shadow; }
 @mixin hook-dropbar-misc(){}
 @mixin hook-dropdown(){ box-shadow: $dropdown-box-shadow; }
+@mixin hook-dropdown-dropbar(){ box-shadow: none; }
+@mixin hook-dropdown-dropbar-large(){}
 @mixin hook-dropdown-nav(){ font-size: $dropdown-nav-font-size; }
 @mixin hook-dropdown-nav-item(){}
 @mixin hook-dropdown-nav-item-hover(){}
@@ -820,6 +822,7 @@
 @mixin hook-dropdown-nav-header(){}
 @mixin hook-dropdown-nav-divider(){}
 @mixin hook-dropdown-misc(){}
+@mixin hook-dropnav-misc(){}
 @mixin hook-flex-misc(){}
 @mixin hook-form-range(){}
 @mixin hook-form-range-track(){ border-radius: $form-range-track-border-radius; }

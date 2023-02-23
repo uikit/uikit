@@ -33,7 +33,7 @@ $nav-sublist-padding-left:                       15px !default;
 $nav-sublist-deeper-padding-left:                15px !default;
 $nav-sublist-item-padding-vertical:              2px !default;
 
-$nav-parent-icon-margin-left:                    4px !default;
+$nav-parent-icon-margin-left:                    0.25em !default;
 
 $nav-header-padding-vertical:                    $nav-item-padding-vertical !default;
 $nav-header-padding-horizontal:                  $nav-item-padding-horizontal !default;
@@ -165,9 +165,12 @@ ul.uk-nav-sub {
 /* Parent icon
  ========================================================================== */
 
-.uk-nav-parent-icon { margin-left: auto; }
+.uk-nav-parent-icon {
+    margin-left: auto;
+    transition: transform 0.3s ease-out;
+}
 
-.uk-nav > li > a[aria-expanded="true"] .uk-nav-parent-icon { transform: rotate(180deg); }
+.uk-nav > li.uk-open > a .uk-nav-parent-icon { transform: rotateX(180deg); }
 
 
 /* Header

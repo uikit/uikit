@@ -587,6 +587,8 @@
 @mixin hook-dropbar-right(){}
 @mixin hook-dropbar-misc(){}
 @mixin hook-dropdown(){}
+@mixin hook-dropdown-dropbar(){}
+@mixin hook-dropdown-dropbar-large(){}
 @mixin hook-dropdown-nav(){}
 @mixin hook-dropdown-nav-item(){}
 @mixin hook-dropdown-nav-item-hover(){}
@@ -594,6 +596,7 @@
 @mixin hook-dropdown-nav-header(){}
 @mixin hook-dropdown-nav-divider(){}
 @mixin hook-dropdown-misc(){}
+@mixin hook-dropnav-misc(){}
 @mixin hook-flex-misc(){}
 @mixin hook-form-range(){}
 @mixin hook-form-range-track(){}

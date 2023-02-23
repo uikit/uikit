@@ -1,7 +1,13 @@
 // Name:            Dropbar
-// Description:     Component to create dropbar menus
+// Description:     Component to create a dropbar based on Drop component
 //
 // Component:       `uk-dropbar`
+//
+// Modifiers:       `uk-dropbar-large`
+//                  `uk-dropbar-top`
+//                  `uk-dropbar-bottom`
+//                  `uk-dropbar-left`
+//                  `uk-dropbar-right`
 //
 // ========================================================================
 
@@ -10,7 +16,6 @@
 // ========================================================================
 
 $dropbar-margin:                                 0 !default;
-$dropbar-z-index:                                $global-z-index + 20 !default;
 $dropbar-padding-top:                            15px !default;
 $dropbar-padding-bottom:                         $dropbar-padding-top !default;
 $dropbar-padding-horizontal:                     15px !default;
@@ -29,9 +34,9 @@ $dropbar-large-padding-bottom:                   $dropbar-large-padding-top !def
  ========================================================================== */
 
 /*
- * 1. Hide by default
- * 2. Set position
- * 3. Style
+ * Adopts `uk-drop`
+ * 1. Reset drop
+ * 2. Style
  */
 
 .uk-dropbar {
@@ -39,20 +44,13 @@ $dropbar-large-padding-bottom:                   $dropbar-large-padding-top !def
     --uk-position-shift-offset: 0;
     --uk-position-viewport-offset: 0;
     /* 1 */
-    display: none;
+    width: auto;
     /* 2 */
-    position: absolute;
-    z-index: $dropbar-z-index;
-    /* 3 */
-    box-sizing: border-box;
     padding: $dropbar-padding-top $dropbar-padding-horizontal $dropbar-padding-bottom $dropbar-padding-horizontal;
     background: $dropbar-background;
     color: $dropbar-color;
     @if(mixin-exists(hook-dropbar)) {@include hook-dropbar();}
 }
-
-/* Show */
-.uk-dropbar.uk-open { display: block; }
 
 /*
  * Remove margin from the last-child
