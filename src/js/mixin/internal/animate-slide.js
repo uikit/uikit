@@ -10,6 +10,7 @@ import {
     parent,
     position,
     Transition,
+    trigger,
 } from 'uikit-util';
 
 export default async function (action, target, duration) {
@@ -45,6 +46,10 @@ export default async function (action, target, duration) {
     // Reset to previous state
     nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
     css(target, targetProps);
+
+    // Trigger update in e.g. parallax component
+    trigger(target, 'scroll');
+    fastdom.flush();
 
     // Start transitions on next frame
     await awaitFrame();

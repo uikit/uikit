@@ -12,13 +12,13 @@ if (args.f || args.force || (await isDevCommit())) {
     const hash = (await run('git rev-parse --short HEAD')).trim();
 
     // set version of package.json
-    await run(`npm version ${version}-dev.${hash} --git-tag-version false`);
+    await run(`pnpm version ${version}-dev.${hash} --no-git-tag-version`);
 
     // create dist files
-    await run('yarn compile && yarn compile-rtl && yarn build-scss');
+    await run('pnpm compile && pnpm compile-rtl && pnpm build-scss');
 
     // publish to dev tag
-    await run('npm publish --tag dev');
+    await run('pnpm publish --tag dev --no-git-checks');
 }
 
 async function isDevCommit() {

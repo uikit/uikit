@@ -7,7 +7,6 @@ import {
     append,
     attr,
     fragment,
-    getImage,
     getIndex,
     html,
     on,
@@ -213,12 +212,9 @@ export default {
                     type === 'image' ||
                     src.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i)
                 ) {
-                    try {
-                        const { width, height } = await getImage(src, attrs.srcset, attrs.size);
-                        this.setItem(item, createEl('img', { src, width, height, alt, ...attrs }));
-                    } catch (e) {
-                        this.setError(item);
-                    }
+                    const img = createEl('img', { src, alt, ...attrs });
+                    on(img, 'load', () => this.setItem(item, img));
+                    on(img, 'error', () => this.setError(item));
 
                     // Video
                 } else if (type === 'video' || src.match(/\.(mp4|webm|ogv)($|\?)/i)) {
@@ -228,16 +224,10 @@ export default {
                         controls: '',
                         playsinline: '',
                         'uk-video': `${this.videoAutoplay}`,
+                        ...attrs,
                     });
 
-                    on(video, 'loadedmetadata', () => {
-                        attr(video, {
-                            width: video.videoWidth,
-                            height: video.videoHeight,
-                            ...attrs,
-                        });
-                        this.setItem(item, video);
-                    });
+                    on(video, 'loadedmetadata', () => this.setItem(item, video));
                     on(video, 'error', () => this.setError(item));
 
                     // Iframe
@@ -279,9 +269,7 @@ export default {
                                 `https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(
                                     src
                                 )}`,
-                                {
-                                    credentials: 'omit',
-                                }
+                                { credentials: 'omit' }
                             )
                         ).json();
 

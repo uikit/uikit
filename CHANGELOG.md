@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.15.25 (February 23, 2023)
+
+### Fixed
+
+- Fix Dropbar partially closing before opening when switching between Navbar items
+- Fix Parallax component updating too late during slide animation in Filter component
+
 ## 3.15.24 (February 9, 2023)
 
 ### Fixed

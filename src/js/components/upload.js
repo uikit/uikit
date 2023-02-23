@@ -140,7 +140,7 @@ export default {
                         responseType: this.type,
                         beforeSend: (env) => {
                             const { xhr } = env;
-                            xhr.upload && on(xhr.upload, 'progress', this.progress);
+                            on(xhr.upload, 'progress', this.progress);
                             for (const type of ['loadStart', 'load', 'loadEnd', 'abort']) {
                                 on(xhr, type.toLowerCase(), this[type]);
                             }

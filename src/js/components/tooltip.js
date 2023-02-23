@@ -121,14 +121,9 @@ export default {
                         passive: true,
                     }),
                 ];
-                once(
-                    this.tooltip,
-                    'hide',
-                    () => handlers.forEach((handler) => handler && handler()),
-                    {
-                        self: true,
-                    }
-                );
+                once(this.tooltip, 'hide', () => handlers.forEach((handler) => handler()), {
+                    self: true,
+                });
             });
 
             this.toggleElement(this.tooltip, true);

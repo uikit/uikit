@@ -267,7 +267,7 @@ export default {
         },
 
         {
-            name: 'beforeshow',
+            name: 'show',
 
             el() {
                 return this.dropContainer;
@@ -287,27 +287,9 @@ export default {
                 }
 
                 addClass(target, `${this.clsDrop}-dropbar`);
-            },
-        },
-
-        {
-            name: 'show',
-
-            el() {
-                return this.dropContainer;
-            },
-
-            filter() {
-                return this.dropbar;
-            },
-
-            handler({ target }) {
-                if (!this.isDropbarDrop(target)) {
-                    return;
-                }
 
                 const drop = this.getDropdown(target);
-                this._observer = observeResize([drop.$el, ...drop.target], () => {
+                const adjustHeight = () => {
                     const targetOffsets = parents(target, `.${this.clsDrop}`)
                         .concat(target)
                         .map((el) => offset(el));
@@ -319,7 +301,9 @@ export default {
                         maxBottom - minTop + toFloat(css(target, 'marginBottom')),
                         target
                     );
-                });
+                };
+                this._observer = observeResize([drop.$el, ...drop.target], adjustHeight);
+                adjustHeight();
             },
         },
 
@@ -379,18 +363,18 @@ export default {
             return includes(this.dropdowns, active?.$el) && active;
         },
 
-        transitionTo(newHeight, el) {
+        async transitionTo(newHeight, el) {
             const { dropbar } = this;
             const oldHeight = height(dropbar);
 
             el = oldHeight < newHeight && el;
 
-            css(el, 'clipPath', `polygon(0 0,100% 0,100% ${oldHeight}px,0 ${oldHeight}px)`);
+            await Transition.cancel([el, dropbar]);
 
+            css(el, 'clipPath', `polygon(0 0,100% 0,100% ${oldHeight}px,0 ${oldHeight}px)`);
             height(dropbar, oldHeight);
 
-            Transition.cancel([el, dropbar]);
-            Promise.all([
+            await Promise.all([
                 Transition.start(dropbar, { height: newHeight }, this.duration),
                 Transition.start(
                     el,
@@ -398,10 +382,8 @@ export default {
                         clipPath: `polygon(0 0,100% 0,100% ${newHeight}px,0 ${newHeight}px)`,
                     },
                     this.duration
-                ),
-            ])
-                .catch(noop)
-                .then(() => css(el, { clipPath: '' }));
+                ).finally(() => css(el, { clipPath: '' })),
+            ]).catch(noop);
         },
 
         getDropdown(el) {

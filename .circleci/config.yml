@@ -1,34 +1,44 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@5.1.0
-
 jobs:
   build:
-    executor: node/default
+    docker:
+      - image: node:18
     steps:
-      # Install node
-      - node/install:
-          install-yarn: true
-
-      # Checkout repository
       - checkout
 
-      # Download Node dependencies
-      - node/install-packages:
-          pkg-manager: yarn
+      - restore_cache:
+          name: Restore pnpm Package Cache
+          keys:
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
 
-      # Run ESlint
+      - run:
+          name: Install pnpm package manager
+          command: |
+            curl -L https://pnpm.js.org/pnpm.js | node - add --global pnpm@7
+
+      - run:
+          name: Install Dependencies
+          command: |
+            pnpm install
+
+      - save_cache:
+          name: Save pnpm Package Cache
+          key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - node_modules
+
       - run:
           name: ESlint
-          command: yarn eslint
+          command: pnpm eslint
 
       - run:
           name: Compile
           command: |
             if [ "${CIRCLE_BRANCH}" = "main" ];then
-              yarn compile
+              pnpm compile
             fi
+
       - run:
           name: Deploy to NPM
           command: |

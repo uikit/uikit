@@ -23,9 +23,9 @@ await Promise.all([
     ),
 ]);
 
-await run('yarn compile');
-await run('yarn compile-rtl');
-await run('yarn build-scss');
+await run('pnpm compile');
+await run('pnpm compile-rtl');
+await run('pnpm build-scss');
 
 await createPackage(version);
 

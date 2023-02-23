@@ -89,13 +89,13 @@ export default {
 };
 
 function getTimeSpan(date) {
-    const total = date - Date.now();
+    const total = (date - Date.now()) / 1000;
 
     return {
         total,
-        seconds: (total / 1000) % 60,
-        minutes: (total / 1000 / 60) % 60,
-        hours: (total / 1000 / 60 / 60) % 24,
-        days: total / 1000 / 60 / 60 / 24,
+        seconds: total % 60,
+        minutes: (total / 60) % 60,
+        hours: (total / 60 / 60) % 24,
+        days: total / 60 / 60 / 24,
     };
 }

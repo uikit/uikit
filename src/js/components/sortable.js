@@ -398,10 +398,9 @@ function findInsertTarget(list, target, placeholder, x, y, sameList) {
         [placeholderRect.top, placeholderRect.bottom]
     );
 
-    const pointerPos = sameRow ? x : y;
-    const lengthProp = sameRow ? 'width' : 'height';
-    const startProp = sameRow ? 'left' : 'top';
-    const endProp = sameRow ? 'right' : 'bottom';
+    const [pointerPos, lengthProp, startProp, endProp] = sameRow
+        ? [x, 'width', 'left', 'right']
+        : [y, 'height', 'top', 'bottom'];
 
     const diff =
         placeholderRect[lengthProp] < rect[lengthProp]
