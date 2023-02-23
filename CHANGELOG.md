@@ -6,7 +6,7 @@
 
 - Fix missing dropnav.scss file from dist
 
-## 3.16.0 (February 23, 2023) (Feature Accessibility)
+## 3.16.0 (February 23, 2023)
 
 ### Added
 
