@@ -20,6 +20,7 @@ import {
     remove,
     within,
 } from 'uikit-util';
+import { generateId, keyMap } from '../mixin/utils';
 
 export default {
     mixins: [Container, Togglable, Position],
@@ -41,7 +42,7 @@ export default {
     },
 
     beforeConnect() {
-        this.id = `uk-tooltip-${this._uid}`;
+        this.id = generateId(this);
         this._hasTitle = hasAttr(this.$el, 'title');
         attr(this.$el, {
             title: '',
@@ -115,7 +116,7 @@ export default {
                         false,
                         (e) =>
                             (e.type === pointerDown && !within(e.target, this.$el)) ||
-                            (e.type === 'keydown' && e.keyCode === 27)
+                            (e.type === 'keydown' && e.keyCode === keyMap.ESC)
                     ),
                     on([document, ...overflowParents(this.$el)], 'scroll', update, {
                         passive: true,

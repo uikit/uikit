@@ -1,3 +1,6 @@
+import Class from './class';
+import Container from './container';
+import Togglable from './togglable';
 import {
     $,
     addClass,
@@ -16,14 +19,10 @@ import {
     pointerDown,
     pointerUp,
     removeClass,
-    scrollParents,
     toFloat,
-    width,
     within,
 } from 'uikit-util';
-import Class from './class';
-import Container from './container';
-import Togglable from './togglable';
+import { isSameSiteAnchor, preventBackgroundScroll } from './utils';
 
 const active = [];
 
@@ -36,6 +35,7 @@ export default {
         escClose: Boolean,
         bgClose: Boolean,
         stack: Boolean,
+        role: String,
     },
 
     data: {
@@ -44,6 +44,7 @@ export default {
         bgClose: true,
         overlay: true,
         stack: false,
+        role: 'dialog',
     },
 
     computed: {
@@ -58,6 +59,14 @@ export default {
         bgClose({ bgClose }) {
             return bgClose && this.panel;
         },
+    },
+
+    connected() {
+        attr(this.panel || this.$el, 'role', this.role);
+
+        if (this.overlay) {
+            attr(this.panel || this.$el, 'aria-modal', true);
+        }
     },
 
     beforeDisconnect() {
@@ -167,7 +176,7 @@ export default {
                     attr(this.$el, 'tabindex', '-1');
                 }
 
-                if (!$(':focus', this.$el)) {
+                if (!matches(this.$el, ':focus-within')) {
                     this.$el.focus();
                 }
             },
@@ -283,46 +292,4 @@ function listenForEscClose(modal) {
             modal.hide();
         }
     });
-}
-
-let prevented;
-export function preventBackgroundScroll(el) {
-    // 'overscroll-behavior: contain' only works consistently if el overflows (Safari)
-    const off = on(
-        el,
-        'touchmove',
-        (e) => {
-            if (e.targetTouches.length !== 1) {
-                return;
-            }
-
-            let [{ scrollHeight, clientHeight }] = scrollParents(e.target);
-
-            if (clientHeight >= scrollHeight && e.cancelable) {
-                e.preventDefault();
-            }
-        },
-        { passive: false }
-    );
-
-    if (prevented) {
-        return off;
-    }
-    prevented = true;
-
-    const { scrollingElement } = document;
-    css(scrollingElement, {
-        overflowY: CSS.supports('overflow', 'clip') ? 'clip' : 'hidden',
-        touchAction: 'none',
-        paddingRight: width(window) - scrollingElement.clientWidth || '',
-    });
-    return () => {
-        prevented = false;
-        off();
-        css(scrollingElement, { overflowY: '', touchAction: '', paddingRight: '' });
-    };
-}
-
-export function isSameSiteAnchor(a) {
-    return ['origin', 'pathname', 'search'].every((part) => a[part] === location[part]);
 }

@@ -96,9 +96,8 @@ function enableApi(el) {
             try {
                 data = JSON.parse(data);
                 return (
-                    data &&
-                    ((youtube && data.id === id && data.event === 'onReady') ||
-                        (vimeo && Number(data.player_id) === id))
+                    (youtube && data?.id === id && data.event === 'onReady') ||
+                    (vimeo && Number(data?.player_id) === id)
                 );
             } catch (e) {
                 // noop

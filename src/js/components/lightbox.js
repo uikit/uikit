@@ -1,5 +1,16 @@
 import LightboxPanel from './lightbox-panel';
-import { $$, assign, data, findIndex, isElement, on, parseOptions, uniqueBy } from 'uikit-util';
+import {
+    $$,
+    assign,
+    attr,
+    data,
+    findIndex,
+    isElement,
+    isTag,
+    on,
+    parseOptions,
+    uniqueBy,
+} from 'uikit-util';
 
 export default {
     install,
@@ -14,9 +25,16 @@ export default {
                 return $$(toggle, $el);
             },
 
-            watch() {
+            watch(toggles) {
                 this.hide();
+                for (const toggle of toggles) {
+                    if (isTag(toggle, 'a')) {
+                        attr(toggle, 'role', 'button');
+                    }
+                }
             },
+
+            immediate: true,
         },
     },
 

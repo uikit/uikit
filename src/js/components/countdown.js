@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import { $, html } from 'uikit-util';
+import { $, attr, html, toFloat, trigger } from 'uikit-util';
 
 const units = ['days', 'hours', 'minutes', 'seconds'];
 
@@ -9,15 +9,19 @@ export default {
     props: {
         date: String,
         clsWrapper: String,
+        role: String,
     },
 
     data: {
         date: '',
         clsWrapper: '.uk-countdown-%unit%',
+        role: 'timer',
     },
 
     connected() {
-        this.date = Date.parse(this.$props.date);
+        attr(this.$el, 'role', this.role);
+        this.date = toFloat(Date.parse(this.$props.date));
+        this.end = false;
         this.start();
     },
 
@@ -47,20 +51,29 @@ export default {
         start() {
             this.stop();
             this.update();
-            this.timer = setInterval(this.update, 1000);
+            if (!this.timer) {
+                trigger(this.$el, 'countdownstart');
+                this.timer = setInterval(this.update, 1000);
+            }
         },
 
         stop() {
-            clearInterval(this.timer);
+            if (this.timer) {
+                clearInterval(this.timer);
+                trigger(this.$el, 'countdownstop');
+                this.timer = null;
+            }
         },
 
         update() {
             const timespan = getTimeSpan(this.date);
 
-            if (!this.date || timespan.total <= 0) {
+            if (!timespan.total) {
                 this.stop();
-
-                timespan.days = timespan.hours = timespan.minutes = timespan.seconds = 0;
+                if (!this.end) {
+                    trigger(this.$el, 'countdownend');
+                    this.end = true;
+                }
             }
 
             for (const unit of units) {
@@ -89,7 +102,7 @@ export default {
 };
 
 function getTimeSpan(date) {
-    const total = (date - Date.now()) / 1000;
+    const total = Math.max(0, date - Date.now()) / 1000;
 
     return {
         total,

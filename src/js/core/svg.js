@@ -1,6 +1,5 @@
 import {
     $,
-    $$,
     after,
     append,
     attr,
@@ -16,6 +15,7 @@ import {
     startsWith,
     toFloat,
 } from 'uikit-util';
+import { getMaxPathLength } from '../mixin/utils';
 
 export default {
     args: 'src',
@@ -184,21 +184,6 @@ function applyAnimation(el) {
     if (length) {
         el.style.setProperty('--uk-animation-stroke', length);
     }
-}
-
-export function getMaxPathLength(el) {
-    return Math.ceil(
-        Math.max(
-            0,
-            ...$$('[stroke]', el).map((stroke) => {
-                try {
-                    return stroke.getTotalLength();
-                } catch (e) {
-                    return 0;
-                }
-            })
-        )
-    );
 }
 
 function insertSVG(el, root) {

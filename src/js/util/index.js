@@ -1,4 +1,3 @@
-export * from './ajax';
 export * from './animation';
 export * from './attr';
 export * from './class';

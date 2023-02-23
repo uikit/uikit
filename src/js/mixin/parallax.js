@@ -1,5 +1,5 @@
 import Media from '../mixin/media';
-import { getMaxPathLength } from '../core/svg';
+import { getMaxPathLength } from './utils';
 import {
     createEvent,
     css,

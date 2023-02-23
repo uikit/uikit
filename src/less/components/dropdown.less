@@ -1,13 +1,11 @@
 // Name:            Dropdown
-// Description:     Component to create dropdown menus
+// Description:     Component to create a dropdown based on Drop component
 //
 // Component:       `uk-dropdown`
 //
 // Adopted:         `uk-dropdown-nav`
 //
 // Modifiers:       `uk-dropdown-large`
-//                  `uk-dropdown-stack`
-//                  `uk-dropdown-grid`
 //
 // States:          `uk-active`
 //
@@ -17,7 +15,6 @@
 // Variables
 // ========================================================================
 
-@dropdown-z-index:                              @global-z-index + 20;
 @dropdown-margin:                               @global-small-margin;
 @dropdown-viewport-margin:                      15px;
 @dropdown-min-width:                            200px;
@@ -27,6 +24,15 @@
 @dropdown-color-mode:                           none;
 
 @dropdown-large-padding:                        40px;
+
+@dropdown-dropbar-padding-top:                  @dropdown-padding;
+@dropdown-dropbar-padding-bottom:               @dropdown-dropbar-padding-top;
+@dropdown-dropbar-viewport-margin:              15px;
+@dropdown-dropbar-viewport-margin-s:            @global-gutter;
+@dropdown-dropbar-viewport-margin-m:            @global-medium-gutter;
+
+@dropdown-dropbar-large-padding-top:            @dropdown-large-padding;
+@dropdown-dropbar-large-padding-bottom:         @dropdown-dropbar-large-padding-top;
 
 @dropdown-nav-item-color:                       @global-muted-color;
 @dropdown-nav-item-hover-color:                 @global-color;
@@ -43,32 +49,25 @@
  ========================================================================== */
 
 /*
- * 1. Hide by default
- * 2. Set position
- * 3. Set a default width
- * 4. Style
+ * Adopts `uk-drop`
+ * 1. Reset drop and let text expand the width instead of wrapping
+ * 2. Set a default width
+ * 3. Style
  */
 
 .uk-dropdown {
-    /* 1 */
-    display: none;
-    /* 2 */
-    position: absolute;
-    z-index: @dropdown-z-index;
     --uk-position-offset: @dropdown-margin;
     --uk-position-viewport-offset: @dropdown-viewport-margin;
-    /* 3 */
-    box-sizing: border-box;
+    /* 1 */
+    width: auto;
+    /* 2 */
     min-width: @dropdown-min-width;
-    /* 4 */
+    /* 3 */
     padding: @dropdown-padding;
     background: @dropdown-background;
     color: @dropdown-color;
     .hook-dropdown();
 }
-
-/* Show */
-.uk-dropdown.uk-open { display: block; }
 
 /*
  * Remove margin from the last-child
@@ -85,6 +84,47 @@
  ========================================================================== */
 
 .uk-dropdown-large { padding: @dropdown-large-padding; }
+
+
+/* Dropbar modifier
+ ========================================================================== */
+
+/*
+ * 1. Reset dropdown width to prevent to early shifting
+ * 2. Reset style
+ * 3. Padding
+ */
+
+.uk-dropdown-dropbar {
+    /* 1 */
+    width: auto;
+    /* 2 */
+    background: transparent;
+    /* 3 */
+    padding: @dropdown-dropbar-padding-top 0 @dropdown-dropbar-padding-bottom 0;
+    --uk-position-viewport-offset: @dropdown-dropbar-viewport-margin;
+    .hook-dropdown-dropbar();
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-dropdown-dropbar { --uk-position-viewport-offset: @dropdown-dropbar-viewport-margin-s; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-dropdown-dropbar { --uk-position-viewport-offset: @dropdown-dropbar-viewport-margin-m; }
+
+}
+
+.uk-dropdown-dropbar-large {
+    padding-top: @dropdown-dropbar-large-padding-top;
+    padding-bottom: @dropdown-dropbar-large-padding-bottom;
+    .hook-dropdown-dropbar-large();
+}
 
 
 /* Nav
@@ -148,19 +188,14 @@
 .uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: @dropdown-nav-sublist-item-hover-color; }
 
 
-/* Grid modifiers
- ========================================================================== */
-
-.uk-dropdown-stack .uk-dropdown-grid > * { width: 100% !important; }
-
-
-
 // Hooks
 // ========================================================================
 
 .hook-dropdown-misc();
 
 .hook-dropdown() {}
+.hook-dropdown-dropbar() {}
+.hook-dropdown-dropbar-large() {}
 .hook-dropdown-nav() {}
 .hook-dropdown-nav-item() {}
 .hook-dropdown-nav-item-hover() {}
