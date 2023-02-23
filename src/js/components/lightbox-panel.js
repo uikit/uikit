@@ -1,3 +1,4 @@
+import { keyMap } from '../mixin/utils';
 import Animations from './internal/lightbox-animations';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
@@ -58,6 +59,12 @@ export default {
         const $el = $(this.template);
         const list = $(this.selList, $el);
         this.items.forEach(() => append(list, '<li>'));
+
+        const close = $('[uk-close]', $el);
+        const closeLabel = this.t('close');
+        if (close && closeLabel) {
+            close.dataset.i18n = JSON.stringify({ label: closeLabel });
+        }
 
         this.$mount(append(this.container, $el));
     },
@@ -131,18 +138,25 @@ export default {
                 return document;
             },
 
-            handler(e) {
+            handler({ keyCode }) {
                 if (!this.isToggled(this.$el) || !this.draggable) {
                     return;
                 }
 
-                switch (e.keyCode) {
-                    case 37:
-                        this.show('previous');
-                        break;
-                    case 39:
-                        this.show('next');
-                        break;
+                let i = -1;
+
+                if (keyCode === keyMap.LEFT) {
+                    i = 'previous';
+                } else if (keyCode === keyMap.RIGHT) {
+                    i = 'next';
+                } else if (keyCode === keyMap.HOME) {
+                    i = 0;
+                } else if (keyCode === keyMap.END) {
+                    i = 'last';
+                }
+
+                if (~i) {
+                    this.show(i);
                 }
             },
         },
@@ -245,7 +259,7 @@ export default {
                     // YouTube
                 } else if (
                     (matches = src.match(
-                        /\/\/(?:.*?youtube(-nocookie)?\..*?[?&]v=|youtu\.be\/)([\w-]{11})[&?]?(.*)?/
+                        /\/\/(?:.*?youtube(-nocookie)?\..*?(?:[?&]v=|\/shorts\/)|youtu\.be\/)([\w-]{11})[&?]?(.*)?/
                     ))
                 ) {
                     this.setItem(

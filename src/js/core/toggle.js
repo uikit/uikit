@@ -4,9 +4,9 @@ import Togglable from '../mixin/togglable';
 import {
     attr,
     closest,
+    hasAttr,
     hasClass,
     includes,
-    isBoolean,
     isFocusable,
     isTag,
     isTouch,
@@ -42,26 +42,23 @@ export default {
     },
 
     computed: {
-        target: {
-            get({ href, target }, $el) {
-                target = queryAll(target || href, $el);
-                return (target.length && target) || [$el];
-            },
-
-            watch() {
-                this.updateAria();
-                this.lazyload(this.$el, this.target);
-            },
-
-            document: true,
-            immediate: true,
+        target({ href, target }, $el) {
+            target = queryAll(target || href, $el);
+            return (target.length && target) || [$el];
         },
     },
 
     connected() {
-        if (!includes(this.mode, 'media') && !isFocusable(this.$el)) {
-            attr(this.$el, 'tabindex', '0');
+        if (!includes(this.mode, 'media')) {
+            if (!isFocusable(this.$el)) {
+                attr(this.$el, 'tabindex', '0');
+            }
+            if (!this.cls && isTag(this.$el, 'a')) {
+                attr(this.$el, 'role', 'button');
+            }
         }
+
+        this.lazyload(this.$el, () => this.target);
     },
 
     events: [
@@ -75,7 +72,7 @@ export default {
             handler(e) {
                 this._preventClick = null;
 
-                if (!isTouch(e) || this._showState) {
+                if (!isTouch(e) || this._showState || this.$el.disabled) {
                     return;
                 }
 
@@ -105,12 +102,12 @@ export default {
             },
 
             handler(e) {
-                if (isTouch(e)) {
+                if (isTouch(e) || this.$el.disabled) {
                     return;
                 }
 
                 const show = includes([pointerEnter, 'focus'], e.type);
-                const expanded = attr(this.$el, 'aria-expanded');
+                const expanded = this.isToggled(this.target);
 
                 // Skip hide if still hovered or focused
                 if (
@@ -164,7 +161,7 @@ export default {
                     this._preventClick ||
                     closest(e.target, 'a[href="#"], a[href=""]') ||
                     ((link = closest(e.target, 'a[href]')) &&
-                        (attr(this.$el, 'aria-expanded') !== 'true' ||
+                        (!this.isToggled(this.target) ||
                             (link.hash && matches(this.target, link.hash))))
                 ) {
                     e.preventDefault();
@@ -173,20 +170,6 @@ export default {
                 if (!this._preventClick && includes(this.mode, 'click')) {
                     this.toggle();
                 }
-            },
-        },
-
-        {
-            name: 'hide show',
-
-            self: true,
-
-            el() {
-                return this.target;
-            },
-
-            handler({ target, type }) {
-                this.updateAria(target === this.target[0] && type === 'show');
             },
         },
 
@@ -215,6 +198,10 @@ export default {
                 return;
             }
 
+            if (hasAttr(this.$el, 'aria-expanded')) {
+                attr(this.$el, 'aria-expanded', !this.isToggled(this.target));
+            }
+
             if (!this.queued) {
                 return this.toggleElement(this.target);
             }
@@ -234,18 +221,6 @@ export default {
             await this.toggleElement(
                 this.target.filter((el) => !includes(toggled, el)),
                 true
-            );
-        },
-
-        updateAria(toggled) {
-            if (includes(this.mode, 'media')) {
-                return;
-            }
-
-            attr(
-                this.$el,
-                'aria-expanded',
-                isBoolean(toggled) ? toggled : this.isToggled(this.target)
             );
         },
     },

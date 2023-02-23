@@ -1,6 +1,7 @@
 import Class from '../mixin/class';
 import Lazyload from '../mixin/lazyload';
 import Togglable from '../mixin/togglable';
+import { generateId, keyMap } from '../mixin/utils';
 import {
     $,
     $$,
@@ -12,6 +13,7 @@ import {
     hasClass,
     includes,
     index,
+    isTag,
     scrollParents,
     sumBy,
     toFloat,
@@ -71,13 +73,23 @@ export default {
             immediate: true,
         },
 
-        toggles({ toggle }) {
-            return this.items.map((item) => $(toggle, item));
+        toggles: {
+            get({ toggle }) {
+                return this.items.map((item) => $(toggle, item));
+            },
+
+            watch() {
+                this.$emit();
+            },
+
+            immediate: true,
         },
 
         contents: {
             get({ content }) {
-                return this.items.map((item) => $(content, item));
+                return this.items.map(
+                    (item) => item._wrapper?.firstElementChild || $(content, item)
+                );
             },
 
             watch(items) {
@@ -90,6 +102,7 @@ export default {
                         )
                     );
                 }
+                this.$emit();
             },
 
             immediate: true,
@@ -102,13 +115,17 @@ export default {
 
     events: [
         {
-            name: 'click',
+            name: 'click keydown',
 
             delegate() {
                 return `${this.targets} ${this.$props.toggle}`;
             },
 
             async handler(e) {
+                if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
+                    return;
+                }
+
                 e.preventDefault();
 
                 this._off?.();
@@ -117,7 +134,46 @@ export default {
                 this._off();
             },
         },
+        {
+            name: 'shown hidden',
+
+            self: true,
+
+            delegate() {
+                return this.targets;
+            },
+
+            handler() {
+                this.$emit();
+            },
+        },
     ],
+
+    update() {
+        const activeItems = filter(this.items, `.${this.clsOpen}`);
+
+        for (const index in this.items) {
+            const toggle = this.toggles[index];
+            const content = this.contents[index];
+
+            if (!toggle || !content) {
+                continue;
+            }
+
+            toggle.id = generateId(this, toggle, `-title-${index}`);
+            content.id = generateId(this, content, `-content-${index}`);
+
+            const active = includes(activeItems, this.items[index]);
+            attr(toggle, {
+                role: isTag(toggle, 'a') ? 'button' : null,
+                'aria-controls': content.id,
+                'aria-expanded': active,
+                'aria-disabled': !this.collapsible && activeItems.length < 2 && active,
+            });
+
+            attr(content, { role: 'region', 'aria-labelledby': toggle.id });
+        }
+    },
 
     methods: {
         async toggle(item, animate) {
@@ -137,7 +193,6 @@ export default {
                 items.map((el) =>
                     this.toggleElement(el, !includes(activeItems, el), (el, show) => {
                         toggleClass(el, this.clsOpen, show);
-                        attr($(this.$props.toggle, el), 'aria-expanded', show);
 
                         if (animate === false || !this.animation) {
                             hide($(this.content, el), !show);

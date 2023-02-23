@@ -43,7 +43,7 @@ strats.computed = strats.methods = function (parentVal, childVal) {
 };
 
 // data strategy
-strats.data = function (parentVal, childVal, vm) {
+strats.i18n = strats.data = function (parentVal, childVal, vm) {
     if (!vm) {
         if (!childVal) {
             return parentVal;

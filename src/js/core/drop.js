@@ -29,7 +29,7 @@ import {
     removeClass,
     within,
 } from 'uikit-util';
-import { isSameSiteAnchor, preventBackgroundScroll } from '../mixin/modal';
+import { isSameSiteAnchor, keyMap, preventBackgroundScroll } from '../mixin/utils';
 
 export let active;
 
@@ -105,7 +105,7 @@ export default {
     },
 
     connected() {
-        addClass(this.$el, this.clsDrop);
+        addClass(this.$el, 'uk-drop', this.clsDrop);
 
         if (this.toggle && !this.targetEl) {
             this.targetEl = createToggleComponent(this);
@@ -127,7 +127,7 @@ export default {
             name: 'click',
 
             delegate() {
-                return `.${this.clsDrop}-close`;
+                return '.uk-drop-close';
             },
 
             handler(e) {
@@ -238,6 +238,8 @@ export default {
             self: true,
 
             handler(e, toggled) {
+                attr(this.targetEl, 'aria-expanded', toggled ? true : null);
+
                 if (!toggled) {
                     return;
                 }
@@ -258,9 +260,9 @@ export default {
                 this.tracker.init();
 
                 const handlers = [
-                    listenForBackgroundClick(this),
-                    listenForEscClose(this),
                     listenForResize(this),
+                    listenForEscClose(this),
+                    listenForBackgroundClose(this),
                     this.autoUpdate && listenForScroll(this),
                     !this.bgScroll && preventBackgroundScroll(this.$el),
                 ];
@@ -375,7 +377,7 @@ export default {
         },
 
         position() {
-            removeClass(this.$el, `${this.clsDrop}-stack`);
+            removeClass(this.$el, 'uk-drop-stack');
             css(this.$el, this._style);
 
             // Ensure none positioned element does not generate scrollbars
@@ -403,13 +405,15 @@ export default {
 
             const maxWidth = viewports[0].width - 2 * viewportOffset;
 
+            this.$el.hidden = false;
+
+            css(this.$el, 'maxWidth', '');
+
             if (this.$el.offsetWidth > maxWidth) {
-                addClass(this.$el, `${this.clsDrop}-stack`);
+                addClass(this.$el, 'uk-drop-stack');
             }
 
             css(this.$el, 'maxWidth', maxWidth);
-
-            this.$el.hidden = false;
 
             this.positionAt(this.$el, this.target, this.boundary);
 
@@ -480,13 +484,13 @@ function listenForScroll(drop) {
 
 function listenForEscClose(drop) {
     return on(document, 'keydown', (e) => {
-        if (e.keyCode === 27) {
+        if (e.keyCode === keyMap.ESC) {
             drop.hide(false);
         }
     });
 }
 
-function listenForBackgroundClick(drop) {
+function listenForBackgroundClose(drop) {
     return on(document, pointerDown, ({ target }) => {
         if (!within(target, drop.$el)) {
             once(

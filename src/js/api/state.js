@@ -222,6 +222,8 @@ function coerce(type, value) {
         return toNumber(value);
     } else if (type === 'list') {
         return toList(value);
+    } else if (type === Object) {
+        return parseOptions(value);
     }
 
     return type ? type(value) : value;

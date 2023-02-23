@@ -10,8 +10,7 @@ import {
     toggleClass,
     trigger,
 } from 'uikit-util';
-import { getTargetElement } from './scroll';
-import { isSameSiteAnchor } from '../mixin/modal';
+import { getTargetElement, isSameSiteAnchor } from '../mixin/utils';
 
 export default {
     mixins: [Scroll],

@@ -1,6 +1,8 @@
 import SVG from './svg';
+import I18n from '../mixin/i18n';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
+import dropParentIcon from '../../images/components/drop-parent-icon.svg';
 import marker from '../../images/components/marker.svg';
 import navParentIcon from '../../images/components/nav-parent-icon.svg';
 import navParentIconLarge from '../../images/components/nav-parent-icon-large.svg';
@@ -17,19 +19,21 @@ import slidenavNextLarge from '../../images/components/slidenav-next-large.svg';
 import slidenavPrevious from '../../images/components/slidenav-previous.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
 import spinner from '../../images/components/spinner.svg';
-import subnavParentIcon from '../../images/components/subnav-parent-icon.svg';
 import totop from '../../images/components/totop.svg';
 import {
     $,
     addClass,
     apply,
+    attr,
     closest,
     css,
     each,
+    hasAttr,
     hasClass,
     hyphenate,
     isRtl,
     isString,
+    isTag,
     parents,
     swap,
 } from 'uikit-util';
@@ -40,6 +44,7 @@ const icons = {
     marker,
     'close-icon': closeIcon,
     'close-large': closeLarge,
+    'drop-parent-icon': dropParentIcon,
     'nav-parent-icon': navParentIcon,
     'nav-parent-icon-large': navParentIconLarge,
     'navbar-parent-icon': navbarParentIcon,
@@ -54,7 +59,6 @@ const icons = {
     'slidenav-next-large': slidenavNextLarge,
     'slidenav-previous': slidenavPrevious,
     'slidenav-previous-large': slidenavPreviousLarge,
-    'subnav-parent-icon': subnavParentIcon,
 };
 
 const Icon = {
@@ -112,16 +116,6 @@ export const NavParentIcon = {
     },
 };
 
-export const Slidenav = {
-    extends: IconComponent,
-
-    beforeConnect() {
-        addClass(this.$el, 'uk-slidenav');
-        const icon = this.$props.icon;
-        this.icon = hasClass(this.$el, 'uk-slidenav-large') ? `${icon}-large` : icon;
-    },
-};
-
 export const Search = {
     extends: IconComponent,
 
@@ -135,16 +129,12 @@ export const Search = {
     },
 };
 
-export const Close = {
+export const Spinner = {
     extends: IconComponent,
 
     beforeConnect() {
-        this.icon = `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
+        attr(this.$el, 'role', 'status');
     },
-};
-
-export const Spinner = {
-    extends: IconComponent,
 
     methods: {
         async getSvg() {
@@ -157,6 +147,70 @@ export const Spinner = {
             return icon;
         },
     },
+};
+
+const ButtonComponent = {
+    extends: IconComponent,
+
+    mixins: [I18n],
+
+    beforeConnect() {
+        const button = closest(this.$el, 'a,button');
+
+        attr(button, 'role', this.role !== null && isTag(button, 'a') ? 'button' : this.role);
+
+        const label = this.t('label');
+        if (label && !hasAttr(button, 'aria-label')) {
+            attr(button, 'aria-label', label);
+        }
+    },
+};
+
+export const Slidenav = {
+    extends: ButtonComponent,
+
+    beforeConnect() {
+        addClass(this.$el, 'uk-slidenav');
+        const icon = this.$props.icon;
+        this.icon = hasClass(this.$el, 'uk-slidenav-large') ? `${icon}-large` : icon;
+    },
+};
+
+export const NavbarToggleIcon = {
+    extends: ButtonComponent,
+    i18n: { label: 'Open menu' },
+};
+
+export const Close = {
+    extends: ButtonComponent,
+
+    i18n: { label: 'Close' },
+
+    beforeConnect() {
+        this.icon = `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
+    },
+};
+
+export const Marker = {
+    extends: ButtonComponent,
+    i18n: { label: 'Open' },
+};
+
+export const Totop = {
+    extends: ButtonComponent,
+    i18n: { label: 'Back to top' },
+};
+
+export const PaginationNext = {
+    extends: ButtonComponent,
+    i18n: { label: 'Next page' },
+    data: { role: null },
+};
+
+export const PaginationPrevious = {
+    extends: ButtonComponent,
+    i18n: { label: 'Previous page' },
+    data: { role: null },
 };
 
 const parsed = {};

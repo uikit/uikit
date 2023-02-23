@@ -1,3 +1,33 @@
+## WIP (Feature Accessibility)
+
+### Added
+
+- Add WAI-ARIA roles, states and properties to interactive JavaScript components
+- Add WAI-ARIA keyboard interaction pattern to interactive JavaScript components
+- Add language internationalization (i18n) for interactive JavaScript components
+- Add `i18n` option to corresponding JavaScript components
+- Add Dropnav component
+- Add parent icon to Drop component
+- Add support for YouTube Shorts URLs in Lightbox component
+- Add Android, Android Robot, Apple and Microsoft icons
+- Add `uikit:init` event triggered on document before components initialize
+- Add `countdownstart`, `countdownstop` and `countdownend` events to Countdown component
+
+### Changed
+
+- IMPORTANT: Remove `.uk-dropdown-close` from Dropdown component. Use `uk-drop-close` instead
+- IMPORTANT: Remove `.uk-dropdown-grid` from Dropdown component. Use `uk-drop-grid` instead
+- IMPORTANT: Remove `.uk-navbar-dropdown-close` from Navbar component. Use `uk-drop-close` instead
+- IMPORTANT: Remove `.uk-navbar-dropdown-grid` from Navbar component. Use `uk-drop-grid` instead
+- IMPORTANT: Remove error message options in Upload component, use `i18n` option
+- IMPORTANT: Rename `labels` default property and option on `UIkit.modal` to `i18n`
+- Move functional CSS from Dropdown, Dropbar and Navbar component to Drop component
+
+### Removed
+
+- Remove `ajax()` util function, use native `fetch` instead
+- Remove `getImage()` util function
+
 # Changelog
 
 ## 3.15.25 (February 23, 2023)
@@ -15,10 +45,6 @@
 - Fix regression in `scrollParents` function
 
 ## 3.15.23 (February 1, 2023)
-
-### Added
-
-- Add subnav parent icon to Subnav component
 
 ### Fixed
 

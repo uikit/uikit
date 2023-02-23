@@ -1,6 +1,15 @@
-import { addClass, ajax, matches, noop, on, removeClass, toArray, trigger } from 'uikit-util';
+import I18n from '../mixin/i18n';
+import { addClass, assign, matches, noop, on, removeClass, toArray, trigger } from 'uikit-util';
 
 export default {
+    mixins: [I18n],
+
+    i18n: {
+        invalidMime: 'Invalid File Type: %s',
+        invalidName: 'Invalid File Name: %s',
+        invalidSize: 'Invalid File Size: %s Kilobytes Max',
+    },
+
     props: {
         allow: String,
         clsDragover: String,
@@ -8,9 +17,6 @@ export default {
         maxSize: Number,
         method: String,
         mime: String,
-        msgInvalidMime: String,
-        msgInvalidName: String,
-        msgInvalidSize: String,
         multiple: Boolean,
         name: String,
         params: Object,
@@ -25,9 +31,6 @@ export default {
         maxSize: 0,
         method: 'POST',
         mime: false,
-        msgInvalidMime: 'Invalid File Type: %s',
-        msgInvalidName: 'Invalid File Name: %s',
-        msgInvalidSize: 'Invalid File Size: %s Kilobytes Max',
         multiple: false,
         name: 'files[]',
         params: {},
@@ -102,17 +105,17 @@ export default {
 
             for (const file of files) {
                 if (this.maxSize && this.maxSize * 1000 < file.size) {
-                    this.fail(this.msgInvalidSize.replace('%s', this.maxSize));
+                    this.fail(this.t('invalidSize', this.maxSize));
                     return;
                 }
 
                 if (this.allow && !match(this.allow, file.name)) {
-                    this.fail(this.msgInvalidName.replace('%s', this.allow));
+                    this.fail(this.t('invalidName', this.allow));
                     return;
                 }
 
                 if (this.mime && !match(this.mime, file.type)) {
-                    this.fail(this.msgInvalidMime.replace('%s', this.mime));
+                    this.fail(this.t('invalidMime', this.mime));
                     return;
                 }
             }
@@ -190,4 +193,59 @@ function chunk(files, size) {
 function stop(e) {
     e.preventDefault();
     e.stopPropagation();
+}
+
+export function ajax(url, options) {
+    const env = {
+        data: null,
+        method: 'GET',
+        headers: {},
+        xhr: new XMLHttpRequest(),
+        beforeSend: noop,
+        responseType: '',
+        ...options,
+    };
+    return Promise.resolve()
+        .then(() => env.beforeSend(env))
+        .then(() => send(url, env));
+}
+
+function send(url, env) {
+    return new Promise((resolve, reject) => {
+        const { xhr } = env;
+
+        for (const prop in env) {
+            if (prop in xhr) {
+                try {
+                    xhr[prop] = env[prop];
+                } catch (e) {
+                    // noop
+                }
+            }
+        }
+
+        xhr.open(env.method.toUpperCase(), url);
+
+        for (const header in env.headers) {
+            xhr.setRequestHeader(header, env.headers[header]);
+        }
+
+        on(xhr, 'load', () => {
+            if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                resolve(xhr);
+            } else {
+                reject(
+                    assign(Error(xhr.statusText), {
+                        xhr,
+                        status: xhr.status,
+                    })
+                );
+            }
+        });
+
+        on(xhr, 'error', () => reject(assign(Error('Network Error'), { xhr })));
+        on(xhr, 'timeout', () => reject(assign(Error('Network Timeout'), { xhr })));
+
+        xhr.send(env.data);
+    });
 }

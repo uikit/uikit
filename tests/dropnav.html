@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dropnav - UIkit tests</title>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Dropnav</h1>
+
+            <div class="uk-margin">
+                <select id="js-nav-switcher" class="uk-select uk-form-width-small" aria-label="Nav switcher">
+                    <option value="uk-subnav">Subnav</option>
+                    <option value="uk-tab">Tab</option>
+                </select>
+            </div>
+
+            <h2>Dropdown</h2>
+
+            <div class="uk-margin">
+                <select id="js-dropdown-size-switcher" class="uk-select uk-form-width-small" aria-label="Dropdown size switcher">
+                    <option value="">Default</option>
+                    <option value="uk-dropdown-large">Large</option>
+                </select>
+            </div>
+
+            <nav uk-dropnav>
+                <ul class="uk-subnav">
+                    <li class="uk-active">
+                        <a href="#">Hover <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                    <li class="uk-parent">
+                                    <a href="#">Parent</a>
+                                    <ul class="uk-nav-sub">
+                                        <li><a href="#">Sub item</a></li>
+                                        <li><a href="#">Sub item</a></li>
+                                    </ul>
+                                </li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">2 Columns <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown uk-width-xlarge">
+                            <div class="uk-child-width-1-2" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">3 Columns <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown uk-width-2xlarge">
+                            <div class="uk-child-width-1-3" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Stretch <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown" uk-drop="cls-drop: uk-dropdown; boundary: !.uk-dropnav; stretch: x; flip: false">
+                            <div class="uk-child-width-1-3@m" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Stretch Full <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown" uk-drop="cls-drop: uk-dropdown; stretch: x; flip: false">
+                            <div class="uk-child-width-1-3@m" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <nav uk-dropnav="mode: click; align: center">
+                <ul class="uk-subnav uk-flex-center">
+                    <li class="uk-active">
+                        <a href="#">Click <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                    <li class="uk-parent">
+                                    <a href="#">Parent</a>
+                                    <ul class="uk-nav-sub">
+                                        <li><a href="#">Sub item</a></li>
+                                        <li><a href="#">Sub item</a></li>
+                                    </ul>
+                                </li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">2 Columns <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown uk-width-xlarge">
+                            <div class="uk-child-width-1-2" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">3 Columns <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown uk-width-2xlarge">
+                            <div class="uk-child-width-1-3" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Stretch <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown" uk-drop="mode: click; cls-drop: uk-dropdown; boundary: !.uk-dropnav; stretch: x; flip: false">
+                            <div class="uk-child-width-1-3@m" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Stretch Full <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown" uk-drop="mode: click; cls-drop: uk-dropdown; stretch: x; flip: false">
+                            <div class="uk-child-width-1-3@m" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <h2>Dropbar</h2>
+
+            <div class="uk-margin">
+                <select id="js-dropbar-size-switcher" class="uk-select uk-form-width-small" aria-label="Dropbar size switcher">
+                    <option value="">Default</option>
+                    <option value="uk-dropdown-dropbar-large">Large</option>
+                </select>
+            </div>
+
+            <nav uk-dropnav="dropbar: true">
+                <ul class="uk-subnav">
+                    <li class="uk-active">
+                        <a href="#">Hover <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                    <li class="uk-parent">
+                                    <a href="#">Parent</a>
+                                    <ul class="uk-nav-sub">
+                                        <li><a href="#">Sub item</a></li>
+                                        <li><a href="#">Sub item</a></li>
+                                    </ul>
+                                </li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">2 Columns <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown uk-width-xlarge">
+                            <div class="uk-child-width-1-2" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">3 Columns <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown uk-width-2xlarge">
+                            <div class="uk-child-width-1-3" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Stretch <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown" uk-drop="cls-drop: uk-dropdown; boundary: !.uk-dropnav; stretch: x; flip: false">
+                            <div class="uk-child-width-1-3@m" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Stretch Full <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown" uk-drop="cls-drop: uk-dropdown; stretch: x; flip: false">
+                            <div class="uk-child-width-1-3@m" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <nav uk-dropnav="dropbar: true; mode: click; align: center">
+                <ul class="uk-subnav uk-flex-center">
+                    <li class="uk-active">
+                        <a href="#">Click <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                    <li class="uk-parent">
+                                    <a href="#">Parent</a>
+                                    <ul class="uk-nav-sub">
+                                        <li><a href="#">Sub item</a></li>
+                                        <li><a href="#">Sub item</a></li>
+                                    </ul>
+                                </li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">2 Columns <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown uk-width-xlarge">
+                            <div class="uk-child-width-1-2" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">3 Columns <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown uk-width-2xlarge">
+                            <div class="uk-child-width-1-3" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent"><a href="#">Parent</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Stretch <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown" uk-drop="mode: click; cls-drop: uk-dropdown; boundary: !.uk-dropnav; stretch: x; flip: false">
+                            <div class="uk-child-width-1-3@m" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Stretch Full <span uk-drop-parent-icon></span></a>
+                        <div class="uk-dropdown" uk-drop="mode: click; cls-drop: uk-dropdown; stretch: x; flip: false">
+                            <div class="uk-child-width-1-3@m" uk-grid>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li class="uk-parent">
+                                            <a href="#">Parent</a>
+                                            <ul class="uk-nav-sub">
+                                                <li><a href="#">Sub item</a></li>
+                                                <li><a href="#">Sub item</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                    </ul>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <h2>JavaScript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>align</code></td>
+                            <td>left|right|center</td>
+                            <td>left</td>
+                            <td>Drop alignment.</td>
+                        </tr>
+                        <tr>
+                            <td><code>boundary</code></td>
+                            <td>Boolean, CSS selector</td>
+                            <td>true</td>
+                            <td>Referenced element to keep Drop's visibility. By default, it's the dropnav component's element.</td>
+                        </tr>
+                        <tr>
+                            <td><code>dropbar</code></td>
+                            <td>Boolean | CSS selector</td>
+                            <td>false</td>
+                            <td>The dropbar selector. If true the dropbar will be inserted automatically.</td>
+                        </tr>
+                        <tr>
+                            <td><code>dropbar-anchor</code></td>
+                            <td>Boolean | CSS selector</td>
+                            <td>false</td>
+                            <td>The dropbar anchor selector. If set, dropbar will be inserted after the anchor element.</td>
+                        </tr>
+                        <tr>
+                            <td><code>duration</code></td>
+                            <td>Number</td>
+                            <td>200</td>
+                            <td>The dropbar transition duration.</td>
+                        </tr>
+                        <tr>
+                            <td><code>container</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Define a target container via a selector to specify where the drops should be appended in the DOM.</td>
+                        </tr>
+                        <tr>
+                            <td><code>stretch</code></td>
+                            <td>false|true|'x'|'y'</td>
+                            <td>true</td>
+                            <td>Stretch drop on both (true) or given axis.</td>
+                        </tr>
+                        <tr>
+                            <td><code>mode</code></td>
+                            <td>hover | click</td>
+                            <td>click,hover</td>
+                            <td>Comma-separated list of drop trigger behavior modes.</td>
+                        </tr>
+                        <tr>
+                            <td><code>delay-show</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Delay time in hover mode before a drop is shown in ms.</td>
+                        </tr>
+                        <tr>
+                            <td><code>delay-hide</code></td>
+                            <td>Number</td>
+                            <td>800</td>
+                            <td>Delay time in hover mode before a drop is hidden in ms.</td>
+                        </tr>
+                        <tr>
+                            <td><code>target</code></td>
+                            <td>Boolean, CSS selector</td>
+                            <td>false</td>
+                            <td>The element the drop is positioned to (`true` for window).</td>
+                        </tr>
+                        <tr>
+                            <td><code>target-x</code></td>
+                            <td>Boolean, CSS selector</td>
+                            <td>false</td>
+                            <td>The element's X axis the drop is positioned to (`true` for window).</td>
+                        </tr>
+                        <tr>
+                            <td><code>target-y</code></td>
+                            <td>Boolean, CSS selector</td>
+                            <td>false</td>
+                            <td>The element's Y axis the drop is positioned to (`true` for window).</td>
+                        </tr>
+                        <tr>
+                            <td><code>offset</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>The drop offset.</td>
+                        </tr>
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>'uk-animation-fade'</td>
+                            <td>Space-separated names of animations. Comma-separated for animation out.</td>
+                        </tr>
+                        <tr>
+                            <td><code>animate-out</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Use animation when closing the drop.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+        </div>
+
+        <script>
+
+            const {$$, addClass, on, removeClass } = UIkit.util;
+
+            on('#js-nav-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.uk-subnav')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
+            });
+
+            on('#js-dropdown-size-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.uk-dropdown:not(.uk-dropdown-dropbar)')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
+            });
+
+            on('#js-dropbar-size-switcher', 'change', (e) => {
+                const options = $$('option', e.target).map(({value}) => value);
+                for (const el of $$('.uk-dropdown-dropbar')) {
+                    removeClass(el, options);
+                    addClass(el, e.target.value);
+                }
+            });
+
+        </script>
+
+    </body>
+</html>

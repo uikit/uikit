@@ -1,0 +1,43 @@
+// Name:            Dropnav
+// Description:     Component to create dropdown/dropbar menus based on Drop component
+//
+// Component:       `uk-dropnav`
+//
+// Sub-objects:     `uk-dropnav-dropbar`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@dropnav-dropbar-z-index:                       @global-z-index - 20;
+
+
+/* ========================================================================
+   Component: Dropnav
+ ========================================================================== */
+/*
+ * 1. Position
+ * 2. Reset dropbar
+ * 3. Width
+ */
+
+.uk-dropnav-dropbar {
+    /* 1 */
+    position: absolute;
+    z-index: @dropnav-dropbar-z-index;
+    /* 2 */
+    padding: 0;
+    /* 3 */
+    left: 0;
+    right: 0;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-dropnav-misc();
+
+.hook-dropnav-misc() {}

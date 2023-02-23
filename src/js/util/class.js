@@ -48,5 +48,5 @@ function apply(element, args, fn) {
 }
 
 function getClasses(str) {
-    return String(str).split(/\s|,/).filter(Boolean);
+    return String(str).split(/[ ,]/).filter(Boolean);
 }

@@ -1,7 +1,10 @@
 import Animate from '../mixin/animate';
 import {
+    $,
     $$,
     append,
+    attr,
+    closest,
     css,
     data,
     each,
@@ -11,12 +14,14 @@ import {
     includes,
     isEmpty,
     isEqual,
+    isTag,
     isUndefined,
     matches,
     parseOptions,
     toggleClass,
     trigger,
 } from 'uikit-util';
+import { keyMap } from '../mixin/utils';
 
 export default {
     mixins: [Animate],
@@ -42,12 +47,18 @@ export default {
                 return $$(`[${attrItem}],[data-${attrItem}]`, $el);
             },
 
-            watch() {
+            watch(toggles) {
                 this.updateState();
 
-                if (this.selActive !== false) {
-                    const actives = $$(this.selActive, this.$el);
-                    this.toggles.forEach((el) => toggleClass(el, this.cls, includes(actives, el)));
+                const actives = $$(this.selActive, this.$el);
+                for (const toggle of toggles) {
+                    if (this.selActive !== false) {
+                        toggleClass(toggle, this.cls, includes(actives, toggle));
+                    }
+                    const button = findButton(toggle);
+                    if (isTag(button, 'a')) {
+                        attr(button, 'role', 'button');
+                    }
                 }
             },
 
@@ -71,15 +82,21 @@ export default {
 
     events: [
         {
-            name: 'click',
+            name: 'click keydown',
 
             delegate() {
                 return `[${this.attrItem}],[data-${this.attrItem}]`;
             },
 
             handler(e) {
-                e.preventDefault();
-                this.apply(e.current);
+                if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
+                    return;
+                }
+
+                if (closest(e.target, 'a,button')) {
+                    e.preventDefault();
+                    this.apply(e.current);
+                }
             },
         },
     ],
@@ -108,9 +125,9 @@ export default {
 
             trigger(this.$el, 'beforeFilter', [this, state]);
 
-            this.toggles.forEach((el) =>
-                toggleClass(el, this.cls, !!matchFilter(el, this.attrItem, state))
-            );
+            for (const toggle of this.toggles) {
+                toggleClass(toggle, this.cls, matchFilter(toggle, this.attrItem, state));
+            }
 
             await Promise.all(
                 $$(this.target, this.$el).map((target) => {
@@ -210,4 +227,8 @@ function sortItems(nodes, sort, order) {
             data(a, sort).localeCompare(data(b, sort), undefined, { numeric: true }) *
             (order === 'asc' || -1)
     );
+}
+
+function findButton(el) {
+    return $('a,button', el) || el;
 }

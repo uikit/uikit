@@ -18,18 +18,15 @@
 //
 // Adopted:         `uk-navbar-dropdown` + Modifiers
 //                  `uk-navbar-dropdown-nav`
-//                  `uk-navbar-dropdown-grid`
 //                  `uk-navbar-toggle-icon`
 //
 // Modifiers:       `uk-navbar-primary`
 //                  `uk-navbar-transparent`
 //                  `uk-navbar-sticky`
-//                  `uk-navbar-dropdown-stack`
 //
 // States:          `uk-active`
 //                  `uk-parent`
 //                  `uk-open`
-//
 //
 // ========================================================================
 
@@ -62,7 +59,6 @@
 
 @navbar-subtitle-font-size:                     @global-small-font-size;
 
-@navbar-dropdown-z-index:                       @global-z-index + 20;
 @navbar-dropdown-margin:                        0;
 @navbar-dropdown-shift-margin:                  0;
 @navbar-dropdown-viewport-margin:               15px;
@@ -99,8 +95,6 @@
 @navbar-dropdown-nav-sublist-item-color:        @global-muted-color;
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 @navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
-
-@navbar-dropbar-z-index:                        @global-z-index - 20;
 
 
 /* ========================================================================
@@ -284,9 +278,12 @@
 /* Parent icon modifier
  ========================================================================== */
 
-.uk-navbar-parent-icon { margin-left: @navbar-parent-icon-margin-left; }
+.uk-navbar-parent-icon {
+    margin-left: @navbar-parent-icon-margin-left;
+    transition: transform 0.3s ease-out;
+}
 
-.uk-navbar-nav > li > a[aria-expanded="true"] .uk-navbar-parent-icon { transform: rotate(180deg); }
+.uk-navbar-nav > li > a[aria-expanded="true"] .uk-navbar-parent-icon { transform: rotateX(180deg); }
 
 
 /* Item
@@ -376,34 +373,23 @@
  ========================================================================== */
 
 /*
- * Adopts `uk-dropdown`
- * 1. Hide by default
- * 2. Set position
- * 3. Set a default width
- * 4. Style
+ * Adopts `uk-drop`
+ * 1. Set a default width
+ * 2. Style
  */
 
 .uk-navbar-dropdown {
-    /* 1 */
-    display: none;
-    /* 2 */
-    position: absolute;
-    z-index: @navbar-dropdown-z-index;
     --uk-position-offset: @navbar-dropdown-margin;
     --uk-position-shift-offset: @navbar-dropdown-shift-margin;
     --uk-position-viewport-offset: @navbar-dropdown-viewport-margin;
-    /* 3 */
-    box-sizing: border-box;
+    /* 1 */
     width: @navbar-dropdown-width;
-    /* 4 */
+    /* 2 */
     padding: @navbar-dropdown-padding;
     background: @navbar-dropdown-background;
     color: @navbar-dropdown-color;
     .hook-navbar-dropdown();
 }
-
-/* Show */
-.uk-navbar-dropdown.uk-open { display: block; }
 
 /*
  * Remove margin from the last-child
@@ -421,23 +407,20 @@
  */
 
 /* Gutter Horizontal */
-.uk-navbar-dropdown-grid { margin-left: -@navbar-dropdown-grid-gutter-horizontal; }
-.uk-navbar-dropdown-grid > * { padding-left: @navbar-dropdown-grid-gutter-horizontal; }
+.uk-navbar-dropdown .uk-drop-grid { margin-left: -@navbar-dropdown-grid-gutter-horizontal; }
+.uk-navbar-dropdown .uk-drop-grid > * { padding-left: @navbar-dropdown-grid-gutter-horizontal; }
 
 /* Gutter Vertical */
-.uk-navbar-dropdown-grid > .uk-grid-margin { margin-top: @navbar-dropdown-grid-gutter-vertical; }
-
-/* Stack */
-.uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * { width: 100% !important; }
+.uk-navbar-dropdown .uk-drop-grid > .uk-grid-margin { margin-top: @navbar-dropdown-grid-gutter-vertical; }
 
 /*
  * Width modifier
  */
 
-.uk-navbar-dropdown-width-2:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 2); }
-.uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 3); }
-.uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 4); }
-.uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 5); }
+.uk-navbar-dropdown-width-2:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 2); }
+.uk-navbar-dropdown-width-3:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 3); }
+.uk-navbar-dropdown-width-4:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 4); }
+.uk-navbar-dropdown-width-5:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 5); }
 
 /*
  * Size modifier
@@ -562,18 +545,10 @@
  ========================================================================== */
 
 /*
- * 1. Reset dropbar
- * 2. Width
+ * Adopts `uk-dropnav-dropbar`
  */
 
 .uk-navbar-dropbar {
-    /* 1 */
-    display: block !important;
-    z-index: @navbar-dropbar-z-index;
-    padding: 0;
-    /* 2 */
-    left: 0;
-    right: 0;
     .hook-navbar-dropbar();
 }
 

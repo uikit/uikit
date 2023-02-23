@@ -15,7 +15,7 @@
             <h1>Pagination</h1>
 
             <ul class="uk-pagination" uk-margin>
-                <li class="uk-disabled"><a><span uk-pagination-previous></span></a></li>
+                <li class="uk-disabled"><a href><span uk-pagination-previous></span></a></li>
                 <li><a href="#"><span uk-pagination-previous></span></a></li>
                 <li><a href="#">1</a></li>
                 <li class="uk-disabled"><span>…</span></li>
@@ -29,11 +29,11 @@
                 <li class="uk-disabled"><span>…</span></li>
                 <li><a href="#">20</a></li>
                 <li><a href="#"><span uk-pagination-next></span></a></li>
-                <li class="uk-disabled"><a><span uk-pagination-next></span></a></li>
+                <li class="uk-disabled"><a href><span uk-pagination-next></span></a></li>
             </ul>
 
             <ul class="uk-pagination uk-flex-center" uk-margin>
-                <li class="uk-disabled"><a><span uk-pagination-previous></span></a></li>
+                <li class="uk-disabled"><a href><span uk-pagination-previous></span></a></li>
                 <li><a href="#"><span uk-pagination-previous></span></a></li>
                 <li><a href="#">1</a></li>
                 <li class="uk-disabled"><span>…</span></li>
@@ -47,11 +47,11 @@
                 <li class="uk-disabled"><span>…</span></li>
                 <li><a href="#">20</a></li>
                 <li><a href="#"><span uk-pagination-next></span></a></li>
-                <li class="uk-disabled"><a><span uk-pagination-next></span></a></li>
+                <li class="uk-disabled"><a href><span uk-pagination-next></span></a></li>
             </ul>
 
             <ul class="uk-pagination uk-flex-right" uk-margin>
-                <li class="uk-disabled"><a><span uk-pagination-previous></span></a></li>
+                <li class="uk-disabled"><a href><span uk-pagination-previous></span></a></li>
                 <li><a href="#"><span uk-pagination-previous></span></a></li>
                 <li><a href="#">1</a></li>
                 <li class="uk-disabled"><span>…</span></li>
@@ -65,7 +65,7 @@
                 <li class="uk-disabled"><span>…</span></li>
                 <li><a href="#">20</a></li>
                 <li><a href="#"><span uk-pagination-next></span></a></li>
-                <li class="uk-disabled"><a><span uk-pagination-next></span></a></li>
+                <li class="uk-disabled"><a href><span uk-pagination-next></span></a></li>
             </ul>
 
             <h2>Previous/Next</h2>
@@ -79,6 +79,50 @@
                 <li><a href="#"><span uk-pagination-previous></span> Previous</a></li>
                 <li class="uk-margin-auto-left"><a href="#">Next <span uk-pagination-next></span></a></li>
             </ul>
+
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>i18n</code></td>
+                            <td>Object</td>
+                            <td>null</td>
+                            <td>Override default translation texts.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>i18n</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>label</code></td>
+                            <td>Previous page | Next page</td>
+                            <td>Error message for invalid file type.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
         </div>
 
