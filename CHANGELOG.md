@@ -1,5 +1,9 @@
 # Changelog
 
+### Fixed
+
+- Fix event delegation did not delete `current` property causing parent event handler to trigger
+
 ## 3.16.1 (February 23, 2023)
 
 ### Fixed
