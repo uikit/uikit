@@ -3,6 +3,7 @@
 ### Fixed
 
 - Fix event delegation did not delete `current` property causing parent event handler to trigger
+- Fix focusable elements within none visible slides are no longer focusable in Slider component
 
 ## 3.16.1 (February 23, 2023)
 
