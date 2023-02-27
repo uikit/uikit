@@ -50,8 +50,7 @@ export default {
                 placement.reverse();
             }
 
-            const [scrollElement] = scrollParents(element);
-            const { scrollTop, scrollLeft } = scrollElement;
+            const restoreScrollPosition = storeScrollPosition(element);
 
             // Ensure none positioned element does not generate scrollbars
             const elDim = dimensions(element);
@@ -65,9 +64,7 @@ export default {
                 viewportOffset: this.getViewportOffset(element),
             });
 
-            // Restore scroll position
-            scrollElement.scrollTop = scrollTop;
-            scrollElement.scrollLeft = scrollLeft;
+            restoreScrollPosition();
         },
 
         getPositionOffset(element) {
@@ -97,3 +94,14 @@ export default {
         },
     },
 };
+
+function storeScrollPosition(element) {
+    const [scrollElement] = scrollParents(element);
+    const { scrollTop } = scrollElement;
+
+    return () => {
+        if (scrollTop !== scrollElement.scrollTop) {
+            scrollElement.scrollTop = scrollTop;
+        }
+    };
+}

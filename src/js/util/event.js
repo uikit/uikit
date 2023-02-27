@@ -97,6 +97,7 @@ function delegate(selector, listener) {
         if (current) {
             e.current = current;
             listener.call(this, e);
+            delete e.current;
         }
     };
 }

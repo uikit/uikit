@@ -1,12 +1,18 @@
 # Changelog
 
+### Fixed
+
+- Fix event delegation did not delete `current` property causing parent event handler to trigger
+- Fix focusable elements within none visible slides are no longer focusable in Slider component
+- Fix opened Drop component prevents smooth scrolling of document on iOS
+
 ## 3.16.1 (February 23, 2023)
 
 ### Fixed
 
 - Fix missing dropnav.scss file from dist
 
-## 3.16.0 (February 23, 2023) (Feature Accessibility)
+## 3.16.0 (February 23, 2023)
 
 ### Added
 

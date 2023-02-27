@@ -5,6 +5,7 @@ import SliderPreload from './internal/slider-preload';
 import Transitioner, { getMax, getWidth } from './internal/slider-transitioner';
 import {
     $,
+    $$,
     addClass,
     attr,
     children,
@@ -15,6 +16,7 @@ import {
     getIndex,
     includes,
     last,
+    selFocusable,
     sumBy,
     toFloat,
     toggleClass,
@@ -187,18 +189,6 @@ export default {
         itemshown() {
             this.updateActiveClasses();
         },
-
-        focusin: {
-            name: 'focusin',
-
-            delegate() {
-                return `${this.selList} > *`;
-            },
-
-            handler(e) {
-                this.show(e.current);
-            },
-        },
     },
 
     methods: {
@@ -246,6 +236,7 @@ export default {
                 const active = includes(actives, slide);
                 toggleClass(slide, activeClasses, active);
                 attr(slide, 'aria-hidden', !active);
+                attr($$(selFocusable, slide), 'tabindex', active ? null : -1);
             }
         },
 
