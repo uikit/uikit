@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix object type coercion
+
 ## 3.16.2 (February 27, 2023)
 
 ### Fixed
