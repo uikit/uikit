@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix default i18n option for Modal dialogs
+
 ## 3.16.3 (February 27, 2023)
 
 ### Fixed
