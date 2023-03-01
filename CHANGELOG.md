@@ -5,7 +5,7 @@
 ### Fixed
 
 - Fix default i18n option for Modal dialogs
-- Fix `maxIndex` property in Slideshow/Slider component
+- Fix Slideshow initially shows last slide first
 
 ## 3.16.3 (February 27, 2023)
 

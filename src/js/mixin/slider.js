@@ -60,7 +60,7 @@ export default {
         },
 
         maxIndex() {
-            return (this.length || 1) - 1;
+            return this.length - 1;
         },
 
         slides: {
@@ -144,7 +144,11 @@ export default {
         },
 
         getIndex(index = this.index, prev = this.index) {
-            return clamp(getIndex(index, this.slides, prev, this.finite), 0, this.maxIndex);
+            return clamp(
+                getIndex(index, this.slides, prev, this.finite),
+                0,
+                Math.max(0, this.maxIndex)
+            );
         },
 
         getValidIndex(index = this.index, prevIndex = this.prevIndex) {
