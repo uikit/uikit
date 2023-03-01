@@ -140,7 +140,7 @@ function install({ modal }) {
             escClose: true,
             role: 'alertdialog',
             ...options,
-            i18n: { ...modal.i18n, ...options.i18n },
+            i18n: { ...modal.i18n, ...options?.i18n },
         };
 
         const dialog = modal.dialog(tmpl(options), options);
