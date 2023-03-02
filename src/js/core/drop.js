@@ -20,6 +20,7 @@ import {
     once,
     overflowParents,
     parent,
+    pick,
     pointerCancel,
     pointerDown,
     pointerEnter,
@@ -111,7 +112,7 @@ export default {
             this.targetEl = createToggleComponent(this);
         }
 
-        this._style = (({ width, height }) => ({ width, height }))(this.$el.style);
+        this._style = pick(this.$el.style, ['width', 'height']);
     },
 
     disconnected() {

@@ -180,6 +180,10 @@ export function uniqueBy(array, prop) {
     return array.filter(({ [prop]: check }) => (seen.has(check) ? false : seen.add(check)));
 }
 
+export function pick(obj, props) {
+    return props.reduce((res, prop) => ({ ...res, [prop]: obj[prop] }), {});
+}
+
 export function clamp(number, min = 0, max = 1) {
     return Math.min(Math.max(toNumber(number) || 0, min), max);
 }

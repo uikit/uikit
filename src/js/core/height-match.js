@@ -1,6 +1,6 @@
 import Resize from '../mixin/resize';
 import { getRows } from './margin';
-import { $$, boxModelAdjust, css, dimensions, isVisible } from 'uikit-util';
+import { $$, boxModelAdjust, css, dimensions, isVisible, pick } from 'uikit-util';
 
 export default {
     mixins: [Resize],
@@ -65,20 +65,9 @@ function match(elements) {
 }
 
 function getHeight(element) {
-    let display = false;
-    const minHeight = element.style.minHeight;
-    if (!isVisible(element)) {
-        display = element.style.display;
-        css(element, 'display', 'block', 'important');
-    }
-
+    const style = pick(element.style, ['display', 'minHeight']);
     css(element, 'minHeight', '');
     const height = dimensions(element).height - boxModelAdjust(element, 'height', 'content-box');
-    css(element, 'minHeight', minHeight);
-
-    if (display !== false) {
-        css(element, 'display', display);
-    }
-
+    css(element, style);
     return height;
 }
