@@ -55,7 +55,6 @@ function match(elements) {
         return { heights: [''], elements };
     }
 
-    css(elements, 'minHeight', '');
     let heights = elements.map(getHeight);
     const max = Math.max(...heights);
 
@@ -66,16 +65,19 @@ function match(elements) {
 }
 
 function getHeight(element) {
-    let style = false;
+    let display = false;
+    const minHeight = element.style.minHeight;
     if (!isVisible(element)) {
-        style = element.style.display;
+        display = element.style.display;
         css(element, 'display', 'block', 'important');
     }
 
+    css(element, 'minHeight', '');
     const height = dimensions(element).height - boxModelAdjust(element, 'height', 'content-box');
+    css(element, 'minHeight', minHeight);
 
-    if (style !== false) {
-        css(element, 'display', style);
+    if (display !== false) {
+        css(element, 'display', display);
     }
 
     return height;

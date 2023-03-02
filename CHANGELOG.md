@@ -6,6 +6,7 @@
 
 - Fix default i18n option for Modal dialogs
 - Fix Slideshow initially shows last slide first
+- Fix Height Match component does not change height while updating
 
 ## 3.16.3 (February 27, 2023)
 
