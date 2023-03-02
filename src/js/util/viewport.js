@@ -143,12 +143,12 @@ export function overflowParents(element) {
 export function offsetViewport(scrollElement) {
     const window = toWindow(scrollElement);
     const {
+        visualViewport,
         document: { documentElement },
     } = window;
     let viewportElement =
         scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
 
-    const { visualViewport } = window;
     if (isWindow(viewportElement) && visualViewport) {
         let { height, width, scale, pageTop: top, pageLeft: left } = visualViewport;
         height = Math.round(height * scale);
