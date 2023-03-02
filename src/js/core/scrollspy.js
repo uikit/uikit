@@ -4,7 +4,6 @@ import {
     css,
     filter,
     data as getData,
-    isEqual,
     observeIntersection,
     once,
     removeClass,
@@ -49,7 +48,7 @@ export default {
                     css(filter(elements, `:not(.${this.inViewClass})`), 'opacity', 0);
                 }
 
-                if (!isEqual(elements, prev)) {
+                if (prev) {
                     this.$reset();
                 }
             },

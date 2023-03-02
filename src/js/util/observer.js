@@ -1,5 +1,5 @@
 import { on } from './event';
-import { toNodes } from './lang';
+import { noop, toNodes } from './lang';
 import { inBrowser } from './env';
 
 export function observeIntersection(targets, cb, options, intersecting = true) {
@@ -31,6 +31,8 @@ export function observeResize(targets, cb, options = { box: 'border-box' }) {
     listeners.add(cb);
 
     return {
+        observe: noop,
+        unobserve: noop,
         disconnect() {
             listeners.delete(cb);
         },

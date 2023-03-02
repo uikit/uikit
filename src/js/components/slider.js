@@ -15,7 +15,9 @@ import {
     findIndex,
     getIndex,
     includes,
+    isVisible,
     last,
+    observeResize,
     selFocusable,
     sumBy,
     toFloat,
@@ -112,6 +114,37 @@ export default {
                 center: this.center,
                 list: this.list,
             };
+        },
+
+        children: {
+            get() {
+                return children(this.list);
+            },
+
+            watch(slides, prev) {
+                if (!prev) {
+                    this.registerObserver(
+                        (this._resizeObserver = observeResize(slides, () => this.$emit('resize')))
+                    );
+                }
+
+                if (prev) {
+                    slides.forEach(
+                        (slide) => !includes(prev, slide) && this._resizeObserver.observe(slide)
+                    );
+                    prev.forEach(
+                        (slide) => !includes(slides, slide) && this._resizeObserver.unobserve(slide)
+                    );
+
+                    this.$emit();
+                }
+            },
+
+            immediate: true,
+        },
+
+        slides() {
+            return this.children.filter(isVisible);
         },
     },
 

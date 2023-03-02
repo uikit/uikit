@@ -70,8 +70,8 @@ export default {
                 return $$(`${target} > *`, $el);
             },
 
-            watch(list, old) {
-                if (old && !isEqualList(list, old)) {
+            watch(list, prev) {
+                if (prev) {
                     this.updateState();
                 }
             },
@@ -209,10 +209,6 @@ function matchFilter(
         ? (group in stateFilter && filter === stateFilter[group]) ||
               (!filter && group && !(group in stateFilter) && !stateFilter[''])
         : stateSort === sort && stateOrder === order;
-}
-
-function isEqualList(listA, listB) {
-    return listA.length === listB.length && listA.every((el) => listB.includes(el));
 }
 
 function getSelector({ filter }) {
