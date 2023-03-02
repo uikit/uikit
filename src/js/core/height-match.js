@@ -66,6 +66,10 @@ function match(elements) {
 
 function getHeight(element) {
     const style = pick(element.style, ['display', 'minHeight']);
+
+    if (!isVisible(element)) {
+        css(element, 'display', 'block', 'important');
+    }
     css(element, 'minHeight', '');
     const height = dimensions(element).height - boxModelAdjust(element, 'height', 'content-box');
     css(element, style);
