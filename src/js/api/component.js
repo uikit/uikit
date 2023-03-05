@@ -5,8 +5,7 @@ export default function (UIkit) {
     const { data: DATA, prefix: PREFIX } = UIkit;
 
     UIkit.component = function (name, options) {
-        name = hyphenate(name);
-        const id = PREFIX + name;
+        const id = PREFIX + hyphenate(name);
 
         if (!options) {
             if (isPlainObject(components[id])) {

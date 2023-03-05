@@ -10,15 +10,11 @@ export const hyphenate = memoize((str) => str.replace(hyphenateRe, '-$1').toLowe
 
 const camelizeRe = /-(\w)/g;
 
-export const camelize = memoize((str) => str.replace(camelizeRe, toUpper));
-
-export const ucfirst = memoize((str) =>
-    str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : ''
+export const camelize = memoize((str) =>
+    (str.charAt(0).toLowerCase() + str.slice(1)).replace(camelizeRe, (_, c) => c.toUpperCase())
 );
 
-function toUpper(_, c) {
-    return c ? c.toUpperCase() : '';
-}
+export const ucfirst = memoize((str) => str.charAt(0).toUpperCase() + str.slice(1));
 
 export function startsWith(str, search) {
     return str?.startsWith?.(search);
