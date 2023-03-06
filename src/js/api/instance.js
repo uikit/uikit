@@ -1,74 +1,72 @@
-import { isEmpty, remove, within } from 'uikit-util';
+import App from './app';
+import { update } from './global';
+import { callUpdate } from './update';
+import { registerObserver } from './observer';
+import { assign, remove, within } from '../util';
+import { callConnected, callDisconnected, callHook } from './hooks';
+import { attachToElement, createComponent, detachFromElement, getComponent } from './component';
 
-export default function (UIkit) {
-    const DATA = UIkit.data;
+function $mount(el) {
+    const instance = this;
+    attachToElement(el, instance);
 
-    UIkit.prototype.$create = function (component, element, data) {
-        return UIkit[component](element, data);
-    };
+    instance.$options.el = el;
 
-    UIkit.prototype.$mount = function (el) {
-        const { name } = this.$options;
-
-        if (!el[DATA]) {
-            el[DATA] = {};
-        }
-
-        if (el[DATA][name]) {
-            return;
-        }
-
-        el[DATA][name] = this;
-
-        this.$el = this.$options.el = this.$options.el || el;
-
-        if (within(el, document)) {
-            this._callConnected();
-        }
-    };
-
-    UIkit.prototype.$reset = function () {
-        this._callDisconnected();
-        this._callConnected();
-    };
-
-    UIkit.prototype.$destroy = function (removeEl = false) {
-        const { el, name } = this.$options;
-
-        if (el) {
-            this._callDisconnected();
-        }
-
-        this._callHook('destroy');
-
-        if (!el?.[DATA]) {
-            return;
-        }
-
-        delete el[DATA][name];
-
-        if (!isEmpty(el[DATA])) {
-            delete el[DATA];
-        }
-
-        if (removeEl) {
-            remove(this.$el);
-        }
-    };
-
-    UIkit.prototype.$emit = function (e) {
-        this._callUpdate(e);
-    };
-
-    UIkit.prototype.$update = function (element = this.$el, e) {
-        UIkit.update(element, e);
-    };
-
-    UIkit.prototype.$getComponent = UIkit.getComponent;
-
-    Object.defineProperty(
-        UIkit.prototype,
-        '$container',
-        Object.getOwnPropertyDescriptor(UIkit, 'container')
-    );
+    if (within(el, document)) {
+        callConnected(instance);
+    }
 }
+
+function $destroy(removeEl = false) {
+    const instance = this;
+    const { el } = instance.$options;
+
+    if (el) {
+        callDisconnected(instance);
+    }
+
+    callHook(instance, 'destroy');
+
+    detachFromElement(el, instance);
+
+    if (removeEl) {
+        remove(instance.$el);
+    }
+}
+
+assign(App.prototype, {
+    $create: createComponent,
+
+    $mount,
+
+    $emit(e) {
+        callUpdate(this, e);
+    },
+
+    $update(element = this.$el, e) {
+        update(element, e);
+    },
+
+    $reset() {
+        callDisconnected(this);
+        callConnected(this);
+    },
+
+    $destroy,
+
+    $getComponent: getComponent,
+
+    $registerObserver(...args) {
+        registerObserver(this, ...args);
+    },
+});
+
+Object.defineProperties(App.prototype, {
+    $el: {
+        get() {
+            return this.$options.el;
+        },
+    },
+
+    $container: Object.getOwnPropertyDescriptor(App, 'container'),
+});

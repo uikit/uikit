@@ -10,7 +10,6 @@ export * from './filter';
 export * from './lang';
 export * from './mouse';
 export * from './observer';
-export * from './options';
 export * from './player';
 export * from './position';
 export * from './selector';

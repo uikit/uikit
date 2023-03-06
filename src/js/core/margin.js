@@ -26,7 +26,7 @@ export default {
     },
 
     connected() {
-        this.registerObserver(
+        this.$registerObserver(
             observeMutation(this.$el, () => this.$reset(), {
                 childList: true,
                 attributes: true,

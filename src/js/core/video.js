@@ -39,7 +39,7 @@ export default {
             mute(this.$el);
         }
 
-        this.registerObserver(observeIntersection(this.$el, () => this.$emit(), {}, false));
+        this.$registerObserver(observeIntersection(this.$el, () => this.$emit(), {}, false));
     },
 
     update: {

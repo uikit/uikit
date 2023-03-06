@@ -7,7 +7,7 @@ export default {
 
     methods: {
         lazyload(observeTargets = this.$el, targets = this.$el) {
-            this.registerObserver(
+            this.$registerObserver(
                 observeIntersection(observeTargets, (entries, observer) => {
                     for (const el of toNodes(isFunction(targets) ? targets() : targets)) {
                         $$('[loading="lazy"]', el)

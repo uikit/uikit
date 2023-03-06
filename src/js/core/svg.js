@@ -67,7 +67,7 @@ export default {
             this.svg.then((el) => {
                 if (this._connected && el) {
                     applyAnimation(el);
-                    this.registerObserver(
+                    this.$registerObserver(
                         observeIntersection(el, (records, observer) => {
                             applyAnimation(el);
                             observer.disconnect();

@@ -1,4 +1,16 @@
-import { hasOwn, includes, isArray, isFunction, isUndefined, sortBy, startsWith } from './lang';
+import {
+    hasOwn,
+    includes,
+    isArray,
+    isFunction,
+    isNumeric,
+    isString,
+    isUndefined,
+    sortBy,
+    startsWith,
+    toBoolean,
+    toNumber,
+} from '../util';
 
 const strats = {};
 
@@ -138,4 +150,28 @@ export function parseOptions(options, args = []) {
     } catch (e) {
         return {};
     }
+}
+
+export function coerce(type, value) {
+    if (type === Boolean) {
+        return toBoolean(value);
+    } else if (type === Number) {
+        return toNumber(value);
+    } else if (type === 'list') {
+        return toList(value);
+    } else if (type === Object && isString(value)) {
+        return parseOptions(value);
+    }
+
+    return type ? type(value) : value;
+}
+
+function toList(value) {
+    return isArray(value)
+        ? value
+        : isString(value)
+        ? value
+              .split(/,(?![^(]*\))/)
+              .map((value) => (isNumeric(value) ? toNumber(value) : toBoolean(value.trim())))
+        : [value];
 }

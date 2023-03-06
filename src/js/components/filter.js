@@ -1,4 +1,5 @@
 import Animate from '../mixin/animate';
+import { parseOptions } from '../api/options';
 import {
     $,
     $$,
@@ -17,7 +18,6 @@ import {
     isTag,
     isUndefined,
     matches,
-    parseOptions,
     toggleClass,
     trigger,
 } from 'uikit-util';

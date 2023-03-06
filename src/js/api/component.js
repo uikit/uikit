@@ -1,84 +1,86 @@
-import { $$, camelize, hyphenate, isPlainObject } from 'uikit-util';
+import App from './app';
+import { $$, assign, camelize, hyphenate, isEmpty, isPlainObject } from '../util';
 
-const components = {};
-export default function (UIkit) {
-    const { data: DATA, prefix: PREFIX } = UIkit;
+const PREFIX = 'uk-';
+const DATA = '__uikit__';
 
-    UIkit.component = function (name, options) {
-        const id = PREFIX + hyphenate(name);
+export const components = {};
 
-        if (!options) {
-            if (isPlainObject(components[id])) {
-                components[id] = components[`data-${id}`] = UIkit.extend(components[id]);
-            }
+export function component(name, options) {
+    const id = PREFIX + hyphenate(name);
 
-            return components[id];
+    if (!options) {
+        if (isPlainObject(components[id])) {
+            components[id] = App.extend(components[id]);
         }
 
-        name = camelize(name);
+        return components[id];
+    }
 
-        UIkit[name] = function (element, data) {
-            const component = UIkit.component(name);
+    name = camelize(name);
 
-            return component.options.functional
-                ? new component({ data: isPlainObject(element) ? element : [...arguments] })
-                : element
-                ? $$(element).map(init)[0]
-                : init();
+    App[name] = (element, data) => createComponent(name, element, data);
 
-            function init(element) {
-                const instance = UIkit.getComponent(element, name);
+    const opt = isPlainObject(options) ? { ...options } : options.options;
 
-                if (instance) {
-                    if (data) {
-                        instance.$destroy();
-                    } else {
-                        return instance;
-                    }
-                }
+    opt.id = id;
+    opt.name = name;
 
-                return new component({ el: element, data });
-            }
-        };
+    opt.install?.(App, opt, name);
 
-        const opt = isPlainObject(options) ? { ...options } : options.options;
+    if (App._initialized && !opt.functional) {
+        requestAnimationFrame(() => createComponent(name, `[${id}],[data-${id}]`));
+    }
 
-        opt.id = id;
-        opt.name = name;
-
-        opt.install?.(UIkit, opt, name);
-
-        if (UIkit._initialized && !opt.functional) {
-            requestAnimationFrame(() => UIkit[name](`[${id}],[data-${id}]`));
-        }
-
-        return (components[id] = components[`data-${id}`] = isPlainObject(options) ? opt : options);
-    };
-
-    UIkit.getComponents = (element) => element?.[DATA] || {};
-    UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
-
-    UIkit.connect = (node) => {
-        if (node[DATA]) {
-            for (const name in node[DATA]) {
-                node[DATA][name]._callConnected();
-            }
-        }
-
-        for (const attribute of node.getAttributeNames()) {
-            const name = getComponentName(attribute);
-            name && UIkit[name](node);
-        }
-    };
-
-    UIkit.disconnect = (node) => {
-        for (const name in node[DATA]) {
-            node[DATA][name]._callDisconnected();
-        }
-    };
+    return (components[id] = opt);
 }
 
-export function getComponentName(attribute) {
-    const cmp = components[attribute];
-    return cmp && (isPlainObject(cmp) ? cmp : cmp.options).name;
+export function createComponent(name, element, data) {
+    const Component = component(name);
+
+    return Component.options.functional
+        ? new Component({ data: isPlainObject(element) ? element : [...arguments] })
+        : element
+        ? $$(element).map(init)[0]
+        : init();
+
+    function init(element) {
+        const instance = getComponent(element, name);
+
+        if (instance) {
+            if (data) {
+                instance.$destroy();
+            } else {
+                return instance;
+            }
+        }
+
+        return new Component({ el: element, data });
+    }
 }
+
+export function getComponents(element) {
+    return element[DATA] || {};
+}
+
+export function getComponent(element, name) {
+    return getComponents(element)[name];
+}
+
+export function attachToElement(element, instance) {
+    if (!element[DATA]) {
+        element[DATA] = {};
+    }
+
+    element[DATA][instance.$options.name] = instance;
+}
+
+export function detachFromElement(element, instance) {
+    delete element[DATA]?.[instance.$options.name];
+
+    if (!isEmpty(element[DATA])) {
+        delete element[DATA];
+    }
+}
+
+assign(App, { component, getComponents, getComponent });

@@ -90,7 +90,9 @@ export default {
         this.isFixed = false;
         this.setActive(false);
 
-        this.registerObserver(observeResize(this.$el, () => !this.isFixed && this.$emit('resize')));
+        this.$registerObserver(
+            observeResize(this.$el, () => !this.isFixed && this.$emit('resize'))
+        );
     },
 
     disconnected() {

@@ -59,7 +59,7 @@ export default {
 
     connected() {
         this._data.elements = new Map();
-        this.registerObserver(
+        this.$registerObserver(
             observeIntersection(
                 this.elements,
                 (records) => {

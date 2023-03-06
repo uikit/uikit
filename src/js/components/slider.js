@@ -123,7 +123,7 @@ export default {
 
             watch(slides, prev) {
                 if (!prev) {
-                    this.registerObserver(
+                    this.$registerObserver(
                         (this._resizeObserver = observeResize(slides, () => this.$emit('resize')))
                     );
                 }

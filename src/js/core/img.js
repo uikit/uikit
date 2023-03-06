@@ -1,3 +1,4 @@
+import { parseOptions } from '../api/options';
 import {
     append,
     attr,
@@ -15,7 +16,6 @@ import {
     isTag,
     observeIntersection,
     parent,
-    parseOptions,
     queryAll,
     removeAttr,
     startsWith,
@@ -62,7 +62,7 @@ export default {
 
         ensureSrcAttribute(this.$el);
 
-        this.registerObserver(
+        this.$registerObserver(
             observeIntersection(
                 target,
                 (entries, observer) => {
