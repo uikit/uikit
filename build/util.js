@@ -1,7 +1,7 @@
 import less from 'less';
 import fs from 'fs-extra';
 import pLimit from 'p-limit';
-import globImport from 'glob';
+import glob from 'glob';
 import { optimize } from 'svgo';
 import { promisify } from 'util';
 import minimist from 'minimist';
@@ -18,7 +18,6 @@ import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbui
 const limit = pLimit(Number(process.env.cpus || 2));
 
 export const exec = promisify(execImport);
-export const glob = promisify(globImport);
 export const { pathExists, readJson } = fs;
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;

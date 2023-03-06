@@ -1,7 +1,8 @@
+import glob from 'glob';
+import pLimit from 'p-limit';
 import camelize from 'camelcase';
 import { basename, resolve } from 'path';
-import { args, compile, glob, icons } from './util.js';
-import pLimit from 'p-limit';
+import { args, compile, icons } from './util.js';
 
 const limit = pLimit(Number(process.env.cpus || 2));
 
