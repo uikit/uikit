@@ -32,20 +32,18 @@ export default {
         this.hide();
     },
 
-    events: [
-        {
-            name: 'click',
+    events: {
+        name: 'click',
 
-            delegate() {
-                return `${this.toggle}:not(.uk-disabled)`;
-            },
-
-            handler(e) {
-                e.preventDefault();
-                this.show(e.current);
-            },
+        delegate() {
+            return `${this.toggle}:not(.uk-disabled)`;
         },
-    ],
+
+        handler(e) {
+            e.preventDefault();
+            this.show(e.current);
+        },
+    },
 
     methods: {
         show(index) {
