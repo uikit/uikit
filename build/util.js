@@ -211,7 +211,7 @@ export async function icons(src) {
         ],
     };
 
-    const files = await glob(src, { nosort: true });
+    const files = await glob(src);
     const icons = await Promise.all(
         files.map((file) => limit(async () => (await optimize(await read(file), options)).data))
     );
