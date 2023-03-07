@@ -1,3 +1,4 @@
+import { log } from './log';
 import { callUpdate } from './update';
 import { initWatchObserver } from './watch';
 import { initEvents, unbindEvents } from './events';
@@ -5,6 +6,7 @@ import { initProps, initPropsObserver } from './props';
 import { disconnectObservers, initObservers } from './observer';
 
 export function callHook(instance, hook) {
+    DEBUG && log(instance, hook);
     instance.$options[hook]?.forEach((handler) => handler.call(instance));
 }
 

@@ -88,6 +88,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                 preventAssignment: true,
                 values: {
                     VERSION: `'${await getVersion()}'`,
+                    DEBUG: !!debug,
                     ...replaces,
                 },
             }),
