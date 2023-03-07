@@ -88,6 +88,6 @@ async function getComponentTasks() {
 }
 
 async function getTestFiles() {
-    const files = await glob('tests/!(index).html');
+    const files = (await glob('tests/!(index).html')).sort();
     return JSON.stringify(files.map((file) => basename(file, '.html')));
 }
