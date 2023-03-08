@@ -1,4 +1,3 @@
-import Resize from '../mixin/resize';
 import {
     boxModelAdjust,
     css,
@@ -13,10 +12,9 @@ import {
     scrollParents,
     toFloat,
 } from 'uikit-util';
+import { resize } from '../api/observables';
 
 export default {
-    mixins: [Resize],
-
     props: {
         expand: Boolean,
         offsetTop: Boolean,
@@ -31,10 +29,10 @@ export default {
         minHeight: 0,
     },
 
-    resizeTargets() {
-        // check for offsetTop change
-        return [this.$el, ...scrollParents(this.$el)];
-    },
+    // check for offsetTop change
+    observe: resize({
+        target: ({ $el }) => [$el, ...scrollParents($el)],
+    }),
 
     update: {
         read({ minHeight: prev }) {

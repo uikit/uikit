@@ -1,12 +1,11 @@
 import App from './app';
 import { update } from './global';
 import { callUpdate } from './update';
-import { registerObserver } from './observer';
-import { assign, remove, within } from '../util';
+import { $, remove, within } from '../util';
 import { callConnected, callDisconnected, callHook } from './hooks';
 import { attachToElement, createComponent, detachFromElement, getComponent } from './component';
 
-function $mount(el) {
+App.prototype.$mount = function (el) {
     const instance = this;
     attachToElement(el, instance);
 
@@ -15,9 +14,9 @@ function $mount(el) {
     if (within(el, document)) {
         callConnected(instance);
     }
-}
+};
 
-function $destroy(removeEl = false) {
+App.prototype.$destroy = function (removeEl = false) {
     const instance = this;
     const { el } = instance.$options;
 
@@ -32,34 +31,23 @@ function $destroy(removeEl = false) {
     if (removeEl) {
         remove(instance.$el);
     }
-}
+};
 
-assign(App.prototype, {
-    $create: createComponent,
+App.prototype.$create = createComponent;
+App.prototype.$emit = function (e) {
+    callUpdate(this, e);
+};
 
-    $mount,
+App.prototype.$update = function (element = this.$el, e) {
+    update(element, e);
+};
 
-    $emit(e) {
-        callUpdate(this, e);
-    },
+App.prototype.$reset = function () {
+    callDisconnected(this);
+    callConnected(this);
+};
 
-    $update(element = this.$el, e) {
-        update(element, e);
-    },
-
-    $reset() {
-        callDisconnected(this);
-        callConnected(this);
-    },
-
-    $destroy,
-
-    $getComponent: getComponent,
-
-    $registerObserver(...args) {
-        registerObserver(this, ...args);
-    },
-});
+App.prototype.$getComponent = getComponent;
 
 Object.defineProperties(App.prototype, {
     $el: {
@@ -70,3 +58,17 @@ Object.defineProperties(App.prototype, {
 
     $container: Object.getOwnPropertyDescriptor(App, 'container'),
 });
+
+export function generateId(instance, el = instance.$el, postfix = '') {
+    if (el.id) {
+        return el.id;
+    }
+
+    let id = `${instance.$options.id}-${instance._uid}${postfix}`;
+
+    if ($(`#${id}`)) {
+        id = generateId(instance, el, `${postfix}-2`);
+    }
+
+    return id;
+}

@@ -2,10 +2,14 @@ import App from './app';
 import { init } from './state';
 import { callUpdate } from './update';
 import { mergeOptions } from './options';
-import { getComponents } from './component';
-import { $, apply, assign, isString, parents, toNode } from '../util';
+import { component, getComponent, getComponents } from './component';
+import { $, apply, isString, parents, toNode } from '../util';
 
-function use(plugin) {
+App.component = component;
+App.getComponents = getComponents;
+App.getComponent = getComponent;
+
+App.use = function (plugin) {
     if (plugin.installed) {
         return;
     }
@@ -14,14 +18,14 @@ function use(plugin) {
     plugin.installed = true;
 
     return this;
-}
+};
 
-function mixin(mixin, component) {
+App.mixin = function (mixin, component) {
     component = (isString(component) ? this.component(component) : component) || this;
     component.options = mergeOptions(component.options, mixin);
-}
+};
 
-function extend(options) {
+App.extend = function (options) {
     options = options || {};
 
     const Super = this;
@@ -37,7 +41,7 @@ function extend(options) {
     Sub.extend = Super.extend;
 
     return Sub;
-}
+};
 
 export function update(element, e) {
     element = element ? toNode(element) : document.body;
@@ -49,19 +53,14 @@ export function update(element, e) {
     apply(element, (element) => updateElement(element, e));
 }
 
+App.update = update;
+
 function updateElement(element, e) {
     const components = getComponents(element);
     for (const name in components) {
         callUpdate(components[name], e);
     }
 }
-
-assign(App, {
-    use,
-    mixin,
-    extend,
-    update,
-});
 
 let container;
 Object.defineProperty(App, 'container', {

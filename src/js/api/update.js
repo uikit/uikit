@@ -1,5 +1,6 @@
+import { registerObserver } from './observer';
 import { callWatches } from './watch';
-import { assign, fastdom, isPlainObject } from '../util';
+import { assign, fastdom, isFunction, isPlainObject } from '../util';
 
 export function callUpdate(instance, e = 'update') {
     if (!instance._connected) {
@@ -50,4 +51,27 @@ function runUpdates(instance, types) {
             });
         }
     }
+}
+
+export function initUpdateObserver(instance) {
+    let { el, computed, observe } = instance.$options;
+
+    if (!computed && !observe?.some((options) => isFunction(options.target))) {
+        return;
+    }
+
+    for (const key in computed || {}) {
+        if (computed[key].document) {
+            el = el.ownerDocument;
+            break;
+        }
+    }
+
+    const observer = new MutationObserver(() => callWatches(instance));
+    observer.observe(el, {
+        childList: true,
+        subtree: true,
+    });
+
+    registerObserver(instance, observer);
 }

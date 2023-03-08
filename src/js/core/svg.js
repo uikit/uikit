@@ -1,3 +1,5 @@
+import { registerObserver } from '../api/observer';
+import { getMaxPathLength } from '../util/svg';
 import {
     $,
     after,
@@ -15,7 +17,6 @@ import {
     startsWith,
     toFloat,
 } from 'uikit-util';
-import { getMaxPathLength } from '../mixin/utils';
 
 export default {
     args: 'src',
@@ -67,7 +68,8 @@ export default {
             this.svg.then((el) => {
                 if (this._connected && el) {
                     applyAnimation(el);
-                    this.$registerObserver(
+                    registerObserver(
+                        this,
                         observeIntersection(el, (records, observer) => {
                             applyAnimation(el);
                             observer.disconnect();

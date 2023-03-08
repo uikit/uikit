@@ -1,9 +1,9 @@
+import { resize } from '../api/observables';
 import Video from './video';
 import { css, Dimensions, parent } from 'uikit-util';
-import Resize from '../mixin/resize';
 
 export default {
-    mixins: [Resize, Video],
+    mixins: [Video],
 
     props: {
         width: Number,
@@ -20,9 +20,9 @@ export default {
         },
     },
 
-    resizeTargets() {
-        return [this.$el, getPositionedParent(this.$el) || parent(this.$el)];
-    },
+    observe: resize({
+        target: ({ $el }) => [$el, getPositionedParent($el) || parent($el)],
+    }),
 
     update: {
         read() {

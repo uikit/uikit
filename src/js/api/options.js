@@ -15,6 +15,7 @@ import {
 const strats = {};
 
 strats.events =
+    strats.observe =
     strats.created =
     strats.beforeConnect =
     strats.connected =

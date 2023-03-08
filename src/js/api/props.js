@@ -1,3 +1,4 @@
+import { registerObserver } from './observer';
 import { coerce, parseOptions } from './options';
 import {
     camelize,
@@ -97,5 +98,5 @@ export function initPropsObserver(instance) {
         attributeFilter: filter.concat(filter.map((key) => `data-${key}`)),
     });
 
-    return observer;
+    registerObserver(instance, observer);
 }

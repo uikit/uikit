@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add `observe` to component options API
+
 ### Fixed
 
 - Fix default i18n option for Modal dialogs

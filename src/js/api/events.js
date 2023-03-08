@@ -19,12 +19,10 @@ export function unbindEvents(instance) {
 }
 
 export function registerEvent(instance, event, key) {
-    if (!isPlainObject(event)) {
-        event = { name: key, handler: event };
-    }
-
-    let { name, el, handler, capture, passive, delegate, filter, self } = event;
-    el = isFunction(el) ? el.call(instance) : el || instance.$el;
+    let { name, el, handler, capture, passive, delegate, filter, self } = isPlainObject(event)
+        ? event
+        : { name: key, handler: event };
+    el = isFunction(el) ? el.call(instance, instance) : el || instance.$el;
 
     if (isArray(el)) {
         el.forEach((el) => registerEvent(instance, { ...event, el }, key));
@@ -39,7 +37,7 @@ export function registerEvent(instance, event, key) {
         on(
             el,
             name,
-            delegate ? (isString(delegate) ? delegate : delegate.call(instance)) : null,
+            delegate ? (isString(delegate) ? delegate : delegate.call(instance, instance)) : null,
             isString(handler) ? instance[handler] : handler.bind(instance),
             { passive, capture, self }
         )

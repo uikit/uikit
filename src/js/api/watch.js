@@ -1,4 +1,5 @@
 import { fastdom, hasOwn, isEqual } from '../util';
+import { callObserverUpdates } from './observer';
 
 export function callWatches(instance) {
     if (instance._watch) {
@@ -28,27 +29,6 @@ function runWatches(instance, initial) {
             watch.call(instance, instance[key], initial ? undefined : values[key]);
         }
     }
-}
 
-export function initWatchObserver(instance) {
-    let { el, computed } = instance.$options;
-
-    if (!computed) {
-        return;
-    }
-
-    for (const key in computed) {
-        if (computed[key].document) {
-            el = el.ownerDocument;
-            break;
-        }
-    }
-
-    const observer = new MutationObserver(() => callWatches(instance));
-    observer.observe(el, {
-        childList: true,
-        subtree: true,
-    });
-
-    return observer;
+    callObserverUpdates(instance);
 }

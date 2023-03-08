@@ -1,5 +1,5 @@
 import App from './app';
-import { $$, assign, camelize, hyphenate, isEmpty, isPlainObject } from '../util';
+import { $$, camelize, hyphenate, isEmpty, isPlainObject } from '../util';
 
 const PREFIX = 'uk-';
 const DATA = '__uikit__';
@@ -82,5 +82,3 @@ export function detachFromElement(element, instance) {
         delete element[DATA];
     }
 }
-
-assign(App, { component, getComponents, getComponent });

@@ -1,6 +1,5 @@
 import { log } from './log';
-import { callUpdate } from './update';
-import { initWatchObserver } from './watch';
+import { callUpdate, initUpdateObserver } from './update';
 import { initEvents, unbindEvents } from './events';
 import { initProps, initPropsObserver } from './props';
 import { disconnectObservers, initObservers } from './observer';
@@ -27,7 +26,7 @@ export function callConnected(instance) {
 
     initObservers(instance);
     initPropsObserver(instance);
-    initWatchObserver(instance);
+    initUpdateObserver(instance);
 
     callHook(instance, 'connected');
     callUpdate(instance);

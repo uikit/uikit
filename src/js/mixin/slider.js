@@ -1,8 +1,8 @@
 import I18n from './i18n';
-import Resize from './resize';
 import SliderNav from './slider-nav';
 import SliderDrag from './slider-drag';
 import SliderAutoplay from './slider-autoplay';
+import { resize } from '../api/observables';
 import {
     $,
     children,
@@ -16,7 +16,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [SliderAutoplay, SliderDrag, SliderNav, Resize, I18n],
+    mixins: [SliderAutoplay, SliderDrag, SliderNav, I18n],
 
     props: {
         clsActivated: Boolean,
@@ -77,6 +77,8 @@ export default {
             return this.slides.length;
         },
     },
+
+    observe: resize(),
 
     methods: {
         show(index, force = false) {

@@ -1,10 +1,8 @@
-import Resize from '../mixin/resize';
 import { getRows } from './margin';
+import { resize } from '../api/observables';
 import { $$, boxModelAdjust, css, dimensions, isVisible, pick } from 'uikit-util';
 
 export default {
-    mixins: [Resize],
-
     args: 'target',
 
     props: {
@@ -29,9 +27,9 @@ export default {
         },
     },
 
-    resizeTargets() {
-        return [this.$el, ...this.elements];
-    },
+    observe: resize({
+        target: ({ $el, elements }) => [$el, ...elements],
+    }),
 
     update: {
         read() {

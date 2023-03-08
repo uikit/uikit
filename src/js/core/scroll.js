@@ -1,5 +1,13 @@
-import { $, off, on, scrollIntoView, trigger, within } from 'uikit-util';
-import { getTargetElement, isSameSiteAnchor } from '../mixin/utils';
+import {
+    $,
+    getTargetedElement,
+    isSameSiteAnchor,
+    off,
+    on,
+    scrollIntoView,
+    trigger,
+    within,
+} from 'uikit-util';
 
 export default {
     props: {
@@ -30,19 +38,19 @@ export default {
     },
 };
 
-const components = new Set();
+const instances = new Set();
 function registerClick(cmp) {
-    if (!components.size) {
+    if (!instances.size) {
         on(document, 'click', clickHandler);
     }
 
-    components.add(cmp);
+    instances.add(cmp);
 }
 
 function unregisterClick(cmp) {
-    components.delete(cmp);
+    instances.delete(cmp);
 
-    if (!components.size) {
+    if (!instances.size) {
         off(document, 'click', clickHandler);
     }
 }
@@ -52,10 +60,10 @@ function clickHandler(e) {
         return;
     }
 
-    for (const component of components) {
-        if (within(e.target, component.$el) && isSameSiteAnchor(component.$el)) {
+    for (const instance of instances) {
+        if (within(e.target, instance.$el) && isSameSiteAnchor(instance.$el)) {
             e.preventDefault();
-            component.scrollTo(getTargetElement(component.$el));
+            instance.scrollTo(getTargetedElement(instance.$el));
         }
     }
 }
