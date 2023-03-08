@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import Swipe from '../mixin/swipe';
+import { swipe } from '../api/observables';
 import {
     $,
     addClass,
@@ -16,7 +16,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Modal, Swipe],
+    mixins: [Modal],
 
     args: 'mode',
 
@@ -24,6 +24,7 @@ export default {
         mode: String,
         flip: Boolean,
         overlay: Boolean,
+        swiping: Boolean,
     },
 
     data: {
@@ -40,6 +41,7 @@ export default {
         clsOverlay: 'uk-offcanvas-overlay',
         selClose: '.uk-offcanvas-close',
         container: false,
+        swiping: true,
     },
 
     computed: {
@@ -67,6 +69,8 @@ export default {
             return mode === 'reveal' ? parent(this.panel) : this.panel;
         },
     },
+
+    observe: swipe({ filter: ({ swiping }) => swiping }),
 
     update: {
         read() {

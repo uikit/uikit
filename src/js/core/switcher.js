@@ -1,8 +1,7 @@
-import Swipe from '../mixin/swipe';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
 import { generateId } from '../api/instance';
-import { lazyload } from '../api/observables';
+import { lazyload, swipe } from '../api/observables';
 import {
     $$,
     attr,
@@ -26,7 +25,7 @@ import {
 const selDisabled = '.uk-disabled *, .uk-disabled, [disabled]';
 
 export default {
-    mixins: [Swipe, Togglable],
+    mixins: [Togglable],
 
     args: 'connect',
 
@@ -36,6 +35,7 @@ export default {
         itemNav: String,
         active: Number,
         followFocus: Boolean,
+        swiping: Boolean,
     },
 
     data: {
@@ -47,6 +47,7 @@ export default {
         attrItem: 'uk-switcher-item',
         selVertical: '.uk-nav',
         followFocus: false,
+        swiping: true,
     },
 
     computed: {
@@ -101,17 +102,16 @@ export default {
                 this.toggles.some((toggle) => within(toggle, child))
             );
         },
-
-        swipeTarget() {
-            return this.connects;
-        },
     },
 
     connected() {
         attr(this.$el, 'role', 'tablist');
     },
 
-    observe: lazyload({ targets: ({ connectChildren }) => connectChildren }),
+    observe: [
+        lazyload({ targets: ({ connectChildren }) => connectChildren }),
+        swipe({ target: ({ connects }) => connects, filter: ({ swiping }) => swiping }),
+    ],
 
     events: [
         {
