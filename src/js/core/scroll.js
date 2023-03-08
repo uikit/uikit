@@ -63,6 +63,7 @@ function clickHandler(e) {
     for (const instance of instances) {
         if (within(e.target, instance.$el) && isSameSiteAnchor(instance.$el)) {
             e.preventDefault();
+            window.history.pushState({}, '', instance.$el.href);
             instance.scrollTo(getTargetedElement(instance.$el));
         }
     }
