@@ -1,6 +1,8 @@
-import Lazyload from '../mixin/lazyload';
 import Swipe from '../mixin/swipe';
 import Togglable from '../mixin/togglable';
+import { keyMap } from '../util/keys';
+import { generateId } from '../api/instance';
+import { lazyload } from '../api/observables';
 import {
     $$,
     attr,
@@ -20,12 +22,11 @@ import {
     toNodes,
     within,
 } from 'uikit-util';
-import { generateId, keyMap } from '../mixin/utils';
 
 const selDisabled = '.uk-disabled *, .uk-disabled, [disabled]';
 
 export default {
-    mixins: [Lazyload, Swipe, Togglable],
+    mixins: [Swipe, Togglable],
 
     args: 'connect',
 
@@ -74,7 +75,6 @@ export default {
                 const index = this.index();
                 for (const el of this.connects) {
                     children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
-                    this.lazyload(this.$el, children(el));
                 }
                 this.$emit();
             },
@@ -110,6 +110,8 @@ export default {
     connected() {
         attr(this.$el, 'role', 'tablist');
     },
+
+    observe: lazyload({ targets: ({ connectChildren }) => connectChildren }),
 
     events: [
         {

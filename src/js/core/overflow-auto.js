@@ -1,9 +1,9 @@
 import Class from '../mixin/class';
-import Resize from '../mixin/resize';
+import { resize } from '../api/observables';
 import { closest, css, dimensions, height, isVisible } from 'uikit-util';
 
 export default {
-    mixins: [Class, Resize],
+    mixins: [Class],
 
     props: {
         selContainer: String,
@@ -27,9 +27,9 @@ export default {
         },
     },
 
-    resizeTargets() {
-        return [this.container, this.content];
-    },
+    observe: resize({
+        target: ({ container, content }) => [container, content],
+    }),
 
     update: {
         read() {

@@ -1,4 +1,5 @@
 import Class from '../mixin/class';
+import { resize } from '../api/observables';
 import Slider, { speedUp } from '../mixin/slider';
 import SliderReactive from '../mixin/slider-reactive';
 import SliderPreload from './internal/slider-preload';
@@ -17,7 +18,6 @@ import {
     includes,
     isVisible,
     last,
-    observeResize,
     selFocusable,
     sumBy,
     toFloat,
@@ -116,41 +116,18 @@ export default {
             };
         },
 
-        children: {
-            get() {
-                return children(this.list);
-            },
-
-            watch(slides, prev) {
-                if (!prev) {
-                    this.registerObserver(
-                        (this._resizeObserver = observeResize(slides, () => this.$emit('resize')))
-                    );
-                }
-
-                if (prev) {
-                    slides.forEach(
-                        (slide) => !includes(prev, slide) && this._resizeObserver.observe(slide)
-                    );
-                    prev.forEach(
-                        (slide) => !includes(slides, slide) && this._resizeObserver.unobserve(slide)
-                    );
-
-                    this.$emit();
-                }
-            },
-
-            immediate: true,
-        },
-
         slides() {
-            return this.children.filter(isVisible);
+            return children(this.list).filter(isVisible);
         },
     },
 
     connected() {
         toggleClass(this.$el, this.clsContainer, !$(`.${this.clsContainer}`, this.$el));
     },
+
+    observe: resize({
+        target: ({ slides }) => slides,
+    }),
 
     update: {
         write() {

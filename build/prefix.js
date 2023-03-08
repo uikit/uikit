@@ -1,5 +1,6 @@
+import glob from 'glob';
 import inquirer from 'inquirer';
-import { args, glob, read, replaceInFile, validClassName } from './util.js';
+import { args, read, replaceInFile, validClassName } from './util.js';
 
 if (args.h || args.help) {
     console.log(`

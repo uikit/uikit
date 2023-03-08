@@ -1,74 +1,74 @@
-import { isEmpty, remove, within } from 'uikit-util';
+import App from './app';
+import { update } from './global';
+import { callUpdate } from './update';
+import { $, remove, within } from '../util';
+import { callConnected, callDisconnected, callHook } from './hooks';
+import { attachToElement, createComponent, detachFromElement, getComponent } from './component';
 
-export default function (UIkit) {
-    const DATA = UIkit.data;
+App.prototype.$mount = function (el) {
+    const instance = this;
+    attachToElement(el, instance);
 
-    UIkit.prototype.$create = function (component, element, data) {
-        return UIkit[component](element, data);
-    };
+    instance.$options.el = el;
 
-    UIkit.prototype.$mount = function (el) {
-        const { name } = this.$options;
+    if (within(el, document)) {
+        callConnected(instance);
+    }
+};
 
-        if (!el[DATA]) {
-            el[DATA] = {};
-        }
+App.prototype.$destroy = function (removeEl = false) {
+    const instance = this;
+    const { el } = instance.$options;
 
-        if (el[DATA][name]) {
-            return;
-        }
+    if (el) {
+        callDisconnected(instance);
+    }
 
-        el[DATA][name] = this;
+    callHook(instance, 'destroy');
 
-        this.$el = this.$options.el = this.$options.el || el;
+    detachFromElement(el, instance);
 
-        if (within(el, document)) {
-            this._callConnected();
-        }
-    };
+    if (removeEl) {
+        remove(instance.$el);
+    }
+};
 
-    UIkit.prototype.$reset = function () {
-        this._callDisconnected();
-        this._callConnected();
-    };
+App.prototype.$create = createComponent;
+App.prototype.$emit = function (e) {
+    callUpdate(this, e);
+};
 
-    UIkit.prototype.$destroy = function (removeEl = false) {
-        const { el, name } = this.$options;
+App.prototype.$update = function (element = this.$el, e) {
+    update(element, e);
+};
 
-        if (el) {
-            this._callDisconnected();
-        }
+App.prototype.$reset = function () {
+    callDisconnected(this);
+    callConnected(this);
+};
 
-        this._callHook('destroy');
+App.prototype.$getComponent = getComponent;
 
-        if (!el?.[DATA]) {
-            return;
-        }
+Object.defineProperties(App.prototype, {
+    $el: {
+        get() {
+            return this.$options.el;
+        },
+    },
 
-        delete el[DATA][name];
+    $container: Object.getOwnPropertyDescriptor(App, 'container'),
+});
 
-        if (!isEmpty(el[DATA])) {
-            delete el[DATA];
-        }
+export function generateId(instance, el = instance.$el, postfix = '') {
+    if (el.id) {
+        return el.id;
+    }
 
-        if (removeEl) {
-            remove(this.$el);
-        }
-    };
+    let id = `${instance.$options.id}-${instance._uid}${postfix}`;
 
-    UIkit.prototype.$emit = function (e) {
-        this._callUpdate(e);
-    };
+    if ($(`#${id}`)) {
+        id = generateId(instance, el, `${postfix}-2`);
+    }
 
-    UIkit.prototype.$update = function (element = this.$el, e) {
-        UIkit.update(element, e);
-    };
-
-    UIkit.prototype.$getComponent = UIkit.getComponent;
-
-    Object.defineProperty(
-        UIkit.prototype,
-        '$container',
-        Object.getOwnPropertyDescriptor(UIkit, 'container')
-    );
+    return id;
 }

@@ -29,23 +29,21 @@ export default {
         this.stop();
     },
 
-    events: [
-        {
-            name: 'visibilitychange',
+    events: {
+        name: 'visibilitychange',
 
-            el() {
-                return document;
-            },
-
-            handler() {
-                if (document.hidden) {
-                    this.stop();
-                } else {
-                    this.start();
-                }
-            },
+        el() {
+            return document;
         },
-    ],
+
+        handler() {
+            if (document.hidden) {
+                this.stop();
+            } else {
+                this.start();
+            }
+        },
+    },
 
     methods: {
         start() {

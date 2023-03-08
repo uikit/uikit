@@ -1,7 +1,8 @@
 import Class from '../mixin/class';
-import Lazyload from '../mixin/lazyload';
 import Togglable from '../mixin/togglable';
-import { generateId, keyMap } from '../mixin/utils';
+import { keyMap } from '../util/keys';
+import { generateId } from '../api/instance';
+import { lazyload } from '../api/observables';
 import {
     $,
     $$,
@@ -25,7 +26,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Class, Lazyload, Togglable],
+    mixins: [Class, Togglable],
 
     props: {
         animation: Boolean,
@@ -109,9 +110,7 @@ export default {
         },
     },
 
-    connected() {
-        this.lazyload();
-    },
+    observe: lazyload(),
 
     events: [
         {

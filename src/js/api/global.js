@@ -1,72 +1,74 @@
-import { $, apply, isString, mergeOptions, parents, toNode } from 'uikit-util';
+import App from './app';
+import { init } from './state';
+import { callUpdate } from './update';
+import { mergeOptions } from './options';
+import { component, getComponent, getComponents } from './component';
+import { $, apply, isString, parents, toNode } from '../util';
 
-export default function (UIkit) {
-    const DATA = UIkit.data;
+App.component = component;
+App.getComponents = getComponents;
+App.getComponent = getComponent;
 
-    UIkit.use = function (plugin) {
-        if (plugin.installed) {
-            return;
-        }
+App.use = function (plugin) {
+    if (plugin.installed) {
+        return;
+    }
 
-        plugin.call(null, this);
-        plugin.installed = true;
+    plugin.call(null, this);
+    plugin.installed = true;
 
-        return this;
+    return this;
+};
+
+App.mixin = function (mixin, component) {
+    component = (isString(component) ? this.component(component) : component) || this;
+    component.options = mergeOptions(component.options, mixin);
+};
+
+App.extend = function (options) {
+    options = options || {};
+
+    const Super = this;
+    const Sub = function UIkitComponent(options) {
+        init(this, options);
     };
 
-    UIkit.mixin = function (mixin, component) {
-        component = (isString(component) ? UIkit.component(component) : component) || this;
-        component.options = mergeOptions(component.options, mixin);
-    };
+    Sub.prototype = Object.create(Super.prototype);
+    Sub.prototype.constructor = Sub;
+    Sub.options = mergeOptions(Super.options, options);
 
-    UIkit.extend = function (options) {
-        options = options || {};
+    Sub.super = Super;
+    Sub.extend = Super.extend;
 
-        const Super = this;
-        const Sub = function UIkitComponent(options) {
-            this._init(options);
-        };
+    return Sub;
+};
 
-        Sub.prototype = Object.create(Super.prototype);
-        Sub.prototype.constructor = Sub;
-        Sub.options = mergeOptions(Super.options, options);
+export function update(element, e) {
+    element = element ? toNode(element) : document.body;
 
-        Sub.super = Super;
-        Sub.extend = Super.extend;
+    for (const parentEl of parents(element).reverse()) {
+        updateElement(parentEl, e);
+    }
 
-        return Sub;
-    };
+    apply(element, (element) => updateElement(element, e));
+}
 
-    UIkit.update = function (element, e) {
-        element = element ? toNode(element) : document.body;
+App.update = update;
 
-        for (const parentEl of parents(element).reverse()) {
-            update(parentEl[DATA], e);
-        }
-
-        apply(element, (element) => update(element[DATA], e));
-    };
-
-    let container;
-    Object.defineProperty(UIkit, 'container', {
-        get() {
-            return container || document.body;
-        },
-
-        set(element) {
-            container = $(element);
-        },
-    });
-
-    function update(data, e) {
-        if (!data) {
-            return;
-        }
-
-        for (const name in data) {
-            if (data[name]._connected) {
-                data[name]._callUpdate(e);
-            }
-        }
+function updateElement(element, e) {
+    const components = getComponents(element);
+    for (const name in components) {
+        callUpdate(components[name], e);
     }
 }
+
+let container;
+Object.defineProperty(App, 'container', {
+    get() {
+        return container || document.body;
+    },
+
+    set(element) {
+        container = $(element);
+    },
+});

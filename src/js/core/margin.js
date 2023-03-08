@@ -1,16 +1,7 @@
-import Resize from '../mixin/resize';
-import {
-    isRtl,
-    isVisible,
-    observeMutation,
-    offsetPosition,
-    toArray,
-    toggleClass,
-} from 'uikit-util';
+import { isRtl, isVisible, offsetPosition, toArray, toggleClass } from 'uikit-util';
+import { mutation, resize } from '../api/observables';
 
 export default {
-    mixins: [Resize],
-
     props: {
         margin: String,
         firstColumn: Boolean,
@@ -21,19 +12,18 @@ export default {
         firstColumn: 'uk-first-column',
     },
 
-    resizeTargets() {
-        return [this.$el, ...toArray(this.$el.children)];
-    },
-
-    connected() {
-        this.registerObserver(
-            observeMutation(this.$el, () => this.$reset(), {
+    observe: [
+        mutation({
+            options: {
                 childList: true,
                 attributes: true,
                 attributeFilter: ['style'],
-            })
-        );
-    },
+            },
+        }),
+        resize({
+            target: ({ $el }) => [$el, ...toArray($el.children)],
+        }),
+    ],
 
     update: {
         read() {

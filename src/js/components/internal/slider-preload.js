@@ -1,9 +1,8 @@
-import Lazyload from '../../mixin/lazyload';
+import { lazyload } from '../../api/observables';
 
 export default {
-    mixins: [Lazyload],
-
-    connected() {
-        this.lazyload(this.slides, this.getAdjacentSlides);
-    },
+    observe: lazyload({
+        target: ({ slides }) => slides,
+        targets: (instance) => instance.getAdjacentSlides(),
+    }),
 };

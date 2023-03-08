@@ -1,59 +1,80 @@
-import { getComponentName } from './component';
-import { apply, hasAttr, inBrowser, trigger } from 'uikit-util';
+import { callConnected, callDisconnected } from './hooks';
+import { components, createComponent, getComponent, getComponents } from './component';
+import { apply, hasAttr, inBrowser, isPlainObject, startsWith, trigger } from '../util';
 
-export default function (UIkit) {
-    const { connect, disconnect } = UIkit;
+export default function (App) {
+    if (inBrowser && window.MutationObserver) {
+        requestAnimationFrame(() => init(App));
+    }
+}
 
-    if (!inBrowser || !window.MutationObserver) {
-        return;
+function init(App) {
+    trigger(document, 'uikit:init', App);
+
+    if (document.body) {
+        apply(document.body, connect);
     }
 
-    requestAnimationFrame(function () {
-        trigger(document, 'uikit:init', UIkit);
-
-        if (document.body) {
-            apply(document.body, connect);
-        }
-
-        new MutationObserver((records) => records.forEach(applyChildListMutation)).observe(
-            document,
-            {
-                childList: true,
-                subtree: true,
-            }
-        );
-
-        new MutationObserver((records) => records.forEach(applyAttributeMutation)).observe(
-            document,
-            {
-                attributes: true,
-                subtree: true,
-            }
-        );
-
-        UIkit._initialized = true;
+    new MutationObserver((records) => records.forEach(applyChildListMutation)).observe(document, {
+        childList: true,
+        subtree: true,
     });
 
-    function applyChildListMutation({ addedNodes, removedNodes }) {
-        for (const node of addedNodes) {
-            apply(node, connect);
-        }
+    new MutationObserver((records) => records.forEach(applyAttributeMutation)).observe(document, {
+        attributes: true,
+        subtree: true,
+    });
 
-        for (const node of removedNodes) {
-            apply(node, disconnect);
-        }
+    App._initialized = true;
+}
+
+function applyChildListMutation({ addedNodes, removedNodes }) {
+    for (const node of addedNodes) {
+        apply(node, connect);
     }
 
-    function applyAttributeMutation({ target, attributeName }) {
+    for (const node of removedNodes) {
+        apply(node, disconnect);
+    }
+}
+
+function applyAttributeMutation({ target, attributeName }) {
+    const name = getComponentName(attributeName);
+
+    if (name) {
+        if (hasAttr(target, attributeName)) {
+            createComponent(name, target);
+            return;
+        }
+
+        getComponent(target, name)?.$destroy();
+    }
+}
+
+function connect(node) {
+    const components = getComponents(node);
+    for (const name in getComponents(node)) {
+        callConnected(components[name]);
+    }
+
+    for (const attributeName of node.getAttributeNames()) {
         const name = getComponentName(attributeName);
-
-        if (name) {
-            if (hasAttr(target, attributeName)) {
-                UIkit[name](target);
-                return;
-            }
-
-            UIkit.getComponent(target, name)?.$destroy();
-        }
+        name && createComponent(name, node);
     }
+}
+
+function disconnect(node) {
+    const components = getComponents(node);
+    for (const name in getComponents(node)) {
+        callDisconnected(components[name]);
+    }
+}
+
+function getComponentName(attribute) {
+    if (startsWith(attribute, 'data-')) {
+        attribute = attribute.slice(5);
+    }
+
+    const cmp = components[attribute];
+    return cmp && (isPlainObject(cmp) ? cmp : cmp.options).name;
 }

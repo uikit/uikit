@@ -1,4 +1,5 @@
 import Animate from '../mixin/animate';
+import { parseOptions } from '../api/options';
 import {
     $,
     $$,
@@ -17,11 +18,10 @@ import {
     isTag,
     isUndefined,
     matches,
-    parseOptions,
     toggleClass,
     trigger,
 } from 'uikit-util';
-import { keyMap } from '../mixin/utils';
+import { keyMap } from '../util/keys';
 
 export default {
     mixins: [Animate],
@@ -80,26 +80,24 @@ export default {
         },
     },
 
-    events: [
-        {
-            name: 'click keydown',
+    events: {
+        name: 'click keydown',
 
-            delegate() {
-                return `[${this.attrItem}],[data-${this.attrItem}]`;
-            },
-
-            handler(e) {
-                if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
-                    return;
-                }
-
-                if (closest(e.target, 'a,button')) {
-                    e.preventDefault();
-                    this.apply(e.current);
-                }
-            },
+        delegate() {
+            return `[${this.attrItem}],[data-${this.attrItem}]`;
         },
-    ],
+
+        handler(e) {
+            if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
+                return;
+            }
+
+            if (closest(e.target, 'a,button')) {
+                e.preventDefault();
+                this.apply(e.current);
+            }
+        },
+    },
 
     methods: {
         apply(el) {

@@ -2,12 +2,17 @@
 
 ## WIP
 
+### Added
+
+- Add `observe` to component options API
+
 ### Fixed
 
 - Fix default i18n option for Modal dialogs
 - Fix Slideshow initially shows last slide first
 - Fix Height Match component does not change height while updating
 - Fix Slider reactivity when a slide is hidden/shown
+- Fix Scroll component correctly changes history state
 
 ## 3.16.3 (February 27, 2023)
 
