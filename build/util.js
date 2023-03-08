@@ -76,6 +76,7 @@ export function renderLess(data, options) {
 export async function compile(file, dest, { external, globals, name, aliases, replaces } = {}) {
     const minify = !args.nominify;
     const debug = args.d || args.debug;
+    const log = args.l || args.log;
     const watch = args.w || args.watch;
 
     name = (name || '').replace(/[^\w]/g, '_');
@@ -88,7 +89,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                 preventAssignment: true,
                 values: {
                     VERSION: `'${await getVersion()}'`,
-                    DEBUG: !!debug,
+                    LOG: !!log,
                     ...replaces,
                 },
             }),

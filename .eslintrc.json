@@ -11,7 +11,7 @@
     },
     "globals": {
         "VERSION": true,
-        "DEBUG": true,
+        "LOG": true,
         "ICONS": true,
         "NAME": true
     },
