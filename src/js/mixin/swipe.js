@@ -8,7 +8,9 @@ import {
     pointerUp,
     trigger,
 } from 'uikit-util';
-import { registerEvent } from '../api/state';
+
+// TODO
+import { registerEvent } from '../api/events';
 
 export default {
     props: {

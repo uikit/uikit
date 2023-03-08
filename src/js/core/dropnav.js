@@ -29,7 +29,7 @@ import {
     Transition,
     within,
 } from 'uikit-util';
-import { keyMap } from '../mixin/utils';
+import { keyMap } from '../util/keys';
 
 export default {
     mixins: [Class, Container],

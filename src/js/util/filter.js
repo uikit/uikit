@@ -84,3 +84,16 @@ export function children(element, selector) {
 export function index(element, ref) {
     return ref ? toNodes(element).indexOf(toNode(ref)) : children(parent(element)).indexOf(element);
 }
+
+export function isSameSiteAnchor(el) {
+    el = toNode(el);
+    return el && ['origin', 'pathname', 'search'].every((part) => el[part] === location[part]);
+}
+
+export function getTargetedElement(el) {
+    if (isSameSiteAnchor(el)) {
+        el = toNode(el);
+        const id = decodeURIComponent(el.hash).substring(1);
+        return document.getElementById(id) || document.getElementsByName(id)[0];
+    }
+}

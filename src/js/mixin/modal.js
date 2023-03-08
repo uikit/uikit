@@ -10,6 +10,7 @@ import {
     endsWith,
     includes,
     isFocusable,
+    isSameSiteAnchor,
     last,
     matches,
     on,
@@ -22,7 +23,7 @@ import {
     toFloat,
     within,
 } from 'uikit-util';
-import { isSameSiteAnchor, preventBackgroundScroll } from './utils';
+import { preventBackgroundScroll } from '../util/scroll';
 
 const active = [];
 

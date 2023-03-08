@@ -1,6 +1,6 @@
+import { scroll } from '../api/observables';
 import Margin from './margin';
 import Class from '../mixin/class';
-import { registerScrollListener, unregisterScrollListener } from '../mixin/scroll';
 import {
     addClass,
     children,
@@ -34,12 +34,9 @@ export default {
 
     connected() {
         this.masonry && addClass(this.$el, 'uk-flex-top uk-flex-wrap-top');
-        this.parallax && registerScrollListener(this._uid, () => this.$emit('scroll'));
     },
 
-    disconnected() {
-        unregisterScrollListener(this._uid);
-    },
+    observe: scroll({ filter: ({ parallax }) => parallax }),
 
     update: [
         {

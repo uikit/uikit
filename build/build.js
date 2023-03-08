@@ -1,7 +1,8 @@
+import glob from 'glob';
+import pLimit from 'p-limit';
 import camelize from 'camelcase';
 import { basename, resolve } from 'path';
-import { args, compile, glob, icons } from './util.js';
-import pLimit from 'p-limit';
+import { args, compile, icons } from './util.js';
 
 const limit = pLimit(Number(process.env.cpus || 2));
 
@@ -87,6 +88,6 @@ async function getComponentTasks() {
 }
 
 async function getTestFiles() {
-    const files = await glob('tests/!(index).html', { nosort: true });
-    return JSON.stringify(files.map((file) => basename(file, '.html')));
+    const files = await glob('tests/!(index).html');
+    return JSON.stringify(files.sort().map((file) => basename(file, '.html')));
 }

@@ -1,8 +1,10 @@
-import Scroll from '../mixin/scroll';
+import { scroll } from '../api/observables';
 import {
     $$,
     closest,
+    getTargetedElement,
     hasClass,
+    isSameSiteAnchor,
     isVisible,
     offset,
     offsetViewport,
@@ -10,11 +12,8 @@ import {
     toggleClass,
     trigger,
 } from 'uikit-util';
-import { getTargetElement, isSameSiteAnchor } from '../mixin/utils';
 
 export default {
-    mixins: [Scroll],
-
     props: {
         cls: String,
         closest: String,
@@ -51,10 +50,12 @@ export default {
         },
     },
 
+    observe: scroll(),
+
     update: [
         {
             read() {
-                const targets = this.links.map(getTargetElement).filter(Boolean);
+                const targets = this.links.map(getTargetedElement).filter(Boolean);
 
                 const { length } = targets;
 

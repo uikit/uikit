@@ -1,16 +1,6 @@
 import LightboxPanel from './lightbox-panel';
-import {
-    $$,
-    assign,
-    attr,
-    data,
-    findIndex,
-    isElement,
-    isTag,
-    on,
-    parseOptions,
-    uniqueBy,
-} from 'uikit-util';
+import { parseOptions } from '../api/options';
+import { $$, assign, attr, data, findIndex, isElement, isTag, on, uniqueBy } from 'uikit-util';
 
 export default {
     install,
@@ -42,20 +32,18 @@ export default {
         this.hide();
     },
 
-    events: [
-        {
-            name: 'click',
+    events: {
+        name: 'click',
 
-            delegate() {
-                return `${this.toggle}:not(.uk-disabled)`;
-            },
-
-            handler(e) {
-                e.preventDefault();
-                this.show(e.current);
-            },
+        delegate() {
+            return `${this.toggle}:not(.uk-disabled)`;
         },
-    ],
+
+        handler(e) {
+            e.preventDefault();
+            this.show(e.current);
+        },
+    },
 
     methods: {
         show(index) {

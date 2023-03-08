@@ -1,15 +1,5 @@
-import {
-    css,
-    hasAttr,
-    isInView,
-    isTag,
-    isVideo,
-    isVisible,
-    mute,
-    observeIntersection,
-    pause,
-    play,
-} from 'uikit-util';
+import { intersection } from '../api/observables';
+import { css, hasAttr, isInView, isTag, isVideo, isVisible, mute, pause, play } from 'uikit-util';
 
 export default {
     args: 'autoplay',
@@ -38,9 +28,11 @@ export default {
         if (this.automute) {
             mute(this.$el);
         }
-
-        this.registerObserver(observeIntersection(this.$el, () => this.$emit(), {}, false));
     },
+
+    observe: intersection({
+        args: { intersecting: false },
+    }),
 
     update: {
         read({ visible }) {

@@ -1,6 +1,6 @@
-import Lazyload from '../mixin/lazyload';
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
+import { lazyload } from '../api/observables';
 import {
     attr,
     closest,
@@ -23,7 +23,7 @@ import {
 const KEY_SPACE = 32;
 
 export default {
-    mixins: [Lazyload, Media, Togglable],
+    mixins: [Media, Togglable],
 
     args: 'target',
 
@@ -57,9 +57,9 @@ export default {
                 attr(this.$el, 'role', 'button');
             }
         }
-
-        this.lazyload(this.$el, () => this.target);
     },
+
+    observe: lazyload({ target: ({ target }) => target }),
 
     events: [
         {

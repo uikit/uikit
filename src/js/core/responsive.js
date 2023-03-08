@@ -1,18 +1,16 @@
-import Resize from '../mixin/resize';
+import { resize } from '../api/observables';
 import { addClass, Dimensions, height, isVisible, parent, width } from 'uikit-util';
 
 export default {
-    mixins: [Resize],
-
     props: ['width', 'height'],
-
-    resizeTargets() {
-        return [this.$el, parent(this.$el)];
-    },
 
     connected() {
         addClass(this.$el, 'uk-responsive-width');
     },
+
+    observe: resize({
+        target: ({ $el }) => [$el, parent($el)],
+    }),
 
     update: {
         read() {

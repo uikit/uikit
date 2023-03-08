@@ -1,4 +1,4 @@
-/*! UIkit 3.16.3 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.4 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -13,13 +13,10 @@
     const hyphenateRe = /\B([A-Z])/g;
     const hyphenate = memoize((str) => str.replace(hyphenateRe, "-$1").toLowerCase());
     const camelizeRe = /-(\w)/g;
-    const camelize = memoize((str) => str.replace(camelizeRe, toUpper));
-    const ucfirst = memoize(
-      (str) => str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : ""
+    const camelize = memoize(
+      (str) => (str.charAt(0).toLowerCase() + str.slice(1)).replace(camelizeRe, (_, c) => c.toUpperCase())
     );
-    function toUpper(_, c) {
-      return c ? c.toUpperCase() : "";
-    }
+    const ucfirst = memoize((str) => str.charAt(0).toUpperCase() + str.slice(1));
     function startsWith(str, search) {
       var _a;
       return (_a = str == null ? void 0 : str.startsWith) == null ? void 0 : _a.call(str, search);
@@ -135,6 +132,9 @@
     function uniqueBy(array, prop) {
       const seen = /* @__PURE__ */ new Set();
       return array.filter(({ [prop]: check }) => seen.has(check) ? false : seen.add(check));
+    }
+    function pick(obj, props) {
+      return props.reduce((res, prop) => ({ ...res, [prop]: obj[prop] }), {});
     }
     function clamp(number, min = 0, max = 1) {
       return Math.min(Math.max(toNumber(number) || 0, min), max);
@@ -302,6 +302,17 @@
     }
     function index(element, ref) {
       return ref ? toNodes(element).indexOf(toNode(ref)) : children(parent(element)).indexOf(element);
+    }
+    function isSameSiteAnchor(el) {
+      el = toNode(el);
+      return el && ["origin", "pathname", "search"].every((part) => el[part] === location[part]);
+    }
+    function getTargetedElement(el) {
+      if (isSameSiteAnchor(el)) {
+        el = toNode(el);
+        const id = decodeURIComponent(el.hash).substring(1);
+        return document.getElementById(id) || document.getElementsByName(id)[0];
+      }
     }
 
     function query(selector, context) {
@@ -1062,7 +1073,7 @@
       return { x: x1 + ua * (x2 - x1), y: y1 + ua * (y2 - y1) };
     }
 
-    function observeIntersection(targets, cb, options, intersecting = true) {
+    function observeIntersection(targets, cb, options = {}, intersecting = true) {
       const observer = new IntersectionObserver(
         intersecting ? (entries, observer2) => {
           if (entries.some((entry) => entry.isIntersecting)) {
@@ -1079,11 +1090,13 @@
     const hasResizeObserver = inBrowser && window.ResizeObserver;
     function observeResize(targets, cb, options = { box: "border-box" }) {
       if (hasResizeObserver) {
-        return observe(ResizeObserver, targets, cb, options);
+        return observe$1(ResizeObserver, targets, cb, options);
       }
       initResizeListener();
       listeners.add(cb);
       return {
+        observe: noop,
+        unobserve: noop,
         disconnect() {
           listeners.delete(cb);
         }
@@ -1110,105 +1123,14 @@
       on(document, "loadedmetadata load", handleResize, true);
     }
     function observeMutation(targets, cb, options) {
-      return observe(MutationObserver, targets, cb, options);
+      return observe$1(MutationObserver, targets, cb, options);
     }
-    function observe(Observer, targets, cb, options) {
+    function observe$1(Observer, targets, cb, options) {
       const observer = new Observer(cb);
       for (const el of toNodes(targets)) {
         observer.observe(el, options);
       }
       return observer;
-    }
-
-    const strats = {};
-    strats.events = strats.created = strats.beforeConnect = strats.connected = strats.beforeDisconnect = strats.disconnected = strats.destroy = concatStrat;
-    strats.args = function(parentVal, childVal) {
-      return childVal !== false && concatStrat(childVal || parentVal);
-    };
-    strats.update = function(parentVal, childVal) {
-      return sortBy$1(
-        concatStrat(parentVal, isFunction(childVal) ? { read: childVal } : childVal),
-        "order"
-      );
-    };
-    strats.props = function(parentVal, childVal) {
-      if (isArray(childVal)) {
-        const value = {};
-        for (const key of childVal) {
-          value[key] = String;
-        }
-        childVal = value;
-      }
-      return strats.methods(parentVal, childVal);
-    };
-    strats.computed = strats.methods = function(parentVal, childVal) {
-      return childVal ? parentVal ? { ...parentVal, ...childVal } : childVal : parentVal;
-    };
-    strats.i18n = strats.data = function(parentVal, childVal, vm) {
-      if (!vm) {
-        if (!childVal) {
-          return parentVal;
-        }
-        if (!parentVal) {
-          return childVal;
-        }
-        return function(vm2) {
-          return mergeFnData(parentVal, childVal, vm2);
-        };
-      }
-      return mergeFnData(parentVal, childVal, vm);
-    };
-    function mergeFnData(parentVal, childVal, vm) {
-      return strats.computed(
-        isFunction(parentVal) ? parentVal.call(vm, vm) : parentVal,
-        isFunction(childVal) ? childVal.call(vm, vm) : childVal
-      );
-    }
-    function concatStrat(parentVal, childVal) {
-      parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
-      return childVal ? parentVal ? parentVal.concat(childVal) : isArray(childVal) ? childVal : [childVal] : parentVal;
-    }
-    function defaultStrat(parentVal, childVal) {
-      return isUndefined(childVal) ? parentVal : childVal;
-    }
-    function mergeOptions(parent, child, vm) {
-      const options = {};
-      if (isFunction(child)) {
-        child = child.options;
-      }
-      if (child.extends) {
-        parent = mergeOptions(parent, child.extends, vm);
-      }
-      if (child.mixins) {
-        for (const mixin of child.mixins) {
-          parent = mergeOptions(parent, mixin, vm);
-        }
-      }
-      for (const key in parent) {
-        mergeKey(key);
-      }
-      for (const key in child) {
-        if (!hasOwn(parent, key)) {
-          mergeKey(key);
-        }
-      }
-      function mergeKey(key) {
-        options[key] = (strats[key] || defaultStrat)(parent[key], child[key], vm);
-      }
-      return options;
-    }
-    function parseOptions(options, args = []) {
-      try {
-        return options ? startsWith(options, "{") ? JSON.parse(options) : args.length && !includes(options, ":") ? { [args[0]]: options } : options.split(";").reduce((options2, option) => {
-          const [key, value] = option.split(/:(.*)/);
-          if (key && !isUndefined(value)) {
-            options2[key.trim()] = value.trim();
-          }
-          return options2;
-        }, {}) : {};
-      } catch (e) {
-        return {};
-      }
     }
 
     function play(el) {
@@ -1389,10 +1311,10 @@
     function offsetViewport(scrollElement) {
       const window = toWindow(scrollElement);
       const {
+        visualViewport,
         document: { documentElement }
       } = window;
       let viewportElement = scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
-      const { visualViewport } = window;
       if (isWindow(viewportElement) && visualViewport) {
         let { height, width, scale, pageTop: top, pageLeft: left } = visualViewport;
         height = Math.round(height * scale);
@@ -1639,6 +1561,7 @@
         fragment: fragment,
         getEventPos: getEventPos,
         getIndex: getIndex,
+        getTargetedElement: getTargetedElement,
         hasAttr: hasAttr,
         hasClass: hasClass,
         hasOwn: hasOwn,
@@ -1666,6 +1589,7 @@
         isObject: isObject,
         isPlainObject: isPlainObject,
         isRtl: isRtl,
+        isSameSiteAnchor: isSameSiteAnchor,
         isString: isString,
         isTag: isTag,
         isTouch: isTouch,
@@ -1677,7 +1601,6 @@
         last: last,
         matches: matches,
         memoize: memoize,
-        mergeOptions: mergeOptions,
         mute: mute,
         noop: noop,
         observeIntersection: observeIntersection,
@@ -1692,8 +1615,8 @@
         overflowParents: overflowParents,
         parent: parent,
         parents: parents,
-        parseOptions: parseOptions,
         pause: pause,
+        pick: pick,
         play: play,
         pointInRect: pointInRect,
         pointerCancel: pointerCancel,
@@ -1743,240 +1666,308 @@
         wrapInner: wrapInner
     });
 
-    function globalAPI(UIkit) {
-      const DATA = UIkit.data;
-      UIkit.use = function(plugin) {
-        if (plugin.installed) {
-          return;
-        }
-        plugin.call(null, this);
-        plugin.installed = true;
-        return this;
-      };
-      UIkit.mixin = function(mixin, component) {
-        component = (isString(component) ? UIkit.component(component) : component) || this;
-        component.options = mergeOptions(component.options, mixin);
-      };
-      UIkit.extend = function(options) {
-        options = options || {};
-        const Super = this;
-        const Sub = function UIkitComponent(options2) {
-          this._init(options2);
-        };
-        Sub.prototype = Object.create(Super.prototype);
-        Sub.prototype.constructor = Sub;
-        Sub.options = mergeOptions(Super.options, options);
-        Sub.super = Super;
-        Sub.extend = Super.extend;
-        return Sub;
-      };
-      UIkit.update = function(element, e) {
-        element = element ? toNode(element) : document.body;
-        for (const parentEl of parents(element).reverse()) {
-          update(parentEl[DATA], e);
-        }
-        apply(element, (element2) => update(element2[DATA], e));
-      };
-      let container;
-      Object.defineProperty(UIkit, "container", {
-        get() {
-          return container || document.body;
-        },
-        set(element) {
-          container = $(element);
-        }
-      });
-      function update(data, e) {
-        if (!data) {
-          return;
-        }
-        for (const name in data) {
-          if (data[name]._connected) {
-            data[name]._callUpdate(e);
+    function initObservers(instance) {
+      instance._observers = [];
+      instance._observerUpdates = /* @__PURE__ */ new Map();
+      for (const observer of instance.$options.observe || []) {
+        if (hasOwn(observer, "handler")) {
+          registerObservable(instance, observer);
+        } else {
+          for (const key in observer) {
+            registerObservable(instance, observer[key], key);
           }
         }
       }
     }
+    function registerObserver(instance, ...observer) {
+      instance._observers.push(...observer);
+    }
+    function disconnectObservers(instance) {
+      for (const observer of instance._observers) {
+        observer == null ? void 0 : observer.disconnect();
+        instance._observerUpdates.delete(observer);
+      }
+    }
+    function callObserverUpdates(instance) {
+      for (const [observer, update] of instance._observerUpdates) {
+        update(observer);
+      }
+    }
+    function registerObservable(instance, observable, key) {
+      let {
+        observe,
+        target = instance.$el,
+        handler,
+        options,
+        filter,
+        args
+      } = isPlainObject(observable) ? observable : { type: key, handler: observable };
+      if (filter && !filter.call(instance, instance)) {
+        return;
+      }
+      const targets = isFunction(target) ? target.call(instance, instance) : target;
+      handler = isString(handler) ? instance[handler] : handler.bind(instance);
+      if (isFunction(options)) {
+        options = options.call(instance, instance);
+      }
+      const observer = observe(targets, handler, options, args);
+      if (isFunction(target) && isArray(targets) && observer.unobserve) {
+        instance._observerUpdates.set(observer, watchChange(instance, target, targets));
+      }
+      registerObserver(instance, observer);
+    }
+    function watchChange(instance, targetFn, targets) {
+      return (observer) => {
+        const newTargets = targetFn.call(instance, instance);
+        if (isEqual(targets, newTargets)) {
+          return;
+        }
+        targets.forEach((target) => !includes(newTargets, target) && observer.unobserve(target));
+        newTargets.forEach((target) => !includes(targets, target) && observer.observe(target));
+        targets.splice(0, targets.length, ...newTargets);
+      };
+    }
 
-    function hooksAPI(UIkit) {
-      UIkit.prototype._callHook = function(hook) {
-        var _a;
-        (_a = this.$options[hook]) == null ? void 0 : _a.forEach((handler) => handler.call(this));
-      };
-      UIkit.prototype._callConnected = function() {
-        if (this._connected) {
-          return;
+    function callWatches(instance) {
+      if (instance._watch) {
+        return;
+      }
+      const initial = !hasOwn(instance, "_watch");
+      instance._watch = fastdom.read(() => {
+        if (instance._connected) {
+          runWatches(instance, initial);
         }
-        this._data = {};
-        this._computed = {};
-        this._initProps();
-        this._callHook("beforeConnect");
-        this._connected = true;
-        this._initEvents();
-        this._initObservers();
-        this._callHook("connected");
-        this._callUpdate();
-      };
-      UIkit.prototype._callDisconnected = function() {
-        if (!this._connected) {
-          return;
+        instance._watch = null;
+      });
+    }
+    function runWatches(instance, initial) {
+      const values = { ...instance._computed };
+      instance._computed = {};
+      for (const [key, { watch, immediate }] of Object.entries(instance.$options.computed || {})) {
+        if (watch && (initial && immediate || hasOwn(values, key) && !isEqual(values[key], instance[key]))) {
+          watch.call(instance, instance[key], initial ? void 0 : values[key]);
         }
-        this._callHook("beforeDisconnect");
-        this._disconnectObservers();
-        this._unbindEvents();
-        this._callHook("disconnected");
-        this._connected = false;
-        delete this._watch;
-      };
-      UIkit.prototype._callUpdate = function(e = "update") {
-        if (!this._connected) {
-          return;
+      }
+      callObserverUpdates(instance);
+    }
+
+    function callUpdate(instance, e = "update") {
+      if (!instance._connected) {
+        return;
+      }
+      if (e === "update" || e === "resize") {
+        callWatches(instance);
+      }
+      if (!instance.$options.update) {
+        return;
+      }
+      if (!instance._updates) {
+        instance._updates = /* @__PURE__ */ new Set();
+        fastdom.read(() => {
+          if (instance._connected) {
+            runUpdates(instance, instance._updates);
+          }
+          delete instance._updates;
+        });
+      }
+      instance._updates.add(e.type || e);
+    }
+    function runUpdates(instance, types) {
+      for (const { read, write, events = [] } of instance.$options.update) {
+        if (!types.has("update") && !events.some((type) => types.has(type))) {
+          continue;
         }
-        if (e === "update" || e === "resize") {
-          this._callWatches();
+        let result;
+        if (read) {
+          result = read.call(instance, instance._data, types);
+          if (result && isPlainObject(result)) {
+            assign(instance._data, result);
+          }
         }
-        if (!this.$options.update) {
-          return;
-        }
-        if (!this._updates) {
-          this._updates = /* @__PURE__ */ new Set();
-          fastdom.read(() => {
-            if (this._connected) {
-              runUpdates.call(this, this._updates);
+        if (write && result !== false) {
+          fastdom.write(() => {
+            if (instance._connected) {
+              write.call(instance, instance._data, types);
             }
-            delete this._updates;
           });
         }
-        this._updates.add(e.type || e);
-      };
-      UIkit.prototype._callWatches = function() {
-        if (this._watch) {
-          return;
-        }
-        const initial = !hasOwn(this, "_watch");
-        this._watch = fastdom.read(() => {
-          if (this._connected) {
-            runWatches.call(this, initial);
-          }
-          this._watch = null;
-        });
-      };
-      function runUpdates(types) {
-        for (const { read, write, events = [] } of this.$options.update) {
-          if (!types.has("update") && !events.some((type) => types.has(type))) {
-            continue;
-          }
-          let result;
-          if (read) {
-            result = read.call(this, this._data, types);
-            if (result && isPlainObject(result)) {
-              assign(this._data, result);
-            }
-          }
-          if (write && result !== false) {
-            fastdom.write(() => {
-              if (this._connected) {
-                write.call(this, this._data, types);
-              }
-            });
-          }
+      }
+    }
+    function initUpdateObserver(instance) {
+      let { el, computed, observe } = instance.$options;
+      if (!computed && !(observe == null ? void 0 : observe.some((options) => isFunction(options.target)))) {
+        return;
+      }
+      for (const key in computed || {}) {
+        if (computed[key].document) {
+          el = el.ownerDocument;
+          break;
         }
       }
-      function runWatches(initial) {
-        const {
-          $options: { computed }
-        } = this;
-        const values = { ...this._computed };
-        this._computed = {};
-        for (const key in computed) {
-          const { watch, immediate } = computed[key];
-          if (watch && (initial && immediate || hasOwn(values, key) && !isEqual(values[key], this[key]))) {
-            watch.call(this, this[key], values[key]);
+      const observer = new MutationObserver(() => callWatches(instance));
+      observer.observe(el, {
+        childList: true,
+        subtree: true
+      });
+      registerObserver(instance, observer);
+    }
+
+    function initEvents(instance) {
+      instance._events = [];
+      for (const event of instance.$options.events || []) {
+        if (hasOwn(event, "handler")) {
+          registerEvent(instance, event);
+        } else {
+          for (const key in event) {
+            registerEvent(instance, event[key], key);
           }
         }
       }
     }
+    function unbindEvents(instance) {
+      instance._events.forEach((unbind) => unbind());
+      delete instance._events;
+    }
+    function registerEvent(instance, event, key) {
+      let { name, el, handler, capture, passive, delegate, filter, self } = isPlainObject(event) ? event : { name: key, handler: event };
+      el = isFunction(el) ? el.call(instance, instance) : el || instance.$el;
+      if (isArray(el)) {
+        el.forEach((el2) => registerEvent(instance, { ...event, el: el2 }, key));
+        return;
+      }
+      if (!el || filter && !filter.call(instance)) {
+        return;
+      }
+      instance._events.push(
+        on(
+          el,
+          name,
+          delegate ? isString(delegate) ? delegate : delegate.call(instance, instance) : null,
+          isString(handler) ? instance[handler] : handler.bind(instance),
+          { passive, capture, self }
+        )
+      );
+    }
 
-    function stateAPI(UIkit) {
-      let uid = 0;
-      UIkit.prototype._init = function(options) {
-        options = options || {};
-        options.data = normalizeData(options, this.constructor.options);
-        this.$options = mergeOptions(this.constructor.options, options, this);
-        this.$el = null;
-        this.$props = {};
-        this._uid = uid++;
-        this._initData();
-        this._initMethods();
-        this._initComputeds();
-        this._callHook("created");
-        if (options.el) {
-          this.$mount(options.el);
+    const strats = {};
+    strats.events = strats.observe = strats.created = strats.beforeConnect = strats.connected = strats.beforeDisconnect = strats.disconnected = strats.destroy = concatStrat;
+    strats.args = function(parentVal, childVal) {
+      return childVal !== false && concatStrat(childVal || parentVal);
+    };
+    strats.update = function(parentVal, childVal) {
+      return sortBy$1(
+        concatStrat(parentVal, isFunction(childVal) ? { read: childVal } : childVal),
+        "order"
+      );
+    };
+    strats.props = function(parentVal, childVal) {
+      if (isArray(childVal)) {
+        const value = {};
+        for (const key of childVal) {
+          value[key] = String;
         }
-      };
-      UIkit.prototype._initData = function() {
-        const { data = {} } = this.$options;
-        for (const key in data) {
-          this.$props[key] = this[key] = data[key];
+        childVal = value;
+      }
+      return strats.methods(parentVal, childVal);
+    };
+    strats.computed = strats.methods = function(parentVal, childVal) {
+      return childVal ? parentVal ? { ...parentVal, ...childVal } : childVal : parentVal;
+    };
+    strats.i18n = strats.data = function(parentVal, childVal, vm) {
+      if (!vm) {
+        if (!childVal) {
+          return parentVal;
         }
-      };
-      UIkit.prototype._initMethods = function() {
-        const { methods } = this.$options;
-        if (methods) {
-          for (const key in methods) {
-            this[key] = methods[key].bind(this);
+        if (!parentVal) {
+          return childVal;
+        }
+        return function(vm2) {
+          return mergeFnData(parentVal, childVal, vm2);
+        };
+      }
+      return mergeFnData(parentVal, childVal, vm);
+    };
+    function mergeFnData(parentVal, childVal, vm) {
+      return strats.computed(
+        isFunction(parentVal) ? parentVal.call(vm, vm) : parentVal,
+        isFunction(childVal) ? childVal.call(vm, vm) : childVal
+      );
+    }
+    function concatStrat(parentVal, childVal) {
+      parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
+      return childVal ? parentVal ? parentVal.concat(childVal) : isArray(childVal) ? childVal : [childVal] : parentVal;
+    }
+    function defaultStrat(parentVal, childVal) {
+      return isUndefined(childVal) ? parentVal : childVal;
+    }
+    function mergeOptions(parent, child, vm) {
+      const options = {};
+      if (isFunction(child)) {
+        child = child.options;
+      }
+      if (child.extends) {
+        parent = mergeOptions(parent, child.extends, vm);
+      }
+      if (child.mixins) {
+        for (const mixin of child.mixins) {
+          parent = mergeOptions(parent, mixin, vm);
+        }
+      }
+      for (const key in parent) {
+        mergeKey(key);
+      }
+      for (const key in child) {
+        if (!hasOwn(parent, key)) {
+          mergeKey(key);
+        }
+      }
+      function mergeKey(key) {
+        options[key] = (strats[key] || defaultStrat)(parent[key], child[key], vm);
+      }
+      return options;
+    }
+    function parseOptions(options, args = []) {
+      try {
+        return options ? startsWith(options, "{") ? JSON.parse(options) : args.length && !includes(options, ":") ? { [args[0]]: options } : options.split(";").reduce((options2, option) => {
+          const [key, value] = option.split(/:(.*)/);
+          if (key && !isUndefined(value)) {
+            options2[key.trim()] = value.trim();
           }
+          return options2;
+        }, {}) : {};
+      } catch (e) {
+        return {};
+      }
+    }
+    function coerce$1(type, value) {
+      if (type === Boolean) {
+        return toBoolean(value);
+      } else if (type === Number) {
+        return toNumber(value);
+      } else if (type === "list") {
+        return toList(value);
+      } else if (type === Object && isString(value)) {
+        return parseOptions(value);
+      }
+      return type ? type(value) : value;
+    }
+    function toList(value) {
+      return isArray(value) ? value : isString(value) ? value.split(/,(?![^(]*\))/).map((value2) => isNumeric(value2) ? toNumber(value2) : toBoolean(value2.trim())) : [value];
+    }
+
+    function initProps(instance) {
+      const props = getProps$1(instance.$options);
+      for (let key in props) {
+        if (!isUndefined(props[key])) {
+          instance.$props[key] = props[key];
         }
-      };
-      UIkit.prototype._initComputeds = function() {
-        const { computed } = this.$options;
-        this._computed = {};
-        if (computed) {
-          for (const key in computed) {
-            registerComputed(this, key, computed[key]);
-          }
+      }
+      const exclude = [instance.$options.computed, instance.$options.methods];
+      for (let key in instance.$props) {
+        if (key in props && notIn(exclude, key)) {
+          instance[key] = instance.$props[key];
         }
-      };
-      UIkit.prototype._initProps = function(props) {
-        let key;
-        props = props || getProps$1(this.$options);
-        for (key in props) {
-          if (!isUndefined(props[key])) {
-            this.$props[key] = props[key];
-          }
-        }
-        const exclude = [this.$options.computed, this.$options.methods];
-        for (key in this.$props) {
-          if (key in props && notIn(exclude, key)) {
-            this[key] = this.$props[key];
-          }
-        }
-      };
-      UIkit.prototype._initEvents = function() {
-        this._events = [];
-        for (const event of this.$options.events || []) {
-          if (hasOwn(event, "handler")) {
-            registerEvent(this, event);
-          } else {
-            for (const key in event) {
-              registerEvent(this, event[key], key);
-            }
-          }
-        }
-      };
-      UIkit.prototype._unbindEvents = function() {
-        this._events.forEach((unbind) => unbind());
-        delete this._events;
-      };
-      UIkit.prototype._initObservers = function() {
-        this._observers = [initPropsObserver(this), initChildListObserver(this)];
-      };
-      UIkit.prototype.registerObserver = function(...observer) {
-        this._observers.push(...observer);
-      };
-      UIkit.prototype._disconnectObservers = function() {
-        this._observers.forEach((observer) => observer == null ? void 0 : observer.disconnect());
-      };
+      }
     }
     function getProps$1(opts) {
       const data$1 = {};
@@ -2005,65 +1996,123 @@
       }
       return data$1;
     }
-    function registerComputed(component, key, cb) {
-      Object.defineProperty(component, key, {
+    function notIn(options, key) {
+      return options.every((arr) => !arr || !hasOwn(arr, key));
+    }
+    function initPropsObserver(instance) {
+      const { $options, $props } = instance;
+      const { id, attrs, props, el } = $options;
+      if (!props || attrs === false) {
+        return;
+      }
+      const attributes = isArray(attrs) ? attrs : Object.keys(props);
+      const filter = attributes.map((key) => hyphenate(key)).concat(id);
+      const observer = new MutationObserver((records) => {
+        const data = getProps$1($options);
+        if (records.some(({ attributeName }) => {
+          const prop = attributeName.replace("data-", "");
+          return (prop === id ? attributes : [camelize(prop), camelize(attributeName)]).some(
+            (prop2) => !isUndefined(data[prop2]) && data[prop2] !== $props[prop2]
+          );
+        })) {
+          instance.$reset();
+        }
+      });
+      observer.observe(el, {
+        attributes: true,
+        attributeFilter: filter.concat(filter.map((key) => `data-${key}`))
+      });
+      registerObserver(instance, observer);
+    }
+
+    function callHook(instance, hook) {
+      var _a;
+      (_a = instance.$options[hook]) == null ? void 0 : _a.forEach((handler) => handler.call(instance));
+    }
+    function callConnected(instance) {
+      if (instance._connected) {
+        return;
+      }
+      instance._data = {};
+      instance._computed = {};
+      initProps(instance);
+      callHook(instance, "beforeConnect");
+      instance._connected = true;
+      initEvents(instance);
+      initObservers(instance);
+      initPropsObserver(instance);
+      initUpdateObserver(instance);
+      callHook(instance, "connected");
+      callUpdate(instance);
+    }
+    function callDisconnected(instance) {
+      if (!instance._connected) {
+        return;
+      }
+      callHook(instance, "beforeDisconnect");
+      disconnectObservers(instance);
+      unbindEvents(instance);
+      callHook(instance, "disconnected");
+      instance._connected = false;
+      delete instance._watch;
+    }
+
+    function initComputed(instance) {
+      const { computed } = instance.$options;
+      instance._computed = {};
+      if (computed) {
+        for (const key in computed) {
+          registerComputed(instance, key, computed[key]);
+        }
+      }
+    }
+    function registerComputed(instance, key, cb) {
+      Object.defineProperty(instance, key, {
         enumerable: true,
         get() {
-          const { _computed, $props, $el } = component;
+          const { _computed, $props, $el } = instance;
           if (!hasOwn(_computed, key)) {
-            _computed[key] = (cb.get || cb).call(component, $props, $el);
+            _computed[key] = (cb.get || cb).call(instance, $props, $el);
           }
           return _computed[key];
         },
         set(value) {
-          const { _computed } = component;
-          _computed[key] = cb.set ? cb.set.call(component, value) : value;
+          const { _computed } = instance;
+          _computed[key] = cb.set ? cb.set.call(instance, value) : value;
           if (isUndefined(_computed[key])) {
             delete _computed[key];
           }
         }
       });
     }
-    function registerEvent(component, event, key) {
-      if (!isPlainObject(event)) {
-        event = { name: key, handler: event };
+
+    let uid = 0;
+    function init$1(instance, options = {}) {
+      options.data = normalizeData(options, instance.constructor.options);
+      instance.$options = mergeOptions(instance.constructor.options, options, instance);
+      instance.$props = {};
+      instance._uid = uid++;
+      initData(instance);
+      initMethods(instance);
+      initComputed(instance);
+      callHook(instance, "created");
+      if (options.el) {
+        instance.$mount(options.el);
       }
-      let { name, el, handler, capture, passive, delegate, filter, self } = event;
-      el = isFunction(el) ? el.call(component) : el || component.$el;
-      if (isArray(el)) {
-        el.forEach((el2) => registerEvent(component, { ...event, el: el2 }, key));
-        return;
-      }
-      if (!el || filter && !filter.call(component)) {
-        return;
-      }
-      component._events.push(
-        on(
-          el,
-          name,
-          delegate ? isString(delegate) ? delegate : delegate.call(component) : null,
-          isString(handler) ? component[handler] : handler.bind(component),
-          { passive, capture, self }
-        )
-      );
     }
-    function notIn(options, key) {
-      return options.every((arr) => !arr || !hasOwn(arr, key));
-    }
-    function coerce$1(type, value) {
-      if (type === Boolean) {
-        return toBoolean(value);
-      } else if (type === Number) {
-        return toNumber(value);
-      } else if (type === "list") {
-        return toList(value);
-      } else if (type === Object && isString(value)) {
-        return parseOptions(value);
+    function initData(instance) {
+      const { data = {} } = instance.$options;
+      for (const key in data) {
+        instance.$props[key] = instance[key] = data[key];
       }
-      return type ? type(value) : value;
     }
-    function toList(value) {
-      return isArray(value) ? value : isString(value) ? value.split(/,(?![^(]*\))/).map((value2) => isNumeric(value2) ? toNumber(value2) : toBoolean(value2.trim())) : [value];
+    function initMethods(instance) {
+      const { methods } = instance.$options;
+      if (methods) {
+        for (const key in methods) {
+          instance[key] = methods[key].bind(instance);
+        }
+      }
     }
     function normalizeData({ data = {} }, { args = [], props = {} }) {
       if (isArray(data)) {
@@ -2085,250 +2134,241 @@
       }
       return data;
     }
-    function initChildListObserver(component) {
-      let { el, computed } = component.$options;
-      if (!computed) {
+
+    const App = function(options) {
+      init$1(this, options);
+    };
+    App.util = util;
+    App.options = {};
+    App.version = "3.16.4";
+
+    const PREFIX = "uk-";
+    const DATA = "__uikit__";
+    const components$2 = {};
+    function component(name, options) {
+      var _a;
+      const id = PREFIX + hyphenate(name);
+      if (!options) {
+        if (isPlainObject(components$2[id])) {
+          components$2[id] = App.extend(components$2[id]);
+        }
+        return components$2[id];
+      }
+      name = camelize(name);
+      App[name] = (element, data) => createComponent(name, element, data);
+      const opt = isPlainObject(options) ? { ...options } : options.options;
+      opt.id = id;
+      opt.name = name;
+      (_a = opt.install) == null ? void 0 : _a.call(opt, App, opt, name);
+      if (App._initialized && !opt.functional) {
+        requestAnimationFrame(() => createComponent(name, `[${id}],[data-${id}]`));
+      }
+      return components$2[id] = opt;
+    }
+    function createComponent(name, element, data) {
+      const Component = component(name);
+      return Component.options.functional ? new Component({ data: isPlainObject(element) ? element : [...arguments] }) : element ? $$(element).map(init)[0] : init();
+      function init(element2) {
+        const instance = getComponent(element2, name);
+        if (instance) {
+          if (data) {
+            instance.$destroy();
+          } else {
+            return instance;
+          }
+        }
+        return new Component({ el: element2, data });
+      }
+    }
+    function getComponents(element) {
+      return element[DATA] || {};
+    }
+    function getComponent(element, name) {
+      return getComponents(element)[name];
+    }
+    function attachToElement(element, instance) {
+      if (!element[DATA]) {
+        element[DATA] = {};
+      }
+      element[DATA][instance.$options.name] = instance;
+    }
+    function detachFromElement(element, instance) {
+      var _a;
+      (_a = element[DATA]) == null ? true : delete _a[instance.$options.name];
+      if (!isEmpty(element[DATA])) {
+        delete element[DATA];
+      }
+    }
+
+    App.component = component;
+    App.getComponents = getComponents;
+    App.getComponent = getComponent;
+    App.use = function(plugin) {
+      if (plugin.installed) {
         return;
       }
-      for (const key in computed) {
-        if (computed[key].document) {
-          el = el.ownerDocument;
-          break;
-        }
+      plugin.call(null, this);
+      plugin.installed = true;
+      return this;
+    };
+    App.mixin = function(mixin, component2) {
+      component2 = (isString(component2) ? this.component(component2) : component2) || this;
+      component2.options = mergeOptions(component2.options, mixin);
+    };
+    App.extend = function(options) {
+      options = options || {};
+      const Super = this;
+      const Sub = function UIkitComponent(options2) {
+        init$1(this, options2);
+      };
+      Sub.prototype = Object.create(Super.prototype);
+      Sub.prototype.constructor = Sub;
+      Sub.options = mergeOptions(Super.options, options);
+      Sub.super = Super;
+      Sub.extend = Super.extend;
+      return Sub;
+    };
+    function update(element, e) {
+      element = element ? toNode(element) : document.body;
+      for (const parentEl of parents(element).reverse()) {
+        updateElement(parentEl, e);
       }
-      const observer = new MutationObserver(() => component._callWatches());
-      observer.observe(el, {
+      apply(element, (element2) => updateElement(element2, e));
+    }
+    App.update = update;
+    function updateElement(element, e) {
+      const components = getComponents(element);
+      for (const name in components) {
+        callUpdate(components[name], e);
+      }
+    }
+    let container;
+    Object.defineProperty(App, "container", {
+      get() {
+        return container || document.body;
+      },
+      set(element) {
+        container = $(element);
+      }
+    });
+
+    App.prototype.$mount = function(el) {
+      const instance = this;
+      attachToElement(el, instance);
+      instance.$options.el = el;
+      if (within(el, document)) {
+        callConnected(instance);
+      }
+    };
+    App.prototype.$destroy = function(removeEl = false) {
+      const instance = this;
+      const { el } = instance.$options;
+      if (el) {
+        callDisconnected(instance);
+      }
+      callHook(instance, "destroy");
+      detachFromElement(el, instance);
+      if (removeEl) {
+        remove$1(instance.$el);
+      }
+    };
+    App.prototype.$create = createComponent;
+    App.prototype.$emit = function(e) {
+      callUpdate(this, e);
+    };
+    App.prototype.$update = function(element = this.$el, e) {
+      update(element, e);
+    };
+    App.prototype.$reset = function() {
+      callDisconnected(this);
+      callConnected(this);
+    };
+    App.prototype.$getComponent = getComponent;
+    Object.defineProperties(App.prototype, {
+      $el: {
+        get() {
+          return this.$options.el;
+        }
+      },
+      $container: Object.getOwnPropertyDescriptor(App, "container")
+    });
+    function generateId(instance, el = instance.$el, postfix = "") {
+      if (el.id) {
+        return el.id;
+      }
+      let id = `${instance.$options.id}-${instance._uid}${postfix}`;
+      if ($(`#${id}`)) {
+        id = generateId(instance, el, `${postfix}-2`);
+      }
+      return id;
+    }
+
+    function boot(App) {
+      if (inBrowser && window.MutationObserver) {
+        requestAnimationFrame(() => init(App));
+      }
+    }
+    function init(App) {
+      trigger(document, "uikit:init", App);
+      if (document.body) {
+        apply(document.body, connect);
+      }
+      new MutationObserver((records) => records.forEach(applyChildListMutation)).observe(document, {
         childList: true,
         subtree: true
       });
-      return observer;
-    }
-    function initPropsObserver(component) {
-      const { $options, $props } = component;
-      const { id, attrs, props, el } = $options;
-      if (!props || attrs === false) {
-        return;
-      }
-      const attributes = isArray(attrs) ? attrs : Object.keys(props);
-      const filter = attributes.map((key) => hyphenate(key)).concat(id);
-      const observer = new MutationObserver((records) => {
-        const data = getProps$1($options);
-        if (records.some(({ attributeName }) => {
-          const prop = attributeName.replace("data-", "");
-          return (prop === id ? attributes : [camelize(prop), camelize(attributeName)]).some(
-            (prop2) => !isUndefined(data[prop2]) && data[prop2] !== $props[prop2]
-          );
-        })) {
-          component.$reset();
-        }
-      });
-      observer.observe(el, {
+      new MutationObserver((records) => records.forEach(applyAttributeMutation)).observe(document, {
         attributes: true,
-        attributeFilter: filter.concat(filter.map((key) => `data-${key}`))
+        subtree: true
       });
-      return observer;
+      App._initialized = true;
     }
-
-    function instanceAPI(UIkit) {
-      const DATA = UIkit.data;
-      UIkit.prototype.$create = function(component, element, data) {
-        return UIkit[component](element, data);
-      };
-      UIkit.prototype.$mount = function(el) {
-        const { name } = this.$options;
-        if (!el[DATA]) {
-          el[DATA] = {};
-        }
-        if (el[DATA][name]) {
+    function applyChildListMutation({ addedNodes, removedNodes }) {
+      for (const node of addedNodes) {
+        apply(node, connect);
+      }
+      for (const node of removedNodes) {
+        apply(node, disconnect);
+      }
+    }
+    function applyAttributeMutation({ target, attributeName }) {
+      var _a;
+      const name = getComponentName(attributeName);
+      if (name) {
+        if (hasAttr(target, attributeName)) {
+          createComponent(name, target);
           return;
         }
-        el[DATA][name] = this;
-        this.$el = this.$options.el = this.$options.el || el;
-        if (within(el, document)) {
-          this._callConnected();
-        }
-      };
-      UIkit.prototype.$reset = function() {
-        this._callDisconnected();
-        this._callConnected();
-      };
-      UIkit.prototype.$destroy = function(removeEl = false) {
-        const { el, name } = this.$options;
-        if (el) {
-          this._callDisconnected();
-        }
-        this._callHook("destroy");
-        if (!(el == null ? void 0 : el[DATA])) {
-          return;
-        }
-        delete el[DATA][name];
-        if (!isEmpty(el[DATA])) {
-          delete el[DATA];
-        }
-        if (removeEl) {
-          remove$1(this.$el);
-        }
-      };
-      UIkit.prototype.$emit = function(e) {
-        this._callUpdate(e);
-      };
-      UIkit.prototype.$update = function(element = this.$el, e) {
-        UIkit.update(element, e);
-      };
-      UIkit.prototype.$getComponent = UIkit.getComponent;
-      Object.defineProperty(
-        UIkit.prototype,
-        "$container",
-        Object.getOwnPropertyDescriptor(UIkit, "container")
-      );
+        (_a = getComponent(target, name)) == null ? void 0 : _a.$destroy();
+      }
     }
-
-    const components$3 = {};
-    function componentAPI(UIkit) {
-      const { data: DATA, prefix: PREFIX } = UIkit;
-      UIkit.component = function(name, options) {
-        var _a;
-        name = hyphenate(name);
-        const id = PREFIX + name;
-        if (!options) {
-          if (isPlainObject(components$3[id])) {
-            components$3[id] = components$3[`data-${id}`] = UIkit.extend(components$3[id]);
-          }
-          return components$3[id];
-        }
-        name = camelize(name);
-        UIkit[name] = function(element, data) {
-          const component = UIkit.component(name);
-          return component.options.functional ? new component({ data: isPlainObject(element) ? element : [...arguments] }) : element ? $$(element).map(init)[0] : init();
-          function init(element2) {
-            const instance = UIkit.getComponent(element2, name);
-            if (instance) {
-              if (data) {
-                instance.$destroy();
-              } else {
-                return instance;
-              }
-            }
-            return new component({ el: element2, data });
-          }
-        };
-        const opt = isPlainObject(options) ? { ...options } : options.options;
-        opt.id = id;
-        opt.name = name;
-        (_a = opt.install) == null ? void 0 : _a.call(opt, UIkit, opt, name);
-        if (UIkit._initialized && !opt.functional) {
-          requestAnimationFrame(() => UIkit[name](`[${id}],[data-${id}]`));
-        }
-        return components$3[id] = components$3[`data-${id}`] = isPlainObject(options) ? opt : options;
-      };
-      UIkit.getComponents = (element) => (element == null ? void 0 : element[DATA]) || {};
-      UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
-      UIkit.connect = (node) => {
-        if (node[DATA]) {
-          for (const name in node[DATA]) {
-            node[DATA][name]._callConnected();
-          }
-        }
-        for (const attribute of node.getAttributeNames()) {
-          const name = getComponentName(attribute);
-          name && UIkit[name](node);
-        }
-      };
-      UIkit.disconnect = (node) => {
-        for (const name in node[DATA]) {
-          node[DATA][name]._callDisconnected();
-        }
-      };
+    function connect(node) {
+      const components2 = getComponents(node);
+      for (const name in getComponents(node)) {
+        callConnected(components2[name]);
+      }
+      for (const attributeName of node.getAttributeNames()) {
+        const name = getComponentName(attributeName);
+        name && createComponent(name, node);
+      }
+    }
+    function disconnect(node) {
+      const components2 = getComponents(node);
+      for (const name in getComponents(node)) {
+        callDisconnected(components2[name]);
+      }
     }
     function getComponentName(attribute) {
-      const cmp = components$3[attribute];
+      if (startsWith(attribute, "data-")) {
+        attribute = attribute.slice(5);
+      }
+      const cmp = components$2[attribute];
       return cmp && (isPlainObject(cmp) ? cmp : cmp.options).name;
-    }
-
-    const UIkit = function(options) {
-      this._init(options);
-    };
-    UIkit.util = util;
-    UIkit.data = "__uikit__";
-    UIkit.prefix = "uk-";
-    UIkit.options = {};
-    UIkit.version = "3.16.3";
-    globalAPI(UIkit);
-    hooksAPI(UIkit);
-    stateAPI(UIkit);
-    componentAPI(UIkit);
-    instanceAPI(UIkit);
-
-    function boot(UIkit) {
-      const { connect, disconnect } = UIkit;
-      if (!inBrowser || !window.MutationObserver) {
-        return;
-      }
-      requestAnimationFrame(function() {
-        trigger(document, "uikit:init", UIkit);
-        if (document.body) {
-          apply(document.body, connect);
-        }
-        new MutationObserver((records) => records.forEach(applyChildListMutation)).observe(
-          document,
-          {
-            childList: true,
-            subtree: true
-          }
-        );
-        new MutationObserver((records) => records.forEach(applyAttributeMutation)).observe(
-          document,
-          {
-            attributes: true,
-            subtree: true
-          }
-        );
-        UIkit._initialized = true;
-      });
-      function applyChildListMutation({ addedNodes, removedNodes }) {
-        for (const node of addedNodes) {
-          apply(node, connect);
-        }
-        for (const node of removedNodes) {
-          apply(node, disconnect);
-        }
-      }
-      function applyAttributeMutation({ target, attributeName }) {
-        var _a;
-        const name = getComponentName(attributeName);
-        if (name) {
-          if (hasAttr(target, attributeName)) {
-            UIkit[name](target);
-            return;
-          }
-          (_a = UIkit.getComponent(target, name)) == null ? void 0 : _a.$destroy();
-        }
-      }
     }
 
     var Class = {
       connected() {
         addClass(this.$el, this.$options.id);
-      }
-    };
-
-    var Lazyload = {
-      data: {
-        preload: 5
-      },
-      methods: {
-        lazyload(observeTargets = this.$el, targets = this.$el) {
-          this.registerObserver(
-            observeIntersection(observeTargets, (entries, observer) => {
-              for (const el of toNodes(isFunction(targets) ? targets() : targets)) {
-                $$('[loading="lazy"]', el).slice(0, this.preload - 1).forEach((el2) => removeAttr(el2, "loading"));
-              }
-              for (const el of entries.filter(({ isIntersecting }) => isIntersecting).map(({ target }) => target)) {
-                observer.unobserve(el);
-              }
-            })
-          );
-        }
       }
     };
 
@@ -2513,71 +2553,6 @@
       );
     }
 
-    function getMaxPathLength(el) {
-      return Math.ceil(
-        Math.max(
-          0,
-          ...$$("[stroke]", el).map((stroke) => {
-            try {
-              return stroke.getTotalLength();
-            } catch (e) {
-              return 0;
-            }
-          })
-        )
-      );
-    }
-    let prevented;
-    function preventBackgroundScroll(el) {
-      const off = on(
-        el,
-        "touchmove",
-        (e) => {
-          if (e.targetTouches.length !== 1) {
-            return;
-          }
-          let [{ scrollHeight, clientHeight }] = scrollParents(e.target);
-          if (clientHeight >= scrollHeight && e.cancelable) {
-            e.preventDefault();
-          }
-        },
-        { passive: false }
-      );
-      if (prevented) {
-        return off;
-      }
-      prevented = true;
-      const { scrollingElement } = document;
-      css(scrollingElement, {
-        overflowY: CSS.supports("overflow", "clip") ? "clip" : "hidden",
-        touchAction: "none",
-        paddingRight: width(window) - scrollingElement.clientWidth || ""
-      });
-      return () => {
-        prevented = false;
-        off();
-        css(scrollingElement, { overflowY: "", touchAction: "", paddingRight: "" });
-      };
-    }
-    function isSameSiteAnchor(el) {
-      return ["origin", "pathname", "search"].every((part) => el[part] === location[part]);
-    }
-    function getTargetElement(el) {
-      if (isSameSiteAnchor(el)) {
-        const id = decodeURIComponent(el.hash).substring(1);
-        return document.getElementById(id) || document.getElementsByName(id)[0];
-      }
-    }
-    function generateId(component, el = component.$el, postfix = "") {
-      if (el.id) {
-        return el.id;
-      }
-      let id = `${component.$options.id}-${component._uid}${postfix}`;
-      if ($(`#${id}`)) {
-        id = generateId(component, el, `${postfix}-2`);
-      }
-      return id;
-    }
     const keyMap = {
       TAB: 9,
       ESC: 27,
@@ -2590,8 +2565,59 @@
       DOWN: 40
     };
 
+    function resize(options) {
+      return observe(observeResize, options, "resize");
+    }
+    function intersection(options) {
+      return observe(observeIntersection, options);
+    }
+    function mutation(options) {
+      return observe(observeMutation, options);
+    }
+    function lazyload(options = {}) {
+      return intersection({
+        handler: function(entries, observer) {
+          const { targets = this.$el, preload = 5 } = options;
+          for (const el of toNodes(isFunction(targets) ? targets(this) : targets)) {
+            $$('[loading="lazy"]', el).slice(0, preload - 1).forEach((el2) => removeAttr(el2, "loading"));
+          }
+          for (const el of entries.filter(({ isIntersecting }) => isIntersecting).map(({ target }) => target)) {
+            observer.unobserve(el);
+          }
+        },
+        ...options
+      });
+    }
+    function scroll$1(options) {
+      return observe(
+        function(target, handler) {
+          const off = on(target, "scroll", handler, {
+            passive: true,
+            capture: true
+          });
+          return {
+            disconnect: off
+          };
+        },
+        {
+          target: window,
+          ...options
+        },
+        "scroll"
+      );
+    }
+    function observe(observe2, options, emit) {
+      return {
+        observe: observe2,
+        handler() {
+          this.$emit(emit);
+        },
+        ...options
+      };
+    }
+
     var Accordion = {
-      mixins: [Class, Lazyload, Togglable],
+      mixins: [Class, Togglable],
       props: {
         animation: Boolean,
         targets: String,
@@ -2662,9 +2688,7 @@
           immediate: true
         }
       },
-      connected() {
-        this.lazyload();
-      },
+      observe: lazyload(),
       events: [
         {
           name: "click keydown",
@@ -2850,8 +2874,10 @@
         if (this.automute) {
           mute(this.$el);
         }
-        this.registerObserver(observeIntersection(this.$el, () => this.$emit(), {}, false));
       },
+      observe: intersection({
+        args: { intersecting: false }
+      }),
       update: {
         read({ visible }) {
           if (!isVideo(this.$el)) {
@@ -2873,20 +2899,8 @@
       }
     };
 
-    var Resize = {
-      connected() {
-        var _a;
-        this.registerObserver(
-          observeResize(
-            ((_a = this.$options.resizeTargets) == null ? void 0 : _a.call(this)) || this.$el,
-            () => this.$emit("resize")
-          )
-        );
-      }
-    };
-
     var cover = {
-      mixins: [Resize, Video],
+      mixins: [Video],
       props: {
         width: Number,
         height: Number
@@ -2899,23 +2913,23 @@
           this.$emit("resize");
         }
       },
-      resizeTargets() {
-        return [this.$el, getPositionedParent(this.$el) || parent(this.$el)];
-      },
+      observe: resize({
+        target: ({ $el }) => [$el, getPositionedParent($el) || parent($el)]
+      }),
       update: {
         read() {
           const { ratio, cover } = Dimensions;
           const { $el, width, height } = this;
           let dim = { width, height };
-          if (!dim.width || !dim.height) {
+          if (!width || !height) {
             const intrinsic = {
               width: $el.naturalWidth || $el.videoWidth || $el.clientWidth,
               height: $el.naturalHeight || $el.videoHeight || $el.clientHeight
             };
-            if (dim.width) {
-              dim = ratio(intrinsic, "width", dim.width);
+            if (width) {
+              dim = ratio(intrinsic, "width", width);
             } else if (height) {
-              dim = ratio(intrinsic, "height", dim.height);
+              dim = ratio(intrinsic, "height", height);
             } else {
               dim = intrinsic;
             }
@@ -2943,20 +2957,6 @@
         }
       }
     }
-
-    var Container = {
-      props: {
-        container: Boolean
-      },
-      data: {
-        container: true
-      },
-      computed: {
-        container({ container }) {
-          return container === true && this.$container || container && $(container);
-        }
-      }
-    };
 
     var Position = {
       props: {
@@ -3034,9 +3034,56 @@
       };
     }
 
+    var Container = {
+      props: {
+        container: Boolean
+      },
+      data: {
+        container: true
+      },
+      computed: {
+        container({ container }) {
+          return container === true && this.$container || container && $(container);
+        }
+      }
+    };
+
+    let prevented;
+    function preventBackgroundScroll(el) {
+      const off = on(
+        el,
+        "touchmove",
+        (e) => {
+          if (e.targetTouches.length !== 1) {
+            return;
+          }
+          let [{ scrollHeight, clientHeight }] = scrollParents(e.target);
+          if (clientHeight >= scrollHeight && e.cancelable) {
+            e.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+      if (prevented) {
+        return off;
+      }
+      prevented = true;
+      const { scrollingElement } = document;
+      css(scrollingElement, {
+        overflowY: CSS.supports("overflow", "clip") ? "clip" : "hidden",
+        touchAction: "none",
+        paddingRight: width(window) - scrollingElement.clientWidth || ""
+      });
+      return () => {
+        prevented = false;
+        off();
+        css(scrollingElement, { overflowY: "", touchAction: "", paddingRight: "" });
+      };
+    }
+
     let active$1;
     var drop = {
-      mixins: [Container, Lazyload, Position, Togglable],
+      mixins: [Container, Position, Togglable],
       args: "pos",
       props: {
         mode: "list",
@@ -3102,7 +3149,7 @@
         if (this.toggle && !this.targetEl) {
           this.targetEl = createToggleComponent(this);
         }
-        this._style = (({ width, height }) => ({ width, height }))(this.$el.style);
+        this._style = pick(this.$el.style, ["width", "height"]);
       },
       disconnected() {
         if (this.isActive()) {
@@ -3111,6 +3158,10 @@
         }
         css(this.$el, this._style);
       },
+      observe: lazyload({
+        target: ({ toggle, $el }) => query(toggle, $el),
+        targets: ({ $el }) => $el
+      }),
       events: [
         {
           name: "click",
@@ -3365,7 +3416,6 @@
         mode: drop.mode
       });
       attr($el, "aria-haspopup", true);
-      drop.lazyload($el);
       return $el;
     }
     function listenForResize(drop) {
@@ -3804,7 +3854,6 @@
     };
 
     var Margin = {
-      mixins: [Resize],
       props: {
         margin: String,
         firstColumn: Boolean
@@ -3813,18 +3862,18 @@
         margin: "uk-margin-small-top",
         firstColumn: "uk-first-column"
       },
-      resizeTargets() {
-        return [this.$el, ...toArray(this.$el.children)];
-      },
-      connected() {
-        this.registerObserver(
-          observeMutation(this.$el, () => this.$reset(), {
+      observe: [
+        mutation({
+          options: {
             childList: true,
             attributes: true,
             attributeFilter: ["style"]
-          })
-        );
-      },
+          }
+        }),
+        resize({
+          target: ({ $el }) => [$el, ...toArray($el.children)]
+        })
+      ],
       update: {
         read() {
           const rows = getRows(this.$el.children);
@@ -3906,31 +3955,6 @@
       };
     }
 
-    var Scroll = {
-      connected() {
-        registerScrollListener(this._uid, () => this.$emit("scroll"));
-      },
-      disconnected() {
-        unregisterScrollListener(this._uid);
-      }
-    };
-    const scrollListeners = /* @__PURE__ */ new Map();
-    let unbindScrollListener;
-    function registerScrollListener(id, listener) {
-      unbindScrollListener = unbindScrollListener || on(window, "scroll", () => scrollListeners.forEach((listener2) => listener2()), {
-        passive: true,
-        capture: true
-      });
-      scrollListeners.set(id, listener);
-    }
-    function unregisterScrollListener(id) {
-      scrollListeners.delete(id);
-      if (unbindScrollListener && !scrollListeners.size) {
-        unbindScrollListener();
-        unbindScrollListener = null;
-      }
-    }
-
     var grid = {
       extends: Margin,
       mixins: [Class],
@@ -3947,11 +3971,8 @@
       },
       connected() {
         this.masonry && addClass(this.$el, "uk-flex-top uk-flex-wrap-top");
-        this.parallax && registerScrollListener(this._uid, () => this.$emit("scroll"));
       },
-      disconnected() {
-        unregisterScrollListener(this._uid);
-      },
+      observe: scroll$1({ filter: ({ parallax }) => parallax }),
       update: [
         {
           write({ columns }) {
@@ -4038,7 +4059,6 @@
     }
 
     var heightMatch = {
-      mixins: [Resize],
       args: "target",
       props: {
         target: String,
@@ -4058,9 +4078,9 @@
           }
         }
       },
-      resizeTargets() {
-        return [this.$el, ...this.elements];
-      },
+      observe: resize({
+        target: ({ $el, elements }) => [$el, ...elements]
+      }),
       update: {
         read() {
           return {
@@ -4079,7 +4099,6 @@
       if (elements.length < 2) {
         return { heights: [""], elements };
       }
-      css(elements, "minHeight", "");
       let heights = elements.map(getHeight);
       const max = Math.max(...heights);
       return {
@@ -4088,20 +4107,17 @@
       };
     }
     function getHeight(element) {
-      let style = false;
+      const style = pick(element.style, ["display", "minHeight"]);
       if (!isVisible(element)) {
-        style = element.style.display;
         css(element, "display", "block", "important");
       }
+      css(element, "minHeight", "");
       const height = dimensions$1(element).height - boxModelAdjust(element, "height", "content-box");
-      if (style !== false) {
-        css(element, "display", style);
-      }
+      css(element, style);
       return height;
     }
 
     var heightViewport = {
-      mixins: [Resize],
       props: {
         expand: Boolean,
         offsetTop: Boolean,
@@ -4114,9 +4130,10 @@
         offsetBottom: false,
         minHeight: 0
       },
-      resizeTargets() {
-        return [this.$el, ...scrollParents(this.$el)];
-      },
+      // check for offsetTop change
+      observe: resize({
+        target: ({ $el }) => [$el, ...scrollParents($el)]
+      }),
       update: {
         read({ minHeight: prev }) {
           if (!isVisible(this.$el)) {
@@ -4168,6 +4185,21 @@
       }
     };
 
+    function getMaxPathLength(el) {
+      return Math.ceil(
+        Math.max(
+          0,
+          ...$$("[stroke]", el).map((stroke) => {
+            try {
+              return stroke.getTotalLength();
+            } catch (e) {
+              return 0;
+            }
+          })
+        )
+      );
+    }
+
     var SVG = {
       args: "src",
       props: {
@@ -4209,7 +4241,8 @@
           this.svg.then((el) => {
             if (this._connected && el) {
               applyAnimation(el);
-              this.registerObserver(
+              registerObserver(
+                this,
                 observeIntersection(el, (records, observer) => {
                   applyAnimation(el);
                   observer.disconnect();
@@ -4558,31 +4591,26 @@
           this.load();
           return;
         }
-        const target = [this.$el, ...queryAll(this.$props.target, this.$el)];
         if (nativeLazyLoad && isImg(this.$el)) {
           this.$el.loading = "lazy";
           setSrcAttrs(this.$el);
-          if (target.length === 1) {
-            return;
-          }
         }
         ensureSrcAttribute(this.$el);
-        this.registerObserver(
-          observeIntersection(
-            target,
-            (entries, observer) => {
-              this.load();
-              observer.disconnect();
-            },
-            { rootMargin: this.margin }
-          )
-        );
       },
       disconnected() {
         if (this._data.image) {
           this._data.image.onload = "";
         }
       },
+      observe: intersection({
+        target: ({ $el, $props }) => [$el, ...queryAll($props.target, $el)],
+        handler(entries, observer) {
+          this.load();
+          observer.disconnect();
+        },
+        options: ({ margin }) => ({ rootMargin: margin }),
+        filter: ({ loading }) => loading === "lazy"
+      }),
       methods: {
         load() {
           if (this._data.image) {
@@ -4706,7 +4734,7 @@
     }
 
     var leader = {
-      mixins: [Class, Media, Resize],
+      mixins: [Class, Media],
       props: {
         fill: String
       },
@@ -4727,6 +4755,7 @@
       disconnected() {
         unwrap(this.wrapper.childNodes);
       },
+      observe: resize(),
       update: {
         read() {
           const width = Math.trunc(this.$el.offsetWidth / 2);
@@ -5036,8 +5065,8 @@
           bgClose: false,
           escClose: true,
           role: "alertdialog",
-          i18n: modal.i18n,
-          ...options
+          ...options,
+          i18n: { ...modal.i18n, ...options == null ? void 0 : options.i18n }
         };
         const dialog = modal.dialog(tmpl(options), options);
         const deferred = new Deferred();
@@ -5267,7 +5296,7 @@
     }
 
     var overflowAuto = {
-      mixins: [Class, Resize],
+      mixins: [Class],
       props: {
         selContainer: String,
         selContent: String,
@@ -5286,9 +5315,9 @@
           return closest($el, selContent);
         }
       },
-      resizeTargets() {
-        return [this.container, this.content];
-      },
+      observe: resize({
+        target: ({ container, content }) => [container, content]
+      }),
       update: {
         read() {
           if (!this.content || !this.container || !isVisible(this.$el)) {
@@ -5309,14 +5338,13 @@
     };
 
     var responsive = {
-      mixins: [Resize],
       props: ["width", "height"],
-      resizeTargets() {
-        return [this.$el, parent(this.$el)];
-      },
       connected() {
         addClass(this.$el, "uk-responsive-width");
       },
+      observe: resize({
+        target: ({ $el }) => [$el, parent($el)]
+      }),
       update: {
         read() {
           return isVisible(this.$el) && this.width && this.height ? { width: width(parent(this.$el)), height: this.height } : false;
@@ -5360,16 +5388,16 @@
         }
       }
     };
-    const components$2 = /* @__PURE__ */ new Set();
+    const instances = /* @__PURE__ */ new Set();
     function registerClick(cmp) {
-      if (!components$2.size) {
+      if (!instances.size) {
         on(document, "click", clickHandler);
       }
-      components$2.add(cmp);
+      instances.add(cmp);
     }
     function unregisterClick(cmp) {
-      components$2.delete(cmp);
-      if (!components$2.size) {
+      instances.delete(cmp);
+      if (!instances.size) {
         off(document, "click", clickHandler);
       }
     }
@@ -5377,16 +5405,16 @@
       if (e.defaultPrevented) {
         return;
       }
-      for (const component of components$2) {
-        if (within(e.target, component.$el) && isSameSiteAnchor(component.$el)) {
+      for (const instance of instances) {
+        if (within(e.target, instance.$el) && isSameSiteAnchor(instance.$el)) {
           e.preventDefault();
-          component.scrollTo(getTargetElement(component.$el));
+          window.history.pushState({}, "", instance.$el.href);
+          instance.scrollTo(getTargetedElement(instance.$el));
         }
       }
     }
 
     var scrollspy = {
-      mixins: [Scroll],
       args: "cls",
       props: {
         cls: String,
@@ -5410,12 +5438,9 @@
           get({ target }, $el) {
             return target ? $$(target, $el) : [$el];
           },
-          watch(elements, prev) {
+          watch(elements) {
             if (this.hidden) {
               css(filter$1(elements, `:not(.${this.inViewClass})`), "opacity", 0);
-            }
-            if (!isEqual(elements, prev)) {
-              this.$reset();
             }
           },
           immediate: true
@@ -5423,35 +5448,33 @@
       },
       connected() {
         this._data.elements = /* @__PURE__ */ new Map();
-        this.registerObserver(
-          observeIntersection(
-            this.elements,
-            (records) => {
-              const elements = this._data.elements;
-              for (const { target: el, isIntersecting } of records) {
-                if (!elements.has(el)) {
-                  elements.set(el, {
-                    cls: data(el, "uk-scrollspy-class") || this.cls
-                  });
-                }
-                const state = elements.get(el);
-                if (!this.repeat && state.show) {
-                  continue;
-                }
-                state.show = isIntersecting;
-              }
-              this.$emit();
-            },
-            { rootMargin: this.margin },
-            false
-          )
-        );
       },
       disconnected() {
         for (const [el, state] of this._data.elements.entries()) {
           removeClass(el, this.inViewClass, (state == null ? void 0 : state.cls) || "");
         }
       },
+      observe: intersection({
+        target: ({ elements }) => elements,
+        handler(records) {
+          const elements = this._data.elements;
+          for (const { target: el, isIntersecting } of records) {
+            if (!elements.has(el)) {
+              elements.set(el, {
+                cls: data(el, "uk-scrollspy-class") || this.cls
+              });
+            }
+            const state = elements.get(el);
+            if (!this.repeat && state.show) {
+              continue;
+            }
+            state.show = isIntersecting;
+          }
+          this.$emit();
+        },
+        options: (instance) => ({ rootMargin: instance.margin }),
+        args: { intersecting: false }
+      }),
       update: [
         {
           write(data) {
@@ -5499,7 +5522,6 @@
     };
 
     var scrollspyNav = {
-      mixins: [Scroll],
       props: {
         cls: String,
         closest: String,
@@ -5530,10 +5552,11 @@
           return closest(this.links, selector || "*");
         }
       },
+      observe: scroll$1(),
       update: [
         {
           read() {
-            const targets = this.links.map(getTargetElement).filter(Boolean);
+            const targets = this.links.map(getTargetedElement).filter(Boolean);
             const { length } = targets;
             if (!length || !isVisible(this.$el)) {
               return false;
@@ -5574,7 +5597,7 @@
     };
 
     var sticky = {
-      mixins: [Class, Media, Resize, Scroll],
+      mixins: [Class, Media],
       props: {
         position: String,
         top: null,
@@ -5614,16 +5637,12 @@
           return selTarget && $(selTarget, $el) || $el;
         }
       },
-      resizeTargets() {
-        return document.documentElement;
-      },
       connected() {
         this.start = coerce(this.start || this.top);
         this.end = coerce(this.end || this.bottom);
         this.placeholder = $("+ .uk-sticky-placeholder", this.$el) || $('<div class="uk-sticky-placeholder"></div>');
         this.isFixed = false;
         this.setActive(false);
-        this.registerObserver(observeResize(this.$el, () => !this.isFixed && this.$emit("resize")));
       },
       disconnected() {
         if (this.isFixed) {
@@ -5634,6 +5653,15 @@
         remove$1(this.placeholder);
         this.placeholder = null;
       },
+      observe: [
+        resize({
+          handler() {
+            !this.isFixed && this.$emit("resize");
+          }
+        }),
+        resize({ target: () => [document.documentElement] }),
+        scroll$1()
+      ],
       events: [
         {
           name: "resize",
@@ -5754,18 +5782,18 @@
             start,
             end
           }) {
-            const scroll = document.scrollingElement.scrollTop;
-            const dir = prevScroll <= scroll ? "down" : "up";
+            const scroll2 = document.scrollingElement.scrollTop;
+            const dir = prevScroll <= scroll2 ? "down" : "up";
             return {
               dir,
               prevDir,
-              scroll,
+              scroll: scroll2,
               prevScroll,
               offsetParentTop: offset(
                 (this.isFixed ? this.placeholder : this.$el).offsetParent
               ).top,
               overflowScroll: clamp(
-                overflowScroll + clamp(scroll, start, end) - clamp(prevScroll, start, end),
+                overflowScroll + clamp(scroll2, start, end) - clamp(prevScroll, start, end),
                 0,
                 overflow
               )
@@ -5777,33 +5805,33 @@
               initTimestamp = 0,
               dir,
               prevDir,
-              scroll,
+              scroll: scroll2,
               prevScroll = 0,
               top,
               start,
               topOffset,
               height
             } = data;
-            if (scroll < 0 || scroll === prevScroll && isScrollUpdate || this.showOnUp && !isScrollUpdate && !this.isFixed) {
+            if (scroll2 < 0 || scroll2 === prevScroll && isScrollUpdate || this.showOnUp && !isScrollUpdate && !this.isFixed) {
               return;
             }
             const now = Date.now();
             if (now - initTimestamp > 300 || dir !== prevDir) {
-              data.initScroll = scroll;
+              data.initScroll = scroll2;
               data.initTimestamp = now;
             }
-            if (this.showOnUp && !this.isFixed && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(prevScroll - scroll) <= 10) {
+            if (this.showOnUp && !this.isFixed && Math.abs(data.initScroll - scroll2) <= 30 && Math.abs(prevScroll - scroll2) <= 10) {
               return;
             }
-            if (this.inactive || scroll < start || this.showOnUp && (scroll <= start || dir === "down" && isScrollUpdate || dir === "up" && !this.isFixed && scroll <= topOffset + height)) {
+            if (this.inactive || scroll2 < start || this.showOnUp && (scroll2 <= start || dir === "down" && isScrollUpdate || dir === "up" && !this.isFixed && scroll2 <= topOffset + height)) {
               if (!this.isFixed) {
-                if (Animation.inProgress(this.$el) && top > scroll) {
+                if (Animation.inProgress(this.$el) && top > scroll2) {
                   Animation.cancel(this.$el);
                   this.hide();
                 }
                 return;
               }
-              if (this.animation && scroll > topOffset) {
+              if (this.animation && scroll2 > topOffset) {
                 Animation.cancel(this.$el);
                 Animation.out(this.$el, this.animation).then(() => this.hide(), noop);
               } else {
@@ -5811,7 +5839,7 @@
               }
             } else if (this.isFixed) {
               this.update();
-            } else if (this.animation && scroll > topOffset) {
+            } else if (this.animation && scroll2 > topOffset) {
               Animation.cancel(this.$el);
               this.show();
               Animation.in(this.$el, this.animation).catch(noop);
@@ -5848,7 +5876,7 @@
         update() {
           let {
             width,
-            scroll = 0,
+            scroll: scroll2 = 0,
             overflow,
             overflowScroll = 0,
             start,
@@ -5860,10 +5888,10 @@
             offsetParentTop,
             sticky
           } = this._data;
-          const active = start !== 0 || scroll > start;
+          const active = start !== 0 || scroll2 > start;
           if (!sticky) {
             let position = "fixed";
-            if (scroll > end) {
+            if (scroll2 > end) {
               offset += end - offsetParentTop;
               position = "absolute";
             }
@@ -5878,7 +5906,7 @@
           toggleClass(
             this.$el,
             this.clsBelow,
-            scroll > topOffset + (sticky ? Math.min(height, elHeight) : height)
+            scroll2 > topOffset + (sticky ? Math.min(height, elHeight) : height)
           );
           addClass(this.$el, this.clsFixed);
         },
@@ -5920,7 +5948,7 @@
 
     const selDisabled = ".uk-disabled *, .uk-disabled, [disabled]";
     var Switcher = {
-      mixins: [Lazyload, Swipe, Togglable],
+      mixins: [Swipe, Togglable],
       args: "connect",
       props: {
         connect: String,
@@ -5961,7 +5989,6 @@
             const index = this.index();
             for (const el of this.connects) {
               children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
-              this.lazyload(this.$el, children(el));
             }
             this.$emit();
           },
@@ -5990,6 +6017,7 @@
       connected() {
         attr(this.$el, "role", "tablist");
       },
+      observe: lazyload({ targets: ({ connectChildren }) => connectChildren }),
       events: [
         {
           name: "click keydown",
@@ -6123,7 +6151,7 @@
 
     const KEY_SPACE = 32;
     var toggle = {
-      mixins: [Lazyload, Media, Togglable],
+      mixins: [Media, Togglable],
       args: "target",
       props: {
         href: String,
@@ -6152,8 +6180,8 @@
             attr(this.$el, "role", "button");
           }
         }
-        this.lazyload(this.$el, () => this.target);
       },
+      observe: lazyload({ target: ({ target }) => target }),
       events: [
         {
           name: pointerDown$1,
@@ -6320,8 +6348,8 @@
         Video: Video
     });
 
-    each(components$1, (component, name) => UIkit.component(name, component));
-    boot(UIkit);
+    each(components$1, (component, name) => App.component(name, component));
+    boot(App);
 
     const units = ["days", "hours", "minutes", "seconds"];
     var countdown = {
@@ -6345,21 +6373,19 @@
       disconnected() {
         this.stop();
       },
-      events: [
-        {
-          name: "visibilitychange",
-          el() {
-            return document;
-          },
-          handler() {
-            if (document.hidden) {
-              this.stop();
-            } else {
-              this.start();
-            }
+      events: {
+        name: "visibilitychange",
+        el() {
+          return document;
+        },
+        handler() {
+          if (document.hidden) {
+            this.stop();
+          } else {
+            this.start();
           }
         }
-      ],
+      },
       methods: {
         start() {
           this.stop();
@@ -6651,31 +6677,29 @@
           get({ target }, $el) {
             return $$(`${target} > *`, $el);
           },
-          watch(list, old) {
-            if (old && !isEqualList(list, old)) {
+          watch(list, prev) {
+            if (prev) {
               this.updateState();
             }
           },
           immediate: true
         }
       },
-      events: [
-        {
-          name: "click keydown",
-          delegate() {
-            return `[${this.attrItem}],[data-${this.attrItem}]`;
-          },
-          handler(e) {
-            if (e.type === "keydown" && e.keyCode !== keyMap.SPACE) {
-              return;
-            }
-            if (closest(e.target, "a,button")) {
-              e.preventDefault();
-              this.apply(e.current);
-            }
+      events: {
+        name: "click keydown",
+        delegate() {
+          return `[${this.attrItem}],[data-${this.attrItem}]`;
+        },
+        handler(e) {
+          if (e.type === "keydown" && e.keyCode !== keyMap.SPACE) {
+            return;
+          }
+          if (closest(e.target, "a,button")) {
+            e.preventDefault();
+            this.apply(e.current);
           }
         }
-      ],
+      },
       methods: {
         apply(el) {
           const prevState = this.getState();
@@ -6754,9 +6778,6 @@
     function matchFilter(el, attr2, { filter: stateFilter = { "": "" }, sort: [stateSort, stateOrder] }) {
       const { filter = "", group = "", sort, order = "asc" } = getFilter(el, attr2);
       return isUndefined(sort) ? group in stateFilter && filter === stateFilter[group] || !filter && group && !(group in stateFilter) && !stateFilter[""] : stateSort === sort && stateOrder === order;
-    }
-    function isEqualList(listA, listB) {
-      return listA.length === listB.length && listA.every((el) => listB.includes(el));
     }
     function getSelector({ filter }) {
       let selector = "";
@@ -7274,7 +7295,7 @@
     };
 
     var Slider = {
-      mixins: [SliderAutoplay, SliderDrag, SliderNav, Resize, I18n],
+      mixins: [SliderAutoplay, SliderDrag, SliderNav, I18n],
       props: {
         clsActivated: Boolean,
         easing: String,
@@ -7325,6 +7346,7 @@
           return this.slides.length;
         }
       },
+      observe: resize(),
       methods: {
         show(index, force = false) {
           var _a;
@@ -7374,7 +7396,11 @@
           return promise;
         },
         getIndex(index = this.index, prev = this.index) {
-          return clamp(getIndex(index, this.slides, prev, this.finite), 0, this.maxIndex);
+          return clamp(
+            getIndex(index, this.slides, prev, this.finite),
+            0,
+            Math.max(0, this.maxIndex)
+          );
         },
         getValidIndex(index = this.index, prevIndex = this.prevIndex) {
           return this.getIndex(index, prevIndex);
@@ -7721,18 +7747,16 @@
       disconnected() {
         this.hide();
       },
-      events: [
-        {
-          name: "click",
-          delegate() {
-            return `${this.toggle}:not(.uk-disabled)`;
-          },
-          handler(e) {
-            e.preventDefault();
-            this.show(e.current);
-          }
+      events: {
+        name: "click",
+        delegate() {
+          return `${this.toggle}:not(.uk-disabled)`;
+        },
+        handler(e) {
+          e.preventDefault();
+          this.show(e.current);
         }
-      ],
+      },
       methods: {
         show(index) {
           const items = uniqueBy(this.toggles.map(toItem), "source");
@@ -8155,7 +8179,7 @@
     }
 
     var parallax = {
-      mixins: [Parallax, Resize, Scroll],
+      mixins: [Parallax],
       props: {
         target: String,
         viewport: Number,
@@ -8187,9 +8211,12 @@
           );
         }
       },
-      resizeTargets() {
-        return [this.$el, this.target];
-      },
+      observe: [
+        resize({
+          target: ({ $el, target }) => [$el, target]
+        }),
+        scroll$1()
+      ],
       update: {
         read({ percent }, types) {
           if (!types.has("scroll")) {
@@ -8243,10 +8270,10 @@
     };
 
     var SliderPreload = {
-      mixins: [Lazyload],
-      connected() {
-        this.lazyload(this.slides, this.getAdjacentSlides);
-      }
+      observe: lazyload({
+        target: ({ slides }) => slides,
+        targets: (instance) => instance.getAdjacentSlides()
+      })
     };
 
     function Transitioner(prev, next, dir, { center, easing, list }) {
@@ -8437,11 +8464,17 @@
             center: this.center,
             list: this.list
           };
+        },
+        slides() {
+          return children(this.list).filter(isVisible);
         }
       },
       connected() {
         toggleClass(this.$el, this.clsContainer, !$(`.${this.clsContainer}`, this.$el));
       },
+      observe: resize({
+        target: ({ slides }) => slides
+      }),
       update: {
         write() {
           for (const el of this.navItems) {
@@ -9451,8 +9484,8 @@
         Upload: upload
     });
 
-    each(components, (component, name) => UIkit.component(name, component));
+    each(components, (component, name) => App.component(name, component));
 
-    return UIkit;
+    return App;
 
 }));

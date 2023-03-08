@@ -1,11 +1,9 @@
-import Scroll from '../mixin/scroll';
+import { intersection } from '../api/observables';
 import {
     $$,
     css,
     filter,
     data as getData,
-    isEqual,
-    observeIntersection,
     once,
     removeClass,
     removeClasses,
@@ -14,8 +12,6 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Scroll],
-
     args: 'cls',
 
     props: {
@@ -43,14 +39,10 @@ export default {
                 return target ? $$(target, $el) : [$el];
             },
 
-            watch(elements, prev) {
+            watch(elements) {
                 if (this.hidden) {
                     // use `opacity:0` instead of `visibility:hidden` to make content focusable with keyboard
                     css(filter(elements, `:not(.${this.inViewClass})`), 'opacity', 0);
-                }
-
-                if (!isEqual(elements, prev)) {
-                    this.$reset();
                 }
             },
 
@@ -60,32 +52,6 @@ export default {
 
     connected() {
         this._data.elements = new Map();
-        this.registerObserver(
-            observeIntersection(
-                this.elements,
-                (records) => {
-                    const elements = this._data.elements;
-                    for (const { target: el, isIntersecting } of records) {
-                        if (!elements.has(el)) {
-                            elements.set(el, {
-                                cls: getData(el, 'uk-scrollspy-class') || this.cls,
-                            });
-                        }
-
-                        const state = elements.get(el);
-                        if (!this.repeat && state.show) {
-                            continue;
-                        }
-
-                        state.show = isIntersecting;
-                    }
-
-                    this.$emit();
-                },
-                { rootMargin: this.margin },
-                false
-            )
-        );
     },
 
     disconnected() {
@@ -93,6 +59,31 @@ export default {
             removeClass(el, this.inViewClass, state?.cls || '');
         }
     },
+
+    observe: intersection({
+        target: ({ elements }) => elements,
+        handler(records) {
+            const elements = this._data.elements;
+            for (const { target: el, isIntersecting } of records) {
+                if (!elements.has(el)) {
+                    elements.set(el, {
+                        cls: getData(el, 'uk-scrollspy-class') || this.cls,
+                    });
+                }
+
+                const state = elements.get(el);
+                if (!this.repeat && state.show) {
+                    continue;
+                }
+
+                state.show = isIntersecting;
+            }
+
+            this.$emit();
+        },
+        options: (instance) => ({ rootMargin: instance.margin }),
+        args: { intersecting: false },
+    }),
 
     update: [
         {

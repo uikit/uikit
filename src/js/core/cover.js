@@ -1,9 +1,9 @@
+import { resize } from '../api/observables';
 import Video from './video';
 import { css, Dimensions, parent } from 'uikit-util';
-import Resize from '../mixin/resize';
 
 export default {
-    mixins: [Resize, Video],
+    mixins: [Video],
 
     props: {
         width: Number,
@@ -20,9 +20,9 @@ export default {
         },
     },
 
-    resizeTargets() {
-        return [this.$el, getPositionedParent(this.$el) || parent(this.$el)];
-    },
+    observe: resize({
+        target: ({ $el }) => [$el, getPositionedParent($el) || parent($el)],
+    }),
 
     update: {
         read() {
@@ -31,16 +31,16 @@ export default {
 
             let dim = { width, height };
 
-            if (!dim.width || !dim.height) {
+            if (!width || !height) {
                 const intrinsic = {
                     width: $el.naturalWidth || $el.videoWidth || $el.clientWidth,
                     height: $el.naturalHeight || $el.videoHeight || $el.clientHeight,
                 };
 
-                if (dim.width) {
-                    dim = ratio(intrinsic, 'width', dim.width);
+                if (width) {
+                    dim = ratio(intrinsic, 'width', width);
                 } else if (height) {
-                    dim = ratio(intrinsic, 'height', dim.height);
+                    dim = ratio(intrinsic, 'height', height);
                 } else {
                     dim = intrinsic;
                 }

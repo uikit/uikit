@@ -1,3 +1,5 @@
+import { parseOptions } from '../api/options';
+import { intersection } from '../api/observables';
 import {
     append,
     attr,
@@ -13,9 +15,7 @@ import {
     isArray,
     isEmpty,
     isTag,
-    observeIntersection,
     parent,
-    parseOptions,
     queryAll,
     removeAttr,
     startsWith,
@@ -49,29 +49,12 @@ export default {
             return;
         }
 
-        const target = [this.$el, ...queryAll(this.$props.target, this.$el)];
-
         if (nativeLazyLoad && isImg(this.$el)) {
             this.$el.loading = 'lazy';
             setSrcAttrs(this.$el);
-
-            if (target.length === 1) {
-                return;
-            }
         }
 
         ensureSrcAttribute(this.$el);
-
-        this.registerObserver(
-            observeIntersection(
-                target,
-                (entries, observer) => {
-                    this.load();
-                    observer.disconnect();
-                },
-                { rootMargin: this.margin }
-            )
-        );
     },
 
     disconnected() {
@@ -79,6 +62,16 @@ export default {
             this._data.image.onload = '';
         }
     },
+
+    observe: intersection({
+        target: ({ $el, $props }) => [$el, ...queryAll($props.target, $el)],
+        handler(entries, observer) {
+            this.load();
+            observer.disconnect();
+        },
+        options: ({ margin }) => ({ rootMargin: margin }),
+        filter: ({ loading }) => loading === 'lazy',
+    }),
 
     methods: {
         load() {

@@ -1,7 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import Resize from '../mixin/resize';
-import Scroll from '../mixin/scroll';
+import { resize, scroll } from '../api/observables';
 import {
     $,
     addClass,
@@ -17,7 +16,6 @@ import {
     isString,
     isVisible,
     noop,
-    observeResize,
     offsetPosition,
     parent,
     query,
@@ -32,7 +30,7 @@ import {
 } from 'uikit-util';
 
 export default {
-    mixins: [Class, Media, Resize, Scroll],
+    mixins: [Class, Media],
 
     props: {
         position: String,
@@ -76,10 +74,6 @@ export default {
         },
     },
 
-    resizeTargets() {
-        return document.documentElement;
-    },
-
     connected() {
         this.start = coerce(this.start || this.top);
         this.end = coerce(this.end || this.bottom);
@@ -89,8 +83,6 @@ export default {
             $('<div class="uk-sticky-placeholder"></div>');
         this.isFixed = false;
         this.setActive(false);
-
-        this.registerObserver(observeResize(this.$el, () => !this.isFixed && this.$emit('resize')));
     },
 
     disconnected() {
@@ -103,6 +95,16 @@ export default {
         remove(this.placeholder);
         this.placeholder = null;
     },
+
+    observe: [
+        resize({
+            handler() {
+                !this.isFixed && this.$emit('resize');
+            },
+        }),
+        resize({ target: () => [document.documentElement] }),
+        scroll(),
+    ],
 
     events: [
         {

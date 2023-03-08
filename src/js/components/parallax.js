@@ -1,10 +1,9 @@
-import Resize from '../mixin/resize';
-import Scroll from '../mixin/scroll';
 import Parallax from '../mixin/parallax';
+import { resize, scroll } from '../api/observables';
 import { css, isVisible, parent, query, scrolledOver, toPx } from 'uikit-util';
 
 export default {
-    mixins: [Parallax, Resize, Scroll],
+    mixins: [Parallax],
 
     props: {
         target: String,
@@ -41,9 +40,12 @@ export default {
         },
     },
 
-    resizeTargets() {
-        return [this.$el, this.target];
-    },
+    observe: [
+        resize({
+            target: ({ $el, target }) => [$el, target],
+        }),
+        scroll(),
+    ],
 
     update: {
         read({ percent }, types) {

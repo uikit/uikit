@@ -1,10 +1,8 @@
-import Resize from '../mixin/resize';
 import { getRows } from './margin';
-import { $$, boxModelAdjust, css, dimensions, isVisible } from 'uikit-util';
+import { resize } from '../api/observables';
+import { $$, boxModelAdjust, css, dimensions, isVisible, pick } from 'uikit-util';
 
 export default {
-    mixins: [Resize],
-
     args: 'target',
 
     props: {
@@ -29,9 +27,9 @@ export default {
         },
     },
 
-    resizeTargets() {
-        return [this.$el, ...this.elements];
-    },
+    observe: resize({
+        target: ({ $el, elements }) => [$el, ...elements],
+    }),
 
     update: {
         read() {
@@ -55,7 +53,6 @@ function match(elements) {
         return { heights: [''], elements };
     }
 
-    css(elements, 'minHeight', '');
     let heights = elements.map(getHeight);
     const max = Math.max(...heights);
 
@@ -66,17 +63,13 @@ function match(elements) {
 }
 
 function getHeight(element) {
-    let style = false;
+    const style = pick(element.style, ['display', 'minHeight']);
+
     if (!isVisible(element)) {
-        style = element.style.display;
         css(element, 'display', 'block', 'important');
     }
-
+    css(element, 'minHeight', '');
     const height = dimensions(element).height - boxModelAdjust(element, 'height', 'content-box');
-
-    if (style !== false) {
-        css(element, 'display', style);
-    }
-
+    css(element, style);
     return height;
 }

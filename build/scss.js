@@ -1,5 +1,6 @@
+import glob from 'glob';
 import NP from 'number-precision';
-import { glob, read, write } from './util.js';
+import { read, write } from './util.js';
 
 NP.enableBoundaryChecking(false);
 

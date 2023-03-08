@@ -1,7 +1,7 @@
-import { keyMap } from '../mixin/utils';
 import Animations from './internal/lightbox-animations';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
+import { keyMap } from '../util/keys';
 import {
     $,
     addClass,

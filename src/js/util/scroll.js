@@ -1,0 +1,42 @@
+import { width } from './dimensions';
+import { on } from './event';
+import { css } from './style';
+import { scrollParents } from './viewport';
+
+let prevented;
+export function preventBackgroundScroll(el) {
+    // 'overscroll-behavior: contain' only works consistently if el overflows (Safari)
+    const off = on(
+        el,
+        'touchmove',
+        (e) => {
+            if (e.targetTouches.length !== 1) {
+                return;
+            }
+
+            let [{ scrollHeight, clientHeight }] = scrollParents(e.target);
+
+            if (clientHeight >= scrollHeight && e.cancelable) {
+                e.preventDefault();
+            }
+        },
+        { passive: false }
+    );
+
+    if (prevented) {
+        return off;
+    }
+    prevented = true;
+
+    const { scrollingElement } = document;
+    css(scrollingElement, {
+        overflowY: CSS.supports('overflow', 'clip') ? 'clip' : 'hidden',
+        touchAction: 'none',
+        paddingRight: width(window) - scrollingElement.clientWidth || '',
+    });
+    return () => {
+        prevented = false;
+        off();
+        css(scrollingElement, { overflowY: '', touchAction: '', paddingRight: '' });
+    };
+}

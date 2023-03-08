@@ -20,7 +20,8 @@ import {
     remove,
     within,
 } from 'uikit-util';
-import { generateId, keyMap } from '../mixin/utils';
+import { keyMap } from '../util/keys';
+import { generateId } from '../api/instance';
 
 export default {
     mixins: [Container, Togglable, Position],

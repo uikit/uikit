@@ -1,9 +1,10 @@
+import glob from 'glob';
+import semver from 'semver';
 import archiver from 'archiver';
 import inquirer from 'inquirer';
-import dateFormat from 'dateformat/lib/dateformat.js';
 import { createWriteStream } from 'fs';
-import semver from 'semver';
-import { args, getVersion, glob, logFile, replaceInFile, run } from './util.js';
+import dateFormat from 'dateformat/lib/dateformat.js';
+import { args, getVersion, logFile, replaceInFile, run } from './util.js';
 
 const { coerce, inc, prerelease, valid } = semver;
 

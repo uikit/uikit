@@ -1,16 +1,7 @@
+import glob from 'glob';
 import rtlcss from 'rtlcss';
 import { basename } from 'path';
-import {
-    args,
-    banner,
-    glob,
-    minify,
-    pathExists,
-    read,
-    readJson,
-    renderLess,
-    write,
-} from './util.js';
+import { args, banner, minify, pathExists, read, readJson, renderLess, write } from './util.js';
 
 const { rtl } = args;
 const develop = args.develop || args.debug || args.d || args.nominify;

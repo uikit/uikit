@@ -1,7 +1,9 @@
-import Container from '../mixin/container';
-import Lazyload from '../mixin/lazyload';
+import { lazyload } from '../api/observables';
 import Position from '../mixin/position';
+import Container from '../mixin/container';
 import Togglable from '../mixin/togglable';
+import { keyMap } from '../util/keys';
+import { preventBackgroundScroll } from '../util/scroll';
 import {
     addClass,
     append,
@@ -10,6 +12,7 @@ import {
     css,
     hasClass,
     includes,
+    isSameSiteAnchor,
     isTouch,
     matches,
     MouseTracker,
@@ -20,6 +23,7 @@ import {
     once,
     overflowParents,
     parent,
+    pick,
     pointerCancel,
     pointerDown,
     pointerEnter,
@@ -29,12 +33,11 @@ import {
     removeClass,
     within,
 } from 'uikit-util';
-import { isSameSiteAnchor, keyMap, preventBackgroundScroll } from '../mixin/utils';
 
 export let active;
 
 export default {
-    mixins: [Container, Lazyload, Position, Togglable],
+    mixins: [Container, Position, Togglable],
 
     args: 'pos',
 
@@ -111,7 +114,7 @@ export default {
             this.targetEl = createToggleComponent(this);
         }
 
-        this._style = (({ width, height }) => ({ width, height }))(this.$el.style);
+        this._style = pick(this.$el.style, ['width', 'height']);
     },
 
     disconnected() {
@@ -121,6 +124,11 @@ export default {
         }
         css(this.$el, this._style);
     },
+
+    observe: lazyload({
+        target: ({ toggle, $el }) => query(toggle, $el),
+        targets: ({ $el }) => $el,
+    }),
 
     events: [
         {
@@ -461,7 +469,6 @@ function createToggleComponent(drop) {
         mode: drop.mode,
     });
     attr($el, 'aria-haspopup', true);
-    drop.lazyload($el);
 
     return $el;
 }
