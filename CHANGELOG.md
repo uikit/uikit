@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix `pause-on-hover` option in Slider/Slideshow component
+
 ## 3.16.4 (March 8, 2023)
 
 ### Added

@@ -53,7 +53,11 @@ export default {
                 return this.autoplay;
             },
 
-            handler: 'stopAutoplay',
+            handler(e) {
+                if (e.type !== pointerEnter || this.pauseOnHover) {
+                    this.stopAutoplay();
+                }
+            },
         },
         {
             name: `${pointerLeave} focusout`,
@@ -62,7 +66,11 @@ export default {
                 return this.autoplay;
             },
 
-            handler: 'startAutoplay',
+            handler(e) {
+                if (e.type !== pointerLeave || this.pauseOnHover) {
+                    this.startAutoplay();
+                }
+            },
         },
     ],
 
