@@ -1,4 +1,4 @@
-/*! UIkit 3.16.4 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.5 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2140,7 +2140,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.4";
+    App.version = "3.16.5";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -2165,9 +2165,9 @@
       }
       return components$2[id] = opt;
     }
-    function createComponent(name, element, data) {
+    function createComponent(name, element, data, ...args) {
       const Component = component(name);
-      return Component.options.functional ? new Component({ data: isPlainObject(element) ? element : [...arguments] }) : element ? $$(element).map(init)[0] : init();
+      return Component.options.functional ? new Component({ data: isPlainObject(element) ? element : [element, data, ...args] }) : element ? $$(element).map(init)[0] : init();
       function init(element2) {
         const instance = getComponent(element2, name);
         if (instance) {
@@ -2591,12 +2591,11 @@
     function scroll$1(options) {
       return observe(
         function(target, handler) {
-          const off = on(target, "scroll", handler, {
-            passive: true,
-            capture: true
-          });
           return {
-            disconnect: off
+            disconnect: on(target, "scroll", handler, {
+              passive: true,
+              capture: true
+            })
           };
         },
         {
@@ -2606,6 +2605,34 @@
         "scroll"
       );
     }
+    function swipe(options) {
+      return {
+        observe(target, handler) {
+          return {
+            observe: noop,
+            unobserve: noop,
+            disconnect: on(target, pointerDown$1, handler, { passive: true })
+          };
+        },
+        handler(e) {
+          if (!isTouch(e)) {
+            return;
+          }
+          const pos = getEventPos(e);
+          const target = "tagName" in e.target ? e.target : parent(e.target);
+          once(document, `${pointerUp$1} ${pointerCancel} scroll`, (e2) => {
+            const { x, y } = getEventPos(e2);
+            if (e2.type !== "scroll" && target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
+              setTimeout(() => {
+                trigger(target, "swipe");
+                trigger(target, `swipe${swipeDirection(pos.x, pos.y, x, y)}`);
+              });
+            }
+          });
+        },
+        ...options
+      };
+    }
     function observe(observe2, options, emit) {
       return {
         observe: observe2,
@@ -2614,6 +2641,9 @@
         },
         ...options
       };
+    }
+    function swipeDirection(x1, y1, x2, y2) {
+      return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? x1 - x2 > 0 ? "Left" : "Right" : y1 - y2 > 0 ? "Up" : "Down";
     }
 
     var Accordion = {
@@ -5121,56 +5151,14 @@
       }
     };
 
-    var Swipe = {
-      props: {
-        swiping: Boolean
-      },
-      data: {
-        swiping: true
-      },
-      computed: {
-        swipeTarget(props, $el) {
-          return $el;
-        }
-      },
-      connected() {
-        if (!this.swiping) {
-          return;
-        }
-        registerEvent(this, {
-          el: this.swipeTarget,
-          name: pointerDown$1,
-          passive: true,
-          handler(e) {
-            if (!isTouch(e)) {
-              return;
-            }
-            const pos = getEventPos(e);
-            const target = "tagName" in e.target ? e.target : parent(e.target);
-            once(document, `${pointerUp$1} ${pointerCancel} scroll`, (e2) => {
-              const { x, y } = getEventPos(e2);
-              if (e2.type !== "scroll" && target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
-                setTimeout(() => {
-                  trigger(target, "swipe");
-                  trigger(target, `swipe${swipeDirection(pos.x, pos.y, x, y)}`);
-                });
-              }
-            });
-          }
-        });
-      }
-    };
-    function swipeDirection(x1, y1, x2, y2) {
-      return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? x1 - x2 > 0 ? "Left" : "Right" : y1 - y2 > 0 ? "Up" : "Down";
-    }
-
     var offcanvas = {
-      mixins: [Modal, Swipe],
+      mixins: [Modal],
       args: "mode",
       props: {
         mode: String,
         flip: Boolean,
-        overlay: Boolean
+        overlay: Boolean,
+        swiping: Boolean
       },
       data: {
         mode: "slide",
@@ -5185,7 +5173,8 @@
         clsMode: "uk-offcanvas",
         clsOverlay: "uk-offcanvas-overlay",
         selClose: ".uk-offcanvas-close",
-        container: false
+        container: false,
+        swiping: true
       },
       computed: {
         clsFlip({ flip, clsFlip }) {
@@ -5207,6 +5196,7 @@
           return mode === "reveal" ? parent(this.panel) : this.panel;
         }
       },
+      observe: swipe({ filter: ({ swiping }) => swiping }),
       update: {
         read() {
           if (this.isToggled() && !isVisible(this.$el)) {
@@ -5948,14 +5938,15 @@
 
     const selDisabled = ".uk-disabled *, .uk-disabled, [disabled]";
     var Switcher = {
-      mixins: [Swipe, Togglable],
+      mixins: [Togglable],
       args: "connect",
       props: {
         connect: String,
         toggle: String,
         itemNav: String,
         active: Number,
-        followFocus: Boolean
+        followFocus: Boolean,
+        swiping: Boolean
       },
       data: {
         connect: "~.uk-switcher",
@@ -5965,7 +5956,8 @@
         cls: "uk-active",
         attrItem: "uk-switcher-item",
         selVertical: ".uk-nav",
-        followFocus: false
+        followFocus: false,
+        swiping: true
       },
       computed: {
         connects: {
@@ -6009,15 +6001,15 @@
           return children(this.$el).filter(
             (child) => this.toggles.some((toggle) => within(toggle, child))
           );
-        },
-        swipeTarget() {
-          return this.connects;
         }
       },
       connected() {
         attr(this.$el, "role", "tablist");
       },
-      observe: lazyload({ targets: ({ connectChildren }) => connectChildren }),
+      observe: [
+        lazyload({ targets: ({ connectChildren }) => connectChildren }),
+        swipe({ target: ({ connects }) => connects, filter: ({ swiping }) => swiping })
+      ],
       events: [
         {
           name: "click keydown",
@@ -7265,14 +7257,22 @@
           filter() {
             return this.autoplay;
           },
-          handler: "stopAutoplay"
+          handler(e) {
+            if (e.type !== pointerEnter || this.pauseOnHover) {
+              this.stopAutoplay();
+            }
+          }
         },
         {
           name: `${pointerLeave} focusout`,
           filter() {
             return this.autoplay;
           },
-          handler: "startAutoplay"
+          handler(e) {
+            if (e.type !== pointerLeave || this.pauseOnHover) {
+              this.startAutoplay();
+            }
+          }
         }
       ],
       methods: {
