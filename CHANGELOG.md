@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Sass sources
+
 ## 3.16.5 (March 10, 2023)
 
 ### Fixed

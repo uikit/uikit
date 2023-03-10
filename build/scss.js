@@ -74,7 +74,7 @@ const inverseTemplate = `    @include hook-inverse-component-base();
     @include hook-inverse-component-utility();`;
 
 /* First Step: Go through all files */
-for (const file of await glob('src/less/**/*.less')) {
+for (const file of (await glob('src/less/**/*.less')).sort()) {
     const data = await read(file);
 
     /* replace all Less stuff with SCSS */
