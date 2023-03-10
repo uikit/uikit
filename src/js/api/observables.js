@@ -1,12 +1,21 @@
 import {
     $$,
+    getEventPos,
     isFunction,
+    isTouch,
+    noop,
     observeIntersection,
     observeMutation,
     observeResize,
     on,
+    once,
+    parent,
+    pointerCancel,
+    pointerDown,
+    pointerUp,
     removeAttr,
     toNodes,
+    trigger,
 } from '../util';
 
 export function resize(options) {
@@ -44,13 +53,11 @@ export function lazyload(options = {}) {
 export function scroll(options) {
     return observe(
         function (target, handler) {
-            const off = on(target, 'scroll', handler, {
-                passive: true,
-                capture: true,
-            });
-
             return {
-                disconnect: off,
+                disconnect: on(target, 'scroll', handler, {
+                    passive: true,
+                    capture: true,
+                }),
             };
         },
         {
@@ -61,6 +68,42 @@ export function scroll(options) {
     );
 }
 
+export function swipe(options) {
+    return {
+        observe(target, handler) {
+            return {
+                observe: noop,
+                unobserve: noop,
+                disconnect: on(target, pointerDown, handler, { passive: true }),
+            };
+        },
+        handler(e) {
+            if (!isTouch(e)) {
+                return;
+            }
+
+            // Handle Swipe Gesture
+            const pos = getEventPos(e);
+            const target = 'tagName' in e.target ? e.target : parent(e.target);
+            once(document, `${pointerUp} ${pointerCancel} scroll`, (e) => {
+                const { x, y } = getEventPos(e);
+
+                // swipe
+                if (
+                    (e.type !== 'scroll' && target && x && Math.abs(pos.x - x) > 100) ||
+                    (y && Math.abs(pos.y - y) > 100)
+                ) {
+                    setTimeout(() => {
+                        trigger(target, 'swipe');
+                        trigger(target, `swipe${swipeDirection(pos.x, pos.y, x, y)}`);
+                    });
+                }
+            });
+        },
+        ...options,
+    };
+}
+
 function observe(observe, options, emit) {
     return {
         observe,
@@ -69,4 +112,14 @@ function observe(observe, options, emit) {
         },
         ...options,
     };
+}
+
+function swipeDirection(x1, y1, x2, y2) {
+    return Math.abs(x1 - x2) >= Math.abs(y1 - y2)
+        ? x1 - x2 > 0
+            ? 'Left'
+            : 'Right'
+        : y1 - y2 > 0
+        ? 'Up'
+        : 'Down';
 }

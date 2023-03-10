@@ -5,7 +5,7 @@ import { initProps, initPropsObserver } from './props';
 import { disconnectObservers, initObservers } from './observer';
 
 export function callHook(instance, hook) {
-    DEBUG && log(instance, hook);
+    LOG && log(instance, hook);
     instance.$options[hook]?.forEach((handler) => handler.call(instance));
 }
 

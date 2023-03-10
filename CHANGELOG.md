@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.16.5 (March 10, 2023)
+
+### Fixed
+
+- Fix functional component initialization
+- Fix `pause-on-hover` option in Slider/Slideshow component
+
 ## 3.16.4 (March 8, 2023)
 
 ### Added
