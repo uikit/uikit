@@ -60,7 +60,7 @@ export function createComponent(name, element, data, ...args) {
 }
 
 export function getComponents(element) {
-    return element[DATA] || {};
+    return element?.[DATA] || {};
 }
 
 export function getComponent(element, name) {

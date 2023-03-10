@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Sass sources
+- Fix `createComponent` call without `element` parameter
 
 ## 3.16.5 (March 10, 2023)
 
