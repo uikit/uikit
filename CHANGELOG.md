@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.16.6 (March 10, 2023)
+
+### Fixed
+
+- Fix Sass sources
+- Fix `createComponent` call without `element` parameter
+
 ## 3.16.5 (March 10, 2023)
 
 ### Fixed
