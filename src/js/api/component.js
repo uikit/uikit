@@ -35,11 +35,11 @@ export function component(name, options) {
     return (components[id] = opt);
 }
 
-export function createComponent(name, element, data) {
+export function createComponent(name, element, data, ...args) {
     const Component = component(name);
 
     return Component.options.functional
-        ? new Component({ data: isPlainObject(element) ? element : [...arguments] })
+        ? new Component({ data: isPlainObject(element) ? element : [element, data, ...args] })
         : element
         ? $$(element).map(init)[0]
         : init();
