@@ -10,7 +10,7 @@ import {
     startsWith,
     toBoolean,
     toNumber,
-} from '../util';
+} from 'uikit-util';
 
 const strats = {};
 

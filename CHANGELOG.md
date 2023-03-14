@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix component distributions
+
 ## 3.16.6 (March 10, 2023)
 
 ### Fixed

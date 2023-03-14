@@ -1,8 +1,8 @@
 import App from './app';
-import './component';
-import './global';
-import './hooks';
-import './state';
-import './instance';
+import globalApi from './global';
+import instanceApi from './instance';
+
+globalApi(App);
+instanceApi(App);
 
 export default App;
