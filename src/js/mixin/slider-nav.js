@@ -60,7 +60,10 @@ export default {
     },
 
     connected() {
-        attr(this.$el, 'aria-roledescription', 'carousel');
+        attr(this.$el, {
+            role: 'region',
+            ariaRoleDescription: 'carousel',
+        });
     },
 
     update: [
