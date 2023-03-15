@@ -1,5 +1,6 @@
 import { width } from './dimensions';
 import { on } from './event';
+import { matches } from './filter';
 import { css } from './style';
 import { scrollParents } from './viewport';
 
@@ -10,7 +11,7 @@ export function preventBackgroundScroll(el) {
         el,
         'touchmove',
         (e) => {
-            if (e.targetTouches.length !== 1) {
+            if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
                 return;
             }
 
