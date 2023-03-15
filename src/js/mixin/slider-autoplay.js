@@ -1,4 +1,4 @@
-import { attr, matches, pointerEnter, pointerLeave } from 'uikit-util';
+import { attr, matches } from 'uikit-util';
 
 export default {
     props: {
