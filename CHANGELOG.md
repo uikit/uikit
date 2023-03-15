@@ -7,6 +7,7 @@
 - Fix component distributions
 - Fix Slider/Slideshow component autoplay in Firefox
 - Fix using input of type range in Modal component on touch devices
+- Fix accessibility in Nav component
 
 ## 3.16.6 (March 10, 2023)
 
