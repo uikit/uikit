@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix focus style for dropdowns when used with Inverse component
+
 ## 3.16.7 (March 16, 2023)
 
 ### Added
