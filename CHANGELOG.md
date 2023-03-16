@@ -2,6 +2,11 @@
 
 ## WIP
 
+### Added
+
+- Add hidden visually class for assistive technologies to Visibility component
+- Make toggle classes to display elements on hover or focus accessible to screen readers in Visibility component
+
 ### Fixed
 
 - Fix component distributions
