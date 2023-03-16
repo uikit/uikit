@@ -7,6 +7,10 @@
 - Add hidden visually class for assistive technologies to Visibility component
 - Make toggle classes to display elements on hover or focus accessible to screen readers in Visibility component
 
+### Changed
+
+- Change boot behavior: if script is loaded synchronous, UIkit boots as soon as body element is available
+
 ### Fixed
 
 - Fix component distributions

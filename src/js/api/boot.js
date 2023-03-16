@@ -4,7 +4,16 @@ import { apply, hasAttr, inBrowser, isPlainObject, startsWith, trigger } from 'u
 
 export default function (App) {
     if (inBrowser && window.MutationObserver) {
-        requestAnimationFrame(() => init(App));
+        if (document.readyState === 'interactive') {
+            requestAnimationFrame(() => init(App));
+        } else {
+            new MutationObserver((records, observer) => {
+                if (document.body) {
+                    init(App);
+                    observer.disconnect();
+                }
+            }).observe(document.documentElement, { childList: true });
+        }
     }
 }
 
