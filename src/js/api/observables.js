@@ -61,7 +61,7 @@ export function scroll(options) {
             };
         },
         {
-            target: window,
+            target: () => window,
             ...options,
         },
         'scroll'
