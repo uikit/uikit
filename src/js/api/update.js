@@ -1,6 +1,6 @@
 import { registerObserver } from './observer';
 import { callWatches } from './watch';
-import { assign, fastdom, isFunction, isPlainObject } from '../util';
+import { assign, fastdom, isFunction, isPlainObject } from 'uikit-util';
 
 export function callUpdate(instance, e = 'update') {
     if (!instance._connected) {

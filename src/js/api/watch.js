@@ -1,4 +1,4 @@
-import { fastdom, hasOwn, isEqual } from '../util';
+import { fastdom, hasOwn, isEqual } from 'uikit-util';
 import { callObserverUpdates } from './observer';
 
 export function callWatches(instance) {
@@ -13,7 +13,7 @@ export function callWatches(instance) {
             runWatches(instance, initial);
         }
         instance._watch = null;
-    });
+    }, true);
 }
 
 function runWatches(instance, initial) {

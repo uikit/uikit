@@ -16,7 +16,7 @@ import {
     removeAttr,
     toNodes,
     trigger,
-} from '../util';
+} from 'uikit-util';
 
 export function resize(options) {
     return observe(observeResize, options, 'resize');
@@ -61,7 +61,7 @@ export function scroll(options) {
             };
         },
         {
-            target: window,
+            target: () => window,
             ...options,
         },
         'scroll'

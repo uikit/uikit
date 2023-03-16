@@ -4,6 +4,7 @@
 // Component:       `uk-hidden-*`
 //                  `uk-visible-*`
 //                  `uk-invisible`
+//                  `uk-hidden-visually`
 //                  `uk-visible-toggle`
 //                  `uk-hidden-hover`
 //                  `uk-invisible-hover`
@@ -96,28 +97,47 @@
  ========================================================================== */
 
 /*
- * Can't use `display: none` nor `visibility: hidden` because both are not focusable.
+ * Mind that `display: none`, `visibility: hidden` and `opacity: 0`
+ * remove the element from the accessibility tree and that
+ * `display: none` and `visibility: hidden` are not focusable.
+ *
  * The target stays visible if any element within receives focus through keyboard.
  */
 
 /*
- * Discard space when hidden.
+ * Remove space when hidden.
+ * 1. Remove from document flow.
+ * 2. Hide element and shrink its dimension. Can't use zero dimensions together
+ *    with `overflow: hidden` it would remove it from the accessibility tree.
+ * 3. Hide the single rendered pixel.
+ * 4. Prevent text wrapping caused by `width: 1px` because it has side effects on vocalisation
+ *    by screen readers and the visual tracking indicator of other assistive technologies.
  */
 
+.uk-hidden-visually:not(:focus):not(:active):not(:focus-within),
 .uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-within) {
+    /* 1 */
     position: absolute !important;
-    width: 0 !important;
-    height: 0 !important;
+    /* 2 */
+    width: 1px !important;
+    height: 1px !important;
     padding: 0 !important;
+    border: 0 !important;
     margin: 0 !important;
     overflow: hidden !important;
+    /* 3 */
+    clip-path: inset(50%) !important;
+    /* 4 */
+    white-space: nowrap !important;
+
 }
 
 /*
  * Keep space when hidden.
+ * Hide element without shrinking its dimension.
  */
 
-.uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) { opacity: 0 !important; }
+.uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) { clip-path: inset(50%) !important; }
 
 
 /* Based on Hover Capability of the Pointing Device

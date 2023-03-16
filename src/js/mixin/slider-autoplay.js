@@ -1,4 +1,4 @@
-import { attr, matches, pointerEnter, pointerLeave } from 'uikit-util';
+import { attr, matches } from 'uikit-util';
 
 export default {
     props: {
@@ -14,7 +14,7 @@ export default {
     },
 
     connected() {
-        attr(this.list, 'aria-live', 'polite');
+        attr(this.list, 'aria-live', this.autoplay ? 'off' : 'polite');
         this.autoplay && this.startAutoplay();
     },
 
@@ -46,56 +46,27 @@ export default {
                 }
             },
         },
-        {
-            name: `${pointerEnter} focusin`,
-
-            filter() {
-                return this.autoplay;
-            },
-
-            handler(e) {
-                if (e.type !== pointerEnter || this.pauseOnHover) {
-                    this.stopAutoplay();
-                }
-            },
-        },
-        {
-            name: `${pointerLeave} focusout`,
-
-            filter() {
-                return this.autoplay;
-            },
-
-            handler(e) {
-                if (e.type !== pointerLeave || this.pauseOnHover) {
-                    this.startAutoplay();
-                }
-            },
-        },
     ],
 
     methods: {
         startAutoplay() {
-            if (
-                (this.draggable && matches(this.$el, ':focus-within')) ||
-                (this.pauseOnHover && matches(this.$el, ':hover'))
-            ) {
-                return;
-            }
-
             this.stopAutoplay();
 
-            this.interval = setInterval(
-                () => !this.stack.length && this.show('next'),
-                this.autoplayInterval
-            );
-
-            attr(this.list, 'aria-live', 'off');
+            this.interval = setInterval(() => {
+                if (
+                    !(
+                        this.stack.length ||
+                        (this.draggable && matches(this.$el, ':focus-within')) ||
+                        (this.pauseOnHover && matches(this.$el, ':hover'))
+                    )
+                ) {
+                    this.show('next');
+                }
+            }, this.autoplayInterval);
         },
 
         stopAutoplay() {
             clearInterval(this.interval);
-            attr(this.list, 'aria-live', 'polite');
         },
     },
 };

@@ -7,6 +7,7 @@ import {
     $,
     $$,
     attr,
+    children,
     css,
     dimensions,
     filter,
@@ -171,6 +172,9 @@ export default {
             });
 
             attr(content, { role: 'region', 'aria-labelledby': toggle.id });
+            if (isTag(content, 'ul')) {
+                attr(children(content), 'role', 'presentation');
+            }
         }
     },
 

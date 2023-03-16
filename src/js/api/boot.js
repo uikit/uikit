@@ -1,10 +1,19 @@
 import { callConnected, callDisconnected } from './hooks';
 import { components, createComponent, getComponent, getComponents } from './component';
-import { apply, hasAttr, inBrowser, isPlainObject, startsWith, trigger } from '../util';
+import { apply, hasAttr, inBrowser, isPlainObject, startsWith, trigger } from 'uikit-util';
 
 export default function (App) {
     if (inBrowser && window.MutationObserver) {
-        requestAnimationFrame(() => init(App));
+        if (document.readyState === 'interactive') {
+            requestAnimationFrame(() => init(App));
+        } else {
+            new MutationObserver((records, observer) => {
+                if (document.body) {
+                    init(App);
+                    observer.disconnect();
+                }
+            }).observe(document.documentElement, { childList: true });
+        }
     }
 }
 

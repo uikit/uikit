@@ -1,4 +1,4 @@
-import { hasOwn, isArray, isFunction, isPlainObject, isString, on } from '../util';
+import { hasOwn, isArray, isFunction, isPlainObject, isString, on } from 'uikit-util';
 
 export function initEvents(instance) {
     instance._events = [];

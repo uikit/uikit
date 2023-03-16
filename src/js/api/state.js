@@ -1,7 +1,7 @@
 import { callHook } from './hooks';
 import { initComputed } from './computed';
 import { coerce, mergeOptions } from './options';
-import { assign, isArray, isPlainObject, isUndefined } from '../util';
+import { assign, isArray, isPlainObject, isUndefined } from 'uikit-util';
 
 let uid = 0;
 

@@ -35,7 +35,6 @@ export default {
     mixins: [Class, Container],
 
     props: {
-        dropdown: String,
         align: String,
         clsDrop: String,
         boundary: Boolean,
@@ -55,7 +54,6 @@ export default {
     },
 
     data: {
-        dropdown: '> li > a, > ul > li > a',
         align: isRtl ? 'right' : 'left',
         clsDrop: 'uk-dropdown',
         clsDropbar: 'uk-dropnav-dropbar',
@@ -64,6 +62,7 @@ export default {
         dropbarAnchor: false,
         duration: 200,
         container: false,
+        selNavItem: '> li > a, > ul > li > a',
     },
 
     computed: {
@@ -136,8 +135,8 @@ export default {
         },
 
         items: {
-            get({ dropdown }, $el) {
-                return $$(dropdown, $el);
+            get({ selNavItem }, $el) {
+                return $$(selNavItem, $el);
             },
 
             watch(items) {
@@ -164,7 +163,7 @@ export default {
             name: 'mouseover focusin',
 
             delegate() {
-                return this.dropdown;
+                return this.selNavItem;
             },
 
             handler({ current, type }) {
@@ -191,7 +190,7 @@ export default {
             name: 'keydown',
 
             delegate() {
-                return this.dropdown;
+                return this.selNavItem;
             },
 
             handler(e) {

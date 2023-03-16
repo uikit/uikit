@@ -5,14 +5,15 @@ export default {
     extends: Dropnav,
 
     data: {
-        dropdown: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
         clsDrop: 'uk-navbar-dropdown',
+        selNavItem:
+            '.uk-navbar-nav > li > a,a.uk-navbar-item,button.uk-navbar-item,.uk-navbar-item a,.uk-navbar-item button,.uk-navbar-toggle', // Simplify with :where() selector once browser target is Safari 14+
     },
 
     computed: {
         items: {
-            get({ dropdown }, $el) {
-                return $$(dropdown, $el);
+            get({ selNavItem }, $el) {
+                return $$(selNavItem, $el);
             },
 
             watch(items) {
@@ -21,7 +22,16 @@ export default {
                     '.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right',
                     this.$el
                 )) {
-                    css(container, 'flexGrow', justify ? $$(this.dropdown, container).length : '');
+                    css(
+                        container,
+                        'flexGrow',
+                        justify
+                            ? $$(
+                                  '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
+                                  container
+                              ).length
+                            : ''
+                    );
                 }
 
                 attr($$('.uk-navbar-nav', this.$el), 'role', 'group');

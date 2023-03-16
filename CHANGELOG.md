@@ -1,5 +1,26 @@
 # Changelog
 
+## 3.16.7 (March 16, 2023)
+
+### Added
+
+- Add hidden visually class for assistive technologies to Visibility component
+- Make toggle classes to display elements on hover or focus accessible to screen readers in Visibility component
+
+### Changed
+
+- Change boot behavior: if script is loaded synchronous, UIkit boots as soon as body element is available
+
+### Fixed
+
+- Fix component distributions
+- Fix Slider/Slideshow component autoplay in Firefox
+- Fix using input of type range in Modal component on touch devices
+- Fix accessibility in Slideshow/Slider and Nav component
+- Fix prevent initial transition in Sticky component
+- Fix keyboard navigation in Navbar component
+- Fix importing UIkit in Next.js
+
 ## 3.16.6 (March 10, 2023)
 
 ### Fixed

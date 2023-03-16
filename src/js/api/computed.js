@@ -1,4 +1,4 @@
-import { hasOwn, isUndefined } from '../util';
+import { hasOwn, isUndefined } from 'uikit-util';
 
 export function initComputed(instance) {
     const { computed } = instance.$options;

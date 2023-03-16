@@ -1,4 +1,12 @@
-import { hasOwn, includes, isArray, isEqual, isFunction, isPlainObject, isString } from '../util';
+import {
+    hasOwn,
+    includes,
+    isArray,
+    isEqual,
+    isFunction,
+    isPlainObject,
+    isString,
+} from 'uikit-util';
 
 export function initObservers(instance) {
     instance._observers = [];

@@ -8,8 +8,8 @@ export const fastdom = {
     reads: [],
     writes: [],
 
-    read(task) {
-        this.reads.push(task);
+    read(task, prepend) {
+        this.reads[prepend ? 'unshift' : 'push'](task);
         scheduleFlush();
         return task;
     },

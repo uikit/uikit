@@ -8,7 +8,7 @@ import {
     isArray,
     isUndefined,
     startsWith,
-} from '../util';
+} from 'uikit-util';
 
 export function initProps(instance) {
     const props = getProps(instance.$options);
