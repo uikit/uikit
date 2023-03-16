@@ -13,7 +13,7 @@ export function callWatches(instance) {
             runWatches(instance, initial);
         }
         instance._watch = null;
-    });
+    }, true);
 }
 
 function runWatches(instance, initial) {
