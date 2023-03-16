@@ -1,4 +1,4 @@
-/*! UIkit 3.16.6 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.7 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -959,8 +959,8 @@
     const fastdom = {
       reads: [],
       writes: [],
-      read(task) {
-        this.reads.push(task);
+      read(task, prepend) {
+        this.reads[prepend ? "unshift" : "push"](task);
         scheduleFlush();
         return task;
       },
@@ -1738,7 +1738,7 @@
           runWatches(instance, initial);
         }
         instance._watch = null;
-      });
+      }, true);
     }
     function runWatches(instance, initial) {
       const values = { ...instance._computed };
@@ -2140,7 +2140,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.6";
+    App.version = "3.16.7";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -2200,34 +2200,46 @@
       }
     }
 
-    App.component = component;
-    App.getComponents = getComponents;
-    App.getComponent = getComponent;
-    App.use = function(plugin) {
-      if (plugin.installed) {
-        return;
-      }
-      plugin.call(null, this);
-      plugin.installed = true;
-      return this;
-    };
-    App.mixin = function(mixin, component2) {
-      component2 = (isString(component2) ? this.component(component2) : component2) || this;
-      component2.options = mergeOptions(component2.options, mixin);
-    };
-    App.extend = function(options) {
-      options = options || {};
-      const Super = this;
-      const Sub = function UIkitComponent(options2) {
-        init$1(this, options2);
+    function globalApi(App) {
+      App.component = component;
+      App.getComponents = getComponents;
+      App.getComponent = getComponent;
+      App.update = update;
+      App.use = function(plugin) {
+        if (plugin.installed) {
+          return;
+        }
+        plugin.call(null, this);
+        plugin.installed = true;
+        return this;
       };
-      Sub.prototype = Object.create(Super.prototype);
-      Sub.prototype.constructor = Sub;
-      Sub.options = mergeOptions(Super.options, options);
-      Sub.super = Super;
-      Sub.extend = Super.extend;
-      return Sub;
-    };
+      App.mixin = function(mixin, component2) {
+        component2 = (isString(component2) ? this.component(component2) : component2) || this;
+        component2.options = mergeOptions(component2.options, mixin);
+      };
+      App.extend = function(options) {
+        options = options || {};
+        const Super = this;
+        const Sub = function UIkitComponent(options2) {
+          init$1(this, options2);
+        };
+        Sub.prototype = Object.create(Super.prototype);
+        Sub.prototype.constructor = Sub;
+        Sub.options = mergeOptions(Super.options, options);
+        Sub.super = Super;
+        Sub.extend = Super.extend;
+        return Sub;
+      };
+      let container;
+      Object.defineProperty(App, "container", {
+        get() {
+          return container || document.body;
+        },
+        set(element) {
+          container = $(element);
+        }
+      });
+    }
     function update(element, e) {
       element = element ? toNode(element) : document.body;
       for (const parentEl of parents(element).reverse()) {
@@ -2235,63 +2247,55 @@
       }
       apply(element, (element2) => updateElement(element2, e));
     }
-    App.update = update;
     function updateElement(element, e) {
       const components = getComponents(element);
       for (const name in components) {
         callUpdate(components[name], e);
       }
     }
-    let container;
-    Object.defineProperty(App, "container", {
-      get() {
-        return container || document.body;
-      },
-      set(element) {
-        container = $(element);
-      }
-    });
 
-    App.prototype.$mount = function(el) {
-      const instance = this;
-      attachToElement(el, instance);
-      instance.$options.el = el;
-      if (within(el, document)) {
-        callConnected(instance);
-      }
-    };
-    App.prototype.$destroy = function(removeEl = false) {
-      const instance = this;
-      const { el } = instance.$options;
-      if (el) {
-        callDisconnected(instance);
-      }
-      callHook(instance, "destroy");
-      detachFromElement(el, instance);
-      if (removeEl) {
-        remove$1(instance.$el);
-      }
-    };
-    App.prototype.$create = createComponent;
-    App.prototype.$emit = function(e) {
-      callUpdate(this, e);
-    };
-    App.prototype.$update = function(element = this.$el, e) {
-      update(element, e);
-    };
-    App.prototype.$reset = function() {
-      callDisconnected(this);
-      callConnected(this);
-    };
-    App.prototype.$getComponent = getComponent;
-    Object.defineProperties(App.prototype, {
-      $el: {
-        get() {
-          return this.$options.el;
+    function instanceApi(App) {
+      App.prototype.$mount = function(el) {
+        const instance = this;
+        attachToElement(el, instance);
+        instance.$options.el = el;
+        if (within(el, document)) {
+          callConnected(instance);
         }
-      },
-      $container: Object.getOwnPropertyDescriptor(App, "container")
-    });
+      };
+      App.prototype.$destroy = function(removeEl = false) {
+        const instance = this;
+        const { el } = instance.$options;
+        if (el) {
+          callDisconnected(instance);
+        }
+        callHook(instance, "destroy");
+        detachFromElement(el, instance);
+        if (removeEl) {
+          remove$1(instance.$el);
+        }
+      };
+      App.prototype.$create = createComponent;
+      App.prototype.$emit = function(e) {
+        callUpdate(this, e);
+      };
+      App.prototype.$update = function(element = this.$el, e) {
+        update(element, e);
+      };
+      App.prototype.$reset = function() {
+        callDisconnected(this);
+        callConnected(this);
+      };
+      App.prototype.$getComponent = getComponent;
+      Object.defineProperties(App.prototype, {
+        $el: {
+          get() {
+            return this.$options.el;
+          }
+        },
+        $container: Object.getOwnPropertyDescriptor(App, "container")
+      });
+    }
     function generateId(instance, el = instance.$el, postfix = "") {
       if (el.id) {
         return el.id;
@@ -2303,9 +2307,21 @@
       return id;
     }
 
+    globalApi(App);
+    instanceApi(App);
+
     function boot(App) {
       if (inBrowser && window.MutationObserver) {
-        requestAnimationFrame(() => init(App));
+        if (document.readyState === "interactive") {
+          requestAnimationFrame(() => init(App));
+        } else {
+          new MutationObserver((records, observer) => {
+            if (document.body) {
+              init(App);
+              observer.disconnect();
+            }
+          }).observe(document.documentElement, { childList: true });
+        }
       }
     }
     function init(App) {
@@ -2599,7 +2615,7 @@
           };
         },
         {
-          target: window,
+          target: () => window,
           ...options
         },
         "scroll"
@@ -2766,6 +2782,9 @@
             "aria-disabled": !this.collapsible && activeItems.length < 2 && active
           });
           attr(content, { role: "region", "aria-labelledby": toggle.id });
+          if (isTag(content, "ul")) {
+            attr(children(content), "role", "presentation");
+          }
         }
       },
       methods: {
@@ -3084,7 +3103,7 @@
         el,
         "touchmove",
         (e) => {
-          if (e.targetTouches.length !== 1) {
+          if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
             return;
           }
           let [{ scrollHeight, clientHeight }] = scrollParents(e.target);
@@ -3489,7 +3508,6 @@
     var Dropnav = {
       mixins: [Class, Container],
       props: {
-        dropdown: String,
         align: String,
         clsDrop: String,
         boundary: Boolean,
@@ -3508,7 +3526,6 @@
         animateOut: Boolean
       },
       data: {
-        dropdown: "> li > a, > ul > li > a",
         align: isRtl ? "right" : "left",
         clsDrop: "uk-dropdown",
         clsDropbar: "uk-dropnav-dropbar",
@@ -3516,7 +3533,8 @@
         dropbar: false,
         dropbarAnchor: false,
         duration: 200,
-        container: false
+        container: false,
+        selNavItem: "> li > a, > ul > li > a"
       },
       computed: {
         dropbarAnchor({ dropbarAnchor }, $el) {
@@ -3574,8 +3592,8 @@
           immediate: true
         },
         items: {
-          get({ dropdown }, $el) {
-            return $$(dropdown, $el);
+          get({ selNavItem }, $el) {
+            return $$(selNavItem, $el);
           },
           watch(items) {
             attr(children(this.$el), "role", "presentation");
@@ -3596,7 +3614,7 @@
         {
           name: "mouseover focusin",
           delegate() {
-            return this.dropdown;
+            return this.selNavItem;
           },
           handler({ current, type }) {
             const active2 = this.getActive();
@@ -3613,7 +3631,7 @@
         {
           name: "keydown",
           delegate() {
-            return this.dropdown;
+            return this.selNavItem;
           },
           handler(e) {
             const { current, keyCode } = e;
@@ -5125,13 +5143,14 @@
     var navbar = {
       extends: Dropnav,
       data: {
-        dropdown: ".uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle",
-        clsDrop: "uk-navbar-dropdown"
+        clsDrop: "uk-navbar-dropdown",
+        selNavItem: ".uk-navbar-nav > li > a,a.uk-navbar-item,button.uk-navbar-item,.uk-navbar-item a,.uk-navbar-item button,.uk-navbar-toggle"
+        // Simplify with :where() selector once browser target is Safari 14+
       },
       computed: {
         items: {
-          get({ dropdown }, $el) {
-            return $$(dropdown, $el);
+          get({ selNavItem }, $el) {
+            return $$(selNavItem, $el);
           },
           watch(items) {
             const justify = hasClass(this.$el, "uk-navbar-justify");
@@ -5139,7 +5158,14 @@
               ".uk-navbar-nav, .uk-navbar-left, .uk-navbar-right",
               this.$el
             )) {
-              css(container, "flexGrow", justify ? $$(this.dropdown, container).length : "");
+              css(
+                container,
+                "flexGrow",
+                justify ? $$(
+                  ".uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle",
+                  container
+                ).length : ""
+              );
             }
             attr($$(".uk-navbar-nav", this.$el), "role", "group");
             attr($$(".uk-navbar-nav > *", this.$el), "role", "presentation");
@@ -5694,7 +5720,7 @@
             }
             const hide = this.isFixed && types.has("resize") && !sticky;
             if (hide) {
-              css(this.selTarget, "transition", "0s");
+              preventTransition(this.selTarget);
               this.hide();
             }
             if (!this.active) {
@@ -5703,7 +5729,6 @@
             }
             if (hide) {
               this.show();
-              requestAnimationFrame(() => css(this.selTarget, "transition", ""));
             }
             const viewport = toPx("100vh", "height");
             const dynamicViewport = height(window);
@@ -5834,6 +5859,7 @@
               this.show();
               Animation.in(this.$el, this.animation).catch(noop);
             } else {
+              preventTransition(this.selTarget);
               this.show();
             }
           },
@@ -5934,6 +5960,10 @@
     }
     function reset(el) {
       css(el, { position: "", top: "", marginTop: "", width: "" });
+    }
+    function preventTransition(el) {
+      css(el, "transition", "0s");
+      requestAnimationFrame(() => css(el, "transition", ""));
     }
 
     const selDisabled = ".uk-disabled *, .uk-disabled, [disabled]";
@@ -6933,7 +6963,10 @@
         }
       },
       connected() {
-        attr(this.$el, "aria-roledescription", "carousel");
+        attr(this.$el, {
+          role: "region",
+          ariaRoleDescription: "carousel"
+        });
       },
       update: [
         {
@@ -7226,7 +7259,7 @@
         pauseOnHover: true
       },
       connected() {
-        attr(this.list, "aria-live", "polite");
+        attr(this.list, "aria-live", this.autoplay ? "off" : "polite");
         this.autoplay && this.startAutoplay();
       },
       disconnected() {
@@ -7251,45 +7284,19 @@
               this.startAutoplay();
             }
           }
-        },
-        {
-          name: `${pointerEnter} focusin`,
-          filter() {
-            return this.autoplay;
-          },
-          handler(e) {
-            if (e.type !== pointerEnter || this.pauseOnHover) {
-              this.stopAutoplay();
-            }
-          }
-        },
-        {
-          name: `${pointerLeave} focusout`,
-          filter() {
-            return this.autoplay;
-          },
-          handler(e) {
-            if (e.type !== pointerLeave || this.pauseOnHover) {
-              this.startAutoplay();
-            }
-          }
         }
       ],
       methods: {
         startAutoplay() {
-          if (this.draggable && matches(this.$el, ":focus-within") || this.pauseOnHover && matches(this.$el, ":hover")) {
-            return;
-          }
           this.stopAutoplay();
-          this.interval = setInterval(
-            () => !this.stack.length && this.show("next"),
-            this.autoplayInterval
-          );
-          attr(this.list, "aria-live", "off");
+          this.interval = setInterval(() => {
+            if (!(this.stack.length || this.draggable && matches(this.$el, ":focus-within") || this.pauseOnHover && matches(this.$el, ":hover"))) {
+              this.show("next");
+            }
+          }, this.autoplayInterval);
         },
         stopAutoplay() {
           clearInterval(this.interval);
-          attr(this.list, "aria-live", "polite");
         }
       }
     };
