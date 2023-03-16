@@ -163,7 +163,7 @@ export default {
 
                 const hide = this.isFixed && types.has('resize') && !sticky;
                 if (hide) {
-                    css(this.selTarget, 'transition', '0s');
+                    preventTransition(this.selTarget);
                     this.hide();
                 }
 
@@ -174,7 +174,6 @@ export default {
 
                 if (hide) {
                     this.show();
-                    requestAnimationFrame(() => css(this.selTarget, 'transition', ''));
                 }
 
                 const viewport = toPx('100vh', 'height');
@@ -359,6 +358,7 @@ export default {
                     this.show();
                     Animation.in(this.$el, this.animation).catch(noop);
                 } else {
+                    preventTransition(this.selTarget);
                     this.show();
                 }
             },
@@ -479,4 +479,9 @@ function coerce(value) {
 
 function reset(el) {
     css(el, { position: '', top: '', marginTop: '', width: '' });
+}
+
+function preventTransition(el) {
+    css(el, 'transition', '0s');
+    requestAnimationFrame(() => css(el, 'transition', ''));
 }
