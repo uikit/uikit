@@ -18,6 +18,7 @@
 - Fix using input of type range in Modal component on touch devices
 - Fix accessibility in Slideshow/Slider and Nav component
 - Fix prevent initial transition in Sticky component
+- Fix keyboard navigation in Navbar component
 
 ## 3.16.6 (March 10, 2023)
 
