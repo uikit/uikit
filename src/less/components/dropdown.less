@@ -22,6 +22,7 @@
 @dropdown-background:                           @global-muted-background;
 @dropdown-color:                                @global-color;
 @dropdown-color-mode:                           none;
+@dropdown-focus-outline:                        @base-focus-outline;
 
 @dropdown-large-padding:                        40px;
 
@@ -78,6 +79,10 @@
 // Color Mode
 .uk-dropdown:extend(.uk-light all) when (@dropdown-color-mode = light) {}
 .uk-dropdown:extend(.uk-dark all) when (@dropdown-color-mode = dark) {}
+
+.uk-dropdown :focus-visible {
+    outline-color: @dropdown-focus-outline !important;
+}
 
 
 /* Size modifier
