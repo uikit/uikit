@@ -1,4 +1,4 @@
-/*! UIkit 3.16.7 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.8 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -3561,6 +3561,9 @@ select.uk-form-width-xsmall {
     padding-right: 40px;
   }
 }
+.uk-dropbar :focus-visible {
+  outline-color: #333 !important;
+}
 /* Size modifier
  ========================================================================== */
 .uk-dropbar-large {
@@ -5386,6 +5389,9 @@ ul.uk-nav-sub {
 .uk-navbar-dropdown > :last-child {
   margin-bottom: 0;
 }
+.uk-navbar-dropdown :focus-visible {
+  outline-color: #333 !important;
+}
 /*
  * Grid
  * Adopts `uk-grid`
@@ -6196,6 +6202,9 @@ ul.uk-nav-sub {
  */
 .uk-dropdown > :last-child {
   margin-bottom: 0;
+}
+.uk-dropdown :focus-visible {
+  outline-color: #333 !important;
 }
 /* Size modifier
  ========================================================================== */
@@ -9813,19 +9822,6 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar hr,
 .uk-offcanvas-bar .uk-hr {
   border-top-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light :focus,
-.uk-section-primary:not(.uk-preserve-color) :focus,
-.uk-section-secondary:not(.uk-preserve-color) :focus,
-.uk-tile-primary:not(.uk-preserve-color) :focus,
-.uk-tile-secondary:not(.uk-preserve-color) :focus,
-.uk-card-primary.uk-card-body :focus,
-.uk-card-primary > :not([class*='uk-card-media']) :focus,
-.uk-card-secondary.uk-card-body :focus,
-.uk-card-secondary > :not([class*='uk-card-media']) :focus,
-.uk-overlay-primary :focus,
-.uk-offcanvas-bar :focus {
-  outline-color: #fff;
 }
 .uk-light :focus-visible,
 .uk-section-primary:not(.uk-preserve-color) :focus-visible,

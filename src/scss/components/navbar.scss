@@ -67,6 +67,7 @@ $navbar-dropdown-padding:                        15px !default;
 $navbar-dropdown-background:                     $global-muted-background !default;
 $navbar-dropdown-color:                          $global-color !default;
 $navbar-dropdown-color-mode:                     none !default;
+$navbar-dropdown-focus-outline:                  $base-focus-outline !default;
 $navbar-dropdown-grid-gutter-horizontal:         $global-gutter !default;
 $navbar-dropdown-grid-gutter-vertical:           $navbar-dropdown-grid-gutter-horizontal !default;
 
@@ -400,6 +401,10 @@ $navbar-dropdown-nav-sublist-item-active-color:  $global-emphasis-color !default
 // Color Mode
 @if ( $navbar-dropdown-color-mode == light ) { .uk-navbar-dropdown { @extend .uk-light !optional;} }
 @if ( $navbar-dropdown-color-mode == dark ) { .uk-navbar-dropdown { @extend .uk-dark !optional;} }
+
+.uk-navbar-dropdown :focus-visible {
+    outline-color: $navbar-dropdown-focus-outline !important;
+}
 
 /*
  * Grid
