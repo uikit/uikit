@@ -42,9 +42,13 @@ export default {
     },
 
     computed: {
-        target({ href, target }, $el) {
-            target = queryAll(target || href, $el);
-            return (target.length && target) || [$el];
+        target: {
+            get({ href, target }, $el) {
+                target = queryAll(target || href, $el);
+                return (target.length && target) || [$el];
+            },
+
+            document: true,
         },
     },
 

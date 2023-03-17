@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix reactivity in Toggle component
+
 ## 3.16.8 (March 17, 2023)
 
 ### Fixed
