@@ -1,5 +1,5 @@
 /* global TESTS */
-import { addClass, css, on, prepend, removeClass, ucfirst } from 'uikit-util';
+import { $$, addClass, css, on, prepend, removeClass, ucfirst } from 'uikit-util';
 
 const tests = TESTS;
 const storage = window.sessionStorage;
@@ -125,8 +125,7 @@ on(window, 'load', () =>
 
                 if ($inverse.value) {
                     removeClass(
-                        document.querySelectorAll('*'),
-                        'uk-navbar-container',
+                        $$('*'),
                         'uk-card-default',
                         'uk-card-muted',
                         'uk-card-primary',
@@ -142,6 +141,8 @@ on(window, 'load', () =>
                         'uk-overlay-default',
                         'uk-overlay-primary'
                     );
+
+                    addClass($$('.uk-navbar-container'), 'uk-navbar-transparent');
 
                     css(docEl, 'background', $inverse.value === 'dark' ? '#fff' : '#222');
                     addClass($body, `uk-${$inverse.value}`);
