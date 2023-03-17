@@ -21,10 +21,12 @@ export default {
         previous: 'Previous slide',
         slideX: 'Slide %s',
         slideLabel: '%s of %s',
+        role: 'String',
     },
 
     data: {
         selNav: false,
+        role: 'region',
     },
 
     computed: {
@@ -61,7 +63,7 @@ export default {
 
     connected() {
         attr(this.$el, {
-            role: 'region',
+            role: this.role,
             ariaRoleDescription: 'carousel',
         });
     },

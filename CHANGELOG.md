@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix focus style for dropdowns when used with Inverse component
+- Fix regression in Lightbox component
 
 ## 3.16.7 (March 16, 2023)
 
