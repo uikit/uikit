@@ -24,6 +24,7 @@ $dropbar-padding-horizontal-m:                   $global-medium-gutter !default;
 $dropbar-background:                             $global-muted-background !default;
 $dropbar-color:                                  $global-color !default;
 $dropbar-color-mode:                             none !default;
+$dropbar-focus-outline:                          $base-focus-outline !default;
 
 $dropbar-large-padding-top:                      40px !default;
 $dropbar-large-padding-bottom:                   $dropbar-large-padding-top !default;
@@ -81,6 +82,11 @@ $dropbar-large-padding-bottom:                   $dropbar-large-padding-top !def
 // Color Mode
 @if ( $dropbar-color-mode == light ) { .uk-dropbar { @extend .uk-light !optional;} }
 @if ( $dropbar-color-mode == dark ) { .uk-dropbar { @extend .uk-dark !optional;} }
+
+.uk-dropbar :focus-visible {
+    outline-color: $dropbar-focus-outline !important;
+}
+
 
 /* Size modifier
  ========================================================================== */
