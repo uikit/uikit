@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix reactivity in Toggle component
+- Fix regression in Scrollspy component
 
 ## 3.16.8 (March 17, 2023)
 
