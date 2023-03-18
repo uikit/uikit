@@ -4,7 +4,7 @@ import inquirer from 'inquirer';
 import { createWriteStream } from 'fs';
 import dateFormat from 'dateformat/lib/dateformat.js';
 import { coerce, gt, inc, prerelease, valid } from 'semver';
-import { args, getVersion, logFile, replaceInFile, run } from './util.js';
+import { args, getVersion, logFile, read, replaceInFile, run } from './util.js';
 
 const prompt = inquirer.createPromptModule();
 
@@ -109,5 +109,8 @@ async function deploy(version) {
 
     await run('pnpm publish --no-git-checks');
 
-    await run(`gh release create v${version} -F ./Changelog.md ./dist/uikit-${version}.zip`);
+    const notes = (await read('./Changelog.md'))
+        .match(/## \d.*?$\s*(.*?)\s*(?=## \d)/ms)[1]
+        .replace(/"/g, '\\"');
+    await run(`gh release create v${version} --notes "${notes}" ./dist/uikit-${version}.zip`);
 }

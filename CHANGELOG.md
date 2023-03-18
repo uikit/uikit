@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.16.9 (March 18, 2023)
+
+### Fixed
+
+- Fix reactivity in Toggle component
+- Fix regression in Scrollspy component
+
 ## 3.16.8 (March 17, 2023)
 
 ### Fixed

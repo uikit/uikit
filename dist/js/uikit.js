@@ -1,4 +1,4 @@
-/*! UIkit 3.16.8 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.9 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1073,7 +1073,7 @@
       return { x: x1 + ua * (x2 - x1), y: y1 + ua * (y2 - y1) };
     }
 
-    function observeIntersection(targets, cb, options = {}, intersecting = true) {
+    function observeIntersection(targets, cb, options = {}, { intersecting = true } = {}) {
       const observer = new IntersectionObserver(
         intersecting ? (entries, observer2) => {
           if (entries.some((entry) => entry.isIntersecting)) {
@@ -2140,7 +2140,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.8";
+    App.version = "3.16.9";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -6188,9 +6188,12 @@
         queued: true
       },
       computed: {
-        target({ href, target }, $el) {
-          target = queryAll(target || href, $el);
-          return target.length && target || [$el];
+        target: {
+          get({ href, target }, $el) {
+            target = queryAll(target || href, $el);
+            return target.length && target || [$el];
+          },
+          document: true
         }
       },
       connected() {

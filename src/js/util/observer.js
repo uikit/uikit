@@ -2,7 +2,7 @@ import { on } from './event';
 import { noop, toNodes } from './lang';
 import { inBrowser } from './env';
 
-export function observeIntersection(targets, cb, options = {}, intersecting = true) {
+export function observeIntersection(targets, cb, options = {}, { intersecting = true } = {}) {
     const observer = new IntersectionObserver(
         intersecting
             ? (entries, observer) => {
