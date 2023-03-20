@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.16.10 (March 20, 2023)
+
+### Fixed
+
+- Fix including UIkit scripts at the end of `body` element
+
 ## 3.16.9 (March 18, 2023)
 
 ### Fixed

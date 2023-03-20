@@ -4,7 +4,7 @@ import { apply, hasAttr, inBrowser, isPlainObject, startsWith, trigger } from 'u
 
 export default function (App) {
     if (inBrowser && window.MutationObserver) {
-        if (document.readyState === 'interactive') {
+        if (document.body) {
             requestAnimationFrame(() => init(App));
         } else {
             new MutationObserver((records, observer) => {
