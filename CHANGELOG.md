@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.16.10 (March 20, 2023)
 
 ### Fixed
 
