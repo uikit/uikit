@@ -36,7 +36,7 @@ export default {
 
                 attr($$('.uk-navbar-nav', this.$el), 'role', 'group');
                 attr($$('.uk-navbar-nav > *', this.$el), 'role', 'presentation');
-                attr(items, { tabindex: -1, role: 'menuitem' });
+                attr(items, 'tabindex', -1);
                 attr(items[0], 'tabindex', 0);
             },
 

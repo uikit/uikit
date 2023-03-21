@@ -141,16 +141,12 @@ export default {
 
             watch(items) {
                 attr(children(this.$el), 'role', 'presentation');
-                attr(items, { tabindex: -1, role: 'menuitem' });
+                attr(items, 'tabindex', -1);
                 attr(items[0], 'tabindex', 0);
             },
 
             immediate: true,
         },
-    },
-
-    connected() {
-        attr(this.$el, 'role', 'menubar');
     },
 
     disconnected() {

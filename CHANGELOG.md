@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Remove roles `menubar` and `menuitem` from Navbar component
+
 ## 3.16.10 (March 20, 2023)
 
 ### Fixed
