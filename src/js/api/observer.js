@@ -35,7 +35,6 @@ function registerObservable(instance, observable) {
     const key = `_observe${instance._observers.length}`;
     if (isFunction(target) && !(key in instance)) {
         registerComputed(instance, key, () => target.call(instance, instance));
-        target = instance[key];
     }
 
     handler = isString(handler) ? instance[handler] : handler.bind(instance);
@@ -44,7 +43,7 @@ function registerObservable(instance, observable) {
         options = options.call(instance, instance);
     }
 
-    const observer = observe(target, handler, options, args);
+    const observer = observe(key in instance ? instance[key] : target, handler, options, args);
 
     if (isFunction(target) && isArray(instance[key]) && observer.unobserve) {
         registerWatch(
