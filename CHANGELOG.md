@@ -5,6 +5,7 @@
 ### Changed
 
 - Remove roles `menubar` and `menuitem` from Navbar component
+- Add `watch` to component options API
 
 ## 3.16.10 (March 20, 2023)
 

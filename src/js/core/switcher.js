@@ -51,12 +51,28 @@ export default {
     },
 
     computed: {
-        connects: {
-            get({ connect }, $el) {
-                return queryAll(connect, $el);
-            },
+        connects({ connect }, $el) {
+            return queryAll(connect, $el);
+        },
 
-            watch(connects) {
+        connectChildren() {
+            return this.connects.map((el) => children(el)).flat();
+        },
+
+        toggles({ toggle }, $el) {
+            return $$(toggle, $el);
+        },
+
+        children() {
+            return children(this.$el).filter((child) =>
+                this.toggles.some((toggle) => within(toggle, child))
+            );
+        },
+    },
+
+    watch: {
+        connects: {
+            handler(connects) {
                 if (this.swiping) {
                     css(connects, 'touchAction', 'pan-y pinch-zoom');
                 }
@@ -64,43 +80,20 @@ export default {
             },
 
             document: true,
-            immediate: true,
         },
 
-        connectChildren: {
-            get() {
-                return this.connects.map((el) => children(el)).flat();
-            },
-
-            watch() {
-                const index = this.index();
-                for (const el of this.connects) {
-                    children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
-                }
-                this.$emit();
-            },
-
-            immediate: true,
+        connectChildren() {
+            const index = this.index();
+            for (const el of this.connects) {
+                children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
+            }
+            this.$emit();
         },
 
-        toggles: {
-            get({ toggle }, $el) {
-                return $$(toggle, $el);
-            },
-
-            watch(toggles) {
-                this.$emit();
-                const active = this.index();
-                this.show(~active ? active : toggles[this.active] || toggles[0]);
-            },
-
-            immediate: true,
-        },
-
-        children() {
-            return children(this.$el).filter((child) =>
-                this.toggles.some((toggle) => within(toggle, child))
-            );
+        toggles(toggles) {
+            this.$emit();
+            const active = this.index();
+            this.show(~active ? active : toggles[this.active] || toggles[0]);
         },
     },
 

@@ -31,22 +31,20 @@ export default {
     },
 
     computed: {
-        links: {
-            get(_, $el) {
-                return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
-            },
-
-            watch(links) {
-                if (this.scroll) {
-                    this.$create('scroll', links, { offset: this.offset || 0 });
-                }
-            },
-
-            immediate: true,
+        links(_, $el) {
+            return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
         },
 
         elements({ closest: selector }) {
             return closest(this.links, selector || '*');
+        },
+    },
+
+    watch: {
+        links(links) {
+            if (this.scroll) {
+                this.$create('scroll', links, { offset: this.offset || 0 });
+            }
         },
     },
 

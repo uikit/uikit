@@ -7,7 +7,6 @@ import {
     addClass,
     after,
     attr,
-    children,
     css,
     findIndex,
     getIndex,
@@ -70,21 +69,44 @@ export default {
             return query(dropbarAnchor, $el) || $el;
         },
 
-        dropbar: {
-            get({ dropbar }) {
-                if (!dropbar) {
-                    return null;
+        dropbar({ dropbar }) {
+            if (!dropbar) {
+                return null;
+            }
+
+            dropbar =
+                this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
+
+            return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
+        },
+
+        dropContainer(_, $el) {
+            return this.container || $el;
+        },
+
+        dropdowns({ clsDrop }, $el) {
+            const dropdowns = $$(`.${clsDrop}`, $el);
+
+            if (this.dropContainer !== $el) {
+                for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
+                    const target = this.getDropdown(el)?.targetEl;
+                    if (!includes(dropdowns, el) && target && within(target, this.$el)) {
+                        dropdowns.push(el);
+                    }
                 }
+            }
 
-                dropbar =
-                    this._dropbar ||
-                    query(dropbar, this.$el) ||
-                    $(`+ .${this.clsDropbar}`, this.$el);
+            return dropdowns;
+        },
 
-                return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
-            },
+        items({ selNavItem }, $el) {
+            return $$(selNavItem, $el);
+        },
+    },
 
-            watch(dropbar) {
+    watch: {
+        dropbar: {
+            handler(dropbar) {
                 addClass(
                     dropbar,
                     'uk-dropbar',
@@ -97,27 +119,8 @@ export default {
             immediate: true,
         },
 
-        dropContainer(_, $el) {
-            return this.container || $el;
-        },
-
         dropdowns: {
-            get({ clsDrop }, $el) {
-                const dropdowns = $$(`.${clsDrop}`, $el);
-
-                if (this.dropContainer !== $el) {
-                    for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
-                        const target = this.getDropdown(el)?.targetEl;
-                        if (!includes(dropdowns, el) && target && within(target, this.$el)) {
-                            dropdowns.push(el);
-                        }
-                    }
-                }
-
-                return dropdowns;
-            },
-
-            watch(dropdowns) {
+            handler(dropdowns) {
                 this.$create(
                     'drop',
                     dropdowns.filter((el) => !this.getDropdown(el)),
@@ -135,11 +138,7 @@ export default {
         },
 
         items: {
-            get({ selNavItem }, $el) {
-                return $$(selNavItem, $el);
-            },
-
-            watch(items) {
+            handler(items) {
                 attr(items, 'tabindex', -1);
                 attr(items[0], 'tabindex', 0);
             },

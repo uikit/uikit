@@ -1,22 +1,15 @@
-import {
-    hasOwn,
-    includes,
-    isArray,
-    isEqual,
-    isFunction,
-    isPlainObject,
-    isString,
-} from 'uikit-util';
+import { registerComputed } from './computed';
+import { callWatches, registerWatch } from './watch';
+import { hasOwn, includes, isArray, isFunction, isString } from 'uikit-util';
 
 export function initObservers(instance) {
     instance._observers = [];
-    instance._observerUpdates = new Map();
     for (const observer of instance.$options.observe || []) {
         if (hasOwn(observer, 'handler')) {
             registerObservable(instance, observer);
         } else {
-            for (const key in observer) {
-                registerObservable(instance, observer[key], key);
+            for (const observable of observer) {
+                registerObservable(instance, observable);
             }
         }
     }
@@ -28,57 +21,65 @@ export function registerObserver(instance, ...observer) {
 
 export function disconnectObservers(instance) {
     for (const observer of instance._observers) {
-        observer?.disconnect();
-        instance._observerUpdates.delete(observer);
+        observer.disconnect();
     }
 }
 
-export function callObserverUpdates(instance) {
-    for (const [observer, update] of instance._observerUpdates) {
-        update(observer);
-    }
-}
-
-function registerObservable(instance, observable, key) {
-    let {
-        observe,
-        target = instance.$el,
-        handler,
-        options,
-        filter,
-        args,
-    } = isPlainObject(observable) ? observable : { type: key, handler: observable };
+function registerObservable(instance, observable) {
+    let { observe, target = instance.$el, handler, options, filter, args } = observable;
 
     if (filter && !filter.call(instance, instance)) {
         return;
     }
 
-    const targets = isFunction(target) ? target.call(instance, instance) : target;
+    const key = `_observe${instance._observers.length}`;
+    if (isFunction(target) && !(key in instance)) {
+        registerComputed(instance, key, () => target.call(instance, instance));
+        target = instance[key];
+    }
+
     handler = isString(handler) ? instance[handler] : handler.bind(instance);
 
     if (isFunction(options)) {
         options = options.call(instance, instance);
     }
 
-    const observer = observe(targets, handler, options, args);
+    const observer = observe(target, handler, options, args);
 
-    if (isFunction(target) && isArray(targets) && observer.unobserve) {
-        instance._observerUpdates.set(observer, watchChange(instance, target, targets));
+    if (isFunction(target) && isArray(instance[key]) && observer.unobserve) {
+        registerWatch(
+            instance,
+            {
+                handler(targets, prev) {
+                    for (const target of prev) {
+                        !includes(targets, target) && observer.unobserve(target);
+                    }
+
+                    for (const target of targets) {
+                        !includes(prev, target) && observer.observe(target);
+                    }
+                },
+                immediate: false,
+            },
+            key
+        );
     }
 
     registerObserver(instance, observer);
 }
 
-function watchChange(instance, targetFn, targets) {
-    return (observer) => {
-        const newTargets = targetFn.call(instance, instance);
+export function initWatchObserver(instance) {
+    let { el, computed } = instance.$options;
 
-        if (isEqual(targets, newTargets)) {
-            return;
-        }
+    if (!computed && !instance._watches) {
+        return;
+    }
 
-        targets.forEach((target) => !includes(newTargets, target) && observer.unobserve(target));
-        newTargets.forEach((target) => !includes(targets, target) && observer.observe(target));
-        targets.splice(0, targets.length, ...newTargets);
-    };
+    const observer = new MutationObserver(() => callWatches(instance));
+    observer.observe(instance._observeTarget || el, {
+        childList: true,
+        subtree: true,
+    });
+
+    registerObserver(instance, observer);
 }

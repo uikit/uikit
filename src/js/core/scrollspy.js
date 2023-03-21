@@ -34,19 +34,17 @@ export default {
     }),
 
     computed: {
-        elements: {
-            get({ target }, $el) {
-                return target ? $$(target, $el) : [$el];
-            },
+        elements({ target }, $el) {
+            return target ? $$(target, $el) : [$el];
+        },
+    },
 
-            watch(elements) {
-                if (this.hidden) {
-                    // use `opacity:0` instead of `visibility:hidden` to make content focusable with keyboard
-                    css(filter(elements, `:not(.${this.inViewClass})`), 'opacity', 0);
-                }
-            },
-
-            immediate: true,
+    watch: {
+        elements(elements) {
+            if (this.hidden) {
+                // use `opacity:0` instead of `visibility:hidden` to make content focusable with keyboard
+                css(filter(elements, `:not(.${this.inViewClass})`), 'opacity', 0);
+            }
         },
     },
 

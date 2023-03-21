@@ -12,7 +12,13 @@ export function initComputed(instance) {
     }
 }
 
-function registerComputed(instance, key, cb) {
+export function resetComputed(instance) {
+    const values = { ...instance._computed };
+    instance._computed = {};
+    return values;
+}
+
+export function registerComputed(instance, key, cb) {
     Object.defineProperty(instance, key, {
         enumerable: true,
 

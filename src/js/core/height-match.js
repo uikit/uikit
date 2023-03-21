@@ -16,14 +16,8 @@ export default {
     },
 
     computed: {
-        elements: {
-            get({ target }, $el) {
-                return $$(target, $el);
-            },
-
-            watch() {
-                this.$reset();
-            },
+        elements({ target }, $el) {
+            return $$(target, $el);
         },
     },
 

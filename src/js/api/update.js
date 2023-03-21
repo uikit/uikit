@@ -1,35 +1,37 @@
-import { registerObserver } from './observer';
-import { callWatches } from './watch';
-import { assign, fastdom, isFunction, isPlainObject } from 'uikit-util';
+import { assign, fastdom, isPlainObject } from 'uikit-util';
+
+export function initUpdates(instance) {
+    instance._updates = [...(instance.$options.update || [])];
+}
+
+export function prependUpdate(instance, update) {
+    instance._updates.unshift(update);
+}
 
 export function callUpdate(instance, e = 'update') {
     if (!instance._connected) {
         return;
     }
 
-    if (e === 'update' || e === 'resize') {
-        callWatches(instance);
-    }
-
     if (!instance.$options.update) {
         return;
     }
 
-    if (!instance._updates) {
-        instance._updates = new Set();
+    if (!instance._queued) {
+        instance._queued = new Set();
         fastdom.read(() => {
             if (instance._connected) {
-                runUpdates(instance, instance._updates);
+                runUpdates(instance, instance._queued);
             }
-            delete instance._updates;
+            delete instance._queued;
         });
     }
 
-    instance._updates.add(e.type || e);
+    instance._queued.add(e.type || e);
 }
 
 function runUpdates(instance, types) {
-    for (const { read, write, events = [] } of instance.$options.update) {
+    for (const { read, write, events = [] } of instance._updates) {
         if (!types.has('update') && !events.some((type) => types.has(type))) {
             continue;
         }
@@ -51,27 +53,4 @@ function runUpdates(instance, types) {
             });
         }
     }
-}
-
-export function initUpdateObserver(instance) {
-    let { el, computed, observe } = instance.$options;
-
-    if (!computed && !observe?.some((options) => isFunction(options.target))) {
-        return;
-    }
-
-    for (const key in computed || {}) {
-        if (computed[key].document) {
-            el = el.ownerDocument;
-            break;
-        }
-    }
-
-    const observer = new MutationObserver(() => callWatches(instance));
-    observer.observe(el, {
-        childList: true,
-        subtree: true,
-    });
-
-    registerObserver(instance, observer);
 }

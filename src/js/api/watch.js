@@ -1,34 +1,47 @@
-import { fastdom, hasOwn, isEqual } from 'uikit-util';
-import { callObserverUpdates } from './observer';
+import { resetComputed } from './computed';
+import { prependUpdate } from './update';
+import { hasOwn, isEqual, isPlainObject } from 'uikit-util';
+
+export function initWatches(instance) {
+    instance._watches = [];
+    for (const watches of instance.$options.watch || []) {
+        for (const [name, watch] of Object.entries(watches)) {
+            registerWatch(instance, watch, name);
+        }
+    }
+    instance._initial = true;
+    prependUpdate(instance, { read: () => callWatches(instance), events: ['resize'] });
+}
+
+export function registerWatch(instance, watch, name) {
+    instance._watches.push({
+        name,
+        ...(isPlainObject(watch) ? watch : { handler: watch }),
+    });
+
+    if (watch.document) {
+        instance._observeTarget = instance.$options.el.ownerDocumentocument;
+    }
+}
 
 export function callWatches(instance) {
-    if (instance._watch) {
+    if (!instance._connected) {
         return;
     }
 
-    const initial = !hasOwn(instance, '_watch');
-
-    instance._watch = fastdom.read(() => {
-        if (instance._connected) {
-            runWatches(instance, initial);
-        }
-        instance._watch = null;
-    }, true);
+    runWatches(instance, instance._initial);
+    instance._initial = false;
 }
 
 function runWatches(instance, initial) {
-    const values = { ...instance._computed };
-    instance._computed = {};
+    const values = resetComputed(instance);
 
-    for (const [key, { watch, immediate }] of Object.entries(instance.$options.computed || {})) {
+    for (const { name, handler, immediate = true } of instance._watches) {
         if (
-            watch &&
-            ((initial && immediate) ||
-                (hasOwn(values, key) && !isEqual(values[key], instance[key])))
+            (initial && immediate) ||
+            (hasOwn(values, name) && !isEqual(values[name], instance[name]))
         ) {
-            watch.call(instance, instance[key], initial ? undefined : values[key]);
+            handler.call(instance, instance[name], initial ? undefined : values[name]);
         }
     }
-
-    callObserverUpdates(instance);
 }

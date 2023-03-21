@@ -1,5 +1,5 @@
 import Dropnav from './dropnav';
-import { $$, attr, css, hasClass } from 'uikit-util';
+import { $$, css, hasClass } from 'uikit-util';
 
 export default {
     extends: Dropnav,
@@ -10,13 +10,9 @@ export default {
             '.uk-navbar-nav > li > a,a.uk-navbar-item,button.uk-navbar-item,.uk-navbar-item a,.uk-navbar-item button,.uk-navbar-toggle', // Simplify with :where() selector once browser target is Safari 14+
     },
 
-    computed: {
+    watch: {
         items: {
-            get({ selNavItem }, $el) {
-                return $$(selNavItem, $el);
-            },
-
-            watch(items) {
+            handler() {
                 const justify = hasClass(this.$el, 'uk-navbar-justify');
                 for (const container of $$(
                     '.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right',
@@ -33,9 +29,6 @@ export default {
                             : ''
                     );
                 }
-
-                attr(items, 'tabindex', -1);
-                attr(items[0], 'tabindex', 0);
             },
 
             immediate: true,
