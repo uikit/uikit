@@ -3,7 +3,7 @@ import Position from '../mixin/position';
 import Container from '../mixin/container';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
-import { preventBackgroundScroll } from '../util/scroll';
+import { preventBackgroundScroll } from '../mixin/internal/scroll';
 import {
     addClass,
     append,

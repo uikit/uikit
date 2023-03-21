@@ -1,8 +1,4 @@
-import { width } from './dimensions';
-import { on } from './event';
-import { matches } from './filter';
-import { css } from './style';
-import { scrollParents } from './viewport';
+import { css, matches, on, scrollParents, width } from 'uikit-util';
 
 let prevented;
 export function preventBackgroundScroll(el) {
