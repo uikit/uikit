@@ -10,9 +10,15 @@ const docEl = document.documentElement;
 // try to load themes.json
 const request = new XMLHttpRequest();
 request.open('GET', '../themes.json', false);
-request.send(null);
+let themes = {};
+try {
+    request.send(null);
+    themes = request.status === 200 ? JSON.parse(request.responseText) : {};
+} catch (e) {
+    console.error("Skip loading '../themes.json'");
+    console.error(e);
+}
 
-const themes = request.status === 200 ? JSON.parse(request.responseText) : {};
 const styles = {
     core: { css: '../dist/css/uikit-core.css' },
     theme: { css: '../dist/css/uikit.css' },

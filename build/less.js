@@ -3,12 +3,15 @@ import rtlcss from 'rtlcss';
 import { basename } from 'path';
 import { args, banner, minify, pathExists, read, readJson, renderLess, write } from './util.js';
 
+console.log("compiling less...")
+
 const { rtl } = args;
 const develop = args.develop || args.debug || args.d || args.nominify;
 const sources = [
     { src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css` },
     { src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css` },
 ];
+
 
 const themes = (await pathExists('themes.json')) ? await readJson('themes.json') : {};
 
@@ -92,3 +95,5 @@ async function compile(file, dist, develop, rtl) {
         await minify(dist);
     }
 }
+
+console.log("compilation less finished at " + new Date().toLocaleTimeString())
