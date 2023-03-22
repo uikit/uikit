@@ -33,7 +33,7 @@ function registerObservable(instance, observable) {
     }
 
     const key = `_observe${instance._observers.length}`;
-    if (isFunction(target) && !(key in instance)) {
+    if (isFunction(target) && !hasOwn(instance, key)) {
         registerComputed(instance, key, () => target.call(instance, instance));
     }
 
@@ -43,7 +43,8 @@ function registerObservable(instance, observable) {
         options = options.call(instance, instance);
     }
 
-    const observer = observe(key in instance ? instance[key] : target, handler, options, args);
+    const targets = hasOwn(instance, key) ? instance[key] : target;
+    const observer = observe(targets, handler, options, args);
 
     if (isFunction(target) && isArray(instance[key]) && observer.unobserve) {
         registerWatch(instance, { handler: updateTargets(observer), immediate: false }, key);
