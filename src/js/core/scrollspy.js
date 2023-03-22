@@ -87,7 +87,7 @@ export default {
     update: [
         {
             write(data) {
-                for (const [el, state] of data.elements.entries()) {
+                for (const [el, state] of this.elementData.entries()) {
                     if (state.show && !state.inview && !state.queued) {
                         state.queued = true;
 
