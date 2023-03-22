@@ -1,5 +1,3 @@
-import { resetComputed } from './computed';
-import { prependUpdate } from './update';
 import { hasOwn, isEqual, isPlainObject } from 'uikit-util';
 
 export function initWatches(instance) {
@@ -10,7 +8,6 @@ export function initWatches(instance) {
         }
     }
     instance._initial = true;
-    prependUpdate(instance, { read: () => callWatches(instance), events: ['resize'] });
 }
 
 export function registerWatch(instance, watch, name) {
@@ -18,30 +15,16 @@ export function registerWatch(instance, watch, name) {
         name,
         ...(isPlainObject(watch) ? watch : { handler: watch }),
     });
-
-    if (watch.document) {
-        instance._observeTarget = instance.$options.el.ownerDocumentocument;
-    }
 }
 
-export function callWatches(instance) {
-    if (!instance._connected) {
-        return;
-    }
-
-    runWatches(instance, instance._initial);
-    instance._initial = false;
-}
-
-function runWatches(instance, initial) {
-    const values = resetComputed(instance);
-
+export function runWatches(instance, values) {
     for (const { name, handler, immediate = true } of instance._watches) {
         if (
-            (initial && immediate) ||
+            (instance._initial && immediate) ||
             (hasOwn(values, name) && !isEqual(values[name], instance[name]))
         ) {
-            handler.call(instance, instance[name], initial ? undefined : values[name]);
+            handler.call(instance, instance[name], instance._initial ? undefined : values[name]);
         }
     }
+    instance._initial = false;
 }

@@ -1,5 +1,5 @@
+import { registerWatch } from './watch';
 import { registerComputed } from './computed';
-import { callWatches, registerWatch } from './watch';
 import { hasOwn, includes, isArray, isFunction, isString } from 'uikit-util';
 
 export function initObservers(instance) {
@@ -46,39 +46,20 @@ function registerObservable(instance, observable) {
     const observer = observe(key in instance ? instance[key] : target, handler, options, args);
 
     if (isFunction(target) && isArray(instance[key]) && observer.unobserve) {
-        registerWatch(
-            instance,
-            {
-                handler(targets, prev) {
-                    for (const target of prev) {
-                        !includes(targets, target) && observer.unobserve(target);
-                    }
-
-                    for (const target of targets) {
-                        !includes(prev, target) && observer.observe(target);
-                    }
-                },
-                immediate: false,
-            },
-            key
-        );
+        registerWatch(instance, { handler: updateTargets(observer), immediate: false }, key);
     }
 
     registerObserver(instance, observer);
 }
 
-export function initWatchObserver(instance) {
-    let { el, computed } = instance.$options;
+function updateTargets(observer) {
+    return (targets, prev) => {
+        for (const target of prev) {
+            !includes(targets, target) && observer.unobserve(target);
+        }
 
-    if (!computed && !instance._watches) {
-        return;
-    }
-
-    const observer = new MutationObserver(() => callWatches(instance));
-    observer.observe(instance._observeTarget || el, {
-        childList: true,
-        subtree: true,
-    });
-
-    registerObserver(instance, observer);
+        for (const target of targets) {
+            !includes(prev, target) && observer.observe(target);
+        }
+    };
 }

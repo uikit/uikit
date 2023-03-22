@@ -1,9 +1,10 @@
+import { disconnectComputedUpdates, initComputedUpdates } from './computed';
 import { log } from './log';
 import { initWatches } from './watch';
-import { callUpdate, initUpdates } from './update';
+import { callUpdate, clearUpdateData, initUpdates } from './update';
 import { initEvents, unbindEvents } from './events';
 import { initProps, initPropsObserver } from './props';
-import { disconnectObservers, initObservers, initWatchObserver } from './observer';
+import { disconnectObservers, initObservers } from './observer';
 
 export function callHook(instance, hook) {
     LOG && log(instance, hook);
@@ -14,9 +15,6 @@ export function callConnected(instance) {
     if (instance._connected) {
         return;
     }
-
-    instance._data = {};
-    instance._computed = {};
 
     initProps(instance);
 
@@ -29,7 +27,7 @@ export function callConnected(instance) {
     initObservers(instance);
 
     initPropsObserver(instance);
-    initWatchObserver(instance);
+    initComputedUpdates(instance);
 
     callHook(instance, 'connected');
     callUpdate(instance);
@@ -41,10 +39,13 @@ export function callDisconnected(instance) {
     }
 
     callHook(instance, 'beforeDisconnect');
-    disconnectObservers(instance);
+
     unbindEvents(instance);
+    clearUpdateData(instance);
+    disconnectObservers(instance);
+    disconnectComputedUpdates(instance);
+
     callHook(instance, 'disconnected');
 
     instance._connected = false;
-    delete instance._watch;
 }

@@ -58,9 +58,10 @@ export default {
     },
 
     disconnected() {
-        if (this._data.image) {
-            this._data.image.onload = '';
+        if (this.img) {
+            this.img.onload = '';
         }
+        delete this.img;
     },
 
     observe: intersection({
@@ -75,8 +76,8 @@ export default {
 
     methods: {
         load() {
-            if (this._data.image) {
-                return this._data.image;
+            if (this.img) {
+                return this.img;
             }
 
             const image = isImg(this.$el)
@@ -85,7 +86,7 @@ export default {
 
             removeAttr(image, 'loading');
             setSrcAttrs(this.$el, image.currentSrc);
-            return (this._data.image = image);
+            return (this.img = image);
         },
     },
 };

@@ -71,15 +71,11 @@ export default {
     },
 
     watch: {
-        connects: {
-            handler(connects) {
-                if (this.swiping) {
-                    css(connects, 'touchAction', 'pan-y pinch-zoom');
-                }
-                this.$emit();
-            },
-
-            document: true,
+        connects(connects) {
+            if (this.swiping) {
+                css(connects, 'touchAction', 'pan-y pinch-zoom');
+            }
+            this.$emit();
         },
 
         connectChildren() {

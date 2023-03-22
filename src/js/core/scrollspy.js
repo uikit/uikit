@@ -49,19 +49,20 @@ export default {
     },
 
     connected() {
-        this._data.elements = new Map();
+        this.elementData = new Map();
     },
 
     disconnected() {
-        for (const [el, state] of this._data.elements.entries()) {
+        for (const [el, state] of this.elementData.entries()) {
             removeClass(el, this.inViewClass, state?.cls || '');
         }
+        delete this.elementData;
     },
 
     observe: intersection({
         target: ({ elements }) => elements,
         handler(records) {
-            const elements = this._data.elements;
+            const elements = this.elementData;
             for (const { target: el, isIntersecting } of records) {
                 if (!elements.has(el)) {
                     elements.set(el, {
@@ -109,7 +110,7 @@ export default {
 
     methods: {
         toggle(el, inview) {
-            const state = this._data.elements.get(el);
+            const state = this.elementData.get(el);
 
             if (!state) {
                 return;

@@ -105,45 +105,33 @@ export default {
     },
 
     watch: {
-        dropbar: {
-            handler(dropbar) {
-                addClass(
-                    dropbar,
-                    'uk-dropbar',
-                    'uk-dropbar-top',
-                    this.clsDropbar,
-                    `uk-${this.$options.name}-dropbar`
-                );
-            },
-
-            immediate: true,
+        dropbar(dropbar) {
+            addClass(
+                dropbar,
+                'uk-dropbar',
+                'uk-dropbar-top',
+                this.clsDropbar,
+                `uk-${this.$options.name}-dropbar`
+            );
         },
 
-        dropdowns: {
-            handler(dropdowns) {
-                this.$create(
-                    'drop',
-                    dropdowns.filter((el) => !this.getDropdown(el)),
-                    {
-                        ...this.$props,
-                        flip: false,
-                        shift: true,
-                        pos: `bottom-${this.align}`,
-                        boundary: this.boundary === true ? this.$el : this.boundary,
-                    }
-                );
-            },
-
-            immediate: true,
+        dropdowns(dropdowns) {
+            this.$create(
+                'drop',
+                dropdowns.filter((el) => !this.getDropdown(el)),
+                {
+                    ...this.$props,
+                    flip: false,
+                    shift: true,
+                    pos: `bottom-${this.align}`,
+                    boundary: this.boundary === true ? this.$el : this.boundary,
+                }
+            );
         },
 
-        items: {
-            handler(items) {
-                attr(items, 'tabindex', -1);
-                attr(items[0], 'tabindex', 0);
-            },
-
-            immediate: true,
+        items(items) {
+            attr(items, 'tabindex', -1);
+            attr(items[0], 'tabindex', 0);
         },
     },
 

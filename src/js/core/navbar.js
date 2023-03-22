@@ -11,27 +11,23 @@ export default {
     },
 
     watch: {
-        items: {
-            handler() {
-                const justify = hasClass(this.$el, 'uk-navbar-justify');
-                for (const container of $$(
-                    '.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right',
-                    this.$el
-                )) {
-                    css(
-                        container,
-                        'flexGrow',
-                        justify
-                            ? $$(
-                                  '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
-                                  container
-                              ).length
-                            : ''
-                    );
-                }
-            },
-
-            immediate: true,
+        items() {
+            const justify = hasClass(this.$el, 'uk-navbar-justify');
+            for (const container of $$(
+                '.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right',
+                this.$el
+            )) {
+                css(
+                    container,
+                    'flexGrow',
+                    justify
+                        ? $$(
+                              '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
+                              container
+                          ).length
+                        : ''
+                );
+            }
         },
     },
 };
