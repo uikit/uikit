@@ -56,7 +56,7 @@ export function initComputedUpdates(instance) {
 }
 
 export function disconnectComputedUpdates(instance) {
-    instances.delete(instance);
+    instances?.delete(instance);
     resetComputed(instance);
 }
 
