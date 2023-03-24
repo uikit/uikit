@@ -1,4 +1,4 @@
-/*! UIkit 3.16.10 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.11 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -9434,9 +9434,11 @@ iframe[data-uk-cover] {
 /*
  * Keep space when hidden.
  * Hide element without shrinking its dimension.
+ * Unfortunately, can't use `clip-path: inset(50%)` because hover won't work
+ * if the element is positioned outside of the toggle box.
  */
 .uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) {
-  clip-path: inset(50%) !important;
+  opacity: 0 !important;
 }
 /* Based on Hover Capability of the Pointing Device
  ========================================================================== */

@@ -92,29 +92,23 @@ export default {
             return children(this.target);
         },
 
-        isEmpty: {
-            get() {
-                return isEmpty(this.items);
-            },
-
-            watch(empty) {
-                toggleClass(this.target, this.clsEmpty, empty);
-            },
-
-            immediate: true,
+        isEmpty() {
+            return isEmpty(this.items);
         },
 
-        handles: {
-            get({ handle }, el) {
-                return handle ? $$(handle, el) : this.items;
-            },
+        handles({ handle }, el) {
+            return handle ? $$(handle, el) : this.items;
+        },
+    },
 
-            watch(handles, prev) {
-                css(prev, { touchAction: '', userSelect: '' });
-                css(handles, { touchAction: hasTouch ? 'none' : '', userSelect: 'none' }); // touchAction set to 'none' causes a performance drop in Chrome 80
-            },
+    watch: {
+        isEmpty(empty) {
+            toggleClass(this.target, this.clsEmpty, empty);
+        },
 
-            immediate: true,
+        handles(handles, prev) {
+            css(prev, { touchAction: '', userSelect: '' });
+            css(handles, { touchAction: hasTouch ? 'none' : '', userSelect: 'none' }); // touchAction set to 'none' causes a performance drop in Chrome 80
         },
     },
 

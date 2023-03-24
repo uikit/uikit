@@ -1,3 +1,5 @@
+import { runWatches } from './watch';
+import { callUpdate, prependUpdate } from './update';
 import { hasOwn, isUndefined } from 'uikit-util';
 
 export function initComputed(instance) {
@@ -12,7 +14,8 @@ export function initComputed(instance) {
     }
 }
 
-function registerComputed(instance, key, cb) {
+export function registerComputed(instance, key, cb) {
+    instance._hasComputed = true;
     Object.defineProperty(instance, key, {
         enumerable: true,
 
@@ -35,5 +38,49 @@ function registerComputed(instance, key, cb) {
                 delete _computed[key];
             }
         },
+    });
+}
+
+export function initComputedUpdates(instance) {
+    if (!instance._hasComputed) {
+        return;
+    }
+
+    prependUpdate(instance, {
+        read: () => runWatches(instance, resetComputed(instance)),
+        events: ['resize', 'computed'],
+    });
+
+    registerComputedObserver();
+    instances.add(instance);
+}
+
+export function disconnectComputedUpdates(instance) {
+    instances?.delete(instance);
+    resetComputed(instance);
+}
+
+function resetComputed(instance) {
+    const values = { ...instance._computed };
+    instance._computed = {};
+    return values;
+}
+
+let observer;
+let instances;
+function registerComputedObserver() {
+    if (observer) {
+        return;
+    }
+
+    instances = new Set();
+    observer = new MutationObserver(() => {
+        for (const instance of instances) {
+            callUpdate(instance, 'computed');
+        }
+    });
+    observer.observe(document, {
+        childList: true,
+        subtree: true,
     });
 }

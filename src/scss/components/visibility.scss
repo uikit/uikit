@@ -135,9 +135,11 @@
 /*
  * Keep space when hidden.
  * Hide element without shrinking its dimension.
+ * Unfortunately, can't use `clip-path: inset(50%)` because hover won't work
+ * if the element is positioned outside of the toggle box.
  */
 
-.uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) { clip-path: inset(50%) !important; }
+.uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) { opacity: 0 !important; }
 
 
 /* Based on Hover Capability of the Pointing Device

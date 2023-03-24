@@ -34,36 +34,35 @@ export default {
     }),
 
     computed: {
-        elements: {
-            get({ target }, $el) {
-                return target ? $$(target, $el) : [$el];
-            },
+        elements({ target }, $el) {
+            return target ? $$(target, $el) : [$el];
+        },
+    },
 
-            watch(elements) {
-                if (this.hidden) {
-                    // use `opacity:0` instead of `visibility:hidden` to make content focusable with keyboard
-                    css(filter(elements, `:not(.${this.inViewClass})`), 'opacity', 0);
-                }
-            },
-
-            immediate: true,
+    watch: {
+        elements(elements) {
+            if (this.hidden) {
+                // use `opacity:0` instead of `visibility:hidden` to make content focusable with keyboard
+                css(filter(elements, `:not(.${this.inViewClass})`), 'opacity', 0);
+            }
         },
     },
 
     connected() {
-        this._data.elements = new Map();
+        this.elementData = new Map();
     },
 
     disconnected() {
-        for (const [el, state] of this._data.elements.entries()) {
+        for (const [el, state] of this.elementData.entries()) {
             removeClass(el, this.inViewClass, state?.cls || '');
         }
+        delete this.elementData;
     },
 
     observe: intersection({
         target: ({ elements }) => elements,
         handler(records) {
-            const elements = this._data.elements;
+            const elements = this.elementData;
             for (const { target: el, isIntersecting } of records) {
                 if (!elements.has(el)) {
                     elements.set(el, {
@@ -88,7 +87,7 @@ export default {
     update: [
         {
             write(data) {
-                for (const [el, state] of data.elements.entries()) {
+                for (const [el, state] of this.elementData.entries()) {
                     if (state.show && !state.inview && !state.queued) {
                         state.queued = true;
 
@@ -111,7 +110,7 @@ export default {
 
     methods: {
         toggle(el, inview) {
-            const state = this._data.elements.get(el);
+            const state = this.elementData.get(el);
 
             if (!state) {
                 return;

@@ -10,21 +10,19 @@ export default {
     data: { toggle: 'a' },
 
     computed: {
-        toggles: {
-            get({ toggle }, $el) {
-                return $$(toggle, $el);
-            },
+        toggles({ toggle }, $el) {
+            return $$(toggle, $el);
+        },
+    },
 
-            watch(toggles) {
-                this.hide();
-                for (const toggle of toggles) {
-                    if (isTag(toggle, 'a')) {
-                        attr(toggle, 'role', 'button');
-                    }
+    watch: {
+        toggles(toggles) {
+            this.hide();
+            for (const toggle of toggles) {
+                if (isTag(toggle, 'a')) {
+                    attr(toggle, 'role', 'button');
                 }
-            },
-
-            immediate: true,
+            }
         },
     },
 

@@ -42,41 +42,35 @@ export default {
     },
 
     computed: {
-        toggles: {
-            get({ attrItem }, $el) {
-                return $$(`[${attrItem}],[data-${attrItem}]`, $el);
-            },
-
-            watch(toggles) {
-                this.updateState();
-
-                const actives = $$(this.selActive, this.$el);
-                for (const toggle of toggles) {
-                    if (this.selActive !== false) {
-                        toggleClass(toggle, this.cls, includes(actives, toggle));
-                    }
-                    const button = findButton(toggle);
-                    if (isTag(button, 'a')) {
-                        attr(button, 'role', 'button');
-                    }
-                }
-            },
-
-            immediate: true,
+        toggles({ attrItem }, $el) {
+            return $$(`[${attrItem}],[data-${attrItem}]`, $el);
         },
 
-        children: {
-            get({ target }, $el) {
-                return $$(`${target} > *`, $el);
-            },
+        children({ target }, $el) {
+            return $$(`${target} > *`, $el);
+        },
+    },
 
-            watch(list, prev) {
-                if (prev) {
-                    this.updateState();
+    watch: {
+        toggles(toggles) {
+            this.updateState();
+
+            const actives = $$(this.selActive, this.$el);
+            for (const toggle of toggles) {
+                if (this.selActive !== false) {
+                    toggleClass(toggle, this.cls, includes(actives, toggle));
                 }
-            },
+                const button = findButton(toggle);
+                if (isTag(button, 'a')) {
+                    attr(button, 'role', 'button');
+                }
+            }
+        },
 
-            immediate: true,
+        children(list, prev) {
+            if (prev) {
+                this.updateState();
+            }
         },
     },
 

@@ -53,61 +53,48 @@ export default {
     },
 
     computed: {
-        items: {
-            get({ targets }, $el) {
-                return $$(targets, $el);
-            },
-
-            watch(items, prev) {
-                if (prev || hasClass(items, this.clsOpen)) {
-                    return;
-                }
-
-                const active =
-                    (this.active !== false && items[Number(this.active)]) ||
-                    (!this.collapsible && items[0]);
-
-                if (active) {
-                    this.toggle(active, false);
-                }
-            },
-
-            immediate: true,
+        items({ targets }, $el) {
+            return $$(targets, $el);
         },
 
-        toggles: {
-            get({ toggle }) {
-                return this.items.map((item) => $(toggle, item));
-            },
-
-            watch() {
-                this.$emit();
-            },
-
-            immediate: true,
+        toggles({ toggle }) {
+            return this.items.map((item) => $(toggle, item));
         },
 
-        contents: {
-            get({ content }) {
-                return this.items.map(
-                    (item) => item._wrapper?.firstElementChild || $(content, item)
+        contents({ content }) {
+            return this.items.map((item) => item._wrapper?.firstElementChild || $(content, item));
+        },
+    },
+
+    watch: {
+        items(items, prev) {
+            if (prev || hasClass(items, this.clsOpen)) {
+                return;
+            }
+
+            const active =
+                (this.active !== false && items[Number(this.active)]) ||
+                (!this.collapsible && items[0]);
+
+            if (active) {
+                this.toggle(active, false);
+            }
+        },
+
+        toggles() {
+            this.$emit();
+        },
+
+        contents(items) {
+            for (const el of items) {
+                const isOpen = hasClass(
+                    this.items.find((item) => within(el, item)),
+                    this.clsOpen
                 );
-            },
 
-            watch(items) {
-                for (const el of items) {
-                    hide(
-                        el,
-                        !hasClass(
-                            this.items.find((item) => within(el, item)),
-                            this.clsOpen
-                        )
-                    );
-                }
-                this.$emit();
-            },
-
-            immediate: true,
+                hide(el, !isOpen);
+            }
+            this.$emit();
         },
     },
 

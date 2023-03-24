@@ -23,7 +23,7 @@ import {
     toFloat,
     within,
 } from 'uikit-util';
-import { preventBackgroundScroll } from '../util/scroll';
+import { preventBackgroundScroll } from './internal/scroll';
 
 const active = [];
 

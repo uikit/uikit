@@ -7,7 +7,6 @@ import {
     addClass,
     after,
     attr,
-    children,
     css,
     findIndex,
     getIndex,
@@ -70,87 +69,70 @@ export default {
             return query(dropbarAnchor, $el) || $el;
         },
 
-        dropbar: {
-            get({ dropbar }) {
-                if (!dropbar) {
-                    return null;
-                }
+        dropbar({ dropbar }) {
+            if (!dropbar) {
+                return null;
+            }
 
-                dropbar =
-                    this._dropbar ||
-                    query(dropbar, this.$el) ||
-                    $(`+ .${this.clsDropbar}`, this.$el);
+            dropbar =
+                this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
 
-                return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
-            },
-
-            watch(dropbar) {
-                addClass(
-                    dropbar,
-                    'uk-dropbar',
-                    'uk-dropbar-top',
-                    this.clsDropbar,
-                    `uk-${this.$options.name}-dropbar`
-                );
-            },
-
-            immediate: true,
+            return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
         },
 
         dropContainer(_, $el) {
             return this.container || $el;
         },
 
-        dropdowns: {
-            get({ clsDrop }, $el) {
-                const dropdowns = $$(`.${clsDrop}`, $el);
+        dropdowns({ clsDrop }, $el) {
+            const dropdowns = $$(`.${clsDrop}`, $el);
 
-                if (this.dropContainer !== $el) {
-                    for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
-                        const target = this.getDropdown(el)?.targetEl;
-                        if (!includes(dropdowns, el) && target && within(target, this.$el)) {
-                            dropdowns.push(el);
-                        }
+            if (this.dropContainer !== $el) {
+                for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
+                    const target = this.getDropdown(el)?.targetEl;
+                    if (!includes(dropdowns, el) && target && within(target, this.$el)) {
+                        dropdowns.push(el);
                     }
                 }
+            }
 
-                return dropdowns;
-            },
-
-            watch(dropdowns) {
-                this.$create(
-                    'drop',
-                    dropdowns.filter((el) => !this.getDropdown(el)),
-                    {
-                        ...this.$props,
-                        flip: false,
-                        shift: true,
-                        pos: `bottom-${this.align}`,
-                        boundary: this.boundary === true ? this.$el : this.boundary,
-                    }
-                );
-            },
-
-            immediate: true,
+            return dropdowns;
         },
 
-        items: {
-            get({ selNavItem }, $el) {
-                return $$(selNavItem, $el);
-            },
-
-            watch(items) {
-                attr(children(this.$el), 'role', 'presentation');
-                attr(items, { tabindex: -1, role: 'menuitem' });
-                attr(items[0], 'tabindex', 0);
-            },
-
-            immediate: true,
+        items({ selNavItem }, $el) {
+            return $$(selNavItem, $el);
         },
     },
 
-    connected() {
-        attr(this.$el, 'role', 'menubar');
+    watch: {
+        dropbar(dropbar) {
+            addClass(
+                dropbar,
+                'uk-dropbar',
+                'uk-dropbar-top',
+                this.clsDropbar,
+                `uk-${this.$options.name}-dropbar`
+            );
+        },
+
+        dropdowns(dropdowns) {
+            this.$create(
+                'drop',
+                dropdowns.filter((el) => !this.getDropdown(el)),
+                {
+                    ...this.$props,
+                    flip: false,
+                    shift: true,
+                    pos: `bottom-${this.align}`,
+                    boundary: this.boundary === true ? this.$el : this.boundary,
+                }
+            );
+        },
+
+        items(items) {
+            attr(items, 'tabindex', -1);
+            attr(items[0], 'tabindex', 0);
+        },
     },
 
     disconnected() {

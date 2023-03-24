@@ -63,18 +63,20 @@ export default {
             return this.length - 1;
         },
 
-        slides: {
-            get() {
-                return children(this.list);
-            },
-
-            watch() {
-                this.$emit();
-            },
+        slides() {
+            return children(this.list);
         },
 
         length() {
             return this.slides.length;
+        },
+    },
+
+    watch: {
+        slides(slides, prev) {
+            if (prev) {
+                this.$emit();
+            }
         },
     },
 
