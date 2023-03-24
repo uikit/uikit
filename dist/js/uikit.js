@@ -1,4 +1,4 @@
-/*! UIkit 3.16.10 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.11 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -959,8 +959,8 @@
     const fastdom = {
       reads: [],
       writes: [],
-      read(task, prepend) {
-        this.reads[prepend ? "unshift" : "push"](task);
+      read(task) {
+        this.reads.push(task);
         scheduleFlush();
         return task;
       },
@@ -1666,114 +1666,60 @@
         wrapInner: wrapInner
     });
 
-    function initObservers(instance) {
-      instance._observers = [];
-      instance._observerUpdates = /* @__PURE__ */ new Map();
-      for (const observer of instance.$options.observe || []) {
-        if (hasOwn(observer, "handler")) {
-          registerObservable(instance, observer);
-        } else {
-          for (const key in observer) {
-            registerObservable(instance, observer[key], key);
-          }
+    function initWatches(instance) {
+      instance._watches = [];
+      for (const watches of instance.$options.watch || []) {
+        for (const [name, watch] of Object.entries(watches)) {
+          registerWatch(instance, watch, name);
         }
       }
+      instance._initial = true;
     }
-    function registerObserver(instance, ...observer) {
-      instance._observers.push(...observer);
+    function registerWatch(instance, watch, name) {
+      instance._watches.push({
+        name,
+        ...isPlainObject(watch) ? watch : { handler: watch }
+      });
     }
-    function disconnectObservers(instance) {
-      for (const observer of instance._observers) {
-        observer == null ? void 0 : observer.disconnect();
-        instance._observerUpdates.delete(observer);
-      }
-    }
-    function callObserverUpdates(instance) {
-      for (const [observer, update] of instance._observerUpdates) {
-        update(observer);
-      }
-    }
-    function registerObservable(instance, observable, key) {
-      let {
-        observe,
-        target = instance.$el,
-        handler,
-        options,
-        filter,
-        args
-      } = isPlainObject(observable) ? observable : { type: key, handler: observable };
-      if (filter && !filter.call(instance, instance)) {
-        return;
-      }
-      const targets = isFunction(target) ? target.call(instance, instance) : target;
-      handler = isString(handler) ? instance[handler] : handler.bind(instance);
-      if (isFunction(options)) {
-        options = options.call(instance, instance);
-      }
-      const observer = observe(targets, handler, options, args);
-      if (isFunction(target) && isArray(targets) && observer.unobserve) {
-        instance._observerUpdates.set(observer, watchChange(instance, target, targets));
-      }
-      registerObserver(instance, observer);
-    }
-    function watchChange(instance, targetFn, targets) {
-      return (observer) => {
-        const newTargets = targetFn.call(instance, instance);
-        if (isEqual(targets, newTargets)) {
-          return;
+    function runWatches(instance, values) {
+      for (const { name, handler, immediate = true } of instance._watches) {
+        if (instance._initial ? immediate : hasOwn(values, name) && !isEqual(values[name], instance[name])) {
+          handler.call(instance, instance[name], instance._initial ? void 0 : values[name]);
         }
-        targets.forEach((target) => !includes(newTargets, target) && observer.unobserve(target));
-        newTargets.forEach((target) => !includes(targets, target) && observer.observe(target));
-        targets.splice(0, targets.length, ...newTargets);
-      };
+      }
+      instance._initial = false;
     }
 
-    function callWatches(instance) {
-      if (instance._watch) {
-        return;
-      }
-      const initial = !hasOwn(instance, "_watch");
-      instance._watch = fastdom.read(() => {
-        if (instance._connected) {
-          runWatches(instance, initial);
-        }
-        instance._watch = null;
-      }, true);
+    function initUpdates(instance) {
+      instance._data = {};
+      instance._updates = [...instance.$options.update || []];
     }
-    function runWatches(instance, initial) {
-      const values = { ...instance._computed };
-      instance._computed = {};
-      for (const [key, { watch, immediate }] of Object.entries(instance.$options.computed || {})) {
-        if (watch && (initial && immediate || hasOwn(values, key) && !isEqual(values[key], instance[key]))) {
-          watch.call(instance, instance[key], initial ? void 0 : values[key]);
-        }
-      }
-      callObserverUpdates(instance);
+    function prependUpdate(instance, update) {
+      instance._updates.unshift(update);
     }
-
+    function clearUpdateData(instance) {
+      delete instance._data;
+    }
     function callUpdate(instance, e = "update") {
       if (!instance._connected) {
         return;
       }
-      if (e === "update" || e === "resize") {
-        callWatches(instance);
-      }
-      if (!instance.$options.update) {
+      if (!instance._updates.length) {
         return;
       }
-      if (!instance._updates) {
-        instance._updates = /* @__PURE__ */ new Set();
+      if (!instance._queued) {
+        instance._queued = /* @__PURE__ */ new Set();
         fastdom.read(() => {
           if (instance._connected) {
-            runUpdates(instance, instance._updates);
+            runUpdates(instance, instance._queued);
           }
-          delete instance._updates;
+          delete instance._queued;
         });
       }
-      instance._updates.add(e.type || e);
+      instance._queued.add(e.type || e);
     }
     function runUpdates(instance, types) {
-      for (const { read, write, events = [] } of instance.$options.update) {
+      for (const { read, write, events = [] } of instance._updates) {
         if (!types.has("update") && !events.some((type) => types.has(type))) {
           continue;
         }
@@ -1793,23 +1739,72 @@
         }
       }
     }
-    function initUpdateObserver(instance) {
-      let { el, computed, observe } = instance.$options;
-      if (!computed && !(observe == null ? void 0 : observe.some((options) => isFunction(options.target)))) {
-        return;
-      }
-      for (const key in computed || {}) {
-        if (computed[key].document) {
-          el = el.ownerDocument;
-          break;
+
+    function initComputed(instance) {
+      const { computed } = instance.$options;
+      instance._computed = {};
+      if (computed) {
+        for (const key in computed) {
+          registerComputed(instance, key, computed[key]);
         }
       }
-      const observer = new MutationObserver(() => callWatches(instance));
-      observer.observe(el, {
+    }
+    function registerComputed(instance, key, cb) {
+      instance._hasComputed = true;
+      Object.defineProperty(instance, key, {
+        enumerable: true,
+        get() {
+          const { _computed, $props, $el } = instance;
+          if (!hasOwn(_computed, key)) {
+            _computed[key] = (cb.get || cb).call(instance, $props, $el);
+          }
+          return _computed[key];
+        },
+        set(value) {
+          const { _computed } = instance;
+          _computed[key] = cb.set ? cb.set.call(instance, value) : value;
+          if (isUndefined(_computed[key])) {
+            delete _computed[key];
+          }
+        }
+      });
+    }
+    function initComputedUpdates(instance) {
+      if (!instance._hasComputed) {
+        return;
+      }
+      prependUpdate(instance, {
+        read: () => runWatches(instance, resetComputed(instance)),
+        events: ["resize", "computed"]
+      });
+      registerComputedObserver();
+      instances$1.add(instance);
+    }
+    function disconnectComputedUpdates(instance) {
+      instances$1 == null ? void 0 : instances$1.delete(instance);
+      resetComputed(instance);
+    }
+    function resetComputed(instance) {
+      const values = { ...instance._computed };
+      instance._computed = {};
+      return values;
+    }
+    let observer;
+    let instances$1;
+    function registerComputedObserver() {
+      if (observer) {
+        return;
+      }
+      instances$1 = /* @__PURE__ */ new Set();
+      observer = new MutationObserver(() => {
+        for (const instance of instances$1) {
+          callUpdate(instance, "computed");
+        }
+      });
+      observer.observe(document, {
         childList: true,
         subtree: true
       });
-      registerObserver(instance, observer);
     }
 
     function initEvents(instance) {
@@ -1849,8 +1844,59 @@
       );
     }
 
+    function initObservers(instance) {
+      instance._observers = [];
+      for (const observer of instance.$options.observe || []) {
+        if (hasOwn(observer, "handler")) {
+          registerObservable(instance, observer);
+        } else {
+          for (const observable of observer) {
+            registerObservable(instance, observable);
+          }
+        }
+      }
+    }
+    function registerObserver(instance, ...observer) {
+      instance._observers.push(...observer);
+    }
+    function disconnectObservers(instance) {
+      for (const observer of instance._observers) {
+        observer.disconnect();
+      }
+    }
+    function registerObservable(instance, observable) {
+      let { observe, target = instance.$el, handler, options, filter, args } = observable;
+      if (filter && !filter.call(instance, instance)) {
+        return;
+      }
+      const key = `_observe${instance._observers.length}`;
+      if (isFunction(target) && !hasOwn(instance, key)) {
+        registerComputed(instance, key, () => target.call(instance, instance));
+      }
+      handler = isString(handler) ? instance[handler] : handler.bind(instance);
+      if (isFunction(options)) {
+        options = options.call(instance, instance);
+      }
+      const targets = hasOwn(instance, key) ? instance[key] : target;
+      const observer = observe(targets, handler, options, args);
+      if (isFunction(target) && isArray(instance[key]) && observer.unobserve) {
+        registerWatch(instance, { handler: updateTargets(observer), immediate: false }, key);
+      }
+      registerObserver(instance, observer);
+    }
+    function updateTargets(observer) {
+      return (targets, prev) => {
+        for (const target of prev) {
+          !includes(targets, target) && observer.unobserve(target);
+        }
+        for (const target of targets) {
+          !includes(prev, target) && observer.observe(target);
+        }
+      };
+    }
+
     const strats = {};
-    strats.events = strats.observe = strats.created = strats.beforeConnect = strats.connected = strats.beforeDisconnect = strats.disconnected = strats.destroy = concatStrat;
+    strats.events = strats.watch = strats.observe = strats.created = strats.beforeConnect = strats.connected = strats.beforeDisconnect = strats.disconnected = strats.destroy = concatStrat;
     strats.args = function(parentVal, childVal) {
       return childVal !== false && concatStrat(childVal || parentVal);
     };
@@ -2033,15 +2079,15 @@
       if (instance._connected) {
         return;
       }
-      instance._data = {};
-      instance._computed = {};
       initProps(instance);
       callHook(instance, "beforeConnect");
       instance._connected = true;
       initEvents(instance);
+      initUpdates(instance);
+      initWatches(instance);
       initObservers(instance);
       initPropsObserver(instance);
-      initUpdateObserver(instance);
+      initComputedUpdates(instance);
       callHook(instance, "connected");
       callUpdate(instance);
     }
@@ -2050,40 +2096,12 @@
         return;
       }
       callHook(instance, "beforeDisconnect");
-      disconnectObservers(instance);
       unbindEvents(instance);
+      clearUpdateData(instance);
+      disconnectObservers(instance);
+      disconnectComputedUpdates(instance);
       callHook(instance, "disconnected");
       instance._connected = false;
-      delete instance._watch;
-    }
-
-    function initComputed(instance) {
-      const { computed } = instance.$options;
-      instance._computed = {};
-      if (computed) {
-        for (const key in computed) {
-          registerComputed(instance, key, computed[key]);
-        }
-      }
-    }
-    function registerComputed(instance, key, cb) {
-      Object.defineProperty(instance, key, {
-        enumerable: true,
-        get() {
-          const { _computed, $props, $el } = instance;
-          if (!hasOwn(_computed, key)) {
-            _computed[key] = (cb.get || cb).call(instance, $props, $el);
-          }
-          return _computed[key];
-        },
-        set(value) {
-          const { _computed } = instance;
-          _computed[key] = cb.set ? cb.set.call(instance, value) : value;
-          if (isUndefined(_computed[key])) {
-            delete _computed[key];
-          }
-        }
-      });
     }
 
     let uid = 0;
@@ -2140,7 +2158,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.10";
+    App.version = "3.16.11";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -2686,52 +2704,41 @@
         offset: 0
       },
       computed: {
-        items: {
-          get({ targets }, $el) {
-            return $$(targets, $el);
-          },
-          watch(items, prev) {
-            if (prev || hasClass(items, this.clsOpen)) {
-              return;
-            }
-            const active = this.active !== false && items[Number(this.active)] || !this.collapsible && items[0];
-            if (active) {
-              this.toggle(active, false);
-            }
-          },
-          immediate: true
+        items({ targets }, $el) {
+          return $$(targets, $el);
         },
-        toggles: {
-          get({ toggle }) {
-            return this.items.map((item) => $(toggle, item));
-          },
-          watch() {
-            this.$emit();
-          },
-          immediate: true
+        toggles({ toggle }) {
+          return this.items.map((item) => $(toggle, item));
         },
-        contents: {
-          get({ content }) {
-            return this.items.map(
-              (item) => {
-                var _a;
-                return ((_a = item._wrapper) == null ? void 0 : _a.firstElementChild) || $(content, item);
-              }
+        contents({ content }) {
+          return this.items.map((item) => {
+            var _a;
+            return ((_a = item._wrapper) == null ? void 0 : _a.firstElementChild) || $(content, item);
+          });
+        }
+      },
+      watch: {
+        items(items, prev) {
+          if (prev || hasClass(items, this.clsOpen)) {
+            return;
+          }
+          const active = this.active !== false && items[Number(this.active)] || !this.collapsible && items[0];
+          if (active) {
+            this.toggle(active, false);
+          }
+        },
+        toggles() {
+          this.$emit();
+        },
+        contents(items) {
+          for (const el of items) {
+            const isOpen = hasClass(
+              this.items.find((item) => within(el, item)),
+              this.clsOpen
             );
-          },
-          watch(items) {
-            for (const el of items) {
-              hide(
-                el,
-                !hasClass(
-                  this.items.find((item) => within(el, item)),
-                  this.clsOpen
-                )
-              );
-            }
-            this.$emit();
-          },
-          immediate: true
+            hide(el, !isOpen);
+          }
+          this.$emit();
         }
       },
       observe: lazyload(),
@@ -3540,71 +3547,60 @@
         dropbarAnchor({ dropbarAnchor }, $el) {
           return query(dropbarAnchor, $el) || $el;
         },
-        dropbar: {
-          get({ dropbar }) {
-            if (!dropbar) {
-              return null;
-            }
-            dropbar = this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
-            return dropbar ? dropbar : this._dropbar = $("<div></div>");
-          },
-          watch(dropbar) {
-            addClass(
-              dropbar,
-              "uk-dropbar",
-              "uk-dropbar-top",
-              this.clsDropbar,
-              `uk-${this.$options.name}-dropbar`
-            );
-          },
-          immediate: true
+        dropbar({ dropbar }) {
+          if (!dropbar) {
+            return null;
+          }
+          dropbar = this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
+          return dropbar ? dropbar : this._dropbar = $("<div></div>");
         },
         dropContainer(_, $el) {
           return this.container || $el;
         },
-        dropdowns: {
-          get({ clsDrop }, $el) {
-            var _a;
-            const dropdowns = $$(`.${clsDrop}`, $el);
-            if (this.dropContainer !== $el) {
-              for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
-                const target = (_a = this.getDropdown(el)) == null ? void 0 : _a.targetEl;
-                if (!includes(dropdowns, el) && target && within(target, this.$el)) {
-                  dropdowns.push(el);
-                }
+        dropdowns({ clsDrop }, $el) {
+          var _a;
+          const dropdowns = $$(`.${clsDrop}`, $el);
+          if (this.dropContainer !== $el) {
+            for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
+              const target = (_a = this.getDropdown(el)) == null ? void 0 : _a.targetEl;
+              if (!includes(dropdowns, el) && target && within(target, this.$el)) {
+                dropdowns.push(el);
               }
             }
-            return dropdowns;
-          },
-          watch(dropdowns) {
-            this.$create(
-              "drop",
-              dropdowns.filter((el) => !this.getDropdown(el)),
-              {
-                ...this.$props,
-                flip: false,
-                shift: true,
-                pos: `bottom-${this.align}`,
-                boundary: this.boundary === true ? this.$el : this.boundary
-              }
-            );
-          },
-          immediate: true
+          }
+          return dropdowns;
         },
-        items: {
-          get({ selNavItem }, $el) {
-            return $$(selNavItem, $el);
-          },
-          watch(items) {
-            attr(children(this.$el), "role", "presentation");
-            attr(items, { tabindex: -1, role: "menuitem" });
-            attr(items[0], "tabindex", 0);
-          },
-          immediate: true
+        items({ selNavItem }, $el) {
+          return $$(selNavItem, $el);
         }
       },
-      connected() {
-        attr(this.$el, "role", "menubar");
+      watch: {
+        dropbar(dropbar) {
+          addClass(
+            dropbar,
+            "uk-dropbar",
+            "uk-dropbar-top",
+            this.clsDropbar,
+            `uk-${this.$options.name}-dropbar`
+          );
+        },
+        dropdowns(dropdowns) {
+          this.$create(
+            "drop",
+            dropdowns.filter((el) => !this.getDropdown(el)),
+            {
+              ...this.$props,
+              flip: false,
+              shift: true,
+              pos: `bottom-${this.align}`,
+              boundary: this.boundary === true ? this.$el : this.boundary
+            }
+          );
+        },
+        items(items) {
+          attr(items, "tabindex", -1);
+          attr(items[0], "tabindex", 0);
+        }
       },
       disconnected() {
         remove$1(this._dropbar);
@@ -4117,13 +4113,8 @@
         row: true
       },
       computed: {
-        elements: {
-          get({ target }, $el) {
-            return $$(target, $el);
-          },
-          watch() {
-            this.$reset();
-          }
+        elements({ target }, $el) {
+          return $$(target, $el);
         }
       },
       observe: resize({
@@ -4646,9 +4637,10 @@
         ensureSrcAttribute(this.$el);
       },
       disconnected() {
-        if (this._data.image) {
-          this._data.image.onload = "";
+        if (this.img) {
+          this.img.onload = "";
         }
+        delete this.img;
       },
       observe: intersection({
         target: ({ $el, $props }) => [$el, ...queryAll($props.target, $el)],
@@ -4661,13 +4653,13 @@
       }),
       methods: {
         load() {
-          if (this._data.image) {
-            return this._data.image;
+          if (this.img) {
+            return this.img;
           }
           const image = isImg(this.$el) ? this.$el : getImageFromElement(this.$el, this.dataSrc, this.sources);
           removeAttr(image, "loading");
           setSrcAttrs(this.$el, image.currentSrc);
-          return this._data.image = image;
+          return this.img = image;
         }
       }
     };
@@ -5147,32 +5139,22 @@
         selNavItem: ".uk-navbar-nav > li > a,a.uk-navbar-item,button.uk-navbar-item,.uk-navbar-item a,.uk-navbar-item button,.uk-navbar-toggle"
         // Simplify with :where() selector once browser target is Safari 14+
       },
-      computed: {
-        items: {
-          get({ selNavItem }, $el) {
-            return $$(selNavItem, $el);
-          },
-          watch(items) {
-            const justify = hasClass(this.$el, "uk-navbar-justify");
-            for (const container of $$(
-              ".uk-navbar-nav, .uk-navbar-left, .uk-navbar-right",
-              this.$el
-            )) {
-              css(
-                container,
-                "flexGrow",
-                justify ? $$(
-                  ".uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle",
-                  container
-                ).length : ""
-              );
-            }
-            attr($$(".uk-navbar-nav", this.$el), "role", "group");
-            attr($$(".uk-navbar-nav > *", this.$el), "role", "presentation");
-            attr(items, { tabindex: -1, role: "menuitem" });
-            attr(items[0], "tabindex", 0);
-          },
-          immediate: true
+      watch: {
+        items() {
+          const justify = hasClass(this.$el, "uk-navbar-justify");
+          for (const container of $$(
+            ".uk-navbar-nav, .uk-navbar-left, .uk-navbar-right",
+            this.$el
+          )) {
+            css(
+              container,
+              "flexGrow",
+              justify ? $$(
+                ".uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle",
+                container
+              ).length : ""
+            );
+          }
         }
       }
     };
@@ -5450,30 +5432,30 @@
         inViewClass: "uk-scrollspy-inview"
       }),
       computed: {
-        elements: {
-          get({ target }, $el) {
-            return target ? $$(target, $el) : [$el];
-          },
-          watch(elements) {
-            if (this.hidden) {
-              css(filter$1(elements, `:not(.${this.inViewClass})`), "opacity", 0);
-            }
-          },
-          immediate: true
+        elements({ target }, $el) {
+          return target ? $$(target, $el) : [$el];
+        }
+      },
+      watch: {
+        elements(elements) {
+          if (this.hidden) {
+            css(filter$1(elements, `:not(.${this.inViewClass})`), "opacity", 0);
+          }
         }
       },
       connected() {
-        this._data.elements = /* @__PURE__ */ new Map();
+        this.elementData = /* @__PURE__ */ new Map();
       },
       disconnected() {
-        for (const [el, state] of this._data.elements.entries()) {
+        for (const [el, state] of this.elementData.entries()) {
           removeClass(el, this.inViewClass, (state == null ? void 0 : state.cls) || "");
         }
+        delete this.elementData;
       },
       observe: intersection({
         target: ({ elements }) => elements,
         handler(records) {
-          const elements = this._data.elements;
+          const elements = this.elementData;
           for (const { target: el, isIntersecting } of records) {
             if (!elements.has(el)) {
               elements.set(el, {
@@ -5494,7 +5476,7 @@
       update: [
         {
           write(data) {
-            for (const [el, state] of data.elements.entries()) {
+            for (const [el, state] of this.elementData.entries()) {
               if (state.show && !state.inview && !state.queued) {
                 state.queued = true;
                 data.promise = (data.promise || Promise.resolve()).then(() => new Promise((resolve) => setTimeout(resolve, this.delay))).then(() => {
@@ -5514,7 +5496,7 @@
       methods: {
         toggle(el, inview) {
           var _a;
-          const state = this._data.elements.get(el);
+          const state = this.elementData.get(el);
           if (!state) {
             return;
           }
@@ -5553,19 +5535,18 @@
         offset: 0
       },
       computed: {
-        links: {
-          get(_, $el) {
-            return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
-          },
-          watch(links) {
-            if (this.scroll) {
-              this.$create("scroll", links, { offset: this.offset || 0 });
-            }
-          },
-          immediate: true
+        links(_, $el) {
+          return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
         },
         elements({ closest: selector }) {
           return closest(this.links, selector || "*");
+        }
+      },
+      watch: {
+        links(links) {
+          if (this.scroll) {
+            this.$create("scroll", links, { offset: this.offset || 0 });
+          }
         }
       },
       observe: scroll$1(),
@@ -5990,47 +5971,39 @@
         swiping: true
       },
       computed: {
-        connects: {
-          get({ connect }, $el) {
-            return queryAll(connect, $el);
-          },
-          watch(connects) {
-            if (this.swiping) {
-              css(connects, "touchAction", "pan-y pinch-zoom");
-            }
-            this.$emit();
-          },
-          document: true,
-          immediate: true
+        connects({ connect }, $el) {
+          return queryAll(connect, $el);
         },
-        connectChildren: {
-          get() {
-            return this.connects.map((el) => children(el)).flat();
-          },
-          watch() {
-            const index = this.index();
-            for (const el of this.connects) {
-              children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
-            }
-            this.$emit();
-          },
-          immediate: true
+        connectChildren() {
+          return this.connects.map((el) => children(el)).flat();
         },
-        toggles: {
-          get({ toggle }, $el) {
-            return $$(toggle, $el);
-          },
-          watch(toggles) {
-            this.$emit();
-            const active = this.index();
-            this.show(~active ? active : toggles[this.active] || toggles[0]);
-          },
-          immediate: true
+        toggles({ toggle }, $el) {
+          return $$(toggle, $el);
         },
         children() {
           return children(this.$el).filter(
             (child) => this.toggles.some((toggle) => within(toggle, child))
           );
+        }
+      },
+      watch: {
+        connects(connects) {
+          if (this.swiping) {
+            css(connects, "touchAction", "pan-y pinch-zoom");
+          }
+          this.$emit();
+        },
+        connectChildren() {
+          const index = this.index();
+          for (const el of this.connects) {
+            children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
+          }
+          this.$emit();
+        },
+        toggles(toggles) {
+          this.$emit();
+          const active = this.index();
+          this.show(~active ? active : toggles[this.active] || toggles[0]);
         }
       },
       connected() {
@@ -6188,12 +6161,9 @@
         queued: true
       },
       computed: {
-        target: {
-          get({ href, target }, $el) {
-            target = queryAll(target || href, $el);
-            return target.length && target || [$el];
-          },
-          document: true
+        target({ href, target }, $el) {
+          target = queryAll(target || href, $el);
+          return target.length && target || [$el];
         }
       },
       connected() {
@@ -6679,35 +6649,31 @@
         duration: 250
       },
       computed: {
-        toggles: {
-          get({ attrItem }, $el) {
-            return $$(`[${attrItem}],[data-${attrItem}]`, $el);
-          },
-          watch(toggles) {
-            this.updateState();
-            const actives = $$(this.selActive, this.$el);
-            for (const toggle of toggles) {
-              if (this.selActive !== false) {
-                toggleClass(toggle, this.cls, includes(actives, toggle));
-              }
-              const button = findButton(toggle);
-              if (isTag(button, "a")) {
-                attr(button, "role", "button");
-              }
-            }
-          },
-          immediate: true
+        toggles({ attrItem }, $el) {
+          return $$(`[${attrItem}],[data-${attrItem}]`, $el);
         },
-        children: {
-          get({ target }, $el) {
-            return $$(`${target} > *`, $el);
-          },
-          watch(list, prev) {
-            if (prev) {
-              this.updateState();
+        children({ target }, $el) {
+          return $$(`${target} > *`, $el);
+        }
+      },
+      watch: {
+        toggles(toggles) {
+          this.updateState();
+          const actives = $$(this.selActive, this.$el);
+          for (const toggle of toggles) {
+            if (this.selActive !== false) {
+              toggleClass(toggle, this.cls, includes(actives, toggle));
             }
-          },
-          immediate: true
+            const button = findButton(toggle);
+            if (isTag(button, "a")) {
+              attr(button, "role", "button");
+            }
+          }
+        },
+        children(list, prev) {
+          if (prev) {
+            this.updateState();
+          }
         }
       },
       events: {
@@ -6943,27 +6909,80 @@
         role: "region"
       },
       computed: {
-        nav: {
-          get({ selNav }, $el) {
-            return $(selNav, $el);
-          },
-          watch(nav, prev) {
-            attr(nav, "role", "tablist");
-            if (prev) {
-              this.$emit();
-            }
-          },
-          immediate: true
+        nav({ selNav }, $el) {
+          return $(selNav, $el);
+        },
+        navChildren() {
+          return children(this.nav);
         },
         selNavItem({ attrItem }) {
           return `[${attrItem}],[data-${attrItem}]`;
         },
-        navItems: {
-          get(_, $el) {
-            return $$(this.selNavItem, $el);
-          },
-          watch() {
+        navItems(_, $el) {
+          return $$(this.selNavItem, $el);
+        }
+      },
+      watch: {
+        nav(nav, prev) {
+          attr(nav, "role", "tablist");
+          if (prev) {
             this.$emit();
+          }
+        },
+        list(list) {
+          attr(list, "role", "presentation");
+        },
+        navChildren(children2) {
+          attr(children2, "role", "presentation");
+        },
+        navItems(items) {
+          for (const el of items) {
+            const cmd = data(el, this.attrItem);
+            const button = $("a,button", el) || el;
+            let ariaLabel;
+            let ariaControls = null;
+            if (isNumeric(cmd)) {
+              const item = toNumber(cmd);
+              const slide = this.slides[item];
+              if (slide) {
+                if (!slide.id) {
+                  slide.id = generateId(this, slide, `-item-${cmd}`);
+                }
+                ariaControls = slide.id;
+              }
+              ariaLabel = this.t("slideX", toFloat(cmd) + 1);
+              attr(button, "role", "tab");
+            } else {
+              if (this.list) {
+                if (!this.list.id) {
+                  this.list.id = generateId(this, this.list, "-items");
+                }
+                ariaControls = this.list.id;
+              }
+              ariaLabel = this.t(cmd);
+            }
+            attr(button, {
+              "aria-controls": ariaControls,
+              "aria-label": attr(button, "aria-label") || ariaLabel
+            });
+          }
+        },
+        slides(slides) {
+          slides.forEach(
+            (slide, i) => attr(slide, {
+              role: this.nav ? "tabpanel" : "group",
+              "aria-label": this.t("slideLabel", i + 1, this.length),
+              "aria-roledescription": this.nav ? null : "slide"
+            })
+          );
+        },
+        length(length) {
+          const navLength = this.navChildren.length;
+          if (this.nav && length !== navLength) {
+            empty(this.nav);
+            for (let i = 0; i < length; i++) {
+              append(this.nav, `<li ${this.attrItem}="${i}"><a href></a></li>`);
+            }
           }
         }
       },
@@ -6974,54 +6993,6 @@
         });
       },
       update: [
-        {
-          write() {
-            this.slides.forEach(
-              (slide, i) => attr(slide, {
-                role: this.nav ? "tabpanel" : "group",
-                "aria-label": this.t("slideLabel", i + 1, this.length),
-                "aria-roledescription": this.nav ? null : "slide"
-              })
-            );
-            if (this.nav && this.length !== this.nav.children.length) {
-              html(
-                this.nav,
-                this.slides.map((_, i) => `<li ${this.attrItem}="${i}"><a href></a></li>`).join("")
-              );
-            }
-            attr(children(this.nav).concat(this.list), "role", "presentation");
-            for (const el of this.navItems) {
-              const cmd = data(el, this.attrItem);
-              const button = $("a,button", el) || el;
-              let ariaLabel;
-              let ariaControls = null;
-              if (isNumeric(cmd)) {
-                const item = toNumber(cmd);
-                const slide = this.slides[item];
-                if (slide) {
-                  if (!slide.id) {
-                    slide.id = generateId(this, slide, `-item-${cmd}`);
-                  }
-                  ariaControls = slide.id;
-                }
-                ariaLabel = this.t("slideX", toFloat(cmd) + 1);
-                attr(button, "role", "tab");
-              } else {
-                if (this.list) {
-                  if (!this.list.id) {
-                    this.list.id = generateId(this, this.list, "-items");
-                  }
-                  ariaControls = this.list.id;
-                }
-                ariaLabel = this.t(cmd);
-              }
-              attr(button, {
-                "aria-controls": ariaControls,
-                "aria-label": attr(button, "aria-label") || ariaLabel
-              });
-            }
-          }
-        },
         {
           write() {
             this.navItems.concat(this.nav).forEach((el) => el && (el.hidden = !this.maxIndex));
@@ -7346,16 +7317,18 @@
         maxIndex() {
           return this.length - 1;
         },
-        slides: {
-          get() {
-            return children(this.list);
-          },
-          watch() {
-            this.$emit();
-          }
+        slides() {
+          return children(this.list);
         },
         length() {
           return this.slides.length;
+        }
+      },
+      watch: {
+        slides(slides, prev) {
+          if (prev) {
+            this.$emit();
+          }
         }
       },
       observe: resize(),
@@ -7741,19 +7714,18 @@
       props: { toggle: String },
       data: { toggle: "a" },
       computed: {
-        toggles: {
-          get({ toggle }, $el) {
-            return $$(toggle, $el);
-          },
-          watch(toggles) {
-            this.hide();
-            for (const toggle of toggles) {
-              if (isTag(toggle, "a")) {
-                attr(toggle, "role", "button");
-              }
+        toggles({ toggle }, $el) {
+          return $$(toggle, $el);
+        }
+      },
+      watch: {
+        toggles(toggles) {
+          this.hide();
+          for (const toggle of toggles) {
+            if (isTag(toggle, "a")) {
+              attr(toggle, "role", "button");
             }
-          },
-          immediate: true
+          }
         }
       },
       disconnected() {
@@ -8887,24 +8859,20 @@
         items() {
           return children(this.target);
         },
-        isEmpty: {
-          get() {
-            return isEmpty(this.items);
-          },
-          watch(empty) {
-            toggleClass(this.target, this.clsEmpty, empty);
-          },
-          immediate: true
+        isEmpty() {
+          return isEmpty(this.items);
         },
-        handles: {
-          get({ handle }, el) {
-            return handle ? $$(handle, el) : this.items;
-          },
-          watch(handles, prev) {
-            css(prev, { touchAction: "", userSelect: "" });
-            css(handles, { touchAction: hasTouch ? "none" : "", userSelect: "none" });
-          },
-          immediate: true
+        handles({ handle }, el) {
+          return handle ? $$(handle, el) : this.items;
+        }
+      },
+      watch: {
+        isEmpty(empty) {
+          toggleClass(this.target, this.clsEmpty, empty);
+        },
+        handles(handles, prev) {
+          css(prev, { touchAction: "", userSelect: "" });
+          css(handles, { touchAction: hasTouch ? "none" : "", userSelect: "none" });
         }
       },
       update: {
