@@ -402,7 +402,7 @@
 .uk-navbar-dropdown:extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
 .uk-navbar-dropdown:extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
 
-.uk-navbar-dropdown :focus-visible {
+.uk-navbar-dropdown :focus-visible when (@navbar-dropdown-color-mode = dark) {
     outline-color: @navbar-dropdown-focus-outline !important;
 }
 

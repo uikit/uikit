@@ -80,7 +80,7 @@
 .uk-dropdown:extend(.uk-light all) when (@dropdown-color-mode = light) {}
 .uk-dropdown:extend(.uk-dark all) when (@dropdown-color-mode = dark) {}
 
-.uk-dropdown :focus-visible {
+.uk-dropdown :focus-visible when (@dropdown-color-mode = dark) {
     outline-color: @dropdown-focus-outline !important;
 }
 

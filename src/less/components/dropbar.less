@@ -83,7 +83,7 @@
 .uk-dropbar:extend(.uk-light all) when (@dropbar-color-mode = light) {}
 .uk-dropbar:extend(.uk-dark all) when (@dropbar-color-mode = dark) {}
 
-.uk-dropbar :focus-visible {
+.uk-dropbar :focus-visible when (@dropbar-color-mode = dark) {
     outline-color: @dropbar-focus-outline !important;
 }
 
