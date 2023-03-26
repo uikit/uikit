@@ -1,14 +1,6 @@
 import { registerObserver } from './observer';
 import { coerce, parseOptions } from './options';
-import {
-    camelize,
-    data as getData,
-    hasOwn,
-    hyphenate,
-    isArray,
-    isUndefined,
-    startsWith,
-} from 'uikit-util';
+import { camelize, data as getData, hasOwn, hyphenate, isUndefined, startsWith } from 'uikit-util';
 
 export function initProps(instance) {
     const props = getProps(instance.$options);
@@ -70,13 +62,13 @@ function notIn(options, key) {
 
 export function initPropsObserver(instance) {
     const { $options, $props } = instance;
-    const { id, attrs, props, el } = $options;
+    const { id, props, el } = $options;
 
-    if (!props || attrs === false) {
+    if (!props) {
         return;
     }
 
-    const attributes = isArray(attrs) ? attrs : Object.keys(props);
+    const attributes = Object.keys(props);
     const filter = attributes.map((key) => hyphenate(key)).concat(id);
 
     const observer = new MutationObserver((records) => {
