@@ -1,4 +1,4 @@
-import SVG from './svg';
+import Svg from '../mixin/svg';
 import I18n from '../mixin/i18n';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
@@ -64,13 +64,11 @@ const icons = {
 const Icon = {
     install,
 
-    extends: SVG,
+    mixins: [Svg],
 
     args: 'icon',
 
-    props: ['icon'],
-
-    data: { include: [] },
+    props: { icon: String },
 
     isIcon: true,
 
