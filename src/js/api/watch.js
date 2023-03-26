@@ -20,11 +20,10 @@ export function registerWatch(instance, watch, name) {
 export function runWatches(instance, values) {
     for (const { name, handler, immediate = true } of instance._watches) {
         if (
-            instance._initial
-                ? immediate
-                : hasOwn(values, name) && !isEqual(values[name], instance[name])
+            (instance._initial && immediate) ||
+            (hasOwn(values, name) && !isEqual(values[name], instance[name]))
         ) {
-            handler.call(instance, instance[name], instance._initial ? undefined : values[name]);
+            handler.call(instance, instance[name], values[name]);
         }
     }
     instance._initial = false;
