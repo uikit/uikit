@@ -80,8 +80,10 @@ $dropdown-nav-sublist-item-hover-color:          $global-color !default;
 @if ( $dropdown-color-mode == light ) { .uk-dropdown { @extend .uk-light !optional;} }
 @if ( $dropdown-color-mode == dark ) { .uk-dropdown { @extend .uk-dark !optional;} }
 
-.uk-dropdown :focus-visible when not ($dropdown-color-mode = $inverse-global-color-mode) {
-    outline-color: $dropdown-focus-outline !important;
+@if ( $dropdown-color-mode != $inverse-global-color-mode ){
+    .uk-dropdown:focus-visible {
+        outline-color: $dropdown-focus-outline !important;
+    }
 }
 
 
