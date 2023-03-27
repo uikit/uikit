@@ -9,7 +9,7 @@ import {
     off,
     on,
     selInput,
-    toNodes,
+    toArray,
     trigger,
 } from 'uikit-util';
 
@@ -228,6 +228,6 @@ export default {
 function hasSelectableText(el) {
     return (
         css(el, 'userSelect') !== 'none' &&
-        toNodes(el.childNodes).some((el) => el.nodeType === 3 && el.textContent.trim())
+        toArray(el.childNodes).some((el) => el.nodeType === 3 && el.textContent.trim())
     );
 }

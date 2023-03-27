@@ -1,4 +1,4 @@
-import { isRtl, isVisible, offsetPosition, toArray, toggleClass } from 'uikit-util';
+import { children, isRtl, isVisible, offsetPosition, toggleClass } from 'uikit-util';
 import { mutation, resize } from '../api/observables';
 
 export default {
@@ -21,7 +21,7 @@ export default {
             },
         }),
         resize({
-            target: ({ $el }) => [$el, ...toArray($el.children)],
+            target: ({ $el }) => [$el, ...children($el)],
         }),
     ],
 

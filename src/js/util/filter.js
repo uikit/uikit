@@ -1,4 +1,4 @@
-import { isElement, isString, startsWith, toNode, toNodes } from './lang';
+import { isElement, isString, startsWith, toArray, toNode, toNodes } from './lang';
 
 const voidElements = {
     area: true,
@@ -77,7 +77,7 @@ export function parents(element, selector) {
 
 export function children(element, selector) {
     element = toNode(element);
-    const children = element ? toNodes(element.children) : [];
+    const children = element ? toArray(element.children) : [];
     return selector ? filter(children, selector) : children;
 }
 

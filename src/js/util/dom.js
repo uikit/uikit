@@ -1,7 +1,7 @@
 import { once } from './event';
 import { parent } from './filter';
 import { find, findAll } from './selector';
-import { isElement, isString, isUndefined, startsWith, toNode, toNodes } from './lang';
+import { isElement, isString, isUndefined, startsWith, toArray, toNode, toNodes } from './lang';
 
 export function ready(fn) {
     if (document.readyState !== 'loading') {
@@ -59,7 +59,7 @@ export function wrapInner(element, structure) {
     return toNodes(
         toNodes(element).map((element) =>
             element.hasChildNodes()
-                ? wrapAll(toNodes(element.childNodes), structure)
+                ? wrapAll(toArray(element.childNodes), structure)
                 : append(element, structure)
         )
     );
