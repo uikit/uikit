@@ -1,4 +1,4 @@
-/*! UIkit 3.16.11 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.12 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -297,7 +297,7 @@
     }
     function children(element, selector) {
       element = toNode(element);
-      const children2 = element ? toNodes(element.children) : [];
+      const children2 = element ? toArray(element.children) : [];
       return selector ? filter$1(children2, selector) : children2;
     }
     function index(element, ref) {
@@ -743,7 +743,7 @@
     function wrapInner(element, structure) {
       return toNodes(
         toNodes(element).map(
-          (element2) => element2.hasChildNodes() ? wrapAll(toNodes(element2.childNodes), structure) : append(element2, structure)
+          (element2) => element2.hasChildNodes() ? wrapAll(toArray(element2.childNodes), structure) : append(element2, structure)
         )
       );
     }
@@ -1683,8 +1683,8 @@
     }
     function runWatches(instance, values) {
       for (const { name, handler, immediate = true } of instance._watches) {
-        if (instance._initial ? immediate : hasOwn(values, name) && !isEqual(values[name], instance[name])) {
-          handler.call(instance, instance[name], instance._initial ? void 0 : values[name]);
+        if (instance._initial && immediate || hasOwn(values, name) && !isEqual(values[name], instance[name])) {
+          handler.call(instance, instance[name], values[name]);
         }
       }
       instance._initial = false;
@@ -2047,11 +2047,11 @@
     }
     function initPropsObserver(instance) {
       const { $options, $props } = instance;
-      const { id, attrs, props, el } = $options;
-      if (!props || attrs === false) {
+      const { id, props, el } = $options;
+      if (!props) {
         return;
       }
-      const attributes = isArray(attrs) ? attrs : Object.keys(props);
+      const attributes = Object.keys(props);
       const filter = attributes.map((key) => hyphenate(key)).concat(id);
       const observer = new MutationObserver((records) => {
         const data = getProps$1($options);
@@ -2158,7 +2158,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.11";
+    App.version = "3.16.12";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -2459,7 +2459,7 @@
           );
         },
         isToggled(el = this.$el) {
-          [el] = toNodes(el);
+          el = toNode(el);
           return hasClass(el, this.clsEnter) ? true : hasClass(el, this.clsLeave) ? false : this.cls ? hasClass(el, this.cls.split(" ")[0]) : isVisible(el);
         },
         _toggle(el, toggled) {
@@ -3915,7 +3915,7 @@
           }
         }),
         resize({
-          target: ({ $el }) => [$el, ...toArray($el.children)]
+          target: ({ $el }) => [$el, ...children($el)]
         })
       ],
       update: {
@@ -4224,72 +4224,28 @@
       }
     };
 
-    function getMaxPathLength(el) {
-      return Math.ceil(
-        Math.max(
-          0,
-          ...$$("[stroke]", el).map((stroke) => {
-            try {
-              return stroke.getTotalLength();
-            } catch (e) {
-              return 0;
-            }
-          })
-        )
-      );
-    }
-
-    var SVG = {
+    var Svg = {
       args: "src",
       props: {
-        id: Boolean,
-        icon: String,
-        src: String,
-        style: String,
         width: Number,
         height: Number,
-        ratio: Number,
-        class: String,
-        strokeAnimation: Boolean,
-        attributes: "list"
+        ratio: Number
       },
       data: {
-        ratio: 1,
-        include: ["style", "class"],
-        class: "",
-        strokeAnimation: false
-      },
-      beforeConnect() {
-        this.class += " uk-svg";
+        ratio: 1
       },
       connected() {
-        if (!this.icon && includes(this.src, "#")) {
-          [this.src, this.icon] = this.src.split("#");
-        }
         this.svg = this.getSvg().then((el) => {
-          if (this._connected) {
-            const svg = insertSVG(el, this.$el);
-            if (this.svgEl && svg !== this.svgEl) {
-              remove$1(this.svgEl);
-            }
-            this.applyAttributes(svg, el);
-            return this.svgEl = svg;
+          if (!this._connected) {
+            return;
           }
+          const svg = insertSVG(el, this.$el);
+          if (this.svgEl && svg !== this.svgEl) {
+            remove$1(this.svgEl);
+          }
+          applyWidthAndHeight.call(this, svg, el);
+          return this.svgEl = svg;
         }, noop);
-        if (this.strokeAnimation) {
-          this.svg.then((el) => {
-            if (this._connected && el) {
-              applyAnimation(el);
-              registerObserver(
-                this,
-                observeIntersection(el, (records, observer) => {
-                  applyAnimation(el);
-                  observer.disconnect();
-                })
-              );
-            }
-          });
-        }
       },
       disconnected() {
         this.svg.then((svg) => {
@@ -4306,76 +4262,9 @@
       },
       methods: {
         async getSvg() {
-          if (isTag(this.$el, "img") && !this.$el.complete && this.$el.loading === "lazy") {
-            return new Promise(
-              (resolve) => once(this.$el, "load", () => resolve(this.getSvg()))
-            );
-          }
-          return parseSVG(await loadSVG(this.src), this.icon) || Promise.reject("SVG not found.");
-        },
-        applyAttributes(el, ref) {
-          for (const prop in this.$options.props) {
-            if (includes(this.include, prop) && prop in this) {
-              attr(el, prop, this[prop]);
-            }
-          }
-          for (const attribute in this.attributes) {
-            const [prop, value] = this.attributes[attribute].split(":", 2);
-            attr(el, prop, value);
-          }
-          if (!this.id) {
-            removeAttr(el, "id");
-          }
-          const props = ["width", "height"];
-          let dimensions = props.map((prop) => this[prop]);
-          if (!dimensions.some((val) => val)) {
-            dimensions = props.map((prop) => attr(ref, prop));
-          }
-          const viewBox = attr(ref, "viewBox");
-          if (viewBox && !dimensions.some((val) => val)) {
-            dimensions = viewBox.split(" ").slice(2);
-          }
-          dimensions.forEach((val, i) => attr(el, props[i], toFloat(val) * this.ratio || null));
         }
       }
     };
-    const loadSVG = memoize(async (src) => {
-      if (src) {
-        if (startsWith(src, "data:")) {
-          return decodeURIComponent(src.split(",")[1]);
-        } else {
-          return (await fetch(src)).text();
-        }
-      } else {
-        return Promise.reject();
-      }
-    });
-    function parseSVG(svg, icon) {
-      if (icon && includes(svg, "<symbol")) {
-        svg = parseSymbols(svg, icon) || svg;
-      }
-      svg = $(svg.substr(svg.indexOf("<svg")));
-      return (svg == null ? void 0 : svg.hasChildNodes()) && svg;
-    }
-    const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
-    const symbols = {};
-    function parseSymbols(svg, icon) {
-      if (!symbols[svg]) {
-        symbols[svg] = {};
-        symbolRe.lastIndex = 0;
-        let match;
-        while (match = symbolRe.exec(svg)) {
-          symbols[svg][match[3]] = `<svg xmlns="http://www.w3.org/2000/svg"${match[1]}svg>`;
-        }
-      }
-      return symbols[svg][icon];
-    }
-    function applyAnimation(el) {
-      const length = getMaxPathLength(el);
-      if (length) {
-        el.style.setProperty("--uk-animation-stroke", length);
-      }
-    }
     function insertSVG(el, root) {
       if (isVoidElement(root) || isTag(root, "canvas")) {
         root.hidden = true;
@@ -4387,6 +4276,18 @@
     }
     function equals(el, other) {
       return isTag(el, "svg") && isTag(other, "svg") && el.innerHTML === other.innerHTML;
+    }
+    function applyWidthAndHeight(el, ref) {
+      const props = ["width", "height"];
+      let dimensions = props.map((prop) => this[prop]);
+      if (!dimensions.some((val) => val)) {
+        dimensions = props.map((prop) => attr(ref, prop));
+      }
+      const viewBox = attr(ref, "viewBox");
+      if (viewBox && !dimensions.some((val) => val)) {
+        dimensions = viewBox.split(" ").slice(2);
+      }
+      dimensions.forEach((val, i) => attr(el, props[i], toFloat(val) * this.ratio || null));
     }
 
     var I18n = {
@@ -4472,10 +4373,9 @@
     };
     const Icon = {
       install: install$3,
-      extends: SVG,
+      mixins: [Svg],
       args: "icon",
-      props: ["icon"],
-      data: { include: [] },
+      props: { icon: String },
       isIcon: true,
       beforeConnect() {
         addClass(this.$el, "uk-icon");
@@ -5406,7 +5306,9 @@
       for (const instance of instances) {
         if (within(e.target, instance.$el) && isSameSiteAnchor(instance.$el)) {
           e.preventDefault();
-          window.history.pushState({}, "", instance.$el.href);
+          if (window.location.href !== instance.$el.href) {
+            window.history.pushState({}, "", instance.$el.href);
+          }
           instance.scrollTo(getTargetedElement(instance.$el));
         }
       }
@@ -5947,6 +5849,120 @@
       requestAnimationFrame(() => css(el, "transition", ""));
     }
 
+    function getMaxPathLength(el) {
+      return Math.ceil(
+        Math.max(
+          0,
+          ...$$("[stroke]", el).map((stroke) => {
+            try {
+              return stroke.getTotalLength();
+            } catch (e) {
+              return 0;
+            }
+          })
+        )
+      );
+    }
+
+    var svg = {
+      mixins: [Class, Svg],
+      args: "src",
+      props: {
+        src: String,
+        icon: String,
+        attributes: "list",
+        strokeAnimation: Boolean
+      },
+      data: {
+        strokeAnimation: false
+      },
+      observe: [
+        mutation({
+          async handler() {
+            const svg = await this.svg;
+            if (svg) {
+              applyAttributes.call(this, svg);
+            }
+          },
+          options: {
+            attributes: true,
+            attributeFilter: ["id", "class", "style"]
+          }
+        })
+      ],
+      async connected() {
+        if (includes(this.src, "#")) {
+          [this.src, this.icon] = this.src.split("#");
+        }
+        const svg = await this.svg;
+        if (svg) {
+          applyAttributes.call(this, svg);
+          if (this.strokeAnimation) {
+            applyAnimation(svg);
+          }
+        }
+      },
+      methods: {
+        async getSvg() {
+          if (isTag(this.$el, "img") && !this.$el.complete && this.$el.loading === "lazy") {
+            return new Promise(
+              (resolve) => once(this.$el, "load", () => resolve(this.getSvg()))
+            );
+          }
+          return parseSVG(await loadSVG(this.src), this.icon) || Promise.reject("SVG not found.");
+        }
+      }
+    };
+    function applyAttributes(el) {
+      const { $el } = this;
+      addClass(el, attr($el, "class"));
+      for (let i = 0; i < $el.style.length; i++) {
+        const prop = $el.style[i];
+        css(el, prop, css($el, prop));
+      }
+      for (const attribute in this.attributes) {
+        const [prop, value] = this.attributes[attribute].split(":", 2);
+        attr(el, prop, value);
+      }
+      if (!this.$el.id) {
+        removeAttr(el, "id");
+      }
+    }
+    const loadSVG = memoize(async (src) => {
+      if (src) {
+        if (startsWith(src, "data:")) {
+          return decodeURIComponent(src.split(",")[1]);
+        } else {
+          return (await fetch(src)).text();
+        }
+      } else {
+        return Promise.reject();
+      }
+    });
+    function parseSVG(svg, icon) {
+      if (icon && includes(svg, "<symbol")) {
+        svg = parseSymbols(svg)[icon] || svg;
+      }
+      svg = $(svg.substr(svg.indexOf("<svg")));
+      return (svg == null ? void 0 : svg.hasChildNodes()) && svg;
+    }
+    const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
+    const parseSymbols = memoize(function(svg) {
+      const symbols = {};
+      symbolRe.lastIndex = 0;
+      let match;
+      while (match = symbolRe.exec(svg)) {
+        symbols[match[3]] = `<svg xmlns="http://www.w3.org/2000/svg"${match[1]}svg>`;
+      }
+      return symbols;
+    });
+    function applyAnimation(el) {
+      const length = getMaxPathLength(el);
+      if (length) {
+        css(el, "--uk-animation-stroke", length);
+      }
+    }
+
     const selDisabled = ".uk-disabled *, .uk-disabled, [disabled]";
     var Switcher = {
       mixins: [Togglable],
@@ -6115,7 +6131,7 @@
           const animate = prev >= 0 && prev !== next;
           this.connects.forEach(async ({ children: children2 }) => {
             await this.toggleElement(
-              toNodes(children2).filter((child) => hasClass(child, this.cls)),
+              toArray(children2).filter((child) => hasClass(child, this.cls)),
               false,
               animate
             );
@@ -6335,7 +6351,7 @@
         SlidenavPrevious: Slidenav,
         Spinner: Spinner,
         Sticky: sticky,
-        Svg: SVG,
+        Svg: svg,
         Switcher: Switcher,
         Tab: tab,
         Toggle: toggle,
@@ -7220,7 +7236,7 @@
       }
     };
     function hasSelectableText(el) {
-      return css(el, "userSelect") !== "none" && toNodes(el.childNodes).some((el2) => el2.nodeType === 3 && el2.textContent.trim());
+      return css(el, "userSelect") !== "none" && toArray(el.childNodes).some((el2) => el2.nodeType === 3 && el2.textContent.trim());
     }
 
     var SliderAutoplay = {
