@@ -111,6 +111,6 @@ async function deploy(version) {
 
     const notes = (await read('./Changelog.md'))
         .match(/## \d.*?$\s*(.*?)\s*(?=## \d)/ms)[1]
-        .replace(/"/g, '\\"');
+        .replace(/(["`])/g, '\\$1');
     await run(`gh release create v${version} --notes "${notes}" ./dist/uikit-${version}.zip`);
 }

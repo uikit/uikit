@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.16.12 (March 27, 2023)
+
+### Fixed
+
+- Fix push history state in Scroll component if href differs from current url only
+
 ## 3.16.11 (March 24, 2023)
 
 ### Changed

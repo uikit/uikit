@@ -17,8 +17,8 @@ import {
     isNode,
     matches,
     queryAll,
+    toArray,
     toggleClass,
-    toNodes,
     within,
 } from 'uikit-util';
 
@@ -242,7 +242,7 @@ export default {
             const animate = prev >= 0 && prev !== next;
             this.connects.forEach(async ({ children }) => {
                 await this.toggleElement(
-                    toNodes(children).filter((child) => hasClass(child, this.cls)),
+                    toArray(children).filter((child) => hasClass(child, this.cls)),
                     false,
                     animate
                 );

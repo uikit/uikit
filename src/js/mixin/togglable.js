@@ -14,6 +14,7 @@ import {
     startsWith,
     toFloat,
     toggleClass,
+    toNode,
     toNodes,
     Transition,
     trigger,
@@ -96,7 +97,7 @@ export default {
         },
 
         isToggled(el = this.$el) {
-            [el] = toNodes(el);
+            el = toNode(el);
             return hasClass(el, this.clsEnter)
                 ? true
                 : hasClass(el, this.clsLeave)

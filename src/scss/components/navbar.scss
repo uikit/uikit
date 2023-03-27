@@ -402,7 +402,7 @@ $navbar-dropdown-nav-sublist-item-active-color:  $global-emphasis-color !default
 @if ( $navbar-dropdown-color-mode == light ) { .uk-navbar-dropdown { @extend .uk-light !optional;} }
 @if ( $navbar-dropdown-color-mode == dark ) { .uk-navbar-dropdown { @extend .uk-dark !optional;} }
 
-.uk-navbar-dropdown :focus-visible {
+.uk-navbar-dropdown :focus-visible when not ($navbar-dropdown-color-mode = $inverse-global-color-mode) {
     outline-color: $navbar-dropdown-focus-outline !important;
 }
 
