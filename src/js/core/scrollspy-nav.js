@@ -1,4 +1,4 @@
-import { scroll } from '../api/observables';
+import { intersection, scroll } from '../api/observables';
 import {
     $$,
     closest,
@@ -48,7 +48,7 @@ export default {
         },
     },
 
-    observe: scroll(),
+    observe: [intersection(), scroll()],
 
     update: [
         {

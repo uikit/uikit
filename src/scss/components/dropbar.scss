@@ -83,8 +83,10 @@ $dropbar-large-padding-bottom:                   $dropbar-large-padding-top !def
 @if ( $dropbar-color-mode == light ) { .uk-dropbar { @extend .uk-light !optional;} }
 @if ( $dropbar-color-mode == dark ) { .uk-dropbar { @extend .uk-dark !optional;} }
 
-.uk-dropbar :focus-visible when not ($dropbar-color-mode = $inverse-global-color-mode) {
+@if ($dropbar-color-mode != $inverse-global-color-mode) {
+.uk-dropbar :focus-visible {
     outline-color: $dropbar-focus-outline !important;
+}
 }
 
 
