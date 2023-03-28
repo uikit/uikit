@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Sass sources
+- Fix Scrollspy Nav component updates state once shown
 
 ## 3.16.12 (March 27, 2023)
 
