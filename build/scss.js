@@ -103,16 +103,20 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
         }) // replace Less function fadeout with fade-out
         .replace(/\.svg-fill/g, '@include svg-fill') // include svg-fill mixin
         .replace(
-            /(.*):extend\((\.[\w-\\@]*) all\) when \((\$[\w-]*) = ([\w]+)\) {}/g,
+            /(.*):extend\((\.[\w\\@-]*) all\) when \((\$[\w-]*) = ([\w]+)\) {}/g,
             '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }'
         ) // update conditional extend and add !optional to ignore warnings
         .replace(
-            /(\.[\w-\\@]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*{\s*@if\(mixin-exists\(([\w-]*)\)\) {@include\s([\w-]*)\(\);\s*}\s*}/g,
+            /(\.[\w\\@-]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*{\s*@if\(mixin-exists\(([\w-]*)\)\) {@include\s([\w-]*)\(\);\s*}\s*}/g,
             '@if ($2 == $3) { $1 { @if (mixin-exists($4)) {@include $4();}}}'
         ) // update conditional hook
         .replace(
-            /(\.[\w-\\@]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*({\s*.*?\s*})/gs,
+            /([.:][\w\\@-]+(?: ?[.:][\w\\@-]+)*)\s*when\s*\(([$@][\w-]*)\s*=\s*([$@]?[\w-]+)\)\s*({\s*.*?\s*})/gms,
             '@if ($2 == $3) {\n$1 $4\n}'
+        )
+        .replace(
+            /([.:][\w\\@-]+(?: ?[.:][\w\\@-]+)*)\s*when\s+not\s*\(([$@][\w-]*)\s*=\s*([$@]?[\w-]+)\)\s*({\s*.*?\s*})/gs,
+            '@if ($2 != $3) {\n$1 $4\n}'
         ) // replace conditionals
         .replace(/\${/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
         .replace(/[^(](-\$[\w-]*)/g, ' ($1)') // surround negative variables with brackets
