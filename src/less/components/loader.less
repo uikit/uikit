@@ -1,0 +1,93 @@
+// Name:            Loader
+// Description:     Styles for loader spinner
+//
+// Component:       `uk-loader`
+//                  'uk-loader-spinner'
+//
+// Sub-objects:     `uk-loader-value`
+//                  `uk-loader-spinner`
+//
+// Modifiers:       `uk-loader-small`
+//                  `uk-loader-large`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@loader-medium-size: @global-control-height;
+@loader-small-size: @global-control-small-height;
+@loader-large-size: @global-control-large-height;
+
+@loader-medium-font-size: @global-medium-font-size * 0.6;
+@loader-small-font-size: @global-small-font-size * 0.6;
+@loader-large-font-size: @global-large-font-size * 0.6;
+
+/* ========================================================================
+   Component: Button
+ ========================================================================== */
+
+// css idea taken from from https://loading.io/css/
+
+.uk-loader {
+  display: inline-flex;
+  justify-content: center;
+  flex-direction: column;
+  width: @loader-medium-size;
+  height: @loader-medium-size;
+}
+
+.uk-loader-spinner {
+  width: @loader-medium-size;
+  height: @loader-medium-size;
+  border: 5px solid coral;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: uk-loader-spinner-rotation 1s linear infinite;
+}
+
+.uk-loader-value {
+  font-size: @loader-medium-font-size;
+  width: @loader-medium-size;
+  text-align: center;
+  position: absolute;
+}
+
+@keyframes uk-loader-spinner-rotation {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.uk-loader-small {
+  width: @loader-small-size;
+  height: @loader-small-size;
+
+  .uk-loader-spinner {
+    width: @loader-small-size;
+    height: @loader-small-size;
+  }
+
+  .uk-loader-value {
+    font-size: @loader-small-font-size;
+    width: @loader-small-size;
+  }
+}
+
+.uk-loader-large {
+  width: @loader-large-size;
+  height: @loader-large-size;
+
+  .uk-loader-spinner {
+    width: @loader-large-size;
+    height: @loader-large-size;
+  }
+
+  .uk-loader-value {
+    font-size: @loader-large-font-size;
+    width: @loader-large-size;
+  }
+}

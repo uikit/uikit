@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en-gb' dir='ltr'>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Loader - UIkit tests</title>
+    <script src='js/test.js'></script>
+</head>
+
+<body>
+
+<div class='uk-container'>
+
+    <h1>Loader</h1>
+
+    <div class='uk-width-1-2@m'>
+
+        <p>Indeterminate</p>
+        <span class='uk-loader-spinner uk-loader-small'></span>
+        <span class='uk-loader-spinner'></span>
+        <span class='uk-loader-spinner uk-loader-large'></span>
+
+        <p>Determinate</p>
+        <span class='uk-loader'>
+            <div class='uk-loader-value'>0%</div>
+            <span class='uk-loader-spinner'></span>
+        </span>
+
+        <span class='uk-loader'>
+            <div class='uk-loader-value'>42%</div>
+            <span class='uk-loader-spinner'></span>
+        </span>
+
+        <span class='uk-loader'>
+            <div class='uk-loader-value'>100%</div>
+            <span class='uk-loader-spinner'></span>
+        </span>
+
+        <span class='uk-loader uk-loader-small'>
+            <div class='uk-loader-value'>42%</div>
+            <span class='uk-loader-spinner'></span>
+        </span>
+
+        <span class='uk-loader uk-loader-large'>
+            <div class='uk-loader-value'>42%</div>
+            <span class='uk-loader-spinner'></span>
+        </span>
+
+        <p>In button</p>
+        <button class='uk-button uk-button-primary'>
+            <span  style='display: flex; padding: 5px 0;'>
+                <span>Button</span>
+                <span class='uk-loader'>
+                    <div class='uk-loader-value' id='uk-loader-value'>42%</div>
+                    <span class='uk-loader-spinner'></span>
+                </span>
+            </span>
+        </button>
+    </div>
+
+</div>
+
+<script>
+    const { ready, $ } = UIkit.util;
+    ready(() => {
+        const bar = $('#uk-loader-value');
+        let value = 0;
+        const animate = setInterval(() => {
+            bar.innerHTML = value + '%';
+            value += 25;
+            if (value > 100) {
+                value = 0;
+            }
+        }, 1000);
+    });
+</script>
+
+
+</body>
+</html>

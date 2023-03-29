@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.16.14 (March 29 2023)
+
+### Added
+
+- Add `loader` component
+
 ## 3.16.13 (March 28, 2023)
 
 ### Fixed
