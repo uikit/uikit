@@ -6,7 +6,6 @@ import {
     $$,
     addClass,
     after,
-    attr,
     css,
     findIndex,
     getIndex,
@@ -128,11 +127,6 @@ export default {
                 }
             );
         },
-
-        items(items) {
-            attr(items, 'tabindex', -1);
-            attr(items[0], 'tabindex', 0);
-        },
     },
 
     disconnected() {
@@ -148,7 +142,7 @@ export default {
                 return this.selNavItem;
             },
 
-            handler({ current, type }) {
+            handler({ current }) {
                 const active = this.getActive();
                 if (
                     active &&
@@ -158,12 +152,6 @@ export default {
                     !active.isDelaying
                 ) {
                     active.hide(false);
-                }
-
-                if (type === 'focusin') {
-                    for (const toggle of this.items) {
-                        attr(toggle, 'tabindex', current === toggle ? 0 : -1);
-                    }
                 }
             },
         },

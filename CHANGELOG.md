@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Make Navbar/Dropnav items tabbable again
+
 ## 3.16.13 (March 28, 2023)
 
 ### Fixed
