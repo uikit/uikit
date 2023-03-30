@@ -8,7 +8,8 @@
 
 ### Fix
 
-- Fix setting willChange prop in Parallax component for camelCased props
+- Fix using `rgb` and `rgba` values in color stops in Parallax component
+- Fix setting `will-change` css property in Parallax component for camelCased props
 
 ## 3.16.13 (March 28, 2023)
 

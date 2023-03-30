@@ -307,7 +307,9 @@ function parseStops(stops, fn = toFloat) {
     const { length } = stops;
     let nullIndex = 0;
     for (let i = 0; i < length; i++) {
-        let [value, percent] = isString(stops[i]) ? stops[i].trim().split(' ') : [stops[i]];
+        let [value, percent] = isString(stops[i])
+            ? stops[i].trim().split(/ (?![^(]*\))/)
+            : [stops[i]];
         value = fn(value);
         percent = percent ? toFloat(percent) / 100 : null;
 
