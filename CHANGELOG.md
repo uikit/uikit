@@ -10,6 +10,7 @@
 
 - Fix using `rgb` and `rgba` values in color stops in Parallax component
 - Fix setting `will-change` css property in Parallax component for camelCased props
+- Fix Slider removes `tabindex` from focusable elements in slides
 
 ## 3.16.13 (March 28, 2023)
 
