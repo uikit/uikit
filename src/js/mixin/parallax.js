@@ -9,6 +9,7 @@ import {
     isString,
     isUndefined,
     noop,
+    propName,
     toFloat,
     toPx,
     trigger,
@@ -81,6 +82,7 @@ export default {
             }
             css.willChange = Object.keys(css)
                 .filter((key) => css[key] !== '')
+                .map(propName)
                 .join(',');
             return css;
         },

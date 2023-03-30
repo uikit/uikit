@@ -6,6 +6,10 @@
 
 - Make Navbar/Dropnav items tabbable again
 
+### Fix
+
+- Fix setting willChange prop in Parallax component for camelCased props
+
 ## 3.16.13 (March 28, 2023)
 
 ### Fixed
