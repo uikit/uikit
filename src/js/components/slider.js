@@ -15,7 +15,6 @@ import {
     dimensions,
     findIndex,
     getIndex,
-    hasAttr,
     hasOwn,
     includes,
     isVisible,
