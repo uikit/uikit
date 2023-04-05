@@ -35,7 +35,7 @@
     "homepage": "https://getuikit.com",
     "packageManager": "pnpm@7.29.1",
     "devDependencies": {
-        "@rollup/plugin-alias": "^4.0.3",
+        "@rollup/plugin-alias": "^5.0.0",
         "@rollup/plugin-replace": "^5.0.2",
         "archiver": "^5.3.1",
         "camelcase": "^7.0.1",
