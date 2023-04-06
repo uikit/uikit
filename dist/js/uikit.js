@@ -1,4 +1,4 @@
-/*! UIkit 3.16.13 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.14 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2158,7 +2158,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.13";
+    App.version = "3.16.14";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3596,10 +3596,6 @@
               boundary: this.boundary === true ? this.$el : this.boundary
             }
           );
-        },
-        items(items) {
-          attr(items, "tabindex", -1);
-          attr(items[0], "tabindex", 0);
         }
       },
       disconnected() {
@@ -3612,15 +3608,10 @@
           delegate() {
             return this.selNavItem;
           },
-          handler({ current, type }) {
+          handler({ current }) {
             const active2 = this.getActive();
             if (active2 && includes(active2.mode, "hover") && active2.targetEl && !within(active2.targetEl, current) && !active2.isDelaying) {
               active2.hide(false);
-            }
-            if (type === "focusin") {
-              for (const toggle of this.items) {
-                attr(toggle, "tabindex", current === toggle ? 0 : -1);
-              }
             }
           }
         },
@@ -5865,7 +5856,7 @@
     }
 
     var svg = {
-      mixins: [Class, Svg],
+      mixins: [Svg],
       args: "src",
       props: {
         src: String,
@@ -5915,7 +5906,7 @@
     };
     function applyAttributes(el) {
       const { $el } = this;
-      addClass(el, attr($el, "class"));
+      addClass(el, attr($el, "class"), "uk-svg");
       for (let i = 0; i < $el.style.length; i++) {
         const prop = $el.style[i];
         css(el, prop, css($el, prop));
@@ -7939,7 +7930,7 @@
           for (const prop in this.props) {
             this.props[prop](css2, percent);
           }
-          css2.willChange = Object.keys(css2).filter((key) => css2[key] !== "").join(",");
+          css2.willChange = Object.keys(css2).filter((key) => css2[key] !== "").map(propName).join(",");
           return css2;
         }
       }
@@ -8111,7 +8102,7 @@
       const { length } = stops;
       let nullIndex = 0;
       for (let i = 0; i < length; i++) {
-        let [value, percent] = isString(stops[i]) ? stops[i].trim().split(" ") : [stops[i]];
+        let [value, percent] = isString(stops[i]) ? stops[i].trim().split(/ (?![^(]*\))/) : [stops[i]];
         value = fn(value);
         percent = percent ? toFloat(percent) / 100 : null;
         if (i === 0) {
@@ -8556,7 +8547,12 @@
             const active = includes(actives, slide);
             toggleClass(slide, activeClasses, active);
             attr(slide, "aria-hidden", !active);
-            attr($$(selFocusable, slide), "tabindex", active ? null : -1);
+            for (const focusable of $$(selFocusable, slide)) {
+              if (!hasOwn(focusable, "_tabindex")) {
+                focusable._tabindex = attr(focusable, "tabindex");
+              }
+              attr(focusable, "tabindex", active ? focusable._tabindex : -1);
+            }
           }
         },
         getValidIndex(index = this.index, prevIndex = this.prevIndex) {

@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.16.14 (April 6, 2023)
+
+### Changed
+
+- Make Navbar/Dropnav items tabbable again
+
+### Fix
+
+- Fix using `rgb` and `rgba` values in color stops in Parallax component
+- Fix setting `will-change` css property in Parallax component for camelCased props
+- Fix Slider removes `tabindex` from focusable elements in slides
+- Fix class `uk-svg` gets added to `<svg>` element only in Svg component 
+
 ## 3.16.13 (March 28, 2023)
 
 ### Fixed

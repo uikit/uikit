@@ -15,6 +15,7 @@ import {
     dimensions,
     findIndex,
     getIndex,
+    hasOwn,
     includes,
     isVisible,
     last,
@@ -246,7 +247,12 @@ export default {
                 const active = includes(actives, slide);
                 toggleClass(slide, activeClasses, active);
                 attr(slide, 'aria-hidden', !active);
-                attr($$(selFocusable, slide), 'tabindex', active ? null : -1);
+                for (const focusable of $$(selFocusable, slide)) {
+                    if (!hasOwn(focusable, '_tabindex')) {
+                        focusable._tabindex = attr(focusable, 'tabindex');
+                    }
+                    attr(focusable, 'tabindex', active ? focusable._tabindex : -1);
+                }
             }
         },
 
