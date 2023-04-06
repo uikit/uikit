@@ -6,7 +6,7 @@
 
 - Make Navbar/Dropnav items tabbable again
 
-### Fix
+### Fixed
 
 - Fix using `rgb` and `rgba` values in color stops in Parallax component
 - Fix setting `will-change` css property in Parallax component for camelCased props
