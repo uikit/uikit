@@ -1,4 +1,4 @@
-import glob from 'glob';
+import { glob } from 'glob';
 import { args, minify, read, renderLess, replaceInFile, validClassName } from './util.js';
 
 if (args.h || args.help) {

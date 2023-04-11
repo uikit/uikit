@@ -1,7 +1,7 @@
 import less from 'less';
 import fs from 'fs-extra';
 import pLimit from 'p-limit';
-import glob from 'glob';
+import { glob } from 'glob';
 import { optimize } from 'svgo';
 import { promisify } from 'util';
 import minimist from 'minimist';

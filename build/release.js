@@ -1,4 +1,4 @@
-import glob from 'glob';
+import { glob } from 'glob';
 import archiver from 'archiver';
 import inquirer from 'inquirer';
 import { createWriteStream } from 'fs';

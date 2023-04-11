@@ -1,4 +1,4 @@
-import glob from 'glob';
+import { glob } from 'glob';
 import NP from 'number-precision';
 import { read, write } from './util.js';
 
