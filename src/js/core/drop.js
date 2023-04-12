@@ -434,7 +434,7 @@ export default {
                     css(this.$el, {
                         [prop]:
                             (targetOffset[start] > elOffset[start]
-                                ? targetOffset[start] -
+                                ? targetOffset[this.inset ? end : start] -
                                   Math.max(
                                       offset(this.boundary[i])[start],
                                       viewports[i][start] + viewportOffset
