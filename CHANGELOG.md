@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Drop component height if `inset: true` and `stretch: true`
+
 ## 3.16.14 (April 6, 2023)
 
 ### Changed

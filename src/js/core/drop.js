@@ -442,7 +442,7 @@ export default {
                                 : Math.min(
                                       offset(this.boundary[i])[end],
                                       viewports[i][end] - viewportOffset
-                                  ) - targetOffset[end]) - positionOffset,
+                                  ) - targetOffset[this.inset ? start : end]) - positionOffset,
                         [`overflow-${axis}`]: 'auto',
                     });
 
