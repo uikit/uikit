@@ -108,7 +108,7 @@ export default {
             },
 
             handler() {
-                this.$emit('resizeViewport');
+                this.$emit('resize');
             },
         },
         {
@@ -266,7 +266,7 @@ export default {
                 (sticky ? before : after)(this.$el, placeholder);
             },
 
-            events: ['resize', 'resizeViewport'],
+            events: ['resize'],
         },
 
         {
