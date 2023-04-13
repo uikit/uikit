@@ -6,6 +6,7 @@
 
 - Fix Drop component height if `inset: true` and `stretch: true`
 - Fix Drop component `maxWidth` property with fractional viewport view
+- Fix Sticky component listens for resize of itself as long as no transition is in Progress
 
 ## 3.16.14 (April 6, 2023)
 
