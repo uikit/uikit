@@ -1,12 +1,20 @@
 # Changelog
 
+## 3.16.15 (April 14, 2023)
+
+### Fixed
+
+- Fix Drop component height if `inset: true` and `stretch: true`
+- Fix Drop component `maxWidth` property with fractional viewport view
+- Fix Sticky component listens for resize of itself as long as no transition is in Progress
+
 ## 3.16.14 (April 6, 2023)
 
 ### Changed
 
 - Make Navbar/Dropnav items tabbable again
 
-### Fix
+### Fixed
 
 - Fix using `rgb` and `rgba` values in color stops in Parallax component
 - Fix setting `will-change` css property in Parallax component for camelCased props

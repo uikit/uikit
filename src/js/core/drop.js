@@ -434,7 +434,7 @@ export default {
                     css(this.$el, {
                         [prop]:
                             (targetOffset[start] > elOffset[start]
-                                ? targetOffset[start] -
+                                ? targetOffset[this.inset ? end : start] -
                                   Math.max(
                                       offset(this.boundary[i])[start],
                                       viewports[i][start] + viewportOffset
@@ -442,7 +442,7 @@ export default {
                                 : Math.min(
                                       offset(this.boundary[i])[end],
                                       viewports[i][end] - viewportOffset
-                                  ) - targetOffset[end]) - positionOffset,
+                                  ) - targetOffset[this.inset ? start : end]) - positionOffset,
                         [`overflow-${axis}`]: 'auto',
                     });
 

@@ -1,12 +1,11 @@
 import less from 'less';
 import fs from 'fs-extra';
 import pLimit from 'p-limit';
-import glob from 'glob';
+import { glob } from 'glob';
 import { optimize } from 'svgo';
 import { promisify } from 'util';
 import minimist from 'minimist';
 import CleanCSS from 'clean-css';
-import html from 'rollup-plugin-html';
 import alias from '@rollup/plugin-alias';
 import modify from 'rollup-plugin-modify';
 import replace from '@rollup/plugin-replace';
@@ -99,17 +98,8 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                     ...aliases,
                 },
             }),
-            html({
-                include: '**/*.svg',
-                htmlMinifierOptions: {
-                    collapseWhitespace: true,
-                    minifyCSS: {
-                        advanced: false,
-                        keepSpecialComments: 0,
-                        rebase: false,
-                    },
-                },
-            }),
+
+            svgPlugin(),
 
             esbuild({
                 target: 'safari12',
@@ -189,32 +179,9 @@ export async function compile(file, dest, { external, globals, name, aliases, re
 }
 
 export async function icons(src) {
-    const options = {
-        plugins: [
-            {
-                name: 'preset-default',
-                params: {
-                    overrides: {
-                        removeViewBox: false,
-                        cleanupNumericValues: {
-                            floatPrecision: 3,
-                        },
-                        convertPathData: false,
-                        convertShapeToPath: false,
-                        mergePaths: false,
-                        minifyStyles: false,
-                        removeUnknownsAndDefaults: false,
-                        removeUselessStrokeAndFill: false,
-                        sortAttrs: false,
-                    },
-                },
-            },
-        ],
-    };
-
     const files = await glob(src);
     const icons = await Promise.all(
-        files.map((file) => limit(async () => (await optimize(await read(file), options)).data))
+        files.map((file) => limit(async () => optimizeSvg(await read(file))))
     );
 
     return JSON.stringify(
@@ -254,4 +221,49 @@ function cyan(str) {
 
 function getSize(data) {
     return `${(data.length / 1024).toFixed(2)}kb`;
+}
+
+async function optimizeSvg(svg) {
+    const options = {
+        plugins: [
+            {
+                name: 'preset-default',
+                params: {
+                    overrides: {
+                        removeViewBox: false,
+                        cleanupNumericValues: {
+                            floatPrecision: 3,
+                        },
+                        convertPathData: false,
+                        convertShapeToPath: false,
+                        mergePaths: false,
+                        minifyStyles: false,
+                        removeUnknownsAndDefaults: false,
+                        removeUselessStrokeAndFill: false,
+                        sortAttrs: false,
+                    },
+                },
+            },
+            { name: 'removeXMLNS', active: true },
+        ],
+    };
+
+    return (await optimize(svg, options)).data;
+}
+
+function svgPlugin() {
+    return {
+        name: 'svg-import',
+
+        transform: async (code, id) => {
+            if (!id.endsWith('.svg')) {
+                return;
+            }
+
+            return {
+                code: `export default ${JSON.stringify(await optimizeSvg(code))};`,
+                map: { mappings: '' },
+            };
+        },
+    };
 }

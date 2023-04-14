@@ -1,4 +1,4 @@
-import glob from 'glob';
+import { glob } from 'glob';
 import { args, compile, icons } from './util.js';
 
 if (args.h || args.help) {

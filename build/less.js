@@ -1,4 +1,4 @@
-import glob from 'glob';
+import { glob } from 'glob';
 import rtlcss from 'rtlcss';
 import { basename } from 'path';
 import { args, banner, minify, pathExists, read, readJson, renderLess, write } from './util.js';

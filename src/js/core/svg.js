@@ -122,7 +122,7 @@ const parseSymbols = memoize(function (svg) {
 
     let match;
     while ((match = symbolRe.exec(svg))) {
-        symbols[match[3]] = `<svg xmlns="http://www.w3.org/2000/svg"${match[1]}svg>`;
+        symbols[match[3]] = `<svg ${match[1]}svg>`;
     }
 
     return symbols;

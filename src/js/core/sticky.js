@@ -17,6 +17,7 @@ import {
     isVisible,
     noop,
     offsetPosition,
+    once,
     parent,
     query,
     remove,
@@ -96,15 +97,7 @@ export default {
         this.placeholder = null;
     },
 
-    observe: [
-        resize({
-            handler() {
-                !this.isFixed && this.$emit('resize');
-            },
-        }),
-        resize({ target: () => [document.documentElement] }),
-        scroll(),
-    ],
+    observe: [resize({ target: ({ $el }) => [$el, document.documentElement] }), scroll()],
 
     events: [
         {
@@ -115,7 +108,7 @@ export default {
             },
 
             handler() {
-                this.$emit('resizeViewport');
+                this.$emit('resize');
             },
         },
         {
@@ -150,18 +143,31 @@ export default {
                 });
             },
         },
+        {
+            name: 'transitionstart',
+
+            capture: true,
+
+            handler() {
+                this.transitionInProgress = once(
+                    this.$el,
+                    'transitionend transitioncancel',
+                    () => (this.transitionInProgress = null)
+                );
+            },
+        },
     ],
 
     update: [
         {
-            read({ height, width, margin, sticky }, types) {
+            read({ height, width, margin, sticky }) {
                 this.inactive = !this.matchMedia || !isVisible(this.$el);
 
                 if (this.inactive) {
                     return;
                 }
 
-                const hide = this.isFixed && types.has('resize') && !sticky;
+                const hide = this.isFixed && !this.transitionInProgress;
                 if (hide) {
                     preventTransition(this.selTarget);
                     this.hide();
@@ -260,7 +266,7 @@ export default {
                 (sticky ? before : after)(this.$el, placeholder);
             },
 
-            events: ['resize', 'resizeViewport'],
+            events: ['resize'],
         },
 
         {

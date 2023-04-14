@@ -1,4 +1,4 @@
-import glob from 'glob';
+import { glob } from 'glob';
 import pLimit from 'p-limit';
 import camelize from 'camelcase';
 import { basename, resolve } from 'path';

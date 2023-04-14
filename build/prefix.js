@@ -1,4 +1,4 @@
-import glob from 'glob';
+import { glob } from 'glob';
 import inquirer from 'inquirer';
 import { args, read, replaceInFile, validClassName } from './util.js';
 

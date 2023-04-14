@@ -171,7 +171,10 @@ export function offsetViewport(scrollElement) {
         } else {
             rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
         }
-        rect[prop] = rect[dir] = viewportElement[`client${ucfirst(prop)}`];
+        const subpixel = rect[prop] % 1;
+        rect[prop] = rect[dir] =
+            viewportElement[`client${ucfirst(prop)}`] -
+            (subpixel ? (subpixel < 0.5 ? -subpixel : 1 - subpixel) : 0);
         rect[end] = rect[prop] + rect[start];
     }
     return rect;
