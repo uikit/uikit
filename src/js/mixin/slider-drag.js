@@ -156,16 +156,16 @@ export default {
 
             let itemShown;
 
-            [this.index, this.prevIndex]
-                .filter((i) => !includes([nextIndex, prevIndex], i))
-                .forEach((i) => {
+            for (const i of [this.index, this.prevIndex]) {
+                if (!includes([nextIndex, prevIndex], i)) {
                     trigger(slides[i], 'itemhidden', [this]);
 
                     if (edge) {
                         itemShown = true;
                         this.prevIndex = prevIndex;
                     }
-                });
+                }
+            }
 
             if ((this.index === prevIndex && this.prevIndex !== prevIndex) || itemShown) {
                 trigger(slides[this.index], 'itemshown', [this]);

@@ -62,17 +62,17 @@ function raiseVersion(version) {
 }
 
 async function createPackage(version) {
-    const file = `dist/uikit-${version}.zip`;
+    const dest = `dist/uikit-${version}.zip`;
     const archive = archiver('zip');
 
-    archive.pipe(createWriteStream(file));
+    archive.pipe(createWriteStream(dest));
 
-    (await glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')).forEach((file) =>
-        archive.file(file, { name: file.substring(5) })
-    );
+    for (const file of await glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')) {
+        archive.file(file, { name: file.substring(5) });
+    }
 
     await archive.finalize();
-    await logFile(file);
+    await logFile(dest);
 }
 
 function versionFormat(version) {
