@@ -107,7 +107,7 @@ async function deploy(version) {
     await run('git push origin develop');
     await run('git push origin main --tags');
 
-    await run('pnpm publish --no-git-checks');
+    await run('pnpm publish');
 
     const notes = (await read('./Changelog.md'))
         .match(/## \d.*?$\s*(.*?)\s*(?=## \d)/ms)[1]
