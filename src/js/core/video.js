@@ -1,5 +1,5 @@
 import { intersection, resize } from '../api/observables';
-import { css, hasAttr, isInView, isTag, isVideo, isVisible, mute, pause, play } from 'uikit-util';
+import { hasAttr, isInView, isTag, isVideo, isVisible, mute, pause, play } from 'uikit-util';
 
 export default {
     args: 'autoplay',
@@ -40,7 +40,7 @@ export default {
 
             return {
                 prev: visible,
-                visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
+                visible: isVisible(this.$el),
                 inView: this.inView && isInView(this.$el),
             };
         },
