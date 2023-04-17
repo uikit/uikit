@@ -48,7 +48,7 @@ export default {
         write({ prev, visible, inView }) {
             if (!visible || (this.inView && !inView)) {
                 pause(this.$el);
-            } else if ((this.autoplay === true && !prev) || (this.inView && inView)) {
+            } else if ((this.autoplay === true && !prev) || inView) {
                 play(this.$el);
             }
         },
