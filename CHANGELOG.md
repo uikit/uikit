@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix auto pausing videos in Video component
+
 ## 3.16.15 (April 14, 2023)
 
 ### Fixed

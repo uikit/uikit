@@ -1,4 +1,4 @@
-import { intersection } from '../api/observables';
+import { intersection, resize } from '../api/observables';
 import { css, hasAttr, isInView, isTag, isVideo, isVisible, mute, pause, play } from 'uikit-util';
 
 export default {
@@ -30,9 +30,7 @@ export default {
         }
     },
 
-    observe: intersection({
-        args: { intersecting: false },
-    }),
+    observe: [intersection({ args: { intersecting: false } }), resize()],
 
     update: {
         read({ visible }) {
@@ -54,5 +52,7 @@ export default {
                 play(this.$el);
             }
         },
+
+        events: ['resize'],
     },
 };
