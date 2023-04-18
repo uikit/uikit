@@ -61,6 +61,7 @@
 ### Added
 
 - Add modes `pack` (default) and `next` to Grid component's `masonry` option
+- Add `justify-columns` option to Grid component
 
 ### Fixed
 

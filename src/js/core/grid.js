@@ -22,6 +22,7 @@ export default {
     props: {
         masonry: Boolean,
         parallax: Number,
+        justifyColumns: Boolean,
     },
 
     data: {
@@ -29,6 +30,7 @@ export default {
         clsStack: 'uk-grid-stack',
         masonry: false,
         parallax: 0,
+        justifyColumns: false,
     },
 
     connected() {
@@ -49,38 +51,48 @@ export default {
         {
             read(data) {
                 const { rows } = data;
+                const { masonry, parallax, justifyColumns, margin } = this;
 
                 // Filter component makes elements positioned absolute
-                if (!rows[0][0] || (!this.masonry && !this.parallax) || positionedAbsolute(rows)) {
+                if (!rows[0][0] || (!masonry && !parallax) || positionedAbsolute(rows)) {
                     data.translates = false;
                     return false;
                 }
 
-                let gutter = getGutter(rows, this.margin);
+                let gutter = getGutter(rows, margin);
 
                 let columns;
                 let translates;
-                if (this.masonry) {
-                    [columns, translates] = applyMasonry(rows, gutter, this.masonry === 'next');
+                if (masonry) {
+                    [columns, translates] = applyMasonry(rows, gutter, masonry === 'next');
                 } else {
                     columns = transpose(rows);
                 }
 
-                const columnHeights = columns.map((column) => sumBy(column, 'offsetHeight'));
+                const columnHeights = columns.map(
+                    (column) => sumBy(column, 'offsetHeight') + gutter * (column.length - 1)
+                );
                 const height = Math.max(...columnHeights);
 
-                let padding = Math.abs(this.parallax);
+                let padding = Math.abs(parallax);
+                let scrollColumns;
                 if (padding) {
-                    padding = Math.max(
-                        ...columnHeights.map((hgt, i) => hgt + padding / (i % 2 || 8) - height)
+                    scrollColumns = columnHeights.map((hgt, i) =>
+                        justifyColumns ? height - hgt + padding : padding / (i % 2 || 8)
                     );
+                    if (!justifyColumns) {
+                        padding = Math.max(
+                            ...columnHeights.map((hgt, i) => hgt + scrollColumns[i] - height)
+                        );
+                    }
                 }
 
                 return {
                     columns,
                     padding,
                     translates,
-                    height: translates ? height + gutter * (rows.length - 1) : '',
+                    scrollColumns,
+                    height: translates ? height : '',
                 };
             },
 
@@ -98,14 +110,10 @@ export default {
                     return false;
                 }
 
-                return {
-                    scrolled: this.parallax
-                        ? scrolledOver(this.$el) * Math.abs(this.parallax)
-                        : false,
-                };
+                return { scrolled: this.parallax ? scrolledOver(this.$el) : false };
             },
 
-            write({ columns, scrolled, translates }) {
+            write({ columns, scrolled, scrollColumns, translates }) {
                 if (!scrolled && !translates) {
                     return;
                 }
@@ -115,7 +123,7 @@ export default {
                         let [x, y] = (translates && translates[i][j]) || [0, 0];
 
                         if (scrolled) {
-                            y += scrolled / (i % 2 || 8);
+                            y += scrolled * scrollColumns[i];
                         }
 
                         css(el, 'transform', `translate(${x}px, ${y}px)`);
