@@ -166,7 +166,7 @@ export default {
     },
 
     methods: {
-        async toggle(item, animate) {
+        toggle(item, animate) {
             item = this.items[getIndex(item, this.items)];
             let items = [item];
             const activeItems = filter(this.items, `.${this.clsOpen}`);
@@ -179,7 +179,7 @@ export default {
                 return;
             }
 
-            await Promise.all(
+            return Promise.all(
                 items.map((el) =>
                     this.toggleElement(el, !includes(activeItems, el), (el, show) => {
                         toggleClass(el, this.clsOpen, show);

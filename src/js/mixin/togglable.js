@@ -9,7 +9,6 @@ import {
     isBoolean,
     isFunction,
     isVisible,
-    noop,
     removeClass,
     startsWith,
     toFloat,
@@ -54,9 +53,9 @@ export default {
     },
 
     methods: {
-        toggleElement(targets, toggle, animate) {
-            return new Promise((resolve) =>
-                Promise.all(
+        async toggleElement(targets, toggle, animate) {
+            try {
+                await Promise.all(
                     toNodes(targets).map((el) => {
                         const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
 
@@ -92,8 +91,11 @@ export default {
                               })
                             : done();
                     })
-                ).then(resolve, noop)
-            );
+                );
+                return true;
+            } catch (e) {
+                return false;
+            }
         },
 
         isToggled(el = this.$el) {
