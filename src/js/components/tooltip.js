@@ -77,16 +77,15 @@ export default {
 
             clearTimeout(this.showTimer);
 
-            if (!this.isToggled(this.tooltip || null)) {
-                return;
+            if (this.isToggled(this.tooltip || null)) {
+                await this.toggleElement(this.tooltip, false, false);
             }
 
-            await this.toggleElement(this.tooltip, false, false);
             remove(this.tooltip);
             this.tooltip = null;
         },
 
-        _show() {
+        async _show() {
             this.tooltip = append(
                 this.container,
                 `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip">
@@ -128,7 +127,9 @@ export default {
                 });
             });
 
-            this.toggleElement(this.tooltip, true);
+            if (!(await this.toggleElement(this.tooltip, true))) {
+                this.hide();
+            }
         },
     },
 
