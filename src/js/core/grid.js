@@ -3,11 +3,10 @@ import Margin from './margin';
 import Class from '../mixin/class';
 import {
     addClass,
-    children,
     css,
     hasClass,
+    isRtl,
     scrolledOver,
-    sortBy,
     sumBy,
     toFloat,
     toggleClass,
@@ -40,8 +39,8 @@ export default {
 
     update: [
         {
-            write({ columns }) {
-                toggleClass(this.$el, this.clsStack, columns.length < 2);
+            write({ rows }) {
+                toggleClass(this.$el, this.clsStack, !rows[0][1]);
             },
 
             events: ['resize'],
@@ -49,43 +48,40 @@ export default {
 
         {
             read(data) {
-                let { columns, rows } = data;
+                const { rows } = data;
 
                 // Filter component makes elements positioned absolute
-                if (
-                    !columns.length ||
-                    (!this.masonry && !this.parallax) ||
-                    positionedAbsolute(this.$el)
-                ) {
+                if (!rows[0][0] || (!this.masonry && !this.parallax) || positionedAbsolute(rows)) {
                     data.translates = false;
                     return false;
                 }
 
-                let translates = false;
+                let gutter = getGutter(rows, this.margin);
 
-                const nodes = children(this.$el);
-                const columnHeights = columns.map((column) => sumBy(column, 'offsetHeight'));
-                const margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
-                const elHeight = Math.max(...columnHeights) + margin;
-
+                let columns;
+                let translates;
                 if (this.masonry) {
-                    columns = columns.map((column) => sortBy(column, 'offsetTop'));
-                    translates = getTranslates(rows, columns);
+                    [columns, translates] = applyMasonry(rows, gutter, this.masonry === 'next');
+                } else {
+                    columns = transpose(rows);
                 }
+
+                const columnHeights = columns.map((column) => sumBy(column, 'offsetHeight'));
+                const height = Math.max(...columnHeights);
 
                 let padding = Math.abs(this.parallax);
                 if (padding) {
-                    padding = columnHeights.reduce(
-                        (newPadding, hgt, i) =>
-                            Math.max(
-                                newPadding,
-                                hgt + margin + (i % 2 ? padding : padding / 8) - elHeight
-                            ),
-                        0
+                    padding = Math.max(
+                        ...columnHeights.map((hgt, i) => hgt + padding / (i % 2 || 8) - height)
                     );
                 }
 
-                return { padding, columns, translates, height: translates ? elHeight : '' };
+                return {
+                    columns,
+                    padding,
+                    translates,
+                    height: translates ? height + gutter * (rows.length - 1) : '',
+                };
             },
 
             write({ height, padding }) {
@@ -97,8 +93,8 @@ export default {
         },
 
         {
-            read() {
-                if (this.parallax && positionedAbsolute(this.$el)) {
+            read({ rows }) {
+                if (this.parallax && positionedAbsolute(rows)) {
                     return false;
                 }
 
@@ -110,23 +106,20 @@ export default {
             },
 
             write({ columns, scrolled, translates }) {
-                if (scrolled === false && !translates) {
+                if (!scrolled && !translates) {
                     return;
                 }
 
                 columns.forEach((column, i) =>
-                    column.forEach((el, j) =>
-                        css(
-                            el,
-                            'transform',
-                            !scrolled && !translates
-                                ? ''
-                                : `translateY(${
-                                      (translates && -translates[i][j]) +
-                                      (scrolled ? (i % 2 ? scrolled : scrolled / 8) : 0)
-                                  }px)`
-                        )
-                    )
+                    column.forEach((el, j) => {
+                        let [x, y] = (translates && translates[i][j]) || [0, 0];
+
+                        if (scrolled) {
+                            y += scrolled / (i % 2 || 8);
+                        }
+
+                        css(el, 'transform', `translate(${x}px, ${y}px)`);
+                    })
                 );
             },
 
@@ -135,24 +128,57 @@ export default {
     ],
 };
 
-function positionedAbsolute(el) {
-    return children(el).some((el) => css(el, 'position') === 'absolute');
+function positionedAbsolute(rows) {
+    return rows.flat().some((el) => css(el, 'position') === 'absolute');
 }
 
-function getTranslates(rows, columns) {
-    const rowHeights = rows.map((row) => Math.max(...row.map((el) => el.offsetHeight)));
+function applyMasonry(rows, gutter, next) {
+    const columns = [];
+    const translates = [];
+    const columnHeights = Array(rows[0].length).fill(0);
+    let rowHeights = 0;
+    for (let row of rows) {
+        if (isRtl) {
+            row = row.reverse();
+        }
 
-    return columns.map((elements) => {
-        let prev = 0;
-        return elements.map(
-            (element, row) =>
-                (prev += row ? rowHeights[row - 1] - elements[row - 1].offsetHeight : 0)
-        );
-    });
+        let height = 0;
+        for (const j in row) {
+            const { offsetWidth, offsetHeight } = row[j];
+            const index = next ? j : columnHeights.indexOf(Math.min(...columnHeights));
+            push(columns, index, row[j]);
+            push(translates, index, [
+                (index - j) * offsetWidth * (isRtl ? -1 : 1),
+                columnHeights[index] - rowHeights,
+            ]);
+            columnHeights[index] += offsetHeight + gutter;
+            height = Math.max(height, offsetHeight);
+        }
+
+        rowHeights += height + gutter;
+    }
+
+    return [columns, translates];
 }
 
-function getMarginTop(nodes, cls) {
-    const [node] = nodes.filter((el) => hasClass(el, cls));
+function getGutter(rows, cls) {
+    const node = rows.flat().find((el) => hasClass(el, cls));
+    return toFloat(node ? css(node, 'marginTop') : css(rows[0][0], 'paddingLeft'));
+}
 
-    return toFloat(node ? css(node, 'marginTop') : css(nodes[0], 'paddingLeft'));
+function transpose(rows) {
+    const columns = [];
+    for (const row of rows) {
+        for (const i in row) {
+            push(columns, i, row[i]);
+        }
+    }
+    return columns;
+}
+
+function push(array, index, value) {
+    if (!array[index]) {
+        array[index] = [];
+    }
+    array[index].push(value);
 }

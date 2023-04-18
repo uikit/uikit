@@ -58,6 +58,10 @@
 
 - Remove `Deferred` util class
 
+### Added
+
+- Add modes `pack` (default) and `next` to Grid component's `masonry` option
+
 ### Fixed
 
 - Fix auto pausing videos in Video component

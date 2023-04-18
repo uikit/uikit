@@ -1,4 +1,4 @@
-import { children, isRtl, isVisible, offsetPosition, toggleClass } from 'uikit-util';
+import { children, isRtl, isVisible, offsetPosition, toArray, toggleClass } from 'uikit-util';
 import { mutation, resize } from '../api/observables';
 
 export default {
@@ -27,19 +27,16 @@ export default {
 
     update: {
         read() {
-            const rows = getRows(this.$el.children);
-
             return {
-                rows,
-                columns: getColumns(rows),
+                rows: getRows(toArray(this.$el.children)),
             };
         },
 
-        write({ columns, rows }) {
+        write({ rows }) {
             for (const row of rows) {
-                for (const column of row) {
-                    toggleClass(column, this.margin, rows[0] !== row);
-                    toggleClass(column, this.firstColumn, columns[0].includes(column));
+                for (const el of row) {
+                    toggleClass(el, this.margin, rows[0] !== row);
+                    toggleClass(el, this.firstColumn, row[isRtl ? row.length - 1 : 0] === el);
                 }
             }
         },
@@ -48,32 +45,18 @@ export default {
     },
 };
 
-export function getRows(items) {
-    return sortBy(items, 'top', 'bottom');
-}
-
-function getColumns(rows) {
-    const columns = [];
-
-    for (const row of rows) {
-        const sorted = sortBy(row, 'left', 'right');
-        for (let j = 0; j < sorted.length; j++) {
-            columns[j] = columns[j] ? columns[j].concat(sorted[j]) : sorted[j];
-        }
-    }
-
-    return isRtl ? columns.reverse() : columns;
-}
-
-function sortBy(items, startProp, endProp) {
+export function getRows(elements) {
     const sorted = [[]];
+    const withOffset = elements.some(
+        (el, i) => i && elements[i - 1].offsetParent !== el.offsetParent
+    );
 
-    for (const el of items) {
+    for (const el of elements) {
         if (!isVisible(el)) {
             continue;
         }
 
-        let dim = getOffset(el);
+        const offset = getOffset(el, withOffset);
 
         for (let i = sorted.length - 1; i >= 0; i--) {
             const current = sorted[i];
@@ -83,21 +66,25 @@ function sortBy(items, startProp, endProp) {
                 break;
             }
 
-            let startDim;
-            if (current[0].offsetParent === el.offsetParent) {
-                startDim = getOffset(current[0]);
-            } else {
-                dim = getOffset(el, true);
-                startDim = getOffset(current[0], true);
-            }
+            const offsetCurrent = getOffset(current[0], withOffset);
 
-            if (dim[startProp] >= startDim[endProp] - 1 && dim[startProp] !== startDim[startProp]) {
+            if (offset.top >= offsetCurrent.bottom - 1 && offset.top !== offsetCurrent.top) {
                 sorted.push([el]);
                 break;
             }
 
-            if (dim[endProp] - 1 > startDim[startProp] || dim[startProp] === startDim[startProp]) {
-                current.push(el);
+            if (offset.bottom - 1 > offsetCurrent.top || offset.top === offsetCurrent.top) {
+                let j = current.length - 1;
+                for (; j >= 0; j--) {
+                    const offsetCurrent = getOffset(current[j], withOffset);
+                    if (
+                        offset.left > offsetCurrent.right - 1 ||
+                        offset.left === offsetCurrent.left
+                    ) {
+                        break;
+                    }
+                }
+                current.splice(j + 1, 0, el);
                 break;
             }
 
