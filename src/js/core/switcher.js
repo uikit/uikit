@@ -79,7 +79,7 @@ export default {
         },
 
         connectChildren() {
-            const index = this.index();
+            let index = Math.max(0, this.index());
             for (const el of this.connects) {
                 children(el).forEach((child, i) => toggleClass(child, this.cls, i === index));
             }
@@ -241,11 +241,11 @@ export default {
 
             const animate = prev >= 0 && prev !== next;
             this.connects.forEach(async ({ children }) => {
-                await this.toggleElement(
-                    toArray(children).filter((child) => hasClass(child, this.cls)),
-                    false,
-                    animate
+                const actives = toArray(children).filter(
+                    (child, i) => i !== active && hasClass(child, this.cls)
                 );
+
+                await this.toggleElement(actives, false, animate);
                 await this.toggleElement(children[active], true, animate);
             });
         },
