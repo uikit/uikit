@@ -7,6 +7,7 @@
 - Fix auto pausing videos in Video component
 - Fix Tooltips are not removed from Dom if showing is prevented
 - Fix Switcher component not initializing properly
+- Fix Tooltip generates duplicate id
 
 ## 3.16.15 (April 14, 2023)
 

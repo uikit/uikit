@@ -43,7 +43,7 @@ export default {
     },
 
     beforeConnect() {
-        this.id = generateId(this);
+        this.id = generateId(this, {});
         this._hasTitle = hasAttr(this.$el, 'title');
         attr(this.$el, {
             title: '',
