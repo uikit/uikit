@@ -10,6 +10,7 @@ import {
     sumBy,
     toFloat,
     toggleClass,
+    toPx,
 } from 'uikit-util';
 
 export default {
@@ -21,7 +22,9 @@ export default {
 
     props: {
         masonry: Boolean,
-        parallax: Number,
+        parallax: String,
+        parallaxStart: String,
+        parallaxEnd: String,
         parallaxJustify: Boolean,
     },
 
@@ -30,6 +33,8 @@ export default {
         clsStack: 'uk-grid-stack',
         masonry: false,
         parallax: 0,
+        parallaxStart: 0,
+        parallaxEnd: 0,
         parallaxJustify: false,
     },
 
@@ -53,6 +58,8 @@ export default {
                 const { rows } = data;
                 let { masonry, parallax, parallaxJustify, margin } = this;
 
+                parallax = toPx(parallax);
+
                 // Filter component makes elements positioned absolute
                 if (!(masonry || parallax || parallaxJustify) || positionedAbsolute(rows)) {
                     return (data.translates = data.scrollColumns = false);
@@ -74,6 +81,8 @@ export default {
                 const height = Math.max(0, ...columnHeights);
 
                 let scrollColumns;
+                let parallaxStart;
+                let parallaxEnd;
                 if (parallax || parallaxJustify) {
                     scrollColumns = columnHeights.map((hgt, i) =>
                         parallaxJustify ? height - hgt + parallax : parallax / (i % 2 || 8)
@@ -83,12 +92,16 @@ export default {
                             ...columnHeights.map((hgt, i) => hgt + scrollColumns[i] - height)
                         );
                     }
+                    parallaxStart = toPx(this.parallaxStart, 'height', this.$el, true);
+                    parallaxEnd = toPx(this.parallaxEnd, 'height', this.$el, true);
                 }
 
                 return {
                     columns,
                     translates,
                     scrollColumns,
+                    parallaxStart,
+                    parallaxEnd,
                     padding: parallax,
                     height: translates ? height : '',
                 };
@@ -103,12 +116,16 @@ export default {
         },
 
         {
-            read({ rows, scrollColumns }) {
+            read({ rows, scrollColumns, parallaxStart, parallaxEnd }) {
                 if (scrollColumns && positionedAbsolute(rows)) {
                     return false;
                 }
 
-                return { scrolled: scrollColumns ? scrolledOver(this.$el) : false };
+                return {
+                    scrolled: scrollColumns
+                        ? scrolledOver(this.$el, parallaxStart, parallaxEnd)
+                        : false,
+                };
             },
 
             write({ columns, scrolled, scrollColumns, translates }) {

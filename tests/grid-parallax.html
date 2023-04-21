@@ -138,7 +138,19 @@
                             <td><code>parallax</code></td>
                             <td>Number</td>
                             <td>0</td>
-                            <td>Parallax translation value. The value must be a positive integer. Falsy disables the parallax effect (default).</td>
+                            <td>Parallax translation value. The value can be in vh, % and px. Falsy disables the parallax effect (default).</td>
+                        </tr>
+                        <tr>
+                            <td><code>parallax-start</code></td>
+                            <td>Length</td>
+                            <td>0</td>
+                            <td>Start offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the grid's top border and viewport's bottom border intersect.</td>
+                        </tr>
+                        <tr>
+                            <td><code>parallax-end</code></td>
+                            <td>Length</td>
+                            <td>0</td>
+                            <td>End offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the grid's bottom border and the viewport's top border intersect.</td>
                         </tr>
                         <tr>
                             <td><code>parallax-justify</code></td>

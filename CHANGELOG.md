@@ -61,7 +61,7 @@
 ### Added
 
 - Add modes `pack` (default) and `next` to Grid component's `masonry` option
-- Add `parallax-justify` option to Grid component
+- Add `parallax-start`, `parallax-end`, `parallax-justify` option to Grid component
 
 ### Fixed
 
