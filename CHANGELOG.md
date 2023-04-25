@@ -9,6 +9,7 @@
 - Fix Switcher component not initializing properly
 - Fix Tooltip generates duplicate id
 - Fix calculating sets in Slider component with `center` option enabled
+- Fix JavaScript error in Parallax component
 
 ## 3.16.15 (April 14, 2023)
 
