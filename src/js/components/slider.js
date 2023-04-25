@@ -93,7 +93,8 @@ export default {
                 if (this.center) {
                     if (
                         left < width / 2 &&
-                        left + slideWidth + dimensions(this.slides[+i + 1]).width / 2 > width / 2
+                        left + slideWidth + dimensions(getIndex(+i + 1, this.slides)).width / 2 >
+                            width / 2
                     ) {
                         sets.push(+i);
                         left = width / 2 - slideWidth / 2;

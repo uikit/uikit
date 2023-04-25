@@ -8,6 +8,7 @@
 - Fix Tooltips are not removed from Dom if showing is prevented
 - Fix Switcher component not initializing properly
 - Fix Tooltip generates duplicate id
+- Fix calculating sets in Slider component with `center` option enabled
 
 ## 3.16.15 (April 14, 2023)
 
