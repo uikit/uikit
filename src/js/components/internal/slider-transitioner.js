@@ -155,7 +155,7 @@ function centerEl(el, list) {
     return dimensions(list).width / 2 - dimensions(el).width / 2;
 }
 
-export function getElLeft(el, list) {
+function getElLeft(el, list) {
     return (
         (el &&
             (position(el).left + (isRtl ? dimensions(el).width - dimensions(list).width : 0)) *
