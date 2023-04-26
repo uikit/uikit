@@ -457,37 +457,38 @@
         </div>
 
         <script>
-            const {on} = UIkit.util;
+            const { modal, util: { on } } = UIkit;
 
             on('#js-modal-dialog', 'click', e => {
                 e.preventDefault();
                 e.target.blur();
-                UIkit.modal.dialog('<p class="uk-modal-body">UIkit dialog!</p>');
+                modal.dialog('<p class="uk-modal-body">UIkit dialog!</p>');
             });
 
-            on('#js-modal-alert', 'click', e => {
+            on('#js-modal-alert', 'click', async e => {
                 e.preventDefault();
                 e.target.blur();
-                UIkit.modal.alert('UIkit alert!').then(() =>
-                    console.log('Alert closed.')
-                );
+                await modal.alert('UIkit alert!');
+                console.log('Alert closed.');
             });
 
-            on('#js-modal-confirm', 'click', e => {
+            on('#js-modal-confirm', 'click', async e => {
                 e.preventDefault();
                 e.target.blur();
-                UIkit.modal.confirm('UIkit confirm!').then(
-                    () => console.log('Confirmed.'),
-                    () => console.log('Rejected.')
-                );
+
+                try {
+                    await modal.confirm('UIkit confirm!');
+                    console.log('Confirmed.');
+                } catch (e) {
+                    console.log('Rejected.')
+                }
             });
 
-            on('#js-modal-prompt', 'click', e => {
+            on('#js-modal-prompt', 'click', async e => {
                 e.preventDefault();
                 e.target.blur();
-                UIkit.modal.prompt('Name:', 'Your name').then(name =>
-                    console.log('Prompted:', name)
-                );
+                const name = await modal.prompt('Name:', 'Your name');
+                console.log('Prompted:', name);
             });
 
           </script>
