@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Removed
+
+- Remove `Deferred` util class
+
 ### Fixed
 
 - Fix auto pausing videos in Video component
