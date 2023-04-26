@@ -27,7 +27,7 @@ export default function (App) {
     };
 
     App.extend = function (options) {
-        options = options || {};
+        options ||= {};
 
         const Super = this;
         const Sub = function UIkitComponent(options) {
