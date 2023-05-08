@@ -1,5 +1,5 @@
-import { intersection } from '../api/observables';
-import { css, hasAttr, isInView, isTag, isVideo, isVisible, mute, pause, play } from 'uikit-util';
+import { intersection, resize } from '../api/observables';
+import { hasAttr, isInView, isTag, isVideo, isVisible, mute, pause, play } from 'uikit-util';
 
 export default {
     args: 'autoplay',
@@ -30,9 +30,7 @@ export default {
         }
     },
 
-    observe: intersection({
-        args: { intersecting: false },
-    }),
+    observe: [intersection({ args: { intersecting: false } }), resize()],
 
     update: {
         read({ visible }) {
@@ -42,7 +40,7 @@ export default {
 
             return {
                 prev: visible,
-                visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
+                visible: isVisible(this.$el),
                 inView: this.inView && isInView(this.$el),
             };
         },
@@ -50,9 +48,11 @@ export default {
         write({ prev, visible, inView }) {
             if (!visible || (this.inView && !inView)) {
                 pause(this.$el);
-            } else if ((this.autoplay === true && !prev) || (this.inView && inView)) {
+            } else if ((this.autoplay === true && !prev) || inView) {
                 play(this.$el);
             }
         },
+
+        events: ['resize'],
     },
 };

@@ -217,11 +217,12 @@ export default {
             }
 
             const toggled = this.target.filter(this.isToggled);
-            await this.toggleElement(toggled, false);
-            await this.toggleElement(
-                this.target.filter((el) => !includes(toggled, el)),
-                true
-            );
+            if (await this.toggleElement(toggled, false)) {
+                await this.toggleElement(
+                    this.target.filter((el) => !includes(toggled, el)),
+                    true
+                );
+            }
         },
     },
 };

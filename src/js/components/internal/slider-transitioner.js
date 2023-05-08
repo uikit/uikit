@@ -4,7 +4,6 @@ import {
     clamp,
     createEvent,
     css,
-    Deferred,
     dimensions,
     findIndex,
     includes,
@@ -17,14 +16,14 @@ import {
 } from 'uikit-util';
 
 export default function (prev, next, dir, { center, easing, list }) {
-    const deferred = new Deferred();
-
     const from = prev
         ? getLeft(prev, list, center)
         : getLeft(next, list, center) + dimensions(next).width * dir;
     const to = next
         ? getLeft(next, list, center)
         : from + dimensions(prev).width * dir * (isRtl ? -1 : 1);
+
+    let resolve;
 
     return {
         dir,
@@ -45,26 +44,27 @@ export default function (prev, next, dir, { center, easing, list }) {
                     dir,
                 });
 
-            Transition.start(
-                list,
-                { transform: translate(-to * (isRtl ? -1 : 1), 'px') },
-                duration,
-                timing
-            ).then(deferred.resolve, noop);
-
-            return deferred.promise;
+            return new Promise((res) => {
+                resolve ||= res;
+                Transition.start(
+                    list,
+                    { transform: translate(-to * (isRtl ? -1 : 1), 'px') },
+                    duration,
+                    timing
+                ).then(resolve, noop);
+            });
         },
 
         cancel() {
-            Transition.cancel(list);
+            return Transition.cancel(list);
         },
 
         reset() {
             css(list, 'transform', '');
         },
 
-        forward(duration, percent = this.percent()) {
-            Transition.cancel(list);
+        async forward(duration, percent = this.percent()) {
+            await this.cancel();
             return this.show(duration, percent, true);
         },
 
@@ -155,7 +155,7 @@ function centerEl(el, list) {
     return dimensions(list).width / 2 - dimensions(el).width / 2;
 }
 
-export function getElLeft(el, list) {
+function getElLeft(el, list) {
     return (
         (el &&
             (position(el).left + (isRtl ? dimensions(el).width - dimensions(list).width : 0)) *

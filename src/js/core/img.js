@@ -107,12 +107,12 @@ function setSrcAttrs(el, src) {
 
 const srcProps = ['data-src', 'data-srcset', 'sizes'];
 function setSourceProps(sourceEl, targetEl) {
-    srcProps.forEach((prop) => {
+    for (const prop of srcProps) {
         const value = data(sourceEl, prop);
         if (value) {
             attr(targetEl, prop.replace(/^(data-)+/, ''), value);
         }
-    });
+    }
 }
 
 function getImageFromElement(el, src, sources) {

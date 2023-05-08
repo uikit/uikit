@@ -1,6 +1,7 @@
 import Media from '../mixin/media';
 import { getMaxPathLength } from '../util/svg';
 import {
+    clamp,
     createEvent,
     css,
     Dimensions,
@@ -78,7 +79,7 @@ export default {
         getCss(percent) {
             const css = { transform: '', filter: '' };
             for (const prop in this.props) {
-                this.props[prop](css, percent);
+                this.props[prop](css, clamp(percent));
             }
             css.willChange = Object.keys(css)
                 .filter((key) => css[key] !== '')

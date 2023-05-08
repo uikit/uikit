@@ -29,12 +29,12 @@ export default {
     args: 'target',
 
     props: {
-        target: Boolean,
+        target: String,
         selActive: Boolean,
     },
 
     data: {
-        target: null,
+        target: '',
         selActive: false,
         attrItem: 'uk-filter-control',
         cls: 'uk-active',

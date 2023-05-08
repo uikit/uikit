@@ -2,12 +2,13 @@ import Modal from '../mixin/modal';
 import {
     $,
     addClass,
+    assign,
     css,
-    Deferred,
     hasClass,
     height,
     html,
     isString,
+    noop,
     on,
     removeClass,
 } from 'uikit-util';
@@ -88,8 +89,7 @@ function install({ modal }) {
                     i18n.ok
                 }</button>
             </div>`,
-            options,
-            (deferred) => deferred.resolve()
+            options
         );
     };
 
@@ -105,7 +105,7 @@ function install({ modal }) {
                 </div>
             </form>`,
             options,
-            (deferred) => deferred.reject()
+            () => Promise.reject()
         );
     };
 
@@ -124,7 +124,7 @@ function install({ modal }) {
                 </div>
             </form>`,
             options,
-            (deferred) => deferred.resolve(null),
+            () => null,
             (dialog) => $('input', dialog.$el).value
         );
     };
@@ -134,7 +134,7 @@ function install({ modal }) {
         cancel: 'Cancel',
     };
 
-    function openDialog(tmpl, options, hideFn, submitFn) {
+    function openDialog(tmpl, options, hideFn = noop, submitFn = noop) {
         options = {
             bgClose: false,
             escClose: true,
@@ -144,21 +144,19 @@ function install({ modal }) {
         };
 
         const dialog = modal.dialog(tmpl(options), options);
-        const deferred = new Deferred();
 
-        let resolved = false;
+        return assign(
+            new Promise((resolve) => {
+                const off = on(dialog.$el, 'hide', () => resolve(hideFn()));
 
-        on(dialog.$el, 'submit', 'form', (e) => {
-            e.preventDefault();
-            deferred.resolve(submitFn?.(dialog));
-            resolved = true;
-            dialog.hide();
-        });
-
-        on(dialog.$el, 'hide', () => !resolved && hideFn(deferred));
-
-        deferred.promise.dialog = dialog;
-
-        return deferred.promise;
+                on(dialog.$el, 'submit', 'form', (e) => {
+                    e.preventDefault();
+                    resolve(submitFn(dialog));
+                    off();
+                    dialog.hide();
+                });
+            }),
+            { dialog }
+        );
     }
 }

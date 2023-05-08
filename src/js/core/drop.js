@@ -89,8 +89,8 @@ export default {
         },
 
         target({ target, targetX, targetY }, $el) {
-            targetX = targetX || target || this.targetEl;
-            targetY = targetY || target || this.targetEl;
+            targetX ||= target || this.targetEl;
+            targetY ||= target || this.targetEl;
 
             return [
                 targetX === true ? window : query(targetX, $el),

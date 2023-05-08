@@ -21,7 +21,7 @@ export default {
     },
 
     observe: resize({
-        target: ({ $el }) => [$el, getPositionedParent($el) || parent($el)],
+        target: ({ $el }) => [getPositionedParent($el) || parent($el)],
     }),
 
     update: {

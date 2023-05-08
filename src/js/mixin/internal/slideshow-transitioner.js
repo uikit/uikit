@@ -1,9 +1,10 @@
-import { clamp, createEvent, css, Deferred, noop, Transition, trigger } from 'uikit-util';
+import { clamp, createEvent, css, noop, Transition, trigger } from 'uikit-util';
 
 export default function Transitioner(prev, next, dir, { animation, easing }) {
     const { percent, translate, show = noop } = animation;
     const props = show(dir);
-    const deferred = new Deferred();
+
+    let resolve;
 
     return {
         dir,
@@ -17,19 +18,20 @@ export default function Transitioner(prev, next, dir, { animation, easing }) {
             triggerUpdate(next, 'itemin', { percent, duration, timing, dir });
             triggerUpdate(prev, 'itemout', { percent: 1 - percent, duration, timing, dir });
 
-            Promise.all([
-                Transition.start(next, props[1], duration, timing),
-                Transition.start(prev, props[0], duration, timing),
-            ]).then(() => {
-                this.reset();
-                deferred.resolve();
-            }, noop);
-
-            return deferred.promise;
+            return new Promise((res) => {
+                resolve ||= res;
+                Promise.all([
+                    Transition.start(next, props[1], duration, timing),
+                    Transition.start(prev, props[0], duration, timing),
+                ]).then(() => {
+                    this.reset();
+                    resolve();
+                }, noop);
+            });
         },
 
         cancel() {
-            Transition.cancel([next, prev]);
+            return Transition.cancel([next, prev]);
         },
 
         reset() {
@@ -38,8 +40,8 @@ export default function Transitioner(prev, next, dir, { animation, easing }) {
             }
         },
 
-        forward(duration, percent = this.percent()) {
-            Transition.cancel([next, prev]);
+        async forward(duration, percent = this.percent()) {
+            await this.cancel();
             return this.show(duration, percent, true);
         },
 

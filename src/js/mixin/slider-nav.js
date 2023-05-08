@@ -226,7 +226,7 @@ export default {
                         focusEl = button;
                     }
 
-                    focus = focus || matches(button, ':focus');
+                    focus ||= matches(button, ':focus');
                 } else {
                     toggleClass(
                         el,

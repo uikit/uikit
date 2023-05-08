@@ -132,19 +132,18 @@ export default {
             this.dragging = true;
             this.dir = distance < 0 ? 1 : -1;
 
-            const { slides } = this;
-            let { prevIndex } = this;
+            let { slides, prevIndex } = this;
             let dis = Math.abs(distance);
-            let nextIndex = this.getIndex(prevIndex + this.dir, prevIndex);
-            let width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
+            let nextIndex = this.getIndex(prevIndex + this.dir);
+            let width = this._getDistance(prevIndex, nextIndex);
 
             while (nextIndex !== prevIndex && dis > width) {
                 this.drag -= width * this.dir;
 
                 prevIndex = nextIndex;
                 dis -= width;
-                nextIndex = this.getIndex(prevIndex + this.dir, prevIndex);
-                width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
+                nextIndex = this.getIndex(prevIndex + this.dir);
+                width = this._getDistance(prevIndex, nextIndex);
             }
 
             this.percent = dis / width;
@@ -156,16 +155,16 @@ export default {
 
             let itemShown;
 
-            [this.index, this.prevIndex]
-                .filter((i) => !includes([nextIndex, prevIndex], i))
-                .forEach((i) => {
+            for (const i of [this.index, this.prevIndex]) {
+                if (!includes([nextIndex, prevIndex], i)) {
                     trigger(slides[i], 'itemhidden', [this]);
 
                     if (edge) {
                         itemShown = true;
                         this.prevIndex = prevIndex;
                     }
-                });
+                }
+            }
 
             if ((this.index === prevIndex && this.prevIndex !== prevIndex) || itemShown) {
                 trigger(slides[this.index], 'itemshown', [this]);
@@ -221,6 +220,13 @@ export default {
             css(this.list, { userSelect: '', pointerEvents: '' });
 
             this.drag = this.percent = null;
+        },
+
+        _getDistance(prev, next) {
+            return (
+                this._getTransitioner(prev, prev !== next && next).getDistance() ||
+                this.slides[prev].offsetWidth
+            );
         },
     },
 };

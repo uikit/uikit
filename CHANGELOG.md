@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.16.16 (May 8, 2023)
+
+### Removed
+
+- Remove `Deferred` util class
+
+### Fixed
+
+- Fix auto pausing videos in Video component
+- Fix Tooltips are not removed from Dom if showing is prevented
+- Fix Switcher component not initializing properly
+- Fix Tooltip generates duplicate id
+- Fix calculating sets in Slider component with `center` option enabled
+- Fix JavaScript error in Parallax component
+
 ## 3.16.15 (April 14, 2023)
 
 ### Fixed

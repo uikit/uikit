@@ -278,12 +278,3 @@ export function memoize(fn) {
     const cache = Object.create(null);
     return (key) => cache[key] || (cache[key] = fn(key));
 }
-
-export class Deferred {
-    constructor() {
-        this.promise = new Promise((resolve, reject) => {
-            this.reject = reject;
-            this.resolve = resolve;
-        });
-    }
-}
