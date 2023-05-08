@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.16.16 (May 8, 2023)
 
 ### Removed
 
