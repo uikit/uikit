@@ -134,12 +134,12 @@ export const Search = {
         }
 
         if (hasClass(this.$el, 'uk-search-toggle') || hasClass(this.$el, 'uk-navbar-toggle')) {
-            const label = this.t('labelToggle');
+            const label = this.t('toggle');
             attr(this.$el, 'aria-label', label);
         } else {
             const button = closest(this.$el, 'a,button');
             if (button) {
-                const label = this.t('labelSubmit');
+                const label = this.t('submit');
                 attr(button, 'aria-label', label);
             }
         }
