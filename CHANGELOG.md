@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add i18n labels for Search Icons
+
 ### Fixed
 
 - Fix Toggle component uses anchor element's hash as target fallback
