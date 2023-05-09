@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Toggle component uses anchor element's hash as target fallback
+
 ## 3.16.16 (May 8, 2023)
 
 ### Removed
