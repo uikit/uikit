@@ -119,7 +119,7 @@ export const Search = {
 
     mixins: [I18n],
 
-    i18n: { labelToggle: 'Open Search', labelSubmit: 'Submit Search' },
+    i18n: { toggle: 'Open Search', submit: 'Submit Search' },
 
     beforeConnect() {
         this.icon =
