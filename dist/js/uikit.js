@@ -1,4 +1,4 @@
-/*! UIkit 3.16.16 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.17 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2150,7 +2150,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.16";
+    App.version = "3.16.17";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4394,8 +4394,23 @@
     };
     const Search = {
       extends: IconComponent,
+      mixins: [I18n],
+      i18n: { toggle: "Open Search", submit: "Submit Search" },
       beforeConnect() {
         this.icon = hasClass(this.$el, "uk-search-icon") && parents(this.$el, ".uk-search-large").length ? "search-large" : parents(this.$el, ".uk-search-navbar").length ? "search-navbar" : this.$props.icon;
+        if (hasAttr(this.$el, "aria-label")) {
+          return;
+        }
+        if (hasClass(this.$el, "uk-search-toggle") || hasClass(this.$el, "uk-navbar-toggle")) {
+          const label = this.t("toggle");
+          attr(this.$el, "aria-label", label);
+        } else {
+          const button = closest(this.$el, "a,button");
+          if (button) {
+            const label = this.t("submit");
+            attr(button, "aria-label", label);
+          }
+        }
       }
     };
     const Spinner = {
@@ -6164,8 +6179,8 @@
         queued: true
       },
       computed: {
-        target({ href, target }, $el) {
-          target = queryAll(target || href, $el);
+        target({ target }, $el) {
+          target = queryAll(target || $el.hash, $el);
           return target.length && target || [$el];
         }
       },

@@ -42,8 +42,8 @@ export default {
     },
 
     computed: {
-        target({ href, target }, $el) {
-            target = queryAll(target || href, $el);
+        target({ target }, $el) {
+            target = queryAll(target || $el.hash, $el);
             return (target.length && target) || [$el];
         },
     },
