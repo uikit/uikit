@@ -9,7 +9,6 @@ import {
     css,
     findIndex,
     getIndex,
-    hasAttr,
     hasClass,
     height,
     includes,
@@ -18,7 +17,6 @@ import {
     noop,
     observeResize,
     offset,
-    once,
     parents,
     query,
     remove,
@@ -159,6 +157,8 @@ export default {
         {
             name: 'keydown',
 
+            self: true,
+
             delegate() {
                 return this.selNavItem;
             },
@@ -167,17 +167,9 @@ export default {
                 const { current, keyCode } = e;
                 const active = this.getActive();
 
-                if (keyCode === keyMap.DOWN && hasAttr(current, 'aria-expanded')) {
+                if (keyCode === keyMap.DOWN && active?.targetEl === current) {
                     e.preventDefault();
-
-                    if (!active || active.targetEl !== current) {
-                        current.click();
-                        once(this.dropContainer, 'show', ({ target }) =>
-                            focusFirstFocusableElement(target)
-                        );
-                    } else {
-                        focusFirstFocusableElement(active.$el);
-                    }
+                    $(selFocusable, active.$el)?.focus();
                 }
 
                 handleNavItemNavigation(e, this.items, active);
@@ -426,11 +418,5 @@ function handleNavItemNavigation(e, toggles, active) {
         e.preventDefault();
         active.hide?.(false);
         toggles[getIndex(next, toggles, toggles.indexOf(active.targetEl || current))].focus();
-    }
-}
-
-function focusFirstFocusableElement(el) {
-    if (!$(':focus', el)) {
-        $(selFocusable, el)?.focus();
     }
 }

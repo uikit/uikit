@@ -6,6 +6,10 @@
 
 - Modal prompt dialog selects text in input
 
+### Fixed
+
+- Fix keyboard navigation in Navbar component
+
 ## 3.16.17 (May 9, 2023)
 
 ### Added
