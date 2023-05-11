@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Modal prompt dialog selects text in input
+
 ## 3.16.17 (May 9, 2023)
 
 ### Added
