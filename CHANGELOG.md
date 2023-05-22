@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.16.18 (May 22, 2023)
+
+### Changed
+
+- Modal prompt dialog selects text in input
+- Sticky component sets position context with `!important` modifier
+
+### Fixed
+
+- Fix keyboard navigation in Navbar component
+
 ## 3.16.17 (May 9, 2023)
 
 ### Added

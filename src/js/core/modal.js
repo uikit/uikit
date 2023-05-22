@@ -61,7 +61,7 @@ function install({ modal }) {
             `<div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
              </div>`,
-            options
+            { stack: true, role: 'alertdialog', ...options }
         );
 
         dialog.show();
@@ -110,7 +110,7 @@ function install({ modal }) {
     };
 
     modal.prompt = function (message, value, options) {
-        return openDialog(
+        const promise = openDialog(
             ({ i18n }) => `<form class="uk-form-stacked">
                 <div class="uk-modal-body">
                     <label>${isString(message) ? message : html(message)}</label>
@@ -125,8 +125,14 @@ function install({ modal }) {
             </form>`,
             options,
             () => null,
-            (dialog) => $('input', dialog.$el).value
+            () => input.value
         );
+
+        const { $el } = promise.dialog;
+        const input = $('input', $el);
+        on($el, 'show', () => input.select());
+
+        return promise;
     };
 
     modal.i18n = {
@@ -138,7 +144,6 @@ function install({ modal }) {
         options = {
             bgClose: false,
             escClose: true,
-            role: 'alertdialog',
             ...options,
             i18n: { ...modal.i18n, ...options?.i18n },
         };
