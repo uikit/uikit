@@ -423,8 +423,7 @@ export default {
                     position = 'absolute';
                 }
 
-                css(this.$el, { position, width });
-                css(this.$el, 'marginTop', 0, 'important');
+                css(this.$el, { position, width, marginTop: 0 }, 'important');
             }
 
             if (overflow) {

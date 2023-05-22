@@ -5,6 +5,7 @@
 ### Changed
 
 - Modal prompt dialog selects text in input
+- Sticky component sets position context with `!important` modifier
 
 ### Fixed
 
