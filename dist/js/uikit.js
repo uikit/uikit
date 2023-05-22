@@ -1,4 +1,4 @@
-/*! UIkit 3.16.17 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.18 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2150,7 +2150,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.17";
+    App.version = "3.16.18";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3611,24 +3611,17 @@
         },
         {
           name: "keydown",
+          self: true,
           delegate() {
             return this.selNavItem;
           },
           handler(e) {
+            var _a;
             const { current, keyCode } = e;
             const active2 = this.getActive();
-            if (keyCode === keyMap.DOWN && hasAttr(current, "aria-expanded")) {
+            if (keyCode === keyMap.DOWN && (active2 == null ? void 0 : active2.targetEl) === current) {
               e.preventDefault();
-              if (!active2 || active2.targetEl !== current) {
-                current.click();
-                once(
-                  this.dropContainer,
-                  "show",
-                  ({ target }) => focusFirstFocusableElement(target)
-                );
-              } else {
-                focusFirstFocusableElement(active2.$el);
-              }
+              (_a = $(selFocusable, active2.$el)) == null ? void 0 : _a.focus();
             }
             handleNavItemNavigation(e, this.items, active2);
           }
@@ -3820,12 +3813,6 @@
         e.preventDefault();
         (_c = active2.hide) == null ? void 0 : _c.call(active2, false);
         toggles[getIndex(next, toggles, toggles.indexOf(active2.targetEl || current))].focus();
-      }
-    }
-    function focusFirstFocusableElement(el) {
-      var _a;
-      if (!$(":focus", el)) {
-        (_a = $(selFocusable, el)) == null ? void 0 : _a.focus();
       }
     }
 
@@ -4960,7 +4947,7 @@
       modal.dialog = function(content, options) {
         const dialog = modal(
           `<div class="uk-modal"> <div class="uk-modal-dialog">${content}</div> </div>`,
-          options
+          { stack: true, role: "alertdialog", ...options }
         );
         dialog.show();
         on(
@@ -4988,12 +4975,16 @@
         );
       };
       modal.prompt = function(message, value, options) {
-        return openDialog(
+        const promise = openDialog(
           ({ i18n }) => `<form class="uk-form-stacked"> <div class="uk-modal-body"> <label>${isString(message) ? message : html(message)}</label> <input class="uk-input" value="${value || ""}" autofocus> </div> <div class="uk-modal-footer uk-text-right"> <button class="uk-button uk-button-default uk-modal-close" type="button">${i18n.cancel}</button> <button class="uk-button uk-button-primary">${i18n.ok}</button> </div> </form>`,
           options,
           () => null,
-          (dialog) => $("input", dialog.$el).value
+          () => input.value
         );
+        const { $el } = promise.dialog;
+        const input = $("input", $el);
+        on($el, "show", () => input.select());
+        return promise;
       };
       modal.i18n = {
         ok: "Ok",
@@ -5003,7 +4994,6 @@
         options = {
           bgClose: false,
           escClose: true,
-          role: "alertdialog",
           ...options,
           i18n: { ...modal.i18n, ...options == null ? void 0 : options.i18n }
         };
@@ -5797,8 +5787,7 @@
               offset += end - offsetParentTop;
               position = "absolute";
             }
-            css(this.$el, { position, width });
-            css(this.$el, "marginTop", 0, "important");
+            css(this.$el, { position, width, marginTop: 0 }, "important");
           }
           if (overflow) {
             offset -= overflowScroll;
