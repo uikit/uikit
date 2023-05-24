@@ -9,6 +9,7 @@ import {
     offsetPosition,
     offsetViewport,
     query,
+    scrollParent,
     scrollParents,
     toFloat,
 } from 'uikit-util';
@@ -44,7 +45,7 @@ export default {
             const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
             const { body, scrollingElement } = document;
-            const [scrollElement] = scrollParents(this.$el);
+            const scrollElement = scrollParent(this.$el);
             const { height: viewportHeight } = offsetViewport(
                 scrollElement === body ? scrollingElement : scrollElement
             );

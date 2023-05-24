@@ -17,6 +17,7 @@ import {
     matches,
     MouseTracker,
     observeResize,
+    observeViewportResize,
     offset,
     offsetViewport,
     on,
@@ -475,12 +476,11 @@ function createToggleComponent(drop) {
 
 function listenForResize(drop) {
     const update = () => drop.$emit();
-    const off = on(window, 'resize', update);
-    const observer = observeResize(overflowParents(drop.$el).concat(drop.target), update);
-    return () => {
-        observer.disconnect();
-        off();
-    };
+    const off = [
+        observeViewportResize(update),
+        observeResize(overflowParents(drop.$el).concat(drop.target), update),
+    ];
+    return () => off.map((observer) => observer.disconnect());
 }
 
 function listenForScroll(drop) {

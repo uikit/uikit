@@ -5,7 +5,7 @@ import {
     includes,
     isRtl,
     positionAt,
-    scrollParents,
+    scrollParent,
     toPx,
 } from 'uikit-util';
 
@@ -96,7 +96,7 @@ export default {
 };
 
 function storeScrollPosition(element) {
-    const [scrollElement] = scrollParents(element);
+    const scrollElement = scrollParent(element);
     const { scrollTop } = scrollElement;
 
     return () => {

@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import { resize, scroll } from '../api/observables';
+import { resize, scroll, viewport } from '../api/observables';
 import {
     $,
     addClass,
@@ -97,20 +97,13 @@ export default {
         this.placeholder = null;
     },
 
-    observe: [resize({ target: ({ $el }) => [$el, document.documentElement] }), scroll()],
+    observe: [
+        resize({ target: ({ $el }) => [$el, document.scrollingElement] }),
+        viewport(),
+        scroll(),
+    ],
 
     events: [
-        {
-            name: 'resize',
-
-            el() {
-                return [window, window.visualViewport];
-            },
-
-            handler() {
-                this.$emit('resize');
-            },
-        },
         {
             name: 'load hashchange popstate',
 

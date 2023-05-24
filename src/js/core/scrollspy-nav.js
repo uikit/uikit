@@ -8,7 +8,7 @@ import {
     isVisible,
     offset,
     offsetViewport,
-    scrollParents,
+    scrollParent,
     toggleClass,
     trigger,
 } from 'uikit-util';
@@ -61,7 +61,7 @@ export default {
                     return false;
                 }
 
-                const [scrollElement] = scrollParents(targets, true);
+                const scrollElement = scrollParent(targets, true);
                 const { scrollTop, scrollHeight } = scrollElement;
                 const viewport = offsetViewport(scrollElement);
                 const max = scrollHeight - viewport.height;
