@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Parallax component responsiveness on resize of scroll container
+
 ## 3.16.18 (May 22, 2023)
 
 ### Changed

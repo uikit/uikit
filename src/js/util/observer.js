@@ -1,5 +1,5 @@
 import { on } from './event';
-import { noop, toNodes } from './lang';
+import { toNodes } from './lang';
 import { inBrowser } from './env';
 
 export function observeIntersection(targets, cb, options = {}, { intersecting = true } = {}) {
@@ -27,41 +27,12 @@ export function observeResize(targets, cb, options = { box: 'border-box' }) {
     }
 
     // Fallback Safari < 13.1
-    initResizeListener();
-    listeners.add(cb);
-
-    return {
-        observe: noop,
-        unobserve: noop,
-        disconnect() {
-            listeners.delete(cb);
-        },
-    };
+    const off = [on(window, 'load resize', cb), on(document, 'loadedmetadata load', cb, true)];
+    return { disconnect: () => off.map((cb) => cb()) };
 }
 
-let listeners;
-function initResizeListener() {
-    if (listeners) {
-        return;
-    }
-
-    listeners = new Set();
-
-    // throttle 'resize'
-    let pendingResize;
-    const handleResize = () => {
-        if (pendingResize) {
-            return;
-        }
-        pendingResize = true;
-        requestAnimationFrame(() => (pendingResize = false));
-        for (const listener of listeners) {
-            listener();
-        }
-    };
-
-    on(window, 'load resize', handleResize);
-    on(document, 'loadedmetadata load', handleResize, true);
+export function observeViewportResize(cb) {
+    return { disconnect: on([window, window.visualViewport], 'resize', cb) };
 }
 
 export function observeMutation(targets, cb, options) {

@@ -7,6 +7,7 @@ import {
     observeIntersection,
     observeMutation,
     observeResize,
+    observeViewportResize,
     on,
     once,
     parent,
@@ -50,18 +51,20 @@ export function lazyload(options = {}) {
     });
 }
 
+export function viewport() {
+    return observe((target, handler) => observeViewportResize(handler));
+}
+
 export function scroll(options) {
     return observe(
-        function (target, handler) {
-            return {
-                disconnect: on(target, 'scroll', handler, {
-                    passive: true,
-                    capture: true,
-                }),
-            };
-        },
+        (target, handler) => ({
+            disconnect: on(target, 'scroll', handler, {
+                passive: true,
+                capture: true,
+            }),
+        }),
         {
-            target: () => window,
+            target: () => document,
             ...options,
         },
         'scroll'

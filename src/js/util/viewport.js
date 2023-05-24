@@ -100,7 +100,7 @@ export function scrolledOver(element, startOffset = 0, endOffset = 0) {
         return 0;
     }
 
-    const [scrollElement] = scrollParents(element, true);
+    const scrollElement = scrollParent(element, true);
     const { scrollHeight, scrollTop } = scrollElement;
     const { height: viewportHeight } = offsetViewport(scrollElement);
     const maxScroll = scrollHeight - viewportHeight;
@@ -134,6 +134,10 @@ export function scrollParents(element, scrollable = false, props = []) {
             )
         )
         .reverse();
+}
+
+export function scrollParent(...args) {
+    return scrollParents(...args)[0];
 }
 
 export function overflowParents(element) {

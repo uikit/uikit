@@ -1,6 +1,6 @@
 import Parallax from '../mixin/parallax';
-import { resize, scroll } from '../api/observables';
-import { css, isVisible, parent, query, scrolledOver, toPx } from 'uikit-util';
+import { resize, scroll, viewport } from '../api/observables';
+import { css, isVisible, parent, query, scrolledOver, scrollParent, toPx } from 'uikit-util';
 
 export default {
     mixins: [Parallax],
@@ -41,10 +41,9 @@ export default {
     },
 
     observe: [
-        resize({
-            target: ({ $el, target }) => [$el, target],
-        }),
+        resize({ target: ({ $el, target }) => [$el, target, scrollParent(target, true)] }),
         scroll(),
+        viewport(),
     ],
 
     update: {

@@ -1,4 +1,4 @@
-import { css, matches, on, scrollParents, width } from 'uikit-util';
+import { css, matches, on, scrollParent, width } from 'uikit-util';
 
 let prevented;
 export function preventBackgroundScroll(el) {
@@ -11,7 +11,7 @@ export function preventBackgroundScroll(el) {
                 return;
             }
 
-            let [{ scrollHeight, clientHeight }] = scrollParents(e.target);
+            let { scrollHeight, clientHeight } = scrollParent(e.target);
 
             if (clientHeight >= scrollHeight && e.cancelable) {
                 e.preventDefault();
