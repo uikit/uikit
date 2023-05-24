@@ -1,4 +1,4 @@
-/*! UIkit 3.16.18 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.19 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1084,35 +1084,11 @@
       if (hasResizeObserver) {
         return observe$1(ResizeObserver, targets, cb, options);
       }
-      initResizeListener();
-      listeners.add(cb);
-      return {
-        observe: noop,
-        unobserve: noop,
-        disconnect() {
-          listeners.delete(cb);
-        }
-      };
+      const off = [on(window, "load resize", cb), on(document, "loadedmetadata load", cb, true)];
+      return { disconnect: () => off.map((cb2) => cb2()) };
     }
-    let listeners;
-    function initResizeListener() {
-      if (listeners) {
-        return;
-      }
-      listeners = /* @__PURE__ */ new Set();
-      let pendingResize;
-      const handleResize = () => {
-        if (pendingResize) {
-          return;
-        }
-        pendingResize = true;
-        requestAnimationFrame(() => pendingResize = false);
-        for (const listener of listeners) {
-          listener();
-        }
-      };
-      on(window, "load resize", handleResize);
-      on(document, "loadedmetadata load", handleResize, true);
+    function observeViewportResize(cb) {
+      return { disconnect: on([window, window.visualViewport], "resize", cb) };
     }
     function observeMutation(targets, cb, options) {
       return observe$1(MutationObserver, targets, cb, options);
@@ -1274,7 +1250,7 @@
       if (!isVisible(element)) {
         return 0;
       }
-      const [scrollElement] = scrollParents(element, true);
+      const scrollElement = scrollParent(element, true);
       const { scrollHeight, scrollTop } = scrollElement;
       const { height: viewportHeight } = offsetViewport(scrollElement);
       const maxScroll = scrollHeight - viewportHeight;
@@ -1296,6 +1272,9 @@
           (parent) => css(parent, "overflow").split(" ").some((prop) => includes(["auto", "scroll", ...props], prop)) && (!scrollable || parent.scrollHeight > offsetViewport(parent).height)
         )
       ).reverse();
+    }
+    function scrollParent(...args) {
+      return scrollParents(...args)[0];
     }
     function overflowParents(element) {
       return scrollParents(element, false, ["hidden", "clip"]);
@@ -1598,6 +1577,7 @@
         observeIntersection: observeIntersection,
         observeMutation: observeMutation,
         observeResize: observeResize,
+        observeViewportResize: observeViewportResize,
         off: off,
         offset: offset,
         offsetPosition: offsetPosition,
@@ -1630,6 +1610,7 @@
         removeClasses: removeClasses,
         replaceClass: replaceClass,
         scrollIntoView: scrollIntoView,
+        scrollParent: scrollParent,
         scrollParents: scrollParents,
         scrolledOver: scrolledOver,
         selFocusable: selFocusable,
@@ -2150,7 +2131,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.18";
+    App.version = "3.16.19";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -2617,18 +2598,19 @@
         ...options
       });
     }
+    function viewport() {
+      return observe((target, handler) => observeViewportResize(handler));
+    }
     function scroll$1(options) {
       return observe(
-        function(target, handler) {
-          return {
-            disconnect: on(target, "scroll", handler, {
-              passive: true,
-              capture: true
-            })
-          };
-        },
+        (target, handler) => ({
+          disconnect: on(target, "scroll", handler, {
+            passive: true,
+            capture: true
+          })
+        }),
         {
-          target: () => window,
+          target: () => document,
           ...options
         },
         "scroll"
@@ -2841,13 +2823,13 @@
       }
     }
     function keepScrollPosition(el) {
-      const [scrollParent] = scrollParents(el, true);
+      const scrollElement = scrollParent(el, true);
       let frame;
       (function scroll() {
         frame = requestAnimationFrame(() => {
           const { top } = el.getBoundingClientRect();
           if (top < 0) {
-            scrollParent.scrollTop += top;
+            scrollElement.scrollTop += top;
           }
           scroll();
         });
@@ -3075,7 +3057,7 @@
       }
     };
     function storeScrollPosition(element) {
-      const [scrollElement] = scrollParents(element);
+      const scrollElement = scrollParent(element);
       const { scrollTop } = scrollElement;
       return () => {
         if (scrollTop !== scrollElement.scrollTop) {
@@ -3107,7 +3089,7 @@
           if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
             return;
           }
-          let [{ scrollHeight, clientHeight }] = scrollParents(e.target);
+          let { scrollHeight, clientHeight } = scrollParent(e.target);
           if (clientHeight >= scrollHeight && e.cancelable) {
             e.preventDefault();
           }
@@ -3470,12 +3452,11 @@
     }
     function listenForResize(drop) {
       const update = () => drop.$emit();
-      const off = on(window, "resize", update);
-      const observer = observeResize(overflowParents(drop.$el).concat(drop.target), update);
-      return () => {
-        observer.disconnect();
-        off();
-      };
+      const off = [
+        observeViewportResize(update),
+        observeResize(overflowParents(drop.$el).concat(drop.target), update)
+      ];
+      return () => off.map((observer) => observer.disconnect());
     }
     function listenForScroll(drop) {
       return on([document, ...overflowParents(drop.$el)], "scroll", () => drop.$emit(), {
@@ -4153,7 +4134,7 @@
           let minHeight = "";
           const box = boxModelAdjust(this.$el, "height", "content-box");
           const { body, scrollingElement } = document;
-          const [scrollElement] = scrollParents(this.$el);
+          const scrollElement = scrollParent(this.$el);
           const { height: viewportHeight } = offsetViewport(
             scrollElement === body ? scrollingElement : scrollElement
           );
@@ -5450,7 +5431,7 @@
             if (!length || !isVisible(this.$el)) {
               return false;
             }
-            const [scrollElement] = scrollParents(targets, true);
+            const scrollElement = scrollParent(targets, true);
             const { scrollTop, scrollHeight } = scrollElement;
             const viewport = offsetViewport(scrollElement);
             const max = scrollHeight - viewport.height;
@@ -5542,17 +5523,12 @@
         remove$1(this.placeholder);
         this.placeholder = null;
       },
-      observe: [resize({ target: ({ $el }) => [$el, document.documentElement] }), scroll$1()],
+      observe: [
+        resize({ target: ({ $el }) => [$el, document.scrollingElement] }),
+        viewport(),
+        scroll$1()
+      ],
       events: [
-        {
-          name: "resize",
-          el() {
-            return [window, window.visualViewport];
-          },
-          handler() {
-            this.$emit("resize");
-          }
-        },
         {
           name: "load hashchange popstate",
           el() {
@@ -5606,11 +5582,11 @@
             if (hide) {
               this.show();
             }
-            const viewport = toPx("100vh", "height");
+            const viewport2 = toPx("100vh", "height");
             const dynamicViewport = height(window);
-            const maxScrollHeight = document.scrollingElement.scrollHeight - viewport;
+            const maxScrollHeight = document.scrollingElement.scrollHeight - viewport2;
             let position = this.position;
-            if (this.overflowFlip && height$1 > viewport) {
+            if (this.overflowFlip && height$1 > viewport2) {
               position = position === "top" ? "bottom" : "top";
             }
             const referenceElement = this.isFixed ? this.placeholder : this.$el;
@@ -5618,7 +5594,7 @@
             if (position === "bottom" && (height$1 < dynamicViewport || this.overflowFlip)) {
               offset$1 += dynamicViewport - height$1;
             }
-            const overflow = this.overflowFlip ? 0 : Math.max(0, height$1 + offset$1 - viewport);
+            const overflow = this.overflowFlip ? 0 : Math.max(0, height$1 + offset$1 - viewport2);
             const topOffset = offset(referenceElement).top;
             const elHeight = offset(this.$el).height;
             const start = (this.start === false ? topOffset : parseProp(this.start, this.$el, topOffset)) - offset$1;
@@ -8197,9 +8173,9 @@
         start({ start }) {
           return toPx(start, "height", this.target, true);
         },
-        end({ end, viewport }) {
+        end({ end, viewport: viewport2 }) {
           return toPx(
-            end || (viewport = (1 - viewport) * 100) && `${viewport}vh+${viewport}%`,
+            end || (viewport2 = (1 - viewport2) * 100) && `${viewport2}vh+${viewport2}%`,
             "height",
             this.target,
             true
@@ -8207,10 +8183,9 @@
         }
       },
       observe: [
-        resize({
-          target: ({ $el, target }) => [$el, target]
-        }),
-        scroll$1()
+        resize({ target: ({ $el, target }) => [$el, target, scrollParent(target, true)] }),
+        scroll$1(),
+        viewport()
       ],
       update: {
         read({ percent }, types) {
