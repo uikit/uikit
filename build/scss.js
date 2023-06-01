@@ -136,10 +136,8 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
     /* get all the mixins and remove them from the file */
     scssData = getMixinsFromFile(file, scssData);
 
-    /* get all Variables but not from the mixin.less file */
-    if (filename !== 'mixin') {
-        scssData = await getVariablesFromFile(file, scssData);
-    }
+    /* get all Variables and remove them */
+    scssData = await getVariablesFromFile(file, scssData);
 
     if (filename === 'uikit.theme') {
         /* remove the theme import first place */
@@ -319,5 +317,5 @@ async function getVariablesFromFile(file, data) {
         match = regex.exec(data);
     }
 
-    return data;
+    return data.replace(/(\$[\w-]*)\s*:(.*);\r?\n/g, '// $&');
 }
