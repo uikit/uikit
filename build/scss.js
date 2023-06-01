@@ -162,11 +162,13 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
 /* Second Step write all new needed files for SASS */
 
 /* write mixins into new file */
+delete themeMixins['svg-fill'];
 const mixins_theme = Object.keys(themeMixins).map(function (key) {
     return themeMixins[key];
 });
 await write('src/scss/mixins-theme.scss', mixins_theme.join('\n'));
 
+delete coreMixins['svg-fill'];
 const mixins_core = Object.keys(coreMixins).map(function (key) {
     return coreMixins[key];
 });
@@ -235,7 +237,7 @@ function getMixinsFromFile(file, data) {
         match = regex.exec(data);
     }
 
-    /* Step 3: get all singleline mixins */
+    /* Step 3: get all single line mixins */
     regex = /@mixin ([\w-]*)\s*\((.*)\)\s*{( [^\n]+)}/g;
     match = regex.exec(data);
 
