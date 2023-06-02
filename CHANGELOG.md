@@ -1,5 +1,9 @@
 # Changelog
 
+### Fixed
+
+- Fix Toggle component with `cls` option in hover mode
+
 ## 3.16.19 (May 24, 2023)
 
 ### Fixed
