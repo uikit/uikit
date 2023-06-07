@@ -247,7 +247,7 @@ export default {
             self: true,
 
             handler(e, toggled) {
-                attr(this.targetEl, 'aria-expanded', toggled ? true : null);
+                attr(this.targetEl, 'aria-expanded', !!toggled);
 
                 if (!toggled) {
                     return;
