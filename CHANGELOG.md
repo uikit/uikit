@@ -3,6 +3,7 @@
 ### Fixed
 
 - Fix Toggle component with `cls` option in hover mode
+- Fix `aria-roledescription` attribute in Slider nav component
 
 ## 3.16.19 (May 24, 2023)
 

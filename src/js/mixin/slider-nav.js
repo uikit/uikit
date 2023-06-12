@@ -129,7 +129,7 @@ export default {
     connected() {
         attr(this.$el, {
             role: this.role,
-            ariaRoleDescription: 'carousel',
+            'aria-roledescription': 'carousel',
         });
     },
 
