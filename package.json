@@ -41,7 +41,7 @@
         "camelcase": "^7.0.1",
         "clean-css": "^5.3.2",
         "dateformat": "^5.0.3",
-        "esbuild": "^0.17.19",
+        "esbuild": "^0.18.1",
         "eslint": "^8.41.0",
         "eslint-config-prettier": "^8.8.0",
         "fs-extra": "^11.1.1",
