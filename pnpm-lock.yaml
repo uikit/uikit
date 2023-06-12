@@ -3,10 +3,10 @@ lockfileVersion: '6.0'
 devDependencies:
   '@rollup/plugin-alias':
     specifier: ^5.0.0
-    version: 5.0.0(rollup@3.24.0)
+    version: 5.0.0(rollup@3.25.1)
   '@rollup/plugin-replace':
     specifier: ^5.0.2
-    version: 5.0.2(rollup@3.24.0)
+    version: 5.0.2(rollup@3.25.1)
   archiver:
     specifier: ^5.3.1
     version: 5.3.1
@@ -54,10 +54,10 @@ devDependencies:
     version: 2.8.8
   rollup:
     specifier: ^3.23.0
-    version: 3.24.0
+    version: 3.25.1
   rollup-plugin-esbuild:
     specifier: ^5.0.0
-    version: 5.0.0(esbuild@0.18.1)(rollup@3.24.0)
+    version: 5.0.0(esbuild@0.18.1)(rollup@3.25.1)
   rollup-plugin-modify:
     specifier: ^3.0.0
     version: 3.0.0
@@ -375,7 +375,7 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/plugin-alias@5.0.0(rollup@3.24.0):
+  /@rollup/plugin-alias@5.0.0(rollup@3.25.1):
     resolution: {integrity: sha512-l9hY5chSCjuFRPsnRm16twWBiSApl2uYFLsepQYwtBuAxNMQ/1dJqADld40P0Jkqm65GRTLy/AC6hnpVebtLsA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -384,11 +384,11 @@ packages:
       rollup:
         optional: true
     dependencies:
-      rollup: 3.24.0
+      rollup: 3.25.1
       slash: 4.0.0
     dev: true
 
-  /@rollup/plugin-replace@5.0.2(rollup@3.24.0):
+  /@rollup/plugin-replace@5.0.2(rollup@3.25.1):
     resolution: {integrity: sha512-M9YXNekv/C/iHHK+cvORzfRYfPbq0RDD8r0G+bMiTXjNGKulPnCT9O3Ss46WfhI6ZOCgApOP7xAdmCQJ+U2LAA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -397,12 +397,12 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@3.24.0)
+      '@rollup/pluginutils': 5.0.2(rollup@3.25.1)
       magic-string: 0.27.0
-      rollup: 3.24.0
+      rollup: 3.25.1
     dev: true
 
-  /@rollup/pluginutils@5.0.2(rollup@3.24.0):
+  /@rollup/pluginutils@5.0.2(rollup@3.25.1):
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -414,7 +414,7 @@ packages:
       '@types/estree': 1.0.1
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 3.24.0
+      rollup: 3.25.1
     dev: true
 
   /@trysound/sax@0.2.0:
@@ -1777,20 +1777,20 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rollup-plugin-esbuild@5.0.0(esbuild@0.18.1)(rollup@3.24.0):
+  /rollup-plugin-esbuild@5.0.0(esbuild@0.18.1)(rollup@3.25.1):
     resolution: {integrity: sha512-1cRIOHAPh8WQgdQQyyvFdeOdxuiyk+zB5zJ5+YOwrZP4cJ0MT3Fs48pQxrZeyZHcn+klFherytILVfE4aYrneg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     peerDependencies:
       esbuild: '>=0.10.1'
       rollup: ^1.20.0 || ^2.0.0 || ^3.0.0
     dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@3.24.0)
+      '@rollup/pluginutils': 5.0.2(rollup@3.25.1)
       debug: 4.3.4
       es-module-lexer: 1.2.1
       esbuild: 0.18.1
       joycon: 3.1.1
       jsonc-parser: 3.2.0
-      rollup: 3.24.0
+      rollup: 3.25.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1802,8 +1802,8 @@ packages:
       ospec: 3.1.0
     dev: true
 
-  /rollup@3.24.0:
-    resolution: {integrity: sha512-OgraHOIg2YpHQTjl0/ymWfFNBEyPucB7lmhXrQUh38qNOegxLapSPFs9sNr0qKR75awW41D93XafoR2QfhBdUQ==}
+  /rollup@3.25.1:
+    resolution: {integrity: sha512-tywOR+rwIt5m2ZAWSe5AIJcTat8vGlnPFAv15ycCrw33t6iFsXZ6mzHVFh2psSjxQPmI+xgzMZZizUAukBI4aQ==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
