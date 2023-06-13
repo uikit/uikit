@@ -22,59 +22,15 @@
 // Variables
 // ========================================================================
 
-$button-line-height:                             $global-control-height !default;
-$button-small-line-height:                       $global-control-small-height !default;
-$button-large-line-height:                       $global-control-large-height !default;
 
-$button-font-size:                               $global-font-size !default;
-$button-small-font-size:                         $global-small-font-size !default;
-$button-large-font-size:                         $global-medium-font-size !default;
 
-$button-padding-horizontal:                      $global-gutter !default;
-$button-small-padding-horizontal:                $global-small-gutter !default;
-$button-large-padding-horizontal:                $global-medium-gutter !default;
 
-$button-default-background:                      $global-muted-background !default;
-$button-default-color:                           $global-emphasis-color !default;
-$button-default-hover-background:                darken($button-default-background, 5%) !default;
-$button-default-hover-color:                     $global-emphasis-color !default;
-$button-default-active-background:               darken($button-default-background, 10%) !default;
-$button-default-active-color:                    $global-emphasis-color !default;
 
-$button-primary-background:                      $global-primary-background !default;
-$button-primary-color:                           $global-inverse-color !default;
-$button-primary-hover-background:                darken($button-primary-background, 5%) !default;
-$button-primary-hover-color:                     $global-inverse-color !default;
-$button-primary-active-background:               darken($button-primary-background, 10%) !default;
-$button-primary-active-color:                    $global-inverse-color !default;
 
-$button-secondary-background:                    $global-secondary-background !default;
-$button-secondary-color:                         $global-inverse-color !default;
-$button-secondary-hover-background:              darken($button-secondary-background, 5%) !default;
-$button-secondary-hover-color:                   $global-inverse-color !default;
-$button-secondary-active-background:             darken($button-secondary-background, 10%) !default;
-$button-secondary-active-color:                  $global-inverse-color !default;
 
-$button-danger-background:                       $global-danger-background !default;
-$button-danger-color:                            $global-inverse-color !default;
-$button-danger-hover-background:                 darken($button-danger-background, 5%) !default;
-$button-danger-hover-color:                      $global-inverse-color !default;
-$button-danger-active-background:                darken($button-danger-background, 10%) !default;
-$button-danger-active-color:                     $global-inverse-color !default;
 
-$button-disabled-background:                     $global-muted-background !default;
-$button-disabled-color:                          $global-muted-color !default;
 
-$button-text-line-height:                        $global-line-height !default;
-$button-text-color:                              $global-emphasis-color !default;
-$button-text-hover-color:                        $global-muted-color !default;
-$button-text-disabled-color:                     $global-muted-color !default;
 
-$button-link-line-height:                        $global-line-height !default;
-$button-link-color:                              $global-emphasis-color !default;
-$button-link-hover-color:                        $global-muted-color !default;
-$button-link-hover-text-decoration:              none !default;
-$button-link-disabled-color:                     $global-muted-color !default;
 
 
 /* ========================================================================
@@ -398,29 +354,6 @@ $button-link-disabled-color:                     $global-muted-color !default;
 // Inverse
 // ========================================================================
 
-$inverse-button-default-background:             $inverse-global-primary-background !default;
-$inverse-button-default-color:                  $inverse-global-inverse-color !default;
-$inverse-button-default-hover-background:       darken($inverse-button-default-background, 5%) !default;
-$inverse-button-default-hover-color:            $inverse-global-inverse-color !default;
-$inverse-button-default-active-background:      darken($inverse-button-default-background, 10%) !default;
-$inverse-button-default-active-color:           $inverse-global-inverse-color !default;
-$inverse-button-primary-background:             $inverse-global-primary-background !default;
-$inverse-button-primary-color:                  $inverse-global-inverse-color !default;
-$inverse-button-primary-hover-background:       darken($inverse-button-primary-background, 5%) !default;
-$inverse-button-primary-hover-color:            $inverse-global-inverse-color !default;
-$inverse-button-primary-active-background:      darken($inverse-button-primary-background, 10%) !default;
-$inverse-button-primary-active-color:           $inverse-global-inverse-color !default;
-$inverse-button-secondary-background:           $inverse-global-primary-background !default;
-$inverse-button-secondary-color:                $inverse-global-inverse-color !default;
-$inverse-button-secondary-hover-background:     darken($inverse-button-secondary-background, 5%) !default;
-$inverse-button-secondary-hover-color:          $inverse-global-inverse-color !default;
-$inverse-button-secondary-active-background:    darken($inverse-button-secondary-background, 10%) !default;
-$inverse-button-secondary-active-color:         $inverse-global-inverse-color !default;
-$inverse-button-text-color:                     $inverse-global-emphasis-color !default;
-$inverse-button-text-hover-color:               $inverse-global-muted-color !default;
-$inverse-button-text-disabled-color:            $inverse-global-muted-color !default;
-$inverse-button-link-color:                     $inverse-global-emphasis-color !default;
-$inverse-button-link-hover-color:               $inverse-global-muted-color !default;
 
 
 

@@ -8,7 +8,6 @@
 // Load deprecated components
 // ========================================================================
 
-$deprecated:                                    false !default;
 
 
 // Breakpoints
@@ -25,10 +24,6 @@ $breakpoint-medium:                             960px !default;  // Tablet Lands
 $breakpoint-large:                              1200px !default; // Desktop
 $breakpoint-xlarge:                             1600px !default; // Large Screens
 
-$breakpoint-xsmall-max:                         ($breakpoint-small - 1) !default;
-$breakpoint-small-max:                          ($breakpoint-medium - 1) !default;
-$breakpoint-medium-max:                         ($breakpoint-large - 1) !default;
-$breakpoint-large-max:                          ($breakpoint-xlarge - 1) !default;
 
 
 // Global variables
@@ -38,8 +33,6 @@ $breakpoint-large-max:                          ($breakpoint-xlarge - 1) !defaul
 // Typography
 //
 
-$global-font-family:                             -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-$global-font-size:                               16px !default;
 $global-line-height:                             1.5 !default;      // 24px
 
 $global-2xlarge-font-size:                       2.625rem !default; // 42px
@@ -52,72 +45,40 @@ $global-small-font-size:                         0.875rem !default; // 14px
 // Colors
 //
 
-$global-color:                                   #666 !default;
-$global-emphasis-color:                          #333 !default;
-$global-muted-color:                             #999 !default;
 
-$global-link-color:                              #1e87f0 !default;
-$global-link-hover-color:                        #0f6ecd !default;
 
-$global-inverse-color:                           #fff !default;
 
 //
 // Backgrounds
 //
 
-$global-background:                              #fff !default;
 
-$global-muted-background:                        #f8f8f8 !default;
-$global-primary-background:                      #1e87f0 !default;
-$global-secondary-background:                    #222 !default;
 
-$global-success-background:                      #32d296 !default;
-$global-warning-background:                      #faa05a !default;
-$global-danger-background:                       #f0506e !default;
 
 //
 // Borders
 //
 
-$global-border-width:                            1px !default;
-$global-border:                                  #e5e5e5 !default;
 
 //
 // Box-Shadows
 //
 
-$global-small-box-shadow:                        0 2px 8px rgba(0,0,0,0.08) !default;
-$global-medium-box-shadow:                       0 5px 15px rgba(0,0,0,0.08) !default;
-$global-large-box-shadow:                        0 14px 25px rgba(0,0,0,0.16) !default;
-$global-xlarge-box-shadow:                       0 28px 50px rgba(0,0,0,0.16) !default;
 
 //
 // Spacings
 //
 
 // Used in margin, section, list
-$global-margin:                                  20px !default;
-$global-small-margin:                            10px !default;
-$global-medium-margin:                           40px !default;
-$global-large-margin:                            70px !default;
-$global-xlarge-margin:                           140px !default;
 
 // Used in grid, column, container, align, card, padding
-$global-gutter:                                  30px !default;
-$global-small-gutter:                            15px !default;
-$global-medium-gutter:                           40px !default;
-$global-large-gutter:                            70px !default;
 
 //
 // Controls
 //
 
-$global-control-height:                          40px !default;
-$global-control-small-height:                    30px !default;
-$global-control-large-height:                    55px !default;
 
 //
 // Z-index
 //
 
-$global-z-index:                                 1000 !default;

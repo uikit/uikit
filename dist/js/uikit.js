@@ -1,4 +1,4 @@
-/*! UIkit 3.16.19 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.20 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2131,7 +2131,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.19";
+    App.version = "3.16.20";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -6168,7 +6168,7 @@
           },
           handler(e) {
             this._preventClick = null;
-            if (!isTouch(e) || this._showState || this.$el.disabled) {
+            if (!isTouch(e) || isBoolean(this._showState) || this.$el.disabled) {
               return;
             }
             trigger(this.$el, "focus");
@@ -6195,13 +6195,13 @@
             }
             const show = includes([pointerEnter, "focus"], e.type);
             const expanded = this.isToggled(this.target);
-            if (!show && (e.type === pointerLeave && matches(this.$el, ":focus") || e.type === "blur" && matches(this.$el, ":hover"))) {
-              return;
-            }
-            if (this._showState && show && expanded !== this._showState) {
-              if (!show) {
+            if (!show && (!isBoolean(this._showState) || expanded === this._showState || e.type === pointerLeave && matches(this.$el, ":focus") || e.type === "blur" && matches(this.$el, ":hover"))) {
+              if (expanded === this._showState) {
                 this._showState = null;
               }
+              return;
+            }
+            if (show && isBoolean(this._showState) && expanded !== this._showState) {
               return;
             }
             this._showState = show ? expanded : null;
@@ -6975,7 +6975,7 @@
       connected() {
         attr(this.$el, {
           role: this.role,
-          ariaRoleDescription: "carousel"
+          "aria-roledescription": "carousel"
         });
       },
       update: [

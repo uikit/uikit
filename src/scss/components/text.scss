@@ -9,29 +9,11 @@
 // Variables
 // ========================================================================
 
-$text-lead-font-size:                            $global-large-font-size !default;
-$text-lead-line-height:                          1.5 !default;
-$text-lead-color:                                $global-emphasis-color !default;
 
-$text-meta-font-size:                            $global-small-font-size !default;
-$text-meta-line-height:                          1.4 !default;
-$text-meta-color:                                $global-muted-color !default;
 
-$text-small-font-size:                           $global-small-font-size !default;
-$text-small-line-height:                         1.5 !default;
 
-$text-large-font-size:                           $global-large-font-size !default;
-$text-large-line-height:                         1.5 !default;
 
-$text-muted-color:                               $global-muted-color !default;
-$text-emphasis-color:                            $global-emphasis-color !default;
-$text-primary-color:                             $global-primary-background !default;
-$text-secondary-color:                           $global-secondary-background !default;
-$text-success-color:                             $global-success-background !default;
-$text-warning-color:                             $global-warning-background !default;
-$text-danger-color:                              $global-danger-background !default;
 
-$text-background-color:                          $global-primary-background !default;
 
 
 /* ========================================================================
@@ -255,12 +237,6 @@ td.uk-text-truncate { max-width: 0; }
 // Inverse
 // ========================================================================
 
-$inverse-text-lead-color:                       $inverse-global-color !default;
-$inverse-text-meta-color:                       $inverse-global-muted-color !default;
-$inverse-text-muted-color:                      $inverse-global-muted-color !default;
-$inverse-text-emphasis-color:                   $inverse-global-emphasis-color !default;
-$inverse-text-primary-color:                    $inverse-global-primary-background !default;
-$inverse-text-secondary-color:                  $inverse-global-primary-background !default;
 
 
 

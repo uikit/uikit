@@ -16,26 +16,11 @@
 // Variables
 // ========================================================================
 
-$alert-margin-vertical:                          $global-margin !default;
-$alert-padding:                                  15px !default;
-$alert-padding-right:                            $alert-padding + 14px !default;
-$alert-background:                               $global-muted-background !default;
-$alert-color:                                    $global-color !default;
 
-$alert-close-top:                                $alert-padding + 5px !default;
-$alert-close-right:                              $alert-padding !default;
 
-$alert-primary-background:                       lighten(mix(white, $global-primary-background, 40%), 20%) !default;
-$alert-primary-color:                            $global-primary-background !default;
 
-$alert-success-background:                       lighten(mix(white, $global-success-background, 40%), 25%) !default;
-$alert-success-color:                            $global-success-background !default;
 
-$alert-warning-background:                       lighten(mix(white, $global-warning-background, 45%), 15%) !default;
-$alert-warning-color:                            $global-warning-background !default;
 
-$alert-danger-background:                        lighten(mix(white, $global-danger-background, 40%), 20%) !default;
-$alert-danger-color:                             $global-danger-background !default;
 
 
 /* ========================================================================

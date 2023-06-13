@@ -11,16 +11,7 @@
 // Variables
 // ========================================================================
 
-$breadcrumb-item-font-size:                          $global-small-font-size !default;
-$breadcrumb-item-color:                              $global-muted-color !default;
-$breadcrumb-item-hover-color:                        $global-color !default;
-$breadcrumb-item-hover-text-decoration:              none !default;
-$breadcrumb-item-active-color:                       $global-color !default;
 
-$breadcrumb-divider:                                 "/" !default;
-$breadcrumb-divider-margin-horizontal:               20px !default;
-$breadcrumb-divider-font-size:                       $breadcrumb-item-font-size !default;
-$breadcrumb-divider-color:                           $global-muted-color !default;
 
 
 /* ========================================================================
@@ -108,10 +99,6 @@ $breadcrumb-divider-color:                           $global-muted-color !defaul
 // Inverse
 // ========================================================================
 
-$inverse-breadcrumb-item-color:                 $inverse-global-muted-color !default;
-$inverse-breadcrumb-item-hover-color:           $inverse-global-color !default;
-$inverse-breadcrumb-item-active-color:          $inverse-global-color !default;
-$inverse-breadcrumb-divider-color:              $inverse-global-muted-color !default;
 
 
 

@@ -25,76 +25,14 @@
 // Variables
 // ========================================================================
 
-$nav-item-padding-vertical:                      5px !default;
-$nav-item-padding-horizontal:                    0 !default;
 
-$nav-sublist-padding-vertical:                   5px !default;
-$nav-sublist-padding-left:                       15px !default;
-$nav-sublist-deeper-padding-left:                15px !default;
-$nav-sublist-item-padding-vertical:              2px !default;
 
-$nav-parent-icon-margin-left:                    0.25em !default;
 
-$nav-header-padding-vertical:                    $nav-item-padding-vertical !default;
-$nav-header-padding-horizontal:                  $nav-item-padding-horizontal !default;
-$nav-header-font-size:                           $global-small-font-size !default;
-$nav-header-text-transform:                      uppercase !default;
-$nav-header-margin-top:                          $global-margin !default;
 
-$nav-divider-margin-vertical:                    5px !default;
-$nav-divider-margin-horizontal:                  0 !default;
 
-$nav-default-font-size:                          $global-font-size !default;
-$nav-default-line-height:                        $global-line-height !default;
-$nav-default-item-color:                         $global-muted-color !default;
-$nav-default-item-hover-color:                   $global-color !default;
-$nav-default-item-active-color:                  $global-emphasis-color !default;
-$nav-default-subtitle-font-size:                 $global-small-font-size !default;
-$nav-default-header-color:                       $global-emphasis-color !default;
-$nav-default-divider-border-width:               $global-border-width !default;
-$nav-default-divider-border:                     $global-border !default;
-$nav-default-sublist-font-size:                  $nav-default-font-size !default;
-$nav-default-sublist-line-height:                $nav-default-line-height !default;
-$nav-default-sublist-item-color:                 $global-muted-color !default;
-$nav-default-sublist-item-hover-color:           $global-color !default;
-$nav-default-sublist-item-active-color:          $global-emphasis-color !default;
 
-$nav-primary-font-size:                          $global-large-font-size !default;
-$nav-primary-line-height:                        $global-line-height !default;
-$nav-primary-item-color:                         $global-muted-color !default;
-$nav-primary-item-hover-color:                   $global-color !default;
-$nav-primary-item-active-color:                  $global-emphasis-color !default;
-$nav-primary-subtitle-font-size:                 $global-medium-font-size !default;
-$nav-primary-header-color:                       $global-emphasis-color !default;
-$nav-primary-divider-border-width:               $global-border-width !default;
-$nav-primary-divider-border:                     $global-border !default;
-$nav-primary-sublist-font-size:                  $global-medium-font-size !default;
-$nav-primary-sublist-line-height:                $global-line-height !default;
-$nav-primary-sublist-item-color:                 $global-muted-color !default;
-$nav-primary-sublist-item-hover-color:           $global-color !default;
-$nav-primary-sublist-item-active-color:          $global-emphasis-color !default;
 
-$nav-secondary-font-size:                        $global-font-size !default;
-$nav-secondary-line-height:                      $global-line-height !default;
-$nav-secondary-item-color:                       $global-emphasis-color !default;
-$nav-secondary-item-hover-color:                 $global-emphasis-color !default;
-$nav-secondary-item-active-color:                $global-emphasis-color !default;
-$nav-secondary-subtitle-font-size:               $global-small-font-size !default;
-$nav-secondary-subtitle-color:                   $global-muted-color !default;
-$nav-secondary-subtitle-hover-color:             $global-color !default;
-$nav-secondary-subtitle-active-color:            $global-emphasis-color !default;
-$nav-secondary-header-color:                     $global-emphasis-color !default;
-$nav-secondary-divider-border-width:             $global-border-width !default;
-$nav-secondary-divider-border:                   $global-border !default;
-$nav-secondary-sublist-font-size:                $global-small-font-size !default;
-$nav-secondary-sublist-line-height:              $global-line-height !default;
-$nav-secondary-sublist-item-color:               $global-muted-color !default;
-$nav-secondary-sublist-item-hover-color:         $global-color !default;
-$nav-secondary-sublist-item-active-color:        $global-emphasis-color !default;
 
-$nav-dividers-margin-top:                        5px !default;
-$nav-dividers-border-width:                      $global-border-width !default;
-$nav-dividers-border:                            $global-border !default;
 
 
 /* ========================================================================
@@ -503,37 +441,9 @@ ul.uk-nav-sub {
 // Inverse
 // ========================================================================
 
-$inverse-nav-default-item-color:                     $inverse-global-muted-color !default;
-$inverse-nav-default-item-hover-color:               $inverse-global-color !default;
-$inverse-nav-default-item-active-color:              $inverse-global-emphasis-color !default;
-$inverse-nav-default-header-color:                   $inverse-global-emphasis-color !default;
-$inverse-nav-default-divider-border:                 $inverse-global-border !default;
-$inverse-nav-default-sublist-item-color:             $inverse-global-muted-color !default;
-$inverse-nav-default-sublist-item-hover-color:       $inverse-global-color !default;
-$inverse-nav-default-sublist-item-active-color:      $inverse-global-emphasis-color !default;
 
-$inverse-nav-primary-item-color:                     $inverse-global-muted-color !default;
-$inverse-nav-primary-item-hover-color:               $inverse-global-color !default;
-$inverse-nav-primary-item-active-color:              $inverse-global-emphasis-color !default;
-$inverse-nav-primary-header-color:                   $inverse-global-emphasis-color !default;
-$inverse-nav-primary-divider-border:                 $inverse-global-border !default;
-$inverse-nav-primary-sublist-item-color:             $inverse-global-muted-color !default;
-$inverse-nav-primary-sublist-item-hover-color:       $inverse-global-color !default;
-$inverse-nav-primary-sublist-item-active-color:      $inverse-global-emphasis-color !default;
 
-$inverse-nav-secondary-item-color:                   $inverse-global-emphasis-color !default;
-$inverse-nav-secondary-item-hover-color:             $inverse-global-emphasis-color !default;
-$inverse-nav-secondary-item-active-color:            $inverse-global-emphasis-color !default;
-$inverse-nav-secondary-subtitle-color:               $inverse-global-muted-color !default;
-$inverse-nav-secondary-subtitle-hover-color:         $inverse-global-color !default;
-$inverse-nav-secondary-subtitle-active-color:        $inverse-global-emphasis-color !default;
-$inverse-nav-secondary-header-color:                 $inverse-global-emphasis-color !default;
-$inverse-nav-secondary-divider-border:               $inverse-global-border !default;
-$inverse-nav-secondary-sublist-item-color:           $inverse-global-muted-color !default;
-$inverse-nav-secondary-sublist-item-hover-color:     $inverse-global-color !default;
-$inverse-nav-secondary-sublist-item-active-color:    $inverse-global-emphasis-color !default;
 
-$inverse-nav-dividers-border:                        $inverse-global-border !default;
 
 
 
