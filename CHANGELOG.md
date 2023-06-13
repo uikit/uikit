@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- Fix release
+- Fix release changelog
 
 ## 3.16.20 (June 13, 2023)
 
