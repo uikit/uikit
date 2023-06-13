@@ -24,33 +24,14 @@
 // Variables
 // ========================================================================
 
-$list-margin-top:                                $global-small-margin !default;
 
-$list-padding-left:                              30px !default;
 
-$list-marker-height:                             ($global-line-height * 1em) !default;
 
-$list-muted-color:                               $global-muted-color !default;
-$list-emphasis-color:                            $global-emphasis-color !default;
-$list-primary-color:                             $global-primary-background !default;
-$list-secondary-color:                           $global-secondary-background !default;
 
-$list-bullet-icon-color:                         $global-color !default;
 
-$list-divider-margin-top:                        $global-small-margin !default;
-$list-divider-border-width:                      $global-border-width !default;
-$list-divider-border:                            $global-border !default;
 
-$list-striped-padding-vertical:                  $global-small-margin !default;
-$list-striped-padding-horizontal:                $global-small-margin !default;
-$list-striped-background:                        $global-muted-background !default;
 
-$list-large-margin-top:                          $global-margin !default;
-$list-large-divider-margin-top:                  $global-margin !default;
-$list-large-striped-padding-vertical:            $global-margin !default;
-$list-large-striped-padding-horizontal:          $global-small-margin !default;
 
-$internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22#000%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
 
 
 /* ========================================================================
@@ -230,15 +211,8 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 // Inverse
 // ========================================================================
 
-$inverse-list-muted-color:                         $inverse-global-muted-color !default;
-$inverse-list-emphasis-color:                      $inverse-global-emphasis-color !default;
-$inverse-list-primary-color:                       $inverse-global-primary-background !default;
-$inverse-list-secondary-color:                     $inverse-global-primary-background !default;
 
-$inverse-list-divider-border:                      $inverse-global-border !default;
-$inverse-list-striped-background:                  $inverse-global-muted-background !default;
 
-$inverse-list-bullet-icon-color:                   $inverse-global-color !default;
 
 
 

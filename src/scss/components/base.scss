@@ -11,78 +11,16 @@
 // Variables
 // ========================================================================
 
-$base-body-background:                           $global-background !default;
-$base-body-font-family:                          $global-font-family !default;
-$base-body-font-weight:                          normal !default;
-$base-body-font-size:                            $global-font-size !default;
-$base-body-line-height:                          $global-line-height !default;
-$base-body-color:                                $global-color !default;
 
-$base-link-color:                                $global-link-color !default;
-$base-link-text-decoration:                      none !default;
-$base-link-hover-color:                          $global-link-hover-color !default;
-$base-link-hover-text-decoration:                underline !default;
 
-$base-strong-font-weight:                        bolder !default;
-$base-code-font-size:                            $global-small-font-size !default;
-$base-code-font-family:                          Consolas, monaco, monospace !default;
-$base-code-color:                                $global-danger-background !default;
-$base-em-color:                                  $global-danger-background !default;
-$base-ins-background:                            #ffd !default;
-$base-ins-color:                                 $global-color !default;
-$base-mark-background:                           #ffd !default;
-$base-mark-color:                                $global-color !default;
-$base-quote-font-style:                          italic !default;
-$base-small-font-size:                           80% !default;
 
-$base-margin-vertical:                           $global-margin !default;
 
-$base-heading-font-family:                       $global-font-family !default;
-$base-heading-font-weight:                       normal !default;
-$base-heading-color:                             $global-emphasis-color !default;
-$base-heading-text-transform:                    none !default;
-$base-heading-margin-top:                        $global-medium-margin !default;
-$base-h1-font-size-m:                            $global-2xlarge-font-size !default;
-$base-h1-font-size:                              $base-h1-font-size-m * 0.85 !default;
-$base-h1-line-height:                            1.2 !default;
-$base-h2-font-size-m:                            $global-xlarge-font-size !default;
-$base-h2-font-size:                              $base-h2-font-size-m * 0.85 !default;
-$base-h2-line-height:                            1.3 !default;
-$base-h3-font-size:                              $global-large-font-size !default;
-$base-h3-line-height:                            1.4 !default;
-$base-h4-font-size:                              $global-medium-font-size !default;
-$base-h4-line-height:                            1.4 !default;
-$base-h5-font-size:                              $global-font-size !default;
-$base-h5-line-height:                            1.4 !default;
-$base-h6-font-size:                              $global-small-font-size !default;
-$base-h6-line-height:                            1.4 !default;
 
-$base-list-padding-left:                         30px !default;
 
-$base-hr-margin-vertical:                        $global-margin !default;
-$base-hr-border-width:                           $global-border-width !default;
-$base-hr-border:                                 $global-border !default;
 
-$base-blockquote-font-size:                      $global-medium-font-size !default;
-$base-blockquote-line-height:                    1.5 !default;
-$base-blockquote-font-style:                     italic !default;
-$base-blockquote-margin-vertical:                $global-margin !default;
-$base-blockquote-footer-margin-top:              $global-small-margin !default;
-$base-blockquote-footer-font-size:               $global-small-font-size !default;
-$base-blockquote-footer-line-height:             1.5 !default;
 
-$base-pre-font-size:                             $global-small-font-size !default;
-$base-pre-line-height:                           1.5 !default;
-$base-pre-font-family:                           $base-code-font-family !default;
-$base-pre-color:                                 $global-color !default;
 
-$base-focus-outline-width:                       2px !default;
-$base-focus-outline-style:                       dotted !default;
-$base-focus-outline:                             $global-emphasis-color !default;
-$base-focus-outline-offset:                      1px !default;
 
-$base-selection-background:                      #39f !default;
-$base-selection-color:                           $global-inverse-color !default;
 
 
 /* ========================================================================
@@ -585,14 +523,6 @@ template { display: none; }
 // Inverse
 // ========================================================================
 
-$inverse-base-color:                            $inverse-global-color !default;
-$inverse-base-link-color:                       $inverse-global-emphasis-color !default;
-$inverse-base-link-hover-color:                 $inverse-global-emphasis-color !default;
-$inverse-base-code-color:                       $inverse-global-color !default;
-$inverse-base-em-color:                         $inverse-global-emphasis-color !default;
-$inverse-base-heading-color:                    $inverse-global-emphasis-color !default;
-$inverse-base-hr-border:                        $inverse-global-border !default;
-$inverse-base-focus-outline:                    $inverse-global-emphasis-color !default;
 
 
 

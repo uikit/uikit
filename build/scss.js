@@ -136,10 +136,8 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
     /* get all the mixins and remove them from the file */
     scssData = getMixinsFromFile(file, scssData);
 
-    /* get all Variables but not from the mixin.less file */
-    if (filename !== 'mixin') {
-        scssData = await getVariablesFromFile(file, scssData);
-    }
+    /* get all Variables and remove them */
+    scssData = await getVariablesFromFile(file, scssData);
 
     if (filename === 'uikit.theme') {
         /* remove the theme import first place */
@@ -162,11 +160,13 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
 /* Second Step write all new needed files for SASS */
 
 /* write mixins into new file */
+delete themeMixins['svg-fill'];
 const mixins_theme = Object.keys(themeMixins).map(function (key) {
     return themeMixins[key];
 });
 await write('src/scss/mixins-theme.scss', mixins_theme.join('\n'));
 
+delete coreMixins['svg-fill'];
 const mixins_core = Object.keys(coreMixins).map(function (key) {
     return coreMixins[key];
 });
@@ -235,7 +235,7 @@ function getMixinsFromFile(file, data) {
         match = regex.exec(data);
     }
 
-    /* Step 3: get all singleline mixins */
+    /* Step 3: get all single line mixins */
     regex = /@mixin ([\w-]*)\s*\((.*)\)\s*{( [^\n]+)}/g;
     match = regex.exec(data);
 
@@ -317,5 +317,5 @@ async function getVariablesFromFile(file, data) {
         match = regex.exec(data);
     }
 
-    return data;
+    return data.replace(/(\$[\w-]*)\s*:(.*);\r?\n/g, '');
 }

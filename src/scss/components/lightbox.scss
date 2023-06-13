@@ -19,30 +19,13 @@
 // Variables
 // ========================================================================
 
-$lightbox-z-index:                               $global-z-index + 10 !default;
-$lightbox-background:                            #000 !default;
 
-$lightbox-focus-outline:                         rgba(255,255,255,0.7) !default;
 
-$lightbox-item-color:                            rgba(255,255,255,0.7) !default;
-$lightbox-item-max-width:                        100vw !default;
-$lightbox-item-max-height:                       100vh !default;
 
-$lightbox-toolbar-padding-vertical:              10px !default;
-$lightbox-toolbar-padding-horizontal:            10px !default;
-$lightbox-toolbar-background:                    rgba(0,0,0,0.3) !default;
-$lightbox-toolbar-color:                         rgba(255,255,255,0.7) !default;
 
-$lightbox-toolbar-icon-padding:                  5px !default;
-$lightbox-toolbar-icon-color:                    rgba(255,255,255,0.7) !default;
 
-$lightbox-toolbar-icon-hover-color:              #fff !default;
 
-$lightbox-button-size:                           50px !default;
-$lightbox-button-background:                     $lightbox-toolbar-background !default;
-$lightbox-button-color:                          rgba(255,255,255,0.7) !default;
 
-$lightbox-button-hover-color:                    #fff !default;
 
 
 /* ========================================================================

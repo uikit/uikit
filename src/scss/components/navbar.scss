@@ -34,68 +34,19 @@
 // Variables
 // ========================================================================
 
-$navbar-background:                              $global-muted-background !default;
 $navbar-gap:                                     0px !default; // Must have a unit because of `calc`
-$navbar-color-mode:                              none !default;
 
 $navbar-nav-gap:                                 0px !default; // Must have a unit because of `calc`
 
-$navbar-nav-item-height:                         80px !default;
-$navbar-nav-item-padding-horizontal:             15px !default;
-$navbar-nav-item-color:                          $global-muted-color !default;
-$navbar-nav-item-font-size:                      $global-font-size !default;
-$navbar-nav-item-font-family:                    $global-font-family !default;
-$navbar-nav-item-hover-color:                    $global-color !default;
-$navbar-nav-item-onclick-color:                  $global-emphasis-color !default;
-$navbar-nav-item-active-color:                   $global-emphasis-color !default;
 
-$navbar-parent-icon-margin-left:                 4px !default;
 
-$navbar-item-padding-horizontal:                 15px !default;
-$navbar-item-color:                              $global-color !default;
 
-$navbar-toggle-color:                            $global-muted-color !default;
-$navbar-toggle-hover-color:                      $global-color !default;
 
-$navbar-subtitle-font-size:                      $global-small-font-size !default;
 
-$navbar-dropdown-margin:                         0 !default;
-$navbar-dropdown-shift-margin:                   0 !default;
-$navbar-dropdown-viewport-margin:                15px !default;
-$navbar-dropdown-width:                          200px !default;
-$navbar-dropdown-padding:                        15px !default;
-$navbar-dropdown-background:                     $global-muted-background !default;
-$navbar-dropdown-color:                          $global-color !default;
-$navbar-dropdown-color-mode:                     none !default;
-$navbar-dropdown-focus-outline:                  $base-focus-outline !default;
-$navbar-dropdown-grid-gutter-horizontal:         $global-gutter !default;
-$navbar-dropdown-grid-gutter-vertical:           $navbar-dropdown-grid-gutter-horizontal !default;
 
-$navbar-dropdown-large-shift-margin:             0 !default;
-$navbar-dropdown-large-padding:                  40px !default;
 
-$navbar-dropdown-dropbar-margin:                 0 !default;
-$navbar-dropdown-dropbar-shift-margin:           0 !default;
-$navbar-dropdown-dropbar-padding-top:            $navbar-dropdown-padding !default;
-$navbar-dropdown-dropbar-padding-bottom:         $navbar-dropdown-dropbar-padding-top !default;
-$navbar-dropdown-dropbar-viewport-margin:        15px !default;
-$navbar-dropdown-dropbar-viewport-margin-s:      $global-gutter !default;
-$navbar-dropdown-dropbar-viewport-margin-m:      $global-medium-gutter !default;
 
-$navbar-dropdown-dropbar-large-shift-margin:     0 !default;
-$navbar-dropdown-dropbar-large-padding-top:      $navbar-dropdown-large-padding !default;
-$navbar-dropdown-dropbar-large-padding-bottom:   $navbar-dropdown-dropbar-large-padding-top !default;
 
-$navbar-dropdown-nav-item-color:                 $global-muted-color !default;
-$navbar-dropdown-nav-item-hover-color:           $global-color !default;
-$navbar-dropdown-nav-item-active-color:          $global-emphasis-color !default;
-$navbar-dropdown-nav-subtitle-font-size:         $global-small-font-size !default;
-$navbar-dropdown-nav-header-color:               $global-emphasis-color !default;
-$navbar-dropdown-nav-divider-border-width:       $global-border-width !default;
-$navbar-dropdown-nav-divider-border:             $global-border !default;
-$navbar-dropdown-nav-sublist-item-color:         $global-muted-color !default;
-$navbar-dropdown-nav-sublist-item-hover-color:   $global-color !default;
-$navbar-dropdown-nav-sublist-item-active-color:  $global-emphasis-color !default;
 
 
 /* ========================================================================
@@ -598,13 +549,6 @@ $navbar-dropdown-nav-sublist-item-active-color:  $global-emphasis-color !default
 // Inverse
 // ========================================================================
 
-$inverse-navbar-nav-item-color:                 $inverse-global-muted-color !default;
-$inverse-navbar-nav-item-hover-color:           $inverse-global-color !default;
-$inverse-navbar-nav-item-onclick-color:         $inverse-global-emphasis-color !default;
-$inverse-navbar-nav-item-active-color:          $inverse-global-emphasis-color !default;
-$inverse-navbar-item-color:                     $inverse-global-color !default;
-$inverse-navbar-toggle-color:                   $inverse-global-muted-color !default;
-$inverse-navbar-toggle-hover-color:             $inverse-global-color !default;
 
 
 

@@ -7,16 +7,12 @@
 // Variables
 // ========================================================================
 
-$search-default-background:                          transparent !default;
 
 //
 // New
 //
 
-$search-default-border-width:                        $global-border-width !default;
-$search-default-border:                              $global-border !default;
 
-$search-default-focus-border:                        $global-primary-background !default;
 
 
 // Component
@@ -72,7 +68,6 @@ $search-default-focus-border:                        $global-primary-background 
 // Inverse
 // ========================================================================
 
-$inverse-search-default-background:             transparent !default;
 
 
 // @mixin hook-inverse-search-default-input-focus(){}
