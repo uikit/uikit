@@ -317,5 +317,5 @@ async function getVariablesFromFile(file, data) {
         match = regex.exec(data);
     }
 
-    return data.replace(/(\$[\w-]*)\s*:(.*);\r?\n/g, '// $&');
+    return data.replace(/(\$[\w-]*)\s*:(.*);\r?\n/g, '');
 }
