@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.16.21 (June 13, 2023)
+
+### Fixed
+
+- Fix release changelog
+
+## 3.16.20 (June 13, 2023)
+
 ### Fixed
 
 - Fix Toggle component with `cls` option in hover mode
