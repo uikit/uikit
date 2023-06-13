@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP 3.17
+
+### Added
+
+- Add modes `pack` (default) and `next` to Grid component's `masonry` option
+- Add `parallax-start`, `parallax-end`, `parallax-justify` option to Grid component
+
 ## WIP
 
 ### Fixed
@@ -57,11 +64,6 @@
 ### Removed
 
 - Remove `Deferred` util class
-
-### Added
-
-- Add modes `pack` (default) and `next` to Grid component's `masonry` option
-- Add `parallax-start`, `parallax-end`, `parallax-justify` option to Grid component
 
 ### Fixed
 
