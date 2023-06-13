@@ -7,19 +7,12 @@
 // Variables
 // ========================================================================
 
-$nav-default-font-size:                          $global-small-font-size !default;
 
-$nav-default-subtitle-font-size:                 12px !default;
 
 //
 // New
 //
 
-$nav-background-margin-top:                      0 !default;
-$nav-background-item-padding-horizontal:         10px !default;
-$nav-background-item-padding-vertical:           10px !default;
-$nav-background-item-hover-background:           $global-muted-background !default;
-$nav-background-item-active-background:          $global-muted-background !default;
 
 
 // Sublists
@@ -113,8 +106,6 @@ $nav-background-item-active-background:          $global-muted-background !defau
 // Inverse
 // ========================================================================
 
-$inverse-nav-background-item-hover-background:   $inverse-global-muted-background !default;
-$inverse-nav-background-item-active-background:  $inverse-global-muted-background !default;
 
 // @mixin hook-inverse-nav-default-item(){}
 // @mixin hook-inverse-nav-default-item-hover(){}

@@ -15,15 +15,8 @@
 // Variables
 // ========================================================================
 
-$slidenav-padding-vertical:                      5px !default;
-$slidenav-padding-horizontal:                    10px !default;
 
-$slidenav-color:                                 rgba($global-color, 0.5) !default;
-$slidenav-hover-color:                           rgba($global-color, 0.9) !default;
-$slidenav-active-color:                          rgba($global-color, 0.5) !default;
 
-$slidenav-large-padding-vertical:                10px !default;
-$slidenav-large-padding-horizontal:              $slidenav-large-padding-vertical !default;
 
 
 /* ========================================================================
@@ -109,9 +102,6 @@ $slidenav-large-padding-horizontal:              $slidenav-large-padding-vertica
 // Inverse
 // ========================================================================
 
-$inverse-slidenav-color:                        rgba($inverse-global-color, 0.7) !default;
-$inverse-slidenav-hover-color:                  rgba($inverse-global-color, 0.95) !default;
-$inverse-slidenav-active-color:                 rgba($inverse-global-color, 0.7) !default;
 
 
 

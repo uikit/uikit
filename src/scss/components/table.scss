@@ -22,36 +22,17 @@
 // Variables
 // ========================================================================
 
-$table-margin-vertical:                          $global-margin !default;
 
-$table-cell-padding-vertical:                    16px !default;
-$table-cell-padding-horizontal:                  12px !default;
 
-$table-header-cell-font-size:                    $global-font-size !default;
-$table-header-cell-font-weight:                  bold !default;
-$table-header-cell-color:                        $global-color !default;
 
-$table-footer-font-size:                         $global-small-font-size !default;
 
-$table-caption-font-size:                        $global-small-font-size !default;
-$table-caption-color:                            $global-muted-color !default;
 
-$table-row-active-background:                    #ffd !default;
 
-$table-divider-border-width:                     $global-border-width !default;
-$table-divider-border:                           $global-border !default;
 
-$table-striped-row-background:                   $global-muted-background !default;
 
-$table-hover-row-background:                     $table-row-active-background !default;
 
-$table-small-cell-padding-vertical:              10px !default;
-$table-small-cell-padding-horizontal:            12px !default;
 
-$table-large-cell-padding-vertical:              22px !default;
-$table-large-cell-padding-horizontal:            12px !default;
 
-$table-expand-min-width:                         150px !default;
 
 
 /* ========================================================================
@@ -298,12 +279,6 @@ $table-expand-min-width:                         150px !default;
 // Inverse
 // ========================================================================
 
-$inverse-table-header-cell-color:                        $inverse-global-color !default;
-$inverse-table-caption-color:                            $inverse-global-muted-color !default;
-$inverse-table-row-active-background:                    fade-out($inverse-global-muted-background, 0.02) !default;
-$inverse-table-divider-border:                           $inverse-global-border !default;
-$inverse-table-striped-row-background:                   $inverse-global-muted-background !default;
-$inverse-table-hover-row-background:                     $inverse-table-row-active-background !default;
 
 
 

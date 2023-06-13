@@ -15,30 +15,10 @@
 // Variables
 // ========================================================================
 
-$subnav-margin-horizontal:                       20px !default;
 
-$subnav-item-color:                              $global-muted-color !default;
-$subnav-item-hover-color:                        $global-color !default;
-$subnav-item-hover-text-decoration:              none !default;
-$subnav-item-active-color:                       $global-emphasis-color !default;
 
-$subnav-divider-margin-horizontal:               $subnav-margin-horizontal !default;
-$subnav-divider-border-height:                   1.5em !default;
-$subnav-divider-border-width:                    $global-border-width !default;
-$subnav-divider-border:                          $global-border !default;
 
-$subnav-pill-item-padding-vertical:              5px !default;
-$subnav-pill-item-padding-horizontal:            10px !default;
-$subnav-pill-item-background:                    transparent !default;
-$subnav-pill-item-color:                         $subnav-item-color !default;
-$subnav-pill-item-hover-background:              $global-muted-background !default;
-$subnav-pill-item-hover-color:                   $global-color !default;
-$subnav-pill-item-onclick-background:            $subnav-pill-item-hover-background !default;
-$subnav-pill-item-onclick-color:                 $subnav-pill-item-hover-color !default;
-$subnav-pill-item-active-background:             $global-primary-background !default;
-$subnav-pill-item-active-color:                  $global-inverse-color !default;
 
-$subnav-item-disabled-color:                     $global-muted-color !default;
 
 
 /* ========================================================================
@@ -219,19 +199,6 @@ $subnav-item-disabled-color:                     $global-muted-color !default;
 // Inverse
 // ========================================================================
 
-$inverse-subnav-item-color:                     $inverse-global-muted-color !default;
-$inverse-subnav-item-hover-color:               $inverse-global-color !default;
-$inverse-subnav-item-active-color:              $inverse-global-emphasis-color !default;
-$inverse-subnav-divider-border:                 $inverse-global-border !default;
-$inverse-subnav-pill-item-background:           transparent !default;
-$inverse-subnav-pill-item-color:                $inverse-global-muted-color !default;
-$inverse-subnav-pill-item-hover-background:     $inverse-global-muted-background !default;
-$inverse-subnav-pill-item-hover-color:          $inverse-global-color !default;
-$inverse-subnav-pill-item-onclick-background:   $inverse-subnav-pill-item-hover-background !default;
-$inverse-subnav-pill-item-onclick-color:        $inverse-subnav-pill-item-hover-color !default;
-$inverse-subnav-pill-item-active-background:    $inverse-global-primary-background !default;
-$inverse-subnav-pill-item-active-color:         $inverse-global-inverse-color !default;
-$inverse-subnav-item-disabled-color:            $inverse-global-muted-color !default;
 
 
 
