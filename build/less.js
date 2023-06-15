@@ -1,6 +1,6 @@
+import path from 'path';
 import { glob } from 'glob';
 import rtlcss from 'rtlcss';
-import { basename } from 'path';
 import { args, banner, minify, pathExists, read, readJson, renderLess, write } from './util.js';
 
 const { rtl } = args;
@@ -13,7 +13,7 @@ const sources = [
 const themes = (await pathExists('themes.json')) ? await readJson('themes.json') : {};
 
 for (const src of await glob('custom/*.less')) {
-    const theme = basename(src, '.less');
+    const theme = path.basename(src, '.less');
     const dist = `dist/css/uikit.${theme}${rtl ? '-rtl' : ''}.css`;
 
     themes[theme] = { css: `../${dist}` };

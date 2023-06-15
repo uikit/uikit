@@ -1,7 +1,7 @@
+import path from 'path';
 import { glob } from 'glob';
 import pLimit from 'p-limit';
 import camelize from 'camelcase';
-import { basename, resolve } from 'path';
 import { args, compile, icons } from './util.js';
 
 const limit = pLimit(Number(process.env.cpus || 2));
@@ -72,14 +72,14 @@ async function getComponentTasks() {
     const components = await glob('src/js/components/!(index).js');
 
     return components.reduce((components, file) => {
-        const name = basename(file, '.js');
+        const name = path.basename(file, '.js');
 
         components[name] = () =>
             compile('build/wrapper/component.js', `dist/js/components/${name}`, {
                 name,
                 external: ['uikit', 'uikit-util'],
                 globals: { uikit: 'UIkit', 'uikit-util': 'UIkit.util' },
-                aliases: { component: resolve('src/js/components', name) },
+                aliases: { component: path.resolve('src/js/components', name) },
                 replaces: { NAME: `'${camelize(name)}'` },
             });
 
@@ -89,5 +89,5 @@ async function getComponentTasks() {
 
 async function getTestFiles() {
     const files = await glob('tests/!(index).html');
-    return JSON.stringify(files.sort().map((file) => basename(file, '.html')));
+    return JSON.stringify(files.sort().map((file) => path.basename(file, '.html')));
 }

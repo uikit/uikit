@@ -1,14 +1,16 @@
+import fs from 'fs';
+import { $ } from 'execa';
 import { glob } from 'glob';
+import semver from 'semver';
 import archiver from 'archiver';
 import inquirer from 'inquirer';
-import { createWriteStream } from 'fs';
 import dateFormat from 'dateformat/lib/dateformat.js';
-import { coerce, gt, inc, prerelease, valid } from 'semver';
-import { args, getVersion, logFile, read, replaceInFile, run } from './util.js';
+import { args, getVersion, logFile, read, replaceInFile } from './util.js';
 
+const $$ = $({ stdio: 'inherit' });
 const prompt = inquirer.createPromptModule();
 
-if (await run('git status --porcelain')) {
+if ((await $`git status --porcelain`).stdout.trim()) {
     throw 'Repository contains uncommitted changes.';
 }
 
@@ -17,9 +19,9 @@ const version = await inquireVersion(args.v || args.version);
 
 await raiseVersion(version);
 
-await run('pnpm compile');
-await run('pnpm compile-rtl');
-await run('pnpm build-scss');
+await $$`pnpm compile`;
+await $$`pnpm compile-rtl`;
+await $$`pnpm build-scss`;
 
 await createPackage(version);
 
@@ -28,7 +30,7 @@ if (args.d || args.deploy || (await inquireDeploy())) {
 }
 
 function isValidVersion(version) {
-    return valid(version) && gt(version, prevVersion);
+    return semver.valid(version) && semver.gt(version, prevVersion);
 }
 
 async function inquireVersion(version) {
@@ -40,7 +42,8 @@ async function inquireVersion(version) {
         await prompt({
             name: 'version',
             message: 'Enter a version',
-            default: () => inc(prevVersion, prerelease(prevVersion) ? 'prerelease' : 'patch'),
+            default: () =>
+                semver.inc(prevVersion, semver.prerelease(prevVersion) ? 'prerelease' : 'patch'),
             validate: (val) => isValidVersion(val) || 'Invalid version',
         })
     ).version;
@@ -48,7 +51,7 @@ async function inquireVersion(version) {
 
 function raiseVersion(version) {
     return Promise.all([
-        run(`npm version ${version} --git-tag-version false`),
+        $$`npm version ${version} --git-tag-version false`,
         replaceInFile('CHANGELOG.md', (data) =>
             data.replace(
                 /^##\s*WIP/m,
@@ -65,7 +68,7 @@ async function createPackage(version) {
     const dest = `dist/uikit-${version}.zip`;
     const archive = archiver('zip');
 
-    archive.pipe(createWriteStream(dest));
+    archive.pipe(fs.createWriteStream(dest));
 
     for (const file of await glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')) {
         archive.file(file, { name: file.substring(5) });
@@ -76,7 +79,7 @@ async function createPackage(version) {
 }
 
 function versionFormat(version) {
-    return [coerce(version).version].concat(prerelease(version) || []).join(' ');
+    return [semver.coerce(version).version].concat(semver.prerelease(version) || []).join(' ');
 }
 
 async function inquireDeploy() {
@@ -91,26 +94,29 @@ async function inquireDeploy() {
 }
 
 async function deploy(version) {
-    await run(`git checkout -b release/v${version}`);
-    await run('git stage --all');
-    await run(`git commit -am "v${version}"`);
-    await run('git checkout main');
-    await run(
-        `git merge release/v${version} --commit --no-ff -m "Merge branch 'release/v${version}'"`
-    );
+    const tag = `v${version}`;
+    const branch = `release/v${version}`;
 
-    await run(`git tag v${version}`);
-    await run('git checkout develop');
-    await run(`git merge v${version} --commit --no-ff -m "Merge tag 'v${version}' into develop"`);
-    await run(`git branch --delete release/v${version}`);
+    await $$`git checkout -b ${branch}`;
+    await $$`git stage --all`;
+    await $$`git commit -am v${version}`;
 
-    await run('git push origin develop');
-    await run('git push origin main --tags');
+    await $$`git checkout main`;
+    await $$`git merge ${branch} --commit --no-ff -m ${`Merge branch '${branch}'`}`;
+    await $$`git tag ${tag}`;
 
-    await run('pnpm publish --no-git-checks');
+    await $$`git checkout develop`;
+    await $$`git merge ${tag} --commit --no-ff -m ${`Merge tag '${tag}' into develop`}`;
+
+    await $$`git branch --delete ${branch}`;
+
+    await $$`git push origin develop`;
+    await $$`git push origin main --tags`;
+
+    await $$`pnpm publish --no-git-checks`;
 
     const notes = (await read('./Changelog.md'))
         .match(/## \d.*?$\s*(.*?)\s*(?=## \d)/ms)[1]
         .replace(/(["`])/g, '\\$1');
-    await run(`gh release create v${version} --notes "${notes}" ./dist/uikit-${version}.zip`);
+    await $$`gh release create v${version} --notes ${notes} ./dist/uikit-${version}.zip`;
 }
