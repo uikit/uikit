@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix existing notification container has to be visible before appending notification 
+
 ## 3.16.21 (June 13, 2023)
 
 ### Fixed

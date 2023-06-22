@@ -5,6 +5,7 @@ import {
     apply,
     closest,
     css,
+    isVisible,
     parent,
     pointerEnter,
     pointerLeave,
@@ -46,12 +47,14 @@ export default {
     },
 
     created() {
-        const container =
-            $(`.${this.clsContainer}-${this.pos}`, this.container) ||
-            append(
+        let container = $(`.${this.clsContainer}-${this.pos}`, this.container);
+
+        if (!container || !isVisible(container)) {
+            container = append(
                 this.container,
-                `<div class="${this.clsContainer} ${this.clsContainer}-${this.pos}" style="display: block"></div>`
+                `<div class="${this.clsContainer} ${this.clsContainer}-${this.pos}" style="display: block"}></div>`
             );
+        }
 
         this.$mount(
             append(
