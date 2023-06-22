@@ -1,22 +1,19 @@
 import less from 'less';
+import path from 'path';
+import svgo from 'svgo';
 import fs from 'fs-extra';
 import pLimit from 'p-limit';
 import { glob } from 'glob';
-import { optimize } from 'svgo';
-import { promisify } from 'util';
 import minimist from 'minimist';
 import CleanCSS from 'clean-css';
 import alias from '@rollup/plugin-alias';
 import modify from 'rollup-plugin-modify';
 import replace from '@rollup/plugin-replace';
-import { basename, dirname, join } from 'path';
-import { exec as execImport } from 'child_process';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
 
 const limit = pLimit(Number(process.env.cpus || 2));
 
-export const exec = promisify(execImport);
 export const { pathExists, readJson } = fs;
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
@@ -63,7 +60,7 @@ export async function minify(file) {
         }).minify([file])
     );
 
-    await write(`${join(dirname(file), basename(file, '.css'))}.min.css`, styles);
+    await write(`${path.join(path.dirname(file), path.basename(file, '.css'))}.min.css`, styles);
 
     return styles;
 }
@@ -186,21 +183,12 @@ export async function icons(src) {
 
     return JSON.stringify(
         files.reduce((result, file, i) => {
-            result[basename(file, '.svg')] = icons[i];
+            result[path.basename(file, '.svg')] = icons[i];
             return result;
         }, {}),
         null,
         '    '
     );
-}
-
-export async function run(cmd, options) {
-    const { stdout, stderr } = await limit(() => exec(cmd, options));
-
-    stdout && console.log(stdout.trim());
-    stderr && console.log(stderr.trim());
-
-    return stdout;
 }
 
 export function ucfirst(str) {
@@ -248,7 +236,7 @@ async function optimizeSvg(svg) {
         ],
     };
 
-    return (await optimize(svg, options)).data;
+    return (await svgo.optimize(svg, options)).data;
 }
 
 function svgPlugin() {

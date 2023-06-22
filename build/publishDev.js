@@ -1,34 +1,33 @@
+import { $ } from 'execa';
 import semver from 'semver';
-import { args, getVersion, run } from './util.js';
+import { args, getVersion } from './util.js';
 
-const { inc } = semver;
+const $$ = $({ stdio: 'inherit' });
 
 // default exec options
 if (args.f || args.force || (await isDevCommit())) {
     // increase version patch number
-    const version = inc(await getVersion(), 'patch');
+    const version = semver.inc(await getVersion(), 'patch');
 
     // get current git hash
-    const hash = (await run('git rev-parse --short HEAD')).trim();
+    const hash = (await $`git rev-parse --short HEAD`).stdout.trim();
 
     // set version of package.json
-    await run(`pnpm version ${version}-dev.${hash} --no-git-tag-version`);
+    await $$`pnpm version ${version}-dev.${hash} --no-git-tag-version`;
 
     // create dist files
-    await run('pnpm compile && pnpm compile-rtl && pnpm build-scss');
+    await $$`pnpm compile`;
+    await $$`pnpm compile-rtl`;
+    await $$`pnpm build-scss`;
 
     // publish to dev tag
-    await run('pnpm publish --tag dev --no-git-checks');
+    await $$`pnpm publish --tag dev --no-git-checks`;
 }
 
 async function isDevCommit() {
     // check for changes to publish (%B: raw body (unwrapped subject and body)
-    const message = await run('git log -1 --pretty=%B');
+    const message = (await $`git log -1 --pretty=%B`).stdout.trim();
 
     // https://www.conventionalcommits.org/en/v1.0.0/
-    const type = message.match(
-        /^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build)(\(.+\))?: .{1,50}/
-    );
-
-    return type && ['feat', 'fix', 'refactor', 'perf'].includes(type[2]);
+    return Boolean(message.match(/^(revert: )?(feat|fix|refactor|perf)(\(.+\))?: .{1,50}/));
 }

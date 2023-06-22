@@ -16,9 +16,7 @@
                 width: 100%;
             }
 
-            .test-boundary {
-                border: 1px dashed rgba(0,0,0,0.2);
-            }
+            .test-boundary { border: 1px dashed rgba(0,0,0,0.2); }
 
         </style>
     </head>
@@ -241,7 +239,7 @@
                 </div>
             </div>
 
-            <h2>Stretch and Overflow Content</h2>
+            <h2>Stretch + Overflow Content</h2>
 
             <div class="uk-child-width-1-4@m" uk-grid>
                 <div>
@@ -430,6 +428,101 @@
                                         </div>
                                     </li>
                                 </ul>
+
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+
+            <h2>Position + Click</h2>
+
+            <div class="uk-child-width-1-3@m" uk-grid>
+                <div>
+                    <div class="test-boundary uk-overflow-auto uk-height-large uk-resize-vertical">
+
+                        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+                            <div class="uk-navbar-left">
+
+                                <a class="uk-navbar-item uk-logo" href="#">Below</a>
+
+                            </div>
+                            <div class="uk-navbar-right">
+
+                                <a class="uk-navbar-toggle uk-navbar-toggle-animate" uk-navbar-toggle-icon href="#"></a>
+                                <div class="uk-dropbar uk-dropbar-top" uk-drop="mode: click; target-y: !.uk-navbar-container; stretch: true; animation: slide-top; animate-out: true">
+
+                                    <div class="uk-height-1-1 uk-flex uk-flex-center uk-flex-middle">
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="test-boundary uk-overflow-auto uk-height-large uk-resize-vertical">
+
+                        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+                            <div class="uk-navbar-left">
+
+                                <a class="uk-navbar-item uk-logo" href="#">Above</a>
+
+                            </div>
+                            <div class="uk-navbar-right">
+
+                                <a class="uk-navbar-toggle uk-navbar-toggle-animate uk-position-z-index" uk-navbar-toggle-icon href="#"></a>
+                                <div class="uk-dropbar uk-dropbar-top uk-position-z-index-zero" uk-drop="mode: click; inset: true; pos: top-center; stretch: true; animation: slide-top; animate-out: true">
+
+                                    <div class="uk-height-1-1 uk-flex uk-flex-center uk-flex-middle">
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </nav>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="test-boundary uk-overflow-auto uk-height-large uk-resize-vertical">
+
+                        <nav class="uk-navbar-container uk-navbar-transparent uk-position-z-index" uk-navbar>
+                            <div class="uk-navbar-left">
+
+                                <a class="uk-navbar-item uk-logo" href="#">Below</a>
+
+                            </div>
+                            <div class="uk-navbar-right">
+
+                                <a class="uk-navbar-toggle uk-navbar-toggle-animate" uk-navbar-toggle-icon href="#"></a>
+                                <div class="uk-dropbar uk-dropbar-top uk-position-z-index-negative" uk-drop="mode: click; inset: true; pos: top-center; stretch: true; animation: slide-top; animate-out: true">
+
+                                    <div class="uk-height-1-1 uk-flex uk-flex-center uk-flex-middle">
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
 
                             </div>
                         </nav>
