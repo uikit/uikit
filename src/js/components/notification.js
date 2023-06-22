@@ -47,12 +47,13 @@ export default {
     },
 
     created() {
-        let container = $(`.${this.clsContainer}-${this.pos}`, this.container);
+        const posClass = `${this.clsContainer}-${this.pos}`;
+        let container = $(`.${posClass}`, this.container);
 
         if (!container || !isVisible(container)) {
             container = append(
                 this.container,
-                `<div class="${this.clsContainer} ${this.clsContainer}-${this.pos}" style="display: block"}></div>`
+                `<div class="${this.clsContainer} ${posClass}"></div>`
             );
         }
 
