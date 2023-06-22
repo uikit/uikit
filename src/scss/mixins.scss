@@ -1376,7 +1376,7 @@
     .uk-logo-inverse { display: block; }
 
 }
-@mixin hook-inverse(){
+@mixin hook-inverse() {
     @include hook-inverse-component-base();
     @include hook-inverse-component-link();
     @include hook-inverse-component-heading();

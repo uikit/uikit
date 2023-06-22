@@ -1,4 +1,4 @@
-/*! UIkit 3.16.21 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.22 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2131,7 +2131,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.21";
+    App.version = "3.16.22";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4127,7 +4127,7 @@
         target: ({ $el }) => [$el, ...scrollParents($el)]
       }),
       update: {
-        read({ minHeight: prev }) {
+        read() {
           if (!isVisible(this.$el)) {
             return false;
           }
@@ -4139,10 +4139,7 @@
             scrollElement === body ? scrollingElement : scrollElement
           );
           if (this.expand) {
-            minHeight = Math.max(
-              viewportHeight - (dimensions$1(scrollElement).height - dimensions$1(this.$el).height) - box,
-              0
-            );
+            minHeight = `${viewportHeight - (dimensions$1(scrollElement).height - dimensions$1(this.$el).height) - box}px`;
           } else {
             const isScrollingElement = scrollingElement === scrollElement || body === scrollElement;
             minHeight = `calc(${isScrollingElement ? "100vh" : `${viewportHeight}px`}`;
@@ -4165,13 +4162,10 @@
             }
             minHeight += `${box ? ` - ${box}px` : ""})`;
           }
-          return { minHeight, prev };
+          return { minHeight };
         },
         write({ minHeight }) {
-          css(this.$el, { minHeight });
-          if (this.minHeight && toFloat(css(this.$el, "minHeight")) < this.minHeight) {
-            css(this.$el, "minHeight", this.minHeight);
-          }
+          css(this.$el, "minHeight", `max(${this.minHeight || 0}px, ${minHeight})`);
         },
         events: ["resize"]
       }
@@ -7784,10 +7778,14 @@
         }
       },
       created() {
-        const container = $(`.${this.clsContainer}-${this.pos}`, this.container) || append(
-          this.container,
-          `<div class="${this.clsContainer} ${this.clsContainer}-${this.pos}" style="display: block"></div>`
-        );
+        const posClass = `${this.clsContainer}-${this.pos}`;
+        let container = $(`.${posClass}`, this.container);
+        if (!container || !isVisible(container)) {
+          container = append(
+            this.container,
+            `<div class="${this.clsContainer} ${posClass}"></div>`
+          );
+        }
         this.$mount(
           append(
             container,

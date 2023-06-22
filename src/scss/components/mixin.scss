@@ -4,7 +4,6 @@
 //
 // ========================================================================
 
-
 // SVG
 // ========================================================================
 
@@ -15,18 +14,19 @@
 /// @param {String} $replace ('') - New value
 /// @return {String} - Updated string
 @function str-replace($string, $search, $replace: '') {
-  $index: str-index($string, $search);
+    $index: str-index($string, $search);
 
-  @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-  }
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace +
+            str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
 
-  @return $string;
+    @return $string;
 }
 
-@mixin svg-fill($src, $color-default, $color-new){
-
+@mixin svg-fill($src, $color-default, $color-new) {
     $replace-src: str-replace($src, $color-default, $color-new) !default;
-    $replace-src: str-replace($replace-src, "#", "%23");
-    background-image: url(quote($replace-src));
+    $replace-src: str-replace($replace-src, '#', '%23');
+    $replace-src: quote($replace-src);
+    background-image: url($replace-src);
 }
