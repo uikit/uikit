@@ -1,11 +1,5 @@
 # Changelog
 
-## WIP
-
-### Fixed
-
-- Fix rounding issue in `offset` function
-
 ## 3.16.22 (June 22, 2023)
 
 ### Fixed

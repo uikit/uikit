@@ -61,7 +61,7 @@ export function offset(element, coordinates) {
             element,
             prop,
             coordinates[prop] -
-                Math.round(currentOffset[prop] * 1000) / 1000 + // round to 3 digits because css top property is 3 digits precise, while getBoundingClientRect() is 4 digits precise
+                currentOffset[prop] +
                 toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
         )
     );
