@@ -2,7 +2,6 @@ import { on } from './event';
 import { css } from './style';
 import { $, append, remove } from './dom';
 import {
-    each,
     isDocument,
     isElement,
     isString,
