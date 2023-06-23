@@ -54,16 +54,8 @@ export function offset(element, coordinates) {
         return currentOffset;
     }
 
-    const pos = css(element, 'position');
-
     each(css(element, ['left', 'top']), (value, prop) =>
-        css(
-            element,
-            prop,
-            coordinates[prop] -
-                currentOffset[prop] +
-                toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
-        )
+        css(element, prop, coordinates[prop] - currentOffset[prop] + toFloat(value))
     );
 }
 
