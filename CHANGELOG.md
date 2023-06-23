@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- Fix Drop positioning
+- Fix potential rounding issues in `offset()` function, when used as setter
 
 ## 3.16.22 (June 22, 2023)
 

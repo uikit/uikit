@@ -37,6 +37,10 @@ export function dimensions(element) {
 }
 
 export function offset(element, coordinates) {
+    if (coordinates) {
+        css(element, { left: 0, top: 0 });
+    }
+
     const currentOffset = dimensions(element);
 
     if (element) {
@@ -54,9 +58,9 @@ export function offset(element, coordinates) {
         return currentOffset;
     }
 
-    each(css(element, ['left', 'top']), (value, prop) =>
-        css(element, prop, coordinates[prop] - currentOffset[prop] + toFloat(value))
-    );
+    for (const prop of ['left', 'top']) {
+        css(element, prop, coordinates[prop] - currentOffset[prop]);
+    }
 }
 
 export function position(element) {

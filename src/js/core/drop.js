@@ -434,8 +434,7 @@ export default {
 
                     css(this.$el, {
                         [prop]:
-                            // elOffset might be slightly off due to rounding issues
-                            (targetOffset[start] > elOffset[start] + 0.01
+                            (targetOffset[start] > elOffset[start]
                                 ? targetOffset[this.inset ? end : start] -
                                   Math.max(
                                       offset(this.boundary[i])[start],
