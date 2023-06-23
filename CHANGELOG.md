@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Drop positioning
+
 ## 3.16.22 (June 22, 2023)
 
 ### Fixed
