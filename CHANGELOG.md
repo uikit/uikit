@@ -6,6 +6,7 @@
 
 - Add modes `pack` (default) and `next` to Grid component's `masonry` option
 - Add `parallax-start`, `parallax-end`, `parallax-justify` option to Grid component
+- Add `close-on-scroll` option to Drop and Dropdown component
 
 ## WIP
 

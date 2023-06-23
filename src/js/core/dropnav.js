@@ -47,6 +47,7 @@ export default {
         targetY: Boolean,
         animation: Boolean,
         animateOut: Boolean,
+        closeOnScroll: Boolean,
     },
 
     data: {

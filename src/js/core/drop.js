@@ -58,6 +58,7 @@ export default {
         clsDrop: String,
         animateOut: Boolean,
         bgScroll: Boolean,
+        closeOnScroll: Boolean,
     },
 
     data: {
@@ -79,6 +80,7 @@ export default {
         animation: ['uk-animation-fade'],
         cls: 'uk-open',
         container: false,
+        closeOnScroll: false,
     },
 
     computed: {
@@ -273,6 +275,7 @@ export default {
                     listenForEscClose(this),
                     listenForBackgroundClose(this),
                     this.autoUpdate && listenForScroll(this),
+                    this.closeOnScroll && listenForScrollClose(this),
                     !this.bgScroll && preventBackgroundScroll(this.$el),
                 ];
 
@@ -494,6 +497,12 @@ function listenForEscClose(drop) {
         if (e.keyCode === keyMap.ESC) {
             drop.hide(false);
         }
+    });
+}
+
+function listenForScrollClose(drop) {
+    return on([document, ...overflowParents(drop.$el)], 'scroll', () => drop.hide(false), {
+        passive: true,
     });
 }
 
