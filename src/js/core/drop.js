@@ -363,6 +363,7 @@ export default {
 
             this.clearTimers();
 
+            this.isDelayedHide = delay;
             this.isDelaying = getPositionedElements(this.$el).some((el) =>
                 this.tracker.movesTo(el)
             );
