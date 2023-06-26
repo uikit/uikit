@@ -326,6 +326,7 @@ export default {
                 if (
                     matches(this.dropbar, ':hover') &&
                     active.$el === e.target &&
+                    includes(active.mode, 'hover') &&
                     !this.items.some((el) => active.targetEl !== el && matches(el, ':focus'))
                 ) {
                     e.preventDefault();
