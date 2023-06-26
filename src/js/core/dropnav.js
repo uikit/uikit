@@ -78,6 +78,10 @@ export default {
             return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
         },
 
+        dropbarOffset() {
+            return 0;
+        },
+
         dropContainer(_, $el) {
             return this.container || $el;
         },
@@ -298,9 +302,16 @@ export default {
                     const minTop = Math.min(...targetOffsets.map(({ top }) => top));
                     const maxBottom = Math.max(...targetOffsets.map(({ bottom }) => bottom));
                     const dropbarOffset = offset(this.dropbar);
-                    css(this.dropbar, 'top', this.dropbar.offsetTop - (dropbarOffset.top - minTop));
+                    css(
+                        this.dropbar,
+                        'top',
+                        this.dropbar.offsetTop - (dropbarOffset.top - minTop) - this.dropbarOffset
+                    );
                     this.transitionTo(
-                        maxBottom - minTop + toFloat(css(target, 'marginBottom')),
+                        maxBottom -
+                            minTop +
+                            toFloat(css(target, 'marginBottom')) +
+                            this.dropbarOffset,
                         target
                     );
                 };
