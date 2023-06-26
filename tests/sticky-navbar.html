@@ -636,7 +636,7 @@
                 <div class="uk-blend-difference" uk-sticky="end: #sticky-transparent-dropbar-behind; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
                     <nav class="uk-navbar-container uk-navbar-transparent uk-dark">
                         <div class="uk-container uk-container-expand">
-                            <div uk-navbar="target-y: #sticky-transparent-dropbar-behind .uk-navbar-container; container: #sticky-transparent-dropbar-behind .tm-header; dropbar: true; dropbar-anchor: !.tm-header;dropbar-transparent-mode: behind; close-on-scroll: true">
+                            <div uk-navbar="target-y: #sticky-transparent-dropbar-behind .uk-navbar-container; container: #sticky-transparent-dropbar-behind .tm-header; dropbar: true; dropbar-anchor: !.tm-header > *; dropbar-transparent-mode: behind; close-on-scroll: true">
                                 <div class="uk-navbar-left">
 
                                     <a class="uk-navbar-item uk-logo" href="#">Sticky + Transparent + Dropbar Behind</a>
@@ -645,7 +645,7 @@
                                         <li class="uk-active"><a href="">Active</a></li>
                                         <li>
                                             <a href="">Parent</a>
-                                            <div class="uk-navbar-dropdown">
+                                            <div class="uk-navbar-dropdown uk-padding-remove-top">
                                                 <ul class="uk-nav uk-navbar-dropdown-nav">
                                                     <li class="uk-active"><a href="#">Active</a></li>
                                                     <li class="uk-parent">
@@ -665,7 +665,7 @@
                                         </li>
                                         <li>
                                             <a href="">Parent</a>
-                                            <div class="uk-navbar-dropdown">
+                                            <div class="uk-navbar-dropdown uk-padding-remove-top">
                                                 <ul class="uk-nav uk-navbar-dropdown-nav">
                                                     <li class="uk-active"><a href="#">Active</a></li>
                                                     <li class="uk-parent">
