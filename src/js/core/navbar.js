@@ -69,6 +69,10 @@ export default {
                     this._transparent = removeClasses(this.navbarContainer, 'uk-light', 'uk-dark');
                 }
 
+                if (this.dropbarTransparentMode === 'behind') {
+                    addClass(this.dropbar, 'uk-position-z-index');
+                }
+
                 if (this.dropbarTransparentMode === 'remove') {
                     removeClass(this.navbarContainer, 'uk-navbar-transparent');
                 }
