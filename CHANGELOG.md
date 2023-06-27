@@ -8,6 +8,10 @@
 - Add `parallax-start`, `parallax-end`, `parallax-justify` option to Grid component
 - Add `close-on-scroll` option to Drop and Dropdown component
 
+### Change
+
+- The `closest()` function no longer accepts an array of elements
+
 ## WIP
 
 ### Fixed

@@ -16,7 +16,7 @@ import {
 export default {
     props: {
         cls: String,
-        closest: String,
+        closest: Boolean,
         scroll: Boolean,
         overflow: Boolean,
         offset: Number,
@@ -36,7 +36,7 @@ export default {
         },
 
         elements({ closest: selector }) {
-            return closest(this.links, selector || '*');
+            return this.links.map((el) => closest(el, selector || '*'));
         },
     },
 
