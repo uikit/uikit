@@ -59,15 +59,15 @@ export default {
             },
 
             handler({ target }) {
-                if (!this.isDropbarDrop(target) || !this.navbarContainer || this._transparent) {
+                const transparentMode = this.getTransparentMode(target);
+
+                if (!transparentMode || this._transparent) {
                     return;
                 }
 
-                if (this.dropbarTransparentMode) {
-                    this._transparent = removeClasses(this.navbarContainer, 'uk-light', 'uk-dark');
-                }
+                this._transparent = removeClasses(this.navbarContainer, 'uk-light', 'uk-dark');
 
-                if (this.dropbarTransparentMode === 'remove') {
+                if (transparentMode === 'remove') {
                     removeClass(this.navbarContainer, 'uk-navbar-transparent');
                 }
             },
@@ -84,7 +84,9 @@ export default {
             },
 
             async handler({ target }) {
-                if (!this.isDropbarDrop(target) || !this.navbarContainer || !this._transparent) {
+                const transparentMode = this.getTransparentMode(target);
+
+                if (!transparentMode || !this._transparent) {
                     return;
                 }
 
@@ -95,13 +97,13 @@ export default {
                 }
 
                 if (
-                    this.dropbarTransparentMode === 'behind' &&
+                    transparentMode === 'behind' &&
                     hasClass(this.navbarContainer, 'uk-navbar-transparent')
                 ) {
                     addClass(this.navbarContainer, this._transparent);
                 }
 
-                if (this.dropbarTransparentMode === 'remove') {
+                if (transparentMode === 'remove') {
                     addClass(this.navbarContainer, this._transparent, 'uk-navbar-transparent');
                 }
 
@@ -109,6 +111,26 @@ export default {
             },
         },
     ],
+
+    methods: {
+        getTransparentMode(el) {
+            if (!this.navbarContainer) {
+                return;
+            }
+
+            if (this.isDropbarDrop(el)) {
+                return this.dropbarTransparentMode;
+            }
+
+            const drop = this.getDropdown(el);
+
+            if (!drop || !hasClass(el, 'uk-dropbar')) {
+                return;
+            }
+
+            return drop.inset ? 'behind' : 'remove';
+        },
+    },
 };
 
 function removeClasses(el, ...classes) {
