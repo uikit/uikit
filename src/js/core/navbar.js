@@ -59,11 +59,9 @@ export default {
             },
 
             handler({ target }) {
-                if (!this.isDropbarDrop(target) || !this.navbarContainer) {
+                if (!this.isDropbarDrop(target) || !this.navbarContainer || this._transparent) {
                     return;
                 }
-
-                this._transparent = null;
 
                 if (this.dropbarTransparentMode) {
                     this._transparent = removeClasses(this.navbarContainer, 'uk-light', 'uk-dark');
@@ -85,22 +83,29 @@ export default {
                 return this.dropbar;
             },
 
-            handler({ target }) {
-                if (!this.isDropbarDrop(target) || !this.navbarContainer) {
+            async handler({ target }) {
+                if (!this.isDropbarDrop(target) || !this.navbarContainer || !this._transparent) {
+                    return;
+                }
+
+                await awaitMacroTask();
+
+                if (this.getActive()) {
                     return;
                 }
 
                 if (
                     this.dropbarTransparentMode === 'behind' &&
-                    hasClass(this.navbarContainer, 'uk-navbar-transparent') &&
-                    this._transparent
+                    hasClass(this.navbarContainer, 'uk-navbar-transparent')
                 ) {
                     addClass(this.navbarContainer, this._transparent);
                 }
 
-                if (this.dropbarTransparentMode === 'remove' && this._transparent) {
+                if (this.dropbarTransparentMode === 'remove') {
                     addClass(this.navbarContainer, this._transparent, 'uk-navbar-transparent');
                 }
+
+                this._transparent = null;
             },
         },
     ],
@@ -113,4 +118,8 @@ function removeClasses(el, ...classes) {
             return cls;
         }
     }
+}
+
+async function awaitMacroTask() {
+    return new Promise((resolve) => setTimeout(resolve));
 }
