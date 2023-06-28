@@ -249,14 +249,10 @@ export default {
             self: true,
 
             handler(e, toggled) {
-                attr(this.targetEl, 'aria-expanded', toggled ? true : null);
-
-                if (!toggled) {
-                    return;
+                if (toggled) {
+                    this.clearTimers();
+                    this.position();
                 }
-
-                this.clearTimers();
-                this.position();
             },
         },
 
@@ -269,6 +265,7 @@ export default {
                 active = this;
 
                 this.tracker.init();
+                attr(this.targetEl, 'aria-expanded', true);
 
                 const handlers = [
                     listenForResize(this),
@@ -309,6 +306,7 @@ export default {
 
                 active = this.isActive() ? null : active;
                 this.tracker.cancel();
+                attr(this.targetEl, 'aria-expanded', null);
             },
         },
     ],

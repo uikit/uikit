@@ -73,7 +73,7 @@ export default {
             },
         },
         {
-            name: 'hidden',
+            name: 'hide',
 
             el() {
                 return this.dropContainer;
