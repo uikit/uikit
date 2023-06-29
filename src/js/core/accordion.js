@@ -139,7 +139,7 @@ export default {
     update() {
         const activeItems = filter(this.items, `.${this.clsOpen}`);
 
-        for (const index in this.items) {
+        for (const index of this.items) {
             const toggle = this.toggles[index];
             const content = this.contents[index];
 
