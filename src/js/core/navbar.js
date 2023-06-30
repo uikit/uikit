@@ -54,10 +54,6 @@ export default {
                 return this.dropContainer;
             },
 
-            filter() {
-                return this.dropbar;
-            },
-
             handler({ target }) {
                 const transparentMode = this.getTransparentMode(target);
 
@@ -77,10 +73,6 @@ export default {
 
             el() {
                 return this.dropContainer;
-            },
-
-            filter() {
-                return this.dropbar;
             },
 
             async handler({ target }) {
