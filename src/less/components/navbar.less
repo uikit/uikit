@@ -97,6 +97,8 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 @navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
+@navbar-dropbar-behind-color-mode:              ~'';
+
 
 /* ========================================================================
    Component: Navbar
@@ -104,12 +106,15 @@
 
 /*
  * 1. Create position context to center navbar group
+ * 2. Pass dropbar behind color to JS
  */
 
 .uk-navbar {
     display: flex;
     /* 1 */
     position: relative;
+    /* 2 */
+    --uk-navbar-dropbar-behind-color: @navbar-dropbar-behind-color-mode;
     .hook-navbar();
 }
 
