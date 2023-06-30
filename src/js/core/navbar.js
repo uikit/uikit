@@ -122,7 +122,7 @@ export default {
                 return;
             }
 
-            if (this.isDropbarDrop(el)) {
+            if (this.dropbar && this.isDropbarDrop(el)) {
                 return this.dropbarTransparentMode;
             }
 
