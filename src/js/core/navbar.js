@@ -57,13 +57,23 @@ export default {
             handler({ target }) {
                 const transparentMode = this.getTransparentMode(target);
 
-                if (!transparentMode || this._transparent) {
+                if (!transparentMode || this._mode) {
                     return;
                 }
 
-                this._transparent = removeClasses(this.navbarContainer, 'uk-light', 'uk-dark');
+                const storePrevColor = () =>
+                    (this._mode = removeClasses(this.navbarContainer, 'uk-light', 'uk-dark'));
+
+                if (transparentMode === 'behind') {
+                    const mode = getDropbarBehindColor(this.$el);
+                    if (mode) {
+                        storePrevColor();
+                        addClass(this.navbarContainer, `uk-${mode}`);
+                    }
+                }
 
                 if (transparentMode === 'remove') {
+                    storePrevColor();
                     removeClass(this.navbarContainer, 'uk-navbar-transparent');
                 }
             },
@@ -78,7 +88,7 @@ export default {
             async handler({ target }) {
                 const transparentMode = this.getTransparentMode(target);
 
-                if (!transparentMode || !this._transparent) {
+                if (!transparentMode || !this._mode) {
                     return;
                 }
 
@@ -88,18 +98,20 @@ export default {
                     return;
                 }
 
-                if (
-                    transparentMode === 'behind' &&
-                    hasClass(this.navbarContainer, 'uk-navbar-transparent')
-                ) {
-                    addClass(this.navbarContainer, this._transparent);
+                if (transparentMode === 'behind') {
+                    const mode = getDropbarBehindColor(this.$el);
+                    if (mode) {
+                        removeClass(this.navbarContainer, `uk-${mode}`);
+                    }
                 }
+
+                addClass(this.navbarContainer, this._mode);
 
                 if (transparentMode === 'remove') {
-                    addClass(this.navbarContainer, this._transparent, 'uk-navbar-transparent');
+                    addClass(this.navbarContainer, 'uk-navbar-transparent');
                 }
 
-                this._transparent = null;
+                this._mode = null;
             },
         },
     ],
@@ -136,4 +148,8 @@ function removeClasses(el, ...classes) {
 
 async function awaitMacroTask() {
     return new Promise((resolve) => setTimeout(resolve));
+}
+
+function getDropbarBehindColor(el) {
+    return css(el, '--uk-navbar-dropbar-behind-color');
 }
