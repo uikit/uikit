@@ -15,11 +15,11 @@
 // New
 //
 
-@nav-background-margin-top:                     0;
-@nav-background-item-padding-horizontal:        10px;
-@nav-background-item-padding-vertical:          10px;
-@nav-background-item-hover-background:          @global-muted-background;
-@nav-background-item-active-background:         @global-muted-background;
+@nav-secondary-margin-top:                      0;
+@nav-secondary-item-padding-horizontal:         10px;
+@nav-secondary-item-padding-vertical:           10px;
+@nav-secondary-item-hover-background:           @global-muted-background;
+@nav-secondary-item-active-background:          @global-muted-background;
 
 
 // Sublists
@@ -80,14 +80,14 @@
 // ========================================================================
 
 .hook-nav-secondary() {
-    > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {  margin-top: @nav-background-margin-top; }
+    > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {  margin-top: @nav-secondary-margin-top; }
 }
 
-.hook-nav-secondary-item() { padding: @nav-background-item-padding-vertical @nav-background-item-padding-horizontal; }
+.hook-nav-secondary-item() { padding: @nav-secondary-item-padding-vertical @nav-secondary-item-padding-horizontal; }
 
-.hook-nav-secondary-item-hover() { background-color: @nav-background-item-hover-background; }
+.hook-nav-secondary-item-hover() { background-color: @nav-secondary-item-hover-background; }
 
-.hook-nav-secondary-item-active() { background-color: @nav-background-item-active-background; }
+.hook-nav-secondary-item-active() { background-color: @nav-secondary-item-active-background; }
 
 .hook-nav-secondary-subtitle() {}
 
