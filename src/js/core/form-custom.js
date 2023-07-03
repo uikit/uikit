@@ -1,5 +1,5 @@
-import Class from '../mixin/class';
 import { $, $$, closest, isInput, matches, parent, selInput } from 'uikit-util';
+import Class from '../mixin/class';
 
 export default {
     mixins: [Class],

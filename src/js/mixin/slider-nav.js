@@ -13,8 +13,8 @@ import {
     toggleClass,
     toNumber,
 } from 'uikit-util';
-import { keyMap } from '../util/keys';
 import { generateId } from '../api/instance';
+import { keyMap } from '../util/keys';
 
 export default {
     i18n: {

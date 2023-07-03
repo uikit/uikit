@@ -1,4 +1,3 @@
-import { getRows } from '../../core/margin';
 import {
     addClass,
     children,
@@ -11,6 +10,7 @@ import {
     toNumber,
     Transition,
 } from 'uikit-util';
+import { getRows } from '../../core/margin';
 
 const clsLeave = 'uk-transition-leave';
 const clsEnter = 'uk-transition-enter';

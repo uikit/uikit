@@ -1,6 +1,6 @@
+import { camelize, data as getData, hasOwn, hyphenate, isUndefined, startsWith } from 'uikit-util';
 import { registerObserver } from './observer';
 import { coerce, parseOptions } from './options';
-import { camelize, data as getData, hasOwn, hyphenate, isUndefined, startsWith } from 'uikit-util';
 
 export function initProps(instance) {
     const props = getProps(instance.$options);

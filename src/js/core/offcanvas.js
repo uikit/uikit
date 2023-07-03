@@ -1,5 +1,3 @@
-import Modal from '../mixin/modal';
-import { swipe } from '../api/observables';
 import {
     $,
     addClass,
@@ -14,6 +12,8 @@ import {
     unwrap,
     wrapAll,
 } from 'uikit-util';
+import { swipe } from '../api/observables';
+import Modal from '../mixin/modal';
 
 export default {
     mixins: [Modal],

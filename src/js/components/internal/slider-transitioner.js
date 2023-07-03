@@ -1,4 +1,3 @@
-import { translate } from '../../mixin/internal/slideshow-animations';
 import {
     children,
     clamp,
@@ -14,6 +13,7 @@ import {
     Transition,
     trigger,
 } from 'uikit-util';
+import { translate } from '../../mixin/internal/slideshow-animations';
 
 export default function (prev, next, dir, { center, easing, list }) {
     const from = prev

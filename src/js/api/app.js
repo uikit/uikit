@@ -1,5 +1,5 @@
-import { init } from './state';
 import * as util from 'uikit-util';
+import { init } from './state';
 
 const App = function (options) {
     init(this, options);

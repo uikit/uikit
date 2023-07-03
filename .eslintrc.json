@@ -14,14 +14,5 @@
         "LOG": true,
         "ICONS": true,
         "NAME": true
-    },
-    "rules": {
-        "sort-imports": [
-            "error",
-            {
-                "ignoreCase": true,
-                "ignoreDeclarationSort": true
-            }
-        ]
     }
 }

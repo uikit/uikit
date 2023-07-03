@@ -1,7 +1,3 @@
-import Animations from './internal/lightbox-animations';
-import Modal from '../mixin/modal';
-import Slideshow from '../mixin/slideshow';
-import { keyMap } from '../util/keys';
 import {
     $,
     addClass,
@@ -17,6 +13,10 @@ import {
     Transition,
     trigger,
 } from 'uikit-util';
+import Modal from '../mixin/modal';
+import Slideshow from '../mixin/slideshow';
+import { keyMap } from '../util/keys';
+import Animations from './internal/lightbox-animations';
 
 export default {
     mixins: [Modal, Slideshow],

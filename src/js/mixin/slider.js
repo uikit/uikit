@@ -1,9 +1,9 @@
-import I18n from './i18n';
-import SliderNav from './slider-nav';
-import SliderDrag from './slider-drag';
-import SliderAutoplay from './slider-autoplay';
-import { resize } from '../api/observables';
 import { $, children, clamp, getIndex, hasClass, isRtl, removeClass, trigger } from 'uikit-util';
+import { resize } from '../api/observables';
+import I18n from './i18n';
+import SliderAutoplay from './slider-autoplay';
+import SliderDrag from './slider-drag';
+import SliderNav from './slider-nav';
 
 export default {
     mixins: [SliderAutoplay, SliderDrag, SliderNav, I18n],

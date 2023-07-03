@@ -1,7 +1,3 @@
-import Togglable from '../mixin/togglable';
-import { keyMap } from '../util/keys';
-import { generateId } from '../api/instance';
-import { lazyload, swipe } from '../api/observables';
 import {
     $$,
     attr,
@@ -21,6 +17,10 @@ import {
     toggleClass,
     within,
 } from 'uikit-util';
+import { generateId } from '../api/instance';
+import { lazyload, swipe } from '../api/observables';
+import Togglable from '../mixin/togglable';
+import { keyMap } from '../util/keys';
 
 const selDisabled = '.uk-disabled *, .uk-disabled, [disabled]';
 

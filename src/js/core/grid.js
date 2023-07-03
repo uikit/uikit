@@ -1,6 +1,3 @@
-import { scroll } from '../api/observables';
-import Margin from './margin';
-import Class from '../mixin/class';
 import {
     addClass,
     css,
@@ -12,6 +9,9 @@ import {
     toggleClass,
     toPx,
 } from 'uikit-util';
+import { scroll } from '../api/observables';
+import Class from '../mixin/class';
+import Margin from './margin';
 
 export default {
     extends: Margin,

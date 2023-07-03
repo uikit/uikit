@@ -1,11 +1,8 @@
-import Class from '../mixin/class';
-import Media from '../mixin/media';
-import { resize, scroll, viewport } from '../api/observables';
 import {
     $,
+    Animation,
     addClass,
     after,
-    Animation,
     before,
     clamp,
     css,
@@ -24,11 +21,14 @@ import {
     removeClass,
     replaceClass,
     toFloat,
-    toggleClass,
     toPx,
+    toggleClass,
     trigger,
     within,
 } from 'uikit-util';
+import { resize, scroll, viewport } from '../api/observables';
+import Class from '../mixin/class';
+import Media from '../mixin/media';
 
 export default {
     mixins: [Class, Media],

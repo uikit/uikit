@@ -1,6 +1,3 @@
-import Svg from '../mixin/svg';
-import { getMaxPathLength } from '../util/svg';
-import { mutation } from '../api/observables';
 import {
     $,
     addClass,
@@ -13,6 +10,9 @@ import {
     removeAttr,
     startsWith,
 } from 'uikit-util';
+import { mutation } from '../api/observables';
+import Svg from '../mixin/svg';
+import { getMaxPathLength } from '../util/svg';
 
 export default {
     mixins: [Svg],

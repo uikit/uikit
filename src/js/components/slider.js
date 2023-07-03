@@ -1,9 +1,3 @@
-import Class from '../mixin/class';
-import { resize } from '../api/observables';
-import Slider, { speedUp } from '../mixin/slider';
-import SliderReactive from '../mixin/slider-reactive';
-import SliderPreload from './internal/slider-preload';
-import Transitioner, { getMax, getWidth } from './internal/slider-transitioner';
 import {
     $,
     $$,
@@ -22,9 +16,15 @@ import {
     selFocusable,
     sumBy,
     toFloat,
-    toggleClass,
     toNumber,
+    toggleClass,
 } from 'uikit-util';
+import { resize } from '../api/observables';
+import Class from '../mixin/class';
+import Slider, { speedUp } from '../mixin/slider';
+import SliderReactive from '../mixin/slider-reactive';
+import SliderPreload from './internal/slider-preload';
+import Transitioner, { getMax, getWidth } from './internal/slider-transitioner';
 
 export default {
     mixins: [Class, Slider, SliderReactive, SliderPreload],

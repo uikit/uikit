@@ -1,4 +1,3 @@
-import Container from '../mixin/container';
 import {
     $,
     append,
@@ -15,6 +14,7 @@ import {
     Transition,
     trigger,
 } from 'uikit-util';
+import Container from '../mixin/container';
 
 export default {
     mixins: [Container],

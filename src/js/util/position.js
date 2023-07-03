@@ -1,7 +1,7 @@
-import { css } from './style';
-import { within } from './filter';
 import { offset } from './dimensions';
+import { within } from './filter';
 import { clamp, isArray, ucfirst } from './lang';
+import { css } from './style';
 import { offsetViewport, overflowParents } from './viewport';
 
 const dirs = [

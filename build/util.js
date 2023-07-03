@@ -1,20 +1,18 @@
-import less from 'less';
-import path from 'path';
-import svgo from 'svgo';
-import fs from 'fs-extra';
-import pLimit from 'p-limit';
-import { glob } from 'glob';
-import minimist from 'minimist';
-import CleanCSS from 'clean-css';
 import alias from '@rollup/plugin-alias';
-import modify from 'rollup-plugin-modify';
 import replace from '@rollup/plugin-replace';
+import CleanCSS from 'clean-css';
+import fs from 'fs-extra';
+import { glob } from 'glob';
+import less from 'less';
+import minimist from 'minimist';
+import pLimit from 'p-limit';
+import path from 'path';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
+import modify from 'rollup-plugin-modify';
+import svgo from 'svgo';
 
 const limit = pLimit(Number(process.env.cpus || 2));
-
-export const { pathExists, readJson } = fs;
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 export const validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
@@ -46,8 +44,8 @@ export async function write(dest, data) {
 }
 
 export async function logFile(file) {
-    const data = await read(file);
-    console.log(`${cyan(file)} ${getSize(data)}`);
+    const { size } = await fs.stat(file);
+    console.log(`${cyan(file)} ${formatSize(size)}`);
 }
 
 export async function minify(file) {
@@ -196,7 +194,7 @@ export function ucfirst(str) {
 }
 
 export async function getVersion() {
-    return (await readJson('package.json')).version;
+    return (await fs.readJson('package.json')).version;
 }
 
 export async function replaceInFile(file, fn) {
@@ -207,8 +205,8 @@ function cyan(str) {
     return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
 }
 
-function getSize(data) {
-    return `${(data.length / 1024).toFixed(2)}kb`;
+function formatSize(bytes) {
+    return `${(bytes / 1024).toFixed(2)}kb`;
 }
 
 async function optimizeSvg(svg) {

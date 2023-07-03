@@ -1,5 +1,5 @@
-import I18n from '../mixin/i18n';
 import { addClass, assign, matches, noop, on, removeClass, toArray, trigger } from 'uikit-util';
+import I18n from '../mixin/i18n';
 
 export default {
     mixins: [I18n],

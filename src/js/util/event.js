@@ -1,6 +1,6 @@
-import { findAll } from './selector';
 import { closest, within } from './filter';
 import { isArray, isFunction, isString, toNode, toNodes } from './lang';
+import { findAll } from './selector';
 
 export function on(...args) {
     let [targets, types, selector, listener, useCapture = false] = getArgs(args);

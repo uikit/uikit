@@ -1,8 +1,8 @@
-import { update } from './global';
-import { callUpdate } from './update';
 import { $, remove, within } from 'uikit-util';
-import { callConnected, callDisconnected, callHook } from './hooks';
 import { attachToElement, createComponent, detachFromElement, getComponent } from './component';
+import { update } from './global';
+import { callConnected, callDisconnected, callHook } from './hooks';
+import { callUpdate } from './update';
 
 export default function (App) {
     App.prototype.$mount = function (el) {

@@ -1,9 +1,3 @@
-import { lazyload } from '../api/observables';
-import Position from '../mixin/position';
-import Container from '../mixin/container';
-import Togglable from '../mixin/togglable';
-import { keyMap } from '../util/keys';
-import { preventBackgroundScroll } from '../mixin/internal/scroll';
 import {
     addClass,
     append,
@@ -34,6 +28,12 @@ import {
     removeClass,
     within,
 } from 'uikit-util';
+import { lazyload } from '../api/observables';
+import Container from '../mixin/container';
+import { preventBackgroundScroll } from '../mixin/internal/scroll';
+import Position from '../mixin/position';
+import Togglable from '../mixin/togglable';
+import { keyMap } from '../util/keys';
 
 export let active;
 

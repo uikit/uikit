@@ -1,6 +1,5 @@
-import { on } from './event';
-import { css } from './style';
 import { $, append, remove } from './dom';
+import { on } from './event';
 import {
     isDocument,
     isElement,
@@ -14,6 +13,7 @@ import {
     toWindow,
     ucfirst,
 } from './lang';
+import { css } from './style';
 
 const dirs = {
     width: ['left', 'right'],

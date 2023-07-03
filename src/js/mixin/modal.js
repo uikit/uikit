@@ -1,6 +1,3 @@
-import Class from './class';
-import Container from './container';
-import Togglable from './togglable';
 import {
     $,
     addClass,
@@ -23,7 +20,10 @@ import {
     toFloat,
     within,
 } from 'uikit-util';
+import Class from './class';
+import Container from './container';
 import { preventBackgroundScroll } from './internal/scroll';
+import Togglable from './togglable';
 
 const active = [];
 

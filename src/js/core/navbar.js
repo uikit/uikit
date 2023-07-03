@@ -1,5 +1,5 @@
-import Dropnav from './dropnav';
 import { $$, addClass, closest, css, hasClass, removeClass } from 'uikit-util';
+import Dropnav from './dropnav';
 
 export default {
     extends: Dropnav,

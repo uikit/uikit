@@ -1,5 +1,3 @@
-import Animate from '../mixin/animate';
-import { parseOptions } from '../api/options';
 import {
     $,
     $$,
@@ -21,6 +19,8 @@ import {
     toggleClass,
     trigger,
 } from 'uikit-util';
+import { parseOptions } from '../api/options';
+import Animate from '../mixin/animate';
 import { keyMap } from '../util/keys';
 
 export default {

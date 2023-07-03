@@ -1,6 +1,5 @@
-import { css } from './style';
-import { isVisible, parents } from './filter';
 import { offset, offsetPosition } from './dimensions';
+import { isVisible, parents } from './filter';
 import {
     clamp,
     findIndex,
@@ -11,6 +10,7 @@ import {
     toWindow,
     ucfirst,
 } from './lang';
+import { css } from './style';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
     if (!isVisible(element)) {

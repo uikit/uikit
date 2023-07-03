@@ -1,6 +1,3 @@
-import { active } from './drop';
-import Class from '../mixin/class';
-import Container from '../mixin/container';
 import {
     $,
     $$,
@@ -25,7 +22,10 @@ import {
     Transition,
     within,
 } from 'uikit-util';
+import Class from '../mixin/class';
+import Container from '../mixin/container';
 import { keyMap } from '../util/keys';
+import { active } from './drop';
 
 export default {
     mixins: [Class, Container],

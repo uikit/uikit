@@ -1,4 +1,3 @@
-import Modal from '../mixin/modal';
 import {
     $,
     addClass,
@@ -12,6 +11,7 @@ import {
     on,
     removeClass,
 } from 'uikit-util';
+import Modal from '../mixin/modal';
 
 export default {
     install,

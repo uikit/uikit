@@ -1,9 +1,9 @@
+import { css } from 'uikit-util';
 import Animations, {
     scale3d,
     translate,
     translated,
 } from '../../mixin/internal/slideshow-animations';
-import { css } from 'uikit-util';
 
 export default {
     ...Animations,

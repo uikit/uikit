@@ -1,5 +1,3 @@
-import Animate from '../mixin/animate';
-import Class from '../mixin/class';
 import {
     $,
     $$,
@@ -34,6 +32,8 @@ import {
     trigger,
     within,
 } from 'uikit-util';
+import Animate from '../mixin/animate';
+import Class from '../mixin/class';
 
 export default {
     mixins: [Class, Animate],

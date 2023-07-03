@@ -1,6 +1,6 @@
+import { css, toFloat, Transition } from 'uikit-util';
 import Class from '../mixin/class';
 import Togglable from '../mixin/togglable';
-import { css, toFloat, Transition } from 'uikit-util';
 
 export default {
     mixins: [Class, Togglable],

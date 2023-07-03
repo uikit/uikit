@@ -1,5 +1,5 @@
-import { intersection, resize } from '../api/observables';
 import { hasAttr, isInView, isTag, isVideo, isVisible, mute, pause, play } from 'uikit-util';
+import { intersection, resize } from '../api/observables';
 
 export default {
     args: 'autoplay',

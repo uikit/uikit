@@ -1,10 +1,10 @@
 import { disconnectComputedUpdates, initComputedUpdates } from './computed';
-import { log } from './log';
-import { initWatches } from './watch';
-import { callUpdate, clearUpdateData, initUpdates } from './update';
 import { initEvents, unbindEvents } from './events';
-import { initProps, initPropsObserver } from './props';
+import { log } from './log';
 import { disconnectObservers, initObservers } from './observer';
+import { initProps, initPropsObserver } from './props';
+import { callUpdate, clearUpdateData, initUpdates } from './update';
+import { initWatches } from './watch';
 
 export function callHook(instance, hook) {
     LOG && log(instance, hook);

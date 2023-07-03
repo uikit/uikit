@@ -1,8 +1,8 @@
 import { attr } from './attr';
-import { once, trigger } from './event';
-import { css, propName } from './style';
-import { startsWith, toNodes } from './lang';
 import { addClass, hasClass, removeClass, removeClasses } from './class';
+import { once, trigger } from './event';
+import { startsWith, toNodes } from './lang';
+import { css, propName } from './style';
 
 function transition(element, props, duration = 400, timing = 'linear') {
     duration = Math.round(duration);

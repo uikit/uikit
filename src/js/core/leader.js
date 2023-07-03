@@ -1,7 +1,7 @@
+import { attr, css, toggleClass, unwrap, wrapInner } from 'uikit-util';
+import { resize } from '../api/observables';
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import { resize } from '../api/observables';
-import { attr, css, toggleClass, unwrap, wrapInner } from 'uikit-util';
 
 export default {
     mixins: [Class, Media],

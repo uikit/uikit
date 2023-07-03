@@ -1,6 +1,3 @@
-import Container from '../mixin/container';
-import Togglable from '../mixin/togglable';
-import Position from '../mixin/position';
 import {
     append,
     attr,
@@ -20,8 +17,11 @@ import {
     remove,
     within,
 } from 'uikit-util';
-import { keyMap } from '../util/keys';
 import { generateId } from '../api/instance';
+import Container from '../mixin/container';
+import Position from '../mixin/position';
+import Togglable from '../mixin/togglable';
+import { keyMap } from '../util/keys';
 
 export default {
     mixins: [Container, Togglable, Position],

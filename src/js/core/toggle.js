@@ -1,6 +1,3 @@
-import Media from '../mixin/media';
-import Togglable from '../mixin/togglable';
-import { lazyload } from '../api/observables';
 import {
     attr,
     closest,
@@ -20,6 +17,9 @@ import {
     trigger,
     within,
 } from 'uikit-util';
+import { lazyload } from '../api/observables';
+import Media from '../mixin/media';
+import Togglable from '../mixin/togglable';
 
 const KEY_SPACE = 32;
 

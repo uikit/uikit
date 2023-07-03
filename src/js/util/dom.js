@@ -1,7 +1,7 @@
 import { once } from './event';
 import { parent } from './filter';
-import { find, findAll } from './selector';
 import { isElement, isString, isUndefined, startsWith, toArray, toNode, toNodes } from './lang';
+import { find, findAll } from './selector';
 
 export function ready(fn) {
     if (document.readyState !== 'loading') {

@@ -1,6 +1,6 @@
-import Parallax from '../mixin/parallax';
+import { css, isVisible, parent, query, scrollParent, scrolledOver, toPx } from 'uikit-util';
 import { resize, scroll, viewport } from '../api/observables';
-import { css, isVisible, parent, query, scrolledOver, scrollParent, toPx } from 'uikit-util';
+import Parallax from '../mixin/parallax';
 
 export default {
     mixins: [Parallax],

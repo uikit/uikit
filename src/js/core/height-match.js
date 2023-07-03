@@ -1,6 +1,6 @@
-import { getRows } from './margin';
-import { resize } from '../api/observables';
 import { $$, boxModelAdjust, css, dimensions, isVisible, pick } from 'uikit-util';
+import { resize } from '../api/observables';
+import { getRows } from './margin';
 
 export default {
     args: 'target',
