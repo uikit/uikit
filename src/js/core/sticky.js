@@ -8,6 +8,7 @@ import {
     css,
     height as getHeight,
     offset as getOffset,
+    hasClass,
     intersectRect,
     isNumeric,
     isString,
@@ -345,7 +346,9 @@ export default {
                     }
 
                     if (this.animation && scroll > topOffset) {
-                        Animation.cancel(this.$el);
+                        if (hasClass(this.$el, 'uk-animation-leave')) {
+                            return;
+                        }
                         Animation.out(this.$el, this.animation).then(() => this.hide(), noop);
                     } else {
                         this.hide();
@@ -353,7 +356,6 @@ export default {
                 } else if (this.isFixed) {
                     this.update();
                 } else if (this.animation && scroll > topOffset) {
-                    Animation.cancel(this.$el);
                     this.show();
                     Animation.in(this.$el, this.animation).catch(noop);
                 } else {
