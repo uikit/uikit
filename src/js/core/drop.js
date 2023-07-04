@@ -485,8 +485,8 @@ function listenForResize(drop) {
     return () => off.map((observer) => observer.disconnect());
 }
 
-function listenForScroll(drop) {
-    return on([document, ...overflowParents(drop.$el)], 'scroll', () => drop.$emit(), {
+function listenForScroll(drop, fn = () => drop.$emit()) {
+    return on([document, ...overflowParents(drop.$el)], 'scroll', fn, {
         passive: true,
     });
 }
@@ -500,9 +500,7 @@ function listenForEscClose(drop) {
 }
 
 function listenForScrollClose(drop) {
-    return on([document, ...overflowParents(drop.$el)], 'scroll', () => drop.hide(false), {
-        passive: true,
-    });
+    return listenForScroll(drop, () => drop.hide(false));
 }
 
 function listenForBackgroundClose(drop) {
