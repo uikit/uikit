@@ -27,7 +27,7 @@ export default {
         message: '',
         status: '',
         timeout: 5000,
-        group: null,
+        group: '',
         pos: 'top-center',
         clsContainer: 'uk-notification',
         clsClose: 'uk-notification-close',
