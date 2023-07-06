@@ -43,6 +43,7 @@ export default {
     },
 
     update: {
+        // deprecated: Remove with iOS 17
         read() {
             if (!this.list || supportsAspectRatio()) {
                 return false;
