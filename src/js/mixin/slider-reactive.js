@@ -5,7 +5,7 @@ export default {
                 return;
             }
 
-            const index = this.getValidIndex(this.index);
+            const index = this.getValidIndex();
 
             if (!~this.prevIndex || this.index !== index) {
                 this.show(index);

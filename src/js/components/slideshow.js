@@ -1,4 +1,4 @@
-import { boxModelAdjust, css } from 'uikit-util';
+import { addClass, boxModelAdjust, css } from 'uikit-util';
 import Class from '../mixin/class';
 import SliderReactive from '../mixin/slider-reactive';
 import Slideshow from '../mixin/slideshow';
@@ -24,9 +24,27 @@ export default {
         Animations,
     },
 
+    watch: {
+        list(list) {
+            if (list && supportsAspectRatio()) {
+                css(list, {
+                    aspectRatio: this.ratio.replace(':', '/'),
+                    minHeight: this.minHeight || '',
+                    maxHeight: this.maxHeight || '',
+                    minWidth: '100%',
+                    maxWidth: '100%',
+                });
+
+                if (!~this.prevIndex) {
+                    addClass(this.slides[this.getValidIndex()], this.clsActive);
+                }
+            }
+        },
+    },
+
     update: {
         read() {
-            if (!this.list) {
+            if (!this.list || supportsAspectRatio()) {
                 return false;
             }
 
@@ -58,3 +76,7 @@ export default {
         },
     },
 };
+
+function supportsAspectRatio() {
+    return CSS.supports('aspect-ratio', '1/1');
+}
