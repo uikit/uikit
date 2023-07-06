@@ -4,10 +4,8 @@
     "singleQuote": true,
     "overrides": [
         {
-            "files": ["**/*.yml"],
-            "options": {
-                "tabWidth": 2
-            }
+            "files": "*.yml",
+            "options": { "tabWidth": 2 }
         }
     ],
     "plugins": ["prettier-plugin-organize-imports"]
