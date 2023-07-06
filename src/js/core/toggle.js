@@ -85,7 +85,7 @@ export default {
                     pointerDown,
                     () => trigger(this.$el, 'blur'),
                     true,
-                    (e) => !within(e.target, this.$el)
+                    (e) => !within(e.target, this.$el),
                 );
 
                 // Prevent initial click to prevent double toggle through focus + click
@@ -223,7 +223,7 @@ export default {
             if (await this.toggleElement(toggled, false)) {
                 await this.toggleElement(
                     this.target.filter((el) => !includes(toggled, el)),
-                    true
+                    true,
                 );
             }
         },

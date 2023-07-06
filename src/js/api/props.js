@@ -77,7 +77,7 @@ export function initPropsObserver(instance) {
             records.some(({ attributeName }) => {
                 const prop = attributeName.replace('data-', '');
                 return (prop === id ? attributes : [camelize(prop), camelize(attributeName)]).some(
-                    (prop) => !isUndefined(data[prop]) && data[prop] !== $props[prop]
+                    (prop) => !isUndefined(data[prop]) && data[prop] !== $props[prop],
                 );
             })
         ) {

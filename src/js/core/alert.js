@@ -55,6 +55,6 @@ function animate(el, show, { duration, transition, velocity }) {
             opacity: 0,
         },
         velocity * height + duration,
-        transition
+        transition,
     );
 }

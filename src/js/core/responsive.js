@@ -27,8 +27,8 @@ export default {
                         height: this.height,
                         width: this.width,
                     },
-                    dim
-                ).height
+                    dim,
+                ).height,
             );
         },
 

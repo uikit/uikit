@@ -13,7 +13,7 @@ export default {
             return (
                 (this.i18n?.[key] || this.$options.i18n?.[key])?.replace(
                     /%s/g,
-                    () => params[i++] || ''
+                    () => params[i++] || '',
                 ) || ''
             );
         },

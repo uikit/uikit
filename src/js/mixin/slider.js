@@ -141,7 +141,7 @@ export default {
             return clamp(
                 getIndex(index, this.slides, prev, this.finite),
                 0,
-                Math.max(0, this.maxIndex)
+                Math.max(0, this.maxIndex),
             );
         },
 
@@ -167,7 +167,7 @@ export default {
             const { length } = this.stack;
             return this._transitioner[length > 1 ? 'forward' : 'show'](
                 length > 1 ? Math.min(this.duration, 75 + 75 / (length - 1)) : this.duration,
-                this.percent
+                this.percent,
             );
         },
 
@@ -181,13 +181,13 @@ export default {
             prev = this.prevIndex,
             next = this.index,
             dir = this.dir || 1,
-            options = this.transitionOptions
+            options = this.transitionOptions,
         ) {
             return new this.Transitioner(
                 this.slides[prev] || prev,
                 this.slides[next] || next,
                 dir * (isRtl ? -1 : 1),
-                options
+                options,
             );
         },
     },

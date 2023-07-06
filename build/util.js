@@ -55,7 +55,7 @@ export async function minify(file) {
             keepSpecialComments: 0,
             rebase: false,
             returnPromise: true,
-        }).minify([file])
+        }).minify([file]),
     );
 
     await write(`${path.join(path.dirname(file), path.basename(file, '.css'))}.min.css`, styles);
@@ -176,7 +176,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
 export async function icons(src) {
     const files = await glob(src);
     const icons = await Promise.all(
-        files.map((file) => limit(async () => optimizeSvg(await read(file))))
+        files.map((file) => limit(async () => optimizeSvg(await read(file)))),
     );
 
     return JSON.stringify(
@@ -185,7 +185,7 @@ export async function icons(src) {
             return result;
         }, {}),
         null,
-        '    '
+        '    ',
     );
 }
 

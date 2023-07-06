@@ -48,7 +48,7 @@ export default {
 export function getRows(elements) {
     const sorted = [[]];
     const withOffset = elements.some(
-        (el, i) => i && elements[i - 1].offsetParent !== el.offsetParent
+        (el, i) => i && elements[i - 1].offsetParent !== el.offsetParent,
     );
 
     for (const el of elements) {

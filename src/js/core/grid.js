@@ -76,7 +76,7 @@ export default {
                 }
 
                 const columnHeights = columns.map(
-                    (column) => sumBy(column, 'offsetHeight') + gutter * (column.length - 1)
+                    (column) => sumBy(column, 'offsetHeight') + gutter * (column.length - 1),
                 );
                 const height = Math.max(0, ...columnHeights);
 
@@ -85,11 +85,11 @@ export default {
                 let parallaxEnd;
                 if (parallax || parallaxJustify) {
                     scrollColumns = columnHeights.map((hgt, i) =>
-                        parallaxJustify ? height - hgt + parallax : parallax / (i % 2 || 8)
+                        parallaxJustify ? height - hgt + parallax : parallax / (i % 2 || 8),
                     );
                     if (!parallaxJustify) {
                         parallax = Math.max(
-                            ...columnHeights.map((hgt, i) => hgt + scrollColumns[i] - height)
+                            ...columnHeights.map((hgt, i) => hgt + scrollColumns[i] - height),
                         );
                     }
                     parallaxStart = toPx(this.parallaxStart, 'height', this.$el, true);
@@ -142,7 +142,7 @@ export default {
                         }
 
                         css(el, 'transform', `translate(${x}px, ${y}px)`);
-                    })
+                    }),
                 );
             },
 

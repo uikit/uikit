@@ -10,7 +10,7 @@ export function getMaxPathLength(el) {
                 } catch (e) {
                     return 0;
                 }
-            })
-        )
+            }),
+        ),
     );
 }

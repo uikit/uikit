@@ -28,7 +28,7 @@ await replacePrefix(currentPrefix, prefix);
 
 async function findExistingPrefix() {
     return (await read('dist/css/uikit.css')).match(
-        new RegExp(`(${validClassName.source})(-[a-z]+)?-grid`)
+        new RegExp(`(${validClassName.source})(-[a-z]+)?-grid`),
     )?.[1];
 }
 
@@ -60,7 +60,7 @@ async function getPrefix() {
 async function replacePrefix(from, to) {
     for (const file of await glob('dist/**/*.css')) {
         await replaceInFile(file, (data) =>
-            data.replace(new RegExp(`${from}-${/([a-z\d-]+)/.source}`, 'g'), `${to}-$1`)
+            data.replace(new RegExp(`${from}-${/([a-z\d-]+)/.source}`, 'g'), `${to}-$1`),
         );
     }
 
@@ -68,7 +68,7 @@ async function replacePrefix(from, to) {
         await replaceInFile(file, (data) =>
             data
                 .replace(new RegExp(`${from}-`, 'g'), `${to}-`)
-                .replace(new RegExp(`(${from})?UIkit`, 'g'), `${to === 'uk' ? '' : to}UIkit`)
+                .replace(new RegExp(`(${from})?UIkit`, 'g'), `${to === 'uk' ? '' : to}UIkit`),
         );
     }
 }

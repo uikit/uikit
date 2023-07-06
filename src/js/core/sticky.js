@@ -146,7 +146,7 @@ export default {
                 this.transitionInProgress = once(
                     this.$el,
                     'transitionend transitioncancel',
-                    () => (this.transitionInProgress = null)
+                    () => (this.transitionInProgress = null),
                 );
             },
         },
@@ -207,7 +207,7 @@ export default {
                               parseProp(this.end, this.$el, topOffset + height, true) -
                                   elHeight -
                                   offset +
-                                  overflow
+                                  overflow,
                           );
 
                 sticky =
@@ -217,7 +217,7 @@ export default {
                     end ===
                         Math.min(
                             maxScrollHeight,
-                            parseProp('!*', this.$el, 0, true) - elHeight - offset + overflow
+                            parseProp('!*', this.$el, 0, true) - elHeight - offset + overflow,
                         ) &&
                     css(parent(this.$el), 'overflowY') === 'visible';
 
@@ -281,12 +281,12 @@ export default {
                     scroll,
                     prevScroll,
                     offsetParentTop: getOffset(
-                        (this.isFixed ? this.placeholder : this.$el).offsetParent
+                        (this.isFixed ? this.placeholder : this.$el).offsetParent,
                     ).top,
                     overflowScroll: clamp(
                         overflowScroll + clamp(scroll, start, end) - clamp(prevScroll, start, end),
                         0,
-                        overflow
+                        overflow,
                     ),
                 };
             },
@@ -431,7 +431,7 @@ export default {
             toggleClass(
                 this.$el,
                 this.clsBelow,
-                scroll > topOffset + (sticky ? Math.min(height, elHeight) : height)
+                scroll > topOffset + (sticky ? Math.min(height, elHeight) : height),
             );
             addClass(this.$el, this.clsFixed);
         },

@@ -11,7 +11,7 @@ export function observeIntersection(targets, cb, options = {}, { intersecting = 
                   }
               }
             : cb,
-        options
+        options,
     );
     for (const el of toNodes(targets)) {
         observer.observe(el);

@@ -177,8 +177,8 @@ function match(pattern, path) {
                 .replace(/\*\*/g, '(\\/[^\\/]+)*')
                 .replace(/\*/g, '[^\\/]+')
                 .replace(/((?!\\))\?/g, '$1.')}$`,
-            'i'
-        )
+            'i',
+        ),
     );
 }
 
@@ -238,7 +238,7 @@ function send(url, env) {
                     assign(Error(xhr.statusText), {
                         xhr,
                         status: xhr.status,
-                    })
+                    }),
                 );
             }
         });

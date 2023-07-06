@@ -89,7 +89,7 @@ export default {
             for (const el of items) {
                 const isOpen = hasClass(
                     this.items.find((item) => within(el, item)),
-                    this.clsOpen
+                    this.clsOpen,
                 );
 
                 hide(el, !isOpen);
@@ -190,8 +190,8 @@ export default {
                         }
 
                         return transition(el, show, this);
-                    })
-                )
+                    }),
+                ),
             );
         },
     },

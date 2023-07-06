@@ -36,7 +36,7 @@ function transition(element, props, duration = 400, timing = 'linear') {
                             });
                             type === clsTransitionCanceled ? reject() : resolve(element);
                         },
-                        { self: true }
+                        { self: true },
                     );
 
                     addClass(element, clsTransition);
@@ -46,8 +46,8 @@ function transition(element, props, duration = 400, timing = 'linear') {
                         transitionTimingFunction: timing,
                         ...props,
                     });
-                })
-        )
+                }),
+        ),
     );
 }
 
@@ -92,7 +92,7 @@ function animate(element, animation, duration = 200, origin, out) {
                             css(element, 'animationDuration', '');
                             removeClasses(element, `${animationPrefix}\\S*`);
                         },
-                        { self: true }
+                        { self: true },
                     );
 
                     css(element, 'animationDuration', `${duration}ms`);
@@ -102,8 +102,8 @@ function animate(element, animation, duration = 200, origin, out) {
                         origin && addClass(element, `uk-transform-origin-${origin}`);
                         out && addClass(element, `${animationPrefix}reverse`);
                     }
-                })
-        )
+                }),
+        ),
     );
 }
 

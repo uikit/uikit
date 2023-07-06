@@ -60,8 +60,8 @@ export function wrapInner(element, structure) {
         toNodes(element).map((element) =>
             element.hasChildNodes()
                 ? wrapAll(toArray(element.childNodes), structure)
-                : append(element, structure)
-        )
+                : append(element, structure),
+        ),
     );
 }
 

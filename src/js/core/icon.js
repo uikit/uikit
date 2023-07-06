@@ -243,7 +243,7 @@ function install(UIkit) {
             apply(document.body, (el) =>
                 each(UIkit.getComponents(el), (cmp) => {
                     cmp.$options.isIcon && cmp.icon in added && cmp.$reset();
-                })
+                }),
             );
         }
     };

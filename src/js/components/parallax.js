@@ -35,7 +35,7 @@ export default {
                 end || ((viewport = (1 - viewport) * 100) && `${viewport}vh+${viewport}%`),
                 'height',
                 this.target,
-                true
+                true,
             );
         },
     },

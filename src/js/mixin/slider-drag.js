@@ -212,7 +212,7 @@ export default {
                         (this.dir > 0 && !dirChange) || (this.dir < 0 && dirChange)
                             ? 'next'
                             : 'previous',
-                        true
+                        true,
                     );
                 }
             }

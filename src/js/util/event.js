@@ -48,7 +48,7 @@ export function once(...args) {
                 listener(e, result);
             }
         },
-        useCapture
+        useCapture,
     );
 
     return off;
@@ -56,7 +56,7 @@ export function once(...args) {
 
 export function trigger(targets, event, detail) {
     return toEventTargets(targets).every((target) =>
-        target.dispatchEvent(createEvent(event, true, true, detail))
+        target.dispatchEvent(createEvent(event, true, true, detail)),
     );
 }
 

@@ -55,11 +55,11 @@ function raiseVersion(version) {
         replaceInFile('CHANGELOG.md', (data) =>
             data.replace(
                 /^##\s*WIP/m,
-                `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`
-            )
+                `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`,
+            ),
         ),
         replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', (data) =>
-            data.replace(prevVersion, version)
+            data.replace(prevVersion, version),
         ),
     ]);
 }

@@ -119,7 +119,7 @@ export default {
                 addClass(
                     this.panel,
                     this.clsSidebarAnimation,
-                    this.mode === 'reveal' ? '' : this.clsMode
+                    this.mode === 'reveal' ? '' : this.clsMode,
                 );
 
                 height(body); // force reflow

@@ -46,7 +46,7 @@ export function css(element, property, value, priority) {
                         : value || isNumber(value)
                         ? value
                         : '',
-                    priority
+                    priority,
                 );
             }
         } else if (isArray(property)) {

@@ -90,7 +90,7 @@ export default {
                 this.container,
                 `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip">
                     <div class="uk-${this.$options.name}-inner">${this.title}</div>
-                 </div>`
+                 </div>`,
             );
 
             on(this.tooltip, 'toggled', (e, toggled) => {
@@ -116,7 +116,7 @@ export default {
                         false,
                         (e) =>
                             (e.type === pointerDown && !within(e.target, this.$el)) ||
-                            (e.type === 'keydown' && e.keyCode === keyMap.ESC)
+                            (e.type === 'keydown' && e.keyCode === keyMap.ESC),
                     ),
                     on([document, ...overflowParents(this.$el)], 'scroll', update, {
                         passive: true,

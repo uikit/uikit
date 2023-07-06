@@ -50,7 +50,7 @@ export default function (prev, next, dir, { center, easing, list }) {
                     list,
                     { transform: translate(-to * (isRtl ? -1 : 1), 'px') },
                     duration,
-                    timing
+                    timing,
                 ).then(resolve, noop);
             });
         },
@@ -78,10 +78,10 @@ export default function (prev, next, dir, { center, easing, list }) {
                     clamp(
                         -to + (distance - distance * percent),
                         -getWidth(list),
-                        dimensions(list).width
+                        dimensions(list).width,
                     ) * (isRtl ? -1 : 1),
-                    'px'
-                )
+                    'px',
+                ),
             );
 
             const actives = this.getActives();
@@ -110,7 +110,7 @@ export default function (prev, next, dir, { center, easing, list }) {
 
         percent() {
             return Math.abs(
-                (css(list, 'transform').split(',')[4] * (isRtl ? -1 : 1) + from) / (to - from)
+                (css(list, 'transform').split(',')[4] * (isRtl ? -1 : 1) + from) / (to - from),
             );
         },
 

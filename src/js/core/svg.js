@@ -63,7 +63,7 @@ export default {
         async getSvg() {
             if (isTag(this.$el, 'img') && !this.$el.complete && this.$el.loading === 'lazy') {
                 return new Promise((resolve) =>
-                    once(this.$el, 'load', () => resolve(this.getSvg()))
+                    once(this.$el, 'load', () => resolve(this.getSvg())),
                 );
             }
 

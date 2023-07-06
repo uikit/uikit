@@ -67,7 +67,7 @@ export function scroll(options) {
             target: () => document,
             ...options,
         },
-        'scroll'
+        'scroll',
     );
 }
 
