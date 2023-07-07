@@ -78,7 +78,7 @@ export function getRows(elements) {
                 for (; j >= 0; j--) {
                     const offsetCurrent = getOffset(current[j], withOffset);
                     if (
-                        offset.left > offsetCurrent.right - 1 ||
+                        offset.left >= offsetCurrent.right - 1 ||
                         offset.left === offsetCurrent.left
                     ) {
                         break;
