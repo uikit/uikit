@@ -76,7 +76,7 @@ devDependencies:
     version: 4.1.0
   semver:
     specifier: ^7.5.2
-    version: 7.5.2
+    version: 7.5.4
   svgo:
     specifier: ^3.0.2
     version: 3.0.2
@@ -2056,8 +2056,8 @@ packages:
     dev: true
     optional: true
 
-  /semver@7.5.2:
-    resolution: {integrity: sha512-SoftuTROv/cRjCze/scjGyiDtcUyxw1rgYQSZY7XTmtR5hX+dm76iDbTH8TkLPHCQmlbQVSSbNZCPM2hb0knnQ==}
+  /semver@7.5.4:
+    resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
