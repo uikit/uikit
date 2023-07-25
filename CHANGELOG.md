@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix potential rounding issues in `offset()` function, when used as setter
+- Fix to ensure Slider items have `max-width: 100%`
 
 ## 3.16.22 (June 22, 2023)
 
