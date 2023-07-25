@@ -1,6 +1,16 @@
-import { css, Dimensions, parent } from 'uikit-util';
+import { attr, css, Dimensions, isTag, parent } from 'uikit-util';
 import { resize } from '../api/observables';
 import Video from './video';
+
+const coverProps = {
+    top: 0, // resets the css from [uk-cover]
+    left: 0, // resets the css from [uk-cover]
+    width: '100%',
+    height: '100%',
+    transform: 'none',
+    objectFit: 'cover',
+    objectPosition: 'center',
+};
 
 export default {
     mixins: [Video],
@@ -22,10 +32,29 @@ export default {
 
     observe: resize({
         target: ({ $el }) => [getPositionedParent($el) || parent($el)],
+        filter: ({ _useObjectFit }) => !_useObjectFit,
     }),
+
+    connected() {
+        this._useObjectFit = isTag(this.$el, 'img', 'video');
+
+        if (this._useObjectFit) {
+            css(this.$el, coverProps);
+        }
+    },
+
+    disconnected() {
+        if (this._useObjectFit) {
+            attr(this.$el, 'style', '');
+        }
+    },
 
     update: {
         read() {
+            if (this._useObjectFit) {
+                return;
+            }
+
             const { ratio, cover } = Dimensions;
             const { $el, width, height } = this;
 
