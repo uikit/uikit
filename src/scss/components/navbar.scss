@@ -510,6 +510,16 @@ $navbar-nav-gap:                                 0px !default; // Must have a un
     @if(mixin-exists(hook-navbar-dropbar)) {@include hook-navbar-dropbar();}
 }
 
+/*
+ * Create navbar placeholder space if dropbar is behind navbar
+ */
+
+.uk-navbar-dropbar-behind::before {
+    content: "";
+    display: block;
+    height: $navbar-nav-item-height;
+}
+
 
 // Hooks
 // ========================================================================

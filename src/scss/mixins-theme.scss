@@ -1784,11 +1784,11 @@
 @mixin hook-nav-primary-header(){}
 @mixin hook-nav-primary-divider(){}
 @mixin hook-nav-secondary(){
-    > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {  margin-top: $nav-background-margin-top; }
+    > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {  margin-top: $nav-secondary-margin-top; }
 }
-@mixin hook-nav-secondary-item(){ padding: $nav-background-item-padding-vertical $nav-background-item-padding-horizontal; }
-@mixin hook-nav-secondary-item-hover(){ background-color: $nav-background-item-hover-background; }
-@mixin hook-nav-secondary-item-active(){ background-color: $nav-background-item-active-background; }
+@mixin hook-nav-secondary-item(){ padding: $nav-secondary-item-padding-vertical $nav-secondary-item-padding-horizontal; }
+@mixin hook-nav-secondary-item-hover(){ background-color: $nav-secondary-item-hover-background; }
+@mixin hook-nav-secondary-item-active(){ background-color: $nav-secondary-item-active-background; }
 @mixin hook-nav-secondary-subtitle(){}
 @mixin hook-nav-secondary-subtitle-hover(){}
 @mixin hook-nav-secondary-subtitle-active(){}

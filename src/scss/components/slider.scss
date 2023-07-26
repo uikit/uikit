@@ -91,14 +91,15 @@
 /*
  * 1. Let items take content dimensions (0 0 auto)
  *    `max-width` needed to keep image responsiveness and prevent content overflow
- * 3. Create position context
+ * 2. Create position context
  */
 
 .uk-slider-items > * {
     /* 1 */
     flex: none;
+    box-sizing: border-box;
     max-width: 100%;
-    /* 3 */
+    /* 2 */
     position: relative;
 }
 
