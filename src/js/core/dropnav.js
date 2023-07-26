@@ -117,19 +117,13 @@ export default {
             );
         },
 
-        dropdowns(dropdowns) {
-            this.$create(
-                'drop',
-                dropdowns.filter((el) => !this.getDropdown(el)),
-                {
-                    ...this.$props,
-                    flip: false,
-                    shift: true,
-                    pos: `bottom-${this.align}`,
-                    boundary: this.boundary === true ? this.$el : this.boundary,
-                },
-            );
+        dropdowns() {
+            this.initializeDropdowns();
         },
+    },
+
+    connected() {
+        this.initializeDropdowns();
     },
 
     disconnected() {
@@ -407,6 +401,20 @@ export default {
 
         isDropbarDrop(el) {
             return this.getDropdown(el) && hasClass(el, this.clsDrop);
+        },
+
+        initializeDropdowns() {
+            this.$create(
+                'drop',
+                this.dropdowns.filter((el) => !this.getDropdown(el)),
+                {
+                    ...this.$props,
+                    flip: false,
+                    shift: true,
+                    pos: `bottom-${this.align}`,
+                    boundary: this.boundary === true ? this.$el : this.boundary,
+                },
+            );
         },
     },
 };
