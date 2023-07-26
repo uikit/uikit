@@ -557,6 +557,16 @@
     .hook-navbar-dropbar();
 }
 
+/*
+ * Create navbar placeholder space if dropbar is behind navbar
+ */
+
+.uk-navbar-dropbar-behind::before {
+    content: "";
+    display: block;
+    height: @navbar-nav-item-height;
+}
+
 
 // Hooks
 // ========================================================================
