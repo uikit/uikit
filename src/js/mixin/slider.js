@@ -3,7 +3,17 @@ import SliderNav from './slider-nav';
 import SliderDrag from './slider-drag';
 import SliderAutoplay from './slider-autoplay';
 import { resize } from '../api/observables';
-import { $, children, clamp, getIndex, hasClass, isRtl, removeClass, trigger } from 'uikit-util';
+import {
+    $,
+    children,
+    clamp,
+    getIndex,
+    hasClass,
+    isNumber,
+    isRtl,
+    removeClass,
+    trigger,
+} from 'uikit-util';
 
 export default {
     mixins: [SliderAutoplay, SliderDrag, SliderNav, I18n],
@@ -184,8 +194,8 @@ export default {
             options = this.transitionOptions
         ) {
             return new this.Transitioner(
-                this.slides[prev] || prev,
-                this.slides[next] || next,
+                isNumber(prev) ? this.slides[prev] : prev,
+                isNumber(next) ? this.slides[next] : next,
                 dir * (isRtl ? -1 : 1),
                 options
             );
