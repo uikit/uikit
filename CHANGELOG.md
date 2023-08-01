@@ -6,6 +6,7 @@
 
 - Fix delayed show in Drop component shows drop, although toggle is no longer hovered
 - Fix regression in Slider component
+- Fix disconnecting Sticky component
 
 ## 3.16.23 (July 26, 2023)
 

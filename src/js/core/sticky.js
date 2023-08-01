@@ -86,7 +86,7 @@ export default {
         this.setActive(false);
     },
 
-    disconnected() {
+    beforeDisconnect() {
         if (this.isFixed) {
             this.hide();
             removeClass(this.selTarget, this.clsInactive);
