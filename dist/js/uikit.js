@@ -1,4 +1,4 @@
-/*! UIkit 3.16.23 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.24 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2128,7 +2128,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.23";
+    App.version = "3.16.24";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5511,7 +5511,7 @@
         this.isFixed = false;
         this.setActive(false);
       },
-      disconnected() {
+      beforeDisconnect() {
         if (this.isFixed) {
           this.hide();
           removeClass(this.selTarget, this.clsInactive);
@@ -6192,7 +6192,7 @@
             }
             const show = includes([pointerEnter, "focus"], e.type);
             const expanded = this.isToggled(this.target);
-            if (!show && (!isBoolean(this._showState) || expanded === this._showState || e.type === pointerLeave && matches(this.$el, ":focus") || e.type === "blur" && matches(this.$el, ":hover"))) {
+            if (!show && (!isBoolean(this._showState) || e.type === pointerLeave && matches(this.$el, ":focus") || e.type === "blur" && matches(this.$el, ":hover"))) {
               if (expanded === this._showState) {
                 this._showState = null;
               }
@@ -7399,8 +7399,8 @@
         },
         _getTransitioner(prev = this.prevIndex, next = this.index, dir = this.dir || 1, options = this.transitionOptions) {
           return new this.Transitioner(
-            this.slides[prev] || prev,
-            this.slides[next] || next,
+            isNumber(prev) ? this.slides[prev] : prev,
+            isNumber(next) ? this.slides[next] : next,
             dir * (isRtl ? -1 : 1),
             options
           );
