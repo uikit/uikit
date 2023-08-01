@@ -12,7 +12,15 @@
 
 - The `closest()` function no longer accepts an array of elements
 
-## WIP
+## 3.16.24 (August 1, 2023)
+
+### Fixed
+
+- Fix delayed show in Drop component shows drop, although toggle is no longer hovered
+- Fix regression in Slider component
+- Fix disconnecting Sticky component
+
+## 3.16.23 (July 26, 2023)
 
 ### Fixed
 

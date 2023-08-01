@@ -114,7 +114,6 @@ export default {
                 if (
                     !show &&
                     (!isBoolean(this._showState) ||
-                        expanded === this._showState ||
                         (e.type === pointerLeave && matches(this.$el, ':focus')) ||
                         (e.type === 'blur' && matches(this.$el, ':hover')))
                 ) {
