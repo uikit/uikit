@@ -11,6 +11,7 @@
 ### Change
 
 - The `closest()` function no longer accepts an array of elements
+- Reset fieldset min-width
 
 ## 3.16.24 (August 1, 2023)
 
