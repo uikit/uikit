@@ -8,6 +8,7 @@
 - Add `parallax-start`, `parallax-end`, `parallax-justify` option to Grid component
 - Add `close-on-scroll` option to Drop and Dropdown component
 - Add navbar height as offset to Scroll component
+- Add support for `<td>` and `<tr>` elements to `fragment()` function
 
 ### Change
 
