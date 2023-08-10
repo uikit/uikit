@@ -9,6 +9,7 @@
 - Add `close-on-scroll` option to Drop and Dropdown component
 - Add navbar height as offset to Scroll component
 - Add support for `<td>` and `<tr>` elements to `fragment()` function
+- Add 3XL size modifier to Heading component
 
 ### Change
 
