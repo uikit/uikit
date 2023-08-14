@@ -60,21 +60,23 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
                 top = 0;
             }
 
-            return () => scrollTo(scrollElement, top - scrollTop).then(fn);
+            return () => scrollTo(scrollElement, top - scrollTop, element).then(fn);
         },
         () => Promise.resolve(),
     )();
 
-    function scrollTo(element, top) {
+    function scrollTo(element, top, targetEl) {
         return new Promise((resolve) => {
             const scroll = element.scrollTop;
             const duration = getDuration(Math.abs(top));
             const start = Date.now();
+            const targetTop = offset(targetEl).top;
 
             (function step() {
                 const percent = ease(clamp((Date.now() - start) / duration));
+                const diff = parents[0] === element ? offset(targetEl).top - targetTop : 0;
 
-                element.scrollTop = scroll + top * percent;
+                element.scrollTop = scroll + (top + diff) * percent;
 
                 // scroll more if we have not reached our destination
                 if (percent === 1) {
