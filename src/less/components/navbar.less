@@ -122,7 +122,7 @@
  * Pass scroll offset to JS
  */
 
-:root { --uk-scroll-offset: @navbar-nav-item-height; }
+:root:has([uk-sticky*='uk-navbar']) { --uk-scroll-offset: @navbar-nav-item-height; }
 
 
 /* Container
