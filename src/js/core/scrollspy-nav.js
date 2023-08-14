@@ -19,7 +19,7 @@ export default {
         closest: Boolean,
         scroll: Boolean,
         overflow: Boolean,
-        offset: Number,
+        offset: null,
     },
 
     data: {
@@ -27,7 +27,7 @@ export default {
         closest: false,
         scroll: false,
         overflow: true,
-        offset: 0,
+        offset: false,
     },
 
     computed: {
@@ -43,7 +43,7 @@ export default {
     watch: {
         links(links) {
             if (this.scroll) {
-                this.$create('scroll', links, { offset: this.offset || 0 });
+                this.$create('scroll', links, { offset: this.offset });
             }
         },
     },
