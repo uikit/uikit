@@ -10,7 +10,6 @@
 - Add navbar height as offset to Scroll component
 - Add support for `<td>` and `<tr>` elements to `fragment()` function
 - Add 3XL size modifier to Heading component
-- Add default offset set to Scroll component through `--uk-scroll-offset` custom property
 
 ### Change
 
