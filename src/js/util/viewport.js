@@ -71,6 +71,8 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
             const duration = getDuration(Math.abs(top));
             const start = Date.now();
             const targetTop = offset(targetEl).top;
+            let prev = 0;
+            let frames = 15;
 
             (function step() {
                 const percent = ease(clamp((Date.now() - start) / duration));
@@ -79,9 +81,11 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
                 element.scrollTop = scroll + (top + diff) * percent;
 
                 // scroll more if we have not reached our destination
-                if (percent === 1) {
+                // if element changes position during scroll try another step
+                if (percent === 1 && (prev === diff || !frames--)) {
                     resolve();
                 } else {
+                    prev = diff;
                     requestAnimationFrame(step);
                 }
             })();
