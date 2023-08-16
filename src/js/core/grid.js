@@ -58,7 +58,7 @@ export default {
                 const { rows } = data;
                 let { masonry, parallax, parallaxJustify, margin } = this;
 
-                parallax = toPx(parallax);
+                parallax = Math.max(0, toPx(parallax));
 
                 // Filter component makes elements positioned absolute
                 if (
