@@ -61,7 +61,11 @@ export default {
                 parallax = toPx(parallax);
 
                 // Filter component makes elements positioned absolute
-                if (!(masonry || parallax || parallaxJustify) || positionedAbsolute(rows)) {
+                if (
+                    !(masonry || parallax || parallaxJustify) ||
+                    positionedAbsolute(rows) ||
+                    rows.some((row) => row.some((el) => el.offsetWidth !== rows[0][0].offsetWidth))
+                ) {
                     return (data.translates = data.scrollColumns = false);
                 }
 
