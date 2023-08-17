@@ -17,7 +17,7 @@ export function preventBackgroundScroll(el) {
                 e.preventDefault();
             }
         },
-        { passive: false }
+        { passive: false },
     );
 
     if (prevented) {

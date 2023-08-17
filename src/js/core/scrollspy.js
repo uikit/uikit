@@ -1,4 +1,3 @@
-import { intersection } from '../api/observables';
 import {
     $$,
     css,
@@ -10,6 +9,7 @@ import {
     toggleClass,
     trigger,
 } from 'uikit-util';
+import { intersection } from '../api/observables';
 
 export default {
     args: 'cls',

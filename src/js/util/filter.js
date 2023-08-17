@@ -23,7 +23,7 @@ export function isVoidElement(element) {
 
 export function isVisible(element) {
     return toNodes(element).some(
-        (element) => element.offsetWidth || element.offsetHeight || element.getClientRects().length
+        (element) => element.offsetWidth || element.offsetHeight || element.getClientRects().length,
     );
 }
 

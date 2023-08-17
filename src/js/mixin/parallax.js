@@ -1,5 +1,3 @@
-import Media from '../mixin/media';
-import { getMaxPathLength } from '../util/svg';
 import {
     clamp,
     createEvent,
@@ -16,6 +14,8 @@ import {
     trigger,
     ucfirst,
 } from 'uikit-util';
+import Media from '../mixin/media';
+import { getMaxPathLength } from '../util/svg';
 
 const props = {
     x: transformFn,

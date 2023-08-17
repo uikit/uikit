@@ -1,10 +1,10 @@
-import fs from 'fs';
-import { $ } from 'execa';
-import { glob } from 'glob';
-import semver from 'semver';
 import archiver from 'archiver';
-import inquirer from 'inquirer';
 import dateFormat from 'dateformat/lib/dateformat.js';
+import { $ } from 'execa';
+import fs from 'fs';
+import { glob } from 'glob';
+import inquirer from 'inquirer';
+import semver from 'semver';
 import { args, getVersion, logFile, read, replaceInFile } from './util.js';
 
 const $$ = $({ stdio: 'inherit' });
@@ -55,11 +55,11 @@ function raiseVersion(version) {
         replaceInFile('CHANGELOG.md', (data) =>
             data.replace(
                 /^##\s*WIP/m,
-                `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`
-            )
+                `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`,
+            ),
         ),
         replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', (data) =>
-            data.replace(prevVersion, version)
+            data.replace(prevVersion, version),
         ),
     ]);
 }

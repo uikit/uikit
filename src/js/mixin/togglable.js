@@ -90,7 +90,7 @@ export default {
                                   return Promise.reject();
                               })
                             : done();
-                    })
+                    }),
                 );
                 return true;
             } catch (e) {
@@ -143,7 +143,7 @@ function toggleInstant(el, show, { _toggle }) {
 export async function toggleTransition(
     el,
     show,
-    { animation, duration, velocity, transition, _toggle }
+    { animation, duration, velocity, transition, _toggle },
 ) {
     const [mode = 'reveal', startProp = 'top'] = animation[0]?.split('-') || [];
 
@@ -179,7 +179,7 @@ export async function toggleTransition(
             'overflowX',
             marginProp,
             marginStartProp,
-        ].map((key) => [key, el.style[key]])
+        ].map((key) => [key, el.style[key]]),
     );
 
     const dim = dimensions(el);
@@ -257,6 +257,6 @@ function toggleAnimation(el, show, cmp) {
     }
 
     return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() =>
-        _toggle(el, false)
+        _toggle(el, false),
     );
 }

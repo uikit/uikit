@@ -1,6 +1,6 @@
+import { inBrowser } from './env';
 import { on } from './event';
 import { toNodes } from './lang';
-import { inBrowser } from './env';
 
 export function observeIntersection(targets, cb, options = {}, { intersecting = true } = {}) {
     const observer = new IntersectionObserver(
@@ -11,7 +11,7 @@ export function observeIntersection(targets, cb, options = {}, { intersecting = 
                   }
               }
             : cb,
-        options
+        options,
     );
     for (const el of toNodes(targets)) {
         observer.observe(el);

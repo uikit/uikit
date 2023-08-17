@@ -1,5 +1,3 @@
-import Animate from '../mixin/animate';
-import Class from '../mixin/class';
 import {
     $,
     $$,
@@ -34,6 +32,8 @@ import {
     trigger,
     within,
 } from 'uikit-util';
+import Animate from '../mixin/animate';
+import Class from '../mixin/class';
 
 export default {
     mixins: [Class, Animate],
@@ -154,7 +154,7 @@ export default {
                 placeholder,
                 x,
                 y,
-                sortable === previous && data.moved !== target
+                sortable === previous && data.moved !== target,
             );
 
             if (insertTarget === false) {
@@ -389,7 +389,7 @@ function findInsertTarget(list, target, placeholder, x, y, sameList) {
     const placeholderRect = placeholder.getBoundingClientRect();
     const sameRow = linesIntersect(
         [rect.top, rect.bottom],
-        [placeholderRect.top, placeholderRect.bottom]
+        [placeholderRect.top, placeholderRect.bottom],
     );
 
     const [pointerPos, lengthProp, startProp, endProp] = sameRow

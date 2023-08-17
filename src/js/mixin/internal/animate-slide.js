@@ -96,7 +96,7 @@ function getTransitionProps(target, nodes, currentProps) {
                     ? getPositionWithMargin(el)
                     : { opacity: 0 }
                 : { opacity: isVisible(el) ? 1 : 0 }
-            : false
+            : false,
     );
 
     const propsFrom = propsTo.map((props, i) => {

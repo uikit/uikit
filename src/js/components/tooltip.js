@@ -1,6 +1,3 @@
-import Container from '../mixin/container';
-import Togglable from '../mixin/togglable';
-import Position from '../mixin/position';
 import {
     append,
     attr,
@@ -20,8 +17,11 @@ import {
     remove,
     within,
 } from 'uikit-util';
-import { keyMap } from '../util/keys';
 import { generateId } from '../api/instance';
+import Container from '../mixin/container';
+import Position from '../mixin/position';
+import Togglable from '../mixin/togglable';
+import { keyMap } from '../util/keys';
 
 export default {
     mixins: [Container, Togglable, Position],
@@ -90,7 +90,7 @@ export default {
                 this.container,
                 `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip">
                     <div class="uk-${this.$options.name}-inner">${this.title}</div>
-                 </div>`
+                 </div>`,
             );
 
             on(this.tooltip, 'toggled', (e, toggled) => {
@@ -116,7 +116,7 @@ export default {
                         false,
                         (e) =>
                             (e.type === pointerDown && !within(e.target, this.$el)) ||
-                            (e.type === 'keydown' && e.keyCode === keyMap.ESC)
+                            (e.type === 'keydown' && e.keyCode === keyMap.ESC),
                     ),
                     on([document, ...overflowParents(this.$el)], 'scroll', update, {
                         passive: true,

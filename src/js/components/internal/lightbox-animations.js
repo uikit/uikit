@@ -1,5 +1,5 @@
-import Animations, { scale3d } from '../../mixin/internal/slideshow-animations';
 import { css } from 'uikit-util';
+import Animations, { scale3d } from '../../mixin/internal/slideshow-animations';
 
 export default {
     ...Animations,

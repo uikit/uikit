@@ -28,17 +28,19 @@ export { default as Toggle } from './toggle';
 export { default as Video } from './video';
 
 // Icon components
-export { Close } from './icon';
-export { Marker } from './icon';
-export { NavbarToggleIcon } from './icon';
-export { NavParentIcon } from './icon';
-export { PaginationNext } from './icon';
-export { PaginationPrevious } from './icon';
-export { Search as SearchIcon } from './icon';
-export { Slidenav as SlidenavNext } from './icon';
-export { Slidenav as SlidenavPrevious } from './icon';
-export { Spinner } from './icon';
-export { Totop } from './icon';
-export { IconComponent as DropParentIcon } from './icon';
-export { IconComponent as NavbarParentIcon } from './icon';
-export { IconComponent as OverlayIcon } from './icon';
+export {
+    Close,
+    IconComponent as DropParentIcon,
+    Marker,
+    NavParentIcon,
+    IconComponent as NavbarParentIcon,
+    NavbarToggleIcon,
+    IconComponent as OverlayIcon,
+    PaginationNext,
+    PaginationPrevious,
+    Search as SearchIcon,
+    Slidenav as SlidenavNext,
+    Slidenav as SlidenavPrevious,
+    Spinner,
+    Totop,
+} from './icon';

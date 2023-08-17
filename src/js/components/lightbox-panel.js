@@ -1,7 +1,3 @@
-import Animations from './internal/lightbox-animations';
-import Modal from '../mixin/modal';
-import Slideshow from '../mixin/slideshow';
-import { keyMap } from '../util/keys';
 import {
     $,
     addClass,
@@ -17,6 +13,10 @@ import {
     Transition,
     trigger,
 } from 'uikit-util';
+import Modal from '../mixin/modal';
+import Slideshow from '../mixin/slideshow';
+import { keyMap } from '../util/keys';
+import Animations from './internal/lightbox-animations';
 
 export default {
     mixins: [Modal, Slideshow],
@@ -253,13 +253,13 @@ export default {
                             allowfullscreen: '',
                             class: 'uk-lightbox-iframe',
                             ...attrs,
-                        })
+                        }),
                     );
 
                     // YouTube
                 } else if (
                     (matches = src.match(
-                        /\/\/(?:.*?youtube(-nocookie)?\..*?(?:[?&]v=|\/shorts\/)|youtu\.be\/)([\w-]{11})[&?]?(.*)?/
+                        /\/\/(?:.*?youtube(-nocookie)?\..*?(?:[?&]v=|\/shorts\/)|youtu\.be\/)([\w-]{11})[&?]?(.*)?/,
                     ))
                 ) {
                     this.setItem(
@@ -272,7 +272,7 @@ export default {
                             height: 1080,
                             ...iframeAttrs,
                             ...attrs,
-                        })
+                        }),
                     );
 
                     // Vimeo
@@ -281,9 +281,9 @@ export default {
                         const { height, width } = await (
                             await fetch(
                                 `https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(
-                                    src
+                                    src,
                                 )}`,
-                                { credentials: 'omit' }
+                                { credentials: 'omit' },
                             )
                         ).json();
 
@@ -297,7 +297,7 @@ export default {
                                 height,
                                 ...iframeAttrs,
                                 ...attrs,
-                            })
+                            }),
                         );
                     } catch (e) {
                         this.setError(item);

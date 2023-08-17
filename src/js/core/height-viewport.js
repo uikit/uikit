@@ -47,7 +47,7 @@ export default {
             const { body, scrollingElement } = document;
             const scrollElement = scrollParent(this.$el);
             const { height: viewportHeight } = offsetViewport(
-                scrollElement === body ? scrollingElement : scrollElement
+                scrollElement === body ? scrollingElement : scrollElement,
             );
 
             if (this.expand) {

@@ -1,6 +1,3 @@
-import { scroll } from '../api/observables';
-import Margin from './margin';
-import Class from '../mixin/class';
 import {
     addClass,
     children,
@@ -12,6 +9,9 @@ import {
     toFloat,
     toggleClass,
 } from 'uikit-util';
+import { scroll } from '../api/observables';
+import Class from '../mixin/class';
+import Margin from './margin';
 
 export default {
     extends: Margin,
@@ -79,9 +79,9 @@ export default {
                         (newPadding, hgt, i) =>
                             Math.max(
                                 newPadding,
-                                hgt + margin + (i % 2 ? padding : padding / 8) - elHeight
+                                hgt + margin + (i % 2 ? padding : padding / 8) - elHeight,
                             ),
-                        0
+                        0,
                     );
                 }
 
@@ -124,9 +124,9 @@ export default {
                                 : `translateY(${
                                       (translates && -translates[i][j]) +
                                       (scrolled ? (i % 2 ? scrolled : scrolled / 8) : 0)
-                                  }px)`
-                        )
-                    )
+                                  }px)`,
+                        ),
+                    ),
                 );
             },
 
@@ -146,7 +146,7 @@ function getTranslates(rows, columns) {
         let prev = 0;
         return elements.map(
             (element, row) =>
-                (prev += row ? rowHeights[row - 1] - elements[row - 1].offsetHeight : 0)
+                (prev += row ? rowHeights[row - 1] - elements[row - 1].offsetHeight : 0),
         );
     });
 }

@@ -1,4 +1,3 @@
-import Container from '../mixin/container';
 import {
     $,
     append,
@@ -15,6 +14,7 @@ import {
     Transition,
     trigger,
 } from 'uikit-util';
+import Container from '../mixin/container';
 
 export default {
     mixins: [Container],
@@ -53,7 +53,7 @@ export default {
         if (!container || !isVisible(container)) {
             container = append(
                 this.container,
-                `<div class="${this.clsContainer} ${posClass}"></div>`
+                `<div class="${this.clsContainer} ${posClass}"></div>`,
             );
         }
 
@@ -65,8 +65,8 @@ export default {
                 }" role="alert">
                     <a href class="${this.clsClose}" data-uk-close></a>
                     <div>${this.message}</div>
-                </div>`
-            )
+                </div>`,
+            ),
         );
     },
 

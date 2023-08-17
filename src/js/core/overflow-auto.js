@@ -1,6 +1,6 @@
-import Class from '../mixin/class';
-import { resize } from '../api/observables';
 import { closest, css, dimensions, height, isVisible } from 'uikit-util';
+import { resize } from '../api/observables';
+import Class from '../mixin/class';
 
 export default {
     mixins: [Class],
@@ -40,7 +40,7 @@ export default {
             return {
                 max: Math.max(
                     this.minHeight,
-                    height(this.container) - (dimensions(this.content).height - height(this.$el))
+                    height(this.container) - (dimensions(this.content).height - height(this.$el)),
                 ),
             };
         },

@@ -1,8 +1,8 @@
+import { $, apply, isString, parents, toNode } from 'uikit-util';
+import { component, getComponent, getComponents } from './component';
+import { mergeOptions } from './options';
 import { init } from './state';
 import { callUpdate } from './update';
-import { mergeOptions } from './options';
-import { component, getComponent, getComponents } from './component';
-import { $, apply, isString, parents, toNode } from 'uikit-util';
 
 export default function (App) {
     App.component = component;

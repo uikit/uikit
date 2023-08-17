@@ -1,5 +1,5 @@
-import Class from '../mixin/class';
 import { $, attr, html, toFloat, trigger } from 'uikit-util';
+import Class from '../mixin/class';
 
 const units = ['days', 'hours', 'minutes', 'seconds'];
 

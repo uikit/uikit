@@ -2,12 +2,11 @@
     "tabWidth": 4,
     "printWidth": 100,
     "singleQuote": true,
+    "plugins": ["prettier-plugin-organize-imports"],
     "overrides": [
         {
-            "files": ["**/*.yml"],
-            "options": {
-                "tabWidth": 2
-            }
+            "files": "*.yml",
+            "options": { "tabWidth": 2 }
         }
     ]
 }

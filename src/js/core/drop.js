@@ -1,9 +1,3 @@
-import { lazyload } from '../api/observables';
-import Position from '../mixin/position';
-import Container from '../mixin/container';
-import Togglable from '../mixin/togglable';
-import { keyMap } from '../util/keys';
-import { preventBackgroundScroll } from '../mixin/internal/scroll';
 import {
     addClass,
     append,
@@ -34,6 +28,12 @@ import {
     removeClass,
     within,
 } from 'uikit-util';
+import { lazyload } from '../api/observables';
+import Container from '../mixin/container';
+import { preventBackgroundScroll } from '../mixin/internal/scroll';
+import Position from '../mixin/position';
+import Togglable from '../mixin/togglable';
+import { keyMap } from '../util/keys';
 
 export let active;
 
@@ -351,7 +351,7 @@ export default {
 
             this.showTimer = setTimeout(
                 () => this.toggleElement(this.$el, true),
-                (delay && this.delayShow) || 0
+                (delay && this.delayShow) || 0,
             );
         },
 
@@ -361,7 +361,7 @@ export default {
             this.clearTimers();
 
             this.isDelaying = getPositionedElements(this.$el).some((el) =>
-                this.tracker.movesTo(el)
+                this.tracker.movesTo(el),
             );
 
             if (delay && this.isDelaying) {
@@ -405,7 +405,7 @@ export default {
                     css(this.$el, {
                         [prop]: Math.min(
                             offset(this.boundary[i])[prop],
-                            viewports[i][prop] - 2 * viewportOffset
+                            viewports[i][prop] - 2 * viewportOffset,
                         ),
                         [`overflow-${axis}`]: 'auto',
                     });
@@ -438,11 +438,11 @@ export default {
                                 ? targetOffset[this.inset ? end : start] -
                                   Math.max(
                                       offset(this.boundary[i])[start],
-                                      viewports[i][start] + viewportOffset
+                                      viewports[i][start] + viewportOffset,
                                   )
                                 : Math.min(
                                       offset(this.boundary[i])[end],
-                                      viewports[i][end] - viewportOffset
+                                      viewports[i][end] - viewportOffset,
                                   ) - targetOffset[this.inset ? start : end]) - positionOffset,
                         [`overflow-${axis}`]: 'auto',
                     });
@@ -513,7 +513,7 @@ function listenForBackgroundClose(drop) {
                         drop.hide(false);
                     }
                 },
-                true
+                true,
             );
         }
     });

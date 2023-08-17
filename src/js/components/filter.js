@@ -1,5 +1,3 @@
-import Animate from '../mixin/animate';
-import { parseOptions } from '../api/options';
 import {
     $,
     $$,
@@ -21,6 +19,8 @@ import {
     toggleClass,
     trigger,
 } from 'uikit-util';
+import { parseOptions } from '../api/options';
+import Animate from '../mixin/animate';
 import { keyMap } from '../util/keys';
 
 export default {
@@ -128,7 +128,7 @@ export default {
                         this.$update(this.$el);
                     };
                     return animate ? this.animate(filterFn, target) : filterFn();
-                })
+                }),
             );
 
             trigger(this.$el, 'afterFilter', [this]);
@@ -193,7 +193,7 @@ function mergeState(el, attr, state) {
 function matchFilter(
     el,
     attr,
-    { filter: stateFilter = { '': '' }, sort: [stateSort, stateOrder] }
+    { filter: stateFilter = { '': '' }, sort: [stateSort, stateOrder] },
 ) {
     const { filter = '', group = '', sort, order = 'asc' } = getFilter(el, attr);
 
@@ -213,7 +213,7 @@ function sortItems(nodes, sort, order) {
     return [...nodes].sort(
         (a, b) =>
             data(a, sort).localeCompare(data(b, sort), undefined, { numeric: true }) *
-            (order === 'asc' || -1)
+            (order === 'asc' || -1),
     );
 }
 

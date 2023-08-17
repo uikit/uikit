@@ -1,6 +1,6 @@
+import { css, Dimensions, parent } from 'uikit-util';
 import { resize } from '../api/observables';
 import Video from './video';
-import { css, Dimensions, parent } from 'uikit-util';
 
 export default {
     mixins: [Video],

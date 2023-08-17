@@ -1,6 +1,6 @@
+import { camelize, data as getData, hasOwn, hyphenate, isUndefined, startsWith } from 'uikit-util';
 import { registerObserver } from './observer';
 import { coerce, parseOptions } from './options';
-import { camelize, data as getData, hasOwn, hyphenate, isUndefined, startsWith } from 'uikit-util';
 
 export function initProps(instance) {
     const props = getProps(instance.$options);
@@ -77,7 +77,7 @@ export function initPropsObserver(instance) {
             records.some(({ attributeName }) => {
                 const prop = attributeName.replace('data-', '');
                 return (prop === id ? attributes : [camelize(prop), camelize(attributeName)]).some(
-                    (prop) => !isUndefined(data[prop]) && data[prop] !== $props[prop]
+                    (prop) => !isUndefined(data[prop]) && data[prop] !== $props[prop],
                 );
             })
         ) {

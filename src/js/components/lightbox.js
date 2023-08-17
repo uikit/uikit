@@ -1,6 +1,6 @@
-import LightboxPanel from './lightbox-panel';
-import { parseOptions } from '../api/options';
 import { $$, assign, attr, data, findIndex, isElement, isTag, on, uniqueBy } from 'uikit-util';
+import { parseOptions } from '../api/options';
+import LightboxPanel from './lightbox-panel';
 
 export default {
     install,

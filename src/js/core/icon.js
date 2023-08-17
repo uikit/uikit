@@ -1,25 +1,3 @@
-import Svg from '../mixin/svg';
-import I18n from '../mixin/i18n';
-import closeIcon from '../../images/components/close-icon.svg';
-import closeLarge from '../../images/components/close-large.svg';
-import dropParentIcon from '../../images/components/drop-parent-icon.svg';
-import marker from '../../images/components/marker.svg';
-import navParentIcon from '../../images/components/nav-parent-icon.svg';
-import navParentIconLarge from '../../images/components/nav-parent-icon-large.svg';
-import navbarParentIcon from '../../images/components/navbar-parent-icon.svg';
-import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
-import overlayIcon from '../../images/components/overlay-icon.svg';
-import paginationNext from '../../images/components/pagination-next.svg';
-import paginationPrevious from '../../images/components/pagination-previous.svg';
-import searchIcon from '../../images/components/search-icon.svg';
-import searchLarge from '../../images/components/search-large.svg';
-import searchNavbar from '../../images/components/search-navbar.svg';
-import slidenavNext from '../../images/components/slidenav-next.svg';
-import slidenavNextLarge from '../../images/components/slidenav-next-large.svg';
-import slidenavPrevious from '../../images/components/slidenav-previous.svg';
-import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
-import spinner from '../../images/components/spinner.svg';
-import totop from '../../images/components/totop.svg';
 import {
     $,
     addClass,
@@ -37,6 +15,28 @@ import {
     parents,
     swap,
 } from 'uikit-util';
+import closeIcon from '../../images/components/close-icon.svg';
+import closeLarge from '../../images/components/close-large.svg';
+import dropParentIcon from '../../images/components/drop-parent-icon.svg';
+import marker from '../../images/components/marker.svg';
+import navParentIconLarge from '../../images/components/nav-parent-icon-large.svg';
+import navParentIcon from '../../images/components/nav-parent-icon.svg';
+import navbarParentIcon from '../../images/components/navbar-parent-icon.svg';
+import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
+import overlayIcon from '../../images/components/overlay-icon.svg';
+import paginationNext from '../../images/components/pagination-next.svg';
+import paginationPrevious from '../../images/components/pagination-previous.svg';
+import searchIcon from '../../images/components/search-icon.svg';
+import searchLarge from '../../images/components/search-large.svg';
+import searchNavbar from '../../images/components/search-navbar.svg';
+import slidenavNextLarge from '../../images/components/slidenav-next-large.svg';
+import slidenavNext from '../../images/components/slidenav-next.svg';
+import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
+import slidenavPrevious from '../../images/components/slidenav-previous.svg';
+import spinner from '../../images/components/spinner.svg';
+import totop from '../../images/components/totop.svg';
+import I18n from '../mixin/i18n';
+import Svg from '../mixin/svg';
 
 const icons = {
     spinner,
@@ -243,7 +243,7 @@ function install(UIkit) {
             apply(document.body, (el) =>
                 each(UIkit.getComponents(el), (cmp) => {
                     cmp.$options.isIcon && cmp.icon in added && cmp.$reset();
-                })
+                }),
             );
         }
     };

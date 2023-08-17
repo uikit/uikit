@@ -1,5 +1,5 @@
-import App from './app';
 import { $$, camelize, hyphenate, isEmpty, isPlainObject } from 'uikit-util';
+import App from './app';
 
 const PREFIX = 'uk-';
 const DATA = '__uikit__';

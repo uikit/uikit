@@ -1,16 +1,16 @@
-import less from 'less';
-import path from 'path';
-import svgo from 'svgo';
-import fs from 'fs-extra';
-import pLimit from 'p-limit';
-import { glob } from 'glob';
-import minimist from 'minimist';
-import CleanCSS from 'clean-css';
 import alias from '@rollup/plugin-alias';
-import modify from 'rollup-plugin-modify';
 import replace from '@rollup/plugin-replace';
+import CleanCSS from 'clean-css';
+import fs from 'fs-extra';
+import { glob } from 'glob';
+import less from 'less';
+import minimist from 'minimist';
+import pLimit from 'p-limit';
+import path from 'path';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
+import modify from 'rollup-plugin-modify';
+import svgo from 'svgo';
 
 const limit = pLimit(Number(process.env.cpus || 2));
 
@@ -57,7 +57,7 @@ export async function minify(file) {
             keepSpecialComments: 0,
             rebase: false,
             returnPromise: true,
-        }).minify([file])
+        }).minify([file]),
     );
 
     await write(`${path.join(path.dirname(file), path.basename(file, '.css'))}.min.css`, styles);
@@ -178,7 +178,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
 export async function icons(src) {
     const files = await glob(src);
     const icons = await Promise.all(
-        files.map((file) => limit(async () => optimizeSvg(await read(file))))
+        files.map((file) => limit(async () => optimizeSvg(await read(file)))),
     );
 
     return JSON.stringify(
@@ -187,7 +187,7 @@ export async function icons(src) {
             return result;
         }, {}),
         null,
-        '    '
+        '    ',
     );
 }
 
