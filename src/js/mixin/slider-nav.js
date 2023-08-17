@@ -7,11 +7,13 @@ import {
     closest,
     data,
     empty,
+    isInView,
     isNumeric,
     matches,
+    parent,
     toFloat,
-    toggleClass,
     toNumber,
+    toggleClass,
 } from 'uikit-util';
 import { generateId } from '../api/instance';
 import { keyMap } from '../util/keys';
@@ -205,7 +207,6 @@ export default {
     methods: {
         updateNav() {
             const index = this.getValidIndex();
-            let focus;
             let focusEl;
             for (const el of this.navItems) {
                 const cmd = data(el, this.attrItem);
@@ -223,10 +224,8 @@ export default {
                     });
 
                     if (active) {
-                        focusEl = button;
+                        focusEl ||= matches(parent(el), ':focus-within') && button;
                     }
-
-                    focus ||= matches(button, ':focus');
                 } else {
                     toggleClass(
                         el,
@@ -237,7 +236,7 @@ export default {
                     );
                 }
 
-                if (focus && focusEl) {
+                if (focusEl && isInView(focusEl)) {
                     focusEl.focus();
                 }
             }
