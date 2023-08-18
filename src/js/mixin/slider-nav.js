@@ -7,7 +7,6 @@ import {
     closest,
     data,
     empty,
-    isInView,
     isNumeric,
     matches,
     parent,
@@ -207,7 +206,7 @@ export default {
     methods: {
         updateNav() {
             const index = this.getValidIndex();
-            let focusEl;
+
             for (const el of this.navItems) {
                 const cmd = data(el, this.attrItem);
                 const button = $('a,button', el) || el;
@@ -223,8 +222,8 @@ export default {
                         tabindex: active ? null : -1,
                     });
 
-                    if (active) {
-                        focusEl ||= matches(parent(el), ':focus-within') && button;
+                    if (active && button && matches(parent(el), ':focus-within')) {
+                        button.focus();
                     }
                 } else {
                     toggleClass(
@@ -234,10 +233,6 @@ export default {
                             ((cmd === 'previous' && index === 0) ||
                                 (cmd === 'next' && index >= this.maxIndex)),
                     );
-                }
-
-                if (focusEl && isInView(focusEl)) {
-                    focusEl.focus();
                 }
             }
         },
