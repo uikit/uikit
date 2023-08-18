@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add `-source` argument to `prefix` command
+
 ## 3.16.24 (August 1, 2023)
 
 ### Fixed
