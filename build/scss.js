@@ -9,9 +9,12 @@ const coreMixins = {};
 const themeMixins = {};
 const coreVariables = {};
 const themeVariables = {};
+const inverseComponentMixins = [];
 
 /* First Step: Go through all files */
-for (const file of (await glob('src/less/**/*.less')).sort()) {
+for (const file of (await glob('src/less/**/*.less'))
+    .sort()
+    .sort((a, b) => a.endsWith('/inverse.less') - b.endsWith('/inverse.less'))) {
     let source = await read(file);
 
     /* replace all Less stuff with SCSS */
@@ -23,7 +26,7 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
             /(:[^'"]*?\([^'"]+?)\s*\/\s*([0-9.-]+)\)/g,
             (exp, m1, m2) => `${m1} * ${NP.round(1 / parseFloat(m2), 5)})`,
         )
-        .replace(/--uk-[^\s]+: (\$[^\s]+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
+        .replace(/--uk-\S+: (\$\S+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
         .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
         .replace(/ e\(/g, ' unquote(') // convert escape function
         .replace(/\.([\w-]*)\s*\((.*)\)\s*{/g, '@mixin $1($2){') // hook -> mixins
@@ -40,7 +43,7 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
         }) // replace Less function fadeout with fade-out
         .replace(/\.svg-fill/g, '@include svg-fill') // include svg-fill mixin
         .replace(
-            /(.*):extend\((\.[\w\\@-]*) all\) when \((\$[\w-]*) = ([\w]+)\) {}/g,
+            /(.*):extend\((\.[\w\\@-]*) all\) when \((\$[\w-]*) = (\w+)\) {}/g,
             '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }',
         ) // update conditional extend and add !optional to ignore warnings
         .replace(
@@ -63,10 +66,17 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
     /* File name of the current file */
     const filename = path.basename(file, '.less');
 
-    source =
-        filename === 'inverse'
-            ? source.replace(/\*\//, `*/\n${await read('build/scss/inverse.scss')}`)
-            : source.replace(/hook-inverse(?!-)/g, `hook-inverse-component-${filename}`);
+    if (filename === 'inverse') {
+        source = source.replace(
+            /\*\//,
+            `*/\n@mixin hook-inverse() {\n${inverseComponentMixins
+                .map((mixin) => `    @include ${mixin}();\n`)
+                .join('')}}`,
+        );
+    } else if (source.match(/hook-inverse(?!-)/)) {
+        source = source.replace(/hook-inverse(?!-)/, `hook-inverse-component-${filename}`);
+        inverseComponentMixins.push(`hook-inverse-component-${filename}`);
+    }
 
     /* get all the mixins and remove them from the file */
     source = getMixinsFromFile(file, source);
