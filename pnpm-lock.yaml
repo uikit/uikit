@@ -12,8 +12,8 @@ devDependencies:
     specifier: ^5.0.2
     version: 5.0.2(rollup@3.28.0)
   archiver:
-    specifier: ^5.3.1
-    version: 5.3.2
+    specifier: ^6.0.0
+    version: 6.0.0
   camelcase:
     specifier: ^8.0.0
     version: 8.0.0
@@ -64,7 +64,7 @@ devDependencies:
     version: 3.0.2
   prettier-plugin-organize-imports:
     specifier: ^3.2.2
-    version: 3.2.2(prettier@3.0.2)(typescript@5.1.6)
+    version: 3.2.3(prettier@3.0.2)(typescript@5.1.6)
   rollup:
     specifier: ^3.25.1
     version: 3.28.0
@@ -534,11 +534,27 @@ packages:
       readable-stream: 2.3.8
     dev: true
 
-  /archiver@5.3.2:
-    resolution: {integrity: sha512-+25nxyyznAXF7Nef3y0EbBeqmGZgeN/BxHX29Rs39djAfaFalmQ89SE6CWyDCHzGL0yt/ycBtNOmGTW0FyGWNw==}
+  /archiver-utils@3.0.3:
+    resolution: {integrity: sha512-fXzpEZTKgBJMWy0eUT0/332CAQnJ27OJd7sGcvNZzxS2Yzg7iITivMhXOm+zUTO4vT8ZqlPCqiaLPmB8qWhWRA==}
     engines: {node: '>= 10'}
     dependencies:
-      archiver-utils: 2.1.0
+      glob: 7.2.3
+      graceful-fs: 4.2.11
+      lazystream: 1.0.1
+      lodash.defaults: 4.2.0
+      lodash.difference: 4.5.0
+      lodash.flatten: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.union: 4.6.0
+      normalize-path: 3.0.0
+      readable-stream: 3.6.2
+    dev: true
+
+  /archiver@6.0.0:
+    resolution: {integrity: sha512-EPGa+bYaxaMiCT8DCbEDqFz8IjeBSExrJzyUOJx2FBkFJ/OZzJuso3lMSk901M50gMqXxTQcumlGajOFlXhVhw==}
+    engines: {node: '>= 12.0.0'}
+    dependencies:
+      archiver-utils: 3.0.3
       async: 3.2.4
       buffer-crc32: 0.2.13
       readable-stream: 3.6.2
@@ -1891,8 +1907,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-organize-imports@3.2.2(prettier@3.0.2)(typescript@5.1.6):
-    resolution: {integrity: sha512-e97lE6odGSiHonHJMTYC0q0iLXQyw0u5z/PJpvP/3vRy6/Zi9kLBwFAbEGjDzIowpjQv8b+J04PDamoUSQbzGA==}
+  /prettier-plugin-organize-imports@3.2.3(prettier@3.0.2)(typescript@5.1.6):
+    resolution: {integrity: sha512-KFvk8C/zGyvUaE3RvxN2MhCLwzV6OBbFSkwZ2OamCrs9ZY4i5L77jQ/w4UmUr+lqX8qbaqVq6bZZkApn+IgJSg==}
     peerDependencies:
       '@volar/vue-language-plugin-pug': ^1.0.4
       '@volar/vue-typescript': ^1.0.4

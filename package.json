@@ -37,7 +37,7 @@
     "devDependencies": {
         "@rollup/plugin-alias": "^5.0.0",
         "@rollup/plugin-replace": "^5.0.2",
-        "archiver": "^5.3.1",
+        "archiver": "^6.0.0",
         "camelcase": "^8.0.0",
         "chokidar-cli": "^3.0.0",
         "clean-css": "^5.3.2",
