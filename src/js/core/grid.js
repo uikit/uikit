@@ -64,7 +64,9 @@ export default {
                 if (
                     !(masonry || parallax || parallaxJustify) ||
                     positionedAbsolute(rows) ||
-                    rows.some((row) => row.some((el) => el.offsetWidth !== rows[0][0].offsetWidth))
+                    rows[0].some((el, i) =>
+                        rows.some((row) => row[i] && row[i].offsetWidth !== el.offsetWidth),
+                    )
                 ) {
                     return (data.translates = data.scrollColumns = false);
                 }
