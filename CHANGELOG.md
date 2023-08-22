@@ -10,6 +10,7 @@
 - Add navbar height as offset to Scroll component
 - Add support for `<td>` and `<tr>` elements to `fragment()` function
 - Add 3XL size modifier to Heading component
+- Add support for a CSS Selector in `offsetTop` option in Height Viewport component
 
 ### Change
 
