@@ -41,9 +41,9 @@ export default {
     },
 
     observe: [
-        resize({ target: ({ $el, target }) => [$el, target, scrollParent(target, true)] }),
-        scroll(),
         viewport(),
+        scroll({ target: ({ target }) => target }),
+        resize({ target: ({ $el, target }) => [$el, target, scrollParent(target, true)] }),
     ],
 
     update: {

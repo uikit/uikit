@@ -98,9 +98,9 @@ export default {
     },
 
     observe: [
-        resize({ target: ({ $el }) => [$el, document.scrollingElement] }),
         viewport(),
-        scroll(),
+        scroll({ target: () => document.scrollingElement }),
+        resize({ target: ({ $el }) => [$el, document.scrollingElement] }),
     ],
 
     events: [
