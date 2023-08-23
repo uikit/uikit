@@ -6,7 +6,7 @@ if (args.h || args.help) {
     console.log(`
         usage:
 
-        prefix.js [-p{refix}=your_great_new_prefix]
+        prefix.js [-p{refix}=prefix] [-s{ource}=folder to replace prefix in]
 
         example:
 
@@ -17,6 +17,7 @@ if (args.h || args.help) {
     process.exit(0);
 }
 
+const path = args.s || args.source || 'dist';
 const currentPrefix = await findExistingPrefix();
 const prefix = await getPrefix();
 
@@ -27,7 +28,7 @@ if (currentPrefix === prefix) {
 await replacePrefix(currentPrefix, prefix);
 
 async function findExistingPrefix() {
-    return (await read('dist/css/uikit.css')).match(
+    return (await read(`${path}/css/uikit.css`)).match(
         new RegExp(`(${validClassName.source})(-[a-z]+)?-grid`),
     )?.[1];
 }
@@ -58,13 +59,13 @@ async function getPrefix() {
 }
 
 async function replacePrefix(from, to) {
-    for (const file of await glob('dist/**/*.css')) {
+    for (const file of await glob(`${path}/**/*.css`)) {
         await replaceInFile(file, (data) =>
             data.replace(new RegExp(`${from}-${/([a-z\d-]+)/.source}`, 'g'), `${to}-$1`),
         );
     }
 
-    for (const file of await glob('dist/**/*.js')) {
+    for (const file of await glob(`${path}/**/*.js`)) {
         await replaceInFile(file, (data) =>
             data
                 .replace(new RegExp(`${from}-`, 'g'), `${to}-`)
