@@ -1,4 +1,15 @@
-import { $$, addClass, closest, css, hasClass, removeClass } from 'uikit-util';
+import {
+    $$,
+    addClass,
+    closest,
+    css,
+    hasClass,
+    offset,
+    pointInRect,
+    removeClass,
+    replaceClass,
+} from 'uikit-util';
+import { scroll } from '../api/observables';
 import Dropnav from './dropnav';
 
 export default {
@@ -12,6 +23,7 @@ export default {
         clsDrop: 'uk-navbar-dropdown',
         selNavItem:
             '.uk-navbar-nav > li > a,a.uk-navbar-item,button.uk-navbar-item,.uk-navbar-item a,.uk-navbar-item button,.uk-navbar-toggle', // Simplify with :where() selector once browser target is Safari 14+
+        selTransparentTarget: '[class*="uk-section"]',
         dropbarTransparentMode: false,
     },
 
@@ -44,6 +56,26 @@ export default {
                 );
             }
         },
+    },
+
+    observe: scroll(),
+
+    update: {
+        read() {
+            if (!hasClass(this.navbarContainer, 'uk-navbar-transparent')) {
+                return;
+            }
+
+            const { left, top, height } = offset(this.navbarContainer);
+            const startPoint = { x: left, y: top + height / 2 };
+            const target = $$(this.selTransparentTarget).find((target) =>
+                pointInRect(startPoint, offset(target)),
+            );
+            const color = css(target, '--uk-section-color');
+            replaceClass(this.navbarContainer, 'uk-light,uk-dark', color ? `uk-${color}` : '');
+        },
+
+        events: ['resize', 'scroll'],
     },
 
     events: [

@@ -7,7 +7,8 @@
 - Add modes `pack` (default) and `next` to Grid component's `masonry` option
 - Add `parallax-start`, `parallax-end`, `parallax-justify` option to Grid component
 - Add `close-on-scroll` option to Drop and Dropdown component
-- Add navbar height as offset to Scroll component
+- Add Navbar height as offset to Scroll component
+- Add transparent Navbar gets its color modifier from underlying section 
 - Add support for `<td>` and `<tr>` elements to `fragment()` function
 - Add 3XL size modifier to Heading component
 - Add support for a CSS Selector in `offsetTop` option in Height Viewport component
