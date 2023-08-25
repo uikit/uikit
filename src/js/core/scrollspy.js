@@ -80,7 +80,7 @@ export default {
 
             this.$emit();
         },
-        options: (instance) => ({ rootMargin: instance.margin }),
+        options: ({ margin }) => ({ rootMargin: margin }),
         args: { intersecting: false },
     }),
 
