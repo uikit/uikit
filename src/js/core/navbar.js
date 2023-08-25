@@ -4,12 +4,13 @@ import {
     closest,
     css,
     hasClass,
+    includes,
     offset,
     pointInRect,
     removeClass,
-    replaceClass,
+    scrollParent,
 } from 'uikit-util';
-import { scroll } from '../api/observables';
+import { mutation, resize, scroll } from '../api/observables';
 import Dropnav from './dropnav';
 
 export default {
@@ -58,21 +59,34 @@ export default {
         },
     },
 
-    observe: scroll(),
+    observe: [
+        mutation({
+            target: ({ navbarContainer }) => navbarContainer,
+            handler(records) {
+                if (hasTransparencyChanged(this.navbarContainer, records)) {
+                    this.$emit();
+                }
+            },
+            options: { attributes: true, attributeFilter: ['class'], attributeOldValue: true },
+        }),
+        resize({ target: ({ $el }) => [$el, scrollParent($el, true)] }),
+        scroll(),
+    ],
 
     update: {
         read() {
+            removeClass(this.navbarContainer, 'uk-light', 'uk-dark');
             if (!hasClass(this.navbarContainer, 'uk-navbar-transparent')) {
                 return;
             }
 
             const { left, top, height } = offset(this.navbarContainer);
-            const startPoint = { x: left, y: top + height / 2 };
+            const startPoint = { x: left, y: Math.max(0, top) + height / 2 };
             const target = $$(this.selTransparentTarget).find((target) =>
                 pointInRect(startPoint, offset(target)),
             );
             const color = css(target, '--uk-section-color');
-            replaceClass(this.navbarContainer, 'uk-light,uk-dark', color ? `uk-${color}` : '');
+            addClass(this.navbarContainer, color ? `uk-${color}` : '');
         },
 
         events: ['resize', 'scroll'],
@@ -184,4 +198,11 @@ async function awaitMacroTask() {
 
 function getDropbarBehindColor(el) {
     return css(el, '--uk-navbar-dropbar-behind-color');
+}
+
+function hasTransparencyChanged(el, records) {
+    const isTransparent = hasClass(el, 'uk-navbar-transparent');
+    return records.some(
+        (record) => includes(record.oldValue, 'uk-navbar-transparent') !== isTransparent,
+    );
 }
