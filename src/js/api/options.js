@@ -34,7 +34,7 @@ strats.args = function (parentVal, childVal) {
 strats.update = function (parentVal, childVal) {
     return sortBy(
         concatStrat(parentVal, isFunction(childVal) ? { read: childVal } : childVal),
-        'order'
+        'order',
     );
 };
 
@@ -78,7 +78,7 @@ strats.i18n = strats.data = function (parentVal, childVal, vm) {
 function mergeFnData(parentVal, childVal, vm) {
     return strats.computed(
         isFunction(parentVal) ? parentVal.call(vm, vm) : parentVal,
-        isFunction(childVal) ? childVal.call(vm, vm) : childVal
+        isFunction(childVal) ? childVal.call(vm, vm) : childVal,
     );
 }
 

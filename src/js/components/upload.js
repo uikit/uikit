@@ -1,5 +1,5 @@
-import I18n from '../mixin/i18n';
 import { addClass, assign, matches, noop, on, removeClass, toArray, trigger } from 'uikit-util';
+import I18n from '../mixin/i18n';
 
 export default {
     mixins: [I18n],
@@ -177,8 +177,8 @@ function match(pattern, path) {
                 .replace(/\*\*/g, '(\\/[^\\/]+)*')
                 .replace(/\*/g, '[^\\/]+')
                 .replace(/((?!\\))\?/g, '$1.')}$`,
-            'i'
-        )
+            'i',
+        ),
     );
 }
 
@@ -238,7 +238,7 @@ function send(url, env) {
                     assign(Error(xhr.statusText), {
                         xhr,
                         status: xhr.status,
-                    })
+                    }),
                 );
             }
         });

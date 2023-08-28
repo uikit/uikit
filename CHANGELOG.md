@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.16.25 (August 28, 2023)
+
+### Added
+
+- Add `-source` argument to `prefix` command
+
+### Fixed
+
+- Fix Toggle in hover mode does not trigger when scrolling in FireFox
+- Fix Parallax component stop parsing
+
 ## 3.16.24 (August 1, 2023)
 
 ### Fixed

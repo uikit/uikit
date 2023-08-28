@@ -9,12 +9,13 @@ import {
     empty,
     isNumeric,
     matches,
+    parent,
     toFloat,
-    toggleClass,
     toNumber,
+    toggleClass,
 } from 'uikit-util';
-import { keyMap } from '../util/keys';
 import { generateId } from '../api/instance';
+import { keyMap } from '../util/keys';
 
 export default {
     i18n: {
@@ -111,7 +112,7 @@ export default {
                     role: this.nav ? 'tabpanel' : 'group',
                     'aria-label': this.t('slideLabel', i + 1, this.length),
                     'aria-roledescription': this.nav ? null : 'slide',
-                })
+                }),
             );
         },
 
@@ -205,8 +206,7 @@ export default {
     methods: {
         updateNav() {
             const index = this.getValidIndex();
-            let focus;
-            let focusEl;
+
             for (const el of this.navItems) {
                 const cmd = data(el, this.attrItem);
                 const button = $('a,button', el) || el;
@@ -222,23 +222,17 @@ export default {
                         tabindex: active ? null : -1,
                     });
 
-                    if (active) {
-                        focusEl = button;
+                    if (active && button && matches(parent(el), ':focus-within')) {
+                        button.focus();
                     }
-
-                    focus ||= matches(button, ':focus');
                 } else {
                     toggleClass(
                         el,
                         'uk-invisible',
                         this.finite &&
                             ((cmd === 'previous' && index === 0) ||
-                                (cmd === 'next' && index >= this.maxIndex))
+                                (cmd === 'next' && index >= this.maxIndex)),
                     );
-                }
-
-                if (focus && focusEl) {
-                    focusEl.focus();
                 }
             }
         },

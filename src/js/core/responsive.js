@@ -1,5 +1,5 @@
-import { resize } from '../api/observables';
 import { addClass, Dimensions, height, isVisible, parent, width } from 'uikit-util';
+import { resize } from '../api/observables';
 
 export default {
     props: ['width', 'height'],
@@ -27,8 +27,8 @@ export default {
                         height: this.height,
                         width: this.width,
                     },
-                    dim
-                ).height
+                    dim,
+                ).height,
             );
         },
 

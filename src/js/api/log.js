@@ -5,6 +5,6 @@ export function log(instance, eventName, eventData) {
         instance._uid,
         'font-weight:bold;',
         eventName,
-        [...(eventData ?? []), instance, instance.$el]
+        [...(eventData ?? []), instance, instance.$el],
     );
 }

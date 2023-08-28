@@ -1,7 +1,7 @@
+import { addClass, removeClass } from 'uikit-util';
 import Animations from './internal/slideshow-animations';
 import Transitioner from './internal/slideshow-transitioner';
 import Slider from './slider.js';
-import { addClass, removeClass } from 'uikit-util';
 
 export default {
     mixins: [Slider],

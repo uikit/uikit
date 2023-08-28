@@ -1,6 +1,6 @@
-import { runWatches } from './watch';
-import { callUpdate, prependUpdate } from './update';
 import { hasOwn, isUndefined } from 'uikit-util';
+import { callUpdate, prependUpdate } from './update';
+import { runWatches } from './watch';
 
 export function initComputed(instance) {
     const { computed } = instance.$options;

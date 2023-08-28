@@ -1,5 +1,3 @@
-import { parseOptions } from '../api/options';
-import { intersection } from '../api/observables';
 import {
     append,
     attr,
@@ -21,6 +19,8 @@ import {
     startsWith,
     trigger,
 } from 'uikit-util';
+import { intersection } from '../api/observables';
+import { parseOptions } from '../api/options';
 
 const nativeLazyLoad = inBrowser && 'loading' in HTMLImageElement.prototype;
 

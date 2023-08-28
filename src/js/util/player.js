@@ -50,7 +50,7 @@ function isIFrame(el) {
 
 function isYoutube(el) {
     return !!el.src.match(
-        /\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/
+        /\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/,
     );
 }
 

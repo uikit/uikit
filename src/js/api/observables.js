@@ -15,6 +15,7 @@ import {
     pointerDown,
     pointerUp,
     removeAttr,
+    scrollParent,
     toNodes,
     trigger,
 } from 'uikit-util';
@@ -58,16 +59,13 @@ export function viewport() {
 export function scroll(options) {
     return observe(
         (target, handler) => ({
-            disconnect: on(target, 'scroll', handler, {
+            disconnect: on(toScrollTargets(target), 'scroll', handler, {
                 passive: true,
                 capture: true,
             }),
         }),
-        {
-            target: () => document,
-            ...options,
-        },
-        'scroll'
+        options,
+        'scroll',
     );
 }
 
@@ -125,4 +123,12 @@ function swipeDirection(x1, y1, x2, y2) {
         : y1 - y2 > 0
         ? 'Up'
         : 'Down';
+}
+
+function toScrollTargets(elements) {
+    return toNodes(elements).map((node) => {
+        const { ownerDocument } = node;
+        const parent = scrollParent(node, true);
+        return parent === ownerDocument.scrollingElement ? ownerDocument : parent;
+    });
 }

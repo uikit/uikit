@@ -39,7 +39,7 @@ export function registerEvent(instance, event, key) {
             name,
             delegate ? (isString(delegate) ? delegate : delegate.call(instance, instance)) : null,
             isString(handler) ? instance[handler] : handler.bind(instance),
-            { passive, capture, self }
-        )
+            { passive, capture, self },
+        ),
     );
 }

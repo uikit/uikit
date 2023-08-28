@@ -1,4 +1,3 @@
-import Modal from '../mixin/modal';
 import {
     $,
     addClass,
@@ -12,6 +11,7 @@ import {
     on,
     removeClass,
 } from 'uikit-util';
+import Modal from '../mixin/modal';
 
 export default {
     install,
@@ -61,7 +61,7 @@ function install({ modal }) {
             `<div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
              </div>`,
-            { stack: true, role: 'alertdialog', ...options }
+            { stack: true, role: 'alertdialog', ...options },
         );
 
         dialog.show();
@@ -73,7 +73,7 @@ function install({ modal }) {
                 await Promise.resolve();
                 dialog.$destroy(true);
             },
-            { self: true }
+            { self: true },
         );
 
         return dialog;
@@ -89,7 +89,7 @@ function install({ modal }) {
                     i18n.ok
                 }</button>
             </div>`,
-            options
+            options,
         );
     };
 
@@ -105,7 +105,7 @@ function install({ modal }) {
                 </div>
             </form>`,
             options,
-            () => Promise.reject()
+            () => Promise.reject(),
         );
     };
 
@@ -125,7 +125,7 @@ function install({ modal }) {
             </form>`,
             options,
             () => null,
-            () => input.value
+            () => input.value,
         );
 
         const { $el } = promise.dialog;
@@ -161,7 +161,7 @@ function install({ modal }) {
                     dialog.hide();
                 });
             }),
-            { dialog }
+            { dialog },
         );
     }
 }

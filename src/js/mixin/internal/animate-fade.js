@@ -1,4 +1,3 @@
-import { getRows } from '../../core/margin';
 import {
     addClass,
     children,
@@ -12,6 +11,7 @@ import {
     toNumber,
     Transition,
 } from 'uikit-util';
+import { getRows } from '../../core/margin';
 
 const clsLeave = 'uk-transition-leave';
 const clsEnter = 'uk-transition-enter';
@@ -21,7 +21,7 @@ export default function fade(action, target, duration, stagger = 0) {
     const propsIn = { opacity: 1 };
     const propsOut = { opacity: 0 };
 
-    const wrapIndexFn = (fn) => () => index === transitionIndex(target) ? fn() : Promise.reject();
+    const wrapIndexFn = (fn) => () => (index === transitionIndex(target) ? fn() : Promise.reject());
 
     const leaveFn = wrapIndexFn(async () => {
         addClass(target, clsLeave);
@@ -33,12 +33,12 @@ export default function fade(action, target, duration, stagger = 0) {
                         setTimeout(
                             () =>
                                 Transition.start(child, propsOut, duration / 2, 'ease').then(
-                                    resolve
+                                    resolve,
                                 ),
-                            i * stagger
-                        )
-                    )
-            )
+                            i * stagger,
+                        ),
+                    ),
+            ),
         );
 
         removeClass(target, clsLeave);
@@ -76,8 +76,8 @@ export default function fade(action, target, duration, stagger = 0) {
                     target,
                     { height: newHeight },
                     duration / 2 + transitionNodes.length * stagger,
-                    'ease'
-                )
+                    'ease',
+                ),
             );
         }
 
@@ -112,8 +112,8 @@ function waitTransitionend(target) {
             .filter(Transition.inProgress)
             .map(
                 (el) =>
-                    new Promise((resolve) => once(el, 'transitionend transitioncanceled', resolve))
-            )
+                    new Promise((resolve) => once(el, 'transitionend transitioncanceled', resolve)),
+            ),
     );
 }
 
@@ -123,10 +123,10 @@ function getTransitionNodes(target) {
             nodes.concat(
                 sortBy(
                     row.filter((el) => isInView(el)),
-                    'offsetLeft'
-                )
+                    'offsetLeft',
+                ),
             ),
-        []
+        [],
     );
 }
 

@@ -1,6 +1,5 @@
-import { on } from './event';
-import { css } from './style';
 import { $, append, remove } from './dom';
+import { on } from './event';
 import {
     isDocument,
     isElement,
@@ -14,6 +13,7 @@ import {
     toWindow,
     ucfirst,
 } from './lang';
+import { css } from './style';
 
 const dirs = {
     width: ['left', 'right'],
@@ -137,7 +137,7 @@ function dimension(prop) {
             return css(
                 element,
                 prop,
-                !value && value !== 0 ? '' : +value + boxModelAdjust(element, prop) + 'px'
+                !value && value !== 0 ? '' : +value + boxModelAdjust(element, prop) + 'px',
             );
         }
     };
@@ -149,7 +149,7 @@ export function boxModelAdjust(element, prop, sizing = 'border-box') {
               dirs[prop].map(ucfirst),
               (prop) =>
                   toFloat(css(element, `padding${prop}`)) +
-                  toFloat(css(element, `border${prop}Width`))
+                  toFloat(css(element, `border${prop}Width`)),
           )
         : 0;
 }
@@ -182,7 +182,7 @@ export function toPx(value, property = 'width', element = window, offsetDim = fa
                       : offsetDim
                       ? element[`offset${ucfirst(property)}`]
                       : dimensions(element)[property],
-                  value
+                  value,
               )
             : value;
     });

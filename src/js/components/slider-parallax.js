@@ -1,5 +1,5 @@
-import Parallax from '../mixin/parallax';
 import { css, endsWith, fastdom, noop, query, Transition } from 'uikit-util';
+import Parallax from '../mixin/parallax';
 
 export default {
     mixins: [Parallax],

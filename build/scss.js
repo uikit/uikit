@@ -1,7 +1,7 @@
 import { glob } from 'glob';
 import NP from 'number-precision';
-import { read, write } from './util.js';
 import path from 'path';
+import { read, write } from './util.js';
 
 NP.enableBoundaryChecking(false);
 
@@ -9,9 +9,12 @@ const coreMixins = {};
 const themeMixins = {};
 const coreVariables = {};
 const themeVariables = {};
+const inverseComponentMixins = [];
 
 /* First Step: Go through all files */
-for (const file of (await glob('src/less/**/*.less')).sort()) {
+for (const file of (await glob('src/less/**/*.less'))
+    .sort()
+    .sort((a, b) => a.endsWith('/inverse.less') - b.endsWith('/inverse.less'))) {
     let source = await read(file);
 
     /* replace all Less stuff with SCSS */
@@ -21,9 +24,9 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
         .replace(/@/g, '$') // convert variables
         .replace(
             /(:[^'"]*?\([^'"]+?)\s*\/\s*([0-9.-]+)\)/g,
-            (exp, m1, m2) => `${m1} * ${NP.round(1 / parseFloat(m2), 5)})`
+            (exp, m1, m2) => `${m1} * ${NP.round(1 / parseFloat(m2), 5)})`,
         )
-        .replace(/--uk-[^\s]+: (\$[^\s]+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
+        .replace(/--uk-\S+: (\$\S+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
         .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
         .replace(/ e\(/g, ' unquote(') // convert escape function
         .replace(/\.([\w-]*)\s*\((.*)\)\s*{/g, '@mixin $1($2){') // hook -> mixins
@@ -40,20 +43,20 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
         }) // replace Less function fadeout with fade-out
         .replace(/\.svg-fill/g, '@include svg-fill') // include svg-fill mixin
         .replace(
-            /(.*):extend\((\.[\w\\@-]*) all\) when \((\$[\w-]*) = ([\w]+)\) {}/g,
-            '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }'
+            /(.*):extend\((\.[\w\\@-]*) all\) when \((\$[\w-]*) = (\w+)\) {}/g,
+            '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }',
         ) // update conditional extend and add !optional to ignore warnings
         .replace(
             /(\.[\w\\@-]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*{\s*@if\(mixin-exists\(([\w-]*)\)\) {@include\s([\w-]*)\(\);\s*}\s*}/g,
-            '@if ($2 == $3) { $1 { @if (mixin-exists($4)) {@include $4();}}}'
+            '@if ($2 == $3) { $1 { @if (mixin-exists($4)) {@include $4();}}}',
         ) // update conditional hook
         .replace(
             /([.:][\w\\@-]+(?: ?[.:][\w\\@-]+)*)\s*when\s*\(([$@][\w-]*)\s*=\s*([$@]?[\w-]+)\)\s*({\s*.*?\s*})/gms,
-            '@if ($2 == $3) {\n$1 $4\n}'
+            '@if ($2 == $3) {\n$1 $4\n}',
         )
         .replace(
             /([.:][\w\\@-]+(?: ?[.:][\w\\@-]+)*)\s*when\s+not\s*\(([$@][\w-]*)\s*=\s*([$@]?[\w-]+)\)\s*({\s*.*?\s*})/gs,
-            '@if ($2 != $3) {\n$1 $4\n}'
+            '@if ($2 != $3) {\n$1 $4\n}',
         ) // replace conditionals
         .replace(/\${/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
         .replace(/[^(](-\$[\w-]*)/g, ' ($1)') // surround negative variables with brackets
@@ -63,10 +66,17 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
     /* File name of the current file */
     const filename = path.basename(file, '.less');
 
-    source =
-        filename === 'inverse'
-            ? source.replace(/\*\//, `*/\n${await read('build/scss/inverse.scss')}`)
-            : source.replace(/hook-inverse(?!-)/g, `hook-inverse-component-${filename}`);
+    if (filename === 'inverse') {
+        source = source.replace(
+            /\*\//,
+            `*/\n@mixin hook-inverse() {\n${inverseComponentMixins
+                .map((mixin) => `    @include ${mixin}();\n`)
+                .join('')}}`,
+        );
+    } else if (source.match(/hook-inverse(?!-)/)) {
+        source = source.replace(/hook-inverse(?!-)/, `hook-inverse-component-${filename}`);
+        inverseComponentMixins.push(`hook-inverse-component-${filename}`);
+    }
 
     /* get all the mixins and remove them from the file */
     source = getMixinsFromFile(file, source);
@@ -80,7 +90,7 @@ for (const file of (await glob('src/less/**/*.less')).sort()) {
         /* add uikit-mixins and uikit-variables include to the uikit.scss file and change order, to load theme files first */
         source = source.replace(
             /\/\/ Core\n\/\//g,
-            '// Theme\n//\n\n@import "theme/_import.scss";'
+            '// Theme\n//\n\n@import "theme/_import.scss";',
         );
     }
 
@@ -110,7 +120,7 @@ for (const [vars, file] of [
 ]) {
     const variables = Object.keys(vars).reduce(
         (dependencies, key) => resolveDependencies(vars, key, dependencies),
-        new Set()
+        new Set(),
     );
     await write(`src/scss/${file}.scss`, Array.from(variables).join('\n'));
 }
@@ -147,7 +157,7 @@ function getMixinsFromFile(file, source) {
 
     /* Step 2: get all mixins */
     for (const [match, mixin] of source.matchAll(
-        /@mixin ([\w-]*)\s*\(.*\)\s*{(\n\s+[\w\W]+?(?=\n})\n| [^\n]+)}/g
+        /@mixin ([\w-]*)\s*\(.*\)\s*{(\n\s+[\w\W]+?(?=\n})\n| [^\n]+)}/g,
     )) {
         themeMixins[mixin] = match;
         if (!file.includes('theme/')) {

@@ -1,6 +1,6 @@
-import { registerWatch } from './watch';
-import { registerComputed } from './computed';
 import { hasOwn, includes, isArray, isFunction, isString } from 'uikit-util';
+import { registerComputed } from './computed';
+import { registerWatch } from './watch';
 
 export function initObservers(instance) {
     instance._observers = [];

@@ -11,7 +11,7 @@ export const hyphenate = memoize((str) => str.replace(hyphenateRe, '-$1').toLowe
 const camelizeRe = /-(\w)/g;
 
 export const camelize = memoize((str) =>
-    (str.charAt(0).toLowerCase() + str.slice(1)).replace(camelizeRe, (_, c) => c.toUpperCase())
+    (str.charAt(0).toLowerCase() + str.slice(1)).replace(camelizeRe, (_, c) => c.toUpperCase()),
 );
 
 export const ucfirst = memoize((str) => str.charAt(0).toUpperCase() + str.slice(1));
@@ -160,14 +160,14 @@ export function sortBy(array, prop) {
     return array
         .slice()
         .sort(({ [prop]: propA = 0 }, { [prop]: propB = 0 }) =>
-            propA > propB ? 1 : propB > propA ? -1 : 0
+            propA > propB ? 1 : propB > propA ? -1 : 0,
         );
 }
 
 export function sumBy(array, iteratee) {
     return array.reduce(
         (sum, item) => sum + toFloat(isFunction(iteratee) ? iteratee(item) : item[iteratee]),
-        0
+        0,
     );
 }
 
@@ -194,7 +194,7 @@ export function intersectRect(...rects) {
         ([minProp, maxProp]) =>
             Math.min(...rects.map(({ [minProp]: min }) => min)) -
                 Math.max(...rects.map(({ [maxProp]: max }) => max)) >
-            0
+            0,
     );
 }
 

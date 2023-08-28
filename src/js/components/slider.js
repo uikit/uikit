@@ -1,9 +1,3 @@
-import Class from '../mixin/class';
-import { resize } from '../api/observables';
-import Slider, { speedUp } from '../mixin/slider';
-import SliderReactive from '../mixin/slider-reactive';
-import SliderPreload from './internal/slider-preload';
-import Transitioner, { getMax, getWidth } from './internal/slider-transitioner';
 import {
     $,
     $$,
@@ -22,9 +16,15 @@ import {
     selFocusable,
     sumBy,
     toFloat,
-    toggleClass,
     toNumber,
+    toggleClass,
 } from 'uikit-util';
+import { resize } from '../api/observables';
+import Class from '../mixin/class';
+import Slider, { speedUp } from '../mixin/slider';
+import SliderReactive from '../mixin/slider-reactive';
+import SliderPreload from './internal/slider-preload';
+import Transitioner, { getMax, getWidth } from './internal/slider-transitioner';
 
 export default {
     mixins: [Class, Slider, SliderReactive, SliderPreload],
@@ -171,7 +171,7 @@ export default {
                     ((this.dir > 0 && this.index < this.prevIndex) ||
                     (this.dir < 0 && this.index > this.prevIndex)
                         ? (this.maxIndex + 1) * this.dir
-                        : 0)
+                        : 0),
             );
 
             if (!this.dragging && diff > 1) {
@@ -216,8 +216,8 @@ export default {
                 css(
                     slide,
                     'order',
-                    this.dir > 0 && i < index ? 1 : this.dir < 0 && i >= this.index ? -1 : ''
-                )
+                    this.dir > 0 && i < index ? 1 : this.dir < 0 && i >= this.index ? -1 : '',
+                ),
             );
 
             if (!this.center) {
@@ -336,7 +336,7 @@ function isFinite(list, center) {
                 diff,
                 slideWidth / 2 +
                     dimensions(slides[getIndex(+index + i, slides)]).width / 2 -
-                    (left - listHalf)
+                    (left - listHalf),
             );
         }
 
@@ -344,7 +344,7 @@ function isFinite(list, center) {
             diff >
             sumBy(
                 slides.filter((slide) => !slidesInView.has(slide)),
-                (slide) => dimensions(slide).width
+                (slide) => dimensions(slide).width,
             )
         ) {
             return true;

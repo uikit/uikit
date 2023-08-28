@@ -72,7 +72,7 @@ export default {
                 toPx(
                     this.offset === false ? css(element, '--uk-position-offset') : this.offset,
                     this.axis === 'x' ? 'width' : 'height',
-                    element
+                    element,
                 ) *
                 (includes(['left', 'top'], this.dir) ? -1 : 1) *
                 (this.inset ? -1 : 1)
@@ -85,7 +85,7 @@ export default {
                 : toPx(
                       css(element, '--uk-position-shift-offset'),
                       this.axis === 'y' ? 'width' : 'height',
-                      element
+                      element,
                   ) * (includes(['left', 'top'], this.align) ? 1 : -1);
         },
 

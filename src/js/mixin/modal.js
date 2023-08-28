@@ -1,6 +1,3 @@
-import Class from './class';
-import Container from './container';
-import Togglable from './togglable';
 import {
     $,
     addClass,
@@ -23,7 +20,10 @@ import {
     toFloat,
     within,
 } from 'uikit-util';
+import Class from './class';
+import Container from './container';
 import { preventBackgroundScroll } from './internal/scroll';
+import Togglable from './togglable';
 
 const active = [];
 
@@ -160,7 +160,7 @@ export default {
                     this.$el,
                     'hidden',
                     () => handlers.forEach((handler) => handler && handler()),
-                    { self: true }
+                    { self: true },
                 );
 
                 addClass(document.documentElement, this.clsPage);
@@ -211,7 +211,7 @@ export default {
             if (this.container && parent(this.$el) !== this.container) {
                 append(this.container, this.$el);
                 return new Promise((resolve) =>
-                    requestAnimationFrame(() => this.show().then(resolve))
+                    requestAnimationFrame(() => this.show().then(resolve)),
                 );
             }
 
@@ -241,14 +241,17 @@ function animate(el, show, { transitionElement, _toggle }) {
                     });
                     clearTimeout(timer);
                 },
-                { self: true }
+                { self: true },
             );
 
-            const timer = setTimeout(() => {
-                off();
-                resolve();
-            }, toMs(css(transitionElement, 'transitionDuration')));
-        })
+            const timer = setTimeout(
+                () => {
+                    off();
+                    resolve();
+                },
+                toMs(css(transitionElement, 'transitionDuration')),
+            );
+        }),
     ).then(() => delete el._reject);
 }
 
@@ -282,7 +285,7 @@ function listenForBackgroundClose(modal) {
                     modal.hide();
                 }
             },
-            true
+            true,
         );
     });
 }

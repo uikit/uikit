@@ -1,5 +1,5 @@
-import Dropnav from './dropnav';
 import { $$, css, hasClass } from 'uikit-util';
+import Dropnav from './dropnav';
 
 export default {
     extends: Dropnav,
@@ -15,7 +15,7 @@ export default {
             const justify = hasClass(this.$el, 'uk-navbar-justify');
             for (const container of $$(
                 '.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right',
-                this.$el
+                this.$el,
             )) {
                 css(
                     container,
@@ -23,9 +23,9 @@ export default {
                     justify
                         ? $$(
                               '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle',
-                              container
+                              container,
                           ).length
-                        : ''
+                        : '',
                 );
             }
         },

@@ -1,6 +1,6 @@
-import { callConnected, callDisconnected } from './hooks';
-import { components, createComponent, getComponent, getComponents } from './component';
 import { apply, hasAttr, inBrowser, isPlainObject, startsWith, trigger } from 'uikit-util';
+import { components, createComponent, getComponent, getComponents } from './component';
+import { callConnected, callDisconnected } from './hooks';
 
 export default function (App) {
     if (inBrowser && window.MutationObserver) {

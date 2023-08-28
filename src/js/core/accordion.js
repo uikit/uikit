@@ -1,8 +1,3 @@
-import Class from '../mixin/class';
-import Togglable from '../mixin/togglable';
-import { keyMap } from '../util/keys';
-import { generateId } from '../api/instance';
-import { lazyload } from '../api/observables';
 import {
     $,
     $$,
@@ -25,6 +20,11 @@ import {
     within,
     wrapAll,
 } from 'uikit-util';
+import { generateId } from '../api/instance';
+import { lazyload } from '../api/observables';
+import Class from '../mixin/class';
+import Togglable from '../mixin/togglable';
+import { keyMap } from '../util/keys';
 
 export default {
     mixins: [Class, Togglable],
@@ -89,7 +89,7 @@ export default {
             for (const el of items) {
                 const isOpen = hasClass(
                     this.items.find((item) => within(el, item)),
-                    this.clsOpen
+                    this.clsOpen,
                 );
 
                 hide(el, !isOpen);
@@ -190,8 +190,8 @@ export default {
                         }
 
                         return transition(el, show, this);
-                    })
-                )
+                    }),
+                ),
             );
         },
     },

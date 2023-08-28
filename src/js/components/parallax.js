@@ -1,6 +1,6 @@
-import Parallax from '../mixin/parallax';
+import { css, isVisible, parent, query, scrollParent, scrolledOver, toPx } from 'uikit-util';
 import { resize, scroll, viewport } from '../api/observables';
-import { css, isVisible, parent, query, scrolledOver, scrollParent, toPx } from 'uikit-util';
+import Parallax from '../mixin/parallax';
 
 export default {
     mixins: [Parallax],
@@ -35,15 +35,15 @@ export default {
                 end || ((viewport = (1 - viewport) * 100) && `${viewport}vh+${viewport}%`),
                 'height',
                 this.target,
-                true
+                true,
             );
         },
     },
 
     observe: [
-        resize({ target: ({ $el, target }) => [$el, target, scrollParent(target, true)] }),
-        scroll(),
         viewport(),
+        scroll({ target: ({ target }) => target }),
+        resize({ target: ({ $el, target }) => [$el, target, scrollParent(target, true)] }),
     ],
 
     update: {

@@ -1,7 +1,3 @@
-import Togglable from '../mixin/togglable';
-import { keyMap } from '../util/keys';
-import { generateId } from '../api/instance';
-import { lazyload, swipe } from '../api/observables';
 import {
     $$,
     attr,
@@ -21,6 +17,10 @@ import {
     toggleClass,
     within,
 } from 'uikit-util';
+import { generateId } from '../api/instance';
+import { lazyload, swipe } from '../api/observables';
+import Togglable from '../mixin/togglable';
+import { keyMap } from '../util/keys';
 
 const selDisabled = '.uk-disabled *, .uk-disabled, [disabled]';
 
@@ -65,7 +65,7 @@ export default {
 
         children() {
             return children(this.$el).filter((child) =>
-                this.toggles.some((toggle) => within(toggle, child))
+                this.toggles.some((toggle) => within(toggle, child)),
             );
         },
     },
@@ -227,7 +227,7 @@ export default {
             const next = getIndex(
                 !isNode(item) || includes(toggles, item) ? item : 0,
                 toggles,
-                getIndex(this.toggles[prev], toggles)
+                getIndex(this.toggles[prev], toggles),
             );
             const active = getIndex(toggles[next], this.toggles);
 
@@ -242,7 +242,7 @@ export default {
             const animate = prev >= 0 && prev !== next;
             this.connects.forEach(async ({ children }) => {
                 const actives = toArray(children).filter(
-                    (child, i) => i !== active && hasClass(child, this.cls)
+                    (child, i) => i !== active && hasClass(child, this.cls),
                 );
 
                 await this.toggleElement(actives, false, animate);

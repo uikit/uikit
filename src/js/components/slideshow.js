@@ -1,9 +1,9 @@
-import Class from '../mixin/class';
-import Slideshow from '../mixin/slideshow';
-import Animations from './internal/slideshow-animations';
-import SliderReactive from '../mixin/slider-reactive';
-import SliderPreload from './internal/slider-preload';
 import { boxModelAdjust, css } from 'uikit-util';
+import Class from '../mixin/class';
+import SliderReactive from '../mixin/slider-reactive';
+import Slideshow from '../mixin/slideshow';
+import SliderPreload from './internal/slider-preload';
+import Animations from './internal/slideshow-animations';
 
 export default {
     mixins: [Class, Slideshow, SliderReactive, SliderPreload],

@@ -1,5 +1,5 @@
-import path from 'path';
 import { glob } from 'glob';
+import path from 'path';
 import rtlcss from 'rtlcss';
 import { args, banner, minify, pathExists, read, readJson, renderLess, write } from './util.js';
 
@@ -82,7 +82,7 @@ async function compile(file, dist, develop, rtl) {
                     root.prepend(postcss.comment({ text: 'rtl:begin:rename' }));
                     root.append(postcss.comment({ text: 'rtl:end:rename' }));
                 },
-            }
+            },
         );
     }
 

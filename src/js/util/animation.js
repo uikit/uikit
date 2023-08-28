@@ -1,8 +1,8 @@
 import { attr } from './attr';
-import { once, trigger } from './event';
-import { css, propName } from './style';
-import { startsWith, toNodes } from './lang';
 import { addClass, hasClass, removeClass, removeClasses } from './class';
+import { once, trigger } from './event';
+import { startsWith, toNodes } from './lang';
+import { css, propName } from './style';
 
 function transition(element, props, duration = 400, timing = 'linear') {
     duration = Math.round(duration);
@@ -32,7 +32,7 @@ function transition(element, props, duration = 400, timing = 'linear') {
                             });
                             type === 'transitioncanceled' ? reject() : resolve(element);
                         },
-                        { self: true }
+                        { self: true },
                     );
 
                     addClass(element, 'uk-transition');
@@ -42,8 +42,8 @@ function transition(element, props, duration = 400, timing = 'linear') {
                         transitionTimingFunction: timing,
                         ...props,
                     });
-                })
-        )
+                }),
+        ),
     );
 }
 
@@ -86,7 +86,7 @@ function animate(element, animation, duration = 200, origin, out) {
                             css(element, 'animationDuration', '');
                             removeClasses(element, `${animationPrefix}\\S*`);
                         },
-                        { self: true }
+                        { self: true },
                     );
 
                     css(element, 'animationDuration', `${duration}ms`);
@@ -96,8 +96,8 @@ function animate(element, animation, duration = 200, origin, out) {
                         origin && addClass(element, `uk-transform-origin-${origin}`);
                         out && addClass(element, `${animationPrefix}reverse`);
                     }
-                })
-        )
+                }),
+        ),
     );
 }
 

@@ -67,9 +67,9 @@ async function scope(files, scope) {
                 output.replace(
                     new RegExp(
                         `.${scope}\\s((\\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html|:root)`,
-                        'g'
+                        'g',
                     ),
-                    '$1'
+                    '$1',
                 ) // unescape
             }`;
         });
@@ -88,7 +88,7 @@ async function cleanup(files, scope) {
             (data) =>
                 data
                     .replace(currentScopeRe, '') // remove scope comment
-                    .replace(new RegExp(` *${string} ({[\\s\\S]*?})?`, 'g'), '') // replace classes
+                    .replace(new RegExp(` *${string} ({[\\s\\S]*?})?`, 'g'), ''), // replace classes
         );
     }
 }

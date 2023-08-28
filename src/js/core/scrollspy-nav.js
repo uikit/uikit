@@ -1,4 +1,3 @@
-import { intersection, scroll } from '../api/observables';
 import {
     $$,
     closest,
@@ -12,6 +11,7 @@ import {
     toggleClass,
     trigger,
 } from 'uikit-util';
+import { intersection, scroll } from '../api/observables';
 
 export default {
     props: {

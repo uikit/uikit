@@ -1,7 +1,7 @@
-import { css } from './style';
-import { within } from './filter';
 import { offset } from './dimensions';
+import { within } from './filter';
 import { clamp, isArray, ucfirst } from './lang';
+import { css } from './style';
 import { offsetViewport, overflowParents } from './viewport';
 
 const dirs = [
@@ -82,7 +82,7 @@ function getPosition(element, target, options) {
                 clamp(
                     clamp(position[start], viewport[start], viewport[end] - position[prop]),
                     targetDim[start] - position[prop] + elOffset[i],
-                    targetDim[end] - elOffset[i]
+                    targetDim[end] - elOffset[i],
                 ) - position[start];
         }
 
@@ -116,7 +116,7 @@ function attachTo(element, target, options) {
                 moveBy(attach.target[i], end, targetOffset[prop]) -
                 moveBy(attach.element[i], end, elOffset[prop]) +
                 +offsetBy[i],
-            i
+            i,
         );
     }
     return elOffset;
@@ -145,7 +145,7 @@ function getViewport(element, target, viewportOffset, boundary, i) {
     if (boundary) {
         viewport = getIntersectionArea(
             viewport,
-            offset(isArray(boundary) ? boundary[i] : boundary)
+            offset(isArray(boundary) ? boundary[i] : boundary),
         );
     }
 
