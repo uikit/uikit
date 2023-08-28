@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.16.25 (August 28, 2023)
 
 ### Added
 
