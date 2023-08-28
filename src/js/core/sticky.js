@@ -140,8 +140,6 @@ export default {
         {
             name: 'transitionstart',
 
-            capture: true,
-
             handler() {
                 this.transitionInProgress = once(
                     this.$el,

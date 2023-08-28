@@ -39,7 +39,7 @@ export default {
     },
 
     connected() {
-        this.masonry && addClass(this.$el, 'uk-flex-top uk-flex-wrap-top');
+        this.masonry && addClass(this.$el, 'uk-flex-top', 'uk-flex-wrap-top');
     },
 
     observe: scroll({ filter: ({ parallax, parallaxJustify }) => parallax || parallaxJustify }),
