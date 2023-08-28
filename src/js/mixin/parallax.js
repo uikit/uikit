@@ -4,7 +4,6 @@ import {
     css,
     Dimensions,
     findIndex,
-    isNumber,
     isString,
     isUndefined,
     noop,
@@ -100,7 +99,7 @@ function transformFn(prop, el, stops) {
     } else if (prop === 'scale') {
         unit = '';
         transformFn = (stop) =>
-            getUnit([stop]) ? toPx(stop, 'width', el, true) / el.offsetWidth : stop;
+            getUnit([stop]) ? toPx(stop, 'width', el, true) / el.offsetWidth : toFloat(stop);
     }
 
     if (stops.length === 1) {
@@ -358,10 +357,10 @@ function getStop(stops, percent) {
 
 function getValue(stops, percent) {
     const [start, end, p] = getStop(stops, percent);
-    return isNumber(start) ? start + Math.abs(start - end) * p * (start < end ? 1 : -1) : +end;
+    return start + Math.abs(start - end) * p * (start < end ? 1 : -1);
 }
 
-const unitRe = /^-?\d+(\S+)?/;
+const unitRe = /^-?\d+(?:\.\d+)?(\S+)?/;
 function getUnit(stops, defaultUnit) {
     for (const stop of stops) {
         const match = stop.match?.(unitRe);

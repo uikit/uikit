@@ -96,7 +96,9 @@ export default {
         },
 
         {
-            name: `${pointerEnter} ${pointerLeave} focus blur`,
+            // mouseenter mouseleave are added because of Firefox bug,
+            // where pointerleave is triggered immediately after pointerenter on scroll
+            name: `mouseenter mouseleave ${pointerEnter} ${pointerLeave} focus blur`,
 
             filter() {
                 return includes(this.mode, 'hover');
@@ -107,14 +109,14 @@ export default {
                     return;
                 }
 
-                const show = includes([pointerEnter, 'focus'], e.type);
+                const show = includes(['mouseenter', pointerEnter, 'focus'], e.type);
                 const expanded = this.isToggled(this.target);
 
                 // Skip hide if still hovered or focused
                 if (
                     !show &&
                     (!isBoolean(this._showState) ||
-                        (e.type === pointerLeave && matches(this.$el, ':focus')) ||
+                        (e.type !== 'blur' && matches(this.$el, ':focus')) ||
                         (e.type === 'blur' && matches(this.$el, ':hover')))
                 ) {
                     // Reset showState if already hidden
