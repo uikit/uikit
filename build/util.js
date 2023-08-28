@@ -102,6 +102,9 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                 target: 'safari12',
                 sourceMap: !!debug,
                 minify: false,
+                supported: {
+                    'template-literal': true,
+                },
             }),
 
             !debug &&
