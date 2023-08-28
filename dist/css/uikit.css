@@ -1,4 +1,4 @@
-/*! UIkit 3.16.24 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.26 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -3896,10 +3896,14 @@ select.uk-form-width-xsmall {
 /* Container
  ========================================================================== */
 /*
- * Clip child elements
+ * 1. Clip child elements
+ * 2. Prevent accidental scrolling through elements in slide getting focused
  */
 .uk-slider-container {
+  /* 1 */
   overflow: hidden;
+  /* 2 */
+  overflow: clip;
 }
 /*
  * Widen container to prevent box-shadows from clipping, `large-box-shadow`
