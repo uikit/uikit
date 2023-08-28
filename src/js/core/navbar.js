@@ -7,6 +7,7 @@ import {
     observeResize,
     offset,
     on,
+    parent,
     pointInRect,
     removeClass,
     replaceClass,
@@ -176,7 +177,9 @@ export default {
             const colorClasses = ['uk-light', 'uk-dark'];
 
             const active =
-                this._isIntersecting && hasClass(navbarContainer, 'uk-navbar-transparent');
+                this._isIntersecting &&
+                hasClass(navbarContainer, 'uk-navbar-transparent') &&
+                !isWithinMixBlendMode(navbarContainer);
 
             if (this._colorListener) {
                 if (!active) {
@@ -233,4 +236,12 @@ function listenForPositionChange(el, handler) {
         off();
         observer.disconnect();
     };
+}
+
+function isWithinMixBlendMode(el) {
+    do {
+        if (css(el, 'mixBlendMode') !== 'normal') {
+            return true;
+        }
+    } while ((el = parent(el)));
 }
