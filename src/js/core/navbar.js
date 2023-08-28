@@ -4,13 +4,15 @@ import {
     closest,
     css,
     hasClass,
-    includes,
+    observeResize,
     offset,
+    on,
     pointInRect,
     removeClass,
+    replaceClass,
     scrollParent,
 } from 'uikit-util';
-import { mutation, resize, scroll } from '../api/observables';
+import { intersection, mutation } from '../api/observables';
 import Dropnav from './dropnav';
 
 export default {
@@ -59,38 +61,26 @@ export default {
         },
     },
 
+    disconnect() {
+        this._colorListener?.();
+    },
+
     observe: [
         mutation({
             target: ({ navbarContainer }) => navbarContainer,
-            handler(records) {
-                if (hasTransparencyChanged(this.navbarContainer, records)) {
-                    this.$emit();
-                }
+            handler() {
+                this.registerColorListener();
             },
             options: { attributes: true, attributeFilter: ['class'], attributeOldValue: true },
         }),
-        resize({ target: ({ $el }) => [$el, scrollParent($el, true)] }),
-        scroll(),
+        intersection({
+            handler(records) {
+                this._isIntersecting = records[0].isIntersecting;
+                this.registerColorListener();
+            },
+            args: { intersecting: false },
+        }),
     ],
-
-    update: {
-        read() {
-            removeClass(this.navbarContainer, 'uk-light', 'uk-dark');
-            if (!hasClass(this.navbarContainer, 'uk-navbar-transparent')) {
-                return;
-            }
-
-            const { left, top, height } = offset(this.navbarContainer);
-            const startPoint = { x: left, y: Math.max(0, top) + height / 2 };
-            const target = $$(this.selTransparentTarget).find((target) =>
-                pointInRect(startPoint, offset(target)),
-            );
-            const color = css(target, '--uk-section-color');
-            addClass(this.navbarContainer, color ? `uk-${color}` : '');
-        },
-
-        events: ['resize', 'scroll'],
-    },
 
     events: [
         {
@@ -180,6 +170,38 @@ export default {
 
             return drop.inset ? 'behind' : 'remove';
         },
+
+        registerColorListener() {
+            const { navbarContainer } = this;
+            const colorClasses = ['uk-light', 'uk-dark'];
+
+            const active =
+                this._isIntersecting && hasClass(navbarContainer, 'uk-navbar-transparent');
+
+            if (this._colorListener) {
+                if (!active) {
+                    removeClass(navbarContainer, colorClasses);
+                    this._colorListener();
+                    this._colorListener = null;
+                }
+                return;
+            }
+
+            if (!active) {
+                return;
+            }
+
+            this._colorListener = listenForPositionChange(navbarContainer, () => {
+                const { left, top, height } = offset(navbarContainer);
+                const startPoint = { x: left, y: Math.max(0, top) + height / 2 };
+                const target = $$(this.selTransparentTarget).find((target) =>
+                    pointInRect(startPoint, offset(target)),
+                );
+                const color = css(target, '--uk-section-color');
+                const cls = color ? `uk-${color === 'dark' ? 'dark' : 'light'}` : '';
+                replaceClass(navbarContainer, colorClasses, cls);
+            });
+        },
     },
 };
 
@@ -200,9 +222,15 @@ function getDropbarBehindColor(el) {
     return css(el, '--uk-navbar-dropbar-behind-color');
 }
 
-function hasTransparencyChanged(el, records) {
-    const isTransparent = hasClass(el, 'uk-navbar-transparent');
-    return records.some(
-        (record) => includes(record.oldValue, 'uk-navbar-transparent') !== isTransparent,
-    );
+function listenForPositionChange(el, handler) {
+    const parent = scrollParent(el, true);
+    const scrollEl = parent === document.documentElement ? document : parent;
+
+    const off = on(scrollEl, 'scroll', handler, { passive: true });
+    const observer = observeResize([el, parent], handler);
+
+    return () => {
+        off();
+        observer.disconnect();
+    };
 }
