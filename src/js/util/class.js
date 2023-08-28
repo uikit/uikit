@@ -1,32 +1,44 @@
-import { attr } from './attr';
-import { isUndefined, toNodes } from './lang';
+import { includes, isArray, isUndefined, toArray, toNodes } from './lang';
 
-export function addClass(element, ...args) {
-    apply(element, args, 'add');
+export function addClass(element, ...classes) {
+    for (const node of toNodes(element)) {
+        const add = toClasses(classes).filter((cls) => !hasClass(node, cls));
+        if (add.length) {
+            node.classList.add(...add);
+        }
+    }
 }
 
-export function removeClass(element, ...args) {
-    apply(element, args, 'remove');
+export function removeClass(element, ...classes) {
+    for (const node of toNodes(element)) {
+        const remove = toClasses(classes).filter((cls) => hasClass(node, cls));
+        if (remove.length) {
+            node.classList.remove(...remove);
+        }
+    }
 }
 
-export function removeClasses(element, cls) {
-    attr(element, 'class', (value) =>
-        (value || '').replace(new RegExp(`\\b${cls}\\b\\s?`, 'g'), ''),
-    );
+export function removeClasses(element, clsRegex) {
+    clsRegex = new RegExp(clsRegex);
+    for (const node of toNodes(element)) {
+        node.classList.remove(...toArray(node.classList).filter((cls) => cls.match(clsRegex)));
+    }
 }
 
-export function replaceClass(element, ...args) {
-    args[0] && removeClass(element, args[0]);
-    args[1] && addClass(element, args[1]);
+export function replaceClass(element, oldClass, newClass) {
+    newClass = toClasses(newClass);
+    oldClass = toClasses(oldClass).filter((cls) => !includes(newClass, cls));
+    removeClass(element, oldClass);
+    addClass(element, newClass);
 }
 
 export function hasClass(element, cls) {
-    [cls] = getClasses(cls);
-    return !!cls && toNodes(element).some((node) => node.classList.contains(cls));
+    [cls] = toClasses(cls);
+    return toNodes(element).some((node) => node.classList.contains(cls));
 }
 
 export function toggleClass(element, cls, force) {
-    const classes = getClasses(cls);
+    const classes = toClasses(cls);
 
     if (!isUndefined(force)) {
         force = !!force;
@@ -39,14 +51,6 @@ export function toggleClass(element, cls, force) {
     }
 }
 
-function apply(element, args, fn) {
-    args = args.reduce((args, arg) => args.concat(getClasses(arg)), []);
-
-    for (const node of toNodes(element)) {
-        node.classList[fn](...args);
-    }
-}
-
-function getClasses(str) {
-    return String(str).split(/[ ,]/).filter(Boolean);
+function toClasses(str) {
+    return isArray(str) ? str.map(toClasses).flat() : String(str).split(/[ ,]/).filter(Boolean);
 }
