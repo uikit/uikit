@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix minified build to use template-strings too
+
 ## 3.16.25 (August 28, 2023)
 
 ### Added
