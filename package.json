@@ -37,7 +37,7 @@
     "devDependencies": {
         "@rollup/plugin-alias": "^5.0.0",
         "@rollup/plugin-replace": "^5.0.2",
-        "archiver": "^5.3.1",
+        "archiver": "^6.0.0",
         "camelcase": "^8.0.0",
         "chokidar-cli": "^3.0.0",
         "clean-css": "^5.3.2",
@@ -45,7 +45,7 @@
         "esbuild": "^0.19.2",
         "eslint": "^8.43.0",
         "eslint-config-prettier": "^9.0.0",
-        "execa": "^7.1.1",
+        "execa": "^8.0.1",
         "fs-extra": "^11.1.1",
         "glob": "^10.3.3",
         "inquirer": "^9.2.7",
