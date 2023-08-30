@@ -33,9 +33,7 @@ export default {
     // check for offsetTop change
     observe: [
         viewport({ filter: ({ expand }) => expand }),
-        resize({
-            target: ({ $el }) => [$el, ...scrollParents($el)],
-        }),
+        resize({ target: ({ $el }) => scrollParents($el) }),
     ],
 
     update: {
