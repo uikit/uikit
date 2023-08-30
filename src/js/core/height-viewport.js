@@ -13,7 +13,7 @@ import {
     scrollParents,
     toFloat,
 } from 'uikit-util';
-import { resize } from '../api/observables';
+import { resize, viewport } from '../api/observables';
 
 export default {
     props: {
@@ -31,9 +31,12 @@ export default {
     },
 
     // check for offsetTop change
-    observe: resize({
-        target: ({ $el }) => [$el, ...scrollParents($el)],
-    }),
+    observe: [
+        viewport({ filter: ({ expand }) => expand }),
+        resize({
+            target: ({ $el }) => [$el, ...scrollParents($el)],
+        }),
+    ],
 
     update: {
         read() {

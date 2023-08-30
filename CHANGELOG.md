@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Height Viewport component not observing viewport changes with `expand: true`
+
 ## 3.16.26 (August 28, 2023)
 
 ### Fixed
