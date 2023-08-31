@@ -105,8 +105,8 @@ export async function compile(file, dest, { external, globals, name, aliases, re
 
             !debug &&
                 modify({
-                    find: /(>)\n\s+|\n\s+(<)/,
-                    replace: (m, m1, m2) => `${m1 || ''} ${m2 || ''}`,
+                    find: /(?<=>)\n\s+|\n\s+(?=<)/,
+                    replace: ' ',
                 }),
         ],
     };
