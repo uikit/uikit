@@ -173,17 +173,13 @@ export default {
         },
 
         registerColorListener() {
-            const { navbarContainer } = this;
-            const colorClasses = ['uk-light', 'uk-dark'];
-
             const active =
                 this._isIntersecting &&
-                hasClass(navbarContainer, 'uk-navbar-transparent') &&
-                !isWithinMixBlendMode(navbarContainer);
+                hasClass(this.navbarContainer, 'uk-navbar-transparent') &&
+                !isWithinMixBlendMode(this.navbarContainer);
 
             if (this._colorListener) {
                 if (!active) {
-                    removeClass(navbarContainer, colorClasses);
                     this._colorListener();
                     this._colorListener = null;
                 }
@@ -194,15 +190,16 @@ export default {
                 return;
             }
 
-            this._colorListener = listenForPositionChange(navbarContainer, () => {
-                const { left, top, height } = offset(navbarContainer);
+            this._colorListener = listenForPositionChange(this.navbarContainer, () => {
+                const { left, top, height } = offset(this.navbarContainer);
                 const startPoint = { x: left, y: Math.max(0, top) + height / 2 };
                 const target = $$(this.selTransparentTarget).find((target) =>
                     pointInRect(startPoint, offset(target)),
                 );
                 const color = css(target, '--uk-section-color');
-                const cls = color ? `uk-${color === 'dark' ? 'dark' : 'light'}` : '';
-                replaceClass(navbarContainer, colorClasses, cls);
+                if (color) {
+                    replaceClass(this.navbarContainer, 'uk-light,uk-dark', `uk-${color}`);
+                }
             });
         },
     },
