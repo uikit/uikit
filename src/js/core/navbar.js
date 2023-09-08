@@ -176,7 +176,10 @@ export default {
             const active =
                 this._isIntersecting &&
                 hasClass(this.navbarContainer, 'uk-navbar-transparent') &&
-                !isWithinMixBlendMode(this.navbarContainer);
+                !isWithinMixBlendMode(this.navbarContainer) &&
+                !$$('.uk-drop', this.dropContainer)
+                    .map(this.getDropdown)
+                    .some((drop) => drop.isToggled() && drop.inset);
 
             if (this._colorListener) {
                 if (!active) {
