@@ -1,23 +1,21 @@
 import {
     $,
-    css,
     getTargetedElement,
     isSameSiteAnchor,
     off,
     on,
     scrollIntoView,
-    toPx,
     trigger,
     within,
 } from 'uikit-util';
 
 export default {
     props: {
-        offset: null,
+        offset: Number,
     },
 
     data: {
-        offset: false,
+        offset: 0,
     },
 
     connected() {
@@ -33,10 +31,7 @@ export default {
             el = (el && $(el)) || document.body;
 
             if (trigger(this.$el, 'beforescroll', [this, el])) {
-                const offset = toPx(
-                    this.offset === false ? css(this.$el, '--uk-scroll-offset') : this.offset,
-                );
-                await scrollIntoView(el, { offset });
+                await scrollIntoView(el, { offset: this.offset });
                 trigger(this.$el, 'scrolled', [this, el]);
             }
         },

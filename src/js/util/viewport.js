@@ -60,12 +60,12 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
                 top = 0;
             }
 
-            return () => scrollTo(scrollElement, top - scrollTop, element).then(fn);
+            return () => scrollTo(scrollElement, top - scrollTop, element, maxScroll).then(fn);
         },
         () => Promise.resolve(),
     )();
 
-    function scrollTo(element, top, targetEl) {
+    function scrollTo(element, top, targetEl, maxScroll) {
         return new Promise((resolve) => {
             const scroll = element.scrollTop;
             const duration = getDuration(Math.abs(top));
@@ -76,9 +76,17 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
 
             (function step() {
                 const percent = ease(clamp((Date.now() - start) / duration));
-                const diff = parents[0] === element ? offset(targetEl).top - targetTop : 0;
+                let diff = 0;
+                if (parents[0] === element && scroll + top < maxScroll) {
+                    diff = offset(targetEl).top - targetTop;
+                    const fixedEl = findFixedElement(targetEl);
+                    diff -= fixedEl ? offset(fixedEl).height : 0;
+                }
 
-                element.scrollTop = scroll + (top + diff) * percent;
+                element.scrollTop = Math[top + diff > 0 ? 'max' : 'min'](
+                    element.scrollTop,
+                    scroll + (top + diff) * percent,
+                );
 
                 // scroll more if we have not reached our destination
                 // if element changes position during scroll try another step
@@ -98,6 +106,14 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
 
     function ease(k) {
         return 0.5 * (1 - Math.cos(Math.PI * k));
+    }
+
+    function findFixedElement(target) {
+        return target.ownerDocument
+            .elementsFromPoint(0, 0)
+            .find(
+                (el) => ['fixed', 'sticky'].includes(css(el, 'position')) && !el.contains(target),
+            );
     }
 }
 
