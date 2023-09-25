@@ -56,7 +56,7 @@
         "prettier": "^3.0.2",
         "prettier-plugin-organize-imports": "^3.2.3",
         "rollup": "^3.28.1",
-        "rollup-plugin-esbuild": "^5.0.0",
+        "rollup-plugin-esbuild": "^6.0.1",
         "rollup-plugin-modify": "^3.0.0",
         "rtlcss": "^4.1.0",
         "semver": "^7.5.4",
