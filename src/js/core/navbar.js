@@ -199,7 +199,7 @@ export default {
                 const target = $$(this.selTransparentTarget).find((target) =>
                     pointInRect(startPoint, offset(target)),
                 );
-                const color = css(target, '--uk-section-color');
+                const color = css(target, '--uk-navbar-color');
                 if (color) {
                     replaceClass(this.navbarContainer, 'uk-light,uk-dark', `uk-${color}`);
                 }
