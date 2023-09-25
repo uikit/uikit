@@ -179,7 +179,11 @@ export default {
                 !isWithinMixBlendMode(this.navbarContainer) &&
                 !$$('.uk-drop', this.dropContainer)
                     .map(this.getDropdown)
-                    .some((drop) => drop.isToggled() && drop.inset);
+                    .some(
+                        (drop) =>
+                            drop.isToggled() &&
+                            (drop.inset || this.getTransparentMode(drop.$el) === 'behind'),
+                    );
 
             if (this._colorListener) {
                 if (!active) {
