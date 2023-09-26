@@ -55,6 +55,7 @@ export default {
             handler(e) {
                 if (
                     !this.draggable ||
+                    this.parallax ||
                     (!isTouch(e) && hasSelectableText(e.target)) ||
                     e.target.closest(selInput) ||
                     e.button > 0 ||
@@ -134,7 +135,7 @@ export default {
             let { slides, prevIndex } = this;
             let dis = Math.abs(distance);
             let nextIndex = this.getIndex(prevIndex + this.dir);
-            let width = this._getDistance(prevIndex, nextIndex);
+            let width = getDistance.call(this, prevIndex, nextIndex);
 
             while (nextIndex !== prevIndex && dis > width) {
                 this.drag -= width * this.dir;
@@ -142,7 +143,7 @@ export default {
                 prevIndex = nextIndex;
                 dis -= width;
                 nextIndex = this.getIndex(prevIndex + this.dir);
-                width = this._getDistance(prevIndex, nextIndex);
+                width = getDistance.call(this, prevIndex, nextIndex);
             }
 
             this.percent = dis / width;
@@ -173,16 +174,16 @@ export default {
                 this.prevIndex = prevIndex;
                 this.index = nextIndex;
 
-                !edge && trigger(prev, 'beforeitemhide', [this]);
+                if (!edge) {
+                    trigger(prev, 'beforeitemhide', [this]);
+                    trigger(prev, 'itemhide', [this]);
+                }
+
                 trigger(next, 'beforeitemshow', [this]);
+                trigger(next, 'itemshow', [this]);
             }
 
             this._transitioner = this._translate(Math.abs(this.percent), prev, !edge && next);
-
-            if (changed) {
-                !edge && trigger(prev, 'itemhide', [this]);
-                trigger(next, 'itemshow', [this]);
-            }
         },
 
         end() {
@@ -220,15 +221,15 @@ export default {
 
             this.drag = this.percent = null;
         },
-
-        _getDistance(prev, next) {
-            return (
-                this._getTransitioner(prev, prev !== next && next).getDistance() ||
-                this.slides[prev].offsetWidth
-            );
-        },
     },
 };
+
+function getDistance(prev, next) {
+    return (
+        this._getTransitioner(prev, prev !== next && next).getDistance() ||
+        this.slides[prev].offsetWidth
+    );
+}
 
 function hasSelectableText(el) {
     return (

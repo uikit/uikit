@@ -1,5 +1,6 @@
-import { boxModelAdjust, css, inBrowser } from 'uikit-util';
+import { boxModelAdjust, css, dimensions, inBrowser } from 'uikit-util';
 import Class from '../mixin/class';
+import SliderParallax from '../mixin/slider-parallax';
 import SliderReactive from '../mixin/slider-reactive';
 import Slideshow from '../mixin/slideshow';
 import SliderPreload from './internal/slider-preload';
@@ -8,7 +9,7 @@ import Animations from './internal/slideshow-animations';
 const supportsAspectRatio = inBrowser && CSS.supports('aspect-ratio', '1/1');
 
 export default {
-    mixins: [Class, Slideshow, SliderReactive, SliderPreload],
+    mixins: [Class, Slideshow, SliderReactive, SliderParallax, SliderPreload],
 
     props: {
         ratio: String,
@@ -24,6 +25,12 @@ export default {
         attrItem: 'uk-slideshow-item',
         selNav: '.uk-slideshow-nav',
         Animations,
+    },
+
+    computed: {
+        totalWidth() {
+            return dimensions(this.list).width * this.length;
+        },
     },
 
     watch: {
@@ -72,6 +79,10 @@ export default {
     methods: {
         getAdjacentSlides() {
             return [1, -1].map((i) => this.slides[this.getIndex(this.index + i)]);
+        },
+
+        getSlideWidthAt() {
+            return dimensions(this.list).width;
         },
     },
 };

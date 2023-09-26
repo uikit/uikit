@@ -1,4 +1,3 @@
-import { addClass, removeClass } from 'uikit-util';
 import Animations from './internal/slideshow-animations';
 import Transitioner from './internal/slideshow-transitioner';
 import Slider from './slider.js';
@@ -24,20 +23,6 @@ export default {
 
         transitionOptions() {
             return { animation: this.animation };
-        },
-    },
-
-    events: {
-        beforeitemshow({ target }) {
-            addClass(target, this.clsActive);
-        },
-
-        itemshown({ target }) {
-            addClass(target, this.clsActivated);
-        },
-
-        itemhidden({ target }) {
-            removeClass(target, this.clsActive, this.clsActivated);
         },
     },
 };

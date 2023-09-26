@@ -22,12 +22,13 @@ import {
 import { resize } from '../api/observables';
 import Class from '../mixin/class';
 import Slider, { speedUp } from '../mixin/slider';
+import SliderParallax from '../mixin/slider-parallax';
 import SliderReactive from '../mixin/slider-reactive';
 import SliderPreload from './internal/slider-preload';
 import Transitioner, { getMax, getWidth } from './internal/slider-transitioner';
 
 export default {
-    mixins: [Class, Slider, SliderReactive, SliderPreload],
+    mixins: [Class, Slider, SliderReactive, SliderParallax, SliderPreload],
 
     props: {
         center: Boolean,
@@ -46,7 +47,11 @@ export default {
 
     computed: {
         avgWidth() {
-            return getWidth(this.list) / this.length;
+            return this.totalWidth / this.length;
+        },
+
+        totalWidth() {
+            return getWidth(this.list);
         },
 
         finite({ finite }) {
@@ -241,8 +246,7 @@ export default {
             const actives = this._getTransitioner(this.index).getActives();
             const activeClasses = [
                 this.clsActive,
-                ((!this.sets || includes(this.sets, toFloat(this.index))) && this.clsActivated) ||
-                    '',
+                !this.sets || includes(this.sets, toFloat(this.index)) ? this.clsActivated : '',
             ];
             for (const slide of this.slides) {
                 const active = includes(actives, slide);
@@ -282,7 +286,7 @@ export default {
             const { width } = dimensions(this.list);
             const left = -width;
             const right = width * 2;
-            const slideWidth = dimensions(this.slides[this.index]).width;
+            const slideWidth = this.getSlideWidthAt(this.index);
             const slideLeft = this.center ? width / 2 - slideWidth / 2 : 0;
             const slides = new Set();
             for (const i of [-1, 1]) {
@@ -295,6 +299,10 @@ export default {
                 } while (this.length > j && currentLeft > left && currentLeft < right);
             }
             return Array.from(slides);
+        },
+
+        getSlideWidthAt(index) {
+            return dimensions(this.slides[index]).width;
         },
     },
 };
