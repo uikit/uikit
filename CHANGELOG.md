@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Height Viewport component not observing viewport changes with `expand: true`
+- Fix passing a `vh` unit to option `scale` relates to element's height in Parallax component 
 
 ## 3.16.26 (August 28, 2023)
 
