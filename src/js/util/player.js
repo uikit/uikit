@@ -60,11 +60,7 @@ async function call(el, cmd) {
 }
 
 function post(el, cmd) {
-    try {
-        el.contentWindow.postMessage(JSON.stringify({ event: 'command', ...cmd }), '*');
-    } catch (e) {
-        // noop
-    }
+    el.contentWindow.postMessage(JSON.stringify({ event: 'command', ...cmd }), '*');
 }
 
 const stateKey = '_ukPlayer';
