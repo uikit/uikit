@@ -58,6 +58,7 @@ export default {
         clsDrop: String,
         animateOut: Boolean,
         bgScroll: Boolean,
+        closeOnScroll: Boolean,
     },
 
     data: {
@@ -79,6 +80,7 @@ export default {
         animation: ['uk-animation-fade'],
         cls: 'uk-open',
         container: false,
+        closeOnScroll: false,
     },
 
     computed: {
@@ -247,14 +249,10 @@ export default {
             self: true,
 
             handler(e, toggled) {
-                attr(this.targetEl, 'aria-expanded', toggled ? true : null);
-
-                if (!toggled) {
-                    return;
+                if (toggled) {
+                    this.clearTimers();
+                    this.position();
                 }
-
-                this.clearTimers();
-                this.position();
             },
         },
 
@@ -267,12 +265,14 @@ export default {
                 active = this;
 
                 this.tracker.init();
+                attr(this.targetEl, 'aria-expanded', true);
 
                 const handlers = [
                     listenForResize(this),
                     listenForEscClose(this),
                     listenForBackgroundClose(this),
                     this.autoUpdate && listenForScroll(this),
+                    this.closeOnScroll && listenForScrollClose(this),
                     !this.bgScroll && preventBackgroundScroll(this.$el),
                 ];
 
@@ -306,6 +306,7 @@ export default {
 
                 active = this.isActive() ? null : active;
                 this.tracker.cancel();
+                attr(this.targetEl, 'aria-expanded', null);
             },
         },
     ],
@@ -360,6 +361,7 @@ export default {
 
             this.clearTimers();
 
+            this.isDelayedHide = delay;
             this.isDelaying = getPositionedElements(this.$el).some((el) =>
                 this.tracker.movesTo(el),
             );
@@ -483,8 +485,8 @@ function listenForResize(drop) {
     return () => off.map((observer) => observer.disconnect());
 }
 
-function listenForScroll(drop) {
-    return on([document, ...overflowParents(drop.$el)], 'scroll', () => drop.$emit(), {
+function listenForScroll(drop, fn = () => drop.$emit()) {
+    return on([document, ...overflowParents(drop.$el)], 'scroll', fn, {
         passive: true,
     });
 }
@@ -495,6 +497,10 @@ function listenForEscClose(drop) {
             drop.hide(false);
         }
     });
+}
+
+function listenForScrollClose(drop) {
+    return listenForScroll(drop, () => drop.hide(false));
 }
 
 function listenForBackgroundClose(drop) {

@@ -1,9 +1,11 @@
-import { boxModelAdjust, css } from 'uikit-util';
+import { boxModelAdjust, css, inBrowser } from 'uikit-util';
 import Class from '../mixin/class';
 import SliderReactive from '../mixin/slider-reactive';
 import Slideshow from '../mixin/slideshow';
 import SliderPreload from './internal/slider-preload';
 import Animations from './internal/slideshow-animations';
+
+const supportsAspectRatio = inBrowser && CSS.supports('aspect-ratio', '1/1');
 
 export default {
     mixins: [Class, Slideshow, SliderReactive, SliderPreload],
@@ -24,9 +26,24 @@ export default {
         Animations,
     },
 
+    watch: {
+        list(list) {
+            if (list && supportsAspectRatio) {
+                css(list, {
+                    aspectRatio: this.ratio.replace(':', '/'),
+                    minHeight: this.minHeight || '',
+                    maxHeight: this.maxHeight || '',
+                    minWidth: '100%',
+                    maxWidth: '100%',
+                });
+            }
+        },
+    },
+
     update: {
+        // deprecated: Remove with iOS 17
         read() {
-            if (!this.list) {
+            if (!this.list || supportsAspectRatio) {
                 return false;
             }
 

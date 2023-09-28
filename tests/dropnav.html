@@ -710,9 +710,9 @@
                     <tbody>
                         <tr>
                             <td><code>align</code></td>
-                            <td>left|right|center</td>
+                            <td>String</td>
                             <td>left</td>
-                            <td>Drop alignment.</td>
+                            <td>Drop alignment (left, right, center).</td>
                         </tr>
                         <tr>
                             <td><code>boundary</code></td>
@@ -722,13 +722,13 @@
                         </tr>
                         <tr>
                             <td><code>dropbar</code></td>
-                            <td>Boolean | CSS selector</td>
+                            <td>Boolean, CSS selector</td>
                             <td>false</td>
                             <td>The dropbar selector. If true the dropbar will be inserted automatically.</td>
                         </tr>
                         <tr>
                             <td><code>dropbar-anchor</code></td>
-                            <td>Boolean | CSS selector</td>
+                            <td>Boolean, CSS selector</td>
                             <td>false</td>
                             <td>The dropbar anchor selector. If set, dropbar will be inserted after the anchor element.</td>
                         </tr>
@@ -746,15 +746,15 @@
                         </tr>
                         <tr>
                             <td><code>stretch</code></td>
-                            <td>false|true|'x'|'y'</td>
-                            <td>false</td>
-                            <td>Stretch drop on both (true) or given axis.</td>
+                            <td>Boolean, String</td>
+                            <td>true</td>
+                            <td>Stretch drop on both (true) or given axis (x,y).</td>
                         </tr>
                         <tr>
                             <td><code>mode</code></td>
-                            <td>hover | click</td>
+                            <td>String</td>
                             <td>click,hover</td>
-                            <td>Comma-separated list of drop trigger behavior modes.</td>
+                            <td>Comma-separated list of drop trigger behavior modes (hover, click).</td>
                         </tr>
                         <tr>
                             <td><code>delay-show</code></td>
@@ -795,7 +795,7 @@
                         <tr>
                             <td><code>animation</code></td>
                             <td>String</td>
-                            <td>'uk-animation-fade'</td>
+                            <td>uk-animation-fade</td>
                             <td>Space-separated names of animations. Comma-separated for animation out.</td>
                         </tr>
                         <tr>
@@ -803,6 +803,18 @@
                             <td>Boolean</td>
                             <td>false</td>
                             <td>Use animation when closing the drop.</td>
+                        </tr>
+                        <tr>
+                            <td><code>bg-scroll</code></td>
+                            <td>Boolean</td>
+                            <td>true</td>
+                            <td>Allow background scrolling while drop is opened.</td>
+                        </tr>
+                        <tr>
+                            <td><code>close-on-scroll</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Closes the drop on scrolling a parent scroll container.</td>
                         </tr>
                     </tbody>
                 </table>

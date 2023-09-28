@@ -47,6 +47,7 @@ export default {
         targetY: Boolean,
         animation: Boolean,
         animateOut: Boolean,
+        closeOnScroll: Boolean,
     },
 
     data: {
@@ -75,6 +76,10 @@ export default {
                 this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
 
             return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
+        },
+
+        dropbarOffset() {
+            return 0;
         },
 
         dropContainer(_, $el) {
@@ -291,9 +296,16 @@ export default {
                     const minTop = Math.min(...targetOffsets.map(({ top }) => top));
                     const maxBottom = Math.max(...targetOffsets.map(({ bottom }) => bottom));
                     const dropbarOffset = offset(this.dropbar);
-                    css(this.dropbar, 'top', this.dropbar.offsetTop - (dropbarOffset.top - minTop));
+                    css(
+                        this.dropbar,
+                        'top',
+                        this.dropbar.offsetTop - (dropbarOffset.top - minTop) - this.dropbarOffset,
+                    );
                     this.transitionTo(
-                        maxBottom - minTop + toFloat(css(target, 'marginBottom')),
+                        maxBottom -
+                            minTop +
+                            toFloat(css(target, 'marginBottom')) +
+                            this.dropbarOffset,
                         target,
                     );
                 };
@@ -319,6 +331,8 @@ export default {
                 if (
                     matches(this.dropbar, ':hover') &&
                     active.$el === e.target &&
+                    includes(active.mode, 'hover') &&
+                    active.isDelayedHide &&
                     !this.items.some((el) => active.targetEl !== el && matches(el, ':focus'))
                 ) {
                     e.preventDefault();

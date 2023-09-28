@@ -25,13 +25,13 @@ function init(App) {
     }
 
     new MutationObserver((records) => records.forEach(applyChildListMutation)).observe(document, {
-        childList: true,
         subtree: true,
+        childList: true,
     });
 
     new MutationObserver((records) => records.forEach(applyAttributeMutation)).observe(document, {
-        attributes: true,
         subtree: true,
+        attributes: true,
     });
 
     App._initialized = true;

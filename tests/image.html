@@ -605,30 +605,30 @@
                         <tr>
                             <td><code>dataSrc</code></td>
                             <td>String</td>
-                            <td>''</td>
+                            <td></td>
                             <td>The image's `src` attribute.</td>
                         </tr>
                         <tr>
                             <td><code>sources</code></td>
                             <td>String</td>
-                            <td>''</td>
+                            <td></td>
                             <td>The image's sources. This option is used for background images only. The sources attributes be passed in `key: value;` format for a single source. For multiple sources in JSON format.</td>
                         </tr>
                         <tr>
                             <td><code>loading</code></td>
-                            <td>`lazy`|`eager`</td>
-                            <td>`lazy`</td>
+                            <td>String</td>
+                            <td>lazy</td>
                             <td>Enable lazy/eager loading. Set to `eager` for images within the first visible viewport.</td>
                         </tr>
                         <tr>
                             <td><code>margin</code></td>
                             <td>String</td>
-                            <td>'50%'</td>
+                            <td>50%</td>
                             <td>The margin increases the viewport's bounding box, before computing an intersection with the image. (Must be px or % units)</td>
                         </tr>
                         <tr>
                             <td><code>target</code></td>
-                            <td>String</td>
+                            <td>Boolean, String</td>
                             <td>false</td>
                             <td>A list of targets who's bounding boxes will be used to compute an intersection with the image. (Defaults to the image itself)</td>
                         </tr>

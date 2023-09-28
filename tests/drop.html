@@ -609,26 +609,26 @@
                         <tr>
                             <td><code>toggle</code></td>
                             <td>CSS Selector</td>
-                            <td>'- *'</td>
+                            <td>- *</td>
                             <td>CSS selector for the element to be used as toggle. By default, the preceding element.</td>
                         </tr>
                         <tr>
                             <td><code>pos</code></td>
                             <td>String</td>
-                            <td>'bottom-left'</td>
+                            <td>bottom-left</td>
                             <td>Drop position.</td>
                         </tr>
                         <tr>
                             <td><code>stretch</code></td>
-                            <td>false|true|'x'|'y'</td>
+                            <td>Boolean, String</td>
                             <td>false</td>
-                            <td>Stretch drop on both (true) or given axis.</td>
+                            <td>Stretch drop on both (true) or given axis (x,y).</td>
                         </tr>
                         <tr>
                             <td><code>mode</code></td>
-                            <td>hover | click</td>
+                            <td>String</td>
                             <td>click,hover</td>
-                            <td>Comma-separated list of drop trigger behavior modes.</td>
+                            <td>Comma-separated list of drop trigger behavior modes (hover, click).</td>
                         </tr>
                         <tr>
                             <td><code>delay-show</code></td>
@@ -711,7 +711,7 @@
                         <tr>
                             <td><code>animation</code></td>
                             <td>String</td>
-                            <td>'uk-animation-fade'</td>
+                            <td>uk-animation-fade</td>
                             <td>Space-separated names of animations. Comma-separated for animation out.</td>
                         </tr>
                         <tr>
@@ -725,6 +725,12 @@
                             <td>Boolean</td>
                             <td>true</td>
                             <td>Allow background scrolling while drop is opened.</td>
+                        </tr>
+                        <tr>
+                            <td><code>close-on-scroll</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Close the drop on scrolling a parent scroll container.</td>
                         </tr>
                         <tr>
                             <td><code>duration</code></td>

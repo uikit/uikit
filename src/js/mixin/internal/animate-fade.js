@@ -7,7 +7,6 @@ import {
     isInView,
     once,
     removeClass,
-    sortBy,
     toNumber,
     Transition,
 } from 'uikit-util';
@@ -118,16 +117,7 @@ function waitTransitionend(target) {
 }
 
 function getTransitionNodes(target) {
-    return getRows(children(target)).reduce(
-        (nodes, row) =>
-            nodes.concat(
-                sortBy(
-                    row.filter((el) => isInView(el)),
-                    'offsetLeft',
-                ),
-            ),
-        [],
-    );
+    return getRows(children(target)).flat().filter(isInView);
 }
 
 function awaitFrame() {

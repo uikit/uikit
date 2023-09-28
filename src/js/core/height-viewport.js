@@ -62,7 +62,10 @@ export default {
             } else {
                 if (this.offsetTop) {
                     if (isScrollingElement) {
-                        const top = offsetPosition(this.$el)[0] - offsetPosition(scrollElement)[0];
+                        const offsetTopEl =
+                            this.offsetTop === true ? this.$el : query(this.offsetTop, this.$el);
+                        const top =
+                            offsetPosition(offsetTopEl)[0] - offsetPosition(scrollElement)[0];
                         minHeight += top > 0 && top < viewportHeight / 2 ? ` - ${top}px` : '';
                     } else {
                         minHeight += ` - ${css(scrollElement, 'paddingTop')}`;

@@ -630,16 +630,16 @@
 
         </div>
 
-        <div id="sticky-transparent-dropbar-behind" class="uk-section-secondary uk-preserve-color" style="background-image: url('images/light.jpg');">
+        <div id="sticky-transparent-dropbar-remove" class="uk-section-secondary uk-preserve-color" style="background-image: url('images/dark.jpg');">
 
             <div class="tm-header">
-                <div class="uk-blend-difference" uk-sticky="end: #sticky-transparent-dropbar-behind; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-                    <nav class="uk-navbar-container uk-navbar-transparent">
+                <div uk-sticky="end: #sticky-transparent-dropbar-remove; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+                    <nav class="uk-navbar-container uk-navbar-transparent uk-light">
                         <div class="uk-container uk-container-expand">
-                            <div uk-navbar="target-y: !.uk-navbar-container; dropbar: true; dropbar-anchor: !.uk-navbar-container">
+                            <div uk-navbar="target-y: !.uk-navbar-container; dropbar: true; dropbar-anchor: !.uk-navbar-container; dropbar-transparent-mode: remove;">
                                 <div class="uk-navbar-left">
 
-                                    <a class="uk-navbar-item uk-logo" href="#">Sticky + Transparent + Dropbar Behind</a>
+                                    <a class="uk-navbar-item uk-logo" href="#">Sticky + Transparent + Dropbar Remove</a>
 
                                     <ul class="uk-navbar-nav">
                                         <li class="uk-active"><a href="">Active</a></li>
@@ -690,7 +690,152 @@
                                 <div class="uk-navbar-right">
 
                                     <a class="uk-navbar-toggle uk-navbar-toggle-animate" href uk-navbar-toggle-icon></a>
-                                    <div class="uk-dropbar uk-dropbar-top uk-navbar-dropbar-behind uk-position-z-index" uk-drop="mode: click; inset: true; pos: top-center; stretch: true; animation: slide-top; animate-out: true; container: #sticky-transparent-dropbar-behind .tm-header; bg-scroll: false;">
+                                    <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false; target-y: !.uk-navbar-container">
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li class="uk-parent">
+                                                <a href="#">Parent</a>
+                                                <ul class="uk-nav-sub">
+                                                    <li><a href="#">Sub item</a></li>
+                                                    <li><a href="#">Sub item</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <a class="uk-navbar-toggle uk-navbar-toggle-animate" uk-navbar-toggle-icon href="#"></a>
+                                    <div class="uk-dropbar uk-dropbar-top uk-padding-remove-top" uk-drop="mode: click; pos: bottom-center; stretch: true; animation: slide-top; animate-out: true; bg-scroll: false;">
+                                        <div class="uk-navbar-item uk-invisible"></div>
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li class="uk-parent">
+                                                <a href="#">Parent</a>
+                                                <ul class="uk-nav-sub">
+                                                    <li><a href="#">Sub item</a></li>
+                                                    <li><a href="#">Sub item</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="uk-section uk-light">
+                <div class="uk-container">
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="sticky-transparent-dropbar-behind" class="uk-section-secondary uk-preserve-color" style="background-image: url('images/light.jpg');">
+
+            <div class="tm-header">
+                <div class="uk-blend-difference uk-position-z-index-high" uk-sticky="end: #sticky-transparent-dropbar-behind; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+                    <nav class="uk-navbar-container uk-navbar-transparent uk-dark">
+                        <div class="uk-container uk-container-expand">
+                            <div uk-navbar="target-y: #sticky-transparent-dropbar-behind .uk-navbar-container; container: #sticky-transparent-dropbar-behind .tm-header; dropbar: true; dropbar-anchor: !.tm-header > *; dropbar-transparent-mode: behind; close-on-scroll: true">
+                                <div class="uk-navbar-left">
+
+                                    <a class="uk-navbar-item uk-logo" href="#">Sticky + Transparent + Dropbar Behind</a>
+
+                                    <ul class="uk-navbar-nav">
+                                        <li class="uk-active"><a href="">Active</a></li>
+                                        <li>
+                                            <a href="">Parent</a>
+                                            <div class="uk-navbar-dropdown uk-padding-remove-top">
+                                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                                    <li class="uk-active"><a href="#">Active</a></li>
+                                                    <li class="uk-parent">
+                                                        <a href="#">Parent</a>
+                                                        <ul class="uk-nav-sub">
+                                                            <li><a href="#">Sub item</a></li>
+                                                            <li><a href="#">Sub item</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="uk-nav-header">Header</li>
+                                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                                    <li class="uk-nav-divider"></li>
+                                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a href="">Parent</a>
+                                            <div class="uk-navbar-dropdown uk-padding-remove-top">
+                                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                                    <li class="uk-active"><a href="#">Active</a></li>
+                                                    <li class="uk-parent">
+                                                        <a href="#">Parent</a>
+                                                        <ul class="uk-nav-sub">
+                                                            <li><a href="#">Sub item</a></li>
+                                                            <li><a href="#">Sub item</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="uk-nav-header">Header</li>
+                                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                                    <li class="uk-nav-divider"></li>
+                                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li><a href="">Item</a></li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-navbar-right">
+
+                                    <a class="uk-navbar-toggle uk-navbar-toggle-animate" uk-navbar-toggle-icon href="#"></a>
+                                    <div class="uk-navbar-dropdown uk-padding-remove-top" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false; target-y: #sticky-transparent-dropbar-behind .uk-navbar-container; container: #sticky-transparent-dropbar-behind .tm-header;">
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li class="uk-parent">
+                                                <a href="#">Parent</a>
+                                                <ul class="uk-nav-sub">
+                                                    <li><a href="#">Sub item</a></li>
+                                                    <li><a href="#">Sub item</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <a class="uk-navbar-toggle uk-navbar-toggle-animate" href uk-navbar-toggle-icon></a>
+                                    <div class="uk-dropbar uk-dropbar-top uk-position-z-index uk-padding-remove-top" uk-drop="mode: click; inset: true; pos: top-center; stretch: true; animation: slide-top; animate-out: true; container: #sticky-transparent-dropbar-behind .tm-header; bg-scroll: false;">
+                                        <div class="uk-navbar-item uk-invisible"></div>
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                             <li class="uk-active"><a href="#">Active</a></li>
                                             <li class="uk-parent">
@@ -735,16 +880,16 @@
 
         </div>
 
-        <div id="sticky-transparent-dropbar-above" class="uk-section-secondary uk-preserve-color" style="background-image: url('images/light.jpg');">
+        <div id="sticky-transparent-recolor" class="uk-position-relative">
 
-            <div class="tm-header">
-                <div class="uk-blend-difference" uk-sticky="end: #sticky-transparent-dropbar-above; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-                    <nav class="uk-navbar-container uk-navbar-transparent">
+            <div class="tm-header uk-position-top">
+                <div uk-sticky="end: #sticky-transparent-recolor; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+                    <nav class="uk-navbar-container uk-navbar-transparent uk-dark">
                         <div class="uk-container uk-container-expand">
-                            <div uk-navbar="target-y: !.uk-navbar-container; dropbar: true; dropbar-anchor: !.uk-navbar-container">
+                            <div uk-navbar>
                                 <div class="uk-navbar-left">
 
-                                    <a class="uk-navbar-item uk-logo" href="#">Sticky + Transparent + Dropbar Above</a>
+                                    <a class="uk-navbar-item uk-logo" href="#">Sticky + Transparent + Recolor</a>
 
                                     <ul class="uk-navbar-nav">
                                         <li class="uk-active"><a href="">Active</a></li>
@@ -795,7 +940,27 @@
                                 <div class="uk-navbar-right">
 
                                     <a class="uk-navbar-toggle uk-navbar-toggle-animate" href uk-navbar-toggle-icon></a>
-                                    <div class="uk-dropbar uk-dropbar-top uk-navbar-dropbar-behind uk-position-z-index" uk-drop="mode: click; inset: true; pos: top-center; stretch: true; animation: slide-top; animate-out: true; container: #sticky-transparent-dropbar-above .tm-header; bg-scroll: false;">
+                                    <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !.uk-navbar; stretch: x; flip: false; target-y: !.uk-navbar-container">
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li class="uk-parent">
+                                                <a href="#">Parent</a>
+                                                <ul class="uk-nav-sub">
+                                                    <li><a href="#">Sub item</a></li>
+                                                    <li><a href="#">Sub item</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <a class="uk-navbar-toggle uk-navbar-toggle-animate" uk-navbar-toggle-icon href="#"></a>
+                                    <div class="uk-dropbar uk-dropbar-top uk-padding-remove-top" uk-drop="mode: click; pos: bottom-center; stretch: true; animation: slide-top; animate-out: true; bg-scroll: false;">
+                                        <div class="uk-navbar-item uk-invisible"></div>
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                             <li class="uk-active"><a href="#">Active</a></li>
                                             <li class="uk-parent">
@@ -820,7 +985,61 @@
                 </div>
             </div>
 
-            <div class="uk-section">
+            <div class="uk-section uk-section-default">
+                <div class="uk-container">
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                </div>
+            </div>
+
+            <div class="uk-section uk-section-primary">
+                <div class="uk-container">
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                </div>
+            </div>
+
+            <div class="uk-section uk-section-muted">
+                <div class="uk-container">
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+                </div>
+            </div>
+
+            <div class="uk-section uk-section-secondary">
                 <div class="uk-container">
 
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
