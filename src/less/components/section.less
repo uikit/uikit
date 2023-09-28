@@ -35,8 +35,10 @@
 @section-xlarge-padding-vertical-m:               (@global-large-margin + @global-xlarge-margin);
 
 @section-default-background:                      @global-background;
+@section-default-color-mode:                      dark;
 
 @section-muted-background:                        @global-muted-background;
+@section-muted-color-mode:                        dark;
 
 @section-primary-background:                      @global-primary-background;
 @section-primary-color-mode:                      light;
@@ -148,6 +150,7 @@
 
 .uk-section-default {
     background: @section-default-background;
+    --uk-navbar-color: @section-default-color-mode;
     .hook-section-default();
 }
 
@@ -157,6 +160,7 @@
 
 .uk-section-muted {
     background: @section-muted-background;
+    --uk-navbar-color: @section-muted-color-mode;
     .hook-section-muted();
 }
 
@@ -166,6 +170,7 @@
 
 .uk-section-primary {
     background: @section-primary-background;
+    --uk-navbar-color: @section-primary-color-mode;
     .hook-section-primary();
 }
 
@@ -178,6 +183,7 @@
 
 .uk-section-secondary {
     background: @section-secondary-background;
+    --uk-navbar-color: @section-secondary-color-mode;
     .hook-section-secondary();
 }
 

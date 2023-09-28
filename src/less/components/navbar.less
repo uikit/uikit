@@ -97,6 +97,8 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 @navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
+@navbar-dropbar-behind-color-mode:              dark;
+
 
 /* ========================================================================
    Component: Navbar
@@ -104,15 +106,17 @@
 
 /*
  * 1. Create position context to center navbar group
+ * 2. Pass dropbar behind color to JS
  */
 
 .uk-navbar {
     display: flex;
     /* 1 */
     position: relative;
+    /* 2 */
+    --uk-navbar-dropbar-behind-color: @navbar-dropbar-behind-color-mode;
     .hook-navbar();
 }
-
 
 /* Container
  ========================================================================== */
@@ -396,7 +400,7 @@
  * Remove margin from the last-child
  */
 
- .uk-navbar-dropdown > :last-child { margin-bottom: 0; }
+.uk-navbar-dropdown > :last-child { margin-bottom: 0; }
 
 // Color Mode
 .uk-navbar-dropdown:extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
@@ -555,16 +559,6 @@
 
 .uk-navbar-dropbar {
     .hook-navbar-dropbar();
-}
-
-/*
- * Create navbar placeholder space if dropbar is behind navbar
- */
-
-.uk-navbar-dropbar-behind::before {
-    content: "";
-    display: block;
-    height: @navbar-nav-item-height;
 }
 
 

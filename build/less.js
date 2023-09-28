@@ -1,7 +1,8 @@
+import fs from 'fs-extra';
 import { glob } from 'glob';
 import path from 'path';
 import rtlcss from 'rtlcss';
-import { args, banner, minify, pathExists, read, readJson, renderLess, write } from './util.js';
+import { args, banner, minify, read, renderLess, write } from './util.js';
 
 const { rtl } = args;
 const develop = args.develop || args.debug || args.d || args.nominify;
@@ -10,7 +11,7 @@ const sources = [
     { src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css` },
 ];
 
-const themes = (await pathExists('themes.json')) ? await readJson('themes.json') : {};
+const themes = (await fs.pathExists('themes.json')) ? await fs.readJson('themes.json') : {};
 
 for (const src of await glob('custom/*.less')) {
     const theme = path.basename(src, '.less');
@@ -18,7 +19,7 @@ for (const src of await glob('custom/*.less')) {
 
     themes[theme] = { css: `../${dist}` };
 
-    if (await pathExists(`dist/js/uikit-icons-${theme}.js`)) {
+    if (await fs.pathExists(`dist/js/uikit-icons-${theme}.js`)) {
         themes[theme].icons = `../dist/js/uikit-icons-${theme}.js`;
     }
 
@@ -27,7 +28,7 @@ for (const src of await glob('custom/*.less')) {
 
 await Promise.all(sources.map(({ src, dist }) => compile(src, dist, develop, rtl)));
 
-if (!rtl && (Object.keys(themes).length || !(await pathExists('themes.json')))) {
+if (!rtl && (Object.keys(themes).length || !(await fs.pathExists('themes.json')))) {
     await write('themes.json', JSON.stringify(themes));
 }
 

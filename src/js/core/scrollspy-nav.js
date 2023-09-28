@@ -1,6 +1,7 @@
 import {
     $$,
     closest,
+    css,
     getTargetedElement,
     hasClass,
     isSameSiteAnchor,
@@ -16,7 +17,7 @@ import { intersection, scroll } from '../api/observables';
 export default {
     props: {
         cls: String,
-        closest: String,
+        closest: Boolean,
         scroll: Boolean,
         overflow: Boolean,
         offset: Number,
@@ -36,14 +37,14 @@ export default {
         },
 
         elements({ closest: selector }) {
-            return closest(this.links, selector || '*');
+            return this.links.map((el) => closest(el, selector || '*'));
         },
     },
 
     watch: {
         links(links) {
             if (this.scroll) {
-                this.$create('scroll', links, { offset: this.offset || 0 });
+                this.$create('scroll', links, { offset: this.offset });
             }
         },
     },
@@ -71,7 +72,9 @@ export default {
                     active = length - 1;
                 } else {
                     for (let i = 0; i < targets.length; i++) {
-                        if (offset(targets[i]).top - viewport.top - this.offset > 0) {
+                        const fixedEl = findFixedElement(targets[i]);
+                        const offsetBy = this.offset + (fixedEl ? offset(fixedEl).height : 0);
+                        if (offset(targets[i]).top - viewport.top - offsetBy > 0) {
                             break;
                         }
                         active = +i;
@@ -102,3 +105,9 @@ export default {
         },
     ],
 };
+
+function findFixedElement(target) {
+    return target.ownerDocument
+        .elementsFromPoint(1, 1)
+        .find((el) => ['fixed', 'sticky'].includes(css(el, 'position')) && !el.contains(target));
+}

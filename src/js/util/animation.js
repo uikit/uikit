@@ -4,6 +4,10 @@ import { once, trigger } from './event';
 import { startsWith, toNodes } from './lang';
 import { css, propName } from './style';
 
+const clsTransition = 'uk-transition';
+const clsTransitionEnd = 'transitionend';
+const clsTransitionCanceled = 'transitioncanceled';
+
 function transition(element, props, duration = 400, timing = 'linear') {
     duration = Math.round(duration);
     return Promise.all(
@@ -17,25 +21,25 @@ function transition(element, props, duration = 400, timing = 'linear') {
                         }
                     }
 
-                    const timer = setTimeout(() => trigger(element, 'transitionend'), duration);
+                    const timer = setTimeout(() => trigger(element, clsTransitionEnd), duration);
 
                     once(
                         element,
-                        'transitionend transitioncanceled',
+                        [clsTransitionEnd, clsTransitionCanceled],
                         ({ type }) => {
                             clearTimeout(timer);
-                            removeClass(element, 'uk-transition');
+                            removeClass(element, clsTransition);
                             css(element, {
                                 transitionProperty: '',
                                 transitionDuration: '',
                                 transitionTimingFunction: '',
                             });
-                            type === 'transitioncanceled' ? reject() : resolve(element);
+                            type === clsTransitionCanceled ? reject() : resolve(element);
                         },
                         { self: true },
                     );
 
-                    addClass(element, 'uk-transition');
+                    addClass(element, clsTransition);
                     css(element, {
                         transitionProperty: Object.keys(props).map(propName).join(','),
                         transitionDuration: `${duration}ms`,
@@ -51,37 +55,39 @@ export const Transition = {
     start: transition,
 
     async stop(element) {
-        trigger(element, 'transitionend');
+        trigger(element, clsTransitionEnd);
         await Promise.resolve();
     },
 
     async cancel(element) {
-        trigger(element, 'transitioncanceled');
+        trigger(element, clsTransitionCanceled);
         await Promise.resolve();
     },
 
     inProgress(element) {
-        return hasClass(element, 'uk-transition');
+        return hasClass(element, clsTransition);
     },
 };
 
 const animationPrefix = 'uk-animation-';
+const clsAnimationEnd = 'animationend';
+const clsAnimationCanceled = 'animationcanceled';
 
 function animate(element, animation, duration = 200, origin, out) {
     return Promise.all(
         toNodes(element).map(
             (element) =>
                 new Promise((resolve, reject) => {
-                    trigger(element, 'animationcanceled');
-                    const timer = setTimeout(() => trigger(element, 'animationend'), duration);
+                    trigger(element, clsAnimationCanceled);
+                    const timer = setTimeout(() => trigger(element, clsAnimationEnd), duration);
 
                     once(
                         element,
-                        'animationend animationcanceled',
+                        [clsAnimationEnd, clsAnimationCanceled],
                         ({ type }) => {
                             clearTimeout(timer);
 
-                            type === 'animationcanceled' ? reject() : resolve(element);
+                            type === clsAnimationCanceled ? reject() : resolve(element);
 
                             css(element, 'animationDuration', '');
                             removeClasses(element, `${animationPrefix}\\S*`);
@@ -115,6 +121,6 @@ export const Animation = {
     },
 
     cancel(element) {
-        trigger(element, 'animationcanceled');
+        trigger(element, clsAnimationCanceled);
     },
 };

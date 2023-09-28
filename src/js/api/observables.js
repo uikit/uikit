@@ -59,10 +59,7 @@ export function viewport(options) {
 export function scroll(options) {
     return observe(
         (target, handler) => ({
-            disconnect: on(toScrollTargets(target), 'scroll', handler, {
-                passive: true,
-                capture: true,
-            }),
+            disconnect: on(toScrollTargets(target), 'scroll', handler, { passive: true }),
         }),
         options,
         'scroll',

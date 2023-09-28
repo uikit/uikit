@@ -8,13 +8,15 @@
         <script src="js/test.js"></script>
         <style>
 
-            :nth-child(7n-6) > .uk-panel { height: 120px; background: rgba(0,0,0,0.1); }
-            :nth-child(7n-5) > .uk-panel { height: 180px; background: rgba(0,0,0,0.15); }
-            :nth-child(7n-4) > .uk-panel { height: 200px; background: rgba(0,0,0,0.2); }
-            :nth-child(7n-3) > .uk-panel { height: 170px; background: rgba(0,0,0,0.25); }
-            :nth-child(7n-2) > .uk-panel { height: 220px; background: rgba(0,0,0,0.3); }
-            :nth-child(7n-1) > .uk-panel { height: 160px; background: rgba(0,0,0,0.35); }
-            :nth-child(7n) > .uk-panel { height: 250px; background: rgba(0,0,0,0.35); }
+            :nth-child(9n-8) > .uk-panel { height: 140px; background: rgba(0,0,0,0.1); }
+            :nth-child(9n-7) > .uk-panel { height: 180px; background: rgba(0,0,0,0.1); }
+            :nth-child(9n-6) > .uk-panel { height: 220px; background: rgba(0,0,0,0.1); }
+            :nth-child(9n-5) > .uk-panel { height: 280px; background: rgba(0,0,0,0.15); }
+            :nth-child(9n-4) > .uk-panel { height: 140px; background: rgba(0,0,0,0.2); }
+            :nth-child(9n-3) > .uk-panel { height: 200px; background: rgba(0,0,0,0.25); }
+            :nth-child(9n-2) > .uk-panel { height: 250px; background: rgba(0,0,0,0.3); }
+            :nth-child(9n-1) > .uk-panel { height: 320px; background: rgba(0,0,0,0.35); }
+            :nth-child(9n) > .uk-panel { height: 160px; background: rgba(0,0,0,0.35); }
 
         </style>
     </head>
@@ -25,80 +27,54 @@
 
             <h1>Grid Masonry</h1>
 
-            <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-grid="masonry: true">
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
+            <div class="uk-margin">
+                <select id="js-masonry-switcher" class="uk-select uk-form-width-small" aria-label="Masonry switcher">
+                    <option value="pack">Pack</option>
+                    <option value="next">Next</option>
+                </select>
             </div>
 
-            <h1>With Parallax</h1>
-
-            <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-grid="masonry: true; parallax: 150">
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
-                <div><div class="uk-panel"></div></div>
+            <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-light js-grid-masonry" uk-grid masonry="pack">
+                <div><div class="uk-panel"><h1 class="uk-position-center">1</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">2</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">3</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">4</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">5</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">6</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">7</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">8</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">9</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">10</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">11</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">12</h1></div></div>
             </div>
 
-            <h2>JavaScript Options</h2>
+            <h2>With Parallax</h2>
 
-            <div class="uk-overflow-auto">
-                <table class="uk-table uk-table-striped">
-                    <thead>
-                        <tr>
-                            <th>Option</th>
-                            <th>Value</th>
-                            <th>Default</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>margin</code></td>
-                            <td>String</td>
-                            <td>uk-grid-margin</td>
-                            <td>This class is added to items that break into the next row, typically to create margin to the previous row.</td>
-                        </tr>
-                        <tr>
-                            <td><code>first-column</code></td>
-                            <td>String</td>
-                            <td>uk-first-column</td>
-                            <td>This class is added to the first element in each row.</td>
-                        </tr>
-                        <tr>
-                            <td><code>masonry</code></td>
-                            <td>Boolean</td>
-                            <td>false</td>
-                            <td>Enables masonry layout for this grid.</td>
-                        </tr>
-                        <tr>
-                            <td><code>parallax</code></td>
-                            <td>Number</td>
-                            <td>0</td>
-                            <td>Parallax translation value. The value must be a positive integer. Falsy disables the parallax effect (default).</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-light js-grid-masonry" uk-grid="parallax: 150" masonry="pack">
+                <div><div class="uk-panel"><h1 class="uk-position-center">1</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">2</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">3</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">4</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">5</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">6</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">7</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">8</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">9</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">10</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">11</h1></div></div>
+                <div><div class="uk-panel"><h1 class="uk-position-center">12</h1></div></div>
             </div>
 
         </div>
+
+        <script>
+            const {attr, $$, on} = UIkit.util;
+            on('#js-masonry-switcher', 'change', e =>
+                attr($$('.js-grid-masonry'), 'masonry', e.target.value)
+            );
+
+        </script>
 
     </body>
 </html>

@@ -247,8 +247,6 @@ export async function toggleTransition(
 }
 
 function toggleAnimation(el, show, cmp) {
-    Animation.cancel(el);
-
     const { animation, duration, _toggle } = cmp;
 
     if (show) {
