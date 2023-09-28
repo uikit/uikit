@@ -2,7 +2,7 @@
     "name": "uikit",
     "title": "UIkit",
     "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-    "version": "3.16.26",
+    "version": "3.16.27",
     "main": "dist/js/uikit.js",
     "style": "dist/css/uikit.css",
     "sideEffects": [
@@ -33,7 +33,7 @@
         "url": "https://github.com/uikit/uikit/issues"
     },
     "homepage": "https://getuikit.com",
-    "packageManager": "pnpm@8.7.0",
+    "packageManager": "pnpm@8.8.0",
     "devDependencies": {
         "@rollup/plugin-alias": "^5.0.0",
         "@rollup/plugin-replace": "^5.0.2",
@@ -56,7 +56,7 @@
         "prettier": "^3.0.2",
         "prettier-plugin-organize-imports": "^3.2.3",
         "rollup": "^3.28.1",
-        "rollup-plugin-esbuild": "^5.0.0",
+        "rollup-plugin-esbuild": "^6.0.1",
         "rollup-plugin-modify": "^3.0.0",
         "rtlcss": "^4.1.0",
         "semver": "^7.5.4",

@@ -99,7 +99,10 @@ function transformFn(prop, el, stops) {
     } else if (prop === 'scale') {
         unit = '';
         transformFn = (stop) =>
-            getUnit([stop]) ? toPx(stop, 'width', el, true) / el.offsetWidth : toFloat(stop);
+            getUnit([stop])
+                ? toPx(stop, 'width', el, true) /
+                  el[`offset${stop.endsWith?.('vh') ? 'Height' : 'Width'}`]
+                : toFloat(stop);
     }
 
     if (stops.length === 1) {

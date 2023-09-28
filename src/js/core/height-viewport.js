@@ -13,7 +13,7 @@ import {
     scrollParents,
     toFloat,
 } from 'uikit-util';
-import { resize } from '../api/observables';
+import { resize, viewport } from '../api/observables';
 
 export default {
     props: {
@@ -31,9 +31,10 @@ export default {
     },
 
     // check for offsetTop change
-    observe: resize({
-        target: ({ $el }) => [$el, ...scrollParents($el)],
-    }),
+    observe: [
+        viewport({ filter: ({ expand }) => expand }),
+        resize({ target: ({ $el }) => scrollParents($el) }),
+    ],
 
     update: {
         read() {
@@ -50,19 +51,15 @@ export default {
                 scrollElement === body ? scrollingElement : scrollElement,
             );
 
+            const isScrollingElement = scrollingElement === scrollElement || body === scrollElement;
+
+            // on mobile devices (iOS and Android) window.innerHeight !== 100vh
+            minHeight = `calc(${isScrollingElement ? '100vh' : `${viewportHeight}px`}`;
+
             if (this.expand) {
-                minHeight = `${
-                    viewportHeight -
-                    (dimensions(scrollElement).height - dimensions(this.$el).height) -
-                    box
-                }px`;
+                const diff = dimensions(scrollElement).height - dimensions(this.$el).height;
+                minHeight += ` - ${diff}px`;
             } else {
-                const isScrollingElement =
-                    scrollingElement === scrollElement || body === scrollElement;
-
-                // on mobile devices (iOS and Android) window.innerHeight !== 100vh
-                minHeight = `calc(${isScrollingElement ? '100vh' : `${viewportHeight}px`}`;
-
                 if (this.offsetTop) {
                     if (isScrollingElement) {
                         const top = offsetPosition(this.$el)[0] - offsetPosition(scrollElement)[0];
@@ -81,9 +78,9 @@ export default {
                 } else if (isString(this.offsetBottom)) {
                     minHeight += ` - ${dimensions(query(this.offsetBottom, this.$el)).height}px`;
                 }
-
-                minHeight += `${box ? ` - ${box}px` : ''})`;
             }
+
+            minHeight += `${box ? ` - ${box}px` : ''})`;
 
             return { minHeight };
         },

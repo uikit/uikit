@@ -1,4 +1,4 @@
-/*! UIkit 3.16.26 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.16.27 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1103,10 +1103,7 @@
         call(el, { func: "playVideo", method: "play" });
       }
       if (isHTML5(el)) {
-        try {
-          el.play().catch(noop);
-        } catch (e) {
-        }
+        el.play();
       }
     }
     function pause(el) {
@@ -1147,10 +1144,7 @@
       post(el, cmd);
     }
     function post(el, cmd) {
-      try {
-        el.contentWindow.postMessage(JSON.stringify({ event: "command", ...cmd }), "*");
-      } catch (e) {
-      }
+      el.contentWindow.postMessage(JSON.stringify({ event: "command", ...cmd }), "*");
     }
     const stateKey = "_ukPlayer";
     let counter = 0;
@@ -1860,8 +1854,8 @@
         ...options
       });
     }
-    function viewport() {
-      return observe((target, handler) => observeViewportResize(handler));
+    function viewport(options) {
+      return observe((target, handler) => observeViewportResize(handler), options);
     }
     function scroll$1(options) {
       return observe(
@@ -3528,7 +3522,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.16.26";
+    App.version = "3.16.27";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4611,7 +4605,10 @@
         transformFn2 = (stop) => toFloat(toFloat(stop).toFixed(unit === "px" ? 0 : 6));
       } else if (prop === "scale") {
         unit = "";
-        transformFn2 = (stop) => getUnit([stop]) ? toPx(stop, "width", el, true) / el.offsetWidth : toFloat(stop);
+        transformFn2 = (stop) => {
+          var _a;
+          return getUnit([stop]) ? toPx(stop, "width", el, true) / el[`offset${((_a = stop.endsWith) == null ? void 0 : _a.call(stop, "vh")) ? "Height" : "Width"}`] : toFloat(stop);
+        };
       }
       if (stops.length === 1) {
         stops.unshift(prop === "scale" ? 1 : 0);
@@ -7544,9 +7541,10 @@
         minHeight: 0
       },
       // check for offsetTop change
-      observe: resize({
-        target: ({ $el }) => [$el, ...scrollParents($el)]
-      }),
+      observe: [
+        viewport({ filter: ({ expand }) => expand }),
+        resize({ target: ({ $el }) => scrollParents($el) })
+      ],
       update: {
         read() {
           if (!isVisible(this.$el)) {
@@ -7559,11 +7557,12 @@
           const { height: viewportHeight } = offsetViewport(
             scrollElement === body ? scrollingElement : scrollElement
           );
+          const isScrollingElement = scrollingElement === scrollElement || body === scrollElement;
+          minHeight = `calc(${isScrollingElement ? "100vh" : `${viewportHeight}px`}`;
           if (this.expand) {
-            minHeight = `${viewportHeight - (dimensions$1(scrollElement).height - dimensions$1(this.$el).height) - box}px`;
+            const diff = dimensions$1(scrollElement).height - dimensions$1(this.$el).height;
+            minHeight += ` - ${diff}px`;
           } else {
-            const isScrollingElement = scrollingElement === scrollElement || body === scrollElement;
-            minHeight = `calc(${isScrollingElement ? "100vh" : `${viewportHeight}px`}`;
             if (this.offsetTop) {
               if (isScrollingElement) {
                 const top = offsetPosition(this.$el)[0] - offsetPosition(scrollElement)[0];
@@ -7581,8 +7580,8 @@
             } else if (isString(this.offsetBottom)) {
               minHeight += ` - ${dimensions$1(query(this.offsetBottom, this.$el)).height}px`;
             }
-            minHeight += `${box ? ` - ${box}px` : ""})`;
           }
+          minHeight += `${box ? ` - ${box}px` : ""})`;
           return { minHeight };
         },
         write({ minHeight }) {
