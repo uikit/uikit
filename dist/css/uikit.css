@@ -1,4 +1,4 @@
-/*! UIkit 3.16.27 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.0 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -219,7 +219,8 @@ h6,
 .uk-heading-medium,
 .uk-heading-large,
 .uk-heading-xlarge,
-.uk-heading-2xlarge {
+.uk-heading-2xlarge,
+.uk-heading-3xlarge {
   margin: 0 0 20px 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: normal;
@@ -243,7 +244,8 @@ h6,
 * + .uk-heading-medium,
 * + .uk-heading-large,
 * + .uk-heading-xlarge,
-* + .uk-heading-2xlarge {
+* + .uk-heading-2xlarge,
+* + .uk-heading-3xlarge {
   margin-top: 40px;
 }
 /*
@@ -517,6 +519,10 @@ a.uk-link-reset,
   font-size: 6rem;
   line-height: 1;
 }
+.uk-heading-3xlarge {
+  font-size: 8rem;
+  line-height: 1;
+}
 /* Tablet Landscape and bigger */
 @media (min-width: 960px) {
   .uk-heading-small {
@@ -534,6 +540,9 @@ a.uk-link-reset,
   .uk-heading-2xlarge {
     font-size: 8rem;
   }
+  .uk-heading-3xlarge {
+    font-size: 11rem;
+  }
 }
 /* Laptop and bigger */
 @media (min-width: 1200px) {
@@ -548,6 +557,9 @@ a.uk-link-reset,
   }
   .uk-heading-2xlarge {
     font-size: 11rem;
+  }
+  .uk-heading-3xlarge {
+    font-size: 15rem;
   }
 }
 /* Primary
@@ -1397,11 +1409,14 @@ button.uk-icon:not(:disabled) {
 }
 /*
  * Define consistent border, margin, and padding.
+ * 1. Reset `min-width`
  */
 .uk-fieldset {
   border: none;
   margin: 0;
   padding: 0;
+  /* 1 */
+  min-width: 0;
 }
 /* Input, select and textarea
  * Allowed: `text`, `password`, `datetime-local`, `date`,  `month`,
@@ -2275,24 +2290,28 @@ select.uk-form-width-xsmall {
  */
 .uk-section-default {
   background: #fff;
+  --uk-navbar-color: dark;
 }
 /*
  * Muted
  */
 .uk-section-muted {
   background: #f8f8f8;
+  --uk-navbar-color: dark;
 }
 /*
  * Primary
  */
 .uk-section-primary {
   background: #1e87f0;
+  --uk-navbar-color: light;
 }
 /*
  * Secondary
  */
 .uk-section-secondary {
   background: #222;
+  --uk-navbar-color: light;
 }
 /* Overlap modifier
  ========================================================================== */
@@ -5173,11 +5192,14 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Create position context to center navbar group
+ * 2. Pass dropbar behind color to JS
  */
 .uk-navbar {
   display: flex;
   /* 1 */
   position: relative;
+  /* 2 */
+  --uk-navbar-dropbar-behind-color: dark;
 }
 /* Container
  ========================================================================== */
@@ -5524,13 +5546,9 @@ ul.uk-nav-sub {
 /*
  * Adopts `uk-dropnav-dropbar`
  */
-/*
- * Create navbar placeholder space if dropbar is behind navbar
- */
-.uk-navbar-dropbar-behind::before {
-  content: "";
-  display: block;
-  height: 80px;
+.uk-navbar-container {
+  transition: 0.1s ease-in-out;
+  transition-property: background-color;
 }
 /* Tablet landscape and bigger */
 @media (min-width: 960px) {
@@ -9210,6 +9228,9 @@ iframe[data-uk-cover] {
 }
 .uk-position-z-index-negative {
   z-index: -1;
+}
+.uk-position-z-index-high {
+  z-index: 990;
 }
 /* ========================================================================
    Component: Transition

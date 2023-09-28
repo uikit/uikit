@@ -49,21 +49,24 @@ $navbar-nav-gap:                                 0px !default; // Must have a un
 
 
 
+
 /* ========================================================================
    Component: Navbar
  ========================================================================== */
 
 /*
  * 1. Create position context to center navbar group
+ * 2. Pass dropbar behind color to JS
  */
 
 .uk-navbar {
     display: flex;
     /* 1 */
     position: relative;
+    /* 2 */
+    --uk-navbar-dropbar-behind-color: #{$navbar-dropbar-behind-color-mode};
     @if(mixin-exists(hook-navbar)) {@include hook-navbar();}
 }
-
 
 /* Container
  ========================================================================== */
@@ -347,7 +350,7 @@ $navbar-nav-gap:                                 0px !default; // Must have a un
  * Remove margin from the last-child
  */
 
- .uk-navbar-dropdown > :last-child { margin-bottom: 0; }
+.uk-navbar-dropdown > :last-child { margin-bottom: 0; }
 
 // Color Mode
 @if ( $navbar-dropdown-color-mode == light ) { .uk-navbar-dropdown { @extend .uk-light !optional;} }
@@ -508,16 +511,6 @@ $navbar-nav-gap:                                 0px !default; // Must have a un
 
 .uk-navbar-dropbar {
     @if(mixin-exists(hook-navbar-dropbar)) {@include hook-navbar-dropbar();}
-}
-
-/*
- * Create navbar placeholder space if dropbar is behind navbar
- */
-
-.uk-navbar-dropbar-behind::before {
-    content: "";
-    display: block;
-    height: $navbar-nav-item-height;
 }
 
 
