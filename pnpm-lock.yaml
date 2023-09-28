@@ -43,7 +43,7 @@ devDependencies:
     version: 11.1.1
   glob:
     specifier: ^10.3.3
-    version: 10.3.9
+    version: 10.3.10
   inquirer:
     specifier: ^9.2.7
     version: 9.2.11
@@ -1244,8 +1244,8 @@ packages:
       is-glob: 4.0.3
     dev: true
 
-  /glob@10.3.9:
-    resolution: {integrity: sha512-2tU/LKevAQvDVuVJ9pg9Yv9xcbSh+TqHuTaXTNbQwf+0kDl9Fm6bMovi4Nm5c8TVvfxo2LLcqCGtmO9KoJaGWg==}
+  /glob@10.3.10:
+    resolution: {integrity: sha512-fa46+tv1Ak0UPK1TOy/pZrIybNNt4HCv7SDzwyfiOZkvZLEbjsZkJBPtDHVshZjbecAoAGSC20MjLDG/qr679g==}
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
     dependencies:
