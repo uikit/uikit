@@ -149,12 +149,15 @@
 
 /*
  * Define consistent border, margin, and padding.
+ * 1. Reset `min-width`
  */
 
 .uk-fieldset {
     border: none;
     margin: 0;
     padding: 0;
+    /* 1 */
+    min-width: 0;
 }
 
 

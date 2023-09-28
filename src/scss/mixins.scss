@@ -732,6 +732,7 @@
 @mixin hook-heading-large(){}
 @mixin hook-heading-xlarge(){}
 @mixin hook-heading-2xlarge(){}
+@mixin hook-heading-3xlarge(){}
 @mixin hook-heading-primary(){}
 @mixin hook-heading-hero(){}
 @mixin hook-heading-divider(){}
@@ -743,6 +744,7 @@
 @mixin hook-inverse-heading-large(){}
 @mixin hook-inverse-heading-xlarge(){}
 @mixin hook-inverse-heading-2xlarge(){}
+@mixin hook-inverse-heading-3xlarge(){}
 @mixin hook-inverse-heading-primary(){}
 @mixin hook-inverse-heading-hero(){}
 @mixin hook-inverse-heading-divider(){}
@@ -768,6 +770,10 @@
 
     .uk-heading-2xlarge {
         @if(mixin-exists(hook-inverse-heading-2xlarge)) {@include hook-inverse-heading-2xlarge();}
+    }
+
+    .uk-heading-3xlarge {
+        @if(mixin-exists(hook-inverse-heading-3xlarge)) {@include hook-inverse-heading-3xlarge();}
     }
 
     @if ($deprecated == true) { .uk-heading-primary { @if (mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}}}
