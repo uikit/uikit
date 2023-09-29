@@ -33,15 +33,13 @@ export default {
             this.finite = true;
             this.dragging = true;
 
-            let { slides, target, index: currentIndex, prevIndex: initial } = this;
-
-            target = (target && query(target, this.$el)) || this.list;
+            const target = (this.target && query(this.target, this.$el)) || this.list;
             const start = toPx(this.parallaxStart, 'height', target, true);
             const end = toPx(this.parallaxEnd, 'height', target, true);
             const percent = scrolledOver(target, start, end);
 
             let prevIndex = -1;
-            let dist = percent * this.totalWidth;
+            let dist = percent * (this.totalWidth - this.list.offsetWidth);
             let slidePercent = 0;
 
             do {
@@ -52,29 +50,29 @@ export default {
 
             const nextIndex = this.getValidIndex(prevIndex + Math.ceil(slidePercent));
 
-            const prev = slides[prevIndex];
-            const next = slides[nextIndex];
+            const prev = this.slides[prevIndex];
+            const next = this.slides[nextIndex];
 
             const { triggerShow, triggerShown, triggerHide, triggerHidden } = getTriggers(this);
 
             for (const i of new Set([this.index, this.prevIndex])) {
                 if (!includes([nextIndex, prevIndex], i)) {
-                    triggerHide(slides[i]);
-                    triggerHidden(slides[i]);
+                    triggerHide(this.slides[i]);
+                    triggerHidden(this.slides[i]);
                 }
             }
-
-            this.prevIndex = prevIndex;
-            this.index = nextIndex;
 
             if (prev !== next) {
                 triggerHide(prev);
             }
             triggerShow(next);
 
-            if (!~initial || currentIndex !== nextIndex) {
+            if (this.prevIndex !== prevIndex || this.index !== nextIndex) {
                 triggerShown(prev);
             }
+
+            this.prevIndex = prevIndex;
+            this.index = nextIndex;
 
             this._translate(prev === next ? 1 : slidePercent, prev, next);
         },
