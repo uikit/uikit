@@ -2,6 +2,12 @@
 
 ## WIP
 
+## 3.17.1 (September 30, 2023)
+
+### Fixed
+
+- Updated twitter logo in icons folder -> src/images/twitter.svg and name in tests/js/icon.html file.
+
 ### Fixed
 
 - Fix icon alignment in Pagination component
