@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP 3.18
+
+### Added
+
+- Add large size modifier to Nav component
+
 ## WIP
 
 ### Fixed
