@@ -3,6 +3,7 @@ import { resize, scroll } from '../api/observables';
 
 export default {
     props: {
+        target: String,
         parallax: Boolean,
         parallaxTarget: Boolean,
         parallaxStart: String,
@@ -10,6 +11,7 @@ export default {
     },
 
     data: {
+        target: false,
         parallax: false,
         parallaxTarget: false,
         parallaxStart: 0,
@@ -23,6 +25,12 @@ export default {
         }),
         scroll({ filter: ({ parallax }) => parallax }),
     ],
+
+    computed: {
+        target({ target }, $el) {
+            return (target && query(target, $el)) || $el;
+        },
+    },
 
     update: {
         write() {
