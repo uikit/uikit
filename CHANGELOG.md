@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add large size modifier to Nav component
+- Add size modifier to Nav component
 
 ## WIP
 
