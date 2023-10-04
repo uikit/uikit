@@ -176,7 +176,10 @@ export default {
 
                 const viewport = toPx('100vh', 'height');
                 const dynamicViewport = getHeight(window);
-                const maxScrollHeight = document.scrollingElement.scrollHeight - viewport;
+                const maxScrollHeight = Math.max(
+                    0,
+                    document.scrollingElement.scrollHeight - viewport,
+                );
 
                 let position = this.position;
                 if (this.overflowFlip && height > viewport) {
@@ -412,18 +415,14 @@ export default {
                 let position = 'fixed';
 
                 if (scroll > end) {
-                    offset += end - offsetParentTop;
+                    offset += end - offsetParentTop + overflowScroll - overflow;
                     position = 'absolute';
                 }
 
                 css(this.$el, { position, width, marginTop: 0 }, 'important');
             }
 
-            if (overflow) {
-                offset -= overflowScroll;
-            }
-
-            css(this.$el, 'top', offset);
+            css(this.$el, 'top', offset - overflowScroll);
 
             this.setActive(active);
             toggleClass(
