@@ -39,8 +39,8 @@ video[data-uk-cover] {
  */
 
 /* 1 */
-iframe[uk-cover],
-iframe[data-uk-cover] {
+:not(img,video)[uk-cover],
+:not(img,video)[data-uk-cover] {
     pointer-events: none;
     /* 2 */
     max-width: none;
@@ -52,6 +52,9 @@ iframe[data-uk-cover] {
     --uk-position-translate-y: -50%;
     transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
 }
+
+iframe[uk-cover],
+iframe[data-uk-cover] { pointer-events: none; }
 
 
 /* Container
