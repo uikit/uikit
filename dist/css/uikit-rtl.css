@@ -1,4 +1,4 @@
-/*! UIkit 3.17.0 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.1 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5746,16 +5746,19 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Allow items to wrap into the next line
- * 2. Gutter
- * 3. Reset list
+ * 2. Center items vertically if they have a different height
+ * 3. Gutter
+ * 4. Reset list
  */
 .uk-pagination {
   display: flex;
   /* 1 */
   flex-wrap: wrap;
   /* 2 */
-  margin-right: 0;
+  align-items: center;
   /* 3 */
+  margin-right: 0;
+  /* 4 */
   padding: 0;
   list-style: none;
 }
@@ -5775,13 +5778,17 @@ ul.uk-nav-sub {
 /* Items
  ========================================================================== */
 /*
- * 1. Prevent gap if child element is `inline-block`, e.g. an icon
- * 2. Style
+ * 1. Center content vertically, e.g. an icon
+ * 2. Imitate white space gap when using flexbox
+ * 3. Style
  */
 .uk-pagination > * > * {
   /* 1 */
-  display: block;
+  display: flex;
+  align-items: center;
   /* 2 */
+  column-gap: 0.25em;
+  /* 3 */
   padding: 5px 10px;
   color: #999;
   transition: color 0.1s ease-in-out;
@@ -7698,6 +7705,21 @@ td.uk-text-break {
    Component: Cover
  ========================================================================== */
 /*
+ * Works with embedded content
+ */
+img[uk-cover],
+video[uk-cover],
+img[data-uk-cover],
+video[data-uk-cover] {
+  right: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/*
  * Works with iframes and embedded content
  * 1. Use attribute to apply transform instantly. Needed if transform is transitioned.
  * 2. Reset responsiveness for embedded content
@@ -7706,8 +7728,9 @@ td.uk-text-break {
  *       is absolute positioned or if the container has a height
  */
 /* 1 */
-[uk-cover],
-[data-uk-cover] {
+:not(img,video)[uk-cover],
+:not(img,video)[data-uk-cover] {
+  pointer-events: none;
   /* 2 */
   max-width: none;
   /* 3 */
@@ -9634,6 +9657,7 @@ iframe[data-uk-cover] {
 .uk-light .uk-heading-large,
 .uk-light .uk-heading-xlarge,
 .uk-light .uk-heading-2xlarge,
+.uk-light .uk-heading-3xlarge,
 .uk-section-primary:not(.uk-preserve-color) h1,
 .uk-section-primary:not(.uk-preserve-color) .uk-h1,
 .uk-section-primary:not(.uk-preserve-color) h2,
@@ -9651,6 +9675,7 @@ iframe[data-uk-cover] {
 .uk-section-primary:not(.uk-preserve-color) .uk-heading-large,
 .uk-section-primary:not(.uk-preserve-color) .uk-heading-xlarge,
 .uk-section-primary:not(.uk-preserve-color) .uk-heading-2xlarge,
+.uk-section-primary:not(.uk-preserve-color) .uk-heading-3xlarge,
 .uk-section-secondary:not(.uk-preserve-color) h1,
 .uk-section-secondary:not(.uk-preserve-color) .uk-h1,
 .uk-section-secondary:not(.uk-preserve-color) h2,
@@ -9668,6 +9693,7 @@ iframe[data-uk-cover] {
 .uk-section-secondary:not(.uk-preserve-color) .uk-heading-large,
 .uk-section-secondary:not(.uk-preserve-color) .uk-heading-xlarge,
 .uk-section-secondary:not(.uk-preserve-color) .uk-heading-2xlarge,
+.uk-section-secondary:not(.uk-preserve-color) .uk-heading-3xlarge,
 .uk-tile-primary:not(.uk-preserve-color) h1,
 .uk-tile-primary:not(.uk-preserve-color) .uk-h1,
 .uk-tile-primary:not(.uk-preserve-color) h2,
@@ -9685,6 +9711,7 @@ iframe[data-uk-cover] {
 .uk-tile-primary:not(.uk-preserve-color) .uk-heading-large,
 .uk-tile-primary:not(.uk-preserve-color) .uk-heading-xlarge,
 .uk-tile-primary:not(.uk-preserve-color) .uk-heading-2xlarge,
+.uk-tile-primary:not(.uk-preserve-color) .uk-heading-3xlarge,
 .uk-tile-secondary:not(.uk-preserve-color) h1,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-h1,
 .uk-tile-secondary:not(.uk-preserve-color) h2,
@@ -9702,6 +9729,7 @@ iframe[data-uk-cover] {
 .uk-tile-secondary:not(.uk-preserve-color) .uk-heading-large,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-heading-xlarge,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-heading-2xlarge,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-heading-3xlarge,
 .uk-card-primary.uk-card-body h1,
 .uk-card-primary.uk-card-body .uk-h1,
 .uk-card-primary.uk-card-body h2,
@@ -9719,6 +9747,7 @@ iframe[data-uk-cover] {
 .uk-card-primary.uk-card-body .uk-heading-large,
 .uk-card-primary.uk-card-body .uk-heading-xlarge,
 .uk-card-primary.uk-card-body .uk-heading-2xlarge,
+.uk-card-primary.uk-card-body .uk-heading-3xlarge,
 .uk-card-primary > :not([class*='uk-card-media']) h1,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-h1,
 .uk-card-primary > :not([class*='uk-card-media']) h2,
@@ -9736,6 +9765,7 @@ iframe[data-uk-cover] {
 .uk-card-primary > :not([class*='uk-card-media']) .uk-heading-large,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-heading-xlarge,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-heading-2xlarge,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-heading-3xlarge,
 .uk-card-secondary.uk-card-body h1,
 .uk-card-secondary.uk-card-body .uk-h1,
 .uk-card-secondary.uk-card-body h2,
@@ -9753,6 +9783,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary.uk-card-body .uk-heading-large,
 .uk-card-secondary.uk-card-body .uk-heading-xlarge,
 .uk-card-secondary.uk-card-body .uk-heading-2xlarge,
+.uk-card-secondary.uk-card-body .uk-heading-3xlarge,
 .uk-card-secondary > :not([class*='uk-card-media']) h1,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-h1,
 .uk-card-secondary > :not([class*='uk-card-media']) h2,
@@ -9770,6 +9801,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-heading-large,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-heading-xlarge,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-heading-2xlarge,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-heading-3xlarge,
 .uk-overlay-primary h1,
 .uk-overlay-primary .uk-h1,
 .uk-overlay-primary h2,
@@ -9787,6 +9819,7 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-heading-large,
 .uk-overlay-primary .uk-heading-xlarge,
 .uk-overlay-primary .uk-heading-2xlarge,
+.uk-overlay-primary .uk-heading-3xlarge,
 .uk-offcanvas-bar h1,
 .uk-offcanvas-bar .uk-h1,
 .uk-offcanvas-bar h2,
@@ -9803,7 +9836,8 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar .uk-heading-medium,
 .uk-offcanvas-bar .uk-heading-large,
 .uk-offcanvas-bar .uk-heading-xlarge,
-.uk-offcanvas-bar .uk-heading-2xlarge {
+.uk-offcanvas-bar .uk-heading-2xlarge,
+.uk-offcanvas-bar .uk-heading-3xlarge {
   color: #fff;
 }
 .uk-light blockquote,
