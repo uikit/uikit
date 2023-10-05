@@ -1,4 +1,4 @@
-/*! UIkit 3.17.0 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.1 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3523,7 +3523,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.17.0";
+    App.version = "3.17.1";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4589,11 +4589,11 @@
           }
         },
         getCss(percent) {
-          const css2 = { transform: "", filter: "" };
+          const css2 = {};
           for (const prop in this.props) {
             this.props[prop](css2, clamp(percent));
           }
-          css2.willChange = Object.keys(css2).filter((key) => css2[key] !== "").map(propName).join(",");
+          css2.willChange = Object.keys(css2).map(propName).join(",");
           return css2;
         }
       }
@@ -4616,7 +4616,7 @@
       }
       stops = parseStops(stops, transformFn2);
       return (css2, percent) => {
-        css2.transform += ` ${prop}(${getValue(stops, percent)}${unit})`;
+        css2.transform = `${css2.transform || ""} ${prop}(${getValue(stops, percent)}${unit})`;
       };
     }
     function colorFn(prop, el, stops) {
@@ -4645,7 +4645,7 @@
       stops = parseStops(stops);
       return (css2, percent) => {
         const value = getValue(stops, percent);
-        css2.filter += ` ${prop}(${value + unit})`;
+        css2.filter = `${css2.filter || ""} ${prop}(${value + unit})`;
       };
     }
     function cssPropFn(prop, el, stops) {
@@ -6584,17 +6584,6 @@
       }
     };
 
-    const coverProps = {
-      top: 0,
-      // resets the css from [uk-cover]
-      left: 0,
-      // resets the css from [uk-cover]
-      width: "100%",
-      height: "100%",
-      transform: "none",
-      objectFit: "cover",
-      objectPosition: "center"
-    };
     var cover = {
       mixins: [Video],
       props: {
@@ -6615,14 +6604,6 @@
       }),
       connected() {
         this._useObjectFit = isTag(this.$el, "img", "video");
-        if (this._useObjectFit) {
-          css(this.$el, coverProps);
-        }
-      },
-      disconnected() {
-        if (this._useObjectFit) {
-          attr(this.$el, "style", "");
-        }
       },
       update: {
         read() {
@@ -9004,7 +8985,10 @@
             }
             const viewport2 = toPx("100vh", "height");
             const dynamicViewport = height(window);
-            const maxScrollHeight = document.scrollingElement.scrollHeight - viewport2;
+            const maxScrollHeight = Math.max(
+              0,
+              document.scrollingElement.scrollHeight - viewport2
+            );
             let position = this.position;
             if (this.overflowFlip && height$1 > viewport2) {
               position = position === "top" ? "bottom" : "top";
@@ -9181,15 +9165,12 @@
           if (!sticky) {
             let position = "fixed";
             if (scroll2 > end) {
-              offset += end - offsetParentTop;
+              offset += end - offsetParentTop + overflowScroll - overflow;
               position = "absolute";
             }
             css(this.$el, { position, width, marginTop: 0 }, "important");
           }
-          if (overflow) {
-            offset -= overflowScroll;
-          }
-          css(this.$el, "top", offset);
+          css(this.$el, "top", offset - overflowScroll);
           this.setActive(active);
           toggleClass(
             this.$el,
