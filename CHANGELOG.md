@@ -6,6 +6,7 @@
 
 - Fix icon alignment in Pagination component
 - Fix Sticky component overflow scrolling position on resize
+- Fix Cover component no longer uses inline style
 
 ## 3.17.0 (September 28, 2023)
 
