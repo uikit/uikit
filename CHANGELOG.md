@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix `scrollIntoView()` function uses offset left to detect elements that would cover target
+
 ## 3.17.1 (October 5, 2023)
 
 ### Fixed

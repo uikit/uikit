@@ -108,6 +108,6 @@ export default {
 
 function findFixedElement(target) {
     return target.ownerDocument
-        .elementsFromPoint(1, 1)
+        .elementsFromPoint(offset(target).left, 1)
         .find((el) => ['fixed', 'sticky'].includes(css(el, 'position')) && !el.contains(target));
 }

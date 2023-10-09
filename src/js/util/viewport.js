@@ -110,7 +110,7 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
 
     function findFixedElement(target) {
         return target.ownerDocument
-            .elementsFromPoint(0, 0)
+            .elementsFromPoint(offset(target).left, 0)
             .find(
                 (el) => ['fixed', 'sticky'].includes(css(el, 'position')) && !el.contains(target),
             );
