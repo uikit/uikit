@@ -21,6 +21,18 @@ export default {
         },
     },
 
+    events: {
+        name: 'loadingdone',
+
+        el() {
+            return document.fonts;
+        },
+
+        handler() {
+            this.$emit('resize');
+        },
+    },
+
     observe: resize({
         target: ({ $el, elements }) => [$el, ...elements],
     }),
