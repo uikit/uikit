@@ -1,5 +1,19 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix `scrollIntoView()` function uses offset left to detect elements that would cover target
+
+## 3.17.1 (October 5, 2023)
+
+### Fixed
+
+- Fix icon alignment in Pagination component
+- Fix Sticky component overflow scrolling position on resize
+- Fix Cover component no longer uses inline style
+
 ## 3.17.0 (September 28, 2023)
 
 ### Added

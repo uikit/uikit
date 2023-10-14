@@ -76,14 +76,11 @@ export default {
         },
 
         getCss(percent) {
-            const css = { transform: '', filter: '' };
+            const css = {};
             for (const prop in this.props) {
                 this.props[prop](css, clamp(percent));
             }
-            css.willChange = Object.keys(css)
-                .filter((key) => css[key] !== '')
-                .map(propName)
-                .join(',');
+            css.willChange = Object.keys(css).map(propName).join(',');
             return css;
         },
     },
@@ -112,7 +109,7 @@ function transformFn(prop, el, stops) {
     stops = parseStops(stops, transformFn);
 
     return (css, percent) => {
-        css.transform += ` ${prop}(${getValue(stops, percent)}${unit})`;
+        css.transform = `${css.transform || ''} ${prop}(${getValue(stops, percent)}${unit})`;
     };
 }
 
@@ -155,7 +152,7 @@ function filterFn(prop, el, stops) {
 
     return (css, percent) => {
         const value = getValue(stops, percent);
-        css.filter += ` ${prop}(${value + unit})`;
+        css.filter = `${css.filter || ''} ${prop}(${value + unit})`;
     };
 }
 
