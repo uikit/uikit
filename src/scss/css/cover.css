@@ -1,0 +1,42 @@
+/* ========================================================================
+   Component: Cover
+ ========================================================================== */
+/*
+ * Works with iframes and embedded content
+ * 1. Use attribute to apply transform instantly. Needed if transform is transitioned.
+ * 2. Reset responsiveness for embedded content
+ * 3. Center object
+ * Note: Percent values on the `top` property only works if this element
+ *       is absolute positioned or if the container has a height
+ */
+/* 1 */
+[uk-cover],
+[data-uk-cover] {
+  /* 2 */
+  max-width: none;
+  /* 3 */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  --uk-position-translate-x: -50%;
+  --uk-position-translate-y: -50%;
+  transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
+}
+
+iframe[uk-cover],
+iframe[data-uk-cover] {
+  pointer-events: none;
+}
+
+/* Container
+ ========================================================================== */
+/*
+ * 1. Parent container which clips resized object
+ * 2. Needed if the child is positioned absolute. See note above
+ */
+.uk-cover-container {
+  /* 1 */
+  overflow: hidden;
+  /* 2 */
+  position: relative;
+}
