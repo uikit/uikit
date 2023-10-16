@@ -84,9 +84,7 @@ export default {
     },
 
     computed: {
-        target() {
-            return (this.$el.tBodies || [this.$el])[0];
-        },
+        target: (_, $el) => ($el.tBodies || [$el])[0],
 
         items() {
             return children(this.target);
@@ -96,8 +94,8 @@ export default {
             return isEmpty(this.items);
         },
 
-        handles({ handle }, el) {
-            return handle ? $$(handle, el) : this.items;
+        handles({ handle }, $el) {
+            return handle ? $$(handle, $el) : this.items;
         },
     },
 

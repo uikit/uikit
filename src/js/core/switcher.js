@@ -51,20 +51,16 @@ export default {
     },
 
     computed: {
-        connects({ connect }, $el) {
-            return queryAll(connect, $el);
-        },
+        connects: ({ connect }, $el) => queryAll(connect, $el),
 
         connectChildren() {
             return this.connects.map((el) => children(el)).flat();
         },
 
-        toggles({ toggle }, $el) {
-            return $$(toggle, $el);
-        },
+        toggles: ({ toggle }, $el) => $$(toggle, $el),
 
-        children() {
-            return children(this.$el).filter((child) =>
+        children(_, $el) {
+            return children($el).filter((child) =>
                 this.toggles.some((toggle) => within(toggle, child)),
             );
         },

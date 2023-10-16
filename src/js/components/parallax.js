@@ -22,9 +22,7 @@ export default {
     },
 
     computed: {
-        target({ target }, $el) {
-            return getOffsetElement((target && query(target, $el)) || $el);
-        },
+        target: ({ target }, $el) => getOffsetElement((target && query(target, $el)) || $el),
 
         start({ start }) {
             return toPx(start, 'height', this.target, true);

@@ -51,13 +51,9 @@ export default {
     },
 
     computed: {
-        duration({ velocity }, $el) {
-            return speedUp($el.offsetWidth / velocity);
-        },
+        duration: ({ velocity }, $el) => speedUp($el.offsetWidth / velocity),
 
-        list({ selList }, $el) {
-            return $(selList, $el);
-        },
+        list: ({ selList }, $el) => $(selList, $el),
 
         maxIndex() {
             return this.length - 1;

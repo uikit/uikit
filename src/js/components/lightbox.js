@@ -10,9 +10,7 @@ export default {
     data: { toggle: 'a' },
 
     computed: {
-        toggles({ toggle }, $el) {
-            return $$(toggle, $el);
-        },
+        toggles: ({ toggle }, $el) => $$(toggle, $el),
     },
 
     watch: {

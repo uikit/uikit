@@ -9,7 +9,6 @@ import {
     pointerEnter,
     pointerLeave,
     remove,
-    startsWith,
     toFloat,
     Transition,
     trigger,
@@ -37,9 +36,7 @@ export default {
     install,
 
     computed: {
-        marginProp({ pos }) {
-            return `margin${startsWith(pos, 'top') ? 'Top' : 'Bottom'}`;
-        },
+        marginProp: ({ pos }) => `margin-${pos.match(/[a-z]+(?=-)/)[0]}`,
 
         startProps() {
             return { opacity: 0, [this.marginProp]: -this.$el.offsetHeight };

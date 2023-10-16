@@ -42,13 +42,9 @@ export default {
     },
 
     computed: {
-        toggles({ attrItem }, $el) {
-            return $$(`[${attrItem}],[data-${attrItem}]`, $el);
-        },
+        children: ({ target }, $el) => $$(`${target} > *`, $el),
 
-        children({ target }, $el) {
-            return $$(`${target} > *`, $el);
-        },
+        toggles: ({ attrItem }, $el) => $$(`[${attrItem}],[data-${attrItem}]`, $el),
     },
 
     watch: {

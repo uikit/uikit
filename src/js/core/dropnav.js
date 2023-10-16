@@ -63,9 +63,7 @@ export default {
     },
 
     computed: {
-        dropbarAnchor({ dropbarAnchor }, $el) {
-            return query(dropbarAnchor, $el) || $el;
-        },
+        dropbarAnchor: ({ dropbarAnchor }, $el) => query(dropbarAnchor, $el) || $el,
 
         dropbar({ dropbar }) {
             if (!dropbar) {

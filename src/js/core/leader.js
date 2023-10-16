@@ -18,9 +18,7 @@ export default {
     },
 
     computed: {
-        fill({ fill }) {
-            return fill || css(this.$el, '--uk-leader-fill-content');
-        },
+        fill: ({ fill }, $el) => fill || css($el, '--uk-leader-fill-content'),
     },
 
     connected() {

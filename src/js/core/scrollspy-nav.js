@@ -32,9 +32,7 @@ export default {
     },
 
     computed: {
-        links(_, $el) {
-            return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
-        },
+        links: (_, $el) => $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el)),
 
         elements({ closest: selector }) {
             return this.links.map((el) => closest(el, selector || '*'));

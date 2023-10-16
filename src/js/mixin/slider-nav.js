@@ -32,17 +32,13 @@ export default {
     },
 
     computed: {
-        nav({ selNav }, $el) {
-            return $(selNav, $el);
-        },
+        nav: ({ selNav }, $el) => $(selNav, $el),
 
         navChildren() {
             return children(this.nav);
         },
 
-        selNavItem({ attrItem }) {
-            return `[${attrItem}],[data-${attrItem}]`;
-        },
+        selNavItem: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,
 
         navItems(_, $el) {
             return $$(this.selNavItem, $el);

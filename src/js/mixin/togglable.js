@@ -43,13 +43,10 @@ export default {
     },
 
     computed: {
-        hasAnimation({ animation }) {
-            return !!animation[0];
-        },
+        hasAnimation: ({ animation }) => !!animation[0],
 
-        hasTransition({ animation }) {
-            return ['slide', 'reveal'].some((transition) => startsWith(animation[0], transition));
-        },
+        hasTransition: ({ animation }) =>
+            ['slide', 'reveal'].some((transition) => startsWith(animation[0], transition)),
     },
 
     methods: {

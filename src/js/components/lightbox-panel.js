@@ -70,9 +70,7 @@ export default {
     },
 
     computed: {
-        caption({ selCaption }, $el) {
-            return $(selCaption, $el);
-        },
+        caption: ({ selCaption }, $el) => $(selCaption, $el),
     },
 
     events: [

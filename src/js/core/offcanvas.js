@@ -45,25 +45,17 @@ export default {
     },
 
     computed: {
-        clsFlip({ flip, clsFlip }) {
-            return flip ? clsFlip : '';
-        },
+        clsFlip: ({ flip, clsFlip }) => (flip ? clsFlip : ''),
 
-        clsOverlay({ overlay, clsOverlay }) {
-            return overlay ? clsOverlay : '';
-        },
+        clsOverlay: ({ overlay, clsOverlay }) => (overlay ? clsOverlay : ''),
 
-        clsMode({ mode, clsMode }) {
-            return `${clsMode}-${mode}`;
-        },
+        clsMode: ({ mode, clsMode }) => `${clsMode}-${mode}`,
 
-        clsSidebarAnimation({ mode, clsSidebarAnimation }) {
-            return mode === 'none' || mode === 'reveal' ? '' : clsSidebarAnimation;
-        },
+        clsSidebarAnimation: ({ mode, clsSidebarAnimation }) =>
+            mode === 'none' || mode === 'reveal' ? '' : clsSidebarAnimation,
 
-        clsContainerAnimation({ mode, clsContainerAnimation }) {
-            return mode !== 'push' && mode !== 'reveal' ? '' : clsContainerAnimation;
-        },
+        clsContainerAnimation: ({ mode, clsContainerAnimation }) =>
+            mode !== 'push' && mode !== 'reveal' ? '' : clsContainerAnimation,
 
         transitionElement({ mode }) {
             return mode === 'reveal' ? parent(this.panel) : this.panel;

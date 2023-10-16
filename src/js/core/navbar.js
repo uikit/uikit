@@ -32,13 +32,10 @@ export default {
     },
 
     computed: {
-        dropbarOffset() {
-            return this.dropbarTransparentMode === 'behind' ? this.$el.offsetHeight : 0;
-        },
+        navbarContainer: (_, $el) => closest($el, '.uk-navbar-container'),
 
-        navbarContainer() {
-            return closest(this.$el, '.uk-navbar-container');
-        },
+        dropbarOffset: ({ dropbarTransparentMode }, $el) =>
+            dropbarTransparentMode === 'behind' ? $el.offsetHeight : 0,
     },
 
     watch: {
@@ -69,9 +66,7 @@ export default {
     observe: [
         mutation({
             target: ({ navbarContainer }) => navbarContainer,
-            handler() {
-                this.registerColorListener();
-            },
+            handler: 'registerColorListener',
             options: { attributes: true, attributeFilter: ['class'], attributeOldValue: true },
         }),
         intersection({

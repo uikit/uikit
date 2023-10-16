@@ -71,9 +71,7 @@ export default {
     },
 
     computed: {
-        selTarget({ selTarget }, $el) {
-            return (selTarget && $(selTarget, $el)) || $el;
-        },
+        selTarget: ({ selTarget }, $el) => (selTarget && $(selTarget, $el)) || $el,
     },
 
     connected() {

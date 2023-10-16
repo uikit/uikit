@@ -18,13 +18,9 @@ export default {
     },
 
     computed: {
-        container({ selContainer }, $el) {
-            return closest($el, selContainer);
-        },
+        container: ({ selContainer }, $el) => closest($el, selContainer),
 
-        content({ selContent }, $el) {
-            return closest($el, selContent);
-        },
+        content: ({ selContent }, $el) => closest($el, selContent),
     },
 
     observe: resize({
