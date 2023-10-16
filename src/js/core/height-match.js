@@ -16,25 +16,12 @@ export default {
     },
 
     computed: {
-        elements({ target }, $el) {
-            return $$(target, $el);
-        },
-    },
-
-    events: {
-        name: 'loadingdone',
-
-        el() {
-            return document.fonts;
-        },
-
-        handler() {
-            this.$emit('resize');
-        },
+        elements: ({ target }, $el) => $$(target, $el),
     },
 
     observe: resize({
-        target: ({ $el, elements }) => [$el, ...elements],
+        target: ({ $el, elements }) =>
+            elements.reduce((elements, el) => elements.concat(el, ...el.children), [$el]),
     }),
 
     update: {
