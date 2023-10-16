@@ -15,9 +15,7 @@ export default {
     },
 
     computed: {
-        input(_, $el) {
-            return $(selInput, $el);
-        },
+        input: (_, $el) => $(selInput, $el),
 
         state() {
             return this.input.nextElementSibling;

@@ -1,4 +1,4 @@
-/*! UIkit 3.17.1 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.2 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1256,7 +1256,7 @@
         return 0.5 * (1 - Math.cos(Math.PI * k));
       }
       function findFixedElement(target) {
-        return target.ownerDocument.elementsFromPoint(0, 0).find(
+        return target.ownerDocument.elementsFromPoint(offset(target).left, 0).find(
           (el) => ["fixed", "sticky"].includes(css(el, "position")) && !el.contains(target)
         );
       }
@@ -1855,6 +1855,56 @@
       return isArray(value) ? value : isString(value) ? value.split(/,(?![^(]*\))/).map((value2) => isNumeric(value2) ? toNumber(value2) : toBoolean(value2.trim())) : [value];
     }
 
+    function initUpdates(instance) {
+      instance._data = {};
+      instance._updates = [...instance.$options.update || []];
+    }
+    function prependUpdate(instance, update) {
+      instance._updates.unshift(update);
+    }
+    function clearUpdateData(instance) {
+      delete instance._data;
+    }
+    function callUpdate(instance, e = "update") {
+      if (!instance._connected) {
+        return;
+      }
+      if (!instance._updates.length) {
+        return;
+      }
+      if (!instance._queued) {
+        instance._queued = /* @__PURE__ */ new Set();
+        fastdom.read(() => {
+          if (instance._connected) {
+            runUpdates(instance, instance._queued);
+          }
+          delete instance._queued;
+        });
+      }
+      instance._queued.add(e.type || e);
+    }
+    function runUpdates(instance, types) {
+      for (const { read, write, events = [] } of instance._updates) {
+        if (!types.has("update") && !events.some((type) => types.has(type))) {
+          continue;
+        }
+        let result;
+        if (read) {
+          result = read.call(instance, instance._data, types);
+          if (result && isPlainObject(result)) {
+            assign(instance._data, result);
+          }
+        }
+        if (write && result !== false) {
+          fastdom.write(() => {
+            if (instance._connected) {
+              write.call(instance, instance._data, types);
+            }
+          });
+        }
+      }
+    }
+
     function resize(options) {
       return observe(observeResize, options, "resize");
     }
@@ -1922,7 +1972,7 @@
       return {
         observe: observe2,
         handler() {
-          this.$emit(emit);
+          callUpdate(this, emit);
         },
         ...options
       };
@@ -2247,12 +2297,8 @@
         duration: 250
       },
       computed: {
-        toggles({ attrItem }, $el) {
-          return $$(`[${attrItem}],[data-${attrItem}]`, $el);
-        },
-        children({ target }, $el) {
-          return $$(`${target} > *`, $el);
-        }
+        children: ({ target }, $el) => $$(`${target} > *`, $el),
+        toggles: ({ attrItem }, $el) => $$(`[${attrItem}],[data-${attrItem}]`, $el)
       },
       watch: {
         toggles(toggles) {
@@ -2449,12 +2495,8 @@
         clsLeave: "uk-togglabe-leave"
       },
       computed: {
-        hasAnimation({ animation }) {
-          return !!animation[0];
-        },
-        hasTransition({ animation }) {
-          return ["slide", "reveal"].some((transition) => startsWith(animation[0], transition));
-        }
+        hasAnimation: ({ animation }) => !!animation[0],
+        hasTransition: ({ animation }) => ["slide", "reveal"].some((transition) => startsWith(animation[0], transition))
       },
       methods: {
         async toggleElement(targets, toggle, animate) {
@@ -2632,9 +2674,7 @@
         role: "dialog"
       },
       computed: {
-        panel({ selPanel }, $el) {
-          return $(selPanel, $el);
-        },
+        panel: ({ selPanel }, $el) => $(selPanel, $el),
         transitionElement() {
           return this.panel;
         },
@@ -3137,56 +3177,6 @@
       return css(el, "userSelect") !== "none" && toArray(el.childNodes).some((el2) => el2.nodeType === 3 && el2.textContent.trim());
     }
 
-    function initUpdates(instance) {
-      instance._data = {};
-      instance._updates = [...instance.$options.update || []];
-    }
-    function prependUpdate(instance, update) {
-      instance._updates.unshift(update);
-    }
-    function clearUpdateData(instance) {
-      delete instance._data;
-    }
-    function callUpdate(instance, e = "update") {
-      if (!instance._connected) {
-        return;
-      }
-      if (!instance._updates.length) {
-        return;
-      }
-      if (!instance._queued) {
-        instance._queued = /* @__PURE__ */ new Set();
-        fastdom.read(() => {
-          if (instance._connected) {
-            runUpdates(instance, instance._queued);
-          }
-          delete instance._queued;
-        });
-      }
-      instance._queued.add(e.type || e);
-    }
-    function runUpdates(instance, types) {
-      for (const { read, write, events = [] } of instance._updates) {
-        if (!types.has("update") && !events.some((type) => types.has(type))) {
-          continue;
-        }
-        let result;
-        if (read) {
-          result = read.call(instance, instance._data, types);
-          if (result && isPlainObject(result)) {
-            assign(instance._data, result);
-          }
-        }
-        if (write && result !== false) {
-          fastdom.write(() => {
-            if (instance._connected) {
-              write.call(instance, instance._data, types);
-            }
-          });
-        }
-      }
-    }
-
     function initWatches(instance) {
       instance._watches = [];
       for (const watches of instance.$options.watch || []) {
@@ -3523,7 +3513,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.17.1";
+    App.version = "3.17.2";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3703,15 +3693,11 @@
         role: "region"
       },
       computed: {
-        nav({ selNav }, $el) {
-          return $(selNav, $el);
-        },
+        nav: ({ selNav }, $el) => $(selNav, $el),
         navChildren() {
           return children(this.nav);
         },
-        selNavItem({ attrItem }) {
-          return `[${attrItem}],[data-${attrItem}]`;
-        },
+        selNavItem: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,
         navItems(_, $el) {
           return $$(this.selNavItem, $el);
         }
@@ -3891,12 +3877,8 @@
         removeClass(this.slides, this.clsActive);
       },
       computed: {
-        duration({ velocity }, $el) {
-          return speedUp($el.offsetWidth / velocity);
-        },
-        list({ selList }, $el) {
-          return $(selList, $el);
-        },
+        duration: ({ velocity }, $el) => speedUp($el.offsetWidth / velocity),
+        list: ({ selList }, $el) => $(selList, $el),
         maxIndex() {
           return this.length - 1;
         },
@@ -4111,9 +4093,7 @@
         this.$mount(append(this.container, $el));
       },
       computed: {
-        caption({ selCaption }, $el) {
-          return $(selCaption, $el);
-        }
+        caption: ({ selCaption }, $el) => $(selCaption, $el)
       },
       events: [
         {
@@ -4326,9 +4306,7 @@
       props: { toggle: String },
       data: { toggle: "a" },
       computed: {
-        toggles({ toggle }, $el) {
-          return $$(toggle, $el);
-        }
+        toggles: ({ toggle }, $el) => $$(toggle, $el)
       },
       watch: {
         toggles(toggles) {
@@ -4401,9 +4379,7 @@
       },
       install: install$2,
       computed: {
-        marginProp({ pos }) {
-          return `margin${startsWith(pos, "top") ? "Top" : "Bottom"}`;
-        },
+        marginProp: ({ pos }) => `margin-${pos.match(/[a-z]+(?=-)/)[0]}`,
         startProps() {
           return { opacity: 0, [this.marginProp]: -this.$el.offsetHeight };
         }
@@ -4853,9 +4829,7 @@
         end: 0
       },
       computed: {
-        target({ target }, $el) {
-          return getOffsetElement(target && query(target, $el) || $el);
-        },
+        target: ({ target }, $el) => getOffsetElement(target && query(target, $el) || $el),
         start({ start }) {
           return toPx(start, "height", this.target, true);
         },
@@ -5547,17 +5521,15 @@
         handler: "init"
       },
       computed: {
-        target() {
-          return (this.$el.tBodies || [this.$el])[0];
-        },
+        target: (_, $el) => ($el.tBodies || [$el])[0],
         items() {
           return children(this.target);
         },
         isEmpty() {
           return isEmpty(this.items);
         },
-        handles({ handle }, el) {
-          return handle ? $$(handle, el) : this.items;
+        handles({ handle }, $el) {
+          return handle ? $$(handle, $el) : this.items;
         }
       },
       watch: {
@@ -6334,9 +6306,7 @@
         offset: 0
       },
       computed: {
-        items({ targets }, $el) {
-          return $$(targets, $el);
-        },
+        items: ({ targets }, $el) => $$(targets, $el),
         toggles({ toggle }) {
           return this.items.map((item) => $(toggle, item));
         },
@@ -6600,14 +6570,11 @@
       },
       observe: resize({
         target: ({ $el }) => [getPositionedParent($el) || parent($el)],
-        filter: ({ _useObjectFit }) => !_useObjectFit
+        filter: ({ $el }) => !useObjectFit($el)
       }),
-      connected() {
-        this._useObjectFit = isTag(this.$el, "img", "video");
-      },
       update: {
         read() {
-          if (this._useObjectFit) {
+          if (useObjectFit(this.$el)) {
             return;
           }
           const { ratio, cover } = Dimensions;
@@ -6648,6 +6615,9 @@
           return el;
         }
       }
+    }
+    function useObjectFit(el) {
+      return isTag(el, "img", "video");
     }
 
     let active;
@@ -7064,9 +7034,7 @@
         selNavItem: "> li > a, > ul > li > a"
       },
       computed: {
-        dropbarAnchor({ dropbarAnchor }, $el) {
-          return query(dropbarAnchor, $el) || $el;
-        },
+        dropbarAnchor: ({ dropbarAnchor }, $el) => query(dropbarAnchor, $el) || $el,
         dropbar({ dropbar }) {
           if (!dropbar) {
             return null;
@@ -7365,9 +7333,7 @@
         target: false
       },
       computed: {
-        input(_, $el) {
-          return $(selInput, $el);
-        },
+        input: (_, $el) => $(selInput, $el),
         state() {
           return this.input.nextElementSibling;
         },
@@ -7578,12 +7544,10 @@
         row: true
       },
       computed: {
-        elements({ target }, $el) {
-          return $$(target, $el);
-        }
+        elements: ({ target }, $el) => $$(target, $el)
       },
       observe: resize({
-        target: ({ $el, elements }) => [$el, ...elements]
+        target: ({ $el, elements }) => elements.reduce((elements2, el) => elements2.concat(el, ...el.children), [$el])
       }),
       update: {
         read() {
@@ -8104,9 +8068,7 @@
         attrFill: "data-fill"
       },
       computed: {
-        fill({ fill }) {
-          return fill || css(this.$el, "--uk-leader-fill-content");
-        }
+        fill: ({ fill }, $el) => fill || css($el, "--uk-leader-fill-content")
       },
       connected() {
         [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
@@ -8255,12 +8217,8 @@
         dropbarTransparentMode: false
       },
       computed: {
-        dropbarOffset() {
-          return this.dropbarTransparentMode === "behind" ? this.$el.offsetHeight : 0;
-        },
-        navbarContainer() {
-          return closest(this.$el, ".uk-navbar-container");
-        }
+        navbarContainer: (_, $el) => closest($el, ".uk-navbar-container"),
+        dropbarOffset: ({ dropbarTransparentMode }, $el) => dropbarTransparentMode === "behind" ? $el.offsetHeight : 0
       },
       watch: {
         items() {
@@ -8287,9 +8245,7 @@
       observe: [
         mutation({
           target: ({ navbarContainer }) => navbarContainer,
-          handler() {
-            this.registerColorListener();
-          },
+          handler: "registerColorListener",
           options: { attributes: true, attributeFilter: ["class"], attributeOldValue: true }
         }),
         intersection({
@@ -8453,21 +8409,11 @@
         swiping: true
       },
       computed: {
-        clsFlip({ flip, clsFlip }) {
-          return flip ? clsFlip : "";
-        },
-        clsOverlay({ overlay, clsOverlay }) {
-          return overlay ? clsOverlay : "";
-        },
-        clsMode({ mode, clsMode }) {
-          return `${clsMode}-${mode}`;
-        },
-        clsSidebarAnimation({ mode, clsSidebarAnimation }) {
-          return mode === "none" || mode === "reveal" ? "" : clsSidebarAnimation;
-        },
-        clsContainerAnimation({ mode, clsContainerAnimation }) {
-          return mode !== "push" && mode !== "reveal" ? "" : clsContainerAnimation;
-        },
+        clsFlip: ({ flip, clsFlip }) => flip ? clsFlip : "",
+        clsOverlay: ({ overlay, clsOverlay }) => overlay ? clsOverlay : "",
+        clsMode: ({ mode, clsMode }) => `${clsMode}-${mode}`,
+        clsSidebarAnimation: ({ mode, clsSidebarAnimation }) => mode === "none" || mode === "reveal" ? "" : clsSidebarAnimation,
+        clsContainerAnimation: ({ mode, clsContainerAnimation }) => mode !== "push" && mode !== "reveal" ? "" : clsContainerAnimation,
         transitionElement({ mode }) {
           return mode === "reveal" ? parent(this.panel) : this.panel;
         }
@@ -8574,12 +8520,8 @@
         minHeight: 150
       },
       computed: {
-        container({ selContainer }, $el) {
-          return closest($el, selContainer);
-        },
-        content({ selContent }, $el) {
-          return closest($el, selContent);
-        }
+        container: ({ selContainer }, $el) => closest($el, selContainer),
+        content: ({ selContent }, $el) => closest($el, selContent)
       },
       observe: resize({
         target: ({ container, content }) => [container, content]
@@ -8702,9 +8644,7 @@
         inViewClass: "uk-scrollspy-inview"
       }),
       computed: {
-        elements({ target }, $el) {
-          return target ? $$(target, $el) : [$el];
-        }
+        elements: ({ target }, $el) => target ? $$(target, $el) : [$el]
       },
       watch: {
         elements(elements) {
@@ -8805,9 +8745,7 @@
         offset: 0
       },
       computed: {
-        links(_, $el) {
-          return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
-        },
+        links: (_, $el) => $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el)),
         elements({ closest: selector }) {
           return this.links.map((el) => closest(el, selector || "*"));
         }
@@ -8865,7 +8803,7 @@
       ]
     };
     function findFixedElement(target) {
-      return target.ownerDocument.elementsFromPoint(1, 1).find((el) => ["fixed", "sticky"].includes(css(el, "position")) && !el.contains(target));
+      return target.ownerDocument.elementsFromPoint(offset(target).left, 1).find((el) => ["fixed", "sticky"].includes(css(el, "position")) && !el.contains(target));
     }
 
     var sticky = {
@@ -8905,9 +8843,7 @@
         targetOffset: false
       },
       computed: {
-        selTarget({ selTarget }, $el) {
-          return selTarget && $(selTarget, $el) || $el;
-        }
+        selTarget: ({ selTarget }, $el) => selTarget && $(selTarget, $el) || $el
       },
       connected() {
         this.start = coerce(this.start || this.top);
@@ -9342,17 +9278,13 @@
         swiping: true
       },
       computed: {
-        connects({ connect }, $el) {
-          return queryAll(connect, $el);
-        },
+        connects: ({ connect }, $el) => queryAll(connect, $el),
         connectChildren() {
           return this.connects.map((el) => children(el)).flat();
         },
-        toggles({ toggle }, $el) {
-          return $$(toggle, $el);
-        },
-        children() {
-          return children(this.$el).filter(
+        toggles: ({ toggle }, $el) => $$(toggle, $el),
+        children(_, $el) {
+          return children($el).filter(
             (child) => this.toggles.some((toggle) => within(toggle, child))
           );
         }
@@ -9533,7 +9465,7 @@
       computed: {
         target({ target }, $el) {
           target = queryAll(target || $el.hash, $el);
-          return target.length && target || [$el];
+          return target.length ? target : [$el];
         }
       },
       connected() {

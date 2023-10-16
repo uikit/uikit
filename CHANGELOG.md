@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.17.2 (October 16, 2023)
+
+### Fixed
+
+- Fix `scrollIntoView()` function uses offset left to detect elements that would cover target
+- Fix Height Match component recalculates its heights, when a font has loaded
+
 ## 3.17.1 (October 5, 2023)
 
 ### Fixed

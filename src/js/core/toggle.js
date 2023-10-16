@@ -45,7 +45,7 @@ export default {
     computed: {
         target({ target }, $el) {
             target = queryAll(target || $el.hash, $el);
-            return (target.length && target) || [$el];
+            return target.length ? target : [$el];
         },
     },
 

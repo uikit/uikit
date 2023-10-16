@@ -34,9 +34,7 @@ export default {
     }),
 
     computed: {
-        elements({ target }, $el) {
-            return target ? $$(target, $el) : [$el];
-        },
+        elements: ({ target }, $el) => (target ? $$(target, $el) : [$el]),
     },
 
     watch: {

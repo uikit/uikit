@@ -53,9 +53,7 @@ export default {
     },
 
     computed: {
-        items({ targets }, $el) {
-            return $$(targets, $el);
-        },
+        items: ({ targets }, $el) => $$(targets, $el),
 
         toggles({ toggle }) {
             return this.items.map((item) => $(toggle, item));

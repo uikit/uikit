@@ -32,9 +32,7 @@ export default {
     },
 
     computed: {
-        links(_, $el) {
-            return $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el));
-        },
+        links: (_, $el) => $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el)),
 
         elements({ closest: selector }) {
             return this.links.map((el) => closest(el, selector || '*'));
@@ -108,6 +106,6 @@ export default {
 
 function findFixedElement(target) {
     return target.ownerDocument
-        .elementsFromPoint(1, 1)
+        .elementsFromPoint(offset(target).left, 1)
         .find((el) => ['fixed', 'sticky'].includes(css(el, 'position')) && !el.contains(target));
 }

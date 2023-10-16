@@ -22,16 +22,12 @@ export default {
 
     observe: resize({
         target: ({ $el }) => [getPositionedParent($el) || parent($el)],
-        filter: ({ _useObjectFit }) => !_useObjectFit,
+        filter: ({ $el }) => !useObjectFit($el),
     }),
-
-    connected() {
-        this._useObjectFit = isTag(this.$el, 'img', 'video');
-    },
 
     update: {
         read() {
-            if (this._useObjectFit) {
+            if (useObjectFit(this.$el)) {
                 return;
             }
 
@@ -83,4 +79,8 @@ function getPositionedParent(el) {
             return el;
         }
     }
+}
+
+function useObjectFit(el) {
+    return isTag(el, 'img', 'video');
 }

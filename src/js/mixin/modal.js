@@ -49,9 +49,7 @@ export default {
     },
 
     computed: {
-        panel({ selPanel }, $el) {
-            return $(selPanel, $el);
-        },
+        panel: ({ selPanel }, $el) => $(selPanel, $el),
 
         transitionElement() {
             return this.panel;
