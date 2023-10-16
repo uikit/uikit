@@ -19,6 +19,7 @@ import {
     toNodes,
     trigger,
 } from 'uikit-util';
+import { callUpdate } from './update';
 
 export function resize(options) {
     return observe(observeResize, options, 'resize');
@@ -106,7 +107,7 @@ function observe(observe, options, emit) {
     return {
         observe,
         handler() {
-            this.$emit(emit);
+            callUpdate(this, emit);
         },
         ...options,
     };
