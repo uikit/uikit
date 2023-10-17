@@ -1,4 +1,4 @@
-/*! UIkit 3.17.2 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.3 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3513,7 +3513,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.17.2";
+    App.version = "3.17.3";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -7401,7 +7401,7 @@
       update: [
         {
           write({ rows }) {
-            toggleClass(this.$el, this.clsStack, !rows[0][1]);
+            toggleClass(this.$el, this.clsStack, !rows.some((row) => row.length > 1));
           },
           events: ["resize"]
         },
