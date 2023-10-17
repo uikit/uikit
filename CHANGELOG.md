@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.17.3 (October 17, 2023)
+
+### Fixed
+
+- Fix Grid component applies `uk-grid-stack` class wrongly
+
 ## 3.17.2 (October 16, 2023)
 
 ### Fixed
