@@ -47,7 +47,7 @@ export default {
     update: [
         {
             write({ rows }) {
-                toggleClass(this.$el, this.clsStack, !rows[0][1]);
+                toggleClass(this.$el, this.clsStack, !rows.some((row) => row.length > 1));
             },
 
             events: ['resize'],
