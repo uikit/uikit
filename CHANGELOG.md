@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Scroll component not scrolling correctly if covered by `position: sticky` element
+
 ## 3.17.4 (October 18, 2023)
 
 ### Fixed

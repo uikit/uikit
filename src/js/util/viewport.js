@@ -1,5 +1,5 @@
 import { offset, offsetPosition } from './dimensions';
-import { isVisible, parents } from './filter';
+import { isVisible, parents, within } from './filter';
 import {
     clamp,
     findIndex,
@@ -79,8 +79,8 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
                 let diff = 0;
                 if (parents[0] === element && scroll + top < maxScroll) {
                     diff = offset(targetEl).top - targetTop;
-                    const fixedEl = findFixedElement(targetEl);
-                    diff -= fixedEl ? offset(fixedEl).height : 0;
+                    const coverEl = getCoveringElement(targetEl);
+                    diff -= coverEl ? offset(coverEl).height : 0;
                 }
 
                 element.scrollTop = Math[top + diff > 0 ? 'max' : 'min'](
@@ -106,14 +106,6 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
 
     function ease(k) {
         return 0.5 * (1 - Math.cos(Math.PI * k));
-    }
-
-    function findFixedElement(target) {
-        return target.ownerDocument
-            .elementsFromPoint(offset(target).left, 0)
-            .find(
-                (el) => ['fixed', 'sticky'].includes(css(el, 'position')) && !el.contains(target),
-            );
     }
 }
 
@@ -204,6 +196,17 @@ export function offsetViewport(scrollElement) {
         rect[end] = rect[prop] + rect[start];
     }
     return rect;
+}
+
+export function getCoveringElement(target) {
+    return target.ownerDocument
+        .elementsFromPoint(offset(target).left, 0)
+        .find(
+            (el) =>
+                !el.contains(target) &&
+                (css(el, 'position') === 'fixed' ||
+                    (css(el, 'position') === 'sticky' && within(target, el.parentElement))),
+        );
 }
 
 function scrollingElement(element) {
