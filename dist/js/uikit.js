@@ -1,4 +1,4 @@
-/*! UIkit 3.17.3 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.4 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2153,7 +2153,7 @@
       );
     }
     function getTransitionNodes(target) {
-      return getRows(children(target)).flat().filter(isInView);
+      return getRows(children(target)).flat().filter((node) => isInView(node));
     }
     function awaitFrame$1() {
       return new Promise((resolve) => requestAnimationFrame(resolve));
@@ -3513,7 +3513,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.17.3";
+    App.version = "3.17.4";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
