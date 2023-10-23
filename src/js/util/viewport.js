@@ -1,5 +1,5 @@
 import { offset, offsetPosition } from './dimensions';
-import { isVisible, parents, within } from './filter';
+import { isVisible, parent, parents, within } from './filter';
 import {
     clamp,
     findIndex,
@@ -204,9 +204,16 @@ export function getCoveringElement(target) {
         .find(
             (el) =>
                 !el.contains(target) &&
-                (css(el, 'position') === 'fixed' ||
+                ((css(el, 'position') === 'fixed' && !hasHigherZIndex(target, el)) ||
                     (css(el, 'position') === 'sticky' && within(target, el.parentElement))),
         );
+}
+
+function hasHigherZIndex(element1, element2) {
+    return (
+        parent(element1) === parent(element2) &&
+        toFloat(css(element1, 'zIndex')) > toFloat(css(element2, 'zIndex'))
+    );
 }
 
 function scrollingElement(element) {
