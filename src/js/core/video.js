@@ -1,4 +1,4 @@
-import { hasAttr, isTag, isVideo, mute, pause, play } from 'uikit-util';
+import { hasAttr, isTag, isVideo, mute, parent, pause, play } from 'uikit-util';
 import { intersection } from '../api/observables';
 
 export default {
@@ -43,7 +43,7 @@ export default {
                 }
             },
             args: { intersecting: false },
-            options: ({ inView }) => ({ root: inView ? null : document.documentElement }),
+            options: ({ $el, inView }) => ({ root: inView ? null : parent($el) }),
         }),
     ],
 };
