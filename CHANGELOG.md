@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.17.5 (October 24, 2023)
 
 ### Deprecated
 
