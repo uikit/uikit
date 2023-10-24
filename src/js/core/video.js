@@ -14,12 +14,8 @@ export default {
         autoplay: true,
     },
 
-    beforeConnect() {
-        this.inView = this.autoplay === 'inview';
-    },
-
     connected() {
-        if (this.inView && !hasAttr(this.$el, 'preload')) {
+        if (this.autoplay === 'inview' && !hasAttr(this.$el, 'preload')) {
             this.$el.preload = 'none';
         }
 
@@ -43,7 +39,7 @@ export default {
                 }
             },
             args: { intersecting: false },
-            options: ({ $el, inView }) => ({ root: inView ? null : parent($el) }),
+            options: ({ $el, autoplay }) => ({ root: autoplay === 'inview' ? null : parent($el) }),
         }),
     ],
 };
