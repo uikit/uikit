@@ -2,6 +2,12 @@
 
 ## WIP
 
+### Deprecated
+
+- Deprecate `isInView()` function
+- Deprecate `intersectRect()` function
+- Deprecate `target-offset` option in Sticky component
+
 ### Changes
 
 - Video component uses IntersectionObserver only
