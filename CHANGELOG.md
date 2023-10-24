@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.17.5 (October 24, 2023)
+
+### Deprecated
+
+- Deprecate `isInView()` function
+- Deprecate `intersectRect()` function
+- Deprecate `target-offset` option in Sticky component
+
+### Changed
+
+- Video component uses IntersectionObserver only
+
+### Fixed
+
+- Fix Scroll component not detecting covering element correctly
+
 ## 3.17.4 (October 18, 2023)
 
 ### Fixed

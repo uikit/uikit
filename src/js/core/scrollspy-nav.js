@@ -1,7 +1,7 @@
 import {
     $$,
     closest,
-    css,
+    getCoveringElement,
     getTargetedElement,
     hasClass,
     isSameSiteAnchor,
@@ -70,7 +70,7 @@ export default {
                     active = length - 1;
                 } else {
                     for (let i = 0; i < targets.length; i++) {
-                        const fixedEl = findFixedElement(targets[i]);
+                        const fixedEl = getCoveringElement(targets[i]);
                         const offsetBy = this.offset + (fixedEl ? offset(fixedEl).height : 0);
                         if (offset(targets[i]).top - viewport.top - offsetBy > 0) {
                             break;
@@ -103,9 +103,3 @@ export default {
         },
     ],
 };
-
-function findFixedElement(target) {
-    return target.ownerDocument
-        .elementsFromPoint(offset(target).left, 1)
-        .find((el) => ['fixed', 'sticky'].includes(css(el, 'position')) && !el.contains(target));
-}

@@ -1,4 +1,4 @@
-/*! UIkit 3.17.4 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.5 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -7730,7 +7730,6 @@ video[data-uk-cover] {
 /* 1 */
 :not(img,video)[uk-cover],
 :not(img,video)[data-uk-cover] {
-  pointer-events: none;
   /* 2 */
   max-width: none;
   /* 3 */

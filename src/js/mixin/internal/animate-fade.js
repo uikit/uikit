@@ -4,7 +4,7 @@ import {
     css,
     hasClass,
     height,
-    isInView,
+    isVisible,
     once,
     removeClass,
     toNumber,
@@ -119,7 +119,7 @@ function waitTransitionend(target) {
 function getTransitionNodes(target) {
     return getRows(children(target))
         .flat()
-        .filter((node) => isInView(node));
+        .filter((node) => isVisible(node));
 }
 
 function awaitFrame() {
