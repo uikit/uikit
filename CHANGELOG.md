@@ -8,7 +8,7 @@
 - Deprecate `intersectRect()` function
 - Deprecate `target-offset` option in Sticky component
 
-### Changes
+### Changed
 
 - Video component uses IntersectionObserver only
 
