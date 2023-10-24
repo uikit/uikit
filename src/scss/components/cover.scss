@@ -41,7 +41,6 @@ video[data-uk-cover] {
 /* 1 */
 :not(img,video)[uk-cover],
 :not(img,video)[data-uk-cover] {
-    pointer-events: none;
     /* 2 */
     max-width: none;
     /* 3 */

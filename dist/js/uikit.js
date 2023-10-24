@@ -1,4 +1,4 @@
-/*! UIkit 3.17.4 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.5 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1184,8 +1184,8 @@
         return false;
       }
       return intersectRect(
-        ...overflowParents(element).map((parent) => {
-          const { top, left, bottom, right } = offsetViewport(parent);
+        ...overflowParents(element).map((parent2) => {
+          const { top, left, bottom, right } = offsetViewport(parent2);
           return {
             top: top - offsetTop,
             left: left - offsetLeft,
@@ -1233,8 +1233,8 @@
             let diff = 0;
             if (parents2[0] === element2 && scroll + top < maxScroll) {
               diff = offset(targetEl).top - targetTop;
-              const fixedEl = findFixedElement(targetEl);
-              diff -= fixedEl ? offset(fixedEl).height : 0;
+              const coverEl = getCoveringElement(targetEl);
+              diff -= coverEl ? offset(coverEl).height : 0;
             }
             element2.scrollTop = Math[top + diff > 0 ? "max" : "min"](
               element2.scrollTop,
@@ -1254,11 +1254,6 @@
       }
       function ease(k) {
         return 0.5 * (1 - Math.cos(Math.PI * k));
-      }
-      function findFixedElement(target) {
-        return target.ownerDocument.elementsFromPoint(offset(target).left, 0).find(
-          (el) => ["fixed", "sticky"].includes(css(el, "position")) && !el.contains(target)
-        );
       }
     }
     function scrolledOver(element, startOffset = 0, endOffset = 0) {
@@ -1284,7 +1279,7 @@
       }
       return [scrollEl].concat(
         ancestors.filter(
-          (parent) => css(parent, "overflow").split(" ").some((prop) => includes(["auto", "scroll", ...props], prop)) && (!scrollable || parent.scrollHeight > offsetViewport(parent).height)
+          (parent2) => css(parent2, "overflow").split(" ").some((prop) => includes(["auto", "scroll", ...props], prop)) && (!scrollable || parent2.scrollHeight > offsetViewport(parent2).height)
         )
       ).reverse();
     }
@@ -1325,6 +1320,14 @@
         rect[end] = rect[prop] + rect[start];
       }
       return rect;
+    }
+    function getCoveringElement(target) {
+      return target.ownerDocument.elementsFromPoint(offset(target).left, 0).find(
+        (el) => !el.contains(target) && (css(el, "position") === "fixed" && !hasHigherZIndex(target, el) || css(el, "position") === "sticky" && within(target, parent(el)))
+      );
+    }
+    function hasHigherZIndex(element1, element2) {
+      return parent(element1) === parent(element2) && toFloat(css(element1, "zIndex")) > toFloat(css(element2, "zIndex"));
     }
     function scrollingElement(element) {
       return toWindow(element).document.scrollingElement;
@@ -1545,6 +1548,7 @@
         findIndex: findIndex,
         flipPosition: flipPosition,
         fragment: fragment,
+        getCoveringElement: getCoveringElement,
         getEventPos: getEventPos,
         getIndex: getIndex,
         getTargetedElement: getTargetedElement,
@@ -2153,7 +2157,7 @@
       );
     }
     function getTransitionNodes(target) {
-      return getRows(children(target)).flat().filter((node) => isInView(node));
+      return getRows(children(target)).flat().filter((node) => isVisible(node));
     }
     function awaitFrame$1() {
       return new Promise((resolve) => requestAnimationFrame(resolve));
@@ -3513,7 +3517,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.17.4";
+    App.version = "3.17.5";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -6520,8 +6524,7 @@
         autoplay: true
       },
       connected() {
-        this.inView = this.autoplay === "inview";
-        if (this.inView && !hasAttr(this.$el, "preload")) {
+        if (this.autoplay === "inview" && !hasAttr(this.$el, "preload")) {
           this.$el.preload = "none";
         }
         if (isTag(this.$el, "iframe") && !hasAttr(this.$el, "allow")) {
@@ -6531,27 +6534,20 @@
           mute(this.$el);
         }
       },
-      observe: [intersection({ args: { intersecting: false } }), resize()],
-      update: {
-        read({ visible }) {
-          if (!isVideo(this.$el)) {
-            return false;
-          }
-          return {
-            prev: visible,
-            visible: isVisible(this.$el),
-            inView: this.inView && isInView(this.$el)
-          };
-        },
-        write({ prev, visible, inView }) {
-          if (!visible || this.inView && !inView) {
-            pause(this.$el);
-          } else if (this.autoplay === true && !prev || inView) {
-            play(this.$el);
-          }
-        },
-        events: ["resize"]
-      }
+      observe: [
+        intersection({
+          filter: ({ $el }) => isVideo($el),
+          handler([{ isIntersecting }]) {
+            if (isIntersecting) {
+              play(this.$el);
+            } else {
+              pause(this.$el);
+            }
+          },
+          args: { intersecting: false },
+          options: ({ $el, autoplay }) => ({ root: autoplay === "inview" ? null : parent($el) })
+        })
+      ]
     };
 
     var cover = {
@@ -8775,7 +8771,7 @@
               active = length - 1;
             } else {
               for (let i = 0; i < targets.length; i++) {
-                const fixedEl = findFixedElement(targets[i]);
+                const fixedEl = getCoveringElement(targets[i]);
                 const offsetBy = this.offset + (fixedEl ? offset(fixedEl).height : 0);
                 if (offset(targets[i]).top - viewport.top - offsetBy > 0) {
                   break;
@@ -8802,9 +8798,6 @@
         }
       ]
     };
-    function findFixedElement(target) {
-      return target.ownerDocument.elementsFromPoint(offset(target).left, 1).find((el) => ["fixed", "sticky"].includes(css(el, "position")) && !el.contains(target));
-    }
 
     var sticky = {
       mixins: [Class, Media],
