@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changes
+
+- Video component uses IntersectionObserver only
+
 ### Fixed
 
 - Fix Scroll component not detecting covering element correctly
