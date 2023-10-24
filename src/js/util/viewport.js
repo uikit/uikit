@@ -205,7 +205,7 @@ export function getCoveringElement(target) {
             (el) =>
                 !el.contains(target) &&
                 ((css(el, 'position') === 'fixed' && !hasHigherZIndex(target, el)) ||
-                    (css(el, 'position') === 'sticky' && within(target, el.parentElement))),
+                    (css(el, 'position') === 'sticky' && within(target, parent(el)))),
         );
 }
 
