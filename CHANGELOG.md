@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Video component causing videos to autoplay with `autoplay` set to `false`
+
 ## 3.17.5 (October 24, 2023)
 
 ### Deprecated
