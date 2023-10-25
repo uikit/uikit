@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.17.6 (October 25, 2023)
 
 ### Fixed
 
