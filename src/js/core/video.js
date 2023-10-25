@@ -30,7 +30,7 @@ export default {
 
     observe: [
         intersection({
-            filter: ({ $el }) => isVideo($el),
+            filter: ({ $el, autoplay }) => autoplay && isVideo($el),
             handler([{ isIntersecting }]) {
                 if (isIntersecting) {
                     play(this.$el);
