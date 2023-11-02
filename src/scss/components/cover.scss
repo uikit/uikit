@@ -13,23 +13,6 @@
  ========================================================================== */
 
 /*
- * Works with embedded content
- */
-
-img[uk-cover],
-video[uk-cover],
-img[data-uk-cover],
-video[data-uk-cover] {
-    left: 0;
-    top: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-/*
  * Works with iframes and embedded content
  * 1. Use attribute to apply transform instantly. Needed if transform is transitioned.
  * 2. Reset responsiveness for embedded content
@@ -39,8 +22,8 @@ video[data-uk-cover] {
  */
 
 /* 1 */
-:not(img,video)[uk-cover],
-:not(img,video)[data-uk-cover] {
+[uk-cover]:where(canvas, iframe, svg),
+[data-uk-cover]:where(canvas, iframe, svg) {
     /* 2 */
     max-width: none;
     /* 3 */
@@ -54,6 +37,19 @@ video[data-uk-cover] {
 
 iframe[uk-cover],
 iframe[data-uk-cover] { pointer-events: none; }
+
+[uk-cover]:where(img, video),
+[data-uk-cover]:where(img, video) {
+    /* 3 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    object-fit: cover;
+    object-position: center;
+}
 
 
 /* Container
