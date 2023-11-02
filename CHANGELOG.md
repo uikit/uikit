@@ -1,6 +1,12 @@
 # Changelog
 
-## 3.17.6 (October 25, 2023)
+## WIP
+
+### Fixed
+
+- Fix build
+
+## 3.17.7
 
 ### Added
 
@@ -8,8 +14,13 @@
 
 ### Fixed
 
+- Fix disabling transition during Sticky component size recalculation
+
+## 3.17.6 (October 25, 2023)
+
+### Fixed
+
 - Fix regression in Video component causing videos to autoplay with `autoplay` set to `false`
-- Fix disabling transition during Sticky component size recalculation 
 
 ## 3.17.5 (October 24, 2023)
 
