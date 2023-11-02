@@ -159,7 +159,7 @@ export default {
 
                 const hide = this.isFixed && !this.transitionInProgress;
                 if (hide) {
-                    preventTransition(this.selTarget);
+                    preventTransition(this.$el);
                     this.hide();
                 }
 
@@ -477,6 +477,6 @@ function reset(el) {
 }
 
 function preventTransition(el) {
-    css(el, 'transition', '0s');
-    requestAnimationFrame(() => css(el, 'transition', ''));
+    addClass(el, 'uk-transition-disable');
+    requestAnimationFrame(() => removeClass(el, 'uk-transition-disable'));
 }

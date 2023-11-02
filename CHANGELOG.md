@@ -2,9 +2,14 @@
 
 ## 3.17.6 (October 25, 2023)
 
+### Added
+
+- Add `uk-transition-disable` utility class to Transition component
+
 ### Fixed
 
 - Fix regression in Video component causing videos to autoplay with `autoplay` set to `false`
+- Fix disabling transition during Sticky component size recalculation 
 
 ## 3.17.5 (October 24, 2023)
 
