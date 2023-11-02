@@ -1,4 +1,4 @@
-/*! UIkit 3.17.6 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.7 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -7705,21 +7705,6 @@ td.uk-text-break {
    Component: Cover
  ========================================================================== */
 /*
- * Works with embedded content
- */
-img[uk-cover],
-video[uk-cover],
-img[data-uk-cover],
-video[data-uk-cover] {
-  right: 0;
-  top: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-/*
  * Works with iframes and embedded content
  * 1. Use attribute to apply transform instantly. Needed if transform is transitioned.
  * 2. Reset responsiveness for embedded content
@@ -7728,8 +7713,8 @@ video[data-uk-cover] {
  *       is absolute positioned or if the container has a height
  */
 /* 1 */
-:not(img,video)[uk-cover],
-:not(img,video)[data-uk-cover] {
+[uk-cover]:where(canvas, iframe, svg),
+[data-uk-cover]:where(canvas, iframe, svg) {
   /* 2 */
   max-width: none;
   /* 3 */
@@ -7743,6 +7728,18 @@ video[data-uk-cover] {
 iframe[uk-cover],
 iframe[data-uk-cover] {
   pointer-events: none;
+}
+[uk-cover]:where(img, video),
+[data-uk-cover]:where(img, video) {
+  /* 3 */
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  object-fit: cover;
+  object-position: center;
 }
 /* Container
  ========================================================================== */
@@ -9378,10 +9375,16 @@ iframe[data-uk-cover] {
 .uk-transition-opaque {
   opacity: 1;
 }
-/* Duration modifiers
+/* Duration modifier
  ========================================================================== */
 .uk-transition-slow {
   transition-duration: 0.7s;
+}
+/* Disable modifier
+ ========================================================================== */
+.uk-transition-disable,
+.uk-transition-disable * {
+  transition: none !important;
 }
 /* ========================================================================
    Component: Visibility
