@@ -1,4 +1,4 @@
-import { $, remove, within } from 'uikit-util';
+import { includes, remove, within } from 'uikit-util';
 import { attachToElement, createComponent, detachFromElement, getComponent } from './component';
 import { update } from './global';
 import { callConnected, callDisconnected, callHook } from './hooks';
@@ -60,6 +60,7 @@ export default function (App) {
     });
 }
 
+const ids = [];
 export function generateId(instance, el = instance.$el, postfix = '') {
     if (el.id) {
         return el.id;
@@ -67,9 +68,11 @@ export function generateId(instance, el = instance.$el, postfix = '') {
 
     let id = `${instance.$options.id}-${instance._uid}${postfix}`;
 
-    if ($(`#${id}`)) {
+    if (includes(ids, id)) {
         id = generateId(instance, el, `${postfix}-2`);
     }
+
+    ids.push(id);
 
     return id;
 }
