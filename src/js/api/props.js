@@ -1,4 +1,12 @@
-import { camelize, data as getData, hasOwn, hyphenate, isUndefined, startsWith } from 'uikit-util';
+import {
+    camelize,
+    data as getData,
+    hasOwn,
+    hyphenate,
+    isUndefined,
+    memoize,
+    startsWith,
+} from 'uikit-util';
 import { registerObserver } from './observer';
 import { coerce, parseOptions } from './options';
 
@@ -60,6 +68,15 @@ function notIn(options, key) {
     return options.every((arr) => !arr || !hasOwn(arr, key));
 }
 
+const getAttributes = memoize((id, props) => {
+    const attributes = Object.keys(props);
+    const filter = attributes
+        .concat(id)
+        .map((key) => [hyphenate(key), `data-${hyphenate(key)}`])
+        .flat();
+    return { attributes, filter };
+});
+
 export function initPropsObserver(instance) {
     const { $options, $props } = instance;
     const { id, props, el } = $options;
@@ -68,8 +85,7 @@ export function initPropsObserver(instance) {
         return;
     }
 
-    const attributes = Object.keys(props);
-    const filter = attributes.map((key) => hyphenate(key)).concat(id);
+    const { attributes, filter } = getAttributes(id, props);
 
     const observer = new MutationObserver((records) => {
         const data = getProps($options);
@@ -87,7 +103,7 @@ export function initPropsObserver(instance) {
 
     observer.observe(el, {
         attributes: true,
-        attributeFilter: filter.concat(filter.map((key) => `data-${key}`)),
+        attributeFilter: filter,
     });
 
     registerObserver(instance, observer);
