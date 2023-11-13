@@ -41,8 +41,8 @@ export function createComponent(name, element, data, ...args) {
     return Component.options.functional
         ? new Component({ data: isPlainObject(element) ? element : [element, data, ...args] })
         : element
-        ? $$(element).map(init)[0]
-        : init();
+          ? $$(element).map(init)[0]
+          : init();
 
     function init(element) {
         const instance = getComponent(element, name);

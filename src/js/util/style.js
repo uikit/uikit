@@ -44,8 +44,8 @@ export function css(element, property, value, priority) {
                     isNumeric(value) && !cssNumber[property]
                         ? `${value}px`
                         : value || isNumber(value)
-                        ? value
-                        : '',
+                          ? value
+                          : '',
                     priority,
                 );
             }

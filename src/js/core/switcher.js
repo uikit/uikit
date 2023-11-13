@@ -132,14 +132,14 @@ export default {
                     keyCode === keyMap.HOME
                         ? 0
                         : keyCode === keyMap.END
-                        ? 'last'
-                        : (keyCode === keyMap.LEFT && !isVertical) ||
-                          (keyCode === keyMap.UP && isVertical)
-                        ? 'previous'
-                        : (keyCode === keyMap.RIGHT && !isVertical) ||
-                          (keyCode === keyMap.DOWN && isVertical)
-                        ? 'next'
-                        : -1;
+                          ? 'last'
+                          : (keyCode === keyMap.LEFT && !isVertical) ||
+                              (keyCode === keyMap.UP && isVertical)
+                            ? 'previous'
+                            : (keyCode === keyMap.RIGHT && !isVertical) ||
+                                (keyCode === keyMap.DOWN && isVertical)
+                              ? 'next'
+                              : -1;
 
                 if (~i) {
                     e.preventDefault();

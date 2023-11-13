@@ -119,8 +119,8 @@ function swipeDirection(x1, y1, x2, y2) {
             ? 'Left'
             : 'Right'
         : y1 - y2 > 0
-        ? 'Up'
-        : 'Down';
+          ? 'Up'
+          : 'Down';
 }
 
 function toScrollTargets(elements) {

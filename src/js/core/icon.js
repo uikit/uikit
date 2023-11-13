@@ -126,8 +126,8 @@ export const Search = {
             hasClass(this.$el, 'uk-search-icon') && parents(this.$el, '.uk-search-large').length
                 ? 'search-large'
                 : parents(this.$el, '.uk-search-navbar').length
-                ? 'search-navbar'
-                : this.$props.icon;
+                  ? 'search-navbar'
+                  : this.$props.icon;
 
         if (hasAttr(this.$el, 'aria-label')) {
             return;

@@ -126,10 +126,10 @@ export function toEventTargets(target) {
     return isArray(target)
         ? target.map(toEventTarget).filter(Boolean)
         : isString(target)
-        ? findAll(target)
-        : isEventTarget(target)
-        ? [target]
-        : toNodes(target);
+          ? findAll(target)
+          : isEventTarget(target)
+            ? [target]
+            : toNodes(target);
 }
 
 export function isTouch(e) {

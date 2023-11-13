@@ -64,10 +64,10 @@ export default {
                             isFunction(animate)
                                 ? animate
                                 : animate === false || !this.hasAnimation
-                                ? toggleInstant
-                                : this.hasTransition
-                                ? toggleTransition
-                                : toggleAnimation
+                                  ? toggleInstant
+                                  : this.hasTransition
+                                    ? toggleTransition
+                                    : toggleAnimation
                         )(el, show, this);
 
                         const cls = show ? this.clsEnter : this.clsLeave;
@@ -100,10 +100,10 @@ export default {
             return hasClass(el, this.clsEnter)
                 ? true
                 : hasClass(el, this.clsLeave)
-                ? false
-                : this.cls
-                ? hasClass(el, this.cls.split(' ')[0])
-                : isVisible(el);
+                  ? false
+                  : this.cls
+                    ? hasClass(el, this.cls.split(' ')[0])
+                    : isVisible(el);
         },
 
         _toggle(el, toggled) {
