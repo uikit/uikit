@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Improve Tooltip performance
+
 ## 3.17.8 (November 2, 2023)
 
 ### Fixed

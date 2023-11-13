@@ -1,6 +1,7 @@
 import {
     append,
     attr,
+    data,
     flipPosition,
     hasAttr,
     includes,
@@ -18,6 +19,7 @@ import {
     within,
 } from 'uikit-util';
 import { generateId } from '../api/instance';
+import { parseOptions } from '../api/options';
 import Container from '../mixin/container';
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
@@ -26,48 +28,42 @@ import { keyMap } from '../util/keys';
 export default {
     mixins: [Container, Togglable, Position],
 
-    args: 'title',
-
-    props: {
-        delay: Number,
-        title: String,
-    },
-
     data: {
         pos: 'top',
-        title: '',
-        delay: 0,
         animation: ['uk-animation-scale-up'],
         duration: 100,
         cls: 'uk-active',
     },
 
-    beforeConnect() {
-        this.id = generateId(this, {});
-        this._hasTitle = hasAttr(this.$el, 'title');
-        attr(this.$el, {
-            title: '',
-            'aria-describedby': this.id,
-        });
+    connected() {
         makeFocusable(this.$el);
     },
 
     disconnected() {
         this.hide();
-
-        if (!attr(this.$el, 'title')) {
-            attr(this.$el, 'title', this._hasTitle ? this.title : null);
-        }
     },
 
     methods: {
         show() {
-            if (this.isToggled(this.tooltip || null) || !this.title) {
+            if (this.isToggled(this.tooltip || null)) {
                 return;
             }
 
+            const { delay = 0, title } = parseProps(this.$options);
+
+            if (!title) {
+                return;
+            }
+
+            this.title = title;
+            this.id ||= generateId(this, {});
+            this._hasTitle = hasAttr(this.$el, 'title');
+            attr(this.$el, { title: null, 'aria-describedby': this.id });
+
+            once(this.$el, ['blur', pointerLeave], (e) => !isTouch(e) && this.hide());
+
             clearTimeout(this.showTimer);
-            this.showTimer = setTimeout(this._show, this.delay);
+            this.showTimer = setTimeout(this._show, delay);
         },
 
         async hide() {
@@ -81,6 +77,7 @@ export default {
                 await this.toggleElement(this.tooltip, false, false);
             }
 
+            attr(this.$el, { title: this._hasTitle ? this.title : null, 'aria-describedby': null });
             remove(this.tooltip);
             this.tooltip = null;
         },
@@ -134,19 +131,10 @@ export default {
     },
 
     events: {
-        focus: 'show',
-        blur: 'hide',
-
-        [`${pointerEnter} ${pointerLeave}`](e) {
-            if (!isTouch(e)) {
-                this[e.type === pointerEnter ? 'show' : 'hide']();
-            }
-        },
-
         // Clicking a button does not give it focus on all browsers and platforms
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
-        [pointerDown](e) {
-            if (isTouch(e)) {
+        [`focus ${pointerEnter} ${pointerDown}`](e) {
+            if (!isTouch(e)) {
                 this.show();
             }
         },
@@ -188,4 +176,12 @@ function getAlignment(el, target, [dir, align]) {
     }
 
     return [dir, align];
+}
+
+function parseProps(options) {
+    const { el, id } = options;
+    return ['delay', 'title'].reduce(
+        (obj, key) => ({ [key]: data(el, key), ...obj }),
+        parseOptions(data(el, id), ['title']),
+    );
 }
