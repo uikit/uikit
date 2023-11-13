@@ -5,7 +5,7 @@
 ### Added
 
 - Add size modifier to Nav component
-- Add X, Mastodon, Threads and YOOtheme icons
+- Add X, Mastodon, Telegram, Threads, Signal and YOOtheme icons
 
 ## WIP
 
