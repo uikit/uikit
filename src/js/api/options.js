@@ -168,12 +168,13 @@ export function coerce(type, value) {
     return type ? type(value) : value;
 }
 
+const listRe = /,(?![^(]*\))/;
 function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
         ? value
-              .split(/,(?![^(]*\))/)
+              .split(listRe)
               .map((value) => (isNumeric(value) ? toNumber(value) : toBoolean(value.trim())))
         : [value];
 }

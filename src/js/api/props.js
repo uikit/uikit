@@ -1,4 +1,5 @@
 import {
+    assign,
     camelize,
     data as getData,
     hasOwn,
@@ -11,23 +12,24 @@ import { registerObserver } from './observer';
 import { coerce, parseOptions } from './options';
 
 export function initProps(instance) {
-    const props = getProps(instance.$options);
+    const { $options, $props } = instance;
+    const props = getProps($options);
 
-    for (let key in props) {
-        if (!isUndefined(props[key])) {
-            instance.$props[key] = props[key];
-        }
-    }
+    assign($props, props);
 
-    const exclude = [instance.$options.computed, instance.$options.methods];
-    for (let key in instance.$props) {
-        if (key in props && notIn(exclude, key)) {
-            instance[key] = instance.$props[key];
+    const { computed, methods } = $options;
+    for (let key in $props) {
+        if (
+            key in props &&
+            (!computed || !hasOwn(computed, key)) &&
+            (!methods || !hasOwn(methods, key))
+        ) {
+            instance[key] = $props[key];
         }
     }
 }
 
-export function getProps(opts) {
+function getProps(opts) {
     const data = {};
     const { args = [], props = {}, el, id } = opts;
 
@@ -62,10 +64,6 @@ export function getProps(opts) {
     }
 
     return data;
-}
-
-function notIn(options, key) {
-    return options.every((arr) => !arr || !hasOwn(arr, key));
 }
 
 const getAttributes = memoize((id, props) => {
