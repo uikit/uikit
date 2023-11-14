@@ -248,7 +248,11 @@ function install(UIkit) {
     };
 }
 
+const aliases = { twitter: 'x' };
+
 function getIcon(icon) {
+    icon = aliases[icon] || icon;
+
     if (!icons[icon]) {
         return null;
     }

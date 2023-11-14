@@ -7,6 +7,10 @@
 - Add size modifier to Nav component
 - Add X, Mastodon, Telegram, Threads, Signal and YOOtheme icons
 
+### Changed
+
+- Twitter icon will show X icon
+
 ## WIP
 
 ### Fixed
