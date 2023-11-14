@@ -1,5 +1,6 @@
 import { hasClass, includes, query, scrolledOver, toPx, trigger } from 'uikit-util';
 import { resize, scroll } from '../api/observables';
+import { ease } from './parallax';
 
 export default {
     props: {
@@ -8,6 +9,7 @@ export default {
         parallaxTarget: Boolean,
         parallaxStart: String,
         parallaxEnd: String,
+        parallaxEasing: Number,
     },
 
     data: {
@@ -16,6 +18,7 @@ export default {
         parallaxTarget: false,
         parallaxStart: 0,
         parallaxEnd: 0,
+        parallaxEasing: 0,
     },
 
     observe: [
@@ -44,7 +47,7 @@ export default {
             const target = (this.target && query(this.target, this.$el)) || this.list;
             const start = toPx(this.parallaxStart, 'height', target, true);
             const end = toPx(this.parallaxEnd, 'height', target, true);
-            const percent = scrolledOver(target, start, end);
+            const percent = ease(scrolledOver(target, start, end), this.parallaxEasing);
 
             let prevIndex = -1;
             let dist = percent * (this.totalWidth - this.list.offsetWidth);
