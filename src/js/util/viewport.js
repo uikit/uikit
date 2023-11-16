@@ -70,7 +70,7 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
             const scroll = element.scrollTop;
             const duration = getDuration(Math.abs(top));
             const start = Date.now();
-            const targetTop = offset(targetEl).top;
+            const targetTop = offset(targetEl).top + scroll;
             let prev = 0;
             let frames = 15;
 
@@ -78,7 +78,7 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
                 const percent = ease(clamp((Date.now() - start) / duration));
                 let diff = 0;
                 if (parents[0] === element && scroll + top < maxScroll) {
-                    diff = offset(targetEl).top - targetTop;
+                    diff = offset(targetEl).top + element.scrollTop - targetTop;
                     const coverEl = getCoveringElement(targetEl);
                     diff -= coverEl ? offset(coverEl).height : 0;
                 }

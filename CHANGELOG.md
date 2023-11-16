@@ -12,7 +12,7 @@
 
 ### Fixed
 
-- Fix Scroll component not detecting covering element correctly
+- Fix `scrollIntoView()` function scrolls to wrong position
 - Fix Drop and Modal based components remain open when anchor click targets element within
 
 ## 3.17.8 (November 2, 2023)
