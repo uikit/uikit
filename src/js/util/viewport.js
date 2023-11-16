@@ -199,21 +199,25 @@ export function offsetViewport(scrollElement) {
 }
 
 export function getCoveringElement(target) {
-    return target.ownerDocument
-        .elementsFromPoint(offset(target).left, 0)
-        .find(
-            (el) =>
-                !el.contains(target) &&
-                ((css(el, 'position') === 'fixed' && !hasHigherZIndex(target, el)) ||
-                    (css(el, 'position') === 'sticky' && parent(el).contains(target))),
-        );
+    return target.ownerDocument.elementsFromPoint(offset(target).left, 0).find(
+        (el) =>
+            !el.contains(target) &&
+            ((hasPosition(el, 'fixed') &&
+                zIndex(
+                    parents(target)
+                        .reverse()
+                        .find((parent) => !parent.contains(el) && !hasPosition(parent, 'static')),
+                ) < zIndex(el)) ||
+                (hasPosition(el, 'sticky') && parent(el).contains(target))),
+    );
 }
 
-function hasHigherZIndex(element1, element2) {
-    return (
-        parent(element1) === parent(element2) &&
-        toFloat(css(element1, 'zIndex')) > toFloat(css(element2, 'zIndex'))
-    );
+function zIndex(element) {
+    return toFloat(css(element, 'zIndex'));
+}
+
+function hasPosition(element, position) {
+    return css(element, 'position') === position;
 }
 
 function scrollingElement(element) {
