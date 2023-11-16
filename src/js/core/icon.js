@@ -3,7 +3,6 @@ import {
     addClass,
     apply,
     attr,
-    closest,
     css,
     each,
     hasAttr,
@@ -110,7 +109,7 @@ export const NavParentIcon = {
 
     beforeConnect() {
         const icon = this.$props.icon;
-        this.icon = closest(this.$el, '.uk-nav-primary') ? `${icon}-large` : icon;
+        this.icon = this.$el.closest('.uk-nav-primary') ? `${icon}-large` : icon;
     },
 };
 
@@ -126,8 +125,8 @@ export const Search = {
             hasClass(this.$el, 'uk-search-icon') && parents(this.$el, '.uk-search-large').length
                 ? 'search-large'
                 : parents(this.$el, '.uk-search-navbar').length
-                ? 'search-navbar'
-                : this.$props.icon;
+                  ? 'search-navbar'
+                  : this.$props.icon;
 
         if (hasAttr(this.$el, 'aria-label')) {
             return;
@@ -137,7 +136,7 @@ export const Search = {
             const label = this.t('toggle');
             attr(this.$el, 'aria-label', label);
         } else {
-            const button = closest(this.$el, 'a,button');
+            const button = this.$el.closest('a,button');
             if (button) {
                 const label = this.t('submit');
                 attr(button, 'aria-label', label);
@@ -172,7 +171,7 @@ const ButtonComponent = {
     mixins: [I18n],
 
     beforeConnect() {
-        const button = closest(this.$el, 'a,button');
+        const button = this.$el.closest('a,button');
 
         attr(button, 'role', this.role !== null && isTag(button, 'a') ? 'button' : this.role);
 

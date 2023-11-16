@@ -1,5 +1,5 @@
 import { attr } from './attr';
-import { closest, index, matches, parent } from './filter';
+import { index, matches, parent } from './filter';
 import { isDocument, isString, memoize, toNode, toNodes } from './lang';
 
 export function query(selector, context) {
@@ -45,7 +45,7 @@ function _query(selector, context = document, queryFn) {
 
             if (sel[0] === '!') {
                 const selectors = sel.substr(1).trim().split(' ');
-                ctx = closest(parent(context), selectors[0]);
+                ctx = parent(context).closest(selectors[0]);
                 sel = selectors.slice(1).join(' ').trim();
                 if (!sel.length && split.length === 1) {
                     return ctx;

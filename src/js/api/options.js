@@ -90,8 +90,8 @@ function concatStrat(parentVal, childVal) {
         ? parentVal
             ? parentVal.concat(childVal)
             : isArray(childVal)
-            ? childVal
-            : [childVal]
+              ? childVal
+              : [childVal]
         : parentVal;
 }
 
@@ -140,14 +140,14 @@ export function parseOptions(options, args = []) {
             ? startsWith(options, '{')
                 ? JSON.parse(options)
                 : args.length && !includes(options, ':')
-                ? { [args[0]]: options }
-                : options.split(';').reduce((options, option) => {
-                      const [key, value] = option.split(/:(.*)/);
-                      if (key && !isUndefined(value)) {
-                          options[key.trim()] = value.trim();
-                      }
-                      return options;
-                  }, {})
+                  ? { [args[0]]: options }
+                  : options.split(';').reduce((options, option) => {
+                        const [key, value] = option.split(/:(.*)/);
+                        if (key && !isUndefined(value)) {
+                            options[key.trim()] = value.trim();
+                        }
+                        return options;
+                    }, {})
             : {};
     } catch (e) {
         return {};
@@ -168,12 +168,13 @@ export function coerce(type, value) {
     return type ? type(value) : value;
 }
 
+const listRe = /,(?![^(]*\))/;
 function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
-        ? value
-              .split(/,(?![^(]*\))/)
-              .map((value) => (isNumeric(value) ? toNumber(value) : toBoolean(value.trim())))
-        : [value];
+          ? value
+                .split(listRe)
+                .map((value) => (isNumeric(value) ? toNumber(value) : toBoolean(value.trim())))
+          : [value];
 }

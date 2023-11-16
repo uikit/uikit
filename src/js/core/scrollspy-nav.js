@@ -1,6 +1,5 @@
 import {
     $$,
-    closest,
     getCoveringElement,
     getTargetedElement,
     hasClass,
@@ -35,7 +34,7 @@ export default {
         links: (_, $el) => $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el)),
 
         elements({ closest: selector }) {
-            return this.links.map((el) => closest(el, selector || '*'));
+            return this.links.map((el) => el.closest(selector || '*'));
         },
     },
 

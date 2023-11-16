@@ -95,10 +95,10 @@ export function toBoolean(value) {
     return isBoolean(value)
         ? value
         : value === 'true' || value === '1' || value === ''
-        ? true
-        : value === 'false' || value === '0'
-        ? false
-        : value;
+          ? true
+          : value === 'false' || value === '0'
+            ? false
+            : value;
 }
 
 export function toNumber(value) {
@@ -258,12 +258,12 @@ export function getIndex(i, elements, current = 0, finite = false) {
     i = isNumeric(i)
         ? toNumber(i)
         : i === 'next'
-        ? current + 1
-        : i === 'previous'
-        ? current - 1
-        : i === 'last'
-        ? length - 1
-        : elements.indexOf(toNode(i));
+          ? current + 1
+          : i === 'previous'
+            ? current - 1
+            : i === 'last'
+              ? length - 1
+              : elements.indexOf(toNode(i));
 
     if (finite) {
         return clamp(i, 0, length - 1);
@@ -276,5 +276,5 @@ export function getIndex(i, elements, current = 0, finite = false) {
 
 export function memoize(fn) {
     const cache = Object.create(null);
-    return (key) => cache[key] || (cache[key] = fn(key));
+    return (key, ...args) => cache[key] || (cache[key] = fn(key, ...args));
 }

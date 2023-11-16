@@ -1,4 +1,4 @@
-import { closest, css, dimensions, height, isVisible } from 'uikit-util';
+import { css, dimensions, height, isVisible } from 'uikit-util';
 import { resize } from '../api/observables';
 import Class from '../mixin/class';
 
@@ -18,9 +18,9 @@ export default {
     },
 
     computed: {
-        container: ({ selContainer }, $el) => closest($el, selContainer),
+        container: ({ selContainer }, $el) => $el.closest(selContainer),
 
-        content: ({ selContent }, $el) => closest($el, selContent),
+        content: ({ selContent }, $el) => $el.closest(selContent),
     },
 
     observe: resize({

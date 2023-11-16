@@ -178,10 +178,10 @@ export function toPx(value, property = 'width', element = window, offsetDim = fa
                   unit === 'vh'
                       ? getViewportHeight()
                       : unit === 'vw'
-                      ? width(toWindow(element))
-                      : offsetDim
-                      ? element[`offset${ucfirst(property)}`]
-                      : dimensions(element)[property],
+                        ? width(toWindow(element))
+                        : offsetDim
+                          ? element[`offset${ucfirst(property)}`]
+                          : dimensions(element)[property],
                   value,
               )
             : value;

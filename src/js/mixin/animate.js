@@ -20,13 +20,13 @@ export default {
                 name === 'fade'
                     ? fade
                     : name === 'delayed-fade'
-                    ? (...args) => fade(...args, 40)
-                    : name
-                    ? slide
-                    : () => {
-                          action();
-                          return Promise.resolve();
-                      };
+                      ? (...args) => fade(...args, 40)
+                      : name
+                        ? slide
+                        : () => {
+                              action();
+                              return Promise.resolve();
+                          };
 
             return animationFn(action, target, this.duration).catch(noop);
         },

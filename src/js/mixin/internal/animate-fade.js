@@ -93,8 +93,8 @@ export default function fade(action, target, duration, stagger = 0) {
     return hasClass(target, clsLeave)
         ? waitTransitionend(target).then(enterFn)
         : hasClass(target, clsEnter)
-        ? waitTransitionend(target).then(leaveFn).then(enterFn)
-        : leaveFn().then(enterFn);
+          ? waitTransitionend(target).then(leaveFn).then(enterFn)
+          : leaveFn().then(enterFn);
 }
 
 function transitionIndex(target, next) {

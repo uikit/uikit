@@ -21,8 +21,8 @@ export default {
         const cls = hasClass(this.$el, 'uk-tab-left')
             ? 'uk-tab-left'
             : hasClass(this.$el, 'uk-tab-right')
-            ? 'uk-tab-right'
-            : false;
+              ? 'uk-tab-right'
+              : false;
 
         if (cls) {
             this.$create('toggle', this.$el, { cls, mode: 'media', media: this.media });

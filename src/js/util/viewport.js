@@ -1,5 +1,5 @@
 import { offset, offsetPosition } from './dimensions';
-import { isVisible, parent, parents, within } from './filter';
+import { isVisible, parent, parents } from './filter';
 import {
     clamp,
     findIndex,
@@ -70,7 +70,9 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
             const scroll = element.scrollTop;
             const duration = getDuration(Math.abs(top));
             const start = Date.now();
-            const targetTop = offset(targetEl).top;
+            const isScrollingElement = scrollingElement(element) === element;
+            const targetTop = offset(targetEl).top + (isScrollingElement ? 0 : scroll);
+
             let prev = 0;
             let frames = 15;
 
@@ -78,7 +80,10 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
                 const percent = ease(clamp((Date.now() - start) / duration));
                 let diff = 0;
                 if (parents[0] === element && scroll + top < maxScroll) {
-                    diff = offset(targetEl).top - targetTop;
+                    diff =
+                        offset(targetEl).top +
+                        (isScrollingElement ? 0 : element.scrollTop) -
+                        targetTop;
                     const coverEl = getCoveringElement(targetEl);
                     diff -= coverEl ? offset(coverEl).height : 0;
                 }
@@ -199,21 +204,25 @@ export function offsetViewport(scrollElement) {
 }
 
 export function getCoveringElement(target) {
-    return target.ownerDocument
-        .elementsFromPoint(offset(target).left, 0)
-        .find(
-            (el) =>
-                !el.contains(target) &&
-                ((css(el, 'position') === 'fixed' && !hasHigherZIndex(target, el)) ||
-                    (css(el, 'position') === 'sticky' && within(target, parent(el)))),
-        );
+    return target.ownerDocument.elementsFromPoint(offset(target).left, 0).find(
+        (el) =>
+            !el.contains(target) &&
+            ((hasPosition(el, 'fixed') &&
+                zIndex(
+                    parents(target)
+                        .reverse()
+                        .find((parent) => !parent.contains(el) && !hasPosition(parent, 'static')),
+                ) < zIndex(el)) ||
+                (hasPosition(el, 'sticky') && parent(el).contains(target))),
+    );
 }
 
-function hasHigherZIndex(element1, element2) {
-    return (
-        parent(element1) === parent(element2) &&
-        toFloat(css(element1, 'zIndex')) > toFloat(css(element2, 'zIndex'))
-    );
+function zIndex(element) {
+    return toFloat(css(element, 'zIndex'));
+}
+
+function hasPosition(element, position) {
+    return css(element, 'position') === position;
 }
 
 function scrollingElement(element) {

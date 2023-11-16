@@ -2,7 +2,6 @@ import {
     $$,
     attr,
     children,
-    closest,
     css,
     data,
     endsWith,
@@ -15,7 +14,6 @@ import {
     queryAll,
     toArray,
     toggleClass,
-    within,
 } from 'uikit-util';
 import { generateId } from '../api/instance';
 import { lazyload, swipe } from '../api/observables';
@@ -61,7 +59,7 @@ export default {
 
         children(_, $el) {
             return children($el).filter((child) =>
-                this.toggles.some((toggle) => within(toggle, child)),
+                this.toggles.some((toggle) => child.contains(toggle)),
             );
         },
     },
@@ -132,14 +130,14 @@ export default {
                     keyCode === keyMap.HOME
                         ? 0
                         : keyCode === keyMap.END
-                        ? 'last'
-                        : (keyCode === keyMap.LEFT && !isVertical) ||
-                          (keyCode === keyMap.UP && isVertical)
-                        ? 'previous'
-                        : (keyCode === keyMap.RIGHT && !isVertical) ||
-                          (keyCode === keyMap.DOWN && isVertical)
-                        ? 'next'
-                        : -1;
+                          ? 'last'
+                          : (keyCode === keyMap.LEFT && !isVertical) ||
+                              (keyCode === keyMap.UP && isVertical)
+                            ? 'previous'
+                            : (keyCode === keyMap.RIGHT && !isVertical) ||
+                                (keyCode === keyMap.DOWN && isVertical)
+                              ? 'next'
+                              : -1;
 
                 if (~i) {
                     e.preventDefault();
@@ -165,7 +163,7 @@ export default {
             },
 
             handler(e) {
-                if (closest(e.target, 'a,button')) {
+                if (e.target.closest('a,button')) {
                     e.preventDefault();
                     this.show(data(e.current, this.attrItem));
                 }

@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.17.9 (November 16, 2023)
+
+### Changed
+
+- Improve Tooltip performance
+
+### Deprecated
+
+- Deprecate `closest()` and `within()` functions
+
+### Fixed
+
+- Fix `scrollIntoView()` function scrolls to wrong position
+- Fix Drop and Modal based components remain open when anchor click targets element within
+
 ## 3.17.8 (November 2, 2023)
 
 ### Fixed
@@ -26,8 +41,7 @@
 
 ### Deprecated
 
-- Deprecate `isInView()` function
-- Deprecate `intersectRect()` function
+- Deprecate `isInView()` and `intersectRect()` functions
 - Deprecate `target-offset` option in Sticky component
 
 ### Changed

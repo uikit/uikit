@@ -18,7 +18,6 @@ import {
     pointerUp,
     removeClass,
     toFloat,
-    within,
 } from 'uikit-util';
 import Class from './class';
 import Container from './container';
@@ -89,8 +88,7 @@ export default {
                     !defaultPrevented &&
                     hash &&
                     isSameSiteAnchor(current) &&
-                    !within(hash, this.$el) &&
-                    $(hash, document.body)
+                    !this.$el.contains($(hash))
                 ) {
                     this.hide();
                 } else if (matches(current, this.selClose)) {
@@ -259,7 +257,7 @@ function toMs(time) {
 
 function preventBackgroundFocus(modal) {
     return on(document, 'focusin', (e) => {
-        if (last(active) === modal && !within(e.target, modal.$el)) {
+        if (last(active) === modal && !modal.$el.contains(e.target)) {
             modal.$el.focus();
         }
     });
@@ -269,8 +267,8 @@ function listenForBackgroundClose(modal) {
     return on(document, pointerDown, ({ target }) => {
         if (
             last(active) !== modal ||
-            (modal.overlay && !within(target, modal.$el)) ||
-            within(target, modal.panel)
+            (modal.overlay && !modal.$el.contains(target)) ||
+            modal.panel.contains(target)
         ) {
             return;
         }

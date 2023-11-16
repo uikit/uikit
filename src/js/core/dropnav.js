@@ -20,7 +20,6 @@ import {
     selFocusable,
     toFloat,
     Transition,
-    within,
 } from 'uikit-util';
 import Class from '../mixin/class';
 import Container from '../mixin/container';
@@ -90,7 +89,7 @@ export default {
             if (this.dropContainer !== $el) {
                 for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
                     const target = this.getDropdown(el)?.targetEl;
-                    if (!includes(dropdowns, el) && target && within(target, this.$el)) {
+                    if (!includes(dropdowns, el) && target && this.$el.contains(target)) {
                         dropdowns.push(el);
                     }
                 }
@@ -143,7 +142,7 @@ export default {
                     active &&
                     includes(active.mode, 'hover') &&
                     active.targetEl &&
-                    !within(active.targetEl, current) &&
+                    !current.contains(active.targetEl) &&
                     !active.isDelaying
                 ) {
                     active.hide(false);

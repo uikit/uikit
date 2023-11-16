@@ -17,7 +17,6 @@ import {
     toggleClass,
     Transition,
     unwrap,
-    within,
     wrapAll,
 } from 'uikit-util';
 import { generateId } from '../api/instance';
@@ -86,7 +85,7 @@ export default {
         contents(items) {
             for (const el of items) {
                 const isOpen = hasClass(
-                    this.items.find((item) => within(el, item)),
+                    this.items.find((item) => item.contains(el)),
                     this.clsOpen,
                 );
 

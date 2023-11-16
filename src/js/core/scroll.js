@@ -6,7 +6,6 @@ import {
     on,
     scrollIntoView,
     trigger,
-    within,
 } from 'uikit-util';
 
 export default {
@@ -61,7 +60,7 @@ function clickHandler(e) {
     }
 
     for (const instance of instances) {
-        if (within(e.target, instance.$el) && isSameSiteAnchor(instance.$el)) {
+        if (instance.$el.contains(e.target) && isSameSiteAnchor(instance.$el)) {
             e.preventDefault();
             if (window.location.href !== instance.$el.href) {
                 window.history.pushState({}, '', instance.$el.href);

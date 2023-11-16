@@ -1,4 +1,4 @@
-import { $, $$, closest, isInput, matches, parent, selInput } from 'uikit-util';
+import { $, $$, isInput, matches, parent, selInput } from 'uikit-util';
 import Class from '../mixin/class';
 
 export default {
@@ -43,9 +43,9 @@ export default {
         const value = input.files?.[0]
             ? input.files[0].name
             : matches(input, 'select') &&
-              (option = $$('option', input).filter((el) => el.selected)[0]) // eslint-disable-line prefer-destructuring
-            ? option.textContent
-            : input.value;
+                (option = $$('option', input).filter((el) => el.selected)[0]) // eslint-disable-line prefer-destructuring
+              ? option.textContent
+              : input.value;
 
         if (prev !== value) {
             target[prop] = value;
@@ -65,7 +65,7 @@ export default {
             name: 'reset',
 
             el() {
-                return closest(this.$el, 'form');
+                return this.$el.closest('form');
             },
 
             handler() {

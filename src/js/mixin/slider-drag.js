@@ -1,5 +1,4 @@
 import {
-    closest,
     css,
     getEventPos,
     includes,
@@ -57,7 +56,7 @@ export default {
                 if (
                     !this.draggable ||
                     (!isTouch(e) && hasSelectableText(e.target)) ||
-                    closest(e.target, selInput) ||
+                    e.target.closest(selInput) ||
                     e.button > 0 ||
                     this.length < 2
                 ) {

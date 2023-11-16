@@ -2,7 +2,6 @@ import {
     $,
     append,
     apply,
-    closest,
     css,
     isVisible,
     parent,
@@ -81,7 +80,7 @@ export default {
 
     events: {
         click(e) {
-            if (closest(e.target, 'a[href="#"],a[href=""]')) {
+            if (e.target.closest('a[href="#"],a[href=""]')) {
                 e.preventDefault();
             }
             this.close();

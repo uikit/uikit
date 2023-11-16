@@ -1,4 +1,3 @@
-import { closest, within } from './filter';
 import { isArray, isFunction, isString, toNode, toNodes } from './lang';
 import { findAll } from './selector';
 
@@ -91,8 +90,8 @@ function delegate(selector, listener) {
             selector[0] === '>'
                 ? findAll(selector, e.currentTarget)
                       .reverse()
-                      .filter((element) => within(e.target, element))[0]
-                : closest(e.target, selector);
+                      .find((element) => element.contains(e.target))
+                : e.target.closest(selector);
 
         if (current) {
             e.current = current;
@@ -126,10 +125,10 @@ export function toEventTargets(target) {
     return isArray(target)
         ? target.map(toEventTarget).filter(Boolean)
         : isString(target)
-        ? findAll(target)
-        : isEventTarget(target)
-        ? [target]
-        : toNodes(target);
+          ? findAll(target)
+          : isEventTarget(target)
+            ? [target]
+            : toNodes(target);
 }
 
 export function isTouch(e) {
