@@ -2,7 +2,7 @@ import { includes, isArray, isUndefined, toArray, toNodes } from './lang';
 
 export function addClass(element, ...classes) {
     for (const node of toNodes(element)) {
-        const add = toClasses(classes).filter((cls) => !hasClass(node, cls));
+        const add = toClasses(classes).filter((cls) => cls && !hasClass(node, cls));
         if (add.length) {
             node.classList.add(...add);
         }
@@ -52,5 +52,9 @@ export function toggleClass(element, cls, force) {
 }
 
 function toClasses(str) {
-    return isArray(str) ? str.map(toClasses).flat() : String(str).split(/[ ,]/).filter(Boolean);
+    return isArray(str)
+        ? str.map(toClasses).flat()
+        : str
+          ? String(str).split(/[ ,]/).filter(Boolean)
+          : [];
 }
