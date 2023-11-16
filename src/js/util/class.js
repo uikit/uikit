@@ -52,9 +52,9 @@ export function toggleClass(element, cls, force) {
 }
 
 function toClasses(str) {
-    return isArray(str)
-        ? str.map(toClasses).flat()
-        : str
-          ? String(str).split(/[ ,]/).filter(Boolean)
-          : [];
+    return str
+        ? isArray(str)
+            ? str.map(toClasses).flat()
+            : String(str).split(/[ ,]/).filter(Boolean)
+        : [];
 }
