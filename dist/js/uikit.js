@@ -1,4 +1,4 @@
-/*! UIkit 3.17.8 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.9 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -189,7 +189,7 @@
     }
     function memoize(fn) {
       const cache = /* @__PURE__ */ Object.create(null);
-      return (key) => cache[key] || (cache[key] = fn(key));
+      return (key, ...args) => cache[key] || (cache[key] = fn(key, ...args));
     }
 
     function attr(element, name, value) {
@@ -386,7 +386,7 @@
           let ctx = context;
           if (sel[0] === "!") {
             const selectors = sel.substr(1).trim().split(" ");
-            ctx = closest(parent(context), selectors[0]);
+            ctx = parent(context).closest(selectors[0]);
             sel = selectors.slice(1).join(" ").trim();
             if (!sel.length && split.length === 1) {
               return ctx;
@@ -502,7 +502,7 @@
     }
     function delegate(selector, listener) {
       return (e) => {
-        const current = selector[0] === ">" ? findAll(selector, e.currentTarget).reverse().filter((element) => within(e.target, element))[0] : closest(e.target, selector);
+        const current = selector[0] === ">" ? findAll(selector, e.currentTarget).reverse().find((element) => element.contains(e.target)) : e.target.closest(selector);
         if (current) {
           e.current = current;
           listener.call(this, e);
@@ -1225,14 +1225,15 @@
           const scroll = element2.scrollTop;
           const duration = getDuration(Math.abs(top));
           const start = Date.now();
-          const targetTop = offset(targetEl).top;
+          const isScrollingElement = scrollingElement(element2) === element2;
+          const targetTop = offset(targetEl).top + (isScrollingElement ? 0 : scroll);
           let prev = 0;
           let frames = 15;
           (function step() {
             const percent = ease(clamp((Date.now() - start) / duration));
             let diff = 0;
             if (parents2[0] === element2 && scroll + top < maxScroll) {
-              diff = offset(targetEl).top - targetTop;
+              diff = offset(targetEl).top + (isScrollingElement ? 0 : element2.scrollTop) - targetTop;
               const coverEl = getCoveringElement(targetEl);
               diff -= coverEl ? offset(coverEl).height : 0;
             }
@@ -1323,11 +1324,16 @@
     }
     function getCoveringElement(target) {
       return target.ownerDocument.elementsFromPoint(offset(target).left, 0).find(
-        (el) => !el.contains(target) && (css(el, "position") === "fixed" && !hasHigherZIndex(target, el) || css(el, "position") === "sticky" && within(target, parent(el)))
+        (el) => !el.contains(target) && (hasPosition(el, "fixed") && zIndex(
+          parents(target).reverse().find((parent2) => !parent2.contains(el) && !hasPosition(parent2, "static"))
+        ) < zIndex(el) || hasPosition(el, "sticky") && parent(el).contains(target))
       );
     }
-    function hasHigherZIndex(element1, element2) {
-      return parent(element1) === parent(element2) && toFloat(css(element1, "zIndex")) > toFloat(css(element2, "zIndex"));
+    function zIndex(element) {
+      return toFloat(css(element, "zIndex"));
+    }
+    function hasPosition(element, position) {
+      return css(element, "position") === position;
     }
     function scrollingElement(element) {
       return toWindow(element).document.scrollingElement;
@@ -1454,7 +1460,7 @@
       return viewport;
     }
     function commonScrollParents(element, target) {
-      return overflowParents(target).filter((parent) => within(element, parent));
+      return overflowParents(target).filter((parent) => parent.contains(element));
     }
     function getIntersectionArea(...rects) {
       let area = {};
@@ -1855,8 +1861,9 @@
       }
       return type ? type(value) : value;
     }
+    const listRe = /,(?![^(]*\))/;
     function toList(value) {
-      return isArray(value) ? value : isString(value) ? value.split(/,(?![^(]*\))/).map((value2) => isNumeric(value2) ? toNumber(value2) : toBoolean(value2.trim())) : [value];
+      return isArray(value) ? value : isString(value) ? value.split(listRe).map((value2) => isNumeric(value2) ? toNumber(value2) : toBoolean(value2.trim())) : [value];
     }
 
     function initUpdates(instance) {
@@ -2333,7 +2340,7 @@
           if (e.type === "keydown" && e.keyCode !== keyMap.SPACE) {
             return;
           }
-          if (closest(e.target, "a,button")) {
+          if (e.target.closest("a,button")) {
             e.preventDefault();
             this.apply(e.current);
           }
@@ -2706,7 +2713,7 @@
           handler(e) {
             const { current, defaultPrevented } = e;
             const { hash } = current;
-            if (!defaultPrevented && hash && isSameSiteAnchor(current) && !within(hash, this.$el) && $(hash, document.body)) {
+            if (!defaultPrevented && hash && isSameSiteAnchor(current) && !this.$el.contains($(hash))) {
               this.hide();
             } else if (matches(current, this.selClose)) {
               e.preventDefault();
@@ -2841,14 +2848,14 @@
     }
     function preventBackgroundFocus(modal) {
       return on(document, "focusin", (e) => {
-        if (last(active$1) === modal && !within(e.target, modal.$el)) {
+        if (last(active$1) === modal && !modal.$el.contains(e.target)) {
           modal.$el.focus();
         }
       });
     }
     function listenForBackgroundClose$1(modal) {
       return on(document, pointerDown$1, ({ target }) => {
-        if (last(active$1) !== modal || modal.overlay && !within(target, modal.$el) || within(target, modal.panel)) {
+        if (last(active$1) !== modal || modal.overlay && !modal.$el.contains(target) || modal.panel.contains(target)) {
           return;
         }
         once(
@@ -3058,7 +3065,7 @@
             return `${this.selList} > *`;
           },
           handler(e) {
-            if (!this.draggable || !isTouch(e) && hasSelectableText(e.target) || closest(e.target, selInput) || e.button > 0 || this.length < 2) {
+            if (!this.draggable || !isTouch(e) && hasSelectableText(e.target) || e.target.closest(selInput) || e.button > 0 || this.length < 2) {
               return;
             }
             this.start(e);
@@ -3291,11 +3298,7 @@
     function registerEvent(instance, event, key) {
       let { name, el, handler, capture, passive, delegate, filter, self } = isPlainObject(event) ? event : { name: key, handler: event };
       el = isFunction(el) ? el.call(instance, instance) : el || instance.$el;
-      if (isArray(el)) {
-        el.forEach((el2) => registerEvent(instance, { ...event, el: el2 }, key));
-        return;
-      }
-      if (!el || filter && !filter.call(instance)) {
+      if (!el || isArray(el) && !el.length || filter && !filter.call(instance)) {
         return;
       }
       instance._events.push(
@@ -3361,16 +3364,13 @@
     }
 
     function initProps(instance) {
-      const props = getProps(instance.$options);
-      for (let key in props) {
-        if (!isUndefined(props[key])) {
-          instance.$props[key] = props[key];
-        }
-      }
-      const exclude = [instance.$options.computed, instance.$options.methods];
-      for (let key in instance.$props) {
-        if (key in props && notIn(exclude, key)) {
-          instance[key] = instance.$props[key];
+      const { $options, $props } = instance;
+      const props = getProps($options);
+      assign($props, props);
+      const { computed, methods } = $options;
+      for (let key in $props) {
+        if (key in props && (!computed || !hasOwn(computed, key)) && (!methods || !hasOwn(methods, key))) {
+          instance[key] = $props[key];
         }
       }
     }
@@ -3401,17 +3401,18 @@
       }
       return data$1;
     }
-    function notIn(options, key) {
-      return options.every((arr) => !arr || !hasOwn(arr, key));
-    }
+    const getAttributes = memoize((id, props) => {
+      const attributes = Object.keys(props);
+      const filter = attributes.concat(id).map((key) => [hyphenate(key), `data-${hyphenate(key)}`]).flat();
+      return { attributes, filter };
+    });
     function initPropsObserver(instance) {
       const { $options, $props } = instance;
       const { id, props, el } = $options;
       if (!props) {
         return;
       }
-      const attributes = Object.keys(props);
-      const filter = attributes.map((key) => hyphenate(key)).concat(id);
+      const { attributes, filter } = getAttributes(id, props);
       const observer = new MutationObserver((records) => {
         const data = getProps($options);
         if (records.some(({ attributeName }) => {
@@ -3425,7 +3426,7 @@
       });
       observer.observe(el, {
         attributes: true,
-        attributeFilter: filter.concat(filter.map((key) => `data-${key}`))
+        attributeFilter: filter
       });
       registerObserver(instance, observer);
     }
@@ -3517,7 +3518,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.17.8";
+    App.version = "3.17.9";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3636,7 +3637,7 @@
         const instance = this;
         attachToElement(el, instance);
         instance.$options.el = el;
-        if (within(el, document)) {
+        if (document.contains(el)) {
           callConnected(instance);
         }
       };
@@ -3673,14 +3674,16 @@
         $container: Object.getOwnPropertyDescriptor(App, "container")
       });
     }
+    const ids = /* @__PURE__ */ Object.create(null);
     function generateId(instance, el = instance.$el, postfix = "") {
       if (el.id) {
         return el.id;
       }
       let id = `${instance.$options.id}-${instance._uid}${postfix}`;
-      if ($(`#${id}`)) {
+      if (ids[id]) {
         id = generateId(instance, el, `${postfix}-2`);
       }
+      ids[id] = true;
       return id;
     }
 
@@ -3792,7 +3795,7 @@
             return this.selNavItem;
           },
           handler(e) {
-            if (closest(e.target, "a,button") && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
+            if (e.target.closest("a,button") && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
               e.preventDefault();
               this.show(data(e.current, this.attrItem));
             }
@@ -4416,7 +4419,7 @@
       },
       events: {
         click(e) {
-          if (closest(e.target, 'a[href="#"],a[href=""]')) {
+          if (e.target.closest('a[href="#"],a[href=""]')) {
             e.preventDefault();
           }
           this.close();
@@ -5600,8 +5603,8 @@
       methods: {
         init(e) {
           const { target, button, defaultPrevented } = e;
-          const [placeholder] = this.items.filter((el) => within(target, el));
-          if (!placeholder || defaultPrevented || button > 0 || isInput(target) || within(target, `.${this.clsNoDrag}`) || this.handle && !within(target, this.handle)) {
+          const [placeholder] = this.items.filter((el) => el.contains(target));
+          if (!placeholder || defaultPrevented || button > 0 || isInput(target) || target.closest(`.${this.clsNoDrag}`) || this.handle && !target.closest(this.handle)) {
             return;
           }
           e.preventDefault();
@@ -5666,7 +5669,7 @@
           this.animate(insert);
         },
         remove(element) {
-          if (!within(element, this.target)) {
+          if (!this.target.contains(element)) {
             return;
           }
           this.animate(() => remove$1(element));
@@ -5863,41 +5866,34 @@
 
     var tooltip = {
       mixins: [Container, Togglable, Position],
-      args: "title",
-      props: {
-        delay: Number,
-        title: String
-      },
       data: {
         pos: "top",
-        title: "",
-        delay: 0,
         animation: ["uk-animation-scale-up"],
         duration: 100,
         cls: "uk-active"
       },
-      beforeConnect() {
-        this.id = generateId(this, {});
-        this._hasTitle = hasAttr(this.$el, "title");
-        attr(this.$el, {
-          title: "",
-          "aria-describedby": this.id
-        });
+      connected() {
         makeFocusable(this.$el);
       },
       disconnected() {
         this.hide();
-        if (!attr(this.$el, "title")) {
-          attr(this.$el, "title", this._hasTitle ? this.title : null);
-        }
       },
       methods: {
         show() {
-          if (this.isToggled(this.tooltip || null) || !this.title) {
+          if (this.isToggled(this.tooltip || null)) {
             return;
           }
+          const { delay = 0, title } = parseProps(this.$options);
+          if (!title) {
+            return;
+          }
+          this.title = title;
+          this.id || (this.id = generateId(this, {}));
+          this._hasTitle = hasAttr(this.$el, "title");
+          attr(this.$el, { title: null, "aria-describedby": this.id });
+          once(this.$el, ["blur", pointerLeave], (e) => !isTouch(e) && this.hide());
           clearTimeout(this.showTimer);
-          this.showTimer = setTimeout(this._show, this.delay);
+          this.showTimer = setTimeout(this._show, delay);
         },
         async hide() {
           if (matches(this.$el, "input:focus")) {
@@ -5907,6 +5903,7 @@
           if (this.isToggled(this.tooltip || null)) {
             await this.toggleElement(this.tooltip, false, false);
           }
+          attr(this.$el, { title: this._hasTitle ? this.title : null, "aria-describedby": null });
           remove$1(this.tooltip);
           this.tooltip = null;
         },
@@ -5929,7 +5926,7 @@
                 `keydown ${pointerDown$1}`,
                 this.hide,
                 false,
-                (e2) => e2.type === pointerDown$1 && !within(e2.target, this.$el) || e2.type === "keydown" && e2.keyCode === keyMap.ESC
+                (e2) => e2.type === pointerDown$1 && !this.$el.contains(e2.target) || e2.type === "keydown" && e2.keyCode === keyMap.ESC
               ),
               on([document, ...overflowParents(this.$el)], "scroll", update, {
                 passive: true
@@ -5945,17 +5942,10 @@
         }
       },
       events: {
-        focus: "show",
-        blur: "hide",
-        [`${pointerEnter} ${pointerLeave}`](e) {
-          if (!isTouch(e)) {
-            this[e.type === pointerEnter ? "show" : "hide"]();
-          }
-        },
         // Clicking a button does not give it focus on all browsers and platforms
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
-        [pointerDown$1](e) {
-          if (isTouch(e)) {
+        [`focus ${pointerEnter} ${pointerDown$1}`](e) {
+          if (!isTouch(e)) {
             this.show();
           }
         }
@@ -5992,6 +5982,13 @@
         align = "center";
       }
       return [dir, align];
+    }
+    function parseProps(options) {
+      const { el, id } = options;
+      return ["delay", "title"].reduce(
+        (obj, key) => ({ [key]: data(el, key), ...obj }),
+        parseOptions(data(el, id), ["title"])
+      );
     }
 
     var upload = {
@@ -6337,7 +6334,7 @@
         contents(items) {
           for (const el of items) {
             const isOpen = hasClass(
-              this.items.find((item) => within(el, item)),
+              this.items.find((item) => item.contains(el)),
               this.clsOpen
             );
             hide(el, !isOpen);
@@ -6717,7 +6714,7 @@
           },
           handler({ defaultPrevented, current }) {
             const { hash } = current;
-            if (!defaultPrevented && hash && isSameSiteAnchor(current) && !within(hash, this.$el)) {
+            if (!defaultPrevented && hash && isSameSiteAnchor(current) && !this.$el.contains($(hash))) {
               this.hide(false);
             }
           }
@@ -6821,7 +6818,7 @@
           name: "hide",
           handler({ target }) {
             if (this.$el !== target) {
-              active = active === null && within(target, this.$el) && this.isToggled() ? this : active;
+              active = active === null && this.$el.contains(target) && this.isToggled() ? this : active;
               return;
             }
             active = this.isActive() ? null : active;
@@ -6853,7 +6850,7 @@
               return;
             }
             let prev;
-            while (active && prev !== active && !within(this.$el, active.$el)) {
+            while (active && prev !== active && !active.$el.contains(this.$el)) {
               prev = active;
               active.hide(false, false);
             }
@@ -6947,7 +6944,7 @@
       return result;
     }
     function getViewport$1(el, target) {
-      return offsetViewport(overflowParents(target).find((parent2) => within(el, parent2)));
+      return offsetViewport(overflowParents(target).find((parent2) => parent2.contains(el)));
     }
     function createToggleComponent(drop) {
       const { $el } = drop.$create("toggle", query(drop.toggle, drop.$el), {
@@ -6982,18 +6979,19 @@
     }
     function listenForBackgroundClose(drop) {
       return on(document, pointerDown$1, ({ target }) => {
-        if (!within(target, drop.$el)) {
-          once(
-            document,
-            `${pointerUp$1} ${pointerCancel} scroll`,
-            ({ defaultPrevented, type, target: newTarget }) => {
-              if (!defaultPrevented && type === pointerUp$1 && target === newTarget && !(drop.targetEl && within(target, drop.targetEl))) {
-                drop.hide(false);
-              }
-            },
-            true
-          );
+        if (drop.$el.contains(target)) {
+          return;
         }
+        once(
+          document,
+          `${pointerUp$1} ${pointerCancel} scroll`,
+          ({ defaultPrevented, type, target: newTarget }) => {
+            if (!defaultPrevented && type === pointerUp$1 && target === newTarget && !(drop.targetEl && within(target, drop.targetEl))) {
+              drop.hide(false);
+            }
+          },
+          true
+        );
       });
     }
 
@@ -7050,7 +7048,7 @@
           if (this.dropContainer !== $el) {
             for (const el of $$(`.${clsDrop}`, this.dropContainer)) {
               const target = (_a = this.getDropdown(el)) == null ? void 0 : _a.targetEl;
-              if (!includes(dropdowns, el) && target && within(target, this.$el)) {
+              if (!includes(dropdowns, el) && target && this.$el.contains(target)) {
                 dropdowns.push(el);
               }
             }
@@ -7090,7 +7088,7 @@
           },
           handler({ current }) {
             const active2 = this.getActive();
-            if (active2 && includes(active2.mode, "hover") && active2.targetEl && !within(active2.targetEl, current) && !active2.isDelaying) {
+            if (active2 && includes(active2.mode, "hover") && active2.targetEl && !current.contains(active2.targetEl) && !active2.isDelaying) {
               active2.hide(false);
             }
           }
@@ -7361,7 +7359,7 @@
         {
           name: "reset",
           el() {
-            return closest(this.$el, "form");
+            return this.$el.closest("form");
           },
           handler() {
             this.$emit();
@@ -7807,7 +7805,7 @@
       extends: IconComponent,
       beforeConnect() {
         const icon = this.$props.icon;
-        this.icon = closest(this.$el, ".uk-nav-primary") ? `${icon}-large` : icon;
+        this.icon = this.$el.closest(".uk-nav-primary") ? `${icon}-large` : icon;
       }
     };
     const Search = {
@@ -7823,7 +7821,7 @@
           const label = this.t("toggle");
           attr(this.$el, "aria-label", label);
         } else {
-          const button = closest(this.$el, "a,button");
+          const button = this.$el.closest("a,button");
           if (button) {
             const label = this.t("submit");
             attr(button, "aria-label", label);
@@ -7850,7 +7848,7 @@
       extends: IconComponent,
       mixins: [I18n],
       beforeConnect() {
-        const button = closest(this.$el, "a,button");
+        const button = this.$el.closest("a,button");
         attr(button, "role", this.role !== null && isTag(button, "a") ? "button" : this.role);
         const label = this.t("label");
         if (label && !hasAttr(button, "aria-label")) {
@@ -8213,7 +8211,7 @@
         dropbarTransparentMode: false
       },
       computed: {
-        navbarContainer: (_, $el) => closest($el, ".uk-navbar-container"),
+        navbarContainer: (_, $el) => $el.closest(".uk-navbar-container"),
         dropbarOffset: ({ dropbarTransparentMode }, $el) => dropbarTransparentMode === "behind" ? $el.offsetHeight : 0
       },
       watch: {
@@ -8516,8 +8514,8 @@
         minHeight: 150
       },
       computed: {
-        container: ({ selContainer }, $el) => closest($el, selContainer),
-        content: ({ selContent }, $el) => closest($el, selContent)
+        container: ({ selContainer }, $el) => $el.closest(selContainer),
+        content: ({ selContent }, $el) => $el.closest(selContent)
       },
       observe: resize({
         target: ({ container, content }) => [container, content]
@@ -8610,7 +8608,7 @@
         return;
       }
       for (const instance of instances) {
-        if (within(e.target, instance.$el) && isSameSiteAnchor(instance.$el)) {
+        if (instance.$el.contains(e.target) && isSameSiteAnchor(instance.$el)) {
           e.preventDefault();
           if (window.location.href !== instance.$el.href) {
             window.history.pushState({}, "", instance.$el.href);
@@ -8743,7 +8741,7 @@
       computed: {
         links: (_, $el) => $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el)),
         elements({ closest: selector }) {
-          return this.links.map((el) => closest(el, selector || "*"));
+          return this.links.map((el) => el.closest(selector || "*"));
         }
       },
       watch: {
@@ -8966,7 +8964,7 @@
             }
             const { placeholder } = this;
             css(placeholder, { height, width, margin });
-            if (!within(placeholder, document)) {
+            if (!document.contains(placeholder)) {
               placeholder.hidden = true;
             }
             (sticky ? before : after)(this.$el, placeholder);
@@ -9129,7 +9127,7 @@
         return propOffset + toPx(value, "height", el, true);
       } else {
         const refElement = value === true ? parent(el) : query(value, el);
-        return offset(refElement).bottom - (padding && refElement && within(el, refElement) ? toFloat(css(refElement, "paddingBottom")) : 0);
+        return offset(refElement).bottom - (padding && (refElement == null ? void 0 : refElement.contains(el)) ? toFloat(css(refElement, "paddingBottom")) : 0);
       }
     }
     function coerce(value) {
@@ -9278,7 +9276,7 @@
         toggles: ({ toggle }, $el) => $$(toggle, $el),
         children(_, $el) {
           return children($el).filter(
-            (child) => this.toggles.some((toggle) => within(toggle, child))
+            (child) => this.toggles.some((toggle) => child.contains(toggle))
           );
         }
       },
@@ -9351,7 +9349,7 @@
             return `[${this.attrItem}],[data-${this.attrItem}]`;
           },
           handler(e) {
-            if (closest(e.target, "a,button")) {
+            if (e.target.closest("a,button")) {
               e.preventDefault();
               this.show(data(e.current, this.attrItem));
             }
@@ -9489,7 +9487,7 @@
               pointerDown$1,
               () => trigger(this.$el, "blur"),
               true,
-              (e2) => !within(e2.target, this.$el)
+              (e2) => !this.$el.contains(e2.target)
             );
             if (includes(this.mode, "click")) {
               this._preventClick = true;
@@ -9541,7 +9539,7 @@
           },
           handler(e) {
             let link;
-            if (this._preventClick || closest(e.target, 'a[href="#"], a[href=""]') || (link = closest(e.target, "a[href]")) && (!this.isToggled(this.target) || link.hash && matches(this.target, link.hash))) {
+            if (this._preventClick || e.target.closest('a[href="#"], a[href=""]') || (link = e.target.closest("a[href]")) && (!this.isToggled(this.target) || link.hash && matches(this.target, link.hash))) {
               e.preventDefault();
             }
             if (!this._preventClick && includes(this.mode, "click")) {
