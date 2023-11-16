@@ -25,7 +25,6 @@ import {
     toPx,
     toggleClass,
     trigger,
-    within,
 } from 'uikit-util';
 import { resize, scroll, viewport } from '../api/observables';
 import Class from '../mixin/class';
@@ -253,7 +252,7 @@ export default {
 
                 css(placeholder, { height, width, margin });
 
-                if (!within(placeholder, document)) {
+                if (!document.contains(placeholder)) {
                     placeholder.hidden = true;
                 }
                 (sticky ? before : after)(this.$el, placeholder);
@@ -456,9 +455,7 @@ function parseProp(value, el, propOffset, padding) {
         const refElement = value === true ? parent(el) : query(value, el);
         return (
             getOffset(refElement).bottom -
-            (padding && refElement && within(el, refElement)
-                ? toFloat(css(refElement, 'paddingBottom'))
-                : 0)
+            (padding && refElement?.contains(el) ? toFloat(css(refElement, 'paddingBottom')) : 0)
         );
     }
 }

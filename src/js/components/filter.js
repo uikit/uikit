@@ -3,7 +3,6 @@ import {
     $$,
     append,
     attr,
-    closest,
     css,
     data,
     each,
@@ -82,7 +81,7 @@ export default {
                 return;
             }
 
-            if (closest(e.target, 'a,button')) {
+            if (e.target.closest('a,button')) {
                 e.preventDefault();
                 this.apply(e.current);
             }

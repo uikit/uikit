@@ -30,7 +30,6 @@ import {
     toggleClass,
     Transition,
     trigger,
-    within,
 } from 'uikit-util';
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
@@ -181,15 +180,15 @@ export default {
     methods: {
         init(e) {
             const { target, button, defaultPrevented } = e;
-            const [placeholder] = this.items.filter((el) => within(target, el));
+            const [placeholder] = this.items.filter((el) => el.contains(target));
 
             if (
                 !placeholder ||
                 defaultPrevented ||
                 button > 0 ||
                 isInput(target) ||
-                within(target, `.${this.clsNoDrag}`) ||
-                (this.handle && !within(target, this.handle))
+                target.closest(`.${this.clsNoDrag}`) ||
+                (this.handle && !target.closest(this.handle))
             ) {
                 return;
             }
@@ -280,7 +279,7 @@ export default {
         },
 
         remove(element) {
-            if (!within(element, this.target)) {
+            if (!this.target.contains(element)) {
                 return;
             }
 

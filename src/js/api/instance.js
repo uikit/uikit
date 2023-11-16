@@ -1,4 +1,4 @@
-import { remove, within } from 'uikit-util';
+import { remove } from 'uikit-util';
 import { attachToElement, createComponent, detachFromElement, getComponent } from './component';
 import { update } from './global';
 import { callConnected, callDisconnected, callHook } from './hooks';
@@ -11,7 +11,7 @@ export default function (App) {
 
         instance.$options.el = el;
 
-        if (within(el, document)) {
+        if (document.contains(el)) {
             callConnected(instance);
         }
     };

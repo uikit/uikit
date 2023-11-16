@@ -3,7 +3,6 @@ import {
     addClass,
     apply,
     attr,
-    closest,
     css,
     each,
     hasAttr,
@@ -110,7 +109,7 @@ export const NavParentIcon = {
 
     beforeConnect() {
         const icon = this.$props.icon;
-        this.icon = closest(this.$el, '.uk-nav-primary') ? `${icon}-large` : icon;
+        this.icon = this.$el.closest('.uk-nav-primary') ? `${icon}-large` : icon;
     },
 };
 
@@ -137,7 +136,7 @@ export const Search = {
             const label = this.t('toggle');
             attr(this.$el, 'aria-label', label);
         } else {
-            const button = closest(this.$el, 'a,button');
+            const button = this.$el.closest('a,button');
             if (button) {
                 const label = this.t('submit');
                 attr(button, 'aria-label', label);
@@ -172,7 +171,7 @@ const ButtonComponent = {
     mixins: [I18n],
 
     beforeConnect() {
-        const button = closest(this.$el, 'a,button');
+        const button = this.$el.closest('a,button');
 
         attr(button, 'role', this.role !== null && isTag(button, 'a') ? 'button' : this.role);
 

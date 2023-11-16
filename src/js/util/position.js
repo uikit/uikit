@@ -1,5 +1,4 @@
 import { offset } from './dimensions';
-import { within } from './filter';
 import { clamp, isArray, ucfirst } from './lang';
 import { css } from './style';
 import { offsetViewport, overflowParents } from './viewport';
@@ -169,7 +168,7 @@ function getScrollArea(element, target, viewportOffset, i) {
 }
 
 function commonScrollParents(element, target) {
-    return overflowParents(target).filter((parent) => within(element, parent));
+    return overflowParents(target).filter((parent) => parent.contains(element));
 }
 
 function getIntersectionArea(...rects) {

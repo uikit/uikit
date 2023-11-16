@@ -1,5 +1,5 @@
 import { offset, offsetPosition } from './dimensions';
-import { isVisible, parent, parents, within } from './filter';
+import { isVisible, parent, parents } from './filter';
 import {
     clamp,
     findIndex,
@@ -205,7 +205,7 @@ export function getCoveringElement(target) {
             (el) =>
                 !el.contains(target) &&
                 ((css(el, 'position') === 'fixed' && !hasHigherZIndex(target, el)) ||
-                    (css(el, 'position') === 'sticky' && within(target, parent(el)))),
+                    (css(el, 'position') === 'sticky' && parent(el).contains(target))),
         );
 }
 

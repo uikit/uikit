@@ -1,4 +1,5 @@
 import {
+    $,
     addClass,
     append,
     apply,
@@ -160,7 +161,7 @@ export default {
                     !defaultPrevented &&
                     hash &&
                     isSameSiteAnchor(current) &&
-                    !within(hash, this.$el)
+                    !this.$el.contains($(hash))
                 ) {
                     this.hide(false);
                 }
@@ -298,7 +299,7 @@ export default {
             handler({ target }) {
                 if (this.$el !== target) {
                     active =
-                        active === null && within(target, this.$el) && this.isToggled()
+                        active === null && this.$el.contains(target) && this.isToggled()
                             ? this
                             : active;
                     return;
@@ -340,7 +341,7 @@ export default {
                 }
 
                 let prev;
-                while (active && prev !== active && !within(this.$el, active.$el)) {
+                while (active && prev !== active && !active.$el.contains(this.$el)) {
                     prev = active;
                     active.hide(false, false);
                 }
@@ -463,7 +464,7 @@ function getPositionedElements(el) {
 }
 
 function getViewport(el, target) {
-    return offsetViewport(overflowParents(target).find((parent) => within(el, parent)));
+    return offsetViewport(overflowParents(target).find((parent) => parent.contains(el)));
 }
 
 function createToggleComponent(drop) {
@@ -505,22 +506,24 @@ function listenForScrollClose(drop) {
 
 function listenForBackgroundClose(drop) {
     return on(document, pointerDown, ({ target }) => {
-        if (!within(target, drop.$el)) {
-            once(
-                document,
-                `${pointerUp} ${pointerCancel} scroll`,
-                ({ defaultPrevented, type, target: newTarget }) => {
-                    if (
-                        !defaultPrevented &&
-                        type === pointerUp &&
-                        target === newTarget &&
-                        !(drop.targetEl && within(target, drop.targetEl))
-                    ) {
-                        drop.hide(false);
-                    }
-                },
-                true,
-            );
+        if (drop.$el.contains(target)) {
+            return;
         }
+
+        once(
+            document,
+            `${pointerUp} ${pointerCancel} scroll`,
+            ({ defaultPrevented, type, target: newTarget }) => {
+                if (
+                    !defaultPrevented &&
+                    type === pointerUp &&
+                    target === newTarget &&
+                    !(drop.targetEl && within(target, drop.targetEl))
+                ) {
+                    drop.hide(false);
+                }
+            },
+            true,
+        );
     });
 }

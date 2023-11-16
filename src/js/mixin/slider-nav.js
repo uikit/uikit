@@ -4,7 +4,6 @@ import {
     append,
     attr,
     children,
-    closest,
     data,
     empty,
     isNumeric,
@@ -151,7 +150,7 @@ export default {
 
             handler(e) {
                 if (
-                    closest(e.target, 'a,button') &&
+                    e.target.closest('a,button') &&
                     (e.type === 'click' || e.keyCode === keyMap.SPACE)
                 ) {
                     e.preventDefault();

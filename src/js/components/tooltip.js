@@ -16,7 +16,6 @@ import {
     pointerEnter,
     pointerLeave,
     remove,
-    within,
 } from 'uikit-util';
 import { generateId } from '../api/instance';
 import { parseOptions } from '../api/options';
@@ -112,7 +111,7 @@ export default {
                         this.hide,
                         false,
                         (e) =>
-                            (e.type === pointerDown && !within(e.target, this.$el)) ||
+                            (e.type === pointerDown && !this.$el.contains(e.target)) ||
                             (e.type === 'keydown' && e.keyCode === keyMap.ESC),
                     ),
                     on([document, ...overflowParents(this.$el)], 'scroll', update, {

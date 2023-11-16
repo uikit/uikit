@@ -1,4 +1,4 @@
-import { $, $$, closest, isInput, matches, parent, selInput } from 'uikit-util';
+import { $, $$, isInput, matches, parent, selInput } from 'uikit-util';
 import Class from '../mixin/class';
 
 export default {
@@ -65,7 +65,7 @@ export default {
             name: 'reset',
 
             el() {
-                return closest(this.$el, 'form');
+                return this.$el.closest('form');
             },
 
             handler() {

@@ -1,7 +1,6 @@
 import {
     $$,
     addClass,
-    closest,
     css,
     hasClass,
     observeResize,
@@ -32,7 +31,7 @@ export default {
     },
 
     computed: {
-        navbarContainer: (_, $el) => closest($el, '.uk-navbar-container'),
+        navbarContainer: (_, $el) => $el.closest('.uk-navbar-container'),
 
         dropbarOffset: ({ dropbarTransparentMode }, $el) =>
             dropbarTransparentMode === 'behind' ? $el.offsetHeight : 0,

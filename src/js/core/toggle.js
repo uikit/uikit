@@ -1,6 +1,5 @@
 import {
     attr,
-    closest,
     hasAttr,
     hasClass,
     includes,
@@ -15,7 +14,6 @@ import {
     pointerLeave,
     queryAll,
     trigger,
-    within,
 } from 'uikit-util';
 import { lazyload } from '../api/observables';
 import Media from '../mixin/media';
@@ -85,7 +83,7 @@ export default {
                     pointerDown,
                     () => trigger(this.$el, 'blur'),
                     true,
-                    (e) => !within(e.target, this.$el),
+                    (e) => !this.$el.contains(e.target),
                 );
 
                 // Prevent initial click to prevent double toggle through focus + click
@@ -163,8 +161,8 @@ export default {
                 let link;
                 if (
                     this._preventClick ||
-                    closest(e.target, 'a[href="#"], a[href=""]') ||
-                    ((link = closest(e.target, 'a[href]')) &&
+                    e.target.closest('a[href="#"], a[href=""]') ||
+                    ((link = e.target.closest('a[href]')) &&
                         (!this.isToggled(this.target) ||
                             (link.hash && matches(this.target, link.hash))))
                 ) {
