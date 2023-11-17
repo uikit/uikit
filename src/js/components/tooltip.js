@@ -59,8 +59,6 @@ export default {
             this._hasTitle = hasAttr(this.$el, 'title');
             attr(this.$el, { title: null, 'aria-describedby': this.id });
 
-            once(this.$el, ['blur', pointerLeave], (e) => !isTouch(e) && this.hide());
-
             clearTimeout(this.showTimer);
             this.showTimer = setTimeout(this._show, delay);
         },
@@ -117,6 +115,7 @@ export default {
                     on([document, ...overflowParents(this.$el)], 'scroll', update, {
                         passive: true,
                     }),
+                    on(this.$el, ['blur', pointerLeave], (e) => !isTouch(e) && this.hide()),
                 ];
                 once(this.tooltip, 'hide', () => handlers.forEach((handler) => handler()), {
                     self: true,
