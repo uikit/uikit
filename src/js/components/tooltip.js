@@ -1,8 +1,8 @@
 import {
     append,
     attr,
-    data,
     flipPosition,
+    data as getData,
     hasAttr,
     includes,
     isFocusable,
@@ -178,9 +178,9 @@ function getAlignment(el, target, [dir, align]) {
 }
 
 function parseProps(options) {
-    const { el, id } = options;
-    return ['delay', 'title'].reduce(
-        (obj, key) => ({ [key]: data(el, key), ...obj }),
-        parseOptions(data(el, id), ['title']),
-    );
+    const { el, id, data } = options;
+    return ['delay', 'title'].reduce((obj, key) => ({ [key]: getData(el, key), ...obj }), {
+        ...parseOptions(getData(el, id), ['title']),
+        ...data,
+    });
 }

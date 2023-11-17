@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Tooltip initialized programmatically
+
 ## 3.17.9 (November 16, 2023)
 
 ### Changed
