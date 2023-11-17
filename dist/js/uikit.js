@@ -1,4 +1,4 @@
-/*! UIkit 3.17.9 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.10 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -273,7 +273,7 @@
       }
     }
     function toClasses(str) {
-      return isArray(str) ? str.map(toClasses).flat() : String(str).split(/[ ,]/).filter(Boolean);
+      return str ? isArray(str) ? str.map(toClasses).flat() : String(str).split(/[ ,]/).filter(Boolean) : [];
     }
 
     const voidElements = {
@@ -3518,7 +3518,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.17.9";
+    App.version = "3.17.10";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5891,7 +5891,6 @@
           this.id || (this.id = generateId(this, {}));
           this._hasTitle = hasAttr(this.$el, "title");
           attr(this.$el, { title: null, "aria-describedby": this.id });
-          once(this.$el, ["blur", pointerLeave], (e) => !isTouch(e) && this.hide());
           clearTimeout(this.showTimer);
           this.showTimer = setTimeout(this._show, delay);
         },
@@ -5930,7 +5929,8 @@
               ),
               on([document, ...overflowParents(this.$el)], "scroll", update, {
                 passive: true
-              })
+              }),
+              on(this.$el, ["blur", pointerLeave], (e2) => !isTouch(e2) && this.hide())
             ];
             once(this.tooltip, "hide", () => handlers.forEach((handler) => handler()), {
               self: true
@@ -5984,11 +5984,11 @@
       return [dir, align];
     }
     function parseProps(options) {
-      const { el, id } = options;
-      return ["delay", "title"].reduce(
-        (obj, key) => ({ [key]: data(el, key), ...obj }),
-        parseOptions(data(el, id), ["title"])
-      );
+      const { el, id, data: data$1 } = options;
+      return ["delay", "title"].reduce((obj, key) => ({ [key]: data(el, key), ...obj }), {
+        ...parseOptions(data(el, id), ["title"]),
+        ...data$1
+      });
     }
 
     var upload = {
