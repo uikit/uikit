@@ -1,8 +1,8 @@
 import {
     append,
     attr,
-    data,
     flipPosition,
+    data as getData,
     hasAttr,
     includes,
     isFocusable,
@@ -58,8 +58,6 @@ export default {
             this.id ||= generateId(this, {});
             this._hasTitle = hasAttr(this.$el, 'title');
             attr(this.$el, { title: null, 'aria-describedby': this.id });
-
-            once(this.$el, ['blur', pointerLeave], (e) => !isTouch(e) && this.hide());
 
             clearTimeout(this.showTimer);
             this.showTimer = setTimeout(this._show, delay);
@@ -117,6 +115,7 @@ export default {
                     on([document, ...overflowParents(this.$el)], 'scroll', update, {
                         passive: true,
                     }),
+                    on(this.$el, ['blur', pointerLeave], (e) => !isTouch(e) && this.hide()),
                 ];
                 once(this.tooltip, 'hide', () => handlers.forEach((handler) => handler()), {
                     self: true,
@@ -178,9 +177,9 @@ function getAlignment(el, target, [dir, align]) {
 }
 
 function parseProps(options) {
-    const { el, id } = options;
-    return ['delay', 'title'].reduce(
-        (obj, key) => ({ [key]: data(el, key), ...obj }),
-        parseOptions(data(el, id), ['title']),
-    );
+    const { el, id, data } = options;
+    return ['delay', 'title'].reduce((obj, key) => ({ [key]: getData(el, key), ...obj }), {
+        ...parseOptions(getData(el, id), ['title']),
+        ...data,
+    });
 }

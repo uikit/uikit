@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.17.10 (November 17, 2023)
+
+### Fixed
+
+- Fix Tooltip component initialized programmatically
+- Fix Tooltip component not hiding on blur
+
 ## 3.17.9 (November 16, 2023)
 
 ### Changed
