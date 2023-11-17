@@ -2,7 +2,7 @@ import { includes, isArray, isUndefined, toArray, toNodes } from './lang';
 
 export function addClass(element, ...classes) {
     for (const node of toNodes(element)) {
-        const add = toClasses(classes).filter((cls) => cls && !hasClass(node, cls));
+        const add = toClasses(classes).filter((cls) => !hasClass(node, cls));
         if (add.length) {
             node.classList.add(...add);
         }
