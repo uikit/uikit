@@ -74,7 +74,7 @@ export default {
 
                     if (slide) {
                         if (!slide.id) {
-                            slide.id = generateId(this, slide, `-item-${cmd}`);
+                            slide.id = generateId(this, slide);
                         }
                         ariaControls = slide.id;
                     }
@@ -85,7 +85,7 @@ export default {
                 } else {
                     if (this.list) {
                         if (!this.list.id) {
-                            this.list.id = generateId(this, this.list, '-items');
+                            this.list.id = generateId(this, this.list);
                         }
 
                         ariaControls = this.list.id;

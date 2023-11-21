@@ -201,8 +201,8 @@ export default {
                 continue;
             }
 
-            toggle.id = generateId(this, toggle, `-tab-${index}`);
-            item.id = generateId(this, item, `-tabpanel-${index}`);
+            toggle.id = generateId(this, toggle);
+            item.id = generateId(this, item);
 
             attr(toggle, 'aria-controls', item.id);
             attr(item, { role: 'tabpanel', 'aria-labelledby': toggle.id });

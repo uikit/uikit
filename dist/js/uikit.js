@@ -1,4 +1,4 @@
-/*! UIkit 3.17.10 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.17.11 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3518,7 +3518,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.17.10";
+    App.version = "3.17.11";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3674,17 +3674,9 @@
         $container: Object.getOwnPropertyDescriptor(App, "container")
       });
     }
-    const ids = /* @__PURE__ */ Object.create(null);
-    function generateId(instance, el = instance.$el, postfix = "") {
-      if (el.id) {
-        return el.id;
-      }
-      let id = `${instance.$options.id}-${instance._uid}${postfix}`;
-      if (ids[id]) {
-        id = generateId(instance, el, `${postfix}-2`);
-      }
-      ids[id] = true;
-      return id;
+    let id = 1;
+    function generateId(instance, el = null) {
+      return (el == null ? void 0 : el.id) || `${instance.$options.id}-${id++}`;
     }
 
     var SliderNav = {
@@ -3733,7 +3725,7 @@
               const slide = this.slides[item];
               if (slide) {
                 if (!slide.id) {
-                  slide.id = generateId(this, slide, `-item-${cmd}`);
+                  slide.id = generateId(this, slide);
                 }
                 ariaControls = slide.id;
               }
@@ -3742,7 +3734,7 @@
             } else {
               if (this.list) {
                 if (!this.list.id) {
-                  this.list.id = generateId(this, this.list, "-items");
+                  this.list.id = generateId(this, this.list);
                 }
                 ariaControls = this.list.id;
               }
@@ -5887,14 +5879,19 @@
           if (!title) {
             return;
           }
-          this.title = title;
-          this.id || (this.id = generateId(this, {}));
-          this._hasTitle = hasAttr(this.$el, "title");
-          attr(this.$el, { title: null, "aria-describedby": this.id });
+          const titleAttr = attr(this.$el, "title");
+          const off = on(this.$el, ["blur", pointerLeave], (e) => !isTouch(e) && this.hide());
+          this.reset = () => {
+            attr(this.$el, { title: titleAttr, "aria-describedby": null });
+            off();
+          };
+          const id = generateId(this);
+          attr(this.$el, { title: null, "aria-describedby": id });
           clearTimeout(this.showTimer);
-          this.showTimer = setTimeout(this._show, delay);
+          this.showTimer = setTimeout(() => this._show(title, id), delay);
         },
         async hide() {
+          var _a;
           if (matches(this.$el, "input:focus")) {
             return;
           }
@@ -5902,14 +5899,14 @@
           if (this.isToggled(this.tooltip || null)) {
             await this.toggleElement(this.tooltip, false, false);
           }
-          attr(this.$el, { title: this._hasTitle ? this.title : null, "aria-describedby": null });
+          (_a = this.reset) == null ? void 0 : _a.call(this);
           remove$1(this.tooltip);
           this.tooltip = null;
         },
-        async _show() {
+        async _show(title, id) {
           this.tooltip = append(
             this.container,
-            `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip"> <div class="uk-${this.$options.name}-inner">${this.title}</div> </div>`
+            `<div id="${id}" class="uk-${this.$options.name}" role="tooltip"> <div class="uk-${this.$options.name}-inner">${title}</div> </div>`
           );
           on(this.tooltip, "toggled", (e, toggled) => {
             if (!toggled) {
@@ -5929,8 +5926,7 @@
               ),
               on([document, ...overflowParents(this.$el)], "scroll", update, {
                 passive: true
-              }),
-              on(this.$el, ["blur", pointerLeave], (e2) => !isTouch(e2) && this.hide())
+              })
             ];
             once(this.tooltip, "hide", () => handlers.forEach((handler) => handler()), {
               self: true
@@ -6380,8 +6376,8 @@
           if (!toggle || !content) {
             continue;
           }
-          toggle.id = generateId(this, toggle, `-title-${index2}`);
-          content.id = generateId(this, content, `-content-${index2}`);
+          toggle.id = generateId(this, toggle);
+          content.id = generateId(this, content);
           const active = includes(activeItems, this.items[index2]);
           attr(toggle, {
             role: isTag(toggle, "a") ? "button" : null,
@@ -9379,8 +9375,8 @@
           if (!item) {
             continue;
           }
-          toggle.id = generateId(this, toggle, `-tab-${index}`);
-          item.id = generateId(this, item, `-tabpanel-${index}`);
+          toggle.id = generateId(this, toggle);
+          item.id = generateId(this, item);
           attr(toggle, "aria-controls", item.id);
           attr(item, { role: "tabpanel", "aria-labelledby": toggle.id });
         }
