@@ -3,7 +3,6 @@ import {
     attr,
     flipPosition,
     data as getData,
-    hasAttr,
     includes,
     isFocusable,
     isTouch,
@@ -54,13 +53,19 @@ export default {
                 return;
             }
 
-            this.title = title;
-            this.id ||= generateId(this, {});
-            this._hasTitle = hasAttr(this.$el, 'title');
-            attr(this.$el, { title: null, 'aria-describedby': this.id });
+            const titleAttr = attr(this.$el, 'title');
+            const off = on(this.$el, ['blur', pointerLeave], (e) => !isTouch(e) && this.hide());
+
+            this.reset = () => {
+                attr(this.$el, { title: titleAttr, 'aria-describedby': null });
+                off();
+            };
+
+            const id = generateId(this);
+            attr(this.$el, { title: null, 'aria-describedby': id });
 
             clearTimeout(this.showTimer);
-            this.showTimer = setTimeout(this._show, delay);
+            this.showTimer = setTimeout(() => this._show(title, id), delay);
         },
 
         async hide() {
@@ -74,16 +79,16 @@ export default {
                 await this.toggleElement(this.tooltip, false, false);
             }
 
-            attr(this.$el, { title: this._hasTitle ? this.title : null, 'aria-describedby': null });
+            this.reset?.();
             remove(this.tooltip);
             this.tooltip = null;
         },
 
-        async _show() {
+        async _show(title, id) {
             this.tooltip = append(
                 this.container,
-                `<div id="${this.id}" class="uk-${this.$options.name}" role="tooltip">
-                    <div class="uk-${this.$options.name}-inner">${this.title}</div>
+                `<div id="${id}" class="uk-${this.$options.name}" role="tooltip">
+                    <div class="uk-${this.$options.name}-inner">${title}</div>
                  </div>`,
             );
 
@@ -115,7 +120,6 @@ export default {
                     on([document, ...overflowParents(this.$el)], 'scroll', update, {
                         passive: true,
                     }),
-                    on(this.$el, ['blur', pointerLeave], (e) => !isTouch(e) && this.hide()),
                 ];
                 once(this.tooltip, 'hide', () => handlers.forEach((handler) => handler()), {
                     self: true,

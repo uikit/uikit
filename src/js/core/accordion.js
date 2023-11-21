@@ -144,8 +144,8 @@ export default {
                 continue;
             }
 
-            toggle.id = generateId(this, toggle, `-title-${index}`);
-            content.id = generateId(this, content, `-content-${index}`);
+            toggle.id = generateId(this, toggle);
+            content.id = generateId(this, content);
 
             const active = includes(activeItems, this.items[index]);
             attr(toggle, {

@@ -60,19 +60,7 @@ export default function (App) {
     });
 }
 
-const ids = Object.create(null);
-export function generateId(instance, el = instance.$el, postfix = '') {
-    if (el.id) {
-        return el.id;
-    }
-
-    let id = `${instance.$options.id}-${instance._uid}${postfix}`;
-
-    if (ids[id]) {
-        id = generateId(instance, el, `${postfix}-2`);
-    }
-
-    ids[id] = true;
-
-    return id;
+let id = 1;
+export function generateId(instance, el = null) {
+    return el?.id || `${instance.$options.id}-${id++}`;
 }

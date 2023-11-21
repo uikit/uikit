@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Tooltip component not hiding when used with delay
+
 ## 3.17.10 (November 17, 2023)
 
 ### Fixed
