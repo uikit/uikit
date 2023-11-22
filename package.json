@@ -61,5 +61,8 @@
         "rtlcss": "^4.1.1",
         "semver": "^7.5.4",
         "svgo": "^3.0.3"
+    },
+    "dependencies": {
+        "uikit": "^3.17.10-dev.fde49d8a0"
     }
 }

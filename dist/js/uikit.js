@@ -8697,13 +8697,17 @@
         toggle(el, inview) {
           var _a;
           const state = this.elementData.get(el);
+          console.log("State: ", state);
           if (!state) {
             return;
           }
           (_a = state.off) == null ? void 0 : _a.call(state);
           css(el, "opacity", !inview && this.hidden ? 0 : "");
           toggleClass(el, this.inViewClass, inview);
-          toggleClass(el, state.cls);
+          console.log("State CLS: ", state.cls);
+          if (!state.show) {
+            toggleClass(el, state.cls);
+          }
           if (/\buk-animation-/.test(state.cls)) {
             const removeAnimationClasses = () => removeClasses$1(el, "uk-animation-[\\w-]+");
             if (inview) {

@@ -109,6 +109,7 @@ export default {
     methods: {
         toggle(el, inview) {
             const state = this.elementData.get(el);
+            console.log('State: ', state);
 
             if (!state) {
                 return;
@@ -119,7 +120,11 @@ export default {
             css(el, 'opacity', !inview && this.hidden ? 0 : '');
 
             toggleClass(el, this.inViewClass, inview);
-            toggleClass(el, state.cls);
+
+            console.log('State CLS: ', state.cls);
+            if (!state.show) {
+                toggleClass(el, state.cls);
+            }
 
             if (/\buk-animation-/.test(state.cls)) {
                 const removeAnimationClasses = () => removeClasses(el, 'uk-animation-[\\w-]+');
