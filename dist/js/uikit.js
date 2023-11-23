@@ -8698,16 +8698,17 @@
           var _a;
           const state = this.elementData.get(el);
           console.log("State: ", state);
+          console.log(el.clientHeight);
           if (!state) {
             return;
           }
           (_a = state.off) == null ? void 0 : _a.call(state);
           css(el, "opacity", !inview && this.hidden ? 0 : "");
+          console.log("El before: ", el);
           toggleClass(el, this.inViewClass, inview);
           console.log("State CLS: ", state.cls);
-          if (!state.show) {
-            toggleClass(el, state.cls);
-          }
+          toggleClass(el, state.cls);
+          console.log("El after: ", el);
           if (/\buk-animation-/.test(state.cls)) {
             const removeAnimationClasses = () => removeClasses$1(el, "uk-animation-[\\w-]+");
             if (inview) {
