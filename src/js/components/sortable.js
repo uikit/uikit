@@ -13,7 +13,6 @@ import {
     hasTouch,
     height,
     index,
-    isEmpty,
     isInput,
     isTag,
     off,
@@ -90,7 +89,7 @@ export default {
         },
 
         isEmpty() {
-            return isEmpty(this.items);
+            return !this.items.length;
         },
 
         handles({ handle }, $el) {
