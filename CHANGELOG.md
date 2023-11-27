@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix icons task on Windows
+
 ## 3.17.11 (November 21, 2023)
 
 ### Fixed
