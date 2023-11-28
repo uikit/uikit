@@ -121,13 +121,47 @@ export default {
 
             toggleClass(el, this.inViewClass, inview);
 
-            console.log('State CLS: ', state.cls);
-            if (!state.show) {
+            // if (!state.show) {
                 toggleClass(el, state.cls);
-            }
+            // }
 
             if (/\buk-animation-/.test(state.cls)) {
-                const removeAnimationClasses = () => removeClasses(el, 'uk-animation-[\\w-]+');
+                const removeAnimationClasses = () => {
+                    console.log('removeAnimationClasses start');
+                    let result = removeClasses(el, 'uk-animation-[\\w-]+');
+
+                    // let ORIGINAL_DISPLAY = window.getComputedStyle(el, 'display')
+                    // so, let's do a display none (el.style('display', 'none');
+                    // then do all the steps below (together, NOT one-by-one)
+                    // then again a display: ORIGINAL (el.style('display', ORIGINAL);
+
+                    // #1
+                    //window.getComputedStyle(el, 'top');
+
+                    // #2
+                    //console.log(el, el.clientHeight);
+
+                    // #3
+                    //console.log(el, el.offsetHeight);
+
+                    // #4
+                    /*
+                    const t = el.ownerDocument.createTextNode(' ') ;
+                    el.appendChild(t) ;
+                    setTimeout(() => { el.removeChild(t) }, 0) ;
+                    */
+
+                    // #5
+                    //el.appendChild(el.childNodes[el.childNodes.length - 1]);
+
+                    // #6
+                    // Maybe using window.requestAnimationFrame(() => { ... })
+
+
+
+                    console.log('removeAnimationClasses end');
+                    return result;
+                };
                 if (inview) {
                     state.off = once(el, 'animationcancel animationend', removeAnimationClasses);
                 } else {
