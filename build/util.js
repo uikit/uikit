@@ -73,7 +73,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
     const log = args.l || args.log;
     const watch = args.w || args.watch;
 
-    name = (name || '').replace(/[^\w]/g, '_');
+    name = (name || '').replace(/\W/g, '_');
 
     const inputOptions = {
         external,
@@ -89,7 +89,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
             }),
             alias({
                 entries: {
-                    'uikit-util': './src/js/util/index.js',
+                    'uikit-util': path.resolve('./src/js/util/index.js'),
                     ...aliases,
                 },
             }),
