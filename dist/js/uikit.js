@@ -8679,7 +8679,7 @@
             for (const [el, state] of this.elementData.entries()) {
               if (state.show && !state.inview && !state.queued) {
                 state.queued = true;
-                data.promise = (data.promise || Promise.resolve()).then(() => new Promise((resolve) => setTimeout(resolve, this.delay))).then(() => {
+                data.promise = (data.promise || Promise.resolve()).then(() => new Promise((resolve) => console.log("this.delay:", this.delay) || setTimeout(resolve, this.delay))).then(() => {
                   this.toggle(el, true);
                   setTimeout(() => {
                     state.queued = false;
@@ -8697,20 +8697,35 @@
         toggle(el, inview) {
           var _a;
           const state = this.elementData.get(el);
-          console.log("State: ", state);
-          console.log(el.clientHeight);
+          console.log("State: ", state, this.elementData, el);
           if (!state) {
             return;
           }
           (_a = state.off) == null ? void 0 : _a.call(state);
           css(el, "opacity", !inview && this.hidden ? 0 : "");
-          console.log("El before: ", el);
           toggleClass(el, this.inViewClass, inview);
-          console.log("State CLS: ", state.cls);
           toggleClass(el, state.cls);
-          console.log("El after: ", el);
+          const triggerRepaint = () => {
+            Array.prototype.slice.call(
+              el.querySelectorAll("img")
+            ).filter((el2) => {
+              return console.log(el2) || 1;
+            }).forEach((img) => {
+              const display = img.style.display;
+              if (display === "none") {
+                return;
+              }
+              img.style.display = "none";
+              const h = img.offsetHeight;
+              img.style.display = display;
+              return h;
+            });
+          };
           if (/\buk-animation-/.test(state.cls)) {
-            const removeAnimationClasses = () => removeClasses$1(el, "uk-animation-[\\w-]+");
+            const removeAnimationClasses = () => {
+              removeClasses$1(el, "uk-animation-[\\w-]+");
+              triggerRepaint();
+            };
             if (inview) {
               state.off = once(el, "animationcancel animationend", removeAnimationClasses);
             } else {
