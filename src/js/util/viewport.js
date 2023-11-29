@@ -165,15 +165,11 @@ export function overflowParents(element) {
 
 export function offsetViewport(scrollElement) {
     const window = toWindow(scrollElement);
-    const {
-        visualViewport,
-        document: { documentElement },
-    } = window;
     let viewportElement =
         scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
 
-    if (isWindow(viewportElement) && visualViewport) {
-        let { height, width, scale, pageTop: top, pageLeft: left } = visualViewport;
+    if (isWindow(viewportElement) && window.visualViewport) {
+        let { height, width, scale, pageTop: top, pageLeft: left } = window.visualViewport;
         height = Math.round(height * scale);
         width = Math.round(width * scale);
         return { height, width, top, left, bottom: top + height, right: left + width };
@@ -190,7 +186,7 @@ export function offsetViewport(scrollElement) {
     ]) {
         if (isWindow(viewportElement)) {
             // iOS 12 returns <body> as scrollingElement
-            viewportElement = documentElement;
+            viewportElement = window.document.documentElement;
         } else {
             rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
         }
