@@ -90,7 +90,7 @@ export default {
                         state.queued = true;
 
                         data.promise = (data.promise || Promise.resolve())
-                            .then(() => new Promise((resolve) => console.log('this.delay:', this.delay) || setTimeout(resolve, this.delay)))
+                            .then(() => new Promise((resolve) => setTimeout(resolve, this.delay)))
                             .then(() => {
                                 this.toggle(el, true);
                                 setTimeout(() => {
@@ -109,8 +109,6 @@ export default {
     methods: {
         toggle(el, inview) {
             const state = this.elementData.get(el);
-            // debugger;
-            console.log('State: ', state, this.elementData, el);
 
             if (!state) {
                 return;
@@ -123,42 +121,6 @@ export default {
             toggleClass(el, this.inViewClass, inview);
             toggleClass(el, state.cls);
 
-            // let ORIGINAL_DISPLAY = window.getComputedStyle(el, 'display')
-            // so, let's do a display none (el.style('display', 'none');
-            // then do all the steps below (together, NOT one-by-one)
-            // then again a display: ORIGINAL (el.style('display', ORIGINAL);
-
-            // #1
-            //window.getComputedStyle(el, 'top');
-
-            // #2
-            //console.log(el, el.clientHeight);
-
-            // #3
-            //console.log(el, el.offsetHeight);
-
-            // #4
-            /*
-            const t = el.ownerDocument.createTextNode(' ') ;
-            el.appendChild(t) ;
-            setTimeout(() => { el.removeChild(t) }, 0) ;
-            */
-
-            // #5
-            //el.appendChild(el.childNodes[el.childNodes.length - 1]);
-
-            // #6
-            // Maybe using window.requestAnimationFrame(() => { ... })
-
-
-            /*
-            * @TODO:
-            *   - 1.) test if only calling window.getComputedStyle(el, 'top'); will resolve the issue
-            *   - 2.) 1 + also console.log clientHeight & offsetHeight
-            *   - 3.) test other CSS properties: height -> adding 0.1px to it
-            *   - 4.) restrict code by filtering to svg extensions only
-            * */
-
             const triggerRepaint = () => {
                 Array.prototype
                     .slice
@@ -166,22 +128,25 @@ export default {
                         .querySelectorAll('img')
                     )
                     .filter(el => {
-                        return console.log(el) || 1;
+                        const imgExtension = el.src.slice(-3);
+
+                        if (imgExtension === 'svg') {
+                            return el;
+                        }
                     })
                     .forEach(img => {
-                        console.log('window.getComputedStyle(el, "top"): ', window.getComputedStyle(el, 'top'));
-                        return;
-
                         const display = img.style.display;
+
                         if (display === 'none') {
                             return;
                         }
+
                         img.style.display = 'none';
                         const h = img.offsetHeight;
                         img.style.display = display;
                         return h;
                     });
-            }
+            };
 
             if (/\buk-animation-/.test(state.cls)) {
                 const removeAnimationClasses = () => {

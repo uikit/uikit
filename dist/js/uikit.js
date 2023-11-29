@@ -8679,7 +8679,7 @@
             for (const [el, state] of this.elementData.entries()) {
               if (state.show && !state.inview && !state.queued) {
                 state.queued = true;
-                data.promise = (data.promise || Promise.resolve()).then(() => new Promise((resolve) => console.log("this.delay:", this.delay) || setTimeout(resolve, this.delay))).then(() => {
+                data.promise = (data.promise || Promise.resolve()).then(() => new Promise((resolve) => setTimeout(resolve, this.delay))).then(() => {
                   this.toggle(el, true);
                   setTimeout(() => {
                     state.queued = false;
@@ -8697,7 +8697,6 @@
         toggle(el, inview) {
           var _a;
           const state = this.elementData.get(el);
-          console.log("State: ", state, this.elementData, el);
           if (!state) {
             return;
           }
@@ -8709,7 +8708,11 @@
             Array.prototype.slice.call(
               el.querySelectorAll("img")
             ).filter((el2) => {
-              return console.log(el2) || 1;
+              const imgExtension = el2.src.slice(-3);
+              if (imgExtension === "svg") {
+                console.log(el2);
+                return el2;
+              }
             }).forEach((img) => {
               const display = img.style.display;
               if (display === "none") {
