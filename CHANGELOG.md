@@ -11,6 +11,10 @@
 
 - Twitter icon will show X icon
 
+### Removed
+
+- Remove MouseTracker class from utils
+
 ## WIP
 
 ### Fixed

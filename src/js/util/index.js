@@ -8,7 +8,6 @@ export * from './event';
 export * from './fastdom';
 export * from './filter';
 export * from './lang';
-export * from './mouse';
 export * from './observer';
 export * from './player';
 export * from './position';
