@@ -118,6 +118,11 @@
     .hook-navbar();
 }
 
+* { --uk-navbar-color: initial; }
+.uk-navbar-light { --uk-navbar-color: light; }
+.uk-navbar-dark { --uk-navbar-color: dark; }
+
+
 /* Container
  ========================================================================== */
 
@@ -610,7 +615,7 @@
 
 .hook-inverse() {
 
-    --uk-navbar-color: @inverse-global-color-mode; 
+    --uk-navbar-color: @inverse-global-color-mode;
 
     //
     // Nav Item

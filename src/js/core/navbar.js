@@ -2,12 +2,11 @@ import {
     $$,
     addClass,
     css,
+    dimensions,
     hasClass,
     observeResize,
-    offset,
     on,
     parent,
-    pointInRect,
     removeClass,
     replaceClass,
     scrollParent,
@@ -26,15 +25,14 @@ export default {
         clsDrop: 'uk-navbar-dropdown',
         selNavItem:
             '.uk-navbar-nav > li > a,a.uk-navbar-item,button.uk-navbar-item,.uk-navbar-item a,.uk-navbar-item button,.uk-navbar-toggle', // Simplify with :where() selector once browser target is Safari 14+
-        selTransparentTarget: '[class*="uk-section"]',
         dropbarTransparentMode: false,
     },
 
     computed: {
         navbarContainer: (_, $el) => $el.closest('.uk-navbar-container'),
 
-        dropbarOffset: ({ dropbarTransparentMode }, $el) =>
-            dropbarTransparentMode === 'behind' ? $el.offsetHeight : 0,
+        dropbarOffset: ({ dropbarTransparentMode, navbarContainer }) =>
+            dropbarTransparentMode === 'behind' ? navbarContainer.offsetHeight : 0,
     },
 
     watch: {
@@ -169,7 +167,6 @@ export default {
         registerColorListener() {
             const active =
                 this._isIntersecting &&
-                hasClass(this.navbarContainer, 'uk-navbar-transparent') &&
                 !isWithinMixBlendMode(this.navbarContainer) &&
                 !$$('.uk-drop', this.dropContainer)
                     .map(this.getDropdown)
@@ -191,17 +188,13 @@ export default {
                 return;
             }
 
-            this._colorListener = listenForPositionChange(this.navbarContainer, () => {
-                const { left, top, height } = offset(this.navbarContainer);
-                const startPoint = { x: left, y: Math.max(0, top) + height / 2 };
-                const target = $$(this.selTransparentTarget).find((target) =>
-                    pointInRect(startPoint, offset(target)),
-                );
-                const color = css(target, '--uk-navbar-color');
-                if (color) {
-                    replaceClass(this.navbarContainer, 'uk-light,uk-dark', `uk-${color}`);
-                }
-            });
+            this._colorListener = listenForPositionChange(this.navbarContainer, () =>
+                replaceClass(
+                    this.navbarContainer,
+                    'uk-light,uk-dark',
+                    findNavbarColor(this.navbarContainer) || '',
+                ),
+            );
         },
     },
 };
@@ -242,4 +235,28 @@ function isWithinMixBlendMode(el) {
             return true;
         }
     } while ((el = parent(el)));
+}
+
+function findNavbarColor(navbarContainer) {
+    if (!hasClass(navbarContainer, 'uk-navbar-transparent')) {
+        return;
+    }
+
+    const { left, top, height, width } = dimensions(navbarContainer);
+
+    const elements = navbarContainer.ownerDocument.elementsFromPoint(
+        Math.max(0, left) + width / 2,
+        Math.max(0, top) + height / 2,
+    );
+
+    for (const element of elements) {
+        if (navbarContainer.contains(element)) {
+            continue;
+        }
+
+        const color = css(element, '--uk-navbar-color');
+        if (color) {
+            return `uk-${color}`;
+        }
+    }
 }
