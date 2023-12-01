@@ -82,7 +82,7 @@ devDependencies:
     version: 7.5.4
   svgo:
     specifier: ^3.0.3
-    version: 3.0.4
+    version: 3.0.5
 
 packages:
 
@@ -2414,8 +2414,8 @@ packages:
       has-flag: 4.0.0
     dev: true
 
-  /svgo@3.0.4:
-    resolution: {integrity: sha512-T+Xul3JwuJ6VGXKo/p2ndqx1ibxNKnLTvRc1ZTWKCfyKS/GgNjRZcYsK84fxTsy/izr91g/Rwx6fGnVgaFSI5g==}
+  /svgo@3.0.5:
+    resolution: {integrity: sha512-HQKHEo73pMNOlDlBcLgZRcHW2+1wo7bFYayAXkGN0l/2+h68KjlfZyMRhdhaGvoHV2eApOovl12zoFz42sT6rQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
