@@ -54,6 +54,7 @@ const icons = {
     'search-icon': searchIcon,
     'search-large': searchLarge,
     'search-navbar': searchNavbar,
+    'search-toggle-icon': searchIcon,
     'slidenav-next': slidenavNext,
     'slidenav-next-large': slidenavNextLarge,
     'slidenav-previous': slidenavPrevious,
@@ -121,10 +122,12 @@ export const Search = {
     i18n: { toggle: 'Open Search', submit: 'Submit Search' },
 
     beforeConnect() {
-        this.icon =
-            hasClass(this.$el, 'uk-search-icon') && closest(this.$el, '.uk-search-large,.uk-search-toggle-large')
+        const isToggle = hasClass(this.$el, 'uk-search-toggle') || hasClass(this.$el, 'uk-navbar-toggle');
+        this.icon = isToggle 
+            ? 'search-toggle-icon' 
+            : hasClass(this.$el, 'uk-search-icon') && closest(this.$el, '.uk-search-large')
                 ? 'search-large'
-                : closest(this.$el, '.uk-search-navbar,.uk-search-toggle-navbar')
+                : closest(this.$el, '.uk-search-navbar')
                   ? 'search-navbar'
                   : this.$props.icon;
 
@@ -132,7 +135,7 @@ export const Search = {
             return;
         }
 
-        if (hasClass(this.$el, 'uk-search-toggle') || hasClass(this.$el, 'uk-navbar-toggle')) {
+        if (isToggle) {
             const label = this.t('toggle');
             attr(this.$el, 'aria-label', label);
         } else {
