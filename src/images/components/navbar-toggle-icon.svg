@@ -8,7 +8,7 @@
             opacity: 1;
         }
 
-        .uk-navbar-toggle svg > .line-3 { opacity: 0; }
+        .uk-navbar-toggle-animate svg > .line-3 { opacity: 0; }
         .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-3 { opacity: 1; }
 
         .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-2 { transform: rotate(45deg); }
