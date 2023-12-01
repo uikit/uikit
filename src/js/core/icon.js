@@ -3,6 +3,7 @@ import {
     addClass,
     apply,
     attr,
+    closest,
     css,
     each,
     hasAttr,
@@ -11,7 +12,6 @@ import {
     isRtl,
     isString,
     isTag,
-    parents,
     swap,
 } from 'uikit-util';
 import closeIcon from '../../images/components/close-icon.svg';
@@ -122,9 +122,9 @@ export const Search = {
 
     beforeConnect() {
         this.icon =
-            hasClass(this.$el, 'uk-search-icon') && parents(this.$el, '.uk-search-large').length
+            hasClass(this.$el, 'uk-search-icon') && closest(this.$el, '.uk-search-large,.uk-search-toggle-large')
                 ? 'search-large'
-                : parents(this.$el, '.uk-search-navbar').length
+                : closest(this.$el, '.uk-search-navbar,.uk-search-toggle-navbar')
                   ? 'search-navbar'
                   : this.$props.icon;
 

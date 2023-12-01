@@ -5,6 +5,7 @@
 ### Added
 
 - Add size modifier to Nav component
+- Add search toggle icon style modifiers to Search component
 - Add X, Mastodon, Telegram, Threads, Signal and YOOtheme icons
 
 ### Changed
