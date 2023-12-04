@@ -5,6 +5,7 @@
 ### Added
 
 - Add size modifier to Nav component
+- Add link external and arrow up right icons
 - Add X, Mastodon, Telegram, Threads, Signal and YOOtheme icons
 
 ### Changed
