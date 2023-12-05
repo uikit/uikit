@@ -274,12 +274,15 @@ export default {
                     listenForBackgroundClose(this),
                     this.autoUpdate && listenForScroll(this),
                     this.closeOnScroll && listenForScrollClose(this),
-                    !this.bgScroll && preventBackgroundScroll(this.$el),
                 ];
 
                 once(this.$el, 'hide', () => handlers.forEach((handler) => handler && handler()), {
                     self: true,
                 });
+
+                if (!this.bgScroll) {
+                    once(this.$el, 'hidden', preventBackgroundScroll(this.$el), { self: true });
+                }
             },
         },
 
