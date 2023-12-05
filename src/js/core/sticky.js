@@ -9,6 +9,7 @@ import {
     height as getHeight,
     offset as getOffset,
     hasClass,
+    index,
     intersectRect,
     isNumeric,
     isString,
@@ -98,7 +99,11 @@ export default {
     observe: [
         viewport(),
         scroll({ target: () => document.scrollingElement }),
-        resize({ target: ({ $el }) => [$el, document.scrollingElement] }),
+        resize({
+            target: () => document.scrollingElement,
+            options: { box: 'content-box' },
+        }),
+        resize({ target: ({ $el }) => $el }),
     ],
 
     events: [
@@ -252,10 +257,13 @@ export default {
 
                 css(placeholder, { height, width, margin });
 
-                if (!document.contains(placeholder)) {
+                if (
+                    parent(placeholder) !== parent(this.$el) ||
+                    sticky ^ (index(placeholder) < index(this.$el))
+                ) {
+                    (sticky ? before : after)(this.$el, placeholder);
                     placeholder.hidden = true;
                 }
-                (sticky ? before : after)(this.$el, placeholder);
             },
 
             events: ['resize'],
