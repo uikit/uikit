@@ -10,6 +10,7 @@
 
 ### Changed
 
+- Replace `none` with `dark` as default for navbar, dropdown and dropbar color modes
 - Twitter icon will show X icon
 - Responsive component uses `aspect-ratio` if available
 
