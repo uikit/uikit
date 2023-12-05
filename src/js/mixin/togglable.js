@@ -38,8 +38,8 @@ export default {
         velocity: 0.2,
         origin: false,
         transition: 'ease',
-        clsEnter: 'uk-togglabe-enter',
-        clsLeave: 'uk-togglabe-leave',
+        clsEnter: 'uk-togglable-enter',
+        clsLeave: 'uk-togglable-leave',
     },
 
     computed: {
