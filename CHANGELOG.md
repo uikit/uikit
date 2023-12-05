@@ -11,6 +11,7 @@
 ### Changed
 
 - Twitter icon will show X icon
+- Responsive component uses `aspect-ratio` if available
 
 ### Removed
 
