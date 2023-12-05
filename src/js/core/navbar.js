@@ -31,8 +31,9 @@ export default {
     computed: {
         navbarContainer: (_, $el) => $el.closest('.uk-navbar-container'),
 
-        dropbarOffset: ({ dropbarTransparentMode, navbarContainer }) =>
-            dropbarTransparentMode === 'behind' ? navbarContainer.offsetHeight : 0,
+        dropbarOffset({ dropbarTransparentMode }) {
+            return dropbarTransparentMode === 'behind' ? this.navbarContainer.offsetHeight : 0;
+        },
     },
 
     watch: {
