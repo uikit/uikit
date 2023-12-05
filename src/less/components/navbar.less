@@ -97,8 +97,6 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 @navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
-@navbar-dropbar-behind-color-mode:              dark;
-
 
 /* ========================================================================
    Component: Navbar
@@ -113,13 +111,14 @@
     display: flex;
     /* 1 */
     position: relative;
-    /* 2 */
-    --uk-navbar-dropbar-behind-color: @navbar-dropbar-behind-color-mode;
     .hook-navbar();
 }
 
+/* 2 */
 * { --uk-navbar-color: initial; }
+.uk-light,
 .uk-navbar-light { --uk-navbar-color: light; }
+.uk-dark,
 .uk-navbar-dark { --uk-navbar-color: dark; }
 
 
@@ -614,8 +613,6 @@
 @inverse-navbar-toggle-hover-color:            @inverse-global-color;
 
 .hook-inverse() {
-
-    --uk-navbar-color: @inverse-global-color-mode;
 
     //
     // Nav Item

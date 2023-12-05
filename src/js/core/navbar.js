@@ -14,6 +14,8 @@ import {
 import { intersection, mutation } from '../api/observables';
 import Dropnav from './dropnav';
 
+const clsNavbarTransparent = 'uk-navbar-transparent';
+
 export default {
     extends: Dropnav,
 
@@ -64,14 +66,17 @@ export default {
     observe: [
         mutation({
             target: ({ navbarContainer }) => navbarContainer,
-            handler: 'registerColorListener',
+            handler() {
+                this.updateColor();
+            },
             options: { attributes: true, attributeFilter: ['class'], attributeOldValue: true },
         }),
         intersection({
-            handler(records) {
-                this._isIntersecting = records[0].isIntersecting;
+            handler([{ isIntersecting }]) {
+                this._isIntersecting = isIntersecting;
                 this.registerColorListener();
             },
+            options: { rootMargin: '500px 0px' },
             args: { intersecting: false },
         }),
     ],
@@ -85,26 +90,12 @@ export default {
             },
 
             handler({ target }) {
-                const transparentMode = this.getTransparentMode(target);
-
-                if (!transparentMode || this._mode) {
-                    return;
-                }
-
-                const storePrevColor = () =>
-                    (this._mode = removeClasses(this.navbarContainer, 'uk-light', 'uk-dark'));
-
-                if (transparentMode === 'behind') {
-                    const mode = getDropbarBehindColor(this.$el);
-                    if (mode) {
-                        storePrevColor();
-                        addClass(this.navbarContainer, `uk-${mode}`);
-                    }
-                }
-
-                if (transparentMode === 'remove') {
-                    storePrevColor();
-                    removeClass(this.navbarContainer, 'uk-navbar-transparent');
+                if (
+                    this.getTransparentMode(target) === 'remove' &&
+                    hasClass(this.navbarContainer, clsNavbarTransparent)
+                ) {
+                    removeClass(this.navbarContainer, clsNavbarTransparent);
+                    this._transparent = true;
                 }
             },
         },
@@ -116,35 +107,35 @@ export default {
             },
 
             async handler({ target }) {
-                const transparentMode = this.getTransparentMode(target);
-
-                if (!transparentMode || !this._mode) {
-                    return;
-                }
-
                 await awaitMacroTask();
 
-                if (this.getActive()) {
-                    return;
+                if (
+                    !this.getActive() &&
+                    this.getTransparentMode(target) === 'remove' &&
+                    this._transparent
+                ) {
+                    addClass(this.navbarContainer, clsNavbarTransparent);
                 }
 
-                if (transparentMode === 'behind') {
-                    const mode = getDropbarBehindColor(this.$el);
-                    if (mode) {
-                        removeClass(this.navbarContainer, `uk-${mode}`);
-                    }
-                }
-
-                addClass(this.navbarContainer, this._mode);
-
-                if (transparentMode === 'remove') {
-                    addClass(this.navbarContainer, 'uk-navbar-transparent');
-                }
-
-                this._mode = null;
+                this._transparent = null;
             },
         },
+        {
+            name: 'shown hidden',
+
+            el() {
+                return this.dropContainer;
+            },
+
+            handler: 'updateColor',
+        },
     ],
+
+    update: {
+        read() {
+            this.updateColor();
+        },
+    },
 
     methods: {
         getTransparentMode(el) {
@@ -166,16 +157,7 @@ export default {
         },
 
         registerColorListener() {
-            const active =
-                this._isIntersecting &&
-                !isWithinMixBlendMode(this.navbarContainer) &&
-                !$$('.uk-drop', this.dropContainer)
-                    .map(this.getDropdown)
-                    .some(
-                        (drop) =>
-                            drop.isToggled() &&
-                            (drop.inset || this.getTransparentMode(drop.$el) === 'behind'),
-                    );
+            const active = this._isIntersecting && !isWithinMixBlendMode(this.navbarContainer);
 
             if (this._colorListener) {
                 if (!active) {
@@ -189,32 +171,21 @@ export default {
                 return;
             }
 
-            this._colorListener = listenForPositionChange(this.navbarContainer, () =>
-                replaceClass(
-                    this.navbarContainer,
-                    'uk-light,uk-dark',
-                    findNavbarColor(this.navbarContainer) || '',
-                ),
+            this._colorListener = listenForPositionChange(this.navbarContainer, this.updateColor);
+        },
+
+        updateColor() {
+            replaceClass(
+                this.navbarContainer,
+                'uk-light,uk-dark',
+                findNavbarColor(this.navbarContainer) || '',
             );
         },
     },
 };
 
-function removeClasses(el, ...classes) {
-    for (const cls of classes) {
-        if (hasClass(el, cls)) {
-            removeClass(el, cls);
-            return cls;
-        }
-    }
-}
-
 async function awaitMacroTask() {
     return new Promise((resolve) => setTimeout(resolve));
-}
-
-function getDropbarBehindColor(el) {
-    return css(el, '--uk-navbar-dropbar-behind-color');
 }
 
 function listenForPositionChange(el, handler) {
@@ -239,7 +210,7 @@ function isWithinMixBlendMode(el) {
 }
 
 function findNavbarColor(navbarContainer) {
-    if (!hasClass(navbarContainer, 'uk-navbar-transparent')) {
+    if (!hasClass(navbarContainer, clsNavbarTransparent)) {
         return;
     }
 
