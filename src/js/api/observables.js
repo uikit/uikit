@@ -54,7 +54,7 @@ export function lazyload(options = {}) {
 }
 
 export function viewport(options) {
-    return observe((target, handler) => observeViewportResize(handler), options);
+    return observe((target, handler) => observeViewportResize(handler), options, 'resize');
 }
 
 export function scroll(options) {
