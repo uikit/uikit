@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr" vocab="https://schema.org/">
+<head>
+    <title>UI kit - not working</title>
+
+    <script src="./script.js" defer></script>
+
+    <style>
+        .uk-animation-fade {
+            animation-name: uk-fade;
+            animation-duration: .8s;
+            animation-timing-function: linear
+        }
+
+        @keyframes uk-fade {
+            0% {
+                opacity: 0
+            }
+            100% {
+                opacity: 1
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="tm-page">
+
+    <!-- Builder #page -->
+    <div style="background-color: beige; height: 100vh"></div>
+
+    <div class="uk-section-default uk-section uk-section-large uk-padding-remove-top"
+         uk-scrollspy="target: [uk-scrollspy-class]; cls: uk-animation-fade; delay: 200;">
+
+        <div class="uk-container">
+            <div class="tm-grid-expand uk-child-width-1-1 uk-grid-margin" uk-grid>
+                <div class="uk-width-1-1@m">
+                    <div class="uk-panel uk-margin" uk-scrollspy-class id="uk-panel-margin">
+                        <div class="uk-panel uk-margin uk-scrollspy-inview " data-id="page#1-0-0-0">
+                            <div class="uk-panel uk-margin uk-scrollspy-inview " data-id="page#1-0-0-1">
+                                <p><img title="Logo Animation"
+                                        src="./scrollspy-animated-svg-i-mediadesign.svg"
+                                        alt="Logo i-mediadesign" width="1364" height="197"/></p>
+                                <br>
+
+                                <p><img title=" Krukenmeier-Logo als Animation"
+                                        src="./scrollspy-animated-svg-krukenmeir.svg"
+                                        alt="Rundes Logo" width="664" height="664"/></p>
+                                <br>
+
+                                <p><img title="Schrift aus Logo" src="./scrollspy-animated-svg-benchmark.svg"
+                                        alt="Schwarzes Logo" width="710" height="227"/></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
