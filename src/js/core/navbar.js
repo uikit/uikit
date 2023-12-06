@@ -66,9 +66,7 @@ export default {
     observe: [
         mutation({
             target: ({ navbarContainer }) => navbarContainer,
-            handler() {
-                this.updateColor();
-            },
+            handler: 'registerColorListener',
             options: { attributes: true, attributeFilter: ['class'], attributeOldValue: true },
         }),
         intersection({
@@ -106,35 +104,26 @@ export default {
                 return this.dropContainer;
             },
 
-            async handler({ target }) {
+            async handler() {
                 await awaitMacroTask();
 
-                if (
-                    !this.getActive() &&
-                    this.getTransparentMode(target) === 'remove' &&
-                    this._transparent
-                ) {
+                if (!this.getActive() && this._transparent) {
                     addClass(this.navbarContainer, clsNavbarTransparent);
+                    this._transparent = null;
                 }
-
-                this._transparent = null;
             },
-        },
-        {
-            name: 'shown hidden',
-
-            el() {
-                return this.dropContainer;
-            },
-
-            handler: 'updateColor',
         },
     ],
 
     update: {
         read() {
-            this.updateColor();
+            replaceClass(
+                this.navbarContainer,
+                'uk-light,uk-dark',
+                findNavbarColor(this.navbarContainer) || '',
+            );
         },
+        events: ['color'],
     },
 
     methods: {
@@ -149,11 +138,9 @@ export default {
 
             const drop = this.getDropdown(el);
 
-            if (!drop || !hasClass(el, 'uk-dropbar')) {
-                return;
+            if (drop && hasClass(el, 'uk-dropbar')) {
+                return drop.inset ? 'behind' : 'remove';
             }
-
-            return drop.inset ? 'behind' : 'remove';
         },
 
         registerColorListener() {
@@ -171,32 +158,35 @@ export default {
                 return;
             }
 
-            this._colorListener = listenForPositionChange(this.navbarContainer, this.updateColor);
-        },
-
-        updateColor() {
-            replaceClass(
-                this.navbarContainer,
-                'uk-light,uk-dark',
-                findNavbarColor(this.navbarContainer) || '',
+            this._colorListener = registerListener(this.navbarContainer, this.dropContainer, () =>
+                this.$emit('color'),
             );
         },
     },
 };
 
-async function awaitMacroTask() {
+function awaitMacroTask() {
     return new Promise((resolve) => setTimeout(resolve));
 }
 
-function listenForPositionChange(el, handler) {
-    const parent = scrollParent(el, true);
+function registerListener(navbarContainer, dropContainerhandler, handler) {
+    const parent = scrollParent(navbarContainer, true);
     const scrollEl = parent === document.documentElement ? document : parent;
 
-    const off = on(scrollEl, 'scroll', handler, { passive: true });
-    const observer = observeResize([el, parent], handler);
+    const observer = observeResize([navbarContainer, parent], handler);
+    const listener = [
+        on(scrollEl, 'scroll', handler, { passive: true }),
+        on(document, 'itemshown itemhidden', handler, { passive: true }),
+        on(
+            dropContainerhandler,
+            'hide show',
+            (e) => observer[e.type === 'show' ? 'observe' : 'unobserve'](e.target),
+            { passive: true },
+        ),
+    ];
 
     return () => {
-        off();
+        listener.map((off) => off());
         observer.disconnect();
     };
 }
