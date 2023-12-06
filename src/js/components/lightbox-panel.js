@@ -101,9 +101,7 @@ export default {
 
             self: true,
 
-            handler() {
-                this.showControls();
-            },
+            handler: 'showControls',
         },
 
         {

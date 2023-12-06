@@ -291,9 +291,7 @@ export default {
 
             self: true,
 
-            handler() {
-                this.clearTimers();
-            },
+            handler: 'clearTimers',
         },
 
         {

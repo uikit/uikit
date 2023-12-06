@@ -384,9 +384,7 @@ export default {
                 Transition.start(dropbar, { height: newHeight }, this.duration),
                 Transition.start(
                     el,
-                    {
-                        clipPath: `polygon(0 0,100% 0,100% ${newHeight}px,0 ${newHeight}px)`,
-                    },
+                    { clipPath: `polygon(0 0,100% 0,100% ${newHeight}px,0 ${newHeight}px)` },
                     this.duration,
                 ).finally(() => css(el, { clipPath: '' })),
             ]).catch(noop);
