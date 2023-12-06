@@ -71,7 +71,7 @@ export default {
     },
 
     computed: {
-        selTarget: ({ selTarget }, $el) => (selTarget && $(selTarget, $el)) || $el,
+        target: ({ selTarget }, $el) => (selTarget && $(selTarget, $el)) || $el,
     },
 
     connected() {
@@ -88,7 +88,7 @@ export default {
     beforeDisconnect() {
         if (this.isFixed) {
             this.hide();
-            removeClass(this.selTarget, this.clsInactive);
+            removeClass(this.target, this.clsInactive);
         }
         reset(this.$el);
 
@@ -163,7 +163,7 @@ export default {
 
                 const hide = this.isFixed && !this.transitionInProgress;
                 if (hide) {
-                    preventTransition(this.$el);
+                    preventTransition(this.target);
                     this.hide();
                 }
 
@@ -369,7 +369,7 @@ export default {
                     this.show();
                     Animation.in(this.$el, this.animation).catch(noop);
                 } else {
-                    preventTransition(this.selTarget);
+                    preventTransition(this.target);
                     this.show();
                 }
             },
@@ -440,10 +440,10 @@ export default {
             const prev = this.active;
             this.active = active;
             if (active) {
-                replaceClass(this.selTarget, this.clsInactive, this.clsActive);
+                replaceClass(this.target, this.clsInactive, this.clsActive);
                 prev !== active && trigger(this.$el, 'active');
             } else {
-                replaceClass(this.selTarget, this.clsActive, this.clsInactive);
+                replaceClass(this.target, this.clsActive, this.clsInactive);
                 prev !== active && trigger(this.$el, 'inactive');
             }
         },
