@@ -110,7 +110,21 @@
 // Inverse
 // ========================================================================
 
+@mixin hook-inverse-component-thumbnav(){
 
+    .uk-thumbnav > * > * {
+        @if(mixin-exists(hook-inverse-thumbnav-item)) {@include hook-inverse-thumbnav-item();}
+    }
+
+    .uk-thumbnav > * > :hover {
+        @if(mixin-exists(hook-inverse-thumbnav-item-hover)) {@include hook-inverse-thumbnav-item-hover();}
+    }
+
+    .uk-thumbnav > .uk-active > * {
+        @if(mixin-exists(hook-inverse-thumbnav-item-active)) {@include hook-inverse-thumbnav-item-active();}
+    }
+
+}
 
 // @mixin hook-inverse-thumbnav-item(){}
 // @mixin hook-inverse-thumbnav-item-hover(){}

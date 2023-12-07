@@ -131,7 +131,24 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-iconnav(){
 
+    .uk-iconnav > * > a {
+        color: $inverse-iconnav-item-color;
+        @if(mixin-exists(hook-inverse-iconnav-item)) {@include hook-inverse-iconnav-item();}
+    }
+
+    .uk-iconnav > * > a:hover {
+        color: $inverse-iconnav-item-hover-color;
+        @if(mixin-exists(hook-inverse-iconnav-item-hover)) {@include hook-inverse-iconnav-item-hover();}
+    }
+
+    .uk-iconnav > .uk-active > a {
+        color: $inverse-iconnav-item-active-color;
+        @if(mixin-exists(hook-inverse-iconnav-item-active)) {@include hook-inverse-iconnav-item-active();}
+    }
+
+}
 
 // @mixin hook-inverse-iconnav-item(){}
 // @mixin hook-inverse-iconnav-item-hover(){}

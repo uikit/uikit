@@ -62,7 +62,10 @@
 // Badge
 // ========================================================================
 
-
+@mixin hook-card-badge(){
+    border-radius: $card-badge-border-radius;
+    text-transform: $card-badge-text-transform;
+}
 
 
 // Hover modifier
@@ -108,3 +111,95 @@
 // Miscellaneous
 // ========================================================================
 
+@mixin hook-card-misc(){
+
+    /*
+     * Default
+     */
+
+    .uk-card-body > .uk-nav-default {
+        margin-left: (-$card-body-padding-horizontal);
+        margin-right: (-$card-body-padding-horizontal);
+    }
+    .uk-card-body > .uk-nav-default:only-child {
+        margin-top: (-$card-body-padding-vertical + 15px);
+        margin-bottom: (-$card-body-padding-vertical + 15px);
+    }
+
+    .uk-card-body > .uk-nav-default > li > a,
+    .uk-card-body > .uk-nav-default .uk-nav-header,
+    .uk-card-body > .uk-nav-default .uk-nav-divider {
+        padding-left: $card-body-padding-horizontal;
+        padding-right: $card-body-padding-horizontal;
+    }
+
+    .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal; }
+
+
+    /* Desktop and bigger */
+    @media (min-width: $breakpoint-large) {
+
+        .uk-card-body > .uk-nav-default {
+            margin-left: (-$card-body-padding-horizontal-l);
+            margin-right: (-$card-body-padding-horizontal-l);
+        }
+        .uk-card-body > .uk-nav-default:only-child {
+            margin-top: (-$card-body-padding-vertical-l + 15px);
+            margin-bottom: (-$card-body-padding-vertical-l + 15px);
+        }
+
+        .uk-card-body > .uk-nav-default > li > a,
+        .uk-card-body > .uk-nav-default .uk-nav-header,
+        .uk-card-body > .uk-nav-default .uk-nav-divider {
+            padding-left: $card-body-padding-horizontal-l;
+            padding-right: $card-body-padding-horizontal-l;
+        }
+
+        .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal-l; }
+
+    }
+
+    /*
+     * Small
+     */
+
+    .uk-card-small > .uk-nav-default {
+        margin-left: (-$card-small-body-padding-horizontal);
+        margin-right: (-$card-small-body-padding-horizontal);
+    }
+    .uk-card-small > .uk-nav-default:only-child {
+        margin-top: (-$card-small-body-padding-vertical + 15px);
+        margin-bottom: (-$card-small-body-padding-vertical + 15px);
+    }
+
+    .uk-card-small > .uk-nav-default > li > a,
+    .uk-card-small > .uk-nav-default .uk-nav-header,
+    .uk-card-small > .uk-nav-default .uk-nav-divider {
+        padding-left: $card-small-body-padding-horizontal;
+        padding-right: $card-small-body-padding-horizontal;
+    }
+
+    .uk-card-small > .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-small-body-padding-horizontal; }
+
+    /*
+     * Large
+     */
+
+    /* Desktop and bigger */
+    @media (min-width: $breakpoint-large) {
+
+        .uk-card-large > .uk-nav-default { margin: 0; }
+        .uk-card-large > .uk-nav-default:only-child { margin: 0; }
+
+        .uk-card-large > .uk-nav-default > li > a,
+        .uk-card-large > .uk-nav-default .uk-nav-header,
+        .uk-card-large > .uk-nav-default .uk-nav-divider {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .uk-card-large > .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left; }
+
+    }
+
+}

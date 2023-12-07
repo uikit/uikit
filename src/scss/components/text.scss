@@ -238,7 +238,24 @@ td.uk-text-truncate { max-width: 0; }
 // ========================================================================
 
 
+@mixin hook-inverse-component-text(){
 
+    .uk-text-lead {
+        color: $inverse-text-lead-color;
+        @if(mixin-exists(hook-inverse-text-lead)) {@include hook-inverse-text-lead();}
+    }
+
+    .uk-text-meta {
+        color: $inverse-text-meta-color;
+        @if(mixin-exists(hook-inverse-text-meta)) {@include hook-inverse-text-meta();}
+    }
+
+    .uk-text-muted { color: $inverse-text-muted-color !important; }
+    .uk-text-emphasis { color: $inverse-text-emphasis-color !important; }
+    .uk-text-primary { color: $inverse-text-primary-color !important; }
+    .uk-text-secondary { color: $inverse-text-secondary-color !important; }
+
+}
 
 // @mixin hook-inverse-text-lead(){}
 // @mixin hook-inverse-text-meta(){}

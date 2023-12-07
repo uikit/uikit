@@ -18,11 +18,30 @@
 
 // @mixin hook-thumbnav(){}
 
+@mixin hook-thumbnav-item(){
 
+    position: relative;
 
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: $thumbnav-item-gradient;
+        transition: opacity 0.1s ease-in-out;
+    }
 
+}
 
+@mixin hook-thumbnav-item-hover(){
+    &::after { opacity: $thumbnav-item-hover-opacity; }
+}
 
+@mixin hook-thumbnav-item-active(){
+    &::after { opacity: $thumbnav-item-active-opacity; }
+}
 
 
 // Miscellaneous
@@ -35,6 +54,8 @@
 // ========================================================================
 
 
-
+@mixin hook-inverse-thumbnav-item(){
+    &::after { background-image: $inverse-thumbnav-item-gradient; }
+}
 // @mixin hook-inverse-thumbnav-item-hover(){}
 // @mixin hook-inverse-thumbnav-item-active(){}

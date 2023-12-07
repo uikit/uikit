@@ -45,7 +45,19 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-close(){
 
+    .uk-close {
+        color: $inverse-close-color;
+        @if(mixin-exists(hook-inverse-close)) {@include hook-inverse-close();}
+    }
+
+    .uk-close:hover {
+        color: $inverse-close-hover-color;
+        @if(mixin-exists(hook-inverse-close-hover)) {@include hook-inverse-close-hover();}
+    }
+
+}
 
 // @mixin hook-inverse-close(){}
 // @mixin hook-inverse-close-hover(){}

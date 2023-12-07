@@ -553,7 +553,58 @@ $navbar-nav-gap:                                 0px !default; // Must have a un
 // ========================================================================
 
 
+@mixin hook-inverse-component-navbar(){
 
+    //
+    // Nav Item
+    //
+
+    .uk-navbar-nav > li > a {
+        color: $inverse-navbar-nav-item-color;
+        @if(mixin-exists(hook-inverse-navbar-nav-item)) {@include hook-inverse-navbar-nav-item();}
+    }
+
+    .uk-navbar-nav > li:hover > a,
+    .uk-navbar-nav > li > a[aria-expanded="true"] {
+        color: $inverse-navbar-nav-item-hover-color;
+        @if(mixin-exists(hook-inverse-navbar-nav-item-hover)) {@include hook-inverse-navbar-nav-item-hover();}
+    }
+
+    .uk-navbar-nav > li > a:active {
+        color: $inverse-navbar-nav-item-onclick-color;
+        @if(mixin-exists(hook-inverse-navbar-nav-item-onclick)) {@include hook-inverse-navbar-nav-item-onclick();}
+    }
+
+    .uk-navbar-nav > li.uk-active > a {
+        color: $inverse-navbar-nav-item-active-color;
+        @if(mixin-exists(hook-inverse-navbar-nav-item-active)) {@include hook-inverse-navbar-nav-item-active();}
+    }
+
+    //
+    // Item
+    //
+
+    .uk-navbar-item {
+        color: $inverse-navbar-item-color;
+        @if(mixin-exists(hook-inverse-navbar-item)) {@include hook-inverse-navbar-item();}
+    }
+
+    //
+    // Toggle
+    //
+
+    .uk-navbar-toggle {
+        color: $inverse-navbar-toggle-color;
+        @if(mixin-exists(hook-inverse-navbar-toggle)) {@include hook-inverse-navbar-toggle();}
+    }
+
+    .uk-navbar-toggle:hover,
+    .uk-navbar-toggle[aria-expanded="true"] {
+        color: $inverse-navbar-toggle-hover-color;
+        @if(mixin-exists(hook-inverse-navbar-toggle-hover)) {@include hook-inverse-navbar-toggle-hover();}
+    }
+
+}
 
 // @mixin hook-inverse-navbar-nav-item(){}
 // @mixin hook-inverse-navbar-nav-item-hover(){}

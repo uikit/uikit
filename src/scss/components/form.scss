@@ -727,7 +727,95 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 
 
 
+@mixin hook-inverse-component-form(){
 
+    .uk-input,
+    .uk-select,
+    .uk-textarea {
+        background-color: $inverse-form-background;
+        color: $inverse-form-color;
+        background-clip: padding-box;
+        @if(mixin-exists(hook-inverse-form)) {@include hook-inverse-form();}
+
+        &:focus {
+            background-color: $inverse-form-focus-background;
+            color: $inverse-form-focus-color;
+            @if(mixin-exists(hook-inverse-form-focus)) {@include hook-inverse-form-focus();}
+        }
+    }
+
+    //
+    // Placeholder
+    //
+
+    .uk-input::placeholder { color: $inverse-form-placeholder-color; }
+
+    .uk-textarea::placeholder { color: $inverse-form-placeholder-color; }
+
+    //
+    // Select
+    //
+
+    .uk-select:not([multiple]):not([size]) { @include svg-fill($internal-form-select-image, "#000", $inverse-form-select-icon-color); }
+
+    //
+    // Datalist
+    //
+
+    .uk-input[list]:hover,
+    .uk-input[list]:focus { @include svg-fill($internal-form-datalist-image, "#000", $inverse-form-datalist-icon-color); }
+
+    //
+    // Radio and checkbox
+    //
+
+    .uk-radio,
+    .uk-checkbox {
+        background-color: $inverse-form-radio-background;
+        @if(mixin-exists(hook-inverse-form-radio)) {@include hook-inverse-form-radio();}
+    }
+
+    // Focus
+    .uk-radio:focus,
+    .uk-checkbox:focus {
+        background-color: $inverse-form-radio-focus-background;
+        @if(mixin-exists(hook-inverse-form-radio-focus)) {@include hook-inverse-form-radio-focus();}
+    }
+
+    // Checked
+    .uk-radio:checked,
+    .uk-checkbox:checked,
+    .uk-checkbox:indeterminate {
+        background-color: $inverse-form-radio-checked-background;
+        @if(mixin-exists(hook-inverse-form-radio-checked)) {@include hook-inverse-form-radio-checked();}
+    }
+
+    // Focus
+    .uk-radio:checked:focus,
+    .uk-checkbox:checked:focus,
+    .uk-checkbox:indeterminate:focus {
+        background-color: $inverse-form-radio-checked-focus-background;
+        @if(mixin-exists(hook-inverse-form-radio-checked-focus)) {@include hook-inverse-form-radio-checked-focus();}
+    }
+
+    // Icon
+    .uk-radio:checked { @include svg-fill($internal-form-radio-image, "#000", $inverse-form-radio-checked-icon-color); }
+    .uk-checkbox:checked { @include svg-fill($internal-form-checkbox-image, "#000", $inverse-form-radio-checked-icon-color); }
+    .uk-checkbox:indeterminate { @include svg-fill($internal-form-checkbox-indeterminate-image, "#000", $inverse-form-radio-checked-icon-color); }
+
+    // Label
+    .uk-form-label {
+        @if(mixin-exists(hook-inverse-form-label)) {@include hook-inverse-form-label();}
+    }
+
+    // Icon
+    .uk-form-icon {
+        color: $inverse-form-icon-color;
+        @if(mixin-exists(hook-inverse-form-icon)) {@include hook-inverse-form-icon();}
+    }
+    .uk-form-icon:hover { color: $inverse-form-icon-hover-color; }
+
+}
 
 // @mixin hook-inverse-form(){}
 // @mixin hook-inverse-form-focus(){}

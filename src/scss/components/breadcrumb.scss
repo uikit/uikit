@@ -100,7 +100,38 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-breadcrumb(){
 
+    .uk-breadcrumb > * > * {
+        color: $inverse-breadcrumb-item-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item)) {@include hook-inverse-breadcrumb-item();}
+    }
+
+    .uk-breadcrumb > * > :hover {
+        color: $inverse-breadcrumb-item-hover-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item-hover)) {@include hook-inverse-breadcrumb-item-hover();}
+    }
+
+
+    .uk-breadcrumb > .uk-disabled > * {
+        @if(mixin-exists(hook-inverse-breadcrumb-item-disabled)) {@include hook-inverse-breadcrumb-item-disabled();}
+    }
+
+    .uk-breadcrumb > :last-child > * {
+        color: $inverse-breadcrumb-item-active-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item-active)) {@include hook-inverse-breadcrumb-item-active();}
+    }
+
+    //
+    // Divider
+    //
+
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+        color: $inverse-breadcrumb-divider-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-divider)) {@include hook-inverse-breadcrumb-divider();}
+    }
+
+}
 
 // @mixin hook-inverse-breadcrumb-item(){}
 // @mixin hook-inverse-breadcrumb-item-hover(){}

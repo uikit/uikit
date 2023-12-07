@@ -33,7 +33,10 @@
 
 // @mixin hook-table-divider(){}
 
-
+@mixin hook-table-striped(){
+    border-top: $table-striped-border-width solid $table-striped-border;
+    border-bottom: $table-striped-border-width solid $table-striped-border;
+}
 
 // @mixin hook-table-hover(){}
 
@@ -49,7 +52,14 @@
 // Miscellaneous
 // ========================================================================
 
+@mixin hook-table-misc(){
 
+    .uk-table tbody tr { transition: background-color 0.1s linear; }
+
+    .uk-table-striped > tr:nth-of-type(even):last-child,
+    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom: $table-striped-border-width solid $table-striped-border; }
+
+}
 
 
 // Inverse
@@ -59,6 +69,13 @@
 // @mixin hook-inverse-table-caption(){}
 // @mixin hook-inverse-table-row-active(){}
 // @mixin hook-inverse-table-divider(){}
-
+@mixin hook-inverse-table-striped(){
+    border-top-color: $inverse-global-border;
+    border-bottom-color: $inverse-global-border;
+}
 // @mixin hook-inverse-table-hover(){}
 
+@mixin hook-inverse-component-table(){
+    .uk-table-striped > tr:nth-of-type(even):last-child,
+    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom-color: $inverse-global-border; }
+}

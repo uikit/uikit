@@ -38,7 +38,11 @@
 // Nav
 // ========================================================================
 
-
+@mixin hook-navbar-nav-item(){
+    text-transform: $navbar-nav-item-text-transform;
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color;
+}
 
 // @mixin hook-navbar-nav-item-hover(){}
 
@@ -118,7 +122,33 @@
 // Miscellaneous
 // ========================================================================
 
+@mixin hook-navbar-misc(){
 
+    .uk-navbar-container {
+        transition: 0.1s ease-in-out;
+        transition-property: background-color;
+    }
+
+    /* Tablet landscape and bigger */
+    @media (min-width: $breakpoint-medium) {
+
+        .uk-navbar-left,
+        .uk-navbar-right,
+        [class*='uk-navbar-center'] { gap: $navbar-gap-m; }
+
+        .uk-navbar-center-left { right:  unquote('calc(100% + #{$navbar-gap-m})'); }
+        .uk-navbar-center-right { left: unquote('calc(100% + #{$navbar-gap-m})'); }
+
+    }
+
+    /* Tablet landscape and bigger */
+    @media (min-width: $breakpoint-medium) {
+
+        .uk-navbar-nav { gap: $navbar-nav-gap-m; }
+
+    }
+
+}
 
 
 // Inverse

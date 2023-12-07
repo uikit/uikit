@@ -33,7 +33,10 @@
 // Text-level semantics
 // ========================================================================
 
-
+@mixin hook-base-code(){
+    padding: $base-code-padding-vertical $base-code-padding-horizontal;
+    background: $base-code-background;
+}
 
 
 // Headings
@@ -63,15 +66,28 @@
 // Blockquotes
 // ========================================================================
 
+@mixin hook-base-blockquote(){
+    color: $base-blockquote-color;
+}
 
+@mixin hook-base-blockquote-footer(){
 
+    color: $base-blockquote-footer-color;
 
+    &::before { content: "— "; }
+
+}
 
 
 // Preformatted text
 // ========================================================================
 
-
+@mixin hook-base-pre(){
+    padding: $base-pre-padding;
+    border: $base-pre-border-width solid $base-pre-border;
+    border-radius: $base-pre-border-radius;
+    background: $base-pre-background;
+}
 
 
 // Miscellaneous
@@ -87,7 +103,9 @@
 // @mixin hook-inverse-base-link(){}
 // @mixin hook-inverse-base-link-hover(){}
 
-
+@mixin hook-inverse-base-code(){
+    background-color: $inverse-global-muted-background;
+}
 
 // @mixin hook-inverse-base-heading(){}
 

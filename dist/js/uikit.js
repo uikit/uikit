@@ -8710,7 +8710,6 @@
             ).filter((el2) => {
               const imgExtension = el2.src.slice(-3);
               if (imgExtension === "svg") {
-                console.log(el2);
                 return el2;
               }
             }).forEach((img) => {

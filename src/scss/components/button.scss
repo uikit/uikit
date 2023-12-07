@@ -355,7 +355,108 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-button(){
 
+    //
+    // Default
+    //
+
+    .uk-button-default {
+        background-color: $inverse-button-default-background;
+        color: $inverse-button-default-color;
+        @if(mixin-exists(hook-inverse-button-default)) {@include hook-inverse-button-default();}
+    }
+
+    .uk-button-default:hover {
+        background-color: $inverse-button-default-hover-background;
+        color: $inverse-button-default-hover-color;
+        @if(mixin-exists(hook-inverse-button-default-hover)) {@include hook-inverse-button-default-hover();}
+    }
+
+    .uk-button-default:active,
+    .uk-button-default.uk-active {
+        background-color: $inverse-button-default-active-background;
+        color: $inverse-button-default-active-color;
+        @if(mixin-exists(hook-inverse-button-default-active)) {@include hook-inverse-button-default-active();}
+    }
+
+    //
+    // Primary
+    //
+
+    .uk-button-primary {
+        background-color: $inverse-button-primary-background;
+        color: $inverse-button-primary-color;
+        @if(mixin-exists(hook-inverse-button-primary)) {@include hook-inverse-button-primary();}
+    }
+
+    .uk-button-primary:hover {
+        background-color: $inverse-button-primary-hover-background;
+        color: $inverse-button-primary-hover-color;
+        @if(mixin-exists(hook-inverse-button-primary-hover)) {@include hook-inverse-button-primary-hover();}
+    }
+
+    .uk-button-primary:active,
+    .uk-button-primary.uk-active {
+        background-color: $inverse-button-primary-active-background;
+        color: $inverse-button-primary-active-color;
+        @if(mixin-exists(hook-inverse-button-primary-active)) {@include hook-inverse-button-primary-active();}
+    }
+
+    //
+    // Secondary
+    //
+
+    .uk-button-secondary {
+        background-color: $inverse-button-secondary-background;
+        color: $inverse-button-secondary-color;
+        @if(mixin-exists(hook-inverse-button-secondary)) {@include hook-inverse-button-secondary();}
+    }
+
+    .uk-button-secondary:hover {
+        background-color: $inverse-button-secondary-hover-background;
+        color: $inverse-button-secondary-hover-color;
+        @if(mixin-exists(hook-inverse-button-secondary-hover)) {@include hook-inverse-button-secondary-hover();}
+    }
+
+    .uk-button-secondary:active,
+    .uk-button-secondary.uk-active {
+        background-color: $inverse-button-secondary-active-background;
+        color: $inverse-button-secondary-active-color;
+        @if(mixin-exists(hook-inverse-button-secondary-active)) {@include hook-inverse-button-secondary-active();}
+    }
+
+    //
+    // Text
+    //
+
+    .uk-button-text {
+        color: $inverse-button-text-color;
+        @if(mixin-exists(hook-inverse-button-text)) {@include hook-inverse-button-text();}
+    }
+
+    .uk-button-text:hover {
+        color: $inverse-button-text-hover-color;
+        @if(mixin-exists(hook-inverse-button-text-hover)) {@include hook-inverse-button-text-hover();}
+    }
+
+    .uk-button-text:disabled {
+        color: $inverse-button-text-disabled-color;
+        @if(mixin-exists(hook-inverse-button-text-disabled)) {@include hook-inverse-button-text-disabled();}
+    }
+
+    //
+    // Link
+    //
+
+    .uk-button-link {
+        color: $inverse-button-link-color;
+        @if(mixin-exists(hook-inverse-button-link)) {@include hook-inverse-button-link();}
+    }
+
+    .uk-button-link:hover { color: $inverse-button-link-hover-color; }
+
+}
 
 // @mixin hook-inverse-button-default(){}
 // @mixin hook-inverse-button-default-hover(){}

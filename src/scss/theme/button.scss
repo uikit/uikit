@@ -25,7 +25,11 @@
 // Component
 // ========================================================================
 
-
+@mixin hook-button(){
+    text-transform: $button-text-transform;
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color, border-color;
+}
 
 // @mixin hook-button-hover(){}
 
@@ -89,11 +93,33 @@
 // Text modifier
 // ========================================================================
 
+@mixin hook-button-text(){
 
+    position: relative;
 
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 100%;
+        border-bottom: $button-text-border-width solid $button-text-border;
+        transition: right 0.3s ease-out;
+    }
 
+}
 
+@mixin hook-button-text-hover(){
 
+    &::before { right: 0; }
+
+}
+
+@mixin hook-button-text-disabled(){
+
+    &::before { display: none; }
+
+}
 
 
 // Link modifier
@@ -105,7 +131,34 @@
 // Miscellaneous
 // ========================================================================
 
+@mixin hook-button-misc(){
 
+    /* Group
+     ========================================================================== */
+
+    /*
+     * Collapse border
+     */
+
+    .uk-button-group > .uk-button:nth-child(n+2),
+    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: (-$button-border-width); }
+
+    /*
+     * Create position context to superimpose the successor elements border
+     * Known issue: If you use an `a` element as button and an icon inside,
+     * the active state will not work if you click the icon inside the button
+     * Workaround: Just use a `button` or `input` element as button
+     */
+
+    .uk-button-group .uk-button:hover,
+    .uk-button-group .uk-button:focus,
+    .uk-button-group .uk-button:active,
+    .uk-button-group .uk-button.uk-active {
+        position: relative;
+        z-index: 1;
+    }
+
+}
 
 
 // Inverse
@@ -125,7 +178,9 @@
 // @mixin hook-inverse-button-secondary-hover(){}
 // @mixin hook-inverse-button-secondary-active(){}
 
-
+@mixin hook-inverse-button-text(){
+    &::before { border-bottom-color: $inverse-global-emphasis-color; }
+}
 // @mixin hook-inverse-button-text-hover(){}
 // @mixin hook-inverse-button-text-disabled(){}
 

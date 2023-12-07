@@ -12,7 +12,10 @@
 // Component
 // ========================================================================
 
-
+@mixin hook-progress(){
+    border-radius: $progress-border-radius;
+    overflow: hidden;
+}
 
 // @mixin hook-progress-bar(){}
 

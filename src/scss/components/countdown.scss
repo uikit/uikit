@@ -121,7 +121,26 @@ $countdown-separator-font-size-m:                3rem !default; // 48px
 // Inverse
 // ========================================================================
 
+@mixin hook-inverse-component-countdown(){
 
+    .uk-countdown-number,
+    .uk-countdown-separator {
+        @if(mixin-exists(hook-inverse-countdown-item)) {@include hook-inverse-countdown-item();}
+    }
+
+    .uk-countdown-number {
+        @if(mixin-exists(hook-inverse-countdown-number)) {@include hook-inverse-countdown-number();}
+    }
+
+    .uk-countdown-separator {
+        @if(mixin-exists(hook-inverse-countdown-separator)) {@include hook-inverse-countdown-separator();}
+    }
+
+    .uk-countdown-label {
+        @if(mixin-exists(hook-inverse-countdown-label)) {@include hook-inverse-countdown-label();}
+    }
+
+}
 
 // @mixin hook-inverse-countdown-item(){}
 // @mixin hook-inverse-countdown-number(){}

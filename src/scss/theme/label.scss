@@ -16,7 +16,10 @@
 // Component
 // ========================================================================
 
-
+@mixin hook-label(){
+    border-radius: $label-border-radius;
+    text-transform: $label-text-transform;
+}
 
 
 // Color modifiers

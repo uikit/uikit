@@ -28,7 +28,24 @@
 // Title
 // ========================================================================
 
+@mixin hook-accordion-title(){
 
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        width: ($accordion-title-line-height * 1em);
+        height: ($accordion-title-line-height * 1em);
+        margin-left: $accordion-icon-margin-left;
+        float: right;
+        @include svg-fill($internal-accordion-close-image, "#000", $accordion-icon-color);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .uk-open > &::before { @include svg-fill($internal-accordion-open-image, "#000", $accordion-icon-color); }
+
+}
 
 // @mixin hook-accordion-title-hover(){}
 
@@ -52,4 +69,10 @@
 // @mixin hook-inverse-accordion-title(){}
 // @mixin hook-inverse-accordion-title-hover(){}
 
+@mixin hook-inverse-component-accordion(){
 
+    .uk-accordion-title::before { @include svg-fill($internal-accordion-close-image, "#000", $inverse-global-color); }
+
+    .uk-open > .uk-accordion-title::before { @include svg-fill($internal-accordion-open-image, "#000", $inverse-global-color); }
+
+}

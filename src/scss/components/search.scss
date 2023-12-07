@@ -294,7 +294,70 @@
 
 
 
+@mixin hook-inverse-component-search(){
 
+    //
+    // Input
+    //
+
+    .uk-search-input { color: $inverse-search-color; }
+
+    .uk-search-input::placeholder { color: $inverse-search-placeholder-color; }
+
+    //
+    // Icon
+    //
+
+    .uk-search .uk-search-icon { color: $inverse-search-icon-color; }
+    .uk-search .uk-search-icon:hover { color: $inverse-search-icon-color; }
+
+    //
+    // Style modifier
+    //
+
+    .uk-search-default .uk-search-input {
+        background-color: $inverse-search-default-background;
+        @if(mixin-exists(hook-inverse-search-default-input)) {@include hook-inverse-search-default-input();}
+    }
+
+    .uk-search-default .uk-search-input:focus {
+        background-color: $inverse-search-default-focus-background;
+        @if(mixin-exists(hook-inverse-search-default-input-focus)) {@include hook-inverse-search-default-input-focus();}
+    }
+
+    .uk-search-navbar .uk-search-input {
+        background-color: $inverse-search-navbar-background;
+        @if(mixin-exists(hook-inverse-search-navbar-input)) {@include hook-inverse-search-navbar-input();}
+    }
+
+    .uk-search-navbar .uk-search-input:focus {
+        @if(mixin-exists(hook-inverse-search-navbar-input-focus)) {@include hook-inverse-search-navbar-input-focus();}
+    }
+
+    .uk-search-large .uk-search-input {
+        background-color: $inverse-search-large-background;
+        @if(mixin-exists(hook-inverse-search-large-input)) {@include hook-inverse-search-large-input();}
+    }
+
+    .uk-search-large .uk-search-input:focus {
+        @if(mixin-exists(hook-inverse-search-large-input-focus)) {@include hook-inverse-search-large-input-focus();}
+    }
+
+    //
+    // Toggle
+    //
+
+    .uk-search-toggle {
+        color: $inverse-search-toggle-color;
+        @if(mixin-exists(hook-inverse-search-toggle)) {@include hook-inverse-search-toggle();}
+    }
+
+    .uk-search-toggle:hover {
+        color: $inverse-search-toggle-hover-color;
+        @if(mixin-exists(hook-inverse-search-toggle-hover)) {@include hook-inverse-search-toggle-hover();}
+    }
+
+}
 
 // @mixin hook-inverse-search-default-input(){}
 // @mixin hook-inverse-search-default-input-focus(){}

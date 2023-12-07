@@ -280,7 +280,44 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-table(){
 
+    .uk-table th {
+        color: $inverse-table-header-cell-color;
+        @if(mixin-exists(hook-inverse-table-header-cell)) {@include hook-inverse-table-header-cell();}
+    }
+
+    .uk-table caption {
+        color: $inverse-table-caption-color;
+        @if(mixin-exists(hook-inverse-table-caption)) {@include hook-inverse-table-caption();}
+    }
+
+    .uk-table > tr.uk-active,
+    .uk-table tbody tr.uk-active {
+        background: $inverse-table-row-active-background;
+        @if(mixin-exists(hook-inverse-table-row-active)) {@include hook-inverse-table-row-active();}
+    }
+
+    .uk-table-divider > tr:not(:first-child),
+    .uk-table-divider > :not(:first-child) > tr,
+    .uk-table-divider > :first-child > tr:not(:first-child) {
+        border-top-color: $inverse-table-divider-border;
+        @if(mixin-exists(hook-inverse-table-divider)) {@include hook-inverse-table-divider();}
+    }
+
+    .uk-table-striped > tr:nth-of-type(odd),
+    .uk-table-striped tbody tr:nth-of-type(odd) {
+        background: $inverse-table-striped-row-background;
+        @if(mixin-exists(hook-inverse-table-striped)) {@include hook-inverse-table-striped();}
+    }
+
+    .uk-table-hover > tr:hover,
+    .uk-table-hover tbody tr:hover {
+        background: $inverse-table-hover-row-background;
+        @if(mixin-exists(hook-inverse-table-hover)) {@include hook-inverse-table-hover();}
+    }
+
+}
 
 // @mixin hook-inverse-table-header-cell(){}
 // @mixin hook-inverse-table-caption(){}

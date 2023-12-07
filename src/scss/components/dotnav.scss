@@ -134,7 +134,29 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-dotnav(){
 
+    .uk-dotnav > * > * {
+        background-color: $inverse-dotnav-item-background;
+        @if(mixin-exists(hook-inverse-dotnav-item)) {@include hook-inverse-dotnav-item();}
+    }
+
+    .uk-dotnav > * > :hover {
+        background-color: $inverse-dotnav-item-hover-background;
+        @if(mixin-exists(hook-inverse-dotnav-item-hover)) {@include hook-inverse-dotnav-item-hover();}
+    }
+
+    .uk-dotnav > * > :active {
+        background-color: $inverse-dotnav-item-onclick-background;
+        @if(mixin-exists(hook-inverse-dotnav-item-onclick)) {@include hook-inverse-dotnav-item-onclick();}
+    }
+
+    .uk-dotnav > .uk-active > * {
+        background-color: $inverse-dotnav-item-active-background;
+        @if(mixin-exists(hook-inverse-dotnav-item-active)) {@include hook-inverse-dotnav-item-active();}
+    }
+
+}
 
 // @mixin hook-inverse-dotnav-item(){}
 // @mixin hook-inverse-dotnav-item-hover(){}

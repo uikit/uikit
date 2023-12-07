@@ -103,7 +103,24 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-slidenav(){
 
+    .uk-slidenav {
+        color: $inverse-slidenav-color;
+        @if(mixin-exists(hook-inverse-slidenav)) {@include hook-inverse-slidenav();}
+    }
+
+    .uk-slidenav:hover {
+        color: $inverse-slidenav-hover-color;
+        @if(mixin-exists(hook-inverse-slidenav-hover)) {@include hook-inverse-slidenav-hover();}
+    }
+
+    .uk-slidenav:active {
+        color: $inverse-slidenav-active-color;
+        @if(mixin-exists(hook-inverse-slidenav-active)) {@include hook-inverse-slidenav-active();}
+    }
+
+}
 
 // @mixin hook-inverse-slidenav(){}
 // @mixin hook-inverse-slidenav-hover(){}

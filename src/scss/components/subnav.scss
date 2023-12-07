@@ -200,7 +200,70 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-subnav(){
 
+    .uk-subnav > * > :first-child {
+        color: $inverse-subnav-item-color;
+        @if(mixin-exists(hook-inverse-subnav-item)) {@include hook-inverse-subnav-item();}
+    }
+
+    .uk-subnav > * > a:hover {
+        color: $inverse-subnav-item-hover-color;
+        @if(mixin-exists(hook-inverse-subnav-item-hover)) {@include hook-inverse-subnav-item-hover();}
+    }
+
+    .uk-subnav > .uk-active > a {
+        color: $inverse-subnav-item-active-color;
+        @if(mixin-exists(hook-inverse-subnav-item-active)) {@include hook-inverse-subnav-item-active();}
+    }
+
+    //
+    // Divider
+    //
+
+    .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
+        border-left-color: $inverse-subnav-divider-border;
+        @if(mixin-exists(hook-inverse-subnav-divider)) {@include hook-inverse-subnav-divider();}
+    }
+
+    //
+    // Pill
+    //
+
+    .uk-subnav-pill > * > :first-child {
+        background-color: $inverse-subnav-pill-item-background;
+        color: $inverse-subnav-pill-item-color;
+        @if(mixin-exists(hook-inverse-subnav-pill-item)) {@include hook-inverse-subnav-pill-item();}
+    }
+
+    .uk-subnav-pill > * > a:hover {
+        background-color: $inverse-subnav-pill-item-hover-background;
+        color: $inverse-subnav-pill-item-hover-color;
+        @if(mixin-exists(hook-inverse-subnav-pill-item-hover)) {@include hook-inverse-subnav-pill-item-hover();}
+    }
+
+    .uk-subnav-pill > * > a:active {
+        background-color: $inverse-subnav-pill-item-onclick-background;
+        color: $inverse-subnav-pill-item-onclick-color;
+        @if(mixin-exists(hook-inverse-subnav-pill-item-onclick)) {@include hook-inverse-subnav-pill-item-onclick();}
+    }
+
+    .uk-subnav-pill > .uk-active > a {
+        background-color: $inverse-subnav-pill-item-active-background;
+        color: $inverse-subnav-pill-item-active-color;
+        @if(mixin-exists(hook-inverse-subnav-pill-item-active)) {@include hook-inverse-subnav-pill-item-active();}
+    }
+
+    //
+    // Disabled
+    //
+
+    .uk-subnav > .uk-disabled > a {
+        color: $inverse-subnav-item-disabled-color;
+        @if(mixin-exists(hook-inverse-subnav-item-disabled)) {@include hook-inverse-subnav-item-disabled();}
+    }
+
+}
 
 // @mixin hook-inverse-subnav-item(){}
 // @mixin hook-inverse-subnav-item-hover(){}

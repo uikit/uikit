@@ -62,6 +62,12 @@
 // Inverse
 // ========================================================================
 
+@mixin hook-inverse-component-leader(){
 
+    .uk-leader-fill::after {
+        @if(mixin-exists(hook-inverse-leader)) {@include hook-inverse-leader();}
+    }
+
+}
 
 // @mixin hook-inverse-leader(){}

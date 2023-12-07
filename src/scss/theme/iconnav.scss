@@ -18,7 +18,11 @@
 
 // @mixin hook-iconnav(){}
 
-
+@mixin hook-iconnav-item(){
+    font-size: $subnav-item-font-size;
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color;
+}
 
 // @mixin hook-iconnav-item-hover(){}
 

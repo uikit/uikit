@@ -66,7 +66,12 @@
 
 // @mixin hook-modal-close-outside-hover(){}
 
-
+@mixin hook-modal-close-full(){
+    top: 0;
+    right: 0;
+    padding: $modal-close-full-padding;
+    background: $modal-close-full-background;
+}
 
 // @mixin hook-modal-close-full-hover(){}
 
@@ -74,3 +79,15 @@
 // Miscellaneous
 // ========================================================================
 
+@mixin hook-modal-misc(){
+
+    /* Tablet landscape and bigger */
+    @media (min-width: $breakpoint-medium) {
+
+        .uk-modal-close-full {
+            padding: $modal-close-full-padding-m;
+        }
+
+    }
+
+}

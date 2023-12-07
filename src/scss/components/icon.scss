@@ -194,7 +194,51 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 // ========================================================================
 
 
+@mixin hook-inverse-component-icon(){
 
+    //
+    // Link
+    //
+
+    .uk-icon-link {
+        color: $inverse-icon-link-color;
+        @if(mixin-exists(hook-inverse-icon-link)) {@include hook-inverse-icon-link();}
+    }
+
+    .uk-icon-link:hover {
+        color: $inverse-icon-link-hover-color;
+        @if(mixin-exists(hook-inverse-icon-link-hover)) {@include hook-inverse-icon-link-hover();}
+    }
+
+    .uk-icon-link:active,
+    .uk-active > .uk-icon-link {
+        color: $inverse-icon-link-active-color;
+        @if(mixin-exists(hook-inverse-icon-link-active)) {@include hook-inverse-icon-link-active();}
+    }
+
+    //
+    // Button
+    //
+
+    .uk-icon-button {
+        background-color: $inverse-icon-button-background;
+        color: $inverse-icon-button-color;
+        @if(mixin-exists(hook-inverse-icon-button)) {@include hook-inverse-icon-button();}
+    }
+
+    .uk-icon-button:hover {
+        background-color: $inverse-icon-button-hover-background;
+        color: $inverse-icon-button-hover-color;
+        @if(mixin-exists(hook-inverse-icon-button-hover)) {@include hook-inverse-icon-button-hover();}
+    }
+
+    .uk-icon-button:active {
+        background-color: $inverse-icon-button-active-background;
+        color: $inverse-icon-button-active-color;
+        @if(mixin-exists(hook-inverse-icon-button-active)) {@include hook-inverse-icon-button-active();}
+    }
+
+}
 
 // @mixin hook-inverse-icon-link(){}
 // @mixin hook-inverse-icon-link-hover(){}

@@ -63,7 +63,19 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-badge(){
 
+    .uk-badge {
+        background-color: $inverse-badge-background;
+        color: $inverse-badge-color !important;
+        @if(mixin-exists(hook-inverse-badge)) {@include hook-inverse-badge();}
+    }
+
+    .uk-badge:hover {
+        @if(mixin-exists(hook-inverse-badge-hover)) {@include hook-inverse-badge-hover();}
+    }
+
+}
 
 // @mixin hook-inverse-badge(){}
 // @mixin hook-inverse-badge-hover(){}

@@ -292,7 +292,53 @@ $heading-hero-font-size:                         $heading-hero-font-size-l * 0.5
 // ========================================================================
 
 
+@mixin hook-inverse-component-heading(){
 
+    .uk-heading-small {
+        @if(mixin-exists(hook-inverse-heading-small)) {@include hook-inverse-heading-small();}
+    }
+
+    .uk-heading-medium {
+        @if(mixin-exists(hook-inverse-heading-medium)) {@include hook-inverse-heading-medium();}
+    }
+
+    .uk-heading-large {
+        @if(mixin-exists(hook-inverse-heading-large)) {@include hook-inverse-heading-large();}
+    }
+
+    .uk-heading-xlarge {
+        @if(mixin-exists(hook-inverse-heading-xlarge)) {@include hook-inverse-heading-xlarge();}
+    }
+
+    .uk-heading-2xlarge {
+        @if(mixin-exists(hook-inverse-heading-2xlarge)) {@include hook-inverse-heading-2xlarge();}
+    }
+
+    .uk-heading-3xlarge {
+        @if(mixin-exists(hook-inverse-heading-3xlarge)) {@include hook-inverse-heading-3xlarge();}
+    }
+
+    @if ($deprecated == true) { .uk-heading-primary { @if (mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}}}
+
+    @if ($deprecated == true) { .uk-heading-hero { @if (mixin-exists(hook-inverse-heading-hero)) {@include hook-inverse-heading-hero();}}}
+
+    .uk-heading-divider {
+        border-bottom-color: $inverse-heading-divider-border;
+        @if(mixin-exists(hook-inverse-heading-divider)) {@include hook-inverse-heading-divider();}
+    }
+
+    .uk-heading-bullet::before {
+        border-left-color: $inverse-heading-bullet-border;
+        @if(mixin-exists(hook-inverse-heading-bullet)) {@include hook-inverse-heading-bullet();}
+    }
+
+    .uk-heading-line > ::before,
+    .uk-heading-line > ::after {
+        border-bottom-color: $inverse-heading-line-border;
+        @if(mixin-exists(hook-inverse-heading-line)) {@include hook-inverse-heading-line();}
+    }
+
+}
 
 // @mixin hook-inverse-heading-small(){}
 // @mixin hook-inverse-heading-medium(){}

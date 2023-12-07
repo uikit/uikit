@@ -20,7 +20,11 @@
 
 // @mixin hook-dotnav(){}
 
-
+@mixin hook-dotnav-item(){
+    border: $dotnav-item-border-width solid $dotnav-item-border;
+    transition: 0.2s ease-in-out;
+    transition-property: background-color, border-color;
+}
 
 
 

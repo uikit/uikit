@@ -23,7 +23,10 @@
 // Drop cap
 // ========================================================================
 
-
+@mixin hook-dropcap(){
+    // Prevent line wrap
+    margin-bottom: -2px;
+}
 
 
 // Logo

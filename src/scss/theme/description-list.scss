@@ -12,7 +12,11 @@
 // Component
 // ========================================================================
 
-
+@mixin hook-description-list-term(){
+    font-size: $description-list-term-font-size;
+    font-weight: $description-list-term-font-weight;
+    text-transform: $description-list-term-text-transform;
+}
 
 // @mixin hook-description-list-description(){}
 

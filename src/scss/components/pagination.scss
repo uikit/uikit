@@ -117,7 +117,29 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-pagination(){
 
+    .uk-pagination > * > * {
+        color: $inverse-pagination-item-color;
+        @if(mixin-exists(hook-inverse-pagination-item)) {@include hook-inverse-pagination-item();}
+    }
+
+    .uk-pagination > * > :hover {
+        color: $inverse-pagination-item-hover-color;
+        @if(mixin-exists(hook-inverse-pagination-item-hover)) {@include hook-inverse-pagination-item-hover();}
+    }
+
+    .uk-pagination > .uk-active > * {
+        color: $inverse-pagination-item-active-color;
+        @if(mixin-exists(hook-inverse-pagination-item-active)) {@include hook-inverse-pagination-item-active();}
+    }
+
+    .uk-pagination > .uk-disabled > * {
+        color: $inverse-pagination-item-disabled-color;
+        @if(mixin-exists(hook-inverse-pagination-item-disabled)) {@include hook-inverse-pagination-item-disabled();}
+    }
+
+}
 
 // @mixin hook-inverse-pagination-item(){}
 // @mixin hook-inverse-pagination-item-hover(){}

@@ -131,4 +131,8 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-column(){
 
+    .uk-column-divider { column-rule-color: $inverse-column-divider-rule-color; }
+
+}

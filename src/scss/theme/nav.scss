@@ -72,7 +72,9 @@
 // Secondary style modifier
 // ========================================================================
 
-
+@mixin hook-nav-secondary(){
+    > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {  margin-top: $nav-secondary-margin-top; }
+}
 
 
 

@@ -491,7 +491,28 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-utility(){
 
+    .uk-dropcap::first-letter,
+    .uk-dropcap p:first-of-type::first-letter {
+        @if(mixin-exists(hook-inverse-dropcap)) {@include hook-inverse-dropcap();}
+    }
+
+    .uk-logo {
+        color: $inverse-logo-color;
+        @if(mixin-exists(hook-inverse-logo)) {@include hook-inverse-logo();}
+    }
+
+    .uk-logo:hover {
+        color: $inverse-logo-hover-color;
+        @if(mixin-exists(hook-inverse-logo-hover)) {@include hook-inverse-logo-hover();}
+    }
+
+    .uk-logo > picture:not(:only-of-type) > :not(.uk-logo-inverse),
+    .uk-logo > :not(picture):not(.uk-logo-inverse):not(:only-of-type) { display: none; }
+    .uk-logo-inverse { display: block; }
+
+}
 
 // @mixin hook-inverse-dropcap(){}
 // @mixin hook-inverse-logo(){}

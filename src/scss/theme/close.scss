@@ -11,7 +11,10 @@
 // Component
 // ========================================================================
 
-
+@mixin hook-close(){
+    transition: 0.1s ease-in-out;
+    transition-property: color, opacity;
+}
 
 // @mixin hook-close-hover(){}
 

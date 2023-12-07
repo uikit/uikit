@@ -386,7 +386,19 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-grid(){
 
+    .uk-grid-divider > :not(.uk-first-column)::before {
+        border-left-color: $inverse-grid-divider-border;
+        @if(mixin-exists(hook-inverse-grid-divider-horizontal)) {@include hook-inverse-grid-divider-horizontal();}
+    }
+
+    .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
+        border-top-color: $inverse-grid-divider-border;
+        @if(mixin-exists(hook-inverse-grid-divider-vertical)) {@include hook-inverse-grid-divider-vertical();}
+    }
+
+}
 
 // @mixin hook-inverse-grid-divider-horizontal(){}
 // @mixin hook-inverse-grid-divider-vertical(){}

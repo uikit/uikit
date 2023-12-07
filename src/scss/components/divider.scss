@@ -126,7 +126,30 @@
 // ========================================================================
 
 
+@mixin hook-inverse-component-divider(){
 
+    .uk-divider-icon {
+        @include svg-fill($internal-divider-icon-image, "#000", $inverse-divider-icon-color);
+        @if(mixin-exists(hook-inverse-divider-icon)) {@include hook-inverse-divider-icon();}
+    }
+
+    .uk-divider-icon::before,
+    .uk-divider-icon::after {
+        border-bottom-color: $inverse-divider-icon-line-border;
+        @if(mixin-exists(hook-inverse-divider-icon-line)) {@include hook-inverse-divider-icon-line();}
+    }
+
+    .uk-divider-small::after {
+        border-top-color: $inverse-divider-small-border;
+        @if(mixin-exists(hook-inverse-divider-small)) {@include hook-inverse-divider-small();}
+    }
+
+    .uk-divider-vertical {
+        border-left-color: $inverse-divider-vertical-border;
+        @if(mixin-exists(hook-inverse-divider-vertical)) {@include hook-inverse-divider-vertical();}
+    }
+
+}
 
 // @mixin hook-inverse-divider-icon(){}
 // @mixin hook-inverse-divider-icon-line(){}

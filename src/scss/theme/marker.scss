@@ -11,7 +11,9 @@
 // Component
 // ========================================================================
 
-
+@mixin hook-marker(){
+    border-radius: 500px;
+}
 
 // @mixin hook-marker-hover(){}
 

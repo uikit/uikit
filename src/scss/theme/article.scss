@@ -34,7 +34,16 @@
 // Meta
 // ========================================================================
 
+@mixin hook-article-meta(){
 
+    a { color: $article-meta-link-color; }
+
+    a:hover {
+        color: $article-meta-link-hover-color;
+        text-decoration: none;
+    }
+
+}
 
 
 // Miscellaneous
