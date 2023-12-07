@@ -8704,29 +8704,10 @@
           css(el, "opacity", !inview && this.hidden ? 0 : "");
           toggleClass(el, this.inViewClass, inview);
           toggleClass(el, state.cls);
-          const triggerRepaint = () => {
-            Array.prototype.slice.call(
-              el.querySelectorAll("img")
-            ).filter((el2) => {
-              const imgExtension = el2.src.slice(-3);
-              if (imgExtension === "svg") {
-                return el2;
-              }
-            }).forEach((img) => {
-              const display = img.style.display;
-              if (display === "none") {
-                return;
-              }
-              img.style.display = "none";
-              const h = img.offsetHeight;
-              img.style.display = display;
-              return h;
-            });
-          };
           if (/\buk-animation-/.test(state.cls)) {
             const removeAnimationClasses = () => {
               removeClasses$1(el, "uk-animation-[\\w-]+");
-              triggerRepaint();
+              console.log("Trigger Repaint commented");
             };
             if (inview) {
               state.off = once(el, "animationcancel animationend", removeAnimationClasses);

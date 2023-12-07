@@ -151,7 +151,8 @@ export default {
             if (/\buk-animation-/.test(state.cls)) {
                 const removeAnimationClasses = () => {
                     removeClasses(el, 'uk-animation-[\\w-]+');
-                    triggerRepaint();
+                    //triggerRepaint();
+                    console.log('Trigger Repaint commented');
                 };
                 if (inview) {
                     state.off = once(el, 'animationcancel animationend', removeAnimationClasses);
