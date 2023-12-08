@@ -1,5 +1,6 @@
 export { default as Accordion } from './accordion';
 export { default as Alert } from './alert';
+export { default as ColorMode } from './color-mode';
 export { default as Cover } from './cover';
 export { default as Drop, default as Dropdown } from './drop';
 export { default as Dropnav } from './dropnav';
