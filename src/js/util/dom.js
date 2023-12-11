@@ -46,8 +46,8 @@ export function remove(element) {
 export function wrapAll(element, structure) {
     structure = toNode(before(element, structure));
 
-    while (structure.firstChild) {
-        structure = structure.firstChild;
+    while (structure.firstElementChild) {
+        structure = structure.firstElementChild;
     }
 
     append(structure, element);
