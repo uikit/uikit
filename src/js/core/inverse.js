@@ -1,11 +1,10 @@
 import {
-    $,
+    $$,
     css,
     dimensions,
     matches,
     observeResize,
     on,
-    parent,
     replaceClass,
     scrollParent,
 } from 'uikit-util';
@@ -15,17 +14,15 @@ export default {
     props: {
         target: String,
         selActive: String,
-        prop: String,
     },
 
     data: {
         target: false,
         selActive: false,
-        prop: false,
     },
 
     computed: {
-        target: ({ target }, $el) => (target ? $(target, $el) : $el),
+        target: ({ target }, $el) => (target ? $$(target, $el) : [$el]),
     },
 
     disconnect() {
@@ -50,18 +47,20 @@ export default {
 
     update: {
         read() {
-            replaceClass(
-                this.target,
-                'uk-light,uk-dark',
-                matches(this.target, this.selActive) ? findTargetColor(this.target, this.prop) : '',
-            );
+            for (const target of this.target) {
+                replaceClass(
+                    target,
+                    'uk-light,uk-dark',
+                    matches(target, this.selActive) ? findTargetColor(target) : '',
+                );
+            }
         },
         events: ['color'],
     },
 
     methods: {
         register() {
-            const active = this._isIntersecting && !isWithinMixBlendMode(this.target);
+            const active = this._isIntersecting;
 
             if (!active) {
                 if (this._listener) {
@@ -77,11 +76,11 @@ export default {
     },
 };
 
-function registerListener(target, handler) {
-    const parent = scrollParent(target, true);
+function registerListener(targets, handler) {
+    const parent = scrollParent(targets, true);
     const scrollEl = parent === document.documentElement ? document : parent;
 
-    const observer = observeResize([target, parent], handler);
+    const observer = observeResize([...targets, parent], handler);
     const listener = [
         on(scrollEl, 'scroll', handler, { passive: true }),
         on(document, 'itemshown itemhidden', handler),
@@ -95,15 +94,7 @@ function registerListener(target, handler) {
     };
 }
 
-function isWithinMixBlendMode(el) {
-    do {
-        if (css(el, 'mixBlendMode') !== 'normal') {
-            return true;
-        }
-    } while ((el = parent(el)));
-}
-
-function findTargetColor(target, prop) {
+function findTargetColor(target) {
     const { left, top, height, width } = dimensions(target);
 
     const elements = target.ownerDocument.elementsFromPoint(
@@ -116,7 +107,7 @@ function findTargetColor(target, prop) {
             continue;
         }
 
-        const color = css(element, prop);
+        const color = css(element, '--uk-inverse');
         if (color) {
             return `uk-${color}`;
         }

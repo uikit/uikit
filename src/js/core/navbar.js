@@ -39,13 +39,6 @@ export default {
         },
     },
 
-    connected() {
-        this.$create('color-mode', this.navbarContainer, {
-            prop: '--uk-navbar-color',
-            selActive: `.${clsNavbarTransparent}`,
-        });
-    },
-
     events: [
         {
             name: 'show',
