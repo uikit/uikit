@@ -1,14 +1,5 @@
-import {
-    $$,
-    css,
-    dimensions,
-    matches,
-    observeResize,
-    on,
-    replaceClass,
-    scrollParent,
-} from 'uikit-util';
-import { intersection, mutation } from '../api/observables';
+import { $$, css, dimensions, matches, observeResize, on, replaceClass } from 'uikit-util';
+import { mutation } from '../api/observables';
 
 export default {
     props: {
@@ -25,24 +16,35 @@ export default {
         target: ({ target }, $el) => (target ? $$(target, $el) : [$el]),
     },
 
-    disconnect() {
-        this._listener?.();
-    },
-
     observe: [
         mutation({
             target: ({ target }) => target,
-            handler: 'register',
             options: { attributes: true, attributeFilter: ['class'], attributeOldValue: true },
         }),
-        intersection({
-            handler([{ isIntersecting }]) {
-                this._isIntersecting = isIntersecting;
-                this.register();
+        {
+            target: ({ target }) => target,
+            observe: (target, handler) => {
+                const observer = observeResize([...target, document.documentElement], handler);
+                const listener = [
+                    on(document, 'scroll itemshown itemhidden', handler, {
+                        passive: true,
+                        capture: true,
+                    }),
+                    on(document, 'show hide', (e) => observer.observe(e.target)),
+                    on(document, 'shown hidden', (e) => observer.unobserve(e.target)),
+                ];
+
+                return {
+                    disconnect() {
+                        observer.disconnect();
+                        listener.map((off) => off());
+                    },
+                };
             },
-            options: { rootMargin: '500px 0px' },
-            args: { intersecting: false },
-        }),
+            handler() {
+                this.$emit();
+            },
+        },
     ],
 
     update: {
@@ -55,44 +57,8 @@ export default {
                 );
             }
         },
-        events: ['color'],
-    },
-
-    methods: {
-        register() {
-            const active = this._isIntersecting;
-
-            if (!active) {
-                if (this._listener) {
-                    this._listener();
-                    delete this._listener;
-                }
-
-                return;
-            }
-
-            this._listener ||= registerListener(this.target, () => this.$emit('color'));
-        },
     },
 };
-
-function registerListener(targets, handler) {
-    const parent = scrollParent(targets, true);
-    const scrollEl = parent === document.documentElement ? document : parent;
-
-    const observer = observeResize([...targets, parent], handler);
-    const listener = [
-        on(scrollEl, 'scroll', handler, { passive: true }),
-        on(document, 'itemshown itemhidden', handler),
-        on(document, 'show hide', (e) => observer.observe(e.target)),
-        on(document, 'shown hidden', (e) => observer.unobserve(e.target)),
-    ];
-
-    return () => {
-        listener.map((off) => off());
-        observer.disconnect();
-    };
-}
 
 function findTargetColor(target) {
     const { left, top, height, width } = dimensions(target);

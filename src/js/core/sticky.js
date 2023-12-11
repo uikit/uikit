@@ -444,7 +444,10 @@ export default {
                 prev !== active && trigger(this.$el, 'active');
             } else {
                 replaceClass(this.target, this.clsActive, this.clsInactive);
-                prev !== active && trigger(this.$el, 'inactive');
+                if (prev !== active) {
+                    preventTransition(this.target);
+                    trigger(this.$el, 'inactive');
+                }
             }
         },
     },

@@ -1,5 +1,6 @@
 import {
     $,
+    MouseTracker,
     addClass,
     append,
     apply,
@@ -33,7 +34,6 @@ import Container from '../mixin/container';
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
-import { MouseTracker } from '../util/mouse';
 import { preventBackgroundScroll } from '../util/scroll';
 
 export let active;

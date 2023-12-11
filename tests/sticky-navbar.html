@@ -420,11 +420,11 @@
             </div>
         </div>
 
-        <div id="transparent-dropdown" class="uk-section-primary uk-preserve-color">
+        <div id="transparent-dropdown" class="uk-section-primary uk-preserve-color uk-inverse-light">
 
             <div class="tm-header">
-                <div uk-sticky="start: 200; end: #transparent-dropdown; show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent uk-light">
-                    <nav class="uk-navbar-container">
+                <div uk-sticky="start: 200; end: #transparent-dropdown; show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent">
+                    <nav class="uk-navbar-container" uk-inverse="sel-active: .uk-navbar-transparent">
                         <div class="uk-container uk-container-expand">
                             <div uk-navbar>
                                 <div class="uk-navbar-left">
@@ -525,11 +525,11 @@
 
         </div>
 
-        <div id="transparent-dropbar" class="uk-section-secondary uk-preserve-color">
+        <div id="transparent-dropbar" class="uk-section-secondary uk-preserve-color uk-inverse-light">
 
             <div class="tm-header">
-                <div uk-sticky="start: 200; end: #transparent-dropbar; show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent uk-light">
-                    <nav class="uk-navbar-container">
+                <div uk-sticky="start: 200; end: #transparent-dropbar; show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent">
+                    <nav class="uk-navbar-container" uk-inverse="sel-active: .uk-navbar-transparent">
                         <div class="uk-container uk-container-expand">
                             <div uk-navbar="target-y: !.uk-navbar-container; dropbar: true; dropbar-anchor: !.uk-navbar-container">
                                 <div class="uk-navbar-left">
@@ -630,11 +630,11 @@
 
         </div>
 
-        <div id="sticky-transparent-dropbar-remove" class="uk-section-secondary uk-preserve-color" style="background-image: url('images/dark.jpg');">
+        <div id="sticky-transparent-dropbar-remove" class="uk-section-secondary uk-preserve-color uk-inverse-light" style="background-image: url('images/dark.jpg');">
 
             <div class="tm-header">
                 <div uk-sticky="end: #sticky-transparent-dropbar-remove; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-                    <nav class="uk-navbar-container uk-navbar-transparent uk-light">
+                    <nav class="uk-navbar-container uk-navbar-transparent" uk-inverse="sel-active: .uk-navbar-transparent">
                         <div class="uk-container uk-container-expand">
                             <div uk-navbar="target-y: !.uk-navbar-container; dropbar: true; dropbar-anchor: !.uk-navbar-container; dropbar-transparent-mode: remove;">
                                 <div class="uk-navbar-left">
@@ -759,7 +759,7 @@
 
             <div class="tm-header">
                 <div class="uk-blend-difference uk-position-z-index-high" uk-sticky="end: #sticky-transparent-dropbar-behind; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-                    <nav class="uk-navbar-container uk-navbar-transparent uk-dark">
+                    <nav class="uk-navbar-container uk-navbar-transparent uk-light">
                         <div class="uk-container uk-container-expand">
                             <div uk-navbar="target-y: #sticky-transparent-dropbar-behind .uk-navbar-container; container: #sticky-transparent-dropbar-behind .tm-header; dropbar: true; dropbar-anchor: !.tm-header > *; dropbar-transparent-mode: behind; close-on-scroll: true">
                                 <div class="uk-navbar-left">
@@ -884,7 +884,7 @@
 
             <div class="tm-header uk-position-top">
                 <div uk-sticky="end: #sticky-transparent-recolor; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-                    <nav class="uk-navbar-container uk-navbar-transparent uk-dark">
+                    <nav class="uk-navbar-container uk-navbar-transparent" uk-inverse="sel-active: .uk-navbar-transparent">
                         <div class="uk-container uk-container-expand">
                             <div uk-navbar>
                                 <div class="uk-navbar-left">
