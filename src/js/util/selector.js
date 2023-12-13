@@ -74,7 +74,7 @@ function _query(selector, context = document, queryFn) {
     }
 }
 
-const selectorRe = /.*?[^\\](?:,|$)/g;
+const selectorRe = /.*?[^\\](?![^(]*\))(?:,|$)/g;
 
 const splitSelector = memoize((selector) =>
     selector.match(selectorRe).map((selector) => selector.replace(/,$/, '').trim()),
