@@ -30,8 +30,10 @@ export default {
                         passive: true,
                         capture: true,
                     }),
-                    on(document, 'show hide', (e) => observer.observe(e.target)),
-                    on(document, 'shown hidden', (e) => observer.unobserve(e.target)),
+                    on(document, 'show hide transitionstart', (e) => observer.observe(e.target)),
+                    on(document, 'shown hidden transitionend transitioncancel', (e) =>
+                        observer.unobserve(e.target),
+                    ),
                 ];
 
                 return {
