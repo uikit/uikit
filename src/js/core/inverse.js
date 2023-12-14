@@ -55,7 +55,9 @@ export default {
                 replaceClass(
                     target,
                     'uk-light,uk-dark',
-                    matches(target, this.selActive) ? findTargetColor(target) : '',
+                    !this.selActive || matches(target, this.selActive)
+                        ? findTargetColor(target)
+                        : '',
                 );
             }
         },
