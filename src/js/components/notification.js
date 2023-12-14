@@ -3,7 +3,6 @@ import {
     append,
     apply,
     css,
-    isVisible,
     parent,
     pointerEnter,
     pointerLeave,
@@ -44,14 +43,13 @@ export default {
 
     created() {
         const posClass = `${this.clsContainer}-${this.pos}`;
-        let container = $(`.${posClass}`, this.container);
-
-        if (!container || !isVisible(container)) {
-            container = append(
+        const containerAttr = `data-${this.clsContainer}-container`;
+        const container =
+            $(`.${posClass}[${containerAttr}]`, this.container) ||
+            append(
                 this.container,
-                `<div class="${this.clsContainer} ${posClass}"></div>`,
+                `<div class="${this.clsContainer} ${posClass}" ${containerAttr}></div>`,
             );
-        }
 
         this.$mount(
             append(
