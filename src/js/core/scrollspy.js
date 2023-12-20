@@ -124,7 +124,9 @@ export default {
             if (/\buk-animation-/.test(state.cls)) {
                 const removeAnimationClasses = () => removeClasses(el, 'uk-animation-[\\w-]+');
                 if (inview) {
-                    state.off = once(el, 'animationcancel animationend', removeAnimationClasses);
+                    state.off = once(el, 'animationcancel animationend', removeAnimationClasses, {
+                        self: true,
+                    });
                 } else {
                     removeAnimationClasses();
                 }
