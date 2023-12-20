@@ -79,7 +79,7 @@ function findTargetColor(target) {
         );
 
         for (const element of elements) {
-            if (target.contains(element)) {
+            if (target.contains(element) || element.closest('[class*="-leave"]')) {
                 continue;
             }
 
@@ -94,7 +94,6 @@ function findTargetColor(target) {
             }
         }
     }
-    if (last) {
-        return `uk-${last}`;
-    }
+
+    return last ? `uk-${last}` : '';
 }
