@@ -71,19 +71,30 @@ export default {
 function findTargetColor(target) {
     const { left, top, height, width } = dimensions(target);
 
-    const elements = target.ownerDocument.elementsFromPoint(
-        Math.max(0, left) + width / 2,
-        Math.max(0, top) + height / 2,
-    );
+    let last;
+    for (const percent of [0.25, 0.5, 0.75]) {
+        const elements = target.ownerDocument.elementsFromPoint(
+            Math.max(0, left) + width * percent,
+            Math.max(0, top) + height / 2,
+        );
 
-    for (const element of elements) {
-        if (target.contains(element)) {
-            continue;
-        }
+        for (const element of elements) {
+            if (target.contains(element)) {
+                continue;
+            }
 
-        const color = css(element, '--uk-inverse');
-        if (color) {
-            return `uk-${color}`;
+            const color = css(element, '--uk-inverse');
+            if (color) {
+                if (color === last) {
+                    return `uk-${color}`;
+                }
+
+                last = color;
+                break;
+            }
         }
+    }
+    if (last) {
+        return `uk-${last}`;
     }
 }
