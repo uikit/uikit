@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add parallax control to Slider and Slideshow components
+- Add parallax options to Slider and Slideshow components
 - Add Inverse component to color content with no background depending on intersecting elements beneath
 - Add color mode for default and muted style modifiers in Section, Tile, Card and Overlay components
 - Add size modifier to Nav component
