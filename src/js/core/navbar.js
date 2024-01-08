@@ -21,7 +21,13 @@ export default {
         navbarContainer: (_, $el) => $el.closest('.uk-navbar-container'),
 
         dropbarOffset({ dropbarTransparentMode }) {
-            return dropbarTransparentMode === 'behind' ? this.navbarContainer.offsetHeight : 0;
+            const { offsetTop, offsetHeight } = this.navbarContainer;
+            return (
+                offsetTop +
+                (dropbarTransparentMode === 'behind'
+                    ? 0
+                    : offsetHeight + this.dropbarPositionOffset)
+            );
         },
     },
 
