@@ -82,7 +82,7 @@ function findTargetColor(target) {
             if (
                 target.contains(element) ||
                 (element.closest('[class*="-leave"]') &&
-                    elements.some((el) => matches(el, '[class*="-enter"]')))
+                    elements.some((el) => element !== el && matches(el, '[class*="-enter"]')))
             ) {
                 continue;
             }
