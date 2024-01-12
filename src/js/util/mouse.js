@@ -1,3 +1,4 @@
+import { dimensions } from './dimensions';
 import { getEventPos, on } from './event';
 import { last, pointInRect } from './lang';
 
@@ -30,7 +31,7 @@ export class MouseTracker {
             return false;
         }
 
-        const p = target.getBoundingClientRect();
+        const p = dimensions(target);
         const { left, right, top, bottom } = p;
 
         const [prevPosition] = this.positions;

@@ -235,7 +235,7 @@ function keepScrollPosition(el) {
     let frame;
     (function scroll() {
         frame = requestAnimationFrame(() => {
-            const { top } = el.getBoundingClientRect();
+            const { top } = dimensions(el);
             if (top < 0) {
                 scrollElement.scrollTop += top;
             }

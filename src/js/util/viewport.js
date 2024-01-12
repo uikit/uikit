@@ -1,4 +1,4 @@
-import { offset, offsetPosition } from './dimensions';
+import { dimensions, offset, offsetPosition } from './dimensions';
 import { isVisible, parent, parents } from './filter';
 import {
     clamp,
@@ -200,7 +200,8 @@ export function offsetViewport(scrollElement) {
 }
 
 export function getCoveringElement(target) {
-    return target.ownerDocument.elementsFromPoint(offset(target).left, 0).find(
+    const { left, width, top } = dimensions(target);
+    return target.ownerDocument.elementsFromPoint(left + width / 2, top).find(
         (el) =>
             !el.contains(target) &&
             ((hasPosition(el, 'fixed') &&
