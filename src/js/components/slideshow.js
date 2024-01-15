@@ -11,14 +11,14 @@ export default {
 
     props: {
         ratio: String,
-        minHeight: Number,
-        maxHeight: Number,
+        minHeight: String,
+        maxHeight: String,
     },
 
     data: {
         ratio: '16:9',
-        minHeight: false,
-        maxHeight: false,
+        minHeight: undefined,
+        maxHeight: undefined,
         selList: '.uk-slideshow-items',
         attrItem: 'uk-slideshow-item',
         selNav: '.uk-slideshow-nav',
@@ -28,9 +28,9 @@ export default {
     watch: {
         list(list) {
             css(list, {
-                aspectRatio: this.ratio.replace(':', '/'),
-                minHeight: this.minHeight || '',
-                maxHeight: this.maxHeight || '',
+                aspectRatio: this.ratio ? this.ratio.replace(':', '/') : undefined,
+                minHeight: this.minHeight,
+                maxHeight: this.maxHeight,
                 minWidth: '100%',
                 maxWidth: '100%',
             });
