@@ -76,7 +76,8 @@ export default {
             return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
         },
 
-        dropbarOffset(_, { offsetTop, offsetHeight }) {
+        dropbarOffset({ target, targetY }, $el) {
+            const { offsetTop, offsetHeight } = query(targetY || target || $el, $el);
             return offsetTop + offsetHeight + this.dropbarPositionOffset;
         },
 
