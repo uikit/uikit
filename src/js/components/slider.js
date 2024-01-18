@@ -46,14 +46,6 @@ export default {
     },
 
     computed: {
-        avgWidth() {
-            return this.totalWidth / this.length;
-        },
-
-        totalWidth() {
-            return getWidth(this.list);
-        },
-
         finite({ finite }) {
             return finite || isFinite(this.list, this.center);
         },
@@ -81,7 +73,7 @@ export default {
         },
 
         sets({ sets: enabled }) {
-            if (!enabled) {
+            if (!enabled || this.parallax) {
                 return;
             }
 
@@ -98,7 +90,9 @@ export default {
                 if (this.center) {
                     if (
                         left < width / 2 &&
-                        left + slideWidth + dimensions(getIndex(+i + 1, this.slides)).width / 2 >
+                        left +
+                            slideWidth +
+                            dimensions(this.slides[getIndex(+i + 1, this.slides)]).width / 2 >
                             width / 2
                     ) {
                         sets.push(+i);
@@ -148,11 +142,7 @@ export default {
                 }
             }
 
-            if (this.length && !this.dragging && !this.stack.length) {
-                this.reorder();
-                this._translate(1);
-            }
-
+            this.reorder();
             this.updateActiveClasses();
         },
 
@@ -190,9 +180,10 @@ export default {
 
             const index =
                 this.dir < 0 || !this.slides[this.prevIndex] ? this.index : this.prevIndex;
+            const avgWidth = getWidth(this.list) / this.length;
             this.duration =
-                speedUp(this.avgWidth / this.velocity) *
-                (dimensions(this.slides[index]).width / this.avgWidth);
+                speedUp(avgWidth / this.velocity) *
+                (dimensions(this.slides[index]).width / avgWidth);
 
             this.reorder();
         },
@@ -286,7 +277,7 @@ export default {
             const { width } = dimensions(this.list);
             const left = -width;
             const right = width * 2;
-            const slideWidth = this.getSlideWidthAt(this.index);
+            const slideWidth = dimensions(this.slides[this.index]).width;
             const slideLeft = this.center ? width / 2 - slideWidth / 2 : 0;
             const slides = new Set();
             for (const i of [-1, 1]) {
@@ -301,8 +292,27 @@ export default {
             return Array.from(slides);
         },
 
-        getSlideWidthAt(index) {
-            return dimensions(this.slides[index]).width;
+        getIndexAt(percent) {
+            let index = -1;
+            const firstSlideWidth = dimensions(this.slides[0]).width;
+            const lastSlideWidth = dimensions(last(this.slides)).width;
+            const scrollDist =
+                getWidth(this.list) -
+                (this.center ? firstSlideWidth / 2 + lastSlideWidth / 2 : lastSlideWidth);
+
+            let dist = percent * scrollDist;
+            let slidePercent = 0;
+
+            do {
+                const slideWidth = dimensions(this.slides[++index]).width;
+                const slideDist = this.center
+                    ? slideWidth / 2 + dimensions(this.slides[index + 1]).width / 2
+                    : slideWidth;
+                slidePercent = (dist / slideDist) % 1;
+                dist -= slideDist;
+            } while (dist >= 0 && index < this.maxIndex);
+
+            return [index, slidePercent];
         },
     },
 };

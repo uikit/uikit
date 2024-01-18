@@ -1,10 +1,9 @@
-import { hasClass, includes, query, scrolledOver, toPx, trigger } from 'uikit-util';
+import { dimensions, hasClass, includes, query, scrolledOver, toPx, trigger } from 'uikit-util';
 import { resize, scroll } from '../api/observables';
 import { ease } from './parallax';
 
 export default {
     props: {
-        target: String,
         parallax: Boolean,
         parallaxTarget: Boolean,
         parallaxStart: String,
@@ -13,7 +12,6 @@ export default {
     },
 
     data: {
-        target: false,
         parallax: false,
         parallaxTarget: false,
         parallaxStart: 0,
@@ -23,15 +21,15 @@ export default {
 
     observe: [
         resize({
-            target: ({ $el, target }) => [$el, target],
+            target: ({ $el, parallaxTarget }) => [$el, parallaxTarget],
             filter: ({ parallax }) => parallax,
         }),
         scroll({ filter: ({ parallax }) => parallax }),
     ],
 
     computed: {
-        target({ target }, $el) {
-            return (target && query(target, $el)) || $el;
+        parallaxTarget({ parallaxTarget }, $el) {
+            return (parallaxTarget && query(parallaxTarget, $el)) || this.list;
         },
     },
 
@@ -41,58 +39,71 @@ export default {
                 return;
             }
 
-            this.finite = true;
-            this.dragging = true;
-
-            const target = (this.target && query(this.target, this.$el)) || this.list;
+            const target = this.parallaxTarget;
             const start = toPx(this.parallaxStart, 'height', target, true);
             const end = toPx(this.parallaxEnd, 'height', target, true);
             const percent = ease(scrolledOver(target, start, end), this.parallaxEasing);
 
-            let prevIndex = -1;
-            let dist = percent * (this.totalWidth - this.list.offsetWidth);
-            let slidePercent = 0;
-
-            do {
-                const slideWidth = this.getSlideWidthAt(++prevIndex);
-                slidePercent = (dist / slideWidth) % 1;
-                dist -= slideWidth;
-            } while (dist >= 0 && prevIndex < this.maxIndex);
+            const [prevIndex, slidePercent] = this.getIndexAt(percent);
 
             const nextIndex = this.getValidIndex(prevIndex + Math.ceil(slidePercent));
 
             const prev = this.slides[prevIndex];
             const next = this.slides[nextIndex];
 
-            const { triggerShow, triggerShown, triggerHide, triggerHidden } = getTriggers(this);
+            const { triggerShow, triggerShown, triggerHide, triggerHidden } = useTriggers(this);
 
-            for (const i of new Set([this.index, this.prevIndex])) {
-                if (!includes([nextIndex, prevIndex], i)) {
-                    triggerHide(this.slides[i]);
-                    triggerHidden(this.slides[i]);
+            if (~this.prevIndex) {
+                for (const i of new Set([this.index, this.prevIndex])) {
+                    if (!includes([nextIndex, prevIndex], i)) {
+                        triggerHide(this.slides[i]);
+                        triggerHidden(this.slides[i]);
+                    }
                 }
             }
+
+            const changed = this.prevIndex !== prevIndex || this.index !== nextIndex;
+
+            this.dir = 1;
+            this.prevIndex = prevIndex;
+            this.index = nextIndex;
 
             if (prev !== next) {
                 triggerHide(prev);
             }
+
             triggerShow(next);
 
-            if (this.prevIndex !== prevIndex || this.index !== nextIndex) {
+            if (changed) {
                 triggerShown(prev);
             }
-
-            this.prevIndex = prevIndex;
-            this.index = nextIndex;
 
             this._translate(prev === next ? 1 : slidePercent, prev, next);
         },
 
         events: ['scroll', 'resize'],
     },
+
+    methods: {
+        getIndexAt(percent) {
+            let index = -1;
+            const slideWidth = dimensions(this.list).width;
+            const scrollDist = slideWidth * Math.max(0, this.length - 1);
+            let dist = percent * scrollDist;
+            let slidePercent = 0;
+
+            do {
+                ++index;
+                slidePercent = (dist / slideWidth) % 1;
+                dist -= slideWidth;
+            } while (dist >= 0 && index < this.maxIndex);
+
+            return [index, slidePercent];
+        },
+    },
 };
 
-function getTriggers(cmp) {
+function useTriggers(cmp) {
     const { clsSlideActive, clsEnter, clsLeave } = cmp;
 
     return { triggerShow, triggerShown, triggerHide, triggerHidden };
