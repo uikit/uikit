@@ -128,7 +128,7 @@ export function scrolledOver(element, startOffset = 0, endOffset = 0) {
     const start = Math.max(0, elementOffsetTop - viewportHeight + startOffset);
     const end = Math.min(maxScroll, elementOffsetTop + element.offsetHeight - endOffset);
 
-    return clamp((scrollTop - start) / (end - start));
+    return start < end ? clamp((scrollTop - start) / (end - start)) : 1;
 }
 
 export function scrollParents(element, scrollable = false, props = []) {
