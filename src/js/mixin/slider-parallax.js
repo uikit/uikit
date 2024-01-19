@@ -86,7 +86,7 @@ export default {
 
     methods: {
         getIndexAt(percent) {
-            const index = percent * Math.max(0, this.length - 1);
+            const index = percent * (this.length - 1);
             return [Math.floor(index), index % 1];
         },
     },

@@ -113,7 +113,7 @@ export default {
 
     methods: {
         show(index, force = false) {
-            if (this.dragging || !this.length) {
+            if (this.dragging || !this.length || this.parallax) {
                 return;
             }
 
