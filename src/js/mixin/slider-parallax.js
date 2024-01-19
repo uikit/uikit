@@ -1,4 +1,4 @@
-import { dimensions, hasClass, includes, query, scrolledOver, toPx, trigger } from 'uikit-util';
+import { hasClass, includes, query, scrolledOver, toPx, trigger } from 'uikit-util';
 import { resize, scroll } from '../api/observables';
 import { ease } from './parallax';
 
@@ -86,19 +86,8 @@ export default {
 
     methods: {
         getIndexAt(percent) {
-            let index = -1;
-            const slideWidth = dimensions(this.list).width;
-            const scrollDist = slideWidth * Math.max(0, this.length - 1);
-            let dist = percent * scrollDist;
-            let slidePercent = 0;
-
-            do {
-                ++index;
-                slidePercent = (dist / slideWidth) % 1;
-                dist -= slideWidth;
-            } while (dist >= 0 && index < this.maxIndex);
-
-            return [index, slidePercent];
+            const index = percent * Math.max(0, this.length - 1);
+            return [Math.floor(index), index % 1];
         },
     },
 };
