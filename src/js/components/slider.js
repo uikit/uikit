@@ -192,6 +192,7 @@ export default {
             if (~this.prevIndex) {
                 addClass(this._getTransitioner().getItemIn(), this.clsActive);
             }
+            this.updateActiveClasses(this.prevIndex);
         },
 
         itemshown() {
@@ -233,8 +234,9 @@ export default {
             }
         },
 
-        updateActiveClasses() {
-            const actives = this._getTransitioner(this.index).getActives();
+        updateActiveClasses(currentIndex = this.index) {
+            const actives = this._getTransitioner(currentIndex).getActives();
+
             const activeClasses = [
                 this.clsActive,
                 !this.sets || includes(this.sets, toFloat(this.index)) ? this.clsActivated : '',

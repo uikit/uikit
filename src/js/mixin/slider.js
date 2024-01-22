@@ -83,17 +83,12 @@ export default {
     observe: resize(),
 
     events: {
-        beforeitemshow({ target }) {
-            addClass(target, this.clsActive);
-        },
-
         itemshow({ target }) {
             addClass(target, this.clsEnter, this.clsSlideActive);
         },
 
         itemshown({ target }) {
             removeClass(target, this.clsEnter);
-            addClass(target, this.clsActivated);
         },
 
         itemhide({ target }) {
@@ -101,13 +96,7 @@ export default {
         },
 
         itemhidden({ target }) {
-            removeClass(
-                target,
-                this.clsLeave,
-                this.clsActive,
-                this.clsActivated,
-                this.clsSlideActive,
-            );
+            removeClass(target, this.clsLeave, this.clsSlideActive);
         },
     },
 
