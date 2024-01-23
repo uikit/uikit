@@ -6,6 +6,7 @@ export { default as Dropnav } from './dropnav';
 export { default as FormCustom } from './form-custom';
 export { default as Grid } from './grid';
 export { default as HeightMatch } from './height-match';
+export { default as HeightPlaceholder } from './height-placeholder';
 export { default as HeightViewport } from './height-viewport';
 export { default as Icon } from './icon';
 export { default as Img } from './img';
