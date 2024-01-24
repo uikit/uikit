@@ -64,7 +64,9 @@ function _query(selector, context = document, queryFn) {
             }
         }
 
-        context = document;
+        if (!isDocument(context)) {
+            context = context.ownerDocument;
+        }
     }
 
     try {
