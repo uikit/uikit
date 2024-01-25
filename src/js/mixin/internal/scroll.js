@@ -11,9 +11,9 @@ export function preventBackgroundScroll(el) {
                 return;
             }
 
-            let { scrollHeight, clientHeight } = scrollParent(e.target);
+            let { scrollHeight, clientHeight, scrollWidth, clientWidth } = scrollParent(e.target);
 
-            if (clientHeight >= scrollHeight && e.cancelable) {
+            if (e.cancelable && clientHeight >= scrollHeight && clientWidth >= scrollWidth) {
                 e.preventDefault();
             }
         },
