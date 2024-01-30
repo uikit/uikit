@@ -11,6 +11,10 @@
 //
 // Modifiers:       `uk-nav-default`
 //                  `uk-nav-primary`
+//                  `uk-nav-secondary`
+//                  `uk-nav-medium`
+//                  `uk-nav-large`
+//                  `uk-nav-xlarge`
 //                  `uk-nav-center`,
 //                  `uk-nav-divider`
 //
@@ -32,6 +36,18 @@
 
 
 
+
+$nav-medium-font-size:                           $nav-medium-font-size-m * 0.825 !default;    // 40px 0.714
+$nav-medium-font-size-m:                         $nav-medium-font-size-l * 0.875 !default;    // 3.5rem / 56px
+$nav-medium-font-size-l:                         4rem !default; // 64px
+
+$nav-large-font-size:                            $nav-large-font-size-m * 0.85 !default;      // 50px 0.78
+$nav-large-font-size-m:                          4rem !default; // 64px
+$nav-large-font-size-l:                          6rem !default; // 96px
+
+$nav-xlarge-font-size:                           4rem !default; // 64px
+$nav-xlarge-font-size-m:                         6rem !default; // 96px
+$nav-xlarge-font-size-l:                         8rem !default; // 128px
 
 
 
@@ -366,6 +382,50 @@ ul.uk-nav-sub {
 .uk-nav-secondary .uk-nav-sub li.uk-active > a { color: $nav-secondary-sublist-item-active-color; }
 
 
+/* Size modifier
+ ========================================================================== */
+
+/*
+ * Medium
+ */
+
+.uk-nav-medium {
+    font-size: $nav-medium-font-size;
+    line-height: $nav-medium-line-height;
+    @if(mixin-exists(hook-nav-medium)) {@include hook-nav-medium();}
+}
+
+.uk-nav-large {
+    font-size: $nav-large-font-size;
+    line-height: $nav-large-line-height;
+    @if(mixin-exists(hook-nav-large)) {@include hook-nav-large();}
+}
+
+.uk-nav-xlarge {
+    font-size: $nav-xlarge-font-size;
+    line-height: $nav-xlarge-line-height;
+    @if(mixin-exists(hook-nav-xlarge)) {@include hook-nav-xlarge();}
+}
+
+/* Tablet Landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-nav-medium { font-size: $nav-medium-font-size-m; }
+    .uk-nav-large { font-size: $nav-large-font-size-m; }
+    .uk-nav-xlarge { font-size: $nav-xlarge-font-size-m; }
+
+}
+
+/* Laptop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-nav-medium { font-size: $nav-medium-font-size-l; }
+    .uk-nav-large { font-size: $nav-large-font-size-l; }
+    .uk-nav-xlarge { font-size: $nav-xlarge-font-size-l; }
+
+}
+
+
 /* Alignment modifier
  ========================================================================== */
 
@@ -434,6 +494,9 @@ ul.uk-nav-sub {
 // @mixin hook-nav-secondary-subtitle-active(){}
 // @mixin hook-nav-secondary-header(){}
 // @mixin hook-nav-secondary-divider(){}
+// @mixin hook-nav-medium(){}
+// @mixin hook-nav-large(){}
+// @mixin hook-nav-xlarge(){}
 // @mixin hook-nav-dividers(){}
 // @mixin hook-nav-misc(){}
 

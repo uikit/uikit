@@ -1,4 +1,4 @@
-/*! UIkit 3.17.11 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.18.0 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2290,28 +2290,24 @@ select.uk-form-width-xsmall {
  */
 .uk-section-default {
   background: #fff;
-  --uk-navbar-color: dark;
 }
 /*
  * Muted
  */
 .uk-section-muted {
   background: #f8f8f8;
-  --uk-navbar-color: dark;
 }
 /*
  * Primary
  */
 .uk-section-primary {
   background: #1e87f0;
-  --uk-navbar-color: light;
 }
 /*
  * Secondary
  */
 .uk-section-secondary {
   background: #222;
-  --uk-navbar-color: light;
 }
 /* Overlap modifier
  ========================================================================== */
@@ -5153,6 +5149,47 @@ ul.uk-nav-sub {
 .uk-nav-secondary .uk-nav-sub li.uk-active > a {
   color: #333;
 }
+/* Size modifier
+ ========================================================================== */
+/*
+ * Medium
+ */
+.uk-nav-medium {
+  font-size: 2.8875rem;
+  line-height: 1;
+}
+.uk-nav-large {
+  font-size: 3.4rem;
+  line-height: 1;
+}
+.uk-nav-xlarge {
+  font-size: 4rem;
+  line-height: 1;
+}
+/* Tablet Landscape and bigger */
+@media (min-width: 960px) {
+  .uk-nav-medium {
+    font-size: 3.5rem;
+  }
+  .uk-nav-large {
+    font-size: 4rem;
+  }
+  .uk-nav-xlarge {
+    font-size: 6rem;
+  }
+}
+/* Laptop and bigger */
+@media (min-width: 1200px) {
+  .uk-nav-medium {
+    font-size: 4rem;
+  }
+  .uk-nav-large {
+    font-size: 6rem;
+  }
+  .uk-nav-xlarge {
+    font-size: 8rem;
+  }
+}
 /* Alignment modifier
  ========================================================================== */
 /*
@@ -5192,14 +5229,11 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Create position context to center navbar group
- * 2. Pass dropbar behind color to JS
  */
 .uk-navbar {
   display: flex;
   /* 1 */
   position: relative;
-  /* 2 */
-  --uk-navbar-dropbar-behind-color: dark;
 }
 /* Container
  ========================================================================== */
@@ -12506,6 +12540,45 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-open > .uk-accordion-title::before,
 .uk-offcanvas-bar .uk-open > .uk-accordion-title::before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%3C%2Fsvg%3E");
+}
+/*
+ * Pass dropbar behind color to JS
+ */
+* {
+  --uk-inverse: initial;
+}
+.uk-light,
+.uk-section-primary:not(.uk-preserve-color),
+.uk-section-secondary:not(.uk-preserve-color),
+.uk-tile-primary:not(.uk-preserve-color),
+.uk-tile-secondary:not(.uk-preserve-color),
+.uk-card-primary.uk-card-body,
+.uk-card-primary > :not([class*='uk-card-media']),
+.uk-card-secondary.uk-card-body,
+.uk-card-secondary > :not([class*='uk-card-media']),
+.uk-overlay-primary,
+.uk-offcanvas-bar {
+  --uk-inverse: light;
+}
+.uk-dark,
+.uk-section-default:not(.uk-preserve-color),
+.uk-section-muted:not(.uk-preserve-color),
+.uk-tile-default:not(.uk-preserve-color),
+.uk-tile-muted:not(.uk-preserve-color),
+.uk-card-default.uk-card-body,
+.uk-card-default > :not([class*='uk-card-media']),
+.uk-overlay-default,
+.uk-dropbar,
+.uk-navbar-container:not(.uk-navbar-transparent),
+.uk-navbar-dropdown,
+.uk-dropdown {
+  --uk-inverse: dark;
+}
+.uk-inverse-light {
+  --uk-inverse: light !important;
+}
+.uk-inverse-dark {
+  --uk-inverse: dark !important;
 }
 /* ========================================================================
    Component: Print

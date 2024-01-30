@@ -1,5 +1,6 @@
 import {
     $,
+    addClass,
     children,
     clamp,
     getIndex,
@@ -19,7 +20,7 @@ export default {
     mixins: [SliderAutoplay, SliderDrag, SliderNav, I18n],
 
     props: {
-        clsActivated: Boolean,
+        clsActivated: String,
         easing: String,
         index: Number,
         finite: Boolean,
@@ -35,7 +36,10 @@ export default {
         stack: [],
         percent: 0,
         clsActive: 'uk-active',
-        clsActivated: false,
+        clsActivated: '',
+        clsEnter: 'uk-slide-enter',
+        clsLeave: 'uk-slide-leave',
+        clsSlideActive: 'uk-slide-active',
         Transitioner: false,
         transitionOptions: {},
     }),
@@ -78,9 +82,27 @@ export default {
 
     observe: resize(),
 
+    events: {
+        itemshow({ target }) {
+            addClass(target, this.clsEnter, this.clsSlideActive);
+        },
+
+        itemshown({ target }) {
+            removeClass(target, this.clsEnter);
+        },
+
+        itemhide({ target }) {
+            addClass(target, this.clsLeave);
+        },
+
+        itemhidden({ target }) {
+            removeClass(target, this.clsLeave, this.clsSlideActive);
+        },
+    },
+
     methods: {
         show(index, force = false) {
-            if (this.dragging || !this.length) {
+            if (this.dragging || !this.length || this.parallax) {
                 return;
             }
 

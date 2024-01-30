@@ -19,6 +19,7 @@ import {
     remove,
     selFocusable,
     toFloat,
+    toPx,
     Transition,
 } from 'uikit-util';
 import Class from '../mixin/class';
@@ -75,8 +76,13 @@ export default {
             return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
         },
 
-        dropbarOffset() {
-            return 0;
+        dropbarOffset({ target, targetY }, $el) {
+            const { offsetTop, offsetHeight } = query(targetY || target || $el, $el);
+            return offsetTop + offsetHeight + this.dropbarPositionOffset;
+        },
+
+        dropbarPositionOffset(_, $el) {
+            return toPx(css($el, '--uk-position-offset'));
         },
 
         dropContainer(_, $el) {
@@ -287,22 +293,15 @@ export default {
 
                 const drop = this.getDropdown(target);
                 const adjustHeight = () => {
-                    const targetOffsets = parents(target, `.${this.clsDrop}`)
-                        .concat(target)
-                        .map((el) => offset(el));
-                    const minTop = Math.min(...targetOffsets.map(({ top }) => top));
-                    const maxBottom = Math.max(...targetOffsets.map(({ bottom }) => bottom));
-                    const dropbarOffset = offset(this.dropbar);
-                    css(
-                        this.dropbar,
-                        'top',
-                        this.dropbar.offsetTop - (dropbarOffset.top - minTop) - this.dropbarOffset,
+                    const maxBottom = Math.max(
+                        ...parents(target, `.${this.clsDrop}`)
+                            .concat(target)
+                            .map((el) => offset(el).bottom),
                     );
+
+                    css(this.dropbar, 'top', this.dropbarOffset);
                     this.transitionTo(
-                        maxBottom -
-                            minTop +
-                            toFloat(css(target, 'marginBottom')) +
-                            this.dropbarOffset,
+                        maxBottom - offset(this.dropbar).top + toFloat(css(target, 'marginBottom')),
                         target,
                     );
                 };
@@ -377,6 +376,13 @@ export default {
 
             await Transition.cancel([el, dropbar]);
 
+            if (el) {
+                const diff = offset(el).top - offset(dropbar).top - oldHeight;
+                if (diff > 0) {
+                    css(el, 'transitionDelay', `${(diff / newHeight) * this.duration}ms`);
+                }
+            }
+
             css(el, 'clipPath', `polygon(0 0,100% 0,100% ${oldHeight}px,0 ${oldHeight}px)`);
             height(dropbar, oldHeight);
 
@@ -384,11 +390,9 @@ export default {
                 Transition.start(dropbar, { height: newHeight }, this.duration),
                 Transition.start(
                     el,
-                    {
-                        clipPath: `polygon(0 0,100% 0,100% ${newHeight}px,0 ${newHeight}px)`,
-                    },
+                    { clipPath: `polygon(0 0,100% 0,100% ${newHeight}px,0 ${newHeight}px)` },
                     this.duration,
-                ).finally(() => css(el, { clipPath: '' })),
+                ).finally(() => css(el, { clipPath: '', transitionDelay: '' })),
             ]).catch(noop);
         },
 

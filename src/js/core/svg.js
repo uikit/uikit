@@ -62,9 +62,7 @@ export default {
     methods: {
         async getSvg() {
             if (isTag(this.$el, 'img') && !this.$el.complete && this.$el.loading === 'lazy') {
-                return new Promise((resolve) =>
-                    once(this.$el, 'load', () => resolve(this.getSvg())),
-                );
+                await new Promise((resolve) => once(this.$el, 'load', resolve));
             }
 
             return parseSVG(await loadSVG(this.src), this.icon) || Promise.reject('SVG not found.');

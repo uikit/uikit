@@ -1,7 +1,7 @@
 export default {
     update: {
         write() {
-            if (this.stack.length || this.dragging) {
+            if (this.stack.length || this.dragging || this.parallax) {
                 return;
             }
 

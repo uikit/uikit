@@ -8,12 +8,12 @@ import {
     before,
     children,
     css,
+    dimensions,
     findIndex,
     getEventPos,
     hasTouch,
     height,
     index,
-    isEmpty,
     isInput,
     isTag,
     off,
@@ -90,7 +90,7 @@ export default {
         },
 
         isEmpty() {
-            return isEmpty(this.items);
+            return !this.items.length;
         },
 
         handles({ handle }, $el) {
@@ -209,7 +209,7 @@ export default {
 
         start(e) {
             this.drag = appendDrag(this.$container, this.placeholder);
-            const { left, top } = this.placeholder.getBoundingClientRect();
+            const { left, top } = dimensions(this.placeholder);
             assign(this.origin, { offsetLeft: this.pos.x - left, offsetTop: this.pos.y - top });
 
             addClass(this.drag, this.clsDrag, this.clsCustom);
@@ -366,7 +366,7 @@ function appendDrag(container, element) {
 }
 
 function findTarget(items, point) {
-    return items[findIndex(items, (item) => pointInRect(point, item.getBoundingClientRect()))];
+    return items[findIndex(items, (item) => pointInRect(point, dimensions(item)))];
 }
 
 function findInsertTarget(list, target, placeholder, x, y, sameList) {
@@ -374,7 +374,7 @@ function findInsertTarget(list, target, placeholder, x, y, sameList) {
         return;
     }
 
-    const rect = target.getBoundingClientRect();
+    const rect = dimensions(target);
     if (!sameList) {
         if (!isHorizontal(list, placeholder)) {
             return y < rect.top + rect.height / 2 ? target : target.nextElementSibling;
@@ -383,7 +383,7 @@ function findInsertTarget(list, target, placeholder, x, y, sameList) {
         return target;
     }
 
-    const placeholderRect = placeholder.getBoundingClientRect();
+    const placeholderRect = dimensions(placeholder);
     const sameRow = linesIntersect(
         [rect.top, rect.bottom],
         [placeholderRect.top, placeholderRect.bottom],
@@ -422,9 +422,9 @@ function isHorizontal(list, placeholder) {
 
     const items = children(list);
     const isHorizontal = items.some((el, i) => {
-        const rectA = el.getBoundingClientRect();
+        const rectA = dimensions(el);
         return items.slice(i + 1).some((el) => {
-            const rectB = el.getBoundingClientRect();
+            const rectB = dimensions(el);
             return !linesIntersect([rectA.left, rectA.right], [rectB.left, rectB.right]);
         });
     });

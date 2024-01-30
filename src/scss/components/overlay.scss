@@ -54,6 +54,10 @@
     @if(mixin-exists(hook-overlay-default)) {@include hook-overlay-default();}
 }
 
+// Color Mode
+@if ( $overlay-default-color-mode == light ) { .uk-overlay-default { @extend .uk-light !optional;} }
+@if ( $overlay-default-color-mode == dark ) { .uk-overlay-default { @extend .uk-dark !optional;} }
+
 /*
  * Primary
  */

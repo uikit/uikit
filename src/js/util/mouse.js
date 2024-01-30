@@ -1,11 +1,8 @@
+import { dimensions } from './dimensions';
 import { getEventPos, on } from './event';
 import { last, pointInRect } from './lang';
 
-export function MouseTracker() {}
-
-MouseTracker.prototype = {
-    positions: [],
-
+export class MouseTracker {
     init() {
         this.positions = [];
 
@@ -22,19 +19,19 @@ MouseTracker.prototype = {
                 this.positions.shift();
             }
         }, 50);
-    },
+    }
 
     cancel() {
         this.unbind?.();
         clearInterval(this.interval);
-    },
+    }
 
     movesTo(target) {
-        if (this.positions.length < 2) {
+        if (!this.positions || this.positions.length < 2) {
             return false;
         }
 
-        const p = target.getBoundingClientRect();
+        const p = dimensions(target);
         const { left, right, top, bottom } = p;
 
         const [prevPosition] = this.positions;
@@ -60,8 +57,8 @@ MouseTracker.prototype = {
             const intersection = intersect(path, diagonal);
             return intersection && pointInRect(intersection, p);
         });
-    },
-};
+    }
+}
 
 // Inspired by http://paulbourke.net/geometry/pointlineplane/
 function intersect([{ x: x1, y: y1 }, { x: x2, y: y2 }], [{ x: x3, y: y3 }, { x: x4, y: y4 }]) {

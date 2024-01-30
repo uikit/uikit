@@ -49,24 +49,21 @@ $navbar-nav-gap:                                 0px !default; // Must have a un
 
 
 
-
 /* ========================================================================
    Component: Navbar
  ========================================================================== */
 
 /*
  * 1. Create position context to center navbar group
- * 2. Pass dropbar behind color to JS
  */
 
 .uk-navbar {
     display: flex;
     /* 1 */
     position: relative;
-    /* 2 */
-    --uk-navbar-dropbar-behind-color: #{$navbar-dropbar-behind-color-mode};
     @if(mixin-exists(hook-navbar)) {@include hook-navbar();}
 }
+
 
 /* Container
  ========================================================================== */

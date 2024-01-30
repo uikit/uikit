@@ -9,6 +9,7 @@ import {
     height as getHeight,
     offset as getOffset,
     hasClass,
+    index,
     intersectRect,
     isNumeric,
     isString,
@@ -70,7 +71,7 @@ export default {
     },
 
     computed: {
-        selTarget: ({ selTarget }, $el) => (selTarget && $(selTarget, $el)) || $el,
+        target: ({ selTarget }, $el) => (selTarget && $(selTarget, $el)) || $el,
     },
 
     connected() {
@@ -87,7 +88,7 @@ export default {
     beforeDisconnect() {
         if (this.isFixed) {
             this.hide();
-            removeClass(this.selTarget, this.clsInactive);
+            removeClass(this.target, this.clsInactive);
         }
         reset(this.$el);
 
@@ -96,9 +97,19 @@ export default {
     },
 
     observe: [
-        viewport(),
+        viewport({
+            handler() {
+                if (toPx('100vh', 'height') !== this._data.viewport) {
+                    this.$emit('resize');
+                }
+            },
+        }),
         scroll({ target: () => document.scrollingElement }),
-        resize({ target: ({ $el }) => [$el, document.scrollingElement] }),
+        resize({
+            target: () => document.scrollingElement,
+            options: { box: 'content-box' },
+        }),
+        resize({ target: ({ $el }) => $el }),
     ],
 
     events: [
@@ -158,7 +169,7 @@ export default {
 
                 const hide = this.isFixed && !this.transitionInProgress;
                 if (hide) {
-                    preventTransition(this.$el);
+                    preventTransition(this.target);
                     this.hide();
                 }
 
@@ -215,7 +226,7 @@ export default {
                     end ===
                         Math.min(
                             maxScrollHeight,
-                            parseProp('!*', this.$el, 0, true) - elHeight - offset + overflow,
+                            parseProp(true, this.$el, 0, true) - elHeight - offset + overflow,
                         ) &&
                     css(parent(this.$el), 'overflowY') === 'visible';
 
@@ -224,13 +235,13 @@ export default {
                     end,
                     offset,
                     overflow,
-                    topOffset,
                     height,
                     elHeight,
                     width,
                     margin,
                     top: offsetPosition(referenceElement)[0],
                     sticky,
+                    viewport,
                 };
             },
 
@@ -252,10 +263,13 @@ export default {
 
                 css(placeholder, { height, width, margin });
 
-                if (!document.contains(placeholder)) {
+                if (
+                    parent(placeholder) !== parent(this.$el) ||
+                    sticky ^ (index(placeholder) < index(this.$el))
+                ) {
+                    (sticky ? before : after)(this.$el, placeholder);
                     placeholder.hidden = true;
                 }
-                (sticky ? before : after)(this.$el, placeholder);
             },
 
             events: ['resize'],
@@ -269,18 +283,24 @@ export default {
                 overflowScroll = 0,
                 start,
                 end,
+                elHeight,
+                height,
+                sticky,
             }) {
                 const scroll = document.scrollingElement.scrollTop;
                 const dir = prevScroll <= scroll ? 'down' : 'up';
+                const referenceElement = this.isFixed ? this.placeholder : this.$el;
 
                 return {
                     dir,
                     prevDir,
                     scroll,
                     prevScroll,
-                    offsetParentTop: getOffset(
-                        (this.isFixed ? this.placeholder : this.$el).offsetParent,
-                    ).top,
+                    below:
+                        scroll >
+                        getOffset(referenceElement).top +
+                            (sticky ? Math.min(height, elHeight) : height),
+                    offsetParentTop: getOffset(referenceElement.offsetParent).top,
                     overflowScroll: clamp(
                         overflowScroll + clamp(scroll, start, end) - clamp(prevScroll, start, end),
                         0,
@@ -299,8 +319,7 @@ export default {
                     prevScroll = 0,
                     top,
                     start,
-                    topOffset,
-                    height,
+                    below,
                 } = data;
 
                 if (
@@ -332,7 +351,7 @@ export default {
                     (this.showOnUp &&
                         (scroll <= start ||
                             (dir === 'down' && isScrollUpdate) ||
-                            (dir === 'up' && !this.isFixed && scroll <= topOffset + height)))
+                            (dir === 'up' && !this.isFixed && !below)))
                 ) {
                     if (!this.isFixed) {
                         if (Animation.inProgress(this.$el) && top > scroll) {
@@ -343,7 +362,7 @@ export default {
                         return;
                     }
 
-                    if (this.animation && scroll > topOffset) {
+                    if (this.animation && below) {
                         if (hasClass(this.$el, 'uk-animation-leave')) {
                             return;
                         }
@@ -353,11 +372,11 @@ export default {
                     }
                 } else if (this.isFixed) {
                     this.update();
-                } else if (this.animation && scroll > topOffset) {
+                } else if (this.animation && below) {
                     this.show();
                     Animation.in(this.$el, this.animation).catch(noop);
                 } else {
-                    preventTransition(this.selTarget);
+                    preventTransition(this.target);
                     this.show();
                 }
             },
@@ -400,11 +419,9 @@ export default {
                 start,
                 end,
                 offset,
-                topOffset,
-                height,
-                elHeight,
                 offsetParentTop,
                 sticky,
+                below,
             } = this._data;
             const active = start !== 0 || scroll > start;
 
@@ -422,11 +439,7 @@ export default {
             css(this.$el, 'top', offset - overflowScroll);
 
             this.setActive(active);
-            toggleClass(
-                this.$el,
-                this.clsBelow,
-                scroll > topOffset + (sticky ? Math.min(height, elHeight) : height),
-            );
+            toggleClass(this.$el, this.clsBelow, below);
             addClass(this.$el, this.clsFixed);
         },
 
@@ -434,11 +447,14 @@ export default {
             const prev = this.active;
             this.active = active;
             if (active) {
-                replaceClass(this.selTarget, this.clsInactive, this.clsActive);
+                replaceClass(this.target, this.clsInactive, this.clsActive);
                 prev !== active && trigger(this.$el, 'active');
             } else {
-                replaceClass(this.selTarget, this.clsActive, this.clsInactive);
-                prev !== active && trigger(this.$el, 'inactive');
+                replaceClass(this.target, this.clsActive, this.clsInactive);
+                if (prev !== active) {
+                    preventTransition(this.target);
+                    trigger(this.$el, 'inactive');
+                }
             }
         },
     },

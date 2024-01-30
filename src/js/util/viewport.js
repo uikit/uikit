@@ -1,4 +1,5 @@
-import { offset, offsetPosition } from './dimensions';
+import { hasClass } from './class';
+import { dimensions, offset, offsetPosition } from './dimensions';
 import { isVisible, parent, parents } from './filter';
 import {
     clamp,
@@ -128,7 +129,7 @@ export function scrolledOver(element, startOffset = 0, endOffset = 0) {
     const start = Math.max(0, elementOffsetTop - viewportHeight + startOffset);
     const end = Math.min(maxScroll, elementOffsetTop + element.offsetHeight - endOffset);
 
-    return clamp((scrollTop - start) / (end - start));
+    return start < end ? clamp((scrollTop - start) / (end - start)) : 1;
 }
 
 export function scrollParents(element, scrollable = false, props = []) {
@@ -165,15 +166,11 @@ export function overflowParents(element) {
 
 export function offsetViewport(scrollElement) {
     const window = toWindow(scrollElement);
-    const {
-        visualViewport,
-        document: { documentElement },
-    } = window;
     let viewportElement =
         scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
 
-    if (isWindow(viewportElement) && visualViewport) {
-        let { height, width, scale, pageTop: top, pageLeft: left } = visualViewport;
+    if (isWindow(viewportElement) && window.visualViewport) {
+        let { height, width, scale, pageTop: top, pageLeft: left } = window.visualViewport;
         height = Math.round(height * scale);
         width = Math.round(width * scale);
         return { height, width, top, left, bottom: top + height, right: left + width };
@@ -190,7 +187,7 @@ export function offsetViewport(scrollElement) {
     ]) {
         if (isWindow(viewportElement)) {
             // iOS 12 returns <body> as scrollingElement
-            viewportElement = documentElement;
+            viewportElement = window.document.documentElement;
         } else {
             rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
         }
@@ -204,9 +201,12 @@ export function offsetViewport(scrollElement) {
 }
 
 export function getCoveringElement(target) {
-    return target.ownerDocument.elementsFromPoint(offset(target).left, 0).find(
+    const { left, width, top } = dimensions(target);
+    return target.ownerDocument.elementsFromPoint(left + width / 2, top).find(
         (el) =>
             !el.contains(target) &&
+            // If e.g. Offcanvas is not yet closed
+            !hasClass(el, 'uk-togglable-leave') &&
             ((hasPosition(el, 'fixed') &&
                 zIndex(
                     parents(target)

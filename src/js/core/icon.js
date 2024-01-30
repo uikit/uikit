@@ -3,6 +3,7 @@ import {
     addClass,
     apply,
     attr,
+    closest,
     css,
     each,
     hasAttr,
@@ -11,7 +12,6 @@ import {
     isRtl,
     isString,
     isTag,
-    parents,
     swap,
 } from 'uikit-util';
 import closeIcon from '../../images/components/close-icon.svg';
@@ -54,6 +54,7 @@ const icons = {
     'search-icon': searchIcon,
     'search-large': searchLarge,
     'search-navbar': searchNavbar,
+    'search-toggle-icon': searchIcon,
     'slidenav-next': slidenavNext,
     'slidenav-next-large': slidenavNextLarge,
     'slidenav-previous': slidenavPrevious,
@@ -121,10 +122,12 @@ export const Search = {
     i18n: { toggle: 'Open Search', submit: 'Submit Search' },
 
     beforeConnect() {
-        this.icon =
-            hasClass(this.$el, 'uk-search-icon') && parents(this.$el, '.uk-search-large').length
+        const isToggle = hasClass(this.$el, 'uk-search-toggle') || hasClass(this.$el, 'uk-navbar-toggle');
+        this.icon = isToggle 
+            ? 'search-toggle-icon' 
+            : hasClass(this.$el, 'uk-search-icon') && closest(this.$el, '.uk-search-large')
                 ? 'search-large'
-                : parents(this.$el, '.uk-search-navbar').length
+                : closest(this.$el, '.uk-search-navbar')
                   ? 'search-navbar'
                   : this.$props.icon;
 
@@ -132,7 +135,7 @@ export const Search = {
             return;
         }
 
-        if (hasClass(this.$el, 'uk-search-toggle') || hasClass(this.$el, 'uk-navbar-toggle')) {
+        if (isToggle) {
             const label = this.t('toggle');
             attr(this.$el, 'aria-label', label);
         } else {
@@ -248,7 +251,11 @@ function install(UIkit) {
     };
 }
 
+const aliases = { twitter: 'x' };
+
 function getIcon(icon) {
+    icon = aliases[icon] || icon;
+
     if (!icons[icon]) {
         return null;
     }
