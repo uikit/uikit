@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP 3.18
+## 3.18.0 (January 30, 2024)
 
 ### Added
 
@@ -16,12 +16,6 @@
 - Replace `none` with `dark` as default for navbar, dropdown and dropbar color modes
 - Twitter icon will show X icon
 - Responsive component uses `aspect-ratio` if available
-
-### Removed
-
-- Remove MouseTracker class from utils
-
-## WIP
 
 ### Fixed
 

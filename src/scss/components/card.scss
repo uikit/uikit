@@ -212,6 +212,12 @@
     @if(mixin-exists(hook-card-default-footer)) {@include hook-card-default-footer();}
 }
 
+// Color Mode
+@if ( $card-default-color-mode == light ) { .uk-card-default.uk-card-body { @extend .uk-light !optional;} }
+@if ( $card-default-color-mode == light ) { .uk-card-default > :not([class*='uk-card-media']) { @extend .uk-light !optional;} }
+@if ( $card-default-color-mode == dark ) { .uk-card-default.uk-card-body { @extend .uk-dark !optional;} }
+@if ( $card-default-color-mode == dark ) { .uk-card-default > :not([class*='uk-card-media']) { @extend .uk-dark !optional;} }
+
 /*
  * Primary
  */

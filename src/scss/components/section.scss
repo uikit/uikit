@@ -104,7 +104,6 @@
 
 }
 
-
 /*
  * XLarge
  */
@@ -134,9 +133,11 @@
 
 .uk-section-default {
     background: $section-default-background;
-    --uk-navbar-color: #{$section-default-color-mode};
     @if(mixin-exists(hook-section-default)) {@include hook-section-default();}
 }
+
+@if ( $section-default-color-mode == light ) { .uk-section-default:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $section-default-color-mode == dark ) { .uk-section-default:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
 /*
  * Muted
@@ -144,9 +145,11 @@
 
 .uk-section-muted {
     background: $section-muted-background;
-    --uk-navbar-color: #{$section-muted-color-mode};
     @if(mixin-exists(hook-section-muted)) {@include hook-section-muted();}
 }
+
+@if ( $section-muted-color-mode == light ) { .uk-section-muted:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $section-muted-color-mode == dark ) { .uk-section-muted:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
 /*
  * Primary
@@ -154,7 +157,6 @@
 
 .uk-section-primary {
     background: $section-primary-background;
-    --uk-navbar-color: #{$section-primary-color-mode};
     @if(mixin-exists(hook-section-primary)) {@include hook-section-primary();}
 }
 
@@ -167,7 +169,6 @@
 
 .uk-section-secondary {
     background: $section-secondary-background;
-    --uk-navbar-color: #{$section-secondary-color-mode};
     @if(mixin-exists(hook-section-secondary)) {@include hook-section-secondary();}
 }
 
