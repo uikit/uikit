@@ -151,6 +151,10 @@
     @if(mixin-exists(hook-tile-default-hover)) {@include hook-tile-default-hover();}
 }
 
+// Color Mode
+@if ( $tile-default-color-mode == light ) { .uk-tile-default:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $tile-default-color-mode == dark ) { .uk-tile-default:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
+
 /*
  * Muted
  */
@@ -163,6 +167,10 @@
 .uk-tile-muted.uk-tile-hover:hover {
     @if(mixin-exists(hook-tile-muted-hover)) {@include hook-tile-muted-hover();}
 }
+
+// Color Mode
+@if ( $tile-muted-color-mode == light ) { .uk-tile-muted:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $tile-muted-color-mode == dark ) { .uk-tile-muted:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
 /*
  * Primary
