@@ -97,7 +97,13 @@ export default {
     },
 
     observe: [
-        viewport(),
+        viewport({
+            handler() {
+                if (toPx('100vh', 'height') !== this._data.viewport) {
+                    this.$emit('resize');
+                }
+            },
+        }),
         scroll({ target: () => document.scrollingElement }),
         resize({
             target: () => document.scrollingElement,
@@ -220,7 +226,7 @@ export default {
                     end ===
                         Math.min(
                             maxScrollHeight,
-                            parseProp('!*', this.$el, 0, true) - elHeight - offset + overflow,
+                            parseProp(true, this.$el, 0, true) - elHeight - offset + overflow,
                         ) &&
                     css(parent(this.$el), 'overflowY') === 'visible';
 
@@ -235,6 +241,7 @@ export default {
                     margin,
                     top: offsetPosition(referenceElement)[0],
                     sticky,
+                    viewport,
                 };
             },
 
