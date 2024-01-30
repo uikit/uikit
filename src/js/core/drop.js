@@ -1,5 +1,6 @@
 import {
     $,
+    MouseTracker,
     addClass,
     append,
     apply,
@@ -10,7 +11,6 @@ import {
     isSameSiteAnchor,
     isTouch,
     matches,
-    MouseTracker,
     observeResize,
     observeViewportResize,
     offset,
@@ -31,10 +31,10 @@ import {
 } from 'uikit-util';
 import { lazyload } from '../api/observables';
 import Container from '../mixin/container';
-import { preventBackgroundScroll } from '../mixin/internal/scroll';
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
+import { preventBackgroundScroll } from '../util/scroll';
 
 export let active;
 
@@ -291,9 +291,7 @@ export default {
 
             self: true,
 
-            handler() {
-                this.clearTimers();
-            },
+            handler: 'clearTimers',
         },
 
         {

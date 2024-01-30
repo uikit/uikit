@@ -37,8 +37,10 @@
 @tile-xlarge-padding-vertical-m:               (@global-large-margin + @global-xlarge-margin);
 
 @tile-default-background:                      @global-background;
+@tile-default-color-mode:                      dark;
 
 @tile-muted-background:                        @global-muted-background;
+@tile-muted-color-mode:                        dark;
 
 @tile-primary-background:                      @global-primary-background;
 @tile-primary-color-mode:                      light;
@@ -168,6 +170,10 @@
     .hook-tile-default-hover();
 }
 
+// Color Mode
+.uk-tile-default:not(.uk-preserve-color):extend(.uk-light all) when (@tile-default-color-mode = light) {}
+.uk-tile-default:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-default-color-mode = dark) {}
+
 /*
  * Muted
  */
@@ -180,6 +186,10 @@
 .uk-tile-muted.uk-tile-hover:hover {
     .hook-tile-muted-hover();
 }
+
+// Color Mode
+.uk-tile-muted:not(.uk-preserve-color):extend(.uk-light all) when (@tile-muted-color-mode = light) {}
+.uk-tile-muted:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-muted-color-mode = dark) {}
 
 /*
  * Primary

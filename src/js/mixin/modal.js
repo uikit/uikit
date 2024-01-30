@@ -19,9 +19,9 @@ import {
     removeClass,
     toFloat,
 } from 'uikit-util';
+import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
-import { preventBackgroundScroll } from './internal/scroll';
 import Togglable from './togglable';
 
 const active = [];

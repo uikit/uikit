@@ -120,7 +120,6 @@
 
 }
 
-
 /*
  * XLarge
  */
@@ -150,9 +149,11 @@
 
 .uk-section-default {
     background: @section-default-background;
-    --uk-navbar-color: @section-default-color-mode;
     .hook-section-default();
 }
+
+.uk-section-default:not(.uk-preserve-color):extend(.uk-light all) when (@section-default-color-mode = light) {}
+.uk-section-default:not(.uk-preserve-color):extend(.uk-dark all) when (@section-default-color-mode = dark) {}
 
 /*
  * Muted
@@ -160,9 +161,11 @@
 
 .uk-section-muted {
     background: @section-muted-background;
-    --uk-navbar-color: @section-muted-color-mode;
     .hook-section-muted();
 }
+
+.uk-section-muted:not(.uk-preserve-color):extend(.uk-light all) when (@section-muted-color-mode = light) {}
+.uk-section-muted:not(.uk-preserve-color):extend(.uk-dark all) when (@section-muted-color-mode = dark) {}
 
 /*
  * Primary
@@ -170,7 +173,6 @@
 
 .uk-section-primary {
     background: @section-primary-background;
-    --uk-navbar-color: @section-primary-color-mode;
     .hook-section-primary();
 }
 
@@ -183,7 +185,6 @@
 
 .uk-section-secondary {
     background: @section-secondary-background;
-    --uk-navbar-color: @section-secondary-color-mode;
     .hook-section-secondary();
 }
 

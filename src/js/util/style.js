@@ -1,5 +1,4 @@
 import {
-    each,
     hyphenate,
     isArray,
     isNumber,
@@ -56,8 +55,9 @@ export function css(element, property, value, priority) {
             }
             return props;
         } else if (isObject(property)) {
-            priority = value;
-            each(property, (value, property) => css(element, property, value, priority));
+            for (const prop in property) {
+                css(element, prop, property[prop], value);
+            }
         }
     }
     return elements[0];

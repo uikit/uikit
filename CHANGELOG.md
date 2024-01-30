@@ -1,10 +1,32 @@
 # Changelog
 
+## WIP 3.18
+
+### Added
+
+- Add parallax options to Slider and Slideshow components
+- Add Inverse component to color content with no background depending on intersecting elements beneath
+- Add color mode for default and muted style modifiers in Section, Tile, Card and Overlay components
+- Add size modifier to Nav component
+- Add link external and arrow up right icons
+- Add X, Mastodon, Telegram, Threads, Signal and YOOtheme icons
+
+### Changed
+
+- Replace `none` with `dark` as default for navbar, dropdown and dropbar color modes
+- Twitter icon will show X icon
+- Responsive component uses `aspect-ratio` if available
+
+### Removed
+
+- Remove MouseTracker class from utils
+
 ## WIP
 
 ### Fixed
 
 - Fix icons task on Windows
+- Fix Height Match component uses offsetHeight as base
 
 ## 3.17.11 (November 21, 2023)
 

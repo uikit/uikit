@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <h2>JavaScript Options</h2>
+            <h3>JavaScript Options</h3>
 
             <table class="uk-table uk-table-striped">
                 <thead>
@@ -93,6 +93,63 @@
                         <td>Boolean</td>
                         <td>true</td>
                         <td>By default only items in the same row will be matched. For example, once grid columns extend to a width of 100%, their heights will no longer be matched. This makes sense, for example, if they stack vertically in narrower viewports.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Height Placeholder</h2>
+
+        </div>
+
+        <div class="uk-position-relative uk-margin">
+
+            <div class="tm-header uk-position-top">
+                <nav class="uk-navbar-container uk-navbar-transparent" uk-inverse="sel-active: .uk-navbar-transparent">
+                    <div class="uk-container">
+                        <div uk-navbar>
+                            <div class="uk-navbar-left">
+                                <a class="uk-navbar-item uk-logo" href="#">Transparent Navbar</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="uk-section-muted">
+
+                <div uk-height-placeholder="!.uk-position-relative .tm-header"></div>
+
+                <div class="uk-section">
+
+                    <div class="uk-container">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="uk-container uk-margin">
+
+            <h3>JavaScript Options</h3>
+
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>target</code></td>
+                        <td>CSS selector</td>
+                        <td></td>
+                        <td>Element whose height will be used.</td>
                     </tr>
                 </tbody>
             </table>

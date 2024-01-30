@@ -1,6 +1,6 @@
 import { css, isVisible, parent, query, scrollParent, scrolledOver, toPx } from 'uikit-util';
 import { resize, scroll, viewport } from '../api/observables';
-import Parallax from '../mixin/parallax';
+import Parallax, { ease } from '../mixin/parallax';
 
 export default {
     mixins: [Parallax],
@@ -79,25 +79,6 @@ export default {
         events: ['scroll', 'resize'],
     },
 };
-
-/*
- * Inspired by https://gist.github.com/gre/1650294?permalink_comment_id=3477425#gistcomment-3477425
- *
- * linear: 0
- * easeInSine: 0.5
- * easeOutSine: -0.5
- * easeInQuad: 1
- * easeOutQuad: -1
- * easeInCubic: 2
- * easeOutCubic: -2
- * easeInQuart: 3
- * easeOutQuart: -3
- * easeInQuint: 4
- * easeOutQuint: -4
- */
-function ease(percent, easing) {
-    return easing >= 0 ? Math.pow(percent, easing + 1) : 1 - Math.pow(1 - percent, 1 - easing);
-}
 
 // SVG elements do not inherit from HTMLElement
 function getOffsetElement(el) {

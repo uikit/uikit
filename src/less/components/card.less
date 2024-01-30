@@ -60,6 +60,7 @@
 @card-default-color:                           @global-color;
 @card-default-title-color:                     @global-emphasis-color;
 @card-default-hover-background:                darken(@card-default-background, 5%);
+@card-default-color-mode:                      dark;
 
 @card-primary-background:                      @global-primary-background;
 @card-primary-color:                           @global-inverse-color;
@@ -259,6 +260,12 @@
 .uk-card-default .uk-card-footer {
     .hook-card-default-footer();
 }
+
+// Color Mode
+.uk-card-default.uk-card-body:extend(.uk-light all) when (@card-default-color-mode = light) {}
+.uk-card-default > :not([class*='uk-card-media']):extend(.uk-light all) when (@card-default-color-mode = light) {}
+.uk-card-default.uk-card-body:extend(.uk-dark all) when (@card-default-color-mode = dark) {}
+.uk-card-default > :not([class*='uk-card-media']):extend(.uk-dark all) when (@card-default-color-mode = dark) {}
 
 /*
  * Primary

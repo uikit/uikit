@@ -148,6 +148,10 @@ export default {
                 return this.selNavItem;
             },
 
+            filter() {
+                return !this.parallax;
+            },
+
             handler(e) {
                 if (
                     e.target.closest('a,button') &&
@@ -169,6 +173,10 @@ export default {
 
             delegate() {
                 return this.selNavItem;
+            },
+
+            filter() {
+                return !this.parallax;
             },
 
             handler(e) {
@@ -211,10 +219,11 @@ export default {
                     const active = item === index;
 
                     toggleClass(el, this.clsActive, active);
+                    toggleClass(button, 'uk-disabled', this.parallax);
 
                     attr(button, {
                         'aria-selected': active,
-                        tabindex: active ? null : -1,
+                        tabindex: active && !this.parallax ? null : -1,
                     });
 
                     if (active && button && matches(parent(el), ':focus-within')) {

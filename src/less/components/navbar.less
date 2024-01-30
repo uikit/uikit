@@ -36,7 +36,7 @@
 
 @navbar-background:                             @global-muted-background;
 @navbar-gap:                                    0px; // Must have a unit because of `calc`
-@navbar-color-mode:                             none;
+@navbar-color-mode:                             dark;
 
 @navbar-nav-gap:                                0px; // Must have a unit because of `calc`
 
@@ -66,7 +66,7 @@
 @navbar-dropdown-padding:                       15px;
 @navbar-dropdown-background:                    @global-muted-background;
 @navbar-dropdown-color:                         @global-color;
-@navbar-dropdown-color-mode:                    none;
+@navbar-dropdown-color-mode:                    dark;
 @navbar-dropdown-focus-outline:                 @base-focus-outline;
 @navbar-dropdown-grid-gutter-horizontal:        @global-gutter;
 @navbar-dropdown-grid-gutter-vertical:          @navbar-dropdown-grid-gutter-horizontal;
@@ -97,8 +97,6 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 @navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
-@navbar-dropbar-behind-color-mode:              dark;
-
 
 /* ========================================================================
    Component: Navbar
@@ -106,17 +104,15 @@
 
 /*
  * 1. Create position context to center navbar group
- * 2. Pass dropbar behind color to JS
  */
 
 .uk-navbar {
     display: flex;
     /* 1 */
     position: relative;
-    /* 2 */
-    --uk-navbar-dropbar-behind-color: @navbar-dropbar-behind-color-mode;
     .hook-navbar();
 }
+
 
 /* Container
  ========================================================================== */

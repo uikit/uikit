@@ -33,7 +33,7 @@
         "url": "https://github.com/uikit/uikit/issues"
     },
     "homepage": "https://getuikit.com",
-    "packageManager": "pnpm@8.11.0",
+    "packageManager": "pnpm@8.14.0",
     "devDependencies": {
         "@rollup/plugin-alias": "^5.1.0",
         "@rollup/plugin-replace": "^5.0.5",

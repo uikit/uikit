@@ -18,6 +18,7 @@
 @overlay-padding-vertical:                      @global-gutter;
 
 @overlay-default-background:                    fade(@global-background, 80%);
+@overlay-default-color-mode:                    dark;
 
 @overlay-primary-background:                    fade(@global-secondary-background, 80%);
 @overlay-primary-color-mode:                    light;
@@ -58,6 +59,10 @@
     background: @overlay-default-background;
     .hook-overlay-default();
 }
+
+// Color Mode
+.uk-overlay-default:extend(.uk-light all) when (@overlay-default-color-mode = light) {}
+.uk-overlay-default:extend(.uk-dark all) when (@overlay-default-color-mode = dark) {}
 
 /*
  * Primary
