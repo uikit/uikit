@@ -1,4 +1,4 @@
-import { $$, boxModelAdjust, css, dimensions, isVisible, pick } from 'uikit-util';
+import { $$, boxModelAdjust, css, isVisible, pick } from 'uikit-util';
 import { resize } from '../api/observables';
 import { getRows } from './margin';
 
@@ -50,7 +50,11 @@ function match(elements) {
     const max = Math.max(...heights);
 
     return {
-        heights: elements.map((el, i) => (heights[i].toFixed(2) === max.toFixed(2) ? '' : max)),
+        heights: elements.map((el, i) =>
+            heights[i].toFixed(2) === max.toFixed(2)
+                ? ''
+                : max - boxModelAdjust(el, 'height', 'content-box'),
+        ),
         elements,
     };
 }
@@ -62,7 +66,7 @@ function getHeight(element) {
         css(element, 'display', 'block', 'important');
     }
     css(element, 'minHeight', '');
-    const height = dimensions(element).height - boxModelAdjust(element, 'height', 'content-box');
+    const height = element.offsetHeight;
     css(element, style);
     return height;
 }

@@ -26,6 +26,7 @@
 ### Fixed
 
 - Fix icons task on Windows
+- Fix Height Match component uses offsetHeight as base
 
 ## 3.17.11 (November 21, 2023)
 
