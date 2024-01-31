@@ -187,7 +187,7 @@ export function offsetViewport(scrollElement) {
     ]) {
         if (isWindow(viewportElement)) {
             // iOS 12 returns <body> as scrollingElement
-            viewportElement = window.document.documentElement;
+            viewportElement = scrollElement.ownerDocument;
         } else {
             rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
         }
