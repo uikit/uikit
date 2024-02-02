@@ -446,7 +446,7 @@ hr, .uk-hr {
 
 /* Add margin if adjacent element */
 * + hr,
-* + .uk-hr { margin-top: @base-hr-margin-vertical }
+* + .uk-hr { margin-top: @base-hr-margin-vertical; }
 
 
 /* Address
@@ -476,7 +476,7 @@ blockquote {
 blockquote p:last-of-type { margin-bottom: 0; }
 
 blockquote footer {
-    margin-top:  @base-blockquote-footer-margin-top;
+    margin-top: @base-blockquote-footer-margin-top;
     font-size: @base-blockquote-footer-font-size;
     line-height: @base-blockquote-footer-line-height;
     .hook-base-blockquote-footer();
@@ -608,7 +608,7 @@ template { display: none; }
     //
 
     a,
-    .uk-link  {
+    .uk-link {
         color: @inverse-base-link-color;
         .hook-inverse-base-link();
     }
