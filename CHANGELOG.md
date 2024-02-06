@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Close modal if contained video leaves fullscreen mode
+
 ### Removed
 
 - Remove Pagekit CMS icon

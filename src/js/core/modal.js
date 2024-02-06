@@ -7,6 +7,7 @@ import {
     height,
     html,
     isString,
+    isTag,
     noop,
     on,
     removeClass,
@@ -26,6 +27,18 @@ export default {
     },
 
     events: [
+        {
+            name: 'fullscreenchange webkitendfullscreen',
+
+            capture: true,
+
+            handler(e) {
+                if (isTag(e.target, 'video') && this.isToggled() && !document.fullscreenElement) {
+                    this.hide();
+                }
+            },
+        },
+
         {
             name: 'show',
 
