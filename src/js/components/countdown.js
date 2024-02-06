@@ -32,9 +32,7 @@ export default {
     events: {
         name: 'visibilitychange',
 
-        el() {
-            return document;
-        },
+        el: () => document,
 
         handler() {
             if (document.hidden) {

@@ -130,9 +130,7 @@ export default {
         {
             name: 'keyup',
 
-            el() {
-                return document;
-            },
+            el: () => document,
 
             handler({ keyCode }) {
                 if (!this.isToggled(this.$el) || !this.draggable) {

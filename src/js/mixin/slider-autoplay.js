@@ -30,9 +30,7 @@ export default {
         {
             name: 'visibilitychange',
 
-            el() {
-                return document;
-            },
+            el: () => document,
 
             filter() {
                 return this.autoplay;
