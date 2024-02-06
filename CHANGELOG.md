@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Removed
+
+- Remove Pagekit CMS icon
+
 ## 3.18.0 (January 30, 2024)
 
 ### Added
