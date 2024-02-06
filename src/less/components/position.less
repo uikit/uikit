@@ -49,11 +49,11 @@
  * 1. Prevent content overflow.
  */
 
-[class*='uk-position-top'],
-[class*='uk-position-bottom'],
-[class*='uk-position-left'],
-[class*='uk-position-right'],
-[class*='uk-position-center'] {
+[class*="uk-position-top"],
+[class*="uk-position-bottom"],
+[class*="uk-position-left"],
+[class*="uk-position-right"],
+[class*="uk-position-center"] {
     position: absolute !important;
     /* 1 */
     max-width: ~'calc(100% - (var(--uk-position-margin-offset) * 2))';
@@ -130,8 +130,8 @@
 }
 
 /* Vertical */
-[class*='uk-position-center-left'],
-[class*='uk-position-center-right'] {
+[class*="uk-position-center-left"],
+[class*="uk-position-center-right"] {
     top: ~'calc(50% - var(--uk-position-margin-offset))';
     --uk-position-translate-y: -50%;
     transform: translate(0, var(--uk-position-translate-y));
