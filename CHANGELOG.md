@@ -5,6 +5,7 @@
 ### Changed
 
 - Close modal if contained video leaves fullscreen mode
+- Improve background scroll prevention if horizontal scroll is possible
 
 ### Removed
 
