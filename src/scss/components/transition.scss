@@ -45,15 +45,15 @@
  */
 
 :where(.uk-transition-fade),
-:where([class*='uk-transition-scale']),
-:where([class*='uk-transition-slide']) {
+:where([class*="uk-transition-scale"]),
+:where([class*="uk-transition-slide"]) {
     --uk-position-translate-x: 0;
     --uk-position-translate-y: 0;
 }
 
 .uk-transition-fade,
-[class*='uk-transition-scale'],
-[class*='uk-transition-slide'] {
+[class*="uk-transition-scale"],
+[class*="uk-transition-slide"] {
     --uk-translate-x: 0;
     --uk-translate-y: 0;
     --uk-scale-x: 1;
@@ -81,7 +81,7 @@
  */
 
 /* 1 */
-[class*='uk-transition-scale'] { -webkit-backface-visibility: hidden; }
+[class*="uk-transition-scale"] { -webkit-backface-visibility: hidden; }
 
 .uk-transition-scale-up {
     --uk-scale-x: 1;
@@ -131,10 +131,10 @@
 .uk-transition-slide-right-medium { --uk-translate-x: #{$transition-slide-medium-translate}; }
 
 /* Show */
-.uk-transition-toggle:hover [class*='uk-transition-slide'],
-.uk-transition-toggle:focus [class*='uk-transition-slide'],
-.uk-transition-toggle [class*='uk-transition-slide']:focus-within,
-.uk-transition-active.uk-active [class*='uk-transition-slide'] {
+.uk-transition-toggle:hover [class*="uk-transition-slide"],
+.uk-transition-toggle:focus [class*="uk-transition-slide"],
+.uk-transition-toggle [class*="uk-transition-slide"]:focus-within,
+.uk-transition-active.uk-active [class*="uk-transition-slide"] {
     --uk-translate-x: 0;
     --uk-translate-y: 0;
     opacity: 1;

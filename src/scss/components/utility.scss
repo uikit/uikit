@@ -108,7 +108,7 @@
 .uk-float-right { float: right; }
 
 /* 1 */
-[class*='uk-float-'] { max-width: 100%; }
+[class*="uk-float-"] { max-width: 100%; }
 
 
 /* Overfow
@@ -161,7 +161,7 @@
  * 6. Clip child elements
  */
 
-[class*='uk-inline'] {
+[class*="uk-inline"] {
     /* 1 */
     display: inline-block;
     /* 2 */
@@ -272,7 +272,7 @@
  * Fix `overflow: hidden` to be ignored with border-radius and CSS transforms in Webkit
  */
 
-.uk-inline-clip[class*='uk-border-'] { -webkit-transform: translateZ(0); }
+.uk-inline-clip[class*="uk-border-"] { -webkit-transform: translateZ(0); }
 
 
 /* Box-shadow
@@ -287,7 +287,7 @@
  * Hover
  */
 
-[class*='uk-box-shadow-hover'] { transition: box-shadow $box-shadow-duration ease-in-out; }
+[class*="uk-box-shadow-hover"] { transition: box-shadow $box-shadow-duration ease-in-out; }
 
 .uk-box-shadow-hover-small:hover { box-shadow: $global-small-box-shadow; }
 .uk-box-shadow-hover-medium:hover { box-shadow: $global-medium-box-shadow; }

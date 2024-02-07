@@ -323,7 +323,7 @@ textarea.uk-form-large,
  */
 
 .uk-form-success,
-.uk-form-success:focus  {
+.uk-form-success:focus {
     color: $form-success-color;
     @if(mixin-exists(hook-form-success)) {@include hook-form-success();}
 }

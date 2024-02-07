@@ -100,13 +100,13 @@
  * Implemented by the theme
  */
 
-[class*='uk-card-media'] {
+[class*="uk-card-media"] {
     @if(mixin-exists(hook-card-media)) {@include hook-card-media();}
 }
 
 .uk-card-media-top,
 .uk-grid-stack > .uk-card-media-left,
-.uk-grid-stack > .uk-card-media-right  {
+.uk-grid-stack > .uk-card-media-right {
     @if(mixin-exists(hook-card-media-top)) {@include hook-card-media-top();}
 }
 
@@ -214,9 +214,9 @@
 
 // Color Mode
 @if ( $card-default-color-mode == light ) { .uk-card-default.uk-card-body { @extend .uk-light !optional;} }
-@if ( $card-default-color-mode == light ) { .uk-card-default > :not([class*='uk-card-media']) { @extend .uk-light !optional;} }
+@if ( $card-default-color-mode == light ) { .uk-card-default > :not([class*="uk-card-media"]) { @extend .uk-light !optional;} }
 @if ( $card-default-color-mode == dark ) { .uk-card-default.uk-card-body { @extend .uk-dark !optional;} }
-@if ( $card-default-color-mode == dark ) { .uk-card-default > :not([class*='uk-card-media']) { @extend .uk-dark !optional;} }
+@if ( $card-default-color-mode == dark ) { .uk-card-default > :not([class*="uk-card-media"]) { @extend .uk-dark !optional;} }
 
 /*
  * Primary
@@ -240,9 +240,9 @@
 
 // Color Mode
 @if ( $card-primary-color-mode == light ) { .uk-card-primary.uk-card-body { @extend .uk-light !optional;} }
-@if ( $card-primary-color-mode == light ) { .uk-card-primary > :not([class*='uk-card-media']) { @extend .uk-light !optional;} }
+@if ( $card-primary-color-mode == light ) { .uk-card-primary > :not([class*="uk-card-media"]) { @extend .uk-light !optional;} }
 @if ( $card-primary-color-mode == dark ) { .uk-card-primary.uk-card-body { @extend .uk-dark !optional;} }
-@if ( $card-primary-color-mode == dark ) { .uk-card-primary > :not([class*='uk-card-media']) { @extend .uk-dark !optional;} }
+@if ( $card-primary-color-mode == dark ) { .uk-card-primary > :not([class*="uk-card-media"]) { @extend .uk-dark !optional;} }
 
 /*
  * Secondary
@@ -266,9 +266,9 @@
 
 // Color Mode
 @if ( $card-secondary-color-mode == light ) { .uk-card-secondary.uk-card-body { @extend .uk-light !optional;} }
-@if ( $card-secondary-color-mode == light ) { .uk-card-secondary > :not([class*='uk-card-media']) { @extend .uk-light !optional;} }
+@if ( $card-secondary-color-mode == light ) { .uk-card-secondary > :not([class*="uk-card-media"]) { @extend .uk-light !optional;} }
 @if ( $card-secondary-color-mode == dark ) { .uk-card-secondary.uk-card-body { @extend .uk-dark !optional;} }
-@if ( $card-secondary-color-mode == dark ) { .uk-card-secondary > :not([class*='uk-card-media']) { @extend .uk-dark !optional;} }
+@if ( $card-secondary-color-mode == dark ) { .uk-card-secondary > :not([class*="uk-card-media"]) { @extend .uk-dark !optional;} }
 
 
 /* Size modifier
