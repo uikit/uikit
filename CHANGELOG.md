@@ -11,6 +11,7 @@
 - Fix Video component does not pause video if it enters fullscreen mode
 - Fix page scrolls while sorting in Sortable component
 - Fix horizontally overflowing elements are not scrollable in Modal component
+- Fix Match Height component applied to SVG elements
 
 ### Removed
 
