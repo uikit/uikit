@@ -7,6 +7,10 @@
 - Close modal if contained video leaves fullscreen mode
 - Improve background scroll prevention if horizontal scroll is possible
 
+### Fixed
+
+- Fix Video component does not pause video if it enters fullscreen mode
+
 ### Removed
 
 - Remove Pagekit CMS icon
