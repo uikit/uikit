@@ -10,6 +10,7 @@
 ### Fixed
 
 - Fix Video component does not pause video if it enters fullscreen mode
+- Fix page scrolls while sorting in Sortable component 
 
 ### Removed
 
