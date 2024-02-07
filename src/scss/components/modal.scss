@@ -233,7 +233,7 @@
  * Adopts `uk-close`
  ========================================================================== */
 
-[class*='uk-modal-close-'] {
+[class*="uk-modal-close-"] {
     position: absolute;
     z-index: $modal-z-index;
     top: $modal-close-position;
@@ -246,13 +246,13 @@
  * Remove margin from adjacent element
  */
 
-[class*='uk-modal-close-']:first-child + * { margin-top: 0; }
+[class*="uk-modal-close-"]:first-child + * { margin-top: 0; }
 
 /*
  * Hover
  */
 
-[class*='uk-modal-close-']:hover {
+[class*="uk-modal-close-"]:hover {
     @if(mixin-exists(hook-modal-close-hover)) {@include hook-modal-close-hover();}
 }
 

@@ -1,4 +1,4 @@
-/*! UIkit 3.18.0 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.18.1 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1308,7 +1308,7 @@
         ["height", "y", "top", "bottom"]
       ]) {
         if (isWindow(viewportElement)) {
-          viewportElement = window.document.documentElement;
+          viewportElement = scrollElement.ownerDocument;
         } else {
           rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
         }
@@ -1692,9 +1692,7 @@
       },
       events: {
         name: "visibilitychange",
-        el() {
-          return document;
-        },
+        el: () => document,
         handler() {
           if (document.hidden) {
             this.stop();
@@ -2439,20 +2437,34 @@
 
     let prevented;
     function preventBackgroundScroll(el) {
-      const off = on(
-        el,
-        "touchmove",
-        (e) => {
-          if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
-            return;
-          }
-          let { scrollHeight, clientHeight } = scrollParent(e.target);
-          if (clientHeight >= scrollHeight && e.cancelable) {
-            e.preventDefault();
-          }
-        },
-        { passive: false }
-      );
+      const off = on(el, "touchstart", (e) => {
+        if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
+          return;
+        }
+        let prev = getEventPos(e).y;
+        const offMove = on(
+          el,
+          "touchmove",
+          (e2) => {
+            const pos = getEventPos(e2).y;
+            if (pos === prev) {
+              return;
+            }
+            prev = pos;
+            if (!scrollParents(e2.target).some((scrollParent) => {
+              if (!el.contains(scrollParent)) {
+                return false;
+              }
+              let { scrollHeight, clientHeight } = scrollParent;
+              return clientHeight < scrollHeight;
+            })) {
+              e2.preventDefault();
+            }
+          },
+          { passive: false }
+        );
+        once(el, "scroll touchend touchcanel", offMove, { capture: true });
+      });
       if (prevented) {
         return off;
       }
@@ -3001,9 +3013,7 @@
       events: [
         {
           name: "visibilitychange",
-          el() {
-            return document;
-          },
+          el: () => document,
           filter() {
             return this.autoplay;
           },
@@ -3520,7 +3530,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.18.0";
+    App.version = "3.18.1";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4160,9 +4170,7 @@
         },
         {
           name: "keyup",
-          el() {
-            return document;
-          },
+          el: () => document,
           handler({ keyCode }) {
             if (!this.isToggled(this.$el) || !this.draggable) {
               return;
@@ -5659,7 +5667,7 @@
         },
         handles(handles, prev) {
           css(prev, { touchAction: "", userSelect: "" });
-          css(handles, { touchAction: hasTouch ? "none" : "", userSelect: "none" });
+          css(handles, { touchAction: "none", userSelect: "none" });
         }
       },
       update: {
@@ -6647,7 +6655,7 @@
         intersection({
           filter: ({ $el, autoplay }) => autoplay && isVideo($el),
           handler([{ isIntersecting }]) {
-            if (isIntersecting) {
+            if (isIntersecting || this.$el.webkitDisplayingFullscreen || document.fullscreenElement === this.$el) {
               play(this.$el);
             } else {
               pause(this.$el);
@@ -7686,12 +7694,13 @@
       };
     }
     function getHeight(element) {
+      var _a;
       const style = pick(element.style, ["display", "minHeight"]);
       if (!isVisible(element)) {
         css(element, "display", "block", "important");
       }
       css(element, "minHeight", "");
-      const height = element.offsetHeight;
+      const height = (_a = element.offsetHeight) != null ? _a : element.clientHeight;
       css(element, style);
       return height;
     }
@@ -8325,6 +8334,15 @@
         selClose: ".uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full"
       },
       events: [
+        {
+          name: "fullscreenchange webkitendfullscreen",
+          capture: true,
+          handler(e) {
+            if (isTag(e.target, "video") && this.isToggled() && !document.fullscreenElement) {
+              this.hide();
+            }
+          }
+        },
         {
           name: "show",
           self: true,

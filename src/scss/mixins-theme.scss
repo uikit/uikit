@@ -88,11 +88,11 @@
 @mixin hook-inverse-article-meta(){}
 @mixin hook-inverse-component-article(){
 
-    .uk-article-title  {
+    .uk-article-title {
         @if(mixin-exists(hook-inverse-article-title)) {@include hook-inverse-article-title();}
     }
 
-    .uk-article-meta  {
+    .uk-article-meta {
         color: $inverse-article-meta-color;
         @if(mixin-exists(hook-inverse-article-meta)) {@include hook-inverse-article-meta();}
     }
@@ -176,7 +176,7 @@
     //
 
     a,
-    .uk-link  {
+    .uk-link {
         color: $inverse-base-link-color;
         @if(mixin-exists(hook-inverse-base-link)) {@include hook-inverse-base-link();}
     }
@@ -1189,7 +1189,7 @@
 
     a.uk-link-muted:hover,
     .uk-link-muted a:hover,
-    .uk-link-toggle:hover .uk-link-muted  {
+    .uk-link-toggle:hover .uk-link-muted {
         color: $inverse-link-muted-hover-color;
         @if(mixin-exists(hook-inverse-link-muted-hover)) {@include hook-inverse-link-muted-hover();}
     }
@@ -1532,9 +1532,9 @@
 
         .uk-navbar-left,
         .uk-navbar-right,
-        [class*='uk-navbar-center'] { gap: $navbar-gap-m; }
+        [class*="uk-navbar-center"] { gap: $navbar-gap-m; }
 
-        .uk-navbar-center-left { right:  unquote('calc(100% + #{$navbar-gap-m})'); }
+        .uk-navbar-center-left { right: unquote('calc(100% + #{$navbar-gap-m})'); }
         .uk-navbar-center-right { left: unquote('calc(100% + #{$navbar-gap-m})'); }
 
     }
@@ -1958,7 +1958,7 @@
 }
 @mixin hook-tab-misc(){
 
-    .uk-tab .uk-dropdown { margin-left: ($tab-margin-horizontal + $tab-item-padding-horizontal) }
+    .uk-tab .uk-dropdown { margin-left: ($tab-margin-horizontal + $tab-item-padding-horizontal); }
 
 }
 @mixin hook-inverse-tab(){
