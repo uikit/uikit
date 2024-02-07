@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.18.1 (February 7, 2024)
+
+### Changed
+
+- Close modal if contained video leaves fullscreen mode
+
+### Fixed
+
+- Fix Video component does not pause video if it enters fullscreen mode
+- Fix page scrolls while sorting in Sortable component
+- Fix horizontally overflowing elements are not scrollable in Modal component
+- Fix Match Height component applied to SVG elements
+
+### Removed
+
+- Remove Pagekit CMS icon
+
 ## 3.18.0 (January 30, 2024)
 
 ### Added

@@ -118,7 +118,7 @@
 .uk-grid-small,
 .uk-grid-column-small { margin-left: -@grid-small-gutter-horizontal; }
 .uk-grid-small > *,
-.uk-grid-column-small > *  { padding-left: @grid-small-gutter-horizontal; }
+.uk-grid-column-small > * { padding-left: @grid-small-gutter-horizontal; }
 
 /* Vertical */
 .uk-grid + .uk-grid-small,
@@ -376,8 +376,8 @@
     flex-wrap: wrap;
 }
 
-.uk-grid-match > * > :not([class*='uk-width']),
-.uk-grid-item-match > :not([class*='uk-width']) {
+.uk-grid-match > * > :not([class*="uk-width"]),
+.uk-grid-item-match > :not([class*="uk-width"]) {
     /* 2 */
     box-sizing: border-box;
     width: 100%;

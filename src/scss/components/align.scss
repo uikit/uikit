@@ -22,12 +22,12 @@
  * Default
  */
 
-[class*='uk-align'] {
+[class*="uk-align"] {
     display: block;
     margin-bottom: $align-margin-vertical;
 }
 
-* + [class*='uk-align'] { margin-top: $align-margin-vertical; }
+* + [class*="uk-align"] { margin-top: $align-margin-vertical; }
 
 /*
  * Center

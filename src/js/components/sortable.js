@@ -11,7 +11,6 @@ import {
     dimensions,
     findIndex,
     getEventPos,
-    hasTouch,
     height,
     index,
     isInput,
@@ -105,7 +104,7 @@ export default {
 
         handles(handles, prev) {
             css(prev, { touchAction: '', userSelect: '' });
-            css(handles, { touchAction: hasTouch ? 'none' : '', userSelect: 'none' }); // touchAction set to 'none' causes a performance drop in Chrome 80
+            css(handles, { touchAction: 'none', userSelect: 'none' });
         },
     },
 

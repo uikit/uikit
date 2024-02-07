@@ -66,7 +66,7 @@ function getHeight(element) {
         css(element, 'display', 'block', 'important');
     }
     css(element, 'minHeight', '');
-    const height = element.offsetHeight;
+    const height = element.offsetHeight ?? element.clientHeight;
     css(element, style);
     return height;
 }

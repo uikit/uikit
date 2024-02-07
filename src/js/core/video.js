@@ -32,7 +32,11 @@ export default {
         intersection({
             filter: ({ $el, autoplay }) => autoplay && isVideo($el),
             handler([{ isIntersecting }]) {
-                if (isIntersecting) {
+                if (
+                    isIntersecting ||
+                    this.$el.webkitDisplayingFullscreen ||
+                    document.fullscreenElement === this.$el
+                ) {
                     play(this.$el);
                 } else {
                     pause(this.$el);
