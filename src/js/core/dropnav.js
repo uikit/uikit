@@ -317,6 +317,7 @@ export default {
                 if (
                     matches(this.dropbar, ':hover') &&
                     active.$el === e.target &&
+                    this.isDropbarDrop(active.$el) &&
                     includes(active.mode, 'hover') &&
                     active.isDelayedHide &&
                     !this.items.some((el) => active.targetEl !== el && matches(el, ':focus'))
@@ -391,7 +392,7 @@ export default {
         },
 
         isDropbarDrop(el) {
-            return this.getDropdown(el) && hasClass(el, this.clsDrop);
+            return includes(this.dropdowns, el) && hasClass(el, this.clsDrop);
         },
 
         getDropbarOffset(el) {
