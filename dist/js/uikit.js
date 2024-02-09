@@ -1,4 +1,4 @@
-/*! UIkit 3.18.1 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.18.2 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3530,7 +3530,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.18.1";
+    App.version = "3.18.2";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -7156,13 +7156,6 @@
           dropbar = this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
           return dropbar ? dropbar : this._dropbar = $("<div></div>");
         },
-        dropbarOffset({ target, targetY }, $el) {
-          const { offsetTop, offsetHeight } = query(targetY || target || $el, $el);
-          return offsetTop + offsetHeight + this.dropbarPositionOffset;
-        },
-        dropbarPositionOffset(_, $el) {
-          return toPx(css($el, "--uk-position-offset"));
-        },
         dropContainer(_, $el) {
           return this.container || $el;
         },
@@ -7323,7 +7316,7 @@
               const maxBottom = Math.max(
                 ...parents(target, `.${this.clsDrop}`).concat(target).map((el) => offset(el).bottom)
               );
-              css(this.dropbar, "top", this.dropbarOffset);
+              css(this.dropbar, "top", this.getDropbarOffset(drop.$el));
               this.transitionTo(
                 maxBottom - offset(this.dropbar).top + toFloat(css(target, "marginBottom")),
                 target
@@ -7343,7 +7336,7 @@
           },
           handler(e) {
             const active2 = this.getActive();
-            if (matches(this.dropbar, ":hover") && active2.$el === e.target && includes(active2.mode, "hover") && active2.isDelayedHide && !this.items.some((el) => active2.targetEl !== el && matches(el, ":focus"))) {
+            if (matches(this.dropbar, ":hover") && active2.$el === e.target && this.isDropbarDrop(active2.$el) && includes(active2.mode, "hover") && active2.isDelayedHide && !this.items.some((el) => active2.targetEl !== el && matches(el, ":focus"))) {
               e.preventDefault();
             }
           }
@@ -7400,7 +7393,13 @@
           return this.$getComponent(el, "drop") || this.$getComponent(el, "dropdown");
         },
         isDropbarDrop(el) {
-          return this.getDropdown(el) && hasClass(el, this.clsDrop);
+          return includes(this.dropdowns, el) && hasClass(el, this.clsDrop);
+        },
+        getDropbarOffset(el) {
+          var _a;
+          const { $el, target, targetY } = this;
+          const { offsetTop, offsetHeight } = query(targetY || target || $el, $el);
+          return offsetTop + offsetHeight + ((_a = this.getDropdown(el)) == null ? void 0 : _a.getPositionOffset(el));
         },
         initializeDropdowns() {
           this.$create(
@@ -8457,11 +8456,7 @@
         dropbarTransparentMode: false
       },
       computed: {
-        navbarContainer: (_, $el) => $el.closest(".uk-navbar-container"),
-        dropbarOffset({ dropbarTransparentMode }) {
-          const { offsetTop, offsetHeight } = this.navbarContainer;
-          return offsetTop + (dropbarTransparentMode === "behind" ? 0 : offsetHeight + this.dropbarPositionOffset);
-        }
+        navbarContainer: (_, $el) => $el.closest(".uk-navbar-container")
       },
       watch: {
         items() {
@@ -8512,6 +8507,11 @@
           if (drop && hasClass(el, "uk-dropbar")) {
             return drop.inset ? "behind" : "remove";
           }
+        },
+        getDropbarOffset(el) {
+          var _a;
+          const { offsetTop, offsetHeight } = this.navbarContainer;
+          return offsetTop + (this.dropbarTransparentMode === "behind" ? 0 : offsetHeight + ((_a = this.getDropdown(el)) == null ? void 0 : _a.getPositionOffset(el)));
         }
       }
     };

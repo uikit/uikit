@@ -19,7 +19,6 @@ import {
     remove,
     selFocusable,
     toFloat,
-    toPx,
     Transition,
 } from 'uikit-util';
 import Class from '../mixin/class';
@@ -74,15 +73,6 @@ export default {
                 this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
 
             return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
-        },
-
-        dropbarOffset({ target, targetY }, $el) {
-            const { offsetTop, offsetHeight } = query(targetY || target || $el, $el);
-            return offsetTop + offsetHeight + this.dropbarPositionOffset;
-        },
-
-        dropbarPositionOffset(_, $el) {
-            return toPx(css($el, '--uk-position-offset'));
         },
 
         dropContainer(_, $el) {
@@ -299,7 +289,7 @@ export default {
                             .map((el) => offset(el).bottom),
                     );
 
-                    css(this.dropbar, 'top', this.dropbarOffset);
+                    css(this.dropbar, 'top', this.getDropbarOffset(drop.$el));
                     this.transitionTo(
                         maxBottom - offset(this.dropbar).top + toFloat(css(target, 'marginBottom')),
                         target,
@@ -327,6 +317,7 @@ export default {
                 if (
                     matches(this.dropbar, ':hover') &&
                     active.$el === e.target &&
+                    this.isDropbarDrop(active.$el) &&
                     includes(active.mode, 'hover') &&
                     active.isDelayedHide &&
                     !this.items.some((el) => active.targetEl !== el && matches(el, ':focus'))
@@ -401,7 +392,13 @@ export default {
         },
 
         isDropbarDrop(el) {
-            return this.getDropdown(el) && hasClass(el, this.clsDrop);
+            return includes(this.dropdowns, el) && hasClass(el, this.clsDrop);
+        },
+
+        getDropbarOffset(el) {
+            const { $el, target, targetY } = this;
+            const { offsetTop, offsetHeight } = query(targetY || target || $el, $el);
+            return offsetTop + offsetHeight + this.getDropdown(el)?.getPositionOffset(el);
         },
 
         initializeDropdowns() {

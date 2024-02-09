@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.18.2 (February 9, 2024)
+
+### Fixed
+
+- Fix wrong dropbar offset in Navbar component
+- Fix conflict if multiple Dropnav components share the same container
+
 ## 3.18.1 (February 7, 2024)
 
 ### Changed

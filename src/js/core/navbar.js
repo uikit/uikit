@@ -19,16 +19,6 @@ export default {
 
     computed: {
         navbarContainer: (_, $el) => $el.closest('.uk-navbar-container'),
-
-        dropbarOffset({ dropbarTransparentMode }) {
-            const { offsetTop, offsetHeight } = this.navbarContainer;
-            return (
-                offsetTop +
-                (dropbarTransparentMode === 'behind'
-                    ? 0
-                    : offsetHeight + this.dropbarPositionOffset)
-            );
-        },
     },
 
     watch: {
@@ -96,6 +86,16 @@ export default {
             if (drop && hasClass(el, 'uk-dropbar')) {
                 return drop.inset ? 'behind' : 'remove';
             }
+        },
+
+        getDropbarOffset(el) {
+            const { offsetTop, offsetHeight } = this.navbarContainer;
+            return (
+                offsetTop +
+                (this.dropbarTransparentMode === 'behind'
+                    ? 0
+                    : offsetHeight + this.getDropdown(el)?.getPositionOffset(el))
+            );
         },
     },
 };
