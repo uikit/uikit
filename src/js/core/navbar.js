@@ -1,4 +1,4 @@
-import { $$, addClass, css, hasClass, removeClass } from 'uikit-util';
+import { $$, addClass, css, hasClass, offset, removeClass } from 'uikit-util';
 import Dropnav from './dropnav';
 
 const clsNavbarTransparent = 'uk-navbar-transparent';
@@ -89,13 +89,15 @@ export default {
         },
 
         getDropbarOffset(el) {
-            const { offsetTop, offsetHeight } = this.navbarContainer;
-            return (
-                offsetTop +
-                (this.dropbarTransparentMode === 'behind'
-                    ? 0
-                    : offsetHeight + this.getDropdown(el)?.getPositionOffset(el))
-            );
+            const { top, height } = offset(this.navbarContainer);
+            return {
+                left: 0,
+                top:
+                    top +
+                    (this.dropbarTransparentMode === 'behind'
+                        ? 0
+                        : height + this.getDropdown(el)?.getPositionOffset()),
+            };
         },
     },
 };

@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix dropbar offset in Navbar component
+
 ## 3.18.2 (February 9, 2024)
 
 ### Fixed
