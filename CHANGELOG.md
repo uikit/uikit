@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix dropbar offset in Navbar component
+- Fix autoplay option in Lightbox component
 
 ## 3.18.2 (February 9, 2024)
 
