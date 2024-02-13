@@ -88,16 +88,9 @@ export default {
             }
         },
 
-        getDropbarOffset(el) {
+        getDropbarOffset(offsetTop) {
             const { top, height } = offset(this.navbarContainer);
-            return {
-                left: 0,
-                top:
-                    top +
-                    (this.dropbarTransparentMode === 'behind'
-                        ? 0
-                        : height + this.getDropdown(el)?.getPositionOffset()),
-            };
+            return top + (this.dropbarTransparentMode === 'behind' ? 0 : height + offsetTop);
         },
     },
 };

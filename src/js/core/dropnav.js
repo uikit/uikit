@@ -289,7 +289,10 @@ export default {
                             .map((el) => offset(el).bottom),
                     );
 
-                    offset(this.dropbar, this.getDropbarOffset(drop.$el));
+                    offset(this.dropbar, {
+                        left: offset(this.dropbar).left,
+                        top: this.getDropbarOffset(drop.getPositionOffset()),
+                    });
                     this.transitionTo(
                         maxBottom - offset(this.dropbar).top + toFloat(css(target, 'marginBottom')),
                         target,
@@ -395,10 +398,10 @@ export default {
             return includes(this.dropdowns, el) && hasClass(el, this.clsDrop);
         },
 
-        getDropbarOffset(el) {
+        getDropbarOffset(offsetTop) {
             const { $el, target, targetY } = this;
             const { top, height } = offset(query(targetY || target || $el, $el));
-            return { left: 0, top: top + height + this.getDropdown(el)?.getPositionOffset() };
+            return top + height + offsetTop;
         },
 
         initializeDropdowns() {
