@@ -432,7 +432,7 @@ export default {
 
             for (const [i, [axis, prop, start, end]] of dirs) {
                 if (this.axis === axis && includes([axis, true], this.stretch)) {
-                    const positionOffset = Math.abs(this.getPositionOffset(this.$el));
+                    const positionOffset = Math.abs(this.getPositionOffset());
                     const targetOffset = offset(this.target[i]);
                     const elOffset = offset(this.$el);
 

@@ -1,4 +1,4 @@
-import { css, height, query } from 'uikit-util';
+import { css, query } from 'uikit-util';
 import { resize } from '../api/observables';
 
 export default {
@@ -20,7 +20,7 @@ export default {
 
     update: {
         read() {
-            return { height: height(this.target) };
+            return { height: this.target.offsetHeight };
         },
 
         write({ height }) {

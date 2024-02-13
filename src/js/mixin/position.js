@@ -67,7 +67,7 @@ export default {
             restoreScrollPosition();
         },
 
-        getPositionOffset(element) {
+        getPositionOffset(element = this.$el) {
             return (
                 toPx(
                     this.offset === false ? css(element, '--uk-position-offset') : this.offset,
@@ -79,7 +79,7 @@ export default {
             );
         },
 
-        getShiftOffset(element) {
+        getShiftOffset(element = this.$el) {
             return this.align === 'center'
                 ? 0
                 : toPx(

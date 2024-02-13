@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.18.3 (February 13, 2024)
+
+### Fixed
+
+- Fix dropbar offset in Navbar component
+- Fix autoplay option in Lightbox component
+- Fix height in Height Placeholder component
+- Fix Height Match component to use viewport dimensions as base again
+
 ## 3.18.2 (February 9, 2024)
 
 ### Fixed
@@ -18,7 +27,7 @@
 - Fix Video component does not pause video if it enters fullscreen mode
 - Fix page scrolls while sorting in Sortable component
 - Fix horizontally overflowing elements are not scrollable in Modal component
-- Fix Match Height component applied to SVG elements
+- Fix Height Match component applied to SVG elements
 
 ### Removed
 
@@ -31,6 +40,7 @@
 - Add parallax options to Slider and Slideshow components
 - Add Inverse component to color content with no background depending on intersecting elements beneath
 - Add color mode for default and muted style modifiers in Section, Tile, Card and Overlay components
+- Add Height Placeholder component
 - Add size modifier to Nav component
 - Add link external and arrow up right icons
 - Add X, Mastodon, Telegram, Threads, Signal and YOOtheme icons

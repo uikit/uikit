@@ -1,4 +1,4 @@
-/*! UIkit 3.18.2 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.18.3 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3030,7 +3030,7 @@
         startAutoplay() {
           this.stopAutoplay();
           this.interval = setInterval(() => {
-            if (!(this.stack.length || this.draggable && matches(this.$el, ":focus-within") || this.pauseOnHover && matches(this.$el, ":hover"))) {
+            if (!(this.stack.length || this.draggable && matches(this.$el, ":focus-within") && !matches(this.$el, ":focus") || this.pauseOnHover && matches(this.$el, ":hover"))) {
               this.show("next");
             }
           }, this.autoplayInterval);
@@ -3530,7 +3530,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.18.2";
+    App.version = "3.18.3";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5957,14 +5957,14 @@
           });
           restoreScrollPosition();
         },
-        getPositionOffset(element) {
+        getPositionOffset(element = this.$el) {
           return toPx(
             this.offset === false ? css(element, "--uk-position-offset") : this.offset,
             this.axis === "x" ? "width" : "height",
             element
           ) * (includes(["left", "top"], this.dir) ? -1 : 1) * (this.inset ? -1 : 1);
         },
-        getShiftOffset(element) {
+        getShiftOffset(element = this.$el) {
           return this.align === "center" ? 0 : toPx(
             css(element, "--uk-position-shift-offset"),
             this.axis === "y" ? "width" : "height",
@@ -7039,7 +7039,7 @@
           this.positionAt(this.$el, this.target, this.boundary);
           for (const [i, [axis, prop, start, end]] of dirs) {
             if (this.axis === axis && includes([axis, true], this.stretch)) {
-              const positionOffset = Math.abs(this.getPositionOffset(this.$el));
+              const positionOffset = Math.abs(this.getPositionOffset());
               const targetOffset = offset(this.target[i]);
               const elOffset = offset(this.$el);
               css(this.$el, {
@@ -7316,7 +7316,10 @@
               const maxBottom = Math.max(
                 ...parents(target, `.${this.clsDrop}`).concat(target).map((el) => offset(el).bottom)
               );
-              css(this.dropbar, "top", this.getDropbarOffset(drop.$el));
+              offset(this.dropbar, {
+                left: offset(this.dropbar).left,
+                top: this.getDropbarOffset(drop.getPositionOffset())
+              });
               this.transitionTo(
                 maxBottom - offset(this.dropbar).top + toFloat(css(target, "marginBottom")),
                 target
@@ -7395,11 +7398,10 @@
         isDropbarDrop(el) {
           return includes(this.dropdowns, el) && hasClass(el, this.clsDrop);
         },
-        getDropbarOffset(el) {
-          var _a;
+        getDropbarOffset(offsetTop) {
           const { $el, target, targetY } = this;
-          const { offsetTop, offsetHeight } = query(targetY || target || $el, $el);
-          return offsetTop + offsetHeight + ((_a = this.getDropdown(el)) == null ? void 0 : _a.getPositionOffset(el));
+          const { top, height: height2 } = offset(query(targetY || target || $el, $el));
+          return top + height2 + offsetTop;
         },
         initializeDropdowns() {
           this.$create(
@@ -7686,20 +7688,17 @@
       let heights = elements.map(getHeight);
       const max = Math.max(...heights);
       return {
-        heights: elements.map(
-          (el, i) => heights[i].toFixed(2) === max.toFixed(2) ? "" : max - boxModelAdjust(el, "height", "content-box")
-        ),
+        heights: elements.map((el, i) => heights[i].toFixed(2) === max.toFixed(2) ? "" : max),
         elements
       };
     }
     function getHeight(element) {
-      var _a;
       const style = pick(element.style, ["display", "minHeight"]);
       if (!isVisible(element)) {
         css(element, "display", "block", "important");
       }
       css(element, "minHeight", "");
-      const height = (_a = element.offsetHeight) != null ? _a : element.clientHeight;
+      const height = dimensions$1(element).height - boxModelAdjust(element, "height", "content-box");
       css(element, style);
       return height;
     }
@@ -7718,10 +7717,10 @@
       observe: resize({ target: ({ target }) => target }),
       update: {
         read() {
-          return { height: height(this.target) };
+          return { height: this.target.offsetHeight };
         },
-        write({ height: height2 }) {
-          css(this.$el, { minHeight: height2 });
+        write({ height }) {
+          css(this.$el, { minHeight: height });
         },
         events: ["resize"]
       }
@@ -8508,10 +8507,9 @@
             return drop.inset ? "behind" : "remove";
           }
         },
-        getDropbarOffset(el) {
-          var _a;
-          const { offsetTop, offsetHeight } = this.navbarContainer;
-          return offsetTop + (this.dropbarTransparentMode === "behind" ? 0 : offsetHeight + ((_a = this.getDropdown(el)) == null ? void 0 : _a.getPositionOffset(el)));
+        getDropbarOffset(offsetTop) {
+          const { top, height } = offset(this.navbarContainer);
+          return top + (this.dropbarTransparentMode === "behind" ? 0 : height + offsetTop);
         }
       }
     };
