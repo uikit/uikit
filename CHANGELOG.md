@@ -7,6 +7,7 @@
 - Fix dropbar offset in Navbar component
 - Fix autoplay option in Lightbox component
 - Fix height in Height Placeholder component
+- Fix Height Match component to use viewport dimensions as base again
 
 ## 3.18.2 (February 9, 2024)
 
