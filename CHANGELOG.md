@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix logo inverse selector to work with different types of images 
+
 ## 3.18.3 (February 13, 2024)
 
 ### Fixed
