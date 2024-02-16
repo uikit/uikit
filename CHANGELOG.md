@@ -4,7 +4,8 @@
 
 ### Fixed
 
-- Fix logo inverse selector to work with different types of images 
+- Fix logo inverse selector to work with different types of images
+- Fix parallax scrolling for Slideshow/Slider component with finite mode
 
 ## 3.18.3 (February 13, 2024)
 

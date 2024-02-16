@@ -300,7 +300,11 @@ export default {
             const lastSlideWidth = dimensions(last(this.slides)).width;
             const scrollDist =
                 getWidth(this.list) -
-                (this.center ? firstSlideWidth / 2 + lastSlideWidth / 2 : lastSlideWidth);
+                (this.center
+                    ? firstSlideWidth / 2 + lastSlideWidth / 2
+                    : this.finite
+                      ? dimensions(this.list).width
+                      : lastSlideWidth);
 
             let dist = percent * scrollDist;
             let slidePercent = 0;
