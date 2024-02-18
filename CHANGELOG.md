@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add breakpoint classes for flex vertical alignment
+
 ### Fixed
 
 - Fix logo inverse selector to work with different types of images
