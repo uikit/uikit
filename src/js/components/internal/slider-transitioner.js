@@ -147,8 +147,8 @@ export function getMax(list) {
     return Math.max(0, getWidth(list) - dimensions(list).width);
 }
 
-export function getWidth(list) {
-    return sumBy(children(list), (el) => dimensions(el).width);
+export function getWidth(list, index) {
+    return sumBy(children(list).slice(0, index), (el) => dimensions(el).width);
 }
 
 function centerEl(el, list) {
