@@ -33,6 +33,7 @@ export default {
     props: {
         center: Boolean,
         sets: Boolean,
+        active: String,
     },
 
     data: {
@@ -42,6 +43,7 @@ export default {
         selList: '.uk-slider-items',
         selNav: '.uk-slider-nav',
         clsContainer: 'uk-slider-container',
+        active: 'all',
         Transitioner,
     },
 
@@ -235,7 +237,15 @@ export default {
         },
 
         updateActiveClasses(currentIndex = this.index) {
-            const actives = this._getTransitioner(currentIndex).getActives();
+            let actives = this._getTransitioner(currentIndex).getActives();
+
+            if (this.active !== 'all') {
+                let index = currentIndex;
+                if (this.active === 'center') {
+                    index += Math.ceil(actives.length / 2) - 1;
+                }
+                actives = [this.slides[this.getValidIndex(index)]];
+            }
 
             const activeClasses = [
                 this.clsActive,

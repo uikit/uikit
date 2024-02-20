@@ -41,6 +41,11 @@
                     <option value="0">Single</option>
                     <option value="1">Sets</option>
                 </select>
+                <select id="js-active-switcher" class="uk-select uk-form-width-small" aria-label="Active switcher">
+                    <option value="">All</option>
+                    <option value="first">First</option>
+                    <option value="center">Center</option>
+                </select>
             </div>
 
             <h2>Content Widths</h2>
@@ -578,6 +583,12 @@
                             <td>Slider item to show. 0 based index.</td>
                         </tr>
                         <tr>
+                            <td><code>active</code></td>
+                            <td>String</td>
+                            <td>all</td>
+                            <td>Slider item/items to apply the transition active class to. (all|first|center)</td>
+                        </tr>
+                        <tr>
                             <td><code>pause-on-hover</code></td>
                             <td>Boolean</td>
                             <td>true</td>
@@ -646,7 +657,7 @@
         <script>
 
             const {attr, $$, on} = UIkit.util;
-            for (const attribute of ['finite', 'center', 'sets']) {
+            for (const attribute of ['finite', 'center', 'sets', 'active']) {
                 on(`#js-${attribute}-switcher`, 'change', e =>
                     attr($$('[uk-slider]'), attribute, e.target.value)
                 );
