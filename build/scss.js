@@ -38,6 +38,9 @@ for (const file of (await glob('src/less/**/*.less'))
         .replace(/fade\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2) => {
             return `rgba(${p1}, ${p2 / 100})`;
         }) // replace Less function fade with rgba
+        .replace(/spin\((\$[\w-]*), ([0-9]+)\)/g, (match, p1, p2) => {
+            return `adjust-hue(${p1}, ${p2})`;
+        }) // replace Less function spin with adjust-hue
         .replace(/fade(in|out)\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2, p3) => {
             return `fade-${p1}(${p2}, ${p3 / 100})`;
         }) // replace Less function fadeout with fade-out
