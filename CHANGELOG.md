@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add breakpoint classes for flex vertical alignment
+- Add breakpoint classes for flex direction, dimension and alignment
 - Add `active` option to Slider component
 
 ### Fixed
