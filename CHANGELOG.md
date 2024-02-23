@@ -11,6 +11,7 @@
 
 - Fix combination of width auto and expand breakpoint classes
 - Fix logo inverse selector to work with different types of images
+- Fix Tooltips not showing in iOS
 - Fix parallax scrolling for Slideshow/Slider component with finite mode
 - Fix Sass sources by renaming spin() (LESS) to adjust-hue() (Sass)
 
