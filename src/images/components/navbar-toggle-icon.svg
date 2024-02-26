@@ -1,14 +1,14 @@
 <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
     <style>
 
-        .uk-navbar-toggle-animate svg > [class*='line-'] {
+        .uk-navbar-toggle-icon svg > [class*='line-'] {
             transition: 0.2s ease-in-out;
             transition-property: transform, opacity;
             transform-origin: center;
             opacity: 1;
         }
 
-        .uk-navbar-toggle-animate svg > .line-3 { opacity: 0; }
+        .uk-navbar-toggle-icon svg > .line-3 { opacity: 0; }
         .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-3 { opacity: 1; }
 
         .uk-navbar-toggle-animate[aria-expanded="true"] svg > .line-2 { transform: rotate(45deg); }
