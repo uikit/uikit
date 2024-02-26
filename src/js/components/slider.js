@@ -241,7 +241,7 @@ export default {
 
             if (this.active !== 'all') {
                 let index = currentIndex;
-                if (this.active === 'center') {
+                if (this.active === 'center' && !this.center) {
                     index += Math.ceil(actives.length / 2) - 1;
                 }
                 actives = [this.slides[this.getValidIndex(index)]];
