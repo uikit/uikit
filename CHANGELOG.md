@@ -7,6 +7,10 @@
 - Add breakpoint classes for flex direction, dimension and alignment
 - Add `active` option to Slider component
 
+### Changed
+
+- Remove obsolete fix for rounding issues in Width component in IE11/Edge
+
 ### Fixed
 
 - Fix combination of width auto and expand breakpoint classes
