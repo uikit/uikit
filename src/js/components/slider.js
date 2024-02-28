@@ -366,7 +366,7 @@ function isFinite(list, center) {
         }
 
         if (
-            diff >
+            Math.trunc(diff) >
             sumBy(
                 slides.filter((slide) => !slidesInView.has(slide)),
                 (slide) => dimensions(slide).width,
