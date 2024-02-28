@@ -20,6 +20,7 @@
 - Fix parallax scrolling for Slideshow/Slider component with finite mode
 - Fix Slider component disables infinite scrolling prematurely
 - Fix Sass sources by renaming spin() (LESS) to adjust-hue() (Sass)
+- Fix Height Match component recalculates its heights, when a font has loaded
 
 ## 3.18.3 (February 13, 2024)
 
