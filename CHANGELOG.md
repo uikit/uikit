@@ -13,6 +13,7 @@
 
 ### Fixed
 
+- Fix width expand classes mixed with other width classes of higher breakpoints in Width component
 - Fix combination of width auto and expand breakpoint classes
 - Fix logo inverse selector to work with different types of images
 - Fix Tooltips not showing in iOS
