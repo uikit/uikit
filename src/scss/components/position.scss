@@ -133,8 +133,14 @@
     transform: translate(0, var(--uk-position-translate-y));
 }
 
-.uk-position-center-left { left: 0; }
-.uk-position-center-right { right: 0; }
+.uk-position-center-left { 
+    left: 0;
+    right: unset;
+}
+.uk-position-center-right { 
+    right: 0;
+    left: unset;
+}
 
 .uk-position-center-left-out {
     right: 100%;
