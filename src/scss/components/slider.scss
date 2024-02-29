@@ -102,7 +102,7 @@
 
 .uk-slider-items > * {
     /* 1 */
-    flex: none;
+    flex: none !important;
     box-sizing: border-box;
     max-width: 100%;
     /* 2 */
