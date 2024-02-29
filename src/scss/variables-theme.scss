@@ -1288,7 +1288,7 @@ $table-striped-border-width: $global-border-width !default;
 $table-striped-border: $global-border !default;
 $text-meta-link-color: $text-meta-color !default;
 $text-meta-link-hover-color: $global-color !default;
-$internal-text-background-color-gradient: linear-gradient(90deg, $text-background-color 0%, spin($text-background-color, 40%) 100%) !default;
+$internal-text-background-color-gradient: linear-gradient(90deg, $text-background-color 0%, adjust-hue($text-background-color, 40) 100%) !default;
 $thumbnav-item-gradient: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0.4)) !default;
 $thumbnav-item-hover-opacity: 0 !default;
 $thumbnav-item-active-opacity: 0 !default;
