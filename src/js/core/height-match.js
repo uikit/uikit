@@ -24,6 +24,18 @@ export default {
             elements.reduce((elements, el) => elements.concat(el, ...el.children), [$el]),
     }),
 
+    events: {
+        name: 'loadingdone',
+
+        el() {
+            return document.fonts;
+        },
+
+        handler() {
+            this.$emit('resize');
+        },
+    },
+
     update: {
         read() {
             return {

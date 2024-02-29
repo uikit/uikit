@@ -7,8 +7,6 @@ import {
     data,
     escape,
     fragment,
-    hasAttr,
-    inBrowser,
     includes,
     isArray,
     isEmpty,
@@ -21,8 +19,6 @@ import {
 } from 'uikit-util';
 import { intersection } from '../api/observables';
 import { parseOptions } from '../api/options';
-
-const nativeLazyLoad = inBrowser && 'loading' in HTMLImageElement.prototype;
 
 export default {
     args: 'dataSrc',
@@ -46,15 +42,10 @@ export default {
     connected() {
         if (this.loading !== 'lazy') {
             this.load();
-            return;
-        }
-
-        if (nativeLazyLoad && isImg(this.$el)) {
+        } else if (isImg(this.$el)) {
             this.$el.loading = 'lazy';
             setSrcAttrs(this.$el);
         }
-
-        ensureSrcAttribute(this.$el);
     },
 
     disconnected() {
@@ -161,12 +152,6 @@ function parseSources(sources) {
     }
 
     return sources.filter((source) => !isEmpty(source));
-}
-
-function ensureSrcAttribute(el) {
-    if (isImg(el) && !hasAttr(el, 'src')) {
-        attr(el, 'src', 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"></svg>');
-    }
 }
 
 function isImg(el) {

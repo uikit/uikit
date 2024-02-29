@@ -33,6 +33,7 @@ export default {
     props: {
         center: Boolean,
         sets: Boolean,
+        active: String,
     },
 
     data: {
@@ -42,6 +43,7 @@ export default {
         selList: '.uk-slider-items',
         selNav: '.uk-slider-nav',
         clsContainer: 'uk-slider-container',
+        active: 'all',
         Transitioner,
     },
 
@@ -235,7 +237,11 @@ export default {
         },
 
         updateActiveClasses(currentIndex = this.index) {
-            const actives = this._getTransitioner(currentIndex).getActives();
+            let actives = this._getTransitioner(currentIndex).getActives();
+
+            if (this.active !== 'all') {
+                actives = [this.slides[this.getValidIndex(currentIndex)]];
+            }
 
             const activeClasses = [
                 this.clsActive,
@@ -296,11 +302,10 @@ export default {
 
         getIndexAt(percent) {
             let index = -1;
-            const firstSlideWidth = dimensions(this.slides[0]).width;
-            const lastSlideWidth = dimensions(last(this.slides)).width;
-            const scrollDist =
-                getWidth(this.list) -
-                (this.center ? firstSlideWidth / 2 + lastSlideWidth / 2 : lastSlideWidth);
+            const scrollDist = this.center
+                ? getWidth(this.list) -
+                  (dimensions(this.slides[0]).width / 2 + dimensions(last(this.slides)).width / 2)
+                : getWidth(this.list, this.maxIndex);
 
             let dist = percent * scrollDist;
             let slidePercent = 0;
@@ -361,7 +366,7 @@ function isFinite(list, center) {
         }
 
         if (
-            diff >
+            Math.trunc(diff) >
             sumBy(
                 slides.filter((slide) => !slidesInView.has(slide)),
                 (slide) => dimensions(slide).width,

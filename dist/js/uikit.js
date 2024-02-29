@@ -1,4 +1,4 @@
-/*! UIkit 3.18.3 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.19.0 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3530,7 +3530,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.18.3";
+    App.version = "3.19.0";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5145,8 +5145,8 @@
     function getMax(list) {
       return Math.max(0, getWidth(list) - dimensions$1(list).width);
     }
-    function getWidth(list) {
-      return sumBy(children(list), (el) => dimensions$1(el).width);
+    function getWidth(list, index) {
+      return sumBy(children(list).slice(0, index), (el) => dimensions$1(el).width);
     }
     function centerEl(el, list) {
       return dimensions$1(list).width / 2 - dimensions$1(el).width / 2;
@@ -5172,7 +5172,8 @@
       mixins: [Class, Slider, SliderReactive, SliderParallax, SliderPreload],
       props: {
         center: Boolean,
-        sets: Boolean
+        sets: Boolean,
+        active: String
       },
       data: {
         center: false,
@@ -5181,6 +5182,7 @@
         selList: ".uk-slider-items",
         selNav: ".uk-slider-nav",
         clsContainer: "uk-slider-container",
+        active: "all",
         Transitioner
       },
       computed: {
@@ -5317,7 +5319,10 @@
           }
         },
         updateActiveClasses(currentIndex = this.index) {
-          const actives = this._getTransitioner(currentIndex).getActives();
+          let actives = this._getTransitioner(currentIndex).getActives();
+          if (this.active !== "all") {
+            actives = [this.slides[this.getValidIndex(currentIndex)]];
+          }
           const activeClasses = [
             this.clsActive,
             !this.sets || includes(this.sets, toFloat(this.index)) ? this.clsActivated : ""
@@ -5369,9 +5374,7 @@
         },
         getIndexAt(percent) {
           let index = -1;
-          const firstSlideWidth = dimensions$1(this.slides[0]).width;
-          const lastSlideWidth = dimensions$1(last(this.slides)).width;
-          const scrollDist = getWidth(this.list) - (this.center ? firstSlideWidth / 2 + lastSlideWidth / 2 : lastSlideWidth);
+          const scrollDist = this.center ? getWidth(this.list) - (dimensions$1(this.slides[0]).width / 2 + dimensions$1(last(this.slides)).width / 2) : getWidth(this.list, this.maxIndex);
           let dist = percent * scrollDist;
           let slidePercent = 0;
           do {
@@ -5415,7 +5418,7 @@
             slideWidth / 2 + dimensions$1(slides[getIndex(+index + i, slides)]).width / 2 - (left - listHalf)
           );
         }
-        if (diff > sumBy(
+        if (Math.trunc(diff) > sumBy(
           slides.filter((slide2) => !slidesInView.has(slide2)),
           (slide2) => dimensions$1(slide2).width
         )) {
@@ -6071,7 +6074,7 @@
         // Clicking a button does not give it focus on all browsers and platforms
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
         [`focus ${pointerEnter} ${pointerDown$1}`](e) {
-          if (!isTouch(e)) {
+          if (!isTouch(e) || e.type === pointerDown$1) {
             this.show();
           }
         }
@@ -7667,6 +7670,15 @@
       observe: resize({
         target: ({ $el, elements }) => elements.reduce((elements2, el) => elements2.concat(el, ...el.children), [$el])
       }),
+      events: {
+        name: "loadingdone",
+        el() {
+          return document.fonts;
+        },
+        handler() {
+          this.$emit("resize");
+        }
+      },
       update: {
         read() {
           return {
@@ -7805,7 +7817,7 @@
 
     var navbarParentIcon = "<svg width=\"12\" height=\"12\" viewBox=\"0 0 12 12\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" points=\"1 3.5 6 8.5 11 3.5\"/></svg>";
 
-    var navbarToggleIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\"><style>.uk-navbar-toggle-animate svg&gt;[class*=&quot;line-&quot;]{transition:0.2s ease-in-out;transition-property:transform, opacity;transform-origin:center;opacity:1}.uk-navbar-toggle-animate svg&gt;.line-3{opacity:0}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-3{opacity:1}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-2{transform:rotate(45deg)}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-3{transform:rotate(-45deg)}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-1,.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-4{opacity:0}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-1{transform:translateY(6px) scaleX(0)}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-4{transform:translateY(-6px) scaleX(0)}</style><rect class=\"line-1\" y=\"3\" width=\"20\" height=\"2\"/><rect class=\"line-2\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-3\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-4\" y=\"15\" width=\"20\" height=\"2\"/></svg>";
+    var navbarToggleIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\"><style>.uk-navbar-toggle-icon svg&gt;[class*=&quot;line-&quot;]{transition:0.2s ease-in-out;transition-property:transform, opacity;transform-origin:center;opacity:1}.uk-navbar-toggle-icon svg&gt;.line-3{opacity:0}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-3{opacity:1}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-2{transform:rotate(45deg)}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-3{transform:rotate(-45deg)}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-1,.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-4{opacity:0}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-1{transform:translateY(6px) scaleX(0)}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-4{transform:translateY(-6px) scaleX(0)}</style><rect class=\"line-1\" y=\"3\" width=\"20\" height=\"2\"/><rect class=\"line-2\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-3\" y=\"9\" width=\"20\" height=\"2\"/><rect class=\"line-4\" y=\"15\" width=\"20\" height=\"2\"/></svg>";
 
     var overlayIcon = "<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\"><rect x=\"19\" y=\"0\" width=\"1\" height=\"40\"/><rect x=\"0\" y=\"19\" width=\"40\" height=\"1\"/></svg>";
 
@@ -8075,7 +8087,6 @@
       return isRtl ? swap(swap(icon, "left", "right"), "previous", "next") : icon;
     }
 
-    const nativeLazyLoad = inBrowser && "loading" in HTMLImageElement.prototype;
     var img = {
       args: "dataSrc",
       props: {
@@ -8095,13 +8106,10 @@
       connected() {
         if (this.loading !== "lazy") {
           this.load();
-          return;
-        }
-        if (nativeLazyLoad && isImg(this.$el)) {
+        } else if (isImg(this.$el)) {
           this.$el.loading = "lazy";
           setSrcAttrs(this.$el);
         }
-        ensureSrcAttribute(this.$el);
       },
       disconnected() {
         if (this.img) {
@@ -8191,11 +8199,6 @@
         sources = [sources];
       }
       return sources.filter((source) => !isEmpty(source));
-    }
-    function ensureSrcAttribute(el) {
-      if (isImg(el) && !hasAttr(el, "src")) {
-        attr(el, "src", 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"></svg>');
-      }
     }
     function isImg(el) {
       return isTag(el, "img");
