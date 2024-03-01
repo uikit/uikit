@@ -25,6 +25,7 @@ export default {
     }),
 
     events: {
+        // Hidden elements may change height when fonts load
         name: 'loadingdone',
 
         el() {
