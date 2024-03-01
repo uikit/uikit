@@ -1,4 +1,4 @@
-/*! UIkit 3.19.0 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.19.1 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3530,7 +3530,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.19.0";
+    App.version = "3.19.1";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -6658,10 +6658,12 @@
         intersection({
           filter: ({ $el, autoplay }) => autoplay && isVideo($el),
           handler([{ isIntersecting }]) {
-            if (isIntersecting || this.$el.webkitDisplayingFullscreen || document.fullscreenElement === this.$el) {
-              play(this.$el);
-            } else {
-              pause(this.$el);
+            if (!document.fullscreenElement) {
+              if (isIntersecting) {
+                play(this.$el);
+              } else {
+                pause(this.$el);
+              }
             }
           },
           args: { intersecting: false },
@@ -7671,6 +7673,7 @@
         target: ({ $el, elements }) => elements.reduce((elements2, el) => elements2.concat(el, ...el.children), [$el])
       }),
       events: {
+        // Hidden elements may change height when fonts load
         name: "loadingdone",
         el() {
           return document.fonts;
