@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Video component handles fullscreen mode correctly
+
 ## 3.19.0 (February 29, 2024)
 
 ### Added
