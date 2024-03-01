@@ -2,6 +2,10 @@
 
 ## 3.19.1 (March 1, 2024)
 
+### Added
+
+- Add Bluesky icon
+
 ### Fixed
 
 - Fix Video component handles fullscreen mode correctly
