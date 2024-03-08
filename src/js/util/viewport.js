@@ -89,10 +89,7 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
                     diff -= coverEl ? offset(coverEl).height : 0;
                 }
 
-                element.scrollTop = Math[top + diff > 0 ? 'max' : 'min'](
-                    element.scrollTop,
-                    scroll + (top + diff) * percent,
-                );
+                element.scrollTop = scroll + (top + diff) * percent;
 
                 // scroll more if we have not reached our destination
                 // if element changes position during scroll try another step
@@ -202,19 +199,26 @@ export function offsetViewport(scrollElement) {
 
 export function getCoveringElement(target) {
     const { left, width, top } = dimensions(target);
-    return target.ownerDocument.elementsFromPoint(left + width / 2, top).find(
-        (el) =>
-            !el.contains(target) &&
-            // If e.g. Offcanvas is not yet closed
-            !hasClass(el, 'uk-togglable-leave') &&
-            ((hasPosition(el, 'fixed') &&
-                zIndex(
-                    parents(target)
-                        .reverse()
-                        .find((parent) => !parent.contains(el) && !hasPosition(parent, 'static')),
-                ) < zIndex(el)) ||
-                (hasPosition(el, 'sticky') && parent(el).contains(target))),
-    );
+    for (const topPosition of [0, top]) {
+        const coverEl = target.ownerDocument.elementsFromPoint(left + width / 2, topPosition).find(
+            (el) =>
+                !el.contains(target) &&
+                // If e.g. Offcanvas is not yet closed
+                !hasClass(el, 'uk-togglable-leave') &&
+                ((hasPosition(el, 'fixed') &&
+                    zIndex(
+                        parents(target)
+                            .reverse()
+                            .find(
+                                (parent) => !parent.contains(el) && !hasPosition(parent, 'static'),
+                            ),
+                    ) < zIndex(el)) ||
+                    (hasPosition(el, 'sticky') && parent(el).contains(target))),
+        );
+        if (coverEl) {
+            return coverEl;
+        }
+    }
 }
 
 function zIndex(element) {

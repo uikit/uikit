@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix `scrollIntoView()` when target is covered by another element
+
 ## 3.19.1 (March 1, 2024)
 
 ### Added
