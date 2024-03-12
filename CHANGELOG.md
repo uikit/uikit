@@ -1,6 +1,20 @@
 # Changelog
 
+## 3.19.2 (March 12, 2024)
+
+### Added
+
+- Add center vertical and horizontal classes to Position component
+
+### Fixed
+
+- Fix `scrollIntoView()` when target is covered by another element
+
 ## 3.19.1 (March 1, 2024)
+
+### Added
+
+- Add Bluesky icon
 
 ### Fixed
 
