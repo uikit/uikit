@@ -1,4 +1,4 @@
-/*! UIkit 3.19.1 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.19.2 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1237,10 +1237,7 @@
               const coverEl = getCoveringElement(targetEl);
               diff -= coverEl ? offset(coverEl).height : 0;
             }
-            element2.scrollTop = Math[top + diff > 0 ? "max" : "min"](
-              element2.scrollTop,
-              scroll + (top + diff) * percent
-            );
+            element2.scrollTop = scroll + (top + diff) * percent;
             if (percent === 1 && (prev === diff || !frames--)) {
               resolve();
             } else {
@@ -1320,12 +1317,19 @@
     }
     function getCoveringElement(target) {
       const { left, width, top } = dimensions$1(target);
-      return target.ownerDocument.elementsFromPoint(left + width / 2, top).find(
-        (el) => !el.contains(target) && // If e.g. Offcanvas is not yet closed
-        !hasClass(el, "uk-togglable-leave") && (hasPosition(el, "fixed") && zIndex(
-          parents(target).reverse().find((parent2) => !parent2.contains(el) && !hasPosition(parent2, "static"))
-        ) < zIndex(el) || hasPosition(el, "sticky") && parent(el).contains(target))
-      );
+      for (const topPosition of [0, top]) {
+        const coverEl = target.ownerDocument.elementsFromPoint(left + width / 2, topPosition).find(
+          (el) => !el.contains(target) && // If e.g. Offcanvas is not yet closed
+          !hasClass(el, "uk-togglable-leave") && (hasPosition(el, "fixed") && zIndex(
+            parents(target).reverse().find(
+              (parent2) => !parent2.contains(el) && !hasPosition(parent2, "static")
+            )
+          ) < zIndex(el) || hasPosition(el, "sticky") && parent(el).contains(target))
+        );
+        if (coverEl) {
+          return coverEl;
+        }
+      }
     }
     function zIndex(element) {
       return toFloat(css(element, "zIndex"));
@@ -3530,7 +3534,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.19.1";
+    App.version = "3.19.2";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
