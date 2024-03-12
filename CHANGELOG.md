@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add center vertical and horizontal classes to Position component
+
 ### Fixed
 
 - Fix `scrollIntoView()` when target is covered by another element
