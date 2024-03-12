@@ -121,8 +121,38 @@ export default {
             toggleClass(el, this.inViewClass, inview);
             toggleClass(el, state.cls);
 
+            const triggerRepaint = () => {
+                Array.prototype
+                    .slice
+                    .call(el
+                        .querySelectorAll('img')
+                    )
+                    .filter(el => {
+                        const imgExtension = el.src.slice(-3);
+
+                        if (imgExtension === 'svg') {
+                            return el;
+                        }
+                    })
+                    .forEach(img => {
+                        const display = img.style.display;
+
+                        if (display === 'none') {
+                            return;
+                        }
+
+                        img.style.display = 'none';
+                        const h = img.offsetHeight;
+                        img.style.display = display;
+                        return h;
+                    });
+            };
+
             if (/\buk-animation-/.test(state.cls)) {
-                const removeAnimationClasses = () => removeClasses(el, 'uk-animation-[\\w-]+');
+                const removeAnimationClasses = () => {
+                    removeClasses(el, 'uk-animation-[\\w-]+');
+                    triggerRepaint();
+                }
                 if (inview) {
                     state.off = once(el, 'animationcancel animationend', removeAnimationClasses, {
                         self: true,
