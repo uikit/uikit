@@ -131,7 +131,8 @@
 
 /* Vertical */
 [class*="uk-position-center-left"],
-[class*="uk-position-center-right"] {
+[class*="uk-position-center-right"],
+.uk-position-center-vertical {
     top: ~'calc(50% - var(--uk-position-margin-offset))';
     --uk-position-translate-y: -50%;
     transform: translate(0, var(--uk-position-translate-y));
@@ -139,6 +140,10 @@
 
 .uk-position-center-left { left: 0; }
 .uk-position-center-right { right: 0; }
+.uk-position-center-vertical {
+    left: 0;
+    right: 0;
+}
 
 .uk-position-center-left-out {
     right: 100%;
@@ -152,7 +157,8 @@
 
 /* Horizontal */
 .uk-position-top-center,
-.uk-position-bottom-center {
+.uk-position-bottom-center,
+.uk-position-center-horizontal {
     left: ~'calc(50% - var(--uk-position-margin-offset))';
     --uk-position-translate-x: -50%;
     transform: translate(var(--uk-position-translate-x), 0);
@@ -162,6 +168,10 @@
 
 .uk-position-top-center { top: 0; }
 .uk-position-bottom-center { bottom: 0; }
+.uk-position-center-horizontal {
+    top: 0;
+    bottom: 0;
+}
 
 /*
  * Cover
