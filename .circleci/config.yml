@@ -14,14 +14,11 @@ jobs:
 
       - run:
           name: Install pnpm package manager
-          command: |
-            corepack enable
-            corepack prepare --activate
+          command: corepack enable
 
       - run:
           name: Install Dependencies
-          command: |
-            pnpm install
+          command: pnpm install
 
       - save_cache:
           name: Save pnpm Package Cache
