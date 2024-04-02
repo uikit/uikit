@@ -136,11 +136,12 @@ export default {
                     const elOffset = getOffset(this.$el);
 
                     if (this.isFixed && intersectRect(targetOffset, elOffset)) {
-                        scrollingElement.scrollTop =
+                        scrollingElement.scrollTop = Math.ceil(
                             targetOffset.top -
-                            elOffset.height -
-                            toPx(this.targetOffset, 'height', this.placeholder) -
-                            toPx(this.offset, 'height', this.placeholder);
+                                elOffset.height -
+                                toPx(this.targetOffset, 'height', this.placeholder) -
+                                toPx(this.offset, 'height', this.placeholder),
+                        );
                     }
                 });
             },
