@@ -1,8 +1,8 @@
-import eslintJs from '@eslint/js';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import globals from 'globals';
+const eslintJs = require('@eslint/js');
+const eslintConfigPrettier = require('eslint-config-prettier');
+const globals = require('globals');
 
-export default [
+module.exports = [
     eslintJs.configs.recommended,
     eslintConfigPrettier,
     {
@@ -18,6 +18,14 @@ export default [
                 LOG: true,
                 ICONS: true,
                 NAME: true,
+            },
+        },
+    },
+    {
+        files: ['build/*.js', 'eslint.config.js'],
+        languageOptions: {
+            globals: {
+                ...globals.node,
             },
         },
     },

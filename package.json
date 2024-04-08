@@ -21,8 +21,8 @@
         "scope": "node build/scope",
         "release": "node build/release",
         "watch": "chokidar \"**/*.less\" --initial -i \"node_modules\" -c \"node build/less\"",
-        "eslint": "eslint src/js",
-        "eslint-fix": "eslint --fix src/js"
+        "eslint": "eslint src/js build/*.js",
+        "eslint-fix": "eslint --fix src/js build/*.js"
     },
     "repository": {
         "type": "git",
