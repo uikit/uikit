@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 devDependencies:
+  '@eslint/js':
+    specifier: ^9.0.0
+    version: 9.0.0
   '@rollup/plugin-alias':
     specifier: ^5.1.0
     version: 5.1.0(rollup@4.13.2)
