@@ -1,4 +1,4 @@
-/*! UIkit 3.19.3 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.19.4 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3534,7 +3534,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.19.3";
+    App.version = "3.19.4";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -6646,20 +6646,53 @@
         automute: false,
         autoplay: true
       },
-      connected() {
+      beforeConnect() {
         if (this.autoplay === "inview" && !hasAttr(this.$el, "preload")) {
           this.$el.preload = "none";
         }
         if (isTag(this.$el, "iframe") && !hasAttr(this.$el, "allow")) {
           this.$el.allow = "autoplay";
         }
+        if (this.autoplay === "hover") {
+          if (isTag(this.$el, "video")) {
+            this.$el.tabindex = 0;
+          } else {
+            this.autoplay = true;
+          }
+        }
         if (this.automute) {
           mute(this.$el);
         }
       },
+      events: [
+        {
+          name: `${pointerEnter} focusin`,
+          filter() {
+            return includes(this.autoplay, "hover");
+          },
+          handler(e) {
+            if (!isTouch(e) || !isPlaying(this.$el)) {
+              play(this.$el);
+            } else {
+              pause(this.$el);
+            }
+          }
+        },
+        {
+          name: `${pointerLeave} focusout`,
+          filter() {
+            return includes(this.autoplay, "hover");
+          },
+          handler(e) {
+            if (!isTouch(e)) {
+              pause(this.$el);
+            }
+          }
+        }
+      ],
       observe: [
         intersection({
-          filter: ({ $el, autoplay }) => autoplay && isVideo($el),
+          filter: ({ $el, autoplay }) => autoplay && autoplay !== "hover" && isVideo($el),
           handler([{ isIntersecting }]) {
             if (!document.fullscreenElement) {
               if (isIntersecting) {
@@ -6674,6 +6707,9 @@
         })
       ]
     };
+    function isPlaying(videoEl) {
+      return !videoEl.paused && !videoEl.ended;
+    }
 
     var cover = {
       mixins: [Video],
