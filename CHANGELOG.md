@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add `hover` mode to `autoplay` option in Video component
+
 ## 3.19.2 (March 12, 2024)
 
 ### Added
