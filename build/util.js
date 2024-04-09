@@ -228,11 +228,46 @@ async function optimizeSvg(svg) {
                         minifyStyles: false,
                         removeUnknownsAndDefaults: false,
                         removeUselessStrokeAndFill: false,
-                        sortAttrs: false,
+                        sortAttrs: {
+                            order: [
+                                'id',
+                                'width',
+                                'height',
+                                'fill',
+                                'stroke',
+                                'x',
+                                'y',
+                                'x1',
+                                'y1',
+                                'x2',
+                                'y2',
+                                'cx',
+                                'cy',
+                                'r',
+                                'marker',
+                                'd',
+                                'points',
+                            ],
+                        },
                     },
                 },
             },
-            { name: 'removeXMLNS', active: true },
+            'removeXMLNS',
+            'removeXlink',
+            {
+                name: 'removeAttributesBySelector',
+                params: {
+                    selector: 'svg',
+                    attributes: ['id', 'version'],
+                },
+            },
+            {
+                name: 'removeAttributesBySelector',
+                params: {
+                    selector: '*',
+                    attributes: ['data-name'],
+                },
+            },
         ],
     };
 

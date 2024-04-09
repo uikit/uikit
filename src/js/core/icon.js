@@ -122,14 +122,15 @@ export const Search = {
     i18n: { toggle: 'Open Search', submit: 'Submit Search' },
 
     beforeConnect() {
-        const isToggle = hasClass(this.$el, 'uk-search-toggle') || hasClass(this.$el, 'uk-navbar-toggle');
-        this.icon = isToggle 
-            ? 'search-toggle-icon' 
+        const isToggle =
+            hasClass(this.$el, 'uk-search-toggle') || hasClass(this.$el, 'uk-navbar-toggle');
+        this.icon = isToggle
+            ? 'search-toggle-icon'
             : hasClass(this.$el, 'uk-search-icon') && closest(this.$el, '.uk-search-large')
-                ? 'search-large'
-                : closest(this.$el, '.uk-search-navbar')
-                  ? 'search-navbar'
-                  : this.$props.icon;
+              ? 'search-large'
+              : closest(this.$el, '.uk-search-navbar')
+                ? 'search-navbar'
+                : this.$props.icon;
 
         if (hasAttr(this.$el, 'aria-label')) {
             return;
