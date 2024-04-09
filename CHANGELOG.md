@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.19.4 (April 9, 2024)
 
 ### Added
 
