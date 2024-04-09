@@ -7,6 +7,7 @@ import {
     data,
     empty,
     isNumeric,
+    isTag,
     matches,
     parent,
     toFloat,
@@ -54,7 +55,9 @@ export default {
         },
 
         list(list) {
-            attr(list, 'role', 'presentation');
+            if (isTag(list, 'ul')) {
+                attr(list, 'role', 'presentation');
+            }
         },
 
         navChildren(children) {
