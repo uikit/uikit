@@ -14,7 +14,7 @@
 
             <h1>Video</h1>
 
-            <div class="uk-grid uk-child-width-1-2@s">
+            <div class="uk-grid uk-child-width-1-3@s">
                 <div>
 
                     <h3>Autoplay</h3>
@@ -29,6 +29,14 @@
 
                     <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +">Toggle Video</button>
                     <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1&amp;playsinline=1" width="1920" height="1080" allowfullscreen uk-responsive uk-video="automute: true; autoplay: inview"></iframe>
+                </div>
+
+                <div>
+
+                    <h3>Autoplay Hover</h3>
+
+                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +">Toggle Video</button>
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline uk-video="automute: true; autoplay: hover"></video>
                 </div>
             </div>
 
@@ -48,7 +56,7 @@
                         <td><code>autoplay</code></td>
                         <td>Boolean, String</td>
                         <td>true</td>
-                        <td>The video automatically plays/pauses when visible/hidden on the page. A value of `inview` will delay loading the video and play/pause the video as it enters/leaves the viewport.</td>
+                        <td>The video automatically plays/pauses when visible/hidden on the page. A value of `inview` will delay loading the video and play/pause the video as it enters/leaves the viewport. A value of `hover` will play the video as it is being hovered.</td>
                     </tr>
                     <tr>
                         <td><code>automute</code></td>
