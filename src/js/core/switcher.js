@@ -10,6 +10,7 @@ import {
     hasClass,
     includes,
     isNode,
+    isTag,
     matches,
     queryAll,
     toArray,
@@ -188,7 +189,11 @@ export default {
     ],
 
     update() {
-        attr(this.connects, 'role', 'presentation');
+        for (const el of this.connects) {
+            if (isTag(el, 'ul')) {
+                attr(el, 'role', 'presentation');
+            }
+        }
         attr(children(this.$el), 'role', 'presentation');
 
         for (const index in this.toggles) {
