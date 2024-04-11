@@ -6,6 +6,9 @@ module.exports = [
     eslintJs.configs.recommended,
     eslintConfigPrettier,
     {
+        ignores: ['*', '!src/', '!src/*', '!src/js', '!build/', 'build/*', '!build/*.js'],
+    },
+    {
         rules: {
             'no-unused-vars': ['error', { caughtErrors: 'none' }],
         },
