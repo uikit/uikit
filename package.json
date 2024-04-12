@@ -10,6 +10,7 @@
         "./src/js/*.js",
         "./dist/**/*.js"
     ],
+    "type": "module",
     "scripts": {
         "build-scss": "node build/scss",
         "compile": "pnpm compile-less && pnpm compile-js",

@@ -1,8 +1,8 @@
-const eslintJs = require('@eslint/js');
-const eslintConfigPrettier = require('eslint-config-prettier');
-const globals = require('globals');
+import eslintJs from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import globals from 'globals';
 
-module.exports = [
+export default [
     eslintJs.configs.recommended,
     eslintConfigPrettier,
     {
@@ -13,7 +13,7 @@ module.exports = [
             'no-unused-vars': ['error', { caughtErrors: 'none' }],
         },
         languageOptions: {
-            ecmaVersion: 2022,
+            ecmaVersion: 'latest',
             sourceType: 'module',
             globals: {
                 ...globals.browser,
