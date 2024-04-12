@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix lazy loading on target in Toggle component
+
 ## 3.19.4 (April 9, 2024)
 
 ### Added

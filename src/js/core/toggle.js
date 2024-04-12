@@ -58,7 +58,7 @@ export default {
         }
     },
 
-    observe: lazyload({ target: ({ target }) => target }),
+    observe: lazyload({ targets: ({ target }) => target }),
 
     events: [
         {
