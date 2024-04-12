@@ -118,10 +118,7 @@ export default {
 
             await Promise.all(
                 $$(this.target, this.$el).map((target) => {
-                    const filterFn = () => {
-                        applyState(state, target, getChildren(target));
-                        this.$update(this.$el);
-                    };
+                    const filterFn = () => applyState(state, target, getChildren(target));
                     return animate ? this.animate(filterFn, target) : filterFn();
                 }),
             );
@@ -146,7 +143,9 @@ function isEqualState(stateA, stateB) {
 function applyState(state, target, children) {
     const selector = getSelector(state);
 
-    children.forEach((el) => css(el, 'display', selector && !matches(el, selector) ? 'none' : ''));
+    for (const el of children) {
+        css(el, 'display', selector && !matches(el, selector) ? 'none' : '');
+    }
 
     const [sort, order] = state.sort;
 
