@@ -46,21 +46,33 @@ function registerObservable(instance, observable) {
     const targets = hasOwn(instance, key) ? instance[key] : target;
     const observer = observe(targets, handler, options, args);
 
-    if (isFunction(target) && isArray(instance[key]) && observer.unobserve) {
-        registerWatch(instance, { handler: updateTargets(observer), immediate: false }, key);
+    if (isFunction(target) && isArray(instance[key])) {
+        registerWatch(
+            instance,
+            { handler: updateTargets(observer, options), immediate: false },
+            key,
+        );
     }
 
     registerObserver(instance, observer);
 }
 
-function updateTargets(observer) {
+function updateTargets(observer, options) {
     return (targets, prev) => {
         for (const target of prev) {
-            !includes(targets, target) && observer.unobserve(target);
+            if (!includes(targets, target)) {
+                if (observer.unobserve) {
+                    observer.unobserve(target);
+                } else {
+                    observer.disconnect();
+                }
+            }
         }
 
         for (const target of targets) {
-            !includes(prev, target) && observer.observe(target);
+            if (!includes(prev, target) || !observer.unobserve) {
+                observer.observe(target, options);
+            }
         }
     };
 }
