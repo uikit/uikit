@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Improve query selector performance 🏎️
+
 ### Fixed
 
 - Fix lazy loading on target in Toggle component
