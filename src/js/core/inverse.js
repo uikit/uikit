@@ -1,5 +1,5 @@
 import { $$, css, dimensions, matches, observeResize, on, replaceClass } from 'uikit-util';
-import { mutation } from '../api/observables';
+import { intersection, mutation } from '../api/observables';
 
 export default {
     props: {
@@ -17,6 +17,12 @@ export default {
     },
 
     observe: [
+        intersection({
+            handler([{ isIntersecting }]) {
+                this.isIntersecting = isIntersecting;
+            },
+            args: { intersecting: false },
+        }),
         mutation({
             target: ({ target }) => target,
             options: { attributes: true, attributeFilter: ['class'], attributeOldValue: true },
@@ -55,6 +61,10 @@ export default {
 
     update: {
         read() {
+            if (!this.isIntersecting) {
+                return false;
+            }
+
             for (const target of this.target) {
                 replaceClass(
                     target,
