@@ -83,11 +83,7 @@ function _query(selector, context = document, queryFn) {
                 return ctx;
             }
         } else if (sel[0] === '~' || (sel[0] === '+' && isSingle)) {
-            return _doQuery(
-                parent(context),
-                queryFn,
-                `:scope :nth-child(${index(context) + 1}) ${sel}`,
-            );
+            return _doQuery(parent(ctx), queryFn, `:scope :nth-child(${index(ctx) + 1}) ${sel}`);
         }
 
         if (ctx) {
