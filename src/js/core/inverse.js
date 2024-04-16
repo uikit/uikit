@@ -18,9 +18,11 @@ export default {
 
     observe: [
         intersection({
-            handler([{ isIntersecting }]) {
-                this.isIntersecting = isIntersecting;
+            handler(entries) {
+                this.isIntersecting = entries.some(({ isIntersecting }) => isIntersecting);
+                this.$emit();
             },
+            target: ({ target }) => target,
             args: { intersecting: false },
         }),
         mutation({
