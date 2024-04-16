@@ -1,4 +1,4 @@
-import { $$, css, dimensions, matches, observeResize, on, replaceClass } from 'uikit-util';
+import { $$, css, dimensions, matches, observeResize, on, replaceClass, toNodes } from 'uikit-util';
 import { intersection, mutation } from '../api/observables';
 
 export default {
@@ -13,7 +13,7 @@ export default {
     },
 
     computed: {
-        target: ({ target }, $el) => (target ? $$(target, $el) : [$el]),
+        target: ({ target }, $el) => (target ? $$(target, $el) : $el),
     },
 
     observe: [
@@ -30,7 +30,10 @@ export default {
         {
             target: ({ target }) => target,
             observe: (target, handler) => {
-                const observer = observeResize([...target, document.documentElement], handler);
+                const observer = observeResize(
+                    [...toNodes(target), document.documentElement],
+                    handler,
+                );
                 const listener = [
                     on(document, 'scroll itemshown itemhidden', handler, {
                         passive: true,
@@ -65,7 +68,7 @@ export default {
                 return false;
             }
 
-            for (const target of this.target) {
+            for (const target of toNodes(this.target)) {
                 replaceClass(
                     target,
                     'uk-light,uk-dark',
