@@ -1,4 +1,4 @@
-import { $$, camelize, hyphenate, isEmpty, isPlainObject } from 'uikit-util';
+import { camelize, findAll, hyphenate, isEmpty, isPlainObject } from 'uikit-util';
 import App from './app';
 
 const PREFIX = 'uk-';
@@ -10,7 +10,7 @@ export function component(name, options) {
     const id = PREFIX + hyphenate(name);
 
     if (!options) {
-        if (isPlainObject(components[id])) {
+        if (!components[id].options) {
             components[id] = App.extend(components[id]);
         }
 
@@ -21,7 +21,7 @@ export function component(name, options) {
 
     App[name] = (element, data) => createComponent(name, element, data);
 
-    const opt = isPlainObject(options) ? { ...options } : options.options;
+    const opt = options.options ?? { ...options };
 
     opt.id = id;
     opt.name = name;
@@ -41,7 +41,7 @@ export function createComponent(name, element, data, ...args) {
     return Component.options.functional
         ? new Component({ data: isPlainObject(element) ? element : [element, data, ...args] })
         : element
-          ? $$(element).map(init)[0]
+          ? findAll(element).map(init)[0]
           : init();
 
     function init(element) {

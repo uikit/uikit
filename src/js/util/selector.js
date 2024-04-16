@@ -1,5 +1,5 @@
 import { attr } from './attr';
-import { index, matches, parent } from './filter';
+import { index, matches } from './filter';
 import { isDocument, isString, memoize, toNode, toNodes } from './lang';
 
 export function query(selector, context) {
@@ -33,7 +33,7 @@ const parseSelector = memoize((selector) => {
     let isContextSelector = false;
 
     const selectors = [];
-    for (let sel of selector.match(splitSelectorRe)) {
+    for (let sel of selector.match(splitSelectorRe) ?? []) {
         sel = sel.replace(trailingCommaRe, '').trim();
         if (sel[0] === '>') {
             sel = `:scope ${sel}`;
@@ -67,7 +67,7 @@ function _query(selector, context = document, queryFn) {
 
         if (sel[0] === '!') {
             const selectors = sel.substr(1).trim().split(' ');
-            ctx = parent(context).closest(selectors[0]);
+            ctx = context.parentElement.closest(selectors[0]);
             sel = selectors.slice(1).join(' ').trim();
             if (!sel.length && isSingle) {
                 return ctx;
@@ -83,7 +83,11 @@ function _query(selector, context = document, queryFn) {
                 return ctx;
             }
         } else if (sel[0] === '~' || (sel[0] === '+' && isSingle)) {
-            return _doQuery(parent(ctx), queryFn, `:scope :nth-child(${index(ctx) + 1}) ${sel}`);
+            return _doQuery(
+                ctx.parentElement,
+                queryFn,
+                `:scope :nth-child(${index(ctx) + 1}) ${sel}`,
+            );
         }
 
         if (ctx) {
