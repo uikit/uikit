@@ -52,6 +52,8 @@ export default {
                 ];
 
                 return {
+                    observe: observer.observe.bind(observer),
+                    unobserve: observer.unobserve.bind(observer),
                     disconnect() {
                         observer.disconnect();
                         listener.map((off) => off());

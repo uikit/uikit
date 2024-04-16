@@ -63,7 +63,7 @@ function updateTargets(observer, options) {
             if (!includes(targets, target)) {
                 if (observer.unobserve) {
                     observer.unobserve(target);
-                } else {
+                } else if (observer.observe) {
                     observer.disconnect();
                 }
             }
