@@ -129,7 +129,7 @@ export default {
     },
 
     observe: resize({
-        target: ({ slides }) => slides,
+        target: ({ slides, $el }) => [$el, ...slides],
     }),
 
     update: {
