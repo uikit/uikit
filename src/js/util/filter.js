@@ -1,4 +1,4 @@
-import { isString, startsWith, toArray, toNode, toNodes } from './lang';
+import { toArray, toNode, toNodes } from './lang';
 
 const voidElements = {
     area: true,
@@ -47,16 +47,6 @@ export function filter(element, selector) {
 
 export function matches(element, selector) {
     return toNodes(element).some((element) => element.matches(selector));
-}
-
-export function closest(element, selector) {
-    return toNode(element)?.closest(startsWith(selector, '>') ? selector.slice(1) : selector);
-}
-
-export function within(element, selector) {
-    return isString(selector)
-        ? !!closest(element, selector)
-        : toNode(selector).contains(toNode(element));
 }
 
 export function parents(element, selector) {

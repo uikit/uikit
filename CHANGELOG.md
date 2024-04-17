@@ -6,6 +6,10 @@
 
 - Improve query selector performance 🏎️
 
+### Removed
+
+- Remove deprecated `closest()` and `within()` functions
+
 ### Fixed
 
 - Fix lazy loading on target in Toggle component

@@ -1,11 +1,11 @@
-import { closest, css, endsWith, fastdom, noop, Transition } from 'uikit-util';
+import { css, endsWith, fastdom, noop, Transition } from 'uikit-util';
 import Parallax from '../mixin/parallax';
 
 export default {
     mixins: [Parallax],
 
     beforeConnect() {
-        this.item = closest(this.$el, `.${this.$options.id.replace('parallax', 'items')} > *`);
+        this.item = this.$el.closest(`.${this.$options.id.replace('parallax', 'items')} > *`);
     },
 
     disconnected() {

@@ -3,7 +3,6 @@ import {
     addClass,
     apply,
     attr,
-    closest,
     css,
     each,
     hasAttr,
@@ -126,9 +125,9 @@ export const Search = {
             hasClass(this.$el, 'uk-search-toggle') || hasClass(this.$el, 'uk-navbar-toggle');
         this.icon = isToggle
             ? 'search-toggle-icon'
-            : hasClass(this.$el, 'uk-search-icon') && closest(this.$el, '.uk-search-large')
+            : hasClass(this.$el, 'uk-search-icon') && this.$el.closest('.uk-search-large')
               ? 'search-large'
-              : closest(this.$el, '.uk-search-navbar')
+              : this.$el.closest('.uk-search-navbar')
                 ? 'search-navbar'
                 : this.$props.icon;
 

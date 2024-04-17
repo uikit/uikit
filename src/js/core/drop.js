@@ -27,7 +27,6 @@ import {
     pointerUp,
     query,
     removeClass,
-    within,
 } from 'uikit-util';
 import Container from '../mixin/container';
 import Position from '../mixin/position';
@@ -513,7 +512,7 @@ function listenForBackgroundClose(drop) {
                     !defaultPrevented &&
                     type === pointerUp &&
                     target === newTarget &&
-                    !(drop.targetEl && within(target, drop.targetEl))
+                    !drop.targetEl?.contains(target)
                 ) {
                     drop.hide(false);
                 }
