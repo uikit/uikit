@@ -7,6 +7,7 @@ import {
     isString,
     isUndefined,
     noop,
+    once,
     propName,
     toFloat,
     toPx,
@@ -271,6 +272,7 @@ function setBackgroundPosFn(bgProps, positions, props) {
     };
 }
 
+const loading = {};
 const dimensions = {};
 function getBackgroundImageDimensions(el) {
     const src = css(el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
@@ -283,11 +285,13 @@ function getBackgroundImageDimensions(el) {
     if (src) {
         image.src = src;
 
-        if (!image.naturalWidth) {
-            image.onload = () => {
+        if (!image.naturalWidth && !loading[src]) {
+            once(image, 'error load', () => {
                 dimensions[src] = toDimensions(image);
                 trigger(el, createEvent('load', false));
-            };
+            });
+            loading[src] = true;
+
             return toDimensions(image);
         }
     }
