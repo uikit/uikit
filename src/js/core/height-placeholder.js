@@ -1,4 +1,4 @@
-import { css, query } from 'uikit-util';
+import { css, parent, query } from 'uikit-util';
 import { resize } from '../api/observables';
 
 export default {
@@ -13,7 +13,10 @@ export default {
     },
 
     computed: {
-        target: ({ target }, $el) => query(target, $el),
+        target: {
+            get: ({ target }, $el) => query(target, $el),
+            observe: (target) => parent(target),
+        },
     },
 
     observe: resize({ target: ({ target }) => target }),

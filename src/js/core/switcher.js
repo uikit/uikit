@@ -12,6 +12,7 @@ import {
     isNode,
     isTag,
     matches,
+    parent,
     queryAll,
     toArray,
     toggleClass,
@@ -50,7 +51,10 @@ export default {
     },
 
     computed: {
-        connects: ({ connect }, $el) => queryAll(connect, $el),
+        connects: {
+            get: ({ connect }, $el) => queryAll(connect, $el),
+            observe: (connects) => parent(connects[0]),
+        },
 
         connectChildren() {
             return this.connects.map((el) => children(el)).flat();
