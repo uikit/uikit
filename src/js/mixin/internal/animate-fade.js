@@ -117,9 +117,7 @@ function waitTransitionend(target) {
 }
 
 function getTransitionNodes(target) {
-    return getRows(children(target))
-        .flat()
-        .filter((node) => isVisible(node));
+    return getRows(children(target)).flat().filter(isVisible);
 }
 
 function awaitFrame() {
