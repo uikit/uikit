@@ -21,10 +21,13 @@ export function isVoidElement(element) {
     return toNodes(element).some((element) => voidElements[element.tagName.toLowerCase()]);
 }
 
+const isVisibleFn =
+    Element.prototype.checkVisibility ||
+    function () {
+        return this.offsetWidth || this.offsetHeight || this.getClientRects().length;
+    };
 export function isVisible(element) {
-    return toNodes(element).some(
-        (element) => element.offsetWidth || element.offsetHeight || element.getClientRects().length,
-    );
+    return toNodes(element).some((element) => isVisibleFn.call(element));
 }
 
 export const selInput = 'input,select,textarea,button';
