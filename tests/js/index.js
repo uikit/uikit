@@ -5,7 +5,6 @@ const tests = TESTS;
 const storage = window.sessionStorage;
 const key = '_uikit_style';
 const keyinverse = '_uikit_inverse';
-const docEl = document.documentElement;
 
 // try to load themes.json
 const request = new XMLHttpRequest();
@@ -39,7 +38,7 @@ storage[keyinverse] = storage[keyinverse] || '';
 const dir = storage._uikit_dir || 'ltr';
 
 // set dir
-docEl.dir = dir;
+document.documentElement.dir = dir;
 
 const style = styles[storage[key]] || styles.theme;
 
@@ -48,6 +47,10 @@ document.writeln(
     `<link rel="stylesheet" href="${
         dir !== 'rtl' ? style.css : style.css.replace('.css', '-rtl.css')
     }">`,
+);
+
+document.writeln(
+    `<style>body:not(:has([aria-label="Component switcher"])) {padding-top: 80px}</style>`,
 );
 
 // add javascript
@@ -60,9 +63,8 @@ on(window, 'load', () =>
     setTimeout(
         () =>
             requestAnimationFrame(() => {
-                const $body = document.body;
                 const $container = prepend(
-                    $body,
+                    document.body,
                     `
         <div class="uk-container">
             <select class="uk-select uk-form-width-small" style="margin: 20px 20px 20px 0" aria-label="Component switcher">
@@ -144,8 +146,12 @@ on(window, 'load', () =>
 
                     addClass($$('.uk-navbar-container'), 'uk-navbar-transparent');
 
-                    css(docEl, 'background', $inverse.value === 'dark' ? '#fff' : '#222');
-                    addClass($body, `uk-${$inverse.value}`);
+                    css(
+                        document.documentElement,
+                        'background',
+                        $inverse.value === 'dark' ? '#fff' : '#222',
+                    );
+                    addClass(document.body, `uk-${$inverse.value}`);
                 }
 
                 on($inverse, 'change', () => {
@@ -161,14 +167,10 @@ on(window, 'load', () =>
                     location.reload();
                 });
                 $rtl.firstElementChild.checked = dir === 'rtl';
-
-                css(docEl, 'paddingTop', '');
             }),
         100,
     ),
 );
-
-css(docEl, 'paddingTop', '80px');
 
 function getParam(name) {
     const match = new RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);
