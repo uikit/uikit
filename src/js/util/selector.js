@@ -49,6 +49,12 @@ const parseSelector = memoize((selector) => {
     };
 });
 
+const parsePositionSelector = memoize((selector) => {
+    selector = selector.substr(1).trim();
+    const index = selector.indexOf(' ');
+    return ~index ? [selector.substring(0, index), selector.substring(index + 1)] : [selector, ''];
+});
+
 function _query(selector, context = document, queryFn) {
     if (!selector || !isString(selector)) {
         return selector;
@@ -63,23 +69,22 @@ function _query(selector, context = document, queryFn) {
     selector = '';
     const isSingle = parsed.selectors.length === 1;
     for (let sel of parsed.selectors) {
+        let positionSel;
         let ctx = context;
 
         if (sel[0] === '!') {
-            const selectors = sel.substr(1).trim().split(' ');
-            ctx = context.parentElement.closest(selectors[0]);
-            sel = selectors.slice(1).join(' ').trim();
-            if (!sel.length && isSingle) {
+            [positionSel, sel] = parsePositionSelector(sel);
+            ctx = context.parentElement.closest(positionSel);
+            if (!sel && isSingle) {
                 return ctx;
             }
         }
 
-        if (sel[0] === '-') {
-            const selectors = sel.substr(1).trim().split(' ');
-            const prev = (ctx || context).previousElementSibling;
-            ctx = matches(prev, sel.substr(1)) ? prev : null;
-            sel = selectors.slice(1).join(' ');
-            if (!sel.length && isSingle) {
+        if (ctx && sel[0] === '-') {
+            [positionSel, sel] = parsePositionSelector(sel);
+            ctx = ctx.previousElementSibling;
+            ctx = matches(ctx, positionSel) ? ctx : null;
+            if (!sel && isSingle) {
                 return ctx;
             }
         } else if (sel[0] === '~' || (sel[0] === '+' && isSingle)) {

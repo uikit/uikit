@@ -28,7 +28,7 @@ export function registerComputed(instance, key, cb) {
                     const observeEl = cb.observe.call(instance, _computed[key]);
                     if (observeEl && observeEl !== $el) {
                         instance._computedObserver.observe(
-                            findClosestCommonParent(observeEl, $el),
+                            commonAncestor(observeEl, $el),
                             mutationOptions,
                         );
                     }
@@ -79,9 +79,9 @@ function resetComputed(instance) {
     return values;
 }
 
-function findClosestCommonParent(el1, el2) {
-    while (el1 && !el1.contains(el2)) {
-        el1 = el1.parentNode;
+function commonAncestor(element1, element2) {
+    while (element1 && !element1.contains(element2)) {
+        element1 = element1.parentNode;
     }
-    return el1;
+    return element1;
 }
