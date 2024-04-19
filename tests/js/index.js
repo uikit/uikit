@@ -50,7 +50,7 @@ document.writeln(
 );
 
 document.writeln(
-    `<style>body:not(:has([aria-label="Component switcher"])) {padding-top: 80px}</style>`,
+    `<style>html:not(:has(body :first-child [aria-label="Component switcher"])) {padding-top: 80px}</style>`,
 );
 
 // add javascript
