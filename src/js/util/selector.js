@@ -35,10 +35,7 @@ const parseSelector = memoize((selector) => {
     const selectors = [];
     for (let sel of selector.match(splitSelectorRe) ?? []) {
         sel = sel.replace(trailingCommaRe, '').trim();
-        if (sel[0] === '>') {
-            sel = `:scope ${sel}`;
-        }
-        isContextSelector ||= ['!', '+', '~', '-'].includes(sel[0]);
+        isContextSelector ||= ['!', '+', '~', '-', '>'].includes(sel[0]);
         selectors.push(sel);
     }
 
@@ -87,17 +84,24 @@ function _query(selector, context = document, queryFn) {
             if (!sel && isSingle) {
                 return ctx;
             }
-        } else if (sel[0] === '~' || (sel[0] === '+' && isSingle)) {
-            return _doQuery(
-                ctx.parentElement,
-                queryFn,
-                `:scope :nth-child(${index(ctx) + 1}) ${sel}`,
-            );
         }
 
-        if (ctx) {
-            selector += `${selector ? ',' : ''}${domPath(ctx)} ${sel}`;
+        if (!ctx) {
+            continue;
         }
+
+        if (isSingle) {
+            if (sel[0] === '~' || sel[0] === '+') {
+                ctx = ctx.parentElement;
+                sel = `:scope :nth-child(${index(ctx) + 1}) ${sel}`;
+            } else if (sel[0] === '>') {
+                sel = `:scope ${sel}`;
+            }
+
+            return _doQuery(ctx, queryFn, sel);
+        }
+
+        selector += `${selector ? ',' : ''}${domPath(ctx)} ${sel}`;
     }
 
     if (!isDocument(context)) {

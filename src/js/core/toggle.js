@@ -9,7 +9,6 @@ import {
     isTouch,
     matches,
     once,
-    parent,
     pointerDown,
     pointerEnter,
     pointerLeave,
@@ -47,7 +46,7 @@ export default {
                 target = queryAll(target || $el.hash, $el);
                 return target.length ? target : [$el];
             },
-            observe: (target) => parent(target[0]),
+            observe: ({ target }) => target,
         },
     },
 

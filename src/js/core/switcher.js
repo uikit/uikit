@@ -12,7 +12,6 @@ import {
     isNode,
     isTag,
     matches,
-    parent,
     queryAll,
     toArray,
     toggleClass,
@@ -53,7 +52,7 @@ export default {
     computed: {
         connects: {
             get: ({ connect }, $el) => queryAll(connect, $el),
-            observe: (connects) => parent(connects[0]),
+            observe: ({ connect }) => connect,
         },
 
         connectChildren() {

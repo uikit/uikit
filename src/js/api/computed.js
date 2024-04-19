@@ -25,13 +25,13 @@ export function registerComputed(instance, key, cb) {
             if (!hasOwn(_computed, key)) {
                 _computed[key] = (cb.get || cb).call(instance, $props, $el);
                 if (cb.observe && instance._computedObserver) {
-                    const observeEl = cb.observe.call(instance, _computed[key]);
-                    if (observeEl && observeEl !== $el) {
-                        instance._computedObserver.observe(
-                            commonAncestor(observeEl, $el),
-                            mutationOptions,
-                        );
-                    }
+                    const selector = cb.observe.call(instance, $props);
+                    instance._computedObserver.observe(
+                        ['~', '+', '-'].includes(selector[0])
+                            ? $el.parentElement
+                            : $el.getRootNode(),
+                        mutationOptions,
+                    );
                 }
             }
 
@@ -77,11 +77,4 @@ function resetComputed(instance) {
     const values = { ...instance._computed };
     instance._computed = {};
     return values;
-}
-
-function commonAncestor(element1, element2) {
-    while (element1 && !element1.contains(element2)) {
-        element1 = element1.parentNode;
-    }
-    return element1;
 }
