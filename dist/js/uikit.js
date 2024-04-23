@@ -1,4 +1,4 @@
-/*! UIkit 3.19.4 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.20.0 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -88,7 +88,7 @@
       return parseFloat(value) || 0;
     }
     function toNode(element) {
-      return toNodes(element)[0];
+      return element && toNodes(element)[0];
     }
     function toNodes(element) {
       return isNode(element) ? [element] : Array.from(element || []).filter(isNode);
@@ -273,7 +273,7 @@
       }
     }
     function toClasses(str) {
-      return str ? isArray(str) ? str.map(toClasses).flat() : String(str).split(/[ ,]/).filter(Boolean) : [];
+      return str ? isArray(str) ? str.map(toClasses).flat() : String(str).split(" ").filter(Boolean) : [];
     }
 
     const voidElements = {
@@ -296,10 +296,11 @@
     function isVoidElement(element) {
       return toNodes(element).some((element2) => voidElements[element2.tagName.toLowerCase()]);
     }
+    const isVisibleFn = Element.prototype.checkVisibility || function() {
+      return this.offsetWidth || this.offsetHeight || this.getClientRects().length;
+    };
     function isVisible(element) {
-      return toNodes(element).some(
-        (element2) => element2.offsetWidth || element2.offsetHeight || element2.getClientRects().length
-      );
+      return toNodes(element).some((element2) => isVisibleFn.call(element2));
     }
     const selInput = "input,select,textarea,button";
     function isInput(element) {
@@ -318,13 +319,6 @@
     }
     function matches(element, selector) {
       return toNodes(element).some((element2) => element2.matches(selector));
-    }
-    function closest(element, selector) {
-      var _a;
-      return (_a = toNode(element)) == null ? void 0 : _a.closest(startsWith(selector, ">") ? selector.slice(1) : selector);
-    }
-    function within(element, selector) {
-      return isString(selector) ? !!closest(element, selector) : toNode(selector).contains(toNode(element));
     }
     function parents(element, selector) {
       const elements = [];
@@ -367,55 +361,87 @@
     function findAll(selector, context) {
       return toNodes(_query(selector, toNode(context), "querySelectorAll"));
     }
-    const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
-    const isContextSelector = memoize((selector) => selector.match(contextSelectorRe));
     function getContext(selector, context = document) {
-      return isString(selector) && isContextSelector(selector) || isDocument(context) ? context : context.ownerDocument;
+      return isString(selector) && parseSelector(selector).isContextSelector || isDocument(context) ? context : context.ownerDocument;
     }
-    const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
-    const sanatize = memoize((selector) => selector.replace(contextSanitizeRe, "$1 *"));
+    const addStarRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
+    const splitSelectorRe = /.*?[^\\](?![^(]*\))(?:,|$)/g;
+    const trailingCommaRe = /\s*,$/;
+    const parseSelector = memoize((selector) => {
+      var _a;
+      selector = selector.replace(addStarRe, "$1 *");
+      let isContextSelector = false;
+      const selectors = [];
+      for (let sel of (_a = selector.match(splitSelectorRe)) != null ? _a : []) {
+        sel = sel.replace(trailingCommaRe, "").trim();
+        isContextSelector || (isContextSelector = ["!", "+", "~", "-", ">"].includes(sel[0]));
+        selectors.push(sel);
+      }
+      return {
+        selector: selectors.join(","),
+        selectors,
+        isContextSelector
+      };
+    });
+    const parsePositionSelector = memoize((selector) => {
+      selector = selector.substr(1).trim();
+      const index2 = selector.indexOf(" ");
+      return ~index2 ? [selector.substring(0, index2), selector.substring(index2 + 1)] : [selector, ""];
+    });
     function _query(selector, context = document, queryFn) {
       if (!selector || !isString(selector)) {
         return selector;
       }
-      selector = sanatize(selector);
-      if (isContextSelector(selector)) {
-        const split = splitSelector(selector);
-        selector = "";
-        for (let sel of split) {
-          let ctx = context;
-          if (sel[0] === "!") {
-            const selectors = sel.substr(1).trim().split(" ");
-            ctx = parent(context).closest(selectors[0]);
-            sel = selectors.slice(1).join(" ").trim();
-            if (!sel.length && split.length === 1) {
-              return ctx;
-            }
-          }
-          if (sel[0] === "-") {
-            const selectors = sel.substr(1).trim().split(" ");
-            const prev = (ctx || context).previousElementSibling;
-            ctx = matches(prev, sel.substr(1)) ? prev : null;
-            sel = selectors.slice(1).join(" ");
-          }
-          if (ctx) {
-            selector += `${selector ? "," : ""}${domPath(ctx)} ${sel}`;
-          }
-        }
-        if (!isDocument(context)) {
-          context = context.ownerDocument;
-        }
+      const parsed = parseSelector(selector);
+      if (!parsed.isContextSelector) {
+        return _doQuery(context, queryFn, parsed.selector);
       }
+      selector = "";
+      const isSingle = parsed.selectors.length === 1;
+      for (let sel of parsed.selectors) {
+        let positionSel;
+        let ctx = context;
+        if (sel[0] === "!") {
+          [positionSel, sel] = parsePositionSelector(sel);
+          ctx = context.parentElement.closest(positionSel);
+          if (!sel && isSingle) {
+            return ctx;
+          }
+        }
+        if (ctx && sel[0] === "-") {
+          [positionSel, sel] = parsePositionSelector(sel);
+          ctx = ctx.previousElementSibling;
+          ctx = matches(ctx, positionSel) ? ctx : null;
+          if (!sel && isSingle) {
+            return ctx;
+          }
+        }
+        if (!ctx) {
+          continue;
+        }
+        if (isSingle) {
+          if (sel[0] === "~" || sel[0] === "+") {
+            sel = `:scope :nth-child(${index(ctx) + 1}) ${sel}`;
+            ctx = ctx.parentElement;
+          } else if (sel[0] === ">") {
+            sel = `:scope ${sel}`;
+          }
+          return _doQuery(ctx, queryFn, sel);
+        }
+        selector += `${selector ? "," : ""}${domPath(ctx)} ${sel}`;
+      }
+      if (!isDocument(context)) {
+        context = context.ownerDocument;
+      }
+      return _doQuery(context, queryFn, selector);
+    }
+    function _doQuery(context, queryFn, selector) {
       try {
         return context[queryFn](selector);
       } catch (e) {
         return null;
       }
     }
-    const selectorRe = /.*?[^\\](?![^(]*\))(?:,|$)/g;
-    const splitSelector = memoize(
-      (selector) => selector.match(selectorRe).map((selector2) => selector2.replace(/,$/, "").trim())
-    );
     function domPath(element) {
       const names = [];
       while (element.parentNode) {
@@ -585,8 +611,7 @@
       }
       return elements[0];
     }
-    const propName = memoize((name) => vendorPropName(name));
-    function vendorPropName(name) {
+    const propName = memoize((name) => {
       if (startsWith(name, "--")) {
         return name;
       }
@@ -601,7 +626,7 @@
           return prefixedName;
         }
       }
-    }
+    });
 
     const clsTransition = "uk-transition";
     const transitionEnd = "transitionend";
@@ -973,24 +998,18 @@
       },
       flush
     };
-    function flush(recursion) {
+    function flush() {
       runTasks(fastdom.reads);
       runTasks(fastdom.writes.splice(0));
       fastdom.scheduled = false;
       if (fastdom.reads.length || fastdom.writes.length) {
-        scheduleFlush(recursion + 1);
+        scheduleFlush();
       }
     }
-    const RECURSION_LIMIT = 4;
-    function scheduleFlush(recursion) {
-      if (fastdom.scheduled) {
-        return;
-      }
-      fastdom.scheduled = true;
-      if (recursion && recursion < RECURSION_LIMIT) {
-        Promise.resolve().then(() => flush(recursion));
-      } else {
-        requestAnimationFrame(() => flush(1));
+    function scheduleFlush() {
+      if (!fastdom.scheduled) {
+        fastdom.scheduled = true;
+        queueMicrotask(flush);
       }
     }
     function runTasks(tasks) {
@@ -1540,7 +1559,6 @@
         camelize: camelize,
         children: children,
         clamp: clamp,
-        closest: closest,
         createEvent: createEvent,
         css: css,
         data: data,
@@ -1661,7 +1679,6 @@
         uniqueBy: uniqueBy,
         unwrap: unwrap,
         width: width,
-        within: within,
         wrapAll: wrapAll,
         wrapInner: wrapInner
     });
@@ -2011,10 +2028,15 @@
       observe: [
         mutation({
           options: {
-            childList: true,
+            childList: true
+          }
+        }),
+        mutation({
+          options: {
             attributes: true,
             attributeFilter: ["style"]
-          }
+          },
+          target: ({ $el }) => [$el, ...children($el)]
         }),
         resize({
           target: ({ $el }) => [$el, ...children($el)]
@@ -2090,99 +2112,15 @@
       };
     }
 
-    const clsLeave = "uk-transition-leave";
-    const clsEnter = "uk-transition-enter";
-    function fade(action, target, duration, stagger = 0) {
-      const index = transitionIndex(target, true);
-      const propsIn = { opacity: 1 };
-      const propsOut = { opacity: 0 };
-      const wrapIndexFn = (fn) => () => index === transitionIndex(target) ? fn() : Promise.reject();
-      const leaveFn = wrapIndexFn(async () => {
-        addClass(target, clsLeave);
-        await Promise.all(
-          getTransitionNodes(target).map(
-            (child, i) => new Promise(
-              (resolve) => setTimeout(
-                () => Transition.start(child, propsOut, duration / 2, "ease").then(
-                  resolve
-                ),
-                i * stagger
-              )
-            )
-          )
-        );
-        removeClass(target, clsLeave);
-      });
-      const enterFn = wrapIndexFn(async () => {
-        const oldHeight = height(target);
-        addClass(target, clsEnter);
-        action();
-        css(children(target), { opacity: 0 });
-        await awaitFrame$1();
-        const nodes = children(target);
-        const newHeight = height(target);
-        css(target, "alignContent", "flex-start");
-        height(target, oldHeight);
-        const transitionNodes = getTransitionNodes(target);
-        css(nodes, propsOut);
-        const transitions = transitionNodes.map(async (child, i) => {
-          await awaitTimeout(i * stagger);
-          await Transition.start(child, propsIn, duration / 2, "ease");
-        });
-        if (oldHeight !== newHeight) {
-          transitions.push(
-            Transition.start(
-              target,
-              { height: newHeight },
-              duration / 2 + transitionNodes.length * stagger,
-              "ease"
-            )
-          );
-        }
-        await Promise.all(transitions).then(() => {
-          removeClass(target, clsEnter);
-          if (index === transitionIndex(target)) {
-            css(target, { height: "", alignContent: "" });
-            css(nodes, { opacity: "" });
-            delete target.dataset.transition;
-          }
-        });
-      });
-      return hasClass(target, clsLeave) ? waitTransitionend(target).then(enterFn) : hasClass(target, clsEnter) ? waitTransitionend(target).then(leaveFn).then(enterFn) : leaveFn().then(enterFn);
-    }
-    function transitionIndex(target, next) {
-      if (next) {
-        target.dataset.transition = 1 + transitionIndex(target);
-      }
-      return toNumber(target.dataset.transition) || 0;
-    }
-    function waitTransitionend(target) {
-      return Promise.all(
-        children(target).filter(Transition.inProgress).map(
-          (el) => new Promise((resolve) => once(el, "transitionend transitioncanceled", resolve))
-        )
-      );
-    }
-    function getTransitionNodes(target) {
-      return getRows(children(target)).flat().filter((node) => isVisible(node));
-    }
-    function awaitFrame$1() {
-      return new Promise((resolve) => requestAnimationFrame(resolve));
-    }
-    function awaitTimeout(timeout) {
-      return new Promise((resolve) => setTimeout(resolve, timeout));
-    }
-
     async function slide(action, target, duration) {
       await awaitFrame();
       let nodes = children(target);
       const currentProps = nodes.map((el) => getProps$1(el, true));
       const targetProps = { ...css(target, ["height", "padding"]), display: "block" };
       await Promise.all(nodes.concat(target).map(Transition.cancel));
-      action();
+      await action();
       nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
       await Promise.resolve();
-      fastdom.flush();
       const targetStyle = attr(target, "style");
       const targetPropsTo = css(target, ["height", "padding"]);
       const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
@@ -2190,7 +2128,6 @@
       nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
       css(target, targetProps);
       trigger(target, "scroll");
-      fastdom.flush();
       await awaitFrame();
       const transitions = nodes.map((el, i) => parent(el) === target && Transition.start(el, propsTo[i], duration, "ease")).concat(Transition.start(target, targetPropsTo, duration, "ease"));
       try {
@@ -2258,6 +2195,86 @@
     }
     function awaitFrame() {
       return new Promise((resolve) => requestAnimationFrame(resolve));
+    }
+
+    const clsLeave = "uk-transition-leave";
+    const clsEnter = "uk-transition-enter";
+    function fade(action, target, duration, stagger = 0) {
+      const index = transitionIndex(target, true);
+      const propsIn = { opacity: 1 };
+      const propsOut = { opacity: 0 };
+      const wrapIndexFn = (fn) => () => index === transitionIndex(target) ? fn() : Promise.reject();
+      const leaveFn = wrapIndexFn(async () => {
+        addClass(target, clsLeave);
+        await Promise.all(
+          getTransitionNodes(target).map(
+            (child, i) => new Promise(
+              (resolve) => setTimeout(
+                () => Transition.start(child, propsOut, duration / 2, "ease").then(
+                  resolve
+                ),
+                i * stagger
+              )
+            )
+          )
+        );
+        removeClass(target, clsLeave);
+      });
+      const enterFn = wrapIndexFn(async () => {
+        const oldHeight = height(target);
+        addClass(target, clsEnter);
+        action();
+        css(children(target), { opacity: 0 });
+        await awaitFrame();
+        const nodes = children(target);
+        const newHeight = height(target);
+        css(target, "alignContent", "flex-start");
+        height(target, oldHeight);
+        const transitionNodes = getTransitionNodes(target);
+        css(nodes, propsOut);
+        const transitions = transitionNodes.map(async (child, i) => {
+          await awaitTimeout(i * stagger);
+          await Transition.start(child, propsIn, duration / 2, "ease");
+        });
+        if (oldHeight !== newHeight) {
+          transitions.push(
+            Transition.start(
+              target,
+              { height: newHeight },
+              duration / 2 + transitionNodes.length * stagger,
+              "ease"
+            )
+          );
+        }
+        await Promise.all(transitions).then(() => {
+          removeClass(target, clsEnter);
+          if (index === transitionIndex(target)) {
+            css(target, { height: "", alignContent: "" });
+            css(nodes, { opacity: "" });
+            delete target.dataset.transition;
+          }
+        });
+      });
+      return hasClass(target, clsLeave) ? waitTransitionend(target).then(enterFn) : hasClass(target, clsEnter) ? waitTransitionend(target).then(leaveFn).then(enterFn) : leaveFn().then(enterFn);
+    }
+    function transitionIndex(target, next) {
+      if (next) {
+        target.dataset.transition = 1 + transitionIndex(target);
+      }
+      return toNumber(target.dataset.transition) || 0;
+    }
+    function waitTransitionend(target) {
+      return Promise.all(
+        children(target).filter(Transition.inProgress).map(
+          (el) => new Promise((resolve) => once(el, "transitionend transitioncanceled", resolve))
+        )
+      );
+    }
+    function getTransitionNodes(target) {
+      return getRows(children(target)).flat().filter(isVisible);
+    }
+    function awaitTimeout(timeout) {
+      return new Promise((resolve) => setTimeout(resolve, timeout));
     }
 
     var Animate = {
@@ -2368,10 +2385,7 @@
           }
           await Promise.all(
             $$(this.target, this.$el).map((target) => {
-              const filterFn = () => {
-                applyState(state, target, children(target));
-                this.$update(this.$el);
-              };
+              const filterFn = () => applyState(state, target, children(target));
               return animate ? this.animate(filterFn, target) : filterFn();
             })
           );
@@ -2390,7 +2404,9 @@
     }
     function applyState(state, target, children) {
       const selector = getSelector(state);
-      children.forEach((el) => css(el, "display", selector && !matches(el, selector) ? "none" : ""));
+      for (const el of children) {
+        css(el, "display", selector && !matches(el, selector) ? "none" : "");
+      }
       const [sort, order] = state.sort;
       if (sort) {
         const sorted = sortItems(children, sort, order);
@@ -3237,6 +3253,7 @@
         }
       }
     }
+    const mutationOptions = { subtree: true, childList: true };
     function registerComputed(instance, key, cb) {
       instance._hasComputed = true;
       Object.defineProperty(instance, key, {
@@ -3245,6 +3262,13 @@
           const { _computed, $props, $el } = instance;
           if (!hasOwn(_computed, key)) {
             _computed[key] = (cb.get || cb).call(instance, $props, $el);
+            if (cb.observe && instance._computedObserver) {
+              const selector = cb.observe.call(instance, $props);
+              instance._computedObserver.observe(
+                ["~", "+", "-"].includes(selector[0]) ? $el.parentElement : $el.getRootNode(),
+                mutationOptions
+              );
+            }
           }
           return _computed[key];
         },
@@ -3265,34 +3289,22 @@
         read: () => runWatches(instance, resetComputed(instance)),
         events: ["resize", "computed"]
       });
-      registerComputedObserver();
-      instances$1.add(instance);
+      instance._computedObserver = observeMutation(
+        instance.$el,
+        () => callUpdate(instance, "computed"),
+        mutationOptions
+      );
     }
     function disconnectComputedUpdates(instance) {
-      instances$1 == null ? void 0 : instances$1.delete(instance);
+      var _a;
+      (_a = instance._computedObserver) == null ? void 0 : _a.disconnect();
+      delete instance._computedObserver;
       resetComputed(instance);
     }
     function resetComputed(instance) {
       const values = { ...instance._computed };
       instance._computed = {};
       return values;
-    }
-    let observer;
-    let instances$1;
-    function registerComputedObserver() {
-      if (observer) {
-        return;
-      }
-      instances$1 = /* @__PURE__ */ new Set();
-      observer = new MutationObserver(() => {
-        for (const instance of instances$1) {
-          callUpdate(instance, "computed");
-        }
-      });
-      observer.observe(document, {
-        subtree: true,
-        childList: true
-      });
     }
 
     function initEvents(instance) {
@@ -3331,13 +3343,7 @@
     function initObservers(instance) {
       instance._observers = [];
       for (const observer of instance.$options.observe || []) {
-        if (hasOwn(observer, "handler")) {
-          registerObservable(instance, observer);
-        } else {
-          for (const observable of observer) {
-            registerObservable(instance, observable);
-          }
-        }
+        registerObservable(instance, observer);
       }
     }
     function registerObserver(instance, ...observer) {
@@ -3363,18 +3369,30 @@
       }
       const targets = hasOwn(instance, key) ? instance[key] : target;
       const observer = observe(targets, handler, options, args);
-      if (isFunction(target) && isArray(instance[key]) && observer.unobserve) {
-        registerWatch(instance, { handler: updateTargets(observer), immediate: false }, key);
+      if (isFunction(target) && isArray(instance[key])) {
+        registerWatch(
+          instance,
+          { handler: updateTargets(observer, options), immediate: false },
+          key
+        );
       }
       registerObserver(instance, observer);
     }
-    function updateTargets(observer) {
+    function updateTargets(observer, options) {
       return (targets, prev) => {
         for (const target of prev) {
-          !includes(targets, target) && observer.unobserve(target);
+          if (!includes(targets, target)) {
+            if (observer.unobserve) {
+              observer.unobserve(target);
+            } else if (observer.observe) {
+              observer.disconnect();
+            }
+          }
         }
         for (const target of targets) {
-          !includes(prev, target) && observer.observe(target);
+          if (!includes(prev, target) || !observer.unobserve) {
+            observer.observe(target, options);
+          }
         }
       };
     }
@@ -3534,26 +3552,26 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.19.4";
+    App.version = "3.20.0";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
     const components$2 = {};
     function component(name, options) {
-      var _a;
+      var _a, _b;
       const id = PREFIX + hyphenate(name);
       if (!options) {
-        if (isPlainObject(components$2[id])) {
+        if (!components$2[id].options) {
           components$2[id] = App.extend(components$2[id]);
         }
         return components$2[id];
       }
       name = camelize(name);
       App[name] = (element, data) => createComponent(name, element, data);
-      const opt = isPlainObject(options) ? { ...options } : options.options;
+      const opt = (_a = options.options) != null ? _a : { ...options };
       opt.id = id;
       opt.name = name;
-      (_a = opt.install) == null ? void 0 : _a.call(opt, App, opt, name);
+      (_b = opt.install) == null ? void 0 : _b.call(opt, App, opt, name);
       if (App._initialized && !opt.functional) {
         requestAnimationFrame(() => createComponent(name, `[${id}],[data-${id}]`));
       }
@@ -3561,7 +3579,7 @@
     }
     function createComponent(name, element, data, ...args) {
       const Component = component(name);
-      return Component.options.functional ? new Component({ data: isPlainObject(element) ? element : [element, data, ...args] }) : element ? $$(element).map(init)[0] : init();
+      return Component.options.functional ? new Component({ data: isPlainObject(element) ? element : [element, data, ...args] }) : element ? findAll(element).map(init)[0] : init();
       function init(element2) {
         const instance = getComponent(element2, name);
         if (instance) {
@@ -3923,7 +3941,6 @@
           }
         }
       },
-      observe: resize(),
       events: {
         itemshow({ target }) {
           addClass(target, this.clsEnter, this.clsSlideActive);
@@ -4052,6 +4069,7 @@
           return { animation: this.animation };
         }
       },
+      observe: resize(),
       events: {
         beforeitemshow({ target }) {
           addClass(target, this.clsActive);
@@ -4534,18 +4552,7 @@
     }
 
     function getMaxPathLength(el) {
-      return Math.ceil(
-        Math.max(
-          0,
-          ...$$("[stroke]", el).map((stroke) => {
-            try {
-              return stroke.getTotalLength();
-            } catch (e) {
-              return 0;
-            }
-          })
-        )
-      );
+      return isVisible(el) ? Math.ceil(Math.max(0, ...$$("[stroke]", el).map((stroke) => stroke.getTotalLength()))) : 0;
     }
 
     const props = {
@@ -4749,6 +4756,7 @@
         }
       };
     }
+    const loading = {};
     const dimensions = {};
     function getBackgroundImageDimensions(el) {
       const src = css(el, "backgroundImage").replace(/^none|url\(["']?(.+?)["']?\)$/, "$1");
@@ -4758,11 +4766,12 @@
       const image = new Image();
       if (src) {
         image.src = src;
-        if (!image.naturalWidth) {
-          image.onload = () => {
+        if (!image.naturalWidth && !loading[src]) {
+          once(image, "error load", () => {
             dimensions[src] = toDimensions(image);
             trigger(el, createEvent("load", false));
-          };
+          });
+          loading[src] = true;
           return toDimensions(image);
         }
       }
@@ -5252,7 +5261,7 @@
         toggleClass(this.$el, this.clsContainer, !$(`.${this.clsContainer}`, this.$el));
       },
       observe: resize({
-        target: ({ slides }) => slides
+        target: ({ slides, $el }) => [$el, ...slides]
       }),
       update: {
         write() {
@@ -5440,7 +5449,7 @@
     var sliderParallax = {
       mixins: [Parallax],
       beforeConnect() {
-        this.item = closest(this.$el, `.${this.$options.id.replace("parallax", "items")} > *`);
+        this.item = this.$el.closest(`.${this.$options.id.replace("parallax", "items")} > *`);
       },
       disconnected() {
         this.item = null;
@@ -6377,14 +6386,14 @@
       if (name) {
         if (hasAttr(target, attributeName)) {
           createComponent(name, target);
-          return;
+        } else {
+          (_a = getComponent(target, name)) == null ? void 0 : _a.$destroy();
         }
-        (_a = getComponent(target, name)) == null ? void 0 : _a.$destroy();
       }
     }
     function connect(node) {
       const components2 = getComponents(node);
-      for (const name in getComponents(node)) {
+      for (const name in components2) {
         callConnected(components2[name]);
       }
       for (const attributeName of node.getAttributeNames()) {
@@ -6394,7 +6403,7 @@
     }
     function disconnect(node) {
       const components2 = getComponents(node);
-      for (const name in getComponents(node)) {
+      for (const name in components2) {
         callDisconnected(components2[name]);
       }
     }
@@ -6403,7 +6412,7 @@
         attribute = attribute.slice(5);
       }
       const cmp = components$2[attribute];
-      return cmp && (isPlainObject(cmp) ? cmp : cmp.options).name;
+      return cmp && (cmp.options || cmp).name;
     }
 
     globalApi(App);
@@ -6856,10 +6865,6 @@
         }
         css(this.$el, this._style);
       },
-      observe: lazyload({
-        target: ({ toggle, $el }) => query(toggle, $el),
-        targets: ({ $el }) => $el
-      }),
       events: [
         {
           name: "click",
@@ -7150,7 +7155,8 @@
           document,
           `${pointerUp$1} ${pointerCancel} scroll`,
           ({ defaultPrevented, type, target: newTarget }) => {
-            if (!defaultPrevented && type === pointerUp$1 && target === newTarget && !(drop.targetEl && within(target, drop.targetEl))) {
+            var _a;
+            if (!defaultPrevented && type === pointerUp$1 && target === newTarget && !((_a = drop.targetEl) == null ? void 0 : _a.contains(target))) {
               drop.hide(false);
             }
           },
@@ -7766,7 +7772,10 @@
         target: ""
       },
       computed: {
-        target: ({ target }, $el) => query(target, $el)
+        target: {
+          get: ({ target }, $el) => query(target, $el),
+          observe: ({ target }) => target
+        }
       },
       observe: resize({ target: ({ target }) => target }),
       update: {
@@ -7822,7 +7831,7 @@
                 const top = offsetPosition(offsetTopEl)[0] - offsetPosition(scrollElement)[0];
                 minHeight += top > 0 && top < viewportHeight / 2 ? ` - ${top}px` : "";
               } else {
-                minHeight += ` - ${css(scrollElement, "paddingTop")}`;
+                minHeight += ` - ${boxModelAdjust(scrollElement, "height", css(scrollElement, "boxSizing"))}px`;
               }
             }
             if (this.offsetBottom === true) {
@@ -8016,7 +8025,7 @@
       i18n: { toggle: "Open Search", submit: "Submit Search" },
       beforeConnect() {
         const isToggle = hasClass(this.$el, "uk-search-toggle") || hasClass(this.$el, "uk-navbar-toggle");
-        this.icon = isToggle ? "search-toggle-icon" : hasClass(this.$el, "uk-search-icon") && closest(this.$el, ".uk-search-large") ? "search-large" : closest(this.$el, ".uk-search-navbar") ? "search-navbar" : this.$props.icon;
+        this.icon = isToggle ? "search-toggle-icon" : hasClass(this.$el, "uk-search-icon") && this.$el.closest(".uk-search-large") ? "search-large" : this.$el.closest(".uk-search-navbar") ? "search-navbar" : this.$props.icon;
         if (hasAttr(this.$el, "aria-label")) {
           return;
         }
@@ -8160,13 +8169,13 @@
         delete this.img;
       },
       observe: intersection({
-        target: ({ $el, $props }) => [$el, ...queryAll($props.target, $el)],
         handler(entries, observer) {
           this.load();
           observer.disconnect();
         },
         options: ({ margin }) => ({ rootMargin: margin }),
-        filter: ({ loading }) => loading === "lazy"
+        filter: ({ loading }) => loading === "lazy",
+        target: ({ $el, $props }) => $props.target ? [$el, ...queryAll($props.target, $el)] : $el
       }),
       methods: {
         load() {
@@ -8256,9 +8265,17 @@
         selActive: false
       },
       computed: {
-        target: ({ target }, $el) => target ? $$(target, $el) : [$el]
+        target: ({ target }, $el) => target ? $$(target, $el) : $el
       },
       observe: [
+        intersection({
+          handler(entries) {
+            this.isIntersecting = entries.some(({ isIntersecting }) => isIntersecting);
+            this.$emit();
+          },
+          target: ({ target }) => target,
+          args: { intersecting: false }
+        }),
         mutation({
           target: ({ target }) => target,
           options: { attributes: true, attributeFilter: ["class"], attributeOldValue: true }
@@ -8266,7 +8283,10 @@
         {
           target: ({ target }) => target,
           observe: (target, handler) => {
-            const observer = observeResize([...target, document.documentElement], handler);
+            const observer = observeResize(
+              [...toNodes(target), document.documentElement],
+              handler
+            );
             const listener = [
               on(document, "scroll itemshown itemhidden", handler, {
                 passive: true,
@@ -8282,6 +8302,8 @@
               })
             ];
             return {
+              observe: observer.observe.bind(observer),
+              unobserve: observer.unobserve.bind(observer),
               disconnect() {
                 observer.disconnect();
                 listener.map((off) => off());
@@ -8295,7 +8317,10 @@
       ],
       update: {
         read() {
-          for (const target of this.target) {
+          if (!this.isIntersecting) {
+            return false;
+          }
+          for (const target of toNodes(this.target)) {
             replaceClass(
               target,
               "uk-light,uk-dark",
@@ -8410,10 +8435,11 @@
     };
     function install({ modal }) {
       modal.dialog = function(content, options) {
-        const dialog = modal(
-          `<div class="uk-modal"> <div class="uk-modal-dialog">${content}</div> </div>`,
-          { stack: true, role: "alertdialog", ...options }
-        );
+        const dialog = modal($(`<div><div class="uk-modal-dialog">${content}</div></div>`), {
+          stack: true,
+          role: "alertdialog",
+          ...options
+        });
         dialog.show();
         on(
           dialog.$el,
@@ -8885,7 +8911,6 @@
           }
           trigger(el, inview ? "inview" : "outview");
           state.inview = inview;
-          this.$update(el);
         }
       }
     };
@@ -9032,7 +9057,7 @@
           target: () => document.scrollingElement,
           options: { box: "content-box" }
         }),
-        resize({ target: ({ $el }) => $el })
+        resize()
       ],
       events: [
         {
@@ -9445,7 +9470,10 @@
         swiping: true
       },
       computed: {
-        connects: ({ connect }, $el) => queryAll(connect, $el),
+        connects: {
+          get: ({ connect }, $el) => queryAll(connect, $el),
+          observe: ({ connect }) => connect
+        },
         connectChildren() {
           return this.connects.map((el) => children(el)).flat();
         },
@@ -9546,7 +9574,11 @@
       ],
       update() {
         var _a;
-        attr(this.connects, "role", "presentation");
+        for (const el of this.connects) {
+          if (isTag(el, "ul")) {
+            attr(el, "role", "presentation");
+          }
+        }
         attr(children(this.$el), "role", "presentation");
         for (const index in this.toggles) {
           const toggle = this.toggles[index];
@@ -9630,9 +9662,12 @@
         queued: true
       },
       computed: {
-        target({ target }, $el) {
-          target = queryAll(target || $el.hash, $el);
-          return target.length ? target : [$el];
+        target: {
+          get: ({ target }, $el) => {
+            target = queryAll(target || $el.hash, $el);
+            return target.length ? target : [$el];
+          },
+          observe: ({ target }) => target
         }
       },
       connected() {
@@ -9645,7 +9680,7 @@
           }
         }
       },
-      observe: lazyload({ target: ({ target }) => target }),
+      observe: lazyload({ targets: ({ target }) => target }),
       events: [
         {
           name: pointerDown$1,
