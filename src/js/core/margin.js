@@ -15,6 +15,11 @@ export default {
     observe: [
         mutation({
             options: {
+                childList: true,
+            },
+        }),
+        mutation({
+            options: {
                 attributes: true,
                 attributeFilter: ['style'],
             },
