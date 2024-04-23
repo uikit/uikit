@@ -5,13 +5,7 @@ import { registerWatch } from './watch';
 export function initObservers(instance) {
     instance._observers = [];
     for (const observer of instance.$options.observe || []) {
-        if (hasOwn(observer, 'handler')) {
-            registerObservable(instance, observer);
-        } else {
-            for (const observable of observer) {
-                registerObservable(instance, observable);
-            }
-        }
+        registerObservable(instance, observer);
     }
 }
 
