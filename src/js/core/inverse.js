@@ -75,7 +75,7 @@ export default {
             for (const target of toNodes(this.target)) {
                 replaceClass(
                     target,
-                    'uk-light,uk-dark',
+                    'uk-light uk-dark',
                     !this.selActive || matches(target, this.selActive)
                         ? findTargetColor(target)
                         : '',

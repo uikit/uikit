@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Inverse component
+
 ## 3.20.0 (April 23, 2024)
 
 ### Changed
