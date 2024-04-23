@@ -111,7 +111,7 @@ export function toFloat(value) {
 }
 
 export function toNode(element) {
-    return toNodes(element)[0];
+    return element && toNodes(element)[0];
 }
 
 export function toNodes(element) {

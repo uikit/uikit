@@ -10,7 +10,6 @@ import {
     removeClass,
     trigger,
 } from 'uikit-util';
-import { resize } from '../api/observables';
 import I18n from './i18n';
 import SliderAutoplay from './slider-autoplay';
 import SliderDrag from './slider-drag';
@@ -79,8 +78,6 @@ export default {
             }
         },
     },
-
-    observe: resize(),
 
     events: {
         itemshow({ target }) {

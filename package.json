@@ -2,7 +2,7 @@
     "name": "uikit",
     "title": "UIkit",
     "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-    "version": "3.19.4",
+    "version": "3.20.0",
     "main": "dist/js/uikit.js",
     "style": "dist/css/uikit.css",
     "sideEffects": [
@@ -10,6 +10,7 @@
         "./src/js/*.js",
         "./dist/**/*.js"
     ],
+    "type": "module",
     "scripts": {
         "build-scss": "node build/scss",
         "compile": "pnpm compile-less && pnpm compile-js",
@@ -20,9 +21,7 @@
         "prefix": "node build/prefix",
         "scope": "node build/scope",
         "release": "node build/release",
-        "watch": "chokidar \"**/*.less\" --initial -i \"node_modules\" -c \"node build/less\"",
-        "eslint": "eslint src/js build/*.js",
-        "eslint-fix": "eslint --fix src/js build/*.js"
+        "watch": "chokidar \"**/*.less\" --initial -i \"node_modules\" -c \"node build/less\""
     },
     "repository": {
         "type": "git",
@@ -33,7 +32,7 @@
         "url": "https://github.com/uikit/uikit/issues"
     },
     "homepage": "https://getuikit.com",
-    "packageManager": "pnpm@8.15.6",
+    "packageManager": "pnpm@9.0.5",
     "devDependencies": {
         "@eslint/js": "^9.0.0",
         "@rollup/plugin-alias": "^5.1.0",

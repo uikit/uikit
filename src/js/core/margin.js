@@ -16,9 +16,14 @@ export default {
         mutation({
             options: {
                 childList: true,
+            },
+        }),
+        mutation({
+            options: {
                 attributes: true,
                 attributeFilter: ['style'],
             },
+            target: ({ $el }) => [$el, ...children($el)],
         }),
         resize({
             target: ({ $el }) => [$el, ...children($el)],

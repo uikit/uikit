@@ -1,6 +1,6 @@
-import { hasOwn, isUndefined } from 'uikit-util';
-import { callUpdate, prependUpdate } from './update';
-import { runWatches } from './watch';
+import { hasOwn, isUndefined, observeMutation } from 'uikit-util';
+import { callUpdate, prependUpdate } from './update.js';
+import { runWatches } from './watch.js';
 
 export function initComputed(instance) {
     const { computed } = instance.$options;
@@ -13,7 +13,7 @@ export function initComputed(instance) {
         }
     }
 }
-
+const mutationOptions = { subtree: true, childList: true };
 export function registerComputed(instance, key, cb) {
     instance._hasComputed = true;
     Object.defineProperty(instance, key, {
@@ -24,6 +24,15 @@ export function registerComputed(instance, key, cb) {
 
             if (!hasOwn(_computed, key)) {
                 _computed[key] = (cb.get || cb).call(instance, $props, $el);
+                if (cb.observe && instance._computedObserver) {
+                    const selector = cb.observe.call(instance, $props);
+                    instance._computedObserver.observe(
+                        ['~', '+', '-'].includes(selector[0])
+                            ? $el.parentElement
+                            : $el.getRootNode(),
+                        mutationOptions,
+                    );
+                }
             }
 
             return _computed[key];
@@ -51,12 +60,16 @@ export function initComputedUpdates(instance) {
         events: ['resize', 'computed'],
     });
 
-    registerComputedObserver();
-    instances.add(instance);
+    instance._computedObserver = observeMutation(
+        instance.$el,
+        () => callUpdate(instance, 'computed'),
+        mutationOptions,
+    );
 }
 
 export function disconnectComputedUpdates(instance) {
-    instances?.delete(instance);
+    instance._computedObserver?.disconnect();
+    delete instance._computedObserver;
     resetComputed(instance);
 }
 
@@ -64,23 +77,4 @@ function resetComputed(instance) {
     const values = { ...instance._computed };
     instance._computed = {};
     return values;
-}
-
-let observer;
-let instances;
-function registerComputedObserver() {
-    if (observer) {
-        return;
-    }
-
-    instances = new Set();
-    observer = new MutationObserver(() => {
-        for (const instance of instances) {
-            callUpdate(instance, 'computed');
-        }
-    });
-    observer.observe(document, {
-        subtree: true,
-        childList: true,
-    });
 }

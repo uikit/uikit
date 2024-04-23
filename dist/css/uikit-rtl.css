@@ -1,4 +1,4 @@
-/*! UIkit 3.19.4 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.20.0 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -8249,7 +8249,7 @@ iframe[data-uk-cover] {
 [class*="uk-float-"] {
   max-width: 100%;
 }
-/* Overfow
+/* Overflow
  ========================================================================== */
 .uk-overflow-hidden {
   overflow: hidden;

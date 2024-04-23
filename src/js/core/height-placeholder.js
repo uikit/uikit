@@ -13,7 +13,10 @@ export default {
     },
 
     computed: {
-        target: ({ target }, $el) => query(target, $el),
+        target: {
+            get: ({ target }, $el) => query(target, $el),
+            observe: ({ target }) => target,
+        },
     },
 
     observe: resize({ target: ({ target }) => target }),

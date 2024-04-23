@@ -41,9 +41,12 @@ export default {
     },
 
     computed: {
-        target({ target }, $el) {
-            target = queryAll(target || $el.hash, $el);
-            return target.length ? target : [$el];
+        target: {
+            get: ({ target }, $el) => {
+                target = queryAll(target || $el.hash, $el);
+                return target.length ? target : [$el];
+            },
+            observe: ({ target }) => target,
         },
     },
 
@@ -58,7 +61,7 @@ export default {
         }
     },
 
-    observe: lazyload({ target: ({ target }) => target }),
+    observe: lazyload({ targets: ({ target }) => target }),
 
     events: [
         {

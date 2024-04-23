@@ -55,6 +55,6 @@ function toClasses(str) {
     return str
         ? isArray(str)
             ? str.map(toClasses).flat()
-            : String(str).split(/[ ,]/).filter(Boolean)
+            : String(str).split(' ').filter(Boolean)
         : [];
 }

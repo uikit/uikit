@@ -1,4 +1,5 @@
 import { addClass, removeClass } from 'uikit-util';
+import { resize } from '../api/observables.js';
 import Animations from './internal/slideshow-animations';
 import Transitioner from './internal/slideshow-transitioner';
 import Slider from './slider.js';
@@ -26,6 +27,8 @@ export default {
             return { animation: this.animation };
         },
     },
+
+    observe: resize(),
 
     events: {
         beforeitemshow({ target }) {

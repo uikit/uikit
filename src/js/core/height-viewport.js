@@ -68,7 +68,7 @@ export default {
                             offsetPosition(offsetTopEl)[0] - offsetPosition(scrollElement)[0];
                         minHeight += top > 0 && top < viewportHeight / 2 ? ` - ${top}px` : '';
                     } else {
-                        minHeight += ` - ${css(scrollElement, 'paddingTop')}`;
+                        minHeight += ` - ${boxModelAdjust(scrollElement, 'height', css(scrollElement, 'boxSizing'))}px`;
                     }
                 }
 

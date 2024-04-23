@@ -10,6 +10,7 @@ import {
     hasClass,
     includes,
     isNode,
+    isTag,
     matches,
     queryAll,
     toArray,
@@ -49,7 +50,10 @@ export default {
     },
 
     computed: {
-        connects: ({ connect }, $el) => queryAll(connect, $el),
+        connects: {
+            get: ({ connect }, $el) => queryAll(connect, $el),
+            observe: ({ connect }) => connect,
+        },
 
         connectChildren() {
             return this.connects.map((el) => children(el)).flat();
@@ -188,7 +192,11 @@ export default {
     ],
 
     update() {
-        attr(this.connects, 'role', 'presentation');
+        for (const el of this.connects) {
+            if (isTag(el, 'ul')) {
+                attr(el, 'role', 'presentation');
+            }
+        }
         attr(children(this.$el), 'role', 'presentation');
 
         for (const index in this.toggles) {

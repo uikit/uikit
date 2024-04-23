@@ -1,5 +1,5 @@
-import { $$, css, dimensions, matches, observeResize, on, replaceClass } from 'uikit-util';
-import { mutation } from '../api/observables';
+import { $$, css, dimensions, matches, observeResize, on, replaceClass, toNodes } from 'uikit-util';
+import { intersection, mutation } from '../api/observables';
 
 export default {
     props: {
@@ -13,10 +13,18 @@ export default {
     },
 
     computed: {
-        target: ({ target }, $el) => (target ? $$(target, $el) : [$el]),
+        target: ({ target }, $el) => (target ? $$(target, $el) : $el),
     },
 
     observe: [
+        intersection({
+            handler(entries) {
+                this.isIntersecting = entries.some(({ isIntersecting }) => isIntersecting);
+                this.$emit();
+            },
+            target: ({ target }) => target,
+            args: { intersecting: false },
+        }),
         mutation({
             target: ({ target }) => target,
             options: { attributes: true, attributeFilter: ['class'], attributeOldValue: true },
@@ -24,7 +32,10 @@ export default {
         {
             target: ({ target }) => target,
             observe: (target, handler) => {
-                const observer = observeResize([...target, document.documentElement], handler);
+                const observer = observeResize(
+                    [...toNodes(target), document.documentElement],
+                    handler,
+                );
                 const listener = [
                     on(document, 'scroll itemshown itemhidden', handler, {
                         passive: true,
@@ -41,6 +52,8 @@ export default {
                 ];
 
                 return {
+                    observe: observer.observe.bind(observer),
+                    unobserve: observer.unobserve.bind(observer),
                     disconnect() {
                         observer.disconnect();
                         listener.map((off) => off());
@@ -55,7 +68,11 @@ export default {
 
     update: {
         read() {
-            for (const target of this.target) {
+            if (!this.isIntersecting) {
+                return false;
+            }
+
+            for (const target of toNodes(this.target)) {
                 replaceClass(
                     target,
                     'uk-light,uk-dark',

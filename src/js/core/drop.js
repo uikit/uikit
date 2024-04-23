@@ -27,9 +27,7 @@ import {
     pointerUp,
     query,
     removeClass,
-    within,
 } from 'uikit-util';
-import { lazyload } from '../api/observables';
 import Container from '../mixin/container';
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
@@ -128,11 +126,6 @@ export default {
         }
         css(this.$el, this._style);
     },
-
-    observe: lazyload({
-        target: ({ toggle, $el }) => query(toggle, $el),
-        targets: ({ $el }) => $el,
-    }),
 
     events: [
         {
@@ -519,7 +512,7 @@ function listenForBackgroundClose(drop) {
                     !defaultPrevented &&
                     type === pointerUp &&
                     target === newTarget &&
-                    !(drop.targetEl && within(target, drop.targetEl))
+                    !drop.targetEl?.contains(target)
                 ) {
                     drop.hide(false);
                 }

@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.20.0 (April 23, 2024)
+
+### Changed
+
+- Improve query selector performance 🏎
+- Queue updates on microtask instead of animation frame to ensure more immediate updates
+
+### Removed
+
+- Remove deprecated `closest()` and `within()` functions
+
+### Fixed
+
+- Fix lazy loading on target in Toggle component
+
 ## 3.19.4 (April 9, 2024)
 
 ### Added

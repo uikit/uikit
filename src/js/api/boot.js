@@ -1,4 +1,4 @@
-import { apply, hasAttr, inBrowser, isPlainObject, startsWith, trigger } from 'uikit-util';
+import { apply, hasAttr, inBrowser, startsWith, trigger } from 'uikit-util';
 import { components, createComponent, getComponent, getComponents } from './component';
 import { callConnected, callDisconnected } from './hooks';
 
@@ -53,16 +53,15 @@ function applyAttributeMutation({ target, attributeName }) {
     if (name) {
         if (hasAttr(target, attributeName)) {
             createComponent(name, target);
-            return;
+        } else {
+            getComponent(target, name)?.$destroy();
         }
-
-        getComponent(target, name)?.$destroy();
     }
 }
 
 function connect(node) {
     const components = getComponents(node);
-    for (const name in getComponents(node)) {
+    for (const name in components) {
         callConnected(components[name]);
     }
 
@@ -74,7 +73,7 @@ function connect(node) {
 
 function disconnect(node) {
     const components = getComponents(node);
-    for (const name in getComponents(node)) {
+    for (const name in components) {
         callDisconnected(components[name]);
     }
 }
@@ -85,5 +84,5 @@ function getComponentName(attribute) {
     }
 
     const cmp = components[attribute];
-    return cmp && (isPlainObject(cmp) ? cmp : cmp.options).name;
+    return cmp && (cmp.options || cmp).name;
 }

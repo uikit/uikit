@@ -56,13 +56,13 @@ export default {
     },
 
     observe: intersection({
-        target: ({ $el, $props }) => [$el, ...queryAll($props.target, $el)],
         handler(entries, observer) {
             this.load();
             observer.disconnect();
         },
         options: ({ margin }) => ({ rootMargin: margin }),
         filter: ({ loading }) => loading === 'lazy',
+        target: ({ $el, $props }) => ($props.target ? [$el, ...queryAll($props.target, $el)] : $el),
     }),
 
     methods: {

@@ -109,7 +109,7 @@ export default {
             target: () => document.scrollingElement,
             options: { box: 'content-box' },
         }),
-        resize({ target: ({ $el }) => $el }),
+        resize(),
     ],
 
     events: [

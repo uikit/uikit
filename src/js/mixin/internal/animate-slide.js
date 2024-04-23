@@ -2,7 +2,6 @@ import {
     attr,
     children,
     css,
-    fastdom,
     includes,
     index,
     isVisible,
@@ -26,16 +25,13 @@ export default async function (action, target, duration) {
     await Promise.all(nodes.concat(target).map(Transition.cancel));
 
     // Adding, sorting, removing nodes
-    action();
+    await action();
 
     // Find new nodes
     nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
 
     // Wait for update to propagate
     await Promise.resolve();
-
-    // Force update
-    fastdom.flush();
 
     // Get new state
     const targetStyle = attr(target, 'style');
@@ -49,7 +45,6 @@ export default async function (action, target, duration) {
 
     // Trigger update in e.g. parallax component
     trigger(target, 'scroll');
-    fastdom.flush();
 
     // Start transitions on next frame
     await awaitFrame();
@@ -142,6 +137,6 @@ function getPositionWithMargin(el) {
     };
 }
 
-function awaitFrame() {
+export function awaitFrame() {
     return new Promise((resolve) => requestAnimationFrame(resolve));
 }

@@ -28,28 +28,21 @@ export const fastdom = {
     flush,
 };
 
-function flush(recursion) {
+function flush() {
     runTasks(fastdom.reads);
     runTasks(fastdom.writes.splice(0));
 
     fastdom.scheduled = false;
 
     if (fastdom.reads.length || fastdom.writes.length) {
-        scheduleFlush(recursion + 1);
+        scheduleFlush();
     }
 }
 
-const RECURSION_LIMIT = 4;
-function scheduleFlush(recursion) {
-    if (fastdom.scheduled) {
-        return;
-    }
-
-    fastdom.scheduled = true;
-    if (recursion && recursion < RECURSION_LIMIT) {
-        Promise.resolve().then(() => flush(recursion));
-    } else {
-        requestAnimationFrame(() => flush(1));
+function scheduleFlush() {
+    if (!fastdom.scheduled) {
+        fastdom.scheduled = true;
+        queueMicrotask(flush);
     }
 }
 

@@ -1,5 +1,5 @@
 import { attr } from './attr';
-import { index, matches, parent } from './filter';
+import { index, matches } from './filter';
 import { isDocument, isString, memoize, toNode, toNodes } from './lang';
 
 export function query(selector, context) {
@@ -18,69 +18,106 @@ export function findAll(selector, context) {
     return toNodes(_query(selector, toNode(context), 'querySelectorAll'));
 }
 
-const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
-const isContextSelector = memoize((selector) => selector.match(contextSelectorRe));
-
 function getContext(selector, context = document) {
-    return (isString(selector) && isContextSelector(selector)) || isDocument(context)
+    return (isString(selector) && parseSelector(selector).isContextSelector) || isDocument(context)
         ? context
         : context.ownerDocument;
 }
 
-const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
-const sanatize = memoize((selector) => selector.replace(contextSanitizeRe, '$1 *'));
+const addStarRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
+const splitSelectorRe = /.*?[^\\](?![^(]*\))(?:,|$)/g;
+const trailingCommaRe = /\s*,$/;
+
+const parseSelector = memoize((selector) => {
+    selector = selector.replace(addStarRe, '$1 *');
+    let isContextSelector = false;
+
+    const selectors = [];
+    for (let sel of selector.match(splitSelectorRe) ?? []) {
+        sel = sel.replace(trailingCommaRe, '').trim();
+        isContextSelector ||= ['!', '+', '~', '-', '>'].includes(sel[0]);
+        selectors.push(sel);
+    }
+
+    return {
+        selector: selectors.join(','),
+        selectors,
+        isContextSelector,
+    };
+});
+
+const parsePositionSelector = memoize((selector) => {
+    selector = selector.substr(1).trim();
+    const index = selector.indexOf(' ');
+    return ~index ? [selector.substring(0, index), selector.substring(index + 1)] : [selector, ''];
+});
 
 function _query(selector, context = document, queryFn) {
     if (!selector || !isString(selector)) {
         return selector;
     }
 
-    selector = sanatize(selector);
+    const parsed = parseSelector(selector);
 
-    if (isContextSelector(selector)) {
-        const split = splitSelector(selector);
-        selector = '';
-        for (let sel of split) {
-            let ctx = context;
-
-            if (sel[0] === '!') {
-                const selectors = sel.substr(1).trim().split(' ');
-                ctx = parent(context).closest(selectors[0]);
-                sel = selectors.slice(1).join(' ').trim();
-                if (!sel.length && split.length === 1) {
-                    return ctx;
-                }
-            }
-
-            if (sel[0] === '-') {
-                const selectors = sel.substr(1).trim().split(' ');
-                const prev = (ctx || context).previousElementSibling;
-                ctx = matches(prev, sel.substr(1)) ? prev : null;
-                sel = selectors.slice(1).join(' ');
-            }
-
-            if (ctx) {
-                selector += `${selector ? ',' : ''}${domPath(ctx)} ${sel}`;
-            }
-        }
-
-        if (!isDocument(context)) {
-            context = context.ownerDocument;
-        }
+    if (!parsed.isContextSelector) {
+        return _doQuery(context, queryFn, parsed.selector);
     }
 
+    selector = '';
+    const isSingle = parsed.selectors.length === 1;
+    for (let sel of parsed.selectors) {
+        let positionSel;
+        let ctx = context;
+
+        if (sel[0] === '!') {
+            [positionSel, sel] = parsePositionSelector(sel);
+            ctx = context.parentElement.closest(positionSel);
+            if (!sel && isSingle) {
+                return ctx;
+            }
+        }
+
+        if (ctx && sel[0] === '-') {
+            [positionSel, sel] = parsePositionSelector(sel);
+            ctx = ctx.previousElementSibling;
+            ctx = matches(ctx, positionSel) ? ctx : null;
+            if (!sel && isSingle) {
+                return ctx;
+            }
+        }
+
+        if (!ctx) {
+            continue;
+        }
+
+        if (isSingle) {
+            if (sel[0] === '~' || sel[0] === '+') {
+                sel = `:scope :nth-child(${index(ctx) + 1}) ${sel}`;
+                ctx = ctx.parentElement;
+            } else if (sel[0] === '>') {
+                sel = `:scope ${sel}`;
+            }
+
+            return _doQuery(ctx, queryFn, sel);
+        }
+
+        selector += `${selector ? ',' : ''}${domPath(ctx)} ${sel}`;
+    }
+
+    if (!isDocument(context)) {
+        context = context.ownerDocument;
+    }
+
+    return _doQuery(context, queryFn, selector);
+}
+
+function _doQuery(context, queryFn, selector) {
     try {
         return context[queryFn](selector);
     } catch (e) {
         return null;
     }
 }
-
-const selectorRe = /.*?[^\\](?![^(]*\))(?:,|$)/g;
-
-const splitSelector = memoize((selector) =>
-    selector.match(selectorRe).map((selector) => selector.replace(/,$/, '').trim()),
-);
 
 function domPath(element) {
     const names = [];
