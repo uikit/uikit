@@ -64,9 +64,7 @@ export function css(element, property, value, priority) {
 }
 
 // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
-export const propName = memoize((name) => vendorPropName(name));
-
-function vendorPropName(name) {
+export const propName = memoize((name) => {
     if (startsWith(name, '--')) {
         return name;
     }
@@ -85,4 +83,4 @@ function vendorPropName(name) {
             return prefixedName;
         }
     }
-}
+});
