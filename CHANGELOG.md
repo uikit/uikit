@@ -4,7 +4,8 @@
 
 ### Changed
 
-- Improve query selector performance 🏎️
+- Improve query selector performance 🏎
+- Queue updates on microtask instead of animation frame to ensure more immediate updates
 
 ### Removed
 

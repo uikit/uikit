@@ -11,6 +11,7 @@ import {
     Transition,
 } from 'uikit-util';
 import { getRows } from '../../core/margin';
+import { awaitFrame } from './animate-slide.js';
 
 const clsLeave = 'uk-transition-leave';
 const clsEnter = 'uk-transition-enter';
@@ -118,10 +119,6 @@ function waitTransitionend(target) {
 
 function getTransitionNodes(target) {
     return getRows(children(target)).flat().filter(isVisible);
-}
-
-function awaitFrame() {
-    return new Promise((resolve) => requestAnimationFrame(resolve));
 }
 
 function awaitTimeout(timeout) {
