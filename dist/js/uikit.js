@@ -1,4 +1,4 @@
-/*! UIkit 3.20.0 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.20.1 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3552,7 +3552,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.20.0";
+    App.version = "3.20.1";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -8323,7 +8323,7 @@
           for (const target of toNodes(this.target)) {
             replaceClass(
               target,
-              "uk-light,uk-dark",
+              "uk-light uk-dark",
               !this.selActive || matches(target, this.selActive) ? findTargetColor(target) : ""
             );
           }
