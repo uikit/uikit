@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- fix: revert adding esm build for now (breaks resolving logic)
+
 ## 3.20.6 (April 24, 2024)
 
 ### Fixed

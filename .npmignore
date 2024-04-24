@@ -12,12 +12,10 @@
 !/dist/js/
 /dist/js/*
 !/dist/js/uikit.js
-!/dist/js/uikit.esm.js
 !/dist/js/uikit.min.js
 !/dist/js/uikit-core.js
 !/dist/js/uikit-core.min.js
 !/dist/js/uikit-icons.js
-!/dist/js/uikit-icons.esm.js
 !/dist/js/uikit-icons.min.js
 !/dist/js/components/
 /.circleci
