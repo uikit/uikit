@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in none browser environment
+
 ## 3.20.2 (April 24, 2024)
 
 ### Changed
