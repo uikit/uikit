@@ -1,4 +1,4 @@
-/*! UIkit 3.20.2 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.20.3 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -276,6 +276,17 @@
       return str ? isArray(str) ? str.map(toClasses).flat() : String(str).split(" ").filter(Boolean) : [];
     }
 
+    const inBrowser = typeof window !== "undefined";
+    const isRtl = inBrowser && document.dir === "rtl";
+    const hasTouch = inBrowser && "ontouchstart" in window;
+    const hasPointerEvents = inBrowser && window.PointerEvent;
+    const pointerDown$1 = hasPointerEvents ? "pointerdown" : hasTouch ? "touchstart" : "mousedown";
+    const pointerMove$1 = hasPointerEvents ? "pointermove" : hasTouch ? "touchmove" : "mousemove";
+    const pointerUp$1 = hasPointerEvents ? "pointerup" : hasTouch ? "touchend" : "mouseup";
+    const pointerEnter = hasPointerEvents ? "pointerenter" : hasTouch ? "" : "mouseenter";
+    const pointerLeave = hasPointerEvents ? "pointerleave" : hasTouch ? "" : "mouseleave";
+    const pointerCancel = hasPointerEvents ? "pointercancel" : "touchcancel";
+
     const voidElements = {
       area: true,
       base: true,
@@ -296,7 +307,7 @@
     function isVoidElement(element) {
       return toNodes(element).some((element2) => voidElements[element2.tagName.toLowerCase()]);
     }
-    const isVisibleFn = Element.prototype.checkVisibility || function() {
+    const isVisibleFn = inBrowser ? Element.prototype.checkVisibility : function() {
       return this.offsetWidth || this.offsetHeight || this.getClientRects().length;
     };
     function isVisible(element) {
@@ -967,17 +978,6 @@
       remove$1(vhEl);
       return vh;
     }
-
-    const inBrowser = typeof window !== "undefined";
-    const isRtl = inBrowser && document.dir === "rtl";
-    const hasTouch = inBrowser && "ontouchstart" in window;
-    const hasPointerEvents = inBrowser && window.PointerEvent;
-    const pointerDown$1 = hasPointerEvents ? "pointerdown" : hasTouch ? "touchstart" : "mousedown";
-    const pointerMove$1 = hasPointerEvents ? "pointermove" : hasTouch ? "touchmove" : "mousemove";
-    const pointerUp$1 = hasPointerEvents ? "pointerup" : hasTouch ? "touchend" : "mouseup";
-    const pointerEnter = hasPointerEvents ? "pointerenter" : hasTouch ? "" : "mouseenter";
-    const pointerLeave = hasPointerEvents ? "pointerleave" : hasTouch ? "" : "mouseleave";
-    const pointerCancel = hasPointerEvents ? "pointercancel" : "touchcancel";
 
     const fastdom = {
       reads: [],
@@ -3552,7 +3552,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.20.2";
+    App.version = "3.20.3";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
