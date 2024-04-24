@@ -24,6 +24,7 @@
 /*
  * 1. Allow items to wrap into the next line
  * 2. Reset list
+ * 3. Gutter
  */
 
 .uk-thumbnav {
@@ -34,17 +35,20 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    /* 3 */
+    margin-left: -@thumbnav-margin-horizontal;
     .hook-thumbnav();
 }
 
 /*
- * Gutter
- * Note: Can be overridden through grid classes
- * Note: Space is allocated based on content dimensions, but shrinks: 0 1 auto 
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
  */
 
-:where(.uk-thumbnav) { margin-left: -@thumbnav-margin-horizontal; }
-:where(.uk-thumbnav > *) { padding-left: @thumbnav-margin-horizontal; }
+.uk-thumbnav > * {
+    /* 1 */
+    padding-left: @thumbnav-margin-horizontal;
+}
 
 
 /* Items
