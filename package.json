@@ -3,7 +3,12 @@
     "title": "UIkit",
     "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
     "version": "3.20.3",
-    "main": "dist/js/uikit.js",
+    "exports": {
+        ".": {
+            "import": "./dist/js/uikit.esm.js",
+            "require": "./dist/js/uikit.js"
+        }
+    },
     "style": "dist/css/uikit.css",
     "sideEffects": [
         "*.css",

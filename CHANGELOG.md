@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix missing esm export
+
 ## 3.20.3 (April 24, 2024)
 
 ### Fixed
