@@ -1,4 +1,4 @@
-import { children, isRtl, isVisible, offsetPosition, toArray, toggleClass } from 'uikit-util';
+import { children, isRtl, isVisible, offsetPosition, toggleClass } from 'uikit-util';
 import { mutation, resize } from '../api/observables';
 
 export default {
@@ -33,7 +33,7 @@ export default {
     update: {
         read() {
             return {
-                rows: getRows(toArray(this.$el.children)),
+                rows: getRows(children(this.$el)),
             };
         },
 
