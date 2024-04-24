@@ -125,20 +125,6 @@ export async function compile(file, dest, { external, globals, name, aliases, re
             ...outputOptions,
             file: `${dest}.js`,
         },
-        {
-            globals,
-            banner,
-            format: 'esm',
-            file: `${dest}.esm.js`,
-            plugins: [
-                debug
-                    ? undefined
-                    : esbuildMinify({
-                          target: 'safari12',
-                          supported: { 'template-literal': true },
-                      }),
-            ],
-        },
     ];
 
     if (minify) {
