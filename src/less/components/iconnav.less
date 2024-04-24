@@ -30,7 +30,6 @@
 /*
  * 1. Allow items to wrap into the next line
  * 2. Reset list
- * 3. Gutter
  */
 
 .uk-iconnav {
@@ -41,20 +40,17 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    /* 3 */
-    margin-left: -@iconnav-margin-horizontal;
     .hook-iconnav();
 }
 
 /*
- * Space is allocated based on content dimensions, but shrinks: 0 1 auto
- * 1. Gutter
+ * Gutter
+ * Note: Can be overridden through grid classes
+ * Note: Space is allocated based on content dimensions, but shrinks: 0 1 auto 
  */
 
-.uk-iconnav > * {
-    /* 1 */
-    padding-left: @iconnav-margin-horizontal;
-}
+:where(.uk-iconnav) { margin-left: -@iconnav-margin-horizontal; }
+:where(.uk-iconnav > *) { padding-left: @iconnav-margin-horizontal; }
 
 
 /* Items

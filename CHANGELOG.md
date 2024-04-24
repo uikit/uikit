@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Make gutter overridable through grid classes in Iconnav and Thumbnav components
+
 ## 3.20.1 (April 23, 2024)
 
 ### Fixed
