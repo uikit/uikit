@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.20.6 (April 24, 2024)
+
+### Fixed
+
+- Fix missing esm dist files in package
+
 ## 3.20.5 (April 24, 2024)
 
 ### Fixed
