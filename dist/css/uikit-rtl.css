@@ -1,4 +1,4 @@
-/*! UIkit 3.20.1 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.20.2 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4524,6 +4524,157 @@ select.uk-form-width-xsmall {
 /* Label
  ========================================================================== */
 /* ========================================================================
+   Component: Thumbnav
+ ========================================================================== */
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset list
+ * 3. Gutter
+ */
+.uk-thumbnav {
+  display: flex;
+  /* 1 */
+  flex-wrap: wrap;
+  /* 2 */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* 3 */
+  margin-right: -15px;
+}
+/*
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
+ */
+.uk-thumbnav > * {
+  /* 1 */
+  padding-right: 15px;
+}
+/* Items
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-thumbnav > * > * {
+  display: inline-block;
+  position: relative;
+}
+.uk-thumbnav > * > *::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-image: linear-gradient(-180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
+  transition: opacity 0.1s ease-in-out;
+}
+/* Hover */
+.uk-thumbnav > * > :hover::after {
+  opacity: 0;
+}
+/* Active */
+.uk-thumbnav > .uk-active > *::after {
+  opacity: 0;
+}
+/* Modifier: 'uk-thumbnav-vertical'
+ ========================================================================== */
+/*
+ * 1. Change direction
+ * 2. Gutter
+ */
+.uk-thumbnav-vertical {
+  /* 1 */
+  flex-direction: column;
+  /* 2 */
+  margin-right: 0;
+  margin-top: -15px;
+}
+/* 2 */
+.uk-thumbnav-vertical > * {
+  padding-right: 0;
+  padding-top: 15px;
+}
+/* ========================================================================
+   Component: Iconnav
+ ========================================================================== */
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset list
+ * 3. Gutter
+ */
+.uk-iconnav {
+  display: flex;
+  /* 1 */
+  flex-wrap: wrap;
+  /* 2 */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* 3 */
+  margin-right: -10px;
+}
+/*
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
+ */
+.uk-iconnav > * {
+  /* 1 */
+  padding-right: 10px;
+}
+/* Items
+ ========================================================================== */
+/*
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ * 1. Center content vertically if there is still some text
+ * 2. Imitate white space gap when using flexbox
+ * 3. Force text not to affect item height
+ * 4. Style
+ * 5. Required for `a` if there is still some text
+ */
+.uk-iconnav > * > a {
+  /* 1 */
+  display: flex;
+  align-items: center;
+  /* 2 */
+  column-gap: 0.25em;
+  /* 3 */
+  line-height: 0;
+  /* 4 */
+  color: #999;
+  /* 5 */
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: 0.1s ease-in-out;
+  transition-property: color, background-color;
+}
+/* Hover */
+.uk-iconnav > * > a:hover {
+  color: #666;
+}
+/* Active */
+.uk-iconnav > .uk-active > a {
+  color: #666;
+}
+/* Modifier: 'uk-iconnav-vertical'
+ ========================================================================== */
+/*
+ * 1. Change direction
+ * 2. Gutter
+ */
+.uk-iconnav-vertical {
+  /* 1 */
+  flex-direction: column;
+  /* 2 */
+  margin-right: 0;
+  margin-top: -10px;
+}
+/* 2 */
+.uk-iconnav-vertical > * {
+  padding-right: 0;
+  padding-top: 10px;
+}
+/* ========================================================================
    Component: Grid
  ========================================================================== */
 /*
@@ -6095,157 +6246,6 @@ ul.uk-nav-sub {
 .uk-dotnav-vertical > * {
   padding-right: 0;
   padding-top: 12px;
-}
-/* ========================================================================
-   Component: Thumbnav
- ========================================================================== */
-/*
- * 1. Allow items to wrap into the next line
- * 2. Reset list
- * 3. Gutter
- */
-.uk-thumbnav {
-  display: flex;
-  /* 1 */
-  flex-wrap: wrap;
-  /* 2 */
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  /* 3 */
-  margin-right: -15px;
-}
-/*
- * Space is allocated based on content dimensions, but shrinks: 0 1 auto
- * 1. Gutter
- */
-.uk-thumbnav > * {
-  /* 1 */
-  padding-right: 15px;
-}
-/* Items
- ========================================================================== */
-/*
- * Items
- */
-.uk-thumbnav > * > * {
-  display: inline-block;
-  position: relative;
-}
-.uk-thumbnav > * > *::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background-image: linear-gradient(-180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4));
-  transition: opacity 0.1s ease-in-out;
-}
-/* Hover */
-.uk-thumbnav > * > :hover::after {
-  opacity: 0;
-}
-/* Active */
-.uk-thumbnav > .uk-active > *::after {
-  opacity: 0;
-}
-/* Modifier: 'uk-thumbnav-vertical'
- ========================================================================== */
-/*
- * 1. Change direction
- * 2. Gutter
- */
-.uk-thumbnav-vertical {
-  /* 1 */
-  flex-direction: column;
-  /* 2 */
-  margin-right: 0;
-  margin-top: -15px;
-}
-/* 2 */
-.uk-thumbnav-vertical > * {
-  padding-right: 0;
-  padding-top: 15px;
-}
-/* ========================================================================
-   Component: Iconnav
- ========================================================================== */
-/*
- * 1. Allow items to wrap into the next line
- * 2. Reset list
- * 3. Gutter
- */
-.uk-iconnav {
-  display: flex;
-  /* 1 */
-  flex-wrap: wrap;
-  /* 2 */
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  /* 3 */
-  margin-right: -10px;
-}
-/*
- * Space is allocated based on content dimensions, but shrinks: 0 1 auto
- * 1. Gutter
- */
-.uk-iconnav > * {
-  /* 1 */
-  padding-right: 10px;
-}
-/* Items
- ========================================================================== */
-/*
- * Items must target `a` elements to exclude other elements (e.g. dropdowns)
- * 1. Center content vertically if there is still some text
- * 2. Imitate white space gap when using flexbox
- * 3. Force text not to affect item height
- * 4. Style
- * 5. Required for `a` if there is still some text
- */
-.uk-iconnav > * > a {
-  /* 1 */
-  display: flex;
-  align-items: center;
-  /* 2 */
-  column-gap: 0.25em;
-  /* 3 */
-  line-height: 0;
-  /* 4 */
-  color: #999;
-  /* 5 */
-  text-decoration: none;
-  font-size: 0.875rem;
-  transition: 0.1s ease-in-out;
-  transition-property: color, background-color;
-}
-/* Hover */
-.uk-iconnav > * > a:hover {
-  color: #666;
-}
-/* Active */
-.uk-iconnav > .uk-active > a {
-  color: #666;
-}
-/* Modifier: 'uk-iconnav-vertical'
- ========================================================================== */
-/*
- * 1. Change direction
- * 2. Gutter
- */
-.uk-iconnav-vertical {
-  /* 1 */
-  flex-direction: column;
-  /* 2 */
-  margin-right: 0;
-  margin-top: -10px;
-}
-/* 2 */
-.uk-iconnav-vertical > * {
-  padding-right: 0;
-  padding-top: 10px;
 }
 /* ========================================================================
    Component: Dropdown
@@ -11675,6 +11675,58 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar .uk-accordion-title:hover {
   color: rgba(255, 255, 255, 0.7);
 }
+.uk-light .uk-thumbnav > * > *::after,
+.uk-section-primary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-section-secondary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-tile-primary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
+.uk-card-primary.uk-card-body .uk-thumbnav > * > *::after,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-thumbnav > * > *::after,
+.uk-card-secondary.uk-card-body .uk-thumbnav > * > *::after,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-thumbnav > * > *::after,
+.uk-overlay-primary .uk-thumbnav > * > *::after,
+.uk-offcanvas-bar .uk-thumbnav > * > *::after {
+  background-image: linear-gradient(-180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+}
+.uk-light .uk-iconnav > * > a,
+.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a,
+.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > a,
+.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > a,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > a,
+.uk-card-primary.uk-card-body .uk-iconnav > * > a,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-iconnav > * > a,
+.uk-card-secondary.uk-card-body .uk-iconnav > * > a,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-iconnav > * > a,
+.uk-overlay-primary .uk-iconnav > * > a,
+.uk-offcanvas-bar .uk-iconnav > * > a {
+  color: rgba(255, 255, 255, 0.5);
+}
+.uk-light .uk-iconnav > * > a:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
+.uk-card-primary.uk-card-body .uk-iconnav > * > a:hover,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-iconnav > * > a:hover,
+.uk-card-secondary.uk-card-body .uk-iconnav > * > a:hover,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-iconnav > * > a:hover,
+.uk-overlay-primary .uk-iconnav > * > a:hover,
+.uk-offcanvas-bar .uk-iconnav > * > a:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-iconnav > .uk-active > a,
+.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
+.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
+.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
+.uk-card-primary.uk-card-body .uk-iconnav > .uk-active > a,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-iconnav > .uk-active > a,
+.uk-card-secondary.uk-card-body .uk-iconnav > .uk-active > a,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-iconnav > .uk-active > a,
+.uk-overlay-primary .uk-iconnav > .uk-active > a,
+.uk-offcanvas-bar .uk-iconnav > .uk-active > a {
+  color: rgba(255, 255, 255, 0.7);
+}
 .uk-light .uk-grid-divider > :not(.uk-first-column)::before,
 .uk-section-primary:not(.uk-preserve-color) .uk-grid-divider > :not(.uk-first-column)::before,
 .uk-section-secondary:not(.uk-preserve-color) .uk-grid-divider > :not(.uk-first-column)::before,
@@ -12565,58 +12617,6 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar .uk-dotnav > .uk-active > * {
   background-color: rgba(255, 255, 255, 0.9);
   border-color: transparent;
-}
-.uk-light .uk-thumbnav > * > *::after,
-.uk-section-primary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
-.uk-section-secondary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
-.uk-tile-primary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
-.uk-card-primary.uk-card-body .uk-thumbnav > * > *::after,
-.uk-card-primary > :not([class*="uk-card-media"]) .uk-thumbnav > * > *::after,
-.uk-card-secondary.uk-card-body .uk-thumbnav > * > *::after,
-.uk-card-secondary > :not([class*="uk-card-media"]) .uk-thumbnav > * > *::after,
-.uk-overlay-primary .uk-thumbnav > * > *::after,
-.uk-offcanvas-bar .uk-thumbnav > * > *::after {
-  background-image: linear-gradient(-180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
-}
-.uk-light .uk-iconnav > * > a,
-.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a,
-.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > a,
-.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > a,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > a,
-.uk-card-primary.uk-card-body .uk-iconnav > * > a,
-.uk-card-primary > :not([class*="uk-card-media"]) .uk-iconnav > * > a,
-.uk-card-secondary.uk-card-body .uk-iconnav > * > a,
-.uk-card-secondary > :not([class*="uk-card-media"]) .uk-iconnav > * > a,
-.uk-overlay-primary .uk-iconnav > * > a,
-.uk-offcanvas-bar .uk-iconnav > * > a {
-  color: rgba(255, 255, 255, 0.5);
-}
-.uk-light .uk-iconnav > * > a:hover,
-.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
-.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
-.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
-.uk-card-primary.uk-card-body .uk-iconnav > * > a:hover,
-.uk-card-primary > :not([class*="uk-card-media"]) .uk-iconnav > * > a:hover,
-.uk-card-secondary.uk-card-body .uk-iconnav > * > a:hover,
-.uk-card-secondary > :not([class*="uk-card-media"]) .uk-iconnav > * > a:hover,
-.uk-overlay-primary .uk-iconnav > * > a:hover,
-.uk-offcanvas-bar .uk-iconnav > * > a:hover {
-  color: rgba(255, 255, 255, 0.7);
-}
-.uk-light .uk-iconnav > .uk-active > a,
-.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
-.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
-.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
-.uk-card-primary.uk-card-body .uk-iconnav > .uk-active > a,
-.uk-card-primary > :not([class*="uk-card-media"]) .uk-iconnav > .uk-active > a,
-.uk-card-secondary.uk-card-body .uk-iconnav > .uk-active > a,
-.uk-card-secondary > :not([class*="uk-card-media"]) .uk-iconnav > .uk-active > a,
-.uk-overlay-primary .uk-iconnav > .uk-active > a,
-.uk-offcanvas-bar .uk-iconnav > .uk-active > a {
-  color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-text-lead,
 .uk-section-primary:not(.uk-preserve-color) .uk-text-lead,

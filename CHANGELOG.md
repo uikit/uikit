@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.20.2 (April 24, 2024)
+
+### Changed
+
+- Make gutter overridable through grid classes in Iconnav and Thumbnav components
+
+### Fixed
+
+- Fix Switcher component may show multiple items if toggled while previous animation in progress
+- Fix regression in selector engine
+
 ## 3.20.1 (April 23, 2024)
 
 ### Fixed

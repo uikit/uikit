@@ -1,4 +1,4 @@
-/*! UIkit 3.20.1 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.20.2 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -421,7 +421,7 @@
         }
         if (isSingle) {
           if (sel[0] === "~" || sel[0] === "+") {
-            sel = `:scope :nth-child(${index(ctx) + 1}) ${sel}`;
+            sel = `:scope > :nth-child(${index(ctx) + 1}) ${sel}`;
             ctx = ctx.parentElement;
           } else if (sel[0] === ">") {
             sel = `:scope ${sel}`;
@@ -2045,7 +2045,7 @@
       update: {
         read() {
           return {
-            rows: getRows(toArray(this.$el.children))
+            rows: getRows(children(this.$el))
           };
         },
         write({ rows }) {
@@ -3552,7 +3552,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.20.1";
+    App.version = "3.20.2";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -9619,8 +9619,9 @@
             const actives = toArray(children2).filter(
               (child, i) => i !== active && hasClass(child, this.cls)
             );
-            await this.toggleElement(actives, false, animate);
-            await this.toggleElement(children2[active], true, animate);
+            if (await this.toggleElement(actives, false, animate)) {
+              await this.toggleElement(children2[active], true, animate);
+            }
           });
         }
       }

@@ -247,8 +247,9 @@ export default {
                     (child, i) => i !== active && hasClass(child, this.cls),
                 );
 
-                await this.toggleElement(actives, false, animate);
-                await this.toggleElement(children[active], true, animate);
+                if (await this.toggleElement(actives, false, animate)) {
+                    await this.toggleElement(children[active], true, animate);
+                }
             });
         },
     },
