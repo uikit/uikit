@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix Switcher component may show multiple items if toggled while previous animation in progress
+- Fix regression in selector engine
 
 ## 3.20.1 (April 23, 2024)
 

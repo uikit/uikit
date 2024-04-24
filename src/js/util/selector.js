@@ -92,7 +92,7 @@ function _query(selector, context = document, queryFn) {
 
         if (isSingle) {
             if (sel[0] === '~' || sel[0] === '+') {
-                sel = `:scope :nth-child(${index(ctx) + 1}) ${sel}`;
+                sel = `:scope > :nth-child(${index(ctx) + 1}) ${sel}`;
                 ctx = ctx.parentElement;
             } else if (sel[0] === '>') {
                 sel = `:scope ${sel}`;
