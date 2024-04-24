@@ -6,6 +6,10 @@
 
 - Make gutter overridable through grid classes in Iconnav and Thumbnav components
 
+### Fixed
+
+- Fix Switcher component may show multiple items if toggled while previous animation in progress
+
 ## 3.20.1 (April 23, 2024)
 
 ### Fixed
