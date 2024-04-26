@@ -21,8 +21,13 @@ export default async function (action, target, duration) {
     const currentProps = nodes.map((el) => getProps(el, true));
     const targetProps = { ...css(target, ['height', 'padding']), display: 'block' };
 
+    const targets = nodes.concat(target);
+
     // Cancel previous animations
-    await Promise.all(nodes.concat(target).map(Transition.cancel));
+    await Promise.all(targets.map(Transition.cancel));
+
+    // Force transition to be canceled in Safari
+    css(targets, 'transitionProperty', 'none');
 
     // Adding, sorting, removing nodes
     await action();
@@ -32,6 +37,9 @@ export default async function (action, target, duration) {
 
     // Wait for update to propagate
     await Promise.resolve();
+
+    // Possibly reset the forced transition property
+    css(targets, 'transitionProperty', '');
 
     // Get new state
     const targetStyle = attr(target, 'style');

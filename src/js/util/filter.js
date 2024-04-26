@@ -22,11 +22,11 @@ export function isVoidElement(element) {
     return toNodes(element).some((element) => voidElements[element.tagName.toLowerCase()]);
 }
 
-const isVisibleFn = inBrowser
-    ? Element.prototype.checkVisibility
-    : function () {
-          return this.offsetWidth || this.offsetHeight || this.getClientRects().length;
-      };
+const isVisibleFn =
+    (inBrowser && Element.prototype.checkVisibility) ||
+    function () {
+        return this.offsetWidth || this.offsetHeight || this.getClientRects().length;
+    };
 export function isVisible(element) {
     return toNodes(element).some((element) => isVisibleFn.call(element));
 }
