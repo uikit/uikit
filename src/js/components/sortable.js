@@ -65,16 +65,6 @@ export default {
         pos: {},
     },
 
-    created() {
-        for (const key of ['init', 'start', 'move', 'end']) {
-            const fn = this[key];
-            this[key] = (e) => {
-                assign(this.pos, getEventPos(e));
-                fn(e);
-            };
-        }
-    },
-
     events: {
         name: pointerDown,
         passive: false,
@@ -194,6 +184,7 @@ export default {
 
             e.preventDefault();
 
+            this.pos = getEventPos(e);
             this.touched = new Set([this]);
             this.placeholder = placeholder;
             this.origin = { target, index: index(placeholder), ...this.pos };
@@ -223,7 +214,9 @@ export default {
             this.move(e);
         },
 
-        move(e) {
+        move: throttle(function (e) {
+            assign(this.pos, getEventPos(e));
+
             if (this.drag) {
                 this.$emit('move');
             } else if (
@@ -232,7 +225,7 @@ export default {
             ) {
                 this.start(e);
             }
-        },
+        }),
 
         end() {
             off(document, pointerMove, this.move);
@@ -272,17 +265,17 @@ export default {
         insert(element, target) {
             addClass(this.items, this.clsItem);
 
-            const insert = () => (target ? before(target, element) : append(this.target, element));
-
-            this.animate(insert);
+            if (target && target.previousElementSibling !== element) {
+                this.animate(() => before(target, element));
+            } else if (!target && this.target.lastElementChild !== element) {
+                this.animate(() => append(this.target, element));
+            }
         },
 
         remove(element) {
-            if (!this.target.contains(element)) {
-                return;
+            if (this.target.contains(element)) {
+                this.animate(() => remove(element));
             }
-
-            this.animate(() => remove(element));
         },
 
         getSortable(element) {
@@ -437,4 +430,17 @@ function isHorizontal(list, placeholder) {
 
 function linesIntersect(lineA, lineB) {
     return lineA[1] > lineB[0] && lineB[1] > lineA[0];
+}
+
+function throttle(fn) {
+    let throttled;
+    return function (...args) {
+        if (!throttled) {
+            throttled = true;
+            requestAnimationFrame(() => {
+                throttled = false;
+                fn.call(this, ...args);
+            });
+        }
+    };
 }

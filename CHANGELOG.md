@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix check for `Elemenent.prototype.checkVisibility` function
+- Fix filter animations in Safari
 
 ## 3.20.7 (April 24, 2024)
 
