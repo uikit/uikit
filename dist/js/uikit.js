@@ -1,4 +1,4 @@
-/*! UIkit 3.20.7 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.20.8 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -307,7 +307,7 @@
     function isVoidElement(element) {
       return toNodes(element).some((element2) => voidElements[element2.tagName.toLowerCase()]);
     }
-    const isVisibleFn = inBrowser ? Element.prototype.checkVisibility : function() {
+    const isVisibleFn = inBrowser && Element.prototype.checkVisibility || function() {
       return this.offsetWidth || this.offsetHeight || this.getClientRects().length;
     };
     function isVisible(element) {
@@ -2117,10 +2117,13 @@
       let nodes = children(target);
       const currentProps = nodes.map((el) => getProps$1(el, true));
       const targetProps = { ...css(target, ["height", "padding"]), display: "block" };
-      await Promise.all(nodes.concat(target).map(Transition.cancel));
+      const targets = nodes.concat(target);
+      await Promise.all(targets.map(Transition.cancel));
+      css(targets, "transitionProperty", "none");
       await action();
       nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
       await Promise.resolve();
+      css(targets, "transitionProperty", "");
       const targetStyle = attr(target, "style");
       const targetPropsTo = css(target, ["height", "padding"]);
       const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
@@ -3552,7 +3555,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.20.7";
+    App.version = "3.20.8";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5650,15 +5653,6 @@
         handle: false,
         pos: {}
       },
-      created() {
-        for (const key of ["init", "start", "move", "end"]) {
-          const fn = this[key];
-          this[key] = (e) => {
-            assign(this.pos, getEventPos(e));
-            fn(e);
-          };
-        }
-      },
       events: {
         name: pointerDown$1,
         passive: false,
@@ -5745,6 +5739,7 @@
             return;
           }
           e.preventDefault();
+          this.pos = getEventPos(e);
           this.touched = /* @__PURE__ */ new Set([this]);
           this.placeholder = placeholder;
           this.origin = { target, index: index(placeholder), ...this.pos };
@@ -5766,13 +5761,14 @@
           trackScroll(this.pos);
           this.move(e);
         },
-        move(e) {
+        move: throttle(function(e) {
+          assign(this.pos, getEventPos(e));
           if (this.drag) {
             this.$emit("move");
           } else if (Math.abs(this.pos.x - this.origin.x) > this.threshold || Math.abs(this.pos.y - this.origin.y) > this.threshold) {
             this.start(e);
           }
-        },
+        }),
         end() {
           off(document, pointerMove$1, this.move);
           off(document, pointerUp$1, this.end);
@@ -5802,14 +5798,16 @@
         },
         insert(element, target) {
           addClass(this.items, this.clsItem);
-          const insert = () => target ? before(target, element) : append(this.target, element);
-          this.animate(insert);
+          if (target && target.previousElementSibling !== element) {
+            this.animate(() => before(target, element));
+          } else if (!target && this.target.lastElementChild !== element) {
+            this.animate(() => append(this.target, element));
+          }
         },
         remove(element) {
-          if (!this.target.contains(element)) {
-            return;
+          if (this.target.contains(element)) {
+            this.animate(() => remove$1(element));
           }
-          this.animate(() => remove$1(element));
         },
         getSortable(element) {
           do {
@@ -5923,6 +5921,18 @@
     }
     function linesIntersect(lineA, lineB) {
       return lineA[1] > lineB[0] && lineB[1] > lineA[0];
+    }
+    function throttle(fn) {
+      let throttled;
+      return function(...args) {
+        if (!throttled) {
+          throttled = true;
+          requestAnimationFrame(() => {
+            throttled = false;
+            fn.call(this, ...args);
+          });
+        }
+      };
     }
 
     var Position = {
