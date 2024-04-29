@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix race condition in Slider/Slideshow component
+
 ## 3.20.8 (April 26, 2024)
 
 ### Fixed

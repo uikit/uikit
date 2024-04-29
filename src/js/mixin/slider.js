@@ -153,7 +153,9 @@ export default {
                 stack.shift();
                 this._transitioner = null;
 
-                requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
+                if (stack.length) {
+                    requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
+                }
             });
 
             prev && trigger(prev, 'itemhide', [this]);
