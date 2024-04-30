@@ -105,11 +105,7 @@ export default {
             },
         }),
         scroll({ target: () => document.scrollingElement }),
-        resize({
-            target: () => document.scrollingElement,
-            options: { box: 'content-box' },
-        }),
-        resize(),
+        resize({ target: ({ $el }) => [$el, document.scrollingElement] }),
     ],
 
     events: [
@@ -490,7 +486,10 @@ function reset(el) {
     css(el, { position: '', top: '', marginTop: '', width: '' });
 }
 
-function preventTransition(el) {
-    addClass(el, 'uk-transition-disable');
-    requestAnimationFrame(() => removeClass(el, 'uk-transition-disable'));
+const clsTransitionDisable = 'uk-transition-disable';
+function preventTransition(element) {
+    if (!hasClass(element, clsTransitionDisable)) {
+        addClass(element, clsTransitionDisable);
+        requestAnimationFrame(() => removeClass(element, clsTransitionDisable));
+    }
 }
