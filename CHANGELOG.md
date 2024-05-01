@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add color mode `--uk-inverse` property in all components
+
 ### Fixed
 
 - Fix race condition in Slider/Slideshow component

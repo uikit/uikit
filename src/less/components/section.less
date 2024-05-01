@@ -148,6 +148,7 @@
  */
 
 .uk-section-default {
+    --uk-inverse: @section-default-color-mode;
     background: @section-default-background;
     .hook-section-default();
 }
@@ -160,6 +161,7 @@
  */
 
 .uk-section-muted {
+    --uk-inverse: @section-muted-color-mode;
     background: @section-muted-background;
     .hook-section-muted();
 }
@@ -167,11 +169,13 @@
 .uk-section-muted:not(.uk-preserve-color):extend(.uk-light all) when (@section-muted-color-mode = light) {}
 .uk-section-muted:not(.uk-preserve-color):extend(.uk-dark all) when (@section-muted-color-mode = dark) {}
 
+
 /*
  * Primary
  */
 
 .uk-section-primary {
+    --uk-inverse: @section-primary-color-mode;
     background: @section-primary-background;
     .hook-section-primary();
 }
@@ -184,6 +188,7 @@
  */
 
 .uk-section-secondary {
+    --uk-inverse: @section-secondary-color-mode;
     background: @section-secondary-background;
     .hook-section-secondary();
 }
