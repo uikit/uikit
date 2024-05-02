@@ -1,4 +1,14 @@
-import { $$, css, dimensions, matches, observeResize, on, replaceClass, toNodes } from 'uikit-util';
+import {
+    $$,
+    css,
+    dimensions,
+    matches,
+    observeResize,
+    on,
+    parent,
+    replaceClass,
+    toNodes,
+} from 'uikit-util';
 import { intersection, mutation } from '../api/observables';
 
 export default {
@@ -91,13 +101,14 @@ function findTargetColor(target) {
     let last;
     for (const percent of [0.25, 0.5, 0.75]) {
         const elements = target.ownerDocument.elementsFromPoint(
-            Math.max(0, left) + width * percent,
-            Math.max(0, top) + height / 2,
+            Math.max(0, left + width * percent),
+            Math.max(0, top + height / 2),
         );
 
         for (const element of elements) {
             if (
                 target.contains(element) ||
+                !isVisible(element) ||
                 (element.closest('[class*="-leave"]') &&
                     elements.some((el) => element !== el && matches(el, '[class*="-enter"]')))
             ) {
@@ -117,4 +128,20 @@ function findTargetColor(target) {
     }
 
     return last ? `uk-${last}` : '';
+}
+
+// TODO: once it becomes Baseline `element.checkVisibility({ opacityProperty: true, visibilityProperty: true })`
+function isVisible(element) {
+    if (css(element, 'visibility') !== 'visible') {
+        return false;
+    }
+
+    while (element) {
+        if (css(element, 'opacity') === '0') {
+            return false;
+        }
+        element = parent(element);
+    }
+
+    return true;
 }
