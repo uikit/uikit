@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix race condition in Slider/Slideshow component
+- Fix prompts with double quotes in Modal component
 
 ## 3.20.8 (April 26, 2024)
 
