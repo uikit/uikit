@@ -78,7 +78,7 @@ export function attachToElement(element, instance) {
 export function detachFromElement(element, instance) {
     delete element[DATA]?.[instance.$options.name];
 
-    if (!isEmpty(element[DATA])) {
+    if (isEmpty(element[DATA])) {
         delete element[DATA];
     }
 }
