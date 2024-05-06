@@ -108,7 +108,7 @@ export default {
 
     methods: {
         toggle(el, inview) {
-            const state = this.elementData.get(el);
+            const state = this.elementData?.get(el);
 
             if (!state) {
                 return;
