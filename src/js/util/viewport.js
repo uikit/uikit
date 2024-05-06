@@ -184,7 +184,7 @@ export function offsetViewport(scrollElement) {
     ]) {
         if (isWindow(viewportElement)) {
             // iOS 12 returns <body> as scrollingElement
-            viewportElement = scrollElement.ownerDocument;
+            viewportElement = viewportElement.document;
         } else {
             rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
         }
@@ -199,9 +199,9 @@ export function offsetViewport(scrollElement) {
 
 export function getCoveringElement(target) {
     const { left, width, top } = dimensions(target);
-    for (const topPosition of [0, top]) {
-        const coverEl = target.ownerDocument.elementsFromPoint(left + width / 2, topPosition).find(
-            (el) =>
+    for (const position of top ? [0, top] : [0]) {
+        for (const el of toWindow(target).document.elementsFromPoint(left + width / 2, position)) {
+            if (
                 !el.contains(target) &&
                 // If e.g. Offcanvas is not yet closed
                 !hasClass(el, 'uk-togglable-leave') &&
@@ -213,10 +213,10 @@ export function getCoveringElement(target) {
                                 (parent) => !parent.contains(el) && !hasPosition(parent, 'static'),
                             ),
                     ) < zIndex(el)) ||
-                    (hasPosition(el, 'sticky') && parent(el).contains(target))),
-        );
-        if (coverEl) {
-            return coverEl;
+                    (hasPosition(el, 'sticky') && parent(el).contains(target)))
+            ) {
+                return el;
+            }
         }
     }
 }
