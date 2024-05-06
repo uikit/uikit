@@ -16,7 +16,6 @@ import {
     isVisible,
     noop,
     offsetPosition,
-    once,
     parent,
     query,
     remove,
@@ -97,15 +96,19 @@ export default {
     },
 
     observe: [
-        viewport({
-            handler() {
-                if (toPx('100vh', 'height') !== this._data.viewport) {
-                    this.$emit('resize');
-                }
+        viewport(),
+        scroll({ target: () => document.scrollingElement }),
+        resize({
+            target: ({ $el }) => [$el, parent($el), document.scrollingElement],
+            handler(entries) {
+                this.$emit(
+                    this._data.resized && entries.some(({ target }) => target === parent(this.$el))
+                        ? 'update'
+                        : 'resize',
+                );
+                this._data.resized = true;
             },
         }),
-        scroll({ target: () => document.scrollingElement }),
-        resize({ target: ({ $el }) => [$el, document.scrollingElement] }),
     ],
 
     events: [
@@ -142,29 +145,18 @@ export default {
                 });
             },
         },
-        {
-            name: 'transitionstart',
-
-            handler() {
-                this.transitionInProgress = once(
-                    this.$el,
-                    'transitionend transitioncancel',
-                    () => (this.transitionInProgress = null),
-                );
-            },
-        },
     ],
 
     update: [
         {
-            read({ height, width, margin, sticky }) {
+            read({ height, width, margin, sticky }, types) {
                 this.inactive = !this.matchMedia || !isVisible(this.$el);
 
                 if (this.inactive) {
                     return;
                 }
 
-                const hide = this.isFixed && !this.transitionInProgress;
+                const hide = this.isFixed && types.has('update');
                 if (hide) {
                     preventTransition(this.target);
                     this.hide();
@@ -239,6 +231,7 @@ export default {
                     top: offsetPosition(referenceElement)[0],
                     sticky,
                     viewport,
+                    maxScrollHeight,
                 };
             },
 
@@ -283,8 +276,9 @@ export default {
                 elHeight,
                 height,
                 sticky,
+                maxScrollHeight,
             }) {
-                const scroll = document.scrollingElement.scrollTop;
+                const scroll = Math.min(document.scrollingElement.scrollTop, maxScrollHeight);
                 const dir = prevScroll <= scroll ? 'down' : 'up';
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
 
