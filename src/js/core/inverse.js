@@ -97,12 +97,13 @@ export default {
 
 function findTargetColor(target) {
     const { left, top, height, width } = dimensions(target);
+    const viewport = dimensions(window);
 
     let last;
     for (const percent of [0.25, 0.5, 0.75]) {
         const elements = target.ownerDocument.elementsFromPoint(
-            Math.max(0, left + width * percent),
-            Math.max(0, top + height / 2),
+            Math.max(0, Math.min(left + width * percent, viewport.width - 1)),
+            Math.max(0, Math.min(top + height / 2, viewport.height - 1)),
         );
 
         for (const element of elements) {
