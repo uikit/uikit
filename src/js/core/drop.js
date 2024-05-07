@@ -106,7 +106,7 @@ export default {
     },
 
     beforeConnect() {
-        this.clsDrop = this.$props.clsDrop || `uk-${this.$options.name}`;
+        this.clsDrop = this.$props.clsDrop || this.$options.id;
     },
 
     connected() {
