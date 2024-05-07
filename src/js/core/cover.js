@@ -28,7 +28,7 @@ export default {
     update: {
         read() {
             if (useObjectFit(this.$el)) {
-                return;
+                return false;
             }
 
             const { ratio, cover } = Dimensions;
