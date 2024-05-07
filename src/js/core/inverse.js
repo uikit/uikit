@@ -108,7 +108,7 @@ function findTargetColor(target) {
         for (const element of elements) {
             if (
                 target.contains(element) ||
-                !isVisible(element) ||
+                !checkVisibility(element) ||
                 (element.closest('[class*="-leave"]') &&
                     elements.some((el) => element !== el && matches(el, '[class*="-enter"]')))
             ) {
@@ -131,7 +131,7 @@ function findTargetColor(target) {
 }
 
 // TODO: once it becomes Baseline `element.checkVisibility({ opacityProperty: true, visibilityProperty: true })`
-function isVisible(element) {
+function checkVisibility(element) {
     if (css(element, 'visibility') !== 'visible') {
         return false;
     }
