@@ -147,13 +147,9 @@ export default {
         {
             name: 'click keydown',
 
-            delegate() {
-                return this.selNavItem;
-            },
+            delegate: ({ selNavItem }) => selNavItem,
 
-            filter() {
-                return !this.parallax;
-            },
+            filter: ({ parallax }) => !parallax,
 
             handler(e) {
                 if (
@@ -174,13 +170,9 @@ export default {
         {
             name: 'keydown',
 
-            delegate() {
-                return this.selNavItem;
-            },
+            delegate: ({ selNavItem }) => selNavItem,
 
-            filter() {
-                return !this.parallax;
-            },
+            filter: ({ parallax }) => !parallax,
 
             handler(e) {
                 const { current, keyCode } = e;

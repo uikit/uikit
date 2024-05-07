@@ -51,9 +51,9 @@ export default {
     events: [
         {
             name: `${pointerEnter} focusin`,
-            filter() {
-                return includes(this.autoplay, 'hover');
-            },
+
+            filter: ({ autoplay }) => includes(autoplay, 'hover'),
+
             handler(e) {
                 if (!isTouch(e) || !isPlaying(this.$el)) {
                     play(this.$el);
@@ -65,9 +65,9 @@ export default {
 
         {
             name: `${pointerLeave} focusout`,
-            filter() {
-                return includes(this.autoplay, 'hover');
-            },
+
+            filter: ({ autoplay }) => includes(autoplay, 'hover'),
+
             handler(e) {
                 if (!isTouch(e)) {
                     pause(this.$el);

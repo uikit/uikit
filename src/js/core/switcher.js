@@ -104,9 +104,7 @@ export default {
         {
             name: 'click keydown',
 
-            delegate() {
-                return this.toggle;
-            },
+            delegate: ({ toggle }) => toggle,
 
             handler(e) {
                 if (
@@ -122,9 +120,7 @@ export default {
         {
             name: 'keydown',
 
-            delegate() {
-                return this.toggle;
-            },
+            delegate: ({ toggle }) => toggle,
 
             handler(e) {
                 const { current, keyCode } = e;
@@ -158,13 +154,10 @@ export default {
         {
             name: 'click',
 
-            el() {
-                return this.connects.concat(this.itemNav ? queryAll(this.itemNav, this.$el) : []);
-            },
+            el: ({ $el, connects, itemNav }) =>
+                connects.concat(itemNav ? queryAll(itemNav, $el) : []),
 
-            delegate() {
-                return `[${this.attrItem}],[data-${this.attrItem}]`;
-            },
+            delegate: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,
 
             handler(e) {
                 if (e.target.closest('a,button')) {
@@ -177,13 +170,9 @@ export default {
         {
             name: 'swipeRight swipeLeft',
 
-            filter() {
-                return this.swiping;
-            },
+            filter: ({ swiping }) => swiping,
 
-            el() {
-                return this.connects;
-            },
+            el: ({ connects }) => connects,
 
             handler({ type }) {
                 this.show(endsWith(type, 'Left') ? 'next' : 'previous');

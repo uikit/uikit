@@ -128,9 +128,7 @@ export default {
         {
             name: 'mouseover focusin',
 
-            delegate() {
-                return this.selNavItem;
-            },
+            delegate: ({ selNavItem }) => selNavItem,
 
             handler({ current }) {
                 const active = this.getActive();
@@ -151,9 +149,7 @@ export default {
 
             self: true,
 
-            delegate() {
-                return this.selNavItem;
-            },
+            delegate: ({ selNavItem }) => selNavItem,
 
             handler(e) {
                 const { current, keyCode } = e;
@@ -171,13 +167,9 @@ export default {
         {
             name: 'keydown',
 
-            el() {
-                return this.dropContainer;
-            },
+            el: ({ dropContainer }) => dropContainer,
 
-            delegate() {
-                return `.${this.clsDrop}`;
-            },
+            delegate: ({ clsDrop }) => `.${clsDrop}`,
 
             handler(e) {
                 const { current, keyCode } = e;
@@ -220,13 +212,9 @@ export default {
         {
             name: 'mouseleave',
 
-            el() {
-                return this.dropbar;
-            },
+            el: ({ dropbar }) => dropbar,
 
-            filter() {
-                return this.dropbar;
-            },
+            filter: ({ dropbar }) => dropbar,
 
             handler() {
                 const active = this.getActive();
@@ -244,13 +232,9 @@ export default {
         {
             name: 'beforeshow',
 
-            el() {
-                return this.dropContainer;
-            },
+            el: ({ dropContainer }) => dropContainer,
 
-            filter() {
-                return this.dropbar;
-            },
+            filter: ({ dropbar }) => dropbar,
 
             handler({ target }) {
                 if (!this.isDropbarDrop(target)) {
@@ -268,13 +252,9 @@ export default {
         {
             name: 'show',
 
-            el() {
-                return this.dropContainer;
-            },
+            el: ({ dropContainer }) => dropContainer,
 
-            filter() {
-                return this.dropbar;
-            },
+            filter: ({ dropbar }) => dropbar,
 
             handler({ target }) {
                 if (!this.isDropbarDrop(target)) {
@@ -306,13 +286,9 @@ export default {
         {
             name: 'beforehide',
 
-            el() {
-                return this.dropContainer;
-            },
+            el: ({ dropContainer }) => dropContainer,
 
-            filter() {
-                return this.dropbar;
-            },
+            filter: ({ dropbar }) => dropbar,
 
             handler(e) {
                 const active = this.getActive();
@@ -333,13 +309,9 @@ export default {
         {
             name: 'hide',
 
-            el() {
-                return this.dropContainer;
-            },
+            el: ({ dropContainer }) => dropContainer,
 
-            filter() {
-                return this.dropbar;
-            },
+            filter: ({ dropbar }) => dropbar,
 
             handler({ target }) {
                 if (!this.isDropbarDrop(target)) {

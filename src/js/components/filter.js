@@ -72,9 +72,7 @@ export default {
     events: {
         name: 'click keydown',
 
-        delegate() {
-            return `[${this.attrItem}],[data-${this.attrItem}]`;
-        },
+        delegate: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,
 
         handler(e) {
             if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {

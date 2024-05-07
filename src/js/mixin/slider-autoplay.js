@@ -32,9 +32,7 @@ export default {
 
             el: () => document,
 
-            filter() {
-                return this.autoplay;
-            },
+            filter: ({ autoplay }) => autoplay,
 
             handler() {
                 if (document.hidden) {

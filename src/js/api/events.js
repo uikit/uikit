@@ -24,7 +24,7 @@ export function registerEvent(instance, event, key) {
         : { name: key, handler: event };
     el = isFunction(el) ? el.call(instance, instance) : el || instance.$el;
 
-    if (!el || (isArray(el) && !el.length) || (filter && !filter.call(instance))) {
+    if (!el || (isArray(el) && !el.length) || (filter && !filter.call(instance, instance))) {
         return;
     }
 

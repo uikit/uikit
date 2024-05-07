@@ -64,9 +64,7 @@ export default {
         {
             name: 'reset',
 
-            el() {
-                return this.$el.closest('form');
-            },
+            el: ({ $el }) => $el.closest('form'),
 
             handler() {
                 this.$emit();

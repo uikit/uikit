@@ -115,13 +115,9 @@ export default {
         {
             name: 'load hashchange popstate',
 
-            el() {
-                return window;
-            },
+            el: () => window,
 
-            filter() {
-                return this.targetOffset !== false;
-            },
+            filter: ({ targetOffset }) => targetOffset !== false,
 
             handler() {
                 const { scrollingElement } = document;

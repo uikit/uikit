@@ -81,9 +81,7 @@ export default {
             self: true,
             passive: false,
 
-            filter() {
-                return this.overlay;
-            },
+            filter: ({ overlay }) => overlay,
 
             handler(e) {
                 e.cancelable && e.preventDefault();

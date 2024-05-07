@@ -131,9 +131,7 @@ export default {
         {
             name: 'click',
 
-            delegate() {
-                return '.uk-drop-close';
-            },
+            delegate: () => '.uk-drop-close',
 
             handler(e) {
                 e.preventDefault();
@@ -144,9 +142,7 @@ export default {
         {
             name: 'click',
 
-            delegate() {
-                return 'a[href*="#"]';
-            },
+            delegate: () => 'a[href*="#"]',
 
             handler({ defaultPrevented, current }) {
                 const { hash } = current;
@@ -212,9 +208,7 @@ export default {
         {
             name: `${pointerEnter} focusin`,
 
-            filter() {
-                return includes(this.mode, 'hover');
-            },
+            filter: ({ mode }) => includes(mode, 'hover'),
 
             handler(e) {
                 if (!isTouch(e)) {
@@ -226,9 +220,7 @@ export default {
         {
             name: `${pointerLeave} focusout`,
 
-            filter() {
-                return includes(this.mode, 'hover');
-            },
+            filter: ({ mode }) => includes(mode, 'hover'),
 
             handler(e) {
                 if (!isTouch(e) && e.relatedTarget) {

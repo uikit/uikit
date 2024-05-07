@@ -67,9 +67,7 @@ export default {
         {
             name: pointerDown,
 
-            filter() {
-                return includes(this.mode, 'hover');
-            },
+            filter: ({ mode }) => includes(mode, 'hover'),
 
             handler(e) {
                 this._preventClick = null;
@@ -101,9 +99,7 @@ export default {
             // where pointerleave is triggered immediately after pointerenter on scroll
             name: `mouseenter mouseleave ${pointerEnter} ${pointerLeave} focus blur`,
 
-            filter() {
-                return includes(this.mode, 'hover');
-            },
+            filter: ({ mode }) => includes(mode, 'hover'),
 
             handler(e) {
                 if (isTouch(e) || this.$el.disabled) {
@@ -141,9 +137,7 @@ export default {
         {
             name: 'keydown',
 
-            filter() {
-                return includes(this.mode, 'click') && !isTag(this.$el, 'input');
-            },
+            filter: ({ $el, mode }) => includes(mode, 'click') && !isTag($el, 'input'),
 
             handler(e) {
                 if (e.keyCode === KEY_SPACE) {
@@ -156,9 +150,7 @@ export default {
         {
             name: 'click',
 
-            filter() {
-                return ['click', 'hover'].some((mode) => includes(this.mode, mode));
-            },
+            filter: ({ mode }) => ['click', 'hover'].some((m) => includes(mode, m)),
 
             handler(e) {
                 let link;
@@ -181,13 +173,9 @@ export default {
         {
             name: 'mediachange',
 
-            filter() {
-                return includes(this.mode, 'media');
-            },
+            filter: ({ mode }) => includes(mode, 'media'),
 
-            el() {
-                return this.target;
-            },
+            el: ({ target }) => target,
 
             handler(e, mediaObj) {
                 if (mediaObj.matches ^ this.isToggled(this.target)) {
