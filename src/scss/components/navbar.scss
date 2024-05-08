@@ -334,6 +334,7 @@ $navbar-nav-gap:                                 0px !default; // Must have a un
     --uk-position-offset: #{$navbar-dropdown-margin};
     --uk-position-shift-offset: #{$navbar-dropdown-shift-margin};
     --uk-position-viewport-offset: #{$navbar-dropdown-viewport-margin};
+    --uk-inverse: #{$navbar-dropdown-color-mode};
     /* 1 */
     width: $navbar-dropdown-width;
     /* 2 */

@@ -189,6 +189,7 @@
  */
 
 .uk-card-default {
+    --uk-inverse: #{$card-default-color-mode};
     background-color: $card-default-background;
     color: $card-default-color;
     @if(mixin-exists(hook-card-default)) {@include hook-card-default();}
@@ -223,6 +224,7 @@
  */
 
 .uk-card-primary {
+    --uk-inverse: #{$card-primary-color-mode};
     background-color: $card-primary-background;
     color: $card-primary-color;
     @if(mixin-exists(hook-card-primary)) {@include hook-card-primary();}
@@ -249,6 +251,7 @@
  */
 
 .uk-card-secondary {
+    --uk-inverse: #{$card-secondary-color-mode};
     background-color: $card-secondary-background;
     color: $card-secondary-color;
     @if(mixin-exists(hook-card-secondary)) {@include hook-card-secondary();}

@@ -50,6 +50,7 @@
  */
 
 .uk-overlay-default {
+    --uk-inverse: #{$overlay-default-color-mode};
     background: $overlay-default-background;
     @if(mixin-exists(hook-overlay-default)) {@include hook-overlay-default();}
 }
@@ -63,6 +64,7 @@
  */
 
 .uk-overlay-primary {
+    --uk-inverse: #{$overlay-primary-color-mode};
     background: $overlay-primary-background;
     @if(mixin-exists(hook-overlay-primary)) {@include hook-overlay-primary();}
 }
