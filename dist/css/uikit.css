@@ -1,4 +1,4 @@
-/*! UIkit 3.20.8 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.20.9 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2289,24 +2289,28 @@ select.uk-form-width-xsmall {
  * Default
  */
 .uk-section-default {
+  --uk-inverse: dark;
   background: #fff;
 }
 /*
  * Muted
  */
 .uk-section-muted {
+  --uk-inverse: dark;
   background: #f8f8f8;
 }
 /*
  * Primary
  */
 .uk-section-primary {
+  --uk-inverse: light;
   background: #1e87f0;
 }
 /*
  * Secondary
  */
 .uk-section-secondary {
+  --uk-inverse: light;
   background: #222;
 }
 /* Overlap modifier
@@ -2547,24 +2551,28 @@ select.uk-form-width-xsmall {
  * Default
  */
 .uk-tile-default {
+  --uk-inverse: dark;
   background-color: #fff;
 }
 /*
  * Muted
  */
 .uk-tile-muted {
+  --uk-inverse: dark;
   background-color: #f8f8f8;
 }
 /*
  * Primary
  */
 .uk-tile-primary {
+  --uk-inverse: light;
   background-color: #1e87f0;
 }
 /*
  * Secondary
  */
 .uk-tile-secondary {
+  --uk-inverse: light;
   background-color: #222;
 }
 /* ========================================================================
@@ -2669,6 +2677,7 @@ select.uk-form-width-xsmall {
  * Note: Header and Footer are only implemented for the default style
  */
 .uk-card-default {
+  --uk-inverse: dark;
   background-color: #fff;
   color: #666;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
@@ -2690,6 +2699,7 @@ select.uk-form-width-xsmall {
  * Primary
  */
 .uk-card-primary {
+  --uk-inverse: light;
   background-color: #1e87f0;
   color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
@@ -2705,6 +2715,7 @@ select.uk-form-width-xsmall {
  * Secondary
  */
 .uk-card-secondary {
+  --uk-inverse: light;
   background-color: #222;
   color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
@@ -3120,12 +3131,14 @@ select.uk-form-width-xsmall {
  * Default
  */
 .uk-overlay-default {
+  --uk-inverse: dark;
   background: rgba(255, 255, 255, 0.8);
 }
 /*
  * Primary
  */
 .uk-overlay-primary {
+  --uk-inverse: light;
   background: rgba(34, 34, 34, 0.8);
 }
 /* ========================================================================
@@ -3549,6 +3562,7 @@ select.uk-form-width-xsmall {
   --uk-position-offset: 0;
   --uk-position-shift-offset: 0;
   --uk-position-viewport-offset: 0;
+  --uk-inverse: dark;
   /* 1 */
   width: auto;
   /* 2 */
@@ -4047,6 +4061,7 @@ select.uk-form-width-xsmall {
  * 3. Allow scrolling
  */
 .uk-offcanvas-bar {
+  --uk-inverse: light;
   /* 1 */
   position: absolute;
   top: 0;
@@ -5587,6 +5602,7 @@ ul.uk-nav-sub {
   --uk-position-offset: 15px;
   --uk-position-shift-offset: 0;
   --uk-position-viewport-offset: 15px;
+  --uk-inverse: dark;
   /* 1 */
   width: 200px;
   /* 2 */
@@ -6259,6 +6275,7 @@ ul.uk-nav-sub {
 .uk-dropdown {
   --uk-position-offset: 10px;
   --uk-position-viewport-offset: 15px;
+  --uk-inverse: dark;
   /* 1 */
   width: auto;
   /* 2 */
