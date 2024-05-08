@@ -28,9 +28,7 @@ export default {
         // Hidden elements may change height when fonts load
         name: 'loadingdone',
 
-        el() {
-            return document.fonts;
-        },
+        el: () => document.fonts,
 
         handler() {
             this.$emit('resize');

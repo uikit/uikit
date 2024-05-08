@@ -48,9 +48,7 @@ export default {
 
             passive: true,
 
-            delegate() {
-                return `${this.selList} > *`;
-            },
+            delegate: ({ selList }) => `${selList} > *`,
 
             handler(e) {
                 if (
@@ -79,9 +77,7 @@ export default {
         {
             // iOS workaround for slider stopping if swiping fast
             name: pointerMove,
-            el() {
-                return this.list;
-            },
+            el: ({ list }) => list,
             handler: noop,
             ...pointerOptions,
         },

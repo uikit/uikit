@@ -77,9 +77,7 @@ export default {
         {
             name: 'click',
 
-            delegate() {
-                return `${this.selClose},a[href*="#"]`;
-            },
+            delegate: ({ selClose }) => `${selClose},a[href*="#"]`,
 
             handler(e) {
                 const { current, defaultPrevented } = e;

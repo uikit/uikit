@@ -38,7 +38,7 @@ export default async function (action, target, duration) {
     // Wait for update to propagate
     await Promise.resolve();
 
-    // Possibly reset the forced transition property
+    // Reset the forced transition property
     css(targets, 'transitionProperty', '');
 
     // Get new state

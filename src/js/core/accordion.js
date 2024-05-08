@@ -101,9 +101,7 @@ export default {
         {
             name: 'click keydown',
 
-            delegate() {
-                return `${this.targets} ${this.$props.toggle}`;
-            },
+            delegate: ({ targets, $props }) => `${targets} ${$props.toggle}`,
 
             async handler(e) {
                 if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
@@ -123,9 +121,7 @@ export default {
 
             self: true,
 
-            delegate() {
-                return this.targets;
-            },
+            delegate: ({ targets }) => targets,
 
             handler() {
                 this.$emit();

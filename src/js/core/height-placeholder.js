@@ -23,7 +23,7 @@ export default {
 
     update: {
         read() {
-            return { height: this.target.offsetHeight };
+            return this.target ? { height: this.target.offsetHeight } : false;
         },
 
         write({ height }) {

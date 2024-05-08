@@ -69,6 +69,10 @@ export default function (prev, next, dir, { center, easing, list }) {
         },
 
         translate(percent) {
+            if (percent === this.percent()) {
+                return;
+            }
+
             const distance = this.getDistance() * dir * (isRtl ? -1 : 1);
 
             css(

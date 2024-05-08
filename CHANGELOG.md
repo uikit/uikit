@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.20.9 (May 8, 2024)
+
+### Added
+
+- Add color mode `--uk-inverse` property in all components
+
+### Fixed
+
+- Fix race condition in Slider/Slideshow component
+- Fix prompts with double quotes in Modal component
+- Fix infinite loop in Slider component
+
 ## 3.20.8 (April 26, 2024)
 
 ### Fixed

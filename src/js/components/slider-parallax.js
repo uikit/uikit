@@ -18,9 +18,7 @@ export default {
 
             self: true,
 
-            el() {
-                return this.item;
-            },
+            el: ({ item }) => item,
 
             handler({ type, detail: { percent, duration, timing, dir } }) {
                 fastdom.read(() => {
@@ -43,9 +41,7 @@ export default {
 
             self: true,
 
-            el() {
-                return this.item;
-            },
+            el: ({ item }) => item,
 
             handler() {
                 Transition.cancel(this.$el);
@@ -57,9 +53,7 @@ export default {
 
             self: true,
 
-            el() {
-                return this.item;
-            },
+            el: ({ item }) => item,
 
             handler({ type, detail: { percent, dir } }) {
                 fastdom.read(() => {

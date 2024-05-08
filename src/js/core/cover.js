@@ -14,21 +14,19 @@ export default {
         automute: true,
     },
 
-    events: {
-        'load loadedmetadata'() {
-            this.$emit('resize');
-        },
+    created() {
+        this.useObjectFit = isTag(this.$el, 'img', 'video');
     },
 
     observe: resize({
-        target: ({ $el }) => [getPositionedParent($el) || parent($el)],
-        filter: ({ $el }) => !useObjectFit($el),
+        target: ({ $el }) => getPositionedParent($el) || parent($el),
+        filter: ({ useObjectFit }) => !useObjectFit,
     }),
 
     update: {
         read() {
-            if (useObjectFit(this.$el)) {
-                return;
+            if (this.useObjectFit) {
+                return false;
             }
 
             const { ratio, cover } = Dimensions;
@@ -79,8 +77,4 @@ function getPositionedParent(el) {
             return el;
         }
     }
-}
-
-function useObjectFit(el) {
-    return isTag(el, 'img', 'video');
 }

@@ -70,6 +70,7 @@
  */
 
 .uk-offcanvas-bar {
+    --uk-inverse: #{$offcanvas-bar-color-mode};
     /* 1 */
     position: absolute;
     top: 0;

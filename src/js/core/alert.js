@@ -21,9 +21,7 @@ export default {
     events: {
         name: 'click',
 
-        delegate() {
-            return this.selClose;
-        },
+        delegate: ({ selClose }) => selClose,
 
         handler(e) {
             e.preventDefault();

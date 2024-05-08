@@ -132,6 +132,7 @@
  */
 
 .uk-section-default {
+    --uk-inverse: #{$section-default-color-mode};
     background: $section-default-background;
     @if(mixin-exists(hook-section-default)) {@include hook-section-default();}
 }
@@ -144,6 +145,7 @@
  */
 
 .uk-section-muted {
+    --uk-inverse: #{$section-muted-color-mode};
     background: $section-muted-background;
     @if(mixin-exists(hook-section-muted)) {@include hook-section-muted();}
 }
@@ -151,11 +153,13 @@
 @if ( $section-muted-color-mode == light ) { .uk-section-muted:not(.uk-preserve-color) { @extend .uk-light !optional;} }
 @if ( $section-muted-color-mode == dark ) { .uk-section-muted:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
+
 /*
  * Primary
  */
 
 .uk-section-primary {
+    --uk-inverse: #{$section-primary-color-mode};
     background: $section-primary-background;
     @if(mixin-exists(hook-section-primary)) {@include hook-section-primary();}
 }
@@ -168,6 +172,7 @@
  */
 
 .uk-section-secondary {
+    --uk-inverse: #{$section-secondary-color-mode};
     background: $section-secondary-background;
     @if(mixin-exists(hook-section-secondary)) {@include hook-section-secondary();}
 }

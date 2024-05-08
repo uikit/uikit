@@ -126,7 +126,7 @@ function install({ modal }) {
             ({ i18n }) => `<form class="uk-form-stacked">
                 <div class="uk-modal-body">
                     <label>${isString(message) ? message : html(message)}</label>
-                    <input class="uk-input" value="${value || ''}" autofocus>
+                    <input class="uk-input" autofocus>
                 </div>
                 <div class="uk-modal-footer uk-text-right">
                     <button class="uk-button uk-button-default uk-modal-close" type="button">${
@@ -142,6 +142,7 @@ function install({ modal }) {
 
         const { $el } = promise.dialog;
         const input = $('input', $el);
+        input.value = value || '';
         on($el, 'show', () => input.select());
 
         return promise;

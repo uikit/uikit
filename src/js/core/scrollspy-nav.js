@@ -68,9 +68,9 @@ export default {
                 if (scrollTop === max) {
                     active = length - 1;
                 } else {
+                    const offsetBy = this.offset + offset(getCoveringElement()).height;
+
                     for (let i = 0; i < targets.length; i++) {
-                        const fixedEl = getCoveringElement(targets[i]);
-                        const offsetBy = this.offset + (fixedEl ? offset(fixedEl).height : 0);
                         if (offset(targets[i]).top - viewport.top - offsetBy > 0) {
                             break;
                         }

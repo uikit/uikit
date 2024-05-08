@@ -219,7 +219,7 @@ export default {
                 ),
             );
 
-            if (!this.center) {
+            if (!this.center || !this.length) {
                 return;
             }
 

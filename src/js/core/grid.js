@@ -123,14 +123,11 @@ export default {
 
         {
             read({ rows, scrollColumns, parallaxStart, parallaxEnd }) {
-                if (scrollColumns && positionedAbsolute(rows)) {
-                    return false;
-                }
-
                 return {
-                    scrolled: scrollColumns
-                        ? scrolledOver(this.$el, parallaxStart, parallaxEnd)
-                        : false,
+                    scrolled:
+                        scrollColumns && !positionedAbsolute(rows)
+                            ? scrolledOver(this.$el, parallaxStart, parallaxEnd)
+                            : false,
                 };
             },
 

@@ -39,9 +39,7 @@ export default {
         {
             name: 'show',
 
-            el() {
-                return this.dropContainer;
-            },
+            el: ({ dropContainer }) => dropContainer,
 
             handler({ target }) {
                 if (
@@ -56,9 +54,7 @@ export default {
         {
             name: 'hide',
 
-            el() {
-                return this.dropContainer;
-            },
+            el: ({ dropContainer }) => dropContainer,
 
             async handler() {
                 await awaitMacroTask();

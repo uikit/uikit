@@ -4,44 +4,43 @@
     https://github.com/wilsonpage/fastdom
 */
 
-export const fastdom = {
-    reads: [],
-    writes: [],
+export const fastdom = { read, write, clear, flush };
 
-    read(task) {
-        this.reads.push(task);
-        scheduleFlush();
-        return task;
-    },
+const reads = [];
+const writes = [];
 
-    write(task) {
-        this.writes.push(task);
-        scheduleFlush();
-        return task;
-    },
+function read(task) {
+    reads.push(task);
+    scheduleFlush();
+    return task;
+}
 
-    clear(task) {
-        remove(this.reads, task);
-        remove(this.writes, task);
-    },
+function write(task) {
+    writes.push(task);
+    scheduleFlush();
+    return task;
+}
 
-    flush,
-};
+function clear(task) {
+    remove(reads, task);
+    remove(writes, task);
+}
 
+let scheduled = false;
 function flush() {
-    runTasks(fastdom.reads);
-    runTasks(fastdom.writes.splice(0));
+    runTasks(reads);
+    runTasks(writes.splice(0));
 
-    fastdom.scheduled = false;
+    scheduled = false;
 
-    if (fastdom.reads.length || fastdom.writes.length) {
+    if (reads.length || writes.length) {
         scheduleFlush();
     }
 }
 
 function scheduleFlush() {
-    if (!fastdom.scheduled) {
-        fastdom.scheduled = true;
+    if (!scheduled) {
+        scheduled = true;
         queueMicrotask(flush);
     }
 }

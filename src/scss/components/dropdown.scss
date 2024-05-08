@@ -35,6 +35,7 @@
 .uk-dropdown {
     --uk-position-offset: #{$dropdown-margin};
     --uk-position-viewport-offset: #{$dropdown-viewport-margin};
+    --uk-inverse: #{$dropdown-color-mode};
     /* 1 */
     width: auto;
     /* 2 */

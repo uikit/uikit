@@ -31,13 +31,13 @@ export default {
     events: {
         name: 'click',
 
-        delegate() {
-            return `${this.toggle}:not(.uk-disabled)`;
-        },
+        delegate: ({ toggle }) => `${toggle}:not(.uk-disabled)`,
 
         handler(e) {
-            e.preventDefault();
-            this.show(e.current);
+            if (!e.defaultPrevented) {
+                e.preventDefault();
+                this.show(e.current);
+            }
         },
     },
 

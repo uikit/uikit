@@ -85,9 +85,7 @@ export default {
 
             self: true,
 
-            delegate() {
-                return `${this.selList} > *`;
-            },
+            delegate: ({ selList }) => `${selList} > *`,
 
             handler(e) {
                 if (!e.defaultPrevented) {
