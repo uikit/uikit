@@ -15,10 +15,8 @@ function transition(element, props, duration = 400, timing = 'linear') {
             (element) =>
                 new Promise((resolve, reject) => {
                     for (const name in props) {
-                        const value = css(element, name);
-                        if (value === '') {
-                            css(element, name, value);
-                        }
+                        // Force reflow: transition won't run for previously hidden element
+                        css(element, name);
                     }
 
                     const timer = setTimeout(() => trigger(element, transitionEnd), duration);
