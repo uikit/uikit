@@ -89,7 +89,7 @@ export default {
                     if (state.show && !state.inview && !state.queued) {
                         state.queued = true;
 
-                        data.promise = (data.promise || Promise.resolve())
+                        (data.promise ||= Promise.resolve())
                             .then(() => new Promise((resolve) => setTimeout(resolve, this.delay)))
                             .then(() => {
                                 this.toggle(el, true);
