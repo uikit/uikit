@@ -79,9 +79,7 @@ export default {
                     continue;
                 }
 
-                let digits = String(Math.trunc(timespan[unit]));
-
-                digits = digits.length < 2 ? `0${digits}` : digits;
+                let digits = Math.trunc(timespan[unit]).toString().padStart(2, '0');
 
                 if (el.textContent !== digits) {
                     digits = digits.split('');
