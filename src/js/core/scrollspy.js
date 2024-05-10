@@ -5,11 +5,12 @@ import {
     data as getData,
     once,
     removeClass,
-    removeClasses,
     toggleClass,
     trigger,
 } from 'uikit-util';
 import { intersection } from '../api/observables';
+
+const clsInView = 'uk-scrollspy-inview';
 
 export default {
     args: 'cls',
@@ -30,7 +31,6 @@ export default {
         margin: '-1px',
         repeat: false,
         delay: 0,
-        inViewClass: 'uk-scrollspy-inview',
     }),
 
     computed: {
@@ -41,7 +41,7 @@ export default {
         elements(elements) {
             if (this.hidden) {
                 // use `opacity:0` instead of `visibility:hidden` to make content focusable with keyboard
-                css(filter(elements, `:not(.${this.inViewClass})`), 'opacity', 0);
+                css(filter(elements, `:not(.${clsInView})`), 'opacity', 0);
             }
         },
     },
@@ -52,7 +52,7 @@ export default {
 
     disconnected() {
         for (const [el, state] of this.elementData.entries()) {
-            removeClass(el, this.inViewClass, state?.cls || '');
+            removeClass(el, clsInView, state?.cls || '');
         }
         delete this.elementData;
     },
@@ -89,7 +89,7 @@ export default {
                     if (state.show && !state.inview && !state.queued) {
                         state.queued = true;
 
-                        (data.promise ||= Promise.resolve())
+                        data.promise = (data.promise || Promise.resolve())
                             .then(() => new Promise((resolve) => setTimeout(resolve, this.delay)))
                             .then(() => {
                                 this.toggle(el, true);
@@ -118,11 +118,12 @@ export default {
 
             css(el, 'opacity', !inview && this.hidden ? 0 : '');
 
-            toggleClass(el, this.inViewClass, inview);
+            toggleClass(el, clsInView, inview);
             toggleClass(el, state.cls);
 
-            if (/\buk-animation-/.test(state.cls)) {
-                const removeAnimationClasses = () => removeClasses(el, 'uk-animation-[\\w-]+');
+            let match;
+            if ((match = state.cls.match(/\buk-animation-[\w-]+/g))) {
+                const removeAnimationClasses = () => removeClass(el, match);
                 if (inview) {
                     state.off = once(el, 'animationcancel animationend', removeAnimationClasses, {
                         self: true,

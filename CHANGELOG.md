@@ -6,6 +6,10 @@
 
 - Add color mode `--uk-inverse` property in all components
 
+### Removed
+
+- Remove `removeClasses()` util function
+
 ### Fixed
 
 - Fix race condition in Slider/Slideshow component
