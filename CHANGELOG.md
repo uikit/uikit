@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Removed
+
+- Remove `removeClasses()` util function
+
 ### Fixed
 
 - Fix slide transition in Slider component in Safari
@@ -11,10 +15,6 @@
 ### Added
 
 - Add color mode `--uk-inverse` property in all components
-
-### Removed
-
-- Remove `removeClasses()` util function
 
 ### Fixed
 
