@@ -1,7 +1,6 @@
-import { attr } from './attr';
-import { addClass, hasClass, removeClass, removeClasses } from './class';
+import { addClass, hasClass, removeClass } from './class';
 import { once, trigger } from './event';
-import { startsWith, toNodes } from './lang';
+import { toNodes } from './lang';
 import { css, propName } from './style';
 
 const clsTransition = 'uk-transition';
@@ -15,10 +14,8 @@ function transition(element, props, duration = 400, timing = 'linear') {
             (element) =>
                 new Promise((resolve, reject) => {
                     for (const name in props) {
-                        const value = css(element, name);
-                        if (value === '') {
-                            css(element, name, value);
-                        }
+                        // Force reflow: transition won't run for previously hidden element
+                        css(element, name);
                     }
 
                     const timer = setTimeout(() => trigger(element, transitionEnd), duration);
@@ -69,7 +66,7 @@ export const Transition = {
     },
 };
 
-const animationPrefix = 'uk-animation-';
+const clsAnimation = 'uk-animation';
 const animationEnd = 'animationend';
 const animationCanceled = 'animationcanceled';
 
@@ -78,7 +75,18 @@ function animate(element, animation, duration = 200, origin, out) {
         toNodes(element).map(
             (element) =>
                 new Promise((resolve, reject) => {
-                    trigger(element, animationCanceled);
+                    if (hasClass(element, clsAnimation)) {
+                        trigger(element, animationCanceled);
+                    }
+
+                    const classes = [
+                        animation,
+                        clsAnimation,
+                        `${clsAnimation}-${out ? 'leave' : 'enter'}`,
+                        origin && `uk-transform-origin-${origin}`,
+                        out && `${clsAnimation}-reverse`,
+                    ];
+
                     const timer = setTimeout(() => trigger(element, animationEnd), duration);
 
                     once(
@@ -90,24 +98,17 @@ function animate(element, animation, duration = 200, origin, out) {
                             type === animationCanceled ? reject() : resolve(element);
 
                             css(element, 'animationDuration', '');
-                            removeClasses(element, `${animationPrefix}\\S*`);
+                            removeClass(element, classes);
                         },
                         { self: true },
                     );
 
                     css(element, 'animationDuration', `${duration}ms`);
-                    addClass(element, animation, animationPrefix + (out ? 'leave' : 'enter'));
-
-                    if (startsWith(animation, animationPrefix)) {
-                        origin && addClass(element, `uk-transform-origin-${origin}`);
-                        out && addClass(element, `${animationPrefix}reverse`);
-                    }
+                    addClass(element, classes);
                 }),
         ),
     );
 }
-
-const inProgressRe = new RegExp(`${animationPrefix}(enter|leave)`);
 
 export const Animation = {
     in: animate,
@@ -117,7 +118,7 @@ export const Animation = {
     },
 
     inProgress(element) {
-        return inProgressRe.test(attr(element, 'class'));
+        return hasClass(element, clsAnimation);
     },
 
     cancel(element) {

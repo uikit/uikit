@@ -176,7 +176,7 @@ export default {
             return this.getIndex(index, prevIndex);
         },
 
-        _show(prev, next, force) {
+        async _show(prev, next, force) {
             this._transitioner = this._getTransitioner(prev, next, this.dir, {
                 easing: force
                     ? next.offsetWidth < 600
@@ -188,7 +188,7 @@ export default {
 
             if (!force && !prev) {
                 this._translate(1);
-                return Promise.resolve();
+                return;
             }
 
             const { length } = this.stack;

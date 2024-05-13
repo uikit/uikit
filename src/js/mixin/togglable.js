@@ -137,11 +137,7 @@ function toggleInstant(el, show, { _toggle }) {
     return _toggle(el, show);
 }
 
-export async function toggleTransition(
-    el,
-    show,
-    { animation, duration, velocity, transition, _toggle },
-) {
+async function toggleTransition(el, show, { animation, duration, velocity, transition, _toggle }) {
     const [mode = 'reveal', startProp = 'top'] = animation[0]?.split('-') || [];
 
     const dirs = [

@@ -32,7 +32,13 @@ export default function (prev, next, dir, { center, easing, list }) {
             const timing = linear ? 'linear' : easing;
             duration -= Math.round(duration * clamp(percent, -1, 1));
 
+            // Force previous transition to be canceled in Safari
+            css(list, 'transitionProperty', 'none');
+
             this.translate(percent);
+
+            // Reset the forced transition property
+            css(list, 'transitionProperty', '');
 
             percent = prev ? percent : clamp(percent, 0, 1);
             triggerUpdate(this.getItemIn(), 'itemin', { percent, duration, timing, dir });

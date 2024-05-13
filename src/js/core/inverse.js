@@ -2,6 +2,7 @@ import {
     $$,
     css,
     dimensions,
+    intersectRect,
     matches,
     observeResize,
     on,
@@ -83,21 +84,28 @@ export default {
             }
 
             for (const target of toNodes(this.target)) {
-                replaceClass(
-                    target,
-                    'uk-light uk-dark',
+                let color =
                     !this.selActive || matches(target, this.selActive)
                         ? findTargetColor(target)
-                        : '',
-                );
+                        : '';
+
+                if (color !== false) {
+                    replaceClass(target, 'uk-light uk-dark', color);
+                }
             }
         },
     },
 };
 
 function findTargetColor(target) {
-    const { left, top, height, width } = dimensions(target);
+    const dim = dimensions(target);
     const viewport = dimensions(window);
+
+    if (!intersectRect(dim, viewport)) {
+        return false;
+    }
+
+    const { left, top, height, width } = dim;
 
     let last;
     for (const percent of [0.25, 0.5, 0.75]) {
