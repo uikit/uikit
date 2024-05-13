@@ -1,4 +1,4 @@
-/*! UIkit 3.20.9 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.20.10 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -192,6 +192,47 @@
       return (key, ...args) => cache[key] || (cache[key] = fn(key, ...args));
     }
 
+    function addClass(element, ...classes) {
+      for (const node of toNodes(element)) {
+        const add = toClasses(classes).filter((cls) => !hasClass(node, cls));
+        if (add.length) {
+          node.classList.add(...add);
+        }
+      }
+    }
+    function removeClass(element, ...classes) {
+      for (const node of toNodes(element)) {
+        const remove = toClasses(classes).filter((cls) => hasClass(node, cls));
+        if (remove.length) {
+          node.classList.remove(...remove);
+        }
+      }
+    }
+    function replaceClass(element, oldClass, newClass) {
+      newClass = toClasses(newClass);
+      oldClass = toClasses(oldClass).filter((cls) => !includes(newClass, cls));
+      removeClass(element, oldClass);
+      addClass(element, newClass);
+    }
+    function hasClass(element, cls) {
+      [cls] = toClasses(cls);
+      return toNodes(element).some((node) => node.classList.contains(cls));
+    }
+    function toggleClass(element, cls, force) {
+      const classes = toClasses(cls);
+      if (!isUndefined(force)) {
+        force = !!force;
+      }
+      for (const node of toNodes(element)) {
+        for (const cls2 of classes) {
+          node.classList.toggle(cls2, force);
+        }
+      }
+    }
+    function toClasses(str) {
+      return str ? isArray(str) ? str.map(toClasses).flat() : String(str).split(" ").filter(Boolean) : [];
+    }
+
     function attr(element, name, value) {
       var _a;
       if (isObject(name)) {
@@ -227,53 +268,6 @@
           return attr(element, name);
         }
       }
-    }
-
-    function addClass(element, ...classes) {
-      for (const node of toNodes(element)) {
-        const add = toClasses(classes).filter((cls) => !hasClass(node, cls));
-        if (add.length) {
-          node.classList.add(...add);
-        }
-      }
-    }
-    function removeClass(element, ...classes) {
-      for (const node of toNodes(element)) {
-        const remove = toClasses(classes).filter((cls) => hasClass(node, cls));
-        if (remove.length) {
-          node.classList.remove(...remove);
-        }
-      }
-    }
-    function removeClasses(element, clsRegex) {
-      clsRegex = new RegExp(clsRegex);
-      for (const node of toNodes(element)) {
-        node.classList.remove(...toArray(node.classList).filter((cls) => cls.match(clsRegex)));
-      }
-    }
-    function replaceClass(element, oldClass, newClass) {
-      newClass = toClasses(newClass);
-      oldClass = toClasses(oldClass).filter((cls) => !includes(newClass, cls));
-      removeClass(element, oldClass);
-      addClass(element, newClass);
-    }
-    function hasClass(element, cls) {
-      [cls] = toClasses(cls);
-      return toNodes(element).some((node) => node.classList.contains(cls));
-    }
-    function toggleClass(element, cls, force) {
-      const classes = toClasses(cls);
-      if (!isUndefined(force)) {
-        force = !!force;
-      }
-      for (const node of toNodes(element)) {
-        for (const cls2 of classes) {
-          node.classList.toggle(cls2, force);
-        }
-      }
-    }
-    function toClasses(str) {
-      return str ? isArray(str) ? str.map(toClasses).flat() : String(str).split(" ").filter(Boolean) : [];
     }
 
     const inBrowser = typeof window !== "undefined";
@@ -648,10 +642,7 @@
         toNodes(element).map(
           (element2) => new Promise((resolve, reject) => {
             for (const name in props) {
-              const value = css(element2, name);
-              if (value === "") {
-                css(element2, name, value);
-              }
+              css(element2, name);
             }
             const timer = setTimeout(() => trigger(element2, transitionEnd), duration);
             once(
@@ -694,14 +685,23 @@
         return hasClass(element, clsTransition);
       }
     };
-    const animationPrefix = "uk-animation-";
+    const clsAnimation = "uk-animation";
     const animationEnd = "animationend";
     const animationCanceled = "animationcanceled";
     function animate$2(element, animation, duration = 200, origin, out) {
       return Promise.all(
         toNodes(element).map(
           (element2) => new Promise((resolve, reject) => {
-            trigger(element2, animationCanceled);
+            if (hasClass(element2, clsAnimation)) {
+              trigger(element2, animationCanceled);
+            }
+            const classes = [
+              animation,
+              clsAnimation,
+              `${clsAnimation}-${out ? "leave" : "enter"}`,
+              origin && `uk-transform-origin-${origin}`,
+              out && `${clsAnimation}-reverse`
+            ];
             const timer = setTimeout(() => trigger(element2, animationEnd), duration);
             once(
               element2,
@@ -710,28 +710,23 @@
                 clearTimeout(timer);
                 type === animationCanceled ? reject() : resolve(element2);
                 css(element2, "animationDuration", "");
-                removeClasses(element2, `${animationPrefix}\\S*`);
+                removeClass(element2, classes);
               },
               { self: true }
             );
             css(element2, "animationDuration", `${duration}ms`);
-            addClass(element2, animation, animationPrefix + (out ? "leave" : "enter"));
-            if (startsWith(animation, animationPrefix)) {
-              origin && addClass(element2, `uk-transform-origin-${origin}`);
-              out && addClass(element2, `${animationPrefix}reverse`);
-            }
+            addClass(element2, classes);
           })
         )
       );
     }
-    const inProgressRe = new RegExp(`${animationPrefix}(enter|leave)`);
     const Animation = {
       in: animate$2,
       out(element, animation, duration, origin) {
         return animate$2(element, animation, duration, origin, true);
       },
       inProgress(element) {
-        return inProgressRe.test(attr(element, "class"));
+        return hasClass(element, clsAnimation);
       },
       cancel(element) {
         trigger(element, animationCanceled);
@@ -1650,7 +1645,6 @@
         remove: remove$1,
         removeAttr: removeAttr,
         removeClass: removeClass,
-        removeClasses: removeClasses,
         replaceClass: replaceClass,
         scrollIntoView: scrollIntoView,
         scrollParent: scrollParent,
@@ -1750,8 +1744,7 @@
             if (!el) {
               continue;
             }
-            let digits = String(Math.trunc(timespan[unit]));
-            digits = digits.length < 2 ? `0${digits}` : digits;
+            let digits = Math.trunc(timespan[unit]).toString().padStart(2, "0");
             if (el.textContent !== digits) {
               digits = digits.split("");
               if (digits.length !== el.children.length) {
@@ -3546,7 +3539,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.20.9";
+    App.version = "3.20.10";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4001,14 +3994,14 @@
         getValidIndex(index = this.index, prevIndex = this.prevIndex) {
           return this.getIndex(index, prevIndex);
         },
-        _show(prev, next, force) {
+        async _show(prev, next, force) {
           this._transitioner = this._getTransitioner(prev, next, this.dir, {
             easing: force ? next.offsetWidth < 600 ? "cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "cubic-bezier(0.165, 0.84, 0.44, 1)" : this.easing,
             ...this.transitionOptions
           });
           if (!force && !prev) {
             this._translate(1);
-            return Promise.resolve();
+            return;
           }
           const { length } = this.stack;
           return this._transitioner[length > 1 ? "forward" : "show"](
@@ -5061,7 +5054,9 @@
         show(duration, percent = 0, linear) {
           const timing = linear ? "linear" : easing;
           duration -= Math.round(duration * clamp(percent, -1, 1));
+          css(list, "transitionProperty", "none");
           this.translate(percent);
+          css(list, "transitionProperty", "");
           percent = prev ? percent : clamp(percent, 0, 1);
           triggerUpdate(this.getItemIn(), "itemin", { percent, duration, timing, dir });
           prev && triggerUpdate(this.getItemIn(true), "itemout", {
@@ -6274,7 +6269,7 @@
       e.preventDefault();
       e.stopPropagation();
     }
-    function ajax(url, options) {
+    async function ajax(url, options) {
       const env = {
         data: null,
         method: "GET",
@@ -6284,7 +6279,8 @@
         responseType: "",
         ...options
       };
-      return Promise.resolve().then(() => env.beforeSend(env)).then(() => send(url, env));
+      await env.beforeSend(env);
+      return send(url, env);
     }
     function send(url, env) {
       return new Promise((resolve, reject) => {
@@ -8256,18 +8252,21 @@
             return false;
           }
           for (const target of toNodes(this.target)) {
-            replaceClass(
-              target,
-              "uk-light uk-dark",
-              !this.selActive || matches(target, this.selActive) ? findTargetColor(target) : ""
-            );
+            let color = !this.selActive || matches(target, this.selActive) ? findTargetColor(target) : "";
+            if (color !== false) {
+              replaceClass(target, "uk-light uk-dark", color);
+            }
           }
         }
       }
     };
     function findTargetColor(target) {
-      const { left, top, height, width } = dimensions$1(target);
+      const dim = dimensions$1(target);
       const viewport = dimensions$1(window);
+      if (!intersectRect(dim, viewport)) {
+        return false;
+      }
+      const { left, top, height, width } = dim;
       let last;
       for (const percent of [0.25, 0.5, 0.75]) {
         const elements = target.ownerDocument.elementsFromPoint(
@@ -8752,6 +8751,7 @@
       }
     }
 
+    const clsInView = "uk-scrollspy-inview";
     var scrollspy = {
       args: "cls",
       props: {
@@ -8768,8 +8768,7 @@
         hidden: true,
         margin: "-1px",
         repeat: false,
-        delay: 0,
-        inViewClass: "uk-scrollspy-inview"
+        delay: 0
       }),
       computed: {
         elements: ({ target }, $el) => target ? $$(target, $el) : [$el]
@@ -8777,7 +8776,7 @@
       watch: {
         elements(elements) {
           if (this.hidden) {
-            css(filter$1(elements, `:not(.${this.inViewClass})`), "opacity", 0);
+            css(filter$1(elements, `:not(.${clsInView})`), "opacity", 0);
           }
         }
       },
@@ -8786,7 +8785,7 @@
       },
       disconnected() {
         for (const [el, state] of this.elementData.entries()) {
-          removeClass(el, this.inViewClass, (state == null ? void 0 : state.cls) || "");
+          removeClass(el, clsInView, (state == null ? void 0 : state.cls) || "");
         }
         delete this.elementData;
       },
@@ -8840,10 +8839,11 @@
           }
           (_b = state.off) == null ? void 0 : _b.call(state);
           css(el, "opacity", !inview && this.hidden ? 0 : "");
-          toggleClass(el, this.inViewClass, inview);
+          toggleClass(el, clsInView, inview);
           toggleClass(el, state.cls);
-          if (/\buk-animation-/.test(state.cls)) {
-            const removeAnimationClasses = () => removeClasses(el, "uk-animation-[\\w-]+");
+          let match;
+          if (match = state.cls.match(/\buk-animation-[\w-]+/g)) {
+            const removeAnimationClasses = () => removeClass(el, match);
             if (inview) {
               state.off = once(el, "animationcancel animationend", removeAnimationClasses, {
                 self: true
