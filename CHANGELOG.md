@@ -13,6 +13,10 @@
 - IMPORTANT: Rename `@inverse-search-navbar-*` variables to `@inverse-search-medium-*`
 - Rename old search navbar modifier to search medium in Search component
 
+### Fixed
+
+- Fix clickable search icon not being in natural ordering for sequential focus navigation
+
 ## 3.20.10 (May 13, 2024)
 
 ### Removed
