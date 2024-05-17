@@ -8,9 +8,12 @@
 // ========================================================================
 
 
+
 //
 // New
 //
+
+
 
 
 
@@ -38,9 +41,17 @@
 // Navbar modifiers
 // ========================================================================
 
-// @mixin hook-search-navbar-input(){}
 
-// @mixin hook-search-navbar-input-focus(){}
+
+
+
+
+// Medium modifiers
+// ========================================================================
+
+// @mixin hook-search-medium-input(){}
+
+// @mixin hook-search-medium-input-focus(){}
 
 
 // Large modifiers
@@ -70,10 +81,14 @@
 
 
 
+
 // @mixin hook-inverse-search-default-input-focus(){}
 
-// @mixin hook-inverse-search-navbar-input(){}
+
 // @mixin hook-inverse-search-navbar-input-focus(){}
+
+// @mixin hook-inverse-search-medium-input(){}
+// @mixin hook-inverse-search-medium-input-focus(){}
 
 // @mixin hook-inverse-search-large-input(){}
 // @mixin hook-inverse-search-large-input-focus(){}

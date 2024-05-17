@@ -1356,6 +1356,8 @@
 @mixin hook-search-default-input-focus(){}
 @mixin hook-search-navbar-input(){}
 @mixin hook-search-navbar-input-focus(){}
+@mixin hook-search-medium-input(){}
+@mixin hook-search-medium-input-focus(){}
 @mixin hook-search-large-input(){}
 @mixin hook-search-large-input-focus(){}
 @mixin hook-search-toggle(){}
@@ -1365,6 +1367,8 @@
 @mixin hook-inverse-search-default-input-focus(){}
 @mixin hook-inverse-search-navbar-input(){}
 @mixin hook-inverse-search-navbar-input-focus(){}
+@mixin hook-inverse-search-medium-input(){}
+@mixin hook-inverse-search-medium-input-focus(){}
 @mixin hook-inverse-search-large-input(){}
 @mixin hook-inverse-search-large-input-focus(){}
 @mixin hook-inverse-search-toggle(){}
@@ -1406,7 +1410,17 @@
     }
 
     .uk-search-navbar .uk-search-input:focus {
+        background-color: $inverse-search-navbar-focus-background;
         @if(mixin-exists(hook-inverse-search-navbar-input-focus)) {@include hook-inverse-search-navbar-input-focus();}
+    }
+
+    .uk-search-medium .uk-search-input {
+        background-color: $inverse-search-medium-background;
+        @if(mixin-exists(hook-inverse-search-medium-input)) {@include hook-inverse-search-medium-input();}
+    }
+
+    .uk-search-medium .uk-search-input:focus {
+        @if(mixin-exists(hook-inverse-search-medium-input-focus)) {@include hook-inverse-search-medium-input-focus();}
     }
 
     .uk-search-large .uk-search-input {
