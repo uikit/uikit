@@ -1,4 +1,4 @@
-import { hasOwn, includes, isArray, isFunction, isString } from 'uikit-util';
+import { hasOwn, includes, isArray, isFunction, isString, toNodes } from 'uikit-util';
 import { registerComputed } from './computed';
 import { registerWatch } from './watch';
 
@@ -28,7 +28,7 @@ function registerObservable(instance, observable) {
 
     const key = `_observe${instance._observers.length}`;
     if (isFunction(target) && !hasOwn(instance, key)) {
-        registerComputed(instance, key, () => target.call(instance, instance));
+        registerComputed(instance, key, () => toNodes(target.call(instance, instance)));
     }
 
     handler = isString(handler) ? instance[handler] : handler.bind(instance);
