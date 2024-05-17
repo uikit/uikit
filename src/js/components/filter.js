@@ -5,7 +5,6 @@ import {
     attr,
     css,
     data,
-    each,
     fastdom,
     children as getChildren,
     hasClass,
@@ -139,7 +138,7 @@ function isEqualState(stateA, stateB) {
 }
 
 function applyState(state, target, children) {
-    const selector = getSelector(state);
+    const selector = Object.values(state.filter).join('');
 
     for (const el of children) {
         css(el, 'display', selector && !matches(el, selector) ? 'none' : '');
@@ -193,12 +192,6 @@ function matchFilter(
         ? (group in stateFilter && filter === stateFilter[group]) ||
               (!filter && group && !(group in stateFilter) && !stateFilter[''])
         : stateSort === sort && stateOrder === order;
-}
-
-function getSelector({ filter }) {
-    let selector = '';
-    each(filter, (value) => (selector += value || ''));
-    return selector;
 }
 
 function sortItems(nodes, sort, order) {
