@@ -10,6 +10,7 @@
 //
 // Modifier:        `uk-search-default`
 //                  `uk-search-navbar`
+//                  `uk-search-medium`
 //                  `uk-search-large`
 //
 // ========================================================================
@@ -27,18 +28,27 @@
 @search-default-height:                             @global-control-height;
 @search-default-padding-horizontal:                 10px;
 @search-default-background:                         @global-muted-background;
-@search-default-focus-background:                   darken(@search-default-background, 5%);
+@search-default-focus-background:                   darken(@search-default-background, 2%);
 
 @search-default-icon-width:                         @global-control-height;
 @search-default-icon-padding:                       0;
 
-@search-navbar-width:                               400px;
-@search-navbar-height:                              40px;
-@search-navbar-background:                          transparent;
-@search-navbar-font-size:                           @global-large-font-size;
+@search-navbar-width:                               240px;
+@search-navbar-height:                              @global-control-height;
+@search-navbar-padding-horizontal:                  10px;
+@search-navbar-background:                          @global-background;
+@search-navbar-focus-background:                    darken(@search-navbar-background, 1%);
 
-@search-navbar-icon-width:                          40px;
+@search-navbar-icon-width:                          @global-control-height;
 @search-navbar-icon-padding:                        0;
+
+@search-medium-width:                               400px;
+@search-medium-height:                              40px;
+@search-medium-background:                          transparent;
+@search-medium-font-size:                           @global-large-font-size;
+
+@search-medium-icon-width:                          40px;
+@search-medium-icon-padding:                        0;
 
 @search-large-width:                                500px;
 @search-large-height:                               80px;
@@ -208,8 +218,8 @@
 
 .uk-search-default .uk-search-icon { width: @search-default-icon-width; }
 
-.uk-search-default .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-default-icon-width + @search-default-icon-padding); }
-.uk-search-default .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-default-icon-width + @search-default-icon-padding); }
+.uk-search-default:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: (@search-default-icon-width + @search-default-icon-padding); }
+.uk-search-default:has(.uk-search-icon-flip) .uk-search-input { padding-right: (@search-default-icon-width + @search-default-icon-padding); }
 
 
 /* Navbar modifier
@@ -223,13 +233,15 @@
 
 .uk-search-navbar .uk-search-input {
     height: @search-navbar-height;
+    padding-left: @search-navbar-padding-horizontal;
+    padding-right: @search-navbar-padding-horizontal;
     background: @search-navbar-background;
-    font-size: @search-navbar-font-size;
     .hook-search-navbar-input();
 }
 
 /* Focus */
 .uk-search-navbar .uk-search-input:focus {
+    background-color: @search-navbar-focus-background;
     .hook-search-navbar-input-focus();
 }
 
@@ -239,8 +251,39 @@
 
 .uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
 
-.uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-navbar-icon-width + @search-navbar-icon-padding); }
-.uk-search-navbar .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-navbar-icon-width + @search-navbar-icon-padding); }
+.uk-search-navbar:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: (@search-navbar-icon-width + @search-navbar-icon-padding); }
+.uk-search-navbar:has(.uk-search-icon-flip) .uk-search-input { padding-right: (@search-navbar-icon-width + @search-navbar-icon-padding); }
+
+
+/* Medium modifier
+ ========================================================================== */
+
+.uk-search-medium { width: @search-medium-width; }
+
+/*
+ * Input
+ */
+
+.uk-search-medium .uk-search-input {
+    height: @search-medium-height;
+    background: @search-medium-background;
+    font-size: @search-medium-font-size;
+    .hook-search-medium-input();
+}
+
+/* Focus */
+.uk-search-medium .uk-search-input:focus {
+    .hook-search-medium-input-focus();
+}
+
+/*
+ * Icon
+ */
+
+.uk-search-medium .uk-search-icon { width: @search-medium-icon-width; }
+
+.uk-search-medium:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: (@search-medium-icon-width + @search-medium-icon-padding); }
+.uk-search-medium:has(.uk-search-icon-flip) .uk-search-input { padding-right: (@search-medium-icon-width + @search-medium-icon-padding); }
 
 
 /* Large modifier
@@ -270,8 +313,8 @@
 
 .uk-search-large .uk-search-icon { width: @search-large-icon-width; }
 
-.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-large-icon-width + @search-large-icon-padding); }
-.uk-search-large .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-large-icon-width + @search-large-icon-padding); }
+.uk-search-large:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: (@search-large-icon-width + @search-large-icon-padding); }
+.uk-search-large:has(.uk-search-icon-flip) .uk-search-input { padding-right: (@search-large-icon-width + @search-large-icon-padding); }
 
 
 /* Toggle
@@ -300,6 +343,8 @@
 .hook-search-default-input-focus() {}
 .hook-search-navbar-input() {}
 .hook-search-navbar-input-focus() {}
+.hook-search-medium-input() {}
+.hook-search-medium-input-focus() {}
 .hook-search-large-input() {}
 .hook-search-large-input-focus() {}
 
@@ -320,7 +365,10 @@
 @inverse-search-default-background:            @inverse-global-muted-background;
 @inverse-search-default-focus-background:      fadein(@inverse-search-default-background, 5%);
 
-@inverse-search-navbar-background:             transparent;
+@inverse-search-navbar-background:             @inverse-global-muted-background;
+@inverse-search-navbar-focus-background:       fadein(@inverse-search-navbar-background, 5%);
+
+@inverse-search-medium-background:             transparent;
 
 @inverse-search-large-background:              transparent;
 
@@ -364,7 +412,17 @@
     }
 
     .uk-search-navbar .uk-search-input:focus {
+        background-color: @inverse-search-navbar-focus-background;
         .hook-inverse-search-navbar-input-focus();
+    }
+
+    .uk-search-medium .uk-search-input {
+        background-color: @inverse-search-medium-background;
+        .hook-inverse-search-medium-input();
+    }
+
+    .uk-search-medium .uk-search-input:focus {
+        .hook-inverse-search-medium-input-focus();
     }
 
     .uk-search-large .uk-search-input {
@@ -396,6 +454,8 @@
 .hook-inverse-search-default-input-focus() {}
 .hook-inverse-search-navbar-input() {}
 .hook-inverse-search-navbar-input-focus() {}
+.hook-inverse-search-medium-input() {}
+.hook-inverse-search-medium-input-focus() {}
 .hook-inverse-search-large-input() {}
 .hook-inverse-search-large-input-focus() {}
 .hook-inverse-search-toggle() {}
