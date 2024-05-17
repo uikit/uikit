@@ -40,6 +40,11 @@ export default {
             }
 
             const target = this.parallaxTarget;
+
+            if (!target) {
+                return false;
+            }
+
             const start = toPx(this.parallaxStart, 'height', target, true);
             const end = toPx(this.parallaxEnd, 'height', target, true);
             const percent = ease(scrolledOver(target, start, end), this.parallaxEasing);

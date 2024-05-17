@@ -217,14 +217,14 @@ export default {
         move: throttle(function (e) {
             assign(this.pos, getEventPos(e));
 
-            if (this.drag) {
-                this.$emit('move');
-            } else if (
-                Math.abs(this.pos.x - this.origin.x) > this.threshold ||
-                Math.abs(this.pos.y - this.origin.y) > this.threshold
+            if (
+                !this.drag &&
+                (Math.abs(this.pos.x - this.origin.x) > this.threshold ||
+                    Math.abs(this.pos.y - this.origin.y) > this.threshold)
             ) {
                 this.start(e);
             }
+            this.$emit('move');
         }),
 
         end() {
@@ -437,10 +437,8 @@ function throttle(fn) {
     return function (...args) {
         if (!throttled) {
             throttled = true;
-            requestAnimationFrame(() => {
-                throttled = false;
-                fn.call(this, ...args);
-            });
+            fn.call(this, ...args);
+            requestAnimationFrame(() => (throttled = false));
         }
     };
 }
