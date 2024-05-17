@@ -1,5 +1,22 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add new search navbar modifier to Search component
+
+### Changed
+
+- IMPORTANT: Rename `uk-search-navbar` class to `uk-search-medium`
+- IMPORTANT: Rename `@search-navbar-*` variables to `@search-medium-*`
+- IMPORTANT: Rename `@inverse-search-navbar-*` variables to `@inverse-search-medium-*`
+- Rename old search navbar modifier to search medium in Search component
+
+### Fixed
+
+- Fix clickable search icon not being in natural ordering for sequential focus navigation
+
 ## 3.20.11 (May 17, 2024)
 
 ### Fixed

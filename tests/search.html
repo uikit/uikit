@@ -29,8 +29,8 @@
                 </form>
 
                 <form class="uk-search uk-search-default">
-                    <span class="uk-search-icon-flip" uk-search-icon></span>
                     <input class="uk-search-input" type="search" placeholder="Flip…" aria-label="Search">
+                    <span class="uk-search-icon-flip" uk-search-icon></span>
                 </form>
             </div>
 
@@ -41,10 +41,16 @@
                 </form>
 
                 <form class="uk-search uk-search-default">
-                    <button class="uk-search-icon-flip" uk-search-icon></button>
                     <input class="uk-search-input" type="search" placeholder="Button…" aria-label="Search">
+                    <button class="uk-search-icon-flip" uk-search-icon></button>
                 </form>
             </div>
+
+        </div>
+
+        <div class="uk-container uk-margin-medium-top">
+
+            <h2>Navbar</h2>
 
         </div>
 
@@ -61,7 +67,7 @@
                             <li><a href="#">Item</a></li>
                         </ul>
                         <div class="uk-navbar-item">
-                            <form class="uk-search uk-search-default">
+                            <form class="uk-search uk-search-navbar">
                                 <input class="uk-search-input" type="search" placeholder="Search…" aria-label="Search" autofocus>
                             </form>
                         </div>
@@ -71,34 +77,9 @@
                             <li><a href="#">Item</a></li>
                         </ul>
                         <div class="uk-navbar-item">
-                            <form class="uk-search uk-search-default">
-                                <span uk-search-icon></span>
-                                <input class="uk-search-input" type="search" placeholder="Icon…" aria-label="Search">
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-
-        <div class="uk-container uk-margin-medium-top">
-
-            <h2>Navbar</h2>
-
-        </div>
-
-        <nav class="uk-navbar-container uk-margin">
-            <div class="uk-container">
-                <div uk-navbar>
-
-                    <div class="uk-navbar-left">
-                        <div class="uk-navbar-item">
-
                             <form class="uk-search uk-search-navbar">
                                 <input class="uk-search-input" type="search" placeholder="Search…" aria-label="Search">
                             </form>
-
                         </div>
                     </div>
 
@@ -124,8 +105,8 @@
                         <div class="uk-navbar-item">
 
                             <form class="uk-search uk-search-navbar">
-                                <span class="uk-search-icon-flip" uk-search-icon></span>
                                 <input class="uk-search-input" type="search" placeholder="Flip…" aria-label="Search">
+                                <span class="uk-search-icon-flip" uk-search-icon></span>
                             </form>
 
                         </div>
@@ -153,8 +134,8 @@
                         <div class="uk-navbar-item">
 
                             <form class="uk-search uk-search-navbar">
-                                <button class="uk-search-icon-flip" uk-search-icon></button>
                                 <input class="uk-search-input" type="search" placeholder="Button…" aria-label="Search">
+                                <button class="uk-search-icon-flip" uk-search-icon></button>
                             </form>
 
                         </div>
@@ -165,6 +146,38 @@
         </nav>
 
         <div class="uk-container uk-margin-medium-top">
+
+            <h2>Medium</h2>
+
+            <div class="uk-margin">
+                <form class="uk-search uk-search-medium">
+                    <input class="uk-search-input" type="search" placeholder="Search…" aria-label="Search">
+                </form>
+            </div>
+
+            <div class="uk-margin" uk-margin>
+                <form class="uk-search uk-search-medium">
+                    <span uk-search-icon></span>
+                    <input class="uk-search-input" type="search" placeholder="Icon…" aria-label="Search">
+                </form>
+
+                <form class="uk-search uk-search-medium">
+                    <input class="uk-search-input" type="search" placeholder="Flip…" aria-label="Search">
+                    <span class="uk-search-icon-flip" uk-search-icon></span>
+                </form>
+            </div>
+
+            <div class="uk-margin" uk-margin>
+                <form class="uk-search uk-search-medium">
+                    <a href="#" uk-search-icon></a>
+                    <input class="uk-search-input" type="search" placeholder="Link…" aria-label="Search">
+                </form>
+
+                <form class="uk-search uk-search-medium">
+                    <input class="uk-search-input" type="search" placeholder="Button…" aria-label="Search">
+                    <button class="uk-search-icon-flip" uk-search-icon></button>
+                </form>
+            </div>
 
             <h2>Large</h2>
 
@@ -181,8 +194,8 @@
                 </form>
 
                 <form class="uk-search uk-search-large">
-                    <span class="uk-search-icon-flip" uk-search-icon></span>
                     <input class="uk-search-input" type="search" placeholder="Flip…" aria-label="Search">
+                    <span class="uk-search-icon-flip" uk-search-icon></span>
                 </form>
             </div>
 
@@ -193,8 +206,8 @@
                 </form>
 
                 <form class="uk-search uk-search-large">
-                    <button class="uk-search-icon-flip" uk-search-icon></button>
                     <input class="uk-search-input" type="search" placeholder="Button…" aria-label="Search">
+                    <button class="uk-search-icon-flip" uk-search-icon></button>
                 </form>
             </div>
 
@@ -236,7 +249,7 @@
                     <div class="uk-navbar-left uk-flex-1 test-overlay" hidden>
 
                         <div class="uk-navbar-item uk-width-expand">
-                            <form class="uk-search uk-search-navbar uk-width-1-1">
+                            <form class="uk-search uk-search-medium uk-width-1-1">
                                 <input class="uk-search-input" type="search" placeholder="Search…" aria-label="Search" autofocus>
                             </form>
                         </div>
@@ -274,7 +287,7 @@
                         <div>
                             <a class="uk-navbar-toggle" uk-search-icon href></a>
                             <div uk-drop="mode: click; pos: left-center; offset: 0">
-                                <form class="uk-search uk-search-navbar uk-width-1-1">
+                                <form class="uk-search uk-search-medium uk-width-1-1">
                                     <input class="uk-search-input" type="search" placeholder="Search…" aria-label="Search" autofocus>
                                 </form>
                             </div>
@@ -314,7 +327,7 @@
 
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand">
-                                        <form class="uk-search uk-search-navbar uk-width-1-1">
+                                        <form class="uk-search uk-search-medium uk-width-1-1">
                                             <input class="uk-search-input" type="search" placeholder="Search…" aria-label="Search" autofocus>
                                         </form>
                                     </div>
@@ -360,7 +373,7 @@
 
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand">
-                                        <form class="uk-search uk-search-navbar uk-width-1-1">
+                                        <form class="uk-search uk-search-medium uk-width-1-1">
                                             <input class="uk-search-input" type="search" placeholder="Search…" aria-label="Search" autofocus>
                                         </form>
                                     </div>
@@ -406,7 +419,7 @@
 
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand">
-                                        <form class="uk-search uk-search-navbar uk-width-1-1">
+                                        <form class="uk-search uk-search-medium uk-width-1-1">
                                             <input class="uk-search-input" type="search" placeholder="Search…" aria-label="Search" autofocus>
                                         </form>
                                     </div>
