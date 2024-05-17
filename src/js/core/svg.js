@@ -1,5 +1,4 @@
 import {
-    $,
     addClass,
     attr,
     css,
@@ -107,8 +106,7 @@ function parseSVG(svg, icon) {
         svg = parseSymbols(svg)[icon] || svg;
     }
 
-    svg = $(svg.substr(svg.indexOf('<svg')));
-    return svg?.hasChildNodes() && svg;
+    return stringToSvg(svg);
 }
 
 const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
@@ -132,4 +130,10 @@ function applyAnimation(el) {
     if (length) {
         css(el, '--uk-animation-stroke', length);
     }
+}
+
+export function stringToSvg(string) {
+    const container = document.createElement('template');
+    container.innerHTML = string;
+    return container.content.firstElementChild;
 }

@@ -35,6 +35,7 @@ import spinner from '../../images/components/spinner.svg';
 import totop from '../../images/components/totop.svg';
 import I18n from '../mixin/i18n';
 import Svg from '../mixin/svg';
+import { stringToSvg } from './svg';
 
 const icons = {
     spinner,
@@ -261,7 +262,7 @@ function getIcon(icon) {
     }
 
     if (!parsed[icon]) {
-        parsed[icon] = $((icons[applyRtl(icon)] || icons[icon]).trim());
+        parsed[icon] = stringToSvg(icons[applyRtl(icon)] || icons[icon]);
     }
 
     return parsed[icon].cloneNode(true);
