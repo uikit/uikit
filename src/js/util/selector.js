@@ -47,9 +47,9 @@ const parseSelector = memoize((selector) => {
 });
 
 const parsePositionSelector = memoize((selector) => {
-    selector = selector.substr(1).trim();
+    selector = selector.slice(1).trim();
     const index = selector.indexOf(' ');
-    return ~index ? [selector.substring(0, index), selector.substring(index + 1)] : [selector, ''];
+    return ~index ? [selector.slice(0, index), selector.slice(index + 1)] : [selector, ''];
 });
 
 function _query(selector, context = document, queryFn) {

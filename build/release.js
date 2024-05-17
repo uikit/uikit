@@ -71,7 +71,7 @@ async function createPackage(version) {
     archive.pipe(fs.createWriteStream(dest));
 
     for (const file of await glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')) {
-        archive.file(file, { name: file.substring(5) });
+        archive.file(file, { name: file.slice(5) });
     }
 
     await archive.finalize();

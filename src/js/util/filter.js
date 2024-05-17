@@ -83,7 +83,7 @@ export function isSameSiteAnchor(el) {
 export function getTargetedElement(el) {
     if (isSameSiteAnchor(el)) {
         const { hash, ownerDocument } = toNode(el);
-        const id = decodeURIComponent(hash).substring(1);
+        const id = decodeURIComponent(hash).slice(1);
         return ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0];
     }
 }

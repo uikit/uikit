@@ -260,14 +260,14 @@ function backgroundCoverFn(prop, el, stops, props) {
 }
 
 function getBackgroundPos(el, prop) {
-    return getCssValue(el, `background-position-${prop.substr(-1)}`, '');
+    return getCssValue(el, `background-position-${prop.slice(-1)}`, '');
 }
 
 function setBackgroundPosFn(bgProps, positions, props) {
     return function (css, percent) {
         for (const prop of bgProps) {
             const value = getValue(props[prop], percent);
-            css[`background-position-${prop.substr(-1)}`] = `calc(${positions[prop]} + ${value}px)`;
+            css[`background-position-${prop.slice(-1)}`] = `calc(${positions[prop]} + ${value}px)`;
         }
     };
 }

@@ -43,7 +43,7 @@ export default {
 function toMedia(value, element) {
     if (isString(value)) {
         if (startsWith(value, '@')) {
-            value = toFloat(css(element, `--uk-breakpoint-${value.substr(1)}`));
+            value = toFloat(css(element, `--uk-breakpoint-${value.slice(1)}`));
         } else if (isNaN(value)) {
             return value;
         }

@@ -89,6 +89,9 @@ importers:
       semver:
         specifier: ^7.6.0
         version: 7.6.2
+      strip-css-comments:
+        specifier: ^5.0.0
+        version: 5.0.0
       svgo:
         specifier: ^3.2.0
         version: 3.3.2
@@ -993,6 +996,10 @@ packages:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
 
+  is-regexp@3.1.0:
+    resolution: {integrity: sha512-rbku49cWloU5bSMI+zaRaXdQHXnthP6DZ/vLnfdSKyL4zUzuWnomtOEiZZOd+ioQ+avFo/qau3KPTc7Fjy1uPA==}
+    engines: {node: '>=12'}
+
   is-stream@2.0.1:
     resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
     engines: {node: '>=8'}
@@ -1464,6 +1471,10 @@ packages:
   strip-ansi@7.1.0:
     resolution: {integrity: sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==}
     engines: {node: '>=12'}
+
+  strip-css-comments@5.0.0:
+    resolution: {integrity: sha512-943vUh0ZxvxO6eK+TzY2F4nVN7a+ZdRK4KIdwHaGMvMrXTrAsJBRudOR3Zi0bLTuVSbF0CQXis4uw04uCabWkg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   strip-final-newline@4.0.0:
     resolution: {integrity: sha512-aulFJcD6YK8V1G7iRB5tigAP4TsHBZZrOV8pjV++zdUwmeV8uzbY7yn6h9MswN62adStNZFuCIx4haBnRuMDaw==}
@@ -2423,6 +2434,8 @@ snapshots:
 
   is-plain-obj@4.1.0: {}
 
+  is-regexp@3.1.0: {}
+
   is-stream@2.0.1: {}
 
   is-stream@4.0.1: {}
@@ -2883,6 +2896,10 @@ snapshots:
   strip-ansi@7.1.0:
     dependencies:
       ansi-regex: 6.0.1
+
+  strip-css-comments@5.0.0:
+    dependencies:
+      is-regexp: 3.1.0
 
   strip-final-newline@4.0.0: {}
 
