@@ -9,6 +9,8 @@
 
 @search-default-background:                         transparent;
 
+@search-navbar-focus-background:                    @search-navbar-background;
+
 //
 // New
 //
@@ -17,6 +19,11 @@
 @search-default-border:                             @global-border;
 
 @search-default-focus-border:                       @global-primary-background;
+
+@search-navbar-border-width:                        @global-border-width;
+@search-navbar-border:                              @global-border;
+
+@search-navbar-focus-border:                        @global-primary-background;
 
 
 // Component
@@ -42,9 +49,17 @@
 // Navbar modifiers
 // ========================================================================
 
-.hook-search-navbar-input() {}
+.hook-search-navbar-input() { border: @search-navbar-border-width solid @search-navbar-border; }
 
-.hook-search-navbar-input-focus() {}
+.hook-search-navbar-input-focus() { border-color: @search-navbar-focus-border; }
+
+
+// Medium modifiers
+// ========================================================================
+
+.hook-search-medium-input() {}
+
+.hook-search-medium-input-focus() {}
 
 
 // Large modifiers
@@ -74,11 +89,16 @@
 
 @inverse-search-default-background:            transparent;
 
+@inverse-search-navbar-background:             transparent;
+
 .hook-inverse-search-default-input() { border-color: @inverse-global-border; }
 .hook-inverse-search-default-input-focus() {}
 
-.hook-inverse-search-navbar-input() {}
+.hook-inverse-search-navbar-input() { border-color: @inverse-global-border; }
 .hook-inverse-search-navbar-input-focus() {}
+
+.hook-inverse-search-medium-input() {}
+.hook-inverse-search-medium-input-focus() {}
 
 .hook-inverse-search-large-input() {}
 .hook-inverse-search-large-input-focus() {}

@@ -25,8 +25,8 @@ import overlayIcon from '../../images/components/overlay-icon.svg';
 import paginationNext from '../../images/components/pagination-next.svg';
 import paginationPrevious from '../../images/components/pagination-previous.svg';
 import searchIcon from '../../images/components/search-icon.svg';
+import searchMedium from '../../images/components/search-medium.svg';
 import searchLarge from '../../images/components/search-large.svg';
-import searchNavbar from '../../images/components/search-navbar.svg';
 import slidenavNextLarge from '../../images/components/slidenav-next-large.svg';
 import slidenavNext from '../../images/components/slidenav-next.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
@@ -51,8 +51,8 @@ const icons = {
     'pagination-next': paginationNext,
     'pagination-previous': paginationPrevious,
     'search-icon': searchIcon,
+    'search-medium': searchMedium,
     'search-large': searchLarge,
-    'search-navbar': searchNavbar,
     'search-toggle-icon': searchIcon,
     'slidenav-next': slidenavNext,
     'slidenav-next-large': slidenavNextLarge,
@@ -127,8 +127,8 @@ export const Search = {
             ? 'search-toggle-icon'
             : hasClass(this.$el, 'uk-search-icon') && this.$el.closest('.uk-search-large')
               ? 'search-large'
-              : this.$el.closest('.uk-search-navbar')
-                ? 'search-navbar'
+              : this.$el.closest('.uk-search-medium')
+                ? 'search-medium'
                 : this.$props.icon;
 
         if (hasAttr(this.$el, 'aria-label')) {
