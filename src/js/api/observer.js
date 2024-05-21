@@ -28,7 +28,10 @@ function registerObservable(instance, observable) {
 
     const key = `_observe${instance._observers.length}`;
     if (isFunction(target) && !hasOwn(instance, key)) {
-        registerComputed(instance, key, () => toNodes(target.call(instance, instance)));
+        registerComputed(instance, key, () => {
+            const targets = target.call(instance, instance);
+            return isArray(targets) ? toNodes(targets) : targets;
+        });
     }
 
     handler = isString(handler) ? instance[handler] : handler.bind(instance);
