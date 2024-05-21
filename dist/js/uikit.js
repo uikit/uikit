@@ -1,4 +1,4 @@
-/*! UIkit 3.21.0 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.1 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3343,7 +3343,10 @@
       }
       const key = `_observe${instance._observers.length}`;
       if (isFunction(target) && !hasOwn(instance, key)) {
-        registerComputed(instance, key, () => toNodes(target.call(instance, instance)));
+        registerComputed(instance, key, () => {
+          const targets2 = target.call(instance, instance);
+          return isArray(targets2) ? toNodes(targets2) : targets2;
+        });
       }
       handler = isString(handler) ? instance[handler] : handler.bind(instance);
       if (isFunction(options)) {
@@ -3534,7 +3537,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.0";
+    App.version = "3.21.1";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
