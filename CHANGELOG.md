@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in observer handling
+
 ## 3.21.0 (May 17, 2024)
 
 ### Added
