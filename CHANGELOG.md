@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Slider component shows wrong slide after resizing
+
 ## 3.21.1 (May 21, 2024)
 
 ### Fixed
