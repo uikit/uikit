@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.21.3 (May 22, 2024)
+
+### Fixed
+
+- Fix regression in Slideshow component
+
 ## 3.21.2 (May 22, 2024)
 
 ### Fixed

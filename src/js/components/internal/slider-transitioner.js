@@ -120,7 +120,7 @@ export default function (prev, next, dir, { center, easing, list }) {
 
         percent() {
             return Math.abs(
-                (css(list, 'transform').split(',')[4] * (isRtl ? -1 : 1) + from) / (to - from),
+                (new DOMMatrix(css(list, 'transform')).m41 * (isRtl ? -1 : 1) + from) / (to - from),
             );
         },
 

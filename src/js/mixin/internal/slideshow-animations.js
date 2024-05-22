@@ -20,9 +20,7 @@ export default {
 };
 
 export function translated(el) {
-    return css(el, 'transform') === 'none'
-        ? 1
-        : Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth);
+    return Math.abs(new DOMMatrix(css(el, 'transform')).m41 / el.offsetWidth);
 }
 
 export function translate(value = 0, unit = '%') {
