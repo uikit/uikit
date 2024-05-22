@@ -10,7 +10,7 @@ export function prependUpdate(instance, update) {
 }
 
 export function clearUpdateData(instance) {
-    delete instance._data;
+    instance._data = null;
 }
 
 export function callUpdate(instance, e = 'update') {
@@ -28,7 +28,7 @@ export function callUpdate(instance, e = 'update') {
             if (instance._connected) {
                 runUpdates(instance, instance._queued);
             }
-            delete instance._queued;
+            instance._queued = null;
         });
     }
 

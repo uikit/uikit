@@ -54,14 +54,14 @@ async function getPrefix() {
     if (validClassName.test(prefixFromInput)) {
         return prefixFromInput;
     } else {
-        throw `illegal prefix: ${prefixFromInput}`;
+        throw `Illegal prefix: ${prefixFromInput}`;
     }
 }
 
 async function replacePrefix(from, to) {
     for (const file of await glob(`${path}/**/*.css`)) {
         await replaceInFile(file, (data) =>
-            data.replace(new RegExp(`${from}-${/([a-z\d-]+)/.source}`, 'g'), `${to}-$1`),
+            data.replace(new RegExp(`${from}-([a-z\\d-]+)`, 'g'), `${to}-$1`),
         );
     }
 

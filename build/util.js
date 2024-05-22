@@ -31,13 +31,7 @@ export function read(file) {
 }
 
 export async function write(dest, data) {
-    const err = await fs.writeFile(dest, data);
-
-    if (err) {
-        console.log(err);
-        throw err;
-    }
-
+    await fs.writeFile(dest, data);
     await logFile(dest);
 
     return dest;
