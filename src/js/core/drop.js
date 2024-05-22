@@ -1,9 +1,9 @@
 import {
     $,
+    $$,
     MouseTracker,
     addClass,
     append,
-    apply,
     attr,
     css,
     hasClass,
@@ -321,7 +321,7 @@ export default {
             }
 
             if (active) {
-                if (delay && active.isDelaying) {
+                if (delay && active.isDelaying()) {
                     this.showTimer = setTimeout(() => matches(target, ':hover') && this.show(), 10);
                     return;
                 }
@@ -349,11 +349,8 @@ export default {
             this.clearTimers();
 
             this.isDelayedHide = delay;
-            this.isDelaying = getPositionedElements(this.$el).some((el) =>
-                this.tracker.movesTo(el),
-            );
 
-            if (delay && this.isDelaying) {
+            if (delay && this.isDelaying()) {
                 this.hideTimer = setTimeout(this.hide, 50);
             } else if (delay && this.delayHide) {
                 this.hideTimer = setTimeout(hide, this.delayHide);
@@ -367,11 +364,14 @@ export default {
             clearTimeout(this.hideTimer);
             this.showTimer = null;
             this.hideTimer = null;
-            this.isDelaying = false;
         },
 
         isActive() {
             return active === this;
+        },
+
+        isDelaying() {
+            return [this.$el, ...$$('.uk-drop', this.$el)].some((el) => this.tracker.movesTo(el));
         },
 
         position() {
@@ -442,12 +442,6 @@ export default {
         },
     },
 };
-
-function getPositionedElements(el) {
-    const result = [];
-    apply(el, (el) => css(el, 'position') !== 'static' && result.push(el));
-    return result;
-}
 
 function getViewport(el, target) {
     return offsetViewport(overflowParents(target).find((parent) => parent.contains(el)));

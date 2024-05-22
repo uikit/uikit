@@ -137,7 +137,7 @@ export default {
                     includes(active.mode, 'hover') &&
                     active.targetEl &&
                     !current.contains(active.targetEl) &&
-                    !active.isDelaying
+                    !active.isDelaying()
                 ) {
                     active.hide(false);
                 }
