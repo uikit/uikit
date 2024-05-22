@@ -1,4 +1,4 @@
-/*! UIkit 3.21.1 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.2 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2910,7 +2910,7 @@
       }
     };
     function translated(el) {
-      return Math.abs(css(el, "transform").split(",")[4] / el.offsetWidth);
+      return css(el, "transform") === "none" ? 1 : Math.abs(css(el, "transform").split(",")[4] / el.offsetWidth);
     }
     function translate(value = 0, unit = "%") {
       value += value ? unit : "";
@@ -3537,7 +3537,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.1";
+    App.version = "3.21.2";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5027,7 +5027,7 @@
           if (!~this.prevIndex || this.index !== index) {
             this.show(index);
           } else {
-            this._translate(1, this.prevIndex, this.index);
+            this._translate(1);
           }
         },
         events: ["resize"]
@@ -5260,6 +5260,9 @@
             }
           }
           this.reorder();
+          if (!this.parallax) {
+            this._translate(1);
+          }
           this.updateActiveClasses();
         },
         events: ["resize"]

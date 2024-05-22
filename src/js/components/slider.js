@@ -145,6 +145,10 @@ export default {
             }
 
             this.reorder();
+            if (!this.parallax) {
+                this._translate(1);
+            }
+
             this.updateActiveClasses();
         },
 

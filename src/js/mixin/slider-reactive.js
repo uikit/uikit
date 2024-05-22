@@ -10,7 +10,7 @@ export default {
             if (!~this.prevIndex || this.index !== index) {
                 this.show(index);
             } else {
-                this._translate(1, this.prevIndex, this.index);
+                this._translate(1);
             }
         },
 
