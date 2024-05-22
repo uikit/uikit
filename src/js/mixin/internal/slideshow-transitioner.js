@@ -46,10 +46,6 @@ export default function Transitioner(prev, next, dir, { animation, easing }) {
         },
 
         translate(percent) {
-            if (percent === this.percent()) {
-                return;
-            }
-
             this.reset();
 
             const props = translate(percent, dir);

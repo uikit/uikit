@@ -20,8 +20,7 @@ export default {
 };
 
 export function translated(el) {
-    const transform = css(el, 'transform');
-    return transform === 'none' ? 1 : Math.abs(new DOMMatrix(transform).m41 / el.offsetWidth);
+    return Math.abs(new DOMMatrix(css(el, 'transform')).m41 / el.offsetWidth);
 }
 
 export function translate(value = 0, unit = '%') {
