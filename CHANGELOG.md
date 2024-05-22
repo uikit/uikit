@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Slider component shows wrong slide after resizing
+- Fix regression in Slideshow component not transitioning first slide
 
 ## 3.21.1 (May 21, 2024)
 
