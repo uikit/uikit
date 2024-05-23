@@ -92,8 +92,7 @@
  * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
  */
 
-.uk-search-input::-webkit-search-cancel-button,
-.uk-search-input::-webkit-search-decoration { -webkit-appearance: none; }
+.uk-search-input:is(::-webkit-search-cancel-button, ::-webkit-search-decoration) { -webkit-appearance: none; }
 
 /*
  * Removes placeholder transparency in Firefox.
@@ -177,7 +176,7 @@
  * Make `input` element clickable through icon, e.g. if it's a `span`
  */
 
-.uk-search .uk-search-icon:not(a):not(button):not(input) { pointer-events: none; }
+.uk-search .uk-search-icon:not(a, button, input) { pointer-events: none; }
 
 /*
  * Position modifier

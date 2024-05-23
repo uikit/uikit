@@ -136,9 +136,7 @@
  * Remove margin from the last-child
  */
 
-.uk-card-body > :last-child,
-.uk-card-header > :last-child,
-.uk-card-footer > :last-child { margin-bottom: 0; }
+:is(.uk-card-body, .uk-card-header, .uk-card-footer) > :last-child { margin-bottom: 0; }
 
 
 /* Media
@@ -154,8 +152,7 @@
 }
 
 .uk-card-media-top,
-.uk-grid-stack > .uk-card-media-left,
-.uk-grid-stack > .uk-card-media-right {
+.uk-grid-stack > :is(.uk-card-media-left,.uk-card-media-right) {
     .hook-card-media-top();
 }
 
@@ -223,7 +220,7 @@
 /* Hover modifier
  ========================================================================== */
 
-.uk-card-hover:not(.uk-card-default):not(.uk-card-primary):not(.uk-card-secondary):hover {
+.uk-card-hover:not(.uk-card-default, .uk-card-primary):not(.uk-card-secondary):hover {
     background-color: @card-hover-background;
     .hook-card-hover();
 }

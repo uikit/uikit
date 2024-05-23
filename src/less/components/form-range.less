@@ -75,9 +75,11 @@
     .hook-form-range-track();
 }
 
-.uk-range:focus::-webkit-slider-runnable-track,
-/* 1 */
-.uk-range:active::-webkit-slider-runnable-track {
+:is(
+    .uk-range:focus,
+    /* 1 */
+    .uk-range:active
+)::-webkit-slider-runnable-track {
     background: @form-range-track-focus-background;
     .hook-form-range-track-focus();
 }

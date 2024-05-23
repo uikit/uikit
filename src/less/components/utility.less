@@ -207,10 +207,7 @@
  */
 
 .uk-preserve-width,
-.uk-preserve-width canvas,
-.uk-preserve-width img,
-.uk-preserve-width svg,
-.uk-preserve-width video { max-width: none; }
+.uk-preserve-width :is(canvas, img, svg, video) { max-width: none; }
 
 /*
  * Responsiveness
@@ -363,9 +360,11 @@
  *    https://bugzilla.mozilla.org/show_bug.cgi?id=317933
  */
 
-.uk-dropcap::first-letter,
-/* 1 */
-.uk-dropcap > p:first-of-type::first-letter {
+:is(
+    .uk-dropcap,
+    /* 1 */
+    .uk-dropcap > p:first-of-type
+)::first-letter {
     display: block;
     margin-right: @dropcap-margin-right;
     float: left;
@@ -377,8 +376,10 @@
 /* 2 */
 @-moz-document url-prefix() {
 
-  .uk-dropcap::first-letter,
-  .uk-dropcap > p:first-of-type::first-letter { margin-top: 1.1%; }
+    :is(
+        .uk-dropcap,
+        .uk-dropcap > p:first-of-type
+    )::first-letter { margin-top: 1.1%; }
 
 }
 
@@ -513,8 +514,10 @@
 
 .hook-inverse() {
 
-    .uk-dropcap::first-letter,
-    .uk-dropcap p:first-of-type::first-letter {
+    :is(
+        .uk-dropcap,
+        .uk-dropcap > p:first-of-type
+    )::first-letter {
         .hook-inverse-dropcap();
     }
 

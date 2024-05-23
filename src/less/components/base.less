@@ -131,8 +131,7 @@ a,
     .hook-base-link();
 }
 
-a:hover,
-.uk-link:hover,
+:is(a, .uk-link):hover,
 .uk-link-toggle:hover .uk-link {
     color: @base-link-hover-color;
     text-decoration: @base-link-hover-text-decoration;
@@ -168,9 +167,7 @@ strong { font-weight: @base-strong-font-weight; }
  * 3. Style
  */
 
-:not(pre) > code,
-:not(pre) > kbd,
-:not(pre) > samp {
+:not(pre) > :is(code, kbd, samp) {
     /* 1 */
     font-family: @base-code-font-family;
     /* 2 */
@@ -304,14 +301,7 @@ fieldset,
 figure { margin: 0 0 @base-margin-vertical 0; }
 
 /* Add margin if adjacent element */
-* + p,
-* + ul,
-* + ol,
-* + dl,
-* + pre,
-* + address,
-* + fieldset,
-* + figure { margin-top: @base-margin-vertical; }
+* + :is(p, ul, ol, dl, pre, address, fieldset, figure) { margin-top: @base-margin-vertical; }
 
 
 /* Headings
@@ -338,18 +328,20 @@ h6, .uk-h6,
 }
 
 /* Add margin if adjacent element */
-* + h1, * + .uk-h1,
-* + h2, * + .uk-h2,
-* + h3, * + .uk-h3,
-* + h4, * + .uk-h4,
-* + h5, * + .uk-h5,
-* + h6, * + .uk-h6,
-* + .uk-heading-small,
-* + .uk-heading-medium,
-* + .uk-heading-large,
-* + .uk-heading-xlarge,
-* + .uk-heading-2xlarge,
-* + .uk-heading-3xlarge { margin-top: @base-heading-margin-top; }
+* + :is(
+    h1, .uk-h1,
+    h2, .uk-h2,
+    h3, .uk-h3,
+    h4, .uk-h4,
+    h5, .uk-h5,
+    h6, .uk-h6,
+    .uk-heading-small,
+    .uk-heading-medium,
+    .uk-heading-large,
+    .uk-heading-xlarge,
+    .uk-heading-2xlarge,
+    .uk-heading-3xlarge
+) { margin-top: @base-heading-margin-top; }
 
 /*
  * Sizes
@@ -410,10 +402,7 @@ ol { padding-left: @base-list-padding-left; }
  * Reset margin for nested lists
  */
 
-ul > li > ul,
-ul > li > ol,
-ol > li > ol,
-ol > li > ul { margin: 0; }
+:is(ul, ol) > li > :is(ul, ol) { margin: 0; }
 
 
 /* Description lists
@@ -445,8 +434,7 @@ hr, .uk-hr {
 }
 
 /* Add margin if adjacent element */
-* + hr,
-* + .uk-hr { margin-top: @base-hr-margin-vertical; }
+* + :is(hr, .uk-hr) { margin-top: @base-hr-margin-vertical; }
 
 
 /* Address
@@ -613,8 +601,7 @@ template { display: none; }
         .hook-inverse-base-link();
     }
 
-    a:hover,
-    .uk-link:hover,
+    :is(a, .uk-link):hover,
     .uk-link-toggle:hover .uk-link {
         color: @inverse-base-link-hover-color;
         .hook-inverse-base-link-hover();
@@ -624,9 +611,7 @@ template { display: none; }
     // Code
     //
 
-    :not(pre) > code,
-    :not(pre) > kbd,
-    :not(pre) > samp {
+    :not(pre) > :is(code, kbd, samp) {
         color: @inverse-base-code-color;
         .hook-inverse-base-code();
     }

@@ -87,11 +87,13 @@
  * To style the `::marker` is currently only supported in Firefox and Safari
  ========================================================================== */
 
-.uk-list-disc > *,
-.uk-list-circle > *,
-.uk-list-square > *,
-.uk-list-decimal > *,
-.uk-list-hyphen > * { padding-left: @list-padding-left; }
+:is(
+    .uk-list-disc,
+    .uk-list-circle,
+    .uk-list-square,
+    .uk-list-decimal,
+    .uk-list-hyphen
+) > * { padding-left: @list-padding-left; }
 
 /*
  * Type modifiers
@@ -100,11 +102,13 @@
 .uk-list-decimal { counter-reset: decimal; }
 .uk-list-decimal > * { counter-increment: decimal; }
 
-.uk-list-disc > ::before,
-.uk-list-circle > ::before,
-.uk-list-square > ::before,
-.uk-list-decimal > ::before,
-.uk-list-hyphen > ::before {
+:is(
+    .uk-list-disc,
+    .uk-list-circle,
+    .uk-list-square,
+    .uk-list-decimal,
+    .uk-list-hyphen
+) > ::before {
     content: "";
     position: relative;
     left: -@list-padding-left;
@@ -213,8 +217,7 @@
     padding-bottom: 0;
 }
 
-.uk-list-large.uk-list-striped > :nth-child(n+2),
-.uk-list-collapse.uk-list-striped > :nth-child(n+2) { margin-top: 0; }
+:is(.uk-list-large, .uk-list-collapse).uk-list-striped > :nth-child(n+2) { margin-top: 0; }
 
 
 // Hooks

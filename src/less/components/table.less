@@ -188,14 +188,12 @@
 /* Size modifier
  ========================================================================== */
 
-.uk-table-small th,
-.uk-table-small td {
+.uk-table-small :is(th, td) {
     padding: @table-small-cell-padding-vertical @table-small-cell-padding-horizontal;
     .hook-table-small();
 }
 
-.uk-table-large th,
-.uk-table-large td {
+.uk-table-large :is(th, td) {
     padding: @table-large-cell-padding-vertical @table-large-cell-padding-horizontal;
     .hook-table-large();
 }
@@ -204,11 +202,9 @@
 /* Justify modifier
  ========================================================================== */
 
-.uk-table-justify th:first-child,
-.uk-table-justify td:first-child { padding-left: 0; }
+.uk-table-justify :is(th, td):first-child { padding-left: 0; }
 
-.uk-table-justify th:last-child,
-.uk-table-justify td:last-child { padding-right: 0; }
+.uk-table-justify :is(th, td):last-child { padding-right: 0; }
 
 
 /* Cell size modifier
@@ -243,15 +239,11 @@
 @media (max-width: @breakpoint-small-max) {
 
     .uk-table-responsive,
-    .uk-table-responsive tbody,
-    .uk-table-responsive th,
-    .uk-table-responsive td,
-    .uk-table-responsive tr { display: block; }
+    .uk-table-responsive :is(tbody, th, td, tr) { display: block; }
 
     .uk-table-responsive thead { display: none; }
 
-    .uk-table-responsive th,
-    .uk-table-responsive td {
+    .uk-table-responsive :is(th, td) {
         width: auto !important;
         max-width: none !important;
         min-width: 0 !important;
@@ -259,16 +251,13 @@
         white-space: normal !important;
     }
 
-    .uk-table-responsive th:not(:first-child):not(.uk-table-link),
-    .uk-table-responsive td:not(:first-child):not(.uk-table-link),
+    .uk-table-responsive :is(th, td):not(:first-child, .uk-table-link),
     .uk-table-responsive .uk-table-link:not(:first-child) > a { padding-top: round((@table-cell-padding-vertical / 3)) !important; }
 
-    .uk-table-responsive th:not(:last-child):not(.uk-table-link),
-    .uk-table-responsive td:not(:last-child):not(.uk-table-link),
+    .uk-table-responsive :is(th, td):not(:last-child, .uk-table-link),
     .uk-table-responsive .uk-table-link:not(:last-child) > a { padding-bottom: round((@table-cell-padding-vertical / 3)) !important; }
 
-    .uk-table-justify.uk-table-responsive th,
-    .uk-table-justify.uk-table-responsive td {
+    .uk-table-justify.uk-table-responsive :is(th, td) {
         padding-left: 0;
         padding-right: 0;
     }

@@ -64,8 +64,7 @@
     .hook-divider-icon();
 }
 
-.uk-divider-icon::before,
-.uk-divider-icon::after {
+.uk-divider-icon:is(::before,::after) {
     content: "";
     position: absolute;
     top: @divider-icon-line-top;
@@ -152,8 +151,7 @@
         .hook-inverse-divider-icon();
     }
 
-    .uk-divider-icon::before,
-    .uk-divider-icon::after {
+    .uk-divider-icon:is(::before, ::after) {
         border-bottom-color: @inverse-divider-icon-line-border;
         .hook-inverse-divider-icon-line();
     }

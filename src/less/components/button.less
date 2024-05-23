@@ -144,8 +144,7 @@
 }
 
 /* OnClick + Active */
-.uk-button:active,
-.uk-button.uk-active {
+.uk-button:is(:active, .uk-active) {
     .hook-button-active();
 }
 
@@ -171,8 +170,7 @@
 }
 
 /* OnClick + Active */
-.uk-button-default:active,
-.uk-button-default.uk-active {
+.uk-button-default:is(:active, .uk-active) {
     background-color: @button-default-active-background;
     color: @button-default-active-color;
     .hook-button-default-active();
@@ -196,8 +194,7 @@
 }
 
 /* OnClick + Active */
-.uk-button-primary:active,
-.uk-button-primary.uk-active {
+.uk-button-primary:is(:active, .uk-active) {
     background-color: @button-primary-active-background;
     color: @button-primary-active-color;
     .hook-button-primary-active();
@@ -221,8 +218,7 @@
 }
 
 /* OnClick + Active */
-.uk-button-secondary:active,
-.uk-button-secondary.uk-active {
+.uk-button-secondary:is(:active, .uk-active) {
     background-color: @button-secondary-active-background;
     color: @button-secondary-active-color;
     .hook-button-secondary-active();
@@ -246,8 +242,7 @@
 }
 
 /* OnClick + Active */
-.uk-button-danger:active,
-.uk-button-danger.uk-active {
+.uk-button-danger:is(:active, .uk-active) {
     background-color: @button-danger-active-background;
     color: @button-danger-active-color;
     .hook-button-danger-active();
@@ -258,10 +253,7 @@
  * The same for all style modifiers
  */
 
-.uk-button-default:disabled,
-.uk-button-primary:disabled,
-.uk-button-secondary:disabled,
-.uk-button-danger:disabled {
+:is(.uk-button-default, .uk-button-primary,.uk-button-secondary,.uk-button-danger):disabled {
     background-color: @button-disabled-background;
     color: @button-disabled-color;
     .hook-button-disabled();
@@ -440,8 +432,7 @@
         .hook-inverse-button-default-hover();
     }
 
-    .uk-button-default:active,
-    .uk-button-default.uk-active {
+    .uk-button-default:is(:active, .uk-active) {
         background-color: @inverse-button-default-active-background;
         color: @inverse-button-default-active-color;
         .hook-inverse-button-default-active();
@@ -463,8 +454,7 @@
         .hook-inverse-button-primary-hover();
     }
 
-    .uk-button-primary:active,
-    .uk-button-primary.uk-active {
+    .uk-button-primary:is(:active, .uk-active) {
         background-color: @inverse-button-primary-active-background;
         color: @inverse-button-primary-active-color;
         .hook-inverse-button-primary-active();
@@ -486,8 +476,7 @@
         .hook-inverse-button-secondary-hover();
     }
 
-    .uk-button-secondary:active,
-    .uk-button-secondary.uk-active {
+    .uk-button-secondary:is(:active, .uk-active) {
         background-color: @inverse-button-secondary-active-background;
         color: @inverse-button-secondary-active-color;
         .hook-inverse-button-secondary-active();

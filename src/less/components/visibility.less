@@ -114,8 +114,8 @@
  *    by screen readers and the visual tracking indicator of other assistive technologies.
  */
 
-.uk-hidden-visually:not(:focus):not(:active):not(:focus-within),
-.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-within) {
+.uk-hidden-visually:not(:focus, :active, :focus-within),
+.uk-visible-toggle:not(:hover, :focus) .uk-hidden-hover:not(:focus-within) {
     /* 1 */
     position: absolute !important;
     /* 2 */

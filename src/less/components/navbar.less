@@ -312,8 +312,7 @@
     .hook-navbar-toggle();
 }
 
-.uk-navbar-toggle:hover,
-.uk-navbar-toggle[aria-expanded="true"] {
+.uk-navbar-toggle:is(:hover, [aria-expanded="true"]) {
     color: @navbar-toggle-hover-color;
     text-decoration: none;
     .hook-navbar-toggle-hover();
@@ -346,12 +345,14 @@
 /* Justify modifier
  ========================================================================== */
 
-.uk-navbar-justify .uk-navbar-left,
-.uk-navbar-justify .uk-navbar-right,
-.uk-navbar-justify .uk-navbar-nav,
-.uk-navbar-justify .uk-navbar-nav > li,        // Nav item
-.uk-navbar-justify .uk-navbar-item,            // Content item
-.uk-navbar-justify .uk-navbar-toggle { flex-grow: 1; }
+.uk-navbar-justify :is(
+    .uk-navbar-left,
+    .uk-navbar-right,
+    .uk-navbar-nav,
+    .uk-navbar-nav > li, // Nav item
+    .uk-navbar-toggle,  // Content item
+    .uk-navbar-item
+) { flex-grow: 1; }
 
 
 /* Style modifiers
@@ -650,8 +651,7 @@
         .hook-inverse-navbar-toggle();
     }
 
-    .uk-navbar-toggle:hover,
-    .uk-navbar-toggle[aria-expanded="true"] {
+    .uk-navbar-toggle:is(:hover, [aria-expanded="true"]) {
         color: @inverse-navbar-toggle-hover-color;
         .hook-inverse-navbar-toggle-hover();
     }

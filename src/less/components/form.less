@@ -179,30 +179,26 @@
  * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
  */
 
-.uk-input[type="search"]::-webkit-search-cancel-button,
-.uk-input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+.uk-input[type="search"]:is(::-webkit-search-cancel-button, ::-webkit-search-decoration) { -webkit-appearance: none; }
 
 
 /*
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
 
-.uk-input[type="number"]::-webkit-inner-spin-button,
-.uk-input[type="number"]::-webkit-outer-spin-button { height: auto; }
+.uk-input[type="number"]:is(::-webkit-inner-spin-button,::-webkit-outer-spin-button) { height: auto; }
 
 /*
  * Removes placeholder transparency in Firefox.
  */
 
-.uk-input::-moz-placeholder,
-.uk-textarea::-moz-placeholder { opacity: 1; }
+:is(.uk-input, .uk-textarea)::-moz-placeholder { opacity: 1; }
 
 /*
  * Improves consistency of cursor style for clickable elements
  */
 
-.uk-radio:not(:disabled),
-.uk-checkbox:not(:disabled) { cursor: pointer; }
+:is(.uk-radio, .uk-checkbox):not(:disabled) { cursor: pointer; }
 
 /*
  * Define consistent border, margin, and padding.
@@ -262,7 +258,7 @@
  */
 
 .uk-input,
-.uk-select:not([multiple]):not([size]) {
+.uk-select:not([multiple], [size]) {
     height: @form-height;
     vertical-align: middle;
     /* 1 */
@@ -278,8 +274,7 @@
  * Multi-line
  */
 
-.uk-select[multiple],
-.uk-select[size],
+.uk-select:is([multiple], [size]),
 .uk-textarea {
     padding-top: @form-padding-vertical;
     padding-bottom: @form-padding-vertical;
@@ -287,13 +282,10 @@
     .hook-form-multi-line();
 }
 
-.uk-select[multiple],
-.uk-select[size] { resize: vertical; }
+.uk-select:is([multiple], [size]) { resize: vertical; }
 
 /* Focus */
-.uk-input:focus,
-.uk-select:focus,
-.uk-textarea:focus {
+:is(.uk-input, .uk-select, .uk-textarea):focus {
     outline: none;
     background-color: @form-focus-background;
     color: @form-focus-color;
@@ -301,9 +293,7 @@
 }
 
 /* Disabled */
-.uk-input:disabled,
-.uk-select:disabled,
-.uk-textarea:disabled {
+:is(.uk-input, .uk-select, .uk-textarea):disabled {
     background-color: @form-disabled-background;
     color: @form-disabled-color;
     .hook-form-disabled();
@@ -313,9 +303,7 @@
  * Placeholder
  */
 
-.uk-input::placeholder { color: @form-placeholder-color; }
-
-.uk-textarea::placeholder { color: @form-placeholder-color; }
+:is(.uk-input, .uk-textarea)::placeholder { color: @form-placeholder-color; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
@@ -328,18 +316,16 @@
 .uk-form-small { font-size: @form-small-font-size; }
 
 /* Single-line */
-.uk-form-small:not(textarea):not([multiple]):not([size]) {
+.uk-form-small:not(textarea, [multiple], [size]) {
     height: @form-small-height;
     padding-left: @form-small-padding-horizontal;
     padding-right: @form-small-padding-horizontal;
 }
 
 /* Multi-line */
-textarea.uk-form-small,
-[multiple].uk-form-small,
-[size].uk-form-small { padding: @form-small-padding-vertical @form-small-padding-horizontal; }
+:is(textarea, [multiple], [size]).uk-form-small { padding: @form-small-padding-vertical @form-small-padding-horizontal; }
 
-.uk-form-small:not(select):not(input):not(textarea) { line-height: @form-small-line-height; }
+.uk-form-small:not(select, input, textarea) { line-height: @form-small-line-height; }
 
 /*
  * Large
@@ -348,18 +334,16 @@ textarea.uk-form-small,
 .uk-form-large { font-size: @form-large-font-size; }
 
 /* Single-line */
-.uk-form-large:not(textarea):not([multiple]):not([size]) {
+.uk-form-large:not(textarea, [multiple], [size]) {
     height: @form-large-height;
     padding-left: @form-large-padding-horizontal;
     padding-right: @form-large-padding-horizontal;
 }
 
 /* Multi-line */
-textarea.uk-form-large,
-[multiple].uk-form-large,
-[size].uk-form-large { padding: @form-large-padding-vertical @form-large-padding-horizontal; }
+:is(textarea, [multiple], [size]).uk-form-large { padding: @form-large-padding-vertical @form-large-padding-horizontal; }
 
-.uk-form-large:not(select):not(input):not(textarea) { line-height: @form-large-line-height; }
+.uk-form-large:not(select, input, textarea) { line-height: @form-large-line-height; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
@@ -439,13 +423,13 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 }
 
 /* 3 */
-.uk-select:not([multiple]):not([size]) option { color: @form-select-option-color; }
+.uk-select:not([multiple], [size]) option { color: @form-select-option-color; }
 
 /*
  * Disabled
  */
 
-.uk-select:not([multiple]):not([size]):disabled { .svg-fill(@internal-form-select-image, "#000", @form-select-disabled-icon-color); }
+.uk-select:not([multiple], [size]):disabled { .svg-fill(@internal-form-select-image, "#000", @form-select-disabled-icon-color); }
 
 
 /* Datalist
@@ -461,8 +445,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     background-position: 100% 50%;
 }
 
-.uk-input[list]:hover,
-.uk-input[list]:focus { .svg-fill(@internal-form-datalist-image, "#000", @form-datalist-icon-color); }
+.uk-input[list]:is(:hover,:focus) { .svg-fill(@internal-form-datalist-image, "#000", @form-datalist-icon-color); }
 
 /* 1 */
 .uk-input[list]::-webkit-calendar-picker-indicator { display: none !important; }
@@ -505,8 +488,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-radio { border-radius: 50%; }
 
 /* Focus */
-.uk-radio:focus,
-.uk-checkbox:focus {
+:is(.uk-radio, .uk-checkbox):focus {
     background-color: @form-radio-focus-background;
     outline: none;
     .hook-form-radio-focus();
@@ -516,16 +498,14 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Checked
  */
 
-.uk-radio:checked,
-.uk-checkbox:checked,
+:is(.uk-radio, .uk-checkbox):checked,
 .uk-checkbox:indeterminate {
     background-color: @form-radio-checked-background;
     .hook-form-radio-checked();
 }
 
 /* Focus */
-.uk-radio:checked:focus,
-.uk-checkbox:checked:focus,
+:is(.uk-radio, .uk-checkbox):checked:focus,
 .uk-checkbox:indeterminate:focus {
     background-color: @form-radio-checked-focus-background;
     .hook-form-radio-checked-focus();
@@ -543,8 +523,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Disabled
  */
 
-.uk-radio:disabled,
-.uk-checkbox:disabled {
+:is(.uk-radio, .uk-checkbox):disabled {
     background-color: @form-radio-disabled-background;
     .hook-form-radio-disabled();
 }
@@ -609,8 +588,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * 6. Clip height caused by 5. Needed for Webkit only
  */
 
-.uk-form-custom select,
-.uk-form-custom input[type="file"] {
+.uk-form-custom :is(select, input[type="file"]) {
     /* 1 */
     position: absolute;
     top: 0;
@@ -827,14 +805,13 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     // Select
     //
 
-    .uk-select:not([multiple]):not([size]) { .svg-fill(@internal-form-select-image, "#000", @inverse-form-select-icon-color); }
+    .uk-select:not([multiple], [size]) { .svg-fill(@internal-form-select-image, "#000", @inverse-form-select-icon-color); }
 
     //
     // Datalist
     //
 
-    .uk-input[list]:hover,
-    .uk-input[list]:focus { .svg-fill(@internal-form-datalist-image, "#000", @inverse-form-datalist-icon-color); }
+    .uk-input[list]:is(:hover, :focus) { .svg-fill(@internal-form-datalist-image, "#000", @inverse-form-datalist-icon-color); }
 
     //
     // Radio and checkbox
@@ -847,23 +824,20 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     }
 
     // Focus
-    .uk-radio:focus,
-    .uk-checkbox:focus {
+    :is(.uk-radio, .uk-checkbox):focus {
         background-color: @inverse-form-radio-focus-background;
         .hook-inverse-form-radio-focus();
     }
 
     // Checked
-    .uk-radio:checked,
-    .uk-checkbox:checked,
+    :is(.uk-radio, .uk-checkbox):checked,
     .uk-checkbox:indeterminate {
         background-color: @inverse-form-radio-checked-background;
         .hook-inverse-form-radio-checked();
     }
 
     // Focus
-    .uk-radio:checked:focus,
-    .uk-checkbox:checked:focus,
+    :is(.uk-radio, .uk-checkbox):checked:focus,
     .uk-checkbox:indeterminate:focus {
         background-color: @inverse-form-radio-checked-focus-background;
         .hook-inverse-form-radio-checked-focus();
