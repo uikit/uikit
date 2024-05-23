@@ -22,8 +22,7 @@
  */
 
 /* 1 */
-[uk-cover]:where(canvas, iframe, svg),
-[data-uk-cover]:where(canvas, iframe, svg) {
+:is([uk-cover],[data-uk-cover]):where(canvas, iframe, svg) {
     /* 2 */
     max-width: none;
     /* 3 */
@@ -35,11 +34,9 @@
     transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
 }
 
-iframe[uk-cover],
-iframe[data-uk-cover] { pointer-events: none; }
+iframe:is([uk-cover],[data-uk-cover]) { pointer-events: none; }
 
-[uk-cover]:where(img, video),
-[data-uk-cover]:where(img, video) {
+:is([uk-cover],[data-uk-cover]):where(img, video) {
     /* 3 */
     position: absolute;
     top: 0;

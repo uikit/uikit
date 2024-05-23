@@ -143,9 +143,7 @@
  * Remove margin from the last-child
  */
 
-.uk-card-body > :last-child,
-.uk-card-header > :last-child,
-.uk-card-footer > :last-child { margin-bottom: 0; }
+:is(.uk-card-body, .uk-card-header, .uk-card-footer) > :last-child { margin-bottom: 0; }
 
 
 /* Media
@@ -161,8 +159,7 @@
 }
 
 .uk-card-media-top,
-.uk-grid-stack > .uk-card-media-left,
-.uk-grid-stack > .uk-card-media-right {
+.uk-grid-stack > :is(.uk-card-media-left,.uk-card-media-right) {
     .hook-card-media-top();
 }
 

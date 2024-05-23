@@ -85,11 +85,13 @@
 /* Marker modifiers
  ========================================================================== */
 
-.uk-list-disc,
-.uk-list-circle,
-.uk-list-square,
-.uk-list-decimal,
-.uk-list-hyphen { padding-left: @list-padding-left; }
+:is(
+    .uk-list-disc,
+    .uk-list-circle,
+    .uk-list-square,
+    .uk-list-decimal,
+    .uk-list-hyphen
+) { padding-left: @list-padding-left; }
 
 .uk-list-disc { list-style-type: disc; }
 .uk-list-circle { list-style-type: circle; }
@@ -190,8 +192,7 @@
     padding-bottom: 0;
 }
 
-.uk-list-large.uk-list-striped > :nth-child(n+2),
-.uk-list-collapse.uk-list-striped > :nth-child(n+2) { margin-top: 0; }
+:is(.uk-list-large, .uk-list-collapse).uk-list-striped > :nth-child(n+2) { margin-top: 0; }
 
 
 // Hooks

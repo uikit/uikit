@@ -246,9 +246,7 @@
  * Remove margin from the last-child
  */
 
-.uk-modal-body > :last-child,
-.uk-modal-header > :last-child,
-.uk-modal-footer > :last-child { margin-bottom: 0; }
+:is(.uk-modal-body, .uk-modal-header, .uk-modal-footer) > :last-child { margin-bottom: 0; }
 
 
 /* Title
