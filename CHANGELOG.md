@@ -342,14 +342,14 @@
 - Add modes `pack` (default) and `next` to Grid component's `masonry` option
 - Add `parallax-start`, `parallax-end`, `parallax-justify` option to Grid component
 - Add `close-on-scroll` option to Drop and Dropdown component
-- Add transparent Navbar gets its color modifier from underlying section 
+- Add transparent Navbar gets its color modifier from underlying section
 - Add support for `<td>` and `<tr>` elements to `fragment()` function
 - Add 3XL size modifier to Heading component
 - Add support for a CSS Selector in `offsetTop` option in Height Viewport component
 
 ### Change
 
-- Scroll component scrolls beneath elements covering its target 
+- Scroll component scrolls beneath elements covering its target
 - The `closest()` function no longer accepts an array of elements
 - Reset fieldset min-width
 
@@ -358,7 +358,7 @@
 ### Fixed
 
 - Fix Height Viewport component not observing viewport changes with `expand: true`
-- Fix passing a `vh` unit to option `scale` relates to element's height in Parallax component 
+- Fix passing a `vh` unit to option `scale` relates to element's height in Parallax component
 
 ## 3.16.26 (August 28, 2023)
 
@@ -397,7 +397,7 @@
 
 ### Fixed
 
-- Fix existing notification container has to be visible before appending notification 
+- Fix existing notification container has to be visible before appending notification
 
 ## 3.16.21 (June 13, 2023)
 
@@ -473,7 +473,7 @@
 - Fix using `rgb` and `rgba` values in color stops in Parallax component
 - Fix setting `will-change` css property in Parallax component for camelCased props
 - Fix Slider removes `tabindex` from focusable elements in slides
-- Fix class `uk-svg` gets added to `<svg>` element only in Svg component 
+- Fix class `uk-svg` gets added to `<svg>` element only in Svg component
 
 ## 3.16.13 (March 28, 2023)
 
@@ -702,7 +702,7 @@
 
 ### Changed
 
-- Add `will-change` css property to Parallax elements 
+- Add `will-change` css property to Parallax elements
 
 ### Fixed
 
@@ -724,7 +724,7 @@
 - Fix Scroll and Scrollspy Nav components handle same site links only
 - Fix Drop positioning within not scrollable viewport
 - Fix overscroll behavior in Dropbar
-- Fix conversion of viewport height units with `toPx()` on mobile devices 
+- Fix conversion of viewport height units with `toPx()` on mobile devices
 
 ## 3.15.14 (November 21, 2022)
 
