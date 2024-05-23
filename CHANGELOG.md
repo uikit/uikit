@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Drop component does not immediately show if current active Drop is delaying
+- Fix Scrollspy Nav falls back to document if target is not found
 
 ## 3.21.3 (May 22, 2024)
 

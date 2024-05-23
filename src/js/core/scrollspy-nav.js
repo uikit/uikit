@@ -31,7 +31,7 @@ export default {
     },
 
     computed: {
-        links: (_, $el) => $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el)),
+        links: (_, $el) => $$('a[href]', $el).filter((el) => isSameSiteAnchor(el)),
 
         elements({ closest: selector }) {
             return this.links.map((el) => el.closest(selector || '*'));
@@ -51,7 +51,7 @@ export default {
     update: [
         {
             read() {
-                const targets = this.links.map(getTargetedElement).filter(Boolean);
+                const targets = this.links.map((el) => getTargetedElement(el) || el.ownerDocument);
 
                 const { length } = targets;
 
