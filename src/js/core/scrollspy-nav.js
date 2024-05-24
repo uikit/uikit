@@ -65,7 +65,7 @@ export default {
                 const max = scrollHeight - viewport.height;
                 let active = false;
 
-                if (scrollTop === max) {
+                if (scrollTop >= max) {
                     active = length - 1;
                 } else {
                     const offsetBy =
