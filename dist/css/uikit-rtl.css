@@ -1,4 +1,4 @@
-/*! UIkit 3.21.3 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.4 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -3450,13 +3450,13 @@ select.uk-form-width-xsmall {
  * Icon
  */
 .uk-search-medium .uk-search-icon {
-  width: 40px;
+  width: 24px;
 }
 .uk-search-medium:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
-  padding-right: 40px;
+  padding-right: 34px;
 }
 .uk-search-medium:has(.uk-search-icon-flip) .uk-search-input {
-  padding-left: 40px;
+  padding-left: 34px;
 }
 /* Large modifier
  ========================================================================== */
@@ -3476,13 +3476,13 @@ select.uk-form-width-xsmall {
  * Icon
  */
 .uk-search-large .uk-search-icon {
-  width: 80px;
+  width: 40px;
 }
 .uk-search-large:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
-  padding-right: 80px;
+  padding-right: 60px;
 }
 .uk-search-large:has(.uk-search-icon-flip) .uk-search-input {
-  padding-left: 80px;
+  padding-left: 60px;
 }
 /* Toggle
  ========================================================================== */
