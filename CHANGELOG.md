@@ -2,6 +2,18 @@
 
 ## WIP
 
+### Added
+
+- Add `target` option to Scrollspy Nav component
+
+### Changed
+
+- Scrollspy Nav component defaults to a 10vh active top offset
+
+### Removed
+
+- Remove `overflow` option from Scrollspy Nav component
+
 ### Fixed
 
 - Fix Drop component does not immediately show if current active Drop is delaying

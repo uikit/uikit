@@ -18,7 +18,7 @@ export default {
         cls: String,
         closest: Boolean,
         scroll: Boolean,
-        overflow: Boolean,
+        target: String,
         offset: Number,
     },
 
@@ -26,15 +26,15 @@ export default {
         cls: 'uk-active',
         closest: false,
         scroll: false,
-        overflow: true,
+        target: 'a[href]',
         offset: 0,
     },
 
     computed: {
-        links: (_, $el) => $$('a[href]', $el).filter((el) => isSameSiteAnchor(el)),
+        links: ({ target }, $el) => $$(target, $el).filter((el) => isSameSiteAnchor(el)),
 
-        elements({ closest: selector }) {
-            return this.links.map((el) => el.closest(selector || '*'));
+        elements({ closest }) {
+            return this.links.map((el) => el.closest(closest || '*'));
         },
     },
 
@@ -68,17 +68,14 @@ export default {
                 if (scrollTop === max) {
                     active = length - 1;
                 } else {
-                    const offsetBy = this.offset + offset(getCoveringElement()).height;
+                    const offsetBy =
+                        this.offset + offset(getCoveringElement()).height + viewport.height * 0.1;
 
                     for (let i = 0; i < targets.length; i++) {
                         if (offset(targets[i]).top - viewport.top - offsetBy > 0) {
                             break;
                         }
                         active = +i;
-                    }
-
-                    if (active === false && this.overflow) {
-                        active = 0;
                     }
                 }
 
