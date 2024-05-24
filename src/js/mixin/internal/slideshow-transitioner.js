@@ -4,7 +4,7 @@ export default function Transitioner(prev, next, dir, { animation, easing }) {
     const { percent, translate, show = noop } = animation;
     const props = show(dir);
 
-    let resolve;
+    const { promise, resolve } = withResolvers();
 
     return {
         dir,
@@ -18,16 +18,15 @@ export default function Transitioner(prev, next, dir, { animation, easing }) {
             triggerUpdate(next, 'itemin', { percent, duration, timing, dir });
             triggerUpdate(prev, 'itemout', { percent: 1 - percent, duration, timing, dir });
 
-            return new Promise((res) => {
-                resolve ||= res;
-                Promise.all([
-                    Transition.start(next, props[1], duration, timing),
-                    Transition.start(prev, props[0], duration, timing),
-                ]).then(() => {
-                    this.reset();
-                    resolve();
-                }, noop);
-            });
+            Promise.all([
+                Transition.start(next, props[1], duration, timing),
+                Transition.start(prev, props[0], duration, timing),
+            ]).then(() => {
+                this.reset();
+                resolve();
+            }, noop);
+
+            return promise;
         },
 
         cancel() {
@@ -65,6 +64,12 @@ export default function Transitioner(prev, next, dir, { animation, easing }) {
     };
 }
 
-function triggerUpdate(el, type, data) {
+export function triggerUpdate(el, type, data) {
     trigger(el, createEvent(type, false, false, data));
+}
+
+// Use Promise.withResolvers() once it becomes baseline
+export function withResolvers() {
+    let resolve;
+    return { promise: new Promise((res) => (resolve = res)), resolve };
 }

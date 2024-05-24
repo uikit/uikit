@@ -12,7 +12,7 @@ import {
 export default {
     props: {
         pos: String,
-        offset: null,
+        offset: Boolean,
         flip: Boolean,
         shift: Boolean,
         inset: Boolean,

@@ -1,4 +1,4 @@
-/*! UIkit 3.21.3 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.4 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2923,25 +2923,23 @@
     function Transitioner$1(prev, next, dir, { animation, easing }) {
       const { percent, translate, show = noop } = animation;
       const props = show(dir);
-      let resolve;
+      const { promise, resolve } = withResolvers();
       return {
         dir,
         show(duration, percent2 = 0, linear) {
           const timing = linear ? "linear" : easing;
           duration -= Math.round(duration * clamp(percent2, -1, 1));
           this.translate(percent2);
-          triggerUpdate$1(next, "itemin", { percent: percent2, duration, timing, dir });
-          triggerUpdate$1(prev, "itemout", { percent: 1 - percent2, duration, timing, dir });
-          return new Promise((res) => {
-            resolve || (resolve = res);
-            Promise.all([
-              Transition.start(next, props[1], duration, timing),
-              Transition.start(prev, props[0], duration, timing)
-            ]).then(() => {
-              this.reset();
-              resolve();
-            }, noop);
-          });
+          triggerUpdate(next, "itemin", { percent: percent2, duration, timing, dir });
+          triggerUpdate(prev, "itemout", { percent: 1 - percent2, duration, timing, dir });
+          Promise.all([
+            Transition.start(next, props[1], duration, timing),
+            Transition.start(prev, props[0], duration, timing)
+          ]).then(() => {
+            this.reset();
+            resolve();
+          }, noop);
+          return promise;
         },
         cancel() {
           return Transition.cancel([next, prev]);
@@ -2960,8 +2958,8 @@
           const props2 = translate(percent2, dir);
           css(next, props2[1]);
           css(prev, props2[0]);
-          triggerUpdate$1(next, "itemtranslatein", { percent: percent2, dir });
-          triggerUpdate$1(prev, "itemtranslateout", { percent: 1 - percent2, dir });
+          triggerUpdate(next, "itemtranslatein", { percent: percent2, dir });
+          triggerUpdate(prev, "itemtranslateout", { percent: 1 - percent2, dir });
         },
         percent() {
           return percent(prev || next, next, dir);
@@ -2971,8 +2969,12 @@
         }
       };
     }
-    function triggerUpdate$1(el, type, data) {
+    function triggerUpdate(el, type, data) {
       trigger(el, createEvent(type, false, false, data));
+    }
+    function withResolvers() {
+      let resolve;
+      return { promise: new Promise((res) => resolve = res), resolve };
     }
 
     var I18n = {
@@ -3534,7 +3536,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.3";
+    App.version = "3.21.4";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3862,6 +3864,8 @@
       }
     };
 
+    const easeOutQuad = "cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+    const easeOutQuart = "cubic-bezier(0.165, 0.84, 0.44, 1)";
     var Slider = {
       mixins: [SliderAutoplay, SliderDrag, SliderNav, I18n],
       props: {
@@ -3991,7 +3995,7 @@
         },
         async _show(prev, next, force) {
           this._transitioner = this._getTransitioner(prev, next, this.dir, {
-            easing: force ? next.offsetWidth < 600 ? "cubic-bezier(0.25, 0.46, 0.45, 0.94)" : "cubic-bezier(0.165, 0.84, 0.44, 1)" : this.easing,
+            easing: force ? next.offsetWidth < 600 ? easeOutQuad : easeOutQuart : this.easing,
             ...this.transitionOptions
           });
           if (!force && !prev) {
@@ -5046,7 +5050,7 @@
     function Transitioner(prev, next, dir, { center, easing, list }) {
       const from = prev ? getLeft(prev, list, center) : getLeft(next, list, center) + dimensions$1(next).width * dir;
       const to = next ? getLeft(next, list, center) : from + dimensions$1(prev).width * dir * (isRtl ? -1 : 1);
-      let resolve;
+      const { promise, resolve } = withResolvers();
       return {
         dir,
         show(duration, percent = 0, linear) {
@@ -5063,15 +5067,13 @@
             timing,
             dir
           });
-          return new Promise((res) => {
-            resolve || (resolve = res);
-            Transition.start(
-              list,
-              { transform: translate(-to * (isRtl ? -1 : 1), "px") },
-              duration,
-              timing
-            ).then(resolve, noop);
-          });
+          Transition.start(
+            list,
+            { transform: translate(-to * (isRtl ? -1 : 1), "px") },
+            duration,
+            timing
+          ).then(resolve, noop);
+          return promise;
         },
         cancel() {
           return Transition.cancel(list);
@@ -5163,9 +5165,6 @@
         const slideRight = slideLeft + Math.min(dimensions$1(slide).width, listWidth);
         return slideLeft >= listLeft && slideRight <= listRight;
       });
-    }
-    function triggerUpdate(el, type, data) {
-      trigger(el, createEvent(type, false, false, data));
     }
 
     var slider = {
@@ -5914,7 +5913,7 @@
     var Position = {
       props: {
         pos: String,
-        offset: null,
+        offset: Boolean,
         flip: Boolean,
         shift: Boolean,
         inset: Boolean
@@ -6978,7 +6977,7 @@
             return;
           }
           if (active) {
-            if (delay && active.isDelaying) {
+            if (delay && active.isDelaying()) {
               this.showTimer = setTimeout(() => matches(target, ":hover") && this.show(), 10);
               return;
             }
@@ -7000,10 +6999,7 @@
           const hide = () => this.toggleElement(this.$el, false, this.animateOut && animate);
           this.clearTimers();
           this.isDelayedHide = delay;
-          this.isDelaying = getPositionedElements(this.$el).some(
-            (el) => this.tracker.movesTo(el)
-          );
-          if (delay && this.isDelaying) {
+          if (delay && this.isDelaying()) {
             this.hideTimer = setTimeout(this.hide, 50);
           } else if (delay && this.delayHide) {
             this.hideTimer = setTimeout(hide, this.delayHide);
@@ -7016,10 +7012,12 @@
           clearTimeout(this.hideTimer);
           this.showTimer = null;
           this.hideTimer = null;
-          this.isDelaying = false;
         },
         isActive() {
           return active === this;
+        },
+        isDelaying() {
+          return [this.$el, ...$$(".uk-drop", this.$el)].some((el) => this.tracker.movesTo(el));
         },
         position() {
           removeClass(this.$el, "uk-drop-stack");
@@ -7071,11 +7069,6 @@
         }
       }
     };
-    function getPositionedElements(el) {
-      const result = [];
-      apply(el, (el2) => css(el2, "position") !== "static" && result.push(el2));
-      return result;
-    }
     function getViewport$1(el, target) {
       return offsetViewport(overflowParents(target).find((parent2) => parent2.contains(el)));
     }
@@ -7217,7 +7210,7 @@
           delegate: ({ selNavItem }) => selNavItem,
           handler({ current }) {
             const active2 = this.getActive();
-            if (active2 && includes(active2.mode, "hover") && active2.targetEl && !current.contains(active2.targetEl) && !active2.isDelaying) {
+            if (active2 && includes(active2.mode, "hover") && active2.targetEl && !current.contains(active2.targetEl) && !active2.isDelaying()) {
               active2.hide(false);
             }
           }
@@ -8962,20 +8955,20 @@
         cls: String,
         closest: Boolean,
         scroll: Boolean,
-        overflow: Boolean,
+        target: String,
         offset: Number
       },
       data: {
         cls: "uk-active",
         closest: false,
         scroll: false,
-        overflow: true,
+        target: "a[href]",
         offset: 0
       },
       computed: {
-        links: (_, $el) => $$('a[href*="#"]', $el).filter((el) => el.hash && isSameSiteAnchor(el)),
-        elements({ closest: selector }) {
-          return this.links.map((el) => el.closest(selector || "*"));
+        links: ({ target }, $el) => $$(target, $el).filter((el) => isSameSiteAnchor(el)),
+        elements({ closest }) {
+          return this.links.map((el) => el.closest(closest || "*"));
         }
       },
       watch: {
@@ -8989,7 +8982,7 @@
       update: [
         {
           read() {
-            const targets = this.links.map(getTargetedElement).filter(Boolean);
+            const targets = this.links.map((el) => getTargetedElement(el) || el.ownerDocument);
             const { length } = targets;
             if (!length || !isVisible(this.$el)) {
               return false;
@@ -8999,18 +8992,15 @@
             const viewport = offsetViewport(scrollElement);
             const max = scrollHeight - viewport.height;
             let active = false;
-            if (scrollTop === max) {
+            if (scrollTop >= max) {
               active = length - 1;
             } else {
-              const offsetBy = this.offset + offset(getCoveringElement()).height;
+              const offsetBy = this.offset + offset(getCoveringElement()).height + viewport.height * 0.1;
               for (let i = 0; i < targets.length; i++) {
                 if (offset(targets[i]).top - viewport.top - offsetBy > 0) {
                   break;
                 }
                 active = +i;
-              }
-              if (active === false && this.overflow) {
-                active = 0;
               }
             }
             return { active };
