@@ -826,7 +826,6 @@
 - Fix check for selectable Text in Slider drag
 - Fix reactivity in Switcher component
 
-
 ## 3.15.5 (August 24, 2022)
 
 ### Fixed
@@ -2445,7 +2444,6 @@
 - Allow for special characters in URI hash in Scroll Component
 - Height Match also sets a `height` in IE
 - Slideshow sets `min-height` instead of `height`
-
 
 ## 3.0.0 rc 16 (September 12, 2018)
 
