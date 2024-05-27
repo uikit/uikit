@@ -5,6 +5,7 @@
 //
 // Sub-objects:     `uk-lightbox-page`
 //                  `uk-lightbox-items`
+//                  `uk-lightbox-items-fit`
 //                  `uk-lightbox-toolbar`
 //                  `uk-lightbox-toolbar-icon`
 //                  `uk-lightbox-button`
@@ -135,16 +136,18 @@
     color: @lightbox-item-color;
     /* 4 */
     will-change: transform, opacity;
+    /* 5 */
+    overflow: auto;
     .hook-lightbox-item();
 }
 
 /* 5 */
-.uk-lightbox-items > * > * {
+.uk-lightbox-items-fit > * > * {
     max-width: @lightbox-item-max-width;
     max-height: @lightbox-item-max-height;
 }
 
-.uk-lightbox-items > * > :not(iframe) {
+.uk-lightbox-items-fit > * > :not(iframe) {
     width: auto;
     height: auto;
 }
