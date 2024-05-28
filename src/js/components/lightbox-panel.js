@@ -45,7 +45,7 @@ export default {
         velocity: 2,
         Animations,
         template: `<div class="uk-lightbox uk-overflow-hidden">
-                        <ul class="uk-lightbox-items"></ul>
+                        <div class="uk-lightbox-items"></div>
                         <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque">
                             <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button>
                          </div>
@@ -58,7 +58,7 @@ export default {
     created() {
         const $el = $(this.template);
         const list = $(this.selList, $el);
-        this.items.forEach(() => append(list, '<li>'));
+        this.items.forEach(() => append(list, '<div>'));
 
         const close = $('[uk-close]', $el);
         const closeLabel = this.t('close');
@@ -67,10 +67,6 @@ export default {
         }
 
         this.$mount(append(this.container, $el));
-    },
-
-    computed: {
-        caption: ({ selCaption }, $el) => $(selCaption, $el),
     },
 
     events: [
@@ -177,7 +173,7 @@ export default {
             name: 'itemshow',
 
             handler() {
-                html(this.caption, this.getItem().caption || '');
+                html($(this.selCaption, this.$el), this.getItem().caption || '');
 
                 for (let j = -this.preload; j <= this.preload; j++) {
                     this.loadItem(this.index + j);
