@@ -10,6 +10,7 @@ import {
     pointerDown,
     pointerMove,
     removeClass,
+    toggleClass,
     Transition,
     trigger,
 } from 'uikit-util';
@@ -37,6 +38,7 @@ export default {
         items: [],
         cls: 'uk-open',
         clsPage: 'uk-lightbox-page',
+        clsFit: 'uk-lightbox-items-fit',
         selList: '.uk-lightbox-items',
         attrItem: 'uk-lightbox-item',
         selClose: '.uk-close-large',
@@ -60,6 +62,8 @@ export default {
         const list = $(this.selList, $el);
         this.items.forEach(() => append(list, '<div>'));
 
+        addClass(list, this.clsFit);
+
         const close = $('[uk-close]', $el);
         const closeLabel = this.t('close');
         if (close && closeLabel) {
@@ -71,14 +75,6 @@ export default {
 
     events: [
         {
-            name: `${pointerMove} ${pointerDown} keydown`,
-
-            handler() {
-                this.showControls();
-            },
-        },
-
-        {
             name: 'click',
 
             self: true,
@@ -89,6 +85,30 @@ export default {
                 if (!e.defaultPrevented) {
                     this.hide();
                 }
+            },
+        },
+
+        {
+            name: 'click',
+
+            self: true,
+
+            delegate: ({ selList }) => `${selList} > * > :is(img,video)`,
+
+            handler(e) {
+                if (!e.defaultPrevented) {
+                    toggleClass(this.list, this.clsFit);
+                }
+            },
+        },
+
+        {
+            name: `${pointerMove} ${pointerDown} keydown`,
+
+            filter: ({ delayControls }) => delayControls,
+
+            handler() {
+                this.showControls();
             },
         },
 
@@ -210,7 +230,7 @@ export default {
                     allowfullscreen: '',
                     style: 'max-width: 100%; box-sizing: border-box;',
                     'uk-responsive': '',
-                    'uk-video': `${this.videoAutoplay}`,
+                    'uk-video': `${Boolean(this.videoAutoplay)}`,
                 };
 
                 // Image
@@ -224,12 +244,14 @@ export default {
 
                     // Video
                 } else if (type === 'video' || src.match(/\.(mp4|webm|ogv)($|\?)/i)) {
+                    const inline = this.videoAutoplay === 'inline';
                     const video = createEl('video', {
                         src,
                         poster,
-                        controls: '',
+                        controls: inline ? null : '',
+                        muted: inline ? '' : null,
                         playsinline: '',
-                        'uk-video': `${this.videoAutoplay}`,
+                        'uk-video': `${Boolean(this.videoAutoplay)}`,
                         ...attrs,
                     });
 
@@ -326,7 +348,8 @@ export default {
 
         showControls() {
             clearTimeout(this.controlsTimer);
-            this.controlsTimer = setTimeout(this.hideControls, this.delayControls);
+            this.controlsTimer =
+                this.delayControls && setTimeout(this.hideControls, this.delayControls);
 
             addClass(this.$el, 'uk-active', 'uk-transition-active');
         },

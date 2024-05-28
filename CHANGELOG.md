@@ -1,5 +1,16 @@
 # Changelog
 
+## WIP Lightbox
+
+### Added
+
+- Add `video-autoplay: inline` option in Lightbox panel component
+- Add behavior to toggle between original and fitted image/video size in Lightbox component
+
+### Changed
+
+- Setting `delay-controls: 0` prevents hiding controls in Lightbox component
+
 ## 3.21.13 (September 26, 2024)
 
 ### Fixed
