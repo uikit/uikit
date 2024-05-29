@@ -85,7 +85,7 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
                         offset(targetEl).top +
                         (isScrollingElement ? 0 : element.scrollTop) -
                         targetTop -
-                        offset(getCoveringElement(targetEl)).height;
+                        dimensions(getCoveringElement(targetEl)).height;
                 }
 
                 element.scrollTop = scroll + (top + diff) * percent;

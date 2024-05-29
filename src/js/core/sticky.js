@@ -6,6 +6,7 @@ import {
     before,
     clamp,
     css,
+    dimensions,
     height as getHeight,
     offset as getOffset,
     hasClass,
@@ -159,7 +160,7 @@ export default {
                 }
 
                 if (!this.active) {
-                    ({ height, width } = getOffset(this.$el));
+                    ({ height, width } = dimensions(this.$el));
                     margin = css(this.$el, 'margin');
                 }
 
@@ -187,7 +188,7 @@ export default {
 
                 const overflow = this.overflowFlip ? 0 : Math.max(0, height + offset - viewport);
                 const topOffset = getOffset(referenceElement).top;
-                const elHeight = getOffset(this.$el).height;
+                const elHeight = dimensions(this.$el).height;
 
                 const start =
                     (this.start === false

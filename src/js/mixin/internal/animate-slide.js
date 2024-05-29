@@ -2,10 +2,10 @@ import {
     attr,
     children,
     css,
+    dimensions,
     includes,
     index,
     isVisible,
-    offset,
     parent,
     position,
     Transition,
@@ -134,7 +134,7 @@ function resetProps(el, props) {
 }
 
 function getPositionWithMargin(el) {
-    const { height, width } = offset(el);
+    const { height, width } = dimensions(el);
 
     return {
         height,
