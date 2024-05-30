@@ -42,18 +42,18 @@ export default {
         selList: '.uk-lightbox-items',
         attrItem: 'uk-lightbox-item',
         selClose: '.uk-close-large',
+        selNav: '.uk-lightbox-nav',
         selCaption: '.uk-lightbox-caption',
         pauseOnHover: false,
         velocity: 2,
         Animations,
         template: `<div class="uk-lightbox uk-overflow-hidden">
                         <div class="uk-lightbox-items"></div>
-                        <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque">
-                            <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button>
-                         </div>
+                        <button class="uk-lightbox-close uk-close-large uk-position-top-right uk-position-small uk-transition-fade" type="button" uk-close></button>
                         <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href uk-slidenav-previous uk-lightbox-item="previous"></a>
                         <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href uk-slidenav-next uk-lightbox-item="next"></a>
-                        <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
+                        <div class="uk-lightbox-count uk-text-large uk-position-top-left uk-position-small uk-transition-fade"></div>
+                        <div class="uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
                     </div>`,
     }),
 
