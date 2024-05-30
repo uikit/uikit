@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix auto generating navigation in Slider and Slideshow component
+
 ## 3.21.4 (May 24, 2024)
 
 ### Added
