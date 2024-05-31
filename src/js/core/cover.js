@@ -51,10 +51,7 @@ export default {
 
             const { offsetHeight: coverHeight, offsetWidth: coverWidth } =
                 getPositionedParent($el) || parent($el);
-            const coverDim = cover(dim, {
-                width: coverWidth + (coverWidth % 2 ? 1 : 0),
-                height: coverHeight + (coverHeight % 2 ? 1 : 0),
-            });
+            const coverDim = cover(dim, { width: coverWidth, height: coverHeight });
 
             if (!coverDim.width || !coverDim.height) {
                 return false;
