@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix auto generating navigation in Slider and Slideshow component
+- Fix Height Viewport component offset top option
 
 ## 3.21.4 (May 24, 2024)
 

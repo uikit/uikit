@@ -6,7 +6,7 @@ import {
     isNumeric,
     isString,
     isVisible,
-    offsetPosition,
+    offset,
     offsetViewport,
     query,
     scrollParent,
@@ -64,8 +64,7 @@ export default {
                     if (isScrollingElement) {
                         const offsetTopEl =
                             this.offsetTop === true ? this.$el : query(this.offsetTop, this.$el);
-                        const top =
-                            offsetPosition(offsetTopEl)[0] - offsetPosition(scrollElement)[0];
+                        const { top } = offset(offsetTopEl);
                         minHeight += top > 0 && top < viewportHeight / 2 ? ` - ${top}px` : '';
                     } else {
                         minHeight += ` - ${boxModelAdjust(scrollElement, 'height', css(scrollElement, 'boxSizing'))}px`;
