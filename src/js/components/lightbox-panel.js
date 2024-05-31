@@ -1,49 +1,66 @@
 import {
     $,
+    $$,
+    Transition,
     addClass,
     append,
     attr,
     fragment,
     getIndex,
     html,
+    isTag,
     on,
+    pick,
     pointerDown,
     pointerMove,
+    remove,
     removeClass,
     toggleClass,
-    Transition,
     trigger,
 } from 'uikit-util';
+import { wrapInPicture } from '../core/img';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
 import { keyMap } from '../util/keys';
 import Animations from './internal/lightbox-animations';
 
 export default {
+    i18n: {
+        counter: '%s / %s',
+    },
+
     mixins: [Modal, Slideshow],
 
     functional: true,
 
     props: {
-        delayControls: Number,
+        counter: Boolean,
         preload: Number,
+        nav: Boolean,
+        slidenav: Boolean,
+        delayControls: Number,
         videoAutoplay: Boolean,
         template: String,
     },
 
     data: () => ({
+        counter: false,
         preload: 1,
-        videoAutoplay: false,
+        nav: false,
+        slidenav: true,
         delayControls: 3000,
+        videoAutoplay: false,
         items: [],
         cls: 'uk-open',
         clsPage: 'uk-lightbox-page',
         clsFit: 'uk-lightbox-items-fit',
-        selList: '.uk-lightbox-items',
+        clsZoom: 'uk-lightbox-zoom',
         attrItem: 'uk-lightbox-item',
+        selList: '.uk-lightbox-items',
         selClose: '.uk-close-large',
         selNav: '.uk-lightbox-nav',
         selCaption: '.uk-lightbox-caption',
+        selCounter: '.uk-lightbox-count',
         pauseOnHover: false,
         velocity: 2,
         Animations,
@@ -53,15 +70,41 @@ export default {
                         <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href uk-slidenav-previous uk-lightbox-item="previous"></a>
                         <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href uk-slidenav-next uk-lightbox-item="next"></a>
                         <ul class="uk-lightbox-nav uk-position-center-right uk-position-medium uk-thumbnav uk-thumbnav-vertical" uk-inverse uk-toggle="cls: uk-position-center-right uk-position-bottom-center uk-thumbnav-vertical; mode: media; media: @s"></ul>
+                        <ul class="uk-lightbox-nav uk-position-center-right uk-position-medium uk-dotnav uk-dotnav-vertical" uk-inverse uk-toggle="cls: uk-position-center-right uk-position-bottom-center uk-dotnav-vertical; mode: media; media: @s"></ul>
                         <div class="uk-lightbox-count uk-text-large uk-position-top-left uk-position-small uk-transition-fade"></div>
                         <div class="uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
                     </div>`,
     }),
 
     created() {
-        const $el = $(this.template);
+        let $el = $(this.template);
+
+        if (isTag($el, 'template')) {
+            $el = $el.content.firstElementChild?.cloneNode(true);
+        }
+
         const list = $(this.selList, $el);
-        this.items.forEach(() => append(list, '<div>'));
+        const navType = this.$props.nav;
+
+        remove($$(`${this.selNav}:not(.uk-${navType}`, $el));
+
+        for (const [i, item] of this.items.entries()) {
+            append(list, '<div>');
+            if (navType === 'thumbnav') {
+                append(
+                    $(this.selNav, $el),
+                    `<li uk-lightbox-item="${i}"><a href><img src="${item.thumb}" alt></a></li>`,
+                );
+            }
+        }
+
+        if (!this.slidenav) {
+            remove($$('[uk-slidenav-previous],[uk-slidenav-next]', $el));
+        }
+
+        if (!this.counter) {
+            remove($(this.selCounter, $el));
+        }
 
         addClass(list, this.clsFit);
 
@@ -80,6 +123,8 @@ export default {
 
             self: true,
 
+            filter: ({ bgClose }) => bgClose,
+
             delegate: ({ selList }) => `${selList} > *`,
 
             handler(e) {
@@ -94,7 +139,7 @@ export default {
 
             self: true,
 
-            delegate: ({ selList }) => `${selList} > * > :is(img,video)`,
+            delegate: ({ clsZoom }) => `.${clsZoom}`,
 
             handler(e) {
                 if (!e.defaultPrevented) {
@@ -199,6 +244,10 @@ export default {
 
             handler() {
                 html($(this.selCaption, this.$el), this.getItem().caption || '');
+                html(
+                    $(this.selCounter, this.$el),
+                    this.t('counter', this.index + 1, this.slides.length),
+                );
 
                 for (let j = -this.preload; j <= this.preload; j++) {
                     this.loadItem(this.index + j);
@@ -218,7 +267,7 @@ export default {
             name: 'itemload',
 
             async handler(_, item) {
-                const { source: src, type, alt = '', poster, attrs = {} } = item;
+                const { source: src, type, attrs = {} } = item;
 
                 this.setItem(item, '<span uk-spinner></span>');
 
@@ -239,8 +288,16 @@ export default {
                     type === 'image' ||
                     src.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i)
                 ) {
-                    const img = createEl('img', { src, alt, ...attrs });
-                    on(img, 'load', () => this.setItem(item, img));
+                    const img = createEl('img');
+
+                    wrapInPicture(img, item.sources);
+                    attr(img, {
+                        src,
+                        ...pick(item, ['alt', 'srcset', 'sizes']),
+                        ...attrs,
+                    });
+
+                    on(img, 'load', () => this.setItem(item, img.parentElement || img));
                     on(img, 'error', () => this.setError(item));
 
                     // Video
@@ -248,7 +305,7 @@ export default {
                     const inline = this.videoAutoplay === 'inline';
                     const video = createEl('video', {
                         src,
-                        poster,
+                        poster: item.poster,
                         controls: inline ? null : '',
                         muted: inline ? '' : null,
                         playsinline: '',
@@ -320,7 +377,27 @@ export default {
                 }
             },
         },
+        {
+            name: 'itemloaded',
+            handler() {
+                this.$emit('resize');
+            },
+        },
     ],
+
+    update: {
+        read() {
+            for (const media of $$(`${this.selList} :not([controls]):is(img,video)`, this.$el)) {
+                toggleClass(
+                    media,
+                    this.clsZoom,
+                    (media.naturalHeight || media.videoHeight) > this.$el.offsetHeight,
+                );
+            }
+        },
+
+        events: ['resize'],
+    },
 
     methods: {
         loadItem(index = this.index) {

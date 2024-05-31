@@ -1,4 +1,4 @@
-import { $$, assign, attr, data, findIndex, isElement, isTag, on, uniqueBy } from 'uikit-util';
+import { $, $$, assign, attr, findIndex, isElement, isTag, on, uniqueBy } from 'uikit-util';
 import { parseOptions } from '../api/options';
 import LightboxPanel from './lightbox-panel';
 
@@ -74,8 +74,11 @@ function install(UIkit, Lightbox) {
 function toItem(el) {
     const item = {};
 
-    for (const attr of ['href', 'caption', 'type', 'poster', 'alt', 'attrs']) {
-        item[attr === 'href' ? 'source' : attr] = data(el, attr);
+    item.thumb = $('img', el)?.currentSrc;
+
+    for (const attribute of el.getAttributeNames()) {
+        const key = attribute.replace(/^data-/, '');
+        item[key === 'href' ? 'source' : key] = el.getAttribute(attribute);
     }
 
     item.attrs = parseOptions(item.attrs);

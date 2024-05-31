@@ -10,6 +10,7 @@
 //                  `uk-lightbox-button`
 //                  `uk-lightbox-caption`
 //                  `uk-lightbox-iframe`
+//                  `uk-lightbox-zoom`
 //
 // States:          `uk-open`
 //
@@ -163,6 +164,9 @@
     height: auto;
 }
 
+.uk-lightbox-items-fit > * > .uk-lightbox-zoom:hover { cursor: zoom-out; }
+:not(.uk-lightbox-items-fit) > * > .uk-lightbox-zoom:hover { cursor: zoom-in; }
+
 .uk-lightbox-items > .uk-active { display: flex; }
 
 
@@ -232,10 +236,10 @@
 .uk-lightbox-caption > * { color: @lightbox-caption-color; }
 
 
-/* Count
+/* Counter
  ========================================================================== */
 
-.uk-lightbox-count:empty { display: none; }
+.uk-lightbox-counter:empty { display: none; }
 
 
 /* Nav
