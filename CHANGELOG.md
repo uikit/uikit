@@ -6,6 +6,7 @@
 
 - Fix auto generating navigation in Slider and Slideshow component
 - Fix Height Viewport component offset top option
+- Fix keyboard navigation within input elements in Dropnav component dropdowns
 
 ## 3.21.4 (May 24, 2024)
 

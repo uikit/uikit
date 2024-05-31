@@ -9,6 +9,7 @@ import {
     hasClass,
     height,
     includes,
+    isInput,
     isRtl,
     matches,
     noop,
@@ -172,9 +173,9 @@ export default {
             delegate: ({ clsDrop }) => `.${clsDrop}`,
 
             handler(e) {
-                const { current, keyCode } = e;
+                const { current, keyCode, target } = e;
 
-                if (!includes(this.dropdowns, current)) {
+                if (isInput(target) || !includes(this.dropdowns, current)) {
                     return;
                 }
 
