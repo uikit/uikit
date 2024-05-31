@@ -153,7 +153,10 @@
     .hook-lightbox-item();
 }
 
-/* 5 */
+/* 2 */
+.uk-lightbox-items > .uk-active { display: flex; }
+
+/* 4 */
 .uk-lightbox-items-fit > * > * {
     max-width: @lightbox-item-max-width;
     max-height: @lightbox-item-max-height;
@@ -164,10 +167,9 @@
     height: auto;
 }
 
+/* Zoom Cursor */
 .uk-lightbox-items-fit > * > .uk-lightbox-zoom:hover { cursor: zoom-out; }
 :not(.uk-lightbox-items-fit) > * > .uk-lightbox-zoom:hover { cursor: zoom-in; }
-
-.uk-lightbox-items > .uk-active { display: flex; }
 
 
 /* Close
