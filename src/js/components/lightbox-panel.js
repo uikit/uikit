@@ -52,6 +52,7 @@ export default {
                         <button class="uk-lightbox-close uk-close-large uk-position-top-right uk-position-small uk-transition-fade" type="button" uk-close></button>
                         <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href uk-slidenav-previous uk-lightbox-item="previous"></a>
                         <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href uk-slidenav-next uk-lightbox-item="next"></a>
+                        <ul class="uk-lightbox-nav uk-position-center-right uk-position-medium uk-thumbnav uk-thumbnav-vertical" uk-inverse uk-toggle="cls: uk-position-center-right uk-position-bottom-center uk-thumbnav-vertical; mode: media; media: @s"></ul>
                         <div class="uk-lightbox-count uk-text-large uk-position-top-left uk-position-small uk-transition-fade"></div>
                         <div class="uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
                     </div>`,
