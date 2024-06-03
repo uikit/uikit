@@ -3,41 +3,46 @@ import { css, getEventPos, matches, on, once, scrollParents, width } from 'uikit
 let prevented;
 export function preventBackgroundScroll(el) {
     // 'overscroll-behavior: contain' only works consistently if el overflows (Safari)
-    const off = on(el, 'touchstart', (e) => {
-        if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
-            return;
-        }
+    const off = on(
+        el,
+        'touchstart',
+        (e) => {
+            if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
+                return;
+            }
 
-        let prev = getEventPos(e).y;
+            let prev = getEventPos(e).y;
 
-        const offMove = on(
-            el,
-            'touchmove',
-            (e) => {
-                const pos = getEventPos(e).y;
-                if (pos === prev) {
-                    return;
-                }
-                prev = pos;
+            const offMove = on(
+                el,
+                'touchmove',
+                (e) => {
+                    const pos = getEventPos(e).y;
+                    if (pos === prev) {
+                        return;
+                    }
+                    prev = pos;
 
-                if (
-                    !scrollParents(e.target).some((scrollParent) => {
-                        if (!el.contains(scrollParent)) {
-                            return false;
-                        }
+                    if (
+                        !scrollParents(e.target).some((scrollParent) => {
+                            if (!el.contains(scrollParent)) {
+                                return false;
+                            }
 
-                        let { scrollHeight, clientHeight } = scrollParent;
-                        return clientHeight < scrollHeight;
-                    })
-                ) {
-                    e.preventDefault();
-                }
-            },
-            { passive: false },
-        );
+                            let { scrollHeight, clientHeight } = scrollParent;
+                            return clientHeight < scrollHeight;
+                        })
+                    ) {
+                        e.preventDefault();
+                    }
+                },
+                { passive: false },
+            );
 
-        once(el, 'scroll touchend touchcanel', offMove, { capture: true });
-    });
+            once(el, 'scroll touchend touchcanel', offMove, { capture: true });
+        },
+        { passive: true },
+    );
 
     if (prevented) {
         return off;

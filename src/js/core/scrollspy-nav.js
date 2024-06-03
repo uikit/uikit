@@ -1,5 +1,6 @@
 import {
     $$,
+    dimensions,
     getCoveringElement,
     getTargetedElement,
     hasClass,
@@ -69,7 +70,9 @@ export default {
                     active = length - 1;
                 } else {
                     const offsetBy =
-                        this.offset + offset(getCoveringElement()).height + viewport.height * 0.1;
+                        this.offset +
+                        dimensions(getCoveringElement()).height +
+                        viewport.height * 0.1;
 
                     for (let i = 0; i < targets.length; i++) {
                         if (offset(targets[i]).top - viewport.top - offsetBy > 0) {

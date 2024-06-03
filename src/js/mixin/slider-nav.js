@@ -1,11 +1,11 @@
 import {
     $,
     $$,
-    append,
     attr,
     children,
     data,
-    empty,
+    html,
+    isEqual,
     isNumeric,
     isTag,
     matches,
@@ -48,6 +48,7 @@ export default {
     watch: {
         nav(nav, prev) {
             attr(nav, 'role', 'tablist');
+            this.padNavitems();
 
             if (prev) {
                 this.$emit();
@@ -62,6 +63,8 @@ export default {
 
         navChildren(children) {
             attr(children, 'role', 'presentation');
+            this.padNavitems();
+            this.updateNav();
         },
 
         navItems(items) {
@@ -112,16 +115,8 @@ export default {
                     'aria-roledescription': this.nav ? null : 'slide',
                 }),
             );
-        },
 
-        length(length) {
-            const navLength = this.navChildren.length;
-            if (this.nav && length !== navLength) {
-                empty(this.nav);
-                for (let i = 0; i < length; i++) {
-                    append(this.nav, `<li ${this.attrItem}="${i}"><a href></a></li>`);
-                }
-            }
+            this.padNavitems();
         },
     },
 
@@ -233,6 +228,23 @@ export default {
                                 (cmd === 'next' && index >= this.maxIndex)),
                     );
                 }
+            }
+        },
+
+        padNavitems() {
+            if (!this.nav) {
+                return;
+            }
+
+            const children = [];
+            for (let i = 0; i < this.length; i++) {
+                const attr = `${this.attrItem}="${i}"`;
+                children[i] =
+                    this.navChildren.findLast((el) => el.matches(`[${attr}]`)) ||
+                    $(`<li ${attr}><a href></a></li>`);
+            }
+            if (!isEqual(children, this.navChildren)) {
+                html(this.nav, children);
             }
         },
     },
