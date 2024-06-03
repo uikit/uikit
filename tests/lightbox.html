@@ -14,17 +14,34 @@
 
             <h1>Lightbox</h1>
 
-            <h2>Animations</h2>
-
             <div class="uk-margin">
                 <select id="js-animation-switcher" class="uk-select uk-form-width-small" aria-label="Animation switcher">
                     <option value="slide">Slide</option>
                     <option value="fade">Fade</option>
                     <option value="scale">Scale</option>
                 </select>
+                <select id="js-bg-close-switcher" class="uk-select uk-form-width-small" aria-label="Bg close switcher">
+                    <option value="0">Close bg</option>
+                    <option value="1">Don't close bg</option>
+                </select>
+                <select id="js-delay-controls-switcher" class="uk-select uk-form-width-small" aria-label="Delay controls switcher">
+                    <option value="0">Always controls</option>
+                    <option value="3000">Delay controls</option>
+                </select>
+                <select id="js-counter-switcher" class="uk-select uk-form-width-small" aria-label="Counter switcher">
+                    <option value="0">Hide counter</option>
+                    <option value="1">Show Counter</option>
+                </select>
+                <select id="js-nav-switcher" class="uk-select uk-form-width-small" aria-label="Nav switcher">
+                    <option value="">Slidenav</option>
+                    <option value="dotnav">Dotnav</option>
+                    <option value="thumbnav">Thumbnav</option>
+                </select>
             </div>
 
-            <div id="js-lightbox-animation" class="uk-child-width-1-5@m" uk-grid uk-lightbox>
+            <h2>Sizes</h2>
+
+            <div class="uk-child-width-1-5@m" uk-grid uk-lightbox>
                 <div>
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="900x600" data-alt="The value for the image alt attribute">
@@ -504,11 +521,13 @@
 
         <script>
 
-            const {$, attr, on } = UIkit.util;
+            const {attr, $$, on} = UIkit.util;
 
-            on('#js-animation-switcher', 'change', (e) =>
-                attr($('#js-lightbox-animation'), 'animation', e.target.value)
-            );
+            for (const attribute of ['animation', 'bg-close', 'delay-controls', 'counter', 'nav']) {
+                on(`#js-${attribute}-switcher`, 'change', e =>
+                    attr($$('[uk-lightbox]'), attribute, e.target.value)
+                );
+            }
 
             on('#js-lightbox', 'click', (e) => {
                 e.preventDefault();
