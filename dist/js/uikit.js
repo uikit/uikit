@@ -1,4 +1,4 @@
-/*! UIkit 3.21.4 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.5 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1246,9 +1246,7 @@
             const percent = ease(clamp((Date.now() - start) / duration));
             let diff = 0;
             if (parents2[0] === element2 && scroll + top < maxScroll) {
-              diff = offset(targetEl).top + (isScrollingElement ? 0 : element2.scrollTop) - targetTop;
-              const coverEl = getCoveringElement(targetEl);
-              diff -= coverEl ? offset(coverEl).height : 0;
+              diff = offset(targetEl).top + (isScrollingElement ? 0 : element2.scrollTop) - targetTop - dimensions$1(getCoveringElement(targetEl)).height;
             }
             element2.scrollTop = scroll + (top + diff) * percent;
             if (percent === 1 && (prev === diff || !frames--)) {
@@ -1331,15 +1329,19 @@
     function getCoveringElement(target) {
       const { left, width, top } = dimensions$1(target);
       for (const position of top ? [0, top] : [0]) {
+        let coverEl;
         for (const el of toWindow(target).document.elementsFromPoint(left + width / 2, position)) {
           if (!el.contains(target) && // If e.g. Offcanvas is not yet closed
           !hasClass(el, "uk-togglable-leave") && (hasPosition(el, "fixed") && zIndex(
             parents(target).reverse().find(
               (parent2) => !parent2.contains(el) && !hasPosition(parent2, "static")
             )
-          ) < zIndex(el) || hasPosition(el, "sticky") && parent(el).contains(target))) {
-            return el;
+          ) < zIndex(el) || hasPosition(el, "sticky") && parent(el).contains(target)) && (!coverEl || dimensions$1(coverEl).height < dimensions$1(el).height)) {
+            coverEl = el;
           }
+        }
+        if (coverEl) {
+          return coverEl;
         }
       }
     }
@@ -2178,7 +2180,7 @@
       }
     }
     function getPositionWithMargin(el) {
-      const { height, width } = offset(el);
+      const { height, width } = dimensions$1(el);
       return {
         height,
         width,
@@ -2444,34 +2446,39 @@
 
     let prevented;
     function preventBackgroundScroll(el) {
-      const off = on(el, "touchstart", (e) => {
-        if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
-          return;
-        }
-        let prev = getEventPos(e).y;
-        const offMove = on(
-          el,
-          "touchmove",
-          (e2) => {
-            const pos = getEventPos(e2).y;
-            if (pos === prev) {
-              return;
-            }
-            prev = pos;
-            if (!scrollParents(e2.target).some((scrollParent) => {
-              if (!el.contains(scrollParent)) {
-                return false;
+      const off = on(
+        el,
+        "touchstart",
+        (e) => {
+          if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
+            return;
+          }
+          let prev = getEventPos(e).y;
+          const offMove = on(
+            el,
+            "touchmove",
+            (e2) => {
+              const pos = getEventPos(e2).y;
+              if (pos === prev) {
+                return;
               }
-              let { scrollHeight, clientHeight } = scrollParent;
-              return clientHeight < scrollHeight;
-            })) {
-              e2.preventDefault();
-            }
-          },
-          { passive: false }
-        );
-        once(el, "scroll touchend touchcanel", offMove, { capture: true });
-      });
+              prev = pos;
+              if (!scrollParents(e2.target).some((scrollParent) => {
+                if (!el.contains(scrollParent)) {
+                  return false;
+                }
+                let { scrollHeight, clientHeight } = scrollParent;
+                return clientHeight < scrollHeight;
+              })) {
+                e2.preventDefault();
+              }
+            },
+            { passive: false }
+          );
+          once(el, "scroll touchend touchcanel", offMove, { capture: true });
+        },
+        { passive: true }
+      );
       if (prevented) {
         return off;
       }
@@ -3536,7 +3543,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.4";
+    App.version = "3.21.5";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3722,6 +3729,7 @@
       watch: {
         nav(nav, prev) {
           attr(nav, "role", "tablist");
+          this.padNavitems();
           if (prev) {
             this.$emit();
           }
@@ -3733,6 +3741,8 @@
         },
         navChildren(children2) {
           attr(children2, "role", "presentation");
+          this.padNavitems();
+          this.updateNav();
         },
         navItems(items) {
           for (const el of items) {
@@ -3774,15 +3784,7 @@
               "aria-roledescription": this.nav ? null : "slide"
             })
           );
-        },
-        length(length) {
-          const navLength = this.navChildren.length;
-          if (this.nav && length !== navLength) {
-            empty(this.nav);
-            for (let i = 0; i < length; i++) {
-              append(this.nav, `<li ${this.attrItem}="${i}"><a href></a></li>`);
-            }
-          }
+          this.padNavitems();
         }
       },
       connected() {
@@ -3859,6 +3861,19 @@
                 this.finite && (cmd === "previous" && index === 0 || cmd === "next" && index >= this.maxIndex)
               );
             }
+          }
+        },
+        padNavitems() {
+          if (!this.nav) {
+            return;
+          }
+          const children2 = [];
+          for (let i = 0; i < this.length; i++) {
+            const attr2 = `${this.attrItem}="${i}"`;
+            children2[i] = this.navChildren.findLast((el) => el.matches(`[${attr2}]`)) || $(`<li ${attr2}><a href></a></li>`);
+          }
+          if (!isEqual(children2, this.navChildren)) {
+            html(this.nav, children2);
           }
         }
       }
@@ -4118,21 +4133,18 @@
         pauseOnHover: false,
         velocity: 2,
         Animations: Animations$1,
-        template: `<div class="uk-lightbox uk-overflow-hidden"> <ul class="uk-lightbox-items"></ul> <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque"> <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button> </div> <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href uk-slidenav-previous uk-lightbox-item="previous"></a> <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href uk-slidenav-next uk-lightbox-item="next"></a> <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div> </div>`
+        template: `<div class="uk-lightbox uk-overflow-hidden"> <div class="uk-lightbox-items"></div> <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque"> <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button> </div> <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href uk-slidenav-previous uk-lightbox-item="previous"></a> <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href uk-slidenav-next uk-lightbox-item="next"></a> <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div> </div>`
       }),
       created() {
         const $el = $(this.template);
         const list = $(this.selList, $el);
-        this.items.forEach(() => append(list, "<li>"));
+        this.items.forEach(() => append(list, "<div>"));
         const close = $("[uk-close]", $el);
         const closeLabel = this.t("close");
         if (close && closeLabel) {
           close.dataset.i18n = JSON.stringify({ label: closeLabel });
         }
         this.$mount(append(this.container, $el));
-      },
-      computed: {
-        caption: ({ selCaption }, $el) => $(selCaption, $el)
       },
       events: [
         {
@@ -4209,7 +4221,7 @@
         {
           name: "itemshow",
           handler() {
-            html(this.caption, this.getItem().caption || "");
+            html($(this.selCaption, this.$el), this.getItem().caption || "");
             for (let j = -this.preload; j <= this.preload; j++) {
               this.loadItem(this.index + j);
             }
@@ -5218,12 +5230,12 @@
               left = 0;
             }
             if (this.center) {
-              if (left < width / 2 && left + slideWidth + dimensions$1(this.slides[getIndex(+i + 1, this.slides)]).width / 2 > width / 2) {
-                sets.push(+i);
+              if (left < width / 2 && left + slideWidth + dimensions$1(this.slides[getIndex(i + 1, this.slides)]).width / 2 > width / 2) {
+                sets.push(i);
                 left = width / 2 - slideWidth / 2;
               }
             } else if (left === 0) {
-              sets.push(Math.min(+i, this.maxIndex));
+              sets.push(Math.min(i, this.maxIndex));
             }
             left += slideWidth;
           }
@@ -6734,10 +6746,7 @@
             }
           }
           const { offsetHeight: coverHeight, offsetWidth: coverWidth } = getPositionedParent($el) || parent($el);
-          const coverDim = cover(dim, {
-            width: coverWidth + (coverWidth % 2 ? 1 : 0),
-            height: coverHeight + (coverHeight % 2 ? 1 : 0)
-          });
+          const coverDim = cover(dim, { width: coverWidth, height: coverHeight });
           if (!coverDim.width || !coverDim.height) {
             return false;
           }
@@ -7236,8 +7245,8 @@
           delegate: ({ clsDrop }) => `.${clsDrop}`,
           handler(e) {
             var _a;
-            const { current, keyCode } = e;
-            if (!includes(this.dropdowns, current)) {
+            const { current, keyCode, target } = e;
+            if (isInput(target) || !includes(this.dropdowns, current)) {
               return;
             }
             const active2 = this.getActive();
@@ -7750,7 +7759,7 @@
             if (this.offsetTop) {
               if (isScrollingElement) {
                 const offsetTopEl = this.offsetTop === true ? this.$el : query(this.offsetTop, this.$el);
-                const top = offsetPosition(offsetTopEl)[0] - offsetPosition(scrollElement)[0];
+                const { top } = offset(offsetTopEl);
                 minHeight += top > 0 && top < viewportHeight / 2 ? ` - ${top}px` : "";
               } else {
                 minHeight += ` - ${boxModelAdjust(scrollElement, "height", css(scrollElement, "boxSizing"))}px`;
@@ -7800,9 +7809,9 @@
 
     var searchIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\"><circle fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" cx=\"9\" cy=\"9\" r=\"7\"/><path fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" d=\"M14,14 L18,18 L14,14 Z\"/></svg>";
 
-    var searchMedium = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><circle fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" cx=\"10.5\" cy=\"10.5\" r=\"9.5\"/><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"23\" y1=\"23\" x2=\"17\" y2=\"17\"/></svg>";
-
     var searchLarge = "<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\"><circle fill=\"none\" stroke=\"#000\" stroke-width=\"1.8\" cx=\"17.5\" cy=\"17.5\" r=\"16.5\"/><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.8\" x1=\"38\" y1=\"39\" x2=\"29\" y2=\"30\"/></svg>";
+
+    var searchMedium = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><circle fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" cx=\"10.5\" cy=\"10.5\" r=\"9.5\"/><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"23\" y1=\"23\" x2=\"17\" y2=\"17\"/></svg>";
 
     var slidenavNextLarge = "<svg width=\"25\" height=\"40\" viewBox=\"0 0 25 40\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"2\" points=\"4.002,38.547 22.527,20.024 4,1.5\"/></svg>";
 
@@ -8995,7 +9004,7 @@
             if (scrollTop >= max) {
               active = length - 1;
             } else {
-              const offsetBy = this.offset + offset(getCoveringElement()).height + viewport.height * 0.1;
+              const offsetBy = this.offset + dimensions$1(getCoveringElement()).height + viewport.height * 0.1;
               for (let i = 0; i < targets.length; i++) {
                 if (offset(targets[i]).top - viewport.top - offsetBy > 0) {
                   break;
@@ -9113,7 +9122,7 @@
       update: [
         {
           read({ height: height$1, width, margin, sticky }, types) {
-            this.inactive = !this.matchMedia || !isVisible(this.$el);
+            this.inactive = !this.matchMedia || !isVisible(this.$el) || !this.$el.offsetHeight;
             if (this.inactive) {
               return;
             }
@@ -9123,7 +9132,7 @@
               this.hide();
             }
             if (!this.active) {
-              ({ height: height$1, width } = offset(this.$el));
+              ({ height: height$1, width } = dimensions$1(this.$el));
               margin = css(this.$el, "margin");
             }
             if (hide) {
@@ -9146,7 +9155,7 @@
             }
             const overflow = this.overflowFlip ? 0 : Math.max(0, height$1 + offset$1 - viewport2);
             const topOffset = offset(referenceElement).top;
-            const elHeight = offset(this.$el).height;
+            const elHeight = dimensions$1(this.$el).height;
             const start = (this.start === false ? topOffset : parseProp(this.start, this.$el, topOffset)) - offset$1;
             const end = this.end === false ? maxScrollHeight : Math.min(
               maxScrollHeight,
