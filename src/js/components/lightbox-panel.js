@@ -9,6 +9,7 @@ import {
     getIndex,
     html,
     isTag,
+    matches,
     on,
     pick,
     pointerDown,
@@ -86,7 +87,7 @@ export default {
         const list = $(this.selList, $el);
         const navType = this.$props.nav;
 
-        remove($$(`${this.selNav}:not(.uk-${navType}`, $el));
+        remove($$(this.selNav, $el).filter((el) => !matches(el, `.uk-${navType}`)));
 
         for (const [i, item] of this.items.entries()) {
             append(list, '<div>');
