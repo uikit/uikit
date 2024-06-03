@@ -21,8 +21,8 @@
                     <option value="scale">Scale</option>
                 </select>
                 <select id="js-bg-close-switcher" class="uk-select uk-form-width-small" aria-label="Bg close switcher">
-                    <option value="0">Close bg</option>
-                    <option value="1">Don't close bg</option>
+                    <option value="1">Close bg</option>
+                    <option value="0">Don't close bg</option>
                 </select>
                 <select id="js-delay-controls-switcher" class="uk-select uk-form-width-small" aria-label="Delay controls switcher">
                     <option value="3000">Delay controls</option>
@@ -527,7 +527,7 @@
 
             const {attr, $$, on} = UIkit.util;
 
-            for (const attribute of ['animation', 'bg-close', 'delay-controls', 'counter', 'nav']) {
+            for (const attribute of ['animation', 'bg-close', 'delay-controls', 'counter', 'slidenav', 'nav']) {
                 on(`#js-${attribute}-switcher`, 'change', e =>
                     attr($$('[uk-lightbox]'), attribute, e.target.value)
                 );
