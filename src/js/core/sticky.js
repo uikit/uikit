@@ -147,7 +147,7 @@ export default {
     update: [
         {
             read({ height, width, margin, sticky }, types) {
-                this.inactive = !this.matchMedia || !isVisible(this.$el);
+                this.inactive = !this.matchMedia || !isVisible(this.$el) || !this.$el.offsetHeight;
 
                 if (this.inactive) {
                     return;
