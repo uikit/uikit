@@ -522,7 +522,7 @@
 
             const {attr, $$, on} = UIkit.util;
 
-            for (const attribute of ['animation', 'bg-close', 'delay-controls', 'counter', 'slidenav', 'nav']) {
+            for (const attribute of ['animation', 'bg-close', 'delay-controls', 'counter']) {
                 on(`#js-${attribute}-switcher`, 'change', e =>
                     attr($$('[uk-lightbox]'), attribute, e.target.value)
                 );
