@@ -70,15 +70,15 @@ export default {
                         <div class="uk-position-top-right uk-position-small uk-transition-fade" uk-inverse>
                             <button class="uk-lightbox-close uk-close-large" type="button" uk-close></button>
                         </div>
-                        <div class="uk-position-center-left uk-position-medium uk-transition-fade" uk-inverse>
-                            <a class="uk-lightbox-slidenav" href uk-slidenav-previous uk-lightbox-item="previous"></a>
+                        <div class="uk-lightbox-slidenav uk-position-center-left uk-position-medium uk-transition-fade" uk-inverse>
+                            <a href uk-slidenav-previous uk-lightbox-item="previous"></a>
                         </div>
-                        <div class="uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse>
-                            <a class="uk-lightbox-slidenav" href uk-slidenav-next uk-lightbox-item="next"></a>
+                        <div class="uk-lightbox-slidenav uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse>
+                            <a href uk-slidenav-next uk-lightbox-item="next"></a>
                         </div>
-                        <div class="uk-position-center-right uk-position-medium" uk-inverse uk-toggle="cls: uk-position-center-right uk-position-bottom-center; mode: media; media: @s">
-                            <ul class="uk-lightbox-thumbnav uk-thumbnav uk-thumbnav-vertical" uk-toggle="cls: uk-thumbnav-vertical; mode: media; media: @s"></ul>
-                            <ul class="uk-lightbox-dotnav uk-dotnav uk-dotnav-vertical" uk-toggle="cls: uk-dotnav-vertical; mode: media; media: @s"></ul>
+                        <div class="uk-overflow-auto uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse style="max-height: 90vh; overflow: auto;">
+                            <ul class="uk-lightbox-thumbnav uk-thumbnav uk-thumbnav-vertical"></ul>
+                            <ul class="uk-lightbox-dotnav uk-dotnav uk-dotnav-vertical"></ul>
                         </div>
                         <div class="uk-lightbox-counter uk-text-large uk-position-top-left uk-position-small uk-transition-fade" uk-inverse></div>
                         <div class="uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>

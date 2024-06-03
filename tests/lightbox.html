@@ -32,6 +32,11 @@
                     <option value="0">Hide counter</option>
                     <option value="1">Show Counter</option>
                 </select>
+                <select id="js-video-autoplay-switcher" class="uk-select uk-form-width-small" aria-label="Video autoplay switcher">
+                    <option value="0">No video autoplay</option>
+                    <option value="1">Video autoplay</option>
+                    <option value="inline">Video inline (Autoplay, Mute, Loop, No Controls)</option>
+                </select>
             </div>
 
             <h2>Sizes</h2>
@@ -41,7 +46,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="900x600" data-alt="The value for the image alt attribute" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size1.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">900x600</figcaption>
                         </figure>
                     </a>
@@ -51,7 +56,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size2.jpg" caption="700x500" attrs='{"class": "uk-inverse-dark"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size2.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">700x500</figcaption>
                         </figure>
                     </a>
@@ -61,7 +66,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/photo.jpg" caption="1800x1200" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/photo.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">1800x1200</figcaption>
                         </figure>
                     </a>
@@ -71,7 +76,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-v.jpg" caption="1000x2000" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size-v.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">1000x2000</figcaption>
                         </figure>
                     </a>
@@ -81,7 +86,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-h.jpg" caption="2000x500" attrs='{"class": "uk-inverse-dark"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size-h.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">2000x500</figcaption>
                         </figure>
                     </a>
@@ -91,7 +96,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="https://yootheme.com/site/images/media/yootheme-pro.mp4" caption="Video" poster="images/photo.jpg" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="400" height="267" class="uk-object-cover" style="aspect-ratio: 400 / 267;" playsinline loop uk-video="automute: true"></video>
                             <figcaption class="uk-margin-small-top">Video</figcaption>
                         </figure>
                     </a>
@@ -136,7 +141,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="900x600" data-alt="The value for the image alt attribute" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size1.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">900x600</figcaption>
                         </figure>
                     </a>
@@ -146,7 +151,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size2.jpg" caption="700x500" attrs='{"class": "uk-inverse-dark"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size2.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">700x500</figcaption>
                         </figure>
                     </a>
@@ -156,7 +161,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/photo.jpg" caption="1800x1200" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/photo.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">1800x1200</figcaption>
                         </figure>
                     </a>
@@ -166,7 +171,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-v.jpg" caption="1000x2000" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size-v.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">1000x2000</figcaption>
                         </figure>
                     </a>
@@ -176,7 +181,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-h.jpg" caption="2000x500" attrs='{"class": "uk-inverse-dark"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size-h.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">2000x500</figcaption>
                         </figure>
                     </a>
@@ -186,7 +191,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="https://yootheme.com/site/images/media/yootheme-pro.mp4" caption="Video" poster="images/photo.jpg" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="400" height="267" class="uk-object-cover" style="aspect-ratio: 400 / 267;" playsinline loop uk-video="automute: true"></video>
                             <figcaption class="uk-margin-small-top">Video</figcaption>
                         </figure>
                     </a>
@@ -231,7 +236,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="900x600" data-alt="The value for the image alt attribute" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size1.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">900x600</figcaption>
                         </figure>
                     </a>
@@ -241,7 +246,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size2.jpg" caption="700x500" attrs='{"class": "uk-inverse-dark"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size2.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">700x500</figcaption>
                         </figure>
                     </a>
@@ -251,7 +256,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/photo.jpg" caption="1800x1200" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/photo.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">1800x1200</figcaption>
                         </figure>
                     </a>
@@ -261,7 +266,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-v.jpg" caption="1000x2000" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size-v.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">1000x2000</figcaption>
                         </figure>
                     </a>
@@ -271,7 +276,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-h.jpg" caption="2000x500" attrs='{"class": "uk-inverse-dark"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size-h.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">2000x500</figcaption>
                         </figure>
                     </a>
@@ -281,7 +286,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="https://yootheme.com/site/images/media/yootheme-pro.mp4" caption="Video" poster="images/photo.jpg" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="400" height="267" class="uk-object-cover" style="aspect-ratio: 400 / 267;" playsinline loop uk-video="automute: true"></video>
                             <figcaption class="uk-margin-small-top">Video</figcaption>
                         </figure>
                     </a>
@@ -342,7 +347,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="900x600" data-alt="The value for the image alt attribute" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size1.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">900x600</figcaption>
                         </figure>
                     </a>
@@ -352,7 +357,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size2.jpg" caption="700x500" attrs='{"class": "uk-inverse-dark"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size2.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">700x500</figcaption>
                         </figure>
                     </a>
@@ -362,7 +367,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/photo.jpg" caption="1800x1200" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/photo.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">1800x1200</figcaption>
                         </figure>
                     </a>
@@ -372,7 +377,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-v.jpg" caption="1000x2000" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size-v.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">1000x2000</figcaption>
                         </figure>
                     </a>
@@ -382,7 +387,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-h.jpg" caption="2000x500" attrs='{"class": "uk-inverse-dark"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <img src="images/size-h.jpg" width="400" height="267" alt="" class="uk-object-cover" style="aspect-ratio: 400 / 267;">
                             <figcaption class="uk-margin-small-top">2000x500</figcaption>
                         </figure>
                     </a>
@@ -392,7 +397,7 @@
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="https://yootheme.com/site/images/media/yootheme-pro.mp4" caption="Video" poster="images/photo.jpg" attrs='{"class": "uk-inverse-light"}'>
                         <figure>
-                            <img src="images/photo.jpg" width="400" height="267" alt="">
+                            <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="400" height="267" class="uk-object-cover" style="aspect-ratio: 400 / 267;" playsinline loop uk-video="automute: true"></video>
                             <figcaption class="uk-margin-small-top">Video</figcaption>
                         </figure>
                     </a>
@@ -625,7 +630,7 @@
 
             const {attr, $$, on} = UIkit.util;
 
-            for (const attribute of ['animation', 'bg-close', 'delay-controls', 'counter']) {
+            for (const attribute of ['animation', 'bg-close', 'delay-controls', 'counter', 'video-autoplay']) {
                 on(`#js-${attribute}-switcher`, 'change', e =>
                     attr($$('[uk-lightbox]'), attribute, e.target.value)
                 );

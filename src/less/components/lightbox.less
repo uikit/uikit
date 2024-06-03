@@ -28,6 +28,9 @@
 @lightbox-item-max-width:                       100vw;
 @lightbox-item-max-height:                      100vh;
 
+@lightbox-thumbnav-item-width:                  100px;
+@lightbox-thumbnav-item-height:                 67px;
+
 @lightbox-caption-padding-vertical:             10px;
 @lightbox-caption-padding-horizontal:           10px;
 @lightbox-caption-background:                   rgba(0,0,0,0.3);
@@ -162,9 +165,10 @@
 /* Navs
  ========================================================================== */
 
-.uk-lightbox-thumbnav {
-    width: 100px;
-
+.uk-lightbox-thumbnav :where(img, video) {
+    width: @lightbox-thumbnav-item-width;
+    height: @lightbox-thumbnav-item-height;
+    object-fit: cover;
 }
 
 .uk-lightbox-thumbnav:empty
