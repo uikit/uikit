@@ -32,15 +32,6 @@
                     <option value="0">Hide counter</option>
                     <option value="1">Show Counter</option>
                 </select>
-                <select id="js-slidenav-switcher" class="uk-select uk-form-width-small" aria-label="Slidenav switcher">
-                    <option value="1">Slidenav</option>
-                    <option value="0">Hide Slidenav</option>
-                </select>
-                <select id="js-nav-switcher" class="uk-select uk-form-width-small" aria-label="Nav switcher">
-                    <option value="">Hide Nav</option>
-                    <option value="dotnav">Dotnav</option>
-                    <option value="thumbnav">Thumbnav</option>
-                </select>
             </div>
 
             <h2>Sizes</h2>
@@ -266,19 +257,23 @@
 
             </div>
 
-            <h2>Template + Dotnav</h2>
+            <h2>Template</h2>
 
-            <template id="js-lightbox-dotnav">
+            <template id="js-lightbox-template">
                 <div class="uk-lightbox uk-overflow-hidden">
                     <div class="uk-lightbox-items"></div>
-                    <button class="uk-lightbox-close uk-close-large uk-position-top-right uk-position-small uk-transition-fade" type="button" uk-close></button>
-                    <ul class="uk-lightbox-nav uk-position-center-right uk-position-medium uk-dotnav uk-dotnav-vertical" uk-inverse uk-toggle="cls: uk-position-center-right uk-position-bottom-center uk-thumbnav-vertical; mode: media; media: @s"></ul>
-                    <div class="uk-lightbox-count uk-text-large uk-position-top-left uk-position-small uk-transition-fade"></div>
-                    <div class="uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
+                    <button class="uk-lightbox-close uk-close-large uk-position-top-right uk-position-medium uk-transition-fade" type="button" uk-close uk-inverse></button>
+                    <div class="uk-position-bottom uk-position-medium uk-text-center uk-transition-fade" uk-inverse>
+                        <div class="uk-grid-small uk-width-auto uk-flex-inline uk-flex-middle" uk-grid>
+                            <div><a class="uk-lightbox-slidenav" href uk-slidenav-previous uk-lightbox-item="previous"></a></div>
+                            <div><div class="uk-lightbox-counter"></div></div>
+                            <div><a class="uk-lightbox-slidenav" href uk-slidenav-next uk-lightbox-item="next"></a></div>
+                        </div>
+                    </div>
                 </div>
             </template>
 
-            <div class="uk-child-width-1-5@m" uk-grid uk-lightbox="nav: true; template: #js-lightbox-dotnav">
+            <div class="uk-child-width-1-5@m" uk-grid uk-lightbox="counter: true; template: #js-lightbox-template">
                 <div>
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="Image">
