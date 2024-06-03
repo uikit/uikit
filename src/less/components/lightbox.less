@@ -6,8 +6,6 @@
 // Sub-objects:     `uk-lightbox-page`
 //                  `uk-lightbox-items`
 //                  `uk-lightbox-items-fit`
-//                  `uk-lightbox-close`
-//                  `uk-lightbox-button`
 //                  `uk-lightbox-caption`
 //                  `uk-lightbox-iframe`
 //                  `uk-lightbox-zoom`
@@ -29,17 +27,6 @@
 
 @lightbox-item-max-width:                       100vw;
 @lightbox-item-max-height:                      100vh;
-
-@lightbox-close-padding:                        5px;
-@lightbox-close-color:                          rgba(255,255,255,0.7);
-
-@lightbox-close-hover-color:                    #fff;
-
-@lightbox-button-size:                          50px;
-@lightbox-button-background:                    rgba(0,0,0,0.3);
-@lightbox-button-color:                         rgba(255,255,255,0.7);
-
-@lightbox-button-hover-color:                   #fff;
 
 @lightbox-caption-padding-vertical:             10px;
 @lightbox-caption-padding-horizontal:           10px;
@@ -172,57 +159,6 @@
 .uk-lightbox-items:not(.uk-lightbox-items-fit) .uk-lightbox-zoom:hover { cursor: zoom-in; }
 
 
-/* Close
- ========================================================================== */
-
-.uk-lightbox-close {
-    padding: @lightbox-close-padding;
-    color: @lightbox-close-color;
-    .hook-lightbox-close();
-}
-
-/*
- * Hover
- */
-
-.uk-lightbox-close:hover {
-    color: @lightbox-close-hover-color;
-    .hook-lightbox-close-hover();
-}
-
-
-/* Button (Slidenav)
- ========================================================================== */
-
-/*
- * 1. Center icon vertically and horizontally
- */
-
-.uk-lightbox-button {
-    box-sizing: border-box;
-    width: @lightbox-button-size;
-    height: @lightbox-button-size;
-    background: @lightbox-button-background;
-    color: @lightbox-button-color;
-    /* 1 */
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    .hook-lightbox-button();
-}
-
-/* Hover */
-.uk-lightbox-button:hover {
-    color: @lightbox-button-hover-color;
-    .hook-lightbox-button-hover();
-}
-
-/* OnClick */
-.uk-lightbox-button:active {
-    .hook-lightbox-button-active();
-}
-
-
 /* Caption
  ========================================================================== */
 
@@ -266,10 +202,5 @@
 
 .hook-lightbox() {}
 .hook-lightbox-item() {}
-.hook-lightbox-close() {}
-.hook-lightbox-close-hover() {}
-.hook-lightbox-button() {}
-.hook-lightbox-button-hover() {}
-.hook-lightbox-button-active() {}
 .hook-lightbox-caption() {}
 .hook-lightbox-misc() {}
