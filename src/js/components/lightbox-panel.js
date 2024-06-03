@@ -67,11 +67,19 @@ export default {
         Animations,
         template: `<div class="uk-lightbox uk-overflow-hidden">
                         <div class="uk-lightbox-items"></div>
-                        <button class="uk-lightbox-close uk-close-large uk-position-top-right uk-position-small uk-transition-fade" type="button" uk-close uk-inverse></button>
-                        <a class="uk-lightbox-slidenav uk-slidenav-large uk-position-center-left uk-position-medium uk-transition-fade" href uk-slidenav-previous uk-lightbox-item="previous" uk-inverse></a>
-                        <a class="uk-lightbox-slidenav uk-slidenav-large uk-position-center-right uk-position-medium uk-transition-fade" href uk-slidenav-next uk-lightbox-item="next" uk-inverse></a>
-                        <ul class="uk-lightbox-thumbnav uk-position-center-right uk-position-medium uk-thumbnav uk-thumbnav-vertical" uk-inverse uk-toggle="cls: uk-position-center-right uk-position-bottom-center uk-thumbnav-vertical; mode: media; media: @s"></ul>
-                        <ul class="uk-lightbox-dotnav uk-position-center-right uk-position-medium uk-dotnav uk-dotnav-vertical" uk-inverse uk-toggle="cls: uk-position-center-right uk-position-bottom-center uk-dotnav-vertical; mode: media; media: @s"></ul>
+                        <div class="uk-position-top-right uk-position-small uk-transition-fade" uk-inverse>
+                            <button class="uk-lightbox-close uk-close-large" type="button" uk-close></button>
+                        </div>
+                        <div class="uk-position-center-left uk-position-medium uk-transition-fade" uk-inverse>
+                            <a class="uk-lightbox-slidenav uk-slidenav-large" href uk-slidenav-previous uk-lightbox-item="previous"></a>
+                        </div>
+                        <div class="uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse>
+                            <a class="uk-lightbox-slidenav uk-slidenav-large" href uk-slidenav-next uk-lightbox-item="next"></a>
+                        </div>
+                        <div class="uk-position-center-right uk-position-medium" uk-inverse uk-toggle="cls: uk-position-center-right uk-position-bottom-center; mode: media; media: @s">
+                            <ul class="uk-lightbox-thumbnav uk-thumbnav uk-thumbnav-vertical" uk-toggle="cls: uk-thumbnav-vertical; mode: media; media: @s"></ul>
+                            <ul class="uk-lightbox-dotnav uk-dotnav uk-dotnav-vertical" uk-toggle="cls: uk-dotnav-vertical; mode: media; media: @s"></ul>
+                        </div>
                         <div class="uk-lightbox-counter uk-text-large uk-position-top-left uk-position-small uk-transition-fade" uk-inverse></div>
                         <div class="uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
                     </div>`,

@@ -324,7 +324,9 @@
             <template id="js-lightbox-template">
                 <div class="uk-lightbox uk-overflow-hidden">
                     <div class="uk-lightbox-items"></div>
-                    <button class="uk-lightbox-close uk-close-large uk-position-top-right uk-position-medium uk-transition-fade" type="button" uk-close uk-inverse></button>
+                    <div class="uk-position-top-right uk-position-small uk-transition-fade" uk-inverse>
+                        <button class="uk-lightbox-close uk-close-large" type="button" uk-close></button>
+                    </div>
                     <div class="uk-position-bottom uk-position-medium uk-text-center uk-transition-fade" uk-inverse>
                         <div class="uk-grid-small uk-width-auto uk-flex-inline uk-flex-middle" uk-grid>
                             <div><a class="uk-lightbox-slidenav" href uk-slidenav-previous uk-lightbox-item="previous"></a></div>
