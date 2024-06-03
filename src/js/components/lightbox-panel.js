@@ -400,7 +400,11 @@ export default {
                 toggleClass(
                     media,
                     this.clsZoom,
-                    (media.naturalHeight || media.videoHeight) > this.$el.offsetHeight,
+                    (media.naturalHeight || media.videoHeight) - this.$el.offsetHeight >
+                        Math.max(
+                            0,
+                            (media.naturalWidth || media.videoWidth) - this.$el.offsetWidth,
+                        ),
                 );
             }
         },
