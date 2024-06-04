@@ -90,7 +90,7 @@ export default {
         let $el = $(this.template);
 
         if (isTag($el, 'template')) {
-            $el = $el.content.firstElementChild?.cloneNode(true);
+            $el = fragment(html($el));
         }
 
         const list = $(this.selList, $el);
