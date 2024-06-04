@@ -102,7 +102,7 @@ export default {
             if (navType === 'thumbnav') {
                 append(
                     $(this.selNav, $el),
-                    `<li uk-lightbox-item="${i}"><a href><img src="${item.thumb}" alt></a></li>`,
+                    `<li uk-lightbox-item="${i}"><a href>${toThumbnavItem(item, this.videoAutoplay)}</a></li>`,
                 );
             }
         }
@@ -242,7 +242,7 @@ export default {
 
                 this.toggleElement(this.$el, true, false);
 
-                this.animation = Animations['scale'];
+                this.animation = Animations.scale;
                 removeClass(e.target, this.clsActive);
                 this.stack.splice(1, 0, this.index);
             },
@@ -293,10 +293,7 @@ export default {
                 };
 
                 // Image
-                if (
-                    type === 'image' ||
-                    src.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i)
-                ) {
+                if (type === 'image' || isImage(src)) {
                     const img = createEl('img');
 
                     wrapInPicture(img, item.sources);
@@ -310,13 +307,13 @@ export default {
                     on(img, 'error', () => this.setError(item));
 
                     // Video
-                } else if (type === 'video' || src.match(/\.(mp4|webm|ogv)($|\?)/i)) {
+                } else if (type === 'video' || isVideo(src)) {
                     const inline = this.videoAutoplay === 'inline';
                     const video = createEl('video', {
                         src,
-                        poster: item.poster,
-                        controls: inline ? null : '',
                         playsinline: '',
+                        controls: inline ? null : '',
+                        poster: this.videoAutoplay ? null : item.poster,
                         'uk-video': inline ? 'automute: true' : Boolean(this.videoAutoplay),
                         ...attrs,
                     });
@@ -454,4 +451,20 @@ function createEl(tag, attrs) {
     const el = fragment(`<${tag}>`);
     attr(el, attrs);
     return el;
+}
+
+function toThumbnavItem(item, videoAutoplay) {
+    return isImage(item.poster || item.thumb)
+        ? `<img src="${item.poster || item.thumb}" alt>`
+        : isVideo(item.thumb)
+          ? `<video src="${item.thumb}" loop playsinline uk-video="autoplay: ${Boolean(videoAutoplay)}; automute: true">`
+          : `<canvas></canvas>`;
+}
+
+function isImage(src) {
+    return src?.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i);
+}
+
+function isVideo(src) {
+    return src?.match(/\.(mp4|webm|ogv)($|\?)/i);
 }

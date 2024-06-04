@@ -74,7 +74,10 @@ function install(UIkit, Lightbox) {
 function toItem(el) {
     const item = {};
 
-    item.thumb = $('img', el)?.currentSrc;
+    const media = $('img,video', el);
+    if (media) {
+        item.thumb = media.currentSrc || media.poster || media.src;
+    }
 
     for (const attribute of el.getAttributeNames()) {
         const key = attribute.replace(/^data-/, '');
