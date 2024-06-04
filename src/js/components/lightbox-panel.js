@@ -18,6 +18,7 @@ import {
     removeClass,
     toggleClass,
     trigger,
+    wrapAll,
 } from 'uikit-util';
 import { wrapInPicture } from '../core/img';
 import Modal from '../mixin/modal';
@@ -100,9 +101,9 @@ export default {
         for (const [i, item] of this.items.entries()) {
             append(list, '<div>');
             if (navType === 'thumbnav') {
-                append(
-                    $(this.selNav, $el),
-                    `<li uk-lightbox-item="${i}"><a href>${toThumbnavItem(item, this.videoAutoplay)}</a></li>`,
+                wrapAll(
+                    toThumbnavItem(item, this.videoAutoplay),
+                    append($(this.selNav, $el), `<li uk-lightbox-item="${i}"><a href></a></li>`),
                 );
             }
         }
@@ -454,11 +455,16 @@ function createEl(tag, attrs) {
 }
 
 function toThumbnavItem(item, videoAutoplay) {
-    return isImage(item.poster || item.thumb)
-        ? `<img src="${item.poster || item.thumb}" alt>`
-        : isVideo(item.thumb)
-          ? `<video src="${item.thumb}" loop playsinline uk-video="autoplay: ${Boolean(videoAutoplay)}; automute: true">`
-          : `<canvas></canvas>`;
+    return item.poster || (item.thumb && (item.type === 'image' || isImage(item.thumb)))
+        ? createEl('img', { src: item.poster || item.thumb, alt: '' })
+        : item.thumb && (item.type === 'video' || isVideo(item.thumb))
+          ? createEl('video', {
+                src: item.thumb,
+                loop: '',
+                playsinline: '',
+                'uk-video': `autoplay: ${Boolean(videoAutoplay)}; automute: true`,
+            })
+          : createEl('canvas');
 }
 
 function isImage(src) {
