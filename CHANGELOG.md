@@ -4,13 +4,18 @@
 
 ### Added
 
-- Add `video-autoplay: inline` option in Lightbox panel component
-- Add behavior to toggle between original and fitted image/video size in Lightbox component
+- Add `slidnav` option to disable slidenav to Lightbox component
+- Add `nav` option to show a vertical thumbnav or dotnav to Lightbox component
+- Add `counter` option to show counter with the current item number and the total number of items to Lightbox component
+- Add `video-autoplay: inline` option to autoplay video without controls and muted to Lightbox component
+- Add zoom behavior to images and inline videos if they are higher than the viewport to Lightbox component
+- Allow `template` option to reference a `template` element in the DOM for the lighbox layout in Lightbox component
 
 ### Changed
 
 - IMPORTANT: Remove `@lightbox-toolbar-*` and `@lightbox-button-*`from Lightbox component
 - Setting `delay-controls: 0` prevents hiding controls in Lightbox component
+- Updated default lighbox template in Lightbox component
 
 ## 3.21.13 (September 26, 2024)
 
