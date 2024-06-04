@@ -76,8 +76,8 @@ export default {
                         <div class="uk-lightbox-slidenav uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse>
                             <a href uk-slidenav-next uk-lightbox-item="next"></a>
                         </div>
-                        <div class="uk-overflow-auto uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse style="max-height: 90vh; overflow: auto;">
-                            <ul class="uk-lightbox-thumbnav uk-thumbnav uk-thumbnav-vertical"></ul>
+                        <div class="uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse style="max-height: 90vh; overflow: auto;">
+                            <ul class="uk-lightbox-thumbnav uk-lightbox-thumbnav-vertical uk-thumbnav uk-thumbnav-vertical"></ul>
                             <ul class="uk-lightbox-dotnav uk-dotnav uk-dotnav-vertical"></ul>
                         </div>
                         <div class="uk-lightbox-counter uk-text-large uk-position-top-left uk-position-small uk-transition-fade" uk-inverse></div>

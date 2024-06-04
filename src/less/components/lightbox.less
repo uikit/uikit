@@ -28,8 +28,8 @@
 @lightbox-item-max-width:                       100vw;
 @lightbox-item-max-height:                      100vh;
 
-@lightbox-thumbnav-item-width:                  100px;
-@lightbox-thumbnav-item-height:                 67px;
+@lightbox-thumbnav-vertical-width:              100px;
+@lightbox-thumbnav-height:                      100px;
 
 @lightbox-caption-padding-vertical:             10px;
 @lightbox-caption-padding-horizontal:           10px;
@@ -165,11 +165,8 @@
 /* Navs
  ========================================================================== */
 
-.uk-lightbox-thumbnav :where(img, video) {
-    width: @lightbox-thumbnav-item-width;
-    height: @lightbox-thumbnav-item-height;
-    object-fit: cover;
-}
+.uk-lightbox-thumbnav-vertical :where(img, video) { max-width: @lightbox-thumbnav-vertical-width; }
+.uk-lightbox-thumbnav:not(.uk-lightbox-thumbnav-vertical) :where(img, video) { max-height: @lightbox-thumbnav-height; }
 
 .uk-lightbox-thumbnav:empty
 .uk-lightbox-dotnav:empty { display: none; }
