@@ -154,8 +154,6 @@ export default {
                     return;
                 }
 
-                console.log(this._uid, types, width);
-
                 const hide = this.isFixed && types.has('update');
                 if (hide) {
                     preventTransition(this.target);
