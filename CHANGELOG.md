@@ -6,6 +6,7 @@
 
 - Fix Sticky component not resizing correctly if parent element has `display: contents`
 - Fix Scrollspy Nav component to ignore anchor elements with `role="button"`
+- Fix Drop component causes scroll position to jump when overflowing its scroll container
 
 ## 3.21.5 (June 3, 2024)
 

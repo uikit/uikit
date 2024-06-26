@@ -29,7 +29,7 @@ import {
     removeClass,
 } from 'uikit-util';
 import Container from '../mixin/container';
-import Position from '../mixin/position';
+import Position, { storeScrollPosition } from '../mixin/position';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
 import { preventBackgroundScroll } from '../util/scroll';
@@ -375,6 +375,8 @@ export default {
         },
 
         position() {
+            const restoreScrollPosition = storeScrollPosition(this.$el);
+
             removeClass(this.$el, 'uk-drop-stack');
             css(this.$el, this._style);
 
@@ -439,6 +441,8 @@ export default {
                     this.positionAt(this.$el, this.target, this.boundary);
                 }
             }
+
+            restoreScrollPosition();
         },
     },
 };

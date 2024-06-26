@@ -95,7 +95,7 @@ export default {
     },
 };
 
-function storeScrollPosition(element) {
+export function storeScrollPosition(element) {
     const scrollElement = scrollParent(element);
     const { scrollTop } = scrollElement;
 
