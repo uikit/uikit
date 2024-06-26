@@ -27,7 +27,7 @@ export default {
         cls: 'uk-active',
         closest: false,
         scroll: false,
-        target: 'a[href]',
+        target: 'a[href]:not([role="button"])',
         offset: 0,
     },
 

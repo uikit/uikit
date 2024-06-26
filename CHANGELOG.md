@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Sticky component not resizing correctly if parent element has `display: contents`
+- Fix Scrollspy Nav component to ignore anchor elements with `role="button"`
 
 ## 3.21.5 (June 3, 2024)
 
