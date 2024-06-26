@@ -38,7 +38,7 @@ storage[keyinverse] = storage[keyinverse] || '';
 const dir = storage._uikit_dir || 'ltr';
 
 // set dir
-document.documentElement.dir = dir;
+document.dir = dir;
 
 const style = styles[storage[key]] || styles.theme;
 
