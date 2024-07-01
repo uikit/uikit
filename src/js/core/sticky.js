@@ -100,10 +100,11 @@ export default {
         viewport(),
         scroll({ target: () => document.scrollingElement }),
         resize({
-            target: ({ $el }) => [$el, parent($el), document.scrollingElement],
+            target: ({ $el }) => [$el, getVisibleParent($el), document.scrollingElement],
             handler(entries) {
                 this.$emit(
-                    this._data.resized && entries.some(({ target }) => target === parent(this.$el))
+                    this._data.resized &&
+                        entries.some(({ target }) => target === getVisibleParent(this.$el))
                         ? 'update'
                         : 'resize',
                 );
@@ -214,7 +215,7 @@ export default {
                             maxScrollHeight,
                             parseProp(true, this.$el, 0, true) - elHeight - offset + overflow,
                         ) &&
-                    css(parent(this.$el), 'overflowY') === 'visible';
+                    css(getVisibleParent(this.$el), 'overflowY') === 'visible';
 
                 return {
                     start,
@@ -456,7 +457,7 @@ function parseProp(value, el, propOffset, padding) {
     if (isNumeric(value) || (isString(value) && value.match(/^-?\d/))) {
         return propOffset + toPx(value, 'height', el, true);
     } else {
-        const refElement = value === true ? parent(el) : query(value, el);
+        const refElement = value === true ? getVisibleParent(el) : query(value, el);
         return (
             getOffset(refElement).bottom -
             (padding && refElement?.contains(el) ? toFloat(css(refElement, 'paddingBottom')) : 0)
@@ -482,5 +483,13 @@ function preventTransition(element) {
     if (!hasClass(element, clsTransitionDisable)) {
         addClass(element, clsTransitionDisable);
         requestAnimationFrame(() => removeClass(element, clsTransitionDisable));
+    }
+}
+
+function getVisibleParent(element) {
+    while ((element = parent(element))) {
+        if (isVisible(element)) {
+            return element;
+        }
     }
 }

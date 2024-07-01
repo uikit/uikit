@@ -1,6 +1,6 @@
 import { isTag } from './dom';
 import { once } from './event';
-import { includes } from './lang';
+import { includes, noop } from './lang';
 
 export function play(el) {
     if (isIFrame(el)) {
@@ -8,7 +8,7 @@ export function play(el) {
     }
 
     if (isHTML5(el)) {
-        el.play();
+        el.play().catch(noop);
     }
 }
 

@@ -1,4 +1,4 @@
-/*! UIkit 3.21.5 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.6 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -807,9 +807,8 @@
       fn(node);
       node = node.firstElementChild;
       while (node) {
-        const next = node.nextElementSibling;
         apply(node, fn);
-        node = next;
+        node = node.nextElementSibling;
       }
     }
     function $(selector, context) {
@@ -1122,7 +1121,7 @@
         call(el, { func: "playVideo", method: "play" });
       }
       if (isHTML5(el)) {
-        el.play();
+        el.play().catch(noop);
       }
     }
     function pause(el) {
@@ -3543,7 +3542,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.5";
+    App.version = "3.21.6";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4542,7 +4541,12 @@
     }
 
     function getMaxPathLength(el) {
-      return isVisible(el) ? Math.ceil(Math.max(0, ...$$("[stroke]", el).map((stroke) => stroke.getTotalLength()))) : 0;
+      return isVisible(el) ? Math.ceil(
+        Math.max(0, ...$$("[stroke]", el).map((stroke) => {
+          var _a;
+          return ((_a = stroke.getTotalLength) == null ? void 0 : _a.call(stroke)) || 0;
+        }))
+      ) : 0;
     }
 
     const props = {
@@ -7029,6 +7033,7 @@
           return [this.$el, ...$$(".uk-drop", this.$el)].some((el) => this.tracker.movesTo(el));
         },
         position() {
+          const restoreScrollPosition = storeScrollPosition(this.$el);
           removeClass(this.$el, "uk-drop-stack");
           css(this.$el, this._style);
           this.$el.hidden = true;
@@ -7075,6 +7080,7 @@
               this.positionAt(this.$el, this.target, this.boundary);
             }
           }
+          restoreScrollPosition();
         }
       }
     };
@@ -8971,7 +8977,7 @@
         cls: "uk-active",
         closest: false,
         scroll: false,
-        target: "a[href]",
+        target: 'a[href]:not([role="button"])',
         offset: 0
       },
       computed: {
@@ -9088,10 +9094,10 @@
         viewport(),
         scroll$1({ target: () => document.scrollingElement }),
         resize({
-          target: ({ $el }) => [$el, parent($el), document.scrollingElement],
+          target: ({ $el }) => [$el, getVisibleParent($el), document.scrollingElement],
           handler(entries) {
             this.$emit(
-              this._data.resized && entries.some(({ target }) => target === parent(this.$el)) ? "update" : "resize"
+              this._data.resized && entries.some(({ target }) => target === getVisibleParent(this.$el)) ? "update" : "resize"
             );
             this._data.resized = true;
           }
@@ -9164,7 +9170,7 @@
             sticky = maxScrollHeight && !this.showOnUp && start + offset$1 === topOffset && end === Math.min(
               maxScrollHeight,
               parseProp(true, this.$el, 0, true) - elHeight - offset$1 + overflow
-            ) && css(parent(this.$el), "overflowY") === "visible";
+            ) && css(getVisibleParent(this.$el), "overflowY") === "visible";
             return {
               start,
               end,
@@ -9355,7 +9361,7 @@
       if (isNumeric(value) || isString(value) && value.match(/^-?\d/)) {
         return propOffset + toPx(value, "height", el, true);
       } else {
-        const refElement = value === true ? parent(el) : query(value, el);
+        const refElement = value === true ? getVisibleParent(el) : query(value, el);
         return offset(refElement).bottom - (padding && (refElement == null ? void 0 : refElement.contains(el)) ? toFloat(css(refElement, "paddingBottom")) : 0);
       }
     }
@@ -9375,6 +9381,13 @@
       if (!hasClass(element, clsTransitionDisable)) {
         addClass(element, clsTransitionDisable);
         requestAnimationFrame(() => removeClass(element, clsTransitionDisable));
+      }
+    }
+    function getVisibleParent(element) {
+      while (element = parent(element)) {
+        if (isVisible(element)) {
+          return element;
+        }
       }
     }
 
