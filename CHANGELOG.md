@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix offsetViewport calculation for browsers in quirks mode
+
 ## 3.21.6 (July 1, 2024)
 
 ### Fixed
