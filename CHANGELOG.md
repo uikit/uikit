@@ -17,6 +17,8 @@
 - IMPORTANT: Rename `@lightbox-toolbar-*` to `@lightbox-caption-*` in Lightbox component
 - Set `delay-controls: 0` prevents hiding controls in Lightbox component
 - Update default lightbox template in Lightbox component
+- Change calculation of search box and search icon padding in Search component
+- Change search style medium and large to same as search default in Search component
 
 ## 3.21.13 (September 26, 2024)
 
