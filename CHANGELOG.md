@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix offsetViewport calculation for browsers in quirks mode
+- Fix selector engine to handle spaces within parentheses correctly
 
 ## 3.21.6 (July 1, 2024)
 
