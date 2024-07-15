@@ -46,7 +46,7 @@
         "eslint-config-prettier": "^9.1.0",
         "execa": "^9.3.0",
         "fs-extra": "^11.2.0",
-        "glob": "^10.4.2",
+        "glob": "^11.0.0",
         "globals": "^15.7.0",
         "inquirer": "^10.0.0",
         "less": "^4.2.0",
