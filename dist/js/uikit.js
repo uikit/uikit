@@ -1,4 +1,4 @@
-/*! UIkit 3.21.6 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.7 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -370,15 +370,13 @@
       return isString(selector) && parseSelector(selector).isContextSelector || isDocument(context) ? context : context.ownerDocument;
     }
     const addStarRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
-    const splitSelectorRe = /.*?[^\\](?![^(]*\))(?:,|$)/g;
-    const trailingCommaRe = /\s*,$/;
+    const splitSelectorRe = /(\([^)]*\)|[^,])+/g;
     const parseSelector = memoize((selector) => {
-      var _a;
       selector = selector.replace(addStarRe, "$1 *");
       let isContextSelector = false;
       const selectors = [];
-      for (let sel of (_a = selector.match(splitSelectorRe)) != null ? _a : []) {
-        sel = sel.replace(trailingCommaRe, "").trim();
+      for (let sel of selector.match(splitSelectorRe)) {
+        sel = sel.trim();
         isContextSelector || (isContextSelector = ["!", "+", "~", "-", ">"].includes(sel[0]));
         selectors.push(sel);
       }
@@ -388,10 +386,11 @@
         isContextSelector
       };
     });
+    const positionRe = /(\([^)]*\)|\S)*/;
     const parsePositionSelector = memoize((selector) => {
       selector = selector.slice(1).trim();
-      const index2 = selector.indexOf(" ");
-      return ~index2 ? [selector.slice(0, index2), selector.slice(index2 + 1)] : [selector, ""];
+      const [position] = selector.match(positionRe);
+      return [position, selector.slice(position.length + 1)];
     });
     function _query(selector, context = document, queryFn) {
       if (!selector || !isString(selector)) {
@@ -1299,27 +1298,27 @@
     }
     function offsetViewport(scrollElement) {
       const window = toWindow(scrollElement);
-      let viewportElement = scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
-      if (isWindow(viewportElement) && window.visualViewport) {
+      const documentScrollingElement = scrollingElement(scrollElement);
+      const useWindow = scrollElement.contains(documentScrollingElement);
+      if (useWindow && window.visualViewport) {
         let { height, width, scale, pageTop: top, pageLeft: left } = window.visualViewport;
         height = Math.round(height * scale);
         width = Math.round(width * scale);
         return { height, width, top, left, bottom: top + height, right: left + width };
       }
-      let rect = offset(viewportElement);
-      if (css(viewportElement, "display") === "inline") {
+      let rect = offset(useWindow ? window : scrollElement);
+      if (css(scrollElement, "display") === "inline") {
         return rect;
       }
+      const { body, documentElement } = window.document;
+      const viewportElement = useWindow ? documentScrollingElement === documentElement || // In quirks mode the scrolling element is body, even though the viewport is html
+      documentScrollingElement.clientHeight < body.clientHeight ? documentScrollingElement : body : scrollElement;
       for (let [prop, dir, start, end] of [
         ["width", "x", "left", "right"],
         ["height", "y", "top", "bottom"]
       ]) {
-        if (isWindow(viewportElement)) {
-          viewportElement = viewportElement.document;
-        } else {
-          rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
-        }
         const subpixel = rect[prop] % 1;
+        rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
         rect[prop] = rect[dir] = viewportElement[`client${ucfirst(prop)}`] - (subpixel ? subpixel < 0.5 ? -subpixel : 1 - subpixel : 0);
         rect[end] = rect[prop] + rect[start];
       }
@@ -3542,7 +3541,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.6";
+    App.version = "3.21.7";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3569,7 +3568,7 @@
     }
     function createComponent(name, element, data, ...args) {
       const Component = component(name);
-      return Component.options.functional ? new Component({ data: isPlainObject(element) ? element : [element, data, ...args] }) : element ? findAll(element).map(init)[0] : init();
+      return Component.options.functional ? new Component({ data: isPlainObject(element) ? element : [element, data, ...args] }) : element ? $$(element).map(init)[0] : init();
       function init(element2) {
         const instance = getComponent(element2, name);
         if (instance) {
@@ -8453,7 +8452,7 @@
       data: {
         clsPage: "uk-modal-page",
         selPanel: ".uk-modal-dialog",
-        selClose: ".uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full"
+        selClose: '[class*="uk-modal-close"]'
       },
       events: [
         {

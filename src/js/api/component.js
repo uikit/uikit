@@ -1,4 +1,4 @@
-import { camelize, findAll, hyphenate, isEmpty, isPlainObject } from 'uikit-util';
+import { $$, camelize, hyphenate, isEmpty, isPlainObject } from 'uikit-util';
 import App from './app';
 
 const PREFIX = 'uk-';
@@ -41,7 +41,7 @@ export function createComponent(name, element, data, ...args) {
     return Component.options.functional
         ? new Component({ data: isPlainObject(element) ? element : [element, data, ...args] })
         : element
-          ? findAll(element).map(init)[0]
+          ? $$(element).map(init)[0]
           : init();
 
     function init(element) {

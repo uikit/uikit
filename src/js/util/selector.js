@@ -25,16 +25,16 @@ function getContext(selector, context = document) {
 }
 
 const addStarRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
-const splitSelectorRe = /.*?[^\\](?![^(]*\))(?:,|$)/g;
-const trailingCommaRe = /\s*,$/;
+// This will fail for nested, comma separated selectors (e.g `a:has(b:not(c),d)`)
+const splitSelectorRe = /(\([^)]*\)|[^,])+/g;
 
 const parseSelector = memoize((selector) => {
     selector = selector.replace(addStarRe, '$1 *');
     let isContextSelector = false;
 
     const selectors = [];
-    for (let sel of selector.match(splitSelectorRe) ?? []) {
-        sel = sel.replace(trailingCommaRe, '').trim();
+    for (let sel of selector.match(splitSelectorRe)) {
+        sel = sel.trim();
         isContextSelector ||= ['!', '+', '~', '-', '>'].includes(sel[0]);
         selectors.push(sel);
     }
@@ -45,11 +45,11 @@ const parseSelector = memoize((selector) => {
         isContextSelector,
     };
 });
-
+const positionRe = /(\([^)]*\)|\S)*/;
 const parsePositionSelector = memoize((selector) => {
     selector = selector.slice(1).trim();
-    const index = selector.indexOf(' ');
-    return ~index ? [selector.slice(0, index), selector.slice(index + 1)] : [selector, ''];
+    const [position] = selector.match(positionRe);
+    return [position, selector.slice(position.length + 1)];
 });
 
 function _query(selector, context = document, queryFn) {

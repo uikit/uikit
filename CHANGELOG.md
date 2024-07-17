@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.21.7 (July 17, 2024)
+
+### Fixed
+
+- Fix offsetViewport calculation for browsers in quirks mode
+- Fix selector engine to handle spaces within parentheses correctly
+- Fix BC to component initialization not accepting plain html markup
+
 ## 3.21.6 (July 1, 2024)
 
 ### Fixed

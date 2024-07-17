@@ -1,16 +1,7 @@
 import { hasClass } from './class';
 import { dimensions, offset, offsetPosition } from './dimensions';
 import { isVisible, parent, parents } from './filter';
-import {
-    clamp,
-    findIndex,
-    includes,
-    intersectRect,
-    isWindow,
-    toFloat,
-    toWindow,
-    ucfirst,
-} from './lang';
+import { clamp, findIndex, includes, intersectRect, toFloat, toWindow, ucfirst } from './lang';
 import { css } from './style';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
@@ -162,37 +153,42 @@ export function overflowParents(element) {
 
 export function offsetViewport(scrollElement) {
     const window = toWindow(scrollElement);
-    let viewportElement =
-        scrollElement === scrollingElement(scrollElement) ? window : scrollElement;
+    const documentScrollingElement = scrollingElement(scrollElement);
+    const useWindow = scrollElement.contains(documentScrollingElement);
 
-    if (isWindow(viewportElement) && window.visualViewport) {
+    if (useWindow && window.visualViewport) {
         let { height, width, scale, pageTop: top, pageLeft: left } = window.visualViewport;
         height = Math.round(height * scale);
         width = Math.round(width * scale);
         return { height, width, top, left, bottom: top + height, right: left + width };
     }
 
-    let rect = offset(viewportElement);
-    if (css(viewportElement, 'display') === 'inline') {
+    let rect = offset(useWindow ? window : scrollElement);
+    if (css(scrollElement, 'display') === 'inline') {
         return rect;
     }
 
+    const { body, documentElement } = window.document;
+    const viewportElement = useWindow
+        ? documentScrollingElement === documentElement ||
+          // In quirks mode the scrolling element is body, even though the viewport is html
+          documentScrollingElement.clientHeight < body.clientHeight
+            ? documentScrollingElement
+            : body
+        : scrollElement;
     for (let [prop, dir, start, end] of [
         ['width', 'x', 'left', 'right'],
         ['height', 'y', 'top', 'bottom'],
     ]) {
-        if (isWindow(viewportElement)) {
-            // iOS 12 returns <body> as scrollingElement
-            viewportElement = viewportElement.document;
-        } else {
-            rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
-        }
         const subpixel = rect[prop] % 1;
+
+        rect[start] += toFloat(css(viewportElement, `border-${start}-width`));
         rect[prop] = rect[dir] =
             viewportElement[`client${ucfirst(prop)}`] -
             (subpixel ? (subpixel < 0.5 ? -subpixel : 1 - subpixel) : 0);
         rect[end] = rect[prop] + rect[start];
     }
+
     return rect;
 }
 
