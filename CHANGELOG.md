@@ -9,6 +9,10 @@
 - Fix Scrollspy Nav component checks if targets exists before activating state
 - Fix Slideshow component list does not fill available space in Safari
 
+### Fixed
+
+- Fix hidden class keep showing elements on hover if a link is clicked in Visibility component
+
 ## 3.21.13 (September 26, 2024)
 
 ### Fixed
