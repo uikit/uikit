@@ -39,16 +39,24 @@ async function getPrefix() {
     if (!prefixFromInput) {
         const prompt = inquirer.createPromptModule();
 
-        return (
-            await prompt({
-                name: 'prefix',
-                message: 'enter a prefix',
-                validate: (val, res) =>
-                    val.length && val.match(validClassName)
-                        ? !!(res.prefix = val)
-                        : 'invalid prefix',
-            })
-        ).prefix;
+       return (
+           await prompt({
+               name: 'prefix',
+               message: 'enter a prefix',
+               validate: (val, res) => {
+                   // Ensure res is an object
+                   res = res || {};
+
+                   // Validate the prefix and set it if valid
+                   if (val.length && val.match(validClassName)) {
+                       res.prefix = val;
+                       return true;
+                   } else {
+                       return 'invalid prefix';
+                   }
+               },
+           })
+       ).prefix;
     }
 
     if (validClassName.test(prefixFromInput)) {
