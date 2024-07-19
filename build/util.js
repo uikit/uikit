@@ -15,7 +15,6 @@ import svgo from 'svgo';
 const limit = pLimit(Number(process.env.cpus || 2));
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
-export const validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
 const argv = minimist(process.argv.slice(2));
 
