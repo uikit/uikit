@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix toggled hidden hover class to display elements on hover for touch devices using `tabindex` in  Visibility component
+- Fix offsetViewport calculation if window is passed as scrollElement
 
 ## 3.21.7 (July 17, 2024)
 
