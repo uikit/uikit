@@ -107,11 +107,10 @@
 /*
  * Remove space when hidden.
  * 1. Remove from document flow.
- * 2. Hide element and shrink its dimension. Can't use zero dimensions together
- *    with `overflow: hidden` it would remove it from the accessibility tree.
- * 3. Hide the single rendered pixel.
- * 4. Prevent text wrapping caused by `width: 1px` because it has side effects on vocalisation
- *    by screen readers and the visual tracking indicator of other assistive technologies.
+ * 2. Hide element and shrink its dimension. Current browsers and screen readers
+ *    keep the element in the accessibility tree even with zero dimensions.
+ *    Using `tabindex="-1"` will show the element on touch devices.
+ *    Note: `clip-path` doesn't work with `tabindex` on touch devices.
  */
 
 .uk-hidden-visually:not(:focus):not(:active):not(:focus-within),
@@ -119,23 +118,18 @@
     /* 1 */
     position: absolute !important;
     /* 2 */
-    width: 1px !important;
-    height: 1px !important;
+    width: 0 !important;
+    height: 0 !important;
     padding: 0 !important;
     border: 0 !important;
     margin: 0 !important;
     overflow: hidden !important;
-    /* 3 */
-    clip-path: inset(50%) !important;
-    /* 4 */
-    white-space: nowrap !important;
 }
 
 /*
  * Keep space when hidden.
  * Hide element without shrinking its dimension.
- * Unfortunately, can't use `clip-path: inset(50%)` because hover won't work
- * if the element is positioned outside of the toggle box.
+ * Note: `clip-path` doesn't work with hover for elements outside of the toggle box.
  */
 
 .uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) { opacity: 0 !important; }

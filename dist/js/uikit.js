@@ -1,4 +1,4 @@
-/*! UIkit 3.21.7 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.8 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1299,7 +1299,7 @@
     function offsetViewport(scrollElement) {
       const window = toWindow(scrollElement);
       const documentScrollingElement = scrollingElement(scrollElement);
-      const useWindow = scrollElement.contains(documentScrollingElement);
+      const useWindow = !isNode(scrollElement) || scrollElement.contains(documentScrollingElement);
       if (useWindow && window.visualViewport) {
         let { height, width, scale, pageTop: top, pageLeft: left } = window.visualViewport;
         height = Math.round(height * scale);
@@ -3541,7 +3541,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.7";
+    App.version = "3.21.8";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
