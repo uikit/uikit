@@ -1,6 +1,6 @@
 import { glob } from 'glob';
 import stripCssComments from 'strip-css-comments';
-import { args, minify, read, renderLess, replaceInFile, validClassName } from './util.js';
+import { args, minify, read, renderLess, replaceInFile } from './util.js';
 
 if (args.h || args.help) {
     console.log(`
@@ -53,7 +53,7 @@ async function getScope(files) {
 function getNewScope() {
     const scopeFromInput = args.scope || args.s || 'uk-scope';
 
-    if (validClassName.test(scopeFromInput)) {
+    if (scopeFromInput.match(/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/)) {
         return scopeFromInput;
     } else {
         throw `Illegal scope-name: ${scopeFromInput}`;

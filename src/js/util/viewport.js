@@ -1,7 +1,16 @@
 import { hasClass } from './class';
 import { dimensions, offset, offsetPosition } from './dimensions';
 import { isVisible, parent, parents } from './filter';
-import { clamp, findIndex, includes, intersectRect, toFloat, toWindow, ucfirst } from './lang';
+import {
+    clamp,
+    findIndex,
+    includes,
+    intersectRect,
+    isNode,
+    toFloat,
+    toWindow,
+    ucfirst,
+} from './lang';
 import { css } from './style';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
@@ -154,7 +163,7 @@ export function overflowParents(element) {
 export function offsetViewport(scrollElement) {
     const window = toWindow(scrollElement);
     const documentScrollingElement = scrollingElement(scrollElement);
-    const useWindow = scrollElement.contains(documentScrollingElement);
+    const useWindow = !isNode(scrollElement) || scrollElement.contains(documentScrollingElement);
 
     if (useWindow && window.visualViewport) {
         let { height, width, scale, pageTop: top, pageLeft: left } = window.visualViewport;
