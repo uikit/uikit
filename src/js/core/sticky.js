@@ -460,7 +460,10 @@ function parseProp(value, el, propOffset, padding) {
         const refElement = value === true ? getVisibleParent(el) : query(value, el);
         return (
             getOffset(refElement).bottom -
-            (padding && refElement?.contains(el) ? toFloat(css(refElement, 'paddingBottom')) : 0)
+            (padding && refElement?.contains(el)
+                ? toFloat(css(refElement, 'paddingBottom')) +
+                  toFloat(css(refElement, 'borderBottomWidth'))
+                : 0)
         );
     }
 }
