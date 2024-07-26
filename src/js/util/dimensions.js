@@ -146,10 +146,10 @@ function dimension(prop) {
 export function boxModelAdjust(element, prop, sizing = 'border-box') {
     return css(element, 'boxSizing') === sizing
         ? sumBy(
-              dirs[prop].map(ucfirst),
+              dirs[prop],
               (prop) =>
-                  toFloat(css(element, `padding${prop}`)) +
-                  toFloat(css(element, `border${prop}Width`)),
+                  toFloat(css(element, `padding-${prop}`)) +
+                  toFloat(css(element, `border-${prop}-width`)),
           )
         : 0;
 }
