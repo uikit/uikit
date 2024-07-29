@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Sticky component calculates wrong top offset, when animation is in progress
+
 ## 3.21.8 (July 25, 2024)
 
 ### Fixed
