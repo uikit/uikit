@@ -6,6 +6,7 @@
 
 - Fix Sticky component calculates wrong top offset, when animation is in progress
 - Fix rounding issue in Slider component in Firefox
+- Fix calling `query()` and `queryAll()` with empty string throws exception
 
 ## 3.21.8 (July 25, 2024)
 
