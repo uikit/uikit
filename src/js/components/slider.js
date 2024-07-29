@@ -64,7 +64,8 @@ export default {
             let lft = 0;
             const max = getMax(this.list);
             const index = findIndex(this.slides, (el) => {
-                if (lft >= max) {
+                // 0.005: FF reports different widths for (calc(100% / 3))
+                if (lft >= max - 0.005) {
                     return true;
                 }
 
