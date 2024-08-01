@@ -3,14 +3,12 @@ import { assign, fastdom, isPlainObject } from 'uikit-util';
 export function initUpdates(instance) {
     instance._data = {};
     instance._updates = [...(instance.$options.update || [])];
+
+    instance._disconnect.push(() => (instance._updates = instance._data = null));
 }
 
 export function prependUpdate(instance, update) {
     instance._updates.unshift(update);
-}
-
-export function clearUpdateData(instance) {
-    instance._data = null;
 }
 
 export function callUpdate(instance, e = 'update') {

@@ -19,7 +19,7 @@ export function findAll(selector, context) {
 }
 
 function getContext(selector, context = document) {
-    return (isString(selector) && parseSelector(selector).isContextSelector) || isDocument(context)
+    return isDocument(context) || parseSelector(selector).isContextSelector
         ? context
         : context.ownerDocument;
 }
@@ -29,12 +29,16 @@ const addStarRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
 const splitSelectorRe = /(\([^)]*\)|[^,])+/g;
 
 const parseSelector = memoize((selector) => {
-    selector = selector.replace(addStarRe, '$1 *');
     let isContextSelector = false;
 
+    if (!selector || !isString(selector)) {
+        return {};
+    }
+
     const selectors = [];
+
     for (let sel of selector.match(splitSelectorRe)) {
-        sel = sel.trim();
+        sel = sel.trim().replace(addStarRe, '$1 *');
         isContextSelector ||= ['!', '+', '~', '-', '>'].includes(sel[0]);
         selectors.push(sel);
     }
@@ -53,14 +57,10 @@ const parsePositionSelector = memoize((selector) => {
 });
 
 function _query(selector, context = document, queryFn) {
-    if (!selector || !isString(selector)) {
-        return selector;
-    }
-
     const parsed = parseSelector(selector);
 
     if (!parsed.isContextSelector) {
-        return _doQuery(context, queryFn, parsed.selector);
+        return parsed.selector ? _doQuery(context, queryFn, parsed.selector) : selector;
     }
 
     selector = '';

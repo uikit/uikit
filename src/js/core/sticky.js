@@ -188,7 +188,10 @@ export default {
                 }
 
                 const overflow = this.overflowFlip ? 0 : Math.max(0, height + offset - viewport);
-                const topOffset = getOffset(referenceElement).top;
+                const topOffset =
+                    getOffset(referenceElement).top -
+                    // offset possible `transform: translateY` animation 'uk-animation-slide-top' while hiding
+                    new DOMMatrix(css(referenceElement, 'transform')).m42;
                 const elHeight = dimensions(this.$el).height;
 
                 const start =
@@ -460,7 +463,10 @@ function parseProp(value, el, propOffset, padding) {
         const refElement = value === true ? getVisibleParent(el) : query(value, el);
         return (
             getOffset(refElement).bottom -
-            (padding && refElement?.contains(el) ? toFloat(css(refElement, 'paddingBottom')) : 0)
+            (padding && refElement?.contains(el)
+                ? toFloat(css(refElement, 'paddingBottom')) +
+                  toFloat(css(refElement, 'borderBottomWidth'))
+                : 0)
         );
     }
 }
