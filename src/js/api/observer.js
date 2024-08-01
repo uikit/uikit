@@ -3,19 +3,8 @@ import { registerComputed } from './computed';
 import { registerWatch } from './watch';
 
 export function initObservers(instance) {
-    instance._observers = [];
     for (const observer of instance.$options.observe || []) {
         registerObservable(instance, observer);
-    }
-}
-
-export function registerObserver(instance, ...observer) {
-    instance._observers.push(...observer);
-}
-
-export function disconnectObservers(instance) {
-    for (const observer of instance._observers) {
-        observer.disconnect();
     }
 }
 
@@ -26,7 +15,7 @@ function registerObservable(instance, observable) {
         return;
     }
 
-    const key = `_observe${instance._observers.length}`;
+    const key = `_observe${instance._disconnect.length}`;
     if (isFunction(target) && !hasOwn(instance, key)) {
         registerComputed(instance, key, () => {
             const targets = target.call(instance, instance);
@@ -51,7 +40,7 @@ function registerObservable(instance, observable) {
         );
     }
 
-    registerObserver(instance, observer);
+    instance._disconnect.push(() => observer.disconnect());
 }
 
 function updateTargets(observer, options) {

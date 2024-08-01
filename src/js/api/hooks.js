@@ -1,9 +1,9 @@
-import { disconnectComputedUpdates, initComputedUpdates } from './computed';
-import { initEvents, unbindEvents } from './events';
+import { initComputedUpdates } from './computed';
+import { initEvents } from './events';
 import { log } from './log';
-import { disconnectObservers, initObservers } from './observer';
+import { initObservers } from './observer';
 import { initProps, initPropsObserver } from './props';
-import { callUpdate, clearUpdateData, initUpdates } from './update';
+import { callUpdate, initUpdates } from './update';
 import { initWatches } from './watch';
 
 export function callHook(instance, hook) {
@@ -20,6 +20,8 @@ export function callConnected(instance) {
 
     callHook(instance, 'beforeConnect');
     instance._connected = true;
+
+    instance._disconnect = [];
 
     initEvents(instance);
     initUpdates(instance);
@@ -40,10 +42,8 @@ export function callDisconnected(instance) {
 
     callHook(instance, 'beforeDisconnect');
 
-    unbindEvents(instance);
-    clearUpdateData(instance);
-    disconnectObservers(instance);
-    disconnectComputedUpdates(instance);
+    instance._disconnect.forEach((off) => off());
+    instance._disconnect = null;
 
     callHook(instance, 'disconnected');
 

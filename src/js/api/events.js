@@ -1,7 +1,6 @@
 import { hasOwn, isArray, isFunction, isPlainObject, isString, on } from 'uikit-util';
 
 export function initEvents(instance) {
-    instance._events = [];
     for (const event of instance.$options.events || []) {
         if (hasOwn(event, 'handler')) {
             registerEvent(instance, event);
@@ -11,11 +10,6 @@ export function initEvents(instance) {
             }
         }
     }
-}
-
-export function unbindEvents(instance) {
-    instance._events.forEach((unbind) => unbind());
-    delete instance._events;
 }
 
 export function registerEvent(instance, event, key) {
@@ -28,7 +22,7 @@ export function registerEvent(instance, event, key) {
         return;
     }
 
-    instance._events.push(
+    instance._disconnect.push(
         on(
             el,
             name,

@@ -8,7 +8,6 @@ import {
     memoize,
     startsWith,
 } from 'uikit-util';
-import { registerObserver } from './observer';
 import { coerce, parseOptions } from './options';
 
 export function initProps(instance) {
@@ -104,5 +103,5 @@ export function initPropsObserver(instance) {
         attributeFilter: filter,
     });
 
-    registerObserver(instance, observer);
+    instance._disconnect.push(() => observer.disconnect());
 }
