@@ -1,4 +1,4 @@
-/*! UIkit 3.21.8 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.9 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -367,16 +367,18 @@
       return toNodes(_query(selector, toNode(context), "querySelectorAll"));
     }
     function getContext(selector, context = document) {
-      return isString(selector) && parseSelector(selector).isContextSelector || isDocument(context) ? context : context.ownerDocument;
+      return isDocument(context) || parseSelector(selector).isContextSelector ? context : context.ownerDocument;
     }
     const addStarRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
     const splitSelectorRe = /(\([^)]*\)|[^,])+/g;
     const parseSelector = memoize((selector) => {
-      selector = selector.replace(addStarRe, "$1 *");
       let isContextSelector = false;
+      if (!selector || !isString(selector)) {
+        return {};
+      }
       const selectors = [];
       for (let sel of selector.match(splitSelectorRe)) {
-        sel = sel.trim();
+        sel = sel.trim().replace(addStarRe, "$1 *");
         isContextSelector || (isContextSelector = ["!", "+", "~", "-", ">"].includes(sel[0]));
         selectors.push(sel);
       }
@@ -393,12 +395,9 @@
       return [position, selector.slice(position.length + 1)];
     });
     function _query(selector, context = document, queryFn) {
-      if (!selector || !isString(selector)) {
-        return selector;
-      }
       const parsed = parseSelector(selector);
       if (!parsed.isContextSelector) {
-        return _doQuery(context, queryFn, parsed.selector);
+        return parsed.selector ? _doQuery(context, queryFn, parsed.selector) : selector;
       }
       selector = "";
       const isSingle = parsed.selectors.length === 1;
@@ -919,8 +918,8 @@
     }
     function boxModelAdjust(element, prop, sizing = "border-box") {
       return css(element, "boxSizing") === sizing ? sumBy(
-        dirs$1[prop].map(ucfirst),
-        (prop2) => toFloat(css(element, `padding${prop2}`)) + toFloat(css(element, `border${prop2}Width`))
+        dirs$1[prop],
+        (prop2) => toFloat(css(element, `padding-${prop2}`)) + toFloat(css(element, `border-${prop2}-width`))
       ) : 0;
     }
     function flipPosition(pos) {
@@ -1877,12 +1876,10 @@
     function initUpdates(instance) {
       instance._data = {};
       instance._updates = [...instance.$options.update || []];
+      instance._disconnect.push(() => instance._updates = instance._data = null);
     }
     function prependUpdate(instance, update) {
       instance._updates.unshift(update);
-    }
-    function clearUpdateData(instance) {
-      instance._data = null;
     }
     function callUpdate(instance, e = "update") {
       if (!instance._connected) {
@@ -3275,17 +3272,15 @@
         read: () => runWatches(instance, resetComputed(instance)),
         events: ["resize", "computed"]
       });
-      instance._computedObserver = observeMutation(
+      const observer = observeMutation(
         instance.$el,
         () => callUpdate(instance, "computed"),
         mutationOptions
       );
-    }
-    function disconnectComputedUpdates(instance) {
-      var _a;
-      (_a = instance._computedObserver) == null ? void 0 : _a.disconnect();
-      delete instance._computedObserver;
-      resetComputed(instance);
+      instance._disconnect.push(() => {
+        observer.disconnect();
+        resetComputed(instance);
+      });
     }
     function resetComputed(instance) {
       const values = { ...instance._computed };
@@ -3294,7 +3289,6 @@
     }
 
     function initEvents(instance) {
-      instance._events = [];
       for (const event of instance.$options.events || []) {
         if (hasOwn(event, "handler")) {
           registerEvent(instance, event);
@@ -3305,17 +3299,13 @@
         }
       }
     }
-    function unbindEvents(instance) {
-      instance._events.forEach((unbind) => unbind());
-      delete instance._events;
-    }
     function registerEvent(instance, event, key) {
       let { name, el, handler, capture, passive, delegate, filter, self } = isPlainObject(event) ? event : { name: key, handler: event };
       el = isFunction(el) ? el.call(instance, instance) : el || instance.$el;
       if (!el || isArray(el) && !el.length || filter && !filter.call(instance, instance)) {
         return;
       }
-      instance._events.push(
+      instance._disconnect.push(
         on(
           el,
           name,
@@ -3327,17 +3317,8 @@
     }
 
     function initObservers(instance) {
-      instance._observers = [];
       for (const observer of instance.$options.observe || []) {
         registerObservable(instance, observer);
-      }
-    }
-    function registerObserver(instance, ...observer) {
-      instance._observers.push(...observer);
-    }
-    function disconnectObservers(instance) {
-      for (const observer of instance._observers) {
-        observer.disconnect();
       }
     }
     function registerObservable(instance, observable) {
@@ -3345,7 +3326,7 @@
       if (filter && !filter.call(instance, instance)) {
         return;
       }
-      const key = `_observe${instance._observers.length}`;
+      const key = `_observe${instance._disconnect.length}`;
       if (isFunction(target) && !hasOwn(instance, key)) {
         registerComputed(instance, key, () => {
           const targets2 = target.call(instance, instance);
@@ -3365,7 +3346,7 @@
           key
         );
       }
-      registerObserver(instance, observer);
+      instance._disconnect.push(() => observer.disconnect());
     }
     function updateTargets(observer, options) {
       return (targets, prev) => {
@@ -3451,7 +3432,7 @@
         attributes: true,
         attributeFilter: filter
       });
-      registerObserver(instance, observer);
+      instance._disconnect.push(() => observer.disconnect());
     }
 
     function callHook(instance, hook) {
@@ -3465,6 +3446,7 @@
       initProps(instance);
       callHook(instance, "beforeConnect");
       instance._connected = true;
+      instance._disconnect = [];
       initEvents(instance);
       initUpdates(instance);
       initWatches(instance);
@@ -3479,10 +3461,8 @@
         return;
       }
       callHook(instance, "beforeDisconnect");
-      unbindEvents(instance);
-      clearUpdateData(instance);
-      disconnectObservers(instance);
-      disconnectComputedUpdates(instance);
+      instance._disconnect.forEach((off) => off());
+      instance._disconnect = null;
       callHook(instance, "disconnected");
       instance._connected = false;
     }
@@ -3541,7 +3521,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.8";
+    App.version = "3.21.9";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5213,7 +5193,7 @@
           let lft = 0;
           const max = getMax(this.list);
           const index = findIndex(this.slides, (el) => {
-            if (lft >= max) {
+            if (lft >= max - 5e-3) {
               return true;
             }
             lft += dimensions$1(el).width;
@@ -8702,7 +8682,7 @@
             }
             const { body, scrollingElement } = document;
             addClass(body, this.clsContainer, this.clsFlip);
-            css(body, "touch-action", "pan-y pinch-zoom");
+            css(body, "touchAction", "pan-y pinch-zoom");
             css(this.$el, "display", "block");
             css(this.panel, "maxWidth", scrollingElement.clientWidth);
             addClass(this.$el, this.clsOverlay);
@@ -8721,7 +8701,7 @@
           self: true,
           handler() {
             removeClass(document.body, this.clsContainerAnimation);
-            css(document.body, "touch-action", "");
+            css(document.body, "touchAction", "");
           }
         },
         {
@@ -9159,7 +9139,8 @@
               offset$1 += dynamicViewport - height$1;
             }
             const overflow = this.overflowFlip ? 0 : Math.max(0, height$1 + offset$1 - viewport2);
-            const topOffset = offset(referenceElement).top;
+            const topOffset = offset(referenceElement).top - // offset possible `transform: translateY` animation 'uk-animation-slide-top' while hiding
+            new DOMMatrix(css(referenceElement, "transform")).m42;
             const elHeight = dimensions$1(this.$el).height;
             const start = (this.start === false ? topOffset : parseProp(this.start, this.$el, topOffset)) - offset$1;
             const end = this.end === false ? maxScrollHeight : Math.min(
@@ -9361,7 +9342,7 @@
         return propOffset + toPx(value, "height", el, true);
       } else {
         const refElement = value === true ? getVisibleParent(el) : query(value, el);
-        return offset(refElement).bottom - (padding && (refElement == null ? void 0 : refElement.contains(el)) ? toFloat(css(refElement, "paddingBottom")) : 0);
+        return offset(refElement).bottom - (padding && (refElement == null ? void 0 : refElement.contains(el)) ? toFloat(css(refElement, "paddingBottom")) + toFloat(css(refElement, "borderBottomWidth")) : 0);
       }
     }
     function coerce(value) {
