@@ -23,6 +23,7 @@
 ### Fixed
 
 - Fix hidden class keep showing elements on hover if a link is clicked in Visibility component
+- Fix spaces in the markup affecting the horizontal divider margin in Breadcrumb component
 
 ## 3.21.13 (September 26, 2024)
 
