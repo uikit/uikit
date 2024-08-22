@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in updating computed values
+
 ## 3.21.9 (August 1, 2024)
 
 ### Fixed
