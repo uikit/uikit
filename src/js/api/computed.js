@@ -60,14 +60,14 @@ export function initComputedUpdates(instance) {
         events: ['resize', 'computed'],
     });
 
-    const observer = observeMutation(
+    instance._computedObserver = observeMutation(
         instance.$el,
         () => callUpdate(instance, 'computed'),
         mutationOptions,
     );
 
     instance._disconnect.push(() => {
-        observer.disconnect();
+        instance._computedObserver.disconnect();
         resetComputed(instance);
     });
 }
