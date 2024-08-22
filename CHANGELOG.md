@@ -10,6 +10,7 @@
 - Add `video-autoplay: inline` option to autoplay video without controls and muted to Lightbox component
 - Add zoom behavior to images and inline videos if they are higher than the viewport to Lightbox component
 - Allow `template` option to reference a `template` element in the DOM for the lighbox layout in Lightbox component
+- Add hidden class to hide empty elements to Visibility component
 
 ### Changed
 
