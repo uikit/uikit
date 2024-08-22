@@ -1,4 +1,4 @@
-/*! UIkit 3.21.9 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.10 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3272,13 +3272,13 @@
         read: () => runWatches(instance, resetComputed(instance)),
         events: ["resize", "computed"]
       });
-      const observer = observeMutation(
+      instance._computedObserver = observeMutation(
         instance.$el,
         () => callUpdate(instance, "computed"),
         mutationOptions
       );
       instance._disconnect.push(() => {
-        observer.disconnect();
+        instance._computedObserver.disconnect();
         resetComputed(instance);
       });
     }
@@ -3521,7 +3521,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.9";
+    App.version = "3.21.10";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
