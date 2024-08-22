@@ -68,6 +68,7 @@ export function initComputedUpdates(instance) {
 
     instance._disconnect.push(() => {
         instance._computedObserver.disconnect();
+        instance._computedObserver = null;
         resetComputed(instance);
     });
 }
