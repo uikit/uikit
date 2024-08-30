@@ -396,10 +396,9 @@ export default {
             for (const [i, [axis, prop]] of dirs) {
                 if (this.axis !== axis && includes([axis, true], this.stretch)) {
                     css(this.$el, {
-                        [prop]: Math.min(
-                            offset(this.boundary[i])[prop],
-                            viewports[i][prop] - 2 * viewportOffset,
-                        ),
+                        [prop]:
+                            Math.min(offset(this.boundary[i])[prop], viewports[i][prop]) -
+                            2 * viewportOffset,
                         [`overflow-${axis}`]: 'auto',
                     });
                 }
@@ -429,14 +428,11 @@ export default {
                         [prop]:
                             (targetOffset[start] > elOffset[start]
                                 ? targetOffset[this.inset ? end : start] -
-                                  Math.max(
-                                      offset(this.boundary[i])[start],
-                                      viewports[i][start] + viewportOffset,
-                                  )
-                                : Math.min(
-                                      offset(this.boundary[i])[end],
-                                      viewports[i][end] - viewportOffset,
-                                  ) - targetOffset[this.inset ? start : end]) - positionOffset,
+                                  Math.max(offset(this.boundary[i])[start], viewports[i][start]) +
+                                  viewportOffset
+                                : Math.min(offset(this.boundary[i])[end], viewports[i][end]) -
+                                  viewportOffset -
+                                  targetOffset[this.inset ? start : end]) - positionOffset,
                         [`overflow-${axis}`]: 'auto',
                     });
 
