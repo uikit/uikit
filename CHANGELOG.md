@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Sticky component not using `position: sticky` if parent has `overflow: clip` 
+
 ## 3.21.11 (August 22, 2024)
 
 ### Fixed

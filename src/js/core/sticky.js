@@ -218,7 +218,7 @@ export default {
                             maxScrollHeight,
                             parseProp(true, this.$el, 0, true) - elHeight - offset + overflow,
                         ) &&
-                    css(getVisibleParent(this.$el), 'overflowY') === 'visible';
+                    css(getVisibleParent(this.$el), 'overflowY') !== 'hidden';
 
                 return {
                     start,
