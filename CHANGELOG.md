@@ -4,7 +4,8 @@
 
 ### Fixed
 
-- Fix Sticky component not using `position: sticky` if parent has `overflow: clip` 
+- Fix Sticky component not using `position: sticky` if parent has `overflow: clip`
+- Fix Sticky component is now inactive if page can't be scrolled 
 
 ## 3.21.11 (August 22, 2024)
 

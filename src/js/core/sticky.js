@@ -154,6 +154,17 @@ export default {
                     return;
                 }
 
+                const dynamicViewport = getHeight(window);
+                const maxScrollHeight = Math.max(
+                    0,
+                    document.scrollingElement.scrollHeight - dynamicViewport,
+                );
+
+                if (!maxScrollHeight) {
+                    this.inactive = true;
+                    return;
+                }
+
                 const hide = this.isFixed && types.has('update');
                 if (hide) {
                     preventTransition(this.target);
@@ -170,11 +181,6 @@ export default {
                 }
 
                 const viewport = toPx('100vh', 'height');
-                const dynamicViewport = getHeight(window);
-                const maxScrollHeight = Math.max(
-                    0,
-                    document.scrollingElement.scrollHeight - viewport,
-                );
 
                 let position = this.position;
                 if (this.overflowFlip && height > viewport) {
@@ -210,7 +216,6 @@ export default {
                           );
 
                 sticky =
-                    maxScrollHeight &&
                     !this.showOnUp &&
                     start + offset === topOffset &&
                     end ===
