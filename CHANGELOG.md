@@ -5,7 +5,8 @@
 ### Fixed
 
 - Fix Sticky component not using `position: sticky` if parent has `overflow: clip`
-- Fix Sticky component is now inactive if page can't be scrolled 
+- Fix Sticky component is now inactive if page can't be scrolled
+- Fix using comma separated selectors in filter controls in Filter component 
 
 ## 3.21.11 (August 22, 2024)
 
