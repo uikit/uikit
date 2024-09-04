@@ -135,7 +135,7 @@
     /* 2 */
     display: none;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     /* 3 */
     will-change: transform, opacity;
     /* 4 */
@@ -145,6 +145,8 @@
 
 /* 2 */
 .uk-lightbox-items > .uk-active { display: flex; }
+
+.uk-lightbox-items-fit > * { align-items: center; }
 
 /* 4 */
 .uk-lightbox-items-fit > * > * {
