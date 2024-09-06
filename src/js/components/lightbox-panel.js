@@ -11,6 +11,7 @@ import {
     isTag,
     matches,
     on,
+    parent,
     pick,
     pointerDown,
     pointerMove,
@@ -304,7 +305,7 @@ export default {
                         ...attrs,
                     });
 
-                    on(img, 'load', () => this.setItem(item, img.parentElement || img));
+                    on(img, 'load', () => this.setItem(item, parent(img) || img));
                     on(img, 'error', () => this.setError(item));
 
                     // Video
@@ -455,16 +456,23 @@ function createEl(tag, attrs) {
 }
 
 function toThumbnavItem(item, videoAutoplay) {
-    return item.poster || (item.thumb && (item.type === 'image' || isImage(item.thumb)))
-        ? createEl('img', { src: item.poster || item.thumb, alt: '' })
-        : item.thumb && (item.type === 'video' || isVideo(item.thumb))
-          ? createEl('video', {
-                src: item.thumb,
-                loop: '',
-                playsinline: '',
-                'uk-video': `autoplay: ${Boolean(videoAutoplay)}; automute: true`,
-            })
-          : createEl('canvas');
+    const el =
+        item.poster || (item.thumb && (item.type === 'image' || isImage(item.thumb)))
+            ? createEl('img', { src: item.poster || item.thumb, alt: '' })
+            : item.thumb && (item.type === 'video' || isVideo(item.thumb))
+              ? createEl('video', {
+                    src: item.thumb,
+                    loop: '',
+                    playsinline: '',
+                    'uk-video': `autoplay: ${Boolean(videoAutoplay)}; automute: true`,
+                })
+              : createEl('canvas');
+
+    if (item.thumbRatio) {
+        el.style.aspectRatio = item.thumbRatio;
+    }
+
+    return el;
 }
 
 function isImage(src) {

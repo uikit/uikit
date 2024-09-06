@@ -1,6 +1,20 @@
-import { $, $$, assign, attr, findIndex, isElement, isTag, on, uniqueBy } from 'uikit-util';
+import {
+    $,
+    $$,
+    assign,
+    attr,
+    findIndex,
+    isElement,
+    isTag,
+    matches,
+    on,
+    parents,
+    uniqueBy,
+} from 'uikit-util';
 import { parseOptions } from '../api/options';
 import LightboxPanel from './lightbox-panel';
+
+const selDisabled = '.uk-disabled *, .uk-disabled, [disabled]';
 
 export default {
     install,
@@ -31,19 +45,27 @@ export default {
     events: {
         name: 'click',
 
-        delegate: ({ toggle }) => `${toggle}:not(.uk-disabled)`,
+        delegate: ({ toggle }) => toggle,
 
         handler(e) {
             if (!e.defaultPrevented) {
                 e.preventDefault();
-                this.show(e.current);
+                if (!matches(e.current, selDisabled)) {
+                    this.show(e.current);
+                }
             }
         },
     },
 
     methods: {
         show(index) {
-            const items = uniqueBy(this.toggles.map(toItem), 'source');
+            let items = this.toggles.map(toItem);
+
+            if (this.nav === 'thumbnav') {
+                ensureThumb.call(this, this.toggles, items);
+            }
+
+            items = uniqueBy(items, 'source');
 
             if (isElement(index)) {
                 const { source } = toItem(index);
@@ -71,13 +93,32 @@ function install(UIkit, Lightbox) {
     assign(Lightbox.props, UIkit.component('lightboxPanel').options.props);
 }
 
+function ensureThumb(toggles, items) {
+    for (const [i, toggle] of Object.entries(toggles)) {
+        if (items[i].thumb) {
+            continue;
+        }
+
+        const media = $(
+            'img,video',
+            parents(toggle)
+                .reverse()
+                .find(
+                    (parent) => this.$el.contains(parent) && $$(this.toggle, parent).length === 1,
+                ),
+        );
+
+        if (media) {
+            items[i].thumb = media.currentSrc || media.poster || media.src;
+            items[i].thumbRatio =
+                (media.naturalWidth || media.videoWidth) /
+                (media.naturalHeight || media.videoHeight);
+        }
+    }
+}
+
 function toItem(el) {
     const item = {};
-
-    const media = $('img,video', el);
-    if (media) {
-        item.thumb = media.currentSrc || media.poster || media.src;
-    }
 
     for (const attribute of el.getAttributeNames()) {
         const key = attribute.replace(/^data-/, '');
