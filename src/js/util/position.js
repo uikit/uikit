@@ -136,16 +136,16 @@ function moveBy(attach, end, dim) {
 function getViewport(element, target, viewportOffset, boundary, i) {
     let viewport = getIntersectionArea(...commonScrollParents(element, target).map(offsetViewport));
 
+    if (viewportOffset) {
+        viewport[dirs[i][2]] += viewportOffset;
+        viewport[dirs[i][3]] -= viewportOffset;
+    }
+
     if (boundary) {
         viewport = getIntersectionArea(
             viewport,
             offset(isArray(boundary) ? boundary[i] : boundary),
         );
-    }
-
-    if (viewportOffset) {
-        viewport[dirs[i][2]] += viewportOffset;
-        viewport[dirs[i][3]] -= viewportOffset;
     }
 
     return viewport;
