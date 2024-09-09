@@ -78,11 +78,13 @@ export default {
 
     observe: [
         intersection({
-            filter: ({ $el, autoplay }) => autoplay && autoplay !== 'hover' && isVideo($el),
+            filter: ({ $el, autoplay }) => autoplay !== 'hover' && isVideo($el),
             handler([{ isIntersecting }]) {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
-                        play(this.$el);
+                        if (this.autoplay) {
+                            play(this.$el);
+                        }
                     } else {
                         pause(this.$el);
                     }

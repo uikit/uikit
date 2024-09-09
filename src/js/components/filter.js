@@ -138,10 +138,14 @@ function isEqualState(stateA, stateB) {
 }
 
 function applyState(state, target, children) {
-    const selector = Object.values(state.filter).join('');
-
     for (const el of children) {
-        css(el, 'display', selector && !matches(el, selector) ? 'none' : '');
+        css(
+            el,
+            'display',
+            Object.values(state.filter).every((selector) => !selector || matches(el, selector))
+                ? ''
+                : 'none',
+        );
     }
 
     const [sort, order] = state.sort;

@@ -122,11 +122,11 @@ export default {
                 changed && (el.hidden = !toggled);
             }
 
-            $$('[autofocus]', el).some((el) => (isVisible(el) ? el.focus() || true : el.blur()));
-
             if (changed) {
                 trigger(el, 'toggled', [toggled, this]);
             }
+
+            $$('[autofocus]', el).some((el) => (isVisible(el) ? el.focus() || true : el.blur()));
         },
     },
 };
