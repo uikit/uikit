@@ -91,7 +91,9 @@ export default {
                 }
             },
             args: { intersecting: false },
-            options: ({ $el, autoplay }) => ({ root: autoplay === 'inview' ? null : parent($el) }),
+            options: ({ $el, autoplay }) => ({
+                root: autoplay === 'inview' ? null : parent($el).closest(':not(a)'),
+            }),
         }),
     ],
 };
