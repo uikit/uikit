@@ -3,7 +3,6 @@ import {
     includes,
     isTag,
     isTouch,
-    isVideo,
     mute,
     parent,
     pause,
@@ -78,7 +77,7 @@ export default {
 
     observe: [
         intersection({
-            filter: ({ $el, autoplay }) => autoplay !== 'hover' && isVideo($el),
+            filter: ({ autoplay }) => autoplay !== 'hover',
             handler([{ isIntersecting }]) {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
