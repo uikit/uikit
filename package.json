@@ -48,7 +48,7 @@
         "fs-extra": "^11.2.0",
         "glob": "^11.0.0",
         "globals": "^15.7.0",
-        "inquirer": "^10.0.0",
+        "inquirer": "^11.0.1",
         "less": "^4.2.0",
         "minimist": "^1.2.8",
         "number-precision": "^1.6.0",
