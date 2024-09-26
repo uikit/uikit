@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix `scrollIntoView()` for elements with `scroll-behavior: smooth`
+- Fix Offcanvas in reveal mode unwraps itself
 
 ## 3.21.12 (September 9, 2024)
 

@@ -95,8 +95,7 @@ export default {
 
             handler() {
                 if (this.mode === 'reveal' && !hasClass(parent(this.panel), this.clsMode)) {
-                    wrapAll(this.panel, '<div>');
-                    addClass(parent(this.panel), this.clsMode);
+                    addClass(wrapAll(this.panel, '<div>'), this.clsMode);
                 }
 
                 const { body, scrollingElement } = document;
@@ -138,7 +137,7 @@ export default {
             handler() {
                 this.clsContainerAnimation && resumeUserScale();
 
-                if (this.mode === 'reveal') {
+                if (this.mode === 'reveal' && hasClass(parent(this.panel), this.clsMode)) {
                     unwrap(this.panel);
                 }
 
