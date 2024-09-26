@@ -88,7 +88,13 @@ export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
                         dimensions(getCoveringElement(targetEl)).height;
                 }
 
+                if (css(element, 'scrollBehavior') !== 'auto') {
+                    css(element, 'scrollBehavior', 'auto');
+                }
+
                 element.scrollTop = scroll + (top + diff) * percent;
+
+                css(element, 'scrollBehavior', '');
 
                 // scroll more if we have not reached our destination
                 // if element changes position during scroll try another step

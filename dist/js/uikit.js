@@ -1,4 +1,4 @@
-/*! UIkit 3.21.12 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.13 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1245,7 +1245,11 @@
             if (parents2[0] === element2 && scroll + top < maxScroll) {
               diff = offset(targetEl).top + (isScrollingElement ? 0 : element2.scrollTop) - targetTop - dimensions$1(getCoveringElement(targetEl)).height;
             }
+            if (css(element2, "scrollBehavior") !== "auto") {
+              css(element2, "scrollBehavior", "auto");
+            }
             element2.scrollTop = scroll + (top + diff) * percent;
+            css(element2, "scrollBehavior", "");
             if (percent === 1 && (prev === diff || !frames--)) {
               resolve();
             } else {
@@ -3525,7 +3529,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.12";
+    App.version = "3.21.13";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -8683,8 +8687,7 @@
           self: true,
           handler() {
             if (this.mode === "reveal" && !hasClass(parent(this.panel), this.clsMode)) {
-              wrapAll(this.panel, "<div>");
-              addClass(parent(this.panel), this.clsMode);
+              addClass(wrapAll(this.panel, "<div>"), this.clsMode);
             }
             const { body, scrollingElement } = document;
             addClass(body, this.clsContainer, this.clsFlip);
@@ -8715,7 +8718,7 @@
           self: true,
           handler() {
             this.clsContainerAnimation && resumeUserScale();
-            if (this.mode === "reveal") {
+            if (this.mode === "reveal" && hasClass(parent(this.panel), this.clsMode)) {
               unwrap(this.panel);
             }
             removeClass(this.panel, this.clsSidebarAnimation, this.clsMode);
