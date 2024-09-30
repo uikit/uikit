@@ -79,6 +79,10 @@ export default {
                         const done = () => {
                             removeClass(el, cls);
                             trigger(el, show ? 'shown' : 'hidden', [this]);
+
+                            if (show) {
+                                $$('[autofocus]', el).find(isVisible)?.focus();
+                            }
                         };
 
                         return promise
@@ -125,8 +129,6 @@ export default {
             if (changed) {
                 trigger(el, 'toggled', [toggled, this]);
             }
-
-            $$('[autofocus]', el).some((el) => (isVisible(el) ? el.focus() || true : el.blur()));
         },
     },
 };
