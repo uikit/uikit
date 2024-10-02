@@ -159,7 +159,9 @@ export default {
 
         {
             name: 'itemshow',
-            handler: 'updateNav',
+            handler() {
+                this.updateNav();
+            },
         },
 
         {
