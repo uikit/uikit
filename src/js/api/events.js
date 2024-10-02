@@ -1,4 +1,4 @@
-import { hasOwn, isArray, isPlainObject, on } from 'uikit-util';
+import { hasOwn, on } from 'uikit-util';
 
 export function initEvents(instance) {
     for (const event of instance.$options.events || []) {
@@ -6,27 +6,28 @@ export function initEvents(instance) {
             registerEvent(instance, event);
         } else {
             for (const key in event) {
-                registerEvent(instance, event[key], key);
+                registerEvent(instance, { name: key, handler: event[key] });
             }
         }
     }
 }
 
-export function registerEvent(instance, event, key) {
-    let { name, el, handler, capture, passive, delegate, filter, self } = isPlainObject(event)
-        ? event
-        : { name: key, handler: event };
-    el = el ? el.call(instance, instance) : instance.$el;
-
-    if (!el || (isArray(el) && !el.length) || (filter && !filter.call(instance, instance))) {
+function registerEvent(instance, { name, el, handler, capture, passive, delegate, filter, self }) {
+    if (filter && !filter.call(instance, instance)) {
         return;
     }
 
     instance._disconnect.push(
-        on(el, name, delegate?.call(instance, instance), handler.bind(instance), {
-            passive,
-            capture,
-            self,
-        }),
+        on(
+            el ? el.call(instance, instance) : instance.$el,
+            name,
+            delegate?.call(instance, instance),
+            handler.bind(instance),
+            {
+                passive,
+                capture,
+                self,
+            },
+        ),
     );
 }

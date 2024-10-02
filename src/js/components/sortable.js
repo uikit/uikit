@@ -68,8 +68,8 @@ export default {
     events: {
         name: pointerDown,
         passive: false,
-        handler() {
-            this.init();
+        handler(e) {
+            this.init(e);
         },
     },
 
