@@ -51,15 +51,9 @@
 /* Items
  ========================================================================== */
 
-/*
- * 1. Fix misalignment caused by `font-size: 0`
- */
-
 .uk-breadcrumb > * > * {
     font-size: @breadcrumb-item-font-size;
     color: @breadcrumb-item-color;
-    /* 1 */
-    vertical-align: middle;
     .hook-breadcrumb-item();
 }
 
