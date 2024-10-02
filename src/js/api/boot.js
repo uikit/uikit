@@ -24,37 +24,33 @@ function init(App) {
         apply(document.body, connect);
     }
 
-    new MutationObserver((records) => records.forEach(applyChildListMutation)).observe(document, {
+    new MutationObserver(handleMutation).observe(document, {
         subtree: true,
         childList: true,
-    });
-
-    new MutationObserver((records) => records.forEach(applyAttributeMutation)).observe(document, {
-        subtree: true,
         attributes: true,
     });
 
     App._initialized = true;
 }
 
-function applyChildListMutation({ addedNodes, removedNodes }) {
-    for (const node of addedNodes) {
-        apply(node, connect);
-    }
+function handleMutation(records) {
+    for (const { addedNodes, removedNodes, target, attributeName } of records) {
+        for (const node of addedNodes) {
+            apply(node, connect);
+        }
 
-    for (const node of removedNodes) {
-        apply(node, disconnect);
-    }
-}
+        for (const node of removedNodes) {
+            apply(node, disconnect);
+        }
 
-function applyAttributeMutation({ target, attributeName }) {
-    const name = getComponentName(attributeName);
+        const name = attributeName && getComponentName(attributeName);
 
-    if (name) {
-        if (hasAttr(target, attributeName)) {
-            createComponent(name, target);
-        } else {
-            getComponent(target, name)?.$destroy();
+        if (name) {
+            if (hasAttr(target, attributeName)) {
+                createComponent(name, target);
+            } else {
+                getComponent(target, name)?.$destroy();
+            }
         }
     }
 }
