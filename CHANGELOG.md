@@ -9,7 +9,7 @@
 - Add `counter` option to show counter with current item number and total number of items to Lightbox component
 - Add `video-autoplay: inline` option to autoplay video without controls and muted to Lightbox component
 - Add zoom behavior to images and inline videos if they are higher than the viewport to Lightbox component
-- Allow `template` option to reference a `template` element in the DOM for the lighbox layout in Lightbox component
+- Allow `template` option to reference a `template` element in the DOM for the lightbox layout in Lightbox component
 - Add hidden class to hide empty elements to Visibility component
 - Add inverse style for form rang to Form component
 
@@ -17,6 +17,7 @@
 
 - IMPORTANT: Remove `@lightbox-toolbar-icon-*` and `@lightbox-button-*`from Lightbox component
 - IMPORTANT: Rename `@lightbox-toolbar-*` to `@lightbox-caption-*` in Lightbox component
+- IMPORTANT: Rename `@lightbox-item-color` to `@lightbox-color` in Lightbox component
 - Set `delay-controls: 0` prevents hiding controls in Lightbox component
 - Update default lightbox template in Lightbox component
 - Change calculation of search box and search icon padding in Search component
