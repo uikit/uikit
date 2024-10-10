@@ -99,14 +99,20 @@ function ensureThumb(toggles, items) {
             continue;
         }
 
-        const media = $(
-            'img,video',
-            parents(toggle)
-                .reverse()
-                .find(
-                    (parent) => this.$el.contains(parent) && $$(this.toggle, parent).length === 1,
-                ),
-        );
+        const parent = parents(toggle)
+            .reverse()
+            .concat(toggle)
+            .find(
+                (parent) =>
+                    this.$el.contains(parent) &&
+                    (parent === toggle || $$(this.toggle, parent).length === 1),
+            );
+
+        if (!parent) {
+            continue;
+        }
+
+        const media = $('img,video', parent);
 
         if (media) {
             items[i].thumb = media.currentSrc || media.poster || media.src;
