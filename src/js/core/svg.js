@@ -2,6 +2,7 @@ import {
     addClass,
     attr,
     css,
+    fragment,
     includes,
     isTag,
     memoize,
@@ -94,11 +95,14 @@ const loadSVG = memoize(async (src) => {
         if (startsWith(src, 'data:')) {
             return decodeURIComponent(src.split(',')[1]);
         } else {
-            return (await fetch(src)).text();
+            const response = await fetch(src);
+            if (response.headers.get('Content-Type') === 'image/svg+xml') {
+                return response.text();
+            }
         }
-    } else {
-        return Promise.reject();
     }
+
+    return Promise.reject();
 });
 
 function parseSVG(svg, icon) {
@@ -106,7 +110,7 @@ function parseSVG(svg, icon) {
         svg = parseSymbols(svg)[icon] || svg;
     }
 
-    return stringToSvg(svg);
+    return fragment(svg);
 }
 
 const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
@@ -130,10 +134,4 @@ function applyAnimation(el) {
     if (length) {
         css(el, '--uk-animation-stroke', length);
     }
-}
-
-export function stringToSvg(string) {
-    const container = document.createElement('template');
-    container.innerHTML = string;
-    return container.content.firstElementChild;
 }
