@@ -20,8 +20,8 @@
 - IMPORTANT: Rename `@lightbox-item-color` to `@lightbox-color` in Lightbox component
 - Set `delay-controls: 0` prevents hiding controls in Lightbox component
 - Update default lightbox template in Lightbox component
-- Change calculation of search box and search icon padding in Search component
-- Change search style medium and large to same as search default in Search component
+- Change padding calculation of search box and search icon in Search component
+- Change search style medium and large to look the same as default in Search component
 
 ### Fixed
 
