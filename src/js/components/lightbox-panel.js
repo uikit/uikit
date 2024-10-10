@@ -384,6 +384,7 @@ export default {
                 }
             },
         },
+
         {
             name: 'itemloaded',
             handler() {

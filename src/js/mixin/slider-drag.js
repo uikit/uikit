@@ -17,7 +17,7 @@ const pointerUpOptions = { passive: true, capture: true };
 const pointerDown = 'touchstart mousedown';
 const pointerMove = 'touchmove mousemove';
 const pointerUp = 'touchend touchcancel mouseup click input scroll';
-const preventClick = (e) => e.preventDefault();
+
 export default {
     props: {
         draggable: Boolean,
@@ -120,10 +120,6 @@ export default {
                 return;
             }
 
-            if (!this.dragging) {
-                on(this.list, 'click', preventClick, pointerOptions);
-            }
-
             e.cancelable && e.preventDefault();
 
             this.dragging = true;
@@ -188,6 +184,8 @@ export default {
             off(document, pointerUp, this.end, pointerUpOptions);
 
             if (this.dragging) {
+                setTimeout(on(this.list, 'click', (e) => e.preventDefault(), pointerOptions));
+
                 this.dragging = null;
 
                 if (this.index === this.prevIndex) {
@@ -214,7 +212,6 @@ export default {
                 }
             }
 
-            setTimeout(() => off(this.list, 'click', preventClick, pointerOptions));
             css(this.list, { userSelect: '' });
 
             this.drag = this.percent = null;
