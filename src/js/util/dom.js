@@ -18,7 +18,9 @@ export function isTag(element, ...tagNames) {
 
 export function empty(element) {
     element = $(element);
-    element.innerHTML = '';
+    if (element) {
+        element.innerHTML = '';
+    }
     return element;
 }
 

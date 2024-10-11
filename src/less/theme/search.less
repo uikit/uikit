@@ -11,19 +11,29 @@
 
 @search-navbar-focus-background:                    @search-navbar-background;
 
+@search-medium-background:                          transparent;
+
+@search-large-background:                           transparent;
+
 //
 // New
 //
 
 @search-default-border-width:                       @global-border-width;
 @search-default-border:                             @global-border;
-
 @search-default-focus-border:                       @global-primary-background;
 
 @search-navbar-border-width:                        @global-border-width;
 @search-navbar-border:                              @global-border;
-
 @search-navbar-focus-border:                        @global-primary-background;
+
+@search-medium-border-width:                        @global-border-width;
+@search-medium-border:                              @global-border;
+@search-medium-focus-border:                        @global-primary-background;
+
+@search-large-border-width:                         @global-border-width;
+@search-large-border:                               @global-border;
+@search-large-focus-border:                         @global-primary-background;
 
 
 // Component
@@ -57,17 +67,17 @@
 // Medium modifiers
 // ========================================================================
 
-.hook-search-medium-input() {}
+.hook-search-medium-input() { border: @search-medium-border-width solid @search-medium-border; }
 
-.hook-search-medium-input-focus() {}
+.hook-search-medium-input-focus() { border-color: @search-medium-focus-border; }
 
 
 // Large modifiers
 // ========================================================================
 
-.hook-search-large-input() {}
+.hook-search-large-input() { border: @search-large-border-width solid @search-large-border; }
 
-.hook-search-large-input-focus() {}
+.hook-search-large-input-focus() { border-color: @search-large-focus-border; }
 
 
 // Toggle
@@ -87,9 +97,13 @@
 // Inverse
 // ========================================================================
 
-@inverse-search-default-background:            transparent;
+@inverse-search-default-background:             transparent;
 
-@inverse-search-navbar-background:             transparent;
+@inverse-search-navbar-background:              transparent;
+
+@inverse-search-medium-background:              transparent;
+
+@inverse-search-large-background:               transparent;
 
 .hook-inverse-search-default-input() { border-color: @inverse-global-border; }
 .hook-inverse-search-default-input-focus() {}
@@ -97,10 +111,10 @@
 .hook-inverse-search-navbar-input() { border-color: @inverse-global-border; }
 .hook-inverse-search-navbar-input-focus() {}
 
-.hook-inverse-search-medium-input() {}
+.hook-inverse-search-medium-input() { border-color: @inverse-global-border; }
 .hook-inverse-search-medium-input-focus() {}
 
-.hook-inverse-search-large-input() {}
+.hook-inverse-search-large-input() { border-color: @inverse-global-border; }
 .hook-inverse-search-large-input-focus() {}
 
 .hook-inverse-search-toggle() {}

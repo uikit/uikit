@@ -31,7 +31,7 @@ export default {
     observe: resize(),
 
     events: {
-        beforeitemshow({ target }) {
+        itemshow({ target }) {
             addClass(target, this.clsActive);
         },
 

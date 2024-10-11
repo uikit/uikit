@@ -1,64 +1,123 @@
 import {
     $,
+    $$,
+    Transition,
     addClass,
     append,
     attr,
     fragment,
     getIndex,
     html,
+    isTag,
+    matches,
     on,
+    parent,
+    pick,
     pointerDown,
     pointerMove,
+    remove,
     removeClass,
-    Transition,
+    toggleClass,
     trigger,
+    wrapAll,
 } from 'uikit-util';
+import { wrapInPicture } from '../core/img';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
 import { keyMap } from '../util/keys';
 import Animations from './internal/lightbox-animations';
 
 export default {
+    i18n: {
+        counter: '%s / %s',
+    },
+
     mixins: [Modal, Slideshow],
 
     functional: true,
 
     props: {
-        delayControls: Number,
+        counter: Boolean,
         preload: Number,
+        nav: Boolean,
+        slidenav: Boolean,
+        delayControls: Number,
         videoAutoplay: Boolean,
         template: String,
     },
 
     data: () => ({
+        counter: false,
         preload: 1,
-        videoAutoplay: false,
+        nav: false,
+        slidenav: true,
         delayControls: 3000,
+        videoAutoplay: false,
         items: [],
         cls: 'uk-open',
         clsPage: 'uk-lightbox-page',
-        selList: '.uk-lightbox-items',
+        clsFit: 'uk-lightbox-items-fit',
+        clsZoom: 'uk-lightbox-zoom',
         attrItem: 'uk-lightbox-item',
+        selList: '.uk-lightbox-items',
         selClose: '.uk-close-large',
+        selNav: '.uk-lightbox-thumbnav, .uk-lightbox-dotnav',
         selCaption: '.uk-lightbox-caption',
+        selCounter: '.uk-lightbox-counter',
         pauseOnHover: false,
         velocity: 2,
         Animations,
         template: `<div class="uk-lightbox uk-overflow-hidden">
                         <div class="uk-lightbox-items"></div>
-                        <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque">
-                            <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button>
-                         </div>
-                        <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href uk-slidenav-previous uk-lightbox-item="previous"></a>
-                        <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href uk-slidenav-next uk-lightbox-item="next"></a>
-                        <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
+                        <div class="uk-position-top-right uk-position-small uk-transition-fade" uk-inverse>
+                            <button class="uk-lightbox-close uk-close-large" type="button" uk-close></button>
+                        </div>
+                        <div class="uk-lightbox-slidenav uk-position-center-left uk-position-medium uk-transition-fade" uk-inverse>
+                            <a href uk-slidenav-previous uk-lightbox-item="previous"></a>
+                        </div>
+                        <div class="uk-lightbox-slidenav uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse>
+                            <a href uk-slidenav-next uk-lightbox-item="next"></a>
+                        </div>
+                        <div class="uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse style="max-height: 90vh; overflow: auto;">
+                            <ul class="uk-lightbox-thumbnav uk-lightbox-thumbnav-vertical uk-thumbnav uk-thumbnav-vertical"></ul>
+                            <ul class="uk-lightbox-dotnav uk-dotnav uk-dotnav-vertical"></ul>
+                        </div>
+                        <div class="uk-lightbox-counter uk-text-large uk-position-top-left uk-position-small uk-transition-fade" uk-inverse></div>
+                        <div class="uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
                     </div>`,
     }),
 
     created() {
-        const $el = $(this.template);
+        let $el = $(this.template);
+
+        if (isTag($el, 'template')) {
+            $el = fragment(html($el));
+        }
+
         const list = $(this.selList, $el);
-        this.items.forEach(() => append(list, '<div>'));
+        const navType = this.$props.nav;
+
+        remove($$(this.selNav, $el).filter((el) => !matches(el, `.uk-${navType}`)));
+
+        for (const [i, item] of this.items.entries()) {
+            append(list, '<div>');
+            if (navType === 'thumbnav') {
+                wrapAll(
+                    toThumbnavItem(item, this.videoAutoplay),
+                    append($(this.selNav, $el), `<li uk-lightbox-item="${i}"><a href></a></li>`),
+                );
+            }
+        }
+
+        if (!this.slidenav) {
+            remove($$('.uk-lightbox-slidenav', $el));
+        }
+
+        if (!this.counter) {
+            remove($(this.selCounter, $el));
+        }
+
+        addClass(list, this.clsFit);
 
         const close = $('[uk-close]', $el);
         const closeLabel = this.t('close');
@@ -71,10 +130,18 @@ export default {
 
     events: [
         {
-            name: `${pointerMove} ${pointerDown} keydown`,
+            name: 'click',
 
-            handler() {
-                this.showControls();
+            self: true,
+
+            filter: ({ bgClose }) => bgClose,
+
+            delegate: ({ selList }) => `${selList} > *`,
+
+            handler(e) {
+                if (!e.defaultPrevented) {
+                    this.hide();
+                }
             },
         },
 
@@ -83,12 +150,22 @@ export default {
 
             self: true,
 
-            delegate: ({ selList }) => `${selList} > *`,
+            delegate: ({ clsZoom }) => `.${clsZoom}`,
 
             handler(e) {
                 if (!e.defaultPrevented) {
-                    this.hide();
+                    toggleClass(this.list, this.clsFit);
                 }
+            },
+        },
+
+        {
+            name: `${pointerMove} ${pointerDown} keydown`,
+
+            filter: ({ delayControls }) => delayControls,
+
+            handler() {
+                this.showControls();
             },
         },
 
@@ -167,7 +244,7 @@ export default {
 
                 this.toggleElement(this.$el, true, false);
 
-                this.animation = Animations['scale'];
+                this.animation = Animations.scale;
                 removeClass(e.target, this.clsActive);
                 this.stack.splice(1, 0, this.index);
             },
@@ -178,6 +255,10 @@ export default {
 
             handler() {
                 html($(this.selCaption, this.$el), this.getItem().caption || '');
+                html(
+                    $(this.selCounter, this.$el),
+                    this.t('counter', this.index + 1, this.slides.length),
+                );
 
                 for (let j = -this.preload; j <= this.preload; j++) {
                     this.loadItem(this.index + j);
@@ -197,7 +278,7 @@ export default {
             name: 'itemload',
 
             async handler(_, item) {
-                const { source: src, type, alt = '', poster, attrs = {} } = item;
+                const { source: src, type, attrs = {} } = item;
 
                 this.setItem(item, '<span uk-spinner></span>');
 
@@ -210,26 +291,32 @@ export default {
                     allowfullscreen: '',
                     style: 'max-width: 100%; box-sizing: border-box;',
                     'uk-responsive': '',
-                    'uk-video': `${this.videoAutoplay}`,
+                    'uk-video': `${Boolean(this.videoAutoplay)}`,
                 };
 
                 // Image
-                if (
-                    type === 'image' ||
-                    src.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i)
-                ) {
-                    const img = createEl('img', { src, alt, ...attrs });
-                    on(img, 'load', () => this.setItem(item, img));
+                if (type === 'image' || isImage(src)) {
+                    const img = createEl('img');
+
+                    wrapInPicture(img, item.sources);
+                    attr(img, {
+                        src,
+                        ...pick(item, ['alt', 'srcset', 'sizes']),
+                        ...attrs,
+                    });
+
+                    on(img, 'load', () => this.setItem(item, parent(img) || img));
                     on(img, 'error', () => this.setError(item));
 
                     // Video
-                } else if (type === 'video' || src.match(/\.(mp4|webm|ogv)($|\?)/i)) {
+                } else if (type === 'video' || isVideo(src)) {
+                    const inline = this.videoAutoplay === 'inline';
                     const video = createEl('video', {
                         src,
-                        poster,
-                        controls: '',
                         playsinline: '',
-                        'uk-video': `${this.videoAutoplay}`,
+                        controls: inline ? null : '',
+                        poster: this.videoAutoplay ? null : item.poster,
+                        'uk-video': inline ? 'automute: true' : Boolean(this.videoAutoplay),
                         ...attrs,
                     });
 
@@ -297,7 +384,32 @@ export default {
                 }
             },
         },
+
+        {
+            name: 'itemloaded',
+            handler() {
+                this.$emit('resize');
+            },
+        },
     ],
+
+    update: {
+        read() {
+            for (const media of $$(`${this.selList} :not([controls]):is(img,video)`, this.$el)) {
+                toggleClass(
+                    media,
+                    this.clsZoom,
+                    (media.naturalHeight || media.videoHeight) - this.$el.offsetHeight >
+                        Math.max(
+                            0,
+                            (media.naturalWidth || media.videoWidth) - this.$el.offsetWidth,
+                        ),
+                );
+            }
+        },
+
+        events: ['resize'],
+    },
 
     methods: {
         loadItem(index = this.index) {
@@ -326,7 +438,8 @@ export default {
 
         showControls() {
             clearTimeout(this.controlsTimer);
-            this.controlsTimer = setTimeout(this.hideControls, this.delayControls);
+            this.controlsTimer =
+                this.delayControls && setTimeout(this.hideControls, this.delayControls);
 
             addClass(this.$el, 'uk-active', 'uk-transition-active');
         },
@@ -341,4 +454,32 @@ function createEl(tag, attrs) {
     const el = fragment(`<${tag}>`);
     attr(el, attrs);
     return el;
+}
+
+function toThumbnavItem(item, videoAutoplay) {
+    const el =
+        item.poster || (item.thumb && (item.type === 'image' || isImage(item.thumb)))
+            ? createEl('img', { src: item.poster || item.thumb, alt: '' })
+            : item.thumb && (item.type === 'video' || isVideo(item.thumb))
+              ? createEl('video', {
+                    src: item.thumb,
+                    loop: '',
+                    playsinline: '',
+                    'uk-video': `autoplay: ${Boolean(videoAutoplay)}; automute: true`,
+                })
+              : createEl('canvas');
+
+    if (item.thumbRatio) {
+        el.style.aspectRatio = item.thumbRatio;
+    }
+
+    return el;
+}
+
+function isImage(src) {
+    return src?.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i);
+}
+
+function isVideo(src) {
+    return src?.match(/\.(mp4|webm|ogv)($|\?)/i);
 }

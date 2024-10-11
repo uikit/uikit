@@ -1,5 +1,35 @@
 # Changelog
 
+## WIP Lightbox
+
+### Added
+
+- Add `slidnav` option to disable slidenav to Lightbox component
+- Add `nav` option to show a vertical thumbnav or dotnav to Lightbox component
+- Add `counter` option to show counter with current item number and total number of items to Lightbox component
+- Add `video-autoplay: inline` option to autoplay video without controls and muted to Lightbox component
+- Add zoom behavior to images and inline videos if they are higher than the viewport to Lightbox component
+- Allow `template` option to reference a `template` element in the DOM for the lightbox layout in Lightbox component
+- Add hidden class to hide empty elements to Visibility component
+- Add inverse style for form rang to Form component
+
+### Changed
+
+- IMPORTANT: Remove `@lightbox-toolbar-icon-*` and `@lightbox-button-*`from Lightbox component
+- IMPORTANT: Rename `@lightbox-toolbar-*` to `@lightbox-caption-*` in Lightbox component
+- IMPORTANT: Rename `@lightbox-item-color` to `@lightbox-color` in Lightbox component
+- Set `delay-controls: 0` prevents hiding controls in Lightbox component
+- Update default lightbox template in Lightbox component
+- Change padding calculation of search box and search icon in Search component
+- Change search style medium and large to look the same as default in Search component
+
+### Fixed
+
+- Fix hidden class keep showing elements on hover if a link is clicked in Visibility component
+- Fix spaces in the markup affecting the horizontal divider margin in Breadcrumb component
+- Fix showing elements if an element has focus within in Transition component
+- Fix Slideshow component list does not fill available space in Safari
+
 ## 3.21.13 (September 26, 2024)
 
 ### Fixed

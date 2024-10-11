@@ -53,10 +53,6 @@ export default {
         transitionElement() {
             return this.panel;
         },
-
-        bgClose({ bgClose }) {
-            return bgClose && this.panel;
-        },
     },
 
     connected() {
@@ -266,6 +262,7 @@ function listenForBackgroundClose(modal) {
         if (
             last(active) !== modal ||
             (modal.overlay && !modal.$el.contains(target)) ||
+            !modal.panel ||
             modal.panel.contains(target)
         ) {
             return;

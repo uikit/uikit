@@ -11,7 +11,7 @@ export default function (App) {
 
         instance.$options.el = el;
 
-        if (document.contains(el)) {
+        if (el.isConnected) {
             callConnected(instance);
         }
     };
