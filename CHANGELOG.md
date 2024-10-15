@@ -12,7 +12,7 @@
 - Allow `template` option to reference a `template` element in the DOM for the lightbox layout in Lightbox component
 - Add hidden class to hide empty elements to Visibility component
 - Add inverse style for form rang to Form component
-- Add close-circle and arrow-up-arrow-down icons
+- Add close-circle and arrow-down-arrow-up icons
 
 ### Changed
 
