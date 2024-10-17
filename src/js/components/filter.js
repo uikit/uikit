@@ -15,6 +15,7 @@ import {
     isUndefined,
     matches,
     toggleClass,
+    removeClass,
     trigger,
 } from 'uikit-util';
 import { parseOptions } from '../api/options';
@@ -88,8 +89,17 @@ export default {
     methods: {
         apply(el) {
             const prevState = this.getState();
-            const newState = mergeState(el, this.attrItem, this.getState());
-
+            let newState;
+            if (hasClass(el, this.cls)) {
+                /*
+                 * filter is currently active and has been clicked to de-activate
+                 * filters in other groups (if any) are left active
+                 */
+                removeClass(el, this.cls)
+                newState = this.getState();
+            } else {
+                newState = mergeState(el, this.attrItem, this.getState());
+            }
             if (!isEqualState(prevState, newState)) {
                 this.setState(newState);
             }
