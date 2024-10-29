@@ -52,7 +52,7 @@ export default {
     update: [
         {
             read() {
-                const targets = this.links.map((el) => getTargetedElement(el) || el.ownerDocument);
+                const targets = this.links.map((el) => getTargetedElement(el)).filter(Boolean);
 
                 const { length } = targets;
 
