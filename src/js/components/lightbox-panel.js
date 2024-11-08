@@ -280,7 +280,7 @@ export default {
             async handler(_, item) {
                 const { source: src, type, attrs = {} } = item;
 
-                this.setItem(item, '<span uk-spinner></span>');
+                this.setItem(item, '<span uk-spinner uk-inverse></span>');
 
                 if (!src) {
                     return;
@@ -433,7 +433,7 @@ export default {
         },
 
         setError(item) {
-            this.setItem(item, '<span uk-icon="icon: bolt; ratio: 2"></span>');
+            this.setItem(item, '<span uk-icon="icon: bolt; ratio: 2" uk-inverse></span>');
         },
 
         showControls() {

@@ -6,7 +6,11 @@
 // Sub-objects:     `uk-lightbox-page`
 //                  `uk-lightbox-items`
 //                  `uk-lightbox-items-fit`
+//                  `uk-lightbox-thumbnav`
+//                  `uk-lightbox-thumbnav-vertical`
+//                  `uk-lightbox-dotnav`
 //                  `uk-lightbox-caption`
+//                  `uk-lightbox-counter`
 //                  `uk-lightbox-iframe`
 //                  `uk-lightbox-zoom`
 //
@@ -20,7 +24,6 @@
 
 @lightbox-z-index:                              @global-z-index + 10;
 @lightbox-background:                           #000;
-@lightbox-color:                                rgba(255,255,255,0.7);
 @lightbox-color-mode:                           light;
 
 @lightbox-focus-outline:                        rgba(255,255,255,0.7);
@@ -49,7 +52,6 @@
  * 5. Mask the background page
  * 6. Fade-in transition
  * 7. Prevent cancellation of pointer events while dragging
- * 8. Style for count and spinner icon
  */
 
 .uk-lightbox {
@@ -70,8 +72,6 @@
     transition: opacity 0.15s linear;
     /* 7 */
     touch-action: pinch-zoom;
-    /* 8 */
-    color: @lightbox-color;
     .hook-lightbox();
 }
 
