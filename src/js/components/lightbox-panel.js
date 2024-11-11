@@ -234,6 +234,16 @@ export default {
             name: 'beforeitemshow',
 
             handler(e) {
+                html($(this.selCaption, this.$el), this.getItem().caption || '');
+                html(
+                    $(this.selCounter, this.$el),
+                    this.t('counter', this.index + 1, this.slides.length),
+                );
+
+                for (let j = -this.preload; j <= this.preload; j++) {
+                    this.loadItem(this.index + j);
+                }
+
                 if (this.isToggled()) {
                     return;
                 }
@@ -247,22 +257,6 @@ export default {
                 this.animation = Animations.scale;
                 removeClass(e.target, this.clsActive);
                 this.stack.splice(1, 0, this.index);
-            },
-        },
-
-        {
-            name: 'itemshow',
-
-            handler() {
-                html($(this.selCaption, this.$el), this.getItem().caption || '');
-                html(
-                    $(this.selCounter, this.$el),
-                    this.t('counter', this.index + 1, this.slides.length),
-                );
-
-                for (let j = -this.preload; j <= this.preload; j++) {
-                    this.loadItem(this.index + j);
-                }
             },
         },
 
