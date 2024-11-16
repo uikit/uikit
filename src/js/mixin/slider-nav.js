@@ -159,7 +159,9 @@ export default {
 
         {
             name: 'itemshow',
-            handler: 'updateNav',
+            handler() {
+                this.updateNav();
+            },
         },
 
         {
@@ -209,7 +211,7 @@ export default {
                     const active = item === index;
 
                     toggleClass(el, this.clsActive, active);
-                    toggleClass(button, 'uk-disabled', this.parallax);
+                    toggleClass(button, 'uk-disabled', !!this.parallax);
 
                     attr(button, {
                         'aria-selected': active,

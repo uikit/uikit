@@ -1,9 +1,5 @@
 import { css } from 'uikit-util';
-import Animations, {
-    scale3d,
-    translate,
-    translated,
-} from '../../mixin/internal/slideshow-animations';
+import Animations, { translate, translated } from '../../mixin/internal/slideshow-animations';
 
 export default {
     ...Animations,
@@ -98,3 +94,7 @@ export default {
         },
     },
 };
+
+export function scale3d(value) {
+    return `scale3d(${value}, ${value}, 1)`;
+}

@@ -101,7 +101,7 @@ export default {
     },
 
     methods: {
-        show(index, force = false) {
+        async show(index, force = false) {
             if (this.dragging || !this.length || this.parallax) {
                 return;
             }
@@ -149,22 +149,20 @@ export default {
                 return;
             }
 
-            const promise = this._show(prev, next, force).then(() => {
-                prev && trigger(prev, 'itemhidden', [this]);
-                trigger(next, 'itemshown', [this]);
-
-                stack.shift();
-                this._transitioner = null;
-
-                if (stack.length) {
-                    requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
-                }
-            });
-
             prev && trigger(prev, 'itemhide', [this]);
             trigger(next, 'itemshow', [this]);
 
-            return promise;
+            await this._show(prev, next, force);
+
+            prev && trigger(prev, 'itemhidden', [this]);
+            trigger(next, 'itemshown', [this]);
+
+            stack.shift();
+            this._transitioner = null;
+
+            if (stack.length) {
+                requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
+            }
         },
 
         getIndex(index = this.index, prev = this.index) {

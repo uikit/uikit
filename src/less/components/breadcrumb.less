@@ -28,12 +28,16 @@
  ========================================================================== */
 
 /*
- * Reset list
+ * 1. Reset list
+ * 2. Remove space between elements
  */
 
 .uk-breadcrumb {
+    /* 1 */
     padding: 0;
     list-style: none;
+    /* 2 */
+    font-size: 0;
     .hook-breadcrumb();
 }
 
@@ -83,7 +87,7 @@
     content: @breadcrumb-divider;
     display: inline-block;
     /* 1 */
-    margin: 0 @breadcrumb-divider-margin-horizontal 0 ~'calc(@{breadcrumb-divider-margin-horizontal} - 4px)';
+    margin: 0 @breadcrumb-divider-margin-horizontal;
     /* 2 */
     font-size: @breadcrumb-divider-font-size;
     color: @breadcrumb-divider-color;

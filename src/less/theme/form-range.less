@@ -43,3 +43,15 @@
 // ========================================================================
 
 .hook-form-range-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-form-range-thumb-background:           darken(fadein(@inverse-global-color, 100%), 50%);
+
+@inverse-form-range-thumb-border:               darken(fadein(@inverse-global-border, 100%), 10%);
+
+.hook-inverse-form-range-track() {}
+.hook-inverse-form-range-track-focus() {}
+.hook-inverse-form-range-thumb() { border-color: @inverse-form-range-thumb-border; }

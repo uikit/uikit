@@ -84,6 +84,8 @@ export function getTargetedElement(el) {
     if (isSameSiteAnchor(el)) {
         const { hash, ownerDocument } = toNode(el);
         const id = decodeURIComponent(hash).slice(1);
-        return ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0];
+        return id
+            ? ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0]
+            : ownerDocument;
     }
 }
