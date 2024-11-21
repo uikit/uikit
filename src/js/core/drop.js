@@ -276,7 +276,9 @@ export default {
 
             self: true,
 
-            handler: 'clearTimers',
+            handler() {
+                this.clearTimers();
+            },
         },
 
         {

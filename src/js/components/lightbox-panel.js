@@ -73,7 +73,9 @@ export default {
         {
             name: `${pointerMove} ${pointerDown} keydown`,
 
-            handler: 'showControls',
+            handler() {
+                this.showControls();
+            },
         },
 
         {
@@ -95,7 +97,9 @@ export default {
 
             self: true,
 
-            handler: 'showControls',
+            handler() {
+                this.showControls();
+            },
         },
 
         {

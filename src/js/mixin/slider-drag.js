@@ -202,6 +202,8 @@ export default {
                     this.index = dirChange ? this.index : this.prevIndex;
 
                     if (dirChange) {
+                        trigger(this.slides[this.prevIndex], 'itemhidden', [this]);
+                        trigger(this.slides[this.index], 'itemshown', [this]);
                         this.percent = 1 - this.percent;
                     }
 

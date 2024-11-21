@@ -31,8 +31,7 @@ export default {
                 aspectRatio: this.ratio ? this.ratio.replace(':', '/') : undefined,
                 minHeight: this.minHeight,
                 maxHeight: this.maxHeight,
-                minWidth: '100%',
-                maxWidth: '100%',
+                width: '100%',
             });
         },
     },

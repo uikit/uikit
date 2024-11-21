@@ -24,10 +24,5 @@ export function translated(el) {
 }
 
 export function translate(value = 0, unit = '%') {
-    value += value ? unit : '';
-    return `translate3d(${value}, 0, 0)`;
-}
-
-export function scale3d(value) {
-    return `scale3d(${value}, ${value}, 1)`;
+    return value ? `translate3d(${value + unit}, 0, 0)` : '';
 }

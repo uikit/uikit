@@ -165,7 +165,7 @@ function applyMasonry(rows, gutter, next) {
     let rowHeights = 0;
     for (let row of rows) {
         if (isRtl) {
-            row = row.reverse();
+            row.reverse();
         }
 
         let height = 0;
