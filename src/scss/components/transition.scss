@@ -72,7 +72,7 @@
 
 .uk-transition-toggle:hover .uk-transition-fade,
 .uk-transition-toggle:focus .uk-transition-fade,
-.uk-transition-toggle .uk-transition-fade:focus-within,
+.uk-transition-toggle:focus-within .uk-transition-fade,
 .uk-transition-active.uk-active .uk-transition-fade { opacity: 1; }
 
 /*
@@ -95,7 +95,7 @@
 /* Show */
 .uk-transition-toggle:hover .uk-transition-scale-up,
 .uk-transition-toggle:focus .uk-transition-scale-up,
-.uk-transition-toggle .uk-transition-scale-up:focus-within,
+.uk-transition-toggle:focus-within .uk-transition-scale-up,
 .uk-transition-active.uk-active .uk-transition-scale-up {
     --uk-scale-x: #{$transition-scale};
     --uk-scale-y: #{$transition-scale};
@@ -104,7 +104,7 @@
 
 .uk-transition-toggle:hover .uk-transition-scale-down,
 .uk-transition-toggle:focus .uk-transition-scale-down,
-.uk-transition-toggle .uk-transition-scale-down:focus-within,
+.uk-transition-toggle:focus-within .uk-transition-scale-down,
 .uk-transition-active.uk-active .uk-transition-scale-down {
     --uk-scale-x: 1;
     --uk-scale-y: 1;
@@ -133,7 +133,7 @@
 /* Show */
 .uk-transition-toggle:hover [class*="uk-transition-slide"],
 .uk-transition-toggle:focus [class*="uk-transition-slide"],
-.uk-transition-toggle [class*="uk-transition-slide"]:focus-within,
+.uk-transition-toggle:focus-within [class*="uk-transition-slide"],
 .uk-transition-active.uk-active [class*="uk-transition-slide"] {
     --uk-translate-x: 0;
     --uk-translate-y: 0;

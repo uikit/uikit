@@ -1,4 +1,4 @@
-/*! UIkit 3.21.13 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.14 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -350,7 +350,7 @@
       if (isSameSiteAnchor(el)) {
         const { hash, ownerDocument } = toNode(el);
         const id = decodeURIComponent(hash).slice(1);
-        return ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0];
+        return id ? ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0] : ownerDocument;
       }
     }
 
@@ -1138,9 +1138,6 @@
         el.muted = true;
       }
     }
-    function isVideo(el) {
-      return isHTML5(el) || isIFrame(el);
-    }
     function isHTML5(el) {
       return isTag(el, "video");
     }
@@ -1606,7 +1603,6 @@
         isTag: isTag,
         isTouch: isTouch,
         isUndefined: isUndefined,
-        isVideo: isVideo,
         isVisible: isVisible,
         isVoidElement: isVoidElement,
         isWindow: isWindow,
@@ -2922,11 +2918,7 @@
       return Math.abs(new DOMMatrix(css(el, "transform")).m41 / el.offsetWidth);
     }
     function translate(value = 0, unit = "%") {
-      value += value ? unit : "";
-      return `translate3d(${value}, 0, 0)`;
-    }
-    function scale3d(value) {
-      return `scale3d(${value}, ${value}, 1)`;
+      return value ? `translate3d(${value + unit}, 0, 0)` : "";
     }
 
     function Transitioner$1(prev, next, dir, { animation, easing }) {
@@ -3189,6 +3181,8 @@
               const dirChange = (isRtl ? this.dir * (isRtl ? 1 : -1) : this.dir) < 0 === this.prevPos > this.pos;
               this.index = dirChange ? this.index : this.prevIndex;
               if (dirChange) {
+                trigger(this.slides[this.prevIndex], "itemhidden", [this]);
+                trigger(this.slides[this.index], "itemshown", [this]);
                 this.percent = 1 - this.percent;
               }
               this.show(
@@ -3302,24 +3296,26 @@
           registerEvent(instance, event);
         } else {
           for (const key in event) {
-            registerEvent(instance, event[key], key);
+            registerEvent(instance, { name: key, handler: event[key] });
           }
         }
       }
     }
-    function registerEvent(instance, event, key) {
-      let { name, el, handler, capture, passive, delegate, filter, self } = isPlainObject(event) ? event : { name: key, handler: event };
-      el = isFunction(el) ? el.call(instance, instance) : el || instance.$el;
-      if (!el || isArray(el) && !el.length || filter && !filter.call(instance, instance)) {
+    function registerEvent(instance, { name, el, handler, capture, passive, delegate, filter, self }) {
+      if (filter && !filter.call(instance, instance)) {
         return;
       }
       instance._disconnect.push(
         on(
-          el,
+          el ? el.call(instance, instance) : instance.$el,
           name,
-          delegate ? isString(delegate) ? delegate : delegate.call(instance, instance) : null,
-          isString(handler) ? instance[handler] : handler.bind(instance),
-          { passive, capture, self }
+          delegate == null ? void 0 : delegate.call(instance, instance),
+          handler.bind(instance),
+          {
+            passive,
+            capture,
+            self
+          }
         )
       );
     }
@@ -3529,7 +3525,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.13";
+    App.version = "3.21.14";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3648,7 +3644,7 @@
         const instance = this;
         attachToElement(el, instance);
         instance.$options.el = el;
-        if (document.contains(el)) {
+        if (el.isConnected) {
           callConnected(instance);
         }
       };
@@ -3802,7 +3798,9 @@
         },
         {
           name: "itemshow",
-          handler: "updateNav"
+          handler() {
+            this.updateNav();
+          }
         },
         {
           name: "keydown",
@@ -3935,7 +3933,7 @@
         }
       },
       methods: {
-        show(index, force = false) {
+        async show(index, force = false) {
           var _a;
           if (this.dragging || !this.length || this.parallax) {
             return;
@@ -3971,18 +3969,16 @@
             reset();
             return;
           }
-          const promise = this._show(prev, next, force).then(() => {
-            prev && trigger(prev, "itemhidden", [this]);
-            trigger(next, "itemshown", [this]);
-            stack.shift();
-            this._transitioner = null;
-            if (stack.length) {
-              requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
-            }
-          });
           prev && trigger(prev, "itemhide", [this]);
           trigger(next, "itemshow", [this]);
-          return promise;
+          await this._show(prev, next, force);
+          prev && trigger(prev, "itemhidden", [this]);
+          trigger(next, "itemshown", [this]);
+          stack.shift();
+          this._transitioner = null;
+          if (stack.length) {
+            requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
+          }
         },
         getIndex(index = this.index, prev = this.index) {
           return clamp(
@@ -4052,7 +4048,7 @@
       },
       observe: resize(),
       events: {
-        beforeitemshow({ target }) {
+        itemshow({ target }) {
           addClass(target, this.clsActive);
         },
         itemshown({ target }) {
@@ -4065,6 +4061,84 @@
     };
 
     var Animations$1 = {
+      ...Animations$2,
+      fade: {
+        show() {
+          return [{ opacity: 0, zIndex: 0 }, { zIndex: -1 }];
+        },
+        percent(current) {
+          return 1 - css(current, "opacity");
+        },
+        translate(percent) {
+          return [{ opacity: 1 - percent, zIndex: 0 }, { zIndex: -1 }];
+        }
+      },
+      scale: {
+        show() {
+          return [{ opacity: 0, transform: scale3d(1 + 0.5), zIndex: 0 }, { zIndex: -1 }];
+        },
+        percent(current) {
+          return 1 - css(current, "opacity");
+        },
+        translate(percent) {
+          return [
+            { opacity: 1 - percent, transform: scale3d(1 + 0.5 * percent), zIndex: 0 },
+            { zIndex: -1 }
+          ];
+        }
+      },
+      pull: {
+        show(dir) {
+          return dir < 0 ? [
+            { transform: translate(30), zIndex: -1 },
+            { transform: translate(), zIndex: 0 }
+          ] : [
+            { transform: translate(-100), zIndex: 0 },
+            { transform: translate(), zIndex: -1 }
+          ];
+        },
+        percent(current, next, dir) {
+          return dir < 0 ? 1 - translated(next) : translated(current);
+        },
+        translate(percent, dir) {
+          return dir < 0 ? [
+            { transform: translate(30 * percent), zIndex: -1 },
+            { transform: translate(-100 * (1 - percent)), zIndex: 0 }
+          ] : [
+            { transform: translate(-percent * 100), zIndex: 0 },
+            { transform: translate(30 * (1 - percent)), zIndex: -1 }
+          ];
+        }
+      },
+      push: {
+        show(dir) {
+          return dir < 0 ? [
+            { transform: translate(100), zIndex: 0 },
+            { transform: translate(), zIndex: -1 }
+          ] : [
+            { transform: translate(-30), zIndex: -1 },
+            { transform: translate(), zIndex: 0 }
+          ];
+        },
+        percent(current, next, dir) {
+          return dir > 0 ? 1 - translated(next) : translated(current);
+        },
+        translate(percent, dir) {
+          return dir < 0 ? [
+            { transform: translate(percent * 100), zIndex: 0 },
+            { transform: translate(-30 * (1 - percent)), zIndex: -1 }
+          ] : [
+            { transform: translate(-30 * percent), zIndex: -1 },
+            { transform: translate(100 * (1 - percent)), zIndex: 0 }
+          ];
+        }
+      }
+    };
+    function scale3d(value) {
+      return `scale3d(${value}, ${value}, 1)`;
+    }
+
+    var Animations = {
       ...Animations$2,
       fade: {
         show() {
@@ -4118,7 +4192,7 @@
         selCaption: ".uk-lightbox-caption",
         pauseOnHover: false,
         velocity: 2,
-        Animations: Animations$1,
+        Animations,
         template: `<div class="uk-lightbox uk-overflow-hidden"> <div class="uk-lightbox-items"></div> <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque"> <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button> </div> <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href uk-slidenav-previous uk-lightbox-item="previous"></a> <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href uk-slidenav-next uk-lightbox-item="next"></a> <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div> </div>`
       }),
       created() {
@@ -4135,7 +4209,9 @@
       events: [
         {
           name: `${pointerMove$1} ${pointerDown$1} keydown`,
-          handler: "showControls"
+          handler() {
+            this.showControls();
+          }
         },
         {
           name: "click",
@@ -4150,7 +4226,9 @@
         {
           name: "shown",
           self: true,
-          handler: "showControls"
+          handler() {
+            this.showControls();
+          }
         },
         {
           name: "hide",
@@ -4199,7 +4277,7 @@
             this.draggable = false;
             e.preventDefault();
             this.toggleElement(this.$el, true, false);
-            this.animation = Animations$1["scale"];
+            this.animation = Animations["scale"];
             removeClass(e.target, this.clsActive);
             this.stack.splice(1, 0, this.index);
           }
@@ -5496,81 +5574,6 @@
       return isIn(type) ^ dir < 0 ? percent : 1 - percent;
     }
 
-    var Animations = {
-      ...Animations$2,
-      fade: {
-        show() {
-          return [{ opacity: 0, zIndex: 0 }, { zIndex: -1 }];
-        },
-        percent(current) {
-          return 1 - css(current, "opacity");
-        },
-        translate(percent) {
-          return [{ opacity: 1 - percent, zIndex: 0 }, { zIndex: -1 }];
-        }
-      },
-      scale: {
-        show() {
-          return [{ opacity: 0, transform: scale3d(1 + 0.5), zIndex: 0 }, { zIndex: -1 }];
-        },
-        percent(current) {
-          return 1 - css(current, "opacity");
-        },
-        translate(percent) {
-          return [
-            { opacity: 1 - percent, transform: scale3d(1 + 0.5 * percent), zIndex: 0 },
-            { zIndex: -1 }
-          ];
-        }
-      },
-      pull: {
-        show(dir) {
-          return dir < 0 ? [
-            { transform: translate(30), zIndex: -1 },
-            { transform: translate(), zIndex: 0 }
-          ] : [
-            { transform: translate(-100), zIndex: 0 },
-            { transform: translate(), zIndex: -1 }
-          ];
-        },
-        percent(current, next, dir) {
-          return dir < 0 ? 1 - translated(next) : translated(current);
-        },
-        translate(percent, dir) {
-          return dir < 0 ? [
-            { transform: translate(30 * percent), zIndex: -1 },
-            { transform: translate(-100 * (1 - percent)), zIndex: 0 }
-          ] : [
-            { transform: translate(-percent * 100), zIndex: 0 },
-            { transform: translate(30 * (1 - percent)), zIndex: -1 }
-          ];
-        }
-      },
-      push: {
-        show(dir) {
-          return dir < 0 ? [
-            { transform: translate(100), zIndex: 0 },
-            { transform: translate(), zIndex: -1 }
-          ] : [
-            { transform: translate(-30), zIndex: -1 },
-            { transform: translate(), zIndex: 0 }
-          ];
-        },
-        percent(current, next, dir) {
-          return dir > 0 ? 1 - translated(next) : translated(current);
-        },
-        translate(percent, dir) {
-          return dir < 0 ? [
-            { transform: translate(percent * 100), zIndex: 0 },
-            { transform: translate(-30 * (1 - percent)), zIndex: -1 }
-          ] : [
-            { transform: translate(-30 * percent), zIndex: -1 },
-            { transform: translate(100 * (1 - percent)), zIndex: 0 }
-          ];
-        }
-      }
-    };
-
     var slideshow = {
       mixins: [Class, Slideshow, SliderReactive, SliderParallax, SliderPreload],
       props: {
@@ -5585,7 +5588,7 @@
         selList: ".uk-slideshow-items",
         attrItem: "uk-slideshow-item",
         selNav: ".uk-slideshow-nav",
-        Animations
+        Animations: Animations$1
       },
       watch: {
         list(list) {
@@ -5593,8 +5596,7 @@
             aspectRatio: this.ratio ? this.ratio.replace(":", "/") : void 0,
             minHeight: this.minHeight,
             maxHeight: this.maxHeight,
-            minWidth: "100%",
-            maxWidth: "100%"
+            width: "100%"
           });
         }
       },
@@ -5637,7 +5639,9 @@
       events: {
         name: pointerDown$1,
         passive: false,
-        handler: "init"
+        handler(e) {
+          this.init(e);
+        }
       },
       computed: {
         target: (_, $el) => ($el.tBodies || [$el])[0],
@@ -6074,7 +6078,7 @@
         // Clicking a button does not give it focus on all browsers and platforms
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
         [`focus ${pointerEnter} ${pointerDown$1}`](e) {
-          if (!isTouch(e) || e.type === pointerDown$1) {
+          if ((!isTouch(e) || e.type === pointerDown$1) && document.readyState !== "loading") {
             this.show();
           }
         }
@@ -6351,32 +6355,29 @@
       if (document.body) {
         apply(document.body, connect);
       }
-      new MutationObserver((records) => records.forEach(applyChildListMutation)).observe(document, {
+      new MutationObserver(handleMutation).observe(document, {
         subtree: true,
-        childList: true
-      });
-      new MutationObserver((records) => records.forEach(applyAttributeMutation)).observe(document, {
-        subtree: true,
+        childList: true,
         attributes: true
       });
       App._initialized = true;
     }
-    function applyChildListMutation({ addedNodes, removedNodes }) {
-      for (const node of addedNodes) {
-        apply(node, connect);
-      }
-      for (const node of removedNodes) {
-        apply(node, disconnect);
-      }
-    }
-    function applyAttributeMutation({ target, attributeName }) {
+    function handleMutation(records) {
       var _a;
-      const name = getComponentName(attributeName);
-      if (name) {
-        if (hasAttr(target, attributeName)) {
-          createComponent(name, target);
-        } else {
-          (_a = getComponent(target, name)) == null ? void 0 : _a.$destroy();
+      for (const { addedNodes, removedNodes, target, attributeName } of records) {
+        for (const node of addedNodes) {
+          apply(node, connect);
+        }
+        for (const node of removedNodes) {
+          apply(node, disconnect);
+        }
+        const name = attributeName && getComponentName(attributeName);
+        if (name) {
+          if (hasAttr(target, attributeName)) {
+            createComponent(name, target);
+          } else {
+            (_a = getComponent(target, name)) == null ? void 0 : _a.$destroy();
+          }
         }
       }
     }
@@ -6680,7 +6681,7 @@
       ],
       observe: [
         intersection({
-          filter: ({ $el, autoplay }) => autoplay !== "hover" && isVideo($el),
+          filter: ({ autoplay }) => autoplay !== "hover",
           handler([{ isIntersecting }]) {
             if (!document.fullscreenElement) {
               if (isIntersecting) {
@@ -6693,7 +6694,9 @@
             }
           },
           args: { intersecting: false },
-          options: ({ $el, autoplay }) => ({ root: autoplay === "inview" ? null : parent($el) })
+          options: ({ $el, autoplay }) => ({
+            root: autoplay === "inview" ? null : parent($el).closest(":not(a)")
+          })
         })
       ]
     };
@@ -6946,7 +6949,9 @@
         {
           name: "beforehide",
           self: true,
-          handler: "clearTimers"
+          handler() {
+            this.clearTimers();
+          }
         },
         {
           name: "hide",
@@ -7591,7 +7596,7 @@
       let rowHeights = 0;
       for (let row of rows) {
         if (isRtl) {
-          row = row.reverse();
+          row.reverse();
         }
         let height = 0;
         for (const j in row) {
@@ -7886,107 +7891,6 @@
       dimensions.forEach((val, i) => attr(el, props[i], toFloat(val) * this.ratio || null));
     }
 
-    var svg = {
-      mixins: [Svg],
-      args: "src",
-      props: {
-        src: String,
-        icon: String,
-        attributes: "list",
-        strokeAnimation: Boolean
-      },
-      data: {
-        strokeAnimation: false
-      },
-      observe: [
-        mutation({
-          async handler() {
-            const svg = await this.svg;
-            if (svg) {
-              applyAttributes.call(this, svg);
-            }
-          },
-          options: {
-            attributes: true,
-            attributeFilter: ["id", "class", "style"]
-          }
-        })
-      ],
-      async connected() {
-        if (includes(this.src, "#")) {
-          [this.src, this.icon] = this.src.split("#");
-        }
-        const svg = await this.svg;
-        if (svg) {
-          applyAttributes.call(this, svg);
-          if (this.strokeAnimation) {
-            applyAnimation(svg);
-          }
-        }
-      },
-      methods: {
-        async getSvg() {
-          if (isTag(this.$el, "img") && !this.$el.complete && this.$el.loading === "lazy") {
-            await new Promise((resolve) => once(this.$el, "load", resolve));
-          }
-          return parseSVG(await loadSVG(this.src), this.icon) || Promise.reject("SVG not found.");
-        }
-      }
-    };
-    function applyAttributes(el) {
-      const { $el } = this;
-      addClass(el, attr($el, "class"), "uk-svg");
-      for (let i = 0; i < $el.style.length; i++) {
-        const prop = $el.style[i];
-        css(el, prop, css($el, prop));
-      }
-      for (const attribute in this.attributes) {
-        const [prop, value] = this.attributes[attribute].split(":", 2);
-        attr(el, prop, value);
-      }
-      if (!this.$el.id) {
-        removeAttr(el, "id");
-      }
-    }
-    const loadSVG = memoize(async (src) => {
-      if (src) {
-        if (startsWith(src, "data:")) {
-          return decodeURIComponent(src.split(",")[1]);
-        } else {
-          return (await fetch(src)).text();
-        }
-      } else {
-        return Promise.reject();
-      }
-    });
-    function parseSVG(svg, icon) {
-      if (icon && includes(svg, "<symbol")) {
-        svg = parseSymbols(svg)[icon] || svg;
-      }
-      return stringToSvg(svg);
-    }
-    const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
-    const parseSymbols = memoize(function(svg) {
-      const symbols = {};
-      symbolRe.lastIndex = 0;
-      let match;
-      while (match = symbolRe.exec(svg)) {
-        symbols[match[3]] = `<svg ${match[1]}svg>`;
-      }
-      return symbols;
-    });
-    function applyAnimation(el) {
-      const length = getMaxPathLength(el);
-      if (length) {
-        css(el, "--uk-animation-stroke", length);
-      }
-    }
-    function stringToSvg(string) {
-      const container = document.createElement("template");
-      container.innerHTML = string;
-      return container.content.firstElementChild;
-    }
-
     const icons = {
       spinner,
       totop,
@@ -8157,7 +8061,7 @@
         return null;
       }
       if (!parsed[icon]) {
-        parsed[icon] = stringToSvg(icons[applyRtl(icon)] || icons[icon]);
+        parsed[icon] = fragment(icons[applyRtl(icon)] || icons[icon]);
       }
       return parsed[icon].cloneNode(true);
     }
@@ -8596,7 +8500,10 @@
         {
           name: "hide",
           el: ({ dropContainer }) => dropContainer,
-          async handler() {
+          async handler(e) {
+            if (parent(e.target) !== this.dropContainer) {
+              return;
+            }
             await awaitMacroTask();
             if (!this.getActive() && this._transparent) {
               addClass(this.navbarContainer, clsNavbarTransparent);
@@ -8985,7 +8892,7 @@
       update: [
         {
           read() {
-            const targets = this.links.map((el) => getTargetedElement(el) || el.ownerDocument);
+            const targets = this.links.map((el) => getTargetedElement(el)).filter(Boolean);
             const { length } = targets;
             if (!length || !isVisible(this.$el)) {
               return false;
@@ -9384,6 +9291,104 @@
       }
     }
 
+    var svg = {
+      mixins: [Svg],
+      args: "src",
+      props: {
+        src: String,
+        icon: String,
+        attributes: "list",
+        strokeAnimation: Boolean
+      },
+      data: {
+        strokeAnimation: false
+      },
+      observe: [
+        mutation({
+          async handler() {
+            const svg = await this.svg;
+            if (svg) {
+              applyAttributes.call(this, svg);
+            }
+          },
+          options: {
+            attributes: true,
+            attributeFilter: ["id", "class", "style"]
+          }
+        })
+      ],
+      async connected() {
+        if (includes(this.src, "#")) {
+          [this.src, this.icon] = this.src.split("#");
+        }
+        const svg = await this.svg;
+        if (svg) {
+          applyAttributes.call(this, svg);
+          if (this.strokeAnimation) {
+            applyAnimation(svg);
+          }
+        }
+      },
+      methods: {
+        async getSvg() {
+          if (isTag(this.$el, "img") && !this.$el.complete && this.$el.loading === "lazy") {
+            await new Promise((resolve) => once(this.$el, "load", resolve));
+          }
+          return parseSVG(await loadSVG(this.src), this.icon) || Promise.reject("SVG not found.");
+        }
+      }
+    };
+    function applyAttributes(el) {
+      const { $el } = this;
+      addClass(el, attr($el, "class"), "uk-svg");
+      for (let i = 0; i < $el.style.length; i++) {
+        const prop = $el.style[i];
+        css(el, prop, css($el, prop));
+      }
+      for (const attribute in this.attributes) {
+        const [prop, value] = this.attributes[attribute].split(":", 2);
+        attr(el, prop, value);
+      }
+      if (!this.$el.id) {
+        removeAttr(el, "id");
+      }
+    }
+    const loadSVG = memoize(async (src) => {
+      if (src) {
+        if (startsWith(src, "data:")) {
+          return decodeURIComponent(src.split(",")[1]);
+        } else {
+          const response = await fetch(src);
+          if (response.headers.get("Content-Type") === "image/svg+xml") {
+            return response.text();
+          }
+        }
+      }
+      return Promise.reject();
+    });
+    function parseSVG(svg, icon) {
+      if (icon && includes(svg, "<symbol")) {
+        svg = parseSymbols(svg)[icon] || svg;
+      }
+      return fragment(svg);
+    }
+    const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
+    const parseSymbols = memoize(function(svg) {
+      const symbols = {};
+      symbolRe.lastIndex = 0;
+      let match;
+      while (match = symbolRe.exec(svg)) {
+        symbols[match[3]] = `<svg ${match[1]}svg>`;
+      }
+      return symbols;
+    });
+    function applyAnimation(el) {
+      const length = getMaxPathLength(el);
+      if (length) {
+        css(el, "--uk-animation-stroke", length);
+      }
+    }
+
     const selDisabled = ".uk-disabled *, .uk-disabled, [disabled]";
     var Switcher = {
       mixins: [Togglable],
@@ -9636,7 +9641,7 @@
           name: `mouseenter mouseleave ${pointerEnter} ${pointerLeave} focus blur`,
           filter: ({ mode }) => includes(mode, "hover"),
           handler(e) {
-            if (isTouch(e) || this.$el.disabled) {
+            if (isTouch(e) || this.$el.disabled || document.readyState === "loading") {
               return;
             }
             const show = includes(["mouseenter", pointerEnter, "focus"], e.type);

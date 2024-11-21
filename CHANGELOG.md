@@ -27,13 +27,18 @@
 
 ### Fixed
 
-- Fix hidden class keep showing elements on hover if a link is clicked in Visibility component
 - Fix spaces in the markup affecting the horizontal divider margin in Breadcrumb component
-- Fix showing elements if an element has focus within in Transition component
-- Fix Slideshow component list does not fill available space in Safari
-- Fix Scrollspy Nav component checks if targets exists before activating state
+
+## 3.21.14 (November 21, 2024)
+
+### Fixed
+
 - Fix child components in Dropdown components toggling transparency in Navbar component
-- Fix Navbar toggles Dropdown component when hovering with mouse on initial page load 
+- Fix Navbar toggles Dropdown component when hovering with mouse on initial page load
+- Fix Scrollspy Nav component checks if targets exists before activating state
+- Fix Slideshow component list does not fill available space in Safari
+- Fix hidden class keep showing elements on hover if a link is clicked in Visibility component
+- Fix showing elements if an element has focus within in Transition component
 
 ## 3.21.13 (September 26, 2024)
 
