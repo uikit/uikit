@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.21.14 (November 21, 2024)
 
 ### Fixed
 
