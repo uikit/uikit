@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix child components in Dropdown components toggling transparency in Navbar component
 - Fix Navbar toggles Dropdown component when hovering with mouse on initial page load
 
 ## 3.21.13 (September 26, 2024)
