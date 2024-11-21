@@ -102,7 +102,7 @@ export default {
             filter: ({ mode }) => includes(mode, 'hover'),
 
             handler(e) {
-                if (isTouch(e) || this.$el.disabled) {
+                if (isTouch(e) || this.$el.disabled || document.readyState === 'loading') {
                     return;
                 }
 
