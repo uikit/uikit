@@ -33,6 +33,7 @@
 - Fix Slideshow component list does not fill available space in Safari
 - Fix Scrollspy Nav component checks if targets exists before activating state
 - Fix child components in Dropdown components toggling transparency in Navbar component
+- Fix Navbar toggles Dropdown component when hovering with mouse on initial page load 
 
 ## 3.21.13 (September 26, 2024)
 
