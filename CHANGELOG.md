@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Scroll component
+
 ## 3.21.15 (November 22, 2024)
 
 ### Fixed
