@@ -1,4 +1,4 @@
-/*! UIkit 3.21.14 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.15 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3525,7 +3525,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.14";
+    App.version = "3.21.15";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -7890,6 +7890,22 @@
       }
       dimensions.forEach((val, i) => attr(el, props[i], toFloat(val) * this.ratio || null));
     }
+    function parseSVG(svg, icon) {
+      if (icon && includes(svg, "<symbol")) {
+        svg = parseSymbols(svg)[icon] || svg;
+      }
+      return toNodes(fragment(svg)).filter(isElement)[0];
+    }
+    const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
+    const parseSymbols = memoize(function(svg) {
+      const symbols = {};
+      symbolRe.lastIndex = 0;
+      let match;
+      while (match = symbolRe.exec(svg)) {
+        symbols[match[3]] = `<svg ${match[1]}svg>`;
+      }
+      return symbols;
+    });
 
     const icons = {
       spinner,
@@ -8061,7 +8077,7 @@
         return null;
       }
       if (!parsed[icon]) {
-        parsed[icon] = fragment(icons[applyRtl(icon)] || icons[icon]);
+        parsed[icon] = parseSVG(icons[applyRtl(icon)] || icons[icon]);
       }
       return parsed[icon].cloneNode(true);
     }
@@ -9365,22 +9381,6 @@
         }
       }
       return Promise.reject();
-    });
-    function parseSVG(svg, icon) {
-      if (icon && includes(svg, "<symbol")) {
-        svg = parseSymbols(svg)[icon] || svg;
-      }
-      return fragment(svg);
-    }
-    const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
-    const parseSymbols = memoize(function(svg) {
-      const symbols = {};
-      symbolRe.lastIndex = 0;
-      let match;
-      while (match = symbolRe.exec(svg)) {
-        symbols[match[3]] = `<svg ${match[1]}svg>`;
-      }
-      return symbols;
     });
     function applyAnimation(el) {
       const length = getMaxPathLength(el);
