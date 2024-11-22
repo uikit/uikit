@@ -1,4 +1,4 @@
-/*! UIkit 3.21.15 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.16 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -350,7 +350,7 @@
       if (isSameSiteAnchor(el)) {
         const { hash, ownerDocument } = toNode(el);
         const id = decodeURIComponent(hash).slice(1);
-        return id ? ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0] : ownerDocument;
+        return id ? ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0] : ownerDocument.documentElement;
       }
     }
 
@@ -3525,7 +3525,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.15";
+    App.version = "3.21.16";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -9335,7 +9335,7 @@
       ],
       async connected() {
         if (includes(this.src, "#")) {
-          [this.src, this.icon] = this.src.split("#");
+          [this.src, this.icon] = this.src.split("#", 2);
         }
         const svg = await this.svg;
         if (svg) {
@@ -9372,7 +9372,7 @@
     const loadSVG = memoize(async (src) => {
       if (src) {
         if (startsWith(src, "data:")) {
-          return decodeURIComponent(src.split(",")[1]);
+          return decodeURIComponent(src.split(",", 2)[1]);
         } else {
           const response = await fetch(src);
           if (response.headers.get("Content-Type") === "image/svg+xml") {
