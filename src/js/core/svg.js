@@ -46,7 +46,7 @@ export default {
 
     async connected() {
         if (includes(this.src, '#')) {
-            [this.src, this.icon] = this.src.split('#');
+            [this.src, this.icon] = this.src.split('#', 2);
         }
 
         const svg = await this.svg;
@@ -92,7 +92,7 @@ function applyAttributes(el) {
 const loadSVG = memoize(async (src) => {
     if (src) {
         if (startsWith(src, 'data:')) {
-            return decodeURIComponent(src.split(',')[1]);
+            return decodeURIComponent(src.split(',', 2)[1]);
         } else {
             const response = await fetch(src);
             if (response.headers.get('Content-Type') === 'image/svg+xml') {
