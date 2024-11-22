@@ -29,6 +29,12 @@
 
 - Fix spaces in the markup affecting the horizontal divider margin in Breadcrumb component
 
+## 3.21.15 (November 22, 2024)
+
+### Fixed
+
+- Fix regression in SVG parsing
+
 ## 3.21.14 (November 21, 2024)
 
 ### Fixed

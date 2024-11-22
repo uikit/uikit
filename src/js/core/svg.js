@@ -2,7 +2,6 @@ import {
     addClass,
     attr,
     css,
-    fragment,
     includes,
     isTag,
     memoize,
@@ -11,7 +10,7 @@ import {
     startsWith,
 } from 'uikit-util';
 import { mutation } from '../api/observables';
-import Svg from '../mixin/svg';
+import Svg, { parseSVG } from '../mixin/svg';
 import { getMaxPathLength } from '../util/svg';
 
 export default {
@@ -103,29 +102,6 @@ const loadSVG = memoize(async (src) => {
     }
 
     return Promise.reject();
-});
-
-function parseSVG(svg, icon) {
-    if (icon && includes(svg, '<symbol')) {
-        svg = parseSymbols(svg)[icon] || svg;
-    }
-
-    return fragment(svg);
-}
-
-const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
-
-const parseSymbols = memoize(function (svg) {
-    const symbols = {};
-
-    symbolRe.lastIndex = 0;
-
-    let match;
-    while ((match = symbolRe.exec(svg))) {
-        symbols[match[3]] = `<svg ${match[1]}svg>`;
-    }
-
-    return symbols;
 });
 
 function applyAnimation(el) {
