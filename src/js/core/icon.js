@@ -5,7 +5,6 @@ import {
     attr,
     css,
     each,
-    fragment,
     hasAttr,
     hasClass,
     hyphenate,
@@ -35,7 +34,7 @@ import slidenavPrevious from '../../images/components/slidenav-previous.svg';
 import spinner from '../../images/components/spinner.svg';
 import totop from '../../images/components/totop.svg';
 import I18n from '../mixin/i18n';
-import Svg from '../mixin/svg';
+import Svg, { parseSVG } from '../mixin/svg';
 
 const icons = {
     spinner,
@@ -262,7 +261,7 @@ function getIcon(icon) {
     }
 
     if (!parsed[icon]) {
-        parsed[icon] = fragment(icons[applyRtl(icon)] || icons[icon]);
+        parsed[icon] = parseSVG(icons[applyRtl(icon)] || icons[icon]);
     }
 
     return parsed[icon].cloneNode(true);

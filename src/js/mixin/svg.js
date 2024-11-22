@@ -1,4 +1,18 @@
-import { after, append, attr, isTag, isVoidElement, noop, remove, toFloat } from 'uikit-util';
+import {
+    after,
+    append,
+    attr,
+    fragment,
+    includes,
+    isElement,
+    isTag,
+    isVoidElement,
+    memoize,
+    noop,
+    remove,
+    toFloat,
+    toNodes,
+} from 'uikit-util';
 
 export default {
     args: 'src',
@@ -84,3 +98,26 @@ function applyWidthAndHeight(el, ref) {
 
     dimensions.forEach((val, i) => attr(el, props[i], toFloat(val) * this.ratio || null));
 }
+
+export function parseSVG(svg, icon) {
+    if (icon && includes(svg, '<symbol')) {
+        svg = parseSymbols(svg)[icon] || svg;
+    }
+
+    return toNodes(fragment(svg)).filter(isElement)[0];
+}
+
+const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
+
+const parseSymbols = memoize(function (svg) {
+    const symbols = {};
+
+    symbolRe.lastIndex = 0;
+
+    let match;
+    while ((match = symbolRe.exec(svg))) {
+        symbols[match[3]] = `<svg ${match[1]}svg>`;
+    }
+
+    return symbols;
+});

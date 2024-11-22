@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in SVG parsing
+
 ## 3.21.14 (November 21, 2024)
 
 ### Fixed
