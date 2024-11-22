@@ -105,12 +105,6 @@ async function deploy(version) {
     await $$`git merge ${branch} --commit --no-ff -m ${`Merge branch '${branch}'`}`;
     await $$`git tag ${tag}`;
 
-    await $$`git checkout develop`;
-    await $$`git merge ${tag} --commit --no-ff -m ${`Merge tag '${tag}' into develop`}`;
-
-    await $$`git branch --delete ${branch}`;
-
-    await $$`git push origin develop`;
     await $$`git push origin main --tags`;
 
     await $$`pnpm publish --no-git-checks`;
@@ -119,4 +113,11 @@ async function deploy(version) {
         .match(/## \d.*?$\s*(.*?)\s*(?=## \d)/ms)[1]
         .replace(/(["`])/g, '\\$1');
     await $$`gh release create v${version} --notes ${notes} ./dist/uikit-${version}.zip`;
+
+    await $$`git checkout develop`;
+    await $$`git merge ${tag} --commit --no-ff -m ${`Merge tag '${tag}' into develop`}`;
+
+    await $$`git branch --delete ${branch}`;
+
+    await $$`git push origin develop`;
 }

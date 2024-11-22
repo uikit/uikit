@@ -86,6 +86,6 @@ export function getTargetedElement(el) {
         const id = decodeURIComponent(hash).slice(1);
         return id
             ? ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0]
-            : ownerDocument;
+            : ownerDocument.documentElement;
     }
 }
