@@ -309,6 +309,7 @@ export default {
                         src,
                         playsinline: '',
                         controls: inline ? null : '',
+                        loop: inline ? '' : null,
                         poster: this.videoAutoplay ? null : item.poster,
                         'uk-video': inline ? 'automute: true' : Boolean(this.videoAutoplay),
                         ...attrs,
