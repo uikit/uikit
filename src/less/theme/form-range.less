@@ -13,10 +13,10 @@
 // New
 //
 
+@form-range-track-border-radius:                500px;
+
 @form-range-thumb-border-width:                 @global-border-width;
 @form-range-thumb-border:                       darken(@global-border, 10%);
-
-@form-range-track-border-radius:                500px;
 
 
 // Component
@@ -25,18 +25,18 @@
 .hook-form-range() {}
 
 
-// Thumb
-// ========================================================================
-
-.hook-form-range-thumb() { border: @form-range-thumb-border-width solid @form-range-thumb-border; }
-
-
 // Track
 // ========================================================================
 
 .hook-form-range-track() { border-radius: @form-range-track-border-radius; }
 
 .hook-form-range-track-focus() {}
+
+
+// Thumb
+// ========================================================================
+
+.hook-form-range-thumb() { border: @form-range-thumb-border-width solid @form-range-thumb-border; }
 
 
 // Miscellaneous
