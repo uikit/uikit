@@ -48,6 +48,7 @@
 
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
+@dropcap-line-height:                           1;
 
 @logo-font-size:                                @global-large-font-size;
 @logo-font-family:                              @global-font-family;
@@ -370,7 +371,7 @@
     margin-right: @dropcap-margin-right;
     float: left;
     font-size: @dropcap-font-size;
-    line-height: 1;
+    line-height: @dropcap-line-height;
     .hook-dropcap();
 }
 
