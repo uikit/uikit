@@ -13,6 +13,7 @@
 - Add hidden class to hide empty elements to Visibility component
 - Add inverse style for form rang to Form component
 - Add margin xsmall classes
+- Add horizontal margin variable to subnav pill in Subnav component
 - Add close-circle and arrow-down-arrow-up icons
 
 ### Changed
