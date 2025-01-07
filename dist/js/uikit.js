@@ -1,4 +1,4 @@
-/*! UIkit 3.21.16 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
+/*! UIkit 3.21.17 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3525,7 +3525,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.16";
+    App.version = "3.21.17";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -8517,7 +8517,7 @@
           name: "hide",
           el: ({ dropContainer }) => dropContainer,
           async handler(e) {
-            if (parent(e.target) !== this.dropContainer) {
+            if (!this.getDropdown(e.target)) {
               return;
             }
             await awaitMacroTask();

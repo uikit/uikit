@@ -1,4 +1,4 @@
-import { $$, addClass, css, hasClass, offset, parent, removeClass } from 'uikit-util';
+import { $$, addClass, css, hasClass, offset, removeClass } from 'uikit-util';
 import Dropnav from './dropnav';
 
 const clsNavbarTransparent = 'uk-navbar-transparent';
@@ -57,7 +57,7 @@ export default {
             el: ({ dropContainer }) => dropContainer,
 
             async handler(e) {
-                if (parent(e.target) !== this.dropContainer) {
+                if (!this.getDropdown(e.target)) {
                     return;
                 }
 
