@@ -30,6 +30,12 @@
 
 - Fix spaces in the markup affecting the horizontal divider margin in Breadcrumb component
 
+## 3.21.17 (January 7, 2025)
+
+### Fixed
+
+- Fix Navbar component not re-applying transparency after closing Drop component
+
 ## 3.21.16 (November 22, 2024)
 
 ### Fixed
