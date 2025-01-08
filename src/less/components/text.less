@@ -33,6 +33,8 @@
 
 @text-background-color:                         @global-primary-background;
 
+@text-stroke-text-stroke:                       ~'calc(1.4px + 0.002em)';
+
 
 /* ========================================================================
    Component: Text
@@ -237,6 +239,15 @@ td.uk-text-truncate { max-width: 0; }
  /* 1 */
  th.uk-text-break,
  td.uk-text-break { word-break: break-word; }
+
+
+/* Stroke modifiers
+ ========================================================================== */
+
+.uk-text-stroke {
+    -webkit-text-stroke: @text-stroke-text-stroke;
+    -webkit-text-fill-color: transparent;
+}
 
 
 // Hooks
