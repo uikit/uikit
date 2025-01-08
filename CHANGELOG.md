@@ -16,6 +16,7 @@
 - Add horizontal margin variable to subnav pill in Subnav component
 - Add text stroke class to Text component
 - Add close-circle and arrow-down-arrow-up icons
+- Add `reload` option to Countdown component
 
 ### Changed
 
