@@ -27,7 +27,7 @@ export default {
         },
 
         write({ height }) {
-            css(this.$el, { minHeight: height });
+            css(this.$el, 'minHeight', height);
         },
 
         events: ['resize'],

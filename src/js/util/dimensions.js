@@ -97,8 +97,8 @@ export function offsetPosition(element) {
     const offset = [element.offsetTop, element.offsetLeft];
 
     while ((element = element.offsetParent)) {
-        offset[0] += element.offsetTop + toFloat(css(element, `borderTopWidth`));
-        offset[1] += element.offsetLeft + toFloat(css(element, `borderLeftWidth`));
+        offset[0] += element.offsetTop + toFloat(css(element, 'borderTopWidth'));
+        offset[1] += element.offsetLeft + toFloat(css(element, 'borderLeftWidth'));
 
         if (css(element, 'position') === 'fixed') {
             const win = toWindow(element);
