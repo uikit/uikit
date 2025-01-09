@@ -1,4 +1,4 @@
-/*! UIkit 3.21.17 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.22.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -746,7 +746,9 @@
     }
     function empty(element) {
       element = $(element);
-      element.innerHTML = "";
+      if (element) {
+        element.innerHTML = "";
+      }
       return element;
     }
     function html(parent2, html2) {
@@ -879,8 +881,8 @@
       element = toNode(element);
       const offset2 = [element.offsetTop, element.offsetLeft];
       while (element = element.offsetParent) {
-        offset2[0] += element.offsetTop + toFloat(css(element, `borderTopWidth`));
-        offset2[1] += element.offsetLeft + toFloat(css(element, `borderLeftWidth`));
+        offset2[0] += element.offsetTop + toFloat(css(element, "borderTopWidth"));
+        offset2[1] += element.offsetLeft + toFloat(css(element, "borderLeftWidth"));
         if (css(element, "position") === "fixed") {
           const win = toWindow(element);
           offset2[0] += win.scrollY;
@@ -1686,17 +1688,19 @@
       props: {
         date: String,
         clsWrapper: String,
-        role: String
+        role: String,
+        reload: Boolean
       },
       data: {
         date: "",
         clsWrapper: ".uk-countdown-%unit%",
-        role: "timer"
+        role: "timer",
+        reload: false
       },
       connected() {
         attr(this.$el, "role", this.role);
         this.date = toFloat(Date.parse(this.$props.date));
-        this.end = false;
+        this.started = this.end = false;
         this.start();
       },
       disconnected() {
@@ -1717,10 +1721,6 @@
         start() {
           this.stop();
           this.update();
-          if (!this.timer) {
-            trigger(this.$el, "countdownstart");
-            this.timer = setInterval(this.update, 1e3);
-          }
         },
         stop() {
           if (this.timer) {
@@ -1736,7 +1736,14 @@
             if (!this.end) {
               trigger(this.$el, "countdownend");
               this.end = true;
+              if (this.reload && this.started) {
+                window.location.reload();
+              }
             }
+          } else if (!this.timer) {
+            this.started = true;
+            trigger(this.$el, "countdownstart");
+            this.timer = setInterval(this.update, 1e3);
           }
           for (const unit of units) {
             const el = $(this.clsWrapper.replace("%unit%", unit), this.$el);
@@ -2442,6 +2449,121 @@
       return $("a,button", el) || el;
     }
 
+    var img = {
+      args: "dataSrc",
+      props: {
+        dataSrc: String,
+        sources: String,
+        margin: String,
+        target: String,
+        loading: String
+      },
+      data: {
+        dataSrc: "",
+        sources: false,
+        margin: "50%",
+        target: false,
+        loading: "lazy"
+      },
+      connected() {
+        if (this.loading !== "lazy") {
+          this.load();
+        } else if (isImg(this.$el)) {
+          this.$el.loading = "lazy";
+          setSrcAttrs(this.$el);
+        }
+      },
+      disconnected() {
+        if (this.img) {
+          this.img.onload = "";
+        }
+        delete this.img;
+      },
+      observe: intersection({
+        handler(entries, observer) {
+          this.load();
+          observer.disconnect();
+        },
+        options: ({ margin }) => ({ rootMargin: margin }),
+        filter: ({ loading }) => loading === "lazy",
+        target: ({ $el, $props }) => $props.target ? [$el, ...queryAll($props.target, $el)] : $el
+      }),
+      methods: {
+        load() {
+          if (this.img) {
+            return this.img;
+          }
+          const image = isImg(this.$el) ? this.$el : getImageFromElement(this.$el, this.dataSrc, this.sources);
+          removeAttr(image, "loading");
+          setSrcAttrs(this.$el, image.currentSrc);
+          return this.img = image;
+        }
+      }
+    };
+    function setSrcAttrs(el, src) {
+      if (isImg(el)) {
+        const parentNode = parent(el);
+        const elements = isTag(parentNode, "picture") ? children(parentNode) : [el];
+        elements.forEach((el2) => setSourceProps(el2, el2));
+      } else if (src) {
+        const change = !includes(el.style.backgroundImage, src);
+        if (change) {
+          css(el, "backgroundImage", `url(${escape(src)})`);
+          trigger(el, createEvent("load", false));
+        }
+      }
+    }
+    const srcProps = ["data-src", "data-srcset", "sizes"];
+    function setSourceProps(sourceEl, targetEl) {
+      for (const prop of srcProps) {
+        const value = data(sourceEl, prop);
+        if (value) {
+          attr(targetEl, prop.replace(/data-/g, ""), value);
+        }
+      }
+    }
+    function getImageFromElement(el, src, sources) {
+      const img = new Image();
+      wrapInPicture(img, sources);
+      setSourceProps(el, img);
+      img.onload = () => setSrcAttrs(el, img.currentSrc);
+      attr(img, "src", src);
+      return img;
+    }
+    function wrapInPicture(img, sources) {
+      sources = parseSources(sources);
+      if (sources.length) {
+        const picture = fragment("<picture>");
+        for (const attrs of sources) {
+          const source = fragment("<source>");
+          attr(source, attrs);
+          append(picture, source);
+        }
+        append(picture, img);
+      }
+    }
+    function parseSources(sources) {
+      if (!sources) {
+        return [];
+      }
+      if (startsWith(sources, "[")) {
+        try {
+          sources = JSON.parse(sources);
+        } catch (e) {
+          sources = [];
+        }
+      } else {
+        sources = parseOptions(sources);
+      }
+      if (!isArray(sources)) {
+        sources = [sources];
+      }
+      return sources.filter((source) => !isEmpty(source));
+    }
+    function isImg(el) {
+      return isTag(el, "img");
+    }
+
     let prevented;
     function preventBackgroundScroll(el) {
       const off = on(
@@ -2508,6 +2630,82 @@
       }
     };
 
+    var Position = {
+      props: {
+        pos: String,
+        offset: Boolean,
+        flip: Boolean,
+        shift: Boolean,
+        inset: Boolean
+      },
+      data: {
+        pos: `bottom-${isRtl ? "right" : "left"}`,
+        offset: false,
+        flip: true,
+        shift: true,
+        inset: false
+      },
+      connected() {
+        this.pos = this.$props.pos.split("-").concat("center").slice(0, 2);
+        [this.dir, this.align] = this.pos;
+        this.axis = includes(["top", "bottom"], this.dir) ? "y" : "x";
+      },
+      methods: {
+        positionAt(element, target, boundary) {
+          let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
+          const placement = [this.flip && "flip", this.shift && "shift"];
+          const attach = {
+            element: [this.inset ? this.dir : flipPosition(this.dir), this.align],
+            target: [this.dir, this.align]
+          };
+          if (this.axis === "y") {
+            for (const prop in attach) {
+              attach[prop].reverse();
+            }
+            offset.reverse();
+            placement.reverse();
+          }
+          const restoreScrollPosition = storeScrollPosition(element);
+          const elDim = dimensions$1(element);
+          css(element, { top: -elDim.height, left: -elDim.width });
+          positionAt(element, target, {
+            attach,
+            offset,
+            boundary,
+            placement,
+            viewportOffset: this.getViewportOffset(element)
+          });
+          restoreScrollPosition();
+        },
+        getPositionOffset(element = this.$el) {
+          return toPx(
+            this.offset === false ? css(element, "--uk-position-offset") : this.offset,
+            this.axis === "x" ? "width" : "height",
+            element
+          ) * (includes(["left", "top"], this.dir) ? -1 : 1) * (this.inset ? -1 : 1);
+        },
+        getShiftOffset(element = this.$el) {
+          return this.align === "center" ? 0 : toPx(
+            css(element, "--uk-position-shift-offset"),
+            this.axis === "y" ? "width" : "height",
+            element
+          ) * (includes(["left", "top"], this.align) ? 1 : -1);
+        },
+        getViewportOffset(element) {
+          return toPx(css(element, "--uk-position-viewport-offset"));
+        }
+      }
+    };
+    function storeScrollPosition(element) {
+      const scrollElement = scrollParent(element);
+      const { scrollTop } = scrollElement;
+      return () => {
+        if (scrollTop !== scrollElement.scrollTop) {
+          scrollElement.scrollTop = scrollTop;
+        }
+      };
+    }
+
     var Togglable = {
       props: {
         cls: Boolean,
@@ -2545,8 +2743,14 @@
                 addClass(el, cls);
                 trigger(el, show ? "show" : "hide", [this]);
                 const done = () => {
+                  var _a;
                   removeClass(el, cls);
                   trigger(el, show ? "shown" : "hidden", [this]);
+                  if (show) {
+                    const restoreScrollPosition = storeScrollPosition(el);
+                    (_a = $$("[autofocus]", el).find(isVisible)) == null ? void 0 : _a.focus();
+                    restoreScrollPosition();
+                  }
                 };
                 return promise ? promise.then(done, () => {
                   removeClass(el, cls);
@@ -2579,7 +2783,6 @@
           if (changed) {
             trigger(el, "toggled", [toggled, this]);
           }
-          $$("[autofocus]", el).some((el2) => isVisible(el2) ? el2.focus() || true : el2.blur());
         }
       }
     };
@@ -2710,9 +2913,6 @@
         panel: ({ selPanel }, $el) => $(selPanel, $el),
         transitionElement() {
           return this.panel;
-        },
-        bgClose({ bgClose }) {
-          return bgClose && this.panel;
         }
       },
       connected() {
@@ -2875,7 +3075,7 @@
     }
     function listenForBackgroundClose$1(modal) {
       return on(document, pointerDown$1, ({ target }) => {
-        if (last(active$1) !== modal || modal.overlay && !modal.$el.contains(target) || modal.panel.contains(target)) {
+        if (last(active$1) !== modal || modal.overlay && !modal.$el.contains(target) || !modal.panel || modal.panel.contains(target)) {
           return;
         }
         once(
@@ -3052,7 +3252,6 @@
     const pointerDown = "touchstart mousedown";
     const pointerMove = "touchmove mousemove";
     const pointerUp = "touchend touchcancel mouseup click input scroll";
-    const preventClick = (e) => e.preventDefault();
     var SliderDrag = {
       props: {
         draggable: Boolean
@@ -3120,9 +3319,6 @@
           if (distance === 0 || this.prevPos === this.pos || !this.dragging && Math.abs(distance) < this.threshold) {
             return;
           }
-          if (!this.dragging) {
-            on(this.list, "click", preventClick, pointerOptions);
-          }
           e.cancelable && e.preventDefault();
           this.dragging = true;
           this.dir = distance < 0 ? 1 : -1;
@@ -3171,6 +3367,7 @@
           off(document, pointerMove, this.move, pointerOptions);
           off(document, pointerUp, this.end, pointerUpOptions);
           if (this.dragging) {
+            setTimeout(on(this.list, "click", (e) => e.preventDefault(), pointerOptions));
             this.dragging = null;
             if (this.index === this.prevIndex) {
               this.percent = 1 - this.percent;
@@ -3191,7 +3388,6 @@
               );
             }
           }
-          setTimeout(() => off(this.list, "click", preventClick, pointerOptions));
           css(this.list, { userSelect: "" });
           this.drag = this.percent = null;
         }
@@ -3525,7 +3721,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.21.17";
+    App.version = "3.22.0";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3830,7 +4026,7 @@
               const item = toNumber(cmd);
               const active = item === index;
               toggleClass(el, this.clsActive, active);
-              toggleClass(button, "uk-disabled", this.parallax);
+              toggleClass(button, "uk-disabled", !!this.parallax);
               attr(button, {
                 "aria-selected": active,
                 tabindex: active && !this.parallax ? null : -1
@@ -4171,34 +4367,67 @@
     };
 
     var LightboxPanel = {
+      i18n: {
+        counter: "%s / %s"
+      },
       mixins: [Modal, Slideshow],
       functional: true,
       props: {
-        delayControls: Number,
+        counter: Boolean,
         preload: Number,
+        nav: Boolean,
+        slidenav: Boolean,
+        delayControls: Number,
         videoAutoplay: Boolean,
         template: String
       },
       data: () => ({
+        counter: false,
         preload: 1,
-        videoAutoplay: false,
+        nav: false,
+        slidenav: true,
         delayControls: 3e3,
+        videoAutoplay: false,
         items: [],
         cls: "uk-open",
         clsPage: "uk-lightbox-page",
-        selList: ".uk-lightbox-items",
+        clsFit: "uk-lightbox-items-fit",
+        clsZoom: "uk-lightbox-zoom",
         attrItem: "uk-lightbox-item",
+        selList: ".uk-lightbox-items",
         selClose: ".uk-close-large",
+        selNav: ".uk-lightbox-thumbnav, .uk-lightbox-dotnav",
         selCaption: ".uk-lightbox-caption",
+        selCounter: ".uk-lightbox-counter",
         pauseOnHover: false,
         velocity: 2,
         Animations,
-        template: `<div class="uk-lightbox uk-overflow-hidden"> <div class="uk-lightbox-items"></div> <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque"> <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button> </div> <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href uk-slidenav-previous uk-lightbox-item="previous"></a> <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href uk-slidenav-next uk-lightbox-item="next"></a> <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div> </div>`
+        template: `<div class="uk-lightbox uk-overflow-hidden"> <div class="uk-lightbox-items"></div> <div class="uk-position-top-right uk-position-small uk-transition-fade" uk-inverse> <button class="uk-lightbox-close uk-close-large" type="button" uk-close></button> </div> <div class="uk-lightbox-slidenav uk-position-center-left uk-position-medium uk-transition-fade" uk-inverse> <a href uk-slidenav-previous uk-lightbox-item="previous"></a> </div> <div class="uk-lightbox-slidenav uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse> <a href uk-slidenav-next uk-lightbox-item="next"></a> </div> <div class="uk-position-center-right uk-position-medium uk-transition-fade" uk-inverse style="max-height: 90vh; overflow: auto;"> <ul class="uk-lightbox-thumbnav uk-lightbox-thumbnav-vertical uk-thumbnav uk-thumbnav-vertical"></ul> <ul class="uk-lightbox-dotnav uk-dotnav uk-dotnav-vertical"></ul> </div> <div class="uk-lightbox-counter uk-text-large uk-position-top-left uk-position-small uk-transition-fade" uk-inverse></div> <div class="uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div> </div>`
       }),
       created() {
-        const $el = $(this.template);
+        let $el = $(this.template);
+        if (isTag($el, "template")) {
+          $el = fragment(html($el));
+        }
         const list = $(this.selList, $el);
-        this.items.forEach(() => append(list, "<div>"));
+        const navType = this.$props.nav;
+        remove$1($$(this.selNav, $el).filter((el) => !matches(el, `.uk-${navType}`)));
+        for (const [i, item] of this.items.entries()) {
+          append(list, "<div>");
+          if (navType === "thumbnav") {
+            wrapAll(
+              toThumbnavItem(item, this.videoAutoplay),
+              append($(this.selNav, $el), `<li uk-lightbox-item="${i}"><a href></a></li>`)
+            );
+          }
+        }
+        if (!this.slidenav) {
+          remove$1($$(".uk-lightbox-slidenav", $el));
+        }
+        if (!this.counter) {
+          remove$1($(this.selCounter, $el));
+        }
+        addClass(list, this.clsFit);
         const close = $("[uk-close]", $el);
         const closeLabel = this.t("close");
         if (close && closeLabel) {
@@ -4208,19 +4437,31 @@
       },
       events: [
         {
-          name: `${pointerMove$1} ${pointerDown$1} keydown`,
-          handler() {
-            this.showControls();
-          }
-        },
-        {
           name: "click",
           self: true,
+          filter: ({ bgClose }) => bgClose,
           delegate: ({ selList }) => `${selList} > *`,
           handler(e) {
             if (!e.defaultPrevented) {
               this.hide();
             }
+          }
+        },
+        {
+          name: "click",
+          self: true,
+          delegate: ({ clsZoom }) => `.${clsZoom}`,
+          handler(e) {
+            if (!e.defaultPrevented) {
+              toggleClass(this.list, this.clsFit);
+            }
+          }
+        },
+        {
+          name: `${pointerMove$1} ${pointerDown$1} keydown`,
+          filter: ({ delayControls }) => delayControls,
+          handler() {
+            this.showControls();
           }
         },
         {
@@ -4271,24 +4512,23 @@
         {
           name: "beforeitemshow",
           handler(e) {
+            html($(this.selCaption, this.$el), this.getItem().caption || "");
+            html(
+              $(this.selCounter, this.$el),
+              this.t("counter", this.index + 1, this.slides.length)
+            );
+            for (let j = -this.preload; j <= this.preload; j++) {
+              this.loadItem(this.index + j);
+            }
             if (this.isToggled()) {
               return;
             }
             this.draggable = false;
             e.preventDefault();
             this.toggleElement(this.$el, true, false);
-            this.animation = Animations["scale"];
+            this.animation = Animations.scale;
             removeClass(e.target, this.clsActive);
             this.stack.splice(1, 0, this.index);
-          }
-        },
-        {
-          name: "itemshow",
-          handler() {
-            html($(this.selCaption, this.$el), this.getItem().caption || "");
-            for (let j = -this.preload; j <= this.preload; j++) {
-              this.loadItem(this.index + j);
-            }
           }
         },
         {
@@ -4300,29 +4540,37 @@
         {
           name: "itemload",
           async handler(_, item) {
-            const { source: src, type, alt = "", poster, attrs = {} } = item;
-            this.setItem(item, "<span uk-spinner></span>");
+            const { source: src, type, attrs = {} } = item;
+            this.setItem(item, "<span uk-spinner uk-inverse></span>");
             if (!src) {
               return;
             }
-            let matches;
+            let matches2;
             const iframeAttrs = {
               allowfullscreen: "",
               style: "max-width: 100%; box-sizing: border-box;",
               "uk-responsive": "",
-              "uk-video": `${this.videoAutoplay}`
+              "uk-video": `${Boolean(this.videoAutoplay)}`
             };
-            if (type === "image" || src.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i)) {
-              const img = createEl("img", { src, alt, ...attrs });
-              on(img, "load", () => this.setItem(item, img));
+            if (type === "image" || isImage(src)) {
+              const img = createEl("img");
+              wrapInPicture(img, item.sources);
+              attr(img, {
+                src,
+                ...pick(item, ["alt", "srcset", "sizes"]),
+                ...attrs
+              });
+              on(img, "load", () => this.setItem(item, parent(img) || img));
               on(img, "error", () => this.setError(item));
-            } else if (type === "video" || src.match(/\.(mp4|webm|ogv)($|\?)/i)) {
+            } else if (type === "video" || isVideo(src)) {
+              const inline = this.videoAutoplay === "inline";
               const video = createEl("video", {
                 src,
-                poster,
-                controls: "",
                 playsinline: "",
-                "uk-video": `${this.videoAutoplay}`,
+                controls: inline ? null : "",
+                loop: inline ? "" : null,
+                poster: this.videoAutoplay ? null : item.poster,
+                "uk-video": inline ? "automute: true" : Boolean(this.videoAutoplay),
                 ...attrs
               });
               on(video, "loadedmetadata", () => this.setItem(item, video));
@@ -4337,20 +4585,20 @@
                   ...attrs
                 })
               );
-            } else if (matches = src.match(
+            } else if (matches2 = src.match(
               /\/\/(?:.*?youtube(-nocookie)?\..*?(?:[?&]v=|\/shorts\/)|youtu\.be\/)([\w-]{11})[&?]?(.*)?/
             )) {
               this.setItem(
                 item,
                 createEl("iframe", {
-                  src: `https://www.youtube${matches[1] || ""}.com/embed/${matches[2]}${matches[3] ? `?${matches[3]}` : ""}`,
+                  src: `https://www.youtube${matches2[1] || ""}.com/embed/${matches2[2]}${matches2[3] ? `?${matches2[3]}` : ""}`,
                   width: 1920,
                   height: 1080,
                   ...iframeAttrs,
                   ...attrs
                 })
               );
-            } else if (matches = src.match(/\/\/.*?vimeo\.[a-z]+\/(\d+)[&?]?(.*)?/)) {
+            } else if (matches2 = src.match(/\/\/.*?vimeo\.[a-z]+\/(\d+)[&?]?(.*)?/)) {
               try {
                 const { height, width } = await (await fetch(
                   `https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(
@@ -4361,7 +4609,7 @@
                 this.setItem(
                   item,
                   createEl("iframe", {
-                    src: `https://player.vimeo.com/video/${matches[1]}${matches[2] ? `?${matches[2]}` : ""}`,
+                    src: `https://player.vimeo.com/video/${matches2[1]}${matches2[2] ? `?${matches2[2]}` : ""}`,
                     width,
                     height,
                     ...iframeAttrs,
@@ -4373,8 +4621,29 @@
               }
             }
           }
+        },
+        {
+          name: "itemloaded",
+          handler() {
+            this.$emit("resize");
+          }
         }
       ],
+      update: {
+        read() {
+          for (const media of $$(`${this.selList} :not([controls]):is(img,video)`, this.$el)) {
+            toggleClass(
+              media,
+              this.clsZoom,
+              (media.naturalHeight || media.videoHeight) - this.$el.offsetHeight > Math.max(
+                0,
+                (media.naturalWidth || media.videoWidth) - this.$el.offsetWidth
+              )
+            );
+          }
+        },
+        events: ["resize"]
+      },
       methods: {
         loadItem(index = this.index) {
           const item = this.getItem(index);
@@ -4392,11 +4661,11 @@
           return this.slides[this.items.indexOf(item)];
         },
         setError(item) {
-          this.setItem(item, '<span uk-icon="icon: bolt; ratio: 2"></span>');
+          this.setItem(item, '<span uk-icon="icon: bolt; ratio: 2" uk-inverse></span>');
         },
         showControls() {
           clearTimeout(this.controlsTimer);
-          this.controlsTimer = setTimeout(this.hideControls, this.delayControls);
+          this.controlsTimer = this.delayControls && setTimeout(this.hideControls, this.delayControls);
           addClass(this.$el, "uk-active", "uk-transition-active");
         },
         hideControls() {
@@ -4409,7 +4678,26 @@
       attr(el, attrs);
       return el;
     }
+    function toThumbnavItem(item, videoAutoplay) {
+      const el = item.poster || item.thumb && (item.type === "image" || isImage(item.thumb)) ? createEl("img", { src: item.poster || item.thumb, alt: "" }) : item.thumb && (item.type === "video" || isVideo(item.thumb)) ? createEl("video", {
+        src: item.thumb,
+        loop: "",
+        playsinline: "",
+        "uk-video": `autoplay: ${Boolean(videoAutoplay)}; automute: true`
+      }) : createEl("canvas");
+      if (item.thumbRatio) {
+        el.style.aspectRatio = item.thumbRatio;
+      }
+      return el;
+    }
+    function isImage(src) {
+      return src == null ? void 0 : src.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i);
+    }
+    function isVideo(src) {
+      return src == null ? void 0 : src.match(/\.(mp4|webm|ogv)($|\?)/i);
+    }
 
+    const selDisabled$1 = ".uk-disabled *, .uk-disabled, [disabled]";
     var lightbox = {
       install: install$3,
       props: { toggle: String },
@@ -4432,17 +4720,23 @@
       },
       events: {
         name: "click",
-        delegate: ({ toggle }) => `${toggle}:not(.uk-disabled)`,
+        delegate: ({ toggle }) => toggle,
         handler(e) {
           if (!e.defaultPrevented) {
             e.preventDefault();
-            this.show(e.current);
+            if (!matches(e.current, selDisabled$1)) {
+              this.show(e.current);
+            }
           }
         }
       },
       methods: {
         show(index) {
-          const items = uniqueBy(this.toggles.map(toItem), "source");
+          let items = this.toggles.map(toItem);
+          if (this.nav === "thumbnav") {
+            ensureThumb.call(this, this.toggles, items);
+          }
+          items = uniqueBy(items, "source");
           if (isElement(index)) {
             const { source } = toItem(index);
             index = findIndex(items, ({ source: src }) => source === src);
@@ -4463,10 +4757,29 @@
       }
       assign(Lightbox.props, UIkit.component("lightboxPanel").options.props);
     }
+    function ensureThumb(toggles, items) {
+      for (const [i, toggle] of Object.entries(toggles)) {
+        if (items[i].thumb) {
+          continue;
+        }
+        const parent = parents(toggle).reverse().concat(toggle).find(
+          (parent2) => this.$el.contains(parent2) && (parent2 === toggle || $$(this.toggle, parent2).length === 1)
+        );
+        if (!parent) {
+          continue;
+        }
+        const media = $("img,video", parent);
+        if (media) {
+          items[i].thumb = media.currentSrc || media.poster || media.src;
+          items[i].thumbRatio = (media.naturalWidth || media.videoWidth) / (media.naturalHeight || media.videoHeight);
+        }
+      }
+    }
     function toItem(el) {
       const item = {};
-      for (const attr2 of ["href", "caption", "type", "poster", "alt", "attrs"]) {
-        item[attr2 === "href" ? "source" : attr2] = data(el, attr2);
+      for (const attribute of el.getAttributeNames()) {
+        const key = attribute.replace(/^data-/, "");
+        item[key === "href" ? "source" : key] = el.getAttribute(attribute);
       }
       item.attrs = parseOptions(item.attrs);
       return item;
@@ -5913,82 +6226,6 @@
           throttled = true;
           fn.call(this, ...args);
           requestAnimationFrame(() => throttled = false);
-        }
-      };
-    }
-
-    var Position = {
-      props: {
-        pos: String,
-        offset: Boolean,
-        flip: Boolean,
-        shift: Boolean,
-        inset: Boolean
-      },
-      data: {
-        pos: `bottom-${isRtl ? "right" : "left"}`,
-        offset: false,
-        flip: true,
-        shift: true,
-        inset: false
-      },
-      connected() {
-        this.pos = this.$props.pos.split("-").concat("center").slice(0, 2);
-        [this.dir, this.align] = this.pos;
-        this.axis = includes(["top", "bottom"], this.dir) ? "y" : "x";
-      },
-      methods: {
-        positionAt(element, target, boundary) {
-          let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
-          const placement = [this.flip && "flip", this.shift && "shift"];
-          const attach = {
-            element: [this.inset ? this.dir : flipPosition(this.dir), this.align],
-            target: [this.dir, this.align]
-          };
-          if (this.axis === "y") {
-            for (const prop in attach) {
-              attach[prop].reverse();
-            }
-            offset.reverse();
-            placement.reverse();
-          }
-          const restoreScrollPosition = storeScrollPosition(element);
-          const elDim = dimensions$1(element);
-          css(element, { top: -elDim.height, left: -elDim.width });
-          positionAt(element, target, {
-            attach,
-            offset,
-            boundary,
-            placement,
-            viewportOffset: this.getViewportOffset(element)
-          });
-          restoreScrollPosition();
-        },
-        getPositionOffset(element = this.$el) {
-          return toPx(
-            this.offset === false ? css(element, "--uk-position-offset") : this.offset,
-            this.axis === "x" ? "width" : "height",
-            element
-          ) * (includes(["left", "top"], this.dir) ? -1 : 1) * (this.inset ? -1 : 1);
-        },
-        getShiftOffset(element = this.$el) {
-          return this.align === "center" ? 0 : toPx(
-            css(element, "--uk-position-shift-offset"),
-            this.axis === "y" ? "width" : "height",
-            element
-          ) * (includes(["left", "top"], this.align) ? 1 : -1);
-        },
-        getViewportOffset(element) {
-          return toPx(css(element, "--uk-position-viewport-offset"));
-        }
-      }
-    };
-    function storeScrollPosition(element) {
-      const scrollElement = scrollParent(element);
-      const { scrollTop } = scrollElement;
-      return () => {
-        if (scrollTop !== scrollElement.scrollTop) {
-          scrollElement.scrollTop = scrollTop;
         }
       };
     }
@@ -7714,7 +7951,7 @@
           return this.target ? { height: this.target.offsetHeight } : false;
         },
         write({ height }) {
-          css(this.$el, { minHeight: height });
+          css(this.$el, "minHeight", height);
         },
         events: ["resize"]
       }
@@ -8085,123 +8322,6 @@
       return isRtl ? swap(swap(icon, "left", "right"), "previous", "next") : icon;
     }
 
-    var img = {
-      args: "dataSrc",
-      props: {
-        dataSrc: String,
-        sources: String,
-        margin: String,
-        target: String,
-        loading: String
-      },
-      data: {
-        dataSrc: "",
-        sources: false,
-        margin: "50%",
-        target: false,
-        loading: "lazy"
-      },
-      connected() {
-        if (this.loading !== "lazy") {
-          this.load();
-        } else if (isImg(this.$el)) {
-          this.$el.loading = "lazy";
-          setSrcAttrs(this.$el);
-        }
-      },
-      disconnected() {
-        if (this.img) {
-          this.img.onload = "";
-        }
-        delete this.img;
-      },
-      observe: intersection({
-        handler(entries, observer) {
-          this.load();
-          observer.disconnect();
-        },
-        options: ({ margin }) => ({ rootMargin: margin }),
-        filter: ({ loading }) => loading === "lazy",
-        target: ({ $el, $props }) => $props.target ? [$el, ...queryAll($props.target, $el)] : $el
-      }),
-      methods: {
-        load() {
-          if (this.img) {
-            return this.img;
-          }
-          const image = isImg(this.$el) ? this.$el : getImageFromElement(this.$el, this.dataSrc, this.sources);
-          removeAttr(image, "loading");
-          setSrcAttrs(this.$el, image.currentSrc);
-          return this.img = image;
-        }
-      }
-    };
-    function setSrcAttrs(el, src) {
-      if (isImg(el)) {
-        const parentNode = parent(el);
-        const elements = isTag(parentNode, "picture") ? children(parentNode) : [el];
-        elements.forEach((el2) => setSourceProps(el2, el2));
-      } else if (src) {
-        const change = !includes(el.style.backgroundImage, src);
-        if (change) {
-          css(el, "backgroundImage", `url(${escape(src)})`);
-          trigger(el, createEvent("load", false));
-        }
-      }
-    }
-    const srcProps = ["data-src", "data-srcset", "sizes"];
-    function setSourceProps(sourceEl, targetEl) {
-      for (const prop of srcProps) {
-        const value = data(sourceEl, prop);
-        if (value) {
-          attr(targetEl, prop.replace(/^(data-)+/, ""), value);
-        }
-      }
-    }
-    function getImageFromElement(el, src, sources) {
-      const img = new Image();
-      wrapInPicture(img, sources);
-      setSourceProps(el, img);
-      img.onload = () => {
-        setSrcAttrs(el, img.currentSrc);
-      };
-      attr(img, "src", src);
-      return img;
-    }
-    function wrapInPicture(img, sources) {
-      sources = parseSources(sources);
-      if (sources.length) {
-        const picture = fragment("<picture>");
-        for (const attrs of sources) {
-          const source = fragment("<source>");
-          attr(source, attrs);
-          append(picture, source);
-        }
-        append(picture, img);
-      }
-    }
-    function parseSources(sources) {
-      if (!sources) {
-        return [];
-      }
-      if (startsWith(sources, "[")) {
-        try {
-          sources = JSON.parse(sources);
-        } catch (e) {
-          sources = [];
-        }
-      } else {
-        sources = parseOptions(sources);
-      }
-      if (!isArray(sources)) {
-        sources = [sources];
-      }
-      return sources.filter((source) => !isEmpty(source));
-    }
-    function isImg(el) {
-      return isTag(el, "img");
-    }
-
     var inverse = {
       props: {
         target: String,
@@ -8516,12 +8636,9 @@
         {
           name: "hide",
           el: ({ dropContainer }) => dropContainer,
-          async handler(e) {
-            if (!this.getDropdown(e.target)) {
-              return;
-            }
+          async handler() {
             await awaitMacroTask();
-            if (!this.getActive() && this._transparent) {
+            if (this._transparent && (!active || !this.dropContainer.contains(active.$el))) {
               addClass(this.navbarContainer, clsNavbarTransparent);
               this._transparent = null;
             }
@@ -8955,6 +9072,7 @@
         start: null,
         end: null,
         offset: String,
+        offsetEnd: String,
         overflowFlip: Boolean,
         animation: String,
         clsActive: String,
@@ -8972,6 +9090,7 @@
         start: false,
         end: false,
         offset: 0,
+        offsetEnd: 0,
         overflowFlip: false,
         animation: "",
         clsActive: "uk-active",
@@ -9070,11 +9189,14 @@
               position = position === "top" ? "bottom" : "top";
             }
             const referenceElement = this.isFixed ? this.placeholder : this.$el;
-            let offset$1 = toPx(this.offset, "height", sticky ? this.$el : referenceElement);
+            let [offset$1, offsetEnd] = [this.offset, this.offsetEnd].map(
+              (value) => toPx(value, "height", sticky ? this.$el : referenceElement)
+            );
             if (position === "bottom" && (height$1 < dynamicViewport || this.overflowFlip)) {
               offset$1 += dynamicViewport - height$1;
             }
-            const overflow = this.overflowFlip ? 0 : Math.max(0, height$1 + offset$1 - viewport2);
+            const elementBox = height$1 + offset$1 + offsetEnd;
+            const overflow = this.overflowFlip ? 0 : Math.max(0, elementBox - viewport2);
             const topOffset = offset(referenceElement).top - // offset possible `transform: translateY` animation 'uk-animation-slide-top' while hiding
             new DOMMatrix(css(referenceElement, "transform")).m42;
             const elHeight = dimensions$1(this.$el).height;
