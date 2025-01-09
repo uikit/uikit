@@ -139,6 +139,13 @@
 /* Pill modifier
  ========================================================================== */
 
+/*
+ * Gutter
+ */
+
+.uk-subnav-pill { margin-left: (-$subnav-pill-margin-horizontal); }
+.uk-subnav-pill > * { padding-left: $subnav-pill-margin-horizontal; }
+
 .uk-subnav-pill > * > :first-child {
     padding: $subnav-pill-item-padding-vertical $subnav-pill-item-padding-horizontal;
     background: $subnav-pill-item-background;

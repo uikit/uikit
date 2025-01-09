@@ -24,7 +24,8 @@
  */
 
 [hidden],
-.uk-hidden { display: none !important; }
+.uk-hidden,
+.uk-hidden-empty:empty { display: none !important; }
 
 /* Phone landscape and bigger */
 @media (min-width: $breakpoint-small) {

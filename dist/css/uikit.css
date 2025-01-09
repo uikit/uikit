@@ -1,4 +1,4 @@
-/*! UIkit 3.21.17 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.22.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1779,7 +1779,7 @@ select.uk-form-width-xsmall {
  * 1. Position and resize the form control to always cover its container
  * 2. Required for Firefox for positioning to the left
  * 3. Required for Webkit to make `height` work
- * 4. Hide controle and show cursor
+ * 4. Hide controls and show cursor
  * 5. Needed for the cursor
  * 6. Clip height caused by 5. Needed for Webkit only
  */
@@ -2129,7 +2129,7 @@ select.uk-form-width-xsmall {
 /* Group
  ========================================================================== */
 /*
- * 1. Using `flex` instead of `inline-block` to prevent whitespace betweent child elements
+ * 1. Using `flex` instead of `inline-block` to prevent whitespace between child elements
  * 2. Behave like button
  * 3. Create position context
  */
@@ -2901,7 +2901,7 @@ select.uk-form-width-xsmall {
    Component: Totop
  ========================================================================== */
 /*
- * Addopts `uk-icon`
+ * Adopts `uk-icon`
  */
 .uk-totop {
   padding: 5px;
@@ -3392,7 +3392,8 @@ select.uk-form-width-xsmall {
  * Icon
  */
 .uk-search-default .uk-search-icon {
-  width: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .uk-search-default:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
   padding-left: 40px;
@@ -3424,7 +3425,8 @@ select.uk-form-width-xsmall {
  * Icon
  */
 .uk-search-navbar .uk-search-icon {
-  width: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .uk-search-navbar:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
   padding-left: 40px;
@@ -3441,22 +3443,30 @@ select.uk-form-width-xsmall {
  * Input
  */
 .uk-search-medium .uk-search-input {
-  height: 40px;
+  height: 55px;
+  padding-left: 12px;
+  padding-right: 12px;
   background: transparent;
   font-size: 1.5rem;
+  border: 1px solid #e5e5e5;
 }
 /* Focus */
+.uk-search-medium .uk-search-input:focus {
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #1e87f0;
+}
 /*
  * Icon
  */
 .uk-search-medium .uk-search-icon {
-  width: 24px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 .uk-search-medium:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
-  padding-left: 34px;
+  padding-left: 48px;
 }
 .uk-search-medium:has(.uk-search-icon-flip) .uk-search-input {
-  padding-right: 34px;
+  padding-right: 48px;
 }
 /* Large modifier
  ========================================================================== */
@@ -3467,22 +3477,30 @@ select.uk-form-width-xsmall {
  * Input
  */
 .uk-search-large .uk-search-input {
-  height: 80px;
+  height: 90px;
+  padding-left: 20px;
+  padding-right: 20px;
   background: transparent;
   font-size: 2.625rem;
+  border: 1px solid #e5e5e5;
 }
 /* Focus */
+.uk-search-large .uk-search-input:focus {
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #1e87f0;
+}
 /*
  * Icon
  */
 .uk-search-large .uk-search-icon {
-  width: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .uk-search-large:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
-  padding-left: 60px;
+  padding-left: 80px;
 }
 .uk-search-large:has(.uk-search-icon-flip) .uk-search-input {
-  padding-right: 60px;
+  padding-right: 80px;
 }
 /* Toggle
  ========================================================================== */
@@ -5894,6 +5912,15 @@ ul.uk-nav-sub {
 }
 /* Pill modifier
  ========================================================================== */
+/*
+ * Gutter
+ */
+.uk-subnav-pill {
+  margin-left: -20px;
+}
+.uk-subnav-pill > * {
+  padding-left: 20px;
+}
 .uk-subnav-pill > * > :first-child {
   padding: 5px 10px;
   background: transparent;
@@ -5924,11 +5951,15 @@ ul.uk-nav-sub {
    Component: Breadcrumb
  ========================================================================== */
 /*
- * Reset list
+ * 1. Reset list
+ * 2. Remove space between elements
  */
 .uk-breadcrumb {
+  /* 1 */
   padding: 0;
   list-style: none;
+  /* 2 */
+  font-size: 0;
 }
 /*
  * 1. Doesn't generate any box and replaced by child boxes
@@ -5963,7 +5994,7 @@ ul.uk-nav-sub {
   content: "/";
   display: inline-block;
   /* 1 */
-  margin: 0 20px 0 calc(20px - 4px);
+  margin: 0 20px;
   /* 2 */
   font-size: 0.875rem;
   color: #999;
@@ -6417,6 +6448,7 @@ ul.uk-nav-sub {
  * 7. Prevent cancellation of pointer events while dragging
  */
 .uk-lightbox {
+  --uk-inverse: light;
   /* 1 */
   display: none;
   /* 2 */
@@ -6458,14 +6490,21 @@ ul.uk-nav-sub {
 .uk-lightbox-page {
   overflow: hidden;
 }
-/* Item
+/* Items
  ========================================================================== */
+/*
+ * Reset list
+ */
+.uk-lightbox-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 /*
  * 1. Center child within the viewport
  * 2. Not visible by default
- * 3. Color needed for spinner icon
- * 4. Optimize animation
- * 5. Responsiveness
+ * 3. Optimize animation
+ * 4. Responsiveness
  *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
  */
 .uk-lightbox-items > * {
@@ -6478,70 +6517,63 @@ ul.uk-nav-sub {
   /* 2 */
   display: none;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   /* 3 */
-  color: rgba(255, 255, 255, 0.7);
-  /* 4 */
   will-change: transform, opacity;
+  /* 4 */
+  overflow: auto;
 }
-/* 5 */
-.uk-lightbox-items > * > * {
-  max-width: 100vw;
-  max-height: 100vh;
-}
-.uk-lightbox-items > * > :not(iframe) {
-  width: auto;
-  height: auto;
-}
+/* 2 */
 .uk-lightbox-items > .uk-active {
   display: flex;
 }
-/* Toolbar
+.uk-lightbox-items-fit > * {
+  align-items: center;
+}
+/* 4 */
+.uk-lightbox-items-fit > * > * {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+.uk-lightbox-items-fit > * > :not(iframe) {
+  width: auto;
+  height: auto;
+}
+/* Zoom Cursor */
+.uk-lightbox-items.uk-lightbox-items-fit .uk-lightbox-zoom:hover {
+  cursor: zoom-in;
+}
+.uk-lightbox-items:not(.uk-lightbox-items-fit) .uk-lightbox-zoom:hover {
+  cursor: zoom-out;
+}
+/* Navs
  ========================================================================== */
-.uk-lightbox-toolbar {
+.uk-lightbox-thumbnav-vertical :where(img, video) {
+  max-width: 100px;
+}
+.uk-lightbox-thumbnav:not(.uk-lightbox-thumbnav-vertical) :where(img, video) {
+  max-height: 100px;
+}
+.uk-lightbox-thumbnav:empty,
+.uk-lightbox-dotnav:empty {
+  display: none;
+}
+/* Caption
+ ========================================================================== */
+.uk-lightbox-caption:empty {
+  display: none;
+}
+.uk-lightbox-caption {
   padding: 10px 10px;
   background: rgba(0, 0, 0, 0.3);
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-lightbox-toolbar > * {
+.uk-lightbox-caption > * {
   color: rgba(255, 255, 255, 0.7);
 }
-/* Toolbar Icon (Close)
+/* Counter
  ========================================================================== */
-.uk-lightbox-toolbar-icon {
-  padding: 5px;
-  color: rgba(255, 255, 255, 0.7);
-}
-/*
- * Hover
- */
-.uk-lightbox-toolbar-icon:hover {
-  color: #fff;
-}
-/* Button (Slidenav)
- ========================================================================== */
-/*
- * 1. Center icon vertically and horizontally
- */
-.uk-lightbox-button {
-  box-sizing: border-box;
-  width: 50px;
-  height: 50px;
-  background: rgba(0, 0, 0, 0.3);
-  color: rgba(255, 255, 255, 0.7);
-  /* 1 */
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-/* Hover */
-.uk-lightbox-button:hover {
-  color: #fff;
-}
-/* OnClick */
-/* Caption
- ========================================================================== */
-.uk-lightbox-caption:empty {
+.uk-lightbox-counter:empty {
   display: none;
 }
 /* Iframe
@@ -7772,6 +7804,12 @@ td.uk-text-truncate {
 th.uk-text-break,
 td.uk-text-break {
   word-break: break-word;
+}
+/* Stroke modifiers
+ ========================================================================== */
+.uk-text-stroke {
+  -webkit-text-stroke: calc(1.4px + 0.002em);
+  -webkit-text-fill-color: transparent;
 }
 /* ========================================================================
    Component: Column
@@ -9108,6 +9146,26 @@ iframe[data-uk-cover] {
 .uk-margin-right {
   margin-right: 20px !important;
 }
+/* XSmall
+ ========================================================================== */
+.uk-margin-xsmall {
+  margin-bottom: 5px;
+}
+* + .uk-margin-xsmall {
+  margin-top: 5px !important;
+}
+.uk-margin-xsmall-top {
+  margin-top: 5px !important;
+}
+.uk-margin-xsmall-bottom {
+  margin-bottom: 5px !important;
+}
+.uk-margin-xsmall-left {
+  margin-left: 5px !important;
+}
+.uk-margin-xsmall-right {
+  margin-right: 5px !important;
+}
 /* Small
  ========================================================================== */
 .uk-margin-small {
@@ -9747,7 +9805,8 @@ iframe[data-uk-cover] {
  * `hidden` attribute also set here to make it stronger
  */
 [hidden],
-.uk-hidden {
+.uk-hidden,
+.uk-hidden-empty:empty {
   display: none !important;
 }
 /* Phone landscape and bigger */
@@ -9880,6 +9939,10 @@ iframe[data-uk-cover] {
 .uk-overlay-primary,
 .uk-offcanvas-bar {
   color: rgba(255, 255, 255, 0.7);
+  /* Webkit */
+  /* Firefox */
+  /* Webkit */
+  /* Firefox */
 }
 .uk-light a,
 .uk-light .uk-link,
@@ -10826,6 +10889,97 @@ iframe[data-uk-cover] {
   background-color: rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.7);
 }
+.uk-light .uk-range::-webkit-slider-runnable-track,
+.uk-section-primary:not(.uk-preserve-color) .uk-range::-webkit-slider-runnable-track,
+.uk-section-secondary:not(.uk-preserve-color) .uk-range::-webkit-slider-runnable-track,
+.uk-tile-primary:not(.uk-preserve-color) .uk-range::-webkit-slider-runnable-track,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-range::-webkit-slider-runnable-track,
+.uk-card-primary.uk-card-body .uk-range::-webkit-slider-runnable-track,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-range::-webkit-slider-runnable-track,
+.uk-card-secondary.uk-card-body .uk-range::-webkit-slider-runnable-track,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-range::-webkit-slider-runnable-track,
+.uk-overlay-primary .uk-range::-webkit-slider-runnable-track,
+.uk-offcanvas-bar .uk-range::-webkit-slider-runnable-track {
+  background: rgba(242, 242, 242, 0.1);
+}
+.uk-light .uk-range:focus::-webkit-slider-runnable-track,
+.uk-light .uk-range:active::-webkit-slider-runnable-track,
+.uk-section-primary:not(.uk-preserve-color) .uk-range:focus::-webkit-slider-runnable-track,
+.uk-section-primary:not(.uk-preserve-color) .uk-range:active::-webkit-slider-runnable-track,
+.uk-section-secondary:not(.uk-preserve-color) .uk-range:focus::-webkit-slider-runnable-track,
+.uk-section-secondary:not(.uk-preserve-color) .uk-range:active::-webkit-slider-runnable-track,
+.uk-tile-primary:not(.uk-preserve-color) .uk-range:focus::-webkit-slider-runnable-track,
+.uk-tile-primary:not(.uk-preserve-color) .uk-range:active::-webkit-slider-runnable-track,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-range:focus::-webkit-slider-runnable-track,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-range:active::-webkit-slider-runnable-track,
+.uk-card-primary.uk-card-body .uk-range:focus::-webkit-slider-runnable-track,
+.uk-card-primary.uk-card-body .uk-range:active::-webkit-slider-runnable-track,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-range:focus::-webkit-slider-runnable-track,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-range:active::-webkit-slider-runnable-track,
+.uk-card-secondary.uk-card-body .uk-range:focus::-webkit-slider-runnable-track,
+.uk-card-secondary.uk-card-body .uk-range:active::-webkit-slider-runnable-track,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-range:focus::-webkit-slider-runnable-track,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-range:active::-webkit-slider-runnable-track,
+.uk-overlay-primary .uk-range:focus::-webkit-slider-runnable-track,
+.uk-overlay-primary .uk-range:active::-webkit-slider-runnable-track,
+.uk-offcanvas-bar .uk-range:focus::-webkit-slider-runnable-track,
+.uk-offcanvas-bar .uk-range:active::-webkit-slider-runnable-track {
+  background: rgba(242, 242, 242, 0.15);
+}
+.uk-light .uk-range::-moz-range-track,
+.uk-section-primary:not(.uk-preserve-color) .uk-range::-moz-range-track,
+.uk-section-secondary:not(.uk-preserve-color) .uk-range::-moz-range-track,
+.uk-tile-primary:not(.uk-preserve-color) .uk-range::-moz-range-track,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-range::-moz-range-track,
+.uk-card-primary.uk-card-body .uk-range::-moz-range-track,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-range::-moz-range-track,
+.uk-card-secondary.uk-card-body .uk-range::-moz-range-track,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-range::-moz-range-track,
+.uk-overlay-primary .uk-range::-moz-range-track,
+.uk-offcanvas-bar .uk-range::-moz-range-track {
+  background: rgba(242, 242, 242, 0.1);
+}
+.uk-light .uk-range:focus::-moz-range-track,
+.uk-section-primary:not(.uk-preserve-color) .uk-range:focus::-moz-range-track,
+.uk-section-secondary:not(.uk-preserve-color) .uk-range:focus::-moz-range-track,
+.uk-tile-primary:not(.uk-preserve-color) .uk-range:focus::-moz-range-track,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-range:focus::-moz-range-track,
+.uk-card-primary.uk-card-body .uk-range:focus::-moz-range-track,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-range:focus::-moz-range-track,
+.uk-card-secondary.uk-card-body .uk-range:focus::-moz-range-track,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-range:focus::-moz-range-track,
+.uk-overlay-primary .uk-range:focus::-moz-range-track,
+.uk-offcanvas-bar .uk-range:focus::-moz-range-track {
+  background: rgba(242, 242, 242, 0.15);
+}
+.uk-light .uk-range::-webkit-slider-thumb,
+.uk-section-primary:not(.uk-preserve-color) .uk-range::-webkit-slider-thumb,
+.uk-section-secondary:not(.uk-preserve-color) .uk-range::-webkit-slider-thumb,
+.uk-tile-primary:not(.uk-preserve-color) .uk-range::-webkit-slider-thumb,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-range::-webkit-slider-thumb,
+.uk-card-primary.uk-card-body .uk-range::-webkit-slider-thumb,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-range::-webkit-slider-thumb,
+.uk-card-secondary.uk-card-body .uk-range::-webkit-slider-thumb,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-range::-webkit-slider-thumb,
+.uk-overlay-primary .uk-range::-webkit-slider-thumb,
+.uk-offcanvas-bar .uk-range::-webkit-slider-thumb {
+  background: #808080;
+  border-color: #e6e6e6;
+}
+.uk-light .uk-range::-moz-range-thumb,
+.uk-section-primary:not(.uk-preserve-color) .uk-range::-moz-range-thumb,
+.uk-section-secondary:not(.uk-preserve-color) .uk-range::-moz-range-thumb,
+.uk-tile-primary:not(.uk-preserve-color) .uk-range::-moz-range-thumb,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-range::-moz-range-thumb,
+.uk-card-primary.uk-card-body .uk-range::-moz-range-thumb,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-range::-moz-range-thumb,
+.uk-card-secondary.uk-card-body .uk-range::-moz-range-thumb,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-range::-moz-range-thumb,
+.uk-overlay-primary .uk-range::-moz-range-thumb,
+.uk-offcanvas-bar .uk-range::-moz-range-thumb {
+  background: #808080;
+  border-color: #e6e6e6;
+}
 .uk-light .uk-input,
 .uk-light .uk-select,
 .uk-light .uk-textarea,
@@ -11668,6 +11822,20 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-search-medium .uk-search-input,
 .uk-offcanvas-bar .uk-search-medium .uk-search-input {
   background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-search-medium .uk-search-input:focus,
+.uk-section-primary:not(.uk-preserve-color) .uk-search-medium .uk-search-input:focus,
+.uk-section-secondary:not(.uk-preserve-color) .uk-search-medium .uk-search-input:focus,
+.uk-tile-primary:not(.uk-preserve-color) .uk-search-medium .uk-search-input:focus,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-search-medium .uk-search-input:focus,
+.uk-card-primary.uk-card-body .uk-search-medium .uk-search-input:focus,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-search-medium .uk-search-input:focus,
+.uk-card-secondary.uk-card-body .uk-search-medium .uk-search-input:focus,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-medium .uk-search-input:focus,
+.uk-overlay-primary .uk-search-medium .uk-search-input:focus,
+.uk-offcanvas-bar .uk-search-medium .uk-search-input:focus {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .uk-light .uk-search-large .uk-search-input,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-large .uk-search-input,
@@ -11681,6 +11849,20 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-search-large .uk-search-input,
 .uk-offcanvas-bar .uk-search-large .uk-search-input {
   background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-search-large .uk-search-input:focus,
+.uk-section-primary:not(.uk-preserve-color) .uk-search-large .uk-search-input:focus,
+.uk-section-secondary:not(.uk-preserve-color) .uk-search-large .uk-search-input:focus,
+.uk-tile-primary:not(.uk-preserve-color) .uk-search-large .uk-search-input:focus,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-search-large .uk-search-input:focus,
+.uk-card-primary.uk-card-body .uk-search-large .uk-search-input:focus,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-search-large .uk-search-input:focus,
+.uk-card-secondary.uk-card-body .uk-search-large .uk-search-input:focus,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-large .uk-search-input:focus,
+.uk-overlay-primary .uk-search-large .uk-search-input:focus,
+.uk-offcanvas-bar .uk-search-large .uk-search-input:focus {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .uk-light .uk-search-toggle,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-toggle,

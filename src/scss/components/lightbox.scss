@@ -5,11 +5,14 @@
 //
 // Sub-objects:     `uk-lightbox-page`
 //                  `uk-lightbox-items`
-//                  `uk-lightbox-toolbar`
-//                  `uk-lightbox-toolbar-icon`
-//                  `uk-lightbox-button`
+//                  `uk-lightbox-items-fit`
+//                  `uk-lightbox-thumbnav`
+//                  `uk-lightbox-thumbnav-vertical`
+//                  `uk-lightbox-dotnav`
 //                  `uk-lightbox-caption`
+//                  `uk-lightbox-counter`
 //                  `uk-lightbox-iframe`
+//                  `uk-lightbox-zoom`
 //
 // States:          `uk-open`
 //
@@ -18,9 +21,6 @@
 
 // Variables
 // ========================================================================
-
-
-
 
 
 
@@ -43,6 +43,7 @@
  */
 
 .uk-lightbox {
+    --uk-inverse: #{$lightbox-color-mode};
     /* 1 */
     display: none;
     /* 2 */
@@ -91,15 +92,24 @@
 .uk-lightbox-page { overflow: hidden; }
 
 
-/* Item
+/* Items
  ========================================================================== */
+
+/*
+ * Reset list
+ */
+
+.uk-lightbox-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 
 /*
  * 1. Center child within the viewport
  * 2. Not visible by default
- * 3. Color needed for spinner icon
- * 4. Optimize animation
- * 5. Responsiveness
+ * 3. Optimize animation
+ * 4. Responsiveness
  *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
  */
 
@@ -113,96 +123,64 @@
     /* 2 */
     display: none;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     /* 3 */
-    color: $lightbox-item-color;
-    /* 4 */
     will-change: transform, opacity;
+    /* 4 */
+    overflow: auto;
     @if(mixin-exists(hook-lightbox-item)) {@include hook-lightbox-item();}
 }
 
-/* 5 */
-.uk-lightbox-items > * > * {
+/* 2 */
+.uk-lightbox-items > .uk-active { display: flex; }
+
+.uk-lightbox-items-fit > * { align-items: center; }
+
+/* 4 */
+.uk-lightbox-items-fit > * > * {
     max-width: $lightbox-item-max-width;
     max-height: $lightbox-item-max-height;
 }
 
-.uk-lightbox-items > * > :not(iframe) {
+.uk-lightbox-items-fit > * > :not(iframe) {
     width: auto;
     height: auto;
 }
 
-.uk-lightbox-items > .uk-active { display: flex; }
+/* Zoom Cursor */
+.uk-lightbox-items.uk-lightbox-items-fit .uk-lightbox-zoom:hover { cursor: zoom-in; }
+.uk-lightbox-items:not(.uk-lightbox-items-fit) .uk-lightbox-zoom:hover { cursor: zoom-out; }
 
-/* Toolbar
+
+/* Navs
  ========================================================================== */
 
-.uk-lightbox-toolbar {
-    padding: $lightbox-toolbar-padding-vertical $lightbox-toolbar-padding-horizontal;
-    background: $lightbox-toolbar-background;
-    color: $lightbox-toolbar-color;
-    @if(mixin-exists(hook-lightbox-toolbar)) {@include hook-lightbox-toolbar();}
-}
+.uk-lightbox-thumbnav-vertical :where(img, video) { max-width: $lightbox-thumbnav-vertical-width; }
+.uk-lightbox-thumbnav:not(.uk-lightbox-thumbnav-vertical) :where(img, video) { max-height: $lightbox-thumbnav-height; }
 
-.uk-lightbox-toolbar > * { color: $lightbox-toolbar-color; }
-
-
-/* Toolbar Icon (Close)
- ========================================================================== */
-
-.uk-lightbox-toolbar-icon {
-    padding: $lightbox-toolbar-icon-padding;
-    color: $lightbox-toolbar-icon-color;
-    @if(mixin-exists(hook-lightbox-toolbar-icon)) {@include hook-lightbox-toolbar-icon();}
-}
-
-/*
- * Hover
- */
-
-.uk-lightbox-toolbar-icon:hover {
-    color: $lightbox-toolbar-icon-hover-color;
-    @if(mixin-exists(hook-lightbox-toolbar-icon-hover)) {@include hook-lightbox-toolbar-icon-hover();}
-}
-
-
-
-/* Button (Slidenav)
- ========================================================================== */
-
-/*
- * 1. Center icon vertically and horizontally
- */
-
-.uk-lightbox-button {
-    box-sizing: border-box;
-    width: $lightbox-button-size;
-    height: $lightbox-button-size;
-    background: $lightbox-button-background;
-    color: $lightbox-button-color;
-    /* 1 */
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    @if(mixin-exists(hook-lightbox-button)) {@include hook-lightbox-button();}
-}
-
-/* Hover */
-.uk-lightbox-button:hover {
-    color: $lightbox-button-hover-color;
-    @if(mixin-exists(hook-lightbox-button-hover)) {@include hook-lightbox-button-hover();}
-}
-
-/* OnClick */
-.uk-lightbox-button:active {
-    @if(mixin-exists(hook-lightbox-button-active)) {@include hook-lightbox-button-active();}
-}
+.uk-lightbox-thumbnav:empty,
+.uk-lightbox-dotnav:empty { display: none; }
 
 
 /* Caption
  ========================================================================== */
 
 .uk-lightbox-caption:empty { display: none; }
+
+.uk-lightbox-caption {
+    padding: $lightbox-caption-padding-vertical $lightbox-caption-padding-horizontal;
+    background: $lightbox-caption-background;
+    color: $lightbox-caption-color;
+    @if(mixin-exists(hook-lightbox-caption)) {@include hook-lightbox-caption();}
+}
+
+.uk-lightbox-caption > * { color: $lightbox-caption-color; }
+
+
+/* Counter
+ ========================================================================== */
+
+.uk-lightbox-counter:empty { display: none; }
 
 
 /* Iframe
@@ -221,10 +199,5 @@
 
 // @mixin hook-lightbox(){}
 // @mixin hook-lightbox-item(){}
-// @mixin hook-lightbox-toolbar(){}
-// @mixin hook-lightbox-toolbar-icon(){}
-// @mixin hook-lightbox-toolbar-icon-hover(){}
-// @mixin hook-lightbox-button(){}
-// @mixin hook-lightbox-button-hover(){}
-// @mixin hook-lightbox-button-active(){}
+// @mixin hook-lightbox-caption(){}
 // @mixin hook-lightbox-misc(){}

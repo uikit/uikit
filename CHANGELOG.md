@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP Lightbox
+## 3.22.0 (January 9, 2025)
 
 ### Added
 
