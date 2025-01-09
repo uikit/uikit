@@ -41,6 +41,7 @@ export default {
         start: null,
         end: null,
         offset: String,
+        offsetEnd: String,
         overflowFlip: Boolean,
         animation: String,
         clsActive: String,
@@ -59,6 +60,7 @@ export default {
         start: false,
         end: false,
         offset: 0,
+        offsetEnd: 0,
         overflowFlip: false,
         animation: '',
         clsActive: 'uk-active',
@@ -188,12 +190,16 @@ export default {
                 }
 
                 const referenceElement = this.isFixed ? this.placeholder : this.$el;
-                let offset = toPx(this.offset, 'height', sticky ? this.$el : referenceElement);
+                let [offset, offsetEnd] = [this.offset, this.offsetEnd].map((value) =>
+                    toPx(value, 'height', sticky ? this.$el : referenceElement),
+                );
+
                 if (position === 'bottom' && (height < dynamicViewport || this.overflowFlip)) {
                     offset += dynamicViewport - height;
                 }
 
-                const overflow = this.overflowFlip ? 0 : Math.max(0, height + offset - viewport);
+                const elementBox = height + offset + offsetEnd;
+                const overflow = this.overflowFlip ? 0 : Math.max(0, elementBox - viewport);
                 const topOffset =
                     getOffset(referenceElement).top -
                     // offset possible `transform: translateY` animation 'uk-animation-slide-top' while hiding
