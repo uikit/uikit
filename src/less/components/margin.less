@@ -17,6 +17,8 @@
 
 @margin-margin:                                        @global-margin;
 
+@margin-xsmall-margin:                                 5px;
+
 @margin-small-margin:                                  @global-small-margin;
 
 @margin-medium-margin:                                 @global-medium-margin;
@@ -43,6 +45,18 @@
 .uk-margin-bottom { margin-bottom: @margin-margin !important; }
 .uk-margin-left { margin-left: @margin-margin !important; }
 .uk-margin-right { margin-right: @margin-margin !important; }
+
+
+/* XSmall
+ ========================================================================== */
+
+.uk-margin-xsmall { margin-bottom: @margin-xsmall-margin; }
+* + .uk-margin-xsmall { margin-top: @margin-xsmall-margin !important; }
+
+.uk-margin-xsmall-top { margin-top: @margin-xsmall-margin !important; }
+.uk-margin-xsmall-bottom { margin-bottom: @margin-xsmall-margin !important; }
+.uk-margin-xsmall-left { margin-left: @margin-xsmall-margin !important; }
+.uk-margin-xsmall-right { margin-right: @margin-xsmall-margin !important; }
 
 
 /* Small

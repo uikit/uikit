@@ -20,6 +20,7 @@ import {
     unwrap,
     wrapInner,
 } from 'uikit-util';
+import { storeScrollPosition } from './position';
 
 export default {
     props: {
@@ -79,6 +80,12 @@ export default {
                         const done = () => {
                             removeClass(el, cls);
                             trigger(el, show ? 'shown' : 'hidden', [this]);
+
+                            if (show) {
+                                const restoreScrollPosition = storeScrollPosition(el);
+                                $$('[autofocus]', el).find(isVisible)?.focus();
+                                restoreScrollPosition();
+                            }
                         };
 
                         return promise
@@ -125,8 +132,6 @@ export default {
             if (changed) {
                 trigger(el, 'toggled', [toggled, this]);
             }
-
-            $$('[autofocus]', el).some((el) => (isVisible(el) ? el.focus() || true : el.blur()));
         },
     },
 };

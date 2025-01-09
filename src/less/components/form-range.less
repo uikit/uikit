@@ -137,3 +137,55 @@
 .hook-form-range-track-focus() {}
 .hook-form-range-thumb() {}
 .hook-form-range-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-form-range-track-background:          darken(@inverse-global-muted-background, 5%);
+@inverse-form-range-track-focus-background:    fadein(@inverse-form-range-track-background, 5%);
+
+@inverse-form-range-thumb-background:          fadein(@inverse-global-color, 100%);
+
+.hook-inverse() {
+
+    /* Webkit */
+    .uk-range::-webkit-slider-runnable-track {
+        background: @inverse-form-range-track-background;
+        .hook-inverse-form-range-track();
+    }
+
+    .uk-range:focus::-webkit-slider-runnable-track,
+    .uk-range:active::-webkit-slider-runnable-track {
+        background: @inverse-form-range-track-focus-background;
+        .hook-inverse-form-range-track-focus();
+    }
+
+    /* Firefox */
+    .uk-range::-moz-range-track {
+        background: @inverse-form-range-track-background;
+        .hook-inverse-form-range-track();
+    }
+
+    .uk-range:focus::-moz-range-track {
+        background: @inverse-form-range-track-focus-background;
+        .hook-inverse-form-range-track-focus();
+    }
+
+    /* Webkit */
+    .uk-range::-webkit-slider-thumb {
+        background: @inverse-form-range-thumb-background;
+        .hook-inverse-form-range-thumb();
+    }
+
+    /* Firefox */
+    .uk-range::-moz-range-thumb {
+        background: @inverse-form-range-thumb-background;
+        .hook-inverse-form-range-thumb();
+    }
+
+}
+
+.hook-inverse-form-range-track() {}
+.hook-inverse-form-range-track-focus() {}
+.hook-inverse-form-range-thumb() {}

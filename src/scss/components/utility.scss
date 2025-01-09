@@ -352,7 +352,7 @@
     margin-right: $dropcap-margin-right;
     float: left;
     font-size: $dropcap-font-size;
-    line-height: 1;
+    line-height: $dropcap-line-height;
     @if(mixin-exists(hook-dropcap)) {@include hook-dropcap();}
 }
 

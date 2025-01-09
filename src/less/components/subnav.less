@@ -27,6 +27,7 @@
 @subnav-divider-border-width:                   @global-border-width;
 @subnav-divider-border:                         @global-border;
 
+@subnav-pill-margin-horizontal:                 @subnav-margin-horizontal;
 @subnav-pill-item-padding-vertical:             5px;
 @subnav-pill-item-padding-horizontal:           10px;
 @subnav-pill-item-background:                   transparent;
@@ -158,6 +159,13 @@
 
 /* Pill modifier
  ========================================================================== */
+
+/*
+ * Gutter
+ */
+
+.uk-subnav-pill { margin-left: -@subnav-pill-margin-horizontal; }
+.uk-subnav-pill > * { padding-left: @subnav-pill-margin-horizontal; }
 
 .uk-subnav-pill > * > :first-child {
     padding: @subnav-pill-item-padding-vertical @subnav-pill-item-padding-horizontal;

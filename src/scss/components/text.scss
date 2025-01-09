@@ -16,6 +16,7 @@
 
 
 
+
 /* ========================================================================
    Component: Text
  ========================================================================== */
@@ -219,6 +220,15 @@ td.uk-text-truncate { max-width: 0; }
  /* 1 */
  th.uk-text-break,
  td.uk-text-break { word-break: break-word; }
+
+
+/* Stroke modifiers
+ ========================================================================== */
+
+.uk-text-stroke {
+    -webkit-text-stroke: $text-stroke-text-stroke;
+    -webkit-text-fill-color: transparent;
+}
 
 
 // Hooks
