@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Apply accordion item hook also to the first item
+
 ## 3.22.0 (January 9, 2025)
 
 ### Added
