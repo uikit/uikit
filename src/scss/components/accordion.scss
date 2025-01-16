@@ -32,10 +32,11 @@
 /* Item
  ========================================================================== */
 
-.uk-accordion > :nth-child(n+2) {
-    margin-top: $accordion-item-margin-top;
+.uk-accordion > * {
     @if(mixin-exists(hook-accordion-item)) {@include hook-accordion-item();}
 }
+
+.uk-accordion > :nth-child(n+2) { margin-top: $accordion-item-margin-top; }
 
 
 /* Title
