@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix missing list markers in Chrome in List component
+
 ## 3.22.1 (January 16, 2025)
 
 ### Changed
