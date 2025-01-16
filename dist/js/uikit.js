@@ -1,4 +1,4 @@
-/*! UIkit 3.22.1 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.22.2 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3721,7 +3721,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.22.1";
+    App.version = "3.22.2";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
