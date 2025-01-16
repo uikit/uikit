@@ -38,10 +38,11 @@
 /* Item
  ========================================================================== */
 
-.uk-accordion > :nth-child(n+2) {
-    margin-top: @accordion-item-margin-top;
+.uk-accordion > * {
     .hook-accordion-item();
 }
+
+.uk-accordion > :nth-child(n+2) { margin-top: @accordion-item-margin-top; }
 
 
 /* Title
@@ -100,7 +101,7 @@
 
 .hook-inverse() {
 
-    .uk-accordion > :nth-child(n+2) {
+    .uk-accordion > * {
         .hook-inverse-accordion-item();
     }
 
