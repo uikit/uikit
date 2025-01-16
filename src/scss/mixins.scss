@@ -9,7 +9,7 @@
 @mixin hook-inverse-accordion-title-hover(){}
 @mixin hook-inverse-component-accordion(){
 
-    .uk-accordion > :nth-child(n+2) {
+    .uk-accordion > * {
         @if(mixin-exists(hook-inverse-accordion-item)) {@include hook-inverse-accordion-item();}
     }
 
