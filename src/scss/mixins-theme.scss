@@ -1266,10 +1266,10 @@
 }
 @mixin hook-inverse-component-list(){
 
-    .uk-list-muted > ::before { color: $inverse-list-muted-color !important; }
-    .uk-list-emphasis > ::before { color: $inverse-list-emphasis-color !important; }
-    .uk-list-primary > ::before { color: $inverse-list-primary-color !important; }
-    .uk-list-secondary > ::before { color: $inverse-list-secondary-color !important; }
+    .uk-list-muted > ::marker { color: $inverse-list-muted-color !important; }
+    .uk-list-emphasis > ::marker { color: $inverse-list-emphasis-color !important; }
+    .uk-list-primary > ::marker { color: $inverse-list-primary-color !important; }
+    .uk-list-secondary > ::marker { color: $inverse-list-secondary-color !important; }
 
     .uk-list-bullet > ::before {
         @include svg-fill($internal-list-bullet-image, "#000", $inverse-list-bullet-icon-color);
