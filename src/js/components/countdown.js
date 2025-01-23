@@ -73,8 +73,8 @@ export default {
                 }
             } else if (!this.timer) {
                 this.started = true;
-                trigger(this.$el, 'countdownstart');
                 this.timer = setInterval(this.update, 1000);
+                trigger(this.$el, 'countdownstart');
             }
 
             for (const unit of units) {
