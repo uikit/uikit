@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.22.3 (January 24, 2025)
+
+### Fixed
+
+- Fix vertical alignment for input of type date, time and datetime-local in Safari
+
 ## 3.22.2 (January 16, 2025)
 
 ### Fixed

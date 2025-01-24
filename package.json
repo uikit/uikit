@@ -2,7 +2,7 @@
     "name": "uikit",
     "title": "UIkit",
     "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-    "version": "3.22.2",
+    "version": "3.22.3",
     "main": "dist/js/uikit.js",
     "style": "dist/css/uikit.css",
     "sideEffects": [
@@ -43,7 +43,7 @@
         "dateformat": "^5.0.3",
         "esbuild": "^0.24.0",
         "eslint": "^9.6.0",
-        "eslint-config-prettier": "^9.1.0",
+        "eslint-config-prettier": "^10.0.1",
         "execa": "^9.3.0",
         "fs-extra": "^11.2.0",
         "glob": "^11.0.0",

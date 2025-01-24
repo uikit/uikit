@@ -1,4 +1,4 @@
-/*! UIkit 3.22.2 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.22.3 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1366,6 +1366,17 @@ button.uk-icon:not(:disabled) {
 .uk-input[type="number"]::-webkit-inner-spin-button,
 .uk-input[type="number"]::-webkit-outer-spin-button {
   height: auto;
+}
+/*
+ * Correct vertical alignment in Safari.
+ */
+.uk-input[type="date"]::-webkit-datetime-edit,
+.uk-input[type="time"]::-webkit-datetime-edit,
+.uk-input[type="datetime-local"]::-webkit-datetime-edit {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
 }
 /*
  * Removes placeholder transparency in Firefox.
