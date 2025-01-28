@@ -1,5 +1,12 @@
 # Changelog
 
+
+## WIP
+
+### Added
+
+- Add dropbar margin variable to Dropdown component
+
 ## 3.22.3 (January 24, 2025)
 
 ### Fixed
