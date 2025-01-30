@@ -26,6 +26,7 @@
 
 @dropdown-large-padding:                        40px;
 
+@dropdown-dropbar-margin:                       @dropdown-margin;
 @dropdown-dropbar-padding-top:                  @dropdown-padding;
 @dropdown-dropbar-padding-bottom:               @dropdown-padding;
 @dropdown-dropbar-viewport-margin:              15px;
@@ -33,7 +34,7 @@
 @dropdown-dropbar-viewport-margin-m:            @global-medium-gutter;
 
 @dropdown-dropbar-large-padding-top:            @dropdown-large-padding;
-@dropdown-dropbar-large-padding-bottom:         @dropdown-dropbar-large-padding-top;
+@dropdown-dropbar-large-padding-bottom:         @dropdown-large-padding;
 
 @dropdown-nav-item-color:                       @global-muted-color;
 @dropdown-nav-item-hover-color:                 @global-color;
@@ -102,6 +103,7 @@
  */
 
 .uk-dropdown-dropbar {
+    --uk-position-offset: @dropdown-dropbar-margin;
     /* 1 */
     width: auto;
     /* 2 */

@@ -15,6 +15,7 @@ import {
     noop,
     observeResize,
     offset,
+    once,
     parents,
     query,
     remove,
@@ -156,9 +157,21 @@ export default {
                 const { current, keyCode } = e;
                 const active = this.getActive();
 
-                if (keyCode === keyMap.DOWN && active?.targetEl === current) {
-                    e.preventDefault();
-                    $(selFocusable, active.$el)?.focus();
+                if (keyCode === keyMap.DOWN) {
+                    if (active?.targetEl === current) {
+                        e.preventDefault();
+                        $(selFocusable, active.$el)?.focus();
+                    } else {
+                        const dropdown = this.dropdowns.find(
+                            (el) => this.getDropdown(el)?.targetEl === current,
+                        );
+
+                        if (dropdown) {
+                            e.preventDefault();
+                            current.click();
+                            once(dropdown, 'show', (e) => $(selFocusable, e.target)?.focus());
+                        }
+                    }
                 }
 
                 handleNavItemNavigation(e, this.items, active);
@@ -204,6 +217,7 @@ export default {
                             findIndex(elements, (el) => matches(el, ':focus')),
                         )
                     ].focus();
+                    return;
                 }
 
                 handleNavItemNavigation(e, this.items, active);

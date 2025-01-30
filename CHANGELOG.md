@@ -1,5 +1,16 @@
 # Changelog
 
+
+## 3.22.4 (January 30, 2025)
+
+### Added
+
+- Add dropbar margin variable to Dropdown component
+
+### Fixed
+
+- Fix pressing arrow down key on nav item in Dropbar component opens Dropdown component 
+
 ## 3.22.3 (January 24, 2025)
 
 ### Fixed
