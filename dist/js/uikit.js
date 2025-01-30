@@ -1,4 +1,4 @@
-/*! UIkit 3.22.3 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.22.4 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3721,7 +3721,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.22.3";
+    App.version = "3.22.4";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -7469,9 +7469,26 @@
             var _a;
             const { current, keyCode } = e;
             const active2 = this.getActive();
-            if (keyCode === keyMap.DOWN && (active2 == null ? undefined : active2.targetEl) === current) {
-              e.preventDefault();
-              (_a = $(selFocusable, active2.$el)) == null ? undefined : _a.focus();
+            if (keyCode === keyMap.DOWN) {
+              if ((active2 == null ? undefined : active2.targetEl) === current) {
+                e.preventDefault();
+                (_a = $(selFocusable, active2.$el)) == null ? undefined : _a.focus();
+              } else {
+                const dropdown = this.dropdowns.find(
+                  (el) => {
+                    var _a2;
+                    return ((_a2 = this.getDropdown(el)) == null ? undefined : _a2.targetEl) === current;
+                  }
+                );
+                if (dropdown) {
+                  e.preventDefault();
+                  current.click();
+                  once(dropdown, "show", (e2) => {
+                    var _a2;
+                    return (_a2 = $(selFocusable, e2.target)) == null ? undefined : _a2.focus();
+                  });
+                }
+              }
             }
             handleNavItemNavigation(e, this.items, active2);
           }
@@ -7507,6 +7524,7 @@
                 elements,
                 findIndex(elements, (el) => matches(el, ":focus"))
               )].focus();
+              return;
             }
             handleNavItemNavigation(e, this.items, active2);
           }

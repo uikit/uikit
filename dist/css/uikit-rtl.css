@@ -1,4 +1,4 @@
-/*! UIkit 3.22.3 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.22.4 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -6350,6 +6350,7 @@ ul.uk-nav-sub {
  * 3. Padding
  */
 .uk-dropdown-dropbar {
+  --uk-position-offset: 10px;
   /* 1 */
   width: auto;
   /* 2 */
