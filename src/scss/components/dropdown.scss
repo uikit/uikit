@@ -80,6 +80,7 @@
  */
 
 .uk-dropdown-dropbar {
+    --uk-position-offset: #{$dropdown-dropbar-margin};
     /* 1 */
     width: auto;
     /* 2 */
