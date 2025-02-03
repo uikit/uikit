@@ -1,5 +1,10 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Toggle component does not toggle if element is a link without `href` attribute
 
 ## 3.22.4 (January 30, 2025)
 

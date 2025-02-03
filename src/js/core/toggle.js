@@ -19,6 +19,7 @@ import { lazyload } from '../api/observables';
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
 
+const KEY_ENTER = 13;
 const KEY_SPACE = 32;
 
 export default {
@@ -140,7 +141,7 @@ export default {
             filter: ({ $el, mode }) => includes(mode, 'click') && !isTag($el, 'input'),
 
             handler(e) {
-                if (e.keyCode === KEY_SPACE) {
+                if (e.keyCode === KEY_SPACE || e.keyCode === KEY_ENTER) {
                     e.preventDefault();
                     this.$el.click();
                 }
