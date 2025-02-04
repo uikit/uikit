@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.23.0 (February 4, 2025)
+
+### Added
+
+- Add `property` option to Height Viewport component
+
+### Changed
+
+- IMPORTANT: Rename `minHeight` option to `min` in Height Viewport component
+
+### Fixed
+
+- Fix Toggle component does not toggle if element is a link without `href` attribute
 
 ## 3.22.4 (January 30, 2025)
 
