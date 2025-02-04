@@ -2,6 +2,14 @@
 
 ## WIP
 
+### Added
+
+- Add `property` option to Height Viewport component
+
+### Changed
+
+- Rename `minHeight` option to `min` in Height Viewport component
+
 ### Fixed
 
 - Fix Toggle component does not toggle if element is a link without `href` attribute

@@ -21,6 +21,7 @@ export default {
         offsetTop: Boolean,
         offsetBottom: Boolean,
         minHeight: Number,
+        property: String,
     },
 
     data: {
@@ -28,6 +29,7 @@ export default {
         offsetTop: false,
         offsetBottom: false,
         minHeight: 0,
+        property: 'min-height',
     },
 
     // check for offsetTop change
@@ -88,7 +90,7 @@ export default {
         },
 
         write({ minHeight }) {
-            css(this.$el, 'minHeight', `max(${this.minHeight || 0}px, ${minHeight})`);
+            css(this.$el, this.property, `max(${this.min || 0}px, ${minHeight})`);
         },
 
         events: ['resize'],
