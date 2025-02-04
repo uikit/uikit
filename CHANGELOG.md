@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Rename `minHeight` option to `min` in Height Viewport component
+- IMPORTANT: Rename `minHeight` option to `min` in Height Viewport component
 
 ### Fixed
 
