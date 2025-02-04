@@ -1,4 +1,4 @@
-/*! UIkit 3.22.4 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3721,7 +3721,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.22.4";
+    App.version = "3.23.0";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -7980,13 +7980,15 @@
         expand: Boolean,
         offsetTop: Boolean,
         offsetBottom: Boolean,
-        minHeight: Number
+        minHeight: Number,
+        property: String
       },
       data: {
         expand: false,
         offsetTop: false,
         offsetBottom: false,
-        minHeight: 0
+        minHeight: 0,
+        property: "min-height"
       },
       // check for offsetTop change
       observe: [
@@ -8034,7 +8036,7 @@
           return { minHeight };
         },
         write({ minHeight }) {
-          css(this.$el, "minHeight", `max(${this.minHeight || 0}px, ${minHeight})`);
+          css(this.$el, this.property, `max(${this.min || 0}px, ${minHeight})`);
         },
         events: ["resize"]
       }
@@ -9717,6 +9719,7 @@
       }
     };
 
+    const KEY_ENTER = 13;
     const KEY_SPACE = 32;
     var toggle = {
       mixins: [Media, Togglable],
@@ -9803,7 +9806,7 @@
           name: "keydown",
           filter: ({ $el, mode }) => includes(mode, "click") && !isTag($el, "input"),
           handler(e) {
-            if (e.keyCode === KEY_SPACE) {
+            if (e.keyCode === KEY_SPACE || e.keyCode === KEY_ENTER) {
               e.preventDefault();
               this.$el.click();
             }

@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.23.0 (February 4, 2025)
 
 ### Added
 
