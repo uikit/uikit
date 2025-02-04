@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: node:20
+      - image: node:22
     steps:
       - checkout
 
