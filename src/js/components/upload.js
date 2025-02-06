@@ -108,13 +108,17 @@ export default {
                     this.fail(this.t('invalidSize', this.maxSize));
                     return;
                 }
-
-                if (this.allow && !match(this.allow, file.name)) {
+                const filenameMatchesPatterns = !this.allow || this.allow.split(/[,; ]/)
+                    .map((pattern) => match(pattern, file.name))
+                    .some((e) => e != null);
+                if (!filenameMatchesPatterns) {
                     this.fail(this.t('invalidName', this.allow));
                     return;
                 }
-
-                if (this.mime && !match(this.mime, file.type)) {
+                const mimetypeMatchesPatterns = !this.mime || this.mime.split(/[,; ]/)
+                    .map((pattern) => match(pattern, file.type))
+                    .some((e) => e != null);
+                if (!mimetypeMatchesPatterns) {
                     this.fail(this.t('invalidMime', this.mime));
                     return;
                 }
