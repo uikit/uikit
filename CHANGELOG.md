@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Safari 18.3 `:not(:has(...)) invalidation` issue causing hidden class not showing in Visibility component
+
 ## 3.23.0 (February 4, 2025)
 
 ### Added
