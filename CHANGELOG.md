@@ -467,7 +467,7 @@
 
 - Fix build
 
-## 3.17.7
+## 3.17.7 (November 2, 2023)
 
 ### Added
 
