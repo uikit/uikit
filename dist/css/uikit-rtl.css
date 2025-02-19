@@ -1,4 +1,4 @@
-/*! UIkit 3.23.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.1 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -9869,7 +9869,8 @@ iframe[data-uk-cover] {
  *    Note: `clip-path` doesn't work with `tabindex` on touch devices.
  */
 .uk-hidden-visually:not(:focus):not(:active):not(:focus-within),
-.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-visible):not(:has(:focus-visible)) {
+.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-visible):not(:has(:focus-visible)),
+.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-within) {
   /* 1 */
   position: absolute !important;
   /* 2 */
