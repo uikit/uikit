@@ -11,7 +11,6 @@ import {
     Transition,
 } from 'uikit-util';
 import { getRows } from '../../core/margin';
-import { awaitFrame } from './animate-slide.js';
 
 const clsLeave = 'uk-transition-leave';
 const clsEnter = 'uk-transition-enter';
@@ -52,8 +51,10 @@ export default function fade(action, target, duration, stagger = 0) {
 
         css(children(target), { opacity: 0 });
 
-        // Ensure UIkit updates have propagated
-        await awaitFrame();
+        // Ensure UIkit updates have propagated (e.g. Grid needs to reset margin classes)
+        height(target, oldHeight);
+        await awaitTimeout();
+        height(target, '');
 
         const nodes = children(target);
         const newHeight = height(target);
