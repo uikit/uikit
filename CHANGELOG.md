@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix min option in Height Viewport component
+
 ## 3.23.1 (February 19, 2025)
 
 ### Fixed
