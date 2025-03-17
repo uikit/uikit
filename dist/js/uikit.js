@@ -1,4 +1,4 @@
-/*! UIkit 3.23.2 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.3 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2033,6 +2033,16 @@
           }
         }),
         resize({
+          handler(mutations) {
+            for (const {
+              borderBoxSize: [{ inlineSize, blockSize }]
+            } of mutations) {
+              if (inlineSize || blockSize) {
+                this.$emit("resize");
+                return;
+              }
+            }
+          },
           target: ({ $el }) => [$el, ...children($el)]
         })
       ],
@@ -3722,7 +3732,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.2";
+    App.version = "3.23.3";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";

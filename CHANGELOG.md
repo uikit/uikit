@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.23.3 (March 17, 2025)
+
+### Fixed
+
+- Fix Grid component performance regression
+
 ## 3.23.2 (March 4, 2025)
 
 ### Fixed
