@@ -1,4 +1,4 @@
-/*! UIkit 3.23.3 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.4 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -639,14 +639,12 @@
       return Promise.all(
         toNodes(element).map(
           (element2) => new Promise((resolve, reject) => {
-            for (const name in props) {
-              css(element2, name);
-            }
             const timer = setTimeout(() => trigger(element2, transitionEnd), duration);
             once(
               element2,
               [transitionEnd, transitionCanceled],
               ({ type }) => {
+                cancelAnimationFrame(frame);
                 clearTimeout(timer);
                 removeClass(element2, clsTransition);
                 css(element2, {
@@ -659,12 +657,14 @@
               { self: true }
             );
             addClass(element2, clsTransition);
-            css(element2, {
-              transitionProperty: Object.keys(props).map(propName).join(","),
-              transitionDuration: `${duration}ms`,
-              transitionTimingFunction: timing,
-              ...props
-            });
+            const frame = requestAnimationFrame(
+              () => css(element2, {
+                transitionProperty: Object.keys(props).map(propName).join(","),
+                transitionDuration: `${duration}ms`,
+                transitionTimingFunction: timing,
+                ...props
+              })
+            );
           })
         )
       );
@@ -3732,7 +3732,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.3";
+    App.version = "3.23.4";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
