@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.23.4 (March 26, 2025)
+
+### Fixed
+
+- Fix performance when transitioning element properties in Chrome
+
 ## 3.23.3 (March 17, 2025)
 
 ### Fixed

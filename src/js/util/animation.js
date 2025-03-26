@@ -13,17 +13,13 @@ function transition(element, props, duration = 400, timing = 'linear') {
         toNodes(element).map(
             (element) =>
                 new Promise((resolve, reject) => {
-                    for (const name in props) {
-                        // Force reflow: transition won't run for previously hidden element
-                        css(element, name);
-                    }
-
                     const timer = setTimeout(() => trigger(element, transitionEnd), duration);
 
                     once(
                         element,
                         [transitionEnd, transitionCanceled],
                         ({ type }) => {
+                            cancelAnimationFrame(frame);
                             clearTimeout(timer);
                             removeClass(element, clsTransition);
                             css(element, {
@@ -37,12 +33,14 @@ function transition(element, props, duration = 400, timing = 'linear') {
                     );
 
                     addClass(element, clsTransition);
-                    css(element, {
-                        transitionProperty: Object.keys(props).map(propName).join(','),
-                        transitionDuration: `${duration}ms`,
-                        transitionTimingFunction: timing,
-                        ...props,
-                    });
+                    const frame = requestAnimationFrame(() =>
+                        css(element, {
+                            transitionProperty: Object.keys(props).map(propName).join(','),
+                            transitionDuration: `${duration}ms`,
+                            transitionTimingFunction: timing,
+                            ...props,
+                        }),
+                    );
                 }),
         ),
     );
