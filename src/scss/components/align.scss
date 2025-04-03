@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "variables";
+
 // Name:            Align
 // Description:     Utilities to align embedded content
 //
@@ -55,7 +58,7 @@
 }
 
 /* Phone landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     .uk-align-left\@s {
         margin-top: 0;
@@ -72,7 +75,7 @@
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: variables.$breakpoint-medium) {
 
     .uk-align-left\@m {
         margin-top: 0;
@@ -89,7 +92,7 @@
 }
 
 /* Desktop and bigger */
-@media (min-width: $breakpoint-large) {
+@media (min-width: variables.$breakpoint-large) {
 
     .uk-align-left\@l {
         margin-top: 0;
@@ -114,7 +117,7 @@
 }
 
 /* Large screen and bigger */
-@media (min-width: $breakpoint-xlarge) {
+@media (min-width: variables.$breakpoint-xlarge) {
 
     .uk-align-left\@xl {
         margin-top: 0;
@@ -134,6 +137,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-align-misc)) {@include hook-align-misc();}
+@if(meta.mixin-exists(hook-align-misc)) {@include hook-align-misc();}
 
 // @mixin hook-align-misc(){}

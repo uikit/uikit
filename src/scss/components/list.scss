@@ -1,3 +1,7 @@
+@use "sass:meta";
+@use "mixin";
+@use "variables";
+
 // Name:            List
 // Description:     Styles for lists
 //
@@ -102,8 +106,8 @@
     top: 0;
     left: 0;
     width: $list-padding-left;
-    height: $global-line-height * 1em;
-    @include svg-fill($internal-list-bullet-image, "#000", $list-bullet-icon-color);
+    height: variables.$global-line-height * 1em;
+    @include mixin.svg-fill($internal-list-bullet-image, "#000", $list-bullet-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
 }
@@ -120,7 +124,7 @@
     margin-top: $list-divider-margin-top;
     padding-top: $list-divider-margin-top;
     border-top: $list-divider-border-width solid $list-divider-border;
-    @if(mixin-exists(hook-list-divider)) {@include hook-list-divider();}
+    @if(meta.mixin-exists(hook-list-divider)) {@include hook-list-divider();}
 }
 
 /*
@@ -129,7 +133,7 @@
 
 .uk-list-striped > * {
     padding: $list-striped-padding-vertical $list-striped-padding-horizontal;
-    @if(mixin-exists(hook-list-striped)) {@include hook-list-striped();}
+    @if(meta.mixin-exists(hook-list-striped)) {@include hook-list-striped();}
 }
 
 .uk-list-striped > :nth-of-type(odd) { background: $list-striped-background; }
@@ -178,7 +182,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-list-misc)) {@include hook-list-misc();}
+@if(meta.mixin-exists(hook-list-misc)) {@include hook-list-misc();}
 
 // @mixin hook-list-divider(){}
 // @mixin hook-list-striped(){}

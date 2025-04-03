@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "variables";
+
 // Name:            Modal
 // Description:     Component to create modal dialogs
 //
@@ -69,18 +72,18 @@
     /* 6 */
     opacity: 0;
     transition: opacity 0.15s linear;
-    @if(mixin-exists(hook-modal)) {@include hook-modal();}
+    @if(meta.mixin-exists(hook-modal)) {@include hook-modal();}
 }
 
 /* Phone landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     .uk-modal { padding: $modal-padding-vertical-s $modal-padding-horizontal-s; }
 
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: variables.$breakpoint-medium) {
 
     .uk-modal {
         padding-left: $modal-padding-horizontal-m;
@@ -133,7 +136,7 @@
     transform: translateY(-100px);
     transition: 0.3s linear;
     transition-property: opacity, transform;
-    @if(mixin-exists(hook-modal-dialog)) {@include hook-modal-dialog();}
+    @if(meta.mixin-exists(hook-modal-dialog)) {@include hook-modal-dialog();}
 }
 
 /*
@@ -174,7 +177,7 @@
     width: 100%;
     max-width: 100%;
     transform: translateY(0);
-    @if(mixin-exists(hook-modal-full)) {@include hook-modal-full();}
+    @if(meta.mixin-exists(hook-modal-full)) {@include hook-modal-full();}
 }
 
 
@@ -184,25 +187,25 @@
 .uk-modal-body {
     display: flow-root;
     padding: $modal-body-padding-vertical $modal-body-padding-horizontal;
-    @if(mixin-exists(hook-modal-body)) {@include hook-modal-body();}
+    @if(meta.mixin-exists(hook-modal-body)) {@include hook-modal-body();}
 }
 
 .uk-modal-header {
     display: flow-root;
     padding: $modal-header-padding-vertical $modal-header-padding-horizontal;
     background: $modal-header-background;
-    @if(mixin-exists(hook-modal-header)) {@include hook-modal-header();}
+    @if(meta.mixin-exists(hook-modal-header)) {@include hook-modal-header();}
 }
 
 .uk-modal-footer {
     display: flow-root;
     padding: $modal-footer-padding-vertical $modal-footer-padding-horizontal;
     background: $modal-footer-background;
-    @if(mixin-exists(hook-modal-footer)) {@include hook-modal-footer();}
+    @if(meta.mixin-exists(hook-modal-footer)) {@include hook-modal-footer();}
 }
 
 /* Phone landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     .uk-modal-body { padding: $modal-body-padding-vertical-s $modal-body-padding-horizontal-s; }
     .uk-modal-header { padding: $modal-header-padding-vertical-s $modal-header-padding-horizontal-s; }
@@ -225,7 +228,7 @@
 .uk-modal-title {
     font-size: $modal-title-font-size;
     line-height: $modal-title-line-height;
-    @if(mixin-exists(hook-modal-title)) {@include hook-modal-title();}
+    @if(meta.mixin-exists(hook-modal-title)) {@include hook-modal-title();}
 }
 
 
@@ -239,7 +242,7 @@
     top: $modal-close-position;
     right: $modal-close-position;
     padding: $modal-close-padding;
-    @if(mixin-exists(hook-modal-close)) {@include hook-modal-close();}
+    @if(meta.mixin-exists(hook-modal-close)) {@include hook-modal-close();}
 }
 
 /*
@@ -253,7 +256,7 @@
  */
 
 [class*="uk-modal-close-"]:hover {
-    @if(mixin-exists(hook-modal-close-hover)) {@include hook-modal-close-hover();}
+    @if(meta.mixin-exists(hook-modal-close-hover)) {@include hook-modal-close-hover();}
 }
 
 /*
@@ -261,11 +264,11 @@
  */
 
 .uk-modal-close-default {
-    @if(mixin-exists(hook-modal-close-default)) {@include hook-modal-close-default();}
+    @if(meta.mixin-exists(hook-modal-close-default)) {@include hook-modal-close-default();}
 }
 
 .uk-modal-close-default:hover {
-    @if(mixin-exists(hook-modal-close-default-hover)) {@include hook-modal-close-default-hover();}
+    @if(meta.mixin-exists(hook-modal-close-default-hover)) {@include hook-modal-close-default-hover();}
 }
 
 /*
@@ -279,16 +282,16 @@
     right: (-$modal-close-padding);
     transform: translate(0, -($modal-close-outside-translate));
     color: $modal-close-outside-color;
-    @if(mixin-exists(hook-modal-close-outside)) {@include hook-modal-close-outside();}
+    @if(meta.mixin-exists(hook-modal-close-outside)) {@include hook-modal-close-outside();}
 }
 
 .uk-modal-close-outside:hover {
     color: $modal-close-outside-hover-color;
-    @if(mixin-exists(hook-modal-close-outside-hover)) {@include hook-modal-close-outside-hover();}
+    @if(meta.mixin-exists(hook-modal-close-outside-hover)) {@include hook-modal-close-outside-hover();}
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: variables.$breakpoint-medium) {
 
     /* 1 */
     .uk-modal-close-outside {
@@ -303,18 +306,18 @@
  */
 
 .uk-modal-close-full {
-    @if(mixin-exists(hook-modal-close-full)) {@include hook-modal-close-full();}
+    @if(meta.mixin-exists(hook-modal-close-full)) {@include hook-modal-close-full();}
 }
 
 .uk-modal-close-full:hover {
-    @if(mixin-exists(hook-modal-close-full-hover)) {@include hook-modal-close-full-hover();}
+    @if(meta.mixin-exists(hook-modal-close-full-hover)) {@include hook-modal-close-full-hover();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-modal-misc)) {@include hook-modal-misc();}
+@if(meta.mixin-exists(hook-modal-misc)) {@include hook-modal-misc();}
 
 // @mixin hook-modal(){}
 // @mixin hook-modal-dialog(){}

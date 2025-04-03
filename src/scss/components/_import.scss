@@ -1,96 +1,96 @@
 // Base
-@import "variables.scss";
-@import "mixin.scss";
-@import "base.scss";
+@use "variables.scss";
+@use "mixin.scss";
+@use "base.scss";
 
 // Elements
-@import "link.scss";
-@import "heading.scss";
-@import "divider.scss";
-@import "list.scss";
-@import "description-list.scss";
-@import "table.scss";
-@import "icon.scss";
-@import "form-range.scss";
-@import "form.scss"; // After: Icon, Form Range
-@import "button.scss";
-@import "progress.scss";
+@use "link.scss";
+@use "heading.scss";
+@use "divider.scss";
+@use "list.scss";
+@use "description-list.scss";
+@use "table.scss";
+@use "icon.scss";
+@use "form-range.scss";
+@use "form.scss"; // After: Icon, Form Range
+@use "button.scss";
+@use "progress.scss";
 
 // Layout
-@import "section.scss";
-@import "container.scss";
-@import "tile.scss";
-@import "card.scss";
+@use "section.scss";
+@use "container.scss";
+@use "tile.scss";
+@use "card.scss";
 
 // Common
-@import "close.scss"; // After: Icon
-@import "spinner.scss"; // After: Icon
-@import "totop.scss"; // After: Icon
-@import "marker.scss"; // After: Icon
-@import "alert.scss"; // After: Close
-@import "placeholder.scss";
-@import "badge.scss";
-@import "label.scss";
-@import "overlay.scss"; // After: Icon
-@import "article.scss";
-@import "comment.scss";
-@import "search.scss"; // After: Icon
+@use "close.scss"; // After: Icon
+@use "spinner.scss"; // After: Icon
+@use "totop.scss"; // After: Icon
+@use "marker.scss"; // After: Icon
+@use "alert.scss"; // After: Close
+@use "placeholder.scss";
+@use "badge.scss";
+@use "label.scss";
+@use "overlay.scss"; // After: Icon
+@use "article.scss";
+@use "comment.scss";
+@use "search.scss"; // After: Icon
 
 // JavaScript
-@import "accordion.scss";
-@import "drop.scss"; // After: Card
-@import "dropbar.scss";
-@import "dropnav.scss"; // After: Dropbar
-@import "modal.scss"; // After: Close
-@import "slideshow.scss";
-@import "slider.scss";
-@import "sticky.scss";
-@import "offcanvas.scss";
-@import "switcher.scss";
-@import "leader.scss";
-@import "notification.scss";
-@import "tooltip.scss";
-@import "sortable.scss";
-@import "countdown.scss";
+@use "accordion.scss";
+@use "drop.scss"; // After: Card
+@use "dropbar.scss";
+@use "dropnav.scss"; // After: Dropbar
+@use "modal.scss"; // After: Close
+@use "slideshow.scss";
+@use "slider.scss";
+@use "sticky.scss";
+@use "offcanvas.scss";
+@use "switcher.scss";
+@use "leader.scss";
+@use "notification.scss";
+@use "tooltip.scss";
+@use "sortable.scss";
+@use "countdown.scss";
 // Scrollspy
 // Toggle
 // Scroll
 
-@import "thumbnav.scss";
-@import "iconnav.scss";
+@use "thumbnav.scss";
+@use "iconnav.scss";
 
-@import "grid.scss"; // After: Thumbnav, Iconnav
+@use "grid.scss"; // After: Thumbnav, Iconnav
 
 // Navs
-@import "nav.scss";
-@import "navbar.scss"; // After: Card, Grid, Nav, Icon, Search
-@import "subnav.scss";
-@import "breadcrumb.scss";
-@import "pagination.scss";
-@import "tab.scss";
-@import "slidenav.scss"; // After: Icon
-@import "dotnav.scss";
-@import "dropdown.scss"; // After: Card, Nav
-@import "lightbox.scss"; // After: Close, Slidenav
+@use "nav.scss";
+@use "navbar.scss"; // After: Card, Grid, Nav, Icon, Search
+@use "subnav.scss";
+@use "breadcrumb.scss";
+@use "pagination.scss";
+@use "tab.scss";
+@use "slidenav.scss"; // After: Icon
+@use "dotnav.scss";
+@use "dropdown.scss"; // After: Card, Nav
+@use "lightbox.scss"; // After: Close, Slidenav
 
 // Utilities
-@import "animation.scss";
-@import "width.scss";
-@import "height.scss";
-@import "text.scss";
-@import "column.scss";
-@import "cover.scss";
-@import "background.scss";
-@import "align.scss";
-@import "svg.scss";
-@import "utility.scss";
-@import "flex.scss"; // After: Utility
-@import "margin.scss";
-@import "padding.scss";
-@import "position.scss";
-@import "transition.scss";
-@import "visibility.scss";
-@import "inverse.scss";
+@use "animation.scss";
+@use "width.scss";
+@use "height.scss";
+@use "text.scss";
+@use "column.scss";
+@use "cover.scss";
+@use "background.scss";
+@use "align.scss";
+@use "svg.scss";
+@use "utility.scss";
+@use "flex.scss"; // After: Utility
+@use "margin.scss";
+@use "padding.scss";
+@use "position.scss";
+@use "transition.scss";
+@use "visibility.scss";
+@use "inverse.scss";
 
 // Need to be loaded last
-@import "print.scss";
+@use "print.scss";
