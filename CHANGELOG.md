@@ -25,6 +25,17 @@
 - Fix Inverse component not being responsive for multiple target elements
 - Fix tabindex not being set for Video component in `autoplay: hover` mode
 
+### Added
+
+- Add form size modifier for radio and checkbox to Form component
+
+
+## WIP
+
+### Fixed
+
+- Fix Inverse component not being responsive for multiple target elements
+
 ## 3.23.6 (April 10, 2025)
 
 ### Fixed
