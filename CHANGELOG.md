@@ -55,6 +55,17 @@
 - Fix tabindex not being set for Video component in `autoplay: hover` mode
 - Fix browser lock up because of infinite component update loop
 
+### Added
+
+- Add form size modifier for radio and checkbox to Form component
+
+
+## WIP
+
+### Fixed
+
+- Fix Inverse component not being responsive for multiple target elements
+
 ## 3.23.6 (April 10, 2025)
 
 ### Fixed
