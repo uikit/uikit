@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add form size modifier for radio and checkbox to Form component
+
 ## 3.23.6 (April 10, 2025)
 
 ### Fixed
