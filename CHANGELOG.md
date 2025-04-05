@@ -5,6 +5,7 @@
 ### Added
 
 - Add form size modifier for radio and checkbox to Form component
+- Add highest z-index utility class to Position component
 
 ## 3.23.6 (April 10, 2025)
 
