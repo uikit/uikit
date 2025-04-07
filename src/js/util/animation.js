@@ -19,7 +19,11 @@ function transition(element, props, duration = 400, timing = 'linear') {
                         element,
                         [transitionEnd, transitionCanceled],
                         ({ type }) => {
-                            cancelAnimationFrame(frame);
+                            if (frame !== true) {
+                                css(element, props);
+                                cancelAnimationFrame(frame);
+                            }
+
                             clearTimeout(timer);
                             removeClass(element, clsTransition);
                             css(element, {
@@ -33,14 +37,15 @@ function transition(element, props, duration = 400, timing = 'linear') {
                     );
 
                     addClass(element, clsTransition);
-                    const frame = requestAnimationFrame(() =>
-                        css(element, {
+                    let frame = requestAnimationFrame(() => {
+                        frame = true;
+                        return css(element, {
                             transitionProperty: Object.keys(props).map(propName).join(','),
                             transitionDuration: `${duration}ms`,
                             transitionTimingFunction: timing,
                             ...props,
-                        }),
-                    );
+                        });
+                    });
                 }),
         ),
     );
