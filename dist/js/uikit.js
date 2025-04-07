@@ -1,4 +1,4 @@
-/*! UIkit 3.23.4 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.5 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -644,7 +644,10 @@
               element2,
               [transitionEnd, transitionCanceled],
               ({ type }) => {
-                cancelAnimationFrame(frame);
+                if (frame !== true) {
+                  css(element2, props);
+                  cancelAnimationFrame(frame);
+                }
                 clearTimeout(timer);
                 removeClass(element2, clsTransition);
                 css(element2, {
@@ -657,14 +660,15 @@
               { self: true }
             );
             addClass(element2, clsTransition);
-            const frame = requestAnimationFrame(
-              () => css(element2, {
+            let frame = requestAnimationFrame(() => {
+              frame = true;
+              return css(element2, {
                 transitionProperty: Object.keys(props).map(propName).join(","),
                 transitionDuration: `${duration}ms`,
                 transitionTimingFunction: timing,
                 ...props
-              })
-            );
+              });
+            });
           })
         )
       );
@@ -3732,7 +3736,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.4";
+    App.version = "3.23.5";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";

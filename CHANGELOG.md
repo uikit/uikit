@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.23.5 (April 7, 2025)
+
+### Fixed
+
+- Fix regression with transitioning element properties not being applied
+
 ## 3.23.4 (March 26, 2025)
 
 ### Fixed
