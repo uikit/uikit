@@ -26,18 +26,10 @@ export default function fade(action, target, duration, stagger = 0) {
         addClass(target, clsLeave);
 
         await Promise.all(
-            getTransitionNodes(target).map(
-                (child, i) =>
-                    new Promise((resolve) =>
-                        setTimeout(
-                            () =>
-                                Transition.start(child, propsOut, duration / 2, 'ease').then(
-                                    resolve,
-                                ),
-                            i * stagger,
-                        ),
-                    ),
-            ),
+            getTransitionNodes(target).map(async (child, i) => {
+                await awaitTimeout(i * stagger);
+                return Transition.start(child, propsOut, duration / 2, 'ease');
+            }),
         );
 
         removeClass(target, clsLeave);
@@ -49,14 +41,13 @@ export default function fade(action, target, duration, stagger = 0) {
         addClass(target, clsEnter);
         action();
 
-        css(children(target), { opacity: 0 });
+        css(children(target), propsOut);
 
         // Ensure UIkit updates have propagated (e.g. Grid needs to reset margin classes)
         height(target, oldHeight);
         await awaitTimeout();
         height(target, '');
 
-        const nodes = children(target);
         const newHeight = height(target);
 
         // Ensure Grid cells do not stretch when height is applied
@@ -64,11 +55,12 @@ export default function fade(action, target, duration, stagger = 0) {
         height(target, oldHeight);
 
         const transitionNodes = getTransitionNodes(target);
-        css(nodes, propsOut);
+        css(children(target), propsOut);
 
         const transitions = transitionNodes.map(async (child, i) => {
             await awaitTimeout(i * stagger);
             await Transition.start(child, propsIn, duration / 2, 'ease');
+            css(child, { opacity: '' });
         });
 
         if (oldHeight !== newHeight) {
@@ -82,14 +74,13 @@ export default function fade(action, target, duration, stagger = 0) {
             );
         }
 
-        await Promise.all(transitions).then(() => {
-            removeClass(target, clsEnter);
-            if (index === transitionIndex(target)) {
-                css(target, { height: '', alignContent: '' });
-                css(nodes, { opacity: '' });
-                delete target.dataset.transition;
-            }
-        });
+        await Promise.all(transitions);
+
+        removeClass(target, clsEnter);
+        if (index === transitionIndex(target)) {
+            css(target, { height: '', alignContent: '' });
+            delete target.dataset.transition;
+        }
     });
 
     return hasClass(target, clsLeave)
