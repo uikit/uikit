@@ -20,7 +20,8 @@ export default function fade(action, target, duration, stagger = 0) {
     const propsIn = { opacity: 1 };
     const propsOut = { opacity: 0 };
 
-    const wrapIndexFn = (fn) => () => (index === transitionIndex(target) ? fn() : Promise.reject());
+    const isCurrentIndex = () => index === transitionIndex(target);
+    const wrapIndexFn = (fn) => () => (isCurrentIndex() ? fn() : Promise.reject());
 
     const leaveFn = wrapIndexFn(async () => {
         addClass(target, clsLeave);
@@ -65,7 +66,9 @@ export default function fade(action, target, duration, stagger = 0) {
             transitions = nodes.map(async (child, i) => {
                 await awaitTimeout(i * stagger);
                 await Transition.start(child, propsIn, duration / 2, 'ease');
-                css(child, { opacity: '' });
+                if (isCurrentIndex()) {
+                    css(child, { opacity: '' });
+                }
             });
 
             targetDuration += nodes.length * stagger;
@@ -79,7 +82,7 @@ export default function fade(action, target, duration, stagger = 0) {
         await Promise.all(transitions);
 
         removeClass(target, clsEnter);
-        if (index === transitionIndex(target)) {
+        if (isCurrentIndex()) {
             css(target, { height: '', alignContent: '', opacity: '' });
             delete target.dataset.transition;
         }
