@@ -29,6 +29,7 @@ import {
     removeClass,
 } from 'uikit-util';
 import Container from '../mixin/container';
+import { maybeDefautPreventClick } from '../mixin/event';
 import Position, { storeScrollPosition } from '../mixin/position';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
@@ -80,6 +81,7 @@ export default {
         cls: 'uk-open',
         container: false,
         closeOnScroll: false,
+        selClose: '.uk-drop-close',
     },
 
     computed: {
@@ -131,10 +133,10 @@ export default {
         {
             name: 'click',
 
-            delegate: () => '.uk-drop-close',
+            delegate: ({ selClose }) => selClose,
 
             handler(e) {
-                e.preventDefault();
+                maybeDefautPreventClick(e);
                 this.hide(false);
             },
         },
