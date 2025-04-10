@@ -7,6 +7,7 @@ import {
     isVisible,
     once,
     removeClass,
+    resetProps,
     toNumber,
     Transition,
 } from 'uikit-util';
@@ -67,7 +68,7 @@ export default function fade(action, target, duration, stagger = 0) {
                 await awaitTimeout(i * stagger);
                 await Transition.start(child, propsIn, duration / 2, 'ease');
                 if (isCurrentIndex()) {
-                    css(child, { opacity: '' });
+                    resetProps(child, propsIn);
                 }
             });
 
@@ -83,7 +84,7 @@ export default function fade(action, target, duration, stagger = 0) {
 
         removeClass(target, clsEnter);
         if (isCurrentIndex()) {
-            css(target, { height: '', alignContent: '', opacity: '' });
+            resetProps(target, { height: '', alignContent: '', ...propsIn });
             delete target.dataset.transition;
         }
     });
