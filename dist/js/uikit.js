@@ -1,4 +1,4 @@
-/*! UIkit 3.23.5 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.6 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -614,6 +614,11 @@
       }
       return elements[0];
     }
+    function resetProps(element, props) {
+      for (const prop in props) {
+        css(element, prop, "");
+      }
+    }
     const propName = memoize((name) => {
       if (startsWith(name, "--")) {
         return name;
@@ -639,36 +644,28 @@
       return Promise.all(
         toNodes(element).map(
           (element2) => new Promise((resolve, reject) => {
+            for (const name in props) {
+              css(element2, name);
+            }
             const timer = setTimeout(() => trigger(element2, transitionEnd), duration);
             once(
               element2,
               [transitionEnd, transitionCanceled],
               ({ type }) => {
-                if (frame !== true) {
-                  css(element2, props);
-                  cancelAnimationFrame(frame);
-                }
                 clearTimeout(timer);
                 removeClass(element2, clsTransition);
-                css(element2, {
-                  transitionProperty: "",
-                  transitionDuration: "",
-                  transitionTimingFunction: ""
-                });
+                resetProps(element2, transitionProps);
                 type === transitionCanceled ? reject() : resolve(element2);
               },
               { self: true }
             );
             addClass(element2, clsTransition);
-            let frame = requestAnimationFrame(() => {
-              frame = true;
-              return css(element2, {
-                transitionProperty: Object.keys(props).map(propName).join(","),
-                transitionDuration: `${duration}ms`,
-                transitionTimingFunction: timing,
-                ...props
-              });
-            });
+            const transitionProps = {
+              transitionProperty: Object.keys(props).map(propName).join(","),
+              transitionDuration: `${duration}ms`,
+              transitionTimingFunction: timing
+            };
+            css(element2, { ...transitionProps, ...props });
           })
         )
       );
@@ -1651,6 +1648,7 @@
         removeAttr: removeAttr,
         removeClass: removeClass,
         replaceClass: replaceClass,
+        resetProps: resetProps,
         scrollIntoView: scrollIntoView,
         scrollParent: scrollParent,
         scrollParents: scrollParents,
@@ -2126,59 +2124,53 @@
       const index = transitionIndex(target, true);
       const propsIn = { opacity: 1 };
       const propsOut = { opacity: 0 };
-      const wrapIndexFn = (fn) => () => index === transitionIndex(target) ? fn() : Promise.reject();
+      const isCurrentIndex = () => index === transitionIndex(target);
+      const wrapIndexFn = (fn) => () => isCurrentIndex() ? fn() : Promise.reject();
       const leaveFn = wrapIndexFn(async () => {
         addClass(target, clsLeave);
-        await Promise.all(
-          getTransitionNodes(target).map(
-            (child, i) => new Promise(
-              (resolve) => setTimeout(
-                () => Transition.start(child, propsOut, duration / 2, "ease").then(
-                  resolve
-                ),
-                i * stagger
-              )
-            )
-          )
-        );
+        await (stagger ? Promise.all(
+          getTransitionNodes(target).map(async (child, i) => {
+            await awaitTimeout(i * stagger);
+            return Transition.start(child, propsOut, duration / 2, "ease");
+          })
+        ) : Transition.start(target, propsOut, duration / 2, "ease"));
         removeClass(target, clsLeave);
       });
       const enterFn = wrapIndexFn(async () => {
         const oldHeight = height(target);
         addClass(target, clsEnter);
         action();
-        css(children(target), { opacity: 0 });
+        css(stagger ? children(target) : target, propsOut);
         height(target, oldHeight);
         await awaitTimeout();
         height(target, "");
-        const nodes = children(target);
         const newHeight = height(target);
         css(target, "alignContent", "flex-start");
         height(target, oldHeight);
-        const transitionNodes = getTransitionNodes(target);
-        css(nodes, propsOut);
-        const transitions = transitionNodes.map(async (child, i) => {
-          await awaitTimeout(i * stagger);
-          await Transition.start(child, propsIn, duration / 2, "ease");
-        });
-        if (oldHeight !== newHeight) {
-          transitions.push(
-            Transition.start(
-              target,
-              { height: newHeight },
-              duration / 2 + transitionNodes.length * stagger,
-              "ease"
-            )
-          );
+        let transitions = [];
+        let targetDuration = duration / 2;
+        if (stagger) {
+          const nodes = getTransitionNodes(target);
+          css(children(target), propsOut);
+          transitions = nodes.map(async (child, i) => {
+            await awaitTimeout(i * stagger);
+            await Transition.start(child, propsIn, duration / 2, "ease");
+            if (isCurrentIndex()) {
+              resetProps(child, propsIn);
+            }
+          });
+          targetDuration += nodes.length * stagger;
         }
-        await Promise.all(transitions).then(() => {
-          removeClass(target, clsEnter);
-          if (index === transitionIndex(target)) {
-            css(target, { height: "", alignContent: "" });
-            css(nodes, { opacity: "" });
-            delete target.dataset.transition;
-          }
-        });
+        if (!stagger || oldHeight !== newHeight) {
+          const targetProps = { height: newHeight, ...stagger ? {} : propsIn };
+          transitions.push(Transition.start(target, targetProps, targetDuration, "ease"));
+        }
+        await Promise.all(transitions);
+        removeClass(target, clsEnter);
+        if (isCurrentIndex()) {
+          resetProps(target, { height: "", alignContent: "", ...propsIn });
+          delete target.dataset.transition;
+        }
       });
       return hasClass(target, clsLeave) ? waitTransitionend(target).then(enterFn) : hasClass(target, clsEnter) ? waitTransitionend(target).then(leaveFn).then(enterFn) : leaveFn().then(enterFn);
     }
@@ -2271,11 +2263,6 @@
       });
       return [propsTo, propsFrom];
     }
-    function resetProps(el, props) {
-      for (const prop in props) {
-        css(el, prop, "");
-      }
-    }
     function getPositionWithMargin(el) {
       const { height, width } = dimensions$1(el);
       return {
@@ -2310,6 +2297,12 @@
         }
       }
     };
+
+    function maybeDefautPreventClick(e) {
+      if (e.target.closest('a[href="#"],a[href=""]')) {
+        e.preventDefault();
+      }
+    }
 
     const keyMap = {
       TAB: 9,
@@ -2369,7 +2362,7 @@
             return;
           }
           if (e.target.closest("a,button")) {
-            e.preventDefault();
+            maybeDefautPreventClick(e);
             this.apply(e.current);
           }
         }
@@ -2619,15 +2612,16 @@
       }
       prevented = true;
       const { scrollingElement } = document;
-      css(scrollingElement, {
+      const props = {
         overflowY: CSS.supports("overflow", "clip") ? "clip" : "hidden",
         touchAction: "none",
         paddingRight: width(window) - scrollingElement.clientWidth || ""
-      });
+      };
+      css(scrollingElement, props);
       return () => {
         prevented = false;
         off();
-        css(scrollingElement, { overflowY: "", touchAction: "", paddingRight: "" });
+        resetProps(scrollingElement, props);
       };
     }
 
@@ -2951,7 +2945,7 @@
             if (!defaultPrevented && hash && isSameSiteAnchor(current) && !this.$el.contains($(hash))) {
               this.hide();
             } else if (matches(current, this.selClose)) {
-              e.preventDefault();
+              maybeDefautPreventClick(e);
               this.hide();
             }
           }
@@ -3161,9 +3155,7 @@
           return Transition.cancel([next, prev]);
         },
         reset() {
-          for (const prop in props[0]) {
-            css([next, prev], prop, "");
-          }
+          resetProps([next, prev], props[0]);
         },
         async forward(duration, percent2 = this.percent()) {
           await this.cancel();
@@ -3736,7 +3728,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.5";
+    App.version = "3.23.6";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4002,7 +3994,7 @@
           filter: ({ parallax }) => !parallax,
           handler(e) {
             if (e.target.closest("a,button") && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
-              e.preventDefault();
+              maybeDefautPreventClick(e);
               this.show(data(e.current, this.attrItem));
             }
           }
@@ -4847,9 +4839,7 @@
       },
       events: {
         click(e) {
-          if (e.target.closest('a[href="#"],a[href=""]')) {
-            e.preventDefault();
-          }
+          maybeDefautPreventClick(e);
           this.close();
         },
         [pointerEnter]() {
@@ -4989,9 +4979,7 @@
       },
       methods: {
         reset() {
-          for (const prop in this.getCss(0)) {
-            css(this.$el, prop, "");
-          }
+          resetProps(this.$el, this.getCss(0));
         },
         getCss(percent) {
           const css2 = {};
@@ -5988,8 +5976,9 @@
           toggleClass(this.target, this.clsEmpty, empty);
         },
         handles(handles, prev) {
-          css(prev, { touchAction: "", userSelect: "" });
-          css(handles, { touchAction: "none", userSelect: "none" });
+          const props = { touchAction: "none", userSelect: "none" };
+          resetProps(prev, props);
+          css(handles, props);
         }
       },
       update: {
@@ -6729,7 +6718,7 @@
             if (e.type === "keydown" && e.keyCode !== keyMap.SPACE) {
               return;
             }
-            e.preventDefault();
+            maybeDefautPreventClick(e);
             (_a = this._off) == null ? void 0 : _a.call(this);
             this._off = keepScrollPosition(e.target);
             await this.toggle(index(this.toggles, e.current));
@@ -6850,7 +6839,7 @@
         name: "click",
         delegate: ({ selClose }) => selClose,
         handler(e) {
-          e.preventDefault();
+          maybeDefautPreventClick(e);
           this.close();
         }
       },
@@ -7055,7 +7044,8 @@
         animation: ["uk-animation-fade"],
         cls: "uk-open",
         container: false,
-        closeOnScroll: false
+        closeOnScroll: false,
+        selClose: ".uk-drop-close"
       },
       computed: {
         boundary({ boundary, boundaryX, boundaryY }, $el) {
@@ -7096,9 +7086,9 @@
       events: [
         {
           name: "click",
-          delegate: () => ".uk-drop-close",
+          delegate: ({ selClose }) => selClose,
           handler(e) {
-            e.preventDefault();
+            maybeDefautPreventClick(e);
             this.hide(false);
           }
         },
@@ -8572,7 +8562,7 @@
       };
       modal.alert = function(message, options) {
         return openDialog(
-          ({ i18n }) => `<div class="uk-modal-body">${isString(message) ? message : html(message)}</div> <div class="uk-modal-footer uk-text-right"> <button class="uk-button uk-button-primary uk-modal-close" autofocus>${i18n.ok}</button> </div>`,
+          ({ i18n }) => `<div class="uk-modal-body">${isString(message) ? message : html(message)}</div> <div class="uk-modal-footer uk-text-right"> <button class="uk-button uk-button-primary uk-modal-close" type="button" autofocus>${i18n.ok}</button> </div>`,
           options
         );
       };
@@ -9374,12 +9364,7 @@
           if (sticky) {
             css(this.$el, "top", offset);
           } else {
-            css(this.$el, {
-              position: "",
-              top: "",
-              width: "",
-              marginTop: ""
-            });
+            reset(this.$el);
           }
           this.placeholder.hidden = true;
           this.isFixed = false;
@@ -9617,7 +9602,7 @@
           delegate: ({ toggle }) => toggle,
           handler(e) {
             if (!matches(e.current, selDisabled) && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
-              e.preventDefault();
+              maybeDefautPreventClick(e);
               this.show(e.current);
             }
           }
@@ -9646,7 +9631,7 @@
           delegate: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,
           handler(e) {
             if (e.target.closest("a,button")) {
-              e.preventDefault();
+              maybeDefautPreventClick(e);
               this.show(data(e.current, this.attrItem));
             }
           }
