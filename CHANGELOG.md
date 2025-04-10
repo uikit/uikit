@@ -57,6 +57,7 @@
 
 ### Added
 
+- Add Overflow Fade component
 - Add form size modifier for radio and checkbox to Form component
 - Add highest z-index utility class to Position component
 
