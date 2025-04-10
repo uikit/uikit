@@ -7,6 +7,7 @@ import {
     isVisible,
     once,
     removeClass,
+    resetProps,
     toNumber,
     Transition,
 } from 'uikit-util';
@@ -20,25 +21,20 @@ export default function fade(action, target, duration, stagger = 0) {
     const propsIn = { opacity: 1 };
     const propsOut = { opacity: 0 };
 
-    const wrapIndexFn = (fn) => () => (index === transitionIndex(target) ? fn() : Promise.reject());
+    const isCurrentIndex = () => index === transitionIndex(target);
+    const wrapIndexFn = (fn) => () => (isCurrentIndex() ? fn() : Promise.reject());
 
     const leaveFn = wrapIndexFn(async () => {
         addClass(target, clsLeave);
 
-        await Promise.all(
-            getTransitionNodes(target).map(
-                (child, i) =>
-                    new Promise((resolve) =>
-                        setTimeout(
-                            () =>
-                                Transition.start(child, propsOut, duration / 2, 'ease').then(
-                                    resolve,
-                                ),
-                            i * stagger,
-                        ),
-                    ),
-            ),
-        );
+        await (stagger
+            ? Promise.all(
+                  getTransitionNodes(target).map(async (child, i) => {
+                      await awaitTimeout(i * stagger);
+                      return Transition.start(child, propsOut, duration / 2, 'ease');
+                  }),
+              )
+            : Transition.start(target, propsOut, duration / 2, 'ease'));
 
         removeClass(target, clsLeave);
     });
@@ -49,47 +45,48 @@ export default function fade(action, target, duration, stagger = 0) {
         addClass(target, clsEnter);
         action();
 
-        css(children(target), { opacity: 0 });
+        css(stagger ? children(target) : target, propsOut);
 
         // Ensure UIkit updates have propagated (e.g. Grid needs to reset margin classes)
         height(target, oldHeight);
         await awaitTimeout();
         height(target, '');
 
-        const nodes = children(target);
         const newHeight = height(target);
 
         // Ensure Grid cells do not stretch when height is applied
         css(target, 'alignContent', 'flex-start');
         height(target, oldHeight);
 
-        const transitionNodes = getTransitionNodes(target);
-        css(nodes, propsOut);
+        let transitions = [];
+        let targetDuration = duration / 2;
+        if (stagger) {
+            const nodes = getTransitionNodes(target);
+            css(children(target), propsOut);
 
-        const transitions = transitionNodes.map(async (child, i) => {
-            await awaitTimeout(i * stagger);
-            await Transition.start(child, propsIn, duration / 2, 'ease');
-        });
+            transitions = nodes.map(async (child, i) => {
+                await awaitTimeout(i * stagger);
+                await Transition.start(child, propsIn, duration / 2, 'ease');
+                if (isCurrentIndex()) {
+                    resetProps(child, propsIn);
+                }
+            });
 
-        if (oldHeight !== newHeight) {
-            transitions.push(
-                Transition.start(
-                    target,
-                    { height: newHeight },
-                    duration / 2 + transitionNodes.length * stagger,
-                    'ease',
-                ),
-            );
+            targetDuration += nodes.length * stagger;
         }
 
-        await Promise.all(transitions).then(() => {
-            removeClass(target, clsEnter);
-            if (index === transitionIndex(target)) {
-                css(target, { height: '', alignContent: '' });
-                css(nodes, { opacity: '' });
-                delete target.dataset.transition;
-            }
-        });
+        if (!stagger || oldHeight !== newHeight) {
+            const targetProps = { height: newHeight, ...(stagger ? {} : propsIn) };
+            transitions.push(Transition.start(target, targetProps, targetDuration, 'ease'));
+        }
+
+        await Promise.all(transitions);
+
+        removeClass(target, clsEnter);
+        if (isCurrentIndex()) {
+            resetProps(target, { height: '', alignContent: '', ...propsIn });
+            delete target.dataset.transition;
+        }
     });
 
     return hasClass(target, clsLeave)

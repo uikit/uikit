@@ -8,6 +8,7 @@ import {
     isVisible,
     parent,
     position,
+    resetProps,
     Transition,
     trigger,
 } from 'uikit-util';
@@ -125,12 +126,6 @@ function getTransitionProps(target, nodes, currentProps) {
     });
 
     return [propsTo, propsFrom];
-}
-
-function resetProps(el, props) {
-    for (const prop in props) {
-        css(el, prop, '');
-    }
 }
 
 function getPositionWithMargin(el) {

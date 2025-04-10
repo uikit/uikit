@@ -1,7 +1,7 @@
 import { addClass, hasClass, removeClass } from './class';
 import { once, trigger } from './event';
 import { toNodes } from './lang';
-import { css, propName } from './style';
+import { css, propName, resetProps } from './style';
 
 const clsTransition = 'uk-transition';
 const transitionEnd = 'transitionend';
@@ -13,39 +13,32 @@ function transition(element, props, duration = 400, timing = 'linear') {
         toNodes(element).map(
             (element) =>
                 new Promise((resolve, reject) => {
+                    for (const name in props) {
+                        // Force reflow: transition won't run for previously hidden element
+                        css(element, name);
+                    }
+
                     const timer = setTimeout(() => trigger(element, transitionEnd), duration);
 
                     once(
                         element,
                         [transitionEnd, transitionCanceled],
                         ({ type }) => {
-                            if (frame !== true) {
-                                css(element, props);
-                                cancelAnimationFrame(frame);
-                            }
-
                             clearTimeout(timer);
                             removeClass(element, clsTransition);
-                            css(element, {
-                                transitionProperty: '',
-                                transitionDuration: '',
-                                transitionTimingFunction: '',
-                            });
+                            resetProps(element, transitionProps);
                             type === transitionCanceled ? reject() : resolve(element);
                         },
                         { self: true },
                     );
 
                     addClass(element, clsTransition);
-                    let frame = requestAnimationFrame(() => {
-                        frame = true;
-                        return css(element, {
-                            transitionProperty: Object.keys(props).map(propName).join(','),
-                            transitionDuration: `${duration}ms`,
-                            transitionTimingFunction: timing,
-                            ...props,
-                        });
-                    });
+                    const transitionProps = {
+                        transitionProperty: Object.keys(props).map(propName).join(','),
+                        transitionDuration: `${duration}ms`,
+                        transitionTimingFunction: timing,
+                    };
+                    css(element, { ...transitionProps, ...props });
                 }),
         ),
     );

@@ -1,4 +1,4 @@
-import { css, getEventPos, matches, on, once, scrollParents, width } from 'uikit-util';
+import { css, getEventPos, matches, on, once, resetProps, scrollParents, width } from 'uikit-util';
 
 let prevented;
 export function preventBackgroundScroll(el) {
@@ -50,14 +50,15 @@ export function preventBackgroundScroll(el) {
     prevented = true;
 
     const { scrollingElement } = document;
-    css(scrollingElement, {
+    const props = {
         overflowY: CSS.supports('overflow', 'clip') ? 'clip' : 'hidden',
         touchAction: 'none',
         paddingRight: width(window) - scrollingElement.clientWidth || '',
-    });
+    };
+    css(scrollingElement, props);
     return () => {
         prevented = false;
         off();
-        css(scrollingElement, { overflowY: '', touchAction: '', paddingRight: '' });
+        resetProps(scrollingElement, props);
     };
 }

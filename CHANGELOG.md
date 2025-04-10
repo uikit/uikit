@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.23.6 (April 10, 2025)
+
+### Fixed
+
+- Revert: Fix performance when transitioning element properties in Chrome (causes regression in Safari and Firefox)
+
 ## 3.23.5 (April 7, 2025)
 
 ### Fixed

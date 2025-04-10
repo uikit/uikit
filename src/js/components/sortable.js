@@ -25,6 +25,7 @@ import {
     pointInRect,
     remove,
     removeClass,
+    resetProps,
     scrollParents,
     toggleClass,
     Transition,
@@ -95,8 +96,9 @@ export default {
         },
 
         handles(handles, prev) {
-            css(prev, { touchAction: '', userSelect: '' });
-            css(handles, { touchAction: 'none', userSelect: 'none' });
+            const props = { touchAction: 'none', userSelect: 'none' };
+            resetProps(prev, props);
+            css(handles, props);
         },
     },
 

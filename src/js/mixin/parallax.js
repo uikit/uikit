@@ -9,6 +9,7 @@ import {
     noop,
     once,
     propName,
+    resetProps,
     toFloat,
     toPx,
     trigger,
@@ -71,9 +72,7 @@ export default {
 
     methods: {
         reset() {
-            for (const prop in this.getCss(0)) {
-                css(this.$el, prop, '');
-            }
+            resetProps(this.$el, this.getCss(0));
         },
 
         getCss(percent) {
