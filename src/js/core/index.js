@@ -18,6 +18,7 @@ export { default as Nav } from './nav';
 export { default as Navbar } from './navbar';
 export { default as Offcanvas } from './offcanvas';
 export { default as OverflowAuto } from './overflow-auto';
+export { default as OverflowFade } from './overflow-fade';
 export { default as Responsive } from './responsive';
 export { default as Scroll } from './scroll';
 export { default as Scrollspy } from './scrollspy';
