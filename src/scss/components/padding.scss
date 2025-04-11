@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "variables";
+
 // Name:            Padding
 // Description:     Utilities for padding
 //
@@ -22,7 +25,7 @@
 .uk-padding { padding: $padding-padding; }
 
 /* Desktop and bigger */
-@media (min-width: $breakpoint-large) {
+@media (min-width: variables.$breakpoint-large) {
 
     .uk-padding { padding: $padding-padding-l; }
 
@@ -41,7 +44,7 @@
 .uk-padding-large { padding: $padding-large-padding; }
 
 /* Desktop and bigger */
-@media (min-width: $breakpoint-large) {
+@media (min-width: variables.$breakpoint-large) {
 
     .uk-padding-large { padding: $padding-large-padding-l; }
 
@@ -71,6 +74,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-padding-misc)) {@include hook-padding-misc();}
+@if(meta.mixin-exists(hook-padding-misc)) {@include hook-padding-misc();}
 
 // @mixin hook-padding-misc(){}

@@ -1,3 +1,7 @@
+@use "sass:meta";
+@use "sass:string";
+@use "variables";
+
 // Name:            Base
 // Description:     Default values for HTML elements
 //
@@ -44,7 +48,7 @@ html {
     /* 3 */
     background: $base-body-background;
     color: $base-body-color;
-    @if(mixin-exists(hook-base-body)) {@include hook-base-body();}
+    @if(meta.mixin-exists(hook-base-body)) {@include hook-base-body();}
 }
 
 /*
@@ -66,7 +70,7 @@ a,
     color: $base-link-color;
     text-decoration: $base-link-text-decoration;
     cursor: pointer;
-    @if(mixin-exists(hook-base-link)) {@include hook-base-link();}
+    @if(meta.mixin-exists(hook-base-link)) {@include hook-base-link();}
 }
 
 a:hover,
@@ -74,7 +78,7 @@ a:hover,
 .uk-link-toggle:hover .uk-link {
     color: $base-link-hover-color;
     text-decoration: $base-link-hover-text-decoration;
-    @if(mixin-exists(hook-base-link-hover)) {@include hook-base-link-hover();}
+    @if(meta.mixin-exists(hook-base-link-hover)) {@include hook-base-link-hover();}
 }
 
 
@@ -116,7 +120,7 @@ strong { font-weight: $base-strong-font-weight; }
     /* 3 */
     color: $base-code-color;
     white-space: nowrap;
-    @if(mixin-exists(hook-base-code)) {@include hook-base-code();}
+    @if(meta.mixin-exists(hook-base-code)) {@include hook-base-code();}
 }
 
 /*
@@ -272,7 +276,7 @@ h6, .uk-h6,
     font-weight: $base-heading-font-weight;
     color: $base-heading-color;
     text-transform: $base-heading-text-transform;
-    @if(mixin-exists(hook-base-heading)) {@include hook-base-heading();}
+    @if(meta.mixin-exists(hook-base-heading)) {@include hook-base-heading();}
 }
 
 /* Add margin if adjacent element */
@@ -296,41 +300,41 @@ h6, .uk-h6,
 h1, .uk-h1 {
     font-size: $base-h1-font-size;
     line-height: $base-h1-line-height;
-    @if(mixin-exists(hook-base-h1)) {@include hook-base-h1();}
+    @if(meta.mixin-exists(hook-base-h1)) {@include hook-base-h1();}
 }
 
 h2, .uk-h2 {
     font-size: $base-h2-font-size;
     line-height: $base-h2-line-height;
-    @if(mixin-exists(hook-base-h2)) {@include hook-base-h2();}
+    @if(meta.mixin-exists(hook-base-h2)) {@include hook-base-h2();}
 }
 
 h3, .uk-h3 {
     font-size: $base-h3-font-size;
     line-height: $base-h3-line-height;
-    @if(mixin-exists(hook-base-h3)) {@include hook-base-h3();}
+    @if(meta.mixin-exists(hook-base-h3)) {@include hook-base-h3();}
 }
 
 h4, .uk-h4 {
     font-size: $base-h4-font-size;
     line-height: $base-h4-line-height;
-    @if(mixin-exists(hook-base-h4)) {@include hook-base-h4();}
+    @if(meta.mixin-exists(hook-base-h4)) {@include hook-base-h4();}
 }
 
 h5, .uk-h5 {
     font-size: $base-h5-font-size;
     line-height: $base-h5-line-height;
-    @if(mixin-exists(hook-base-h5)) {@include hook-base-h5();}
+    @if(meta.mixin-exists(hook-base-h5)) {@include hook-base-h5();}
 }
 
 h6, .uk-h6 {
     font-size: $base-h6-font-size;
     line-height: $base-h6-line-height;
-    @if(mixin-exists(hook-base-h6)) {@include hook-base-h6();}
+    @if(meta.mixin-exists(hook-base-h6)) {@include hook-base-h6();}
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: variables.$breakpoint-medium) {
 
     h1, .uk-h1 { font-size: $base-h1-font-size-m; }
     h2, .uk-h2 { font-size: $base-h2-font-size-m; }
@@ -379,7 +383,7 @@ hr, .uk-hr {
     margin: 0 0 $base-hr-margin-vertical 0;
     border: 0;
     border-top: $base-hr-border-width solid $base-hr-border;
-    @if(mixin-exists(hook-base-hr)) {@include hook-base-hr();}
+    @if(meta.mixin-exists(hook-base-hr)) {@include hook-base-hr();}
 }
 
 /* Add margin if adjacent element */
@@ -401,7 +405,7 @@ blockquote {
     font-size: $base-blockquote-font-size;
     line-height: $base-blockquote-line-height;
     font-style: $base-blockquote-font-style;
-    @if(mixin-exists(hook-base-blockquote)) {@include hook-base-blockquote();}
+    @if(meta.mixin-exists(hook-base-blockquote)) {@include hook-base-blockquote();}
 }
 
 /* Add margin if adjacent element */
@@ -417,7 +421,7 @@ blockquote footer {
     margin-top: $base-blockquote-footer-margin-top;
     font-size: $base-blockquote-footer-font-size;
     line-height: $base-blockquote-footer-line-height;
-    @if(mixin-exists(hook-base-blockquote-footer)) {@include hook-base-blockquote-footer();}
+    @if(meta.mixin-exists(hook-base-blockquote-footer)) {@include hook-base-blockquote-footer();}
 }
 
 
@@ -429,13 +433,13 @@ blockquote footer {
  */
 
 pre {
-    font: $base-pre-font-size unquote("/") $base-pre-line-height $base-pre-font-family;
+    font: $base-pre-font-size string.unquote("/") $base-pre-line-height $base-pre-font-family;
     color: $base-pre-color;
     -moz-tab-size: 4;
     tab-size: 4;
     /* 1 */
     overflow: auto;
-    @if(mixin-exists(hook-base-pre)) {@include hook-base-pre();}
+    @if(meta.mixin-exists(hook-base-pre)) {@include hook-base-pre();}
 }
 
 pre code { font-family: $base-pre-font-family; }
@@ -493,16 +497,16 @@ template { display: none; }
  */
 
 :root {
-    --uk-breakpoint-s: #{$breakpoint-small};
-    --uk-breakpoint-m: #{$breakpoint-medium};
-    --uk-breakpoint-l: #{$breakpoint-large};
-    --uk-breakpoint-xl: #{$breakpoint-xlarge};
+    --uk-breakpoint-s: #{variables.$breakpoint-small};
+    --uk-breakpoint-m: #{variables.$breakpoint-medium};
+    --uk-breakpoint-l: #{variables.$breakpoint-large};
+    --uk-breakpoint-xl: #{variables.$breakpoint-xlarge};
 }
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-base-misc)) {@include hook-base-misc();}
+@if(meta.mixin-exists(hook-base-misc)) {@include hook-base-misc();}
 
 // @mixin hook-base-body(){}
 // @mixin hook-base-link(){}

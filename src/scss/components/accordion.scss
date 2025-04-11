@@ -1,3 +1,4 @@
+@use "sass:meta";
 // Name:            Accordion
 // Description:     Component to create accordions
 //
@@ -25,7 +26,7 @@
 .uk-accordion {
     padding: 0;
     list-style: none;
-    @if(mixin-exists(hook-accordion)) {@include hook-accordion();}
+    @if(meta.mixin-exists(hook-accordion)) {@include hook-accordion();}
 }
 
 
@@ -33,7 +34,7 @@
  ========================================================================== */
 
 .uk-accordion > * {
-    @if(mixin-exists(hook-accordion-item)) {@include hook-accordion-item();}
+    @if(meta.mixin-exists(hook-accordion-item)) {@include hook-accordion-item();}
 }
 
 .uk-accordion > :nth-child(n+2) { margin-top: $accordion-item-margin-top; }
@@ -47,14 +48,14 @@
     font-size: $accordion-title-font-size;
     line-height: $accordion-title-line-height;
     color: $accordion-title-color;
-    @if(mixin-exists(hook-accordion-title)) {@include hook-accordion-title();}
+    @if(meta.mixin-exists(hook-accordion-title)) {@include hook-accordion-title();}
 }
 
 /* Hover */
 .uk-accordion-title:hover {
     color: $accordion-title-hover-color;
     text-decoration: none;
-    @if(mixin-exists(hook-accordion-title-hover)) {@include hook-accordion-title-hover();}
+    @if(meta.mixin-exists(hook-accordion-title-hover)) {@include hook-accordion-title-hover();}
 }
 
 
@@ -64,7 +65,7 @@
 .uk-accordion-content {
     display: flow-root;
     margin-top: $accordion-content-margin-top;
-    @if(mixin-exists(hook-accordion-content)) {@include hook-accordion-content();}
+    @if(meta.mixin-exists(hook-accordion-content)) {@include hook-accordion-content();}
 }
 
 /*
@@ -77,7 +78,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-accordion-misc)) {@include hook-accordion-misc();}
+@if(meta.mixin-exists(hook-accordion-misc)) {@include hook-accordion-misc();}
 
 // @mixin hook-accordion(){}
 // @mixin hook-accordion-item(){}

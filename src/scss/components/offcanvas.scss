@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "variables";
+
 // Name:            Off-canvas
 // Description:     Component to create an off-canvas sidebar
 //
@@ -83,11 +86,11 @@
     background: $offcanvas-bar-background;
     /* 3 */
     overflow-y: auto;
-    @if(mixin-exists(hook-offcanvas-bar)) {@include hook-offcanvas-bar();}
+    @if(meta.mixin-exists(hook-offcanvas-bar)) {@include hook-offcanvas-bar();}
 }
 
 /* Phone landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     .uk-offcanvas-bar {
         left: (-$offcanvas-bar-width-s);
@@ -108,7 +111,7 @@
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     .uk-offcanvas-flip .uk-offcanvas-bar { right: (-$offcanvas-bar-width-s); }
 
@@ -166,7 +169,7 @@
 .uk-open > .uk-offcanvas-reveal { width: $offcanvas-bar-width; }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     .uk-open > .uk-offcanvas-reveal { width: $offcanvas-bar-width-s; }
 
@@ -192,11 +195,11 @@
     top: $offcanvas-close-position;
     right: $offcanvas-close-position;
     padding: $offcanvas-close-padding;
-    @if(mixin-exists(hook-offcanvas-close)) {@include hook-offcanvas-close();}
+    @if(meta.mixin-exists(hook-offcanvas-close)) {@include hook-offcanvas-close();}
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     .uk-offcanvas-close {
         top: $offcanvas-close-position-s;
@@ -245,7 +248,7 @@
     /* 2 */
     opacity: 0;
     transition: opacity 0.15s linear;
-    @if(mixin-exists(hook-offcanvas-overlay)) {@include hook-offcanvas-overlay();}
+    @if(meta.mixin-exists(hook-offcanvas-overlay)) {@include hook-offcanvas-overlay();}
 }
 
 .uk-offcanvas-overlay.uk-open::before { opacity: 1; }
@@ -296,7 +299,7 @@
 .uk-offcanvas-flip.uk-offcanvas-container-animation { left: (-$offcanvas-bar-width); }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: $offcanvas-bar-width-s; }
 
@@ -308,7 +311,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-offcanvas-misc)) {@include hook-offcanvas-misc();}
+@if(meta.mixin-exists(hook-offcanvas-misc)) {@include hook-offcanvas-misc();}
 
 // @mixin hook-offcanvas-bar(){}
 // @mixin hook-offcanvas-close(){}

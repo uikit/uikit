@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "variables";
+
 // Name:            Nav
 // Description:     Defines styles for list navigations
 //
@@ -100,7 +103,7 @@ $nav-xlarge-font-size-l:                         8rem !default; // 128px
 
 ul.uk-nav-sub {
     padding: $nav-sublist-padding-vertical 0 $nav-sublist-padding-vertical $nav-sublist-padding-left;
-    @if(mixin-exists(hook-nav-sub)) {@include hook-nav-sub();}
+    @if(meta.mixin-exists(hook-nav-sub)) {@include hook-nav-sub();}
 }
 
 /*
@@ -134,7 +137,7 @@ ul.uk-nav-sub {
     padding: $nav-header-padding-vertical $nav-header-padding-horizontal;
     text-transform: $nav-header-text-transform;
     font-size: $nav-header-font-size;
-    @if(mixin-exists(hook-nav-header)) {@include hook-nav-header();}
+    @if(meta.mixin-exists(hook-nav-header)) {@include hook-nav-header();}
 }
 
 .uk-nav-header:not(:first-child) { margin-top: $nav-header-margin-top; }
@@ -145,7 +148,7 @@ ul.uk-nav-sub {
 
 .uk-nav .uk-nav-divider {
     margin: $nav-divider-margin-vertical $nav-divider-margin-horizontal;
-    @if(mixin-exists(hook-nav-divider)) {@include hook-nav-divider();}
+    @if(meta.mixin-exists(hook-nav-divider)) {@include hook-nav-divider();}
 }
 
 
@@ -155,7 +158,7 @@ ul.uk-nav-sub {
 .uk-nav-default {
     font-size: $nav-default-font-size;
     line-height: $nav-default-line-height;
-    @if(mixin-exists(hook-nav-default)) {@include hook-nav-default();}
+    @if(meta.mixin-exists(hook-nav-default)) {@include hook-nav-default();}
 }
 
 /*
@@ -164,19 +167,19 @@ ul.uk-nav-sub {
 
 .uk-nav-default > li > a {
     color: $nav-default-item-color;
-    @if(mixin-exists(hook-nav-default-item)) {@include hook-nav-default-item();}
+    @if(meta.mixin-exists(hook-nav-default-item)) {@include hook-nav-default-item();}
 }
 
 /* Hover */
 .uk-nav-default > li > a:hover {
     color: $nav-default-item-hover-color;
-    @if(mixin-exists(hook-nav-default-item-hover)) {@include hook-nav-default-item-hover();}
+    @if(meta.mixin-exists(hook-nav-default-item-hover)) {@include hook-nav-default-item-hover();}
 }
 
 /* Active */
 .uk-nav-default > li.uk-active > a {
     color: $nav-default-item-active-color;
-    @if(mixin-exists(hook-nav-default-item-active)) {@include hook-nav-default-item-active();}
+    @if(meta.mixin-exists(hook-nav-default-item-active)) {@include hook-nav-default-item-active();}
 }
 
 /*
@@ -185,7 +188,7 @@ ul.uk-nav-sub {
 
 .uk-nav-default .uk-nav-subtitle {
     font-size: $nav-default-subtitle-font-size;
-    @if(mixin-exists(hook-nav-default-subtitle)) {@include hook-nav-default-subtitle();}
+    @if(meta.mixin-exists(hook-nav-default-subtitle)) {@include hook-nav-default-subtitle();}
 }
 
 /*
@@ -194,7 +197,7 @@ ul.uk-nav-sub {
 
 .uk-nav-default .uk-nav-header {
     color: $nav-default-header-color;
-    @if(mixin-exists(hook-nav-default-header)) {@include hook-nav-default-header();}
+    @if(meta.mixin-exists(hook-nav-default-header)) {@include hook-nav-default-header();}
 }
 
 /*
@@ -203,7 +206,7 @@ ul.uk-nav-sub {
 
 .uk-nav-default .uk-nav-divider {
     border-top: $nav-default-divider-border-width solid $nav-default-divider-border;
-    @if(mixin-exists(hook-nav-default-divider)) {@include hook-nav-default-divider();}
+    @if(meta.mixin-exists(hook-nav-default-divider)) {@include hook-nav-default-divider();}
 }
 
 /*
@@ -228,7 +231,7 @@ ul.uk-nav-sub {
 .uk-nav-primary {
     font-size: $nav-primary-font-size;
     line-height: $nav-primary-line-height;
-    @if(mixin-exists(hook-nav-primary)) {@include hook-nav-primary();}
+    @if(meta.mixin-exists(hook-nav-primary)) {@include hook-nav-primary();}
 }
 
 /*
@@ -237,19 +240,19 @@ ul.uk-nav-sub {
 
 .uk-nav-primary > li > a {
     color: $nav-primary-item-color;
-    @if(mixin-exists(hook-nav-primary-item)) {@include hook-nav-primary-item();}
+    @if(meta.mixin-exists(hook-nav-primary-item)) {@include hook-nav-primary-item();}
 }
 
 /* Hover */
 .uk-nav-primary > li > a:hover {
     color: $nav-primary-item-hover-color;
-    @if(mixin-exists(hook-nav-primary-item-hover)) {@include hook-nav-primary-item-hover();}
+    @if(meta.mixin-exists(hook-nav-primary-item-hover)) {@include hook-nav-primary-item-hover();}
 }
 
 /* Active */
 .uk-nav-primary > li.uk-active > a {
     color: $nav-primary-item-active-color;
-    @if(mixin-exists(hook-nav-primary-item-active)) {@include hook-nav-primary-item-active();}
+    @if(meta.mixin-exists(hook-nav-primary-item-active)) {@include hook-nav-primary-item-active();}
 }
 
 /*
@@ -258,7 +261,7 @@ ul.uk-nav-sub {
 
 .uk-nav-primary .uk-nav-subtitle {
     font-size: $nav-primary-subtitle-font-size;
-    @if(mixin-exists(hook-nav-primary-subtitle)) {@include hook-nav-primary-subtitle();}
+    @if(meta.mixin-exists(hook-nav-primary-subtitle)) {@include hook-nav-primary-subtitle();}
 }
 
 /*
@@ -267,7 +270,7 @@ ul.uk-nav-sub {
 
 .uk-nav-primary .uk-nav-header {
     color: $nav-primary-header-color;
-    @if(mixin-exists(hook-nav-primary-header)) {@include hook-nav-primary-header();}
+    @if(meta.mixin-exists(hook-nav-primary-header)) {@include hook-nav-primary-header();}
 }
 
 /*
@@ -276,7 +279,7 @@ ul.uk-nav-sub {
 
 .uk-nav-primary .uk-nav-divider {
     border-top: $nav-primary-divider-border-width solid $nav-primary-divider-border;
-    @if(mixin-exists(hook-nav-primary-divider)) {@include hook-nav-primary-divider();}
+    @if(meta.mixin-exists(hook-nav-primary-divider)) {@include hook-nav-primary-divider();}
 }
 
 /*
@@ -301,7 +304,7 @@ ul.uk-nav-sub {
 .uk-nav-secondary {
     font-size: $nav-secondary-font-size;
     line-height: $nav-secondary-line-height;
-    @if(mixin-exists(hook-nav-secondary)) {@include hook-nav-secondary();}
+    @if(meta.mixin-exists(hook-nav-secondary)) {@include hook-nav-secondary();}
 }
 
 /*
@@ -311,19 +314,19 @@ ul.uk-nav-sub {
 .uk-nav-secondary > li > a {
 
     color: $nav-secondary-item-color;
-    @if(mixin-exists(hook-nav-secondary-item)) {@include hook-nav-secondary-item();}
+    @if(meta.mixin-exists(hook-nav-secondary-item)) {@include hook-nav-secondary-item();}
 }
 
 /* Hover */
 .uk-nav-secondary > li > a:hover {
     color: $nav-secondary-item-hover-color;
-    @if(mixin-exists(hook-nav-secondary-item-hover)) {@include hook-nav-secondary-item-hover();}
+    @if(meta.mixin-exists(hook-nav-secondary-item-hover)) {@include hook-nav-secondary-item-hover();}
 }
 
 /* Active */
 .uk-nav-secondary > li.uk-active > a {
     color: $nav-secondary-item-active-color;
-    @if(mixin-exists(hook-nav-secondary-item-active)) {@include hook-nav-secondary-item-active();}
+    @if(meta.mixin-exists(hook-nav-secondary-item-active)) {@include hook-nav-secondary-item-active();}
 }
 
 /*
@@ -333,19 +336,19 @@ ul.uk-nav-sub {
 .uk-nav-secondary .uk-nav-subtitle {
     font-size: $nav-secondary-subtitle-font-size;
     color: $nav-secondary-subtitle-color;
-    @if(mixin-exists(hook-nav-secondary-subtitle)) {@include hook-nav-secondary-subtitle();}
+    @if(meta.mixin-exists(hook-nav-secondary-subtitle)) {@include hook-nav-secondary-subtitle();}
 }
 
 /* Hover */
 .uk-nav-secondary > li > a:hover .uk-nav-subtitle {
     color: $nav-secondary-subtitle-hover-color;
-    @if(mixin-exists(hook-nav-secondary-subtitle-hover)) {@include hook-nav-secondary-subtitle-hover();}
+    @if(meta.mixin-exists(hook-nav-secondary-subtitle-hover)) {@include hook-nav-secondary-subtitle-hover();}
 }
 
 /* Active */
 .uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
     color: $nav-secondary-subtitle-active-color;
-    @if(mixin-exists(hook-nav-secondary-subtitle-active)) {@include hook-nav-secondary-subtitle-active();}
+    @if(meta.mixin-exists(hook-nav-secondary-subtitle-active)) {@include hook-nav-secondary-subtitle-active();}
 }
 
 /*
@@ -354,7 +357,7 @@ ul.uk-nav-sub {
 
 .uk-nav-secondary .uk-nav-header {
     color: $nav-secondary-header-color;
-    @if(mixin-exists(hook-nav-secondary-header)) {@include hook-nav-secondary-header();}
+    @if(meta.mixin-exists(hook-nav-secondary-header)) {@include hook-nav-secondary-header();}
 }
 
 /*
@@ -363,7 +366,7 @@ ul.uk-nav-sub {
 
 .uk-nav-secondary .uk-nav-divider {
     border-top: $nav-secondary-divider-border-width solid $nav-secondary-divider-border;
-    @if(mixin-exists(hook-nav-secondary-divider)) {@include hook-nav-secondary-divider();}
+    @if(meta.mixin-exists(hook-nav-secondary-divider)) {@include hook-nav-secondary-divider();}
 }
 
 /*
@@ -392,23 +395,23 @@ ul.uk-nav-sub {
 .uk-nav-medium {
     font-size: $nav-medium-font-size;
     line-height: $nav-medium-line-height;
-    @if(mixin-exists(hook-nav-medium)) {@include hook-nav-medium();}
+    @if(meta.mixin-exists(hook-nav-medium)) {@include hook-nav-medium();}
 }
 
 .uk-nav-large {
     font-size: $nav-large-font-size;
     line-height: $nav-large-line-height;
-    @if(mixin-exists(hook-nav-large)) {@include hook-nav-large();}
+    @if(meta.mixin-exists(hook-nav-large)) {@include hook-nav-large();}
 }
 
 .uk-nav-xlarge {
     font-size: $nav-xlarge-font-size;
     line-height: $nav-xlarge-line-height;
-    @if(mixin-exists(hook-nav-xlarge)) {@include hook-nav-xlarge();}
+    @if(meta.mixin-exists(hook-nav-xlarge)) {@include hook-nav-xlarge();}
 }
 
 /* Tablet Landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: variables.$breakpoint-medium) {
 
     .uk-nav-medium { font-size: $nav-medium-font-size-m; }
     .uk-nav-large { font-size: $nav-large-font-size-m; }
@@ -417,7 +420,7 @@ ul.uk-nav-sub {
 }
 
 /* Laptop and bigger */
-@media (min-width: $breakpoint-large) {
+@media (min-width: variables.$breakpoint-large) {
 
     .uk-nav-medium { font-size: $nav-medium-font-size-l; }
     .uk-nav-large { font-size: $nav-large-font-size-l; }
@@ -459,14 +462,14 @@ ul.uk-nav-sub {
     margin-top: $nav-dividers-margin-top;
     padding-top: $nav-dividers-margin-top;
     border-top: $nav-dividers-border-width solid $nav-dividers-border;
-    @if(mixin-exists(hook-nav-dividers)) {@include hook-nav-dividers();}
+    @if(meta.mixin-exists(hook-nav-dividers)) {@include hook-nav-dividers();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-nav-misc)) {@include hook-nav-misc();}
+@if(meta.mixin-exists(hook-nav-misc)) {@include hook-nav-misc();}
 
 // @mixin hook-nav-sub(){}
 // @mixin hook-nav-header(){}

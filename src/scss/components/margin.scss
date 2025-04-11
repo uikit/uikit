@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "variables";
+
 // Name:            Margin
 // Description:     Utilities for margins
 //
@@ -87,7 +90,7 @@
 .uk-margin-large-right { margin-right: $margin-large-margin !important; }
 
 /* Desktop and bigger */
-@media (min-width: $breakpoint-large) {
+@media (min-width: variables.$breakpoint-large) {
 
     .uk-margin-large { margin-bottom: $margin-large-margin-l; }
     * + .uk-margin-large { margin-top: $margin-large-margin-l !important; }
@@ -112,7 +115,7 @@
 .uk-margin-xlarge-right { margin-right: $margin-xlarge-margin !important; }
 
 /* Desktop and bigger */
-@media (min-width: $breakpoint-large) {
+@media (min-width: variables.$breakpoint-large) {
 
     .uk-margin-xlarge { margin-bottom: $margin-xlarge-margin-l; }
     * + .uk-margin-xlarge { margin-top: $margin-xlarge-margin-l !important; }
@@ -144,7 +147,7 @@
 }
 
 /* Phone landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     .uk-margin-auto\@s {
         margin-left: auto !important;
@@ -157,7 +160,7 @@
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: variables.$breakpoint-medium) {
 
     .uk-margin-auto\@m {
         margin-left: auto !important;
@@ -170,7 +173,7 @@
 }
 
 /* Desktop and bigger */
-@media (min-width: $breakpoint-large) {
+@media (min-width: variables.$breakpoint-large) {
 
     .uk-margin-auto\@l {
         margin-left: auto !important;
@@ -183,7 +186,7 @@
 }
 
 /* Large screen and bigger */
-@media (min-width: $breakpoint-xlarge) {
+@media (min-width: variables.$breakpoint-xlarge) {
 
     .uk-margin-auto\@xl {
         margin-left: auto !important;
@@ -215,7 +218,7 @@
 .uk-margin-remove-last-child > :last-child { margin-bottom: 0 !important; }
 
 /* Phone landscape and bigger */
-@media (min-width: $breakpoint-small) {
+@media (min-width: variables.$breakpoint-small) {
 
     .uk-margin-remove-left\@s { margin-left: 0 !important; }
     .uk-margin-remove-right\@s { margin-right: 0 !important; }
@@ -223,7 +226,7 @@
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: variables.$breakpoint-medium) {
 
     .uk-margin-remove-left\@m { margin-left: 0 !important; }
     .uk-margin-remove-right\@m { margin-right: 0 !important; }
@@ -231,7 +234,7 @@
 }
 
 /* Desktop and bigger */
-@media (min-width: $breakpoint-large) {
+@media (min-width: variables.$breakpoint-large) {
 
     .uk-margin-remove-left\@l { margin-left: 0 !important; }
     .uk-margin-remove-right\@l { margin-right: 0 !important; }
@@ -239,7 +242,7 @@
 }
 
 /* Large screen and bigger */
-@media (min-width: $breakpoint-xlarge) {
+@media (min-width: variables.$breakpoint-xlarge) {
 
     .uk-margin-remove-left\@xl { margin-left: 0 !important; }
     .uk-margin-remove-right\@xl { margin-right: 0 !important; }
@@ -250,6 +253,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-margin-misc)) {@include hook-margin-misc();}
+@if(meta.mixin-exists(hook-margin-misc)) {@include hook-margin-misc();}
 
 // @mixin hook-margin-misc(){}
