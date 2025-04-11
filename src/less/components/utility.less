@@ -149,7 +149,6 @@
  * Overflow fade
  * 1. Overflow
  * 2. Mask
- * 3. Animation
  */
 
 @property --uk-overflow-fade-start-opacity {
@@ -166,13 +165,11 @@
 
 .uk-overflow-fade-horizontal {
     overflow-x: auto;
-    scroll-timeline: --uk-overflow-fade x;
     --uk-overflow-fade-direction: right;
 }
 
 .uk-overflow-fade-vertical {
     overflow-y: auto;
-    scroll-timeline: --uk-overflow-fade y;
     --uk-overflow-fade-direction: bottom;
 }
 
@@ -183,20 +180,10 @@
     -ms-overflow-style: -ms-autohiding-scrollbar;
     /* 2 */
     mask-image: linear-gradient(to var(--uk-overflow-fade-direction), rgba(0,0,0,var(--uk-overflow-fade-start-opacity)), #000 @overflow-fade-size, #000 ~'calc(100% - @{overflow-fade-size})', rgba(0,0,0,var(--uk-overflow-fade-end-opacity)));
-    /* 3 */
-    animation-name: uk-overflow-fade;
-    animation-timeline: --uk-overflow-fade;
 }
 
 .uk-overflow-fade-horizontal::-webkit-scrollbar,
 .uk-overflow-fade-vertical::-webkit-scrollbar { display: none; }
-
-@keyframes uk-overflow-fade {
-    0% { --uk-overflow-fade-start-opacity: 1; }
-    5% { --uk-overflow-fade-start-opacity: 0; }
-    95% { --uk-overflow-fade-end-opacity: 0; }
-    100% { --uk-overflow-fade-end-opacity: 1; }
-}
 
 
 /* Box Sizing
