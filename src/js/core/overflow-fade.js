@@ -1,5 +1,5 @@
-import { addClass, clamp, css } from 'uikit-util';
-import { resize } from '../api/observables';
+import { addClass, children, clamp, css } from 'uikit-util';
+import { mutation, resize } from '../api/observables';
 
 export default {
     props: {
@@ -27,7 +27,18 @@ export default {
         },
     },
 
-    observe: [resize()],
+    observe: [
+        mutation({
+            options: {
+                subtree: true,
+                childList: true,
+            },
+        }),
+        resize({
+            target: ({ $el }) =>
+                [$el, ...children($el), ...children($el).map((child) => children(child))].flat(),
+        }),
+    ],
 
     update: {
         read() {
@@ -36,11 +47,11 @@ export default {
         },
 
         write({ overflow }) {
-            const percent = overflow
-                ? this.$el[`scroll${this.axis === 'x' ? 'Left' : 'Top'}`] / overflow
-                : 0;
+            const dir = this.axis === 'x' ? 'Left' : 'Top';
+            const percent = overflow ? this.$el[`scroll${dir}`] / overflow : 0;
+
             const toValue = (value) =>
-                overflow ? clamp((this.fadeDuration - value) / this.fadeDuration) : 0;
+                overflow ? clamp((this.fadeDuration - value) / this.fadeDuration) : 1;
 
             css(this.$el, {
                 '--uk-overflow-fade-start-opacity': toValue(percent),
