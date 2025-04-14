@@ -182,6 +182,9 @@
     mask-image: linear-gradient(to var(--uk-overflow-fade-direction), rgba(0,0,0,var(--uk-overflow-fade-start-opacity)), #000 @overflow-fade-size, #000 ~'calc(100% - @{overflow-fade-size})', rgba(0,0,0,var(--uk-overflow-fade-end-opacity)));
 }
 
+.uk-overflow-fade-horizontal > *,
+.uk-overflow-fade-vertical > * { width: fit-content; }
+
 .uk-overflow-fade-horizontal::-webkit-scrollbar,
 .uk-overflow-fade-vertical::-webkit-scrollbar { display: none; }
 
