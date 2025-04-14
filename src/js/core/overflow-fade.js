@@ -1,4 +1,4 @@
-import { addClass, children, clamp, css } from 'uikit-util';
+import { $$, addClass, clamp, css } from 'uikit-util';
 import { mutation, resize } from '../api/observables';
 
 export default {
@@ -35,8 +35,7 @@ export default {
             },
         }),
         resize({
-            target: ({ $el }) =>
-                [$el, ...children($el), ...children($el).map((child) => children(child))].flat(),
+            target: ({ $el }) => [$el, ...$$('*', $el)],
         }),
     ],
 
