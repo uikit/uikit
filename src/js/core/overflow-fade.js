@@ -8,7 +8,7 @@ export default {
 
     data: {
         axis: 'x',
-        margin: 0.2,
+        fadeDuration: 0.05,
     },
 
     connected() {
@@ -39,7 +39,8 @@ export default {
             const percent = overflow
                 ? this.$el[`scroll${this.axis === 'x' ? 'Left' : 'Top'}`] / overflow
                 : 0;
-            const toValue = (value) => (overflow ? clamp((this.margin - value) / this.margin) : 0);
+            const toValue = (value) =>
+                overflow ? clamp((this.fadeDuration - value) / this.fadeDuration) : 0;
 
             css(this.$el, {
                 '--uk-overflow-fade-start-opacity': toValue(percent),
