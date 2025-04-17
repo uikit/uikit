@@ -37,6 +37,18 @@
 
 ## 3.23.8 (June 2, 2025)
 
+### Added
+
+- Add Overflow Fade component
+- Add form size modifier for radio and checkbox to Form component
+- Add highest z-index utility class to Position component
+
+### Fixed
+
+- Fix disable color for span elements in Subnav component
+
+## WIP
+
 ### Changed
 
 - Delay showing dropdowns in Dropnav and Navbar components to allow passing with the pointer over the element
@@ -54,19 +66,6 @@
 - Fix Inverse component not being responsive for multiple target elements
 - Fix tabindex not being set for Video component in `autoplay: hover` mode
 - Fix browser lock up because of infinite component update loop
-
-### Added
-
-- Add Overflow Fade component
-- Add form size modifier for radio and checkbox to Form component
-- Add highest z-index utility class to Position component
-
-
-## WIP
-
-### Fixed
-
-- Fix Inverse component not being responsive for multiple target elements
 
 ## 3.23.6 (April 10, 2025)
 
