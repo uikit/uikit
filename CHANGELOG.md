@@ -46,6 +46,8 @@
 ### Fixed
 
 - Fix disable color for span elements in Subnav component
+- Fix text underline offset if text is vertical aligned to the middle in Link component
+
 
 ## WIP
 

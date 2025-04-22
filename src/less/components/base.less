@@ -139,6 +139,14 @@ a:hover,
     .hook-base-link-hover();
 }
 
+/*
+ * Fix text underline offset if `vertical-align`is set to `middle`
+ */
+
+a:has(.uk-text-middle),
+.uk-link:has(.uk-text-middle),
+.uk-link-toggle:hover .uk-link:has(.uk-text-middle) { text-underline-offset: 0.1875em; }
+
 
 /* Text-level semantics
  ========================================================================== */
