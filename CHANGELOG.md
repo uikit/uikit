@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Inverse component not being responsive for multiple target elements
+
 ## 3.23.6 (April 10, 2025)
 
 ### Fixed
