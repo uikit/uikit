@@ -1,3 +1,4 @@
+import { emptyDir } from 'fs-extra';
 import { glob } from 'glob';
 import NP from 'number-precision';
 import path from 'path';
@@ -11,7 +12,11 @@ const coreVariables = {};
 const themeVariables = {};
 const inverseComponentMixins = [];
 
-/* First Step: Go through all files */
+/* First Step: Delete previously generated files */
+const scssDir = 'src/scss/';
+await emptyDir(scssDir);
+
+/* Second Step: Go through all files */
 for (const file of (await glob('src/less/**/*.less'))
     .sort()
     .sort((a, b) => a.endsWith('/inverse.less') - b.endsWith('/inverse.less'))) {
@@ -78,7 +83,9 @@ for (const file of (await glob('src/less/**/*.less'))
         );
     } else if (source.match(/hook-inverse(?!-)/)) {
         source = source.replace(/hook-inverse(?!-)/, `hook-inverse-component-${filename}`);
-        inverseComponentMixins.push(`hook-inverse-component-${filename}`);
+        if (!inverseComponentMixins.includes(`hook-inverse-component-${filename}`)) {
+            inverseComponentMixins.push(`hook-inverse-component-${filename}`);
+        }
     }
 
     /* get all the mixins and remove them from the file */
@@ -87,25 +94,26 @@ for (const file of (await glob('src/less/**/*.less'))
     /* get all Variables and remove them */
     source = await getVariablesFromFile(file, source);
 
+    source = useModules(source);
+
     if (filename === 'uikit.theme') {
         /* remove the theme import first place */
         source = source.replace(/\/\/\n\/\/ Theme\n\/\/\n\n@import "theme\/_import.scss";/, '');
-        /* add uikit-mixins and uikit-variables include to the uikit.scss file and change order, to load theme files first */
-        source = source.replace(
-            /\/\/ Core\n\/\//g,
-            '// Theme\n//\n\n@import "theme/_import.scss";',
-        );
+        source = source.replace(/\/\/ Core\n\/\//g, '// Theme\n//\n');
     }
 
     /* mixin.less needs to be fully replaced by the new mixin file*/
     if (filename === 'mixin') {
         source = await read('build/scss/mixin.scss');
+        source = useModules(source).replace(/(\s+\$[\w-]*)\s*:(.*)!default;/g, '$1: $2;');
     }
 
-    await write(file.replace(/less/g, 'scss').replace('.theme.', '-theme.'), source);
+    if (!file.includes('theme/')) {
+        await write(file.replace(/less/g, 'scss').replace('.theme.', '-theme.'), source);
+    }
 }
 
-/* Second Step: write all new needed files for Sass */
+/* Third Step: write all new needed files for Sass */
 
 /* write mixins files */
 for (const [vars, file] of [
@@ -113,7 +121,8 @@ for (const [vars, file] of [
     [themeMixins, 'mixins-theme'],
 ]) {
     delete vars['svg-fill'];
-    await write(`src/scss/${file}.scss`, Object.values(vars).join('\n'));
+
+    await write(`src/scss/${file}.scss`, useModules(Array.from(Object.values(vars)).join('\n')));
 }
 
 /* write variables files */
@@ -125,7 +134,43 @@ for (const [vars, file] of [
         (dependencies, key) => resolveDependencies(vars, key, dependencies),
         new Set(),
     );
-    await write(`src/scss/${file}.scss`, Array.from(variables).join('\n'));
+    await write(`src/scss/${file}.scss`, useModules(Array.from(variables).join('\n')));
+}
+
+/*
+ * add prefix of origin to methods
+ */
+function useModules(source) {
+    for (const [module, [methods, replacement]] of Object.entries({
+        meta: [[/(mixin-exists)(?=\()/g], 'meta.$1'],
+        string: [
+            [/(?=\W)(unquote|index|slice|quote)(?=\()/g, /str-(index|slice|length)(?=\()/g],
+            'string.$1',
+        ],
+        math: [[/(?=\W)(floor|round)(?=\()/g], 'math.$1'],
+        color: [
+            [[/(?=\W)lighten\((.*),(.*)\)/g], 'color.adjust( $1, $lightness: $2)'],
+            [[/(?=\W)darken\((.*),(.*)\)/g], 'color.adjust( $1, $lightness: -$2)'],
+            [[/(?=\W)(mix)(?=\()/g], 'color.$1'],
+            [
+                [/(?=\W)(fade-in\(|fade-out\(|adjust-hue\()([^,]*),(.*)\)/g],
+                'color.adjust( $2, $alpha: $3)',
+            ],
+        ],
+    })) {
+        /* add origin of method as prefix */
+        const prev = source;
+        for (const method of methods) {
+            source = source.replace(method, replacement);
+        }
+
+        /* add module */
+        if (source !== prev) {
+            source = `@use "sass:${module}";\n${source}`;
+        }
+    }
+
+    return source;
 }
 
 /*
