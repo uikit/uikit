@@ -30,6 +30,8 @@ export function read(file) {
 }
 
 export async function write(dest, data) {
+    fs.ensureDir(path.dirname(dest));
+
     await fs.writeFile(dest, data);
     await logFile(dest);
 
