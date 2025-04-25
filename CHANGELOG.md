@@ -43,6 +43,10 @@
 - Add form size modifier for radio and checkbox to Form component
 - Add highest z-index utility class to Position component
 
+### Changed
+
+- Scale height of responsive images and videos based on extrinsic aspect ratio and fill content box (Chrome only yet)
+
 ### Fixed
 
 - Fix disable color for span elements in Subnav component
