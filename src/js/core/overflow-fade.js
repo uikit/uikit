@@ -1,18 +1,9 @@
-import { addClass, children, clamp, css } from 'uikit-util';
+import { children, clamp, css, toggleClass } from 'uikit-util';
 import { mutation, resize } from '../api/observables';
 
 export default {
-    props: {
-        axis: String,
-    },
-
     data: {
-        axis: 'x',
         fadeDuration: 0.05,
-    },
-
-    connected() {
-        addClass(this.$el, `${this.$options.id}-${this.axis === 'x' ? 'horizontal' : 'vertical'}`);
     },
 
     events: {
@@ -41,21 +32,34 @@ export default {
 
     update: {
         read() {
-            const prop = this.axis === 'x' ? 'Width' : 'Height';
-            return { overflow: this.$el[`scroll${prop}`] - this.$el[`client${prop}`] };
+            const overflow = [];
+            for (const prop of ['Width', 'Height']) {
+                overflow.push(this.$el[`scroll${prop}`] - this.$el[`client${prop}`]);
+            }
+            return { overflow };
         },
 
         write({ overflow }) {
-            const dir = this.axis === 'x' ? 'Left' : 'Top';
-            const percent = overflow ? this.$el[`scroll${dir}`] / overflow : 0;
+            for (let i = 0; i < 2; i++) {
+                toggleClass(
+                    this.$el,
+                    `${this.$options.id}-${i ? 'vertical' : 'horizontal'}`,
+                    overflow[i] && !overflow[i - 1],
+                );
 
-            const toValue = (value) =>
-                overflow ? clamp((this.fadeDuration - value) / this.fadeDuration) : 1;
+                if (!overflow[i - 1]) {
+                    const dir = i ? 'Top' : 'Left';
+                    const percent = overflow[i] ? this.$el[`scroll${dir}`] / overflow[i] : 0;
 
-            css(this.$el, {
-                '--uk-overflow-fade-start-opacity': toValue(percent),
-                '--uk-overflow-fade-end-opacity': toValue(1 - percent),
-            });
+                    const toValue = (value) =>
+                        overflow[i] ? clamp((this.fadeDuration - value) / this.fadeDuration) : 1;
+
+                    css(this.$el, {
+                        '--uk-overflow-fade-start-opacity': toValue(percent),
+                        '--uk-overflow-fade-end-opacity': toValue(1 - percent),
+                    });
+                }
+            }
         },
 
         events: ['resize'],
