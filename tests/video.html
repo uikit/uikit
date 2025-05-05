@@ -16,7 +16,7 @@
 
             <p>
                 <button class="uk-button uk-button-default" type="button" uk-toggle="target: #scrollbar">Toggle scrollbar</button>
-                <button class="uk-button uk-button-default" type="button" uk-toggle="target: video, iframe">Toggle display</button>
+                <button class="uk-button uk-button-default" type="button" uk-toggle="target: .uk-grid">Toggle display</button>
             </p>
 
             <div id="scrollbar" class="uk-margin-large-bottom" hidden>
@@ -61,20 +61,20 @@
                     -->
 
                     <!-- `Out of view`: continous playing. `Hidden`: stops playing -->
-                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline uk-video="automute: true"></video>
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video></video>
                 </div>
                 <div>
 
                     <h3>Autoplay Inview</h3>
 
                     <!-- `Out of view` + `Hidden`: stops playing -->
-                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline uk-video="automute: true; autoplay: inview"></video>
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview"></video>
                 </div>
                 <div>
 
                     <h3>Autoplay Hover</h3>
 
-                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline uk-video="automute: true; autoplay: hover"></video>
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: hover"></video>
                 </div>
             </div>
 
@@ -124,7 +124,7 @@
 
                     <h3>Video (Poster)</h3>
 
-                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" poster="images/photo.jpg" width="1920" height="1080" controls preload="none" uk-video></video>
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" poster="images/photo.jpg" width="1920" height="1080" controls preload="none" uk-video="autoplay: false"></video>
 
                     
                 </div>
