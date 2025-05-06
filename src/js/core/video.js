@@ -26,23 +26,25 @@ export default {
     },
 
     beforeConnect() {
-        if (this.autoplay === 'inview' && !hasAttr(this.$el, 'preload')) {
+        const isVideo = isTag(this.$el, 'video');
+        if (this.autoplay === 'inview' && isVideo && !hasAttr(this.$el, 'preload')) {
             this.$el.preload = 'none';
         }
 
-        if (isTag(this.$el, 'iframe') && !hasAttr(this.$el, 'allow')) {
+        if (!isVideo && !hasAttr(this.$el, 'allow')) {
             this.$el.allow = 'autoplay';
         }
 
         if (this.autoplay === 'hover') {
-            if (isTag(this.$el, 'video')) {
+            if (isVideo) {
                 this.$el.tabIndex = 0;
             } else {
                 this.autoplay = true;
             }
         }
 
-        if (this.automute) {
+        // If the video is added to the DOM through JS, the muted attribute is ignored
+        if (this.automute || hasAttr(this.$el, 'muted')) {
             mute(this.$el);
         }
     },
@@ -78,20 +80,28 @@ export default {
     observe: [
         intersection({
             filter: ({ autoplay }) => autoplay !== 'hover',
-            handler([{ isIntersecting }]) {
+            handler([{ isIntersecting, target }]) {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
                         if (this.autoplay) {
-                            play(this.$el);
+                            if (target.preload === 'none') {
+                                target.preload = 'auto';
+                                this.$reset();
+                            }
+
+                            play(target);
                         }
                     } else {
-                        pause(this.$el);
+                        pause(target);
                     }
                 }
             },
             args: { intersecting: false },
             options: ({ $el, autoplay }) => ({
-                root: autoplay === 'inview' ? null : parent($el).closest(':not(a)'),
+                root:
+                    autoplay === 'inview' || $el.preload === 'none'
+                        ? null
+                        : parent($el).closest(':not(a)'),
             }),
         }),
     ],
