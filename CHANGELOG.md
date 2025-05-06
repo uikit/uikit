@@ -46,6 +46,11 @@
 ### Changed
 
 - Scale height of responsive images and videos based on extrinsic aspect ratio and fill content box (Chrome only yet)
+- Videos set to `preload: none` will lazy load by default now
+
+### Deprecated
+
+- Deprecate `automute` option in Video and Cover component, use `muted` attribute for videos, `mute=1` for YouTube and `muted=1` for Vimeo instead
 
 ### Fixed
 

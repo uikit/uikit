@@ -89,14 +89,14 @@
                     All browsers: `Out of view` + `Hidden`: Doesn't stop when hidden.
                     -->
 
-                    <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?playsinline=1&amp;rel=0&amp;controls=0&amp;loop=1" width="1920" height="1080" allowfullscreen uk-responsive uk-video="automute: true"></iframe>
+                    <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?playsinline=1&amp;rel=0&amp;controls=0&amp;loop=1&amp;mute=1" width="1920" height="1080" allowfullscreen uk-responsive uk-video></iframe>
 
                 </div>
                 <div>
 
-                    <h3>Autoplay Inview + Automute</h3>
+                    <h3>Autoplay Inview</h3>
 
-                    <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?playsinline=1&amp;rel=0&amp;controls=0&amp;loop=1" width="1920" height="1080" allowfullscreen uk-responsive uk-video="automute: true; autoplay: inview"></iframe>
+                    <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?playsinline=1&amp;rel=0&amp;controls=0&amp;loop=1&amp;mute=1" width="1920" height="1080" allowfullscreen uk-responsive uk-video="autoplay: inview"></iframe>
                 </div>
             </div>
 
@@ -107,13 +107,13 @@
 
                     <h3>Autoplay</h3>
 
-                    <iframe src="https://player.vimeo.com/video/1084537?background=1&amp;keyboard=0" width="1920" height="1080" allowfullscreen uk-responsive uk-video="automute: true"></iframe>
+                    <iframe src="https://player.vimeo.com/video/1084537?background=1&amp;keyboard=0&amp;muted=1" width="1920" height="1080" allowfullscreen uk-responsive uk-video></iframe>
                 </div>
                 <div>
 
-                    <h3>Autoplay Inview + Automute</h3>
+                    <h3>Autoplay Inview</h3>
 
-                    <iframe src="https://player.vimeo.com/video/1084537?background=1&amp;keyboard=0" width="1920" height="1080" allowfullscreen uk-responsive uk-video="automute: true; autoplay: inview"></iframe>
+                    <iframe src="https://player.vimeo.com/video/1084537?background=1&amp;keyboard=0&amp;muted=1" width="1920" height="1080" allowfullscreen uk-responsive uk-video="autoplay: inview"></iframe>
                 </div>
             </div>
 
@@ -126,7 +126,7 @@
 
                     <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" poster="images/photo.jpg" width="1920" height="1080" controls preload="none" uk-video="autoplay: false"></video>
 
-                    
+
                 </div>
                 <div>
 
@@ -173,12 +173,6 @@
                         <td>Boolean, String</td>
                         <td>true</td>
                         <td>Disable or enable autoplay (`false`, `true`). Videos will stop when hidden and continue playing when leaving the viewport. Use `inview` to also stop the video when leaving the viewport. Use `hover` to play the video only on hover. Note: Hover does not work with iframes.</td>
-                    </tr>
-                    <tr>
-                        <td><code>automute</code></td>
-                        <td>Boolean</td>
-                        <td>false</td>
-                        <td>Automatically mute YouTube or Vimeo videos.</td>
                     </tr>
                 </tbody>
             </table>
