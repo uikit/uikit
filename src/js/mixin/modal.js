@@ -2,7 +2,6 @@ import {
     $,
     addClass,
     append,
-    attr,
     css,
     endsWith,
     includes,
@@ -57,10 +56,11 @@ export default {
     },
 
     connected() {
-        attr(this.panel || this.$el, 'role', this.role);
+        const el = this.panel || this.$el;
+        el.role = this.role;
 
         if (this.overlay) {
-            attr(this.panel || this.$el, 'aria-modal', true);
+            el.ariaModal = true;
         }
     },
 
@@ -165,7 +165,7 @@ export default {
 
             handler() {
                 if (!isFocusable(this.$el)) {
-                    attr(this.$el, 'tabindex', '-1');
+                    this.$el.tabIndex = -1;
                 }
 
                 if (!matches(this.$el, ':focus-within')) {

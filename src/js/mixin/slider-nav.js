@@ -88,7 +88,7 @@ export default {
 
                     ariaLabel = this.t('slideX', toFloat(cmd) + 1);
 
-                    attr(button, 'role', 'tab');
+                    button.role = 'tab';
                 } else {
                     if (this.list) {
                         if (!this.list.id) {
@@ -101,10 +101,8 @@ export default {
                     ariaLabel = this.t(cmd);
                 }
 
-                attr(button, {
-                    'aria-controls': ariaControls,
-                    'aria-label': attr(button, 'aria-label') || ariaLabel,
-                });
+                button.ariaControls = ariaControls;
+                button.ariaLabel = button.ariaLabel || ariaLabel;
             }
         },
 
@@ -122,10 +120,8 @@ export default {
     },
 
     connected() {
-        attr(this.$el, {
-            role: this.role,
-            'aria-roledescription': 'carousel',
-        });
+        this.$el.role = this.role;
+        this.$el.ariaRoleDescription = 'carousel';
     },
 
     update: [
@@ -214,10 +210,8 @@ export default {
                     toggleClass(el, this.clsActive, active);
                     toggleClass(button, 'uk-disabled', !!this.parallax);
 
-                    attr(button, {
-                        'aria-selected': active,
-                        tabindex: active && !this.parallax ? null : -1,
-                    });
+                    button.ariaSelected = active;
+                    button.tabIndex = active && !this.parallax ? null : -1;
 
                     if (active && button && matches(parent(el), ':focus-within')) {
                         button.focus();

@@ -2,7 +2,6 @@ import {
     $,
     $$,
     append,
-    attr,
     css,
     data,
     fastdom,
@@ -57,7 +56,7 @@ export default {
                 }
                 const button = findButton(toggle);
                 if (isTag(button, 'a')) {
-                    attr(button, 'role', 'button');
+                    button.role = 'button';
                 }
             }
         },
