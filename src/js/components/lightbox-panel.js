@@ -285,7 +285,7 @@ export default {
                     allowfullscreen: '',
                     style: 'max-width: 100%; box-sizing: border-box;',
                     'uk-responsive': '',
-                    'uk-video': `${Boolean(this.videoAutoplay)}`,
+                    'uk-video': Boolean(this.videoAutoplay),
                 };
 
                 // Image
@@ -310,8 +310,9 @@ export default {
                         playsinline: '',
                         controls: inline ? null : '',
                         loop: inline ? '' : null,
+                        muted: inline ? '' : null,
                         poster: this.videoAutoplay ? null : item.poster,
-                        'uk-video': inline ? 'automute: true' : Boolean(this.videoAutoplay),
+                        'uk-video': Boolean(this.videoAutoplay),
                         ...attrs,
                     });
 
@@ -460,7 +461,8 @@ function toThumbnavItem(item, videoAutoplay) {
                     src: item.thumb,
                     loop: '',
                     playsinline: '',
-                    'uk-video': `autoplay: ${Boolean(videoAutoplay)}; automute: true`,
+                    muted: '',
+                    'uk-video': videoAutoplay === 'inline',
                 })
               : createEl('canvas');
 
