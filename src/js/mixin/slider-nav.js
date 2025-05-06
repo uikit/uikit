@@ -16,7 +16,7 @@ import {
 } from 'uikit-util';
 import { generateId } from '../api/instance';
 import { keyMap } from '../util/keys';
-import { maybeDefautPreventClick } from './event';
+import { maybeDefaultPreventClick } from './event';
 
 export default {
     i18n: {
@@ -148,7 +148,7 @@ export default {
                     e.target.closest('a,button') &&
                     (e.type === 'click' || e.keyCode === keyMap.SPACE)
                 ) {
-                    maybeDefautPreventClick(e);
+                    maybeDefaultPreventClick(e);
                     this.show(data(e.current, this.attrItem));
                 }
             },

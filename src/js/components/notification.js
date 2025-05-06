@@ -12,7 +12,7 @@ import {
     trigger,
 } from 'uikit-util';
 import Container from '../mixin/container';
-import { maybeDefautPreventClick } from '../mixin/event';
+import { maybeDefaultPreventClick } from '../mixin/event';
 
 export default {
     mixins: [Container],
@@ -79,7 +79,7 @@ export default {
 
     events: {
         click(e) {
-            maybeDefautPreventClick(e);
+            maybeDefaultPreventClick(e);
             this.close();
         },
 

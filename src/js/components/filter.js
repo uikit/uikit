@@ -18,7 +18,7 @@ import {
 } from 'uikit-util';
 import { parseOptions } from '../api/options';
 import Animate from '../mixin/animate';
-import { maybeDefautPreventClick } from '../mixin/event';
+import { maybeDefaultPreventClick } from '../mixin/event';
 import { keyMap } from '../util/keys';
 
 export default {
@@ -79,7 +79,7 @@ export default {
             }
 
             if (e.target.closest('a,button')) {
-                maybeDefautPreventClick(e);
+                maybeDefaultPreventClick(e);
                 this.apply(e.current);
             }
         },

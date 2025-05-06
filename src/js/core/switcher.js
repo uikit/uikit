@@ -18,7 +18,7 @@ import {
 } from 'uikit-util';
 import { generateId } from '../api/instance';
 import { lazyload, swipe } from '../api/observables';
-import { maybeDefautPreventClick } from '../mixin/event';
+import { maybeDefaultPreventClick } from '../mixin/event';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
 
@@ -112,7 +112,7 @@ export default {
                     !matches(e.current, selDisabled) &&
                     (e.type === 'click' || e.keyCode === keyMap.SPACE)
                 ) {
-                    maybeDefautPreventClick(e);
+                    maybeDefaultPreventClick(e);
                     this.show(e.current);
                 }
             },
@@ -162,7 +162,7 @@ export default {
 
             handler(e) {
                 if (e.target.closest('a,button')) {
-                    maybeDefautPreventClick(e);
+                    maybeDefaultPreventClick(e);
                     this.show(data(e.current, this.attrItem));
                 }
             },

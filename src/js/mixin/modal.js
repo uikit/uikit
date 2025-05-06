@@ -21,7 +21,7 @@ import {
 import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
-import { maybeDefautPreventClick } from './event';
+import { maybeDefaultPreventClick } from './event';
 import Togglable from './togglable';
 
 const active = [];
@@ -87,7 +87,7 @@ export default {
                 ) {
                     this.hide();
                 } else if (matches(current, this.selClose)) {
-                    maybeDefautPreventClick(e);
+                    maybeDefaultPreventClick(e);
                     this.hide();
                 }
             },
