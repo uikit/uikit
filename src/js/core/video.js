@@ -9,6 +9,7 @@ import {
     play,
     pointerEnter,
     pointerLeave,
+    removeAttr,
 } from 'uikit-util';
 import { intersection } from '../api/observables';
 
@@ -79,16 +80,17 @@ export default {
 
     observe: [
         intersection({
-            filter: ({ autoplay }) => autoplay !== 'hover',
+            filter: ({ $el, autoplay }) => autoplay !== 'hover' || $el.preload === 'none',
             handler([{ isIntersecting, target }]) {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
-                        if (this.autoplay) {
-                            if (target.preload === 'none') {
-                                target.preload = 'auto';
-                                this.$reset();
-                            }
+                        if (target.preload === 'none') {
+                            removeAttr(target, 'preload');
+                            this.$reset();
+                            return;
+                        }
 
+                        if (this.autoplay) {
                             play(target);
                         }
                     } else {
