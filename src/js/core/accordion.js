@@ -22,7 +22,7 @@ import {
 import { generateId } from '../api/instance';
 import { lazyload } from '../api/observables';
 import Class from '../mixin/class';
-import { maybeDefautPreventClick } from '../mixin/event';
+import { maybeDefaultPreventClick } from '../mixin/event';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
 
@@ -109,7 +109,7 @@ export default {
                     return;
                 }
 
-                maybeDefautPreventClick(e);
+                maybeDefaultPreventClick(e);
 
                 this._off?.();
                 this._off = keepScrollPosition(e.target);

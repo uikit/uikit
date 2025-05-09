@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.23.7 (May 9, 2025)
+
+### Fixed
+
+- Fix Inverse component not being responsive for multiple target elements
+- Fix tabindex not being set for Video component in `autoplay: hover` mode
+
 ## 3.23.6 (April 10, 2025)
 
 ### Fixed

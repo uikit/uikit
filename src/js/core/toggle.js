@@ -1,5 +1,4 @@
 import {
-    attr,
     hasAttr,
     hasClass,
     includes,
@@ -54,10 +53,10 @@ export default {
     connected() {
         if (!includes(this.mode, 'media')) {
             if (!isFocusable(this.$el)) {
-                attr(this.$el, 'tabindex', '0');
+                this.$el.tabIndex = 0;
             }
             if (!this.cls && isTag(this.$el, 'a')) {
-                attr(this.$el, 'role', 'button');
+                this.$el.role = 'button';
             }
         }
     },
@@ -193,7 +192,7 @@ export default {
             }
 
             if (hasAttr(this.$el, 'aria-expanded')) {
-                attr(this.$el, 'aria-expanded', !this.isToggled(this.target));
+                this.$el.ariaExpanded = !this.isToggled(this.target);
             }
 
             if (!this.queued) {

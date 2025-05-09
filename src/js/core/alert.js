@@ -1,6 +1,6 @@
 import { css, toFloat, Transition } from 'uikit-util';
 import Class from '../mixin/class';
-import { maybeDefautPreventClick } from '../mixin/event';
+import { maybeDefaultPreventClick } from '../mixin/event';
 import Togglable from '../mixin/togglable';
 
 export default {
@@ -25,7 +25,7 @@ export default {
         delegate: ({ selClose }) => selClose,
 
         handler(e) {
-            maybeDefautPreventClick(e);
+            maybeDefaultPreventClick(e);
             this.close();
         },
     },

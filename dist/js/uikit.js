@@ -1,4 +1,4 @@
-/*! UIkit 3.23.6 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.7 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -596,7 +596,7 @@
           } else {
             element2.style.setProperty(
               property,
-              isNumeric(value) && !cssNumber[property] ? `${value}px` : value || isNumber(value) ? value : "",
+              isNumeric(value) && !cssNumber[property] && !isCustomProperty(property) ? `${value}px` : value || isNumber(value) ? value : "",
               priority
             );
           }
@@ -620,7 +620,7 @@
       }
     }
     const propName = memoize((name) => {
-      if (startsWith(name, "--")) {
+      if (isCustomProperty(name)) {
         return name;
       }
       name = hyphenate(name);
@@ -635,6 +635,9 @@
         }
       }
     });
+    function isCustomProperty(name) {
+      return startsWith(name, "--");
+    }
 
     const clsTransition = "uk-transition";
     const transitionEnd = "transitionend";
@@ -1700,7 +1703,7 @@
         reload: false
       },
       connected() {
-        attr(this.$el, "role", this.role);
+        this.$el.role = this.role;
         this.date = toFloat(Date.parse(this.$props.date));
         this.started = this.end = false;
         this.start();
@@ -2298,7 +2301,7 @@
       }
     };
 
-    function maybeDefautPreventClick(e) {
+    function maybeDefaultPreventClick(e) {
       if (e.target.closest('a[href="#"],a[href=""]')) {
         e.preventDefault();
       }
@@ -2344,7 +2347,7 @@
             }
             const button = findButton(toggle);
             if (isTag(button, "a")) {
-              attr(button, "role", "button");
+              button.role = "button";
             }
           }
         },
@@ -2362,7 +2365,7 @@
             return;
           }
           if (e.target.closest("a,button")) {
-            maybeDefautPreventClick(e);
+            maybeDefaultPreventClick(e);
             this.apply(e.current);
           }
         }
@@ -2400,8 +2403,8 @@
         }
       }
     };
-    function getFilter(el, attr2) {
-      return parseOptions(data(el, attr2), ["filter"]);
+    function getFilter(el, attr) {
+      return parseOptions(data(el, attr), ["filter"]);
     }
     function isEqualState(stateA, stateB) {
       return ["filter", "sort"].every((prop) => isEqual(stateA[prop], stateB[prop]));
@@ -2422,8 +2425,8 @@
         }
       }
     }
-    function mergeState(el, attr2, state) {
-      const { filter, group, sort, order = "asc" } = getFilter(el, attr2);
+    function mergeState(el, attr, state) {
+      const { filter, group, sort, order = "asc" } = getFilter(el, attr);
       if (filter || isUndefined(sort)) {
         if (group) {
           if (filter) {
@@ -2444,8 +2447,8 @@
       }
       return state;
     }
-    function matchFilter(el, attr2, { filter: stateFilter = { "": "" }, sort: [stateSort, stateOrder] }) {
-      const { filter = "", group = "", sort, order = "asc" } = getFilter(el, attr2);
+    function matchFilter(el, attr, { filter: stateFilter = { "": "" }, sort: [stateSort, stateOrder] }) {
+      const { filter = "", group = "", sort, order = "asc" } = getFilter(el, attr);
       return isUndefined(sort) ? group in stateFilter && filter === stateFilter[group] || !filter && group && !(group in stateFilter) && !stateFilter[""] : stateSort === sort && stateOrder === order;
     }
     function sortItems(nodes, sort, order) {
@@ -2535,7 +2538,7 @@
       wrapInPicture(img, sources);
       setSourceProps(el, img);
       img.onload = () => setSrcAttrs(el, img.currentSrc);
-      attr(img, "src", src);
+      img.src = src;
       return img;
     }
     function wrapInPicture(img, sources) {
@@ -2925,9 +2928,10 @@
         }
       },
       connected() {
-        attr(this.panel || this.$el, "role", this.role);
+        const el = this.panel || this.$el;
+        el.role = this.role;
         if (this.overlay) {
-          attr(this.panel || this.$el, "aria-modal", true);
+          el.ariaModal = true;
         }
       },
       beforeDisconnect() {
@@ -2945,7 +2949,7 @@
             if (!defaultPrevented && hash && isSameSiteAnchor(current) && !this.$el.contains($(hash))) {
               this.hide();
             } else if (matches(current, this.selClose)) {
-              maybeDefautPreventClick(e);
+              maybeDefaultPreventClick(e);
               this.hide();
             }
           }
@@ -3005,7 +3009,7 @@
           self: true,
           handler() {
             if (!isFocusable(this.$el)) {
-              attr(this.$el, "tabindex", "-1");
+              this.$el.tabIndex = -1;
             }
             if (!matches(this.$el, ":focus-within")) {
               this.$el.focus();
@@ -3728,7 +3732,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.6";
+    App.version = "3.23.7";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -3945,7 +3949,7 @@
                 ariaControls = slide.id;
               }
               ariaLabel = this.t("slideX", toFloat(cmd) + 1);
-              attr(button, "role", "tab");
+              button.role = "tab";
             } else {
               if (this.list) {
                 if (!this.list.id) {
@@ -3955,10 +3959,8 @@
               }
               ariaLabel = this.t(cmd);
             }
-            attr(button, {
-              "aria-controls": ariaControls,
-              "aria-label": attr(button, "aria-label") || ariaLabel
-            });
+            button.ariaControls = ariaControls;
+            button.ariaLabel = button.ariaLabel || ariaLabel;
           }
         },
         slides(slides) {
@@ -3973,10 +3975,8 @@
         }
       },
       connected() {
-        attr(this.$el, {
-          role: this.role,
-          "aria-roledescription": "carousel"
-        });
+        this.$el.role = this.role;
+        this.$el.ariaRoleDescription = "carousel";
       },
       update: [
         {
@@ -3994,7 +3994,7 @@
           filter: ({ parallax }) => !parallax,
           handler(e) {
             if (e.target.closest("a,button") && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
-              maybeDefautPreventClick(e);
+              maybeDefaultPreventClick(e);
               this.show(data(e.current, this.attrItem));
             }
           }
@@ -4034,10 +4034,8 @@
               const active = item === index;
               toggleClass(el, this.clsActive, active);
               toggleClass(button, "uk-disabled", !!this.parallax);
-              attr(button, {
-                "aria-selected": active,
-                tabindex: active && !this.parallax ? null : -1
-              });
+              button.ariaSelected = active;
+              button.tabIndex = active && !this.parallax ? null : -1;
               if (active && button && matches(parent(el), ":focus-within")) {
                 button.focus();
               }
@@ -4498,7 +4496,7 @@
           name: "keyup",
           el: () => document,
           handler({ keyCode }) {
-            if (!this.isToggled(this.$el) || !this.draggable) {
+            if (!this.isToggled() || !this.draggable) {
               return;
             }
             let i = -1;
@@ -4717,7 +4715,7 @@
           this.hide();
           for (const toggle of toggles) {
             if (isTag(toggle, "a")) {
-              attr(toggle, "role", "button");
+              toggle.role = "button";
             }
           }
         }
@@ -4839,7 +4837,7 @@
       },
       events: {
         click(e) {
-          maybeDefautPreventClick(e);
+          maybeDefaultPreventClick(e);
           this.close();
         },
         [pointerEnter]() {
@@ -5729,12 +5727,12 @@
           for (const slide of this.slides) {
             const active = includes(actives, slide);
             toggleClass(slide, activeClasses, active);
-            attr(slide, "aria-hidden", !active);
+            slide.ariaHidden = !active;
             for (const focusable of $$(selFocusable, slide)) {
               if (!hasOwn(focusable, "_tabindex")) {
-                focusable._tabindex = attr(focusable, "tabindex");
+                focusable._tabindex = focusable.tabIndex;
               }
-              attr(focusable, "tabindex", active ? focusable._tabindex : -1);
+              focusable.tabIndex = active ? focusable._tabindex : -1;
             }
           }
         },
@@ -6327,7 +6325,7 @@
     };
     function makeFocusable(el) {
       if (!isFocusable(el)) {
-        attr(el, "tabindex", "0");
+        el.tabIndex = 0;
       }
     }
     function getAlignment(el, target, [dir, align]) {
@@ -6718,7 +6716,7 @@
             if (e.type === "keydown" && e.keyCode !== keyMap.SPACE) {
               return;
             }
-            maybeDefautPreventClick(e);
+            maybeDefaultPreventClick(e);
             (_a = this._off) == null ? void 0 : _a.call(this);
             this._off = keepScrollPosition(e.target);
             await this.toggle(index(this.toggles, e.current));
@@ -6839,7 +6837,7 @@
         name: "click",
         delegate: ({ selClose }) => selClose,
         handler(e) {
-          maybeDefautPreventClick(e);
+          maybeDefaultPreventClick(e);
           this.close();
         }
       },
@@ -6889,7 +6887,7 @@
         }
         if (this.autoplay === "hover") {
           if (isTag(this.$el, "video")) {
-            this.$el.tabindex = 0;
+            this.$el.tabIndex = 0;
           } else {
             this.autoplay = true;
           }
@@ -7088,7 +7086,7 @@
           name: "click",
           delegate: ({ selClose }) => selClose,
           handler(e) {
-            maybeDefautPreventClick(e);
+            maybeDefaultPreventClick(e);
             this.hide(false);
           }
         },
@@ -8239,13 +8237,11 @@
           return;
         }
         if (isToggle) {
-          const label = this.t("toggle");
-          attr(this.$el, "aria-label", label);
+          this.$el.ariaLabel = this.t("toggle");
         } else {
           const button = this.$el.closest("a,button");
           if (button) {
-            const label = this.t("submit");
-            attr(button, "aria-label", label);
+            button.ariaLabel = this.t("submit");
           }
         }
       }
@@ -8253,7 +8249,7 @@
     const Spinner = {
       extends: IconComponent,
       beforeConnect() {
-        attr(this.$el, "role", "status");
+        this.$el.role = "status";
       },
       methods: {
         async getSvg() {
@@ -8356,13 +8352,27 @@
         target: false,
         selActive: false
       },
+      connected() {
+        this.isIntersecting = 0;
+      },
       computed: {
         target: ({ target }, $el) => target ? $$(target, $el) : $el
+      },
+      watch: {
+        target: {
+          handler() {
+            queueMicrotask(() => this.$reset());
+          },
+          immediate: false
+        }
       },
       observe: [
         intersection({
           handler(entries) {
-            this.isIntersecting = entries.some(({ isIntersecting }) => isIntersecting);
+            this.isIntersecting = entries.reduce(
+              (sum, { isIntersecting }) => sum + (isIntersecting ? 1 : this.isIntersecting ? -1 : 0),
+              this.isIntersecting
+            );
             this.$emit();
           },
           target: ({ target }) => target,
@@ -8370,7 +8380,7 @@
         }),
         mutation({
           target: ({ target }) => target,
-          options: { attributes: true, attributeFilter: ["class"], attributeOldValue: true }
+          options: { attributes: true, attributeFilter: ["class"] }
         }),
         {
           target: ({ target }) => target,
@@ -9590,7 +9600,7 @@
         }
       },
       connected() {
-        attr(this.$el, "role", "tablist");
+        this.$el.role = "tablist";
       },
       observe: [
         lazyload({ targets: ({ connectChildren }) => connectChildren }),
@@ -9602,7 +9612,7 @@
           delegate: ({ toggle }) => toggle,
           handler(e) {
             if (!matches(e.current, selDisabled) && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
-              maybeDefautPreventClick(e);
+              maybeDefaultPreventClick(e);
               this.show(e.current);
             }
           }
@@ -9631,7 +9641,7 @@
           delegate: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,
           handler(e) {
             if (e.target.closest("a,button")) {
-              maybeDefautPreventClick(e);
+              maybeDefaultPreventClick(e);
               this.show(data(e.current, this.attrItem));
             }
           }
@@ -9649,20 +9659,20 @@
         var _a;
         for (const el of this.connects) {
           if (isTag(el, "ul")) {
-            attr(el, "role", "presentation");
+            el.role = "presentation";
           }
         }
         attr(children(this.$el), "role", "presentation");
         for (const index in this.toggles) {
           const toggle = this.toggles[index];
           const item = (_a = this.connects[0]) == null ? void 0 : _a.children[index];
-          attr(toggle, "role", "tab");
+          toggle.role = "tab";
           if (!item) {
             continue;
           }
           toggle.id = generateId(this, toggle);
           item.id = generateId(this, item);
-          attr(toggle, "aria-controls", item.id);
+          toggle.ariaControls = item.id;
           attr(item, { role: "tabpanel", "aria-labelledby": toggle.id });
         }
         attr(this.$el, "aria-orientation", matches(this.$el, this.selVertical) ? "vertical" : null);
@@ -9748,10 +9758,10 @@
       connected() {
         if (!includes(this.mode, "media")) {
           if (!isFocusable(this.$el)) {
-            attr(this.$el, "tabindex", "0");
+            this.$el.tabIndex = 0;
           }
           if (!this.cls && isTag(this.$el, "a")) {
-            attr(this.$el, "role", "button");
+            this.$el.role = "button";
           }
         }
       },
@@ -9842,7 +9852,7 @@
             return;
           }
           if (hasAttr(this.$el, "aria-expanded")) {
-            attr(this.$el, "aria-expanded", !this.isToggled(this.target));
+            this.$el.ariaExpanded = !this.isToggled(this.target);
           }
           if (!this.queued) {
             return this.toggleElement(this.target);

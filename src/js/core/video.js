@@ -36,7 +36,7 @@ export default {
 
         if (this.autoplay === 'hover') {
             if (isTag(this.$el, 'video')) {
-                this.$el.tabindex = 0;
+                this.$el.tabIndex = 0;
             } else {
                 this.autoplay = true;
             }

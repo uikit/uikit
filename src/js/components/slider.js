@@ -2,7 +2,6 @@ import {
     $,
     $$,
     addClass,
-    attr,
     children,
     css,
     data,
@@ -255,12 +254,12 @@ export default {
             for (const slide of this.slides) {
                 const active = includes(actives, slide);
                 toggleClass(slide, activeClasses, active);
-                attr(slide, 'aria-hidden', !active);
+                slide.ariaHidden = !active;
                 for (const focusable of $$(selFocusable, slide)) {
                     if (!hasOwn(focusable, '_tabindex')) {
-                        focusable._tabindex = attr(focusable, 'tabindex');
+                        focusable._tabindex = focusable.tabIndex;
                     }
-                    attr(focusable, 'tabindex', active ? focusable._tabindex : -1);
+                    focusable.tabIndex = active ? focusable._tabindex : -1;
                 }
             }
         },

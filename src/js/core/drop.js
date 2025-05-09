@@ -29,7 +29,7 @@ import {
     removeClass,
 } from 'uikit-util';
 import Container from '../mixin/container';
-import { maybeDefautPreventClick } from '../mixin/event';
+import { maybeDefaultPreventClick } from '../mixin/event';
 import Position, { storeScrollPosition } from '../mixin/position';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
@@ -136,7 +136,7 @@ export default {
             delegate: ({ selClose }) => selClose,
 
             handler(e) {
-                maybeDefautPreventClick(e);
+                maybeDefaultPreventClick(e);
                 this.hide(false);
             },
         },
