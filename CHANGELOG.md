@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.23.7 (May 9, 2025)
 
 ### Fixed
 
