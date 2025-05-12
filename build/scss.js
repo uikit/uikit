@@ -12,11 +12,8 @@ const coreVariables = {};
 const themeVariables = {};
 const inverseComponentMixins = [];
 
-/* First Step: Delete previously generated files */
-const scssDir = 'src/scss/';
-await emptyDir(scssDir);
+await emptyDir('src/scss/');
 
-/* Second Step: Go through all files */
 for (const file of (await glob('src/less/**/*.less'))
     .sort()
     .sort((a, b) => a.endsWith('/inverse.less') - b.endsWith('/inverse.less'))) {
@@ -94,8 +91,6 @@ for (const file of (await glob('src/less/**/*.less'))
     /* get all Variables and remove them */
     source = await getVariablesFromFile(file, source);
 
-    source = useModules(source);
-
     if (filename === 'uikit.theme') {
         /* remove the theme import first place */
         source = source.replace(/\/\/\n\/\/ Theme\n\/\/\n\n@import "theme\/_import.scss";/, '');
@@ -105,15 +100,15 @@ for (const file of (await glob('src/less/**/*.less'))
     /* mixin.less needs to be fully replaced by the new mixin file*/
     if (filename === 'mixin') {
         source = await read('build/scss/mixin.scss');
-        source = useModules(source).replace(/(\s+\$[\w-]*)\s*:(.*)!default;/g, '$1: $2;');
     }
 
     if (!file.includes('theme/')) {
-        await write(file.replace(/less/g, 'scss').replace('.theme.', '-theme.'), source);
+        await write(
+            file.replace(/less/g, 'scss').replace('.theme.', '-theme.'),
+            useSassModules(source),
+        );
     }
 }
-
-/* Third Step: write all new needed files for Sass */
 
 /* write mixins files */
 for (const [vars, file] of [
@@ -122,7 +117,7 @@ for (const [vars, file] of [
 ]) {
     delete vars['svg-fill'];
 
-    await write(`src/scss/${file}.scss`, useModules(Array.from(Object.values(vars)).join('\n')));
+    await write(`src/scss/${file}.scss`, useSassModules(Object.values(vars).join('\n')));
 }
 
 /* write variables files */
@@ -134,43 +129,40 @@ for (const [vars, file] of [
         (dependencies, key) => resolveDependencies(vars, key, dependencies),
         new Set(),
     );
-    await write(`src/scss/${file}.scss`, useModules(Array.from(variables).join('\n')));
+    await write(`src/scss/${file}.scss`, useSassModules(Array.from(variables).join('\n')));
 }
 
 /*
  * add prefix of origin to methods
  */
-function useModules(source) {
-    for (const [module, [methods, replacement]] of Object.entries({
-        meta: [[/(mixin-exists)(?=\()/g], 'meta.$1'],
-        string: [
-            [/(?=\W)(unquote|index|slice|quote)(?=\()/g, /str-(index|slice|length)(?=\()/g],
-            'string.$1',
-        ],
-        math: [[/(?=\W)(floor|round)(?=\()/g], 'math.$1'],
-        color: [
-            [[/(?=\W)lighten\((.*),(.*)\)/g], 'color.adjust( $1, $lightness: $2)'],
-            [[/(?=\W)darken\((.*),(.*)\)/g], 'color.adjust( $1, $lightness: -$2)'],
-            [[/(?=\W)(mix)(?=\()/g], 'color.$1'],
-            [
-                [/(?=\W)(fade-in\(|fade-out\(|adjust-hue\()([^,]*),(.*)\)/g],
-                'color.adjust( $2, $alpha: $3)',
-            ],
-        ],
-    })) {
-        /* add origin of method as prefix */
-        const prev = source;
-        for (const method of methods) {
-            source = source.replace(method, replacement);
-        }
+function useSassModules(source) {
+    const modules = new Set();
 
-        /* add module */
+    for (const [module, search, replacement] of [
+        ['meta', /(?<=\W)mixin-exists\(/g, 'meta.$&'],
+        ['string', /(?<=\W)(un)?quote\(/g, 'string.$&'],
+        ['string', /(?<=\W)str-(index|slice|length)\(/g, 'string.$1('],
+        ['math', /(?<=\W)(floor|round)\(/g, 'math.$&'],
+        ['color', /(?<=\W)mix\(/g, 'color.$&'],
+        ['color', /(?<=\W)lighten\((.*),\s*(.*)\)/g, 'color.adjust($1, $lightness: $2)'],
+        ['color', /(?<=\W)darken\((.*),\s*(.*)\)/g, 'color.adjust($1, $lightness: -$2)'],
+        ['color', /(?<=\W)fade-in\(([^,]*),\s*(.*)\)/g, 'color.adjust($1, $alpha: $2)'],
+        ['color', /(?<=\W)fade-out\(([^,]*),\s*(.*)\)/g, 'color.adjust($1, $alpha: -$2)'],
+        ['color', /(?<=\W)adjust-hue\(([^,]*),\s*(.*)\)/g, 'color.adjust($1, $hue: $2)'],
+    ]) {
+        const prev = source;
+        source = source.replaceAll(search, replacement);
+
         if (source !== prev) {
-            source = `@use "sass:${module}";\n${source}`;
+            modules.add(module);
         }
     }
 
-    return source;
+    return modules.size
+        ? `${Array.from(modules)
+              .map((module) => `@use "sass:${module}";`)
+              .join('\n')}\n\n${source}`
+        : source;
 }
 
 /*
