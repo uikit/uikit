@@ -828,7 +828,7 @@
 
             on('#js-nav-switcher', 'change', (e) => {
                 const options = $$('option', e.target).map(({value}) => value);
-                for (const el of $$('.uk-subnav')) {
+                for (const el of $$('nav > :first-child')) {
                     removeClass(el, options);
                     addClass(el, e.target.value);
                 }
