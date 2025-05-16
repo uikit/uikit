@@ -37,7 +37,6 @@ export default {
 
     props: {
         align: String,
-        clsDrop: String,
         boundary: Boolean,
         dropbar: Boolean,
         dropbarAnchor: Boolean,
