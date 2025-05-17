@@ -366,7 +366,7 @@ $inverse-dotnav-item-hover-background: rgba($inverse-global-color, 0.9) !default
 $inverse-dotnav-item-onclick-background: rgba($inverse-global-color, 0.5) !default;
 $inverse-dotnav-item-active-background: rgba($inverse-global-color, 0.9) !default;
 $global-z-index: 1000 !default;
-$drop-z-index: $global-z-index + 20 !default;
+$drop-z-index: $global-z-index + 10 !default;
 $drop-margin: $global-margin !default;
 $drop-viewport-margin: 15px !default;
 $drop-width: 300px !default;
@@ -669,7 +669,7 @@ $marker-hover-color: $global-inverse-color !default;
 $inverse-marker-background: $global-muted-background !default;
 $inverse-marker-color: $global-color !default;
 $inverse-marker-hover-color: $global-color !default;
-$modal-z-index: $global-z-index + 10 !default;
+$modal-z-index: $global-z-index + 20 !default;
 $modal-background: rgba(0,0,0,0.6) !default;
 $modal-padding-horizontal: 15px !default;
 $modal-padding-horizontal-s: $global-gutter !default;
