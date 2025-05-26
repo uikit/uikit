@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix setting focus to Modal/Offcanvas Toggle component after close
+
 ## 3.23.7 (May 9, 2025)
 
 ### Fixed
