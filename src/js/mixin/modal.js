@@ -156,6 +156,8 @@ export default {
                 );
 
                 addClass(document.documentElement, this.clsPage);
+
+                setAriaExpanded(this.target, true);
             },
         },
 
@@ -194,6 +196,9 @@ export default {
                 if (isFocusable(this.target)) {
                     this.target.focus();
                 }
+
+                setAriaExpanded(this.target, false);
+
                 this.target = null;
             },
         },
@@ -294,4 +299,10 @@ function listenForEscClose(modal) {
             modal.hide();
         }
     });
+}
+
+function setAriaExpanded(el, toggled) {
+    if (el?.ariaExpanded) {
+        el.ariaExpanded = toggled;
+    }
 }
