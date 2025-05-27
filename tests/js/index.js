@@ -132,6 +132,7 @@ on(window, 'load', () =>
                         'uk-card-muted',
                         'uk-card-primary',
                         'uk-card-secondary',
+                        'uk-card-overlay',
                         'uk-tile-default',
                         'uk-tile-muted',
                         'uk-tile-primary',

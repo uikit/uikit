@@ -40,6 +40,9 @@
 @card-secondary-box-shadow:                    @global-medium-box-shadow;
 @card-secondary-hover-box-shadow:              @global-large-box-shadow;
 
+@card-overlay-box-shadow:                      @global-medium-box-shadow;
+@card-overlay-hover-box-shadow:                @global-large-box-shadow;
+
 
 // Component
 // ========================================================================
@@ -124,6 +127,16 @@
 .hook-card-secondary-title() {}
 
 .hook-card-secondary-hover() { box-shadow: @card-secondary-hover-box-shadow; }
+
+//
+// Overlay
+//
+
+.hook-card-overlay() { box-shadow: @card-overlay-box-shadow; }
+
+.hook-card-overlay-title() {}
+
+.hook-card-overlay-hover() { box-shadow: @card-overlay-hover-box-shadow; }
 
 
 // Miscellaneous
