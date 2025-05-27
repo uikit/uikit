@@ -195,7 +195,12 @@ export const Slidenav = {
 
 export const NavbarToggleIcon = {
     extends: ButtonComponent,
+
     i18n: { label: 'Open menu' },
+
+    beforeConnect() {
+        this.$el.ariaExpanded = false;
+    },
 };
 
 export const Close = {
