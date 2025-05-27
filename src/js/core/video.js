@@ -9,7 +9,6 @@ import {
     play,
     pointerEnter,
     pointerLeave,
-    removeAttr,
 } from 'uikit-util';
 import { intersection } from '../api/observables';
 
@@ -85,7 +84,7 @@ export default {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
                         if (target.preload === 'none') {
-                            removeAttr(target, 'preload');
+                            target.preload = '';
                             this.$reset();
                             return;
                         }
