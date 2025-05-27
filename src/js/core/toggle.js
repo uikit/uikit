@@ -4,6 +4,7 @@ import {
     includes,
     isBoolean,
     isFocusable,
+    isSameSiteAnchor,
     isTag,
     isTouch,
     matches,
@@ -153,18 +154,23 @@ export default {
             filter: ({ mode }) => ['click', 'hover'].some((m) => includes(mode, m)),
 
             handler(e) {
-                let link;
-                if (
-                    this._preventClick ||
-                    e.target.closest('a[href="#"], a[href=""]') ||
-                    ((link = e.target.closest('a[href]')) &&
-                        (!this.isToggled(this.target) ||
-                            (link.hash && matches(this.target, link.hash))))
-                ) {
+                if (e.defaultPrevented) {
+                    return;
+                }
+
+                const link = e.target.closest('a');
+                const isButtonLike =
+                    isSameSiteAnchor(link) && (!link.hash || matches(this.target, link.hash));
+
+                if (this._preventClick || isButtonLike || (link && !this.isToggled(this.target))) {
                     e.preventDefault();
                 }
 
-                if (!this._preventClick && includes(this.mode, 'click')) {
+                if (
+                    !this._preventClick &&
+                    includes(this.mode, 'click') &&
+                    (!link || isButtonLike || e.defaultPrevented)
+                ) {
                     this.toggle();
                 }
             },
