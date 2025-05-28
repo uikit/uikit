@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Delay showing dropdowns in Dropnav and Navbar components to allow passing with the pointer over the element
+
 ### Fixed
 
 - Fix setting focus to Modal/Offcanvas Toggle component after close

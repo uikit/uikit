@@ -62,6 +62,7 @@ export default {
         boundary: true,
         dropbar: false,
         dropbarAnchor: false,
+        delayShow: 160,
         duration: 200,
         container: false,
         selNavItem: '> li > a, > ul > li > a',
