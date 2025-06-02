@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "sass:math";
+
 // Name:            Form Range
 // Description:     Styles for the range input type
 //
@@ -41,7 +44,7 @@
     width: 100%;
     /* 7 */
     background: transparent;
-    @if(mixin-exists(hook-form-range)) {@include hook-form-range();}
+    @if(meta.mixin-exists(hook-form-range)) {@include hook-form-range();}
 }
 
 /* Focus */
@@ -65,26 +68,26 @@
 .uk-range::-webkit-slider-runnable-track {
     height: $form-range-track-height;
     background: $form-range-track-background;
-    @if(mixin-exists(hook-form-range-track)) {@include hook-form-range-track();}
+    @if(meta.mixin-exists(hook-form-range-track)) {@include hook-form-range-track();}
 }
 
 .uk-range:focus::-webkit-slider-runnable-track,
 /* 1 */
 .uk-range:active::-webkit-slider-runnable-track {
     background: $form-range-track-focus-background;
-    @if(mixin-exists(hook-form-range-track-focus)) {@include hook-form-range-track-focus();}
+    @if(meta.mixin-exists(hook-form-range-track-focus)) {@include hook-form-range-track-focus();}
 }
 
 /* Firefox */
 .uk-range::-moz-range-track {
     height: $form-range-track-height;
     background: $form-range-track-background;
-    @if(mixin-exists(hook-form-range-track)) {@include hook-form-range-track();}
+    @if(meta.mixin-exists(hook-form-range-track)) {@include hook-form-range-track();}
 }
 
 .uk-range:focus::-moz-range-track {
     background: $form-range-track-focus-background;
-    @if(mixin-exists(hook-form-range-track-focus)) {@include hook-form-range-track-focus();}
+    @if(meta.mixin-exists(hook-form-range-track-focus)) {@include hook-form-range-track-focus();}
 }
 
 /*
@@ -97,13 +100,13 @@
 .uk-range::-webkit-slider-thumb {
     /* 1 */
     -webkit-appearance: none;
-    margin-top: (floor(($form-range-thumb-height * 0.5)) * -1);
+    margin-top: (math.floor(($form-range-thumb-height * 0.5)) * -1);
     /* 2 */
     height: $form-range-thumb-height;
     width: $form-range-thumb-width;
     border-radius: $form-range-thumb-border-radius;
     background: $form-range-thumb-background;
-    @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
+    @if(meta.mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
 }
 
 /* Firefox */
@@ -113,17 +116,17 @@
     /* 2 */
     height: $form-range-thumb-height;
     width: $form-range-thumb-width;
-    margin-top: (floor(($form-range-thumb-height * 0.5)) * -1);
+    margin-top: (math.floor(($form-range-thumb-height * 0.5)) * -1);
     border-radius: $form-range-thumb-border-radius;
     background: $form-range-thumb-background;
-    @if(mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
+    @if(meta.mixin-exists(hook-form-range-thumb)) {@include hook-form-range-thumb();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-form-range-misc)) {@include hook-form-range-misc();}
+@if(meta.mixin-exists(hook-form-range-misc)) {@include hook-form-range-misc();}
 
 // @mixin hook-form-range(){}
 // @mixin hook-form-range-track(){}

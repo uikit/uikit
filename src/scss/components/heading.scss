@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "sass:string";
+
 // Name:            Heading
 // Description:     Styles for headings
 //
@@ -45,37 +48,37 @@ $heading-3xlarge-font-size-l:                    15rem !default;                
 .uk-heading-small {
     font-size: $heading-small-font-size;
     line-height: $heading-small-line-height;
-    @if(mixin-exists(hook-heading-small)) {@include hook-heading-small();}
+    @if(meta.mixin-exists(hook-heading-small)) {@include hook-heading-small();}
 }
 
 .uk-heading-medium {
     font-size: $heading-medium-font-size;
     line-height: $heading-medium-line-height;
-    @if(mixin-exists(hook-heading-medium)) {@include hook-heading-medium();}
+    @if(meta.mixin-exists(hook-heading-medium)) {@include hook-heading-medium();}
 }
 
 .uk-heading-large {
     font-size: $heading-large-font-size;
     line-height: $heading-large-line-height;
-    @if(mixin-exists(hook-heading-large)) {@include hook-heading-large();}
+    @if(meta.mixin-exists(hook-heading-large)) {@include hook-heading-large();}
 }
 
 .uk-heading-xlarge {
     font-size: $heading-xlarge-font-size;
     line-height: $heading-xlarge-line-height;
-    @if(mixin-exists(hook-heading-xlarge)) {@include hook-heading-xlarge();}
+    @if(meta.mixin-exists(hook-heading-xlarge)) {@include hook-heading-xlarge();}
 }
 
 .uk-heading-2xlarge {
     font-size: $heading-2xlarge-font-size;
     line-height: $heading-2xlarge-line-height;
-    @if(mixin-exists(hook-heading-2xlarge)) {@include hook-heading-2xlarge();}
+    @if(meta.mixin-exists(hook-heading-2xlarge)) {@include hook-heading-2xlarge();}
 }
 
 .uk-heading-3xlarge {
     font-size: $heading-3xlarge-font-size;
     line-height: $heading-3xlarge-line-height;
-    @if(mixin-exists(hook-heading-3xlarge)) {@include hook-heading-3xlarge();}
+    @if(meta.mixin-exists(hook-heading-3xlarge)) {@include hook-heading-3xlarge();}
 }
 
 /* Tablet Landscape and bigger */
@@ -116,7 +119,7 @@ $heading-primary-font-size:                      $heading-primary-font-size-l * 
 .uk-heading-primary {
     font-size: $heading-primary-font-size;
     line-height: $heading-primary-line-height;
-    @if(mixin-exists(hook-heading-primary)) {@include hook-heading-primary();}
+    @if(meta.mixin-exists(hook-heading-primary)) {@include hook-heading-primary();}
 }
 }
 
@@ -156,7 +159,7 @@ $heading-hero-font-size:                         $heading-hero-font-size-l * 0.5
 .uk-heading-hero {
     font-size: $heading-hero-font-size;
     line-height: $heading-hero-line-height;
-    @if(mixin-exists(hook-heading-hero)) {@include hook-heading-hero();}
+    @if(meta.mixin-exists(hook-heading-hero)) {@include hook-heading-hero();}
 }
 }
 
@@ -191,7 +194,7 @@ $heading-hero-font-size:                         $heading-hero-font-size-l * 0.5
 .uk-heading-divider {
     padding-bottom: $heading-divider-padding-bottom;
     border-bottom: $heading-divider-border-width solid $heading-divider-border;
-    @if(mixin-exists(hook-heading-divider)) {@include hook-heading-divider();}
+    @if(meta.mixin-exists(hook-heading-divider)) {@include hook-heading-divider();}
 }
 
 
@@ -218,7 +221,7 @@ $heading-hero-font-size:                         $heading-hero-font-size-l * 0.5
     height: $heading-bullet-height;
     margin-right: $heading-bullet-margin-right;
     border-left: $heading-bullet-border-width solid $heading-bullet-border;
-    @if(mixin-exists(hook-heading-bullet)) {@include hook-heading-bullet();}
+    @if(meta.mixin-exists(hook-heading-bullet)) {@include hook-heading-bullet();}
 }
 
 
@@ -251,12 +254,12 @@ $heading-hero-font-size:                         $heading-hero-font-size-l * 0.5
     content: "";
     /* 1 */
     position: absolute;
-    top: unquote('calc(#{$heading-line-top} - (#{$heading-line-height} / 2))');
+    top: string.unquote('calc(#{$heading-line-top} - (#{$heading-line-height} / 2))');
     /* 2 */
     width: $heading-line-width;
     /* 3 */
     border-bottom: $heading-line-border-width solid $heading-line-border;
-    @if(mixin-exists(hook-heading-line)) {@include hook-heading-line();}
+    @if(meta.mixin-exists(hook-heading-line)) {@include hook-heading-line();}
 }
 
 .uk-heading-line > ::before {
@@ -272,7 +275,7 @@ $heading-hero-font-size:                         $heading-hero-font-size-l * 0.5
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-heading-misc)) {@include hook-heading-misc();}
+@if(meta.mixin-exists(hook-heading-misc)) {@include hook-heading-misc();}
 
 // @mixin hook-heading-small(){}
 // @mixin hook-heading-medium(){}

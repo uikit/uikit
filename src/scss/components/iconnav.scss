@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Iconnav
 // Description:     Component to create icon navigations
 //
@@ -38,7 +40,7 @@
     list-style: none;
     /* 3 */
     margin-left: (-$iconnav-margin-horizontal);
-    @if(mixin-exists(hook-iconnav)) {@include hook-iconnav();}
+    @if(meta.mixin-exists(hook-iconnav)) {@include hook-iconnav();}
 }
 
 /*
@@ -76,19 +78,19 @@
     color: $iconnav-item-color;
     /* 5 */
     text-decoration: none;
-    @if(mixin-exists(hook-iconnav-item)) {@include hook-iconnav-item();}
+    @if(meta.mixin-exists(hook-iconnav-item)) {@include hook-iconnav-item();}
 }
 
 /* Hover */
 .uk-iconnav > * > a:hover {
     color: $iconnav-item-hover-color;
-    @if(mixin-exists(hook-iconnav-item-hover)) {@include hook-iconnav-item-hover();}
+    @if(meta.mixin-exists(hook-iconnav-item-hover)) {@include hook-iconnav-item-hover();}
 }
 
 /* Active */
 .uk-iconnav > .uk-active > a {
     color: $iconnav-item-active-color;
-    @if(mixin-exists(hook-iconnav-item-active)) {@include hook-iconnav-item-active();}
+    @if(meta.mixin-exists(hook-iconnav-item-active)) {@include hook-iconnav-item-active();}
 }
 
 
@@ -118,7 +120,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-iconnav-misc)) {@include hook-iconnav-misc();}
+@if(meta.mixin-exists(hook-iconnav-misc)) {@include hook-iconnav-misc();}
 
 // @mixin hook-iconnav(){}
 // @mixin hook-iconnav-item(){}

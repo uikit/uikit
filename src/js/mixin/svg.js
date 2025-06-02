@@ -112,8 +112,6 @@ const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
 const parseSymbols = memoize(function (svg) {
     const symbols = {};
 
-    symbolRe.lastIndex = 0;
-
     let match;
     while ((match = symbolRe.exec(svg))) {
         symbols[match[3]] = `<svg ${match[1]}svg>`;

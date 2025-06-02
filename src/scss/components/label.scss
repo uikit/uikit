@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Label
 // Description:     Component to indicate important notes
 //
@@ -29,7 +31,7 @@
     color: $label-color;
     vertical-align: middle;
     white-space: nowrap;
-    @if(mixin-exists(hook-label)) {@include hook-label();}
+    @if(meta.mixin-exists(hook-label)) {@include hook-label();}
 }
 
 
@@ -43,7 +45,7 @@
 .uk-label-success {
     background-color: $label-success-background;
     color: $label-success-color;
-    @if(mixin-exists(hook-label-success)) {@include hook-label-success();}
+    @if(meta.mixin-exists(hook-label-success)) {@include hook-label-success();}
 }
 
 /*
@@ -53,7 +55,7 @@
 .uk-label-warning {
     background-color: $label-warning-background;
     color: $label-warning-color;
-    @if(mixin-exists(hook-label-warning)) {@include hook-label-warning();}
+    @if(meta.mixin-exists(hook-label-warning)) {@include hook-label-warning();}
 }
 
 /*
@@ -63,14 +65,14 @@
 .uk-label-danger {
     background-color: $label-danger-background;
     color: $label-danger-color;
-    @if(mixin-exists(hook-label-danger)) {@include hook-label-danger();}
+    @if(meta.mixin-exists(hook-label-danger)) {@include hook-label-danger();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-label-misc)) {@include hook-label-misc();}
+@if(meta.mixin-exists(hook-label-misc)) {@include hook-label-misc();}
 
 // @mixin hook-label(){}
 // @mixin hook-label-success(){}

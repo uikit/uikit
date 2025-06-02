@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Tile
 // Description:     Component to create tiled boxes
 //
@@ -42,7 +44,7 @@
     padding-right: $tile-padding-horizontal;
     padding-top: $tile-padding-vertical;
     padding-bottom: $tile-padding-vertical;
-    @if(mixin-exists(hook-tile)) {@include hook-tile();}
+    @if(meta.mixin-exists(hook-tile)) {@include hook-tile();}
 }
 
 /* Phone landscape and bigger */
@@ -145,11 +147,11 @@
 .uk-tile-default {
     --uk-inverse: #{$tile-default-color-mode};
     background-color: $tile-default-background;
-    @if(mixin-exists(hook-tile-default)) {@include hook-tile-default();}
+    @if(meta.mixin-exists(hook-tile-default)) {@include hook-tile-default();}
 }
 
 .uk-tile-default.uk-tile-hover:hover {
-    @if(mixin-exists(hook-tile-default-hover)) {@include hook-tile-default-hover();}
+    @if(meta.mixin-exists(hook-tile-default-hover)) {@include hook-tile-default-hover();}
 }
 
 // Color Mode
@@ -163,11 +165,11 @@
 .uk-tile-muted {
     --uk-inverse: #{$tile-muted-color-mode};
     background-color: $tile-muted-background;
-    @if(mixin-exists(hook-tile-muted)) {@include hook-tile-muted();}
+    @if(meta.mixin-exists(hook-tile-muted)) {@include hook-tile-muted();}
 }
 
 .uk-tile-muted.uk-tile-hover:hover {
-    @if(mixin-exists(hook-tile-muted-hover)) {@include hook-tile-muted-hover();}
+    @if(meta.mixin-exists(hook-tile-muted-hover)) {@include hook-tile-muted-hover();}
 }
 
 // Color Mode
@@ -181,11 +183,11 @@
 .uk-tile-primary {
     --uk-inverse: #{$tile-primary-color-mode};
     background-color: $tile-primary-background;
-    @if(mixin-exists(hook-tile-primary)) {@include hook-tile-primary();}
+    @if(meta.mixin-exists(hook-tile-primary)) {@include hook-tile-primary();}
 }
 
 .uk-tile-primary.uk-tile-hover:hover {
-    @if(mixin-exists(hook-tile-primary-hover)) {@include hook-tile-primary-hover();}
+    @if(meta.mixin-exists(hook-tile-primary-hover)) {@include hook-tile-primary-hover();}
 }
 
 // Color Mode
@@ -199,11 +201,11 @@
 .uk-tile-secondary {
     --uk-inverse: #{$tile-secondary-color-mode};
     background-color: $tile-secondary-background;
-    @if(mixin-exists(hook-tile-secondary)) {@include hook-tile-secondary();}
+    @if(meta.mixin-exists(hook-tile-secondary)) {@include hook-tile-secondary();}
 }
 
 .uk-tile-secondary.uk-tile-hover:hover {
-    @if(mixin-exists(hook-tile-secondary-hover)) {@include hook-tile-secondary-hover();}
+    @if(meta.mixin-exists(hook-tile-secondary-hover)) {@include hook-tile-secondary-hover();}
 }
 
 // Color Mode
@@ -214,7 +216,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-tile-misc)) {@include hook-tile-misc();}
+@if(meta.mixin-exists(hook-tile-misc)) {@include hook-tile-misc();}
 
 // @mixin hook-tile(){}
 // @mixin hook-tile-default(){}

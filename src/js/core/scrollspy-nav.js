@@ -4,7 +4,6 @@ import {
     getCoveringElement,
     getTargetedElement,
     hasClass,
-    isSameSiteAnchor,
     isVisible,
     offset,
     offsetViewport,
@@ -32,7 +31,7 @@ export default {
     },
 
     computed: {
-        links: ({ target }, $el) => $$(target, $el).filter((el) => isSameSiteAnchor(el)),
+        links: ({ target }, $el) => $$(target, $el).filter((el) => getTargetedElement(el)),
 
         elements({ closest }) {
             return this.links.map((el) => el.closest(closest || '*'));
@@ -52,7 +51,7 @@ export default {
     update: [
         {
             read() {
-                const targets = this.links.map((el) => getTargetedElement(el)).filter(Boolean);
+                const targets = this.links.map(getTargetedElement);
 
                 const { length } = targets;
 

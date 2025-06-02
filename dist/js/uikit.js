@@ -1,4 +1,4 @@
-/*! UIkit 3.23.7 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.8 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -395,6 +395,7 @@
       return [position, selector.slice(position.length + 1)];
     });
     function _query(selector, context = document, queryFn) {
+      var _a;
       const parsed = parseSelector(selector);
       if (!parsed.isContextSelector) {
         return parsed.selector ? _doQuery(context, queryFn, parsed.selector) : selector;
@@ -406,7 +407,7 @@
         let ctx = context;
         if (sel[0] === "!") {
           [positionSel, sel] = parsePositionSelector(sel);
-          ctx = context.parentElement.closest(positionSel);
+          ctx = (_a = context.parentElement) == null ? void 0 : _a.closest(positionSel);
           if (!sel && isSingle) {
             return ctx;
           }
@@ -2957,11 +2958,12 @@
         {
           name: "toggle",
           self: true,
-          handler(e) {
+          handler(e, toggle) {
             if (e.defaultPrevented) {
               return;
             }
             e.preventDefault();
+            this.target = toggle == null ? void 0 : toggle.$el;
             if (this.isToggled() === includes(active$1, this)) {
               this.toggle();
             }
@@ -3002,6 +3004,7 @@
               { self: true }
             );
             addClass(document.documentElement, this.clsPage);
+            setAriaExpanded(this.target, true);
           }
         },
         {
@@ -3027,6 +3030,11 @@
             if (!active$1.some((modal) => modal.clsPage === this.clsPage)) {
               removeClass(document.documentElement, this.clsPage);
             }
+            if (isFocusable(this.target)) {
+              this.target.focus();
+            }
+            setAriaExpanded(this.target, false);
+            this.target = null;
           }
         }
       ],
@@ -3109,6 +3117,11 @@
           modal.hide();
         }
       });
+    }
+    function setAriaExpanded(el, toggled) {
+      if (el == null ? void 0 : el.ariaExpanded) {
+        el.ariaExpanded = toggled;
+      }
     }
 
     var Animations$2 = {
@@ -3732,7 +3745,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.7";
+    App.version = "3.23.8";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -7072,6 +7085,7 @@
         if (this.toggle && !this.targetEl) {
           this.targetEl = createToggleComponent(this);
         }
+        attr(this.targetEl, "aria-expanded", false);
         this._style = pick(this.$el.style, ["width", "height"]);
       },
       disconnected() {
@@ -7202,7 +7216,7 @@
             }
             active = this.isActive() ? null : active;
             this.tracker.cancel();
-            attr(this.targetEl, "aria-expanded", null);
+            attr(this.targetEl, "aria-expanded", false);
           }
         }
       ],
@@ -7326,7 +7340,7 @@
         target: drop.$el,
         mode: drop.mode
       });
-      attr($el, "aria-haspopup", true);
+      $el.ariaHasPopup = true;
       return $el;
     }
     function listenForResize(drop) {
@@ -7399,6 +7413,7 @@
         boundary: true,
         dropbar: false,
         dropbarAnchor: false,
+        delayShow: 160,
         duration: 200,
         container: false,
         selNavItem: "> li > a, > ul > li > a"
@@ -7448,6 +7463,7 @@
       },
       connected() {
         this.initializeDropdowns();
+        preventInitialPointerEnter(this.$el);
       },
       disconnected() {
         remove$1(this._dropbar);
@@ -7685,6 +7701,14 @@
         (_c = active2.hide) == null ? void 0 : _c.call(active2, false);
         toggles[getIndex(next, toggles, toggles.indexOf(active2.targetEl || current))].focus();
       }
+    }
+    function preventInitialPointerEnter(el) {
+      const off = () => handlers.forEach((handler) => handler());
+      const handlers = [
+        once(el.ownerDocument, pointerMove$1, (e) => el.contains(e.target) || off()),
+        on(el, `mouseenter ${pointerEnter}`, (e) => e.stopPropagation(), { capture: true }),
+        on(el, `mouseleave ${pointerLeave}`, off, { capture: true })
+      ];
     }
 
     var formCustom = {
@@ -8159,7 +8183,6 @@
     const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
     const parseSymbols = memoize(function(svg) {
       const symbols = {};
-      symbolRe.lastIndex = 0;
       let match;
       while (match = symbolRe.exec(svg)) {
         symbols[match[3]] = `<svg ${match[1]}svg>`;
@@ -8283,7 +8306,10 @@
     };
     const NavbarToggleIcon = {
       extends: ButtonComponent,
-      i18n: { label: "Open menu" }
+      i18n: { label: "Open menu" },
+      beforeConnect() {
+        this.$el.ariaExpanded = false;
+      }
     };
     const Close = {
       extends: ButtonComponent,
@@ -8639,6 +8665,7 @@
         dropbarTransparentMode: Boolean
       },
       data: {
+        delayShow: 200,
         clsDrop: "uk-navbar-dropdown",
         selNavItem: ".uk-navbar-nav > li > a,a.uk-navbar-item,button.uk-navbar-item,.uk-navbar-item a,.uk-navbar-item button,.uk-navbar-toggle",
         // Simplify with :where() selector once browser target is Safari 14+
@@ -9044,7 +9071,7 @@
         offset: 0
       },
       computed: {
-        links: ({ target }, $el) => $$(target, $el).filter((el) => isSameSiteAnchor(el)),
+        links: ({ target }, $el) => $$(target, $el).filter((el) => getTargetedElement(el)),
         elements({ closest }) {
           return this.links.map((el) => el.closest(closest || "*"));
         }
@@ -9060,7 +9087,7 @@
       update: [
         {
           read() {
-            const targets = this.links.map((el) => getTargetedElement(el)).filter(Boolean);
+            const targets = this.links.map(getTargetedElement);
             const { length } = targets;
             if (!length || !isVisible(this.$el)) {
               return false;
@@ -9826,11 +9853,15 @@
           name: "click",
           filter: ({ mode }) => ["click", "hover"].some((m) => includes(mode, m)),
           handler(e) {
-            let link;
-            if (this._preventClick || e.target.closest('a[href="#"], a[href=""]') || (link = e.target.closest("a[href]")) && (!this.isToggled(this.target) || link.hash && matches(this.target, link.hash))) {
+            if (e.defaultPrevented) {
+              return;
+            }
+            const link = e.target.closest("a");
+            const isButtonLike = isSameSiteAnchor(link) && (!link.hash || matches(this.target, link.hash));
+            if (this._preventClick || isButtonLike || link && !this.isToggled(this.target)) {
               e.preventDefault();
             }
-            if (!this._preventClick && includes(this.mode, "click")) {
+            if (!this._preventClick && includes(this.mode, "click") && (!link || isButtonLike || e.defaultPrevented)) {
               this.toggle();
             }
           }

@@ -98,13 +98,14 @@ export default {
 
             self: true,
 
-            handler(e) {
+            handler(e, toggle) {
                 if (e.defaultPrevented) {
                     return;
                 }
 
                 e.preventDefault();
 
+                this.target = toggle?.$el;
                 if (this.isToggled() === includes(active, this)) {
                     this.toggle();
                 }
@@ -155,6 +156,8 @@ export default {
                 );
 
                 addClass(document.documentElement, this.clsPage);
+
+                setAriaExpanded(this.target, true);
             },
         },
 
@@ -189,6 +192,14 @@ export default {
                 if (!active.some((modal) => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);
                 }
+
+                if (isFocusable(this.target)) {
+                    this.target.focus();
+                }
+
+                setAriaExpanded(this.target, false);
+
+                this.target = null;
             },
         },
     ],
@@ -288,4 +299,10 @@ function listenForEscClose(modal) {
             modal.hide();
         }
     });
+}
+
+function setAriaExpanded(el, toggled) {
+    if (el?.ariaExpanded) {
+        el.ariaExpanded = toggled;
+    }
 }

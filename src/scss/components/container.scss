@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "sass:string";
+
 // Name:            Container
 // Description:     Component to align and center your site and grid content
 //
@@ -104,10 +107,10 @@
 @media (min-width: $breakpoint-small) {
 
     .uk-container-expand-left.uk-container-xsmall,
-    .uk-container-expand-right.uk-container-xsmall { max-width: unquote('calc(50% + (#{$container-xsmall-max-width} / 2) - #{$container-padding-horizontal-s})'); }
+    .uk-container-expand-right.uk-container-xsmall { max-width: string.unquote('calc(50% + (#{$container-xsmall-max-width} / 2) - #{$container-padding-horizontal-s})'); }
 
     .uk-container-expand-left.uk-container-small,
-    .uk-container-expand-right.uk-container-small { max-width: unquote('calc(50% + (#{$container-small-max-width} / 2) - #{$container-padding-horizontal-s})'); }
+    .uk-container-expand-right.uk-container-small { max-width: string.unquote('calc(50% + (#{$container-small-max-width} / 2) - #{$container-padding-horizontal-s})'); }
 
 }
 
@@ -115,19 +118,19 @@
 @media (min-width: $breakpoint-medium) {
 
     .uk-container-expand-left,
-    .uk-container-expand-right { max-width: unquote('calc(50% + (#{$container-max-width} / 2) - #{$container-padding-horizontal-m})'); }
+    .uk-container-expand-right { max-width: string.unquote('calc(50% + (#{$container-max-width} / 2) - #{$container-padding-horizontal-m})'); }
 
     .uk-container-expand-left.uk-container-xsmall,
-    .uk-container-expand-right.uk-container-xsmall { max-width: unquote('calc(50% + (#{$container-xsmall-max-width} / 2) - #{$container-padding-horizontal-m})'); }
+    .uk-container-expand-right.uk-container-xsmall { max-width: string.unquote('calc(50% + (#{$container-xsmall-max-width} / 2) - #{$container-padding-horizontal-m})'); }
 
     .uk-container-expand-left.uk-container-small,
-    .uk-container-expand-right.uk-container-small { max-width: unquote('calc(50% + (#{$container-small-max-width} / 2) - #{$container-padding-horizontal-m})'); }
+    .uk-container-expand-right.uk-container-small { max-width: string.unquote('calc(50% + (#{$container-small-max-width} / 2) - #{$container-padding-horizontal-m})'); }
 
     .uk-container-expand-left.uk-container-large,
-    .uk-container-expand-right.uk-container-large { max-width: unquote('calc(50% + (#{$container-large-max-width} / 2) - #{$container-padding-horizontal-m})'); }
+    .uk-container-expand-right.uk-container-large { max-width: string.unquote('calc(50% + (#{$container-large-max-width} / 2) - #{$container-padding-horizontal-m})'); }
 
     .uk-container-expand-left.uk-container-xlarge,
-    .uk-container-expand-right.uk-container-xlarge { max-width: unquote('calc(50% + (#{$container-xlarge-max-width} / 2) - #{$container-padding-horizontal-m})'); }
+    .uk-container-expand-right.uk-container-xlarge { max-width: string.unquote('calc(50% + (#{$container-xlarge-max-width} / 2) - #{$container-padding-horizontal-m})'); }
 
 }
 
@@ -141,7 +144,7 @@
  */
 
 .uk-container-item-padding-remove-left,
-.uk-container-item-padding-remove-right { width: unquote('calc(100% + #{$container-padding-horizontal})'); }
+.uk-container-item-padding-remove-right { width: string.unquote('calc(100% + #{$container-padding-horizontal})'); }
 
 .uk-container-item-padding-remove-left { margin-left: (-$container-padding-horizontal); }
 .uk-container-item-padding-remove-right { margin-right: (-$container-padding-horizontal); }
@@ -150,7 +153,7 @@
 @media (min-width: $breakpoint-small) {
 
     .uk-container-item-padding-remove-left,
-    .uk-container-item-padding-remove-right { width: unquote('calc(100% + #{$container-padding-horizontal-s})'); }
+    .uk-container-item-padding-remove-right { width: string.unquote('calc(100% + #{$container-padding-horizontal-s})'); }
 
     .uk-container-item-padding-remove-left { margin-left: (-$container-padding-horizontal-s); }
     .uk-container-item-padding-remove-right { margin-right: (-$container-padding-horizontal-s); }
@@ -161,7 +164,7 @@
 @media (min-width: $breakpoint-medium) {
 
     .uk-container-item-padding-remove-left,
-    .uk-container-item-padding-remove-right { width: unquote('calc(100% + #{$container-padding-horizontal-m})'); }
+    .uk-container-item-padding-remove-right { width: string.unquote('calc(100% + #{$container-padding-horizontal-m})'); }
 
     .uk-container-item-padding-remove-left { margin-left: (-$container-padding-horizontal-m); }
     .uk-container-item-padding-remove-right { margin-right: (-$container-padding-horizontal-m); }
@@ -172,6 +175,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-container-misc)) {@include hook-container-misc();}
+@if(meta.mixin-exists(hook-container-misc)) {@include hook-container-misc();}
 
 // @mixin hook-container-misc(){}

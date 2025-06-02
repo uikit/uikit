@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Pagination
 // Description:     Component to create a page navigation
 //
@@ -40,7 +42,7 @@
     /* 4 */
     padding: 0;
     list-style: none;
-    @if(mixin-exists(hook-pagination)) {@include hook-pagination();}
+    @if(meta.mixin-exists(hook-pagination)) {@include hook-pagination();}
 }
 
 /*
@@ -77,33 +79,33 @@
     /* 3 */
     padding: $pagination-item-padding-vertical $pagination-item-padding-horizontal;
     color: $pagination-item-color;
-    @if(mixin-exists(hook-pagination-item)) {@include hook-pagination-item();}
+    @if(meta.mixin-exists(hook-pagination-item)) {@include hook-pagination-item();}
 }
 
 /* Hover */
 .uk-pagination > * > :hover {
     color: $pagination-item-hover-color;
     text-decoration: $pagination-item-hover-text-decoration;
-    @if(mixin-exists(hook-pagination-item-hover)) {@include hook-pagination-item-hover();}
+    @if(meta.mixin-exists(hook-pagination-item-hover)) {@include hook-pagination-item-hover();}
 }
 
 /* Active */
 .uk-pagination > .uk-active > * {
     color: $pagination-item-active-color;
-    @if(mixin-exists(hook-pagination-item-active)) {@include hook-pagination-item-active();}
+    @if(meta.mixin-exists(hook-pagination-item-active)) {@include hook-pagination-item-active();}
 }
 
 /* Disabled */
 .uk-pagination > .uk-disabled > * {
     color: $pagination-item-disabled-color;
-    @if(mixin-exists(hook-pagination-item-disabled)) {@include hook-pagination-item-disabled();}
+    @if(meta.mixin-exists(hook-pagination-item-disabled)) {@include hook-pagination-item-disabled();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-pagination-misc)) {@include hook-pagination-misc();}
+@if(meta.mixin-exists(hook-pagination-misc)) {@include hook-pagination-misc();}
 
 // @mixin hook-pagination(){}
 // @mixin hook-pagination-item(){}

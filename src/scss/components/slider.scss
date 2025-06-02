@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Slider
 // Description:     Component to create horizontal sliders
 //
@@ -27,7 +29,7 @@
 .uk-slider {
     /* 1 */
     -webkit-tap-highlight-color: transparent;
-    @if(mixin-exists(hook-slider)) {@include hook-slider();}
+    @if(meta.mixin-exists(hook-slider)) {@include hook-slider();}
 }
 
 
@@ -113,7 +115,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-slider-misc)) {@include hook-slider-misc();}
+@if(meta.mixin-exists(hook-slider-misc)) {@include hook-slider-misc();}
 
 // @mixin hook-slider(){}
 // @mixin hook-slider-misc(){}

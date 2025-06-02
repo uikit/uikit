@@ -117,6 +117,7 @@ export default {
         if (this.toggle && !this.targetEl) {
             this.targetEl = createToggleComponent(this);
         }
+        attr(this.targetEl, 'aria-expanded', false);
 
         this._style = pick(this.$el.style, ['width', 'height']);
     },
@@ -297,7 +298,7 @@ export default {
 
                 active = this.isActive() ? null : active;
                 this.tracker.cancel();
-                attr(this.targetEl, 'aria-expanded', null);
+                attr(this.targetEl, 'aria-expanded', false);
             },
         },
     ],
@@ -460,7 +461,7 @@ function createToggleComponent(drop) {
         target: drop.$el,
         mode: drop.mode,
     });
-    attr($el, 'aria-haspopup', true);
+    $el.ariaHasPopup = true;
 
     return $el;
 }
