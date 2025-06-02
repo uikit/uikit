@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Card
 // Description:     Component to create boxed content containers
 //
@@ -47,7 +49,7 @@
 .uk-card {
     position: relative;
     box-sizing: border-box;
-    @if(mixin-exists(hook-card)) {@include hook-card();}
+    @if(meta.mixin-exists(hook-card)) {@include hook-card();}
 }
 
 
@@ -57,19 +59,19 @@
 .uk-card-body {
     display: flow-root;
     padding: $card-body-padding-vertical $card-body-padding-horizontal;
-    @if(mixin-exists(hook-card-body)) {@include hook-card-body();}
+    @if(meta.mixin-exists(hook-card-body)) {@include hook-card-body();}
 }
 
 .uk-card-header {
     display: flow-root;
     padding: $card-header-padding-vertical $card-header-padding-horizontal;
-    @if(mixin-exists(hook-card-header)) {@include hook-card-header();}
+    @if(meta.mixin-exists(hook-card-header)) {@include hook-card-header();}
 }
 
 .uk-card-footer {
     display: flow-root;
     padding: $card-footer-padding-vertical $card-footer-padding-horizontal;
-    @if(mixin-exists(hook-card-footer)) {@include hook-card-footer();}
+    @if(meta.mixin-exists(hook-card-footer)) {@include hook-card-footer();}
 }
 
 /* Desktop and bigger */
@@ -101,25 +103,25 @@
  */
 
 [class*="uk-card-media"] {
-    @if(mixin-exists(hook-card-media)) {@include hook-card-media();}
+    @if(meta.mixin-exists(hook-card-media)) {@include hook-card-media();}
 }
 
 .uk-card-media-top,
 .uk-grid-stack > .uk-card-media-left,
 .uk-grid-stack > .uk-card-media-right {
-    @if(mixin-exists(hook-card-media-top)) {@include hook-card-media-top();}
+    @if(meta.mixin-exists(hook-card-media-top)) {@include hook-card-media-top();}
 }
 
 .uk-card-media-bottom {
-    @if(mixin-exists(hook-card-media-bottom)) {@include hook-card-media-bottom();}
+    @if(meta.mixin-exists(hook-card-media-bottom)) {@include hook-card-media-bottom();}
 }
 
 :not(.uk-grid-stack) > .uk-card-media-left {
-    @if(mixin-exists(hook-card-media-left)) {@include hook-card-media-left();}
+    @if(meta.mixin-exists(hook-card-media-left)) {@include hook-card-media-left();}
 }
 
 :not(.uk-grid-stack) > .uk-card-media-right {
-    @if(mixin-exists(hook-card-media-right)) {@include hook-card-media-right();}
+    @if(meta.mixin-exists(hook-card-media-right)) {@include hook-card-media-right();}
 }
 
 
@@ -129,7 +131,7 @@
 .uk-card-title {
     font-size: $card-title-font-size;
     line-height: $card-title-line-height;
-    @if(mixin-exists(hook-card-title)) {@include hook-card-title();}
+    @if(meta.mixin-exists(hook-card-title)) {@include hook-card-title();}
 }
 
 
@@ -161,7 +163,7 @@
     justify-content: center;
     align-items: center;
     line-height: 0;
-    @if(mixin-exists(hook-card-badge)) {@include hook-card-badge();}
+    @if(meta.mixin-exists(hook-card-badge)) {@include hook-card-badge();}
 }
 
 /*
@@ -176,7 +178,7 @@
 
 .uk-card-hover:not(.uk-card-default):not(.uk-card-primary):not(.uk-card-secondary):hover {
     background-color: $card-hover-background;
-    @if(mixin-exists(hook-card-hover)) {@include hook-card-hover();}
+    @if(meta.mixin-exists(hook-card-hover)) {@include hook-card-hover();}
 }
 
 
@@ -192,25 +194,25 @@
     --uk-inverse: #{$card-default-color-mode};
     background-color: $card-default-background;
     color: $card-default-color;
-    @if(mixin-exists(hook-card-default)) {@include hook-card-default();}
+    @if(meta.mixin-exists(hook-card-default)) {@include hook-card-default();}
 }
 
 .uk-card-default .uk-card-title {
     color: $card-default-title-color;
-    @if(mixin-exists(hook-card-default-title)) {@include hook-card-default-title();}
+    @if(meta.mixin-exists(hook-card-default-title)) {@include hook-card-default-title();}
 }
 
 .uk-card-default.uk-card-hover:hover {
     background-color: $card-default-hover-background;
-    @if(mixin-exists(hook-card-default-hover)) {@include hook-card-default-hover();}
+    @if(meta.mixin-exists(hook-card-default-hover)) {@include hook-card-default-hover();}
 }
 
 .uk-card-default .uk-card-header {
-    @if(mixin-exists(hook-card-default-header)) {@include hook-card-default-header();}
+    @if(meta.mixin-exists(hook-card-default-header)) {@include hook-card-default-header();}
 }
 
 .uk-card-default .uk-card-footer {
-    @if(mixin-exists(hook-card-default-footer)) {@include hook-card-default-footer();}
+    @if(meta.mixin-exists(hook-card-default-footer)) {@include hook-card-default-footer();}
 }
 
 // Color Mode
@@ -227,17 +229,17 @@
     --uk-inverse: #{$card-primary-color-mode};
     background-color: $card-primary-background;
     color: $card-primary-color;
-    @if(mixin-exists(hook-card-primary)) {@include hook-card-primary();}
+    @if(meta.mixin-exists(hook-card-primary)) {@include hook-card-primary();}
 }
 
 .uk-card-primary .uk-card-title {
     color: $card-primary-title-color;
-    @if(mixin-exists(hook-card-primary-title)) {@include hook-card-primary-title();}
+    @if(meta.mixin-exists(hook-card-primary-title)) {@include hook-card-primary-title();}
 }
 
 .uk-card-primary.uk-card-hover:hover {
     background-color: $card-primary-hover-background;
-    @if(mixin-exists(hook-card-primary-hover)) {@include hook-card-primary-hover();}
+    @if(meta.mixin-exists(hook-card-primary-hover)) {@include hook-card-primary-hover();}
 }
 
 // Color Mode
@@ -254,17 +256,17 @@
     --uk-inverse: #{$card-secondary-color-mode};
     background-color: $card-secondary-background;
     color: $card-secondary-color;
-    @if(mixin-exists(hook-card-secondary)) {@include hook-card-secondary();}
+    @if(meta.mixin-exists(hook-card-secondary)) {@include hook-card-secondary();}
 }
 
 .uk-card-secondary .uk-card-title {
     color: $card-secondary-title-color;
-    @if(mixin-exists(hook-card-secondary-title)) {@include hook-card-secondary-title();}
+    @if(meta.mixin-exists(hook-card-secondary-title)) {@include hook-card-secondary-title();}
 }
 
 .uk-card-secondary.uk-card-hover:hover {
     background-color: $card-secondary-hover-background;
-    @if(mixin-exists(hook-card-secondary-hover)) {@include hook-card-secondary-hover();}
+    @if(meta.mixin-exists(hook-card-secondary-hover)) {@include hook-card-secondary-hover();}
 }
 
 // Color Mode
@@ -306,7 +308,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-card-misc)) {@include hook-card-misc();}
+@if(meta.mixin-exists(hook-card-misc)) {@include hook-card-misc();}
 
 // @mixin hook-card(){}
 // @mixin hook-card-body(){}

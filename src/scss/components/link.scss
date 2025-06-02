@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Link
 // Description:     Styles for links
 //
@@ -30,14 +32,14 @@ a.uk-link-muted,
 .uk-link-muted a,
 .uk-link-toggle .uk-link-muted {
     color: $link-muted-color;
-    @if(mixin-exists(hook-link-muted)) {@include hook-link-muted();}
+    @if(meta.mixin-exists(hook-link-muted)) {@include hook-link-muted();}
 }
 
 a.uk-link-muted:hover,
 .uk-link-muted a:hover,
 .uk-link-toggle:hover .uk-link-muted {
     color: $link-muted-hover-color;
-    @if(mixin-exists(hook-link-muted-hover)) {@include hook-link-muted-hover();}
+    @if(meta.mixin-exists(hook-link-muted-hover)) {@include hook-link-muted-hover();}
 }
 
 
@@ -48,14 +50,14 @@ a.uk-link-text,
 .uk-link-text a,
 .uk-link-toggle .uk-link-text {
     color: inherit;
-    @if(mixin-exists(hook-link-text)) {@include hook-link-text();}
+    @if(meta.mixin-exists(hook-link-text)) {@include hook-link-text();}
 }
 
 a.uk-link-text:hover,
 .uk-link-text a:hover,
 .uk-link-toggle:hover .uk-link-text {
     color: $link-text-hover-color;
-    @if(mixin-exists(hook-link-text-hover)) {@include hook-link-text-hover();}
+    @if(meta.mixin-exists(hook-link-text-hover)) {@include hook-link-text-hover();}
 }
 
 
@@ -66,7 +68,7 @@ a.uk-link-heading,
 .uk-link-heading a,
 .uk-link-toggle .uk-link-heading {
     color: inherit;
-    @if(mixin-exists(hook-link-heading)) {@include hook-link-heading();}
+    @if(meta.mixin-exists(hook-link-heading)) {@include hook-link-heading();}
 }
 
 a.uk-link-heading:hover,
@@ -74,7 +76,7 @@ a.uk-link-heading:hover,
 .uk-link-toggle:hover .uk-link-heading {
     color: $link-heading-hover-color;
     text-decoration: $link-heading-hover-text-decoration;
-    @if(mixin-exists(hook-link-heading-hover)) {@include hook-link-heading-hover();}
+    @if(meta.mixin-exists(hook-link-heading-hover)) {@include hook-link-heading-hover();}
 }
 
 
@@ -89,7 +91,7 @@ a.uk-link-reset,
 .uk-link-reset a {
     color: inherit !important;
     text-decoration: none !important;
-    @if(mixin-exists(hook-link-reset)) {@include hook-link-reset();}
+    @if(meta.mixin-exists(hook-link-reset)) {@include hook-link-reset();}
 }
 
 
@@ -105,7 +107,7 @@ a.uk-link-reset,
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-link-misc)) {@include hook-link-misc();}
+@if(meta.mixin-exists(hook-link-misc)) {@include hook-link-misc();}
 
 // @mixin hook-link-muted(){}
 // @mixin hook-link-muted-hover(){}

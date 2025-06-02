@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Flex
 // Description:     Utilities for layouts based on flexbox
 //
@@ -303,6 +305,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-flex-misc)) {@include hook-flex-misc();}
+@if(meta.mixin-exists(hook-flex-misc)) {@include hook-flex-misc();}
 
 // @mixin hook-flex-misc(){}

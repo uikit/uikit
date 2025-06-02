@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Alert
 // Description:     Component to create alert messages
 //
@@ -33,7 +35,7 @@
     padding: $alert-padding $alert-padding-right $alert-padding $alert-padding;
     background: $alert-background;
     color: $alert-color;
-    @if(mixin-exists(hook-alert)) {@include hook-alert();}
+    @if(meta.mixin-exists(hook-alert)) {@include hook-alert();}
 }
 
 /* Add margin if adjacent element */
@@ -54,7 +56,7 @@
     position: absolute;
     top: $alert-close-top;
     right: $alert-close-right;
-    @if(mixin-exists(hook-alert-close)) {@include hook-alert-close();}
+    @if(meta.mixin-exists(hook-alert-close)) {@include hook-alert-close();}
 }
 
 /*
@@ -68,7 +70,7 @@
  */
 
 .uk-alert-close:hover {
-    @if(mixin-exists(hook-alert-close-hover)) {@include hook-alert-close-hover();}
+    @if(meta.mixin-exists(hook-alert-close-hover)) {@include hook-alert-close-hover();}
 }
 
 
@@ -82,7 +84,7 @@
 .uk-alert-primary {
     background: $alert-primary-background;
     color: $alert-primary-color;
-    @if(mixin-exists(hook-alert-primary)) {@include hook-alert-primary();}
+    @if(meta.mixin-exists(hook-alert-primary)) {@include hook-alert-primary();}
 }
 
 /*
@@ -92,7 +94,7 @@
 .uk-alert-success {
     background: $alert-success-background;
     color: $alert-success-color;
-    @if(mixin-exists(hook-alert-success)) {@include hook-alert-success();}
+    @if(meta.mixin-exists(hook-alert-success)) {@include hook-alert-success();}
 }
 
 /*
@@ -102,7 +104,7 @@
 .uk-alert-warning {
     background: $alert-warning-background;
     color: $alert-warning-color;
-    @if(mixin-exists(hook-alert-warning)) {@include hook-alert-warning();}
+    @if(meta.mixin-exists(hook-alert-warning)) {@include hook-alert-warning();}
 }
 
 /*
@@ -112,14 +114,14 @@
 .uk-alert-danger {
     background: $alert-danger-background;
     color: $alert-danger-color;
-    @if(mixin-exists(hook-alert-danger)) {@include hook-alert-danger();}
+    @if(meta.mixin-exists(hook-alert-danger)) {@include hook-alert-danger();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-alert-misc)) {@include hook-alert-misc();}
+@if(meta.mixin-exists(hook-alert-misc)) {@include hook-alert-misc();}
 
 // @mixin hook-alert(){}
 // @mixin hook-alert-close(){}

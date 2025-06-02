@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Marker
 // Description:     Component to create a marker icon
 //
@@ -24,20 +26,20 @@
     padding: $marker-padding;
     background: $marker-background;
     color: $marker-color;
-    @if(mixin-exists(hook-marker)) {@include hook-marker();}
+    @if(meta.mixin-exists(hook-marker)) {@include hook-marker();}
 }
 
 /* Hover */
 .uk-marker:hover {
     color: $marker-hover-color;
-    @if(mixin-exists(hook-marker-hover)) {@include hook-marker-hover();}
+    @if(meta.mixin-exists(hook-marker-hover)) {@include hook-marker-hover();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-marker-misc)) {@include hook-marker-misc();}
+@if(meta.mixin-exists(hook-marker-misc)) {@include hook-marker-misc();}
 
 // @mixin hook-marker(){}
 // @mixin hook-marker-hover(){}

@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Align
 // Description:     Utilities to align embedded content
 //
@@ -134,6 +136,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-align-misc)) {@include hook-align-misc();}
+@if(meta.mixin-exists(hook-align-misc)) {@include hook-align-misc();}
 
 // @mixin hook-align-misc(){}

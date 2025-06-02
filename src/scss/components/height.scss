@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Height
 // Description:     Utilities for heights
 //
@@ -49,6 +51,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-height-misc)) {@include hook-height-misc();}
+@if(meta.mixin-exists(hook-height-misc)) {@include hook-height-misc();}
 
 // @mixin hook-height-misc(){}

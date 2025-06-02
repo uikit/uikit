@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Article
 // Description:     Component to create articles
 //
@@ -22,7 +24,7 @@
 
 .uk-article {
     display: flow-root;
-    @if(mixin-exists(hook-article)) {@include hook-article();}
+    @if(meta.mixin-exists(hook-article)) {@include hook-article();}
 }
 
 /*
@@ -37,7 +39,7 @@
 
 .uk-article + .uk-article {
     margin-top: $article-margin-top;
-    @if(mixin-exists(hook-article-adjacent)) {@include hook-article-adjacent();}
+    @if(meta.mixin-exists(hook-article-adjacent)) {@include hook-article-adjacent();}
 }
 
 
@@ -47,7 +49,7 @@
 .uk-article-title {
     font-size: $article-title-font-size;
     line-height: $article-title-line-height;
-    @if(mixin-exists(hook-article-title)) {@include hook-article-title();}
+    @if(meta.mixin-exists(hook-article-title)) {@include hook-article-title();}
 }
 
 /* Tablet landscape and bigger */
@@ -65,14 +67,14 @@
     font-size: $article-meta-font-size;
     line-height: $article-meta-line-height;
     color: $article-meta-color;
-    @if(mixin-exists(hook-article-meta)) {@include hook-article-meta();}
+    @if(meta.mixin-exists(hook-article-meta)) {@include hook-article-meta();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-article-misc)) {@include hook-article-misc();}
+@if(meta.mixin-exists(hook-article-misc)) {@include hook-article-misc();}
 
 // @mixin hook-article(){}
 // @mixin hook-article-adjacent(){}

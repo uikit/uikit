@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            SVG
 // Description:     Component to style SVGs
 //
@@ -31,6 +33,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-svg-misc)) {@include hook-svg-misc();}
+@if(meta.mixin-exists(hook-svg-misc)) {@include hook-svg-misc();}
 
 // @mixin hook-svg-misc(){}
