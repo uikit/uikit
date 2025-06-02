@@ -1,3 +1,4 @@
+@use "sass:meta";
 // Name:            Lightbox
 // Description:     Component to create an lightbox image gallery
 //
@@ -60,7 +61,7 @@
     transition: opacity 0.15s linear;
     /* 7 */
     touch-action: pinch-zoom;
-    @if(mixin-exists(hook-lightbox)) {@include hook-lightbox();}
+    @if(meta.mixin-exists(hook-lightbox)) {@include hook-lightbox();}
 }
 
 /*
@@ -128,7 +129,7 @@
     will-change: transform, opacity;
     /* 4 */
     overflow: auto;
-    @if(mixin-exists(hook-lightbox-item)) {@include hook-lightbox-item();}
+    @if(meta.mixin-exists(hook-lightbox-item)) {@include hook-lightbox-item();}
 }
 
 /* 2 */
@@ -171,7 +172,7 @@
     padding: $lightbox-caption-padding-vertical $lightbox-caption-padding-horizontal;
     background: $lightbox-caption-background;
     color: $lightbox-caption-color;
-    @if(mixin-exists(hook-lightbox-caption)) {@include hook-lightbox-caption();}
+    @if(meta.mixin-exists(hook-lightbox-caption)) {@include hook-lightbox-caption();}
 }
 
 .uk-lightbox-caption > * { color: $lightbox-caption-color; }
@@ -195,7 +196,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-lightbox-misc)) {@include hook-lightbox-misc();}
+@if(meta.mixin-exists(hook-lightbox-misc)) {@include hook-lightbox-misc();}
 
 // @mixin hook-lightbox(){}
 // @mixin hook-lightbox-item(){}

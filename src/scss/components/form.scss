@@ -1,3 +1,7 @@
+@use "sass:meta";
+@use "mixin";
+@use "variables";
+
 // Name:            Form
 // Description:     Styles for forms
 //
@@ -206,7 +210,7 @@
     padding: 0 $form-padding-horizontal;
     background: $form-background;
     color: $form-color;
-    @if(mixin-exists(hook-form)) {@include hook-form();}
+    @if(meta.mixin-exists(hook-form)) {@include hook-form();}
 }
 
 /*
@@ -222,7 +226,7 @@
     vertical-align: middle;
     /* 1 */
     display: inline-block;
-    @if(mixin-exists(hook-form-single-line)) {@include hook-form-single-line();}
+    @if(meta.mixin-exists(hook-form-single-line)) {@include hook-form-single-line();}
 }
 
 /* 2 */
@@ -239,7 +243,7 @@
     padding-top: $form-padding-vertical;
     padding-bottom: $form-padding-vertical;
     vertical-align: top;
-    @if(mixin-exists(hook-form-multi-line)) {@include hook-form-multi-line();}
+    @if(meta.mixin-exists(hook-form-multi-line)) {@include hook-form-multi-line();}
 }
 
 .uk-select[multiple],
@@ -252,7 +256,7 @@
     outline: none;
     background-color: $form-focus-background;
     color: $form-focus-color;
-    @if(mixin-exists(hook-form-focus)) {@include hook-form-focus();}
+    @if(meta.mixin-exists(hook-form-focus)) {@include hook-form-focus();}
 }
 
 /* Disabled */
@@ -261,7 +265,7 @@
 .uk-textarea:disabled {
     background-color: $form-disabled-background;
     color: $form-disabled-color;
-    @if(mixin-exists(hook-form-disabled)) {@include hook-form-disabled();}
+    @if(meta.mixin-exists(hook-form-disabled)) {@include hook-form-disabled();}
 }
 
 /*
@@ -327,7 +331,7 @@ textarea.uk-form-large,
 .uk-form-danger,
 .uk-form-danger:focus {
     color: $form-danger-color;
-    @if(mixin-exists(hook-form-danger)) {@include hook-form-danger();}
+    @if(meta.mixin-exists(hook-form-danger)) {@include hook-form-danger();}
 }
 
 /*
@@ -337,7 +341,7 @@ textarea.uk-form-large,
 .uk-form-success,
 .uk-form-success:focus {
     color: $form-success-color;
-    @if(mixin-exists(hook-form-success)) {@include hook-form-success();}
+    @if(meta.mixin-exists(hook-form-success)) {@include hook-form-success();}
 }
 
 /*
@@ -346,11 +350,11 @@ textarea.uk-form-large,
 
 .uk-form-blank {
     background: none;
-    @if(mixin-exists(hook-form-blank)) {@include hook-form-blank();}
+    @if(meta.mixin-exists(hook-form-blank)) {@include hook-form-blank();}
 }
 
 .uk-form-blank:focus {
-    @if(mixin-exists(hook-form-blank-focus)) {@include hook-form-blank-focus();}
+    @if(meta.mixin-exists(hook-form-blank-focus)) {@include hook-form-blank-focus();}
 }
 
 
@@ -388,7 +392,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
     -moz-appearance: none;
     /* 2 */
     padding-right: $form-select-padding-right;
-    @include svg-fill($internal-form-select-image, "#000", $form-select-icon-color);
+    @include mixin.svg-fill($internal-form-select-image, "#000", $form-select-icon-color);
     background-repeat: no-repeat;
     background-position: 100% 50%;
 }
@@ -400,7 +404,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
  * Disabled
  */
 
-.uk-select:not([multiple]):not([size]):disabled { @include svg-fill($internal-form-select-image, "#000", $form-select-disabled-icon-color); }
+.uk-select:not([multiple]):not([size]):disabled { @include mixin.svg-fill($internal-form-select-image, "#000", $form-select-disabled-icon-color); }
 
 
 /* Datalist
@@ -417,7 +421,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 }
 
 .uk-input[list]:hover,
-.uk-input[list]:focus { @include svg-fill($internal-form-datalist-image, "#000", $form-datalist-icon-color); }
+.uk-input[list]:focus { @include mixin.svg-fill($internal-form-datalist-image, "#000", $form-datalist-icon-color); }
 
 /* 1 */
 .uk-input[list]::-webkit-calendar-picker-indicator { display: none !important; }
@@ -454,7 +458,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
     /* 6 */
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    @if(mixin-exists(hook-form-radio)) {@include hook-form-radio();}
+    @if(meta.mixin-exists(hook-form-radio)) {@include hook-form-radio();}
 }
 
 .uk-radio { border-radius: 50%; }
@@ -464,7 +468,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 .uk-checkbox:focus {
     background-color: $form-radio-focus-background;
     outline: none;
-    @if(mixin-exists(hook-form-radio-focus)) {@include hook-form-radio-focus();}
+    @if(meta.mixin-exists(hook-form-radio-focus)) {@include hook-form-radio-focus();}
 }
 
 /*
@@ -475,7 +479,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 .uk-checkbox:checked,
 .uk-checkbox:indeterminate {
     background-color: $form-radio-checked-background;
-    @if(mixin-exists(hook-form-radio-checked)) {@include hook-form-radio-checked();}
+    @if(meta.mixin-exists(hook-form-radio-checked)) {@include hook-form-radio-checked();}
 }
 
 /* Focus */
@@ -483,16 +487,16 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 .uk-checkbox:checked:focus,
 .uk-checkbox:indeterminate:focus {
     background-color: $form-radio-checked-focus-background;
-    @if(mixin-exists(hook-form-radio-checked-focus)) {@include hook-form-radio-checked-focus();}
+    @if(meta.mixin-exists(hook-form-radio-checked-focus)) {@include hook-form-radio-checked-focus();}
 }
 
 /*
  * Icons
  */
 
-.uk-radio:checked { @include svg-fill($internal-form-radio-image, "#000", $form-radio-checked-icon-color); }
-.uk-checkbox:checked { @include svg-fill($internal-form-checkbox-image, "#000", $form-radio-checked-icon-color); }
-.uk-checkbox:indeterminate { @include svg-fill($internal-form-checkbox-indeterminate-image, "#000", $form-radio-checked-icon-color); }
+.uk-radio:checked { @include mixin.svg-fill($internal-form-radio-image, "#000", $form-radio-checked-icon-color); }
+.uk-checkbox:checked { @include mixin.svg-fill($internal-form-checkbox-image, "#000", $form-radio-checked-icon-color); }
+.uk-checkbox:indeterminate { @include mixin.svg-fill($internal-form-checkbox-indeterminate-image, "#000", $form-radio-checked-icon-color); }
 
 /*
  * Disabled
@@ -501,12 +505,12 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 .uk-radio:disabled,
 .uk-checkbox:disabled {
     background-color: $form-radio-disabled-background;
-    @if(mixin-exists(hook-form-radio-disabled)) {@include hook-form-radio-disabled();}
+    @if(meta.mixin-exists(hook-form-radio-disabled)) {@include hook-form-radio-disabled();}
 }
 
-.uk-radio:disabled:checked { @include svg-fill($internal-form-radio-image, "#000", $form-radio-disabled-icon-color); }
-.uk-checkbox:disabled:checked { @include svg-fill($internal-form-checkbox-image, "#000", $form-radio-disabled-icon-color); }
-.uk-checkbox:disabled:indeterminate { @include svg-fill($internal-form-checkbox-indeterminate-image, "#000", $form-radio-disabled-icon-color); }
+.uk-radio:disabled:checked { @include mixin.svg-fill($internal-form-radio-image, "#000", $form-radio-disabled-icon-color); }
+.uk-checkbox:disabled:checked { @include mixin.svg-fill($internal-form-checkbox-image, "#000", $form-radio-disabled-icon-color); }
+.uk-checkbox:disabled:indeterminate { @include mixin.svg-fill($internal-form-checkbox-indeterminate-image, "#000", $form-radio-disabled-icon-color); }
 
 
 /* Legend
@@ -530,7 +534,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
     /* 4 */
     font-size: $form-legend-font-size;
     line-height: $form-legend-line-height;
-    @if(mixin-exists(hook-form-legend)) {@include hook-form-legend();}
+    @if(meta.mixin-exists(hook-form-legend)) {@include hook-form-legend();}
 }
 
 
@@ -593,7 +597,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
  ========================================================================== */
 
 .uk-form-label {
-    @if(mixin-exists(hook-form-label)) {@include hook-form-label();}
+    @if(meta.mixin-exists(hook-form-label)) {@include hook-form-label();}
 }
 
 
@@ -607,7 +611,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 .uk-form-stacked .uk-form-label {
     display: block;
     margin-bottom: $form-stacked-margin-bottom;
-    @if(mixin-exists(hook-form-stacked-label)) {@include hook-form-stacked-label();}
+    @if(meta.mixin-exists(hook-form-stacked-label)) {@include hook-form-stacked-label();}
 }
 
 /*
@@ -621,19 +625,19 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
     .uk-form-horizontal .uk-form-label {
         display: block;
         margin-bottom: $form-stacked-margin-bottom;
-        @if(mixin-exists(hook-form-stacked-label)) {@include hook-form-stacked-label();}
+        @if(meta.mixin-exists(hook-form-stacked-label)) {@include hook-form-stacked-label();}
     }
 
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: $breakpoint-medium) {
+@media (min-width: variables.$breakpoint-medium) {
 
     .uk-form-horizontal .uk-form-label {
         width: $form-horizontal-label-width;
         margin-top: $form-horizontal-label-margin-top;
         float: left;
-        @if(mixin-exists(hook-form-horizontal-label)) {@include hook-form-horizontal-label();}
+        @if(meta.mixin-exists(hook-form-horizontal-label)) {@include hook-form-horizontal-label();}
     }
 
     .uk-form-horizontal .uk-form-controls { margin-left: $form-horizontal-controls-margin-left; }
@@ -668,7 +672,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
     align-items: center;
     /* 4 */
     color: $form-icon-color;
-    @if(mixin-exists(hook-form-icon)) {@include hook-form-icon();}
+    @if(meta.mixin-exists(hook-form-icon)) {@include hook-form-icon();}
 }
 
 /*
@@ -704,7 +708,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-form-misc)) {@include hook-form-misc();}
+@if(meta.mixin-exists(hook-form-misc)) {@include hook-form-misc();}
 
 // @mixin hook-form(){}
 // @mixin hook-form-single-line(){}

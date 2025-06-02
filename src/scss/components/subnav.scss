@@ -1,3 +1,4 @@
+@use "sass:meta";
 // Name:            Subnav
 // Description:     Component to create a sub navigation
 //
@@ -43,7 +44,7 @@
     /* 4 */
     padding: 0;
     list-style: none;
-    @if(mixin-exists(hook-subnav)) {@include hook-subnav();}
+    @if(meta.mixin-exists(hook-subnav)) {@include hook-subnav();}
 }
 
 /*
@@ -81,20 +82,20 @@
     column-gap: 0.25em;
     /* 3 */
     color: $subnav-item-color;
-    @if(mixin-exists(hook-subnav-item)) {@include hook-subnav-item();}
+    @if(meta.mixin-exists(hook-subnav-item)) {@include hook-subnav-item();}
 }
 
 /* Hover */
 .uk-subnav > * > a:hover {
     color: $subnav-item-hover-color;
     text-decoration: $subnav-item-hover-text-decoration;
-    @if(mixin-exists(hook-subnav-item-hover)) {@include hook-subnav-item-hover();}
+    @if(meta.mixin-exists(hook-subnav-item-hover)) {@include hook-subnav-item-hover();}
 }
 
 /* Active */
 .uk-subnav > .uk-active > a {
     color: $subnav-item-active-color;
-    @if(mixin-exists(hook-subnav-item-active)) {@include hook-subnav-item-active();}
+    @if(meta.mixin-exists(hook-subnav-item-active)) {@include hook-subnav-item-active();}
 }
 
 
@@ -132,7 +133,7 @@
 /* 1 */
 .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
     border-left-color: $subnav-divider-border;
-    @if(mixin-exists(hook-subnav-divider)) {@include hook-subnav-divider();}
+    @if(meta.mixin-exists(hook-subnav-divider)) {@include hook-subnav-divider();}
 }
 
 
@@ -150,28 +151,28 @@
     padding: $subnav-pill-item-padding-vertical $subnav-pill-item-padding-horizontal;
     background: $subnav-pill-item-background;
     color: $subnav-pill-item-color;
-    @if(mixin-exists(hook-subnav-pill-item)) {@include hook-subnav-pill-item();}
+    @if(meta.mixin-exists(hook-subnav-pill-item)) {@include hook-subnav-pill-item();}
 }
 
 /* Hover */
 .uk-subnav-pill > * > a:hover {
     background-color: $subnav-pill-item-hover-background;
     color: $subnav-pill-item-hover-color;
-    @if(mixin-exists(hook-subnav-pill-item-hover)) {@include hook-subnav-pill-item-hover();}
+    @if(meta.mixin-exists(hook-subnav-pill-item-hover)) {@include hook-subnav-pill-item-hover();}
 }
 
 /* OnClick */
 .uk-subnav-pill > * > a:active {
     background-color: $subnav-pill-item-onclick-background;
     color: $subnav-pill-item-onclick-color;
-    @if(mixin-exists(hook-subnav-pill-item-onclick)) {@include hook-subnav-pill-item-onclick();}
+    @if(meta.mixin-exists(hook-subnav-pill-item-onclick)) {@include hook-subnav-pill-item-onclick();}
 }
 
 /* Active */
 .uk-subnav-pill > .uk-active > a {
     background-color: $subnav-pill-item-active-background;
     color: $subnav-pill-item-active-color;
-    @if(mixin-exists(hook-subnav-pill-item-active)) {@include hook-subnav-pill-item-active();}
+    @if(meta.mixin-exists(hook-subnav-pill-item-active)) {@include hook-subnav-pill-item-active();}
 }
 
 
@@ -181,14 +182,14 @@
 
 .uk-subnav > .uk-disabled > a {
     color: $subnav-item-disabled-color;
-    @if(mixin-exists(hook-subnav-item-disabled)) {@include hook-subnav-item-disabled();}
+    @if(meta.mixin-exists(hook-subnav-item-disabled)) {@include hook-subnav-item-disabled();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-subnav-misc)) {@include hook-subnav-misc();}
+@if(meta.mixin-exists(hook-subnav-misc)) {@include hook-subnav-misc();}
 
 // @mixin hook-subnav(){}
 // @mixin hook-subnav-item(){}
