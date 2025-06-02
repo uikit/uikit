@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Margin
 // Description:     Utilities for margins
 //
@@ -250,6 +252,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-margin-misc)) {@include hook-margin-misc();}
+@if(meta.mixin-exists(hook-margin-misc)) {@include hook-margin-misc();}
 
 // @mixin hook-margin-misc(){}

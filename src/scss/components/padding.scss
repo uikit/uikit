@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Padding
 // Description:     Utilities for padding
 //
@@ -71,6 +73,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-padding-misc)) {@include hook-padding-misc();}
+@if(meta.mixin-exists(hook-padding-misc)) {@include hook-padding-misc();}
 
 // @mixin hook-padding-misc(){}

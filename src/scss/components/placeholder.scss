@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Placeholder
 // Description:     Component to create placeholder boxes
 //
@@ -19,7 +21,7 @@
     margin-bottom: $placeholder-margin-vertical;
     padding: $placeholder-padding-vertical $placeholder-padding-horizontal;
     background: $placeholder-background;
-    @if(mixin-exists(hook-placeholder)) {@include hook-placeholder();}
+    @if(meta.mixin-exists(hook-placeholder)) {@include hook-placeholder();}
 }
 
 /* Add margin if adjacent element */
@@ -35,7 +37,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-placeholder-misc)) {@include hook-placeholder-misc();}
+@if(meta.mixin-exists(hook-placeholder-misc)) {@include hook-placeholder-misc();}
 
 // @mixin hook-placeholder(){}
 // @mixin hook-placeholder-misc(){}

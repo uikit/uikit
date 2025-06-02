@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Visibility
 // Description:     Utilities to show or hide content on breakpoints, hover or touch
 //
@@ -159,6 +161,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-visibility-misc)) {@include hook-visibility-misc();}
+@if(meta.mixin-exists(hook-visibility-misc)) {@include hook-visibility-misc();}
 
 // @mixin hook-visibility-misc(){}

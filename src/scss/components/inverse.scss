@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Inverse
 // Description:     Inverse component style for light or dark backgrounds
 //
@@ -26,9 +28,9 @@
  * `uk-dark` is or dark colors on light backgrounds
  */
 
-@if ($inverse-global-color-mode == light) { .uk-light { @if (mixin-exists(hook-inverse)) {@include hook-inverse();}}}
+@if ($inverse-global-color-mode == light) { .uk-light { @if (meta.mixin-exists(hook-inverse)) {@include hook-inverse();}}}
 
-@if ($inverse-global-color-mode == dark) { .uk-dark { @if (mixin-exists(hook-inverse)) {@include hook-inverse();}}}
+@if ($inverse-global-color-mode == dark) { .uk-dark { @if (meta.mixin-exists(hook-inverse)) {@include hook-inverse();}}}
 
 /*
  * Pass dropbar behind color to JS

@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Dropnav
 // Description:     Component to create dropdown/dropbar menus based on Drop component
 //
@@ -37,6 +39,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-dropnav-misc)) {@include hook-dropnav-misc();}
+@if(meta.mixin-exists(hook-dropnav-misc)) {@include hook-dropnav-misc();}
 
 // @mixin hook-dropnav-misc(){}

@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.23.8 (June 2, 2025)
 
 ### Changed
 

@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Badge
 // Description:     Component to create notification badges
 //
@@ -36,7 +38,7 @@
     justify-content: center;
     align-items: center;
     line-height: 0;
-    @if(mixin-exists(hook-badge)) {@include hook-badge();}
+    @if(meta.mixin-exists(hook-badge)) {@include hook-badge();}
 }
 
 /*
@@ -45,14 +47,14 @@
 
 .uk-badge:hover {
     text-decoration: none;
-    @if(mixin-exists(hook-badge-hover)) {@include hook-badge-hover();}
+    @if(meta.mixin-exists(hook-badge-hover)) {@include hook-badge-hover();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-badge-misc)) {@include hook-badge-misc();}
+@if(meta.mixin-exists(hook-badge-misc)) {@include hook-badge-misc();}
 
 // @mixin hook-badge(){}
 // @mixin hook-badge-hover(){}
