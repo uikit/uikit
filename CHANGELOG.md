@@ -10,6 +10,7 @@
 
 - Fix setting focus to Modal/Offcanvas Toggle component after close
 - Fix Dropnav component no longer opens its Drop components upon initial hover during page load (in Safari and Firefox)
+- Fix Scrollspy Nav component no longer highlights items whose targets do not exist
 
 ## 3.23.7 (May 9, 2025)
 
