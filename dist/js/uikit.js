@@ -1,4 +1,4 @@
-/*! UIkit 3.23.8 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.9 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3745,7 +3745,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.8";
+    App.version = "3.23.9";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -8222,6 +8222,12 @@
       beforeConnect() {
         addClass(this.$el, "uk-icon");
       },
+      async connected() {
+        const svg = await this.svg;
+        if (svg) {
+          svg.ariaHidden = true;
+        }
+      },
       methods: {
         async getSvg() {
           const icon = getIcon(this.icon);
@@ -9544,6 +9550,7 @@
         const [prop, value] = this.attributes[attribute].split(":", 2);
         attr(el, prop, value);
       }
+      el.ariaHidden = this.$el.ariaHidden;
       if (!this.$el.id) {
         removeAttr(el, "id");
       }
