@@ -84,6 +84,8 @@ function applyAttributes(el) {
         attr(el, prop, value);
     }
 
+    el.ariaHidden = this.$el.ariaHidden;
+
     if (!this.$el.id) {
         removeAttr(el, 'id');
     }
