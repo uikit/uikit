@@ -75,6 +75,13 @@ const Icon = {
         addClass(this.$el, 'uk-icon');
     },
 
+    async connected() {
+        const svg = await this.svg;
+        if (svg) {
+            svg.ariaHidden = true;
+        }
+    },
+
     methods: {
         async getSvg() {
             const icon = getIcon(this.icon);

@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Add missing `aria-hidden` attribute in Icon component
+
 ## 3.23.8 (June 2, 2025)
 
 ### Changed
