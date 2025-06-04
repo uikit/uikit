@@ -79,16 +79,18 @@ export default {
 
     observe: [
         intersection({
-            filter: ({ $el, autoplay }) => autoplay !== 'hover' || $el.preload === 'none',
+            filter: ({ $el }) => $el.preload === 'none',
+            handler([{ target }], observer) {
+                target.preload = '';
+                observer.disconnect();
+            },
+        }),
+
+        intersection({
+            filter: ({ autoplay }) => autoplay !== 'hover',
             handler([{ isIntersecting, target }]) {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
-                        if (target.preload === 'none') {
-                            target.preload = '';
-                            this.$reset();
-                            return;
-                        }
-
                         if (this.autoplay) {
                             play(target);
                         }
@@ -99,10 +101,7 @@ export default {
             },
             args: { intersecting: false },
             options: ({ $el, autoplay }) => ({
-                root:
-                    autoplay === 'inview' || $el.preload === 'none'
-                        ? null
-                        : parent($el).closest(':not(a)'),
+                root: autoplay === 'inview' ? null : parent($el).closest(':not(a)'),
             }),
         }),
     ],
