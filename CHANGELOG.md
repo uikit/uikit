@@ -2,25 +2,6 @@
 
 ## WIP
 
-### Fixed
-
-- Fix setting `aria-expanded` on the closest button of the Navbar Toggle Icon
-
-## 3.23.10 (June 12, 2025)
-
-### Fixed
-
-- Fix Toggle component does not toggle if element is a link without `href` attribute
-- Fix closing modal prevents page from being scrollable in Firefox
-
-## 3.23.9 (June 3, 2025)
-
-### Changed
-
-- Add missing `aria-hidden` attribute in Icon component
-
-## 3.23.8 (June 2, 2025)
-
 ### Added
 
 - Add Overflow Fade component
@@ -46,6 +27,25 @@
 - Fix border color if visible toggle class is applied in Visibility component
 
 ## WIP
+
+### Fixed
+
+- Fix setting `aria-expanded` on the closest button of the Navbar Toggle Icon
+
+## 3.23.10 (June 12, 2025)
+
+### Fixed
+
+- Fix Toggle component does not toggle if element is a link without `href` attribute
+- Fix closing modal prevents page from being scrollable in Firefox
+
+## 3.23.9 (June 3, 2025)
+
+### Changed
+
+- Add missing `aria-hidden` attribute in Icon component
+
+## 3.23.8 (June 2, 2025)
 
 ### Changed
 
