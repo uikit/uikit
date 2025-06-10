@@ -2,6 +2,32 @@
 
 ## 3.23.13 (September 11, 2025)
 
+### Added
+
+- Add Overflow Fade component
+- Add card overlay style modifier to Card component
+- Add form size modifier for radio and checkbox to Form component
+- Add icon overlay modifier to Icon component
+- Add highest z-index utility class to Position component
+
+### Changed
+
+- Stretch the entire navbar height if an item's height is expanded by its content
+- Scale height of responsive images and videos based on extrinsic aspect ratio and fill content box (Chrome only yet)
+- Videos set to `preload: none` will lazy load by default now
+
+### Deprecated
+
+- Deprecate `automute` option in Video and Cover component, use `muted` attribute for videos, `mute=1` for YouTube and `muted=1` for Vimeo instead
+
+### Fixed
+
+- Fix disable color for span elements in Subnav component
+- Fix text underline offset if text is vertical aligned to the middle in Link component
+- Fix border color if visible toggle class is applied in Visibility component
+
+## WIP
+
 ### Fixed
 
 - Fix setting focus to Modal/Offcanvas Toggle component after close scrolls page
@@ -36,32 +62,6 @@
 - Add missing `aria-hidden` attribute in Icon component
 
 ## 3.23.8 (June 2, 2025)
-
-### Added
-
-- Add Overflow Fade component
-- Add card overlay style modifier to Card component
-- Add form size modifier for radio and checkbox to Form component
-- Add icon overlay modifier to Icon component
-- Add highest z-index utility class to Position component
-
-### Changed
-
-- Stretch the entire navbar height if an item's height is expanded by its content
-- Scale height of responsive images and videos based on extrinsic aspect ratio and fill content box (Chrome only yet)
-- Videos set to `preload: none` will lazy load by default now
-
-### Deprecated
-
-- Deprecate `automute` option in Video and Cover component, use `muted` attribute for videos, `mute=1` for YouTube and `muted=1` for Vimeo instead
-
-### Fixed
-
-- Fix disable color for span elements in Subnav component
-- Fix text underline offset if text is vertical aligned to the middle in Link component
-- Fix border color if visible toggle class is applied in Visibility component
-
-## WIP
 
 ### Changed
 
