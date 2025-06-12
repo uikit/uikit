@@ -158,7 +158,7 @@ export default {
                     return;
                 }
 
-                const link = e.target.closest('a');
+                const link = e.target.closest('a[href]');
                 const isButtonLike =
                     isSameSiteAnchor(link) && (!link.hash || matches(this.target, link.hash));
 
