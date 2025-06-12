@@ -189,15 +189,14 @@ export default {
 
                 css(this.$el, 'zIndex', '');
 
+                const { target } = this;
                 if (!active.some((modal) => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);
+
+                    queueMicrotask(() => isFocusable(target) && target.focus());
                 }
 
-                if (isFocusable(this.target)) {
-                    this.target.focus();
-                }
-
-                setAriaExpanded(this.target, false);
+                setAriaExpanded(target, false);
 
                 this.target = null;
             },

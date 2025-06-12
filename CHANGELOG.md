@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Toggle component does not toggle if element is a link without `href` attribute
+- Fix closing modal prevents page from being scrollable in Firefox
 
 ## 3.23.9 (June 3, 2025)
 
@@ -625,7 +626,7 @@
 
 ### Fixed
 
-- Fix Toggle in hover mode does not trigger when scrolling in FireFox
+- Fix Toggle in hover mode does not trigger when scrolling in Firefox
 - Fix Parallax component stop parsing
 
 ## 3.16.24 (August 1, 2023)
