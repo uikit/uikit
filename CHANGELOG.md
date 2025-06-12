@@ -25,6 +25,7 @@
 - Fix disable color for span elements in Subnav component
 - Fix text underline offset if text is vertical aligned to the middle in Link component
 - Fix border color if visible toggle class is applied in Visibility component
+- Fix text from wrapping onto multiple lines if elements should look like `input` or `select`
 
 ## WIP
 
