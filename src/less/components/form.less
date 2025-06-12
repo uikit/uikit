@@ -270,23 +270,32 @@
 
 /*
  * Single-line
- * 1. Allow any element to look like an `input` or `select` element
- * 2. Make sure line-height is not larger than height
- *    Also needed to center the text vertically
  */
 
 .uk-input,
 .uk-select:not([multiple]):not([size]) {
     height: @form-height;
     vertical-align: middle;
-    /* 1 */
-    display: inline-block;
     .hook-form-single-line();
 }
 
-/* 2 */
-.uk-input:not(input),
-.uk-select:not(select) { line-height: @form-line-height; }
+/*
+ * 1. Allow any element to look like an `input` or `select` element
+ * 2. Make sure line-height is not larger than height. Also needed to center the text vertically
+ * 3. Prevent text from wrapping onto multiple lines, and truncate with an ellipsis
+ */
+
+.uk-input:where(:not(input)),
+.uk-select:where(:not(select)) {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    line-height: @form-line-height;
+    /* 3 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 /*
  * Multi-line
