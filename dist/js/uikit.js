@@ -1,4 +1,4 @@
-/*! UIkit 3.23.9 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.10 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3027,13 +3027,12 @@
               active$1.splice(active$1.indexOf(this), 1);
             }
             css(this.$el, "zIndex", "");
+            const { target } = this;
             if (!active$1.some((modal) => modal.clsPage === this.clsPage)) {
               removeClass(document.documentElement, this.clsPage);
+              queueMicrotask(() => isFocusable(target) && target.focus());
             }
-            if (isFocusable(this.target)) {
-              this.target.focus();
-            }
-            setAriaExpanded(this.target, false);
+            setAriaExpanded(target, false);
             this.target = null;
           }
         }
@@ -3745,7 +3744,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.9";
+    App.version = "3.23.10";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -9863,7 +9862,7 @@
             if (e.defaultPrevented) {
               return;
             }
-            const link = e.target.closest("a");
+            const link = e.target.closest("a[href]");
             const isButtonLike = isSameSiteAnchor(link) && (!link.hash || matches(this.target, link.hash));
             if (this._preventClick || isButtonLike || link && !this.isToggled(this.target)) {
               e.preventDefault();
