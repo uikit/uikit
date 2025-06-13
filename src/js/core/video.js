@@ -80,9 +80,9 @@ export default {
     observe: [
         intersection({
             filter: ({ $el }) => $el.preload === 'none',
-            handler([{ target }], observer) {
+            handler([{ target }]) {
                 target.preload = '';
-                observer.disconnect();
+                this.$reset();
             },
         }),
 
