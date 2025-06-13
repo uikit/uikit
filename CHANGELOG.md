@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix setting `aria-expanded` on the closest button of the Navbar Toggle Icon
+
 ## 3.23.10 (June 12, 2025)
 
 ### Fixed

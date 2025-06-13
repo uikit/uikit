@@ -206,7 +206,10 @@ export const NavbarToggleIcon = {
     i18n: { label: 'Open menu' },
 
     beforeConnect() {
-        this.$el.ariaExpanded = false;
+        const button = this.$el.closest('a,button');
+        if (button) {
+            button.ariaExpanded = false;
+        }
     },
 };
 
