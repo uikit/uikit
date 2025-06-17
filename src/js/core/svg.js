@@ -93,7 +93,7 @@ function applyAttributes(el) {
 
 const loadSVG = memoize(async (src) => {
     if (src) {
-        if (startsWith(src, 'data:')) {
+        if (startsWith(src, 'data:') && !includes(src, ";base64")) {
             return decodeURIComponent(src.split(',', 2)[1]);
         } else {
             const response = await fetch(src);
