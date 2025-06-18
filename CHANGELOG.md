@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix setting `aria-expanded` on the closest button of the Navbar Toggle Icon
+- Fix SVG component handles base64 encoded data URIs correctly
 
 ## 3.23.10 (June 12, 2025)
 
