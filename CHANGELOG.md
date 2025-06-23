@@ -9,6 +9,7 @@
 - Add form size modifier for radio and checkbox to Form component
 - Add icon overlay modifier to Icon component
 - Add highest z-index utility class to Position component
+- Add size modifier for top and bottom paddings to Section component
 
 ### Changed
 
