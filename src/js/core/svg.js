@@ -1,14 +1,4 @@
-import {
-    addClass,
-    attr,
-    css,
-    includes,
-    isTag,
-    memoize,
-    once,
-    removeAttr,
-    startsWith,
-} from 'uikit-util';
+import { addClass, attr, css, includes, isTag, memoize, once, removeAttr } from 'uikit-util';
 import { mutation } from '../api/observables';
 import Svg, { parseSVG } from '../mixin/svg';
 import { getMaxPathLength } from '../util/svg';
@@ -93,13 +83,9 @@ function applyAttributes(el) {
 
 const loadSVG = memoize(async (src) => {
     if (src) {
-        if (startsWith(src, 'data:')) {
-            return decodeURIComponent(src.split(',', 2)[1]);
-        } else {
-            const response = await fetch(src);
-            if (response.headers.get('Content-Type') === 'image/svg+xml') {
-                return response.text();
-            }
+        const response = await fetch(src);
+        if (response.headers.get('Content-Type') === 'image/svg+xml') {
+            return response.text();
         }
     }
 

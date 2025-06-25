@@ -1,4 +1,4 @@
-/*! UIkit 3.23.10 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.11 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3744,7 +3744,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.10";
+    App.version = "3.23.11";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -8313,7 +8313,10 @@
       extends: ButtonComponent,
       i18n: { label: "Open menu" },
       beforeConnect() {
-        this.$el.ariaExpanded = false;
+        const button = this.$el.closest("a,button");
+        if (button) {
+          button.ariaExpanded = false;
+        }
       }
     };
     const Close = {
@@ -9556,13 +9559,9 @@
     }
     const loadSVG = memoize(async (src) => {
       if (src) {
-        if (startsWith(src, "data:")) {
-          return decodeURIComponent(src.split(",", 2)[1]);
-        } else {
-          const response = await fetch(src);
-          if (response.headers.get("Content-Type") === "image/svg+xml") {
-            return response.text();
-          }
+        const response = await fetch(src);
+        if (response.headers.get("Content-Type") === "image/svg+xml") {
+          return response.text();
         }
       }
       return Promise.reject();
