@@ -539,10 +539,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Small
  */
 
-.uk-form-small:where(.uk-input, .uk-select, .uk-textarea) { font-size: @form-small-font-size; }
+.uk-form-small:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: @form-small-font-size; }
 
 /* Single-line */
-.uk-form-small:is(.uk-input, .uk-select:not([multiple]):not([size])) {
+.uk-form-small:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
     height: @form-small-height;
     padding-left: @form-small-padding-horizontal;
     padding-right: @form-small-padding-horizontal;
@@ -564,10 +564,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Large
  */
 
-.uk-form-large:where(.uk-input, .uk-select, .uk-textarea) { font-size: @form-large-font-size; }
+.uk-form-large:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: @form-large-font-size; }
 
 /* Single-line */
-.uk-form-large:is(.uk-input, .uk-select:not([multiple]):not([size])) {
+.uk-form-large:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
     height: @form-large-height;
     padding-left: @form-large-padding-horizontal;
     padding-right: @form-large-padding-horizontal;
