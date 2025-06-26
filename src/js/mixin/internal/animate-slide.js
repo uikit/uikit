@@ -12,6 +12,7 @@ import {
     Transition,
     trigger,
 } from 'uikit-util';
+import { awaitFrame } from '../../util/await';
 
 export default async function (action, target, duration) {
     await awaitFrame();
@@ -138,8 +139,4 @@ function getPositionWithMargin(el) {
         ...position(el),
         ...css(el, ['marginTop', 'marginLeft']),
     };
-}
-
-export function awaitFrame() {
-    return new Promise((resolve) => requestAnimationFrame(resolve));
 }

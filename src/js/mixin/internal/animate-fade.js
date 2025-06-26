@@ -12,6 +12,7 @@ import {
     Transition,
 } from 'uikit-util';
 import { getRows } from '../../core/margin';
+import { awaitTimeout } from '../../util/await';
 
 const clsLeave = 'uk-transition-leave';
 const clsEnter = 'uk-transition-enter';
@@ -117,8 +118,4 @@ function waitTransitionend(target) {
 
 function getTransitionNodes(target) {
     return getRows(children(target)).flat().filter(isVisible);
-}
-
-function awaitTimeout(timeout) {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
 }
