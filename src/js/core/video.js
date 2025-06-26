@@ -87,7 +87,7 @@ export default {
         }),
 
         intersection({
-            filter: ({ autoplay }) => autoplay !== 'hover',
+            filter: ({ $el, autoplay }) => autoplay !== 'hover' && $el.preload !== 'none',
             handler([{ isIntersecting, target }]) {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
