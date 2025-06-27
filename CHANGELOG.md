@@ -13,6 +13,7 @@
 
 ### Changed
 
+- Remove font variables in favor of using heading classes in Countdown component
 - Stretch the entire navbar height if an item's height is expanded by its content
 - Scale height of responsive images and videos based on extrinsic aspect ratio and fill content box (Chrome only yet)
 - Videos set to `preload: none` will lazy load by default now
