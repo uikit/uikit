@@ -53,7 +53,7 @@ export default {
 
     disconnected() {
         for (const [el, state] of this.elementData.entries()) {
-            removeClass(el, clsInView, state?.cls || '');
+            removeClass(el, clsInView, state.cls || '');
         }
         delete this.elementData;
     },
