@@ -61,6 +61,7 @@ export default {
         boundary: true,
         dropbar: false,
         dropbarAnchor: false,
+        flip: true,
         delayShow: 160,
         duration: 200,
         container: false,
@@ -403,7 +404,7 @@ export default {
                 this.dropdowns.filter((el) => !this.getDropdown(el)),
                 {
                     ...this.$props,
-                    flip: false,
+                    flip: this.flip && !this.$props.dropbar,
                     shift: true,
                     pos: `bottom-${this.align}`,
                     boundary: this.boundary === true ? this.$el : this.boundary,

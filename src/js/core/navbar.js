@@ -13,6 +13,7 @@ export default {
     },
 
     data: {
+        flip: false,
         delayShow: 200,
         clsDrop: 'uk-navbar-dropdown',
         selNavItem:
