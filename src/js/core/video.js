@@ -18,11 +18,13 @@ export default {
     props: {
         automute: Boolean,
         autoplay: Boolean,
+        restart: Boolean,
     },
 
     data: {
         automute: false,
         autoplay: true,
+        restart: false,
     },
 
     beforeConnect() {
@@ -59,7 +61,7 @@ export default {
                 if (!isTouch(e) || !isPlaying(this.$el)) {
                     play(this.$el);
                 } else {
-                    pause(this.$el);
+                    pauseHover(this.$el, this.restart);
                 }
             },
         },
@@ -71,7 +73,7 @@ export default {
 
             handler(e) {
                 if (!isTouch(e)) {
-                    pause(this.$el);
+                    pauseHover(this.$el, this.restart);
                 }
             },
         },
@@ -95,7 +97,7 @@ export default {
                             play(target);
                         }
                     } else {
-                        pause(target);
+                        pauseHover(target, this.restart);
                     }
                 }
             },
@@ -109,4 +111,11 @@ export default {
 
 function isPlaying(videoEl) {
     return !videoEl.paused && !videoEl.ended;
+}
+
+function pauseHover(el, restart) {
+    pause(el);
+    if (restart && isTag(el, 'video')) {
+        el.currentTime = 0;
+    }
 }

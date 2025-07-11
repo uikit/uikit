@@ -10,6 +10,7 @@
 - Add icon overlay modifier to Icon component
 - Add highest z-index utility class to Position component
 - Add size modifier for top and bottom paddings to Section component
+- Add `restart` option to Video component
 
 ### Changed
 
