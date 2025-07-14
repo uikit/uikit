@@ -9,6 +9,7 @@ import {
     play,
     pointerEnter,
     pointerLeave,
+    query,
 } from 'uikit-util';
 import { intersection } from '../api/observables';
 
@@ -19,12 +20,14 @@ export default {
         automute: Boolean,
         autoplay: Boolean,
         restart: Boolean,
+        hoverTarget: Boolean,
     },
 
     data: {
         automute: false,
         autoplay: true,
         restart: false,
+        hoverTarget: false,
     },
 
     beforeConnect() {
@@ -55,6 +58,8 @@ export default {
         {
             name: `${pointerEnter} focusin`,
 
+            el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
+
             filter: ({ autoplay }) => includes(autoplay, 'hover'),
 
             handler(e) {
@@ -68,6 +73,8 @@ export default {
 
         {
             name: `${pointerLeave} focusout`,
+
+            el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
 
             filter: ({ autoplay }) => includes(autoplay, 'hover'),
 
