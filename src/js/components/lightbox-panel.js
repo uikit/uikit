@@ -26,6 +26,7 @@ import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
 import { keyMap } from '../util/keys';
 import Animations from './internal/lightbox-animations';
+import purify from 'dompurify';
 
 export default {
     i18n: {
@@ -234,7 +235,7 @@ export default {
             name: 'beforeitemshow',
 
             handler(e) {
-                html($(this.selCaption, this.$el), this.getItem().caption || '');
+                html($(this.selCaption, this.$el), purify.sanitize(this.getItem().caption || ''));
                 html(
                     $(this.selCounter, this.$el),
                     this.t('counter', this.index + 1, this.slides.length),

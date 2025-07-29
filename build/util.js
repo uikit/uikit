@@ -1,5 +1,6 @@
 import alias from '@rollup/plugin-alias';
 import replace from '@rollup/plugin-replace';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import CleanCSS from 'clean-css';
 import fs from 'fs-extra';
 import { glob } from 'glob';
@@ -74,6 +75,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
         external,
         input: file,
         plugins: [
+            nodeResolve(),
             replace({
                 preventAssignment: true,
                 values: {
