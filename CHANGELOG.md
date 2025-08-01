@@ -25,6 +25,10 @@
 
 - Deprecate `automute` option in Video and Cover component, use `muted` attribute for videos, `mute=1` for YouTube and `muted=1` for Vimeo instead
 
+### Removed
+
+- Remove deprecated flag in Less variables
+
 ### Fixed
 
 - Fix disable color for span elements in Subnav component
