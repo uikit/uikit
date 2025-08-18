@@ -10,7 +10,7 @@ import path from 'path';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
 import modify from 'rollup-plugin-modify';
-import svgo from 'svgo';
+import { optimize } from 'svgo';
 
 const limit = pLimit(Number(process.env.cpus || 2));
 
@@ -213,7 +213,6 @@ async function optimizeSvg(svg) {
                 name: 'preset-default',
                 params: {
                     overrides: {
-                        removeViewBox: false,
                         cleanupNumericValues: {
                             floatPrecision: 3,
                         },
@@ -266,7 +265,7 @@ async function optimizeSvg(svg) {
         ],
     };
 
-    return (await svgo.optimize(svg, options)).data;
+    return (await optimize(svg, options)).data;
 }
 
 function svgPlugin() {

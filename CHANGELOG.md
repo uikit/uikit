@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.23.12 (August 18, 2025)
+
+### Fixed
+
+- Fix Scrollspy Nav ignores links
+
 ## 3.23.11 (June 25, 2025)
 
 ### Fixed
