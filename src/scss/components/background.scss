@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Background
 // Description:     Utilities for backgrounds
 //
@@ -131,6 +133,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-background-misc)) {@include hook-background-misc();}
+@if(meta.mixin-exists(hook-background-misc)) {@include hook-background-misc();}
 
 // @mixin hook-background-misc(){}

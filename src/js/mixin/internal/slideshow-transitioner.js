@@ -1,4 +1,4 @@
-import { clamp, createEvent, css, noop, Transition, trigger } from 'uikit-util';
+import { clamp, createEvent, css, noop, resetProps, Transition, trigger } from 'uikit-util';
 
 export default function Transitioner(prev, next, dir, { animation, easing }) {
     const { percent, translate, show = noop } = animation;
@@ -34,9 +34,7 @@ export default function Transitioner(prev, next, dir, { animation, easing }) {
         },
 
         reset() {
-            for (const prop in props[0]) {
-                css([next, prev], prop, '');
-            }
+            resetProps([next, prev], props[0]);
         },
 
         async forward(duration, percent = this.percent()) {

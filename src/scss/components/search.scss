@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Search
 // Description:     Component to create the search
 //
@@ -102,7 +104,7 @@
     /* 9 */
     border: none;
     color: $search-color;
-    @if(mixin-exists(hook-search-input)) {@include hook-search-input();}
+    @if(meta.mixin-exists(hook-search-input)) {@include hook-search-input();}
 }
 
 .uk-search-input:focus { outline: none; }
@@ -133,7 +135,7 @@
     align-items: center;
     /* 3 */
     color: $search-icon-color;
-    @if(mixin-exists(hook-search-icon)) {@include hook-search-icon();}
+    @if(meta.mixin-exists(hook-search-icon)) {@include hook-search-icon();}
 }
 
 /*
@@ -172,13 +174,13 @@
     padding-left: $search-default-padding-horizontal;
     padding-right: $search-default-padding-horizontal;
     background: $search-default-background;
-    @if(mixin-exists(hook-search-default-input)) {@include hook-search-default-input();}
+    @if(meta.mixin-exists(hook-search-default-input)) {@include hook-search-default-input();}
 }
 
 /* Focus */
 .uk-search-default .uk-search-input:focus {
     background-color: $search-default-focus-background;
-    @if(mixin-exists(hook-search-default-input-focus)) {@include hook-search-default-input-focus();}
+    @if(meta.mixin-exists(hook-search-default-input-focus)) {@include hook-search-default-input-focus();}
 }
 
 /*
@@ -208,13 +210,13 @@
     padding-left: $search-navbar-padding-horizontal;
     padding-right: $search-navbar-padding-horizontal;
     background: $search-navbar-background;
-    @if(mixin-exists(hook-search-navbar-input)) {@include hook-search-navbar-input();}
+    @if(meta.mixin-exists(hook-search-navbar-input)) {@include hook-search-navbar-input();}
 }
 
 /* Focus */
 .uk-search-navbar .uk-search-input:focus {
     background-color: $search-navbar-focus-background;
-    @if(mixin-exists(hook-search-navbar-input-focus)) {@include hook-search-navbar-input-focus();}
+    @if(meta.mixin-exists(hook-search-navbar-input-focus)) {@include hook-search-navbar-input-focus();}
 }
 
 /*
@@ -245,13 +247,13 @@
     padding-right: $search-medium-padding-horizontal;
     background: $search-medium-background;
     font-size: $search-medium-font-size;
-    @if(mixin-exists(hook-search-medium-input)) {@include hook-search-medium-input();}
+    @if(meta.mixin-exists(hook-search-medium-input)) {@include hook-search-medium-input();}
 }
 
 /* Focus */
 .uk-search-medium .uk-search-input:focus {
     background-color: $search-medium-focus-background;
-    @if(mixin-exists(hook-search-medium-input-focus)) {@include hook-search-medium-input-focus();}
+    @if(meta.mixin-exists(hook-search-medium-input-focus)) {@include hook-search-medium-input-focus();}
 }
 
 /*
@@ -282,13 +284,13 @@
     padding-right: $search-large-padding-horizontal;
     background: $search-large-background;
     font-size: $search-large-font-size;
-    @if(mixin-exists(hook-search-large-input)) {@include hook-search-large-input();}
+    @if(meta.mixin-exists(hook-search-large-input)) {@include hook-search-large-input();}
 }
 
 /* Focus */
 .uk-search-large .uk-search-input:focus {
     background-color: $search-medium-focus-background;
-    @if(mixin-exists(hook-search-large-input-focus)) {@include hook-search-large-input-focus();}
+    @if(meta.mixin-exists(hook-search-large-input-focus)) {@include hook-search-large-input-focus();}
 }
 
 /*
@@ -309,20 +311,20 @@
 
 .uk-search-toggle {
     color: $search-toggle-color;
-    @if(mixin-exists(hook-search-toggle)) {@include hook-search-toggle();}
+    @if(meta.mixin-exists(hook-search-toggle)) {@include hook-search-toggle();}
 }
 
 /* Hover */
 .uk-search-toggle:hover {
     color: $search-toggle-hover-color;
-    @if(mixin-exists(hook-search-toggle-hover)) {@include hook-search-toggle-hover();}
+    @if(meta.mixin-exists(hook-search-toggle-hover)) {@include hook-search-toggle-hover();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-search-misc)) {@include hook-search-misc();}
+@if(meta.mixin-exists(hook-search-misc)) {@include hook-search-misc();}
 
 // @mixin hook-search-input(){}
 // @mixin hook-search-icon(){}

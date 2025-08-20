@@ -20,7 +20,7 @@ export default {
         expand: Boolean,
         offsetTop: Boolean,
         offsetBottom: Boolean,
-        minHeight: Number,
+        min: Number,
         property: String,
     },
 
@@ -28,7 +28,7 @@ export default {
         expand: false,
         offsetTop: false,
         offsetBottom: false,
-        minHeight: 0,
+        min: 0,
         property: 'min-height',
     },
 

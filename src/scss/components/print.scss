@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Print
 // Description:     Optimize page for printing
 //
@@ -51,7 +53,7 @@
     h2,
     h3 { page-break-after: avoid; }
 
-   @if(mixin-exists(hook-print)) {@include hook-print();}
+   @if(meta.mixin-exists(hook-print)) {@include hook-print();}
 
 }
 

@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Countdown
 // Description:     Component to create countdown timers
 //
@@ -27,7 +29,7 @@ $countdown-separator-font-size-m:                3rem !default; // 48px
  ========================================================================== */
 
 .uk-countdown {
-    @if(mixin-exists(hook-countdown)) {@include hook-countdown();}
+    @if(meta.mixin-exists(hook-countdown)) {@include hook-countdown();}
 }
 
 
@@ -36,7 +38,7 @@ $countdown-separator-font-size-m:                3rem !default; // 48px
 
 .uk-countdown-number,
 .uk-countdown-separator {
-    @if(mixin-exists(hook-countdown-item)) {@include hook-countdown-item();}
+    @if(meta.mixin-exists(hook-countdown-item)) {@include hook-countdown-item();}
 }
 
 
@@ -55,7 +57,7 @@ $countdown-separator-font-size-m:                3rem !default; // 48px
     /* 2 */
     font-size: $countdown-number-font-size;
     line-height: $countdown-number-line-height;
-    @if(mixin-exists(hook-countdown-number)) {@include hook-countdown-number();}
+    @if(meta.mixin-exists(hook-countdown-number)) {@include hook-countdown-number();}
 }
 
 /* Phone landscape and bigger */
@@ -79,7 +81,7 @@ $countdown-separator-font-size-m:                3rem !default; // 48px
 .uk-countdown-separator {
     font-size: $countdown-separator-font-size;
     line-height: $countdown-separator-line-height;
-    @if(mixin-exists(hook-countdown-separator)) {@include hook-countdown-separator();}
+    @if(meta.mixin-exists(hook-countdown-separator)) {@include hook-countdown-separator();}
 }
 
 /* Phone landscape and bigger */
@@ -101,14 +103,14 @@ $countdown-separator-font-size-m:                3rem !default; // 48px
  ========================================================================== */
 
 .uk-countdown-label {
-    @if(mixin-exists(hook-countdown-label)) {@include hook-countdown-label();}
+    @if(meta.mixin-exists(hook-countdown-label)) {@include hook-countdown-label();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-countdown-misc)) {@include hook-countdown-misc();}
+@if(meta.mixin-exists(hook-countdown-misc)) {@include hook-countdown-misc();}
 
 // @mixin hook-countdown(){}
 // @mixin hook-countdown-item(){}

@@ -12,6 +12,7 @@ import {
     trigger,
 } from 'uikit-util';
 import Container from '../mixin/container';
+import { maybeDefaultPreventClick } from '../mixin/event';
 
 export default {
     mixins: [Container],
@@ -78,9 +79,7 @@ export default {
 
     events: {
         click(e) {
-            if (e.target.closest('a[href="#"],a[href=""]')) {
-                e.preventDefault();
-            }
+            maybeDefaultPreventClick(e);
             this.close();
         },
 

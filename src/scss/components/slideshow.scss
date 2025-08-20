@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Slideshow
 // Description:     Component to create slideshows
 //
@@ -21,7 +23,7 @@
 .uk-slideshow {
     /* 1 */
     -webkit-tap-highlight-color: transparent;
-    @if(mixin-exists(hook-slideshow)) {@include hook-slideshow();}
+    @if(meta.mixin-exists(hook-slideshow)) {@include hook-slideshow();}
 }
 
 
@@ -87,7 +89,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-slideshow-misc)) {@include hook-slideshow-misc();}
+@if(meta.mixin-exists(hook-slideshow-misc)) {@include hook-slideshow-misc();}
 
 // @mixin hook-slideshow(){}
 // @mixin hook-slideshow-misc(){}

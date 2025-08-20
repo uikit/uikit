@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Grid
 // Description:     Component to create responsive, fluid and nestable grids
 //
@@ -193,7 +195,7 @@
     top: 0;
     bottom: 0;
     border-left: $grid-divider-border-width solid $grid-divider-border;
-    @if(mixin-exists(hook-grid-divider-horizontal)) {@include hook-grid-divider-horizontal();}
+    @if(meta.mixin-exists(hook-grid-divider-horizontal)) {@include hook-grid-divider-horizontal();}
 }
 
 /* Vertical */
@@ -203,7 +205,7 @@
     left: 0;
     right: 0;
     border-top: $grid-divider-border-width solid $grid-divider-border;
-    @if(mixin-exists(hook-grid-divider-vertical)) {@include hook-grid-divider-vertical();}
+    @if(meta.mixin-exists(hook-grid-divider-vertical)) {@include hook-grid-divider-vertical();}
 }
 
 /*
@@ -375,7 +377,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-grid-misc)) {@include hook-grid-misc();}
+@if(meta.mixin-exists(hook-grid-misc)) {@include hook-grid-misc();}
 
 // @mixin hook-grid-divider-horizontal(){}
 // @mixin hook-grid-divider-vertical(){}

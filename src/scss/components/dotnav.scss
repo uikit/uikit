@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Dotnav
 // Description:     Component to create dot navigations
 //
@@ -37,7 +39,7 @@
     list-style: none;
     /* 3 */
     margin-left: (-$dotnav-margin-horizontal);
-    @if(mixin-exists(hook-dotnav)) {@include hook-dotnav();}
+    @if(meta.mixin-exists(hook-dotnav)) {@include hook-dotnav();}
 }
 
 /*
@@ -72,25 +74,25 @@
     text-indent: 100%;
     overflow: hidden;
     white-space: nowrap;
-    @if(mixin-exists(hook-dotnav-item)) {@include hook-dotnav-item();}
+    @if(meta.mixin-exists(hook-dotnav-item)) {@include hook-dotnav-item();}
 }
 
 /* Hover */
 .uk-dotnav > * > :hover {
     background-color: $dotnav-item-hover-background;
-    @if(mixin-exists(hook-dotnav-item-hover)) {@include hook-dotnav-item-hover();}
+    @if(meta.mixin-exists(hook-dotnav-item-hover)) {@include hook-dotnav-item-hover();}
 }
 
 /* OnClick */
 .uk-dotnav > * > :active {
     background-color: $dotnav-item-onclick-background;
-    @if(mixin-exists(hook-dotnav-item-onclick)) {@include hook-dotnav-item-onclick();}
+    @if(meta.mixin-exists(hook-dotnav-item-onclick)) {@include hook-dotnav-item-onclick();}
 }
 
 /* Active */
 .uk-dotnav > .uk-active > * {
     background-color: $dotnav-item-active-background;
-    @if(mixin-exists(hook-dotnav-item-active)) {@include hook-dotnav-item-active();}
+    @if(meta.mixin-exists(hook-dotnav-item-active)) {@include hook-dotnav-item-active();}
 }
 
 
@@ -120,7 +122,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-dotnav-misc)) {@include hook-dotnav-misc();}
+@if(meta.mixin-exists(hook-dotnav-misc)) {@include hook-dotnav-misc();}
 
 // @mixin hook-dotnav(){}
 // @mixin hook-dotnav-item(){}

@@ -15,8 +15,12 @@ import {
     noop,
     observeResize,
     offset,
+    on,
     once,
     parents,
+    pointerEnter,
+    pointerLeave,
+    pointerMove,
     query,
     remove,
     selFocusable,
@@ -58,6 +62,7 @@ export default {
         boundary: true,
         dropbar: false,
         dropbarAnchor: false,
+        delayShow: 160,
         duration: 200,
         container: false,
         selNavItem: '> li > a, > ul > li > a',
@@ -119,6 +124,8 @@ export default {
 
     connected() {
         this.initializeDropdowns();
+
+        preventInitialPointerEnter(this.$el);
     },
 
     disconnected() {
@@ -429,4 +436,14 @@ function handleNavItemNavigation(e, toggles, active) {
         active.hide?.(false);
         toggles[getIndex(next, toggles, toggles.indexOf(active.targetEl || current))].focus();
     }
+}
+
+// Prevents initial pointer events from opening dropdowns on page load (Safari/Firefox)
+function preventInitialPointerEnter(el) {
+    const off = () => handlers.forEach((handler) => handler());
+    const handlers = [
+        once(el.ownerDocument, pointerMove, (e) => el.contains(e.target) || off()),
+        on(el, `mouseenter ${pointerEnter}`, (e) => e.stopPropagation(), { capture: true }),
+        on(el, `mouseleave ${pointerLeave}`, off, { capture: true }),
+    ];
 }

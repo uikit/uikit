@@ -1,6 +1,81 @@
 # Changelog
 
-## WIP
+## 3.23.12 (August 18, 2025)
+
+### Fixed
+
+- Fix Scrollspy Nav ignores links
+
+## 3.23.11 (June 25, 2025)
+
+### Fixed
+
+- Fix setting `aria-expanded` on the closest button of the Navbar Toggle Icon
+- Fix SVG component handles base64 encoded data URIs correctly
+
+## 3.23.10 (June 12, 2025)
+
+### Fixed
+
+- Fix Toggle component does not toggle if element is a link without `href` attribute
+- Fix closing modal prevents page from being scrollable in Firefox
+
+## 3.23.9 (June 3, 2025)
+
+### Changed
+
+- Add missing `aria-hidden` attribute in Icon component
+
+## 3.23.8 (June 2, 2025)
+
+### Changed
+
+- Delay showing dropdowns in Dropnav and Navbar components to allow passing with the pointer over the element
+
+### Fixed
+
+- Fix setting focus to Modal/Offcanvas Toggle component after close
+- Fix Dropnav component no longer opens its Drop components upon initial hover during page load (in Safari and Firefox)
+- Fix Scrollspy Nav component no longer highlights items whose targets do not exist
+
+## 3.23.7 (May 9, 2025)
+
+### Fixed
+
+- Fix Inverse component not being responsive for multiple target elements
+- Fix tabindex not being set for Video component in `autoplay: hover` mode
+
+## 3.23.6 (April 10, 2025)
+
+### Fixed
+
+- Revert: Fix performance when transitioning element properties in Chrome (causes regression in Safari and Firefox)
+
+## 3.23.5 (April 7, 2025)
+
+### Fixed
+
+- Fix regression with transitioning element properties not being applied
+
+## 3.23.4 (March 26, 2025)
+
+### Fixed
+
+- Fix performance when transitioning element properties in Chrome
+
+## 3.23.3 (March 17, 2025)
+
+### Fixed
+
+- Fix Grid component performance regression
+
+## 3.23.2 (March 4, 2025)
+
+### Fixed
+
+- Fix min option in Height Viewport component
+
+## 3.23.1 (February 19, 2025)
 
 ### Fixed
 
@@ -564,7 +639,7 @@
 
 ### Fixed
 
-- Fix Toggle in hover mode does not trigger when scrolling in FireFox
+- Fix Toggle in hover mode does not trigger when scrolling in Firefox
 - Fix Parallax component stop parsing
 
 ## 3.16.24 (August 1, 2023)

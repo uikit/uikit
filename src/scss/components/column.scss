@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Column
 // Description:     Utilities for text columns
 //
@@ -122,7 +124,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-column-misc)) {@include hook-column-misc();}
+@if(meta.mixin-exists(hook-column-misc)) {@include hook-column-misc();}
 
 // @mixin hook-column-misc(){}
 

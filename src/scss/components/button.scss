@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Button
 // Description:     Styles for buttons
 //
@@ -78,7 +80,7 @@
     text-align: center;
     /* 10 */
     text-decoration: none;
-    @if(mixin-exists(hook-button)) {@include hook-button();}
+    @if(meta.mixin-exists(hook-button)) {@include hook-button();}
 }
 
 .uk-button:not(:disabled) { cursor: pointer; }
@@ -96,13 +98,13 @@
 .uk-button:hover {
     /* 9 */
     text-decoration: none;
-    @if(mixin-exists(hook-button-hover)) {@include hook-button-hover();}
+    @if(meta.mixin-exists(hook-button-hover)) {@include hook-button-hover();}
 }
 
 /* OnClick + Active */
 .uk-button:active,
 .uk-button.uk-active {
-    @if(mixin-exists(hook-button-active)) {@include hook-button-active();}
+    @if(meta.mixin-exists(hook-button-active)) {@include hook-button-active();}
 }
 
 
@@ -116,14 +118,14 @@
 .uk-button-default {
     background-color: $button-default-background;
     color: $button-default-color;
-    @if(mixin-exists(hook-button-default)) {@include hook-button-default();}
+    @if(meta.mixin-exists(hook-button-default)) {@include hook-button-default();}
 }
 
 /* Hover */
 .uk-button-default:hover {
     background-color: $button-default-hover-background;
     color: $button-default-hover-color;
-    @if(mixin-exists(hook-button-default-hover)) {@include hook-button-default-hover();}
+    @if(meta.mixin-exists(hook-button-default-hover)) {@include hook-button-default-hover();}
 }
 
 /* OnClick + Active */
@@ -131,7 +133,7 @@
 .uk-button-default.uk-active {
     background-color: $button-default-active-background;
     color: $button-default-active-color;
-    @if(mixin-exists(hook-button-default-active)) {@include hook-button-default-active();}
+    @if(meta.mixin-exists(hook-button-default-active)) {@include hook-button-default-active();}
 }
 
 /*
@@ -141,14 +143,14 @@
 .uk-button-primary {
     background-color: $button-primary-background;
     color: $button-primary-color;
-    @if(mixin-exists(hook-button-primary)) {@include hook-button-primary();}
+    @if(meta.mixin-exists(hook-button-primary)) {@include hook-button-primary();}
 }
 
 /* Hover */
 .uk-button-primary:hover {
     background-color: $button-primary-hover-background;
     color: $button-primary-hover-color;
-    @if(mixin-exists(hook-button-primary-hover)) {@include hook-button-primary-hover();}
+    @if(meta.mixin-exists(hook-button-primary-hover)) {@include hook-button-primary-hover();}
 }
 
 /* OnClick + Active */
@@ -156,7 +158,7 @@
 .uk-button-primary.uk-active {
     background-color: $button-primary-active-background;
     color: $button-primary-active-color;
-    @if(mixin-exists(hook-button-primary-active)) {@include hook-button-primary-active();}
+    @if(meta.mixin-exists(hook-button-primary-active)) {@include hook-button-primary-active();}
 }
 
 /*
@@ -166,14 +168,14 @@
 .uk-button-secondary {
     background-color: $button-secondary-background;
     color: $button-secondary-color;
-    @if(mixin-exists(hook-button-secondary)) {@include hook-button-secondary();}
+    @if(meta.mixin-exists(hook-button-secondary)) {@include hook-button-secondary();}
 }
 
 /* Hover */
 .uk-button-secondary:hover {
     background-color: $button-secondary-hover-background;
     color: $button-secondary-hover-color;
-    @if(mixin-exists(hook-button-secondary-hover)) {@include hook-button-secondary-hover();}
+    @if(meta.mixin-exists(hook-button-secondary-hover)) {@include hook-button-secondary-hover();}
 }
 
 /* OnClick + Active */
@@ -181,7 +183,7 @@
 .uk-button-secondary.uk-active {
     background-color: $button-secondary-active-background;
     color: $button-secondary-active-color;
-    @if(mixin-exists(hook-button-secondary-active)) {@include hook-button-secondary-active();}
+    @if(meta.mixin-exists(hook-button-secondary-active)) {@include hook-button-secondary-active();}
 }
 
 /*
@@ -191,14 +193,14 @@
 .uk-button-danger {
     background-color: $button-danger-background;
     color: $button-danger-color;
-    @if(mixin-exists(hook-button-danger)) {@include hook-button-danger();}
+    @if(meta.mixin-exists(hook-button-danger)) {@include hook-button-danger();}
 }
 
 /* Hover */
 .uk-button-danger:hover {
     background-color: $button-danger-hover-background;
     color: $button-danger-hover-color;
-    @if(mixin-exists(hook-button-danger-hover)) {@include hook-button-danger-hover();}
+    @if(meta.mixin-exists(hook-button-danger-hover)) {@include hook-button-danger-hover();}
 }
 
 /* OnClick + Active */
@@ -206,7 +208,7 @@
 .uk-button-danger.uk-active {
     background-color: $button-danger-active-background;
     color: $button-danger-active-color;
-    @if(mixin-exists(hook-button-danger-active)) {@include hook-button-danger-active();}
+    @if(meta.mixin-exists(hook-button-danger-active)) {@include hook-button-danger-active();}
 }
 
 /*
@@ -220,7 +222,7 @@
 .uk-button-danger:disabled {
     background-color: $button-disabled-background;
     color: $button-disabled-color;
-    @if(mixin-exists(hook-button-disabled)) {@include hook-button-disabled();}
+    @if(meta.mixin-exists(hook-button-disabled)) {@include hook-button-disabled();}
 }
 
 
@@ -231,14 +233,14 @@
     padding: 0 $button-small-padding-horizontal;
     line-height: $button-small-line-height;
     font-size: $button-small-font-size;
-    @if(mixin-exists(hook-button-small)) {@include hook-button-small();}
+    @if(meta.mixin-exists(hook-button-small)) {@include hook-button-small();}
 }
 
 .uk-button-large {
     padding: 0 $button-large-padding-horizontal;
     line-height: $button-large-line-height;
     font-size: $button-large-font-size;
-    @if(mixin-exists(hook-button-large)) {@include hook-button-large();}
+    @if(meta.mixin-exists(hook-button-large)) {@include hook-button-large();}
 }
 
 
@@ -258,19 +260,19 @@
     background: none;
     /* 2 */
     color: $button-text-color;
-    @if(mixin-exists(hook-button-text)) {@include hook-button-text();}
+    @if(meta.mixin-exists(hook-button-text)) {@include hook-button-text();}
 }
 
 /* Hover */
 .uk-button-text:hover {
     color: $button-text-hover-color;
-    @if(mixin-exists(hook-button-text-hover)) {@include hook-button-text-hover();}
+    @if(meta.mixin-exists(hook-button-text-hover)) {@include hook-button-text-hover();}
 }
 
 /* Disabled */
 .uk-button-text:disabled {
     color: $button-text-disabled-color;
-    @if(mixin-exists(hook-button-text-disabled)) {@include hook-button-text-disabled();}
+    @if(meta.mixin-exists(hook-button-text-disabled)) {@include hook-button-text-disabled();}
 }
 
 /*
@@ -286,7 +288,7 @@
     background: none;
     /* 2 */
     color: $button-link-color;
-    @if(mixin-exists(hook-button-link)) {@include hook-button-link();}
+    @if(meta.mixin-exists(hook-button-link)) {@include hook-button-link();}
 }
 
 /* Hover */
@@ -324,7 +326,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-button-misc)) {@include hook-button-misc();}
+@if(meta.mixin-exists(hook-button-misc)) {@include hook-button-misc();}
 
 // @mixin hook-button(){}
 // @mixin hook-button-hover(){}

@@ -29,35 +29,15 @@ export default {
                 return false;
             }
 
-            const { ratio, cover } = Dimensions;
-            const { $el, width, height } = this;
+            const { $el, width = $el.clientWidth, height = $el.clientHeight } = this;
 
-            let dim = { width, height };
+            const el = getPositionedParent($el) || parent($el);
+            const dim = Dimensions.cover(
+                { width, height },
+                { width: el.offsetWidth, height: el.offsetHeight },
+            );
 
-            if (!width || !height) {
-                const intrinsic = {
-                    width: $el.naturalWidth || $el.videoWidth || $el.clientWidth,
-                    height: $el.naturalHeight || $el.videoHeight || $el.clientHeight,
-                };
-
-                if (width) {
-                    dim = ratio(intrinsic, 'width', width);
-                } else if (height) {
-                    dim = ratio(intrinsic, 'height', height);
-                } else {
-                    dim = intrinsic;
-                }
-            }
-
-            const { offsetHeight: coverHeight, offsetWidth: coverWidth } =
-                getPositionedParent($el) || parent($el);
-            const coverDim = cover(dim, { width: coverWidth, height: coverHeight });
-
-            if (!coverDim.width || !coverDim.height) {
-                return false;
-            }
-
-            return coverDim;
+            return dim.width && dim.height ? dim : false;
         },
 
         write({ height, width }) {

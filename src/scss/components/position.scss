@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "sass:string";
+
 // Name:            Position
 // Description:     Utilities to position content
 //
@@ -52,7 +55,7 @@
 [class*="uk-position-center"] {
     position: absolute !important;
     /* 1 */
-    max-width: unquote('calc(100% - (var(--uk-position-margin-offset) * 2))');
+    max-width: string.unquote('calc(100% - (var(--uk-position-margin-offset) * 2))');
     box-sizing: border-box;
 }
 
@@ -116,8 +119,8 @@
  */
 
 .uk-position-center {
-    top: unquote('calc(50% - var(--uk-position-margin-offset))');
-    left: unquote('calc(50% - var(--uk-position-margin-offset))');
+    top: string.unquote('calc(50% - var(--uk-position-margin-offset))');
+    left: string.unquote('calc(50% - var(--uk-position-margin-offset))');
     --uk-position-translate-x: -50%;
     --uk-position-translate-y: -50%;
     transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
@@ -129,7 +132,7 @@
 [class*="uk-position-center-left"],
 [class*="uk-position-center-right"],
 .uk-position-center-vertical {
-    top: unquote('calc(50% - var(--uk-position-margin-offset))');
+    top: string.unquote('calc(50% - var(--uk-position-margin-offset))');
     --uk-position-translate-y: -50%;
     transform: translate(0, var(--uk-position-translate-y));
 }
@@ -155,7 +158,7 @@
 .uk-position-top-center,
 .uk-position-bottom-center,
 .uk-position-center-horizontal {
-    left: unquote('calc(50% - var(--uk-position-margin-offset))');
+    left: string.unquote('calc(50% - var(--uk-position-margin-offset))');
     --uk-position-translate-x: -50%;
     transform: translate(var(--uk-position-translate-x), 0);
     /* 1 */
@@ -232,6 +235,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-position-misc)) {@include hook-position-misc();}
+@if(meta.mixin-exists(hook-position-misc)) {@include hook-position-misc();}
 
 // @mixin hook-position-misc(){}

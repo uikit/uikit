@@ -2,7 +2,6 @@ import {
     $,
     $$,
     append,
-    attr,
     css,
     data,
     fastdom,
@@ -19,6 +18,7 @@ import {
 } from 'uikit-util';
 import { parseOptions } from '../api/options';
 import Animate from '../mixin/animate';
+import { maybeDefaultPreventClick } from '../mixin/event';
 import { keyMap } from '../util/keys';
 
 export default {
@@ -56,7 +56,7 @@ export default {
                 }
                 const button = findButton(toggle);
                 if (isTag(button, 'a')) {
-                    attr(button, 'role', 'button');
+                    button.role = 'button';
                 }
             }
         },
@@ -79,7 +79,7 @@ export default {
             }
 
             if (e.target.closest('a,button')) {
-                e.preventDefault();
+                maybeDefaultPreventClick(e);
                 this.apply(e.current);
             }
         },

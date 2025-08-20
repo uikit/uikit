@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Leader
 // Description:     Component to create dot leaders
 //
@@ -34,7 +36,7 @@
     content: attr(data-fill);
     /* 4 */
     white-space: nowrap;
-    @if(mixin-exists(hook-leader)) {@include hook-leader();}
+    @if(meta.mixin-exists(hook-leader)) {@include hook-leader();}
 }
 
 /*
@@ -53,7 +55,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-leader-misc)) {@include hook-leader-misc();}
+@if(meta.mixin-exists(hook-leader-misc)) {@include hook-leader-misc();}
 
 // @mixin hook-leader(){}
 // @mixin hook-leader-misc(){}

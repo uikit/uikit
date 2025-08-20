@@ -29,6 +29,7 @@ import {
     removeClass,
 } from 'uikit-util';
 import Container from '../mixin/container';
+import { maybeDefaultPreventClick } from '../mixin/event';
 import Position, { storeScrollPosition } from '../mixin/position';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
@@ -80,6 +81,7 @@ export default {
         cls: 'uk-open',
         container: false,
         closeOnScroll: false,
+        selClose: '.uk-drop-close',
     },
 
     computed: {
@@ -115,6 +117,7 @@ export default {
         if (this.toggle && !this.targetEl) {
             this.targetEl = createToggleComponent(this);
         }
+        attr(this.targetEl, 'aria-expanded', false);
 
         this._style = pick(this.$el.style, ['width', 'height']);
     },
@@ -131,10 +134,10 @@ export default {
         {
             name: 'click',
 
-            delegate: () => '.uk-drop-close',
+            delegate: ({ selClose }) => selClose,
 
             handler(e) {
-                e.preventDefault();
+                maybeDefaultPreventClick(e);
                 this.hide(false);
             },
         },
@@ -295,7 +298,7 @@ export default {
 
                 active = this.isActive() ? null : active;
                 this.tracker.cancel();
-                attr(this.targetEl, 'aria-expanded', null);
+                attr(this.targetEl, 'aria-expanded', false);
             },
         },
     ],
@@ -458,7 +461,7 @@ function createToggleComponent(drop) {
         target: drop.$el,
         mode: drop.mode,
     });
-    attr($el, 'aria-haspopup', true);
+    $el.ariaHasPopup = true;
 
     return $el;
 }

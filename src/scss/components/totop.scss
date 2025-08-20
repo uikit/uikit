@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Totop
 // Description:     Component to create an icon to scroll back to top
 //
@@ -24,26 +26,26 @@
 .uk-totop {
     padding: $totop-padding;
     color: $totop-color;
-    @if(mixin-exists(hook-totop)) {@include hook-totop();}
+    @if(meta.mixin-exists(hook-totop)) {@include hook-totop();}
 }
 
 /* Hover */
 .uk-totop:hover {
     color: $totop-hover-color;
-    @if(mixin-exists(hook-totop-hover)) {@include hook-totop-hover();}
+    @if(meta.mixin-exists(hook-totop-hover)) {@include hook-totop-hover();}
 }
 
 /* OnClick */
 .uk-totop:active {
     color: $totop-active-color;
-    @if(mixin-exists(hook-totop-active)) {@include hook-totop-active();}
+    @if(meta.mixin-exists(hook-totop-active)) {@include hook-totop-active();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-totop-misc)) {@include hook-totop-misc();}
+@if(meta.mixin-exists(hook-totop-misc)) {@include hook-totop-misc();}
 
 // @mixin hook-totop(){}
 // @mixin hook-totop-hover(){}

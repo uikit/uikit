@@ -145,7 +145,7 @@ export default {
 
 function makeFocusable(el) {
     if (!isFocusable(el)) {
-        attr(el, 'tabindex', '0');
+        el.tabIndex = 0;
     }
 }
 

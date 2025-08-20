@@ -1,4 +1,4 @@
-import { $, attr, html, toFloat, trigger } from 'uikit-util';
+import { $, html, toFloat, trigger } from 'uikit-util';
 import Class from '../mixin/class';
 
 const units = ['days', 'hours', 'minutes', 'seconds'];
@@ -21,7 +21,7 @@ export default {
     },
 
     connected() {
-        attr(this.$el, 'role', this.role);
+        this.$el.role = this.role;
         this.date = toFloat(Date.parse(this.$props.date));
         this.started = this.end = false;
         this.start();

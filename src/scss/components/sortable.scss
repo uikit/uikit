@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Sortable
 // Description:     Component to create sortable grids and lists
 //
@@ -27,7 +29,7 @@
 
 .uk-sortable {
     position: relative;
-    @if(mixin-exists(hook-sortable)) {@include hook-sortable();}
+    @if(meta.mixin-exists(hook-sortable)) {@include hook-sortable();}
 }
 
 /*
@@ -44,7 +46,7 @@
     position: fixed !important;
     z-index: $sortable-dragged-z-index !important;
     pointer-events: none;
-    @if(mixin-exists(hook-sortable-drag)) {@include hook-sortable-drag();}
+    @if(meta.mixin-exists(hook-sortable-drag)) {@include hook-sortable-drag();}
 }
 
 
@@ -54,7 +56,7 @@
 .uk-sortable-placeholder {
     opacity: $sortable-placeholder-opacity;
     pointer-events: none;
-    @if(mixin-exists(hook-sortable-placeholder)) {@include hook-sortable-placeholder();}
+    @if(meta.mixin-exists(hook-sortable-placeholder)) {@include hook-sortable-placeholder();}
 }
 
 
@@ -63,7 +65,7 @@
 
 .uk-sortable-empty {
     min-height: $sortable-empty-height;
-    @if(mixin-exists(hook-sortable-empty)) {@include hook-sortable-empty();}
+    @if(meta.mixin-exists(hook-sortable-empty)) {@include hook-sortable-empty();}
 }
 
 
@@ -78,7 +80,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-sortable-misc)) {@include hook-sortable-misc();}
+@if(meta.mixin-exists(hook-sortable-misc)) {@include hook-sortable-misc();}
 
 // @mixin hook-sortable(){}
 // @mixin hook-sortable-drag(){}

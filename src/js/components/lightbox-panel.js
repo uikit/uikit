@@ -208,7 +208,7 @@ export default {
             el: () => document,
 
             handler({ keyCode }) {
-                if (!this.isToggled(this.$el) || !this.draggable) {
+                if (!this.isToggled() || !this.draggable) {
                     return;
                 }
 

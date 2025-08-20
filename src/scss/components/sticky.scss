@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Sticky
 // Description:     Component to make elements sticky in the viewport
 //
@@ -57,6 +59,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-sticky-misc)) {@include hook-sticky-misc();}
+@if(meta.mixin-exists(hook-sticky-misc)) {@include hook-sticky-misc();}
 
 // @mixin hook-sticky-misc(){}

@@ -96,7 +96,7 @@ function install({ modal }) {
                 isString(message) ? message : html(message)
             }</div>
             <div class="uk-modal-footer uk-text-right">
-                <button class="uk-button uk-button-primary uk-modal-close" autofocus>${
+                <button class="uk-button uk-button-primary uk-modal-close" type="button" autofocus>${
                     i18n.ok
                 }</button>
             </div>`,

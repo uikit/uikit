@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Utility
 // Description:     Utilities collection
 //
@@ -70,7 +72,7 @@
     border: $panel-scrollable-border-width solid $panel-scrollable-border;
     overflow: auto;
     resize: both;
-    @if(mixin-exists(hook-panel-scrollable)) {@include hook-panel-scrollable();}
+    @if(meta.mixin-exists(hook-panel-scrollable)) {@include hook-panel-scrollable();}
 }
 
 
@@ -329,7 +331,7 @@
         filter: blur($box-shadow-bottom-blur);
         /* 3 */
         will-change: filter;
-        @if(mixin-exists(hook-box-shadow-bottom)) {@include hook-box-shadow-bottom();}
+        @if(meta.mixin-exists(hook-box-shadow-bottom)) {@include hook-box-shadow-bottom();}
     }
 
 }
@@ -353,7 +355,7 @@
     float: left;
     font-size: $dropcap-font-size;
     line-height: $dropcap-line-height;
-    @if(mixin-exists(hook-dropcap)) {@include hook-dropcap();}
+    @if(meta.mixin-exists(hook-dropcap)) {@include hook-dropcap();}
 }
 
 /* 2 */
@@ -381,7 +383,7 @@
     color: $logo-color;
     /* 2 */
     text-decoration: none;
-    @if(mixin-exists(hook-logo)) {@include hook-logo();}
+    @if(meta.mixin-exists(hook-logo)) {@include hook-logo();}
 }
 
 /* 3 */
@@ -395,7 +397,7 @@
     color: $logo-hover-color;
     /* 1 */
     text-decoration: none;
-    @if(mixin-exists(hook-logo-hover)) {@include hook-logo-hover();}
+    @if(meta.mixin-exists(hook-logo-hover)) {@include hook-logo-hover();}
 }
 
 .uk-logo :where(img, svg, video) { display: block; }
@@ -477,7 +479,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-utility-misc)) {@include hook-utility-misc();}
+@if(meta.mixin-exists(hook-utility-misc)) {@include hook-utility-misc();}
 
 // @mixin hook-panel-scrollable(){}
 // @mixin hook-box-shadow-bottom(){}

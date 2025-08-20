@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Transition
 // Description:     Utilities for transitions
 //
@@ -162,6 +164,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-transition-misc)) {@include hook-transition-misc();}
+@if(meta.mixin-exists(hook-transition-misc)) {@include hook-transition-misc();}
 
 // @mixin hook-transition-misc(){}

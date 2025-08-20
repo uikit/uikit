@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "sass:string";
+
 // Name:            Divider
 // Description:     Styles for dividers
 //
@@ -46,7 +49,7 @@
     @include svg-fill($internal-divider-icon-image, "#000", $divider-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    @if(mixin-exists(hook-divider-icon)) {@include hook-divider-icon();}
+    @if(meta.mixin-exists(hook-divider-icon)) {@include hook-divider-icon();}
 }
 
 .uk-divider-icon::before,
@@ -54,21 +57,21 @@
     content: "";
     position: absolute;
     top: $divider-icon-line-top;
-    max-width: unquote('calc(50% - (#{$divider-icon-width} / 2))');
+    max-width: string.unquote('calc(50% - (#{$divider-icon-width} / 2))');
     border-bottom: $divider-icon-line-border-width solid $divider-icon-line-border;
-    @if(mixin-exists(hook-divider-icon-line)) {@include hook-divider-icon-line();}
+    @if(meta.mixin-exists(hook-divider-icon-line)) {@include hook-divider-icon-line();}
 }
 
 .uk-divider-icon::before {
-    right: unquote('calc(50% + (#{$divider-icon-width} / 2))');
+    right: string.unquote('calc(50% + (#{$divider-icon-width} / 2))');
     width: $divider-icon-line-width;
-    @if(mixin-exists(hook-divider-icon-line-left)) {@include hook-divider-icon-line-left();}
+    @if(meta.mixin-exists(hook-divider-icon-line-left)) {@include hook-divider-icon-line-left();}
 }
 
 .uk-divider-icon::after {
-    left: unquote('calc(50% + (#{$divider-icon-width} / 2))');
+    left: string.unquote('calc(50% + (#{$divider-icon-width} / 2))');
     width: $divider-icon-line-width;
-    @if(mixin-exists(hook-divider-icon-line-right)) {@include hook-divider-icon-line-right();}
+    @if(meta.mixin-exists(hook-divider-icon-line-right)) {@include hook-divider-icon-line-right();}
 }
 
 
@@ -91,7 +94,7 @@
     max-width: 100%;
     border-top: $divider-small-border-width solid $divider-small-border;
     vertical-align: top;
-    @if(mixin-exists(hook-divider-small)) {@include hook-divider-small();}
+    @if(meta.mixin-exists(hook-divider-small)) {@include hook-divider-small();}
 }
 
 
@@ -104,14 +107,14 @@
     margin-left: auto;
     margin-right: auto;
     border-left: $divider-vertical-border-width solid $divider-vertical-border;
-    @if(mixin-exists(hook-divider-vertical)) {@include hook-divider-vertical();}
+    @if(meta.mixin-exists(hook-divider-vertical)) {@include hook-divider-vertical();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-divider-misc)) {@include hook-divider-misc();}
+@if(meta.mixin-exists(hook-divider-misc)) {@include hook-divider-misc();}
 
 // @mixin hook-divider-icon(){}
 // @mixin hook-divider-icon-line(){}

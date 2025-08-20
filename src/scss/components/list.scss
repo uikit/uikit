@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            List
 // Description:     Styles for lists
 //
@@ -120,7 +122,7 @@
     margin-top: $list-divider-margin-top;
     padding-top: $list-divider-margin-top;
     border-top: $list-divider-border-width solid $list-divider-border;
-    @if(mixin-exists(hook-list-divider)) {@include hook-list-divider();}
+    @if(meta.mixin-exists(hook-list-divider)) {@include hook-list-divider();}
 }
 
 /*
@@ -129,7 +131,7 @@
 
 .uk-list-striped > * {
     padding: $list-striped-padding-vertical $list-striped-padding-horizontal;
-    @if(mixin-exists(hook-list-striped)) {@include hook-list-striped();}
+    @if(meta.mixin-exists(hook-list-striped)) {@include hook-list-striped();}
 }
 
 .uk-list-striped > :nth-of-type(odd) { background: $list-striped-background; }
@@ -178,7 +180,7 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-list-misc)) {@include hook-list-misc();}
+@if(meta.mixin-exists(hook-list-misc)) {@include hook-list-misc();}
 
 // @mixin hook-list-divider(){}
 // @mixin hook-list-striped(){}

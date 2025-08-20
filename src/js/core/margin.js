@@ -23,9 +23,18 @@ export default {
                 attributes: true,
                 attributeFilter: ['style'],
             },
-            target: ({ $el }) => [$el, ...children($el)],
         }),
         resize({
+            handler(mutations) {
+                for (const {
+                    borderBoxSize: [{ inlineSize, blockSize }],
+                } of mutations) {
+                    if (inlineSize || blockSize) {
+                        this.$emit('resize');
+                        return;
+                    }
+                }
+            },
             target: ({ $el }) => [$el, ...children($el)],
         }),
     ],

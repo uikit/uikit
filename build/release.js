@@ -112,7 +112,7 @@ async function deploy(version) {
     const notes = (await read('./Changelog.md'))
         .match(/## \d.*?$\s*(.*?)\s*(?=## \d)/ms)[1]
         .replace(/(["`])/g, '\\$1');
-    await $$`gh release create v${version} --notes ${notes} ./dist/uikit-${version}.zip`;
+    await $$`gh release create v${version} --repo uikit/uikit --notes ${notes} ./dist/uikit-${version}.zip`;
 
     await $$`git checkout develop`;
     await $$`git merge ${tag} --commit --no-ff -m ${`Merge tag '${tag}' into develop`}`;

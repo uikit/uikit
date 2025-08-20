@@ -71,7 +71,7 @@ function _query(selector, context = document, queryFn) {
 
         if (sel[0] === '!') {
             [positionSel, sel] = parsePositionSelector(sel);
-            ctx = context.parentElement.closest(positionSel);
+            ctx = context.parentElement?.closest(positionSel);
             if (!sel && isSingle) {
                 return ctx;
             }

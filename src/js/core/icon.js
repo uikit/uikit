@@ -75,6 +75,13 @@ const Icon = {
         addClass(this.$el, 'uk-icon');
     },
 
+    async connected() {
+        const svg = await this.svg;
+        if (svg) {
+            svg.ariaHidden = true;
+        }
+    },
+
     methods: {
         async getSvg() {
             const icon = getIcon(this.icon);
@@ -136,13 +143,11 @@ export const Search = {
         }
 
         if (isToggle) {
-            const label = this.t('toggle');
-            attr(this.$el, 'aria-label', label);
+            this.$el.ariaLabel = this.t('toggle');
         } else {
             const button = this.$el.closest('a,button');
             if (button) {
-                const label = this.t('submit');
-                attr(button, 'aria-label', label);
+                button.ariaLabel = this.t('submit');
             }
         }
     },
@@ -152,7 +157,7 @@ export const Spinner = {
     extends: IconComponent,
 
     beforeConnect() {
-        attr(this.$el, 'role', 'status');
+        this.$el.role = 'status';
     },
 
     methods: {
@@ -197,7 +202,15 @@ export const Slidenav = {
 
 export const NavbarToggleIcon = {
     extends: ButtonComponent,
+
     i18n: { label: 'Open menu' },
+
+    beforeConnect() {
+        const button = this.$el.closest('a,button');
+        if (button) {
+            button.ariaExpanded = false;
+        }
+    },
 };
 
 export const Close = {

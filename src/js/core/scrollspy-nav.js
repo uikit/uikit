@@ -4,7 +4,6 @@ import {
     getCoveringElement,
     getTargetedElement,
     hasClass,
-    isSameSiteAnchor,
     isVisible,
     offset,
     offsetViewport,
@@ -32,7 +31,16 @@ export default {
     },
 
     computed: {
-        links: ({ target }, $el) => $$(target, $el).filter((el) => isSameSiteAnchor(el)),
+        links: {
+            get({ target }, $el) {
+                return $$(target, $el).filter(getTargetedElement);
+            },
+            observe: () => '*',
+        },
+
+        targets() {
+            return this.links.map((el) => getTargetedElement(el));
+        },
 
         elements({ closest }) {
             return this.links.map((el) => el.closest(closest || '*'));
@@ -52,8 +60,7 @@ export default {
     update: [
         {
             read() {
-                const targets = this.links.map((el) => getTargetedElement(el)).filter(Boolean);
-
+                const { targets } = this;
                 const { length } = targets;
 
                 if (!length || !isVisible(this.$el)) {
@@ -86,15 +93,16 @@ export default {
             },
 
             write({ active }) {
-                const changed = active !== false && !hasClass(this.elements[active], this.cls);
+                const { elements } = this;
+                const changed = active !== false && !hasClass(elements[active], this.cls);
 
                 this.links.forEach((el) => el.blur());
-                for (let i = 0; i < this.elements.length; i++) {
-                    toggleClass(this.elements[i], this.cls, +i === active);
+                for (let i = 0; i < elements.length; i++) {
+                    toggleClass(elements[i], this.cls, +i === active);
                 }
 
                 if (changed) {
-                    trigger(this.$el, 'active', [active, this.elements[active]]);
+                    trigger(this.$el, 'active', [active, elements[active]]);
                 }
             },
 

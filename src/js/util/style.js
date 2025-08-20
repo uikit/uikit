@@ -40,7 +40,7 @@ export function css(element, property, value, priority) {
             } else {
                 element.style.setProperty(
                     property,
-                    isNumeric(value) && !cssNumber[property]
+                    isNumeric(value) && !cssNumber[property] && !isCustomProperty(property)
                         ? `${value}px`
                         : value || isNumber(value)
                           ? value
@@ -63,9 +63,15 @@ export function css(element, property, value, priority) {
     return elements[0];
 }
 
+export function resetProps(element, props) {
+    for (const prop in props) {
+        css(element, prop, '');
+    }
+}
+
 // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
 export const propName = memoize((name) => {
-    if (startsWith(name, '--')) {
+    if (isCustomProperty(name)) {
         return name;
     }
 
@@ -84,3 +90,7 @@ export const propName = memoize((name) => {
         }
     }
 });
+
+function isCustomProperty(name) {
+    return startsWith(name, '--');
+}

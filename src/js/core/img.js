@@ -112,7 +112,7 @@ function getImageFromElement(el, src, sources) {
     wrapInPicture(img, sources);
     setSourceProps(el, img);
     img.onload = () => setSrcAttrs(el, img.currentSrc);
-    attr(img, 'src', src);
+    img.src = src;
     return img;
 }
 

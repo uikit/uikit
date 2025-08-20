@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Icon
 // Description:     Component to create icons
 //
@@ -125,19 +127,19 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
     color: $icon-link-color;
     /* 1 */
     text-decoration: none !important;
-    @if(mixin-exists(hook-icon-link)) {@include hook-icon-link();}
+    @if(meta.mixin-exists(hook-icon-link)) {@include hook-icon-link();}
 }
 
 .uk-icon-link:hover {
     color: $icon-link-hover-color;
-    @if(mixin-exists(hook-icon-link-hover)) {@include hook-icon-link-hover();}
+    @if(meta.mixin-exists(hook-icon-link-hover)) {@include hook-icon-link-hover();}
 }
 
 /* OnClick + Active */
 .uk-icon-link:active,
 .uk-active > .uk-icon-link {
     color: $icon-link-active-color;
-    @if(mixin-exists(hook-icon-link-active)) {@include hook-icon-link-active();}
+    @if(meta.mixin-exists(hook-icon-link-active)) {@include hook-icon-link-active();}
 }
 
 /*
@@ -157,14 +159,14 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    @if(mixin-exists(hook-icon-button)) {@include hook-icon-button();}
+    @if(meta.mixin-exists(hook-icon-button)) {@include hook-icon-button();}
 }
 
 /* Hover */
 .uk-icon-button:hover {
     background-color: $icon-button-hover-background;
     color: $icon-button-hover-color;
-    @if(mixin-exists(hook-icon-button-hover)) {@include hook-icon-button-hover();}
+    @if(meta.mixin-exists(hook-icon-button-hover)) {@include hook-icon-button-hover();}
 }
 
 /* OnClick + Active */
@@ -172,14 +174,14 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 .uk-active > .uk-icon-button {
     background-color: $icon-button-active-background;
     color: $icon-button-active-color;
-    @if(mixin-exists(hook-icon-button-active)) {@include hook-icon-button-active();}
+    @if(meta.mixin-exists(hook-icon-button-active)) {@include hook-icon-button-active();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-icon-misc)) {@include hook-icon-misc();}
+@if(meta.mixin-exists(hook-icon-misc)) {@include hook-icon-misc();}
 
 // @mixin hook-icon-link(){}
 // @mixin hook-icon-link-hover(){}

@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Visibility
 // Description:     Utilities to show or hide content on breakpoints, hover or touch
 //
@@ -115,7 +117,9 @@
  */
 
 .uk-hidden-visually:not(:focus):not(:active):not(:focus-within),
-.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-visible):not(:has(:focus-visible)) {
+.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-visible):not(:has(:focus-visible)),
+// Fallback for Safari 18.3 `:not(:has(...)) invalidation` bug. Remove when fixed.
+.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-within) {
     /* 1 */
     position: absolute !important;
     /* 2 */
@@ -157,6 +161,6 @@
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-visibility-misc)) {@include hook-visibility-misc();}
+@if(meta.mixin-exists(hook-visibility-misc)) {@include hook-visibility-misc();}
 
 // @mixin hook-visibility-misc(){}

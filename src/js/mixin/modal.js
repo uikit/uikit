@@ -2,7 +2,6 @@ import {
     $,
     addClass,
     append,
-    attr,
     css,
     endsWith,
     includes,
@@ -22,6 +21,7 @@ import {
 import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
+import { maybeDefaultPreventClick } from './event';
 import Togglable from './togglable';
 
 const active = [];
@@ -56,10 +56,11 @@ export default {
     },
 
     connected() {
-        attr(this.panel || this.$el, 'role', this.role);
+        const el = this.panel || this.$el;
+        el.role = this.role;
 
         if (this.overlay) {
-            attr(this.panel || this.$el, 'aria-modal', true);
+            el.ariaModal = true;
         }
     },
 
@@ -86,7 +87,7 @@ export default {
                 ) {
                     this.hide();
                 } else if (matches(current, this.selClose)) {
-                    e.preventDefault();
+                    maybeDefaultPreventClick(e);
                     this.hide();
                 }
             },
@@ -97,13 +98,14 @@ export default {
 
             self: true,
 
-            handler(e) {
+            handler(e, toggle) {
                 if (e.defaultPrevented) {
                     return;
                 }
 
                 e.preventDefault();
 
+                this.target = toggle?.$el;
                 if (this.isToggled() === includes(active, this)) {
                     this.toggle();
                 }
@@ -154,6 +156,8 @@ export default {
                 );
 
                 addClass(document.documentElement, this.clsPage);
+
+                setAriaExpanded(this.target, true);
             },
         },
 
@@ -164,7 +168,7 @@ export default {
 
             handler() {
                 if (!isFocusable(this.$el)) {
-                    attr(this.$el, 'tabindex', '-1');
+                    this.$el.tabIndex = -1;
                 }
 
                 if (!matches(this.$el, ':focus-within')) {
@@ -185,9 +189,16 @@ export default {
 
                 css(this.$el, 'zIndex', '');
 
+                const { target } = this;
                 if (!active.some((modal) => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);
+
+                    queueMicrotask(() => isFocusable(target) && target.focus());
                 }
+
+                setAriaExpanded(target, false);
+
+                this.target = null;
             },
         },
     ],
@@ -287,4 +298,10 @@ function listenForEscClose(modal) {
             modal.hide();
         }
     });
+}
+
+function setAriaExpanded(el, toggled) {
+    if (el?.ariaExpanded) {
+        el.ariaExpanded = toggled;
+    }
 }

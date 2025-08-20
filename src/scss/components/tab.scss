@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Tab
 // Description:     Component to create a tabbed navigation
 //
@@ -38,7 +40,7 @@
     /* 3 */
     padding: 0;
     list-style: none;
-    @if(mixin-exists(hook-tab)) {@include hook-tab();}
+    @if(meta.mixin-exists(hook-tab)) {@include hook-tab();}
 }
 
 /*
@@ -79,26 +81,26 @@
     /* 4 */
     padding: $tab-item-padding-vertical $tab-item-padding-horizontal;
     color: $tab-item-color;
-    @if(mixin-exists(hook-tab-item)) {@include hook-tab-item();}
+    @if(meta.mixin-exists(hook-tab-item)) {@include hook-tab-item();}
 }
 
 /* Hover */
 .uk-tab > * > a:hover {
     color: $tab-item-hover-color;
     text-decoration: $tab-item-hover-text-decoration;
-    @if(mixin-exists(hook-tab-item-hover)) {@include hook-tab-item-hover();}
+    @if(meta.mixin-exists(hook-tab-item-hover)) {@include hook-tab-item-hover();}
 }
 
 /* Active */
 .uk-tab > .uk-active > a {
     color: $tab-item-active-color;
-    @if(mixin-exists(hook-tab-item-active)) {@include hook-tab-item-active();}
+    @if(meta.mixin-exists(hook-tab-item-active)) {@include hook-tab-item-active();}
 }
 
 /* Disabled */
 .uk-tab > .uk-disabled > a {
     color: $tab-item-disabled-color;
-    @if(mixin-exists(hook-tab-item-disabled)) {@include hook-tab-item-disabled();}
+    @if(meta.mixin-exists(hook-tab-item-disabled)) {@include hook-tab-item-disabled();}
 }
 
 
@@ -110,11 +112,11 @@
  */
 
 .uk-tab-bottom {
-    @if(mixin-exists(hook-tab-bottom)) {@include hook-tab-bottom();}
+    @if(meta.mixin-exists(hook-tab-bottom)) {@include hook-tab-bottom();}
 }
 
 .uk-tab-bottom > * > a {
-    @if(mixin-exists(hook-tab-bottom-item)) {@include hook-tab-bottom-item();}
+    @if(meta.mixin-exists(hook-tab-bottom-item)) {@include hook-tab-bottom-item();}
 }
 
 /*
@@ -134,28 +136,28 @@
 .uk-tab-right > * { padding-left: 0; }
 
 .uk-tab-left {
-    @if(mixin-exists(hook-tab-left)) {@include hook-tab-left();}
+    @if(meta.mixin-exists(hook-tab-left)) {@include hook-tab-left();}
 }
 
 .uk-tab-right {
-    @if(mixin-exists(hook-tab-right)) {@include hook-tab-right();}
+    @if(meta.mixin-exists(hook-tab-right)) {@include hook-tab-right();}
 }
 
 .uk-tab-left > * > a {
     justify-content: left;
-    @if(mixin-exists(hook-tab-left-item)) {@include hook-tab-left-item();}
+    @if(meta.mixin-exists(hook-tab-left-item)) {@include hook-tab-left-item();}
 }
 
 .uk-tab-right > * > a {
     justify-content: left;
-    @if(mixin-exists(hook-tab-right-item)) {@include hook-tab-right-item();}
+    @if(meta.mixin-exists(hook-tab-right-item)) {@include hook-tab-right-item();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-tab-misc)) {@include hook-tab-misc();}
+@if(meta.mixin-exists(hook-tab-misc)) {@include hook-tab-misc();}
 
 // @mixin hook-tab(){}
 // @mixin hook-tab-item(){}

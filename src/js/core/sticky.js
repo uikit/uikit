@@ -402,12 +402,7 @@ export default {
             if (sticky) {
                 css(this.$el, 'top', offset);
             } else {
-                css(this.$el, {
-                    position: '',
-                    top: '',
-                    width: '',
-                    marginTop: '',
-                });
+                reset(this.$el);
             }
             this.placeholder.hidden = true;
             this.isFixed = false;

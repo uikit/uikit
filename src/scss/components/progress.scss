@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // Name:            Progress
 // Description:     Component to create progress bars
 //
@@ -37,7 +39,7 @@
     /* 5 */
     margin-bottom: $progress-margin-vertical;
     height: $progress-height;
-    @if(mixin-exists(hook-progress)) {@include hook-progress();}
+    @if(meta.mixin-exists(hook-progress)) {@include hook-progress();}
 }
 
 /* Add margin if adjacent element */
@@ -58,21 +60,21 @@
 .uk-progress::-webkit-progress-value {
     background-color: $progress-bar-background;
     transition: width 0.6s ease;
-    @if(mixin-exists(hook-progress-bar)) {@include hook-progress-bar();}
+    @if(meta.mixin-exists(hook-progress-bar)) {@include hook-progress-bar();}
 }
 
 .uk-progress::-moz-progress-bar {
     background-color: $progress-bar-background;
     /* 1 */
     transition: width 0.6s ease;
-    @if(mixin-exists(hook-progress-bar)) {@include hook-progress-bar();}
+    @if(meta.mixin-exists(hook-progress-bar)) {@include hook-progress-bar();}
 }
 
 
 // Hooks
 // ========================================================================
 
-@if(mixin-exists(hook-progress-misc)) {@include hook-progress-misc();}
+@if(meta.mixin-exists(hook-progress-misc)) {@include hook-progress-misc();}
 
 // @mixin hook-progress(){}
 // @mixin hook-progress-bar(){}

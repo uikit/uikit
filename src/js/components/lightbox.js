@@ -2,7 +2,6 @@ import {
     $,
     $$,
     assign,
-    attr,
     findIndex,
     isElement,
     isTag,
@@ -32,7 +31,7 @@ export default {
             this.hide();
             for (const toggle of toggles) {
                 if (isTag(toggle, 'a')) {
-                    attr(toggle, 'role', 'button');
+                    toggle.role = 'button';
                 }
             }
         },
