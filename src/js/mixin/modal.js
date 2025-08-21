@@ -22,6 +22,7 @@ import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
 import { maybeDefaultPreventClick } from './event';
+import { storeScrollPosition } from './position';
 import Togglable from './togglable';
 
 const active = [];
@@ -193,7 +194,13 @@ export default {
                 if (!active.some((modal) => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);
 
-                    queueMicrotask(() => isFocusable(target) && target.focus());
+                    queueMicrotask(() => {
+                        if (isFocusable(target)) {
+                            const restoreScrollPosition = storeScrollPosition(target);
+                            target.focus();
+                            restoreScrollPosition();
+                        }
+                    });
                 }
 
                 setAriaExpanded(target, false);

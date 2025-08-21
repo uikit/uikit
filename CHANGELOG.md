@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix setting focus to Modal/Offcanvas Toggle component after close scrolls page
+
 ## 3.23.12 (August 18, 2025)
 
 ### Fixed
