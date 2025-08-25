@@ -52,7 +52,7 @@
         "less": "^4.2.2",
         "minimist": "^1.2.8",
         "number-precision": "^1.6.0",
-        "p-limit": "^6.0.0",
+        "p-limit": "^7.1.0",
         "prettier": "^3.2.5",
         "prettier-plugin-organize-imports": "^4.0.0",
         "rollup": "^4.34.2",
