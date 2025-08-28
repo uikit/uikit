@@ -414,8 +414,8 @@
 .uk-navbar-dropdown > :last-child { margin-bottom: 0; }
 
 // Color Mode
-.uk-navbar-dropdown:extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
-.uk-navbar-dropdown:extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
+.uk-navbar-dropdown:not(.uk-preserve-color):extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
+.uk-navbar-dropdown:not(.uk-preserve-color):extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
 
 .uk-navbar-dropdown :focus-visible when not (@navbar-dropdown-color-mode = @inverse-global-color-mode) {
     outline-color: @navbar-dropdown-focus-outline !important;
