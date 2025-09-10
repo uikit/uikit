@@ -51,6 +51,7 @@
 
 - Fix Inverse component not being responsive for multiple target elements
 - Fix tabindex not being set for Video component in `autoplay: hover` mode
+- Fix browser lock up because of infinite component update loop
 
 ## 3.23.6 (April 10, 2025)
 
