@@ -6,6 +6,7 @@
 
 - Fix setting focus to Modal/Offcanvas Toggle component after close scrolls page
 - Fix Slideshow/Slider components no longer autoplay if hidden
+- Fix Drop component no longer delays showing if previous active Drop component is found
 
 ## 3.23.12 (August 18, 2025)
 
