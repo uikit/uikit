@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.23.13 (September 11, 2025)
 
 ### Fixed
 
