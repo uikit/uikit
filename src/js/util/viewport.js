@@ -224,7 +224,7 @@ export function getCoveringElement(target) {
                                 (parent) => !parent.contains(el) && !hasPosition(parent, 'static'),
                             ),
                     ) < zIndex(el)) ||
-                    (hasPosition(el, 'sticky') && parent(el).contains(target))) &&
+                    (hasPosition(el, 'sticky') && (!target || parent(el).contains(target)))) &&
                 (!coverEl || dimensions(coverEl).height < dimensions(el).height)
             ) {
                 coverEl = el;

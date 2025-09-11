@@ -336,6 +336,7 @@ export default {
                     prev = active;
                     active.hide(false, false);
                 }
+                delay = false;
             }
 
             if (this.container && parent(this.$el) !== this.container) {

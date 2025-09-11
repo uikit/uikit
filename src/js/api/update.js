@@ -20,6 +20,11 @@ export function callUpdate(instance, e = 'update') {
         return;
     }
 
+    if (!instance._updateCount) {
+        instance._updateCount = 0;
+        requestAnimationFrame(() => (instance._updateCount = 0));
+    }
+
     if (!instance._queued) {
         instance._queued = new Set();
         fastdom.read(() => {
@@ -30,7 +35,9 @@ export function callUpdate(instance, e = 'update') {
         });
     }
 
-    instance._queued.add(e.type || e);
+    if (instance._updateCount++ < 20) {
+        instance._queued.add(e.type || e);
+    }
 }
 
 function runUpdates(instance, types) {

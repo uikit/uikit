@@ -4,7 +4,6 @@ import {
     getCoveringElement,
     getTargetedElement,
     hasClass,
-    isSameSiteAnchor,
     isVisible,
     offset,
     offsetViewport,
@@ -32,7 +31,20 @@ export default {
     },
 
     computed: {
-        links: ({ target }, $el) => $$(target, $el).filter(isSameSiteAnchor),
+        links: {
+            get({ target }, $el) {
+                return $$(target, $el).filter(getTargetedElement);
+            },
+            observe: () => '*',
+        },
+
+        targets() {
+            return this.links.map((el) => getTargetedElement(el));
+        },
+
+        elements({ closest }) {
+            return this.links.map((el) => el.closest(closest || '*'));
+        },
     },
 
     watch: {
@@ -48,9 +60,7 @@ export default {
     update: [
         {
             read() {
-                const links = this.links.filter(getTargetedElement);
-                const targets = links.map(getTargetedElement);
-
+                const { targets } = this;
                 const { length } = targets;
 
                 if (!length || !isVisible(this.$el)) {
@@ -79,11 +89,11 @@ export default {
                     }
                 }
 
-                return { active, links };
+                return { active };
             },
 
-            write({ active, links }) {
-                const elements = links.map((el) => el.closest(this.closest || '*'));
+            write({ active }) {
+                const { elements } = this;
                 const changed = active !== false && !hasClass(elements[active], this.cls);
 
                 this.links.forEach((el) => el.blur());

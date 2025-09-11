@@ -1,4 +1,4 @@
-/*! UIkit 3.23.12 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.23.13 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1341,7 +1341,7 @@
             parents(target).reverse().find(
               (parent2) => !parent2.contains(el) && !hasPosition(parent2, "static")
             )
-          ) < zIndex(el) || hasPosition(el, "sticky") && parent(el).contains(target)) && (!coverEl || dimensions$1(coverEl).height < dimensions$1(el).height)) {
+          ) < zIndex(el) || hasPosition(el, "sticky") && (!target || parent(el).contains(target))) && (!coverEl || dimensions$1(coverEl).height < dimensions$1(el).height)) {
             coverEl = el;
           }
         }
@@ -1901,6 +1901,10 @@
       if (!instance._updates.length) {
         return;
       }
+      if (!instance._updateCount) {
+        instance._updateCount = 0;
+        requestAnimationFrame(() => instance._updateCount = 0);
+      }
       if (!instance._queued) {
         instance._queued = /* @__PURE__ */ new Set();
         fastdom.read(() => {
@@ -1910,7 +1914,9 @@
           instance._queued = null;
         });
       }
-      instance._queued.add(e.type || e);
+      if (instance._updateCount++ < 20) {
+        instance._queued.add(e.type || e);
+      }
     }
     function runUpdates(instance, types) {
       for (const { read, write, events = [] } of instance._updates) {
@@ -3030,7 +3036,13 @@
             const { target } = this;
             if (!active$1.some((modal) => modal.clsPage === this.clsPage)) {
               removeClass(document.documentElement, this.clsPage);
-              queueMicrotask(() => isFocusable(target) && target.focus());
+              queueMicrotask(() => {
+                if (isFocusable(target)) {
+                  const restoreScrollPosition = storeScrollPosition(target);
+                  target.focus();
+                  restoreScrollPosition();
+                }
+              });
             }
             setAriaExpanded(target, false);
             this.target = null;
@@ -3259,7 +3271,7 @@
         startAutoplay() {
           this.stopAutoplay();
           this.interval = setInterval(() => {
-            if (!(this.stack.length || this.draggable && matches(this.$el, ":focus-within") && !matches(this.$el, ":focus") || this.pauseOnHover && matches(this.$el, ":hover"))) {
+            if (!(this.stack.length || !isVisible(this.$el) || this.draggable && matches(this.$el, ":focus-within") && !matches(this.$el, ":focus") || this.pauseOnHover && matches(this.$el, ":hover"))) {
               this.show("next");
             }
           }, this.autoplayInterval);
@@ -3744,7 +3756,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.12";
+    App.version = "3.23.13";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -7231,6 +7243,7 @@
               prev = active;
               active.hide(false, false);
             }
+            delay = false;
           }
           if (this.container && parent(this.$el) !== this.container) {
             append(this.container, this.$el);
@@ -9064,7 +9077,18 @@
         offset: 0
       },
       computed: {
-        links: ({ target }, $el) => $$(target, $el).filter(isSameSiteAnchor)
+        links: {
+          get({ target }, $el) {
+            return $$(target, $el).filter(getTargetedElement);
+          },
+          observe: () => "*"
+        },
+        targets() {
+          return this.links.map((el) => getTargetedElement(el));
+        },
+        elements({ closest }) {
+          return this.links.map((el) => el.closest(closest || "*"));
+        }
       },
       watch: {
         links(links) {
@@ -9077,8 +9101,7 @@
       update: [
         {
           read() {
-            const links = this.links.filter(getTargetedElement);
-            const targets = links.map(getTargetedElement);
+            const { targets } = this;
             const { length } = targets;
             if (!length || !isVisible(this.$el)) {
               return false;
@@ -9099,10 +9122,10 @@
                 active = +i;
               }
             }
-            return { active, links };
+            return { active };
           },
-          write({ active, links }) {
-            const elements = links.map((el) => el.closest(this.closest || "*"));
+          write({ active }) {
+            const { elements } = this;
             const changed = active !== false && !hasClass(elements[active], this.cls);
             this.links.forEach((el) => el.blur());
             for (let i = 0; i < elements.length; i++) {

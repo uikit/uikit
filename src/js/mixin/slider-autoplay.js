@@ -1,4 +1,4 @@
-import { attr, matches } from 'uikit-util';
+import { attr, isVisible, matches } from 'uikit-util';
 
 export default {
     props: {
@@ -52,6 +52,7 @@ export default {
                 if (
                     !(
                         this.stack.length ||
+                        !isVisible(this.$el) ||
                         (this.draggable &&
                             matches(this.$el, ':focus-within') &&
                             !matches(this.$el, ':focus')) ||

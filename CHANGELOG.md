@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.23.13 (September 11, 2025)
+
+### Fixed
+
+- Fix setting focus to Modal/Offcanvas Toggle component after close scrolls page
+- Fix Slideshow/Slider components no longer autoplay if hidden
+- Fix Drop component no longer delays showing if previous active Drop component is found
+- Fix Scrollspy Nav component not detecting covering element correctly 
+
 ## 3.23.12 (August 18, 2025)
 
 ### Fixed
@@ -44,6 +53,7 @@
 
 - Fix Inverse component not being responsive for multiple target elements
 - Fix tabindex not being set for Video component in `autoplay: hover` mode
+- Fix browser lock up because of infinite component update loop
 
 ## 3.23.6 (April 10, 2025)
 
