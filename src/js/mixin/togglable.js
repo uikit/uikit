@@ -97,7 +97,7 @@ export default {
                     }),
                 );
                 return true;
-            } catch (e) {
+            } catch {
                 return false;
             }
         },

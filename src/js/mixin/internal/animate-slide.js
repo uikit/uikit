@@ -72,7 +72,7 @@ export default async function (action, target, duration) {
             }
         });
         attr(target, 'style', targetStyle);
-    } catch (e) {
+    } catch {
         attr(nodes, 'style', '');
         resetProps(target, targetProps);
     }

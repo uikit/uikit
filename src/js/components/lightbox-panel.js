@@ -374,7 +374,7 @@ export default {
                                 ...attrs,
                             }),
                         );
-                    } catch (e) {
+                    } catch {
                         this.setError(item);
                     }
                 }
