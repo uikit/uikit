@@ -4,6 +4,7 @@ import {
     css,
     hasClass,
     height,
+    isInView,
     isVisible,
     once,
     removeClass,
@@ -29,12 +30,21 @@ export default function fade(action, target, duration, stagger = 0) {
         addClass(target, clsLeave);
 
         await (stagger
-            ? Promise.all(
-                  getTransitionNodes(target).map(async (child, i) => {
-                      await awaitTimeout(i * stagger);
-                      return Transition.start(child, propsOut, duration / 2, 'ease');
-                  }),
-              )
+            ? getTransitionNodes(target).reduce(async (promise, child, i, array) => {
+                  await promise;
+
+                  if (!isInView(child) || !isCurrentIndex()) {
+                      css(child, propsOut);
+                      return;
+                  }
+
+                  await awaitTimeout(stagger);
+
+                  const transition = Transition.start(child, propsOut, duration / 2, 'ease');
+                  if (array.length - 1 === i) {
+                      await transition;
+                  }
+              }, Promise.resolve())
             : Transition.start(target, propsOut, duration / 2, 'ease'));
 
         removeClass(target, clsLeave);
@@ -65,13 +75,23 @@ export default function fade(action, target, duration, stagger = 0) {
             const nodes = getTransitionNodes(target);
             css(children(target), propsOut);
 
-            transitions = nodes.map(async (child, i) => {
-                await awaitTimeout(i * stagger);
-                await Transition.start(child, propsIn, duration / 2, 'ease');
-                if (isCurrentIndex()) {
+            transitions = nodes.reduce(async (promise, child, i, array) => {
+                await promise;
+
+                if (!isInView(child) || !isCurrentIndex()) {
                     resetProps(child, propsIn);
+                    return;
                 }
-            });
+
+                await awaitTimeout(stagger);
+
+                const transition = Transition.start(child, propsIn, duration / 2, 'ease').then(
+                    () => isCurrentIndex() && resetProps(child, propsIn),
+                );
+                if (array.length - 1 === i) {
+                    await transition;
+                }
+            }, Promise.resolve());
 
             targetDuration += nodes.length * stagger;
         }
