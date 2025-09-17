@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.23.13 (September 11, 2025)
+## WIP
 
 ### Added
 
@@ -36,7 +36,7 @@
 - Fix border color if visible toggle class is applied in Visibility component
 - Fix text from wrapping onto multiple lines if elements should look like `input` or `select`
 
-## WIP
+## 3.23.13 (September 11, 2025)
 
 ### Fixed
 
