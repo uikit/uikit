@@ -49,7 +49,7 @@
 
             <!--
             Normalize playing/stoping video when leaving/entering the viewport and changing display from hidden to not hidden
-            Fix continuing playing video when hidden 
+            Fix continuing playing video when hidden
             Fix if the video is added to the DOM through JS, the muted attribute is ignored
             Toggle autoplay for display
             Lazy videos by removing preload none when entering the viewport
@@ -190,6 +190,12 @@
                         <td>Boolean</td>
                         <td>false</td>
                         <td>Video will seek to the beginning whenever video element's autoplay option pauses the video.</td>
+                    </tr>
+                    <tr>
+                        <td><code>hover-target</code></td>
+                        <td>CSS Selector</td>
+                        <td>self</td>
+                        <td>The element that functions as hover toggle when autoplay option is set to `hover`.</td>
                     </tr>
                 </tbody>
             </table>
