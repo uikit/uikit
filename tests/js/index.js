@@ -1,5 +1,6 @@
 /* global TESTS */
 import { $$, addClass, css, on, prepend, removeClass, ucfirst } from 'uikit-util';
+import { awaitFrame, awaitTimeout } from '../../src/js/util/await';
 
 const tests = TESTS;
 const storage = window.sessionStorage;
@@ -59,13 +60,13 @@ document.writeln(
     `<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`,
 );
 
-on(window, 'load', () =>
-    setTimeout(
-        () =>
-            requestAnimationFrame(() => {
-                const $container = prepend(
-                    document.body,
-                    `
+on(window, 'load', async () => {
+    await awaitTimeout(100);
+    await awaitFrame();
+
+    const $container = prepend(
+        document.body,
+        `
         <div class="uk-container">
             <select class="uk-select uk-form-width-small" style="margin: 20px 20px 20px 0" aria-label="Component switcher">
                 <option value="index.html">Overview</option>
@@ -95,82 +96,74 @@ on(window, 'load', () =>
             </label>
         </div>
     `,
-                );
+    );
 
-                const [$tests, $styles, $inverse, $rtl] = $container.children;
+    const [$tests, $styles, $inverse, $rtl] = $container.children;
 
-                // Tests
-                // ------------------------------
+    // Tests
+    // ------------------------------
 
-                on($tests, 'change', () => {
-                    if ($tests.value) {
-                        location.href = `${$tests.value}${
-                            styles.custom ? `?style=${getParam('style')}` : ''
-                        }`;
-                    }
-                });
-                $tests.value = `${component || 'index'}.html`;
+    on($tests, 'change', () => {
+        if ($tests.value) {
+            location.href = `${$tests.value}${styles.custom ? `?style=${getParam('style')}` : ''}`;
+        }
+    });
+    $tests.value = `${component || 'index'}.html`;
 
-                // Styles
-                // ------------------------------
+    // Styles
+    // ------------------------------
 
-                on($styles, 'change', () => {
-                    storage[key] = $styles.value;
-                    location.reload();
-                });
-                $styles.value = storage[key];
+    on($styles, 'change', () => {
+        storage[key] = $styles.value;
+        location.reload();
+    });
+    $styles.value = storage[key];
 
-                // Variations
-                // ------------------------------
+    // Variations
+    // ------------------------------
 
-                $inverse.value = storage[keyinverse];
+    $inverse.value = storage[keyinverse];
 
-                if ($inverse.value) {
-                    removeClass(
-                        $$('*'),
-                        'uk-card-default',
-                        'uk-card-muted',
-                        'uk-card-primary',
-                        'uk-card-secondary',
-                        'uk-tile-default',
-                        'uk-tile-muted',
-                        'uk-tile-primary',
-                        'uk-tile-secondary',
-                        'uk-section-default',
-                        'uk-section-muted',
-                        'uk-section-primary',
-                        'uk-section-secondary',
-                        'uk-overlay-default',
-                        'uk-overlay-primary',
-                    );
+    if ($inverse.value) {
+        removeClass(
+            $$('*'),
+            'uk-card-default',
+            'uk-card-muted',
+            'uk-card-primary',
+            'uk-card-secondary',
+            'uk-card-overlay',
+            'uk-tile-default',
+            'uk-tile-muted',
+            'uk-tile-primary',
+            'uk-tile-secondary',
+            'uk-section-default',
+            'uk-section-muted',
+            'uk-section-primary',
+            'uk-section-secondary',
+            'uk-overlay-default',
+            'uk-overlay-primary',
+        );
 
-                    addClass($$('.uk-navbar-container'), 'uk-navbar-transparent');
+        addClass($$('.uk-navbar-container'), 'uk-navbar-transparent');
 
-                    css(
-                        document.documentElement,
-                        'background',
-                        $inverse.value === 'dark' ? '#fff' : '#222',
-                    );
-                    addClass(document.body, `uk-${$inverse.value}`);
-                }
+        css(document.documentElement, 'background', $inverse.value === 'dark' ? '#fff' : '#222');
+        addClass(document.body, `uk-${$inverse.value}`);
+    }
 
-                on($inverse, 'change', () => {
-                    storage[keyinverse] = $inverse.value;
-                    location.reload();
-                });
+    on($inverse, 'change', () => {
+        storage[keyinverse] = $inverse.value;
+        location.reload();
+    });
 
-                // RTL
-                // ------------------------------
+    // RTL
+    // ------------------------------
 
-                on($rtl, 'change', ({ target }) => {
-                    storage._uikit_dir = target.checked ? 'rtl' : 'ltr';
-                    location.reload();
-                });
-                $rtl.firstElementChild.checked = dir === 'rtl';
-            }),
-        100,
-    ),
-);
+    on($rtl, 'change', ({ target }) => {
+        storage._uikit_dir = target.checked ? 'rtl' : 'ltr';
+        location.reload();
+    });
+    $rtl.firstElementChild.checked = dir === 'rtl';
+});
 
 function getParam(name) {
     const match = new RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);

@@ -10,6 +10,7 @@ import {
     removeClass,
     trigger,
 } from 'uikit-util';
+import { awaitFrame } from '../util/await';
 import I18n from './i18n';
 import SliderAutoplay from './slider-autoplay';
 import SliderDrag from './slider-drag';
@@ -160,8 +161,9 @@ export default {
             stack.shift();
             this._transitioner = null;
 
+            await awaitFrame();
             if (stack.length) {
-                requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
+                this.show(stack.shift(), true);
             }
         },
 

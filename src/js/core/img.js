@@ -138,7 +138,7 @@ function parseSources(sources) {
     if (startsWith(sources, '[')) {
         try {
             sources = JSON.parse(sources);
-        } catch (e) {
+        } catch {
             sources = [];
         }
     } else {

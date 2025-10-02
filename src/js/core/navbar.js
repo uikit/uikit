@@ -1,4 +1,5 @@
 import { $$, addClass, css, hasClass, offset, removeClass } from 'uikit-util';
+import { awaitTimeout } from '../util/await';
 import { active } from './drop';
 import Dropnav from './dropnav';
 
@@ -12,6 +13,7 @@ export default {
     },
 
     data: {
+        flip: false,
         delayShow: 200,
         clsDrop: 'uk-navbar-dropdown',
         selNavItem:
@@ -59,7 +61,7 @@ export default {
             el: ({ dropContainer }) => dropContainer,
 
             async handler() {
-                await awaitMacroTask();
+                await awaitTimeout();
 
                 if (this._transparent && (!active || !this.dropContainer.contains(active.$el))) {
                     addClass(this.navbarContainer, clsNavbarTransparent);
@@ -92,7 +94,3 @@ export default {
         },
     },
 };
-
-function awaitMacroTask() {
-    return new Promise((resolve) => setTimeout(resolve));
-}

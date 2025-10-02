@@ -1,4 +1,4 @@
-/*! UIkit 3.23.13 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.24.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -442,7 +442,7 @@
     function _doQuery(context, queryFn, selector) {
       try {
         return context[queryFn](selector);
-      } catch (e) {
+      } catch {
         return null;
       }
     }
@@ -643,13 +643,13 @@
     const clsTransition = "uk-transition";
     const transitionEnd = "transitionend";
     const transitionCanceled = "transitioncanceled";
-    function transition$1(element, props, duration = 400, timing = "linear") {
+    function transition$1(element, props, duration = 400, timing = "linear", skipReflow) {
       duration = Math.round(duration);
       return Promise.all(
         toNodes(element).map(
           (element2) => new Promise((resolve, reject) => {
-            for (const name in props) {
-              css(element2, name);
+            if (!skipReflow) {
+              element2.offsetHeight;
             }
             const timer = setTimeout(() => trigger(element2, transitionEnd), duration);
             once(
@@ -1186,7 +1186,7 @@
           try {
             data = JSON.parse(data);
             return youtube && (data == null ? void 0 : data.id) === id && data.event === "onReady" || vimeo && Number(data == null ? void 0 : data.player_id) === id;
-          } catch (e) {
+          } catch {
           }
         });
         el.src = `${el.src}${includes(el.src, "?") ? "&" : "?"}${youtube ? "enablejsapi=1" : `api=1&player_id=${id}`}`;
@@ -1332,10 +1332,12 @@
       return rect;
     }
     function getCoveringElement(target) {
+      const { document } = toWindow(target);
+      target = target || document.body;
       const { left, width, top } = dimensions$1(target);
       for (const position of top ? [0, top] : [0]) {
         let coverEl;
-        for (const el of toWindow(target).document.elementsFromPoint(left + width / 2, position)) {
+        for (const el of document.elementsFromPoint(left + width / 2, position)) {
           if (!el.contains(target) && // If e.g. Offcanvas is not yet closed
           !hasClass(el, "uk-togglable-leave") && (hasPosition(el, "fixed") && zIndex(
             parents(target).reverse().find(
@@ -1865,7 +1867,7 @@
           }
           return options2;
         }, {}) : {};
-      } catch (e) {
+      } catch {
         return {};
       }
     }
@@ -2128,6 +2130,13 @@
       };
     }
 
+    function awaitFrame() {
+      return new Promise((resolve) => requestAnimationFrame(resolve));
+    }
+    function awaitTimeout(timeout) {
+      return new Promise((resolve) => setTimeout(resolve, timeout));
+    }
+
     const clsLeave = "uk-transition-leave";
     const clsEnter = "uk-transition-enter";
     function fade(action, target, duration, stagger = 0) {
@@ -2138,12 +2147,18 @@
       const wrapIndexFn = (fn) => () => isCurrentIndex() ? fn() : Promise.reject();
       const leaveFn = wrapIndexFn(async () => {
         addClass(target, clsLeave);
-        await (stagger ? Promise.all(
-          getTransitionNodes(target).map(async (child, i) => {
-            await awaitTimeout(i * stagger);
-            return Transition.start(child, propsOut, duration / 2, "ease");
-          })
-        ) : Transition.start(target, propsOut, duration / 2, "ease"));
+        await (stagger ? getTransitionNodes(target).reduce(async (promise, child, i, array) => {
+          await promise;
+          if (!isInView(child) || !isCurrentIndex()) {
+            css(child, propsOut);
+            return;
+          }
+          await awaitTimeout(stagger);
+          const transition = Transition.start(child, propsOut, duration / 2, "ease");
+          if (array.length - 1 === i) {
+            await transition;
+          }
+        }, Promise.resolve()) : Transition.start(target, propsOut, duration / 2, "ease"));
         removeClass(target, clsLeave);
       });
       const enterFn = wrapIndexFn(async () => {
@@ -2162,13 +2177,20 @@
         if (stagger) {
           const nodes = getTransitionNodes(target);
           css(children(target), propsOut);
-          transitions = nodes.map(async (child, i) => {
-            await awaitTimeout(i * stagger);
-            await Transition.start(child, propsIn, duration / 2, "ease");
-            if (isCurrentIndex()) {
+          transitions = nodes.reduce(async (promise, child, i, array) => {
+            await promise;
+            if (!isInView(child) || !isCurrentIndex()) {
               resetProps(child, propsIn);
+              return;
             }
-          });
+            await awaitTimeout(stagger);
+            const transition = Transition.start(child, propsIn, duration / 2, "ease").then(
+              () => isCurrentIndex() && resetProps(child, propsIn)
+            );
+            if (array.length - 1 === i) {
+              await transition;
+            }
+          }, Promise.resolve());
           targetDuration += nodes.length * stagger;
         }
         if (!stagger || oldHeight !== newHeight) {
@@ -2200,31 +2222,35 @@
     function getTransitionNodes(target) {
       return getRows(children(target)).flat().filter(isVisible);
     }
-    function awaitTimeout(timeout) {
-      return new Promise((resolve) => setTimeout(resolve, timeout));
-    }
 
     async function slide(action, target, duration) {
       await awaitFrame();
       let nodes = children(target);
       const currentProps = nodes.map((el) => getProps$1(el, true));
       const targetProps = { ...css(target, ["height", "padding"]), display: "block" };
+      const transitionNodes = nodes.filter((node) => isInView(node));
       const targets = nodes.concat(target);
       await Promise.all(targets.map(Transition.cancel));
       css(targets, "transitionProperty", "none");
       await action();
-      nodes = nodes.concat(children(target).filter((el) => !includes(nodes, el)));
+      const newNodes = children(target).filter((el) => !includes(nodes, el));
+      nodes = nodes.concat(newNodes);
       await Promise.resolve();
       css(targets, "transitionProperty", "");
       const targetStyle = attr(target, "style");
       const targetPropsTo = css(target, ["height", "padding"]);
       const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
       const attrsTo = nodes.map((el) => ({ style: attr(el, "style") }));
+      transitionNodes.push(...nodes.filter((node) => isInView(node)));
       nodes.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
       css(target, targetProps);
       trigger(target, "scroll");
       await awaitFrame();
-      const transitions = nodes.map((el, i) => parent(el) === target && Transition.start(el, propsTo[i], duration, "ease")).concat(Transition.start(target, targetPropsTo, duration, "ease"));
+      const transitions = nodes.map((el, i) => {
+        if (parent(el) === target && transitionNodes.includes(el)) {
+          return Transition.start(el, propsTo[i], duration, "ease", !newNodes.includes(el));
+        }
+      }).concat(Transition.start(target, targetPropsTo, duration, "ease", true));
       try {
         await Promise.all(transitions);
         nodes.forEach((el, i) => {
@@ -2234,7 +2260,7 @@
           }
         });
         attr(target, "style", targetStyle);
-      } catch (e) {
+      } catch {
         attr(nodes, "style", "");
         resetProps(target, targetProps);
       }
@@ -2275,16 +2301,18 @@
     }
     function getPositionWithMargin(el) {
       const { height, width } = dimensions$1(el);
+      let { top, left } = position(el);
+      const viewport = offsetViewport(el.ownerDocument);
+      top = clamp(top, viewport.top - height - viewport.height, viewport.bottom + viewport.height);
+      left = clamp(left, viewport.left - width - viewport.width, viewport.right + viewport.width);
       return {
         height,
         width,
+        top,
+        left,
         transform: "",
-        ...position(el),
         ...css(el, ["marginTop", "marginLeft"])
       };
-    }
-    function awaitFrame() {
-      return new Promise((resolve) => requestAnimationFrame(resolve));
     }
 
     var Animate = {
@@ -2567,7 +2595,7 @@
       if (startsWith(sources, "[")) {
         try {
           sources = JSON.parse(sources);
-        } catch (e) {
+        } catch {
           sources = [];
         }
       } else {
@@ -2625,7 +2653,7 @@
       const props = {
         overflowY: CSS.supports("overflow", "clip") ? "clip" : "hidden",
         touchAction: "none",
-        paddingRight: width(window) - scrollingElement.clientWidth || ""
+        scrollbarGutter: "stable"
       };
       css(scrollingElement, props);
       return () => {
@@ -2718,10 +2746,14 @@
     function storeScrollPosition(element) {
       const scrollElement = scrollParent(element);
       const { scrollTop } = scrollElement;
-      return () => {
+      const restore = () => {
         if (scrollTop !== scrollElement.scrollTop) {
           scrollElement.scrollTop = scrollTop;
         }
+      };
+      return () => {
+        restore();
+        setTimeout(restore);
       };
     }
 
@@ -2778,7 +2810,7 @@
               })
             );
             return true;
-          } catch (e) {
+          } catch {
             return false;
           }
         },
@@ -3053,12 +3085,10 @@
         toggle() {
           return this.isToggled() ? this.hide() : this.show();
         },
-        show() {
+        async show() {
           if (this.container && parent(this.$el) !== this.container) {
             append(this.container, this.$el);
-            return new Promise(
-              (resolve) => requestAnimationFrame(() => this.show().then(resolve))
-            );
+            await awaitFrame();
           }
           return this.toggleElement(this.$el, true, animate$1);
         },
@@ -3756,7 +3786,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.23.13";
+    App.version = "3.24.0";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4201,8 +4231,9 @@
           trigger(next, "itemshown", [this]);
           stack.shift();
           this._transitioner = null;
+          await awaitFrame();
           if (stack.length) {
-            requestAnimationFrame(() => stack.length && this.show(stack.shift(), true));
+            this.show(stack.shift(), true);
           }
         },
         getIndex(index = this.index, prev = this.index) {
@@ -4579,7 +4610,7 @@
               allowfullscreen: "",
               style: "max-width: 100%; box-sizing: border-box;",
               "uk-responsive": "",
-              "uk-video": `${Boolean(this.videoAutoplay)}`
+              "uk-video": Boolean(this.videoAutoplay)
             };
             if (type === "image" || isImage(src)) {
               const img = createEl("img");
@@ -4598,8 +4629,9 @@
                 playsinline: "",
                 controls: inline ? null : "",
                 loop: inline ? "" : null,
+                muted: inline ? "" : null,
                 poster: this.videoAutoplay ? null : item.poster,
-                "uk-video": inline ? "automute: true" : Boolean(this.videoAutoplay),
+                "uk-video": Boolean(this.videoAutoplay),
                 ...attrs
               });
               on(video, "loadedmetadata", () => this.setItem(item, video));
@@ -4645,7 +4677,7 @@
                     ...attrs
                   })
                 );
-              } catch (e) {
+              } catch {
                 this.setError(item);
               }
             }
@@ -4712,7 +4744,8 @@
         src: item.thumb,
         loop: "",
         playsinline: "",
-        "uk-video": `autoplay: ${Boolean(videoAutoplay)}; automute: true`
+        muted: "",
+        "uk-video": videoAutoplay === "inline"
       }) : createEl("canvas");
       if (item.thumbRatio) {
         el.style.aspectRatio = item.thumbRatio;
@@ -6556,7 +6589,7 @@
           if (prop in xhr) {
             try {
               xhr[prop] = env[prop];
-            } catch (e) {
+            } catch {
             }
           }
         }
@@ -6896,63 +6929,77 @@
       args: "autoplay",
       props: {
         automute: Boolean,
-        autoplay: Boolean
+        autoplay: Boolean,
+        restart: Boolean,
+        hoverTarget: Boolean
       },
       data: {
         automute: false,
-        autoplay: true
+        autoplay: true,
+        restart: false,
+        hoverTarget: false
       },
       beforeConnect() {
-        if (this.autoplay === "inview" && !hasAttr(this.$el, "preload")) {
+        const isVideo = isTag(this.$el, "video");
+        if (this.autoplay === "inview" && isVideo && !hasAttr(this.$el, "preload")) {
           this.$el.preload = "none";
         }
-        if (isTag(this.$el, "iframe") && !hasAttr(this.$el, "allow")) {
+        if (!isVideo && !hasAttr(this.$el, "allow")) {
           this.$el.allow = "autoplay";
         }
         if (this.autoplay === "hover") {
-          if (isTag(this.$el, "video")) {
+          if (isVideo) {
             this.$el.tabIndex = 0;
           } else {
             this.autoplay = true;
           }
         }
-        if (this.automute) {
+        if (this.automute || hasAttr(this.$el, "muted")) {
           mute(this.$el);
         }
       },
       events: [
         {
           name: `${pointerEnter} focusin`,
+          el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
           filter: ({ autoplay }) => includes(autoplay, "hover"),
           handler(e) {
             if (!isTouch(e) || !isPlaying(this.$el)) {
               play(this.$el);
             } else {
-              pause(this.$el);
+              pauseHover(this.$el, this.restart);
             }
           }
         },
         {
           name: `${pointerLeave} focusout`,
+          el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
           filter: ({ autoplay }) => includes(autoplay, "hover"),
           handler(e) {
             if (!isTouch(e)) {
-              pause(this.$el);
+              pauseHover(this.$el, this.restart);
             }
           }
         }
       ],
       observe: [
         intersection({
-          filter: ({ autoplay }) => autoplay !== "hover",
-          handler([{ isIntersecting }]) {
+          filter: ({ $el }) => $el.preload === "none",
+          handler([{ target }]) {
+            target.preload = "";
+            this.$reset();
+          }
+        }),
+        intersection({
+          filter: ({ $el, autoplay }) => autoplay !== "hover" && $el.preload !== "none",
+          handler([{ isIntersecting, target }]) {
             if (!document.fullscreenElement) {
               if (isIntersecting) {
                 if (this.autoplay) {
-                  play(this.$el);
+                  play(target);
                 }
               } else {
-                pause(this.$el);
+                pauseHover(target, this.restart);
               }
             }
           },
@@ -6965,6 +7012,12 @@
     };
     function isPlaying(videoEl) {
       return !videoEl.paused && !videoEl.ended;
+    }
+    function pauseHover(el, restart) {
+      pause(el);
+      if (restart && isTag(el, "video")) {
+        el.currentTime = 0;
+      }
     }
 
     var cover = {
@@ -7012,7 +7065,7 @@
 
     let active;
     var drop = {
-      mixins: [Container, Position, Togglable],
+      mixins: [Class, Container, Position, Togglable],
       args: "pos",
       props: {
         mode: "list",
@@ -7027,7 +7080,6 @@
         delayShow: Number,
         delayHide: Number,
         autoUpdate: Boolean,
-        clsDrop: String,
         animateOut: Boolean,
         bgScroll: Boolean,
         closeOnScroll: Boolean
@@ -7045,7 +7097,6 @@
         delayShow: 0,
         delayHide: 800,
         autoUpdate: true,
-        clsDrop: false,
         animateOut: false,
         bgScroll: true,
         animation: ["uk-animation-fade"],
@@ -7073,11 +7124,8 @@
       created() {
         this.tracker = new MouseTracker();
       },
-      beforeConnect() {
-        this.clsDrop = this.$props.clsDrop || this.$options.id;
-      },
       connected() {
-        addClass(this.$el, "uk-drop", this.clsDrop);
+        addClass(this.$el, "uk-drop");
         if (this.toggle && !this.targetEl) {
           this.targetEl = createToggleComponent(this);
         }
@@ -7386,7 +7434,6 @@
       mixins: [Class, Container],
       props: {
         align: String,
-        clsDrop: String,
         boundary: Boolean,
         dropbar: Boolean,
         dropbarAnchor: Boolean,
@@ -7410,6 +7457,7 @@
         boundary: true,
         dropbar: false,
         dropbarAnchor: false,
+        flip: true,
         delayShow: 160,
         duration: 200,
         container: false,
@@ -7422,7 +7470,7 @@
             return null;
           }
           dropbar = this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
-          return dropbar ? dropbar : this._dropbar = $("<div></div>");
+          return dropbar ? dropbar : this._dropbar = $("<div>");
         },
         dropContainer(_, $el) {
           return this.container || $el;
@@ -7668,10 +7716,10 @@
             this.dropdowns.filter((el) => !this.getDropdown(el)),
             {
               ...this.$props,
-              flip: false,
+              flip: this.flip && !this.$props.dropbar,
               shift: true,
               pos: `bottom-${this.align}`,
-              boundary: this.boundary === true ? this.$el : this.boundary
+              boundaryX: this.boundary === true ? this.$el : this.boundary
             }
           );
         }
@@ -8080,7 +8128,7 @@
 
     var navbarParentIcon = "<svg width=\"12\" height=\"12\" viewBox=\"0 0 12 12\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" points=\"1 3.5 6 8.5 11 3.5\"/></svg>";
 
-    var navbarToggleIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\"><style>.uk-navbar-toggle-icon svg&gt;[class*=&quot;line-&quot;]{transition:0.2s ease-in-out;transition-property:transform, opacity;transform-origin:center;opacity:1}.uk-navbar-toggle-icon svg&gt;.line-3{opacity:0}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-3{opacity:1}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-2{transform:rotate(45deg)}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-3{transform:rotate(-45deg)}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-1,.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-4{opacity:0}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-1{transform:translateY(6px) scaleX(0)}.uk-navbar-toggle-animate[aria-expanded=&quot;true&quot;] svg&gt;.line-4{transform:translateY(-6px) scaleX(0)}</style><rect width=\"20\" height=\"2\" y=\"3\" class=\"line-1\"/><rect width=\"20\" height=\"2\" y=\"9\" class=\"line-2\"/><rect width=\"20\" height=\"2\" y=\"9\" class=\"line-3\"/><rect width=\"20\" height=\"2\" y=\"15\" class=\"line-4\"/></svg>";
+    var navbarToggleIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\"><style>.uk-navbar-toggle-icon svg&gt;[class*=&quot;line-&quot;]{transition:0.2s ease-in-out;transition-property:transform, opacity;transform-origin:center;opacity:1}.uk-navbar-toggle-icon svg&gt;.line-3{opacity:0}[aria-expanded=&quot;true&quot;].uk-navbar-toggle-icon svg&gt;.line-3,[aria-expanded=&quot;true&quot;]&gt;.uk-navbar-toggle-icon svg&gt;.line-3{opacity:1}[aria-expanded=&quot;true&quot;].uk-navbar-toggle-icon svg&gt;.line-2,[aria-expanded=&quot;true&quot;]&gt;.uk-navbar-toggle-icon svg&gt;.line-2{transform:rotate(45deg)}[aria-expanded=&quot;true&quot;].uk-navbar-toggle-icon svg&gt;.line-3,[aria-expanded=&quot;true&quot;]&gt;.uk-navbar-toggle-icon svg&gt;.line-3{transform:rotate(-45deg)}[aria-expanded=&quot;true&quot;].uk-navbar-toggle-icon svg&gt;.line-1,[aria-expanded=&quot;true&quot;]&gt;.uk-navbar-toggle-icon svg&gt;.line-1,[aria-expanded=&quot;true&quot;].uk-navbar-toggle-icon svg&gt;.line-4,[aria-expanded=&quot;true&quot;]&gt;.uk-navbar-toggle-icon svg&gt;.line-4{opacity:0}[aria-expanded=&quot;true&quot;].uk-navbar-toggle-icon svg&gt;.line-1,[aria-expanded=&quot;true&quot;]&gt;.uk-navbar-toggle-icon svg&gt;.line-1{transform:translateY(6px) scaleX(0)}[aria-expanded=&quot;true&quot;].uk-navbar-toggle-icon svg&gt;.line-4,[aria-expanded=&quot;true&quot;]&gt;.uk-navbar-toggle-icon svg&gt;.line-4{transform:translateY(-6px) scaleX(0)}</style><rect width=\"20\" height=\"2\" y=\"3\" class=\"line-1\"/><rect width=\"20\" height=\"2\" y=\"9\" class=\"line-2\"/><rect width=\"20\" height=\"2\" y=\"9\" class=\"line-3\"/><rect width=\"20\" height=\"2\" y=\"15\" class=\"line-4\"/></svg>";
 
     var overlayIcon = "<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\"><rect width=\"1\" height=\"40\" x=\"19\" y=\"0\"/><rect width=\"40\" height=\"1\" x=\"0\" y=\"19\"/></svg>";
 
@@ -8671,6 +8719,7 @@
         dropbarTransparentMode: Boolean
       },
       data: {
+        flip: false,
         delayShow: 200,
         clsDrop: "uk-navbar-dropdown",
         selNavItem: ".uk-navbar-nav > li > a,a.uk-navbar-item,button.uk-navbar-item,.uk-navbar-item a,.uk-navbar-item button,.uk-navbar-toggle",
@@ -8705,7 +8754,7 @@
           name: "hide",
           el: ({ dropContainer }) => dropContainer,
           async handler() {
-            await awaitMacroTask();
+            await awaitTimeout();
             if (this._transparent && (!active || !this.dropContainer.contains(active.$el))) {
               addClass(this.navbarContainer, clsNavbarTransparent);
               this._transparent = null;
@@ -8732,9 +8781,6 @@
         }
       }
     };
-    function awaitMacroTask() {
-      return new Promise((resolve) => setTimeout(resolve));
-    }
 
     var offcanvas = {
       mixins: [Modal],
@@ -8895,6 +8941,59 @@
       }
     };
 
+    var overflowFade = {
+      data: {
+        fadeDuration: 0.05
+      },
+      events: {
+        name: "scroll",
+        self: true,
+        passive: true,
+        handler() {
+          this.$emit();
+        }
+      },
+      observe: [
+        mutation({
+          options: {
+            subtree: true,
+            childList: true
+          }
+        }),
+        resize({
+          target: ({ $el }) => [$el, ...children($el)]
+        })
+      ],
+      update: {
+        read() {
+          const overflow = [];
+          for (const prop of ["Width", "Height"]) {
+            overflow.push(this.$el[`scroll${prop}`] - this.$el[`client${prop}`]);
+          }
+          return { overflow };
+        },
+        write({ overflow }) {
+          for (let i = 0; i < 2; i++) {
+            toggleClass(
+              this.$el,
+              `${this.$options.id}-${i ? "vertical" : "horizontal"}`,
+              overflow[i] && !overflow[i - 1]
+            );
+            if (!overflow[i - 1]) {
+              const dir = i ? "Top" : "Left";
+              const percent = overflow[i] ? this.$el[`scroll${dir}`] / overflow[i] : 0;
+              const toValue = (value) => overflow[i] ? clamp((this.fadeDuration - value) / this.fadeDuration) : 1;
+              css(this.$el, {
+                "--uk-overflow-fade-start-opacity": toValue(percent),
+                "--uk-overflow-fade-end-opacity": toValue(1 - percent)
+              });
+            }
+          }
+        },
+        events: ["resize"]
+      }
+    };
+
     var responsive = {
       props: ["width", "height"],
       connected() {
@@ -8988,7 +9087,7 @@
       },
       disconnected() {
         for (const [el, state] of this.elementData.entries()) {
-          removeClass(el, clsInView, (state == null ? void 0 : state.cls) || "");
+          removeClass(el, clsInView, state.cls || "");
         }
         delete this.elementData;
       },
@@ -9019,7 +9118,8 @@
             for (const [el, state] of this.elementData.entries()) {
               if (state.show && !state.inview && !state.queued) {
                 state.queued = true;
-                data.promise = (data.promise || Promise.resolve()).then(() => new Promise((resolve) => setTimeout(resolve, this.delay))).then(() => {
+                data.promise = (data.promise || Promise.resolve()).then(async () => {
+                  await awaitTimeout(state.show ? this.delay : 0);
                   this.toggle(el, true);
                   setTimeout(() => {
                     state.queued = false;
@@ -9215,20 +9315,19 @@
           name: "load hashchange popstate",
           el: () => window,
           filter: ({ targetOffset }) => targetOffset !== false,
-          handler() {
+          async handler() {
             const { scrollingElement } = document;
             if (!location.hash || scrollingElement.scrollTop === 0) {
               return;
             }
-            setTimeout(() => {
-              const targetOffset = offset($(location.hash));
-              const elOffset = offset(this.$el);
-              if (this.isFixed && intersectRect(targetOffset, elOffset)) {
-                scrollingElement.scrollTop = Math.ceil(
-                  targetOffset.top - elOffset.height - toPx(this.targetOffset, "height", this.placeholder) - toPx(this.offset, "height", this.placeholder)
-                );
-              }
-            });
+            await awaitTimeout();
+            const targetOffset = offset($(location.hash));
+            const elOffset = offset(this.$el);
+            if (this.isFixed && intersectRect(targetOffset, elOffset)) {
+              scrollingElement.scrollTop = Math.ceil(
+                targetOffset.top - elOffset.height - toPx(this.targetOffset, "height", this.placeholder) - toPx(this.offset, "height", this.placeholder)
+              );
+            }
           }
         }
       ],
@@ -9487,10 +9586,11 @@
       css(el, { position: "", top: "", marginTop: "", width: "" });
     }
     const clsTransitionDisable = "uk-transition-disable";
-    function preventTransition(element) {
+    async function preventTransition(element) {
       if (!hasClass(element, clsTransitionDisable)) {
         addClass(element, clsTransitionDisable);
-        requestAnimationFrame(() => removeClass(element, clsTransitionDisable));
+        await awaitFrame();
+        removeClass(element, clsTransitionDisable);
       }
     }
     function getVisibleParent(element) {
@@ -9828,17 +9928,15 @@
           }
         },
         {
-          // mouseenter mouseleave are added because of Firefox bug,
-          // where pointerleave is triggered immediately after pointerenter on scroll
-          name: `mouseenter mouseleave ${pointerEnter} ${pointerLeave} focus blur`,
+          name: `${pointerEnter} ${pointerLeave} focus blur`,
           filter: ({ mode }) => includes(mode, "hover"),
           handler(e) {
             if (isTouch(e) || this.$el.disabled || document.readyState === "loading") {
               return;
             }
-            const show = includes(["mouseenter", pointerEnter, "focus"], e.type);
+            const show = includes([pointerEnter, "focus"], e.type);
             const expanded = this.isToggled(this.target);
-            if (!show && (!isBoolean(this._showState) || e.type !== "blur" && matches(this.$el, ":focus") || e.type === "blur" && matches(this.$el, ":hover"))) {
+            if (!show && (!isBoolean(this._showState) || e.type === pointerLeave && matches(this.$el, ":focus") || e.type === "blur" && matches(this.$el, ":hover"))) {
               if (expanded === this._showState) {
                 this._showState = null;
               }
@@ -9948,6 +10046,7 @@
         NavbarToggleIcon: NavbarToggleIcon,
         Offcanvas: offcanvas,
         OverflowAuto: overflowAuto,
+        OverflowFade: overflowFade,
         OverlayIcon: IconComponent,
         PaginationNext: PaginationNext,
         PaginationPrevious: PaginationPrevious,

@@ -18,6 +18,7 @@ import {
     removeClass,
     toFloat,
 } from 'uikit-util';
+import { awaitFrame } from '../util/await';
 import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
@@ -215,12 +216,10 @@ export default {
             return this.isToggled() ? this.hide() : this.show();
         },
 
-        show() {
+        async show() {
             if (this.container && parent(this.$el) !== this.container) {
                 append(this.container, this.$el);
-                return new Promise((resolve) =>
-                    requestAnimationFrame(() => this.show().then(resolve)),
-                );
+                await awaitFrame();
             }
 
             return this.toggleElement(this.$el, true, animate);
