@@ -131,7 +131,7 @@
  ========================================================================== */
 
 /*
- * 1. Align navs and items vertically if they have a different height
+ * 1. Stretch height if a sibling's height is expanded by its content
  */
 
 .uk-navbar-left,
@@ -140,7 +140,7 @@
     display: flex;
     gap: @navbar-gap;
     /* 1 */
-    align-items: center;
+    align-items: stretch;
 }
 
 /*
@@ -149,7 +149,8 @@
  * 2. Fix text wrapping if content is larger than 50% of the container.
  * 3. Needed for dropdowns because a new position context is created
  *    `z-index` must be smaller than off-canvas
- * 4. Align sub groups for centered navbar
+ * 4. Stretch height if a sibling's height is expanded by its content
+ * 5. Align sub groups for centered navbar
  */
 
 .uk-navbar-right { margin-left: auto; }
@@ -171,13 +172,18 @@
     box-sizing: border-box;
     /* 3 */
     z-index: @global-z-index - 10;
+    /* 4 */
+    height: 100%;
+    align-items: stretch;
 }
 
-/* 4 */
 .uk-navbar-center-left,
 .uk-navbar-center-right {
-   position: absolute;
-   top: 0;
+    /* 4 */
+    height: 100%;
+    /* 5 */
+    position: absolute;
+    top: 0;
 }
 
 .uk-navbar-center-left { right: ~'calc(100% + @{navbar-gap})'; }
@@ -193,13 +199,16 @@
  ========================================================================== */
 
 /*
- * 1. Reset list
+ * 1. Stretch height if a sibling's height is expanded by its content
+ * 2. Reset list
  */
 
 .uk-navbar-nav {
     display: flex;
     gap: @navbar-nav-gap;
     /* 1 */
+    align-items: stretch;
+    /* 2 */
     margin: 0;
     padding: 0;
     list-style: none;
@@ -244,9 +253,14 @@
 
 /*
  * Nav items
+ * 1. Stretch height if a sibling's height is expanded by its content
+ * 2. Reset list
  */
 
 .uk-navbar-nav > li > a {
+    /* 1 */
+    height: 100%;
+    /* 2 */
     padding: 0 @navbar-nav-item-padding-horizontal;
     color: @navbar-nav-item-color;
     .hook-navbar-nav-item();
@@ -400,8 +414,8 @@
 .uk-navbar-dropdown > :last-child { margin-bottom: 0; }
 
 // Color Mode
-.uk-navbar-dropdown:extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
-.uk-navbar-dropdown:extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
+.uk-navbar-dropdown:not(.uk-preserve-color):extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
+.uk-navbar-dropdown:not(.uk-preserve-color):extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
 
 .uk-navbar-dropdown :focus-visible when not (@navbar-dropdown-color-mode = @inverse-global-color-mode) {
     outline-color: @navbar-dropdown-focus-outline !important;

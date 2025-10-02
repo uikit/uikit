@@ -9,6 +9,7 @@ import {
     trigger,
 } from 'uikit-util';
 import { intersection } from '../api/observables';
+import { awaitTimeout } from '../util/await';
 
 const clsInView = 'uk-scrollspy-inview';
 
@@ -52,7 +53,7 @@ export default {
 
     disconnected() {
         for (const [el, state] of this.elementData.entries()) {
-            removeClass(el, clsInView, state?.cls || '');
+            removeClass(el, clsInView, state.cls || '');
         }
         delete this.elementData;
     },
@@ -89,15 +90,14 @@ export default {
                     if (state.show && !state.inview && !state.queued) {
                         state.queued = true;
 
-                        data.promise = (data.promise || Promise.resolve())
-                            .then(() => new Promise((resolve) => setTimeout(resolve, this.delay)))
-                            .then(() => {
-                                this.toggle(el, true);
-                                setTimeout(() => {
-                                    state.queued = false;
-                                    this.$emit();
-                                }, 300);
-                            });
+                        data.promise = (data.promise || Promise.resolve()).then(async () => {
+                            await awaitTimeout(state.show ? this.delay : 0);
+                            this.toggle(el, true);
+                            setTimeout(() => {
+                                state.queued = false;
+                                this.$emit();
+                            }, 300);
+                        });
                     } else if (!state.show && state.inview && !state.queued && this.repeat) {
                         this.toggle(el, false);
                     }

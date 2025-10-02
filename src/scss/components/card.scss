@@ -16,6 +16,7 @@
 //                  `uk-card-default`
 //                  `uk-card-primary`
 //                  `uk-card-secondary`
+//                  `uk-card-overlay`
 //                  `uk-card-small`
 //                  `uk-card-large`
 //
@@ -26,6 +27,7 @@
 
 // Variables
 // ========================================================================
+
 
 
 
@@ -176,7 +178,7 @@
 /* Hover modifier
  ========================================================================== */
 
-.uk-card-hover:not(.uk-card-default):not(.uk-card-primary):not(.uk-card-secondary):hover {
+.uk-card-hover:not(.uk-card-default, .uk-card-primary, .uk-card-secondary, .uk-card-overlay):hover {
     background-color: $card-hover-background;
     @if(meta.mixin-exists(hook-card-hover)) {@include hook-card-hover();}
 }
@@ -276,6 +278,35 @@
 @if ( $card-secondary-color-mode == dark ) { .uk-card-secondary > :not([class*="uk-card-media"]) { @extend .uk-dark !optional;} }
 
 
+/*
+ * Overlay
+ */
+
+.uk-card-overlay {
+    --uk-inverse: #{$card-overlay-color-mode};
+    background-color: $card-overlay-background;
+    color: $card-overlay-color;
+    @if(meta.mixin-exists(hook-card-overlay)) {@include hook-card-overlay();}
+}
+
+.uk-card-overlay .uk-card-title {
+    color: $card-overlay-title-color;
+    @if(meta.mixin-exists(hook-card-overlay-title)) {@include hook-card-overlay-title();}
+}
+
+.uk-card-overlay.uk-card-hover:hover {
+    background-color: $card-overlay-hover-background;
+    @if(meta.mixin-exists(hook-card-overlay-hover)) {@include hook-card-overlay-hover();}
+}
+
+
+// Color Mode
+@if ( $card-overlay-color-mode == light ) { .uk-card-overlay.uk-card-body { @extend .uk-light !optional;} }
+@if ( $card-overlay-color-mode == light ) { .uk-card-overlay > :not([class*="uk-card-media"]) { @extend .uk-light !optional;} }
+@if ( $card-overlay-color-mode == dark ) { .uk-card-overlay.uk-card-body { @extend .uk-dark !optional;} }
+@if ( $card-overlay-color-mode == dark ) { .uk-card-overlay > :not([class*="uk-card-media"]) { @extend .uk-dark !optional;} }
+
+
 /* Size modifier
  ========================================================================== */
 
@@ -333,6 +364,9 @@
 // @mixin hook-card-secondary(){}
 // @mixin hook-card-secondary-title(){}
 // @mixin hook-card-secondary-hover(){}
+// @mixin hook-card-overlay(){}
+// @mixin hook-card-overlay-title(){}
+// @mixin hook-card-overlay-hover(){}
 // @mixin hook-card-misc(){}
 
 

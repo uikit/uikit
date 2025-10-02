@@ -30,6 +30,7 @@ import {
 import { resize, scroll, viewport } from '../api/observables';
 import Class from '../mixin/class';
 import Media from '../mixin/media';
+import { awaitFrame, awaitTimeout } from '../util/await';
 
 export default {
     mixins: [Class, Media],
@@ -123,26 +124,26 @@ export default {
 
             filter: ({ targetOffset }) => targetOffset !== false,
 
-            handler() {
+            async handler() {
                 const { scrollingElement } = document;
 
                 if (!location.hash || scrollingElement.scrollTop === 0) {
                     return;
                 }
 
-                setTimeout(() => {
-                    const targetOffset = getOffset($(location.hash));
-                    const elOffset = getOffset(this.$el);
+                await awaitTimeout();
 
-                    if (this.isFixed && intersectRect(targetOffset, elOffset)) {
-                        scrollingElement.scrollTop = Math.ceil(
-                            targetOffset.top -
-                                elOffset.height -
-                                toPx(this.targetOffset, 'height', this.placeholder) -
-                                toPx(this.offset, 'height', this.placeholder),
-                        );
-                    }
-                });
+                const targetOffset = getOffset($(location.hash));
+                const elOffset = getOffset(this.$el);
+
+                if (this.isFixed && intersectRect(targetOffset, elOffset)) {
+                    scrollingElement.scrollTop = Math.ceil(
+                        targetOffset.top -
+                            elOffset.height -
+                            toPx(this.targetOffset, 'height', this.placeholder) -
+                            toPx(this.offset, 'height', this.placeholder),
+                    );
+                }
             },
         },
     ],
@@ -491,10 +492,11 @@ function reset(el) {
 }
 
 const clsTransitionDisable = 'uk-transition-disable';
-function preventTransition(element) {
+async function preventTransition(element) {
     if (!hasClass(element, clsTransitionDisable)) {
         addClass(element, clsTransitionDisable);
-        requestAnimationFrame(() => removeClass(element, clsTransitionDisable));
+        await awaitFrame();
+        removeClass(element, clsTransitionDisable);
     }
 }
 

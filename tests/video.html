@@ -14,29 +14,156 @@
 
             <h1>Video</h1>
 
+            <p>
+                <button class="uk-button uk-button-default" type="button" uk-toggle="target: #scrollbar">Toggle scrollbar</button>
+                <button class="uk-button uk-button-default" type="button" uk-toggle="target: .uk-grid">Toggle display</button>
+            </p>
+
+            <div id="scrollbar" class="uk-margin-large-bottom" hidden>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            </div>
+
+            <!--
+            Normalize playing/stoping video when leaving/entering the viewport and changing display from hidden to not hidden
+            Fix continuing playing video when hidden
+            Fix if the video is added to the DOM through JS, the muted attribute is ignored
+            Toggle autoplay for display
+            Lazy videos by removing preload none when entering the viewport
+            -->
+
+            <h2>Inline Video</h2>
+
             <div class="uk-grid uk-child-width-1-3@s">
                 <div>
 
                     <h3>Autoplay</h3>
+                    <!--
+                    # Native Autoplay
+                    Chrome: `Out of view` + `Hidden`: Stops playing.
+                    Safari: `Out of view` + `Hidden`: Only stops first time but not when toggled second time.
+                    Firefox: `Out of view`: Continues playing. `Hidden`: Stops playing.
+                    -->
 
-                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +">Toggle Video</button>
-                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" controls playsinline uk-video="automute: true"></video>
+                    <!-- `Out of view`: continous playing. `Hidden`: stops playing -->
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video></video>
+                </div>
+                <div>
+
+                    <h3>Autoplay Inview</h3>
+
+                    <!-- `Out of view` + `Hidden`: stops playing -->
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview"></video>
+                </div>
+                <div>
+
+                    <h3>Autoplay Hover</h3>
+
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: hover"></video>
+                </div>
+            </div>
+
+            <h2>Inline YouTube</h2>
+
+            <div class="uk-grid uk-child-width-1-3@s">
+                <div>
+
+                    <h3>Autoplay</h3>
+                    <!--
+                    # Native Autoplay `autoplay=1`
+                    All browsers: `Out of view` + `Hidden`: Doesn't stop when hidden.
+                    -->
+
+                    <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?playsinline=1&amp;rel=0&amp;controls=0&amp;loop=1&amp;mute=1" width="1920" height="1080" allowfullscreen uk-responsive class="uk-disabled" uk-video></iframe>
 
                 </div>
                 <div>
 
                     <h3>Autoplay Inview</h3>
 
-                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +">Toggle Video</button>
-                    <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1&amp;playsinline=1" width="1920" height="1080" allowfullscreen uk-responsive uk-video="automute: true; autoplay: inview"></iframe>
-                </div>
+                    <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?playsinline=1&amp;rel=0&amp;controls=0&amp;loop=1&amp;mute=1" width="1920" height="1080" allowfullscreen uk-responsive class="uk-disabled" uk-video="autoplay: inview"></iframe>
 
+                </div>
+            </div>
+
+            <h2>Inline Vimeo</h2>
+
+            <div class="uk-grid uk-child-width-1-3@s">
                 <div>
 
-                    <h3>Autoplay Hover</h3>
+                    <h3>Autoplay</h3>
 
-                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +">Toggle Video</button>
-                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline uk-video="automute: true; autoplay: hover"></video>
+                    <iframe src="https://player.vimeo.com/video/1084537?background=1&amp;keyboard=0&amp;muted=1" width="1920" height="1080" allowfullscreen uk-responsive class="uk-disabled" uk-video></iframe>
+
+                </div>
+                <div>
+
+                    <h3>Autoplay Inview</h3>
+
+                    <iframe src="https://player.vimeo.com/video/1084537?background=1&amp;keyboard=0&amp;muted=1" width="1920" height="1080" allowfullscreen uk-responsive class="uk-disabled" uk-video="autoplay: inview"></iframe>
+
+                </div>
+            </div>
+
+            <h2>On Click</h2>
+
+            <div class="uk-grid uk-child-width-1-3@s">
+                <div>
+
+                    <h3>Video (Poster)</h3>
+
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" poster="images/photo.jpg" width="1920" height="1080" controls preload="none" uk-video="autoplay: false"></video>
+
+
+                </div>
+                <div>
+
+                    <h3>Video</h3>
+
+                    <div class="uk-inline uk-light">
+                        <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" controls preload="none" hidden uk-video></video>
+                        <a href uk-toggle="target: ! > *">
+                            <img src="images/photo.jpg" width="1800" height="1200" alt="">
+                            <span class="uk-position-center uk-icon-overlay" uk-icon="icon: youtube; ratio: 3"></span>
+                        </a>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Iframe (YouTube)</h3>
+
+                    <div class="uk-inline uk-light">
+                        <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?rel=0" width="1920" height="1080" allowfullscreen loading="lazy" hidden uk-responsive uk-video></iframe>
+                        <a href uk-toggle="target: ! > *">
+                            <img src="images/photo.jpg" width="1800" height="1200" alt="">
+                            <span class="uk-position-center uk-icon-overlay" uk-icon="icon: youtube; ratio: 3"></span>
+                        </a>
+                    </div>
+
                 </div>
             </div>
 
@@ -56,13 +183,19 @@
                         <td><code>autoplay</code></td>
                         <td>Boolean, String</td>
                         <td>true</td>
-                        <td>The video automatically plays/pauses when visible/hidden on the page. A value of `inview` will delay loading the video and play/pause the video as it enters/leaves the viewport. A value of `hover` will play the video as it is being hovered.</td>
+                        <td>Disable or enable autoplay (`false`, `true`). Videos will stop when hidden and continue playing when leaving the viewport. Use `inview` to also stop the video when leaving the viewport. Use `hover` to play the video only on hover. Note: Hover does not work with iframes.</td>
                     </tr>
                     <tr>
-                        <td><code>automute</code></td>
+                        <td><code>restart</code></td>
                         <td>Boolean</td>
                         <td>false</td>
-                        <td>Automatically mute YouTube or Vimeo videos.</td>
+                        <td>Video will seek to the beginning whenever video element's autoplay option pauses the video.</td>
+                    </tr>
+                    <tr>
+                        <td><code>hover-target</code></td>
+                        <td>CSS Selector</td>
+                        <td>self</td>
+                        <td>The element that functions as hover toggle when autoplay option is set to `hover`.</td>
                     </tr>
                 </tbody>
             </table>

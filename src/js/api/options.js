@@ -149,7 +149,7 @@ export function parseOptions(options, args = []) {
                         return options;
                     }, {})
             : {};
-    } catch (e) {
+    } catch {
         return {};
     }
 }

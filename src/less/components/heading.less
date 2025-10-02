@@ -122,82 +122,6 @@
 }
 
 
-/* Primary
-   Deprecated: Use `uk-heading-medium` instead
- ========================================================================== */
-
-@heading-primary-font-size-l:                   3.75rem;  // 60px
-@heading-primary-line-height-l:                 1.1;
-
-@heading-primary-font-size-m:                   @heading-primary-font-size-l * 0.9; // 54px
-
-@heading-primary-font-size:                     @heading-primary-font-size-l * 0.8; // 48px
-@heading-primary-line-height:                   1.2;
-
-.uk-heading-primary when (@deprecated = true) {
-    font-size: @heading-primary-font-size;
-    line-height: @heading-primary-line-height;
-    .hook-heading-primary();
-}
-
-/* Tablet landscape and bigger */
-@media (min-width: @breakpoint-medium) {
-
-    .uk-heading-primary when (@deprecated = true) { font-size: @heading-primary-font-size-m; }
-
-}
-
-/* Desktop and bigger */
-@media (min-width: @breakpoint-large) {
-
-    .uk-heading-primary when (@deprecated = true) {
-        font-size: @heading-primary-font-size-l;
-        line-height: @heading-primary-line-height-l;
-    }
-
-}
-
-
-/* Hero
-   Deprecated: Use `uk-heading-xlarge` instead
- ========================================================================== */
-
-@heading-hero-font-size-l:                      8rem; // 128px
-@heading-hero-line-height-l:                    1;
-
-@heading-hero-font-size-m:                      @heading-hero-font-size-l * 0.75; // 96px
-@heading-hero-line-height-m:                    1;
-
-@heading-hero-font-size:                        @heading-hero-font-size-l * 0.5; // 64px
-@heading-hero-line-height:                      1.1;
-
-.uk-heading-hero when (@deprecated = true) {
-    font-size: @heading-hero-font-size;
-    line-height: @heading-hero-line-height;
-    .hook-heading-hero();
-}
-
-/* Tablet landscape and bigger */
-@media (min-width: @breakpoint-medium) {
-
-    .uk-heading-hero when (@deprecated = true) {
-        font-size: @heading-hero-font-size-m;
-        line-height: @heading-hero-line-height-m;
-    }
-
-}
-
-/* Desktop and bigger */
-@media (min-width: @breakpoint-large) {
-
-    .uk-heading-hero when (@deprecated = true) {
-        font-size: @heading-hero-font-size-l;
-        line-height: @heading-hero-line-height-l;
-    }
-
-}
-
-
 /* Divider
  ========================================================================== */
 
@@ -332,14 +256,6 @@
 
     .uk-heading-3xlarge {
         .hook-inverse-heading-3xlarge();
-    }
-
-    .uk-heading-primary when (@deprecated = true) {
-        .hook-inverse-heading-primary();
-    }
-
-    .uk-heading-hero when (@deprecated = true) {
-        .hook-inverse-heading-hero();
     }
 
     .uk-heading-divider {

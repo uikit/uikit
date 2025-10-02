@@ -10,7 +10,7 @@ export default [
     },
     {
         rules: {
-            'no-unused-vars': ['error', { caughtErrors: 'none' }],
+            'no-empty': ['error', { allowEmptyCatch: true }],
         },
         languageOptions: {
             ecmaVersion: 'latest',

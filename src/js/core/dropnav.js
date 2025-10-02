@@ -37,7 +37,6 @@ export default {
 
     props: {
         align: String,
-        clsDrop: String,
         boundary: Boolean,
         dropbar: Boolean,
         dropbarAnchor: Boolean,
@@ -62,6 +61,7 @@ export default {
         boundary: true,
         dropbar: false,
         dropbarAnchor: false,
+        flip: true,
         delayShow: 160,
         duration: 200,
         container: false,
@@ -79,7 +79,7 @@ export default {
             dropbar =
                 this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
 
-            return dropbar ? dropbar : (this._dropbar = $('<div></div>'));
+            return dropbar ? dropbar : (this._dropbar = $('<div>'));
         },
 
         dropContainer(_, $el) {
@@ -404,10 +404,10 @@ export default {
                 this.dropdowns.filter((el) => !this.getDropdown(el)),
                 {
                     ...this.$props,
-                    flip: false,
+                    flip: this.flip && !this.$props.dropbar,
                     shift: true,
                     pos: `bottom-${this.align}`,
-                    boundary: this.boundary === true ? this.$el : this.boundary,
+                    boundaryX: this.boundary === true ? this.$el : this.boundary,
                 },
             );
         },
