@@ -8,6 +8,7 @@
 // Modifiers:       `uk-icon-image`
 //                  `uk-icon-link`
 //                  `uk-icon-button`
+//                  `uk-icon-overlay`
 //
 // States:          `uk-preserve`
 //
@@ -16,6 +17,7 @@
 
 // Variables
 // ========================================================================
+
 
 
 
@@ -177,6 +179,22 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
     @if(meta.mixin-exists(hook-icon-button-active)) {@include hook-icon-button-active();}
 }
 
+/*
+ * Overlay
+ */
+
+.uk-icon-overlay,
+a .uk-icon-overlay {
+    color: $icon-overlay-color;
+    @if(meta.mixin-exists(hook-icon-overlay)) {@include hook-icon-overlay();}
+}
+
+.uk-icon-overlay:hover,
+a:hover .uk-icon-overlay {
+    color: $icon-overlay-hover-color;
+    @if(meta.mixin-exists(hook-icon-overlay-hover)) {@include hook-icon-overlay-hover();}
+}
+
 
 // Hooks
 // ========================================================================
@@ -189,6 +207,8 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 // @mixin hook-icon-button(){}
 // @mixin hook-icon-button-hover(){}
 // @mixin hook-icon-button-active(){}
+// @mixin hook-icon-overlay(){}
+// @mixin hook-icon-overlay-hover(){}
 // @mixin hook-icon-misc(){}
 
 
@@ -204,3 +224,5 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 // @mixin hook-inverse-icon-button(){}
 // @mixin hook-inverse-icon-button-hover(){}
 // @mixin hook-inverse-icon-button-active(){}
+// @mixin hook-inverse-icon-overlay(){}
+// @mixin hook-inverse-icon-overlay-hover(){}

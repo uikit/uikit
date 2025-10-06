@@ -51,18 +51,6 @@
 
 @form-placeholder-color:                        @global-muted-color;
 
-@form-small-height:                             @global-control-small-height;
-@form-small-padding-horizontal:                 8px;
-@form-small-padding-vertical:                   round(@form-small-padding-horizontal * 0.6);
-@form-small-line-height:                        @form-small-height;
-@form-small-font-size:                          @global-small-font-size;
-
-@form-large-height:                             @global-control-large-height;
-@form-large-padding-horizontal:                 12px;
-@form-large-padding-vertical:                   round(@form-large-padding-horizontal * 0.6);
-@form-large-line-height:                        @form-large-height;
-@form-large-font-size:                          @global-medium-font-size;
-
 @form-danger-color:                             @global-danger-background;
 @form-success-color:                            @global-success-background;
 
@@ -92,6 +80,20 @@
 
 @form-radio-disabled-background:                @global-muted-background;
 @form-radio-disabled-icon-color:                @global-muted-color;
+
+@form-small-font-size:                          @global-small-font-size;
+@form-small-height:                             @global-control-small-height;
+@form-small-padding-horizontal:                 8px;
+@form-small-padding-vertical:                   round(@form-small-padding-horizontal * 0.6);
+@form-small-line-height:                        @form-small-height;
+@form-small-radio-size:                         14px;
+
+@form-large-font-size:                          @global-medium-font-size;
+@form-large-height:                             @global-control-large-height;
+@form-large-padding-horizontal:                 12px;
+@form-large-padding-vertical:                   round(@form-large-padding-horizontal * 0.6);
+@form-large-line-height:                        @form-large-height;
+@form-large-radio-size:                         22px;
 
 @form-legend-font-size:                         @global-large-font-size;
 @form-legend-line-height:                       1.4;
@@ -268,23 +270,32 @@
 
 /*
  * Single-line
- * 1. Allow any element to look like an `input` or `select` element
- * 2. Make sure line-height is not larger than height
- *    Also needed to center the text vertically
  */
 
 .uk-input,
 .uk-select:not([multiple]):not([size]) {
     height: @form-height;
     vertical-align: middle;
-    /* 1 */
-    display: inline-block;
     .hook-form-single-line();
 }
 
-/* 2 */
-.uk-input:not(input),
-.uk-select:not(select) { line-height: @form-line-height; }
+/*
+ * 1. Allow any element to look like an `input` or `select` element
+ * 2. Make sure line-height is not larger than height. Also needed to center the text vertically
+ * 3. Prevent text from wrapping onto multiple lines, and truncate with an ellipsis
+ */
+
+.uk-input:where(:not(input)),
+.uk-select:where(:not(select)) {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    line-height: @form-line-height;
+    /* 3 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 /*
  * Multi-line
@@ -328,50 +339,6 @@
 .uk-input::placeholder { color: @form-placeholder-color; }
 
 .uk-textarea::placeholder { color: @form-placeholder-color; }
-
-
-/* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
- ========================================================================== */
-
-/*
- * Small
- */
-
-.uk-form-small { font-size: @form-small-font-size; }
-
-/* Single-line */
-.uk-form-small:not(textarea):not([multiple]):not([size]) {
-    height: @form-small-height;
-    padding-left: @form-small-padding-horizontal;
-    padding-right: @form-small-padding-horizontal;
-}
-
-/* Multi-line */
-textarea.uk-form-small,
-[multiple].uk-form-small,
-[size].uk-form-small { padding: @form-small-padding-vertical @form-small-padding-horizontal; }
-
-.uk-form-small:not(select):not(input):not(textarea) { line-height: @form-small-line-height; }
-
-/*
- * Large
- */
-
-.uk-form-large { font-size: @form-large-font-size; }
-
-/* Single-line */
-.uk-form-large:not(textarea):not([multiple]):not([size]) {
-    height: @form-large-height;
-    padding-left: @form-large-padding-horizontal;
-    padding-right: @form-large-padding-horizontal;
-}
-
-/* Multi-line */
-textarea.uk-form-large,
-[multiple].uk-form-large,
-[size].uk-form-large { padding: @form-large-padding-vertical @form-large-padding-horizontal; }
-
-.uk-form-large:not(select):not(input):not(textarea) { line-height: @form-large-line-height; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
@@ -489,7 +456,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * 3. Vertical alignment
  * 4. Remove default style
  * 5. Fix black background on iOS
- * 6. Center icons
+ * 6. Cover icons
  */
 
 .uk-radio,
@@ -509,8 +476,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     /* 5 */
     background-color: @form-radio-background;
     /* 6 */
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
+    background-size: cover;
     .hook-form-radio();
 }
 
@@ -564,6 +530,60 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-radio:disabled:checked { .svg-fill(@internal-form-radio-image, "#000", @form-radio-disabled-icon-color); }
 .uk-checkbox:disabled:checked { .svg-fill(@internal-form-checkbox-image, "#000", @form-radio-disabled-icon-color); }
 .uk-checkbox:disabled:indeterminate { .svg-fill(@internal-form-checkbox-indeterminate-image, "#000", @form-radio-disabled-icon-color); }
+
+
+/* Style modifier (`uk-input`, `uk-select`, `uk-textarea`, `uk-radio`, `uk-checkbox`)
+ ========================================================================== */
+
+/*
+ * Small
+ */
+
+.uk-form-small:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: @form-small-font-size; }
+
+/* Single-line */
+.uk-form-small:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
+    height: @form-small-height;
+    padding-left: @form-small-padding-horizontal;
+    padding-right: @form-small-padding-horizontal;
+}
+
+/* Multi-line */
+.uk-form-small:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: @form-small-padding-vertical @form-small-padding-horizontal; }
+
+/* Any element */
+.uk-form-small:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: @form-small-line-height; }
+
+/* Radio + Checkbox */
+.uk-form-small:is(.uk-radio, .uk-checkbox) {
+    height: @form-small-radio-size;
+    width: @form-small-radio-size;
+}
+
+/*
+ * Large
+ */
+
+.uk-form-large:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: @form-large-font-size; }
+
+/* Single-line */
+.uk-form-large:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
+    height: @form-large-height;
+    padding-left: @form-large-padding-horizontal;
+    padding-right: @form-large-padding-horizontal;
+}
+
+/* Multi-line */
+.uk-form-large:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: @form-large-padding-vertical @form-large-padding-horizontal; }
+
+/* Any element */
+.uk-form-large:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: @form-large-line-height; }
+
+/* Radio + Checkbox */
+.uk-form-large:is(.uk-radio, .uk-checkbox) {
+    height: @form-large-radio-size;
+    width: @form-large-radio-size;
+}
 
 
 /* Legend

@@ -114,7 +114,7 @@ function _query(selector, context = document, queryFn) {
 function _doQuery(context, queryFn, selector) {
     try {
         return context[queryFn](selector);
-    } catch (e) {
+    } catch {
         return null;
     }
 }

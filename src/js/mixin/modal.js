@@ -18,10 +18,12 @@ import {
     removeClass,
     toFloat,
 } from 'uikit-util';
+import { awaitFrame } from '../util/await';
 import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
 import { maybeDefaultPreventClick } from './event';
+import { storeScrollPosition } from './position';
 import Togglable from './togglable';
 
 const active = [];
@@ -193,7 +195,13 @@ export default {
                 if (!active.some((modal) => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);
 
-                    queueMicrotask(() => isFocusable(target) && target.focus());
+                    queueMicrotask(() => {
+                        if (isFocusable(target)) {
+                            const restoreScrollPosition = storeScrollPosition(target);
+                            target.focus();
+                            restoreScrollPosition();
+                        }
+                    });
                 }
 
                 setAriaExpanded(target, false);
@@ -208,12 +216,10 @@ export default {
             return this.isToggled() ? this.hide() : this.show();
         },
 
-        show() {
+        async show() {
             if (this.container && parent(this.$el) !== this.container) {
                 append(this.container, this.$el);
-                return new Promise((resolve) =>
-                    requestAnimationFrame(() => this.show().then(resolve)),
-                );
+                await awaitFrame();
             }
 
             return this.toggleElement(this.$el, true, animate);

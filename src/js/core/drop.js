@@ -28,6 +28,7 @@ import {
     query,
     removeClass,
 } from 'uikit-util';
+import Class from '../mixin/class';
 import Container from '../mixin/container';
 import { maybeDefaultPreventClick } from '../mixin/event';
 import Position, { storeScrollPosition } from '../mixin/position';
@@ -38,7 +39,7 @@ import { preventBackgroundScroll } from '../util/scroll';
 export let active;
 
 export default {
-    mixins: [Container, Position, Togglable],
+    mixins: [Class, Container, Position, Togglable],
 
     args: 'pos',
 
@@ -55,7 +56,6 @@ export default {
         delayShow: Number,
         delayHide: Number,
         autoUpdate: Boolean,
-        clsDrop: String,
         animateOut: Boolean,
         bgScroll: Boolean,
         closeOnScroll: Boolean,
@@ -74,7 +74,6 @@ export default {
         delayShow: 0,
         delayHide: 800,
         autoUpdate: true,
-        clsDrop: false,
         animateOut: false,
         bgScroll: true,
         animation: ['uk-animation-fade'],
@@ -107,12 +106,8 @@ export default {
         this.tracker = new MouseTracker();
     },
 
-    beforeConnect() {
-        this.clsDrop = this.$props.clsDrop || this.$options.id;
-    },
-
     connected() {
-        addClass(this.$el, 'uk-drop', this.clsDrop);
+        addClass(this.$el, 'uk-drop');
 
         if (this.toggle && !this.targetEl) {
             this.targetEl = createToggleComponent(this);
@@ -336,6 +331,7 @@ export default {
                     prev = active;
                     active.hide(false, false);
                 }
+                delay = false;
             }
 
             if (this.container && parent(this.$el) !== this.container) {

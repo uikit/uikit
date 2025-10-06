@@ -1,5 +1,57 @@
 # Changelog
 
+## 3.24.1 (October 6, 2025)
+
+### Fixed
+
+- Fix icon overlay inverse selector in Icon component
+- Fix Sass sources
+
+## 3.24.0 (October 2, 2025)
+
+### Added
+
+- Add Overflow Fade component
+- Add card overlay style modifier to Card component
+- Add form size modifier for radio and checkbox to Form component
+- Add icon overlay modifier to Icon component
+- Add highest z-index utility class to Position component
+- Add size modifier for top and bottom paddings to Section component
+- Add `restart` option to Video component
+- Add `hover-target` option to Video component
+
+### Changed
+
+- Remove font variables in favor of using heading classes in Countdown component
+- Stretch the entire navbar height if an item's height is expanded by its content
+- Scale height of responsive images and videos based on extrinsic aspect ratio and fill content box (Chrome only yet)
+- Videos set to `preload: none` will lazy load by default now
+- Dropnav component will flip vertically, when overflowing its scroll container
+
+### Deprecated
+
+- Deprecate `automute` option in Video and Cover component, use `muted` attribute for videos, `mute=1` for YouTube and `muted=1` for Vimeo instead
+
+### Removed
+
+- Remove deprecated flag in Less variables
+
+### Fixed
+
+- Fix disable color for span elements in Subnav component
+- Fix text underline offset if text is vertical aligned to the middle in Link component
+- Fix border color if visible toggle class is applied in Visibility component
+- Fix text from wrapping onto multiple lines if elements should look like `input` or `select`
+
+## 3.23.13 (September 11, 2025)
+
+### Fixed
+
+- Fix setting focus to Modal/Offcanvas Toggle component after close scrolls page
+- Fix Slideshow/Slider components no longer autoplay if hidden
+- Fix Drop component no longer delays showing if previous active Drop component is found
+- Fix Scrollspy Nav component not detecting covering element correctly 
+
 ## 3.23.12 (August 18, 2025)
 
 ### Fixed
@@ -44,6 +96,7 @@
 
 - Fix Inverse component not being responsive for multiple target elements
 - Fix tabindex not being set for Video component in `autoplay: hover` mode
+- Fix browser lock up because of infinite component update loop
 
 ## 3.23.6 (April 10, 2025)
 

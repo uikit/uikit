@@ -6,6 +6,7 @@
 // Modifiers:       `uk-icon-image`
 //                  `uk-icon-link`
 //                  `uk-icon-button`
+//                  `uk-icon-overlay`
 //
 // States:          `uk-preserve`
 //
@@ -31,6 +32,9 @@
 
 @icon-button-active-background:                 darken(@icon-button-background, 10%);
 @icon-button-active-color:                      @global-color;
+
+@icon-overlay-color:                            fade(@global-emphasis-color, 60%);
+@icon-overlay-hover-color:                      @global-emphasis-color;
 
 
 /* ========================================================================
@@ -187,6 +191,22 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
     .hook-icon-button-active();
 }
 
+/*
+ * Overlay
+ */
+
+.uk-icon-overlay,
+a .uk-icon-overlay {
+    color: @icon-overlay-color;
+    .hook-icon-overlay();
+}
+
+.uk-icon-overlay:hover,
+a:hover .uk-icon-overlay {
+    color: @icon-overlay-hover-color;
+    .hook-icon-overlay-hover();
+}
+
 
 // Hooks
 // ========================================================================
@@ -199,6 +219,8 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 .hook-icon-button() {}
 .hook-icon-button-hover() {}
 .hook-icon-button-active() {}
+.hook-icon-overlay() {}
+.hook-icon-overlay-hover() {}
 .hook-icon-misc() {}
 
 
@@ -214,6 +236,8 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 @inverse-icon-button-hover-color:              @inverse-global-color;
 @inverse-icon-button-active-background:        fadein(@inverse-icon-button-background, 10%);
 @inverse-icon-button-active-color:             @inverse-global-color;
+@inverse-icon-overlay-color:                   fade(@inverse-global-emphasis-color, 60%);
+@inverse-icon-overlay-hover-color:             @inverse-global-emphasis-color;
 
 .hook-inverse() {
 
@@ -259,6 +283,24 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
         .hook-inverse-icon-button-active();
     }
 
+    //
+    // Overlay
+    //
+
+    .uk-icon-overlay,
+    a .uk-icon-overlay,
+    a& .uk-icon-overlay {
+        color: @inverse-icon-overlay-color;
+        .hook-inverse-icon-overlay();
+    }
+
+    .uk-icon-overlay:hover,
+    a:hover .uk-icon-overlay,
+    a&:hover .uk-icon-overlay {
+        color: @inverse-icon-overlay-hover-color;
+        .hook-inverse-icon-overlay-hover();
+    }
+
 }
 
 .hook-inverse-icon-link() {}
@@ -267,3 +309,5 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 .hook-inverse-icon-button() {}
 .hook-inverse-icon-button-hover() {}
 .hook-inverse-icon-button-active() {}
+.hook-inverse-icon-overlay() {}
+.hook-inverse-icon-overlay-hover() {}

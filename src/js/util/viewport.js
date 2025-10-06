@@ -208,10 +208,12 @@ export function offsetViewport(scrollElement) {
 }
 
 export function getCoveringElement(target) {
+    const { document } = toWindow(target);
+    target = target || document.body;
     const { left, width, top } = dimensions(target);
     for (const position of top ? [0, top] : [0]) {
         let coverEl;
-        for (const el of toWindow(target).document.elementsFromPoint(left + width / 2, position)) {
+        for (const el of document.elementsFromPoint(left + width / 2, position)) {
             if (
                 !el.contains(target) &&
                 // If e.g. Offcanvas is not yet closed
@@ -224,7 +226,7 @@ export function getCoveringElement(target) {
                                 (parent) => !parent.contains(el) && !hasPosition(parent, 'static'),
                             ),
                     ) < zIndex(el)) ||
-                    (hasPosition(el, 'sticky') && parent(el).contains(target))) &&
+                    (hasPosition(el, 'sticky') && (!target || parent(el).contains(target)))) &&
                 (!coverEl || dimensions(coverEl).height < dimensions(el).height)
             ) {
                 coverEl = el;

@@ -87,9 +87,7 @@ function enableApi(el) {
                     (youtube && data?.id === id && data.event === 'onReady') ||
                     (vimeo && Number(data?.player_id) === id)
                 );
-            } catch (e) {
-                // noop
-            }
+            } catch {}
         });
 
         el.src = `${el.src}${includes(el.src, '?') ? '&' : '?'}${
