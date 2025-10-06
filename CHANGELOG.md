@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix icon overlay inverse selector in Icon component
+
 ## 3.24.0 (October 2, 2025)
 
 ### Added
