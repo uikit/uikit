@@ -23,7 +23,7 @@ for (const file of (await glob('src/less/**/*.less'))
     source = (await read(file))
         .replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
         .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
-        .replace(/@/g, '$') // convert variables
+        .replace(/@(?!property)/g, '$') // convert variables
         .replace(
             /(:[^'"]*?\([^'"]+?)\s*\/\s*([0-9.-]+)\)/g,
             (exp, m1, m2) => `${m1} * ${NP.round(1 / parseFloat(m2), 5)})`,
