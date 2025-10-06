@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix icon overlay inverse selector in Icon component
+- Fix Sass sources
 
 ## 3.24.0 (October 2, 2025)
 
