@@ -57,7 +57,9 @@ function getBundleTasks() {
         icons: async () =>
             compile('build/wrapper/icons.js', 'dist/js/uikit-icons', {
                 name: 'icons',
-                replaces: { ICONS: await icons('{src/images,custom}/icons/*.svg') },
+                replaces: {
+                    ICONS: await icons('custom/icons/*.svg', 'src/images/icons/*.svg'),
+                },
             }),
 
         tests: async () =>

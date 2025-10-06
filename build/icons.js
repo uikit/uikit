@@ -29,7 +29,7 @@ async function compileIcons(folder) {
     return compile('build/wrapper/icons.js', `dist/js/uikit-icons-${name}`, {
         name,
         replaces: {
-            ICONS: await icons(`{src/images/icons,${folder}}/*.svg`),
+            ICONS: await icons(`${folder}/*.svg`, 'src/images/icons/*.svg'),
         },
     });
 }
