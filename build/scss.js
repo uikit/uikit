@@ -66,7 +66,8 @@ for (const file of (await glob('src/less/**/*.less'))
         .replace(/\${/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
         .replace(/[^(](-\$[\w-]*)/g, ' ($1)') // surround negative variables with brackets
         .replace(/(--[\w-]+:\s*)~'([^']+)'/g, '$1$2') // string literals in custom properties
-        .replace(/~('[^']+')/g, 'unquote($1)'); // string literals: for real
+        .replace(/~('[^']+')/g, 'unquote($1)') // string literals: for real
+        .replace(/(\w+)&/g, '&:is($1)'); // replace parent selector & when not at beginning of selector
 
     /* File name of the current file */
     const filename = path.basename(file, '.less');
