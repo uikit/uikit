@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add fit content width to Width component
+
 ### Fixed
 
 - Fix overwriting default icons
