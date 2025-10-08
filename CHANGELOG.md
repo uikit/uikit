@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix overwriting default icons
+- Fix scrollbar gutter stays visible in Modal component even though page is not scrollable
 
 ## 3.24.1 (October 6, 2025)
 
