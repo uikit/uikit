@@ -1,4 +1,4 @@
-/*! UIkit 3.24.1 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.24.2 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -7595,6 +7595,9 @@ ul.uk-nav-sub {
 }
 /* Intrinsic Widths
  ========================================================================== */
+.uk-width-fit-content {
+  width: fit-content;
+}
 .uk-width-max-content {
   width: max-content;
 }
