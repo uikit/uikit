@@ -58,7 +58,7 @@ importers:
         version: 12.9.6(@types/node@22.7.4)
       less:
         specifier: ^4.2.2
-        version: 4.4.1
+        version: 4.4.2
       minimist:
         specifier: ^1.2.8
         version: 1.2.8
@@ -88,7 +88,7 @@ importers:
         version: 4.3.0
       semver:
         specifier: ^7.7.1
-        version: 7.7.2
+        version: 7.7.3
       strip-css-comments:
         specifier: ^5.0.0
         version: 5.0.0
@@ -1187,8 +1187,8 @@ packages:
     resolution: {integrity: sha512-b94GiNHQNy6JNTrt5w6zNyffMrNkXZb3KTkCZJb2V1xaEGCk093vkZ2jk3tpaeP33/OiXC+WvK9AxUebnf5nbw==}
     engines: {node: '>= 0.6.3'}
 
-  less@4.4.1:
-    resolution: {integrity: sha512-X9HKyiXPi0f/ed0XhgUlBeFfxrlDP3xR4M7768Zl+WXLUViuL9AOPPJP4nCV0tgRWvTYvpNmN0SFhZOQzy16PA==}
+  less@4.4.2:
+    resolution: {integrity: sha512-j1n1IuTX1VQjIy3tT7cyGbX7nvQOsFLoIqobZv4ttI5axP923gA44zUj6miiA6R5Aoms4sEGVIIcucXUbRI14g==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -1514,8 +1514,8 @@ packages:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
     hasBin: true
 
-  semver@7.7.2:
-    resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
+  semver@7.7.3:
+    resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -2680,7 +2680,7 @@ snapshots:
     dependencies:
       readable-stream: 2.3.8
 
-  less@4.4.1:
+  less@4.4.2:
     dependencies:
       copy-anything: 2.0.6
       parse-node-version: 1.0.1
@@ -3002,7 +3002,7 @@ snapshots:
   semver@5.7.2:
     optional: true
 
-  semver@7.7.2: {}
+  semver@7.7.3: {}
 
   set-blocking@2.0.0: {}
 
