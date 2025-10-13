@@ -23,7 +23,7 @@ for (const file of (await glob('src/less/**/*.less'))
     source = (await read(file))
         .replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
         .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
-        .replace(/@/g, '$') // convert variables
+        .replace(/@(?!property)/g, '$') // convert variables
         .replace(
             /(:[^'"]*?\([^'"]+?)\s*\/\s*([0-9.-]+)\)/g,
             (exp, m1, m2) => `${m1} * ${NP.round(1 / parseFloat(m2), 5)})`,
@@ -66,7 +66,8 @@ for (const file of (await glob('src/less/**/*.less'))
         .replace(/\${/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
         .replace(/[^(](-\$[\w-]*)/g, ' ($1)') // surround negative variables with brackets
         .replace(/(--[\w-]+:\s*)~'([^']+)'/g, '$1$2') // string literals in custom properties
-        .replace(/~('[^']+')/g, 'unquote($1)'); // string literals: for real
+        .replace(/~('[^']+')/g, 'unquote($1)') // string literals: for real
+        .replace(/(\w+)&/g, '&:is($1)'); // replace parent selector & when not at beginning of selector
 
     /* File name of the current file */
     const filename = path.basename(file, '.less');

@@ -1,4 +1,4 @@
-/*! UIkit 3.24.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.24.2 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1131,7 +1131,7 @@
     }
     function pause(el) {
       if (isIFrame(el)) {
-        call(el, { func: "pauseVideo", method: "pause" });
+        el[stateKey] && call(el, { func: "pauseVideo", method: "pause" });
       }
       if (isHTML5(el)) {
         el.pause();
@@ -2653,7 +2653,7 @@
       const props = {
         overflowY: CSS.supports("overflow", "clip") ? "clip" : "hidden",
         touchAction: "none",
-        scrollbarGutter: "stable"
+        scrollbarGutter: width(window) - scrollingElement.clientWidth ? "stable" : ""
       };
       css(scrollingElement, props);
       return () => {
@@ -3786,7 +3786,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.24.0";
+    App.version = "3.24.2";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";

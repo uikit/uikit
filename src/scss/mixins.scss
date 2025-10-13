@@ -903,15 +903,15 @@
     //
 
     .uk-icon-overlay,
-    a .uk-icon-overlay
-    a& .uk-icon-overlay {
+    a .uk-icon-overlay,
+    &:is(a) .uk-icon-overlay {
         color: $inverse-icon-overlay-color;
         @if(meta.mixin-exists(hook-inverse-icon-overlay)) {@include hook-inverse-icon-overlay();}
     }
 
     .uk-icon-overlay:hover,
     a:hover .uk-icon-overlay,
-    a&:hover .uk-icon-overlay {
+    &:is(a):hover .uk-icon-overlay {
         color: $inverse-icon-overlay-hover-color;
         @if(meta.mixin-exists(hook-inverse-icon-overlay-hover)) {@include hook-inverse-icon-overlay-hover();}
     }

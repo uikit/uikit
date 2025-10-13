@@ -134,13 +134,13 @@
  * 2. Mask
  */
 
-$property --uk-overflow-fade-start-opacity {
+@property --uk-overflow-fade-start-opacity {
     syntax: "<number>";
     inherits: false;
     initial-value: 0;
 }
 
-$property --uk-overflow-fade-end-opacity {
+@property --uk-overflow-fade-end-opacity {
     syntax: "<number>";
     inherits: false;
     initial-value: 0;

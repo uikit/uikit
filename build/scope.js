@@ -64,7 +64,7 @@ async function scope(files, scope) {
     for (const file of files) {
         await replaceInFile(file, async (data) => {
             const output = await renderLess(
-                `.${scope} {\n${stripCssComments(data, { preserve: false })}\n}`,
+                `.${scope} {\n${wrapAttrWithTypeNotation(stripCssComments(data, { preserve: false }))}\n}`,
             );
             return `/* scoped: ${scope} */\n${
                 output.replace(
@@ -94,4 +94,13 @@ async function cleanup(files, scope) {
                     .replace(new RegExp(` *${string} ({[\\s\\S]*?})?`, 'g'), ''), // replace classes
         );
     }
+}
+
+function wrapAttrWithTypeNotation(content) {
+    return content.replace(
+        /([a-zA-Z-]+)\s*:\s*([^;]*attr[^;]*type\(<[^;]+)(;|$)/g,
+        (m, prop, attr, end) => {
+            return `${prop}: ~'${attr}'${end}`;
+        },
+    );
 }

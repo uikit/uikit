@@ -170,20 +170,22 @@ export async function compile(file, dest, { external, globals, name, aliases, re
     }
 }
 
-export async function icons(src) {
-    const files = await glob(src);
-    const icons = await Promise.all(
-        files.map((file) => limit(async () => optimizeSvg(await read(file)))),
-    );
+export async function icons(...src) {
+    let files = {};
+    for (const pattern of src) {
+        for (const file of await glob(pattern)) {
+            files[path.basename(file, '.svg')] ??= limit(
+                async () => await optimizeSvg(await read(file)),
+            );
+        }
+    }
 
-    return JSON.stringify(
-        files.reduce((result, file, i) => {
-            result[path.basename(file, '.svg')] = icons[i];
-            return result;
-        }, {}),
-        null,
-        '    ',
-    );
+    const sorted = {};
+    for (const key of Object.keys(files).sort()) {
+        sorted[key] = await files[key];
+    }
+
+    return JSON.stringify(sorted, null, '    ');
 }
 
 export function ucfirst(str) {

@@ -1,4 +1,4 @@
-/*! UIkit 3.24.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.24.2 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -7595,6 +7595,9 @@ ul.uk-nav-sub {
 }
 /* Intrinsic Widths
  ========================================================================== */
+.uk-width-fit-content {
+  width: fit-content;
+}
 .uk-width-max-content {
   width: max-content;
 }
@@ -11010,27 +11013,38 @@ iframe[data-uk-cover] {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-icon-overlay,
-a .uk-icon-overlay a.uk-light .uk-icon-overlay,
+.uk-light a .uk-icon-overlay,
+a.uk-light .uk-icon-overlay,
 .uk-section-primary:not(.uk-preserve-color) .uk-icon-overlay,
-a .uk-icon-overlay a.uk-section-primary:not(.uk-preserve-color) .uk-icon-overlay,
+.uk-section-primary:not(.uk-preserve-color) a .uk-icon-overlay,
+a.uk-section-primary:not(.uk-preserve-color) .uk-icon-overlay,
 .uk-section-secondary:not(.uk-preserve-color) .uk-icon-overlay,
-a .uk-icon-overlay a.uk-section-secondary:not(.uk-preserve-color) .uk-icon-overlay,
+.uk-section-secondary:not(.uk-preserve-color) a .uk-icon-overlay,
+a.uk-section-secondary:not(.uk-preserve-color) .uk-icon-overlay,
 .uk-tile-primary:not(.uk-preserve-color) .uk-icon-overlay,
-a .uk-icon-overlay a.uk-tile-primary:not(.uk-preserve-color) .uk-icon-overlay,
+.uk-tile-primary:not(.uk-preserve-color) a .uk-icon-overlay,
+a.uk-tile-primary:not(.uk-preserve-color) .uk-icon-overlay,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-icon-overlay,
-a .uk-icon-overlay a.uk-tile-secondary:not(.uk-preserve-color) .uk-icon-overlay,
+.uk-tile-secondary:not(.uk-preserve-color) a .uk-icon-overlay,
+a.uk-tile-secondary:not(.uk-preserve-color) .uk-icon-overlay,
 .uk-card-primary.uk-card-body .uk-icon-overlay,
-a .uk-icon-overlay a.uk-card-primary.uk-card-body .uk-icon-overlay,
+.uk-card-primary.uk-card-body a .uk-icon-overlay,
+a.uk-card-primary.uk-card-body .uk-icon-overlay,
 .uk-card-primary > :not([class*="uk-card-media"]) .uk-icon-overlay,
-a .uk-icon-overlay a.uk-card-primary > :not([class*="uk-card-media"]) .uk-icon-overlay,
+.uk-card-primary > :not([class*="uk-card-media"]) a .uk-icon-overlay,
+a.uk-card-primary > :not([class*="uk-card-media"]) .uk-icon-overlay,
 .uk-card-secondary.uk-card-body .uk-icon-overlay,
-a .uk-icon-overlay a.uk-card-secondary.uk-card-body .uk-icon-overlay,
+.uk-card-secondary.uk-card-body a .uk-icon-overlay,
+a.uk-card-secondary.uk-card-body .uk-icon-overlay,
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-icon-overlay,
-a .uk-icon-overlay a.uk-card-secondary > :not([class*="uk-card-media"]) .uk-icon-overlay,
+.uk-card-secondary > :not([class*="uk-card-media"]) a .uk-icon-overlay,
+a.uk-card-secondary > :not([class*="uk-card-media"]) .uk-icon-overlay,
 .uk-overlay-primary .uk-icon-overlay,
-a .uk-icon-overlay a.uk-overlay-primary .uk-icon-overlay,
+.uk-overlay-primary a .uk-icon-overlay,
+a.uk-overlay-primary .uk-icon-overlay,
 .uk-offcanvas-bar .uk-icon-overlay,
-a .uk-icon-overlay a.uk-offcanvas-bar .uk-icon-overlay {
+.uk-offcanvas-bar a .uk-icon-overlay,
+a.uk-offcanvas-bar .uk-icon-overlay {
   color: rgba(255, 255, 255, 0.6);
 }
 .uk-light .uk-icon-overlay:hover,

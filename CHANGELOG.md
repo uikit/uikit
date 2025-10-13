@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.24.2 (October 13, 2025)
+
+### Added
+
+- Add fit content width to Width component
+
+### Fixed
+
+- Fix overwriting default icons
+- Fix scrollbar gutter stays visible in Modal component even though page is not scrollable
+- Fix lazy loading YouTube/Vimeo videos in Video component in Safari
+- Fix scoping css to handle `attr()` with `type()` function
+
+## 3.24.1 (October 6, 2025)
+
+### Fixed
+
+- Fix icon overlay inverse selector in Icon component
+- Fix Sass sources
+
 ## 3.24.0 (October 2, 2025)
 
 ### Added

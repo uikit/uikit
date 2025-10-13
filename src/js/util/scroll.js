@@ -1,4 +1,4 @@
-import { css, getEventPos, matches, on, once, resetProps, scrollParents } from 'uikit-util';
+import { css, getEventPos, matches, on, once, resetProps, scrollParents, width } from 'uikit-util';
 
 let prevented;
 export function preventBackgroundScroll(el) {
@@ -53,7 +53,7 @@ export function preventBackgroundScroll(el) {
     const props = {
         overflowY: CSS.supports('overflow', 'clip') ? 'clip' : 'hidden',
         touchAction: 'none',
-        scrollbarGutter: 'stable',
+        scrollbarGutter: width(window) - scrollingElement.clientWidth ? 'stable' : '',
     };
     css(scrollingElement, props);
     return () => {
