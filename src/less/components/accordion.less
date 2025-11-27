@@ -6,6 +6,8 @@
 // Sub-objects:     `uk-accordion-title`
 //                  `uk-accordion-content`
 //
+// Modifiers:       `uk-accordion-default`
+//
 // States:          `uk-open`
 //
 // ========================================================================
@@ -14,14 +16,14 @@
 // Variables
 // ========================================================================
 
-@accordion-item-margin-top:                    @global-margin;
+@accordion-default-item-margin-top:             @global-margin;
 
-@accordion-title-font-size:                    @global-medium-font-size;
-@accordion-title-line-height:                  1.4;
-@accordion-title-color:                        @global-emphasis-color;
-@accordion-title-hover-color:                  @global-color;
+@accordion-default-title-font-size:             @global-medium-font-size;
+@accordion-default-title-line-height:           1.4;
+@accordion-default-title-color:                 @global-emphasis-color;
+@accordion-default-title-hover-color:           @global-color;
 
-@accordion-content-margin-top:                 @global-margin;
+@accordion-default-content-margin-top:          @global-margin;
 
 
 /* ========================================================================
@@ -34,50 +36,66 @@
     .hook-accordion();
 }
 
+.uk-accordion-title { display: block; }
 
-/* Item
- ========================================================================== */
-
-.uk-accordion > * {
-    .hook-accordion-item();
-}
-
-.uk-accordion > :nth-child(n+2) { margin-top: @accordion-item-margin-top; }
-
-
-/* Title
- ========================================================================== */
-
-.uk-accordion-title {
-    display: block;
-    font-size: @accordion-title-font-size;
-    line-height: @accordion-title-line-height;
-    color: @accordion-title-color;
-    .hook-accordion-title();
-}
-
-/* Hover */
-.uk-accordion-title:hover {
-    color: @accordion-title-hover-color;
-    text-decoration: none;
-    .hook-accordion-title-hover();
-}
-
-
-/* Content
- ========================================================================== */
-
-.uk-accordion-content {
-    display: flow-root;
-    margin-top: @accordion-content-margin-top;
-    .hook-accordion-content();
-}
+.uk-accordion-content { display: flow-root; }
 
 /*
  * Remove margin from the last-child
  */
 
- .uk-accordion-content > :last-child { margin-bottom: 0; }
+.uk-accordion-content > :last-child { margin-bottom: 0; }
+
+
+/* Default modifier
+ ========================================================================== */
+
+/*
+ * Item
+ */
+
+.uk-accordion-default > * {
+    .hook-accordion-default-item();
+}
+
+.uk-accordion-default > :nth-child(n+2) { margin-top: @accordion-default-item-margin-top; }
+
+/* Active */
+.uk-accordion-default > .uk-open {
+    .hook-accordion-default-item-active();
+}
+
+/*
+ * Title
+ */
+
+.uk-accordion-default .uk-accordion-title {
+    font-size: @accordion-default-title-font-size;
+    line-height: @accordion-default-title-line-height;
+    color: @accordion-default-title-color;
+    .hook-accordion-default-title();
+}
+
+/* Hover */
+.uk-accordion-default .uk-accordion-title:hover {
+    color: @accordion-default-title-hover-color;
+    text-decoration: none;
+    .hook-accordion-default-title-hover();
+}
+
+/* Active */
+.uk-accordion-default > .uk-open .uk-accordion-title {
+    .hook-accordion-default-title-active();
+}
+
+/*
+ * Content
+ */
+
+.uk-accordion-default .uk-accordion-content {
+    margin-top: @accordion-default-content-margin-top;
+    .hook-accordion-default-content();
+}
 
 
 // Hooks
@@ -86,37 +104,49 @@
 .hook-accordion-misc();
 
 .hook-accordion() {}
-.hook-accordion-item() {}
-.hook-accordion-title() {}
-.hook-accordion-title-hover() {}
-.hook-accordion-content() {}
+.hook-accordion-default-item() {}
+.hook-accordion-default-item-active() {}
+.hook-accordion-default-title() {}
+.hook-accordion-default-title-hover() {}
+.hook-accordion-default-title-active() {}
+.hook-accordion-default-content() {}
 .hook-accordion-misc() {}
 
 
 // Inverse
 // ========================================================================
 
-@inverse-accordion-title-color:             @inverse-global-emphasis-color;
-@inverse-accordion-title-hover-color:       @inverse-global-color;
+@inverse-accordion-default-title-color:             @inverse-global-emphasis-color;
+@inverse-accordion-default-title-hover-color:       @inverse-global-color;
 
 .hook-inverse() {
 
-    .uk-accordion > * {
-        .hook-inverse-accordion-item();
+    .uk-accordion-default > * {
+        .hook-inverse-accordion-default-item();
     }
 
-    .uk-accordion-title {
-        color: @inverse-accordion-title-color;
-        .hook-inverse-accordion-title();
+    .uk-accordion-default > .uk-open {
+        .hook-inverse-accordion-default-item-active();
     }
 
-    .uk-accordion-title:hover {
-        color: @inverse-accordion-title-hover-color;
-        .hook-inverse-accordion-title-hover();
+    .uk-accordion-default .uk-accordion-title {
+        color: @inverse-accordion-default-title-color;
+        .hook-inverse-accordion-default-title();
+    }
+
+    .uk-accordion-default .uk-accordion-title:hover {
+        color: @inverse-accordion-default-title-hover-color;
+        .hook-inverse-accordion-default-title-hover();
+    }
+
+    .uk-accordion-default .uk-accordion-title:active {
+        .hook-inverse-accordion-default-title-active();
     }
 
 }
 
-.hook-inverse-accordion-item() {}
-.hook-inverse-accordion-title() {}
-.hook-inverse-accordion-title-hover() {}
+.hook-inverse-accordion-default-item() {}
+.hook-inverse-accordion-default-item-active() {}
+.hook-inverse-accordion-default-title() {}
+.hook-inverse-accordion-default-title-hover() {}
+.hook-inverse-accordion-default-title-active() {}

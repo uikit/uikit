@@ -1,5 +1,21 @@
 # Changelog
 
+## WIP 3.25.0
+
+### Added
+
+- Add support for using the Accordion component without any default style
+- Add toggle icon placable in the markup to Accordion component
+
+### Changed
+
+- IMPORTANT: Add `uk-accordion-defaut` class to apply style
+- IMPORTANT: Rename `@accordion-*` to `@accordion-default-*` in Accordion component
+- IMPORTANT: Rename `@inverse-accordion-*` to `@inverse-accordion-default-*` in Accordion component
+- IMPORTANT: Rename `.hook-accordion-*` to `.hook-accordion-default-*` in Accordion component
+- IMPORTANT: Rename `.hook-inverse-accordion-*` to `.hook-inverse-accordion-default-*` in Accordion component
+- Refactor Accordion component
+
 ## 3.24.2 (October 13, 2025)
 
 ### Added
