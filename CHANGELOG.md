@@ -17,6 +17,10 @@
 - IMPORTANT: Rename `.hook-inverse-accordion-*` to `.hook-inverse-accordion-default-*` in Accordion component
 - Refactor Accordion component
 
+### Fixed
+
+- Fix nav parent icon shrinking if text is too long in Nav component
+
 ## 3.24.2 (October 13, 2025)
 
 ### Added
