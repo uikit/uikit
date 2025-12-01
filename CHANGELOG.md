@@ -5,11 +5,12 @@
 ### Added
 
 - Add support for using the Accordion component without any default style
-- Add toggle icon placable in the markup to Accordion component
+- Add accordion icon to Accordion component
 
 ### Changed
 
 - IMPORTANT: Add `uk-accordion-defaut` class to apply style
+- IMPORTANT: Remove accordion icon from CSS. Use `uk-accordion-icon` attribute on HTML elements instead
 - IMPORTANT: Rename `@accordion-*` to `@accordion-default-*` in Accordion component
 - IMPORTANT: Rename `@inverse-accordion-*` to `@inverse-accordion-default-*` in Accordion component
 - IMPORTANT: Rename `.hook-accordion-*` to `.hook-accordion-default-*` in Accordion component

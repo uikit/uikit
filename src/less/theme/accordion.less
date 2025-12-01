@@ -11,10 +11,7 @@
 // New
 //
 
-@accordion-default-icon-margin-left:           10px;
 @accordion-default-icon-color:                 @global-color;
-@internal-accordion-default-icon-close-image:  "../../images/backgrounds/accordion-close.svg";
-@internal-accordion-default-icon-open-image:   "../../images/backgrounds/accordion-open.svg";
 
 
 // Component
@@ -38,28 +35,17 @@
  * Title
  */
 
-.hook-accordion-default-title() {
-
-    overflow: hidden;
-
-    &::before {
-        content: "";
-        width: (@accordion-default-title-line-height * 1em);
-        height: (@accordion-default-title-line-height * 1em);
-        margin-left: @accordion-default-icon-margin-left;
-        float: right;
-        .svg-fill(@internal-accordion-default-icon-close-image, "#000", @accordion-default-icon-color);
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-    }
-
-}
+.hook-accordion-default-title() {}
 
 .hook-accordion-default-title-hover() {}
 
-.hook-accordion-default-title-active() {
-    &::before { .svg-fill(@internal-accordion-default-icon-open-image, "#000", @accordion-default-icon-color); }
-}
+.hook-accordion-default-title-active() {}
+
+/*
+ * Icon
+ */
+
+.hook-accordion-default-icon() { color: @accordion-default-icon-color; }
 
 /*
  * Content
@@ -73,16 +59,17 @@
 
 .hook-accordion-misc() {}
 
+
 // Inverse
 // ========================================================================
+
+@inverse-accordion-default-icon-color:         @inverse-global-color;
 
 .hook-inverse-accordion-default-item() {}
 .hook-inverse-accordion-default-item-active() {}
 
-.hook-inverse-accordion-default-title() {
-    &::before { .svg-fill(@internal-accordion-default-icon-close-image, "#000", @inverse-global-color); }
-}
+.hook-inverse-accordion-default-title() {}
 .hook-inverse-accordion-default-title-hover() {}
-.hook-inverse-accordion-default-title-active() {
-    &::before { .svg-fill(@internal-accordion-default-icon-open-image, "#000", @inverse-global-color); }
-}
+.hook-inverse-accordion-default-title-active() {}
+.hook-inverse-accordion-default-icon() { color: @inverse-accordion-default-icon-color; }
+.hook-inverse-accordion-default-content() {}
