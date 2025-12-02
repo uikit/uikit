@@ -1,5 +1,5 @@
 import archiver from 'archiver';
-import dateFormat from 'dateformat';
+import * as date from 'date-fns';
 import { $ } from 'execa';
 import fs from 'fs';
 import { glob } from 'glob';
@@ -55,7 +55,7 @@ function raiseVersion(version) {
         replaceInFile('CHANGELOG.md', (data) =>
             data.replace(
                 /^##\s*WIP.*$/m,
-                `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`,
+                `## ${versionFormat(version)} (${date.format(new Date(), 'MMMM d, yyyy')})`,
             ),
         ),
         replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', (data) =>

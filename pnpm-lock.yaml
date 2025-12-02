@@ -29,9 +29,9 @@ importers:
       clean-css:
         specifier: ^5.3.3
         version: 5.3.3
-      dateformat:
-        specifier: ^5.0.3
-        version: 5.0.3
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       esbuild:
         specifier: ^0.27.0
         version: 0.27.0
@@ -814,9 +814,8 @@ packages:
     resolution: {integrity: sha512-0LrrStPOdJj+SPCCrGhzryycLjwcgUSHBtxNA8aIDxf0GLsRh1cKYhB00Gd1lDOS4yGH69+SNn13+TWbVHETFQ==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
 
-  dateformat@5.0.3:
-    resolution: {integrity: sha512-Kvr6HmPXUMerlLcLF+Pwq3K7apHpYmGDVqrxcDasBg86UcKeTSNWbEzU8bwdXnxnR44FtMhJAxI4Bov6Y/KUfA==}
-    engines: {node: '>=12.20'}
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   debug@4.4.0:
     resolution: {integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==}
@@ -2293,7 +2292,7 @@ snapshots:
     dependencies:
       css-tree: 2.2.1
 
-  dateformat@5.0.3: {}
+  date-fns@4.1.0: {}
 
   debug@4.4.0:
     dependencies:
