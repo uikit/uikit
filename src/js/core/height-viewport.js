@@ -14,8 +14,11 @@ import {
     toFloat,
 } from 'uikit-util';
 import { resize, viewport } from '../api/observables';
+import Media from '../mixin/media';
 
 export default {
+    mixins: [Media],
+
     props: {
         expand: Boolean,
         offsetTop: Boolean,
@@ -42,6 +45,10 @@ export default {
         read() {
             if (!isVisible(this.$el)) {
                 return false;
+            }
+
+            if (!this.matchMedia) {
+                return { minHeight: false };
             }
 
             let minHeight = '';
@@ -90,7 +97,11 @@ export default {
         },
 
         write({ minHeight }) {
-            css(this.$el, this.property, `max(${this.min || 0}px, ${minHeight})`);
+            css(
+                this.$el,
+                this.property,
+                minHeight === false ? '' : `max(${this.min || 0}px, ${minHeight})`,
+            );
         },
 
         events: ['resize'],

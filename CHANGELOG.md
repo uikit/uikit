@@ -6,6 +6,7 @@
 
 - Add support for using the Accordion component without any default style
 - Add accordion icon to Accordion component
+- Add `media` option to Height Viewport component
 
 ### Changed
 
