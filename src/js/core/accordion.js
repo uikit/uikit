@@ -118,7 +118,7 @@ export default {
             },
         },
         {
-            name: 'shown hidden',
+            name: 'show hide shown hidden',
 
             self: true,
 
