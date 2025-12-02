@@ -9,7 +9,6 @@ import pLimit from 'p-limit';
 import path from 'path';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
-import modify from 'rollup-plugin-modify';
 import { optimize } from 'svgo';
 
 const limit = pLimit(Number(process.env.cpus || 2));
@@ -98,11 +97,12 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                 supported: { 'template-literal': true },
             }),
 
-            !debug &&
-                modify({
-                    find: /(?<=>)\n\s+|\n\s+(?=<)/,
-                    replace: ' ',
-                }),
+            !debug && {
+                name: 'trim-whitespace',
+                transform(source) {
+                    return source.replaceAll(/(?<=>)\n\s+|\n\s+(?=<)/g, '  ');
+                },
+            },
         ],
     };
 
