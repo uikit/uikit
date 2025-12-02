@@ -1,4 +1,4 @@
-/*! UIkit 3.24.2 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.25.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2802,7 +2802,7 @@ select.uk-form-width-xsmall {
  */
 .uk-card-overlay {
   --uk-inverse: dark;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   color: #666;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
@@ -2810,7 +2810,7 @@ select.uk-form-width-xsmall {
   color: #333;
 }
 .uk-card-overlay.uk-card-hover:hover {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #ffffff;
   box-shadow: 0 14px 25px rgba(0, 0, 0, 0.16);
 }
 /* Size modifier
@@ -3218,14 +3218,14 @@ select.uk-form-width-xsmall {
  */
 .uk-overlay-default {
   --uk-inverse: dark;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
 }
 /*
  * Primary
  */
 .uk-overlay-primary {
   --uk-inverse: light;
-  background: rgba(34, 34, 34, 0.8);
+  background: rgba(34, 34, 34, 0.9);
 }
 /* ========================================================================
    Component: Article
@@ -3604,49 +3604,65 @@ select.uk-form-width-xsmall {
   padding: 0;
   list-style: none;
 }
-/* Item
- ========================================================================== */
-.uk-accordion > :nth-child(n+2) {
-  margin-top: 20px;
-}
-/* Title
- ========================================================================== */
 .uk-accordion-title {
   display: block;
-  font-size: 1.25rem;
-  line-height: 1.4;
-  color: #333;
-  overflow: hidden;
 }
-.uk-accordion-title::before {
-  content: "";
-  width: 1.4em;
-  height: 1.4em;
-  margin-right: 10px;
-  float: left;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%20%2F%3E%0A%3C%2Fsvg%3E");
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-}
-.uk-open > .uk-accordion-title::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%3C%2Fsvg%3E");
-}
-/* Hover */
-.uk-accordion-title:hover {
-  color: #666;
-  text-decoration: none;
-}
-/* Content
- ========================================================================== */
 .uk-accordion-content {
   display: flow-root;
-  margin-top: 20px;
 }
 /*
  * Remove margin from the last-child
  */
 .uk-accordion-content > :last-child {
   margin-bottom: 0;
+}
+/* Default modifier
+ ========================================================================== */
+/*
+ * Item
+ */
+.uk-accordion-default > :nth-child(n+2) {
+  margin-top: 20px;
+}
+/* Active */
+/*
+ * Title
+ */
+/*
+* 1. Center content vertically, e.g. an icon
+* 2. Imitate white space gap when using flexbox
+* 3. Reset link
+ */
+.uk-accordion-default .uk-accordion-title {
+  /* 1 */
+  display: flex;
+  align-items: center;
+  /* 2 */
+  column-gap: 0.25em;
+  /* 3 */
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: #333;
+}
+/* Hover */
+.uk-accordion-default .uk-accordion-title:hover {
+  color: #666;
+  text-decoration: none;
+}
+/* Active */
+/*
+ * Icon
+ */
+.uk-accordion-default .uk-accordion-icon {
+  flex: none;
+  margin-right: auto;
+  color: #666;
+}
+/*
+ * Content
+ */
+.uk-accordion-default .uk-accordion-content {
+  margin-top: 20px;
 }
 /* ========================================================================
    Component: Drop
@@ -5223,6 +5239,7 @@ ul.uk-nav-sub {
 /* Parent icon
  ========================================================================== */
 .uk-nav-parent-icon {
+  flex: none;
   margin-right: auto;
   transition: transform 0.3s ease-out;
 }
@@ -12083,30 +12100,43 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-offcanvas-bar .uk-search-toggle:hover {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-accordion-title,
-.uk-section-primary:not(.uk-preserve-color) .uk-accordion-title,
-.uk-section-secondary:not(.uk-preserve-color) .uk-accordion-title,
-.uk-tile-primary:not(.uk-preserve-color) .uk-accordion-title,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-accordion-title,
-.uk-card-primary.uk-card-body .uk-accordion-title,
-.uk-card-primary > :not([class*="uk-card-media"]) .uk-accordion-title,
-.uk-card-secondary.uk-card-body .uk-accordion-title,
-.uk-card-secondary > :not([class*="uk-card-media"]) .uk-accordion-title,
-.uk-overlay-primary .uk-accordion-title,
-.uk-offcanvas-bar .uk-accordion-title {
+.uk-light .uk-accordion-default .uk-accordion-title,
+.uk-section-primary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-title,
+.uk-section-secondary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-title,
+.uk-tile-primary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-title,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-title,
+.uk-card-primary.uk-card-body .uk-accordion-default .uk-accordion-title,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-accordion-default .uk-accordion-title,
+.uk-card-secondary.uk-card-body .uk-accordion-default .uk-accordion-title,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-accordion-default .uk-accordion-title,
+.uk-overlay-primary .uk-accordion-default .uk-accordion-title,
+.uk-offcanvas-bar .uk-accordion-default .uk-accordion-title {
   color: #fff;
 }
-.uk-light .uk-accordion-title:hover,
-.uk-section-primary:not(.uk-preserve-color) .uk-accordion-title:hover,
-.uk-section-secondary:not(.uk-preserve-color) .uk-accordion-title:hover,
-.uk-tile-primary:not(.uk-preserve-color) .uk-accordion-title:hover,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-accordion-title:hover,
-.uk-card-primary.uk-card-body .uk-accordion-title:hover,
-.uk-card-primary > :not([class*="uk-card-media"]) .uk-accordion-title:hover,
-.uk-card-secondary.uk-card-body .uk-accordion-title:hover,
-.uk-card-secondary > :not([class*="uk-card-media"]) .uk-accordion-title:hover,
-.uk-overlay-primary .uk-accordion-title:hover,
-.uk-offcanvas-bar .uk-accordion-title:hover {
+.uk-light .uk-accordion-default .uk-accordion-title:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-title:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-title:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-title:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-title:hover,
+.uk-card-primary.uk-card-body .uk-accordion-default .uk-accordion-title:hover,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-accordion-default .uk-accordion-title:hover,
+.uk-card-secondary.uk-card-body .uk-accordion-default .uk-accordion-title:hover,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-accordion-default .uk-accordion-title:hover,
+.uk-overlay-primary .uk-accordion-default .uk-accordion-title:hover,
+.uk-offcanvas-bar .uk-accordion-default .uk-accordion-title:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-accordion-default .uk-accordion-icon,
+.uk-section-primary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-icon,
+.uk-section-secondary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-icon,
+.uk-tile-primary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-icon,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-icon,
+.uk-card-primary.uk-card-body .uk-accordion-default .uk-accordion-icon,
+.uk-card-primary > :not([class*="uk-card-media"]) .uk-accordion-default .uk-accordion-icon,
+.uk-card-secondary.uk-card-body .uk-accordion-default .uk-accordion-icon,
+.uk-card-secondary > :not([class*="uk-card-media"]) .uk-accordion-default .uk-accordion-icon,
+.uk-overlay-primary .uk-accordion-default .uk-accordion-icon,
+.uk-offcanvas-bar .uk-accordion-default .uk-accordion-icon {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-thumbnav > * > *::after,
@@ -13219,32 +13249,6 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-offcanvas-bar .uk-table-striped tbody tr:nth-of-type(even):last-child {
   border-bottom-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-accordion-title::before,
-.uk-section-primary:not(.uk-preserve-color) .uk-accordion-title::before,
-.uk-section-secondary:not(.uk-preserve-color) .uk-accordion-title::before,
-.uk-tile-primary:not(.uk-preserve-color) .uk-accordion-title::before,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-accordion-title::before,
-.uk-card-primary.uk-card-body .uk-accordion-title::before,
-.uk-card-primary > :not([class*="uk-card-media"]) .uk-accordion-title::before,
-.uk-card-secondary.uk-card-body .uk-accordion-title::before,
-.uk-card-secondary > :not([class*="uk-card-media"]) .uk-accordion-title::before,
-.uk-overlay-primary .uk-accordion-title::before,
-.uk-offcanvas-bar .uk-accordion-title::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%20%2F%3E%0A%3C%2Fsvg%3E");
-}
-.uk-light .uk-open > .uk-accordion-title::before,
-.uk-section-primary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::before,
-.uk-section-secondary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::before,
-.uk-tile-primary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::before,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::before,
-.uk-card-primary.uk-card-body .uk-open > .uk-accordion-title::before,
-.uk-card-primary > :not([class*="uk-card-media"]) .uk-open > .uk-accordion-title::before,
-.uk-card-secondary.uk-card-body .uk-open > .uk-accordion-title::before,
-.uk-card-secondary > :not([class*="uk-card-media"]) .uk-open > .uk-accordion-title::before,
-.uk-overlay-primary .uk-open > .uk-accordion-title::before,
-.uk-offcanvas-bar .uk-open > .uk-accordion-title::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%3C%2Fsvg%3E");
-}
 /*
  * Pass dropbar behind color to JS
  */
@@ -13331,3 +13335,17 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
     page-break-after: avoid;
   }
 }
+/* Default modifier
+ ========================================================================== */
+/*
+ * Item
+ */
+/*
+ * Title
+ */
+/*
+ * Icon
+ */
+/*
+ * Content
+ */
