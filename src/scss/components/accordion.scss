@@ -8,6 +8,8 @@
 // Sub-objects:     `uk-accordion-title`
 //                  `uk-accordion-content`
 //
+// Modifiers:       `uk-accordion-default`
+//
 // States:          `uk-open`
 //
 // ========================================================================
@@ -30,50 +32,88 @@
     @if(meta.mixin-exists(hook-accordion)) {@include hook-accordion();}
 }
 
+.uk-accordion-title { display: block; }
 
-/* Item
- ========================================================================== */
-
-.uk-accordion > * {
-    @if(meta.mixin-exists(hook-accordion-item)) {@include hook-accordion-item();}
-}
-
-.uk-accordion > :nth-child(n+2) { margin-top: $accordion-item-margin-top; }
-
-
-/* Title
- ========================================================================== */
-
-.uk-accordion-title {
-    display: block;
-    font-size: $accordion-title-font-size;
-    line-height: $accordion-title-line-height;
-    color: $accordion-title-color;
-    @if(meta.mixin-exists(hook-accordion-title)) {@include hook-accordion-title();}
-}
-
-/* Hover */
-.uk-accordion-title:hover {
-    color: $accordion-title-hover-color;
-    text-decoration: none;
-    @if(meta.mixin-exists(hook-accordion-title-hover)) {@include hook-accordion-title-hover();}
-}
-
-
-/* Content
- ========================================================================== */
-
-.uk-accordion-content {
-    display: flow-root;
-    margin-top: $accordion-content-margin-top;
-    @if(meta.mixin-exists(hook-accordion-content)) {@include hook-accordion-content();}
-}
+.uk-accordion-content { display: flow-root; }
 
 /*
  * Remove margin from the last-child
  */
 
- .uk-accordion-content > :last-child { margin-bottom: 0; }
+.uk-accordion-content > :last-child { margin-bottom: 0; }
+
+
+/* Default modifier
+ ========================================================================== */
+
+/*
+ * Item
+ */
+
+.uk-accordion-default > * {
+    @if(meta.mixin-exists(hook-accordion-default-item)) {@include hook-accordion-default-item();}
+}
+
+.uk-accordion-default > :nth-child(n+2) { margin-top: $accordion-default-item-margin-top; }
+
+/* Active */
+.uk-accordion-default > .uk-open {
+    @if(meta.mixin-exists(hook-accordion-default-item-active)) {@include hook-accordion-default-item-active();}
+}
+
+/*
+ * Title
+ */
+
+/*
+* 1. Center content vertically, e.g. an icon
+* 2. Imitate white space gap when using flexbox
+* 3. Reset link
+ */
+
+.uk-accordion-default .uk-accordion-title {
+    /* 1 */
+    display: flex;
+    align-items: center;
+    /* 2 */
+    column-gap: 0.25em;
+    /* 3 */
+    font-size: $accordion-default-title-font-size;
+    line-height: $accordion-default-title-line-height;
+    color: $accordion-default-title-color;
+    @if(meta.mixin-exists(hook-accordion-default-title)) {@include hook-accordion-default-title();}
+}
+
+/* Hover */
+.uk-accordion-default .uk-accordion-title:hover {
+    color: $accordion-default-title-hover-color;
+    text-decoration: none;
+    @if(meta.mixin-exists(hook-accordion-default-title-hover)) {@include hook-accordion-default-title-hover();}
+}
+
+/* Active */
+.uk-accordion-default > .uk-open .uk-accordion-title {
+    @if(meta.mixin-exists(hook-accordion-default-title-active)) {@include hook-accordion-default-title-active();}
+}
+
+/*
+ * Icon
+ */
+
+.uk-accordion-default .uk-accordion-icon {
+    flex: none;
+    margin-left: auto;
+    @if(meta.mixin-exists(hook-accordion-default-icon)) {@include hook-accordion-default-icon();}
+}
+
+/*
+ * Content
+ */
+
+.uk-accordion-default .uk-accordion-content {
+    margin-top: $accordion-default-content-margin-top;
+    @if(meta.mixin-exists(hook-accordion-default-content)) {@include hook-accordion-default-content();}
+}
 
 
 // Hooks
@@ -82,10 +122,13 @@
 @if(meta.mixin-exists(hook-accordion-misc)) {@include hook-accordion-misc();}
 
 // @mixin hook-accordion(){}
-// @mixin hook-accordion-item(){}
-// @mixin hook-accordion-title(){}
-// @mixin hook-accordion-title-hover(){}
-// @mixin hook-accordion-content(){}
+// @mixin hook-accordion-default-item(){}
+// @mixin hook-accordion-default-item-active(){}
+// @mixin hook-accordion-default-title(){}
+// @mixin hook-accordion-default-title-hover(){}
+// @mixin hook-accordion-default-title-active(){}
+// @mixin hook-accordion-default-icon(){}
+// @mixin hook-accordion-default-content(){}
 // @mixin hook-accordion-misc(){}
 
 
@@ -95,6 +138,10 @@
 
 
 
-// @mixin hook-inverse-accordion-item(){}
-// @mixin hook-inverse-accordion-title(){}
-// @mixin hook-inverse-accordion-title-hover(){}
+// @mixin hook-inverse-accordion-default-item(){}
+// @mixin hook-inverse-accordion-default-item-active(){}
+// @mixin hook-inverse-accordion-default-title(){}
+// @mixin hook-inverse-accordion-default-title-hover(){}
+// @mixin hook-inverse-accordion-default-title-active(){}
+// @mixin hook-inverse-accordion-default-icon(){}
+// @mixin hook-inverse-accordion-default-content(){}

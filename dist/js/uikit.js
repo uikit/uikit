@@ -1,4 +1,4 @@
-/*! UIkit 3.24.2 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.25.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3786,7 +3786,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.24.2";
+    App.version = "3.25.0";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5603,7 +5603,7 @@
       return sumBy(children(list).slice(0, index), (el) => dimensions$1(el).width);
     }
     function centerEl(el, list) {
-      return dimensions$1(list).width / 2 - dimensions$1(el).width / 2;
+      return (dimensions$1(list).width - dimensions$1(el).width) / 2;
     }
     function getElLeft(el, list) {
       return el && (position(el).left + (isRtl ? dimensions$1(el).width - dimensions$1(list).width : 0)) * (isRtl ? -1 : 1) || 0;
@@ -5672,7 +5672,7 @@
             if (this.center) {
               if (left < width / 2 && left + slideWidth + dimensions$1(this.slides[getIndex(i + 1, this.slides)]).width / 2 > width / 2) {
                 sets.push(i);
-                left = width / 2 - slideWidth / 2;
+                left = (width - slideWidth) / 2;
               }
             } else if (left === 0) {
               sets.push(Math.min(i, this.maxIndex));
@@ -5763,7 +5763,7 @@
             return;
           }
           const next = this.slides[index];
-          let width = dimensions$1(this.list).width / 2 - dimensions$1(next).width / 2;
+          let width = (dimensions$1(this.list).width - dimensions$1(next).width) / 2;
           let j = 0;
           while (width > 0) {
             const slideIndex = this.getIndex(--j + index, index);
@@ -5813,7 +5813,7 @@
           const left = -width;
           const right = width * 2;
           const slideWidth = dimensions$1(this.slides[this.index]).width;
-          const slideLeft = this.center ? width / 2 - slideWidth / 2 : 0;
+          const slideLeft = this.center ? (width - slideWidth) / 2 : 0;
           const slides = /* @__PURE__ */ new Set();
           for (const i of [-1, 1]) {
             let currentLeft = slideLeft + (i > 0 ? slideWidth : 0);
@@ -5828,12 +5828,12 @@
         },
         getIndexAt(percent) {
           let index = -1;
-          const scrollDist = this.center ? getWidth(this.list) - (dimensions$1(this.slides[0]).width / 2 + dimensions$1(last(this.slides)).width / 2) : getWidth(this.list, this.maxIndex);
+          const scrollDist = this.center ? getWidth(this.list) - (dimensions$1(this.slides[0]).width + dimensions$1(last(this.slides)).width) / 2 : getWidth(this.list, this.maxIndex);
           let dist = percent * scrollDist;
           let slidePercent = 0;
           do {
             const slideWidth = dimensions$1(this.slides[++index]).width;
-            const slideDist = this.center ? slideWidth / 2 + dimensions$1(this.slides[index + 1]).width / 2 : slideWidth;
+            const slideDist = this.center ? (slideWidth + dimensions$1(this.slides[index + 1]).width) / 2 : slideWidth;
             slidePercent = dist / slideDist % 1;
             dist -= slideDist;
           } while (dist >= 0 && index < this.maxIndex);
@@ -5869,7 +5869,7 @@
           }
           diff = Math.max(
             diff,
-            slideWidth / 2 + dimensions$1(slides[getIndex(+index + i, slides)]).width / 2 - (left - listHalf)
+            (slideWidth + dimensions$1(slides[getIndex(+index + i, slides)]).width) / 2 - (left - listHalf)
           );
         }
         if (Math.trunc(diff) > sumBy(
@@ -6723,8 +6723,8 @@
         collapsible: true,
         multiple: false,
         clsOpen: "uk-open",
-        toggle: "> .uk-accordion-title",
-        content: "> .uk-accordion-content",
+        toggle: ".uk-accordion-title",
+        content: ".uk-accordion-content",
         offset: 0
       },
       computed: {
@@ -6781,7 +6781,7 @@
           }
         },
         {
-          name: "shown hidden",
+          name: "show hide shown hidden",
           self: true,
           delegate: ({ targets }) => targets,
           handler() {
@@ -8048,6 +8048,7 @@
     };
 
     var heightViewport = {
+      mixins: [Media],
       props: {
         expand: Boolean,
         offsetTop: Boolean,
@@ -8071,6 +8072,9 @@
         read() {
           if (!isVisible(this.$el)) {
             return false;
+          }
+          if (!this.matchMedia) {
+            return { minHeight: false };
           }
           let minHeight = "";
           const box = boxModelAdjust(this.$el, "height", "content-box");
@@ -8108,11 +8112,17 @@
           return { minHeight };
         },
         write({ minHeight }) {
-          css(this.$el, this.property, `max(${this.min || 0}px, ${minHeight})`);
+          css(
+            this.$el,
+            this.property,
+            minHeight === false ? "" : `max(${this.min || 0}px, ${minHeight})`
+          );
         },
         events: ["resize"]
       }
     };
+
+    var accordionIcon = "<svg width=\"13\" height=\"13\" viewBox=\"0 0 13 13\"><style>.uk-accordion-icon svg&gt;[class*=&quot;line-&quot;]{transition:0.2s ease-out;transition-property:transform, opacity;transform-origin:center}[aria-expanded=&quot;true&quot;] .uk-accordion-icon svg&gt;.line-1{transform:rotate(-45deg);opacity:0}[aria-expanded=&quot;true&quot;] .uk-accordion-icon svg&gt;.line-2{transform:rotate(90deg)}</style><rect width=\"13\" height=\"1\" fill=\"#000\" x=\"0\" y=\"6\" class=\"line-1\"/><rect width=\"1\" height=\"13\" fill=\"#000\" x=\"6\" y=\"0\" class=\"line-2\"/></svg>";
 
     var closeIcon = "<svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\"><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"1\" y1=\"1\" x2=\"13\" y2=\"13\"/><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"13\" y1=\"1\" x2=\"1\" y2=\"13\"/></svg>";
 
@@ -8239,6 +8249,7 @@
       spinner,
       totop,
       marker,
+      "accordion-icon": accordionIcon,
       "close-icon": closeIcon,
       "close-large": closeLarge,
       "drop-parent-icon": dropParentIcon,
@@ -10020,6 +10031,7 @@
     var components = /*#__PURE__*/Object.freeze({
         __proto__: null,
         Accordion: Accordion,
+        AccordionIcon: IconComponent,
         Alert: alert,
         Close: Close,
         Cover: cover,
