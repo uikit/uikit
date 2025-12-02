@@ -1,5 +1,5 @@
 import archiver from 'archiver';
-import dateFormat from 'dateformat/lib/dateformat.js';
+import dateFormat from 'dateformat';
 import { $ } from 'execa';
 import fs from 'fs';
 import { glob } from 'glob';
@@ -54,7 +54,7 @@ function raiseVersion(version) {
         $$`npm version ${version} --git-tag-version false`,
         replaceInFile('CHANGELOG.md', (data) =>
             data.replace(
-                /^##\s*WIP/m,
+                /^##\s*WIP.*$/m,
                 `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`,
             ),
         ),

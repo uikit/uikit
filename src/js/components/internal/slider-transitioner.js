@@ -160,7 +160,7 @@ export function getWidth(list, index) {
 }
 
 function centerEl(el, list) {
-    return dimensions(list).width / 2 - dimensions(el).width / 2;
+    return (dimensions(list).width - dimensions(el).width) / 2;
 }
 
 function getElLeft(el, list) {

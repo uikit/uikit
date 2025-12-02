@@ -2,36 +2,52 @@
 @use "sass:string";
 
 @mixin hook-accordion(){}
-@mixin hook-accordion-item(){}
-@mixin hook-accordion-title(){
-
-    overflow: hidden;
-
-    &::before {
-        content: "";
-        width: ($accordion-title-line-height * 1em);
-        height: ($accordion-title-line-height * 1em);
-        margin-left: $accordion-icon-margin-left;
-        float: right;
-        @include svg-fill($internal-accordion-close-image, "#000", $accordion-icon-color);
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-    }
-
-    .uk-open > &::before { @include svg-fill($internal-accordion-open-image, "#000", $accordion-icon-color); }
-
-}
-@mixin hook-accordion-title-hover(){}
-@mixin hook-accordion-content(){}
+@mixin hook-accordion-default-item(){}
+@mixin hook-accordion-default-item-active(){}
+@mixin hook-accordion-default-title(){}
+@mixin hook-accordion-default-title-hover(){}
+@mixin hook-accordion-default-title-active(){}
+@mixin hook-accordion-default-icon(){ color: $accordion-default-icon-color; }
+@mixin hook-accordion-default-content(){}
 @mixin hook-accordion-misc(){}
-@mixin hook-inverse-accordion-item(){}
-@mixin hook-inverse-accordion-title(){}
-@mixin hook-inverse-accordion-title-hover(){}
+@mixin hook-inverse-accordion-default-item(){}
+@mixin hook-inverse-accordion-default-item-active(){}
+@mixin hook-inverse-accordion-default-title(){}
+@mixin hook-inverse-accordion-default-title-hover(){}
+@mixin hook-inverse-accordion-default-title-active(){}
+@mixin hook-inverse-accordion-default-icon(){ color: $inverse-accordion-default-icon-color; }
+@mixin hook-inverse-accordion-default-content(){}
 @mixin hook-inverse-component-accordion(){
 
-    .uk-accordion-title::before { @include svg-fill($internal-accordion-close-image, "#000", $inverse-global-color); }
+    .uk-accordion-default > * {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-item)) {@include hook-inverse-accordion-default-item();}
+    }
 
-    .uk-open > .uk-accordion-title::before { @include svg-fill($internal-accordion-open-image, "#000", $inverse-global-color); }
+    .uk-accordion-default > .uk-open {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-item-active)) {@include hook-inverse-accordion-default-item-active();}
+    }
+
+    .uk-accordion-default .uk-accordion-title {
+        color: $inverse-accordion-default-title-color;
+        @if(meta.mixin-exists(hook-inverse-accordion-default-title)) {@include hook-inverse-accordion-default-title();}
+    }
+
+    .uk-accordion-default .uk-accordion-title:hover {
+        color: $inverse-accordion-default-title-hover-color;
+        @if(meta.mixin-exists(hook-inverse-accordion-default-title-hover)) {@include hook-inverse-accordion-default-title-hover();}
+    }
+
+    .uk-accordion-default .uk-accordion-title:active {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-title-active)) {@include hook-inverse-accordion-default-title-active();}
+    }
+
+    .uk-accordion-default .uk-accordion-icon {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-icon)) {@include hook-inverse-accordion-default-icon();}
+    }
+
+    .uk-accordion-default .uk-accordion-content {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-content)) {@include hook-inverse-accordion-default-content();}
+    }
 
 }
 @mixin hook-alert(){}

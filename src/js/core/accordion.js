@@ -47,8 +47,8 @@ export default {
         collapsible: true,
         multiple: false,
         clsOpen: 'uk-open',
-        toggle: '> .uk-accordion-title',
-        content: '> .uk-accordion-content',
+        toggle: '.uk-accordion-title',
+        content: '.uk-accordion-content',
         offset: 0,
     },
 
@@ -118,7 +118,7 @@ export default {
             },
         },
         {
-            name: 'shown hidden',
+            name: 'show hide shown hidden',
 
             self: true,
 

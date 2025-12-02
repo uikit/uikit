@@ -1,5 +1,40 @@
 # Changelog
 
+## 3.25.0 (December 2, 2025)
+
+### Added
+
+- Add support for using the Accordion component without any default style
+- Add accordion icon to Accordion component
+- Add `media` option to Height Viewport component
+
+### Changed
+
+- IMPORTANT: Add `uk-accordion-defaut` class to apply style
+- IMPORTANT: Remove accordion icon from CSS. Use `uk-accordion-icon` attribute on HTML elements instead
+- IMPORTANT: Rename `@accordion-*` to `@accordion-default-*` in Accordion component
+- IMPORTANT: Rename `@inverse-accordion-*` to `@inverse-accordion-default-*` in Accordion component
+- IMPORTANT: Rename `.hook-accordion-*` to `.hook-accordion-default-*` in Accordion component
+- IMPORTANT: Rename `.hook-inverse-accordion-*` to `.hook-inverse-accordion-default-*` in Accordion component
+- Refactor Accordion component
+
+### Fixed
+
+- Fix nav parent icon shrinking if text is too long in Nav component
+
+## 3.24.2 (October 13, 2025)
+
+### Added
+
+- Add fit content width to Width component
+
+### Fixed
+
+- Fix overwriting default icons
+- Fix scrollbar gutter stays visible in Modal component even though page is not scrollable
+- Fix lazy loading YouTube/Vimeo videos in Video component in Safari
+- Fix scoping css to handle `attr()` with `type()` function
+
 ## 3.24.1 (October 6, 2025)
 
 ### Fixed

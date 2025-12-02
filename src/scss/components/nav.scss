@@ -122,6 +122,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-parent-icon {
+    flex: none;
     margin-left: auto;
     transition: transform 0.3s ease-out;
 }

@@ -13,6 +13,7 @@ import {
     isTag,
     swap,
 } from 'uikit-util';
+import accordionIcon from '../../images/components/accordion-icon.svg';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import dropParentIcon from '../../images/components/drop-parent-icon.svg';
@@ -40,6 +41,7 @@ const icons = {
     spinner,
     totop,
     marker,
+    'accordion-icon': accordionIcon,
     'close-icon': closeIcon,
     'close-large': closeLarge,
     'drop-parent-icon': dropParentIcon,
