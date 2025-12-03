@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add accordion title gap variable to Accordion component
+
 ## 3.25.0 (December 2, 2025)
 
 ### Added
