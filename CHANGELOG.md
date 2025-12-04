@@ -6,6 +6,10 @@
 
 - Add accordion title gap variable to Accordion component
 
+### Fixed
+
+- Fix to allow for multiple navigations in Slider/Slideshow component
+
 ## 3.25.0 (December 2, 2025)
 
 ### Added

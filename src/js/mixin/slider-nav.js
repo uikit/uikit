@@ -33,10 +33,10 @@ export default {
     },
 
     computed: {
-        nav: ({ selNav }, $el) => $(selNav, $el),
+        nav: ({ selNav }, $el) => $$(selNav, $el),
 
         navChildren() {
-            return children(this.nav);
+            return this.nav.map((nav) => children(nav)).flat();
         },
 
         selNavItem: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,
@@ -109,9 +109,9 @@ export default {
         slides(slides) {
             slides.forEach((slide, i) =>
                 attr(slide, {
-                    role: this.nav ? 'tabpanel' : 'group',
+                    role: this.nav.length ? 'tabpanel' : 'group',
                     'aria-label': this.t('slideLabel', i + 1, this.length),
-                    'aria-roledescription': this.nav ? null : 'slide',
+                    'aria-roledescription': this.nav.length ? null : 'slide',
                 }),
             );
 
@@ -229,19 +229,18 @@ export default {
         },
 
         padNavitems() {
-            if (!this.nav) {
-                return;
-            }
-
-            const children = [];
-            for (let i = 0; i < this.length; i++) {
-                const attr = `${this.attrItem}="${i}"`;
-                children[i] =
-                    this.navChildren.findLast((el) => el.matches(`[${attr}]`)) ||
-                    $(`<li ${attr}><a href></a></li>`);
-            }
-            if (!isEqual(children, this.navChildren)) {
-                html(this.nav, children);
+            for (const nav of this.nav) {
+                const navChildren = children(nav);
+                const navItems = [];
+                for (let i = 0; i < this.length; i++) {
+                    const attr = `${this.attrItem}="${i}"`;
+                    navItems[i] =
+                        navChildren.findLast((el) => el.matches(`[${attr}]`)) ||
+                        $(`<li ${attr}><a href></a></li>`);
+                }
+                if (!isEqual(navItems, navChildren)) {
+                    html(this.nav, navItems);
+                }
             }
         },
     },
