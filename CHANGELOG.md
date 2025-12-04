@@ -9,6 +9,11 @@
 ### Fixed
 
 - Fix to allow for multiple navigations in Slider/Slideshow component
+- Fix multi-line horizontal padding for size modifiers in Form component
+
+### Changed
+
+- IMPORTANT: Rename `@form-padding-vertical` to `@form-multi-line-padding-vertical` in Form component
 
 ## 3.25.0 (December 2, 2025)
 
