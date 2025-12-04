@@ -24,7 +24,6 @@ export default {
         previous: 'Previous slide',
         slideX: 'Slide %s',
         slideLabel: '%s of %s',
-        role: 'String',
     },
 
     data: {
