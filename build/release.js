@@ -68,13 +68,20 @@ async function createPackage(version) {
     const dest = `dist/uikit-${version}.zip`;
     const archive = archiver('zip');
 
-    archive.pipe(fs.createWriteStream(dest));
+    const output = fs.createWriteStream(dest);
+    const closed = new Promise((resolve, reject) => {
+        output.on('close', resolve);
+        output.on('error', reject);
+    });
+
+    archive.pipe(output);
 
     for (const file of await glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')) {
         archive.file(file, { name: file.slice(5) });
     }
 
     await archive.finalize();
+    await closed;
     await logFile(dest);
 }
 
