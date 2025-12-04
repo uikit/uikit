@@ -104,17 +104,15 @@ export default {
 
             delegate: ({ targets, $props }) => `${targets} ${$props.toggle}`,
 
-            async handler(e) {
+            handler(e) {
                 if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
                     return;
                 }
 
                 maybeDefaultPreventClick(e);
 
-                this._off?.();
-                this._off = keepScrollPosition(e.target);
-                await this.toggle(index(this.toggles, e.current));
-                this._off();
+                const off = keepScrollPosition(e.target);
+                this.toggle(index(this.toggles, e.current)).finally(off);
             },
         },
         {
