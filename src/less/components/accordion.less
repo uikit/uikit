@@ -18,6 +18,7 @@
 
 @accordion-default-item-margin-top:             @global-margin;
 
+@accordion-default-title-gap:                   15px;
 @accordion-default-title-font-size:             @global-medium-font-size;
 @accordion-default-title-line-height:           1.4;
 @accordion-default-title-color:                 @global-emphasis-color;
@@ -80,7 +81,7 @@
     display: flex;
     align-items: center;
     /* 2 */
-    column-gap: 0.25em;
+    column-gap: @accordion-default-title-gap;
     /* 3 */
     font-size: @accordion-default-title-font-size;
     line-height: @accordion-default-title-line-height;

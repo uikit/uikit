@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.25.1 (December 5, 2025)
+
+### Added
+
+- Add accordion title gap variable to Accordion component
+
+### Fixed
+
+- Fix to allow for multiple navigations in Slider/Slideshow component
+- Fix multi-line horizontal padding for size modifiers in Form component
+
+### Changed
+
+- IMPORTANT: Rename `@form-padding-vertical` to `@form-multi-line-padding-vertical` in Form component
+
 ## 3.25.0 (December 2, 2025)
 
 ### Added
