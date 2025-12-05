@@ -212,7 +212,7 @@ async function transition(el, show, { content, duration, velocity, transition })
         dimensions(content).height;
 
     const percent = currentHeight / endHeight;
-    duration = (velocity * endHeight + duration) * (show ? 1 - percent : percent);
+    duration = endHeight ? (velocity * endHeight + duration) * (show ? 1 - percent : percent) : 0;
     css(wrapper, 'height', currentHeight);
 
     await Transition.start(wrapper, { height: show ? endHeight : 0 }, duration, transition);
