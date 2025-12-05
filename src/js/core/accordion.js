@@ -168,7 +168,7 @@ export default {
             }
 
             if (!this.collapsible && activeItems.length < 2 && includes(activeItems, item)) {
-                return;
+                items = [];
             }
 
             return Promise.all(
