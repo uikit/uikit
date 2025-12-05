@@ -1,4 +1,4 @@
-/*! UIkit 3.25.0 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.25.1 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1486,8 +1486,7 @@ a:hover .uk-icon-overlay {
 .uk-select[multiple],
 .uk-select[size],
 .uk-textarea {
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding: 6px 10px;
   vertical-align: top;
 }
 .uk-select[multiple],
@@ -3638,7 +3637,7 @@ select.uk-form-width-xsmall {
   display: flex;
   align-items: center;
   /* 2 */
-  column-gap: 0.25em;
+  column-gap: 15px;
   /* 3 */
   font-size: 1.25rem;
   line-height: 1.4;
