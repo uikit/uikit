@@ -59,6 +59,7 @@
 
 
 
+
 /* ========================================================================
    Component: Form
  ========================================================================== */
@@ -247,8 +248,7 @@
 .uk-select[multiple],
 .uk-select[size],
 .uk-textarea {
-    padding-top: $form-padding-vertical;
-    padding-bottom: $form-padding-vertical;
+    padding: $form-multi-line-padding-vertical $form-multi-line-padding-horizontal;
     vertical-align: top;
     @if(meta.mixin-exists(hook-form-multi-line)) {@include hook-form-multi-line();}
 }
@@ -492,7 +492,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 }
 
 /* Multi-line */
-.uk-form-small:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: $form-small-padding-vertical $form-small-padding-horizontal; }
+.uk-form-small:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: $form-small-multi-line-padding-vertical $form-small-multi-line-padding-horizontal; }
 
 /* Any element */
 .uk-form-small:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: $form-small-line-height; }
@@ -517,7 +517,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 }
 
 /* Multi-line */
-.uk-form-large:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: $form-large-padding-vertical $form-large-padding-horizontal; }
+.uk-form-large:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: $form-large-multi-line-padding-vertical $form-large-multi-line-padding-horizontal; }
 
 /* Any element */
 .uk-form-large:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: $form-large-line-height; }
