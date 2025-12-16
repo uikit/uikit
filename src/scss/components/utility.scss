@@ -239,7 +239,10 @@
 .uk-preserve-width canvas,
 .uk-preserve-width img,
 .uk-preserve-width svg,
-.uk-preserve-width video { max-width: none; }
+.uk-preserve-width video {
+    max-width: none;
+    object-fit: fill;
+}
 
 /*
  * Responsiveness

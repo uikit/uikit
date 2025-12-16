@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- Fix object fit for preserve width class in Utility component
 - Fix to allow for multiple navigations in Slider/Slideshow component
 - Fix multi-line horizontal padding for size modifiers in Form component
 
