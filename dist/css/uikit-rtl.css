@@ -1,4 +1,4 @@
-/*! UIkit 3.25.1 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.25.2 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -8543,6 +8543,7 @@ iframe[data-uk-cover] {
 .uk-preserve-width svg,
 .uk-preserve-width video {
   max-width: none;
+  object-fit: fill;
 }
 /*
  * Responsiveness
