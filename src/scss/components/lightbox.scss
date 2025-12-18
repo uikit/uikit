@@ -144,11 +144,6 @@
     max-height: $lightbox-item-max-height;
 }
 
-.uk-lightbox-items-fit > * > :not(iframe) {
-    width: auto;
-    height: auto;
-}
-
 /* Zoom Cursor */
 .uk-lightbox-items.uk-lightbox-items-fit .uk-lightbox-zoom:hover { cursor: zoom-in; }
 .uk-lightbox-items:not(.uk-lightbox-items-fit) .uk-lightbox-zoom:hover { cursor: zoom-out; }
