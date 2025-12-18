@@ -2,7 +2,7 @@
     "name": "uikit",
     "title": "UIkit",
     "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-    "version": "3.25.2",
+    "version": "3.25.3",
     "main": "dist/js/uikit.js",
     "style": "dist/css/uikit.css",
     "sideEffects": [
@@ -41,7 +41,7 @@
         "chokidar-cli": "^3.0.0",
         "clean-css": "^5.3.3",
         "date-fns": "^4.1.0",
-        "esbuild": "^0.27.1",
+        "esbuild": "^0.27.2",
         "eslint": "^9.39.2",
         "eslint-config-prettier": "^10.1.8",
         "execa": "^9.6.1",

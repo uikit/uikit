@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.3 (December 18, 2025)
+
+### Fixed
+
+- Fix width and height for retina images in Lightbox component
+
 ## 3.25.1 (December 5, 2025)
 
 ### Added
