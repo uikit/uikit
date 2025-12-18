@@ -41,7 +41,7 @@
         "chokidar-cli": "^3.0.0",
         "clean-css": "^5.3.3",
         "date-fns": "^4.1.0",
-        "esbuild": "^0.27.1",
+        "esbuild": "^0.27.2",
         "eslint": "^9.39.2",
         "eslint-config-prettier": "^10.1.8",
         "execa": "^9.6.1",
