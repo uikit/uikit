@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.4 (December 19, 2025)
+
+### Fixed
+
+- Fix regression in Accordion component that prevents having Accordions within Accordions
+
 ## 3.25.3 (December 18, 2025)
 
 ### Fixed
