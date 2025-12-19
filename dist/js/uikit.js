@@ -1,4 +1,4 @@
-/*! UIkit 3.25.3 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.25.4 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3786,7 +3786,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.25.3";
+    App.version = "3.25.4";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -6771,9 +6771,13 @@
             if (e.type === "keydown" && e.keyCode !== keyMap.SPACE) {
               return;
             }
+            const item = index(this.toggles, e.current);
+            if (item === -1) {
+              return;
+            }
             maybeDefaultPreventClick(e);
             const off = keepScrollPosition(e.target);
-            this.toggle(index(this.toggles, e.current)).finally(off);
+            this.toggle(item).finally(off);
           }
         },
         {
