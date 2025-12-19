@@ -109,10 +109,16 @@ export default {
                     return;
                 }
 
+                const item = index(this.toggles, e.current);
+
+                if (item === -1) {
+                    return;
+                }
+
                 maybeDefaultPreventClick(e);
 
                 const off = keepScrollPosition(e.target);
-                this.toggle(index(this.toggles, e.current)).finally(off);
+                this.toggle(item).finally(off);
             },
         },
         {
