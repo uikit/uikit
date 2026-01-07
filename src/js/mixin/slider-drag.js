@@ -13,7 +13,6 @@ import {
 } from 'uikit-util';
 
 const pointerOptions = { passive: false, capture: true };
-const pointerUpOptions = { passive: true, capture: true };
 const pointerDown = 'touchstart mousedown';
 const pointerMove = 'touchmove mousemove';
 const pointerUp = 'touchend touchcancel mouseup click input scroll';
@@ -104,7 +103,7 @@ export default {
             on(document, pointerMove, this.move, pointerOptions);
 
             // 'input' event is triggered by video controls
-            on(document, pointerUp, this.end, pointerUpOptions);
+            on(document, pointerUp, this.end, { passive: true, capture: true, once: true });
 
             css(this.list, 'userSelect', 'none');
         },
@@ -181,7 +180,6 @@ export default {
 
         end() {
             off(document, pointerMove, this.move, pointerOptions);
-            off(document, pointerUp, this.end, pointerUpOptions);
 
             if (this.dragging) {
                 setTimeout(on(this.list, 'click', (e) => e.preventDefault(), pointerOptions));

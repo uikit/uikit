@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add Overflow Fade component can be scrolled by dragging with mouse
+
 ## 3.25.4 (December 19, 2025)
 
 ### Fixed
