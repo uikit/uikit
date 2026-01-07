@@ -20,8 +20,12 @@ if (args.f || args.force || (await isDevCommit())) {
     await $$`pnpm compile-rtl`;
     await $$`pnpm build-scss`;
 
-    // publish to dev tag
-    await $$`pnpm publish --tag dev --no-git-checks`;
+    if (!args.noPublish) {
+        // publish to dev tag
+        await $$`pnpm publish --tag dev --no-git-checks`;
+    }
+} else {
+    process.exit(1);
 }
 
 async function isDevCommit() {

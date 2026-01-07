@@ -29,11 +29,3 @@ jobs:
             if [ "${CIRCLE_BRANCH}" = "main" ];then
               pnpm compile
             fi
-
-      - run:
-          name: Deploy to NPM
-          command: |
-            if [ "${CIRCLE_BRANCH}" = "develop" ];then
-              echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" >> ~/.npmrc
-              node ./build/publishDev.js
-            fi
