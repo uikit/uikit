@@ -114,8 +114,6 @@ async function deploy(version) {
 
     await $$`git push origin main --tags`;
 
-    await $$`pnpm publish --no-git-checks`;
-
     const notes = (await read('./Changelog.md'))
         .match(/## \d.*?$\s*(.*?)\s*(?=## \d)/ms)[1]
         .replace(/(["`])/g, '\\$1');

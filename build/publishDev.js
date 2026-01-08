@@ -19,11 +19,6 @@ if (args.f || args.force || (await isDevCommit())) {
     await $$`pnpm compile`;
     await $$`pnpm compile-rtl`;
     await $$`pnpm build-scss`;
-
-    if (!args.noPublish) {
-        // publish to dev tag
-        await $$`pnpm publish --tag dev --no-git-checks`;
-    }
 } else {
     process.exit(1);
 }

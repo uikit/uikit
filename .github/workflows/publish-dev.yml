@@ -36,7 +36,7 @@ jobs:
         run: pnpm eslint
 
       - name: run publishDev
-        run: node ./build/publishDev.js --noPublish
+        run: node ./build/publishDev.js
 
       - name: Publish to NPM
         if: ${{ success() }}
