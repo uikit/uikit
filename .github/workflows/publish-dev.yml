@@ -29,14 +29,11 @@ jobs:
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install dependencies
-        run: pnpm install
+      - run: pnpm install
 
-      - name: ESlint
-        run: pnpm eslint
+      - run: pnpm eslint
 
-      - name: run publishDev
-        run: node ./build/publishDev.js
+      - run: node ./build/publishDev.js
 
       - name: Publish to NPM
         if: ${{ success() }}
