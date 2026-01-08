@@ -40,4 +40,4 @@ jobs:
 
       - name: Publish to NPM
         if: ${{ success() }}
-        run: npm publish --tag dev
+        run: npm publish  --provenance --tag dev
