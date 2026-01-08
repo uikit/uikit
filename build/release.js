@@ -114,7 +114,7 @@ async function deploy(version) {
 
     await $$`git push origin main --tags`;
 
-    const notes = (await read('./Changelog.md'))
+    const notes = (await read('./CHANGELOG.md'))
         .match(/## \d.*?$\s*(.*?)\s*(?=## \d)/ms)[1]
         .replace(/(["`])/g, '\\$1');
     await $$`gh release create v${version} --repo uikit/uikit --notes ${notes} ./dist/uikit-${version}.zip`;
