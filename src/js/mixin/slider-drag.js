@@ -192,15 +192,14 @@ export default {
                     this._show(false, this.index, true);
                     this._transitioner = null;
                 } else {
-                    const dirChange =
-                        (isRtl ? this.dir * (isRtl ? 1 : -1) : this.dir) < 0 ===
-                        this.prevPos > this.pos;
-                    this.index = dirChange ? this.index : this.prevIndex;
+                    const dirChange = this.dir < 0 === this.prevPos > this.pos;
 
                     if (dirChange) {
                         trigger(this.slides[this.prevIndex], 'itemhidden', [this]);
                         trigger(this.slides[this.index], 'itemshown', [this]);
                         this.percent = 1 - this.percent;
+                    } else {
+                        this.index = this.prevIndex;
                     }
 
                     this.show(
