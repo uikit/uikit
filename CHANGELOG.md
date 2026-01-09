@@ -6,6 +6,10 @@
 
 - Add Overflow Fade component can be scrolled by dragging with mouse
 
+### Fixed
+
+- Fix Navbar component ignores click drop is still delaying
+
 ## 3.25.4 (December 19, 2025)
 
 ### Fixed
