@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix Navbar component ignores click drop is still delaying
+- Fix vertical pointer movement causes Slider/Slideshow component to start dragging
 
 ## 3.25.4 (December 19, 2025)
 
