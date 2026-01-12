@@ -4,10 +4,11 @@
 
 ### Added
 
-- Add Overflow Fade component can be scrolled by dragging with mouse
+- Add scrolling by dragging with mouse to Overflow Fade component
 
 ### Fixed
 
+- Fix visible scrollbar in Firefox in Overflow Fade component
 - Fix Navbar component ignores click drop is still delaying
 - Fix vertical pointer movement causes Slider/Slideshow component to start dragging
 
