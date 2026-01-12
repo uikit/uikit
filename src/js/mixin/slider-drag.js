@@ -37,7 +37,6 @@ export default {
 
                 if (isRtl) {
                     pos.x = -pos.x;
-                    pos.y = -pos.y;
                 }
 
                 this.prevPos = isEqual(pos, this.pos) ? this.prevPos : this.pos;
