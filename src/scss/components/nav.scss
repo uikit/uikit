@@ -312,7 +312,6 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-secondary > li > a {
-
     color: $nav-secondary-item-color;
     @if(meta.mixin-exists(hook-nav-secondary-item)) {@include hook-nav-secondary-item();}
 }
