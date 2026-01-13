@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.25.5 (January 13, 2026)
+
+### Added
+
+- Add scrolling by dragging with mouse to Overflow Fade component
+
+### Fixed
+
+- Fix visible scrollbar in Firefox in Overflow Fade component
+- Fix ignored click while opening is delayed in Drop component
+- Fix vertical pointer movement causes dragging in Slider/Slideshow component
+
 ## 3.25.4 (December 19, 2025)
 
 ### Fixed

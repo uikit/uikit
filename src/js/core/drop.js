@@ -338,6 +338,9 @@ export default {
                 append(this.container, this.$el);
             }
 
+            // Mark enter early so isToggled() detects show when using delayShow
+            addClass(this.$el, this.clsEnter);
+
             this.showTimer = setTimeout(
                 () => this.toggleElement(this.$el, true),
                 (delay && this.delayShow) || 0,
@@ -345,7 +348,11 @@ export default {
         },
 
         hide(delay = true, animate = true) {
-            const hide = () => this.toggleElement(this.$el, false, this.animateOut && animate);
+            const hide = () => {
+                // Ensure enter class is removed if show is canceled early
+                removeClass(this.$el, this.clsEnter);
+                this.toggleElement(this.$el, false, this.animateOut && animate);
+            };
 
             this.clearTimers();
 

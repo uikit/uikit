@@ -3,7 +3,6 @@
 !/*.mjs
 !/*.json
 !/.github
-!/.circleci
 !/build
 !/src
 /src/*
