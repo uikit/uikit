@@ -13,12 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
+      - run: pnpm install
       - run: npm publish
