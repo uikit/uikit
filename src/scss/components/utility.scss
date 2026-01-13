@@ -132,6 +132,7 @@
  * Overflow fade
  * 1. Overflow
  * 2. Mask
+ * 3. Hide scrollbar
  */
 
 @property --uk-overflow-fade-start-opacity {
@@ -163,13 +164,12 @@
     -ms-overflow-style: -ms-autohiding-scrollbar;
     /* 2 */
     mask-image: linear-gradient(to var(--uk-overflow-fade-direction), rgba(0,0,0,var(--uk-overflow-fade-start-opacity)), #000 $overflow-fade-size, #000 string.unquote('calc(100% - #{$overflow-fade-size})'), rgba(0,0,0,var(--uk-overflow-fade-end-opacity)));
+    /* 3 */
+    scrollbar-width: none;
 }
 
 .uk-overflow-fade-horizontal > *,
 .uk-overflow-fade-vertical > * { min-width: max-content; }
-
-.uk-overflow-fade-horizontal::-webkit-scrollbar,
-.uk-overflow-fade-vertical::-webkit-scrollbar { display: none; }
 
 
 /* Box Sizing

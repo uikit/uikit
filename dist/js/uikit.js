@@ -1,4 +1,4 @@
-/*! UIkit 3.25.4 | https://www.getuikit.com | (c) 2014 - 2025 YOOtheme | MIT License */
+/*! UIkit 3.25.5 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -245,9 +245,6 @@
         return (_a = toNode(element)) == null ? void 0 : _a.getAttribute(name);
       } else {
         for (const el of toNodes(element)) {
-          if (isFunction(value)) {
-            value = value.call(el, attr(el, name));
-          }
           if (value === null) {
             removeAttr(el, name);
           } else {
@@ -3313,7 +3310,6 @@
     };
 
     const pointerOptions = { passive: false, capture: true };
-    const pointerUpOptions = { passive: true, capture: true };
     const pointerDown = "touchstart mousedown";
     const pointerMove = "touchmove mousemove";
     const pointerUp = "touchend touchcancel mouseup click input scroll";
@@ -3323,14 +3319,18 @@
       },
       data: {
         draggable: true,
-        threshold: 10
+        threshold: 10,
+        angleThreshold: 45
       },
       created() {
         for (const key of ["start", "move", "end"]) {
           const fn = this[key];
           this[key] = (e) => {
-            const pos = getEventPos(e).x * (isRtl ? -1 : 1);
-            this.prevPos = pos === this.pos ? this.prevPos : this.pos;
+            const pos = getEventPos(e);
+            if (isRtl) {
+              pos.x = -pos.x;
+            }
+            this.prevPos = isEqual(pos, this.pos) ? this.prevPos : this.pos;
             this.pos = pos;
             fn(e);
           };
@@ -3367,7 +3367,7 @@
           this.drag = this.pos;
           if (this._transitioner) {
             this.percent = this._transitioner.percent();
-            this.drag += this._transitioner.getDistance() * this.percent * this.dir;
+            this.drag.x += this._transitioner.getDistance() * this.percent * this.dir;
             this._transitioner.cancel();
             this._transitioner.translate(this.percent);
             this.dragging = true;
@@ -3376,12 +3376,12 @@
             this.prevIndex = this.index;
           }
           on(document, pointerMove, this.move, pointerOptions);
-          on(document, pointerUp, this.end, pointerUpOptions);
+          on(document, pointerUp, this.end, { passive: true, capture: true, once: true });
           css(this.list, "userSelect", "none");
         },
         move(e) {
-          const distance = this.pos - this.drag;
-          if (distance === 0 || this.prevPos === this.pos || !this.dragging && Math.abs(distance) < this.threshold) {
+          const distance = this.pos.x - this.drag.x;
+          if (distance === 0 || !this.dragging && getAngle(this.pos, this.drag) > this.angleThreshold || this.prevPos.x === this.pos.x || !this.dragging && Math.abs(distance) < this.threshold) {
             return;
           }
           e.cancelable && e.preventDefault();
@@ -3392,7 +3392,7 @@
           let nextIndex = this.getIndex(prevIndex + this.dir);
           let width = getDistance.call(this, prevIndex, nextIndex);
           while (nextIndex !== prevIndex && dis > width) {
-            this.drag -= width * this.dir;
+            this.drag.x -= width * this.dir;
             prevIndex = nextIndex;
             dis -= width;
             nextIndex = this.getIndex(prevIndex + this.dir);
@@ -3430,7 +3430,6 @@
         },
         end() {
           off(document, pointerMove, this.move, pointerOptions);
-          off(document, pointerUp, this.end, pointerUpOptions);
           if (this.dragging) {
             setTimeout(on(this.list, "click", (e) => e.preventDefault(), pointerOptions));
             this.dragging = null;
@@ -3440,12 +3439,13 @@
               this._show(false, this.index, true);
               this._transitioner = null;
             } else {
-              const dirChange = (isRtl ? this.dir * (isRtl ? 1 : -1) : this.dir) < 0 === this.prevPos > this.pos;
-              this.index = dirChange ? this.index : this.prevIndex;
+              const dirChange = this.dir < 0 === this.prevPos.x > this.pos.x;
               if (dirChange) {
                 trigger(this.slides[this.prevIndex], "itemhidden", [this]);
                 trigger(this.slides[this.index], "itemshown", [this]);
                 this.percent = 1 - this.percent;
+              } else {
+                this.index = this.prevIndex;
               }
               this.show(
                 this.dir > 0 && !dirChange || this.dir < 0 && dirChange ? "next" : "previous",
@@ -3463,6 +3463,9 @@
     }
     function hasSelectableText(el) {
       return css(el, "userSelect") !== "none" && toArray(el.childNodes).some((el2) => el2.nodeType === 3 && el2.textContent.trim());
+    }
+    function getAngle(pos1, pos2) {
+      return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
     function initWatches(instance) {
@@ -3786,7 +3789,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.25.4";
+    App.version = "3.25.5";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -6066,8 +6069,7 @@
             sortable.target,
             target,
             placeholder,
-            x,
-            y,
+            { x, y },
             sortable === previous && data.moved !== target
           );
           if (insertTarget === false) {
@@ -6227,14 +6229,14 @@
     function findTarget(items, point) {
       return items[findIndex(items, (item) => pointInRect(point, dimensions$1(item)))];
     }
-    function findInsertTarget(list, target, placeholder, x, y, sameList) {
+    function findInsertTarget(list, target, placeholder, point, sameList) {
       if (!children(list).length) {
         return;
       }
       const rect = dimensions$1(target);
       if (!sameList) {
         if (!isHorizontal(list, placeholder)) {
-          return y < rect.top + rect.height / 2 ? target : target.nextElementSibling;
+          return point.y < rect.top + rect.height / 2 ? target : target.nextElementSibling;
         }
         return target;
       }
@@ -6243,7 +6245,7 @@
         [rect.top, rect.bottom],
         [placeholderRect.top, placeholderRect.bottom]
       );
-      const [pointerPos, lengthProp, startProp, endProp] = sameRow ? [x, "width", "left", "right"] : [y, "height", "top", "bottom"];
+      const [pointerPos, lengthProp, startProp, endProp] = sameRow ? [point.x, "width", "left", "right"] : [point.y, "height", "top", "bottom"];
       const diff = placeholderRect[lengthProp] < rect[lengthProp] ? rect[lengthProp] - placeholderRect[lengthProp] : 0;
       if (placeholderRect[startProp] < rect[startProp]) {
         if (diff && pointerPos < rect[startProp] + diff) {
@@ -7296,13 +7298,17 @@
           if (this.container && parent(this.$el) !== this.container) {
             append(this.container, this.$el);
           }
+          addClass(this.$el, this.clsEnter);
           this.showTimer = setTimeout(
             () => this.toggleElement(this.$el, true),
             delay && this.delayShow || 0
           );
         },
         hide(delay = true, animate = true) {
-          const hide = () => this.toggleElement(this.$el, false, this.animateOut && animate);
+          const hide = () => {
+            removeClass(this.$el, this.clsEnter);
+            this.toggleElement(this.$el, false, this.animateOut && animate);
+          };
           this.clearTimers();
           this.isDelayedHide = delay;
           if (delay && this.isDelaying()) {
@@ -8954,16 +8960,23 @@
 
     var overflowFade = {
       data: {
+        threshold: 5,
         fadeDuration: 0.05
       },
-      events: {
-        name: "scroll",
-        self: true,
-        passive: true,
-        handler() {
-          this.$emit();
+      events: [
+        {
+          name: "scroll",
+          self: true,
+          passive: true,
+          handler() {
+            this.$emit();
+          }
+        },
+        {
+          name: pointerDown$1,
+          handler: handleMouseDrag
         }
-      },
+      ],
       observe: [
         mutation({
           options: {
@@ -9004,6 +9017,40 @@
         events: ["resize"]
       }
     };
+    function handleMouseDrag(e) {
+      const { target, button, defaultPrevented } = e;
+      if (defaultPrevented || button > 0 || isTouch(e) || target.closest(selInput) || isInput(target)) {
+        return;
+      }
+      e.preventDefault();
+      const pointerOptions = { passive: false, capture: true };
+      const { $el: el, threshold, $options } = this;
+      let started;
+      const off = on(document, pointerMove$1, move(e), pointerOptions);
+      on(document, [pointerUp$1, pointerCancel], end, { capture: true, once: true });
+      function move(e2) {
+        let origin = getEventPos(e2);
+        let pos = origin;
+        let lastPos = pos;
+        return function(e3) {
+          lastPos = pos;
+          pos = getEventPos(e3);
+          const isVertical = hasClass(el, `${$options.id}-vertical`);
+          const prop = isVertical ? "y" : "x";
+          started || (started = Math.abs(pos[prop] - origin[prop]) > threshold);
+          if (started) {
+            const delta = lastPos[prop] - pos[prop];
+            el[isVertical ? "scrollTop" : "scrollLeft"] += delta;
+          }
+        };
+      }
+      function end() {
+        off();
+        if (started) {
+          setTimeout(on(el, "click", (e2) => e2.preventDefault(), pointerOptions));
+        }
+      }
+    }
 
     var responsive = {
       props: ["width", "height"],
