@@ -9,8 +9,8 @@
 ### Fixed
 
 - Fix visible scrollbar in Firefox in Overflow Fade component
-- Fix Navbar component ignores click drop is still delaying
-- Fix vertical pointer movement causes Slider/Slideshow component to start dragging
+- Fix ignored click while opening is delayed in Drop component
+- Fix vertical pointer movement causes dragging in Slider/Slideshow component
 
 ## 3.25.4 (December 19, 2025)
 
