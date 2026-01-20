@@ -14,6 +14,7 @@ export default {
 
     data: {
         flip: false,
+        autoUpdate: false,
         delayShow: 200,
         clsDrop: 'uk-navbar-dropdown',
         selNavItem:
