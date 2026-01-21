@@ -1,0 +1,60 @@
+name: Publish release to npm
+
+on:
+  push:
+    branches:
+      - 'develop'
+  release:
+    types: [published]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish-dev:
+    if: |
+      github.ref == 'refs/heads/develop' &&
+      (
+          contains(github.event.head_commit.message, 'fix:') ||
+          contains(github.event.head_commit.message, 'feat:') ||
+          contains(github.event.head_commit.message, 'refactor:') ||
+          contains(github.event.head_commit.message, 'perf:')
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: pnpm install
+
+      - run: pnpm eslint
+
+      - run: node ./build/publishDev.js
+
+      - name: Publish to NPM
+        if: ${{ success() }}
+        run: npm publish --tag dev
+
+  publish-main:
+    if: github.event_name == 'release' && github.event.action == 'published'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish to NPM
+        if: ${{ success() }}
+        run: npm publish
