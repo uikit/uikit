@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.6 (January 21, 2026)
+
+### Changed
+
+- Update link external icon in Icon component
+
 ## 3.25.5 (January 13, 2026)
 
 ### Added
