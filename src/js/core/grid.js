@@ -164,15 +164,13 @@ function applyMasonry(rows, gutter, next) {
     const columnHeights = Array(rows[0].length).fill(0);
     let rowHeights = 0;
     for (let row of rows) {
-        if (isRtl) {
-            row.reverse();
-        }
+        const cells = isRtl ? row.slice().reverse() : row;
 
         let height = 0;
-        for (const j in row) {
-            const { offsetWidth, offsetHeight } = row[j];
+        for (const j in cells) {
+            const { offsetWidth, offsetHeight } = cells[j];
             const index = next ? j : columnHeights.indexOf(Math.min(...columnHeights));
-            push(columns, index, row[j]);
+            push(columns, index, cells[j]);
             push(translates, index, [
                 (index - j) * offsetWidth * (isRtl ? -1 : 1),
                 columnHeights[index] - rowHeights,
