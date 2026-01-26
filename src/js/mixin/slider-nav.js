@@ -238,7 +238,7 @@ export default {
                         $(`<li ${attr}><a href></a></li>`);
                 }
                 if (!isEqual(navItems, navChildren)) {
-                    html(this.nav, navItems);
+                    html(nav, navItems);
                 }
             }
         },
