@@ -1,4 +1,4 @@
-/*! UIkit 3.25.6 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.7 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1487,7 +1487,7 @@
       for (const rect of rects) {
         for (const [, , start, end] of dirs) {
           area[start] = Math.max(area[start] || 0, rect[start]);
-          area[end] = Math.min(...[area[end], rect[end]].filter(Boolean));
+          area[end] = Math.min(...[area[end], rect[end]].filter(isNumber));
         }
       }
       return area;
@@ -2485,7 +2485,7 @@
     }
     function sortItems(nodes, sort, order) {
       return [...nodes].sort(
-        (a, b) => data(a, sort).localeCompare(data(b, sort), void 0, { numeric: true }) * (order === "asc" || -1)
+        (a, b) => (data(a, sort) || "").localeCompare(data(b, sort), void 0, { numeric: true }) * (order === "asc" || -1)
       );
     }
     function findButton(el) {
@@ -2613,7 +2613,7 @@
         el,
         "touchstart",
         (e) => {
-          if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
+          if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"]')) {
             return;
           }
           let prev = getEventPos(e).y;
@@ -2638,7 +2638,7 @@
             },
             { passive: false }
           );
-          once(el, "scroll touchend touchcanel", offMove, { capture: true });
+          once(el, "scroll touchend touchcancel", offMove, { capture: true });
         },
         { passive: true }
       );
@@ -3789,7 +3789,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.25.6";
+    App.version = "3.25.7";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -4113,7 +4113,7 @@
               navItems[i] = navChildren.findLast((el) => el.matches(`[${attr2}]`)) || $(`<li ${attr2}><a href></a></li>`);
             }
             if (!isEqual(navItems, navChildren)) {
-              html(this.nav, navItems);
+              html(nav, navItems);
             }
           }
         }
@@ -5261,7 +5261,7 @@
     }
     function getValue(stops, percent) {
       const [start, end, p] = getStop(stops, percent);
-      return start + Math.abs(start - end) * p * (start < end ? 1 : -1);
+      return start + (end - start) * p;
     }
     const unitRe = /^-?\d+(?:\.\d+)?(\S+)?/;
     function getUnit(stops, defaultUnit) {
@@ -7928,14 +7928,12 @@
       const columnHeights = Array(rows[0].length).fill(0);
       let rowHeights = 0;
       for (let row of rows) {
-        if (isRtl) {
-          row.reverse();
-        }
+        const cells = isRtl ? row.slice().reverse() : row;
         let height = 0;
-        for (const j in row) {
-          const { offsetWidth, offsetHeight } = row[j];
+        for (const j in cells) {
+          const { offsetWidth, offsetHeight } = cells[j];
           const index = next ? j : columnHeights.indexOf(Math.min(...columnHeights));
-          push(columns, index, row[j]);
+          push(columns, index, cells[j]);
           push(translates, index, [
             (index - j) * offsetWidth * (isRtl ? -1 : 1),
             columnHeights[index] - rowHeights
@@ -8535,7 +8533,7 @@
         return false;
       }
       const { left, top, height, width } = dim;
-      let last;
+      let last = "";
       for (const percent of [0.25, 0.5, 0.75]) {
         const elements = target.ownerDocument.elementsFromPoint(
           Math.max(0, Math.min(left + width * percent, viewport.width - 1)),
