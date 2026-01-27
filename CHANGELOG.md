@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.7 (January 27, 2026)
+
+### Fixed
+
+- Fix only the first nav is padded in Slider/Slideshow component
+
 ## 3.25.6 (January 21, 2026)
 
 ### Changed

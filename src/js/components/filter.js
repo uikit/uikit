@@ -201,7 +201,7 @@ function matchFilter(
 function sortItems(nodes, sort, order) {
     return [...nodes].sort(
         (a, b) =>
-            data(a, sort).localeCompare(data(b, sort), undefined, { numeric: true }) *
+            (data(a, sort) || '').localeCompare(data(b, sort), undefined, { numeric: true }) *
             (order === 'asc' || -1),
     );
 }
