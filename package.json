@@ -31,7 +31,7 @@
         "url": "https://github.com/uikit/uikit/issues"
     },
     "homepage": "https://getuikit.com",
-    "packageManager": "pnpm@10.27.0",
+    "packageManager": "pnpm@10.28.2",
     "devDependencies": {
         "@eslint/js": "^9.39.2",
         "@rollup/plugin-alias": "^6.0.0",
