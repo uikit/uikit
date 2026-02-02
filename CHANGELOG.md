@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.8 (February 2, 2026)
+
+### Fixed
+
+- Fix missing ukit-core CSS files in the npm package
+
 ## 3.25.7 (January 27, 2026)
 
 ### Fixed
