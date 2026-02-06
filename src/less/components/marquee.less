@@ -1,0 +1,141 @@
+// Name:            Marquee
+// Description:     Component to create scrolling areas
+//
+// Component:       `uk-marquee`
+//
+// Sub-objects:     `uk-marquee-container`
+//                  `uk-marquee-items`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@marquee-container-margin-left:                     -25px;
+@marquee-container-margin-right:                    @marquee-container-margin-left;
+
+
+/* ========================================================================
+   Component: Marquee
+ ========================================================================== */
+
+/*
+ * 1. Fallback for Safari 15 and older
+ * 2. Clip child elements
+ *    `clip` prevents accidental scrolling through elements in slide getting focused
+ *    `clip` also works in only one direction
+ * 3. Prevent tab highlighting on iOS.
+ */
+
+.uk-marquee {
+    /* 1 */
+    overflow-x: hidden;
+    /* 2 */
+    overflow-x: clip;
+    /* 3 */
+    -webkit-tap-highlight-color: transparent;
+    .hook-marquee();
+}
+
+
+/*
+ * Widen container to prevent box-shadows from clipping, `large-box-shadow`
+ */
+
+.uk-marquee-offset {
+    margin-left: @marquee-container-margin-left;
+    margin-right: @marquee-container-margin-right;
+    padding-left: -@marquee-container-margin-left;
+    padding-right: -@marquee-container-margin-right;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. Optimize animation
+ * 2. Create a containing block. In Safari it's neither created by `transform` nor `will-change`.
+ * 3. Disable horizontal panning gestures
+ */
+
+.uk-marquee-items {
+    /* 1 */
+    will-change: transform;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    touch-action: pan-y;
+        /* 4 */
+    animation: uk-marquee-left 10s linear infinite;
+}
+
+.uk-marquee-items:hover  { animation-play-state: paused; }
+
+@keyframes uk-marquee-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes uk-marquee-right {
+    0% { transform: translateX(); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes uk-marquee-top {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+}
+
+@keyframes uk-marquee-bottom {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+}
+
+/*
+ * 1. Reset list style without interfering with grid
+ * 2. Prevent displaying the callout information on iOS.
+ */
+
+.uk-marquee-items:not(.uk-grid) {
+    display: flex;
+    /* 1 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 2 */
+    -webkit-touch-callout: none;
+}
+
+.uk-marquee-items.uk-grid { flex-wrap: nowrap; }
+
+
+/* Item
+ ========================================================================== */
+
+/*
+ * 1. Let items take content dimensions (0 0 auto)
+ *    `max-width` needed to keep image responsiveness and prevent content overflow
+ * 2. Create position context
+ */
+
+.uk-marquee-items > * {
+    /* 1 */
+    flex: none !important;
+    box-sizing: border-box;
+    max-width: 100%;
+    /* 2 */
+    position: relative;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-marquee-misc();
+
+.hook-marquee() {}
+.hook-marquee-misc() {}
