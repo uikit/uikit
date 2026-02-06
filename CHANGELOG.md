@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.9 (February 6, 2026)
+
+### Fixed
+
+- Fix portrait images larger than viewport height in Lightbox component
+
 ## 3.25.8 (February 2, 2026)
 
 ### Fixed

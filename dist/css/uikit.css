@@ -1,4 +1,4 @@
-/*! UIkit 3.25.8 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.9 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -6627,6 +6627,9 @@ ul.uk-nav-sub {
 .uk-lightbox-items-fit > * > * {
   max-width: 100vw;
   max-height: 100vh;
+}
+.uk-lightbox-items-fit > * > :not(iframe) {
+  object-fit: contain;
 }
 /* Zoom Cursor */
 .uk-lightbox-items.uk-lightbox-items-fit .uk-lightbox-zoom:hover {
