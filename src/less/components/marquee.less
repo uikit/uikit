@@ -70,11 +70,10 @@
     /* 3 */
     touch-action: pan-y;
         /* 4 */
-    animation-name: uk-marquee-left;
-    animation-duration: 10s ;
-    animation-iteration-count: infinite ;
-    animation-timing-function: linear ;
+    animation: uk-marquee-left 10s linear infinite;
 }
+
+.uk-marquee-items:hover  { animation-play-state: paused; }
 
 @keyframes uk-marquee-left {
     0% { transform: translateX(0); }
