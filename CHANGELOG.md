@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix responsiveness of Margin and Grid component
+
 ## 3.25.9 (February 6, 2026)
 
 ### Fixed
