@@ -17,10 +17,8 @@ await emptyDir('src/scss/');
 for (const file of (await glob('src/less/**/*.less'))
     .sort()
     .sort((a, b) => a.endsWith('/inverse.less') - b.endsWith('/inverse.less'))) {
-    let source = await read(file);
-
     /* replace all Less stuff with SCSS */
-    source = (await read(file))
+    let source = (await read(file))
         .replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
         .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
         .replace(/@(?!property)/g, '$') // convert variables

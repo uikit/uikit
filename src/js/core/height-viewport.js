@@ -51,7 +51,6 @@ export default {
                 return { minHeight: false };
             }
 
-            let minHeight = '';
             const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
             const { body, scrollingElement } = document;
@@ -63,7 +62,7 @@ export default {
             const isScrollingElement = scrollingElement === scrollElement || body === scrollElement;
 
             // on mobile devices (iOS and Android) window.innerHeight !== 100vh
-            minHeight = `calc(${isScrollingElement ? '100vh' : `${viewportHeight}px`}`;
+            let minHeight = `calc(${isScrollingElement ? '100vh' : `${viewportHeight}px`}`;
 
             if (this.expand) {
                 const diff = dimensions(scrollElement).height - dimensions(this.$el).height;
