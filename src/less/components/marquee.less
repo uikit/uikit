@@ -57,42 +57,12 @@
  ========================================================================== */
 
 /*
- * 1. Optimize animation
- * 2. Create a containing block. In Safari it's neither created by `transform` nor `will-change`.
- * 3. Disable horizontal panning gestures
+ * 1. Create a containing block.
  */
 
 .uk-marquee-items {
     /* 1 */
-    will-change: transform;
-    /* 2 */
     position: relative;
-    /* 3 */
-    touch-action: pan-y;
-        /* 4 */
-    animation: uk-marquee-left 10s linear infinite;
-}
-
-.uk-marquee-items:hover  { animation-play-state: paused; }
-
-@keyframes uk-marquee-left {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
-
-@keyframes uk-marquee-right {
-    0% { transform: translateX(); }
-    100% { transform: translateX(100%); }
-}
-
-@keyframes uk-marquee-top {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-100%); }
-}
-
-@keyframes uk-marquee-bottom {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(100%); }
 }
 
 /*
@@ -120,6 +90,7 @@
  * 1. Let items take content dimensions (0 0 auto)
  *    `max-width` needed to keep image responsiveness and prevent content overflow
  * 2. Create position context
+ * 3. Create animation along offset-path
  */
 
 .uk-marquee-items > * {
@@ -129,6 +100,16 @@
     max-width: 100%;
     /* 2 */
     position: relative;
+    /* 3 */
+    offset-anchor: 0 0;
+    offset-rotate: 0deg;
+    offset-path: path(var(--uk-marquee-path));
+    animation: uk-marquee linear var(--uk-marquee-duration) infinite var(--uk-marquee-direction);
+}
+
+@keyframes uk-marquee {
+    0% { offset-distance: 0; }
+    100% { offset-distance: 100%; }
 }
 
 

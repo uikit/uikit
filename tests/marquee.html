@@ -29,22 +29,16 @@
             <h1>Marquee</h1>
 
             <div class="uk-margin">
-                <select id="js-center-switcher" class="uk-select uk-form-width-small" aria-label="Center switcher">
-                    <option value="0">Not centered</option>
-                    <option value="1">Center</option>
+                <select id="js-reverse-switcher" class="uk-select uk-form-width-medium" aria-label="Direction switcher">
+                    <option value="0">Normal Direction</option>
+                    <option value="1">Reverse Direction</option>
                 </select>
-                <select id="js-finite-switcher" class="uk-select uk-form-width-small" aria-label="Finite switcher">
-                    <option value="0">Infinite</option>
-                    <option value="1">Finite</option>
+                <input id="js-velocity-switcher" type="number" class="uk-input uk-form-width-small" aria-label="Velocity" value="50">
+                <select id="js-pause-switcher" class="uk-select uk-form-width-medium" aria-label="Pause On Hover switcher">
+                    <option value="0">Do not pause on hover</option>
+                    <option value="1">Pause On Hover</option>
                 </select>
-                <select id="js-sets-switcher" class="uk-select uk-form-width-small" aria-label="Sets switcher">
-                    <option value="0">Single</option>
-                    <option value="1">Sets</option>
-                </select>
-                <select id="js-active-switcher" class="uk-select uk-form-width-small" aria-label="Active switcher">
-                    <option value="">All</option>
-                    <option value="first">First</option>
-                </select>
+                <input id="js-pause-velocity-switcher" type="number" class="uk-input uk-form-width-small" aria-label="Velocity On Hover" value="10">
             </div>
 
             <h2>Content Widths</h2>
@@ -293,55 +287,6 @@
 
             </div>
 
-            <h2>Parallax Control</h2>
-
-            <div class="uk-marquee uk-light" uk-marquee="parallax: true; parallax-start: 100%; parallax-end: 100%">
-
-                <div class="uk-marquee-items uk-child-width-1-2@s uk-child-width-1-4@m">
-                    <div>
-                        <img src="images/slider1.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">1</h1></div>
-                    </div>
-                    <div>
-                        <img src="images/slider2.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">2</h1></div>
-                    </div>
-                    <div>
-                        <img src="images/slider3.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">3</h1></div>
-                    </div>
-                    <div>
-                        <img src="images/slider4.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">4</h1></div>
-                    </div>
-                    <div>
-                        <img src="images/slider5.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">5</h1></div>
-                    </div>
-                    <div>
-                        <img src="images/slider1.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">6</h1></div>
-                    </div>
-                    <div>
-                        <img src="images/slider2.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">7</h1></div>
-                    </div>
-                    <div>
-                        <img src="images/slider3.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">8</h1></div>
-                    </div>
-                    <div>
-                        <img src="images/slider4.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">9</h1></div>
-                    </div>
-                    <div>
-                        <img src="images/slider5.jpg" width="400" height="600" alt="">
-                        <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">10</h1></div>
-                    </div>
-                </div>
-
-            </div>
-
             <h2>JavaScript Options</h2>
 
             <div class="uk-overflow-auto">
@@ -356,34 +301,28 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>direction</code></td>
-                            <td>Boolean</td>
-                            <td>left</td>
-                            <td>(left, right, up, down)</td>
-                        </tr>
-                        <tr>
-                            <td><code>center</code></td>
+                            <td><code>reverse</code></td>
                             <td>Boolean</td>
                             <td>false</td>
-                            <td>Center.</td>
-                        </tr>
-                        <tr>
-                            <td><code>finite</code></td>
-                            <td>Boolean</td>
-                            <td>false</td>
-                            <td>Disable infinite scrolling.</td>
-                        </tr>
-                        <tr>
-                            <td><code>pause-on-hover</code></td>
-                            <td>Boolean</td>
-                            <td>true</td>
-                            <td>Pause scrolling on hover.</td>
+                            <td>Reverse direction.</td>
                         </tr>
                         <tr>
                             <td><code>velocity</code></td>
                             <td>Number</td>
-                            <td>1</td>
-                            <td>The animation velocity (pixel/ms).</td>
+                            <td>50</td>
+                            <td>The animation velocity (pixel/s).</td>
+                        </tr>
+                        <tr>
+                            <td><code>pause</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Pause scrolling on hover.</td>
+                        </tr>
+                        <tr>
+                            <td><code>pause-velocity</code></td>
+                            <td>Number</td>
+                            <td>10</td>
+                            <td>The animation velocity while being paused (pixel/s).</td>
                         </tr>
                     </tbody>
                 </table>
@@ -393,8 +332,9 @@
 
         <script>
 
-            const {attr, $$, on} = UIkit.util;
-            for (const attribute of ['finite', 'center', 'sets', 'active']) {
+            const {$$, attr, on} = UIkit.util;
+
+            for (const attribute of ['reverse', 'velocity', 'pause', 'pause-velocity']) {
                 on(`#js-${attribute}-switcher`, 'change', e =>
                     attr($$('[uk-marquee]'), attribute, e.target.value)
                 );
