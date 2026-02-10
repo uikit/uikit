@@ -1,4 +1,4 @@
-/*! UIkit 3.25.9 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.10 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2046,13 +2046,14 @@
         resize({
           handler(mutations) {
             for (const {
+              target,
               borderBoxSize: [{ inlineSize, blockSize }]
             } of mutations) {
-              if (inlineSize || blockSize) {
-                this.$emit("resize");
+              if (target === this.$el && !inlineSize && !blockSize) {
                 return;
               }
             }
+            this.$emit("resize");
           },
           target: ({ $el }) => [$el, ...children($el)]
         })
@@ -3789,7 +3790,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.25.9";
+    App.version = "3.25.10";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5832,7 +5833,7 @@
           let index = -1;
           const scrollDist = this.center ? getWidth(this.list) - (dimensions$1(this.slides[0]).width + dimensions$1(last(this.slides)).width) / 2 : getWidth(this.list, this.maxIndex);
           let dist = percent * scrollDist;
-          let slidePercent = 0;
+          let slidePercent;
           do {
             const slideWidth = dimensions$1(this.slides[++index]).width;
             const slideDist = this.center ? (slideWidth + dimensions$1(this.slides[index + 1]).width) / 2 : slideWidth;
@@ -8080,7 +8081,6 @@
           if (!this.matchMedia) {
             return { minHeight: false };
           }
-          let minHeight = "";
           const box = boxModelAdjust(this.$el, "height", "content-box");
           const { body, scrollingElement } = document;
           const scrollElement = scrollParent(this.$el);
@@ -8088,7 +8088,7 @@
             scrollElement === body ? scrollingElement : scrollElement
           );
           const isScrollingElement = scrollingElement === scrollElement || body === scrollElement;
-          minHeight = `calc(${isScrollingElement ? "100vh" : `${viewportHeight}px`}`;
+          let minHeight = `calc(${isScrollingElement ? "100vh" : `${viewportHeight}px`}`;
           if (this.expand) {
             const diff = dimensions$1(scrollElement).height - dimensions$1(this.$el).height;
             minHeight += ` - ${diff}px`;
@@ -9789,10 +9789,10 @@
           }
           this.$emit();
         },
-        toggles(toggles) {
+        toggles() {
           this.$emit();
           const active = this.index();
-          this.show(~active ? active : toggles[this.active] || toggles[0]);
+          this.show(~active ? active : this.next(this.active));
         }
       },
       connected() {
@@ -9822,8 +9822,7 @@
             let i = keyCode === keyMap.HOME ? 0 : keyCode === keyMap.END ? "last" : keyCode === keyMap.LEFT && !isVertical || keyCode === keyMap.UP && isVertical ? "previous" : keyCode === keyMap.RIGHT && !isVertical || keyCode === keyMap.DOWN && isVertical ? "next" : -1;
             if (~i) {
               e.preventDefault();
-              const toggles = this.toggles.filter((el) => !matches(el, selDisabled));
-              const next = toggles[getIndex(i, toggles, toggles.indexOf(current))];
+              const next = this.toggles[this.next(i, this.toggles.indexOf(current))];
               next.focus();
               if (this.followFocus) {
                 this.show(next);
@@ -9877,29 +9876,38 @@
         index() {
           return findIndex(this.children, (el) => hasClass(el, this.cls));
         },
-        show(item) {
+        next(item, prev = this.index()) {
+          if (isNumeric(item)) {
+            for (let i = 0; i < this.toggles.length; i++) {
+              let index = getIndex(i + +item, this.toggles);
+              if (!matches(this.toggles[index], selDisabled)) {
+                return index;
+              }
+            }
+          }
           const toggles = this.toggles.filter((el) => !matches(el, selDisabled));
-          const prev = this.index();
-          const next = getIndex(
-            !isNode(item) || includes(toggles, item) ? item : 0,
-            toggles,
-            getIndex(this.toggles[prev], toggles)
+          return getIndex(
+            toggles[getIndex(item, toggles, toggles.indexOf(this.toggles[prev]))],
+            this.toggles
           );
-          const active = getIndex(toggles[next], this.toggles);
+        },
+        show(item) {
+          const prev = this.index();
+          const next = this.next(item);
           this.children.forEach((child, i) => {
-            toggleClass(child, this.cls, active === i);
+            toggleClass(child, this.cls, next === i);
             attr(this.toggles[i], {
-              "aria-selected": active === i,
-              tabindex: active === i ? null : -1
+              "aria-selected": next === i,
+              tabindex: next === i ? null : -1
             });
           });
           const animate = prev >= 0 && prev !== next;
           this.connects.forEach(async ({ children: children2 }) => {
             const actives = toArray(children2).filter(
-              (child, i) => i !== active && hasClass(child, this.cls)
+              (child, i) => i !== next && hasClass(child, this.cls)
             );
             if (await this.toggleElement(actives, false, animate)) {
-              await this.toggleElement(children2[active], true, animate);
+              await this.toggleElement(children2[next], true, animate);
             }
           });
         }
