@@ -312,7 +312,7 @@ export default {
                 : getWidth(this.list, this.maxIndex);
 
             let dist = percent * scrollDist;
-            let slidePercent = 0;
+            let slidePercent;
 
             do {
                 const slideWidth = dimensions(this.slides[++index]).width;

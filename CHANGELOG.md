@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.25.10 (February 10, 2026)
+
+### Fixed
+
+- Fix responsiveness of Margin and Grid component
+- Fix the initial active toggle when used with disabled toggles in Switcher and Tab component
+
 ## 3.25.9 (February 6, 2026)
 
 ### Fixed
