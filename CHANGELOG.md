@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Clip only left and right box shadows instead of all in Slider component
+
 ## 3.25.10 (February 10, 2026)
 
 ### Fixed

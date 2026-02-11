@@ -14,10 +14,8 @@
 // Variables
 // ========================================================================
 
-@slider-container-margin-top:                       -11px;
-@slider-container-margin-bottom:                    -39px;
 @slider-container-margin-left:                      -25px;
-@slider-container-margin-right:                     -25px;
+@slider-container-margin-right:                     @slider-container-margin-left;
 
 
 /* ========================================================================
@@ -39,15 +37,17 @@
  ========================================================================== */
 
 /*
- * 1. Clip child elements
- * 2. Prevent accidental scrolling through elements in slide getting focused
+ * 1. Fallback for Safari 15 and older
+ * 2. Clip child elements
+ *    `clip` prevents accidental scrolling through elements in slide getting focused
+ *    `clip` also works in only one direction
  */
 
 .uk-slider-container {
     /* 1 */
-    overflow: hidden;
+    overflow-x: hidden;
     /* 2 */
-    overflow: clip;
+    overflow-x: clip;
 }
 
 /*
@@ -55,8 +55,10 @@
  */
 
 .uk-slider-container-offset {
-    margin: @slider-container-margin-top @slider-container-margin-right @slider-container-margin-bottom @slider-container-margin-left;
-    padding: (@slider-container-margin-top * -1) (@slider-container-margin-right * -1) (@slider-container-margin-bottom * -1) (@slider-container-margin-left * -1);
+    margin-left: @slider-container-margin-left;
+    margin-right: @slider-container-margin-right;
+    padding-left: -@slider-container-margin-left;
+    padding-right: -@slider-container-margin-right;
 }
 
 /* Items
