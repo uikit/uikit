@@ -5,6 +5,7 @@
 ### Changed
 
 - Clip only left and right box shadows instead of all in Slider component
+- Make url changeable in `beforeSend` in Upload component
 
 ### Fixed
 
