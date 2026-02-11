@@ -1,6 +1,5 @@
 import {
     $,
-    $$,
     addClass,
     children,
     css,
@@ -8,11 +7,9 @@ import {
     dimensions,
     findIndex,
     getIndex,
-    hasOwn,
     includes,
     isVisible,
     last,
-    selFocusable,
     sumBy,
     toFloat,
     toNumber,
@@ -254,13 +251,8 @@ export default {
             for (const slide of this.slides) {
                 const active = includes(actives, slide);
                 toggleClass(slide, activeClasses, active);
+                slide.inert = !active;
                 slide.ariaHidden = !active;
-                for (const focusable of $$(selFocusable, slide)) {
-                    if (!hasOwn(focusable, '_tabindex')) {
-                        focusable._tabindex = focusable.tabIndex;
-                    }
-                    focusable.tabIndex = active ? focusable._tabindex : -1;
-                }
             }
         },
 
