@@ -1,4 +1,4 @@
-/*! UIkit 3.25.10 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.11 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3790,7 +3790,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.25.10";
+    App.version = "3.25.11";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5787,13 +5787,8 @@
           for (const slide of this.slides) {
             const active = includes(actives, slide);
             toggleClass(slide, activeClasses, active);
+            slide.inert = !active;
             slide.ariaHidden = !active;
-            for (const focusable of $$(selFocusable, slide)) {
-              if (!hasOwn(focusable, "_tabindex")) {
-                focusable._tabindex = focusable.tabIndex;
-              }
-              focusable.tabIndex = active ? focusable._tabindex : -1;
-            }
           }
         },
         getValidIndex(index = this.index, prevIndex = this.prevIndex) {
@@ -6573,6 +6568,7 @@
     }
     async function ajax(url, options) {
       const env = {
+        url,
         data: null,
         method: "GET",
         headers: {},
@@ -6582,7 +6578,7 @@
         ...options
       };
       await env.beforeSend(env);
-      return send(url, env);
+      return send(env.url, env);
     }
     function send(url, env) {
       return new Promise((resolve, reject) => {
