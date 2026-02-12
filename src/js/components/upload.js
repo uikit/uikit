@@ -195,8 +195,9 @@ function stop(e) {
     e.stopPropagation();
 }
 
-export async function ajax(url, options) {
+async function ajax(url, options) {
     const env = {
+        url,
         data: null,
         method: 'GET',
         headers: {},
@@ -206,7 +207,7 @@ export async function ajax(url, options) {
         ...options,
     };
     await env.beforeSend(env);
-    return send(url, env);
+    return send(env.url, env);
 }
 
 function send(url, env) {

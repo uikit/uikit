@@ -1,4 +1,4 @@
-/*! UIkit 3.25.10 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.11 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4076,21 +4076,25 @@ select.uk-form-width-xsmall {
 /* Container
  ========================================================================== */
 /*
- * 1. Clip child elements
- * 2. Prevent accidental scrolling through elements in slide getting focused
+ * 1. Fallback for Safari 15 and older
+ * 2. Clip child elements
+ *    `clip` prevents accidental scrolling through elements in slide getting focused
+ *    `clip` also works in only one direction
  */
 .uk-slider-container {
   /* 1 */
-  overflow: hidden;
+  overflow-x: hidden;
   /* 2 */
-  overflow: clip;
+  overflow-x: clip;
 }
 /*
  * Widen container to prevent box-shadows from clipping, `large-box-shadow`
  */
 .uk-slider-container-offset {
-  margin: -11px -25px -39px -25px;
-  padding: 11px 25px 39px 25px;
+  margin-right: -25px;
+  margin-left: -25px;
+  padding-right: 25px;
+  padding-left: 25px;
 }
 /* Items
  ========================================================================== */

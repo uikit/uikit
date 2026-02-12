@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.25.11 (February 12, 2026)
+
+### Changed
+
+- Clip only left and right box shadows instead of all in Slider component
+- Make url changeable in `beforeSend` in Upload component
+
+### Fixed
+
+- Fix slides retain focus when hidden in Slider component
+
 ## 3.25.10 (February 10, 2026)
 
 ### Fixed
