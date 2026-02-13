@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix accordion causes page to scroll to the top initially in Firefox
+
 ## 3.25.11 (February 12, 2026)
 
 ### Changed

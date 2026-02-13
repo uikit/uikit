@@ -20,7 +20,6 @@ import {
     unwrap,
     wrapInner,
 } from 'uikit-util';
-import { storeScrollPosition } from './position';
 
 export default {
     props: {
@@ -82,9 +81,9 @@ export default {
                             trigger(el, show ? 'shown' : 'hidden', [this]);
 
                             if (show) {
-                                const restoreScrollPosition = storeScrollPosition(el);
-                                $$('[autofocus]', el).find(isVisible)?.focus();
-                                restoreScrollPosition();
+                                $$('[autofocus]', el)
+                                    .find(isVisible)
+                                    ?.focus({ preventScroll: true });
                             }
                         };
 
