@@ -7,6 +7,8 @@ import {
     inBrowser,
     pointerEnter,
     pointerLeave,
+    toggleClass,
+    toPx,
 } from 'uikit-util';
 import { intersection, resize } from '../api/observables';
 import Class from '../mixin/class';
@@ -21,6 +23,7 @@ export default {
         reverse: Boolean,
         pause: Boolean,
         pauseVelocity: Number,
+        fadeSize: null,
     },
 
     data: {
@@ -29,6 +32,7 @@ export default {
         pause: false,
         pauseVelocity: 10,
         selList: '.uk-marquee-items',
+        fadeSize: 0,
     },
 
     computed: {
@@ -94,7 +98,12 @@ export default {
             css(this.list, {
                 [`--${prefix}-duration`]: `${(listEnd - listStart) / this.velocity}s`,
                 [`--${prefix}-direction`]: this.reverse ? 'reverse' : 'normal',
+                '--uk-overflow-fade-size': this.fadeSize
+                    ? `${toPx(this.fadeSize, vertical ? 'height' : 'width', this.$el, true)}px`
+                    : '',
             });
+
+            toggleClass(this.$el, `${prefix}-fade`, this.fadeSize);
 
             css(items, 'offset', '');
         },
