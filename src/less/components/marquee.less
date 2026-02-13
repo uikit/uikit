@@ -14,9 +14,6 @@
 // Variables
 // ========================================================================
 
-@marquee-container-margin-left:                     -25px;
-@marquee-container-margin-right:                    @marquee-container-margin-left;
-
 
 /* ========================================================================
    Component: Marquee
@@ -40,16 +37,10 @@
     .hook-marquee();
 }
 
-
-/*
- * Widen container to prevent box-shadows from clipping, `large-box-shadow`
- */
-
-.uk-marquee-offset {
-    margin-left: @marquee-container-margin-left;
-    margin-right: @marquee-container-margin-right;
-    padding-left: -@marquee-container-margin-left;
-    padding-right: -@marquee-container-margin-right;
+.uk-marquee-vertical {
+    overflow: visible;
+    overflow-y: hidden;
+    overflow-y: clip;
 }
 
 
@@ -70,7 +61,7 @@
  * 2. Prevent displaying the callout information on iOS.
  */
 
-.uk-marquee-items:not(.uk-grid) {
+.uk-marquee:not(.uk-marquee-vertical) .uk-marquee-items:not(.uk-grid) {
     display: flex;
     /* 1 */
     margin: 0;
@@ -80,7 +71,27 @@
     -webkit-touch-callout: none;
 }
 
-.uk-marquee-items.uk-grid { flex-wrap: nowrap; }
+.uk-marquee:not(.uk-marquee-vertical) .uk-marquee-items.uk-grid { flex-wrap: nowrap; }
+
+/*
+ * Fade out
+ */
+
+.uk-marquee-fade {
+    --uk-overflow-fade-size: 100px;
+    --uk-overflow-fade-direction: right;
+}
+.uk-marquee-fade.uk-marquee-vertical  { --uk-overflow-fade-direction: bottom; }
+
+.uk-marquee-fade .uk-marquee-items {
+    mask-image: linear-gradient(
+        to var(--uk-overflow-fade-direction),
+        rgba(0, 0, 0, var(--uk-overflow-fade-start-opacity)),
+        #000 var(--uk-overflow-fade-size),
+        #000 ~'calc(100% - var(--uk-overflow-fade-size))',
+        rgba(0, 0, 0, var(--uk-overflow-fade-end-opacity))
+    );
+}
 
 
 /* Item
