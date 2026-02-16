@@ -3,10 +3,10 @@
 //
 // Component:       `uk-marquee`
 //
-// Sub-objects:     `uk-marquee-container`
-//                  `uk-marquee-items`
+// Sub-objects:     `uk-marquee-items`
 //
-// States:          `uk-active`
+// Modifiers:       `uk-marquee-vertical`
+//                  `uk-marquee-fade`
 //
 // ========================================================================
 
@@ -43,6 +43,26 @@
     overflow-y: clip;
 }
 
+/*
+ * Fade out
+ */
+
+.uk-marquee-fade {
+    --uk-overflow-fade-size: 100px;
+    --uk-overflow-fade-direction: right;
+}
+.uk-marquee-fade.uk-marquee-vertical  { --uk-overflow-fade-direction: bottom; }
+
+.uk-marquee-fade {
+    mask-image: linear-gradient(
+        to var(--uk-overflow-fade-direction),
+        rgba(0, 0, 0, var(--uk-overflow-fade-start-opacity)),
+        #000 var(--uk-overflow-fade-size),
+        #000 ~'calc(100% - var(--uk-overflow-fade-size))',
+        rgba(0, 0, 0, var(--uk-overflow-fade-end-opacity))
+    );
+}
+
 
 /* Items
  ========================================================================== */
@@ -72,26 +92,6 @@
 }
 
 .uk-marquee:not(.uk-marquee-vertical) .uk-marquee-items.uk-grid { flex-wrap: nowrap; }
-
-/*
- * Fade out
- */
-
-.uk-marquee-fade {
-    --uk-overflow-fade-size: 100px;
-    --uk-overflow-fade-direction: right;
-}
-.uk-marquee-fade.uk-marquee-vertical  { --uk-overflow-fade-direction: bottom; }
-
-.uk-marquee-fade .uk-marquee-items {
-    mask-image: linear-gradient(
-        to var(--uk-overflow-fade-direction),
-        rgba(0, 0, 0, var(--uk-overflow-fade-start-opacity)),
-        #000 var(--uk-overflow-fade-size),
-        #000 ~'calc(100% - var(--uk-overflow-fade-size))',
-        rgba(0, 0, 0, var(--uk-overflow-fade-end-opacity))
-    );
-}
 
 
 /* Item
