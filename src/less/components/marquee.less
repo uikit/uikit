@@ -115,7 +115,7 @@
     offset-anchor: 0 0;
     offset-rotate: 0deg;
     offset-path: path(var(--uk-marquee-path));
-    animation: uk-marquee linear var(--uk-marquee-duration) infinite var(--uk-marquee-direction);
+    animation: var(--uk-marquee-duration) linear calc(var(--uk-marquee-start) / -100 * var(--uk-marquee-duration)) infinite var(--uk-marquee-direction) uk-marquee;
 }
 
 @keyframes uk-marquee {
