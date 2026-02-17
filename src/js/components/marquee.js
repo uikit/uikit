@@ -19,6 +19,7 @@ export default {
 
     props: {
         velocity: Number,
+        start: Number,
         reverse: Boolean,
         pause: Boolean,
         pauseVelocity: Number,
@@ -27,6 +28,7 @@ export default {
 
     data: {
         velocity: 50,
+        start: 0,
         reverse: false,
         pause: false,
         pauseVelocity: 10,
@@ -93,6 +95,7 @@ export default {
 
             css(this.$el, {
                 [`--${prefix}-duration`]: `${(listEnd - listStart) / this.velocity}s`,
+                [`--${prefix}-start`]: this.start,
                 [`--${prefix}-direction`]: this.reverse ? 'reverse' : 'normal',
                 '--uk-overflow-fade-size': this.fadeSize
                     ? `${toPx(this.fadeSize, vertical ? 'height' : 'width', this.$el, true)}px`
