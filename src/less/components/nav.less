@@ -131,9 +131,12 @@
     list-style: none;
 }
 
-.uk-nav > .uk-parent > ul { display: none; }
+/*
+ * Accordion open/close state
+ */
 
-.uk-nav > .uk-parent.uk-open > ul { display: block; }
+[uk-nav] > .uk-parent > ul { display: none; }
+[uk-nav] > .uk-parent.uk-open > ul { display: block; }
 
 /*
 * 1. Center content vertically, e.g. an icon
