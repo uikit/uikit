@@ -27,7 +27,7 @@ export default {
     },
 
     data: {
-        velocity: 50,
+        velocity: 25,
         start: 0,
         reverse: false,
         pause: false,
