@@ -23,7 +23,6 @@ import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
 import { maybeDefaultPreventClick } from './event';
-import { storeScrollPosition } from './position';
 import Togglable from './togglable';
 
 const active = [];
@@ -197,9 +196,7 @@ export default {
 
                     queueMicrotask(() => {
                         if (isFocusable(target)) {
-                            const restoreScrollPosition = storeScrollPosition(target);
-                            target.focus();
-                            restoreScrollPosition();
+                            target.focus({ preventScroll: true });
                         }
                     });
                 }

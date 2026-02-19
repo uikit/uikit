@@ -99,15 +99,9 @@ export function storeScrollPosition(element) {
     const scrollElement = scrollParent(element);
     const { scrollTop } = scrollElement;
 
-    const restore = () => {
+    return () => {
         if (scrollTop !== scrollElement.scrollTop) {
             scrollElement.scrollTop = scrollTop;
         }
-    };
-
-    return () => {
-        restore();
-        // setTimeout is needed for iOS Safari
-        setTimeout(restore);
     };
 }

@@ -180,7 +180,13 @@
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     /* 2 */
-    mask-image: linear-gradient(to var(--uk-overflow-fade-direction), rgba(0,0,0,var(--uk-overflow-fade-start-opacity)), #000 @overflow-fade-size, #000 ~'calc(100% - @{overflow-fade-size})', rgba(0,0,0,var(--uk-overflow-fade-end-opacity)));
+    mask-image: linear-gradient(
+        to var(--uk-overflow-fade-direction),
+        rgba(0,0,0,var(--uk-overflow-fade-start-opacity)),
+        #000 @overflow-fade-size,
+        #000 ~'calc(100% - @{overflow-fade-size})',
+        rgba(0,0,0,var(--uk-overflow-fade-end-opacity))
+    );
     /* 3 */
     scrollbar-width: none;
 }

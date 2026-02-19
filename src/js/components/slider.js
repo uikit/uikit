@@ -15,7 +15,7 @@ import {
     toNumber,
     toggleClass,
 } from 'uikit-util';
-import { resize } from '../api/observables';
+import { intersection, resize } from '../api/observables';
 import Class from '../mixin/class';
 import Slider, { speedUp } from '../mixin/slider';
 import SliderParallax from '../mixin/slider-parallax';
@@ -125,9 +125,21 @@ export default {
         toggleClass(this.$el, this.clsContainer, !$(`.${this.clsContainer}`, this.$el));
     },
 
-    observe: resize({
-        target: ({ slides, $el }) => [$el, ...slides],
-    }),
+    observe: [
+        resize({
+            target: ({ slides, $el }) => [$el, ...slides],
+        }),
+        intersection({
+            handler(entries) {
+                for (const { target, isIntersecting } of entries) {
+                    target.ariaHidden = target.inert = !isIntersecting;
+                }
+            },
+            target: ({ slides }) => slides,
+            args: { intersecting: false },
+            options: ({ $el }) => ({ root: $el, rootMargin: '0px -10px' }),
+        }),
+    ],
 
     update: {
         write() {
@@ -249,10 +261,7 @@ export default {
                 !this.sets || includes(this.sets, toFloat(this.index)) ? this.clsActivated : '',
             ];
             for (const slide of this.slides) {
-                const active = includes(actives, slide);
-                toggleClass(slide, activeClasses, active);
-                slide.inert = !active;
-                slide.ariaHidden = !active;
+                toggleClass(slide, activeClasses, includes(actives, slide));
             }
         },
 

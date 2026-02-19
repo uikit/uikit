@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.25.12 (February 19, 2026)
+
+### Fixed
+
+- Fix accordion causes page to scroll to the top initially in Firefox
+- Fix visible slides set to inert when `active: first` in Slider component
+
 ## 3.25.11 (February 12, 2026)
 
 ### Changed
@@ -9,7 +16,7 @@
 
 ### Fixed
 
-- Fix slides retain focus when hidden in Slider component
+- Fix slides no longer retain focus when hidden in Slider component
 
 ## 3.25.10 (February 10, 2026)
 

@@ -34,7 +34,9 @@
 
 .uk-accordion-title { display: block; }
 
-.uk-accordion-content { display: flow-root; }
+.uk-accordion-content { display: none; }
+
+.uk-open > .uk-accordion-content { display: flow-root; }
 
 /*
  * Remove margin from the last-child
