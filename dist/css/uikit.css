@@ -1,4 +1,4 @@
-/*! UIkit 3.25.11 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.12 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -3607,6 +3607,9 @@ select.uk-form-width-xsmall {
   display: block;
 }
 .uk-accordion-content {
+  display: none;
+}
+.uk-open > .uk-accordion-content {
   display: flow-root;
 }
 /*
@@ -5196,6 +5199,15 @@ select.uk-form-width-xsmall {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+/*
+ * Accordion open/close state
+ */
+[uk-nav] > .uk-parent > ul {
+  display: none;
+}
+[uk-nav] > .uk-parent.uk-open > ul {
+  display: block;
 }
 /*
 * 1. Center content vertically, e.g. an icon
