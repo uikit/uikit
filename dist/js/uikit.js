@@ -1,4 +1,4 @@
-/*! UIkit 3.25.11 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.12 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2675,86 +2675,6 @@
       }
     };
 
-    var Position = {
-      props: {
-        pos: String,
-        offset: Boolean,
-        flip: Boolean,
-        shift: Boolean,
-        inset: Boolean
-      },
-      data: {
-        pos: `bottom-${isRtl ? "right" : "left"}`,
-        offset: false,
-        flip: true,
-        shift: true,
-        inset: false
-      },
-      connected() {
-        this.pos = this.$props.pos.split("-").concat("center").slice(0, 2);
-        [this.dir, this.align] = this.pos;
-        this.axis = includes(["top", "bottom"], this.dir) ? "y" : "x";
-      },
-      methods: {
-        positionAt(element, target, boundary) {
-          let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
-          const placement = [this.flip && "flip", this.shift && "shift"];
-          const attach = {
-            element: [this.inset ? this.dir : flipPosition(this.dir), this.align],
-            target: [this.dir, this.align]
-          };
-          if (this.axis === "y") {
-            for (const prop in attach) {
-              attach[prop].reverse();
-            }
-            offset.reverse();
-            placement.reverse();
-          }
-          const restoreScrollPosition = storeScrollPosition(element);
-          const elDim = dimensions$1(element);
-          css(element, { top: -elDim.height, left: -elDim.width });
-          positionAt(element, target, {
-            attach,
-            offset,
-            boundary,
-            placement,
-            viewportOffset: this.getViewportOffset(element)
-          });
-          restoreScrollPosition();
-        },
-        getPositionOffset(element = this.$el) {
-          return toPx(
-            this.offset === false ? css(element, "--uk-position-offset") : this.offset,
-            this.axis === "x" ? "width" : "height",
-            element
-          ) * (includes(["left", "top"], this.dir) ? -1 : 1) * (this.inset ? -1 : 1);
-        },
-        getShiftOffset(element = this.$el) {
-          return this.align === "center" ? 0 : toPx(
-            css(element, "--uk-position-shift-offset"),
-            this.axis === "y" ? "width" : "height",
-            element
-          ) * (includes(["left", "top"], this.align) ? 1 : -1);
-        },
-        getViewportOffset(element) {
-          return toPx(css(element, "--uk-position-viewport-offset"));
-        }
-      }
-    };
-    function storeScrollPosition(element) {
-      const scrollElement = scrollParent(element);
-      const { scrollTop } = scrollElement;
-      const restore = () => {
-        if (scrollTop !== scrollElement.scrollTop) {
-          scrollElement.scrollTop = scrollTop;
-        }
-      };
-      return () => {
-        restore();
-        setTimeout(restore);
-      };
-    }
-
     var Togglable = {
       props: {
         cls: Boolean,
@@ -2796,9 +2716,7 @@
                   removeClass(el, cls);
                   trigger(el, show ? "shown" : "hidden", [this]);
                   if (show) {
-                    const restoreScrollPosition = storeScrollPosition(el);
-                    (_a = $$("[autofocus]", el).find(isVisible)) == null ? void 0 : _a.focus();
-                    restoreScrollPosition();
+                    (_a = $$("[autofocus]", el).find(isVisible)) == null ? void 0 : _a.focus({ preventScroll: true });
                   }
                 };
                 return promise ? promise.then(done, () => {
@@ -3068,9 +2986,7 @@
               removeClass(document.documentElement, this.clsPage);
               queueMicrotask(() => {
                 if (isFocusable(target)) {
-                  const restoreScrollPosition = storeScrollPosition(target);
-                  target.focus();
-                  restoreScrollPosition();
+                  target.focus({ preventScroll: true });
                 }
               });
             }
@@ -3790,7 +3706,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.25.11";
+    App.version = "3.25.12";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -5699,9 +5615,21 @@
       connected() {
         toggleClass(this.$el, this.clsContainer, !$(`.${this.clsContainer}`, this.$el));
       },
-      observe: resize({
-        target: ({ slides, $el }) => [$el, ...slides]
-      }),
+      observe: [
+        resize({
+          target: ({ slides, $el }) => [$el, ...slides]
+        }),
+        intersection({
+          handler(entries) {
+            for (const { target, isIntersecting } of entries) {
+              target.ariaHidden = target.inert = !isIntersecting;
+            }
+          },
+          target: ({ slides }) => slides,
+          args: { intersecting: false },
+          options: ({ $el }) => ({ root: $el, rootMargin: "0px -10px" })
+        })
+      ],
       update: {
         write() {
           for (const el of this.navItems) {
@@ -5785,10 +5713,7 @@
             !this.sets || includes(this.sets, toFloat(this.index)) ? this.clsActivated : ""
           ];
           for (const slide of this.slides) {
-            const active = includes(actives, slide);
-            toggleClass(slide, activeClasses, active);
-            slide.inert = !active;
-            slide.ariaHidden = !active;
+            toggleClass(slide, activeClasses, includes(actives, slide));
           }
         },
         getValidIndex(index = this.index, prevIndex = this.prevIndex) {
@@ -6286,6 +6211,82 @@
       };
     }
 
+    var Position = {
+      props: {
+        pos: String,
+        offset: Boolean,
+        flip: Boolean,
+        shift: Boolean,
+        inset: Boolean
+      },
+      data: {
+        pos: `bottom-${isRtl ? "right" : "left"}`,
+        offset: false,
+        flip: true,
+        shift: true,
+        inset: false
+      },
+      connected() {
+        this.pos = this.$props.pos.split("-").concat("center").slice(0, 2);
+        [this.dir, this.align] = this.pos;
+        this.axis = includes(["top", "bottom"], this.dir) ? "y" : "x";
+      },
+      methods: {
+        positionAt(element, target, boundary) {
+          let offset = [this.getPositionOffset(element), this.getShiftOffset(element)];
+          const placement = [this.flip && "flip", this.shift && "shift"];
+          const attach = {
+            element: [this.inset ? this.dir : flipPosition(this.dir), this.align],
+            target: [this.dir, this.align]
+          };
+          if (this.axis === "y") {
+            for (const prop in attach) {
+              attach[prop].reverse();
+            }
+            offset.reverse();
+            placement.reverse();
+          }
+          const restoreScrollPosition = storeScrollPosition(element);
+          const elDim = dimensions$1(element);
+          css(element, { top: -elDim.height, left: -elDim.width });
+          positionAt(element, target, {
+            attach,
+            offset,
+            boundary,
+            placement,
+            viewportOffset: this.getViewportOffset(element)
+          });
+          restoreScrollPosition();
+        },
+        getPositionOffset(element = this.$el) {
+          return toPx(
+            this.offset === false ? css(element, "--uk-position-offset") : this.offset,
+            this.axis === "x" ? "width" : "height",
+            element
+          ) * (includes(["left", "top"], this.dir) ? -1 : 1) * (this.inset ? -1 : 1);
+        },
+        getShiftOffset(element = this.$el) {
+          return this.align === "center" ? 0 : toPx(
+            css(element, "--uk-position-shift-offset"),
+            this.axis === "y" ? "width" : "height",
+            element
+          ) * (includes(["left", "top"], this.align) ? 1 : -1);
+        },
+        getViewportOffset(element) {
+          return toPx(css(element, "--uk-position-viewport-offset"));
+        }
+      }
+    };
+    function storeScrollPosition(element) {
+      const scrollElement = scrollParent(element);
+      const { scrollTop } = scrollElement;
+      return () => {
+        if (scrollTop !== scrollElement.scrollTop) {
+          scrollElement.scrollTop = scrollTop;
+        }
+      };
+    }
+
     var tooltip = {
       mixins: [Container, Togglable, Position],
       data: {
@@ -6750,14 +6751,7 @@
         toggles() {
           this.$emit();
         },
-        contents(items) {
-          for (const el of items) {
-            const isOpen = hasClass(
-              this.items.find((item) => item.contains(el)),
-              this.clsOpen
-            );
-            hide(el, !isOpen);
-          }
+        contents() {
           this.$emit();
         }
       },
@@ -6827,7 +6821,6 @@
               (el) => this.toggleElement(el, !includes(activeItems, el), (el2, show) => {
                 toggleClass(el2, this.clsOpen, show);
                 if (animate === false || !this.animation) {
-                  hide($(this.content, el2), !show);
                   return;
                 }
                 return transition(el2, show, this);
@@ -6837,20 +6830,24 @@
         }
       }
     };
-    function hide(el, hide2) {
-      el && (el.hidden = hide2);
-    }
     async function transition(el, show, { content, duration, velocity, transition: transition2 }) {
       var _a;
       content = ((_a = el._wrapper) == null ? void 0 : _a.firstElementChild) || $(content, el);
+      let hidden;
       if (!el._wrapper) {
         el._wrapper = wrapAll(content, "<div>");
+        hidden = show;
+      }
+      if (!show) {
+        css(content, "display", "flow-root");
       }
       const wrapper = el._wrapper;
       css(wrapper, "overflow", "hidden");
-      const currentHeight = toFloat(css(wrapper, "height"));
+      const currentHeight = hidden ? 0 : toFloat(css(wrapper, "height"));
       await Transition.cancel(wrapper);
-      hide(content, false);
+      if (show) {
+        css(content, "display", "flow-root");
+      }
       const endHeight = sumBy(["marginTop", "marginBottom"], (prop) => css(content, prop)) + dimensions$1(content).height;
       const percent = currentHeight / endHeight;
       duration = endHeight ? (velocity * endHeight + duration) * (show ? 1 - percent : percent) : 0;
@@ -6858,9 +6855,7 @@
       await Transition.start(wrapper, { height: show ? endHeight : 0 }, duration, transition2);
       unwrap(content);
       delete el._wrapper;
-      if (!show) {
-        hide(content, true);
-      }
+      css(content, "display", "");
     }
     function keepScrollPosition(el) {
       const scrollElement = scrollParent(el, true);
