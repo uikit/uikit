@@ -478,5 +478,5 @@ function isImage(src) {
 }
 
 function isVideo(src) {
-    return src?.match(/\.(mp4|webm|ogv)($|\?)/i);
+    return src?.match(/\.(3gp|mpg|mpeg|m4p|m4v|mp4|webm|ogg|ogv|webm)($|\?)/i);
 }
