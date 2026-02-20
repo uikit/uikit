@@ -32,7 +32,7 @@ export default {
 
     beforeConnect() {
         const isVideo = isTag(this.$el, 'video');
-        if (this.autoplay === 'inview' && isVideo && !hasAttr(this.$el, 'preload')) {
+        if (includes(this.autoplay, 'inview') && isVideo && !hasAttr(this.$el, 'preload')) {
             this.$el.preload = 'none';
         }
 
@@ -110,7 +110,8 @@ export default {
             },
             args: { intersecting: false },
             options: ({ $el, autoplay }) => ({
-                root: autoplay === 'inview' ? null : parent($el).closest(':not(a)'),
+                root: includes(autoplay, 'inview') ? null : parent($el).closest(':not(a)'),
+                rootMargin: autoplay === 'inview-focus' ? '-50% 0px' : '0px',
             }),
         }),
     ],
