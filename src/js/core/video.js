@@ -19,6 +19,7 @@ export default {
         automute: Boolean,
         autoplay: Boolean,
         restart: Boolean,
+        inviewMargin: String,
         hoverTarget: Boolean,
     },
 
@@ -26,6 +27,7 @@ export default {
         automute: false,
         autoplay: true,
         restart: false,
+        inviewMargin: '0px',
         hoverTarget: false,
     },
 
@@ -108,8 +110,9 @@ export default {
                 }
             },
             args: { intersecting: false },
-            options: ({ $el, autoplay }) => ({
+            options: ({ $el, autoplay, inviewMargin }) => ({
                 root: autoplay === 'inview' ? null : parent($el).closest(':not(a)'),
+                rootMargin: autoplay === 'inview' ? inviewMargin : '0px',
             }),
         }),
     ],
