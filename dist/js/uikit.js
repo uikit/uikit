@@ -1,4 +1,4 @@
-/*! UIkit 3.25.12 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.13 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3706,7 +3706,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.25.12";
+    App.version = "3.25.13";
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -6751,7 +6751,14 @@
         toggles() {
           this.$emit();
         },
-        contents() {
+        contents(items) {
+          for (const el of items) {
+            const isOpen = hasClass(
+              this.items.find((item) => item.contains(el)),
+              this.clsOpen
+            );
+            hide(el, !isOpen);
+          }
           this.$emit();
         }
       },
@@ -6821,6 +6828,7 @@
               (el) => this.toggleElement(el, !includes(activeItems, el), (el2, show) => {
                 toggleClass(el2, this.clsOpen, show);
                 if (animate === false || !this.animation) {
+                  hide($(this.content, el2), !show);
                   return;
                 }
                 return transition(el2, show, this);
@@ -6830,24 +6838,20 @@
         }
       }
     };
+    function hide(el, hide2) {
+      el && (el.hidden = hide2);
+    }
     async function transition(el, show, { content, duration, velocity, transition: transition2 }) {
       var _a;
       content = ((_a = el._wrapper) == null ? void 0 : _a.firstElementChild) || $(content, el);
-      let hidden;
       if (!el._wrapper) {
         el._wrapper = wrapAll(content, "<div>");
-        hidden = show;
-      }
-      if (!show) {
-        css(content, "display", "flow-root");
       }
       const wrapper = el._wrapper;
       css(wrapper, "overflow", "hidden");
-      const currentHeight = hidden ? 0 : toFloat(css(wrapper, "height"));
+      const currentHeight = toFloat(css(wrapper, "height"));
       await Transition.cancel(wrapper);
-      if (show) {
-        css(content, "display", "flow-root");
-      }
+      hide(content, false);
       const endHeight = sumBy(["marginTop", "marginBottom"], (prop) => css(content, prop)) + dimensions$1(content).height;
       const percent = currentHeight / endHeight;
       duration = endHeight ? (velocity * endHeight + duration) * (show ? 1 - percent : percent) : 0;
@@ -6855,7 +6859,9 @@
       await Transition.start(wrapper, { height: show ? endHeight : 0 }, duration, transition2);
       unwrap(content);
       delete el._wrapper;
-      css(content, "display", "");
+      if (!show) {
+        hide(content, true);
+      }
     }
     function keepScrollPosition(el) {
       const scrollElement = scrollParent(el, true);
