@@ -83,7 +83,15 @@ export default {
             this.$emit();
         },
 
-        contents() {
+        contents(items) {
+            for (const el of items) {
+                const isOpen = hasClass(
+                    this.items.find((item) => item.contains(el)),
+                    this.clsOpen,
+                );
+
+                hide(el, !isOpen);
+            }
             this.$emit();
         },
     },
@@ -175,6 +183,7 @@ export default {
                         toggleClass(el, this.clsOpen, show);
 
                         if (animate === false || !this.animation) {
+                            hide($(this.content, el), !show);
                             return;
                         }
 
@@ -186,28 +195,23 @@ export default {
     },
 };
 
+function hide(el, hide) {
+    el && (el.hidden = hide);
+}
+
 async function transition(el, show, { content, duration, velocity, transition }) {
     content = el._wrapper?.firstElementChild || $(content, el);
 
-    let hidden;
     if (!el._wrapper) {
         el._wrapper = wrapAll(content, '<div>');
-        hidden = show;
-    }
-
-    if (!show) {
-        css(content, 'display', 'flow-root');
     }
 
     const wrapper = el._wrapper;
     css(wrapper, 'overflow', 'hidden');
-    const currentHeight = hidden ? 0 : toFloat(css(wrapper, 'height'));
+    const currentHeight = toFloat(css(wrapper, 'height'));
 
     await Transition.cancel(wrapper);
-
-    if (show) {
-        css(content, 'display', 'flow-root');
-    }
+    hide(content, false);
 
     const endHeight =
         sumBy(['marginTop', 'marginBottom'], (prop) => css(content, prop)) +
@@ -222,7 +226,9 @@ async function transition(el, show, { content, duration, velocity, transition })
     unwrap(content);
     delete el._wrapper;
 
-    css(content, 'display', '');
+    if (!show) {
+        hide(content, true);
+    }
 }
 
 function keepScrollPosition(el) {

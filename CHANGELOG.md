@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.13 (February 23, 2026)
+
+### Fixed
+
+- Fix regression in Accordion component
+
 ## 3.25.12 (February 19, 2026)
 
 ### Fixed
