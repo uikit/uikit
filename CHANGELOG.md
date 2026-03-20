@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add `reduced-motion-time` option to control which frame is shown when autoplay is prevented due to `prefers-reduced-motion` in Video component
+
 ## 3.25.15 (April 9, 2026)
 
 ### Fixed

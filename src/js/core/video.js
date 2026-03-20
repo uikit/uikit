@@ -20,6 +20,7 @@ export default {
         autoplay: Boolean,
         restart: Boolean,
         hoverTarget: Boolean,
+        reducedMotionTime: Number,
     },
 
     data: {
@@ -27,6 +28,7 @@ export default {
         autoplay: true,
         restart: false,
         hoverTarget: false,
+        reducedMotionTime: 0,
     },
 
     beforeConnect() {
@@ -63,7 +65,7 @@ export default {
 
             handler(e) {
                 if (!isTouch(e) || !isPlaying(this.$el)) {
-                    play(this.$el);
+                    maybePlay(this.$el, this.posterTime);
                 } else {
                     pauseHover(this.$el, this.restart);
                 }
@@ -100,7 +102,7 @@ export default {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
                         if (this.autoplay) {
-                            play(target);
+                            maybePlay(target, this.reducedMotionTime);
                         }
                     } else {
                         pauseHover(target, this.restart);
@@ -114,6 +116,18 @@ export default {
         }),
     ],
 };
+
+function maybePlay(videoEl, reducedMotionTime) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        pause(videoEl);
+
+        if (isTag(videoEl, 'video')) {
+            videoEl.currentTime = reducedMotionTime;
+        }
+    } else {
+        play(videoEl);
+    }
+}
 
 function isPlaying(videoEl) {
     return !videoEl.paused && !videoEl.ended;
