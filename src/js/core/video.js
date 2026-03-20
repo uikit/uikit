@@ -29,6 +29,7 @@ export default {
         inviewQueued: Number,
         hoverTarget: Boolean,
         hoverRewind: Number,
+        reducedMotionTime: Number,
     },
 
     data: {
@@ -39,6 +40,7 @@ export default {
         inviewQueued: 0,
         hoverTarget: false,
         hoverRewind: 0,
+        reducedMotionTime: 0,
     },
 
     beforeConnect() {
@@ -150,7 +152,7 @@ export default {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
                         if (this.autoplay) {
-                            this.play();
+                            this._autoplay();
                         }
                     } else {
                         this.pause();
@@ -182,6 +184,18 @@ export default {
     },
 
     methods: {
+        _autoplay() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                this.pause();
+
+                if (isTag(this.$el, 'video')) {
+                    this.$el.currentTime = this.reducedMotionTime;
+                }
+            } else {
+                this.play();
+            }
+        },
+
         play() {
             if (this.inviewQueued) {
                 queue.set(this.$el, this.inviewQueued);
