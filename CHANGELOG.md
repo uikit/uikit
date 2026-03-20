@@ -5,6 +5,7 @@
 ### Added
 
 - Add Marquee component
+- Add `reduced-motion-time` option to control which frame is shown when autoplay is prevented due to `prefers-reduced-motion` in Video component
 
 ## 3.25.17 (May 28, 2026)
 
