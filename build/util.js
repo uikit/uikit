@@ -1,5 +1,4 @@
 import alias from '@rollup/plugin-alias';
-import replace from '@rollup/plugin-replace';
 import CleanCSS from 'clean-css';
 import fs from 'fs-extra';
 import { glob } from 'glob';
@@ -61,7 +60,11 @@ export function renderLess(data, options) {
     return limit(async () => (await less.render(data, options)).css);
 }
 
-export async function compile(file, dest, { external, globals, name, aliases, replaces } = {}) {
+export async function compile(
+    file,
+    dest,
+    { external, globals, name, aliases, virtualModules } = {},
+) {
     const minify = !args.nominify;
     const debug = args.d || args.debug;
     const log = args.l || args.log;
@@ -73,14 +76,12 @@ export async function compile(file, dest, { external, globals, name, aliases, re
         external,
         input: file,
         plugins: [
-            replace({
-                preventAssignment: true,
-                values: {
-                    VERSION: `'${await getVersion()}'`,
-                    LOG: !!log,
-                    ...replaces,
-                },
+            virtualModulesPlugin({
+                'virtual:version': `'${await getVersion()}'`,
+                'virtual:log': String(!!log),
+                ...virtualModules,
             }),
+
             alias({
                 entries: {
                     'uikit-util': path.resolve('./src/js/util/index.js'),
@@ -268,6 +269,28 @@ async function optimizeSvg(svg) {
     };
 
     return (await optimize(svg, options)).data;
+}
+
+// @see https:rollupjs.org/plugin-development/#conventions for the \0 prefix convention
+function virtualModulesPlugin(map) {
+    return {
+        name: 'virtual-modules',
+
+        resolveId(id) {
+            if (id in map) {
+                return '\0' + id;
+            }
+        },
+
+        load(id) {
+            if (id.startsWith('\0')) {
+                const key = id.slice(1);
+                if (key in map) {
+                    return `export default ${map[key]};`;
+                }
+            }
+        },
+    };
 }
 
 function svgPlugin() {

@@ -26,10 +26,10 @@ await Promise.all((await glob(path)).map(compileIcons));
 
 async function compileIcons(folder) {
     const [, name] = folder.match(new RegExp(match, 'i'));
-    return compile('build/wrapper/icons.js', `dist/js/uikit-icons-${name}`, {
+    return compile('src/js/uikit-icons.js', `dist/js/uikit-icons-${name}`, {
         name,
-        replaces: {
-            ICONS: await icons(`${folder}/*.svg`, 'src/images/icons/*.svg'),
+        virtualModules: {
+            'virtual:icons': await icons(`${folder}/*.svg`, 'src/images/icons/*.svg'),
         },
     });
 }

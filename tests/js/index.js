@@ -1,8 +1,6 @@
-/* global TESTS */
 import { $$, addClass, css, on, prepend, removeClass, ucfirst } from 'uikit-util';
+import tests from 'virtual:tests';
 import { awaitFrame, awaitTimeout } from '../../src/js/util/await';
-
-const tests = TESTS;
 const storage = window.sessionStorage;
 const key = '_uikit_style';
 const keyinverse = '_uikit_inverse';
