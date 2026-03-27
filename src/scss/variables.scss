@@ -1101,7 +1101,7 @@ $text-warning-color: $global-warning-background !default;
 $text-danger-color: $global-danger-background !default;
 $text-background-color: $global-primary-background !default;
 $text-stroke-text-stroke: string.unquote('calc(1.4px + 0.002em)') !default;
-$inverse-text-lead-color: $inverse-global-color !default;
+$inverse-text-lead-color: $inverse-global-emphasis-color !default;
 $inverse-text-meta-color: $inverse-global-muted-color !default;
 $inverse-text-muted-color: $inverse-global-muted-color !default;
 $inverse-text-emphasis-color: $inverse-global-emphasis-color !default;
