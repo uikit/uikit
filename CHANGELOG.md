@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.26.0 WIP
+
+### Added
+
+- Add Marquee component
+
 ## 3.25.17 (May 28, 2026)
 
 ### Fixed
