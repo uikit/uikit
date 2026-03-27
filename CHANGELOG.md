@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.26.0 WIP
+
+### Added
+
+- Add Marquee component
+
 ## WIP
 
 ### Fixed
