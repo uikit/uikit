@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.14 (March 27, 2026)
+
+### Fixed
+
+- Fix boundary option in Dropnav component
+
 ## 3.25.13 (February 23, 2026)
 
 ### Fixed

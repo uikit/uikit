@@ -407,6 +407,7 @@ export default {
                     flip: this.flip && !this.$props.dropbar,
                     shift: true,
                     pos: `bottom-${this.align}`,
+                    boundary: false,
                     boundaryX: this.boundary === true ? this.$el : this.boundary,
                 },
             );

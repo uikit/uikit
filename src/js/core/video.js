@@ -1,6 +1,5 @@
 import {
     hasAttr,
-    includes,
     isTag,
     isTouch,
     mute,
@@ -60,7 +59,7 @@ export default {
 
             el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
 
-            filter: ({ autoplay }) => includes(autoplay, 'hover'),
+            filter: ({ autoplay }) => autoplay === 'hover',
 
             handler(e) {
                 if (!isTouch(e) || !isPlaying(this.$el)) {
@@ -76,7 +75,7 @@ export default {
 
             el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
 
-            filter: ({ autoplay }) => includes(autoplay, 'hover'),
+            filter: ({ autoplay }) => autoplay === 'hover',
 
             handler(e) {
                 if (!isTouch(e)) {

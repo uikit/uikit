@@ -55,17 +55,17 @@ function getBundleTasks() {
         uikit: () => compile('src/js/uikit.js', 'dist/js/uikit'),
 
         icons: async () =>
-            compile('build/wrapper/icons.js', 'dist/js/uikit-icons', {
+            compile('src/js/uikit-icons.js', 'dist/js/uikit-icons', {
                 name: 'icons',
-                replaces: {
-                    ICONS: await icons('custom/icons/*.svg', 'src/images/icons/*.svg'),
+                virtualModules: {
+                    'virtual:icons': await icons('custom/icons/*.svg', 'src/images/icons/*.svg'),
                 },
             }),
 
         tests: async () =>
             compile('tests/js/index.js', 'tests/js/test', {
                 name: 'test',
-                replaces: { TESTS: await getTestFiles() },
+                virtualModules: { 'virtual:tests': await getTestFiles() },
             }),
     };
 }
@@ -77,12 +77,12 @@ async function getComponentTasks() {
         const name = path.basename(file, '.js');
 
         components[name] = () =>
-            compile('build/wrapper/component.js', `dist/js/components/${name}`, {
+            compile('src/js/component.js', `dist/js/components/${name}`, {
                 name,
                 external: ['uikit', 'uikit-util'],
                 globals: { uikit: 'UIkit', 'uikit-util': 'UIkit.util' },
                 aliases: { component: path.resolve('src/js/components', name) },
-                replaces: { NAME: `'${camelize(name)}'` },
+                virtualModules: { 'virtual:name': `'${camelize(name)}'` },
             });
 
         return components;
