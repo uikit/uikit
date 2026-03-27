@@ -1,4 +1,4 @@
-/*! UIkit 3.25.13 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.14 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2342,6 +2342,7 @@
 
     const keyMap = {
       TAB: 9,
+      ENTER: 13,
       ESC: 27,
       SPACE: 32,
       END: 35,
@@ -3385,6 +3386,8 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
+    var VERSION = '3.25.14';
+
     function initWatches(instance) {
       instance._watches = [];
       for (const watches of instance.$options.watch || []) {
@@ -3706,7 +3709,7 @@
     };
     App.util = util;
     App.options = {};
-    App.version = "3.25.13";
+    App.version = VERSION;
 
     const PREFIX = "uk-";
     const DATA = "__uikit__";
@@ -6962,7 +6965,7 @@
         {
           name: `${pointerEnter} focusin`,
           el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
-          filter: ({ autoplay }) => includes(autoplay, "hover"),
+          filter: ({ autoplay }) => autoplay === "hover",
           handler(e) {
             if (!isTouch(e) || !isPlaying(this.$el)) {
               play(this.$el);
@@ -6974,7 +6977,7 @@
         {
           name: `${pointerLeave} focusout`,
           el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
-          filter: ({ autoplay }) => includes(autoplay, "hover"),
+          filter: ({ autoplay }) => autoplay === "hover",
           handler(e) {
             if (!isTouch(e)) {
               pauseHover(this.$el, this.restart);
@@ -7723,6 +7726,7 @@
               flip: this.flip && !this.$props.dropbar,
               shift: true,
               pos: `bottom-${this.align}`,
+              boundary: false,
               boundaryX: this.boundary === true ? this.$el : this.boundary
             }
           );
@@ -9930,8 +9934,6 @@
       }
     };
 
-    const KEY_ENTER = 13;
-    const KEY_SPACE = 32;
     var toggle = {
       mixins: [Media, Togglable],
       args: "target",
@@ -10015,7 +10017,7 @@
           name: "keydown",
           filter: ({ $el, mode }) => includes(mode, "click") && !isTag($el, "input"),
           handler(e) {
-            if (e.keyCode === KEY_SPACE || e.keyCode === KEY_ENTER) {
+            if (e.keyCode === keyMap.SPACE || e.keyCode === keyMap.ENTER) {
               e.preventDefault();
               this.$el.click();
             }
