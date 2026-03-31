@@ -137,8 +137,11 @@ export default {
                 return;
             }
 
-            const { duration } = this.$el;
-            this.$el.currentTime = percent * (isNaN(duration) ? 0 : duration);
+            const { duration, seeking } = this.$el;
+
+            if (!isNaN(duration) && !seeking) {
+                this.$el.currentTime = percent * duration;
+            }
         },
 
         events: ['scroll', 'resize'],
@@ -176,9 +179,13 @@ function playReverse(el, duration) {
                 return;
             }
 
-            el.currentTime = Math.max(0, start - ((Date.now() - time) * duration) / 1000);
+            const currentTime = Math.max(0, start - ((Date.now() - time) * duration) / 1000);
 
-            if (el.currentTime > 0) {
+            if (currentTime > 0) {
+                if (!el.seeking) {
+                    el.currentTime = currentTime;
+                }
+
                 next();
             }
         });
