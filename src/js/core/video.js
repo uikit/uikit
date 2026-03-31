@@ -24,6 +24,7 @@ export default {
         restart: Boolean,
         inviewMargin: String,
         hoverTarget: Boolean,
+        hoverRewind: Number,
     },
 
     data: {
@@ -32,6 +33,7 @@ export default {
         restart: false,
         inviewMargin: '0px',
         hoverTarget: false,
+        hoverRewind: 0,
     },
 
     beforeConnect() {
@@ -71,6 +73,8 @@ export default {
             filter: ({ autoplay }) => autoplay === 'hover',
 
             handler(e) {
+                this._reverseAbort?.abort();
+
                 if (!isTouch(e) || !isPlaying(this.$el)) {
                     play(this.$el);
                 } else {
@@ -88,7 +92,10 @@ export default {
 
             handler(e) {
                 if (!isTouch(e)) {
+                    this._reverseAbort?.abort();
+
                     pauseHover(this.$el, this.restart);
+                    this._reverseAbort = playReverse(this.$el, this.hoverRewind);
                 }
             },
         },
@@ -147,4 +154,35 @@ function pauseHover(el, restart) {
     if (restart && isTag(el, 'video')) {
         el.currentTime = 0;
     }
+}
+
+function playReverse(el, duration) {
+    const controller = {
+        abort() {
+            this.aborted = true;
+        },
+    };
+
+    const start = el.currentTime;
+
+    if (isNaN(start)) {
+        return controller;
+    }
+
+    const time = Date.now();
+    (function next() {
+        requestAnimationFrame(() => {
+            if (controller.aborted) {
+                return;
+            }
+
+            el.currentTime = Math.max(0, start - ((Date.now() - time) * duration) / 1000);
+
+            if (el.currentTime > 0) {
+                next();
+            }
+        });
+    })();
+
+    return controller;
 }
