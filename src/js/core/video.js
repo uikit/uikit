@@ -11,8 +11,11 @@ import {
     query,
 } from 'uikit-util';
 import { intersection } from '../api/observables';
+import ScrollDriven from '../mixin/scroll-driven';
 
 export default {
+    mixins: [ScrollDriven],
+
     args: 'autoplay',
 
     props: {
@@ -33,6 +36,10 @@ export default {
 
     beforeConnect() {
         const isVideo = isTag(this.$el, 'video');
+
+        this.parallax = isVideo && this.autoplay === 'parallax';
+        this.manualControl = ['hover', 'parallax'].includes(this.autoplay);
+
         if (this.autoplay === 'inview' && isVideo && !hasAttr(this.$el, 'preload')) {
             this.$el.preload = 'none';
         }
@@ -97,7 +104,7 @@ export default {
         }),
 
         intersection({
-            filter: ({ $el, autoplay }) => autoplay !== 'hover' && $el.preload !== 'none',
+            filter: ({ $el, manualControl }) => !manualControl && $el.preload !== 'none',
             handler([{ isIntersecting, target }]) {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
@@ -116,6 +123,19 @@ export default {
             }),
         }),
     ],
+
+    update: {
+        write({ percent }) {
+            if (!this.parallax) {
+                return;
+            }
+
+            const { duration } = this.$el;
+            this.$el.currentTime = percent * (isNaN(duration) ? 0 : duration);
+        },
+
+        events: ['scroll', 'resize'],
+    },
 };
 
 function isPlaying(videoEl) {
