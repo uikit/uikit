@@ -159,14 +159,14 @@ function pauseHover(el, restart) {
     }
 }
 
-function playReverse(el, duration) {
-    let controller = new AbortController();
-
+function playReverse(el, playbackRate) {
     const start = el.currentTime;
 
-    if (isNaN(start)) {
-        return controller;
+    if (isNaN(start) || !playbackRate) {
+        return;
     }
+
+    let controller = new AbortController();
 
     const time = Date.now();
     (function next() {
@@ -175,13 +175,11 @@ function playReverse(el, duration) {
                 return;
             }
 
-            const currentTime = Math.max(0, start - ((Date.now() - time) * duration) / 1000);
+            if (!el.seeking) {
+                el.currentTime = Math.max(0, start - ((Date.now() - time) * playbackRate) / 1000);
+            }
 
-            if (currentTime > 0) {
-                if (!el.seeking) {
-                    el.currentTime = currentTime;
-                }
-
+            if (el.currentTime > 0) {
                 next();
             }
         });
