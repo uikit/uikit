@@ -160,11 +160,7 @@ function pauseHover(el, restart) {
 }
 
 function playReverse(el, duration) {
-    const controller = {
-        abort() {
-            this.aborted = true;
-        },
-    };
+    let controller = new AbortController();
 
     const start = el.currentTime;
 
@@ -175,7 +171,7 @@ function playReverse(el, duration) {
     const time = Date.now();
     (function next() {
         requestAnimationFrame(() => {
-            if (controller.aborted) {
+            if (controller.signal.aborted) {
                 return;
             }
 
