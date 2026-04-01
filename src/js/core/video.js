@@ -1,5 +1,6 @@
 import {
     hasAttr,
+    isFocusable,
     isTag,
     isTouch,
     mute,
@@ -39,6 +40,7 @@ export default {
     beforeConnect() {
         const isVideo = isTag(this.$el, 'video');
 
+        this.restart = isVideo && this.restart;
         this.parallax = isVideo && this.autoplay === 'parallax';
         this.manualControl = ['hover', 'parallax'].includes(this.autoplay);
 
@@ -52,7 +54,11 @@ export default {
 
         if (this.autoplay === 'hover') {
             if (isVideo) {
-                this.$el.tabIndex = 0;
+                this.hoverTarget = query(this.hoverTarget, this.$el) || this.$el;
+
+                if (!isFocusable(this.hoverTarget)) {
+                    this.hoverTarget.tabIndex = 0;
+                }
             } else {
                 this.autoplay = true;
             }
@@ -68,7 +74,7 @@ export default {
         {
             name: `${pointerEnter} focusin`,
 
-            el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
+            el: ({ hoverTarget }) => hoverTarget,
 
             filter: ({ autoplay }) => autoplay === 'hover',
 
@@ -76,9 +82,9 @@ export default {
                 this._reverseAbort?.abort();
 
                 if (!isTouch(e) || !isPlaying(this.$el)) {
-                    play(this.$el);
+                    this.play();
                 } else {
-                    pauseHover(this.$el, this.restart);
+                    this.pause();
                 }
             },
         },
@@ -86,15 +92,14 @@ export default {
         {
             name: `${pointerLeave} focusout`,
 
-            el: ({ hoverTarget, $el }) => query(hoverTarget, $el) || $el,
+            el: ({ hoverTarget }) => hoverTarget,
 
             filter: ({ autoplay }) => autoplay === 'hover',
 
             handler(e) {
                 if (!isTouch(e)) {
                     this._reverseAbort?.abort();
-
-                    pauseHover(this.$el, this.restart);
+                    this.pause();
                     this._reverseAbort = playReverse(this.$el, this.hoverRewind);
                 }
             },
@@ -112,14 +117,14 @@ export default {
 
         intersection({
             filter: ({ $el, manualControl }) => !manualControl && $el.preload !== 'none',
-            handler([{ isIntersecting, target }]) {
+            handler([{ isIntersecting }]) {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
                         if (this.autoplay) {
-                            play(target);
+                            this.play();
                         }
                     } else {
-                        pauseHover(target, this.restart);
+                        this.pause();
                     }
                 }
             },
@@ -146,17 +151,24 @@ export default {
 
         events: ['scroll', 'resize'],
     },
+
+    methods: {
+        play() {
+            play(this.$el);
+        },
+
+        pause() {
+            pause(this.$el);
+
+            if (this.restart) {
+                this.$el.currentTime = 0;
+            }
+        },
+    },
 };
 
 function isPlaying(videoEl) {
     return !videoEl.paused && !videoEl.ended;
-}
-
-function pauseHover(el, restart) {
-    pause(el);
-    if (restart && isTag(el, 'video')) {
-        el.currentTime = 0;
-    }
 }
 
 function playReverse(el, playbackRate) {
