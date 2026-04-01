@@ -55,12 +55,12 @@
             Lazy videos by removing preload none when entering the viewport
             -->
 
-            <h2>Inline Video</h2>
+            <h2>Autoplay</h2>
 
-            <div class="uk-grid uk-child-width-1-3@s">
+            <div class="uk-child-width-1-3@s" uk-grid>
                 <div>
 
-                    <h3>Autoplay</h3>
+                    <h3>Native</h3>
                     <!--
                     # Native Autoplay
                     Chrome: `Out of view` + `Hidden`: Stops playing.
@@ -70,28 +70,11 @@
 
                     <!-- `Out of view`: continous playing. `Hidden`: stops playing -->
                     <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video></video>
+
                 </div>
                 <div>
 
-                    <h3>Autoplay Inview</h3>
-
-                    <!-- `Out of view` + `Hidden`: stops playing -->
-                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview"></video>
-                </div>
-                <div>
-
-                    <h3>Autoplay Hover</h3>
-
-                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: hover"></video>
-                </div>
-            </div>
-
-            <h2>Inline YouTube</h2>
-
-            <div class="uk-grid uk-child-width-1-3@s">
-                <div>
-
-                    <h3>Autoplay</h3>
+                    <h3>YouTube</h3>
                     <!--
                     # Native Autoplay `autoplay=1`
                     All browsers: `Out of view` + `Hidden`: Doesn't stop when hidden.
@@ -102,29 +85,60 @@
                 </div>
                 <div>
 
-                    <h3>Autoplay Inview</h3>
-
-                    <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?playsinline=1&amp;rel=0&amp;controls=0&amp;loop=1&amp;mute=1" width="1920" height="1080" allowfullscreen uk-responsive class="uk-disabled" uk-video="autoplay: inview"></iframe>
-
-                </div>
-            </div>
-
-            <h2>Inline Vimeo</h2>
-
-            <div class="uk-grid uk-child-width-1-3@s">
-                <div>
-
-                    <h3>Autoplay</h3>
+                    <h3>Vimeo</h3>
 
                     <iframe src="https://player.vimeo.com/video/1084537?background=1&amp;keyboard=0&amp;muted=1" width="1920" height="1080" allowfullscreen uk-responsive class="uk-disabled" uk-video></iframe>
 
                 </div>
+            </div>
+
+            <h2>Autoplay Inview</h2>
+
+            <div class="uk-child-width-1-3@s" uk-grid>
                 <div>
 
-                    <h3>Autoplay Inview</h3>
+                    <h3>Native</h3>
+
+                    <!-- `Out of view` + `Hidden`: stops playing -->
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview"></video>
+
+                </div>
+                <div>
+
+                    <h3>YouTube</h3>
+
+                    <iframe src="https://www.youtube-nocookie.com/embed/c2pz2mlSfXA?playsinline=1&amp;rel=0&amp;controls=0&amp;loop=1&amp;mute=1" width="1920" height="1080" allowfullscreen uk-responsive class="uk-disabled" uk-video="autoplay: inview"></iframe>
+
+                </div>
+                <div>
+
+                    <h3>Vimeo</h3>
 
                     <iframe src="https://player.vimeo.com/video/1084537?background=1&amp;keyboard=0&amp;muted=1" width="1920" height="1080" allowfullscreen uk-responsive class="uk-disabled" uk-video="autoplay: inview"></iframe>
 
+                </div>
+            </div>
+
+            <h2>Autoplay Hover</h2>
+
+            <div class="uk-grid uk-child-width-1-3@s">
+                <div>
+
+                    <h3>Autoplay Hover</h3>
+
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: hover"></video>
+                </div>
+                <div>
+
+                    <h3>Autoplay Hover Target</h3>
+
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: hover; hover-target: !.uk-grid"></video>
+                </div>
+                <div>
+
+                    <h3>Autoplay Hover Rewind</h3>
+
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: hover; hover-rewind: 3"></video>
                 </div>
             </div>
 
@@ -166,6 +180,83 @@
 
                 </div>
             </div>
+
+            <h2>Autoplay Parallax</h2>
+
+            <div class="uk-grid uk-child-width-1-2@s">
+                <div>
+                    <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4" width="1920" height="1080" playsinline muted uk-video="autoplay: parallax; parallax-start: 100%; parallax-end: 100%"></video>
+                </div>
+            </div>
+
+            <h2>Autoplay Inview Margin</h2>
+
+            <div class="uk-child-width-1-3@s" uk-grid>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675550/8675550-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675542/8675542-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675544/8675544-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675539/8675539-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675545/8675545-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675540/8675540-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675542/8675542-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675588/8675588-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675541/8675541-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675548/8675548-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675586/8675586-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+                <div>
+
+                    <video src="https://videos.pexels.com/video-files/8675555/8675555-hd_1920_1080_30fps.mp4" width="1920" height="1080" playsinline loop muted uk-video="autoplay: inview; inview-margin: 50% 0px 50% 0px"></video>
+
+                </div>
+            </div>
+
+
+
+
 
             <h2>JavaScript Options</h2>
 
