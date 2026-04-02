@@ -60,7 +60,7 @@ function post(el, cmd) {
     el.contentWindow.postMessage(JSON.stringify({ event: 'command', ...cmd }), '*');
 }
 
-const stateKey = '_ukPlayer';
+const stateKey = Symbol();
 let counter = 0;
 function enableApi(el) {
     if (el[stateKey]) {
