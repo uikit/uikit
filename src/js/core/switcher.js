@@ -9,27 +9,24 @@ import {
     getIndex,
     hasClass,
     isNumeric,
-    isTag,
     matches,
     queryAll,
-    toArray,
     toggleClass,
 } from 'uikit-util';
 import { generateId } from '../api/instance';
-import { lazyload, swipe } from '../api/observables';
+import { swipe } from '../api/observables';
+import Connect from '../mixin/connect';
 import { maybeDefaultPreventClick } from '../mixin/event';
-import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
 
 const selDisabled = '.uk-disabled *, .uk-disabled, [disabled]';
 
 export default {
-    mixins: [Togglable],
+    mixins: [Connect],
 
     args: 'connect',
 
     props: {
-        connect: String,
         toggle: String,
         itemNav: String,
         active: Number,
@@ -42,7 +39,6 @@ export default {
         toggle: '> * > :first-child',
         itemNav: false,
         active: 0,
-        cls: 'uk-active',
         attrItem: 'uk-switcher-item',
         selVertical: '.uk-nav',
         followFocus: false,
@@ -50,15 +46,6 @@ export default {
     },
 
     computed: {
-        connects: {
-            get: ({ connect }, $el) => queryAll(connect, $el),
-            observe: ({ connect }) => connect,
-        },
-
-        connectChildren() {
-            return this.connects.map((el) => children(el)).flat();
-        },
-
         toggles: ({ toggle }, $el) => $$(toggle, $el),
 
         children(_, $el) {
@@ -95,10 +82,7 @@ export default {
         this.$el.role = 'tablist';
     },
 
-    observe: [
-        lazyload({ targets: ({ connectChildren }) => connectChildren }),
-        swipe({ target: ({ connects }) => connects, filter: ({ swiping }) => swiping }),
-    ],
+    observe: swipe({ target: ({ connects }) => connects, filter: ({ swiping }) => swiping }),
 
     events: [
         {
@@ -180,28 +164,33 @@ export default {
     ],
 
     update() {
-        for (const el of this.connects) {
-            if (isTag(el, 'ul')) {
-                el.role = 'presentation';
-            }
-        }
         attr(children(this.$el), 'role', 'presentation');
 
         for (const index in this.toggles) {
             const toggle = this.toggles[index];
-            const item = this.connects[0]?.children[index];
+            toggle.id = generateId(this, toggle);
 
-            toggle.role = 'tab';
+            const controls = [];
 
-            if (!item) {
-                continue;
+            for (const { children } of this.connects) {
+                const item = children[index];
+
+                if (!item) {
+                    continue;
+                }
+
+                attr(item, {
+                    id: generateId(this, item),
+                    role: 'tabpanel',
+                    'aria-labelledby': toggle.id,
+                });
+                controls.push(item.id);
             }
 
-            toggle.id = generateId(this, toggle);
-            item.id = generateId(this, item);
-
-            toggle.ariaControls = item.id;
-            attr(item, { role: 'tabpanel', 'aria-labelledby': toggle.id });
+            attr(toggle, {
+                role: 'tab',
+                'aria-controls': controls.join(' '),
+            });
         }
         attr(this.$el, 'aria-orientation', matches(this.$el, this.selVertical) ? 'vertical' : null);
     },
@@ -240,16 +229,7 @@ export default {
                 });
             });
 
-            const animate = prev >= 0 && prev !== next;
-            this.connects.forEach(async ({ children }) => {
-                const actives = toArray(children).filter(
-                    (child, i) => i !== next && hasClass(child, this.cls),
-                );
-
-                if (await this.toggleElement(actives, false, animate)) {
-                    await this.toggleElement(children[next], true, animate);
-                }
-            });
+            return this.showConnects(next, prev >= 0 && prev !== next);
         },
     },
 };
