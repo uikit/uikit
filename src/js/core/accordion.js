@@ -6,6 +6,7 @@ import {
     css,
     dimensions,
     filter,
+    findIndex,
     getIndex,
     hasClass,
     includes,
@@ -22,15 +23,14 @@ import {
 import { generateId } from '../api/instance';
 import { lazyload } from '../api/observables';
 import Class from '../mixin/class';
+import Connect from '../mixin/connect';
 import { maybeDefaultPreventClick } from '../mixin/event';
-import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
 
 export default {
-    mixins: [Class, Togglable],
+    mixins: [Class, Connect],
 
     props: {
-        animation: Boolean,
         targets: String,
         active: null,
         collapsible: Boolean,
@@ -43,10 +43,11 @@ export default {
     data: {
         targets: '> *',
         active: false,
-        animation: true,
+        animation: [true],
         collapsible: true,
         multiple: false,
         clsOpen: 'uk-open',
+        cls: 'uk-active',
         toggle: '.uk-accordion-title',
         content: '.uk-accordion-content',
         offset: 0,
@@ -77,6 +78,13 @@ export default {
             if (active) {
                 this.toggle(active, false);
             }
+        },
+
+        connectChildren() {
+            this.showConnects(
+                findIndex(this.items, (el) => hasClass(el, this.clsOpen)),
+                false,
+            );
         },
 
         toggles() {
@@ -146,26 +154,48 @@ export default {
             }
 
             toggle.id = generateId(this, toggle);
-            content.id = generateId(this, content);
 
             const active = includes(activeItems, this.items[index]);
-            attr(toggle, {
-                role: isTag(toggle, 'a') ? 'button' : null,
-                'aria-controls': content.id,
-                'aria-expanded': active,
-                'aria-disabled': !this.collapsible && activeItems.length < 2 && active,
-            });
 
-            attr(content, { role: 'region', 'aria-labelledby': toggle.id });
+            attr(content, {
+                id: generateId(this, content),
+                role: 'region',
+                'aria-labelledby': toggle.id,
+            });
             if (isTag(content, 'ul')) {
                 attr(children(content), 'role', 'presentation');
             }
+
+            const controls = [content.id];
+            for (const { children } of this.connects) {
+                const item = children[index];
+
+                if (!item) {
+                    continue;
+                }
+
+                attr(item, {
+                    id: generateId(this, item),
+                    role: 'tabpanel',
+                    'aria-labelledby': toggle.id,
+                });
+                controls.push(item.id);
+            }
+
+            attr(toggle, {
+                role: isTag(toggle, 'a') ? 'button' : null,
+                'aria-controls': controls.join(' '),
+                'aria-expanded': active,
+                'aria-disabled': !this.collapsible && activeItems.length < 2 && active,
+            });
         }
     },
 
     methods: {
         toggle(item, animate) {
-            item = this.items[getIndex(item, this.items)];
+            const next = getIndex(item, this.items);
+
+            item = this.items[next];
             let items = [item];
             const activeItems = filter(this.items, `.${this.clsOpen}`);
 
@@ -177,20 +207,22 @@ export default {
                 items = [];
             }
 
-            return Promise.all(
-                items.map((el) =>
-                    this.toggleElement(el, !includes(activeItems, el), (el, show) => {
-                        toggleClass(el, this.clsOpen, show);
+            const toggle = (el) =>
+                this.toggleElement(el, !includes(activeItems, el), (el, show) => {
+                    toggleClass(el, this.clsOpen, show);
 
-                        if (animate === false || !this.animation) {
-                            hide($(this.content, el), !show);
-                            return;
-                        }
+                    if (animate === false || !this.hasAnimation) {
+                        hide($(this.content, el), !show);
+                        return;
+                    }
 
-                        return transition(el, show, this);
-                    }),
-                ),
-            );
+                    return transition(el, show, this);
+                });
+
+            return Promise.all([
+                ...items.map(toggle),
+                this.showConnects(includes(activeItems, item) ? -1 : next, animate !== false),
+            ]);
         },
     },
 };
