@@ -95,7 +95,7 @@ export async function compile(
                 target: 'safari12',
                 sourceMap: !!debug,
                 minify: false,
-                supported: { 'template-literal': true },
+                supported: { 'template-literal': true, destructuring: true },
             }),
 
             !debug && {
@@ -132,7 +132,7 @@ export async function compile(
                     ? undefined
                     : esbuildMinify({
                           target: 'safari12',
-                          supported: { 'template-literal': true },
+                          supported: { 'template-literal': true, destructuring: true },
                       }),
             ],
         });
