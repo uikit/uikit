@@ -1,4 +1,4 @@
-/*! UIkit 3.25.14 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.15 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1784,10 +1784,7 @@
       return childVal !== false && concatStrat(childVal || parentVal);
     };
     strats.update = function(parentVal, childVal) {
-      return sortBy(
-        concatStrat(parentVal, isFunction(childVal) ? { read: childVal } : childVal),
-        "order"
-      );
+      return concatStrat(parentVal, isFunction(childVal) ? { read: childVal } : childVal);
     };
     strats.props = function(parentVal, childVal) {
       if (isArray(childVal)) {
@@ -3386,7 +3383,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.14';
+    var VERSION = '3.25.15';
 
     function initWatches(instance) {
       instance._watches = [];
