@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.15 (April 9, 2026)
+
+### Fixed
+
+- Fix issue with build process
+
 ## 3.25.14 (March 27, 2026)
 
 ### Fixed

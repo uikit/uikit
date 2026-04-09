@@ -6,7 +6,6 @@ import {
     isNumeric,
     isString,
     isUndefined,
-    sortBy,
     startsWith,
     toBoolean,
     toNumber,
@@ -32,10 +31,7 @@ strats.args = function (parentVal, childVal) {
 
 // update strategy
 strats.update = function (parentVal, childVal) {
-    return sortBy(
-        concatStrat(parentVal, isFunction(childVal) ? { read: childVal } : childVal),
-        'order',
-    );
+    return concatStrat(parentVal, isFunction(childVal) ? { read: childVal } : childVal);
 };
 
 // property strategy
