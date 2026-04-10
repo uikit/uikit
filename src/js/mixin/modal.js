@@ -229,11 +229,12 @@ export default {
     },
 };
 
+const rejectKey = Symbol();
 function animate(el, show, { transitionElement, _toggle }) {
     return new Promise((resolve, reject) =>
         once(el, 'show hide', () => {
-            el._reject?.();
-            el._reject = reject;
+            el[rejectKey]?.();
+            el[rejectKey] = reject;
 
             _toggle(el, show);
 
@@ -257,7 +258,7 @@ function animate(el, show, { transitionElement, _toggle }) {
                 toMs(css(transitionElement, 'transitionDuration')),
             );
         }),
-    ).then(() => delete el._reject);
+    ).then(() => delete el[rejectKey]);
 }
 
 function toMs(time) {
