@@ -105,7 +105,7 @@ async function deploy(version) {
     const branch = `release/v${version}`;
 
     await $$`git checkout -b ${branch}`;
-    await $$`git stage --all`;
+    await $$`git add --all`;
     await $$`git commit -am v${version}`;
 
     await $$`git checkout main`;
