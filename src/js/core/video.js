@@ -246,8 +246,9 @@ function playReverse(el, playbackRate) {
         return;
     }
 
-    let controller = new AbortController();
+    playbackRate *= Math.max(1, start / 10 + 0.5);
 
+    const controller = new AbortController();
     const time = Date.now();
     (function next() {
         requestAnimationFrame(() => {
