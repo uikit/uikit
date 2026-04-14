@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix negative numbers sorted incorrectly in Filter component
+
 ## 3.25.15 (April 9, 2026)
 
 ### Fixed
