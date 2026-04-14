@@ -342,7 +342,6 @@ export default {
 
                 if (
                     this.showOnUp &&
-                    !this.isFixed &&
                     Math.abs(data.initScroll - scroll) <= 30 &&
                     Math.abs(prevScroll - scroll) <= 10
                 ) {
