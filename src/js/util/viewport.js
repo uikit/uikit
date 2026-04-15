@@ -140,7 +140,7 @@ export function scrollParents(element, scrollable = false, props = []) {
     let ancestors = parents(element).reverse();
     ancestors = ancestors.slice(ancestors.indexOf(scrollEl) + 1);
 
-    const fixedIndex = findIndex(ancestors, (el) => css(el, 'position') === 'fixed');
+    const fixedIndex = findIndex(ancestors, (el) => hasPosition(el, 'fixed'));
     if (~fixedIndex) {
         ancestors = ancestors.slice(fixedIndex);
     }
