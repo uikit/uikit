@@ -3,6 +3,7 @@ import {
     addClass,
     append,
     css,
+    dimensions,
     endsWith,
     includes,
     isFocusable,
@@ -265,9 +266,18 @@ function toMs(time) {
 
 function preventBackgroundFocus(modal) {
     return on(document, 'focusin', (e) => {
-        if (last(active) === modal && !modal.$el.contains(e.target)) {
-            modal.$el.focus();
+        if (last(active) !== modal || modal.$el.contains(e.target)) {
+            return;
         }
+
+        const { left, top, width, height } = dimensions(e.target);
+        const topEl = document.elementFromPoint(left + width / 2, top + height / 2);
+
+        if (topEl && (e.target.contains(topEl) || topEl.contains(e.target))) {
+            return;
+        }
+
+        modal.$el.focus();
     });
 }
 
