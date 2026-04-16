@@ -20,7 +20,7 @@
         "prefix": "node build/prefix",
         "scope": "node build/scope",
         "release": "node build/release",
-        "watch": "chokidar \"**/*.less\" --initial -i \"node_modules\" -c \"node build/less\""
+        "watch": "node build/watch.js"
     },
     "repository": {
         "type": "git",
@@ -37,7 +37,6 @@
         "@rollup/plugin-alias": "^6.0.0",
         "archiver": "^7.0.1",
         "camelcase": "^9.0.0",
-        "chokidar-cli": "^3.0.0",
         "clean-css": "^5.3.3",
         "esbuild": "^0.28.0",
         "eslint": "^10.0.0",
