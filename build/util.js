@@ -3,7 +3,7 @@ import CleanCSS from 'clean-css';
 import less from 'less';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { parseArgs } from 'node:util';
+import { parseArgs, styleText } from 'node:util';
 import pLimit from 'p-limit';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
@@ -40,7 +40,7 @@ export async function write(dest, data) {
 
 export async function logFile(file) {
     const { size } = await fs.stat(file);
-    console.log(`${cyan(file)} ${formatSize(size)}`);
+    console.log(`${styleText(['cyan', 'bold'], file)} ${formatSize(size)}`);
 }
 
 export async function minify(file) {
@@ -191,7 +191,7 @@ export async function icons(...src) {
     return JSON.stringify(sorted, null, '    ');
 }
 
-export function ucfirst(str) {
+function ucfirst(str) {
     return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 }
 
@@ -201,10 +201,6 @@ export async function getVersion() {
 
 export async function replaceInFile(file, fn) {
     await write(file, await fn(await read(file)));
-}
-
-function cyan(str) {
-    return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
 }
 
 function formatSize(bytes) {
