@@ -2,9 +2,9 @@ import alias from '@rollup/plugin-alias';
 import CleanCSS from 'clean-css';
 import { glob } from 'glob';
 import less from 'less';
-import minimist from 'minimist';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { parseArgs } from 'node:util';
 import pLimit from 'p-limit';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
@@ -14,14 +14,17 @@ const limit = pLimit(Number(process.env.cpus || 2));
 
 export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 
-const argv = minimist(process.argv.slice(2));
-
-argv._.forEach((arg) => {
-    const tokens = arg.split('=');
-    argv[tokens[0]] = tokens[1] || true;
+const { positionals, values } = parseArgs({
+    args: process.argv.slice(2),
+    allowPositionals: true,
+    strict: false,
 });
 
-export const args = argv;
+export const args = positionals.reduce((args, arg) => {
+    const tokens = arg.split('=');
+    args[tokens[0]] = tokens[1] || true;
+    return args;
+}, values);
 
 export function read(file) {
     return fs.readFile(file, 'utf8');
