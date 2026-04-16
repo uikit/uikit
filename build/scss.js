@@ -1,7 +1,7 @@
-import { emptyDir } from 'fs-extra';
 import { glob } from 'glob';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import NP from 'number-precision';
-import path from 'path';
 import { read, write } from './util.js';
 
 NP.enableBoundaryChecking(false);
@@ -12,7 +12,7 @@ const coreVariables = {};
 const themeVariables = {};
 const inverseComponentMixins = [];
 
-await emptyDir('src/scss/');
+await emptyDir('src/scss');
 
 for (const file of (await glob('src/less/**/*.less'))
     .sort()
@@ -247,4 +247,9 @@ async function getVariablesFromFile(file, source) {
 
     // Remove variables from source
     return source.replace(/(\$[\w-]*)\s*:(.*);\r?\n/g, '');
+}
+
+async function emptyDir(dir) {
+    await fs.rm(dir, { recursive: true, force: true });
+    await fs.mkdir(dir, { recursive: true });
 }

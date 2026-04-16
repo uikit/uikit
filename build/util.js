@@ -1,11 +1,11 @@
 import alias from '@rollup/plugin-alias';
 import CleanCSS from 'clean-css';
-import fs from 'fs-extra';
 import { glob } from 'glob';
 import less from 'less';
 import minimist from 'minimist';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import pLimit from 'p-limit';
-import path from 'path';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
 import { optimize } from 'svgo';
@@ -28,7 +28,7 @@ export function read(file) {
 }
 
 export async function write(dest, data) {
-    fs.ensureDir(path.dirname(dest));
+    await fs.mkdir(path.dirname(dest), { recursive: true });
 
     await fs.writeFile(dest, data);
     await logFile(dest);
@@ -194,7 +194,7 @@ export function ucfirst(str) {
 }
 
 export async function getVersion() {
-    return (await fs.readJson('package.json')).version;
+    return JSON.parse(await fs.readFile('package.json', 'utf8')).version;
 }
 
 export async function replaceInFile(file, fn) {
