@@ -48,7 +48,6 @@
         "globals": "^17.0.0",
         "inquirer": "^13.1.0",
         "less": "^4.5.1",
-        "number-precision": "^1.6.0",
         "p-limit": "^7.2.0",
         "prettier": "^3.7.4",
         "prettier-plugin-organize-imports": "^4.3.0",
