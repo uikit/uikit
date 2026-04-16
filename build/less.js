@@ -1,5 +1,5 @@
-import { glob } from 'glob';
 import fs from 'node:fs';
+import { glob } from 'node:fs/promises';
 import path from 'node:path';
 import rtlcss from 'rtlcss';
 import { args, banner, minify, read, renderLess, write } from './util.js';
@@ -13,7 +13,7 @@ const sources = [
 
 const themes = fs.existsSync('themes.json') ? JSON.parse(await read('themes.json')) : {};
 
-for (const src of await glob('custom/*.less')) {
+for await (const src of glob('custom/*.less')) {
     const theme = path.basename(src, '.less');
     const dist = `dist/css/uikit.${theme}${rtl ? '-rtl' : ''}.css`;
 

@@ -1,6 +1,5 @@
 import alias from '@rollup/plugin-alias';
 import CleanCSS from 'clean-css';
-import { glob } from 'glob';
 import less from 'less';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -177,7 +176,7 @@ export async function compile(
 export async function icons(...src) {
     let files = {};
     for (const pattern of src) {
-        for (const file of await glob(pattern)) {
+        for await (const file of fs.glob(pattern)) {
             files[path.basename(file, '.svg')] ??= limit(
                 async () => await optimizeSvg(await read(file)),
             );

@@ -1,9 +1,9 @@
 import archiver from 'archiver';
 import * as date from 'date-fns';
 import { $ } from 'execa';
-import { glob } from 'glob';
 import inquirer from 'inquirer';
 import fs from 'node:fs';
+import { glob } from 'node:fs/promises';
 import semver from 'semver';
 import { args, getVersion, logFile, read, replaceInFile } from './util.js';
 
@@ -76,7 +76,7 @@ async function createPackage(version) {
 
     archive.pipe(output);
 
-    for (const file of await glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')) {
+    for await (const file of glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')) {
         archive.file(file, { name: file.slice(5) });
     }
 
