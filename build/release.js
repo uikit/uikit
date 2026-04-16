@@ -1,9 +1,9 @@
 import archiver from 'archiver';
 import * as date from 'date-fns';
 import { $ } from 'execa';
-import fs from 'fs';
 import { glob } from 'glob';
 import inquirer from 'inquirer';
+import fs from 'node:fs';
 import semver from 'semver';
 import { args, getVersion, logFile, read, replaceInFile } from './util.js';
 

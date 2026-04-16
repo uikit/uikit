@@ -1,7 +1,7 @@
-import { emptyDir } from 'fs-extra';
 import { glob } from 'glob';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import NP from 'number-precision';
-import path from 'path';
 import { read, write } from './util.js';
 
 NP.enableBoundaryChecking(false);
@@ -12,7 +12,10 @@ const coreVariables = {};
 const themeVariables = {};
 const inverseComponentMixins = [];
 
-await emptyDir('src/scss/');
+const dest = 'src/scss';
+
+await fs.rm(dest, { recursive: true, force: true });
+await fs.mkdir(dest, { recursive: true });
 
 for (const file of (await glob('src/less/**/*.less'))
     .sort()
@@ -116,7 +119,7 @@ for (const [vars, file] of [
 ]) {
     delete vars['svg-fill'];
 
-    await write(`src/scss/${file}.scss`, useSassModules(Object.values(vars).join('\n')));
+    await write(`${dest}/${file}.scss`, useSassModules(Object.values(vars).join('\n')));
 }
 
 /* write variables files */
@@ -128,7 +131,7 @@ for (const [vars, file] of [
         (dependencies, key) => resolveDependencies(vars, key, dependencies),
         new Set(),
     );
-    await write(`src/scss/${file}.scss`, useSassModules(Array.from(variables).join('\n')));
+    await write(`${dest}/${file}.scss`, useSassModules(Array.from(variables).join('\n')));
 }
 
 /*
