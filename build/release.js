@@ -1,5 +1,4 @@
 import archiver from 'archiver';
-import * as date from 'date-fns';
 import { $ } from 'execa';
 import inquirer from 'inquirer';
 import fs from 'node:fs';
@@ -53,10 +52,7 @@ function raiseVersion(version) {
     return Promise.all([
         $$`npm version ${version} --git-tag-version false`,
         replaceInFile('CHANGELOG.md', (data) =>
-            data.replace(
-                /^##\s*WIP.*$/m,
-                `## ${versionFormat(version)} (${date.format(new Date(), 'MMMM d, yyyy')})`,
-            ),
+            data.replace(/^##\s*WIP.*$/m, `## ${versionFormat(version)} (${dateFormat()})`),
         ),
         replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', (data) =>
             data.replace(prevVersion, version),
@@ -125,4 +121,12 @@ async function deploy(version) {
     await $$`git branch --delete ${branch}`;
 
     await $$`git push origin develop`;
+}
+
+function dateFormat() {
+    return new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+    }).format(new Date());
 }

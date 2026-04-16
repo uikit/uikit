@@ -39,7 +39,6 @@
         "camelcase": "^9.0.0",
         "chokidar-cli": "^3.0.0",
         "clean-css": "^5.3.3",
-        "date-fns": "^4.1.0",
         "esbuild": "^0.28.0",
         "eslint": "^10.0.0",
         "eslint-config-prettier": "^10.1.8",
