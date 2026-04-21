@@ -10,6 +10,7 @@ import {
     includes,
     isEmpty,
     isEqual,
+    isNumeric,
     isTag,
     isUndefined,
     matches,
@@ -199,11 +200,15 @@ function matchFilter(
 }
 
 function sortItems(nodes, sort, order) {
-    return [...nodes].sort(
-        (a, b) =>
-            (data(a, sort) || '').localeCompare(data(b, sort), undefined, { numeric: true }) *
-            (order === 'asc' || -1),
-    );
+    return [...nodes].sort((a, b) => {
+        const valA = data(a, sort) || '';
+        const valB = data(b, sort) || '';
+        const cmp =
+            isNumeric(valA) && isNumeric(valB)
+                ? valA - valB
+                : valA.localeCompare(valB, undefined, { numeric: true });
+        return cmp * (order === 'asc' || -1);
+    });
 }
 
 function findButton(el) {

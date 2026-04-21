@@ -2,7 +2,7 @@
     "name": "uikit",
     "title": "UIkit",
     "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-    "version": "3.25.15",
+    "version": "3.25.16",
     "main": "dist/js/uikit.js",
     "style": "dist/css/uikit.css",
     "sideEffects": [
@@ -20,7 +20,7 @@
         "prefix": "node build/prefix",
         "scope": "node build/scope",
         "release": "node build/release",
-        "watch": "chokidar \"**/*.less\" --initial -i \"node_modules\" -c \"node build/less\""
+        "watch": "node build/watch.js"
     },
     "repository": {
         "type": "git",
@@ -31,26 +31,21 @@
         "url": "https://github.com/uikit/uikit/issues"
     },
     "homepage": "https://getuikit.com",
-    "packageManager": "pnpm@10.29.2",
+    "packageManager": "pnpm@10.33.0",
     "devDependencies": {
         "@eslint/js": "^10.0.1",
         "@rollup/plugin-alias": "^6.0.0",
         "archiver": "^7.0.1",
         "camelcase": "^9.0.0",
-        "chokidar-cli": "^3.0.0",
         "clean-css": "^5.3.3",
-        "date-fns": "^4.1.0",
         "esbuild": "^0.28.0",
         "eslint": "^10.0.0",
         "eslint-config-prettier": "^10.1.8",
         "execa": "^9.6.1",
-        "fs-extra": "^11.3.2",
         "glob": "^13.0.0",
         "globals": "^17.0.0",
         "inquirer": "^13.1.0",
         "less": "^4.5.1",
-        "minimist": "^1.2.8",
-        "number-precision": "^1.6.0",
         "p-limit": "^7.2.0",
         "prettier": "^3.7.4",
         "prettier-plugin-organize-imports": "^4.3.0",

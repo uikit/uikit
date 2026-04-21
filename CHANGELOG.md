@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.25.16 (April 21, 2026)
+
+### Fixed
+
+- Fix negative numbers sorted incorrectly in Filter component
+- Fix Modal component stealing focus from overlays rendered outside the modal
+- Fix component root class not removed after disconnect
+
 ## 3.25.15 (April 9, 2026)
 
 ### Fixed

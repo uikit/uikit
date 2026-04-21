@@ -1,9 +1,8 @@
 import archiver from 'archiver';
-import * as date from 'date-fns';
 import { $ } from 'execa';
-import fs from 'fs';
-import { glob } from 'glob';
 import inquirer from 'inquirer';
+import fs from 'node:fs';
+import { glob } from 'node:fs/promises';
 import semver from 'semver';
 import { args, getVersion, logFile, read, replaceInFile } from './util.js';
 
@@ -53,10 +52,7 @@ function raiseVersion(version) {
     return Promise.all([
         $$`npm version ${version} --git-tag-version false`,
         replaceInFile('CHANGELOG.md', (data) =>
-            data.replace(
-                /^##\s*WIP.*$/m,
-                `## ${versionFormat(version)} (${date.format(new Date(), 'MMMM d, yyyy')})`,
-            ),
+            data.replace(/^##\s*WIP.*$/m, `## ${versionFormat(version)} (${dateFormat()})`),
         ),
         replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', (data) =>
             data.replace(prevVersion, version),
@@ -76,7 +72,7 @@ async function createPackage(version) {
 
     archive.pipe(output);
 
-    for (const file of await glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')) {
+    for await (const file of glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')) {
         archive.file(file, { name: file.slice(5) });
     }
 
@@ -105,7 +101,7 @@ async function deploy(version) {
     const branch = `release/v${version}`;
 
     await $$`git checkout -b ${branch}`;
-    await $$`git stage --all`;
+    await $$`git add --all`;
     await $$`git commit -am v${version}`;
 
     await $$`git checkout main`;
@@ -125,4 +121,12 @@ async function deploy(version) {
     await $$`git branch --delete ${branch}`;
 
     await $$`git push origin develop`;
+}
+
+function dateFormat() {
+    return new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+    }).format(new Date());
 }

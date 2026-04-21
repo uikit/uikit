@@ -1,10 +1,7 @@
-import { emptyDir } from 'fs-extra';
 import { glob } from 'glob';
-import NP from 'number-precision';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import { read, write } from './util.js';
-
-NP.enableBoundaryChecking(false);
 
 const coreMixins = {};
 const themeMixins = {};
@@ -12,7 +9,7 @@ const coreVariables = {};
 const themeVariables = {};
 const inverseComponentMixins = [];
 
-await emptyDir('src/scss/');
+await emptyDir('src/scss');
 
 for (const file of (await glob('src/less/**/*.less'))
     .sort()
@@ -24,7 +21,7 @@ for (const file of (await glob('src/less/**/*.less'))
         .replace(/@(?!property)/g, '$') // convert variables
         .replace(
             /(:[^'"]*?\([^'"]+?)\s*\/\s*([0-9.-]+)\)/g,
-            (exp, m1, m2) => `${m1} * ${NP.round(1 / parseFloat(m2), 5)})`,
+            (exp, m1, m2) => `${m1} * ${round(1 / parseFloat(m2), 5)})`,
         )
         .replace(/--uk-\S+: (\$\S+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
         .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
@@ -247,4 +244,13 @@ async function getVariablesFromFile(file, source) {
 
     // Remove variables from source
     return source.replace(/(\$[\w-]*)\s*:(.*);\r?\n/g, '');
+}
+
+async function emptyDir(dir) {
+    await fs.rm(dir, { recursive: true, force: true });
+    await fs.mkdir(dir, { recursive: true });
+}
+
+function round(num, precision) {
+    return Math.round(num * 10 ** precision) / 10 ** precision;
 }

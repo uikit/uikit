@@ -460,13 +460,14 @@ function getViewport(el, target) {
 }
 
 function createToggleComponent(drop) {
-    const { $el } = drop.$create('toggle', query(drop.toggle, drop.$el), {
-        target: drop.$el,
-        mode: drop.mode,
-    });
-    $el.ariaHasPopup = true;
+    const el = query(drop.toggle, drop.$el);
 
-    return $el;
+    if (el) {
+        drop.$create('toggle', el, { target: drop.$el, mode: drop.mode });
+        el.ariaHasPopup = true;
+    }
+
+    return el;
 }
 
 function listenForResize(drop) {

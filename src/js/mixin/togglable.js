@@ -51,13 +51,15 @@ export default {
 
     methods: {
         async toggleElement(targets, toggle, animate) {
-            try {
+            const CANCELLED = {};
+
+            return (
                 await Promise.all(
                     toNodes(targets).map((el) => {
                         const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
 
                         if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
-                            return Promise.reject();
+                            return CANCELLED;
                         }
 
                         const promise = (
@@ -90,15 +92,12 @@ export default {
                         return promise
                             ? promise.then(done, () => {
                                   removeClass(el, cls);
-                                  return Promise.reject();
+                                  return CANCELLED;
                               })
                             : done();
                     }),
-                );
-                return true;
-            } catch {
-                return false;
-            }
+                )
+            ).every((r) => r !== CANCELLED);
         },
 
         isToggled(el = this.$el) {
