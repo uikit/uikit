@@ -1,4 +1,4 @@
-/*! UIkit 3.25.15 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.16 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1284,7 +1284,7 @@
       const scrollEl = scrollingElement(element);
       let ancestors = parents(element).reverse();
       ancestors = ancestors.slice(ancestors.indexOf(scrollEl) + 1);
-      const fixedIndex = findIndex(ancestors, (el) => css(el, "position") === "fixed");
+      const fixedIndex = findIndex(ancestors, (el) => hasPosition(el, "fixed"));
       if (~fixedIndex) {
         ancestors = ancestors.slice(fixedIndex);
       }
@@ -1683,7 +1683,13 @@
 
     var Class = {
       connected() {
+        this._cmpCls = hasClass(this.$el, this.$options.id);
         addClass(this.$el, this.$options.id);
+      },
+      disconnected() {
+        if (!this._cmpCls) {
+          removeClass(this.$el, this.$options.id);
+        }
       }
     };
 
@@ -2483,9 +2489,12 @@
       return isUndefined(sort) ? group in stateFilter && filter === stateFilter[group] || !filter && group && !(group in stateFilter) && !stateFilter[""] : stateSort === sort && stateOrder === order;
     }
     function sortItems(nodes, sort, order) {
-      return [...nodes].sort(
-        (a, b) => (data(a, sort) || "").localeCompare(data(b, sort), void 0, { numeric: true }) * (order === "asc" || -1)
-      );
+      return [...nodes].sort((a, b) => {
+        const valA = data(a, sort) || "";
+        const valB = data(b, sort) || "";
+        const cmp = isNumeric(valA) && isNumeric(valB) ? valA - valB : valA.localeCompare(valB, void 0, { numeric: true });
+        return cmp * (order === "asc" || -1);
+      });
     }
     function findButton(el) {
       return $("a,button", el) || el;
@@ -2698,35 +2707,31 @@
       },
       methods: {
         async toggleElement(targets, toggle, animate) {
-          try {
-            await Promise.all(
-              toNodes(targets).map((el) => {
-                const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
-                if (!trigger(el, `before${show ? "show" : "hide"}`, [this])) {
-                  return Promise.reject();
+          const CANCELLED = {};
+          return (await Promise.all(
+            toNodes(targets).map((el) => {
+              const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
+              if (!trigger(el, `before${show ? "show" : "hide"}`, [this])) {
+                return CANCELLED;
+              }
+              const promise = (isFunction(animate) ? animate : animate === false || !this.hasAnimation ? toggleInstant : this.hasTransition ? toggleTransition : toggleAnimation)(el, show, this);
+              const cls = show ? this.clsEnter : this.clsLeave;
+              addClass(el, cls);
+              trigger(el, show ? "show" : "hide", [this]);
+              const done = () => {
+                var _a;
+                removeClass(el, cls);
+                trigger(el, show ? "shown" : "hidden", [this]);
+                if (show) {
+                  (_a = $$("[autofocus]", el).find(isVisible)) == null ? void 0 : _a.focus({ preventScroll: true });
                 }
-                const promise = (isFunction(animate) ? animate : animate === false || !this.hasAnimation ? toggleInstant : this.hasTransition ? toggleTransition : toggleAnimation)(el, show, this);
-                const cls = show ? this.clsEnter : this.clsLeave;
-                addClass(el, cls);
-                trigger(el, show ? "show" : "hide", [this]);
-                const done = () => {
-                  var _a;
-                  removeClass(el, cls);
-                  trigger(el, show ? "shown" : "hidden", [this]);
-                  if (show) {
-                    (_a = $$("[autofocus]", el).find(isVisible)) == null ? void 0 : _a.focus({ preventScroll: true });
-                  }
-                };
-                return promise ? promise.then(done, () => {
-                  removeClass(el, cls);
-                  return Promise.reject();
-                }) : done();
-              })
-            );
-            return true;
-          } catch {
-            return false;
-          }
+              };
+              return promise ? promise.then(done, () => {
+                removeClass(el, cls);
+                return CANCELLED;
+              }) : done();
+            })
+          )).every((r) => r !== CANCELLED);
         },
         isToggled(el = this.$el) {
           el = toNode(el);
@@ -3042,9 +3047,15 @@
     }
     function preventBackgroundFocus(modal) {
       return on(document, "focusin", (e) => {
-        if (last(active$1) === modal && !modal.$el.contains(e.target)) {
-          modal.$el.focus();
+        if (last(active$1) !== modal || modal.$el.contains(e.target)) {
+          return;
         }
+        const { left, top, width, height } = dimensions$1(e.target);
+        const topEl = document.elementFromPoint(left + width / 2, top + height / 2);
+        if (topEl && (e.target.contains(topEl) || topEl.contains(e.target))) {
+          return;
+        }
+        modal.$el.focus();
       });
     }
     function listenForBackgroundClose$1(modal) {
@@ -3383,7 +3394,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.15';
+    var VERSION = '3.25.16';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -7385,12 +7396,12 @@
       return offsetViewport(overflowParents(target).find((parent2) => parent2.contains(el)));
     }
     function createToggleComponent(drop) {
-      const { $el } = drop.$create("toggle", query(drop.toggle, drop.$el), {
-        target: drop.$el,
-        mode: drop.mode
-      });
-      $el.ariaHasPopup = true;
-      return $el;
+      const el = query(drop.toggle, drop.$el);
+      if (el) {
+        drop.$create("toggle", el, { target: drop.$el, mode: drop.mode });
+        el.ariaHasPopup = true;
+      }
+      return el;
     }
     function listenForResize(drop) {
       const update = () => drop.$emit();
