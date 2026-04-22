@@ -1,5 +1,6 @@
 import {
-    $$,
+    $,
+    children,
     css,
     dimensions,
     hasClass,
@@ -37,7 +38,10 @@ export default {
     },
 
     computed: {
-        items: ({ selList }, $el) => $$(`${selList} > *`, $el),
+        list: ({ selList }, $el) => $(selList, $el),
+        items() {
+            return children(this.list);
+        },
     },
 
     observe: [
@@ -80,7 +84,7 @@ export default {
             css(items, 'offset', 'none');
 
             const dir = vertical ? ['top', 'bottom'] : ['left', 'right'];
-            const listStart = dimensions(this.$el)[dir[0]];
+            const listStart = dimensions(this.list)[dir[0]];
             const listEnd = Math.max(...items.map((el) => dimensions(el)[dir[1]]));
 
             for (const el of items) {
