@@ -208,7 +208,10 @@ async function ajax(url, options) {
         responseType: '',
         ...options,
     };
-    await env.beforeSend(env);
+    if ((await env.beforeSend(env)) === false) {
+        throw abortError(env.xhr);
+    }
+
     return send(env.url, env);
 }
 
@@ -245,8 +248,12 @@ function send(url, env) {
 
         on(xhr, 'error', () => reject(assign(Error('Network Error'), { xhr })));
         on(xhr, 'timeout', () => reject(assign(Error('Network Timeout'), { xhr })));
-        on(xhr, 'abort', () => reject(assign(Error('Network Abort'), { xhr, name: 'AbortError' })));
+        on(xhr, 'abort', () => reject(abortError(xhr)));
 
         xhr.send(env.data);
     });
+}
+
+function abortError(xhr) {
+    return assign(Error('Network Abort'), { xhr, name: 'AbortError' });
 }
