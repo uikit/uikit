@@ -160,7 +160,9 @@ export default {
                         this.completeAll(xhr);
                     }
                 } catch (e) {
-                    this.error(e);
+                    if (e.name !== 'AbortError') {
+                        this.error(e);
+                    }
                 }
             };
 
@@ -243,6 +245,7 @@ function send(url, env) {
 
         on(xhr, 'error', () => reject(assign(Error('Network Error'), { xhr })));
         on(xhr, 'timeout', () => reject(assign(Error('Network Timeout'), { xhr })));
+        on(xhr, 'abort', () => reject(assign(Error('Network Abort'), { xhr, name: 'AbortError' })));
 
         xhr.send(env.data);
     });
