@@ -5,6 +5,7 @@ import {
     dimensions,
     hasClass,
     inBrowser,
+    isRtl,
     pointerEnter,
     pointerLeave,
     toggleClass,
@@ -84,8 +85,14 @@ export default {
             css(items, 'offset', 'none');
 
             const dir = vertical ? ['top', 'bottom'] : ['left', 'right'];
+            if (!vertical && isRtl) {
+                dir.reverse();
+            }
+
             const listStart = dimensions(this.list)[dir[0]];
-            const listEnd = Math.max(...items.map((el) => dimensions(el)[dir[1]]));
+            const listEnd = Math[!vertical && isRtl ? 'min' : 'max'](
+                ...items.map((el) => dimensions(el)[dir[1]]),
+            );
 
             for (const el of items) {
                 const elEnd = dimensions(el)[dir[1]];
@@ -98,7 +105,7 @@ export default {
             }
 
             css(this.$el, {
-                [`--${prefix}-duration`]: `${(listEnd - listStart) / this.velocity}s`,
+                [`--${prefix}-duration`]: `${Math.abs(listStart - listEnd) / this.velocity}s`,
                 [`--${prefix}-start`]: this.start,
                 [`--${prefix}-direction`]: this.reverse ? 'reverse' : 'normal',
                 '--uk-overflow-fade-size': this.fadeSize
