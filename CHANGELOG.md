@@ -5,12 +5,16 @@
 ### Added
 
 - Add Marquee component
-- Add `switcher-connect` option to Accordion component
-- Add `reduced-motion-time` option to control which frame is shown when autoplay is prevented due to `prefers-reduced-motion` in Video component
-- Add `inview-margin` option to control the viewport margin in Video component
+- Add options to control an additional switcher container to Accordion component
+- Add parallax options to Video component
+- Add `inview-margin` option to change the autoplay inview area in Video component
 - Add `inview-queued` option to limit the number of simultaneously playing videos in Video component
-- Add `hover-rewind` option to rewind videos after hovering in Video component
-- Add `parallax` autoplay mode and `parallax-start`, `parallax-end`, `parallax-target`, `parallax-easing` options to Video component
+- Add `hover-rewind` option to fast rewind videos after hovering in Video component
+- Add `reduced-motion-time` option to change the pause frame for `prefers-reduced-motion` in Video component
+
+### Changed
+
+- Respect `prefers-reduced-motion` preference for all autoplay modes except hover in Video component
 
 ### Fixed
 
