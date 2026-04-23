@@ -337,7 +337,7 @@
                             <td><code>start</code></td>
                             <td>Length, CSS Selector</td>
                             <td>0</td>
-                            <td>Start offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the element's top border and viewport's top border intersect. A CSS Selector will set start to the selected element's bottom border and the elements top border.</td>
+                            <td>Start offset. The value can be in vh, % and px. It supports the basic math operators + and -. The default value of 0 means the element's top border intersects the viewport's top border. A CSS selector sets the start point between the selected element's bottom border and this element's top border.</td>
                         </tr>
                         <tr>
                             <td><code>end</code></td>
@@ -361,7 +361,7 @@
                             <td><code>overflow-flip</code></td>
                             <td>Boolean</td>
                             <td>false</td>
-                            <td>Flip the Sticky's position option if the element overflows the viewport and disables overflow scrolling.</td>
+                            <td>Flip the sticky position if the element overflows the viewport, and disable overflow scrolling.</td>
                         </tr>
                         <tr>
                             <td><code>animation</code></td>
@@ -403,7 +403,7 @@
                             <td><code>target-offset</code></td>
                             <td>Boolean, Length</td>
                             <td>false</td>
-                            <td>Initially make sure that the Sticky element is not over a referenced element via the page's location hash. The offset defines by how far the element will be above the referenced element. `false` will disable this behavior.</td>
+                            <td>Ensures the sticky element does not overlap the element referenced by the page's location hash on initial load. The offset defines how far above that element it should remain. Set to `false` to disable this behavior.</td>
                         </tr>
                     </tbody>
                 </table>

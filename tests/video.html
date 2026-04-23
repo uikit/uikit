@@ -335,19 +335,19 @@
                         <td><code>autoplay</code></td>
                         <td>Boolean, String</td>
                         <td>true</td>
-                        <td>Disable or enable autoplay (`false`, `true`). Videos will stop when hidden and continue playing when leaving the viewport. Use `inview` to also stop the video when leaving the viewport. Use `hover` to play the video only on hover. Use `parallax` to connect video playback to scrolling. Note: Hover and Parallax does not work with iframes.</td>
+                        <td>Disable or enable autoplay (`false`, `true`). Videos will stop when hidden and continue playing when leaving the viewport. Use `inview` to also stop the video when leaving the viewport. Use `hover` to play the video only on hover. Use `parallax` to connect video playback to scrolling. Note: `hover` and `parallax` do not work with iframes.</td>
                     </tr>
                     <tr>
                         <td><code>restart</code></td>
                         <td>Boolean</td>
                         <td>false</td>
-                        <td>Video will seek to the beginning whenever video element's autoplay option pauses the video.</td>
+                        <td>Seeks the video back to the beginning whenever autoplay pauses it.</td>
                     </tr>
                     <tr>
                         <td><code>hover-target</code></td>
                         <td>CSS Selector</td>
                         <td>self</td>
-                        <td>The element that functions as hover toggle when autoplay option is set to `hover`.</td>
+                        <td>Element used as the hover trigger when `autoplay` is set to `hover`.</td>
                     </tr>
                     <tr>
                         <td><code>hover-rewind</code></td>
@@ -359,7 +359,7 @@
                         <td><code>inview-margin</code></td>
                         <td>String</td>
                         <td>0px</td>
-                        <td>The margin that is added to the element's viewport to check if the element is considered in view.</td>
+                        <td>Margin added to the viewport when determining whether the element is in view.</td>
                     </tr>
                     <tr>
                         <td><code>inview-queued</code></td>
