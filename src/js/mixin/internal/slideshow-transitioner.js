@@ -1,8 +1,8 @@
 import { clamp, createEvent, css, noop, resetProps, Transition, trigger } from 'uikit-util';
 
 export default function Transitioner(prev, next, dir, { animation, easing }) {
-    const { percent, translate, show = noop } = animation;
-    const props = show(dir);
+    const { percent, translate } = animation;
+    const props = translate(1, dir);
 
     const { promise, resolve } = withResolvers();
 

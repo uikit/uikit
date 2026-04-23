@@ -2,20 +2,12 @@ import { css } from 'uikit-util';
 
 export default {
     slide: {
-        show(dir) {
-            return [{ transform: translate(dir * -100) }, { transform: translate() }];
-        },
+        percent: translated,
 
-        percent(current) {
-            return translated(current);
-        },
-
-        translate(percent, dir) {
-            return [
-                { transform: translate(dir * -100 * percent) },
-                { transform: translate(dir * 100 * (1 - percent)) },
-            ];
-        },
+        translate: (percent, dir) => [
+            { transform: translate(dir * -100 * percent) },
+            { transform: translate(dir * 100 * (1 - percent)) },
+        ],
     },
 };
 
