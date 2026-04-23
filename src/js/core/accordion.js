@@ -40,6 +40,7 @@ export default {
         toggle: String,
         content: String,
         offset: Number,
+        switcherConnect: String,
     },
 
     data: {
@@ -53,6 +54,11 @@ export default {
         toggle: '.uk-accordion-title',
         content: '.uk-accordion-content',
         offset: 0,
+        switcherConnect: '',
+    },
+
+    beforeConnect() {
+        this.connect = this.$props.connect = this.switcherConnect;
     },
 
     computed: {
