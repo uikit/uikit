@@ -280,103 +280,23 @@ export default {
                     return;
                 }
 
-                let matches;
-                const iframeAttrs = {
-                    allowfullscreen: '',
-                    style: 'max-width: 100%; box-sizing: border-box;',
-                    'uk-responsive': '',
-                    'uk-video': Boolean(this.videoAutoplay),
-                };
+                try {
+                    for (const loader of [
+                        loadImage,
+                        loadVideo,
+                        loadIframe,
+                        loadYouTube,
+                        loadVimeo,
+                    ]) {
+                        const content = await loader({ src, type, attrs, item, cmp: this });
 
-                // Image
-                if (type === 'image' || isImage(src)) {
-                    const img = createEl('img');
-
-                    wrapInPicture(img, item.sources);
-                    attr(img, {
-                        src,
-                        ...pick(item, ['alt', 'srcset', 'sizes']),
-                        ...attrs,
-                    });
-
-                    on(img, 'load', () => this.setItem(item, parent(img) || img));
-                    on(img, 'error', () => this.setError(item));
-
-                    // Video
-                } else if (type === 'video' || isVideo(src)) {
-                    const inline = this.videoAutoplay === 'inline';
-                    const video = createEl('video', {
-                        src,
-                        playsinline: '',
-                        controls: inline ? null : '',
-                        loop: inline ? '' : null,
-                        muted: inline ? '' : null,
-                        poster: this.videoAutoplay ? null : item.poster,
-                        'uk-video': Boolean(this.videoAutoplay),
-                        ...attrs,
-                    });
-
-                    on(video, 'loadedmetadata', () => this.setItem(item, video));
-                    on(video, 'error', () => this.setError(item));
-
-                    // Iframe
-                } else if (type === 'iframe' || src.match(/\.(html|php)($|\?)/i)) {
-                    this.setItem(
-                        item,
-                        createEl('iframe', {
-                            src,
-                            allowfullscreen: '',
-                            class: 'uk-lightbox-iframe',
-                            ...attrs,
-                        }),
-                    );
-
-                    // YouTube
-                } else if (
-                    (matches = src.match(
-                        /\/\/(?:.*?youtube(-nocookie)?\..*?(?:[?&]v=|\/shorts\/)|youtu\.be\/)([\w-]{11})[&?]?(.*)?/,
-                    ))
-                ) {
-                    this.setItem(
-                        item,
-                        createEl('iframe', {
-                            src: `https://www.youtube${matches[1] || ''}.com/embed/${matches[2]}${
-                                matches[3] ? `?${matches[3]}` : ''
-                            }`,
-                            width: 1920,
-                            height: 1080,
-                            ...iframeAttrs,
-                            ...attrs,
-                        }),
-                    );
-
-                    // Vimeo
-                } else if ((matches = src.match(/\/\/.*?vimeo\.[a-z]+\/(\d+)[&?]?(.*)?/))) {
-                    try {
-                        const { height, width } = await (
-                            await fetch(
-                                `https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(
-                                    src,
-                                )}`,
-                                { credentials: 'omit' },
-                            )
-                        ).json();
-
-                        this.setItem(
-                            item,
-                            createEl('iframe', {
-                                src: `https://player.vimeo.com/video/${matches[1]}${
-                                    matches[2] ? `?${matches[2]}` : ''
-                                }`,
-                                width,
-                                height,
-                                ...iframeAttrs,
-                                ...attrs,
-                            }),
-                        );
-                    } catch {
-                        this.setError(item);
+                        if (content) {
+                            this.setItem(item, content);
+                            return;
+                        }
                     }
+                } catch {
+                    this.setError(item);
                 }
             },
         },
@@ -450,6 +370,112 @@ function createEl(tag, attrs) {
     const el = fragment(`<${tag}>`);
     attr(el, attrs);
     return el;
+}
+
+function loadImage({ src, type, attrs, item }) {
+    if (type !== 'image' && !isImage(src)) {
+        return;
+    }
+
+    const img = createEl('img');
+
+    wrapInPicture(img, item.sources);
+    attr(img, {
+        src,
+        ...pick(item, ['alt', 'srcset', 'sizes']),
+        ...attrs,
+    });
+
+    return new Promise((resolve, reject) => {
+        on(img, 'load', () => resolve(parent(img) || img));
+        on(img, 'error', reject);
+    });
+}
+
+function loadVideo({ src, type, attrs, item, cmp }) {
+    if (type !== 'video' && !isVideo(src)) {
+        return;
+    }
+
+    const inline = cmp.videoAutoplay === 'inline';
+    const video = createEl('video', {
+        src,
+        playsinline: '',
+        controls: inline ? null : '',
+        loop: inline ? '' : null,
+        muted: inline ? '' : null,
+        poster: cmp.videoAutoplay ? null : item.poster,
+        'uk-video': Boolean(cmp.videoAutoplay),
+        ...attrs,
+    });
+
+    return new Promise((resolve, reject) => {
+        on(video, 'loadedmetadata', () => resolve(video));
+        on(video, 'error', reject);
+    });
+}
+
+function loadIframe({ src, type, attrs }) {
+    if (type !== 'iframe' && !src.match(/\.(html|php)($|\?)/i)) {
+        return;
+    }
+
+    return createEl('iframe', {
+        src,
+        allowfullscreen: '',
+        class: 'uk-lightbox-iframe',
+        ...attrs,
+    });
+}
+
+function loadYouTube({ src, attrs, cmp }) {
+    const matches = src.match(
+        /\/\/(?:.*?youtube(-nocookie)?\..*?(?:[?&]v=|\/shorts\/)|youtu\.be\/)([\w-]{11})[&?]?(.*)?/,
+    );
+
+    if (!matches) {
+        return;
+    }
+
+    return createEl('iframe', {
+        src: `https://www.youtube${matches[1] || ''}.com/embed/${matches[2]}${matches[3] ? `?${matches[3]}` : ''}`,
+        width: 1920,
+        height: 1080,
+        ...getIframeAttrs(cmp),
+        ...attrs,
+    });
+}
+
+async function loadVimeo({ src, attrs, cmp }) {
+    const matches = src.match(/\/\/.*?vimeo\.[a-z]+\/(\d+)[&?]?(.*)?/);
+
+    if (!matches) {
+        return;
+    }
+
+    const { height, width } = await (
+        await fetch(
+            `https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURIComponent(src)}`,
+            { credentials: 'omit' },
+        )
+    ).json();
+
+    return createEl('iframe', {
+        src: `https://player.vimeo.com/video/${matches[1]}${matches[2] ? `?${matches[2]}` : ''}`,
+        width,
+        height,
+        ...getIframeAttrs(cmp),
+        ...attrs,
+    });
+}
+
+function getIframeAttrs(cmp) {
+    return {
+        allowfullscreen: '',
+        style: 'max-width: 100%; box-sizing: border-box;',
+        'uk-responsive': '',
+        'uk-video': Boolean(cmp.videoAutoplay),
+    };
 }
 
 function toThumbnavItem(item, videoAutoplay) {
