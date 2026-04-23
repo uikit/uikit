@@ -158,7 +158,7 @@
                                     </div>
                                     <div class="uk-width-auto" uk-accordion-icon></div>
                                 </div>
-                                
+
                             </a>
                             <div class="uk-accordion-content">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -175,7 +175,7 @@
                                     </div>
                                     <div class="uk-width-auto" uk-accordion-icon></div>
                                 </div>
-                                
+
                             </a>
                             <div class="uk-accordion-content">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -192,7 +192,7 @@
                                     </div>
                                     <div class="uk-width-auto" uk-accordion-icon></div>
                                 </div>
-                                
+
                             </a>
                             <div class="uk-accordion-content">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -223,12 +223,6 @@
                         <td>The element(s) to toggle.</td>
                     </tr>
                     <tr>
-                        <td><code>connect</code></td>
-                        <td>CSS selector</td>
-                        <td>false</td>
-                        <td>Related items container. Children are toggled in sync with the active accordion item.</td>
-                    </tr>
-                    <tr>
                         <td><code>active</code></td>
                         <td>Number</td>
                         <td>false</td>
@@ -254,9 +248,9 @@
                     </tr>
                     <tr>
                         <td><code>animation</code></td>
-                        <td>Boolean</td>
+                        <td>Boolean, String</td>
                         <td>true</td>
-                        <td>Reveal item directly or with a transition. </td>
+                        <td>Set to `false` to reveal items directly. When using `switcher-connect`, accepts space-separated animation names and an optional comma-separated animation-out value.</td>
                     </tr>
                     <tr>
                         <td><code>duration</code></td>
@@ -269,6 +263,12 @@
                         <td>Number</td>
                         <td>0</td>
                         <td>Offset added to scroll top.</td>
+                    </tr>
+                    <tr>
+                        <td><code>switcher-connect</code></td>
+                        <td>CSS selector</td>
+                        <td>false</td>
+                        <td>Related switcher items container. Children are toggled in sync with the active accordion item.</td>
                     </tr>
                 </tbody>
             </table>
