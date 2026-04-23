@@ -5,6 +5,7 @@
 ### Added
 
 - Add Marquee component
+- Add `switcher-connect` option to Accordion component
 - Add `reduced-motion-time` option to control which frame is shown when autoplay is prevented due to `prefers-reduced-motion` in Video component
 - Add `inview-margin` option to control the viewport margin in Video component
 - Add `inview-queued` option to limit the number of simultaneously playing videos in Video component
