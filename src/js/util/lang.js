@@ -177,11 +177,7 @@ export function uniqueBy(array, prop) {
 }
 
 export function pick(obj, props) {
-    const result = {};
-    for (const prop of props) {
-        result[prop] = obj[prop];
-    }
-    return result;
+    return Object.fromEntries(props.map((key) => [key, obj[key]]));
 }
 
 export function clamp(number, min = 0, max = 1) {
