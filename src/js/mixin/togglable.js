@@ -9,6 +9,7 @@ import {
     isBoolean,
     isFunction,
     isVisible,
+    pick,
     removeClass,
     startsWith,
     toFloat,
@@ -163,20 +164,18 @@ async function toggleTransition(el, show, { animation, duration, velocity, trans
         _toggle(el, true);
     }
 
-    const prevProps = Object.fromEntries(
-        [
-            'padding',
-            'border',
-            'width',
-            'height',
-            'minWidth',
-            'minHeight',
-            'overflowY',
-            'overflowX',
-            marginProp,
-            marginStartProp,
-        ].map((key) => [key, el.style[key]]),
-    );
+    const prevProps = pick(el.style, [
+        'padding',
+        'border',
+        'width',
+        'height',
+        'minWidth',
+        'minHeight',
+        'overflowY',
+        'overflowX',
+        marginProp,
+        marginStartProp,
+    ]);
 
     const dim = dimensions(el);
     const currentMargin = toFloat(css(el, marginProp));
