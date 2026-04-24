@@ -198,26 +198,29 @@ export default {
     },
 
     methods: {
-        toggle(item, animate) {
+        async toggle(item, animate) {
+            animate = animate !== false;
+
             const next = getIndex(item, this.items);
 
             item = this.items[next];
             let items = [item];
             const activeItems = filter(this.items, `.${this.clsOpen}`);
+            const isActive = includes(activeItems, item);
 
-            if (!this.multiple && !includes(activeItems, items[0])) {
-                items = items.concat(activeItems);
+            if (isActive && !this.collapsible && activeItems.length < 2) {
+                return;
             }
 
-            if (!this.collapsible && activeItems.length < 2 && includes(activeItems, item)) {
-                items = [];
+            if (!isActive && !this.multiple) {
+                items.push(...activeItems);
             }
 
             const toggle = (el) =>
                 this.toggleElement(el, !includes(activeItems, el), (el, show) => {
                     toggleClass(el, this.clsOpen, show);
 
-                    if (animate === false || !this.hasAnimation) {
+                    if (!animate || !this.hasAnimation) {
                         hide($(this.content, el), !show);
                         return;
                     }
@@ -225,9 +228,17 @@ export default {
                     return transition(el, show, this);
                 });
 
+            const hideIndex = () => {
+                const index = findIndex(children(this.connects[0]), (el) => hasClass(el, this.cls));
+
+                return index === next
+                    ? findIndex(this.items, (i) => i !== item && includes(activeItems, i))
+                    : index;
+            };
+
             return Promise.all([
                 ...items.map(toggle),
-                this.showConnects(includes(activeItems, item) ? -1 : next, animate !== false),
+                this.showConnects(isActive ? hideIndex() : next, animate),
             ]);
         },
     },
