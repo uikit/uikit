@@ -229,7 +229,7 @@ export default {
                 });
             });
 
-            return this.showConnects(next, prev >= 0 && prev !== next);
+            return this.showConnects(next, prev >= 0);
         },
     },
 };
