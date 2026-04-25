@@ -176,8 +176,10 @@ function getAlignment(el, target, [dir, align]) {
 
 function parseProps(options) {
     const { el, id, data } = options;
-    return ['delay', 'title'].reduce((obj, key) => ({ [key]: getData(el, key), ...obj }), {
+    return {
+        delay: getData(el, 'delay'),
+        title: getData(el, 'title'),
         ...parseOptions(getData(el, id), ['title']),
         ...data,
-    });
+    };
 }
