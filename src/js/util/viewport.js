@@ -18,20 +18,18 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
         return false;
     }
 
-    return intersectRect(
-        ...overflowParents(element)
-            .map((parent) => {
-                const { top, left, bottom, right } = offsetViewport(parent);
+    const rects = overflowParents(element).map((parent) => {
+        const { top, left, bottom, right } = offsetViewport(parent);
 
-                return {
-                    top: top - offsetTop,
-                    left: left - offsetLeft,
-                    bottom: bottom + offsetTop,
-                    right: right + offsetLeft,
-                };
-            })
-            .concat(offset(element)),
-    );
+        return {
+            top: top - offsetTop,
+            left: left - offsetLeft,
+            bottom: bottom + offsetTop,
+            right: right + offsetLeft,
+        };
+    });
+
+    return intersectRect(...rects, offset(element));
 }
 
 export function scrollIntoView(element, { offset: offsetBy = 0 } = {}) {
@@ -145,17 +143,16 @@ export function scrollParents(element, scrollable = false, props = []) {
         ancestors = ancestors.slice(fixedIndex);
     }
 
-    return [scrollEl]
-        .concat(
-            ancestors.filter(
-                (parent) =>
-                    css(parent, 'overflow')
-                        .split(' ')
-                        .some((prop) => includes(['auto', 'scroll', ...props], prop)) &&
-                    (!scrollable || parent.scrollHeight > offsetViewport(parent).height),
-            ),
-        )
-        .reverse();
+    return [
+        scrollEl,
+        ...ancestors.filter(
+            (parent) =>
+                css(parent, 'overflow')
+                    .split(' ')
+                    .some((prop) => includes(['auto', 'scroll', ...props], prop)) &&
+                (!scrollable || parent.scrollHeight > offsetViewport(parent).height),
+        ),
+    ].reverse();
 }
 
 export function scrollParent(...args) {
