@@ -20,8 +20,7 @@ export default {
     },
 
     observe: resize({
-        target: ({ $el, elements }) =>
-            elements.reduce((elements, el) => elements.concat(el, ...el.children), [$el]),
+        target: ({ $el, elements }) => [$el, ...elements.flatMap((el) => [el, ...el.children])],
     }),
 
     events: {

@@ -153,11 +153,14 @@ export function parseOptions(options, args = []) {
 export function coerce(type, value) {
     if (type === Boolean) {
         return toBoolean(value);
-    } else if (type === Number) {
+    }
+    if (type === Number) {
         return toNumber(value);
-    } else if (type === 'list') {
+    }
+    if (type === 'list') {
         return toList(value);
-    } else if (type === Object && isString(value)) {
+    }
+    if (type === Object && isString(value)) {
         return parseOptions(value);
     }
 
