@@ -43,14 +43,13 @@ function initMethods(instance) {
 
 function normalizeData({ data = {} }, { args = [], props = {} }) {
     if (isArray(data)) {
-        data = data.slice(0, args.length).reduce((data, value, index) => {
-            if (isPlainObject(value)) {
-                assign(data, value);
-            } else {
-                data[args[index]] = value;
-            }
-            return data;
-        }, {});
+        data = data
+            .slice(0, args.length)
+            .reduce(
+                (data, value, index) =>
+                    assign(data, isPlainObject(value) ? value : { [args[index]]: value }),
+                {},
+            );
     }
 
     for (const key in data) {

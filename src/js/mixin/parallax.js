@@ -382,10 +382,7 @@ function getCssValue(el, prop, value) {
 }
 
 function fillObject(keys, value) {
-    return keys.reduce((data, prop) => {
-        data[prop] = value;
-        return data;
-    }, {});
+    return Object.fromEntries(keys.map((prop) => [prop, value]));
 }
 
 /*

@@ -98,14 +98,11 @@ function ensureThumb(toggles, items) {
             continue;
         }
 
-        const parent = parents(toggle)
-            .reverse()
-            .concat(toggle)
-            .find(
-                (parent) =>
-                    this.$el.contains(parent) &&
-                    (parent === toggle || $$(this.toggle, parent).length === 1),
-            );
+        const parent = [...parents(toggle).reverse(), toggle].find(
+            (parent) =>
+                this.$el.contains(parent) &&
+                (parent === toggle || $$(this.toggle, parent).length === 1),
+        );
 
         if (!parent) {
             continue;
