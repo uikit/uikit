@@ -37,23 +37,18 @@ export function css(element, property, value, priority) {
 
             if (isUndefined(value)) {
                 return getComputedStyle(element).getPropertyValue(property);
-            } else {
-                element.style.setProperty(
-                    property,
-                    isNumeric(value) && !cssNumber[property] && !isCustomProperty(property)
-                        ? `${value}px`
-                        : value || isNumber(value)
-                          ? value
-                          : '',
-                    priority,
-                );
             }
+            element.style.setProperty(
+                property,
+                isNumeric(value) && !cssNumber[property] && !isCustomProperty(property)
+                    ? `${value}px`
+                    : value || isNumber(value)
+                      ? value
+                      : '',
+                priority,
+            );
         } else if (isArray(property)) {
-            const props = {};
-            for (const prop of property) {
-                props[prop] = css(element, prop);
-            }
-            return props;
+            return Object.fromEntries(property.map((prop) => [prop, css(element, prop)]));
         } else if (isObject(property)) {
             for (const prop in property) {
                 css(element, prop, property[prop], value);
