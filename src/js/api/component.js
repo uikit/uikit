@@ -48,11 +48,10 @@ export function createComponent(name, element, data, ...args) {
         const instance = getComponent(element, name);
 
         if (instance) {
-            if (data) {
-                instance.$destroy();
-            } else {
+            if (!data) {
                 return instance;
             }
+            instance.$destroy();
         }
 
         return new Component({ el: element, data });

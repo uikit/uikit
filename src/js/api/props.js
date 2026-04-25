@@ -67,9 +67,7 @@ function getProps(opts) {
 
 const getAttributes = memoize((id, props) => {
     const attributes = Object.keys(props);
-    const filter = attributes
-        .concat(id)
-        .flatMap((key) => [hyphenate(key), `data-${hyphenate(key)}`]);
+    const filter = [...attributes, id].flatMap((key) => [hyphenate(key), `data-${hyphenate(key)}`]);
     return { attributes, filter };
 });
 
