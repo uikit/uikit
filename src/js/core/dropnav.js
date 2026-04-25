@@ -286,9 +286,9 @@ export default {
                 const drop = this.getDropdown(target);
                 const adjustHeight = () => {
                     const maxBottom = Math.max(
-                        ...parents(target, `.${this.clsDrop}`)
-                            .concat(target)
-                            .map((el) => offset(el).bottom),
+                        ...[...parents(target, `.${this.clsDrop}`), target].map(
+                            (el) => offset(el).bottom,
+                        ),
                     );
 
                     offset(this.dropbar, {

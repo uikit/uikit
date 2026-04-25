@@ -492,7 +492,7 @@ function listenForResize(drop) {
         observeViewportResize(update),
         observeResize(overflowParents(drop.$el).concat(drop.target), update),
     ];
-    return () => off.map((observer) => observer.disconnect());
+    return () => off.forEach((observer) => observer.disconnect());
 }
 
 function listenForScroll(drop, fn = () => drop.$emit()) {
