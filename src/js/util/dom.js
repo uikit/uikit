@@ -68,10 +68,9 @@ export function wrapInner(element, structure) {
 }
 
 export function unwrap(element) {
-    toNodes(element)
-        .map(parent)
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .forEach((parent) => parent.replaceWith(...parent.childNodes));
+    for (const elementParent of new Set(toNodes(element).map(parent))) {
+        elementParent.replaceWith(...elementParent.childNodes);
+    }
 }
 
 const singleTagRe = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
