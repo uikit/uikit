@@ -43,10 +43,8 @@ export function lazyload(options = {}) {
                     .forEach((el) => removeAttr(el, 'loading'));
             }
 
-            for (const el of entries
-                .filter(({ isIntersecting }) => isIntersecting)
-                .map(({ target }) => target)) {
-                observer.unobserve(el);
+            for (const { target } of entries.filter(({ isIntersecting }) => isIntersecting)) {
+                observer.unobserve(target);
             }
         },
         ...options,
