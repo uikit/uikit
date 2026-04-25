@@ -10,13 +10,13 @@ export function attr(element, name, value) {
 
     if (isUndefined(value)) {
         return toNode(element)?.getAttribute(name);
-    } else {
-        for (const el of toNodes(element)) {
-            if (value === null) {
-                removeAttr(el, name);
-            } else {
-                el.setAttribute(name, value);
-            }
+    }
+
+    for (const el of toNodes(element)) {
+        if (value === null) {
+            removeAttr(el, name);
+        } else {
+            el.setAttribute(name, value);
         }
     }
 }
