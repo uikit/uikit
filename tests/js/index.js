@@ -27,7 +27,7 @@ const variations = {
     dark: 'Light',
 };
 
-if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
+if (/\.(json|css)$/.test(getParam('style') ?? '')) {
     styles.custom = getParam('style');
 }
 

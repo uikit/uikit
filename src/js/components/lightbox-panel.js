@@ -416,7 +416,7 @@ function loadVideo({ src, type, attrs, item, cmp }) {
 }
 
 function loadIframe({ src, type, attrs }) {
-    if (type !== 'iframe' && !src.match(/\.(html|php)($|\?)/i)) {
+    if (type !== 'iframe' && !/\.(html|php)($|\?)/i.test(src)) {
         return;
     }
 
