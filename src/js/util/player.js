@@ -42,7 +42,9 @@ function isIFrame(el) {
 }
 
 function isYoutube(el) {
-    return /\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\//.test(el.src);
+    return /\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/.test(
+        el.src,
+    );
 }
 
 function isVimeo(el) {
