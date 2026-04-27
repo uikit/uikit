@@ -464,7 +464,7 @@ function parseProp(value, el, propOffset, padding) {
         return 0;
     }
 
-    if (isNumeric(value) || (isString(value) && value.match(/^-?\d/))) {
+    if (isNumeric(value) || (isString(value) && /^-?\d/.test(value))) {
         return propOffset + toPx(value, 'height', el, true);
     } else {
         const refElement = value === true ? getVisibleParent(el) : query(value, el);
