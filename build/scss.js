@@ -74,7 +74,7 @@ for (const file of (await glob('src/less/**/*.less'))
                 .map((mixin) => `    @include ${mixin}();\n`)
                 .join('')}}`,
         );
-    } else if (source.match(/hook-inverse(?!-)/)) {
+    } else if (/hook-inverse(?!-)/.test(source)) {
         source = source.replace(/hook-inverse(?!-)/, `hook-inverse-component-${filename}`);
         if (!inverseComponentMixins.includes(`hook-inverse-component-${filename}`)) {
             inverseComponentMixins.push(`hook-inverse-component-${filename}`);

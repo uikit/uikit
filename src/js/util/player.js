@@ -42,13 +42,13 @@ function isIFrame(el) {
 }
 
 function isYoutube(el) {
-    return !!el.src.match(
-        /\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/,
+    return /\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/.test(
+        el.src,
     );
 }
 
 function isVimeo(el) {
-    return !!el.src.match(/vimeo\.com\/video\/.*/);
+    return /vimeo\.com\/video\/.*/.test(el.src);
 }
 
 async function call(el, cmd) {
