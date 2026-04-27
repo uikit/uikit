@@ -28,5 +28,5 @@ async function isDevCommit() {
     const message = (await $`git log -1 --pretty=%B`).stdout.trim();
 
     // https://www.conventionalcommits.org/en/v1.0.0/
-    return Boolean(message.match(/^(revert: )?(feat|fix|refactor|perf)(\(.+\))?: .{1,50}/));
+    return /^(revert: )?(feat|fix|refactor|perf)(\(.+\))?: .{1,50}/.test(message);
 }
