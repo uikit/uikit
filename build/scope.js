@@ -53,7 +53,7 @@ async function getScope(files) {
 function getNewScope() {
     const scopeFromInput = args.scope || args.s || 'uk-scope';
 
-    if (scopeFromInput.match(/^[a-z_\x7f-\xff][-\w\x7f-\xff]*$/i)) {
+    if (/^[a-z_\x7f-\xff][-\w\x7f-\xff]*$/i.test(scopeFromInput)) {
         return scopeFromInput;
     } else {
         throw `Illegal scope-name: ${scopeFromInput}`;
