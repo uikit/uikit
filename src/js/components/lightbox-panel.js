@@ -386,10 +386,7 @@ function loadImage({ src, type, attrs, item }) {
         ...attrs,
     });
 
-    return new Promise((resolve, reject) => {
-        on(img, 'load', () => resolve(parent(img) || img));
-        on(img, 'error', reject);
-    });
+    return loadEl(img, 'load').then(() => parent(img) || img);
 }
 
 function loadVideo({ src, type, attrs, item, cmp }) {
@@ -409,10 +406,7 @@ function loadVideo({ src, type, attrs, item, cmp }) {
         ...attrs,
     });
 
-    return new Promise((resolve, reject) => {
-        on(video, 'loadedmetadata', () => resolve(video));
-        on(video, 'error', reject);
-    });
+    return loadEl(video, 'loadedmetadata');
 }
 
 function loadIframe({ src, type, attrs }) {
@@ -476,6 +470,13 @@ function getIframeAttrs(cmp) {
         'uk-responsive': '',
         'uk-video': Boolean(cmp.videoAutoplay),
     };
+}
+
+function loadEl(el, event) {
+    return new Promise((resolve, reject) => {
+        on(el, event, () => resolve(el));
+        on(el, 'error', reject);
+    });
 }
 
 function toThumbnavItem(item, videoAutoplay) {
