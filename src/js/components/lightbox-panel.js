@@ -372,7 +372,7 @@ function createEl(tag, attrs) {
     return el;
 }
 
-function loadImage({ src, type, attrs, item }) {
+async function loadImage({ src, type, attrs, item }) {
     if (type !== 'image' && !isImage(src)) {
         return;
     }
@@ -386,7 +386,9 @@ function loadImage({ src, type, attrs, item }) {
         ...attrs,
     });
 
-    return loadEl(img, 'load').then(() => parent(img) || img);
+    await img.decode();
+
+    return parent(img) || img;
 }
 
 function loadVideo({ src, type, attrs, item, cmp }) {
@@ -406,7 +408,10 @@ function loadVideo({ src, type, attrs, item, cmp }) {
         ...attrs,
     });
 
-    return loadEl(video, 'loadedmetadata');
+    return new Promise((resolve, reject) => {
+        on(video, 'loadedmetadata', () => resolve(video));
+        on(video, 'error', reject);
+    });
 }
 
 function loadIframe({ src, type, attrs }) {
@@ -470,13 +475,6 @@ function getIframeAttrs(cmp) {
         'uk-responsive': '',
         'uk-video': Boolean(cmp.videoAutoplay),
     };
-}
-
-function loadEl(el, event) {
-    return new Promise((resolve, reject) => {
-        on(el, event, () => resolve(el));
-        on(el, 'error', reject);
-    });
 }
 
 function toThumbnavItem(item, videoAutoplay) {
