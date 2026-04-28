@@ -392,6 +392,7 @@ export default {
             this.$el.hidden = true;
 
             const viewports = this.target.map((target) => getViewport(this.$el, target));
+            const boundaryOffsets = this.boundary.map(offset);
             const viewportOffset = this.getViewportOffset(this.$el);
 
             const dirs = [
@@ -403,7 +404,7 @@ export default {
                 if (this.axis !== axis && includes([axis, true], this.stretch)) {
                     css(this.$el, {
                         [prop]: Math.min(
-                            offset(this.boundary[i])[prop],
+                            boundaryOffsets[i][prop],
                             viewports[i][prop] - 2 * viewportOffset,
                         ),
                         [`overflow-${axis}`]: 'auto',
@@ -436,11 +437,11 @@ export default {
                             (targetOffset[start] > elOffset[start]
                                 ? targetOffset[this.inset ? end : start] -
                                   Math.max(
-                                      offset(this.boundary[i])[start],
+                                      boundaryOffsets[i][start],
                                       viewports[i][start] + viewportOffset,
                                   )
                                 : Math.min(
-                                      offset(this.boundary[i])[end],
+                                      boundaryOffsets[i][end],
                                       viewports[i][end] - viewportOffset,
                                   ) - targetOffset[this.inset ? start : end]) - positionOffset,
                         [`overflow-${axis}`]: 'auto',
