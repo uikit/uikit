@@ -229,7 +229,7 @@ async function playNextQueued() {
     cancelAnimationFrame(frame);
     await new Promise((resolve) => (frame = requestAnimationFrame(resolve)));
 
-    const getPlayed = (el) => played.getOrInsert(el, 0);
+    const getPlayed = (el) => played.get(el) ?? 0;
     const videos = shuffle(queue.keys()).sort((a, b) => getPlayed(a) - getPlayed(b));
 
     for (const el of videos) {
