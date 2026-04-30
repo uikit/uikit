@@ -7,6 +7,7 @@
 - Fix negative numbers sorted incorrectly in Filter component
 - Fix Modal component stealing focus from overlays rendered outside the modal
 - Fix component root class not removed after disconnect
+- Fix Ken Burns effect not restarting in Safari in Slideshow component
 
 ## 3.25.15 (April 9, 2026)
 
