@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix active state for Filter controls that combine filtering and sorting
+
 ## 3.25.16 (April 21, 2026)
 
 ### Fixed
