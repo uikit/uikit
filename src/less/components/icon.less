@@ -36,6 +36,7 @@
 @icon-overlay-color:                            fade(@global-emphasis-color, 60%);
 @icon-overlay-hover-color:                      @global-emphasis-color;
 
+@layer elements {
 
 /* ========================================================================
    Component: Icon
@@ -208,10 +209,16 @@ a:hover .uk-icon-overlay {
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-icon-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-icon-link() {}
 .hook-icon-link-hover() {}
@@ -239,7 +246,7 @@ a:hover .uk-icon-overlay {
 @inverse-icon-overlay-color:                   fade(@inverse-global-emphasis-color, 60%);
 @inverse-icon-overlay-hover-color:             @inverse-global-emphasis-color;
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     //
     // Link

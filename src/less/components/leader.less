@@ -12,6 +12,7 @@
 @leader-fill-content:                           ~'.';
 @leader-fill-margin-left:                       @global-small-gutter;
 
+@layer components {
 
 /* ========================================================================
    Component: Leader
@@ -52,10 +53,16 @@
 :root { --uk-leader-fill-content: @leader-fill-content; }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-leader-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-leader() {}
 .hook-leader-misc() {}
@@ -64,7 +71,7 @@
 // Inverse
 // ========================================================================
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-leader-fill::after {
         .hook-inverse-leader();

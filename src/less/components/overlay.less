@@ -23,6 +23,7 @@
 @overlay-primary-background:                    fade(@global-secondary-background, 90%);
 @overlay-primary-color-mode:                    light;
 
+@layer components {
 
 /* ========================================================================
    Component: Overlay
@@ -61,10 +62,6 @@
     .hook-overlay-default();
 }
 
-// Color Mode
-.uk-overlay-default:extend(.uk-light all) when (@overlay-default-color-mode = light) {}
-.uk-overlay-default:extend(.uk-dark all) when (@overlay-default-color-mode = dark) {}
-
 /*
  * Primary
  */
@@ -75,15 +72,27 @@
     .hook-overlay-primary();
 }
 
-// Color Mode
+
+// Misc
+// ========================================================================
+
+.hook-overlay-misc();
+
+}
+
+
+// Extend
+// ========================================================================
+
+.uk-overlay-default:extend(.uk-light all) when (@overlay-default-color-mode = light) {}
+.uk-overlay-default:extend(.uk-dark all) when (@overlay-default-color-mode = dark) {}
+
 .uk-overlay-primary:extend(.uk-light all) when (@overlay-primary-color-mode = light) {}
 .uk-overlay-primary:extend(.uk-dark all) when (@overlay-primary-color-mode = dark) {}
 
 
 // Hooks
 // ========================================================================
-
-.hook-overlay-misc();
 
 .hook-overlay() {}
 .hook-overlay-icon() {}

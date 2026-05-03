@@ -26,6 +26,7 @@
 @tab-item-active-color:                  @global-emphasis-color;
 @tab-item-disabled-color:                @global-muted-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Tab
@@ -160,10 +161,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-tab-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-tab() {}
 .hook-tab-item() {}
@@ -187,7 +194,7 @@
 @inverse-tab-item-active-color:                @inverse-global-emphasis-color;
 @inverse-tab-item-disabled-color:              @inverse-global-muted-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-tab {
         .hook-inverse-tab();

@@ -37,6 +37,7 @@
 @alert-danger-background:                       lighten(tint(@global-danger-background, 40%), 20%);
 @alert-danger-color:                            @global-danger-background;
 
+@layer components {
 
 /* ========================================================================
    Component: Alert
@@ -131,10 +132,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-alert-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-alert() {}
 .hook-alert-close() {}

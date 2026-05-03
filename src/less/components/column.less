@@ -19,6 +19,7 @@
 @column-divider-rule-color:                     @global-border;
 @column-divider-rule-width:                     1px;
 
+@layer utilities {
 
 /* ========================================================================
    Component: Column
@@ -123,10 +124,15 @@
 .uk-column-span { column-span: all; }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-column-misc();
+
+}
+
+// Hooks
+// ========================================================================
 
 .hook-column-misc() {}
 
@@ -136,7 +142,7 @@
 
 @inverse-column-divider-rule-color:                    @inverse-global-border;
 
-.hook-inverse() {
+.hook-inverse-utilities () {
 
     .uk-column-divider { column-rule-color: @inverse-column-divider-rule-color; }
 

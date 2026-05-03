@@ -48,6 +48,7 @@
 @tile-secondary-background:                    @global-secondary-background;
 @tile-secondary-color-mode:                    light;
 
+@layer components {
 
 /* ========================================================================
    Component: Tile
@@ -171,10 +172,6 @@
     .hook-tile-default-hover();
 }
 
-// Color Mode
-.uk-tile-default:not(.uk-preserve-color):extend(.uk-light all) when (@tile-default-color-mode = light) {}
-.uk-tile-default:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-default-color-mode = dark) {}
-
 /*
  * Muted
  */
@@ -188,10 +185,6 @@
 .uk-tile-muted.uk-tile-hover:hover {
     .hook-tile-muted-hover();
 }
-
-// Color Mode
-.uk-tile-muted:not(.uk-preserve-color):extend(.uk-light all) when (@tile-muted-color-mode = light) {}
-.uk-tile-muted:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-muted-color-mode = dark) {}
 
 /*
  * Primary
@@ -207,10 +200,6 @@
     .hook-tile-primary-hover();
 }
 
-// Color Mode
-.uk-tile-primary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-primary-color-mode = light) {}
-.uk-tile-primary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-primary-color-mode = dark) {}
-
 /*
  * Secondary
  */
@@ -225,15 +214,34 @@
     .hook-tile-secondary-hover();
 }
 
-// Color Mode
+
+// Misc
+// ========================================================================
+
+.hook-tile-misc();
+
+}
+
+
+// Extend
+// ========================================================================
+
+.uk-tile-default:not(.uk-preserve-color):extend(.uk-light all) when (@tile-default-color-mode = light) {}
+.uk-tile-default:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-default-color-mode = dark) {}
+
+
+.uk-tile-muted:not(.uk-preserve-color):extend(.uk-light all) when (@tile-muted-color-mode = light) {}
+.uk-tile-muted:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-muted-color-mode = dark) {}
+
+.uk-tile-primary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-primary-color-mode = light) {}
+.uk-tile-primary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-primary-color-mode = dark) {}
+
 .uk-tile-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-secondary-color-mode = light) {}
 .uk-tile-secondary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-secondary-color-mode = dark) {}
 
 
 // Hooks
 // ========================================================================
-
-.hook-tile-misc();
 
 .hook-tile() {}
 .hook-tile-default() {}

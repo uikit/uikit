@@ -34,6 +34,7 @@
 @position-large-margin:                                @global-gutter;
 @position-large-margin-l:                              50px;
 
+@layer utilities {
 
 /* ========================================================================
    Component: Position
@@ -233,9 +234,16 @@
 .uk-position-z-index-high { z-index: @global-z-index - 10; } // Higher than dropbar so it is behind
 .uk-position-z-index-highest { z-index: @global-z-index + 60; }
 
-// Hooks
+
+// Misc
 // ========================================================================
 
 .hook-position-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-position-misc() {}

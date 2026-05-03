@@ -97,6 +97,7 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 @navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Navbar
@@ -121,10 +122,6 @@
     background: @navbar-background;
     .hook-navbar-container();
 }
-
-// Color Mode
-.uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-light all) when (@navbar-color-mode = light) {}
-.uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-dark all) when (@navbar-color-mode = dark) {}
 
 
 /* Groups
@@ -413,10 +410,6 @@
 
 .uk-navbar-dropdown > :last-child { margin-bottom: 0; }
 
-// Color Mode
-.uk-navbar-dropdown:not(.uk-preserve-color):extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
-.uk-navbar-dropdown:not(.uk-preserve-color):extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
-
 .uk-navbar-dropdown :focus-visible when not (@navbar-dropdown-color-mode = @inverse-global-color-mode) {
     outline-color: @navbar-dropdown-focus-outline !important;
 }
@@ -573,10 +566,26 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-navbar-misc();
+
+}
+
+
+// Extend
+// ========================================================================
+
+.uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-light all) when (@navbar-color-mode = light) {}
+.uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-dark all) when (@navbar-color-mode = dark) {}
+
+.uk-navbar-dropdown:not(.uk-preserve-color):extend(.uk-light all) when (@navbar-dropdown-color-mode = light) {}
+.uk-navbar-dropdown:not(.uk-preserve-color):extend(.uk-dark all) when (@navbar-dropdown-color-mode = dark) {}
+
+
+// Hooks
+// ========================================================================
 
 .hook-navbar() {}
 .hook-navbar-container() {}
@@ -619,7 +628,7 @@
 @inverse-navbar-toggle-color:                  @inverse-global-muted-color;
 @inverse-navbar-toggle-hover-color:            @inverse-global-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     //
     // Nav Item

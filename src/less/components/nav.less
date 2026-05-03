@@ -115,6 +115,7 @@
 @nav-dividers-border-width:                     @global-border-width;
 @nav-dividers-border:                           @global-border;
 
+@layer components {
 
 /* ========================================================================
    Component: Nav
@@ -528,10 +529,16 @@ ul.uk-nav-sub {
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-nav-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-nav-sub() {}
 .hook-nav-header() {}
@@ -601,7 +608,7 @@ ul.uk-nav-sub {
 
 @inverse-nav-dividers-border:                       @inverse-global-border;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     //
     // Default

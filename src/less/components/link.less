@@ -22,6 +22,7 @@
 @link-heading-hover-color:                      @global-primary-background;
 @link-heading-hover-text-decoration:            none;
 
+@layer elements {
 
 /* ========================================================================
    Component: Link
@@ -107,10 +108,16 @@ a.uk-link-reset,
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-link-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-link-muted() {}
 .hook-link-muted-hover() {}
@@ -130,7 +137,7 @@ a.uk-link-reset,
 @inverse-link-text-hover-color:                   @inverse-global-muted-color;
 @inverse-link-heading-hover-color:                @inverse-global-primary-background;
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     a.uk-link-muted,
     .uk-link-muted a {

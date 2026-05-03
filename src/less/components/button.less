@@ -76,6 +76,7 @@
 @button-link-hover-text-decoration:             none;
 @button-link-disabled-color:                    @global-muted-color;
 
+@layer elements {
 
 /* ========================================================================
    Component: Button
@@ -365,10 +366,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-button-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-button() {}
 .hook-button-hover() {}
@@ -422,7 +429,7 @@
 @inverse-button-link-color:                    @inverse-global-emphasis-color;
 @inverse-button-link-hover-color:              @inverse-global-muted-color;
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     //
     // Default

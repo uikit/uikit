@@ -22,6 +22,7 @@
 @breadcrumb-divider-font-size:                      @breadcrumb-item-font-size;
 @breadcrumb-divider-color:                          @global-muted-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Breadcrumb
@@ -95,10 +96,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-breadcrumb-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-breadcrumb() {}
 .hook-breadcrumb-item() {}
@@ -117,7 +124,7 @@
 @inverse-breadcrumb-item-active-color:         @inverse-global-color;
 @inverse-breadcrumb-divider-color:             @inverse-global-muted-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-breadcrumb > * > * {
         color: @inverse-breadcrumb-item-color;

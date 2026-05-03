@@ -119,6 +119,7 @@
 @internal-form-checkbox-image:                   "../../images/backgrounds/form-checkbox.svg";
 @internal-form-checkbox-indeterminate-image:     "../../images/backgrounds/form-checkbox-indeterminate.svg";
 
+@layer elements {
 
 /* ========================================================================
    Component: Form
@@ -781,10 +782,15 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-form-icon-flip ~ .uk-input { padding-right: @form-icon-width !important; }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-form-misc();
+
+}
+
+// Hooks
+// ========================================================================
 
 .hook-form() {}
 .hook-form-single-line() {}
@@ -833,7 +839,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 @inverse-form-icon-color:                      @inverse-global-muted-color;
 @inverse-form-icon-hover-color:                @inverse-global-color;
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     .uk-input,
     .uk-select,

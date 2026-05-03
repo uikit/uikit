@@ -23,6 +23,7 @@
 
 @sortable-empty-height:                         50px;
 
+@layer components {
 
 /* ========================================================================
    Component: Sortable
@@ -77,11 +78,16 @@
 .uk-sortable-handle:hover { cursor: move; }
 
 
-
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-sortable-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-sortable() {}
 .hook-sortable-drag() {}

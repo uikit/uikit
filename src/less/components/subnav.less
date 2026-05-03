@@ -41,6 +41,7 @@
 
 @subnav-item-disabled-color:                    @global-muted-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Subnav
@@ -206,10 +207,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-subnav-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-subnav() {}
 .hook-subnav-item() {}
@@ -241,7 +248,7 @@
 @inverse-subnav-pill-item-active-color:        @inverse-global-inverse-color;
 @inverse-subnav-item-disabled-color:           @inverse-global-muted-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-subnav > * > :first-child {
         color: @inverse-subnav-item-color;

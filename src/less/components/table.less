@@ -53,6 +53,7 @@
 
 @table-expand-min-width:                        150px;
 
+@layer elements {
 
 /* ========================================================================
    Component: Table
@@ -276,10 +277,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-table-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-table() {}
 .hook-table-header-cell() {}
@@ -305,7 +312,7 @@
 @inverse-table-striped-row-background:                  @inverse-global-muted-background;
 @inverse-table-hover-row-background:                    @inverse-table-row-active-background;
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     .uk-table th {
         color: @inverse-table-header-cell-color;

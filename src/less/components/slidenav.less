@@ -25,6 +25,7 @@
 @slidenav-large-padding-vertical:               10px;
 @slidenav-large-padding-horizontal:             @slidenav-large-padding-vertical;
 
+@layer components {
 
 /* ========================================================================
    Component: Slidenav
@@ -91,10 +92,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-slidenav-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-slidenav() {}
 .hook-slidenav-hover() {}
@@ -113,7 +120,7 @@
 @inverse-slidenav-hover-color:                 fade(@inverse-global-color, 95%);
 @inverse-slidenav-active-color:                fade(@inverse-global-color, 70%);
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-slidenav {
         color: @inverse-slidenav-color;

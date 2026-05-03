@@ -59,6 +59,7 @@
 
 @dragover-box-shadow:                           0 0 20px rgba(100,100,100,0.3);
 
+@layer utilities {
 
 /* ========================================================================
    Component: Utility
@@ -547,10 +548,16 @@
 .uk-transform-origin-bottom-right { transform-origin: 100% 100%; }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-utility-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-panel-scrollable() {}
 .hook-box-shadow-bottom() {}
@@ -566,7 +573,7 @@
 @inverse-logo-color:                           @inverse-global-emphasis-color;
 @inverse-logo-hover-color:                     @inverse-global-emphasis-color;
 
-.hook-inverse() {
+.hook-inverse-utilities () {
 
     .uk-dropcap::first-letter,
     .uk-dropcap p:first-of-type::first-letter {

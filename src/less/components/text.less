@@ -35,6 +35,7 @@
 
 @text-stroke-text-stroke:                       ~'calc(1.4px + 0.002em)';
 
+@layer utilities {
 
 /* ========================================================================
    Component: Text
@@ -250,10 +251,16 @@ td.uk-text-truncate { max-width: 0; }
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-text-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-text-lead() {}
 .hook-text-meta() {}
@@ -273,7 +280,7 @@ td.uk-text-truncate { max-width: 0; }
 @inverse-text-primary-color:                   @inverse-global-primary-background;
 @inverse-text-secondary-color:                 @inverse-global-primary-background;
 
-.hook-inverse() {
+.hook-inverse-utilities () {
 
     .uk-text-lead {
         color: @inverse-text-lead-color;

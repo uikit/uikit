@@ -18,6 +18,7 @@
 @form-range-thumb-border-radius:                500px;
 @form-range-thumb-background:                   @global-color;
 
+@layer elements {
 
 /* ========================================================================
    Component: Form Range
@@ -127,10 +128,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-form-range-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-form-range() {}
 .hook-form-range-track() {}
@@ -147,7 +154,7 @@
 
 @inverse-form-range-thumb-background:          fadein(@inverse-global-color, 100%);
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     /* Webkit */
     .uk-range::-webkit-slider-runnable-track {

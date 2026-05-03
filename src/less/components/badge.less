@@ -17,6 +17,7 @@
 @badge-color:                                   @global-inverse-color;
 @badge-font-size:                               11px;
 
+@layer components {
 
 /* ========================================================================
    Component: Badge
@@ -56,10 +57,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-badge-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-badge() {}
 .hook-badge-hover() {}
@@ -72,7 +79,7 @@
 @inverse-badge-background:                     @inverse-global-primary-background;
 @inverse-badge-color:                          @inverse-global-inverse-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-badge {
         background-color: @inverse-badge-background;

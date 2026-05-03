@@ -30,7 +30,7 @@
 @tooltip-color:                                 @global-inverse-color;
 @tooltip-font-size:                             12px;
 
-
+@layer components {
 
 /* ========================================================================
    Component: Tooltip
@@ -70,10 +70,16 @@
 .uk-tooltip.uk-active { display: block; }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-tooltip-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-tooltip() {}
 .hook-tooltip-misc() {}

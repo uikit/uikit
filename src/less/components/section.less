@@ -46,6 +46,7 @@
 @section-secondary-background:                    @global-secondary-background;
 @section-secondary-color-mode:                    light;
 
+@layer components {
 
 /* ========================================================================
    Component: Section
@@ -186,9 +187,6 @@
     .hook-section-default();
 }
 
-.uk-section-default:not(.uk-preserve-color):extend(.uk-light all) when (@section-default-color-mode = light) {}
-.uk-section-default:not(.uk-preserve-color):extend(.uk-dark all) when (@section-default-color-mode = dark) {}
-
 /*
  * Muted
  */
@@ -198,10 +196,6 @@
     background: @section-muted-background;
     .hook-section-muted();
 }
-
-.uk-section-muted:not(.uk-preserve-color):extend(.uk-light all) when (@section-muted-color-mode = light) {}
-.uk-section-muted:not(.uk-preserve-color):extend(.uk-dark all) when (@section-muted-color-mode = dark) {}
-
 
 /*
  * Primary
@@ -213,9 +207,6 @@
     .hook-section-primary();
 }
 
-.uk-section-primary:not(.uk-preserve-color):extend(.uk-light all) when (@section-primary-color-mode = light) {}
-.uk-section-primary:not(.uk-preserve-color):extend(.uk-dark all) when (@section-primary-color-mode = dark) {}
-
 /*
  * Secondary
  */
@@ -225,9 +216,6 @@
     background: @section-secondary-background;
     .hook-section-secondary();
 }
-
-.uk-section-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@section-secondary-color-mode = light) {}
-.uk-section-secondary:not(.uk-preserve-color):extend(.uk-dark all) when (@section-secondary-color-mode = dark) {}
 
 
 /* Overlap modifier
@@ -243,10 +231,32 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-section-misc();
+
+}
+
+
+// Extend
+// ========================================================================
+
+.uk-section-default:not(.uk-preserve-color):extend(.uk-light all) when (@section-default-color-mode = light) {}
+.uk-section-default:not(.uk-preserve-color):extend(.uk-dark all) when (@section-default-color-mode = dark) {}
+
+.uk-section-muted:not(.uk-preserve-color):extend(.uk-light all) when (@section-muted-color-mode = light) {}
+.uk-section-muted:not(.uk-preserve-color):extend(.uk-dark all) when (@section-muted-color-mode = dark) {}
+
+.uk-section-primary:not(.uk-preserve-color):extend(.uk-light all) when (@section-primary-color-mode = light) {}
+.uk-section-primary:not(.uk-preserve-color):extend(.uk-dark all) when (@section-primary-color-mode = dark) {}
+
+.uk-section-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@section-secondary-color-mode = light) {}
+.uk-section-secondary:not(.uk-preserve-color):extend(.uk-dark all) when (@section-secondary-color-mode = dark) {}
+
+
+// Hooks
+// ========================================================================
 
 .hook-section() {}
 .hook-section-default() {}

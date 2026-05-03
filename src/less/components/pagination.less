@@ -25,6 +25,7 @@
 @pagination-item-active-color:                  @global-color;
 @pagination-item-disabled-color:                @global-muted-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Pagination
@@ -108,10 +109,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-pagination-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-pagination() {}
 .hook-pagination-item() {}
@@ -129,7 +136,7 @@
 @inverse-pagination-item-active-color:         @inverse-global-color;
 @inverse-pagination-item-disabled-color:       @inverse-global-muted-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-pagination > * > * {
         color: @inverse-pagination-item-color;

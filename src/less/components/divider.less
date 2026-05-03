@@ -31,6 +31,7 @@
 @divider-vertical-border-width:                 @global-border-width;
 @divider-vertical-border:                       @global-border;
 
+@layer elements {
 
 /* ========================================================================
    Component: Divider
@@ -123,10 +124,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-divider-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-divider-icon() {}
 .hook-divider-icon-line() {}
@@ -145,7 +152,7 @@
 @inverse-divider-small-border:                    @inverse-global-border;
 @inverse-divider-vertical-border:                 @inverse-global-border;
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     .uk-divider-icon {
         .svg-fill(@internal-divider-icon-image, "#000", @inverse-divider-icon-color);

@@ -84,6 +84,7 @@
 @base-selection-background:                     #39f;
 @base-selection-color:                          @global-inverse-color;
 
+@layer base {
 
 /* ========================================================================
    Component: Base
@@ -576,10 +577,17 @@ template { display: none; }
     --uk-breakpoint-xl: @breakpoint-xlarge;
 }
 
-// Hooks
+
+// Misc
 // ========================================================================
 
 .hook-base-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-base-body() {}
 .hook-base-link() {}
@@ -611,7 +619,7 @@ template { display: none; }
 @inverse-base-hr-border:                       @inverse-global-border;
 @inverse-base-focus-outline:                   @inverse-global-emphasis-color;
 
-.hook-inverse() {
+.hook-inverse-base () {
 
     color: @inverse-base-color;
 

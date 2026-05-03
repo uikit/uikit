@@ -68,6 +68,7 @@
 @modal-close-outside-color:                     lighten(@global-inverse-color, 20%);
 @modal-close-outside-hover-color:               @global-inverse-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Modal
@@ -343,10 +344,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-modal-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-modal() {}
 .hook-modal-dialog() {}

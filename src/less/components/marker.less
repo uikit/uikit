@@ -15,6 +15,7 @@
 
 @marker-hover-color:                             @global-inverse-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Marker
@@ -38,10 +39,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-marker-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-marker() {}
 .hook-marker-hover() {}
@@ -55,7 +62,7 @@
 @inverse-marker-color:                       @global-color;
 @inverse-marker-hover-color:                 @global-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-marker {
         background: @inverse-marker-background;

@@ -65,6 +65,7 @@
 @search-toggle-color:                               @global-muted-color;
 @search-toggle-hover-color:                         @global-color;
 
+@layer elements {
 
 /* ========================================================================
    Component: Search
@@ -354,10 +355,15 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-search-misc();
+
+}
+
+// Hooks
+// ========================================================================
 
 .hook-search-input() {}
 .hook-search-icon() {}
@@ -399,7 +405,7 @@
 @inverse-search-toggle-color:                  @inverse-global-muted-color;
 @inverse-search-toggle-hover-color:            @inverse-global-color;
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     //
     // Input

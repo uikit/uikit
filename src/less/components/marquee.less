@@ -14,6 +14,7 @@
 // Variables
 // ========================================================================
 
+@layer components {
 
 /* ========================================================================
    Component: Marquee
@@ -51,7 +52,7 @@
     --uk-overflow-fade-size: 100px;
     --uk-overflow-fade-direction: right;
 }
-.uk-marquee-fade.uk-marquee-vertical  { --uk-overflow-fade-direction: bottom; }
+.uk-marquee-fade.uk-marquee-vertical { --uk-overflow-fade-direction: bottom; }
 
 .uk-marquee-fade {
     mask-image: linear-gradient(
@@ -124,10 +125,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-marquee-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-marquee() {}
 .hook-marquee-misc() {}

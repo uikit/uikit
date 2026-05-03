@@ -14,6 +14,7 @@
 @placeholder-padding-horizontal:                @global-gutter;
 @placeholder-background:                        @global-muted-background;
 
+@layer components {
 
 /* ========================================================================
    Component: Placeholder
@@ -36,10 +37,15 @@
 .uk-placeholder > :last-child { margin-bottom: 0; }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-placeholder-misc();
+
+}
+
+// Hooks
+// ========================================================================
 
 .hook-placeholder() {}
 .hook-placeholder-misc() {}

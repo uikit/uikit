@@ -22,6 +22,7 @@
 
 @iconnav-item-active-color:                      @global-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Iconnav
@@ -120,10 +121,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-iconnav-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-iconnav() {}
 .hook-iconnav-item() {}
@@ -139,7 +146,7 @@
 @inverse-iconnav-item-hover-color:         @inverse-global-color;
 @inverse-iconnav-item-active-color:        @inverse-global-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-iconnav > * > a {
         color: @inverse-iconnav-item-color;

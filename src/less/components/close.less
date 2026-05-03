@@ -12,6 +12,7 @@
 @close-color:                                   @global-muted-color;
 @close-hover-color:                             @global-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Close
@@ -32,11 +33,16 @@
     .hook-close-hover();
 }
 
-
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-close-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-close() {}
 .hook-close-hover() {}
@@ -49,7 +55,7 @@
 @inverse-close-color:                           @inverse-global-muted-color;
 @inverse-close-hover-color:                     @inverse-global-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-close {
         color: @inverse-close-color;

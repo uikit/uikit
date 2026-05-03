@@ -45,6 +45,7 @@
 @dropdown-nav-sublist-item-color:               @global-muted-color;
 @dropdown-nav-sublist-item-hover-color:         @global-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Dropdown
@@ -77,10 +78,6 @@
  */
 
 .uk-dropdown > :last-child { margin-bottom: 0; }
-
-// Color Mode
-.uk-dropdown:extend(.uk-light all) when (@dropdown-color-mode = light) {}
-.uk-dropdown:extend(.uk-dark all) when (@dropdown-color-mode = dark) {}
 
 .uk-dropdown :focus-visible when not (@dropdown-color-mode = @inverse-global-color-mode) {
     outline-color: @dropdown-focus-outline !important;
@@ -196,10 +193,23 @@
 .uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: @dropdown-nav-sublist-item-hover-color; }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-dropdown-misc();
+
+}
+
+
+// Extend
+// ========================================================================
+
+.uk-dropdown:extend(.uk-light all) when (@dropdown-color-mode = light) {}
+.uk-dropdown:extend(.uk-dark all) when (@dropdown-color-mode = dark) {}
+
+
+// Hooks
+// ========================================================================
 
 .hook-dropdown() {}
 .hook-dropdown-dropbar() {}

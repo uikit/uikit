@@ -27,6 +27,7 @@
 @label-danger-background:                       @global-danger-background;
 @label-danger-color:                            @global-inverse-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Label
@@ -79,10 +80,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-label-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-label() {}
 .hook-label-success() {}
@@ -97,7 +104,7 @@
 @inverse-label-background:                     @inverse-global-primary-background;
 @inverse-label-color:                          @inverse-global-inverse-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-label {
         background-color: @inverse-label-background;

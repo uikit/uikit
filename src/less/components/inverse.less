@@ -27,23 +27,98 @@
    Component: Inverse
  ========================================================================== */
 
+
 /*
  * Implemented class depends on the general theme color
  * `uk-light` is for light colors on dark backgrounds
  * `uk-dark` is or dark colors on light backgrounds
  */
 
-.uk-light when (@inverse-global-color-mode = light) {
+@layer base {
 
-    .hook-inverse();
+    .uk-light when (@inverse-global-color-mode = light) {
+
+        .hook-inverse-base();
+
+    }
+
+    .uk-dark when (@inverse-global-color-mode = dark) {
+
+        .hook-inverse-base();
+
+    }
 
 }
 
-.uk-dark when (@inverse-global-color-mode = dark) {
+@layer elements {
 
-    .hook-inverse();
+    .uk-light when (@inverse-global-color-mode = light) {
+
+        .hook-inverse-elements();
+
+    }
+
+    .uk-dark when (@inverse-global-color-mode = dark) {
+
+        .hook-inverse-elements();
+
+    }
 
 }
+
+@layer components {
+
+    .uk-light when (@inverse-global-color-mode = light) {
+
+        .hook-inverse-components();
+
+    }
+
+    .uk-dark when (@inverse-global-color-mode = dark) {
+
+        .hook-inverse-components();
+
+    }
+
+}
+
+@layer custom {
+
+    .uk-light when (@inverse-global-color-mode = light) {
+
+        .hook-inverse-custom();
+        // Deprecated
+        .hook-inverse();
+
+    }
+
+    .uk-dark when (@inverse-global-color-mode = dark) {
+
+        .hook-inverse-custom();
+        // Deprecated
+        .hook-inverse();
+
+    }
+
+}
+
+@layer utilities {
+
+    .uk-light when (@inverse-global-color-mode = light) {
+
+        .hook-inverse-utilities();
+
+    }
+
+    .uk-dark when (@inverse-global-color-mode = dark) {
+
+        .hook-inverse-utilities();
+
+    }
+
+}
+
+@layer components {
 
 /*
  * Pass dropbar behind color to JS
@@ -57,8 +132,15 @@
 .uk-inverse-light { --uk-inverse: light !important; }
 .uk-inverse-dark { --uk-inverse: dark !important; }
 
+}
 
 // Hooks
 // ========================================================================
 
-.hook-inverse() {}
+.hook-inverse-base () {}
+.hook-inverse-elements () {}
+.hook-inverse-components () {}
+.hook-inverse-custom () {}
+.hook-inverse-utilities () {}
+// Deprecated
+.hook-inverse () {}

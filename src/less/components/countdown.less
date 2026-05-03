@@ -16,6 +16,7 @@
 @countdown-separator-line-height:               2;
 @countdown-separator-font-size:                 0.5em;
 
+@layer components {
 
 /* ========================================================================
    Component: Countdown
@@ -69,10 +70,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-countdown-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-countdown() {}
 .hook-countdown-item() {}
@@ -85,7 +92,7 @@
 // Inverse
 // ========================================================================
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-countdown-number,
     .uk-countdown-separator {

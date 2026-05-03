@@ -42,6 +42,7 @@
 
 @offcanvas-overlay-background:                  rgba(0,0,0,0.1);
 
+@layer components {
 
 /* ========================================================================
    Component: Off-canvas
@@ -109,10 +110,6 @@
     }
 
 }
-
-// Color Mode
-.uk-offcanvas-bar:extend(.uk-light all) when (@offcanvas-bar-color-mode = light) {}
-.uk-offcanvas-bar:extend(.uk-dark all) when (@offcanvas-bar-color-mode = dark) {}
 
 /* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-bar {
@@ -318,10 +315,22 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-offcanvas-misc();
+
+}
+
+// Extend
+// ========================================================================
+
+.uk-offcanvas-bar:extend(.uk-light all) when (@offcanvas-bar-color-mode = light) {}
+.uk-offcanvas-bar:extend(.uk-dark all) when (@offcanvas-bar-color-mode = dark) {}
+
+
+// Hooks
+// ========================================================================
 
 .hook-offcanvas-bar() {}
 .hook-offcanvas-close() {}

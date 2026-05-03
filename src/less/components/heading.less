@@ -57,6 +57,7 @@
 @heading-line-border:                           @global-border;
 @heading-line-margin-horizontal:                ~'calc(5px + 0.3em)';
 
+@layer elements {
 
 /* ========================================================================
    Component: Heading
@@ -206,10 +207,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-heading-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-heading-small() {}
 .hook-heading-medium() {}
@@ -232,7 +239,7 @@
 @inverse-heading-bullet-border:                   @inverse-global-border;
 @inverse-heading-line-border:                     @inverse-global-border;
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     .uk-heading-small {
         .hook-inverse-heading-small();

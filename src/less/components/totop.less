@@ -16,6 +16,7 @@
 
 @totop-active-color:                            @global-emphasis-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Totop
@@ -44,10 +45,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-totop-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-totop() {}
 .hook-totop-hover() {}
@@ -62,7 +69,7 @@
 @inverse-totop-hover-color:                 @inverse-global-color;
 @inverse-totop-active-color:                @inverse-global-emphasis-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-totop {
         color: @inverse-totop-color;

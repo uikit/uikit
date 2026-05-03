@@ -45,6 +45,7 @@
 @grid-divider-border-width:                     @global-border-width;
 @grid-divider-border:                           @global-border;
 
+@layer components {
 
 /* ========================================================================
    Component: Grid
@@ -386,10 +387,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-grid-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-grid-divider-horizontal() {}
 .hook-grid-divider-vertical() {}
@@ -401,7 +408,7 @@
 
 @inverse-grid-divider-border:                  @inverse-global-border;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-grid-divider > :not(.uk-first-column)::before {
         border-left-color: @inverse-grid-divider-border;

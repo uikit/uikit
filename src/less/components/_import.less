@@ -1,3 +1,5 @@
+@layer base, elements, components, custom, utilities;
+
 // Base
 @import "variables.less";
 @import "mixin.less";
@@ -13,6 +15,7 @@
 @import "icon.less";
 @import "form-range.less";
 @import "form.less"; // After: Icon, Form Range
+@import "search.less"; // After: Icon
 @import "button.less";
 @import "progress.less";
 
@@ -34,7 +37,6 @@
 @import "overlay.less"; // After: Icon
 @import "article.less";
 @import "comment.less";
-@import "search.less"; // After: Icon
 
 // JavaScript
 @import "accordion.less";

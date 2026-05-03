@@ -16,6 +16,7 @@
 @thumbnav-margin-horizontal:                    15px;
 @thumbnav-margin-vertical:                      @thumbnav-margin-horizontal;
 
+@layer components {
 
 /* ========================================================================
    Component: Thumbnav
@@ -97,10 +98,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-thumbnav-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-thumbnav() {}
 .hook-thumbnav-item() {}
@@ -112,7 +119,7 @@
 // Inverse
 // ========================================================================
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-thumbnav > * > * {
         .hook-inverse-thumbnav-item();

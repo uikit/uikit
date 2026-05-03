@@ -52,6 +52,7 @@
 
 @internal-list-bullet-image:                    "../../images/backgrounds/list-bullet.svg";
 
+@layer elements {
 
 /* ========================================================================
    Component: List
@@ -194,10 +195,16 @@
 .uk-list-collapse.uk-list-striped > :nth-child(n+2) { margin-top: 0; }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-list-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-list-divider() {}
 .hook-list-striped() {}
@@ -217,7 +224,7 @@
 
 @inverse-list-bullet-icon-color:                  @inverse-global-color;
 
-.hook-inverse() {
+.hook-inverse-elements () {
 
     .uk-list-muted > ::marker { color: @inverse-list-muted-color !important; }
     .uk-list-emphasis > ::marker { color: @inverse-list-emphasis-color !important; }

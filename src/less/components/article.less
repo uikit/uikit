@@ -22,6 +22,7 @@
 @article-meta-line-height:                      1.4;
 @article-meta-color:                            @global-muted-color;
 
+@layer components {
 
 /* ========================================================================
    Component: Article
@@ -76,10 +77,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-article-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-article() {}
 .hook-article-adjacent() {}
@@ -93,7 +100,7 @@
 
 @inverse-article-meta-color:                   @inverse-global-muted-color;
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-article-title {
         .hook-inverse-article-title();

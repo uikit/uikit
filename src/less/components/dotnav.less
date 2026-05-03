@@ -25,6 +25,7 @@
 @dotnav-item-onclick-background:                fade(@global-color, 20%);
 @dotnav-item-active-background:                 fade(@global-color, 60%);
 
+@layer components {
 
 /* ========================================================================
    Component: Dotnav
@@ -126,10 +127,16 @@
 }
 
 
-// Hooks
+// Misc
 // ========================================================================
 
 .hook-dotnav-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
 
 .hook-dotnav() {}
 .hook-dotnav-item() {}
@@ -147,7 +154,7 @@
 @inverse-dotnav-item-onclick-background:       fade(@inverse-global-color, 50%);
 @inverse-dotnav-item-active-background:        fade(@inverse-global-color, 90%);
 
-.hook-inverse() {
+.hook-inverse-components () {
 
     .uk-dotnav > * > * {
         background-color: @inverse-dotnav-item-background;
