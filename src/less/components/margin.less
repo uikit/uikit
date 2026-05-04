@@ -38,7 +38,7 @@
  * Default
  */
 
-.uk-margin { margin-bottom: @margin-margin; }
+.uk-margin:where(:not(:last-child)) { margin-bottom: @margin-margin; }
 * + .uk-margin { margin-top: @margin-margin !important; }
 
 .uk-margin-top { margin-top: @margin-margin !important; }
@@ -50,7 +50,7 @@
 /* XSmall
  ========================================================================== */
 
-.uk-margin-xsmall { margin-bottom: @margin-xsmall-margin; }
+.uk-margin-xsmall:where(:not(:last-child)) { margin-bottom: @margin-xsmall-margin; }
 * + .uk-margin-xsmall { margin-top: @margin-xsmall-margin !important; }
 
 .uk-margin-xsmall-top { margin-top: @margin-xsmall-margin !important; }
@@ -62,7 +62,7 @@
 /* Small
  ========================================================================== */
 
-.uk-margin-small { margin-bottom: @margin-small-margin; }
+.uk-margin-small:where(:not(:last-child)) { margin-bottom: @margin-small-margin; }
 * + .uk-margin-small { margin-top: @margin-small-margin !important; }
 
 .uk-margin-small-top { margin-top: @margin-small-margin !important; }
@@ -74,7 +74,7 @@
 /* Medium
  ========================================================================== */
 
-.uk-margin-medium { margin-bottom: @margin-medium-margin; }
+.uk-margin-medium:where(:not(:last-child)) { margin-bottom: @margin-medium-margin; }
 * + .uk-margin-medium { margin-top: @margin-medium-margin !important; }
 
 .uk-margin-medium-top { margin-top: @margin-medium-margin !important; }
@@ -86,7 +86,7 @@
 /* Large
  ========================================================================== */
 
-.uk-margin-large { margin-bottom: @margin-large-margin; }
+.uk-margin-large:where(:not(:last-child)) { margin-bottom: @margin-large-margin; }
 * + .uk-margin-large { margin-top: @margin-large-margin !important; }
 
 .uk-margin-large-top { margin-top: @margin-large-margin !important; }
@@ -97,7 +97,7 @@
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-margin-large { margin-bottom: @margin-large-margin-l; }
+    .uk-margin-large:where(:not(:last-child)) { margin-bottom: @margin-large-margin-l; }
     * + .uk-margin-large { margin-top: @margin-large-margin-l !important; }
 
     .uk-margin-large-top { margin-top: @margin-large-margin-l !important; }
@@ -111,7 +111,7 @@
 /* XLarge
  ========================================================================== */
 
-.uk-margin-xlarge { margin-bottom: @margin-xlarge-margin; }
+.uk-margin-xlarge:where(:not(:last-child)) { margin-bottom: @margin-xlarge-margin; }
 * + .uk-margin-xlarge { margin-top: @margin-xlarge-margin !important; }
 
 .uk-margin-xlarge-top { margin-top: @margin-xlarge-margin !important; }
@@ -122,7 +122,7 @@
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-margin-xlarge { margin-bottom: @margin-xlarge-margin-l; }
+    .uk-margin-xlarge:where(:not(:last-child)) { margin-bottom: @margin-xlarge-margin-l; }
     * + .uk-margin-xlarge { margin-top: @margin-xlarge-margin-l !important; }
 
     .uk-margin-xlarge-top { margin-top: @margin-xlarge-margin-l !important; }
