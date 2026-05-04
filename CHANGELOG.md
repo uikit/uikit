@@ -23,6 +23,7 @@
 ### Changed
 
 - Add CSS cascade layers to improve cascade control and reduce specificity conflicts
+- Don't set margin bottom if element is last child in Margin component
 - Respect `prefers-reduced-motion` preference for all autoplay modes except hover in Video component
 
 ### Fixed
