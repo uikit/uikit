@@ -139,8 +139,6 @@
 
 /* Hover */
 .uk-button:hover {
-    /* 9 */
-    text-decoration: none;
     .hook-button-hover();
 }
 
@@ -329,6 +327,7 @@
     padding: 0;
     line-height: @button-link-line-height;
     background: none;
+    text-decoration: none;
     /* 2 */
     color: @button-link-color;
     .hook-button-link();
@@ -341,10 +340,7 @@
 }
 
 /* Disabled */
-.uk-button-link:disabled {
-    color: @button-link-disabled-color;
-    text-decoration: none;
-}
+.uk-button-link:disabled { color: @button-link-disabled-color; }
 
 
 /* Group

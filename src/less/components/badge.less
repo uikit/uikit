@@ -26,6 +26,7 @@
 /*
  * 1. Style
  * 2. Center child vertically and horizontally
+ * 3. Reset link
  */
 
 .uk-badge {
@@ -44,6 +45,8 @@
     justify-content: center;
     align-items: center;
     line-height: 0;
+    /* 3 */
+    text-decoration: none;
     .hook-badge();
 }
 
@@ -52,7 +55,6 @@
  */
 
 .uk-badge:hover {
-    text-decoration: none;
     .hook-badge-hover();
 }
 
