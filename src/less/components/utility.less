@@ -471,9 +471,9 @@
     .hook-logo-hover();
 }
 
-.uk-logo :where(img, svg, video) { display: block; }
+.uk-logo :where(img:not([uk-svg]), svg, video) { display: block; }
 
-.uk-logo-inverse { display: none; }
+.uk-logo-inverse:where(:not([uk-svg])) { display: none; }
 
 
 /* Disabled State
@@ -583,8 +583,8 @@
         .hook-inverse-logo-hover();
     }
 
-    .uk-logo:has(.uk-logo-inverse) > :not(picture:has(.uk-logo-inverse)):not(.uk-logo-inverse) { display: none; }
-    .uk-logo-inverse { display: block; }
+    .uk-logo:has(.uk-logo-inverse) > :not(picture:has(.uk-logo-inverse:not([uk-svg]))):not(.uk-logo-inverse):not([uk-svg]) { display: none; }
+    .uk-logo-inverse:not([uk-svg]) { display: block; }
 
 }
 
