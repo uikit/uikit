@@ -23,6 +23,7 @@
 ### Changed
 
 - Add CSS cascade layers to improve cascade control and reduce specificity conflicts
+- Remove `!important` keyword in favor of CSS layers across utility components
 - Don't set margin bottom if element is last child in Margin component
 - Respect `prefers-reduced-motion` preference for all autoplay modes except hover in Video component
 
@@ -928,7 +929,7 @@
 ### Changed
 
 - Modal prompt dialog selects text in input
-- Sticky component sets position context with `!important` modifier
+- Sticky component sets position context with `!important` keyword
 
 ### Fixed
 
