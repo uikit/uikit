@@ -1,0 +1,69 @@
+// Name:            Floating Shadow
+// Description:     Component to create floating shadows
+//
+// Component:       `uk-floating-shadow`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@floating-shadow-height:                       30px;
+@floating-shadow-bottom:                       -@floating-shadow-height;
+@floating-shadow-border-radius:                100%;
+@floating-shadow-background:                   #444;
+@floating-shadow-blur:                         20px;
+
+@layer components {
+
+/* ========================================================================
+   Component: Floating Shadow
+ ========================================================================== */
+
+/*
+ * 1. Set position.
+ * 2. Set style
+ * 3. Fix shadow being clipped in Safari if container is animated
+ */
+
+.uk-floating-shadow {
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.uk-floating-shadow::after {
+    content: "";
+    /* 1 */
+    position: absolute;
+    bottom: @floating-shadow-bottom;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    /* 2 */
+    height: @floating-shadow-height;
+    border-radius: @floating-shadow-border-radius;
+    background: @floating-shadow-background;
+    filter: blur(@floating-shadow-blur);
+    /* 3 */
+    will-change: filter;
+    .hook-floating-shadow();
+}
+
+
+// Misc
+// ========================================================================
+
+.hook-floating-shadow-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-floating-shadow() {}
+.hook-floating-shadow-misc() {}
