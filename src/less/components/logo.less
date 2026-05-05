@@ -1,0 +1,96 @@
+// Name:            Logo
+// Description:     Style for the logo
+//
+// Component:       `uk-logo`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@logo-font-size:                                @global-large-font-size;
+@logo-font-family:                              @global-font-family;
+@logo-color:                                    @global-emphasis-color;
+@logo-hover-color:                              @global-emphasis-color;
+
+@layer components {
+
+/* ========================================================================
+   Component: Logo
+ ========================================================================== */
+
+/*
+ * 1. Style
+ * 2. Required for `a`
+ * 3. Behave like image but can be overridden through flex utility classes
+ */
+
+.uk-logo {
+    /* 1 */
+    font-size: @logo-font-size;
+    font-family: @logo-font-family;
+    color: @logo-color;
+    /* 2 */
+    text-decoration: none;
+    .hook-logo();
+}
+
+/* 3 */
+:where(.uk-logo) {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Hover */
+.uk-logo:hover {
+    color: @logo-hover-color;
+    .hook-logo-hover();
+}
+
+.uk-logo :where(img:not([uk-svg]), svg, video) { display: block; }
+
+.uk-logo-inverse:where(:not([uk-svg])) { display: none; }
+
+
+// Misc
+// ========================================================================
+
+.hook-logo-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-logo() {}
+.hook-logo-hover() {}
+.hook-logo-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-logo-color:                           @inverse-global-emphasis-color;
+@inverse-logo-hover-color:                     @inverse-global-emphasis-color;
+
+.hook-inverse-components () {
+
+    .uk-logo {
+        color: @inverse-logo-color;
+        .hook-inverse-logo();
+    }
+
+    .uk-logo:hover {
+        color: @inverse-logo-hover-color;
+        .hook-inverse-logo-hover();
+    }
+
+    .uk-logo:has(.uk-logo-inverse) > :not(picture:has(.uk-logo-inverse:not([uk-svg]))):not(.uk-logo-inverse):not([uk-svg]) { display: none; }
+    .uk-logo-inverse:not([uk-svg]) { display: block; }
+
+}
+
+.hook-inverse-logo() {}
+.hook-inverse-logo-hover() {}

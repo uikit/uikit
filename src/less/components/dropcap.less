@@ -1,0 +1,75 @@
+// Name:            Dropcap
+// Description:     Style for the drop cap
+//
+// Component:       `uk-dropcap`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+@dropcap-margin-right:                          10px;
+@dropcap-font-size:                             ((@global-line-height * 3) * 1em);
+@dropcap-line-height:                           1;
+
+@layer components {
+
+/* ========================================================================
+   Component: Dropcap
+ ========================================================================== */
+
+/*
+ * 1. Firefox doesn't apply `::first-letter` if the first letter is inside child elements
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=214004
+ * 2. In Firefox, a floating `::first-letter` doesn't have a line box and there for no `line-height`
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=317933
+ */
+
+.uk-dropcap::first-letter,
+/* 1 */
+.uk-dropcap > p:first-of-type::first-letter {
+    display: block;
+    margin-right: @dropcap-margin-right;
+    float: left;
+    font-size: @dropcap-font-size;
+    line-height: @dropcap-line-height;
+    .hook-dropcap();
+}
+
+/* 2 */
+@-moz-document url-prefix() {
+
+  .uk-dropcap::first-letter,
+  .uk-dropcap > p:first-of-type::first-letter { margin-top: 1.1%; }
+
+}
+
+
+// Misc
+// ========================================================================
+
+.hook-dropcap-misc();
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-dropcap() {}
+.hook-dropcap-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-inverse-components () {
+
+    .uk-dropcap::first-letter,
+    .uk-dropcap p:first-of-type::first-letter {
+        .hook-inverse-dropcap();
+    }
+
+}
+
+.hook-inverse-dropcap() {}

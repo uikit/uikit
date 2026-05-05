@@ -22,10 +22,12 @@
 
 ### Changed
 
+- IMPORTANT: Rename `uk-box-shadow-bottom` class to `uk-floating-shadow`
 - Add CSS cascade layers to improve cascade control and reduce specificity conflicts
 - Remove `!important` keyword in favor of CSS layers across utility components
 - Don't set margin bottom if element is last child in Margin component
 - Respect `prefers-reduced-motion` preference for all autoplay modes except hover in Video component
+- Move logo, dropcap and floating shadow from utility to their own components
 
 ### Fixed
 
