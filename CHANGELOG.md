@@ -22,7 +22,9 @@
 
 ### Changed
 
+- IMPORTANT: Rename `uk-box-shadow-bottom` class to `uk-floating-shadow`
 - Respect `prefers-reduced-motion` preference for all autoplay modes except hover in Video component
+- Move logo, dropcap and floating shadow from utility to their own components
 
 ### Fixed
 
