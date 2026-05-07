@@ -488,7 +488,7 @@ blockquote {
  * Content
  */
 
-blockquote p:last-of-type { margin-bottom: 0; }
+blockquote :where(p:last-of-type) { margin-bottom: 0; }
 
 blockquote footer {
     margin-top: @base-blockquote-footer-margin-top;

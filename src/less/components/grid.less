@@ -92,7 +92,7 @@
 .uk-grid > * { padding-left: @grid-gutter-horizontal; }
 
 /* Vertical */
-.uk-grid + .uk-grid,
+.uk-grid + :where(.uk-grid),
 .uk-grid > .uk-grid-margin,
 * + .uk-grid-margin { margin-top: @grid-gutter-vertical; }
 
@@ -104,7 +104,7 @@
     .uk-grid > * { padding-left: @grid-gutter-horizontal-l; }
 
     /* Vertical */
-    .uk-grid + .uk-grid,
+    .uk-grid + :where(.uk-grid),
     .uk-grid > .uk-grid-margin,
     * + .uk-grid-margin { margin-top: @grid-gutter-vertical-l; }
 
@@ -121,8 +121,8 @@
 .uk-grid-column-small > * { padding-left: @grid-small-gutter-horizontal; }
 
 /* Vertical */
-.uk-grid + .uk-grid-small,
-.uk-grid + .uk-grid-row-small,
+.uk-grid + :where(.uk-grid-small),
+.uk-grid + :where(.uk-grid-row-small),
 .uk-grid-small > .uk-grid-margin,
 .uk-grid-row-small > .uk-grid-margin,
 * + .uk-grid-margin-small { margin-top: @grid-small-gutter-vertical; }
@@ -138,8 +138,8 @@
 .uk-grid-column-medium > * { padding-left: @grid-medium-gutter-horizontal; }
 
 /* Vertical */
-.uk-grid + .uk-grid-medium,
-.uk-grid + .uk-grid-row-medium,
+.uk-grid + :where(.uk-grid-medium),
+.uk-grid + :where(.uk-grid-row-medium),
 .uk-grid-medium > .uk-grid-margin,
 .uk-grid-row-medium > .uk-grid-margin,
 * + .uk-grid-margin-medium { margin-top: @grid-medium-gutter-vertical; }
@@ -155,8 +155,8 @@
 .uk-grid-column-large > * { padding-left: @grid-large-gutter-horizontal; }
 
 /* Vertical */
-.uk-grid + .uk-grid-large,
-.uk-grid + .uk-grid-row-large,
+.uk-grid + :where(.uk-grid-large),
+.uk-grid + :where(.uk-grid-row-large),
 .uk-grid-large > .uk-grid-margin,
 .uk-grid-row-large > .uk-grid-margin,
 * + .uk-grid-margin-large { margin-top: @grid-large-gutter-vertical; }
@@ -171,8 +171,8 @@
     .uk-grid-column-large > * { padding-left: @grid-large-gutter-horizontal-l; }
 
     /* Vertical */
-    .uk-grid + .uk-grid-large,
-    .uk-grid + .uk-grid-row-large,
+    .uk-grid + :where(.uk-grid-large),
+    .uk-grid + :where(.uk-grid-row-large),
     .uk-grid-large > .uk-grid-margin,
     .uk-grid-row-large > .uk-grid-margin,
     * + .uk-grid-margin-large { margin-top: @grid-large-gutter-vertical-l; }
@@ -190,8 +190,8 @@
 .uk-grid-column-collapse > * { padding-left: 0; }
 
 /* Vertical */
-.uk-grid + .uk-grid-collapse,
-.uk-grid + .uk-grid-row-collapse,
+.uk-grid + :where(.uk-grid-collapse),
+.uk-grid + :where(.uk-grid-row-collapse),
 .uk-grid-collapse > .uk-grid-margin,
 .uk-grid-row-collapse > .uk-grid-margin { margin-top: 0; }
 
