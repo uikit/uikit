@@ -1,14 +1,4 @@
-import {
-    addClass,
-    css,
-    hasClass,
-    isRtl,
-    scrolledOver,
-    sumBy,
-    toFloat,
-    toggleClass,
-    toPx,
-} from 'uikit-util';
+import { addClass, css, isRtl, scrolledOver, sumBy, toFloat, toggleClass, toPx } from 'uikit-util';
 import { scroll } from '../api/observables';
 import Class from '../mixin/class';
 import Margin from './margin';
@@ -29,7 +19,8 @@ export default {
     },
 
     data: {
-        margin: 'uk-grid-margin',
+        margin: '',
+        firstRow: 'uk-first-row',
         clsStack: 'uk-grid-stack',
         masonry: false,
         parallax: 0,
@@ -56,7 +47,7 @@ export default {
         {
             read(data) {
                 const { rows } = data;
-                let { masonry, parallax, parallaxJustify, margin } = this;
+                let { masonry, parallax, parallaxJustify } = this;
 
                 parallax = Math.max(0, toPx(parallax));
 
@@ -71,7 +62,7 @@ export default {
                     return (data.translates = data.scrollColumns = false);
                 }
 
-                let gutter = getGutter(rows, margin);
+                let gutter = toFloat(css(this.$el, 'row-gap'));
 
                 let columns;
                 let translates;
@@ -183,11 +174,6 @@ function applyMasonry(rows, gutter, next) {
     }
 
     return [columns, translates];
-}
-
-function getGutter(rows, cls) {
-    const node = rows.flat().find((el) => hasClass(el, cls));
-    return toFloat(node ? css(node, 'marginTop') : css(rows[0][0], 'paddingLeft'));
 }
 
 function transpose(rows) {
