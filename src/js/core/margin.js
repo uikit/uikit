@@ -4,11 +4,13 @@ import { mutation, resize } from '../api/observables';
 export default {
     props: {
         margin: String,
+        firstRow: Boolean,
         firstColumn: Boolean,
     },
 
     data: {
         margin: 'uk-margin-small-top',
+        firstRow: false,
         firstColumn: 'uk-first-column',
     },
 
@@ -52,6 +54,7 @@ export default {
             for (const row of rows) {
                 for (const el of row) {
                     toggleClass(el, this.margin, rows[0] !== row);
+                    toggleClass(el, this.firstRow, rows[0] === row);
                     toggleClass(el, this.firstColumn, row[isRtl ? row.length - 1 : 0] === el);
                 }
             }
