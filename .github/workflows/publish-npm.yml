@@ -1,6 +1,12 @@
 name: Publish release to npm
 
 on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Publish dev version even if commit message is not feat/fix/refactor/perf'
+        type: boolean
+        default: true
   push:
     branches:
       - 'develop'
@@ -14,12 +20,18 @@ permissions:
 jobs:
   publish-dev:
     if: |
-      github.ref == 'refs/heads/develop' &&
+      github.ref != 'refs/heads/main' &&
       (
-          contains(github.event.head_commit.message, 'fix:') ||
-          contains(github.event.head_commit.message, 'feat:') ||
-          contains(github.event.head_commit.message, 'refactor:') ||
-          contains(github.event.head_commit.message, 'perf:')
+        github.event_name == 'workflow_dispatch' ||
+        (
+          github.ref == 'refs/heads/develop' &&
+          (
+            contains(github.event.head_commit.message, 'fix:') ||
+            contains(github.event.head_commit.message, 'feat:') ||
+            contains(github.event.head_commit.message, 'refactor:') ||
+            contains(github.event.head_commit.message, 'perf:')
+          )
+        )
       )
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +50,12 @@ jobs:
 
       - run: pnpm eslint
 
-      - run: node ./build/publishDev.js
+      - run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            node ./build/publishDev.js --force
+          else
+            node ./build/publishDev.js
+          fi
 
       - name: Publish to NPM
         if: ${{ success() }}
