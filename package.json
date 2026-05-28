@@ -42,7 +42,6 @@
         "eslint": "^10.0.0",
         "eslint-config-prettier": "^10.1.8",
         "execa": "^9.6.1",
-        "glob": "^13.0.0",
         "globals": "^17.0.0",
         "inquirer": "^13.1.0",
         "less": "^4.5.1",

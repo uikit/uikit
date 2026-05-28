@@ -1,7 +1,6 @@
-import { glob } from 'glob';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { read, write } from './util.js';
+import { glob, read, write } from './util.js';
 
 const coreMixins = {};
 const themeMixins = {};

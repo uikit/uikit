@@ -38,6 +38,10 @@ export async function write(dest, data) {
     return dest;
 }
 
+export async function glob(pattern, exclude = []) {
+    return Array.fromAsync(fs.glob(pattern, { exclude }));
+}
+
 export async function logFile(file) {
     const { size } = await fs.stat(file);
     console.log(`${styleText(['cyan', 'bold'], file)} ${formatSize(size)}`);
