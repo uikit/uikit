@@ -1,8 +1,7 @@
 import camelize from 'camelcase';
-import { glob } from 'glob';
 import path from 'node:path';
 import pLimit from 'p-limit';
-import { args, compile, icons } from './util.js';
+import { args, compile, glob, icons } from './util.js';
 
 const limit = pLimit(Number(process.env.cpus || 2));
 
@@ -71,9 +70,9 @@ function getBundleTasks() {
 }
 
 async function getComponentTasks() {
-    const components = await glob('src/js/components/!(index).js');
+    const components = {};
 
-    return components.reduce((components, file) => {
+    for (const file of await glob('src/js/components/*.js', ['**/index.js'])) {
         const name = path.basename(file, '.js');
 
         components[name] = () =>
@@ -84,12 +83,12 @@ async function getComponentTasks() {
                 aliases: { component: path.resolve('src/js/components', name) },
                 virtualModules: { 'virtual:name': `'${camelize(name)}'` },
             });
+    }
 
-        return components;
-    }, {});
+    return components;
 }
 
 async function getTestFiles() {
-    const files = await glob('tests/!(index).html');
+    const files = await glob('tests/*.html', ['**/index.html']);
     return JSON.stringify(files.sort().map((file) => path.basename(file, '.html')));
 }

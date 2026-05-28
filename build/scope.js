@@ -1,6 +1,5 @@
-import { glob } from 'glob';
 import stripCssComments from 'strip-css-comments';
-import { args, minify, read, renderLess, replaceInFile } from './util.js';
+import { args, glob, minify, read, renderLess, replaceInFile } from './util.js';
 
 if (args.h || args.help) {
     console.log(`
@@ -20,7 +19,7 @@ if (args.h || args.help) {
 const currentScopeRe = /\/\* scoped: ([^*]*) \*\/\n/;
 const currentScopeLegacyRe = /\.(uk-scope)/;
 
-const files = await glob('dist/**/!(*.min).css');
+const files = await glob('dist/**/*.css', ['**/*.min.css']);
 const prevScope = await getScope(files);
 
 if (args.cleanup && prevScope) {

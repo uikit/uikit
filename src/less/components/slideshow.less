@@ -83,6 +83,11 @@
 
 .uk-slideshow-items > :not(.uk-active) { display: none; }
 
+/*
+ * Reset animations on hidden slides so the Ken Burns effect restarts in Safari.
+ */
+.uk-slideshow-items > :not(.uk-active) [class*="uk-animation-"] { animation-name: none; }
+
 
 // Hooks
 // ========================================================================

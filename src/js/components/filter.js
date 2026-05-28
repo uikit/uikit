@@ -192,11 +192,19 @@ function matchFilter(
     { filter: stateFilter = { '': '' }, sort: [stateSort, stateOrder] },
 ) {
     const { filter = '', group = '', sort, order = 'asc' } = getFilter(el, attr);
+    const defaultFilterMatches = !group && filter === stateFilter[''];
+    const groupFilterMatches = group in stateFilter && filter === stateFilter[group];
+    const groupResetMatches = !filter && group && !(group in stateFilter) && !stateFilter[''];
+    const filterMatches = defaultFilterMatches || groupFilterMatches || groupResetMatches;
 
-    return isUndefined(sort)
-        ? (group in stateFilter && filter === stateFilter[group]) ||
-              (!filter && group && !(group in stateFilter) && !stateFilter[''])
-        : stateSort === sort && stateOrder === order;
+    if (isUndefined(sort)) {
+        return filterMatches;
+    }
+
+    const sortMatches = stateSort === sort && stateOrder === order;
+    const hasFilter = filter || group;
+
+    return sortMatches && (!hasFilter || filterMatches);
 }
 
 function sortItems(nodes, sort, order) {

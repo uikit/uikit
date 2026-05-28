@@ -1,4 +1,4 @@
-import archiver from 'archiver';
+import { ZipArchive } from 'archiver';
 import { $ } from 'execa';
 import inquirer from 'inquirer';
 import fs from 'node:fs';
@@ -62,7 +62,7 @@ function raiseVersion(version) {
 
 async function createPackage(version) {
     const dest = `dist/uikit-${version}.zip`;
-    const archive = archiver('zip');
+    const archive = new ZipArchive({ zlib: { level: 9 } });
 
     const output = fs.createWriteStream(dest);
     const closed = new Promise((resolve, reject) => {

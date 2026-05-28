@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.25.17 (May 28, 2026)
+
+### Fixed
+
+- Fix active state for Filter controls that combine filtering and sorting
+- Fix Ken Burns effect not restarting in Safari in Slideshow component
+
 ## 3.25.16 (April 21, 2026)
 
 ### Fixed

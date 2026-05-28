@@ -34,9 +34,21 @@
 
             <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
 
+            <h2>Abort After Send</h2>
+
+            <p>Select one or more files and check the console. The request aborts from <code>loadStart</code>, so <code>abort</code> should fire while <code>error</code> and <code>completeAll</code> should not.</p>
+
+            <div class="js-upload-abort" uk-form-custom>
+                <input type="file" multiple>
+                <button class="uk-button uk-button-danger" type="button" tabindex="-1">Select and abort</button>
+            </div>
+
+            <progress id="js-abort-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+
             <script>
 
                 const bar =  UIkit.util.$('#js-progressbar');
+                const abortBar = UIkit.util.$('#js-abort-progressbar');
 
                 UIkit.upload('.js-upload', {
 
@@ -92,6 +104,61 @@
                         }, 1000);
 
                         alert('Upload Completed');
+                    }
+
+                });
+
+                UIkit.upload('.js-upload-abort', {
+
+                    url: '',
+                    multiple: true,
+
+                    beforeSend() {
+                        console.log('abort test beforeSend', arguments);
+                    },
+
+                    loadStart(e) {
+                        console.log('abort test loadStart', arguments);
+
+                        abortBar.hidden = false;
+                        abortBar.max = e.total;
+                        abortBar.value = e.loaded;
+
+                        e.target.abort();
+                    },
+
+                    progress(e) {
+                        console.log('abort test progress', arguments);
+
+                        abortBar.max = e.total;
+                        abortBar.value = e.loaded;
+                    },
+
+                    loadEnd(e) {
+                        console.log('abort test loadEnd', arguments);
+
+                        abortBar.max = e.total;
+                        abortBar.value = e.loaded;
+                    },
+
+                    abort() {
+                        console.log('abort test abort', arguments);
+
+                        setTimeout(() => {
+                            abortBar.hidden = true;
+                        }, 300);
+                    },
+
+                    error() {
+                        console.error('abort test error', arguments);
+                    },
+
+                    complete() {
+                        console.error('abort test complete', arguments);
+                    },
+
+                    completeAll() {
+                        console.error('abort test completeAll', arguments);
                     }
 
                 });
