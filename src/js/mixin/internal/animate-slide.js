@@ -1,14 +1,12 @@
 import {
     attr,
     children,
-    clamp,
     css,
     dimensions,
     includes,
     index,
     isInView,
     isVisible,
-    offsetViewport,
     parent,
     position,
     resetProps,
@@ -145,19 +143,11 @@ function getTransitionProps(target, nodes, currentProps) {
 function getPositionWithMargin(el) {
     const { height, width } = dimensions(el);
 
-    let { top, left } = position(el);
-
-    const viewport = offsetViewport(el.ownerDocument);
-
-    top = clamp(top, viewport.top - height - viewport.height, viewport.bottom + viewport.height);
-    left = clamp(left, viewport.left - width - viewport.width, viewport.right + viewport.width);
-
     return {
         height,
         width,
-        top,
-        left,
         transform: '',
+        ...position(el),
         ...css(el, ['marginTop', 'marginLeft']),
     };
 }
