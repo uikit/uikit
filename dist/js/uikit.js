@@ -1,4 +1,4 @@
-/*! UIkit 3.25.16 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.17 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2302,16 +2302,11 @@
     }
     function getPositionWithMargin(el) {
       const { height, width } = dimensions$1(el);
-      let { top, left } = position(el);
-      const viewport = offsetViewport(el.ownerDocument);
-      top = clamp(top, viewport.top - height - viewport.height, viewport.bottom + viewport.height);
-      left = clamp(left, viewport.left - width - viewport.width, viewport.right + viewport.width);
       return {
         height,
         width,
-        top,
-        left,
         transform: "",
+        ...position(el),
         ...css(el, ["marginTop", "marginLeft"])
       };
     }
@@ -2486,7 +2481,16 @@
     }
     function matchFilter(el, attr, { filter: stateFilter = { "": "" }, sort: [stateSort, stateOrder] }) {
       const { filter = "", group = "", sort, order = "asc" } = getFilter(el, attr);
-      return isUndefined(sort) ? group in stateFilter && filter === stateFilter[group] || !filter && group && !(group in stateFilter) && !stateFilter[""] : stateSort === sort && stateOrder === order;
+      const defaultFilterMatches = !group && filter === stateFilter[""];
+      const groupFilterMatches = group in stateFilter && filter === stateFilter[group];
+      const groupResetMatches = !filter && group && !(group in stateFilter) && !stateFilter[""];
+      const filterMatches = defaultFilterMatches || groupFilterMatches || groupResetMatches;
+      if (isUndefined(sort)) {
+        return filterMatches;
+      }
+      const sortMatches = stateSort === sort && stateOrder === order;
+      const hasFilter = filter || group;
+      return sortMatches && (!hasFilter || filterMatches);
     }
     function sortItems(nodes, sort, order) {
       return [...nodes].sort((a, b) => {
@@ -3394,7 +3398,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.16';
+    var VERSION = '3.25.17';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -6552,7 +6556,9 @@
                 this.completeAll(xhr);
               }
             } catch (e) {
-              this.error(e);
+              if (e.name !== "AbortError") {
+                this.error(e);
+              }
             }
           };
           await upload(chunks.shift());
@@ -6589,7 +6595,9 @@
         responseType: "",
         ...options
       };
-      await env.beforeSend(env);
+      if (await env.beforeSend(env) === false) {
+        throw abortError(env.xhr);
+      }
       return send(env.url, env);
     }
     function send(url, env) {
@@ -6621,8 +6629,12 @@
         });
         on(xhr, "error", () => reject(assign(Error("Network Error"), { xhr })));
         on(xhr, "timeout", () => reject(assign(Error("Network Timeout"), { xhr })));
+        on(xhr, "abort", () => reject(abortError(xhr)));
         xhr.send(env.data);
       });
+    }
+    function abortError(xhr) {
+      return assign(Error("Network Abort"), { xhr, name: "AbortError" });
     }
 
     var components$1 = /*#__PURE__*/Object.freeze({
