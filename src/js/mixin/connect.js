@@ -45,9 +45,7 @@ export default {
                 );
 
                 if (await this.toggleElement(actives, false, animate)) {
-                    if (!hasClass(children[index], this.cls)) {
-                        await this.toggleElement(children[index], true, animate);
-                    }
+                    await this.toggleElement(children[index], true, animate);
                 }
             };
 
