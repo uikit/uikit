@@ -222,7 +222,7 @@ export default {
                 });
             });
 
-            return this.showConnects(next, prev >= 0);
+            return this.showConnects(next, prev >= 0 && prev !== next);
         },
     },
 };
