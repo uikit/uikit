@@ -126,7 +126,7 @@ export default {
     update: [
         {
             write() {
-                this.navItems.concat(this.nav).forEach((el) => el && (el.hidden = !this.maxIndex));
+                this.navItems.concat(this.nav).forEach((el) => el && (el.hidden = this.maxIndex < 1));
                 this.updateNav();
             },
 

@@ -101,6 +101,10 @@ export default {
                 return;
             }
 
+            if (!this.multiple) {
+                files = files.slice(0, 1);
+            }
+
             trigger(this.$el, 'upload', [files]);
 
             for (const file of files) {
@@ -118,10 +122,6 @@ export default {
                     this.fail(this.t('invalidMime', this.mime));
                     return;
                 }
-            }
-
-            if (!this.multiple) {
-                files = files.slice(0, 1);
             }
 
             this.beforeAll(this, files);
