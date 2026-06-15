@@ -8,3 +8,5 @@ updates:
       dev-dependencies:
         patterns:
           - '*'
+    commit-message:
+      prefix: 'pnpm'
