@@ -15,6 +15,7 @@
 - Add `inview-queued` option to limit the number of simultaneously playing videos in Video component
 - Add `hover-rewind` option to rewind videos after hovering in Video component
 - Add `parallax` autoplay mode and `parallax-start`, `parallax-end`, `parallax-target`, `parallax-easing` options to Video component
+- Add text balance class to Text component
 
 ### Fixed
 
