@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix reactivity in Slider component
+
 ## 3.25.17 (May 28, 2026)
 
 ### Fixed
