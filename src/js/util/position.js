@@ -204,8 +204,8 @@ function flipAxis(element, target, options) {
             element: options.attach.element.map(flipAttachAxis).reverse(),
             target: options.attach.target.map(flipAttachAxis).reverse(),
         },
-        offset: options.offset.reverse(),
-        placement: options.placement.reverse(),
+        offset: [...options.offset].reverse(),
+        placement: [...options.placement].reverse(),
         recursion: true,
     });
 }
