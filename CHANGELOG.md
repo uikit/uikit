@@ -25,6 +25,7 @@
 
 - IMPORTANT: Rename `uk-box-shadow-bottom` class to `uk-floating-shadow`
 - Refactor selector specificity in Grid, Base and Form components to remove important keywords in Margin component
+- Refactor classes with single-direction margin to override classes with multiple margin directions in Margin component
 - Respect `prefers-reduced-motion` preference for all autoplay modes except hover in Video component
 - Move logo, dropcap and floating shadow from utility to their own components
 - Moved Search component LESS import to load after the Form component
