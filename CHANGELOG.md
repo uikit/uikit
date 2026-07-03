@@ -16,6 +16,7 @@
 - Add `hover-rewind` option to rewind videos after hovering in Video component
 - Add `parallax` autoplay mode and `parallax-start`, `parallax-end`, `parallax-target`, `parallax-easing` options to Video component
 - Add text balance class to Text component
+- Add margin trim block class to Margin component
 
 ### Fixed
 
