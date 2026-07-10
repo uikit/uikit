@@ -17,6 +17,7 @@
 - Add `parallax` autoplay mode and `parallax-start`, `parallax-end`, `parallax-target`, `parallax-easing` options to Video component
 - Add text balance class to Text component
 - Add margin trim block class to Margin component
+- Add margin vertical auto gap class to Margin component
 
 ### Fixed
 
