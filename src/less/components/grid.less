@@ -401,7 +401,7 @@
         .hook-inverse-grid-divider-horizontal();
     }
 
-    .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
+    .uk-grid-divider.uk-grid-stack > :not(.uk-first-row)::before {
         border-top-color: @inverse-grid-divider-border;
         .hook-inverse-grid-divider-vertical();
     }
