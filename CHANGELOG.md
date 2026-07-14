@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix video links in docs
+
 ## 3.25.19 (June 24, 2026)
 
 ### Fixed
