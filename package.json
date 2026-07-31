@@ -41,7 +41,7 @@
         "esbuild": "^0.28.0",
         "eslint": "^10.0.0",
         "eslint-config-prettier": "^10.1.8",
-        "execa": "^9.6.1",
+        "execa": "^10.0.0",
         "globals": "^17.0.0",
         "inquirer": "^14.0.2",
         "less": "^4.5.1",
