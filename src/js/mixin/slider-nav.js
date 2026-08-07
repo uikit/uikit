@@ -100,7 +100,7 @@ export default {
                     ariaLabel = this.t(cmd);
                 }
 
-                button.ariaControls = ariaControls;
+                attr(button, 'aria-controls', ariaControls);
                 button.ariaLabel = button.ariaLabel || ariaLabel;
             }
         },

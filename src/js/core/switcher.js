@@ -200,7 +200,7 @@ export default {
             toggle.id = generateId(this, toggle);
             item.id = generateId(this, item);
 
-            toggle.ariaControls = item.id;
+            attr(toggle, 'aria-controls', item.id);
             attr(item, { role: 'tabpanel', 'aria-labelledby': toggle.id });
         }
         attr(this.$el, 'aria-orientation', matches(this.$el, this.selVertical) ? 'vertical' : null);
