@@ -1,4 +1,4 @@
-/*! UIkit 3.25.20 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.21 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3396,7 +3396,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.20';
+    var VERSION = '3.25.21';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -3947,7 +3947,7 @@
               }
               ariaLabel = this.t(cmd);
             }
-            button.ariaControls = ariaControls;
+            attr(button, "aria-controls", ariaControls);
             button.ariaLabel = button.ariaLabel || ariaLabel;
           }
         },
@@ -7412,6 +7412,11 @@
       if (el) {
         drop.$create("toggle", el, { target: drop.$el, mode: drop.mode });
         el.ariaHasPopup = true;
+        const dropEl = drop.$el;
+        if (!dropEl.id) {
+          dropEl.id = generateId(drop, dropEl);
+        }
+        attr(el, "aria-controls", dropEl.id);
       }
       return el;
     }
@@ -9888,7 +9893,7 @@
           }
           toggle.id = generateId(this, toggle);
           item.id = generateId(this, item);
-          toggle.ariaControls = item.id;
+          attr(toggle, "aria-controls", item.id);
           attr(item, { role: "tabpanel", "aria-labelledby": toggle.id });
         }
         attr(this.$el, "aria-orientation", matches(this.$el, this.selVertical) ? "vertical" : null);
