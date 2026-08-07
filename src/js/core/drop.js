@@ -28,6 +28,7 @@ import {
     query,
     removeClass,
 } from 'uikit-util';
+import { generateId } from '../api/instance';
 import Class from '../mixin/class';
 import Container from '../mixin/container';
 import { maybeDefaultPreventClick } from '../mixin/event';
@@ -465,6 +466,12 @@ function createToggleComponent(drop) {
     if (el) {
         drop.$create('toggle', el, { target: drop.$el, mode: drop.mode });
         el.ariaHasPopup = true;
+
+        const dropEl = drop.$el;
+        if (!dropEl.id) {
+            dropEl.id = generateId(drop, dropEl);
+        }
+        attr(el, 'aria-controls', dropEl.id);
     }
 
     return el;

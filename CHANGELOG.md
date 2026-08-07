@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.21 (August 7, 2026)
+
+### Fixed
+
+- Fix setting `aria-controls` attribute on multiple components
+
 ## 3.25.20 (July 14, 2026)
 
 ### Fixed
