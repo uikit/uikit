@@ -11,17 +11,10 @@
 - Add `inview-queued` option to limit the number of simultaneously playing videos in Video component
 - Add `hover-rewind` option to fast rewind videos after hovering in Video component
 - Add `reduced-motion-time` option to control which frame is shown when autoplay is prevented due to `prefers-reduced-motion` in Video component
-- Add `inview-margin` option to control the viewport margin in Video component
-- Add `inview-queued` option to limit the number of simultaneously playing videos in Video component
-- Add `hover-rewind` option to rewind videos after hovering in Video component
 - Add `parallax` autoplay mode and `parallax-start`, `parallax-end`, `parallax-target`, `parallax-easing` options to Video component
 - Add text balance class to Text component
 - Add margin trim block class to Margin component
 - Add margin vertical auto gap class to Margin component
-
-### Fixed
-
-- Fix `hover-target` not being focusable in Video component
 
 ### Changed
 
