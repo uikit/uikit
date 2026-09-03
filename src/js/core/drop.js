@@ -251,6 +251,7 @@ export default {
 
                 this.tracker.init();
                 attr(this.targetEl, 'aria-expanded', true);
+                setAriaOwns(this);
 
                 const handlers = [
                     listenForResize(this),
@@ -295,6 +296,7 @@ export default {
                 active = this.isActive() ? null : active;
                 this.tracker.cancel();
                 attr(this.targetEl, 'aria-expanded', false);
+                attr(parent(this.targetEl), 'aria-owns', null);
             },
         },
     ],
@@ -475,6 +477,13 @@ function createToggleComponent(drop) {
     }
 
     return el;
+}
+
+function setAriaOwns({ targetEl, $el }) {
+    const owner = parent(targetEl);
+    if (owner && !owner.contains($el)) {
+        attr(owner, 'aria-owns', $el.id);
+    }
 }
 
 function listenForResize(drop) {
