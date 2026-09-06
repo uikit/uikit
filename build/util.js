@@ -1,15 +1,13 @@
 import alias from '@rollup/plugin-alias';
-import replace from '@rollup/plugin-replace';
 import CleanCSS from 'clean-css';
-import fs from 'fs-extra';
-import { glob } from 'glob';
 import less from 'less';
 import minimist from 'minimist';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { styleText } from 'node:util';
 import pLimit from 'p-limit';
-import path from 'path';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
-import modify from 'rollup-plugin-modify';
 import { optimize } from 'svgo';
 
 const limit = pLimit(Number(process.env.cpus || 2));
@@ -30,7 +28,7 @@ export function read(file) {
 }
 
 export async function write(dest, data) {
-    fs.ensureDir(path.dirname(dest));
+    await fs.mkdir(path.dirname(dest), { recursive: true });
 
     await fs.writeFile(dest, data);
     await logFile(dest);
@@ -38,9 +36,13 @@ export async function write(dest, data) {
     return dest;
 }
 
+export async function glob(pattern, exclude = []) {
+    return Array.fromAsync(fs.glob(pattern, { exclude }));
+}
+
 export async function logFile(file) {
     const { size } = await fs.stat(file);
-    console.log(`${cyan(file)} ${formatSize(size)}`);
+    console.log(`${styleText(['cyan', 'bold'], file)} ${formatSize(size)}`);
 }
 
 export async function minify(file) {
@@ -62,7 +64,11 @@ export function renderLess(data, options) {
     return limit(async () => (await less.render(data, options)).css);
 }
 
-export async function compile(file, dest, { external, globals, name, aliases, replaces } = {}) {
+export async function compile(
+    file,
+    dest,
+    { external, globals, name, aliases, virtualModules } = {},
+) {
     const minify = !args.nominify;
     const debug = args.d || args.debug;
     const log = args.l || args.log;
@@ -74,14 +80,12 @@ export async function compile(file, dest, { external, globals, name, aliases, re
         external,
         input: file,
         plugins: [
-            replace({
-                preventAssignment: true,
-                values: {
-                    VERSION: `'${await getVersion()}'`,
-                    LOG: !!log,
-                    ...replaces,
-                },
+            virtualModulesPlugin({
+                'virtual:version': `'${await getVersion()}'`,
+                'virtual:log': String(!!log),
+                ...virtualModules,
             }),
+
             alias({
                 entries: {
                     'uikit-util': path.resolve('./src/js/util/index.js'),
@@ -95,14 +99,15 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                 target: 'safari12',
                 sourceMap: !!debug,
                 minify: false,
-                supported: { 'template-literal': true },
+                supported: { 'template-literal': true, destructuring: true },
             }),
 
-            !debug &&
-                modify({
-                    find: /(?<=>)\n\s+|\n\s+(?=<)/,
-                    replace: ' ',
-                }),
+            !debug && {
+                name: 'trim-whitespace',
+                transform(source) {
+                    return source.replaceAll(/(?<=>)\n\s+|\n\s+(?=<)/g, '  ');
+                },
+            },
         ],
     };
 
@@ -131,7 +136,7 @@ export async function compile(file, dest, { external, globals, name, aliases, re
                     ? undefined
                     : esbuildMinify({
                           target: 'safari12',
-                          supported: { 'template-literal': true },
+                          supported: { 'template-literal': true, destructuring: true },
                       }),
             ],
         });
@@ -170,36 +175,34 @@ export async function compile(file, dest, { external, globals, name, aliases, re
     }
 }
 
-export async function icons(src) {
-    const files = await glob(src);
-    const icons = await Promise.all(
-        files.map((file) => limit(async () => optimizeSvg(await read(file)))),
-    );
+export async function icons(...src) {
+    let files = {};
+    for (const pattern of src) {
+        for await (const file of fs.glob(pattern)) {
+            files[path.basename(file, '.svg')] ??= limit(
+                async () => await optimizeSvg(await read(file)),
+            );
+        }
+    }
 
-    return JSON.stringify(
-        files.reduce((result, file, i) => {
-            result[path.basename(file, '.svg')] = icons[i];
-            return result;
-        }, {}),
-        null,
-        '    ',
-    );
+    const sorted = {};
+    for (const key of Object.keys(files).sort()) {
+        sorted[key] = await files[key];
+    }
+
+    return JSON.stringify(sorted, null, '    ');
 }
 
-export function ucfirst(str) {
+function ucfirst(str) {
     return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 }
 
 export async function getVersion() {
-    return (await fs.readJson('package.json')).version;
+    return JSON.parse(await fs.readFile('package.json', 'utf8')).version;
 }
 
 export async function replaceInFile(file, fn) {
     await write(file, await fn(await read(file)));
-}
-
-function cyan(str) {
-    return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
 }
 
 function formatSize(bytes) {
@@ -266,6 +269,28 @@ async function optimizeSvg(svg) {
     };
 
     return (await optimize(svg, options)).data;
+}
+
+// @see https:rollupjs.org/plugin-development/#conventions for the \0 prefix convention
+function virtualModulesPlugin(map) {
+    return {
+        name: 'virtual-modules',
+
+        resolveId(id) {
+            if (id in map) {
+                return '\0' + id;
+            }
+        },
+
+        load(id) {
+            if (id.startsWith('\0')) {
+                const key = id.slice(1);
+                if (key in map) {
+                    return `export default ${map[key]};`;
+                }
+            }
+        },
+    };
 }
 
 function svgPlugin() {

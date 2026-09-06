@@ -142,8 +142,7 @@ export default {
                 sortable.target,
                 target,
                 placeholder,
-                x,
-                y,
+                { x, y },
                 sortable === previous && data.moved !== target,
             );
 
@@ -365,7 +364,7 @@ function findTarget(items, point) {
     return items[findIndex(items, (item) => pointInRect(point, dimensions(item)))];
 }
 
-function findInsertTarget(list, target, placeholder, x, y, sameList) {
+function findInsertTarget(list, target, placeholder, point, sameList) {
     if (!children(list).length) {
         return;
     }
@@ -373,7 +372,7 @@ function findInsertTarget(list, target, placeholder, x, y, sameList) {
     const rect = dimensions(target);
     if (!sameList) {
         if (!isHorizontal(list, placeholder)) {
-            return y < rect.top + rect.height / 2 ? target : target.nextElementSibling;
+            return point.y < rect.top + rect.height / 2 ? target : target.nextElementSibling;
         }
 
         return target;
@@ -386,8 +385,8 @@ function findInsertTarget(list, target, placeholder, x, y, sameList) {
     );
 
     const [pointerPos, lengthProp, startProp, endProp] = sameRow
-        ? [x, 'width', 'left', 'right']
-        : [y, 'height', 'top', 'bottom'];
+        ? [point.x, 'width', 'left', 'right']
+        : [point.y, 'height', 'top', 'bottom'];
 
     const diff =
         placeholderRect[lengthProp] < rect[lengthProp]

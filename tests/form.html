@@ -34,6 +34,10 @@
                                 <select class="uk-select uk-form-width-large" id="form-h-select">
                                     <option>Option 01</option>
                                     <option>Option 02</option>
+                                    <optgroup label="Optgroup">
+                                        <option>Option A</option>
+                                        <option>Option B</option>
+                                    </optgroup>
                                 </select>
                             </div>
                         </div>
@@ -94,6 +98,10 @@
                                     <option>Option 02</option>
                                     <option>Option 03</option>
                                     <option>Option 04</option>
+                                    <optgroup label="Optgroup">
+                                        <option>Option A</option>
+                                        <option>Option B</option>
+                                    </optgroup>
                                 </select>
                             </div>
                         </div>
@@ -117,9 +125,14 @@
                             <select class="uk-select uk-form-width-small uk-form-large" aria-label="Large">
                                 <option>Option 01</option>
                                 <option>Option 02</option>
+                                <optgroup label="Optgroup">
+                                    <option>Option A</option>
+                                    <option>Option B</option>
+                                </optgroup>
                             </select>
                             <button class="uk-button uk-button-default uk-button-large">Button</button>
-                            <label><input class="uk-checkbox" type="checkbox"> Checkbox</label>
+                            <input class="uk-checkbox uk-form-large" type="checkbox">
+                            <input class="uk-radio uk-form-large" type="radio">
                         </div>
 
                         <div class="uk-margin" uk-margin>
@@ -128,9 +141,14 @@
                             <select class="uk-select uk-form-width-small" aria-label="Default">
                                 <option>Option 01</option>
                                 <option>Option 02</option>
+                                <optgroup label="Optgroup">
+                                    <option>Option A</option>
+                                    <option>Option B</option>
+                                </optgroup>
                             </select>
                             <button class="uk-button uk-button-default">Button</button>
-                            <label><input class="uk-checkbox" type="checkbox"> Checkbox</label>
+                            <input class="uk-checkbox" type="checkbox">
+                            <input class="uk-radio" type="radio">
                         </div>
 
                         <div class="uk-margin" uk-margin>
@@ -139,9 +157,14 @@
                             <select class="uk-select uk-form-width-small uk-form-small" aria-label="Small">
                                 <option>Option 01</option>
                                 <option>Option 02</option>
+                                <optgroup label="Optgroup">
+                                    <option>Option A</option>
+                                    <option>Option B</option>
+                                </optgroup>
                             </select>
                             <button class="uk-button uk-button-default uk-button-small">Button</button>
-                            <label><input class="uk-checkbox" type="checkbox"> Checkbox</label>
+                            <input class="uk-checkbox uk-form-small" type="checkbox">
+                            <input class="uk-radio uk-form-small" type="radio">
                         </div>
 
                     </form>
@@ -245,12 +268,20 @@
                     <select class="uk-select uk-form-width-large" aria-label="Select">
                         <option>Option 01</option>
                         <option>Option 02</option>
+                        <optgroup label="Optgroup">
+                            <option>Option A</option>
+                            <option>Option B</option>
+                        </optgroup>
                     </select>
 
                     <p class="uk-margin-small">
                         <select class="uk-select uk-form-width-large" aria-label="Select disabled" disabled>
                             <option>Option 01</option>
                             <option>Option 02</option>
+                            <optgroup label="Optgroup">
+                                <option>Option A</option>
+                                <option>Option B</option>
+                            </optgroup>
                         </select>
                     </p>
 
@@ -260,6 +291,10 @@
                             <option>Option 02</option>
                             <option>Option 03</option>
                             <option>Option 04</option>
+                            <optgroup label="Optgroup">
+                                <option>Option A</option>
+                                <option>Option B</option>
+                            </optgroup>
                         </select>
                     </p>
 
@@ -476,6 +511,10 @@
                             <select class="uk-select" id="form-s-select">
                                 <option>Option 01</option>
                                 <option>Option 02</option>
+                                <optgroup label="Optgroup">
+                                    <option>Option A</option>
+                                    <option>Option B</option>
+                                </optgroup>
                             </select>
                         </div>
 
@@ -515,6 +554,10 @@
                                 <option>Option 02</option>
                                 <option>Option 03</option>
                                 <option>Option 04</option>
+                                <optgroup label="Optgroup">
+                                    <option>Option A</option>
+                                    <option>Option B</option>
+                                </optgroup>
                             </select>
                         </div>
 
@@ -586,6 +629,16 @@
                         <div class="uk-margin">
                             <label class="uk-form-label" for="form-s-datetimelocal">Datetime local</label>
                             <input class="uk-input" id="form-s-datetimelocal" type="datetime-local">
+                        </div>
+
+                        <div class="uk-margin">
+                            <div class="uk-form-label">Div as Input</div>
+                            <div class="uk-input">This is a very long text which should be truncated</div>
+                        </div>
+
+                        <div class="uk-margin">
+                            <div class="uk-form-label">Div as Select</div>
+                            <div class="uk-select">This is a very long text which should be truncate</div>
                         </div>
 
                     </fieldset>

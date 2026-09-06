@@ -1,10 +1,6 @@
-import { emptyDir } from 'fs-extra';
-import { glob } from 'glob';
-import NP from 'number-precision';
-import path from 'path';
-import { read, write } from './util.js';
-
-NP.enableBoundaryChecking(false);
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { glob, read, write } from './util.js';
 
 const coreMixins = {};
 const themeMixins = {};
@@ -12,21 +8,19 @@ const coreVariables = {};
 const themeVariables = {};
 const inverseComponentMixins = [];
 
-await emptyDir('src/scss/');
+await emptyDir('src/scss');
 
 for (const file of (await glob('src/less/**/*.less'))
     .sort()
     .sort((a, b) => a.endsWith('/inverse.less') - b.endsWith('/inverse.less'))) {
-    let source = await read(file);
-
     /* replace all Less stuff with SCSS */
-    source = (await read(file))
+    let source = (await read(file))
         .replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
         .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
-        .replace(/@/g, '$') // convert variables
+        .replace(/@(?!property)/g, '$') // convert variables
         .replace(
             /(:[^'"]*?\([^'"]+?)\s*\/\s*([0-9.-]+)\)/g,
-            (exp, m1, m2) => `${m1} * ${NP.round(1 / parseFloat(m2), 5)})`,
+            (exp, m1, m2) => `${m1} * ${round(1 / parseFloat(m2), 5)})`,
         )
         .replace(/--uk-\S+: (\$\S+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
         .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
@@ -66,7 +60,8 @@ for (const file of (await glob('src/less/**/*.less'))
         .replace(/\${/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
         .replace(/[^(](-\$[\w-]*)/g, ' ($1)') // surround negative variables with brackets
         .replace(/(--[\w-]+:\s*)~'([^']+)'/g, '$1$2') // string literals in custom properties
-        .replace(/~('[^']+')/g, 'unquote($1)'); // string literals: for real
+        .replace(/~('[^']+')/g, 'unquote($1)') // string literals: for real
+        .replace(/(\w+)&/g, '&:is($1)'); // replace parent selector & when not at beginning of selector
 
     /* File name of the current file */
     const filename = path.basename(file, '.less');
@@ -248,4 +243,13 @@ async function getVariablesFromFile(file, source) {
 
     // Remove variables from source
     return source.replace(/(\$[\w-]*)\s*:(.*);\r?\n/g, '');
+}
+
+async function emptyDir(dir) {
+    await fs.rm(dir, { recursive: true, force: true });
+    await fs.mkdir(dir, { recursive: true });
+}
+
+function round(num, precision) {
+    return Math.round(num * 10 ** precision) / 10 ** precision;
 }

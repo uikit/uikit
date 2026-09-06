@@ -1,9 +1,11 @@
+import icons from 'virtual:icons';
+
 function plugin(UIkit) {
     if (plugin.installed) {
         return;
     }
 
-    UIkit.icon.add(ICONS);
+    UIkit.icon.add(icons);
 }
 
 if (typeof window !== 'undefined' && window.UIkit) {

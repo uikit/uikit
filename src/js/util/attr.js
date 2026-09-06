@@ -1,4 +1,4 @@
-import { isFunction, isObject, isUndefined, toNode, toNodes } from './lang';
+import { isObject, isUndefined, toNode, toNodes } from './lang';
 
 export function attr(element, name, value) {
     if (isObject(name)) {
@@ -12,10 +12,6 @@ export function attr(element, name, value) {
         return toNode(element)?.getAttribute(name);
     } else {
         for (const el of toNodes(element)) {
-            if (isFunction(value)) {
-                value = value.call(el, attr(el, name));
-            }
-
             if (value === null) {
                 removeAttr(el, name);
             } else {

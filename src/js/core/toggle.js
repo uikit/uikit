@@ -18,9 +18,7 @@ import {
 import { lazyload } from '../api/observables';
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
-
-const KEY_ENTER = 13;
-const KEY_SPACE = 32;
+import { keyMap } from '../util/keys';
 
 export default {
     mixins: [Media, Togglable],
@@ -96,9 +94,7 @@ export default {
         },
 
         {
-            // mouseenter mouseleave are added because of Firefox bug,
-            // where pointerleave is triggered immediately after pointerenter on scroll
-            name: `mouseenter mouseleave ${pointerEnter} ${pointerLeave} focus blur`,
+            name: `${pointerEnter} ${pointerLeave} focus blur`,
 
             filter: ({ mode }) => includes(mode, 'hover'),
 
@@ -107,14 +103,14 @@ export default {
                     return;
                 }
 
-                const show = includes(['mouseenter', pointerEnter, 'focus'], e.type);
+                const show = includes([pointerEnter, 'focus'], e.type);
                 const expanded = this.isToggled(this.target);
 
                 // Skip hide if still hovered or focused
                 if (
                     !show &&
                     (!isBoolean(this._showState) ||
-                        (e.type !== 'blur' && matches(this.$el, ':focus')) ||
+                        (e.type === pointerLeave && matches(this.$el, ':focus')) ||
                         (e.type === 'blur' && matches(this.$el, ':hover')))
                 ) {
                     // Reset showState if already hidden
@@ -141,7 +137,7 @@ export default {
             filter: ({ $el, mode }) => includes(mode, 'click') && !isTag($el, 'input'),
 
             handler(e) {
-                if (e.keyCode === KEY_SPACE || e.keyCode === KEY_ENTER) {
+                if (e.keyCode === keyMap.SPACE || e.keyCode === keyMap.ENTER) {
                     e.preventDefault();
                     this.$el.click();
                 }

@@ -3,6 +3,7 @@ import {
     addClass,
     append,
     css,
+    dimensions,
     endsWith,
     includes,
     isFocusable,
@@ -18,6 +19,7 @@ import {
     removeClass,
     toFloat,
 } from 'uikit-util';
+import { awaitFrame } from '../util/await';
 import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
@@ -193,7 +195,11 @@ export default {
                 if (!active.some((modal) => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);
 
-                    queueMicrotask(() => isFocusable(target) && target.focus());
+                    queueMicrotask(() => {
+                        if (isFocusable(target)) {
+                            target.focus({ preventScroll: true });
+                        }
+                    });
                 }
 
                 setAriaExpanded(target, false);
@@ -208,12 +214,10 @@ export default {
             return this.isToggled() ? this.hide() : this.show();
         },
 
-        show() {
+        async show() {
             if (this.container && parent(this.$el) !== this.container) {
                 append(this.container, this.$el);
-                return new Promise((resolve) =>
-                    requestAnimationFrame(() => this.show().then(resolve)),
-                );
+                await awaitFrame();
             }
 
             return this.toggleElement(this.$el, true, animate);
@@ -262,9 +266,18 @@ function toMs(time) {
 
 function preventBackgroundFocus(modal) {
     return on(document, 'focusin', (e) => {
-        if (last(active) === modal && !modal.$el.contains(e.target)) {
-            modal.$el.focus();
+        if (last(active) !== modal || modal.$el.contains(e.target)) {
+            return;
         }
+
+        const { left, top, width, height } = dimensions(e.target);
+        const topEl = document.elementFromPoint(left + width / 2, top + height / 2);
+
+        if (topEl && (e.target.contains(topEl) || topEl.contains(e.target))) {
+            return;
+        }
+
+        modal.$el.focus();
     });
 }
 

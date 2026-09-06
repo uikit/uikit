@@ -1,5 +1,5 @@
-import { glob } from 'glob';
 import inquirer from 'inquirer';
+import { glob } from 'node:fs/promises';
 import { args, read, replaceInFile } from './util.js';
 
 if (args.h || args.help) {
@@ -60,13 +60,13 @@ function isValidPrefix(prefix) {
 }
 
 async function replacePrefix(from, to) {
-    for (const file of await glob(`${path}/**/*.css`)) {
+    for await (const file of glob(`${path}/**/*.css`)) {
         await replaceInFile(file, (data) =>
             data.replace(new RegExp(`${from}-([a-z\\d-]+)`, 'g'), `${to}-$1`),
         );
     }
 
-    for (const file of await glob(`${path}/**/*.js`)) {
+    for await (const file of glob(`${path}/**/*.js`)) {
         await replaceInFile(file, (data) =>
             data
                 .replace(new RegExp(`${from}-`, 'g'), `${to}-`)

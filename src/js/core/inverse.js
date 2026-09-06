@@ -124,7 +124,7 @@ function findTargetColor(target) {
 
     const { left, top, height, width } = dim;
 
-    let last;
+    let last = '';
     for (const percent of [0.25, 0.5, 0.75]) {
         const elements = target.ownerDocument.elementsFromPoint(
             Math.max(0, Math.min(left + width * percent, viewport.width - 1)),

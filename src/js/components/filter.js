@@ -10,6 +10,7 @@ import {
     includes,
     isEmpty,
     isEqual,
+    isNumeric,
     isTag,
     isUndefined,
     matches,
@@ -191,19 +192,31 @@ function matchFilter(
     { filter: stateFilter = { '': '' }, sort: [stateSort, stateOrder] },
 ) {
     const { filter = '', group = '', sort, order = 'asc' } = getFilter(el, attr);
+    const defaultFilterMatches = !group && filter === stateFilter[''];
+    const groupFilterMatches = group in stateFilter && filter === stateFilter[group];
+    const groupResetMatches = !filter && group && !(group in stateFilter) && !stateFilter[''];
+    const filterMatches = defaultFilterMatches || groupFilterMatches || groupResetMatches;
 
-    return isUndefined(sort)
-        ? (group in stateFilter && filter === stateFilter[group]) ||
-              (!filter && group && !(group in stateFilter) && !stateFilter[''])
-        : stateSort === sort && stateOrder === order;
+    if (isUndefined(sort)) {
+        return filterMatches;
+    }
+
+    const sortMatches = stateSort === sort && stateOrder === order;
+    const hasFilter = filter || group;
+
+    return sortMatches && (!hasFilter || filterMatches);
 }
 
 function sortItems(nodes, sort, order) {
-    return [...nodes].sort(
-        (a, b) =>
-            data(a, sort).localeCompare(data(b, sort), undefined, { numeric: true }) *
-            (order === 'asc' || -1),
-    );
+    return [...nodes].sort((a, b) => {
+        const valA = data(a, sort) || '';
+        const valB = data(b, sort) || '';
+        const cmp =
+            isNumeric(valA) && isNumeric(valB)
+                ? valA - valB
+                : valA.localeCompare(valB, undefined, { numeric: true });
+        return cmp * (order === 'asc' || -1);
+    });
 }
 
 function findButton(el) {

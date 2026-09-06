@@ -20,7 +20,6 @@ import {
     unwrap,
     wrapInner,
 } from 'uikit-util';
-import { storeScrollPosition } from './position';
 
 export default {
     props: {
@@ -52,13 +51,15 @@ export default {
 
     methods: {
         async toggleElement(targets, toggle, animate) {
-            try {
+            const CANCELLED = {};
+
+            return (
                 await Promise.all(
                     toNodes(targets).map((el) => {
                         const show = isBoolean(toggle) ? toggle : !this.isToggled(el);
 
                         if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
-                            return Promise.reject();
+                            return CANCELLED;
                         }
 
                         const promise = (
@@ -82,24 +83,21 @@ export default {
                             trigger(el, show ? 'shown' : 'hidden', [this]);
 
                             if (show) {
-                                const restoreScrollPosition = storeScrollPosition(el);
-                                $$('[autofocus]', el).find(isVisible)?.focus();
-                                restoreScrollPosition();
+                                $$('[autofocus]', el)
+                                    .find(isVisible)
+                                    ?.focus({ preventScroll: true });
                             }
                         };
 
                         return promise
                             ? promise.then(done, () => {
                                   removeClass(el, cls);
-                                  return Promise.reject();
+                                  return CANCELLED;
                               })
                             : done();
                     }),
-                );
-                return true;
-            } catch (e) {
-                return false;
-            }
+                )
+            ).every((r) => r !== CANCELLED);
         },
 
         isToggled(el = this.$el) {

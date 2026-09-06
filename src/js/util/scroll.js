@@ -7,7 +7,7 @@ export function preventBackgroundScroll(el) {
         el,
         'touchstart',
         (e) => {
-            if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"')) {
+            if (e.targetTouches.length !== 1 || matches(e.target, 'input[type="range"]')) {
                 return;
             }
 
@@ -39,7 +39,7 @@ export function preventBackgroundScroll(el) {
                 { passive: false },
             );
 
-            once(el, 'scroll touchend touchcanel', offMove, { capture: true });
+            once(el, 'scroll touchend touchcancel', offMove, { capture: true });
         },
         { passive: true },
     );
@@ -53,7 +53,7 @@ export function preventBackgroundScroll(el) {
     const props = {
         overflowY: CSS.supports('overflow', 'clip') ? 'clip' : 'hidden',
         touchAction: 'none',
-        paddingRight: width(window) - scrollingElement.clientWidth || '',
+        scrollbarGutter: width(window) - scrollingElement.clientWidth ? 'stable' : '',
     };
     css(scrollingElement, props);
     return () => {

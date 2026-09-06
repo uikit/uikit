@@ -47,8 +47,8 @@ export default {
         collapsible: true,
         multiple: false,
         clsOpen: 'uk-open',
-        toggle: '> .uk-accordion-title',
-        content: '> .uk-accordion-content',
+        toggle: '.uk-accordion-title',
+        content: '.uk-accordion-content',
         offset: 0,
     },
 
@@ -104,21 +104,25 @@ export default {
 
             delegate: ({ targets, $props }) => `${targets} ${$props.toggle}`,
 
-            async handler(e) {
+            handler(e) {
                 if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
+                    return;
+                }
+
+                const item = index(this.toggles, e.current);
+
+                if (item === -1) {
                     return;
                 }
 
                 maybeDefaultPreventClick(e);
 
-                this._off?.();
-                this._off = keepScrollPosition(e.target);
-                await this.toggle(index(this.toggles, e.current));
-                this._off();
+                const off = keepScrollPosition(e.target);
+                this.toggle(item).finally(off);
             },
         },
         {
-            name: 'shown hidden',
+            name: 'show hide shown hidden',
 
             self: true,
 
@@ -170,7 +174,7 @@ export default {
             }
 
             if (!this.collapsible && activeItems.length < 2 && includes(activeItems, item)) {
-                return;
+                items = [];
             }
 
             return Promise.all(
@@ -214,7 +218,7 @@ async function transition(el, show, { content, duration, velocity, transition })
         dimensions(content).height;
 
     const percent = currentHeight / endHeight;
-    duration = (velocity * endHeight + duration) * (show ? 1 - percent : percent);
+    duration = endHeight ? (velocity * endHeight + duration) * (show ? 1 - percent : percent) : 0;
     css(wrapper, 'height', currentHeight);
 
     await Transition.start(wrapper, { height: show ? endHeight : 0 }, duration, transition);

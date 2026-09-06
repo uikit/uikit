@@ -101,6 +101,10 @@ export default {
                 return;
             }
 
+            if (!this.multiple) {
+                files = files.slice(0, 1);
+            }
+
             trigger(this.$el, 'upload', [files]);
 
             for (const file of files) {
@@ -118,10 +122,6 @@ export default {
                     this.fail(this.t('invalidMime', this.mime));
                     return;
                 }
-            }
-
-            if (!this.multiple) {
-                files = files.slice(0, 1);
             }
 
             this.beforeAll(this, files);
@@ -160,7 +160,9 @@ export default {
                         this.completeAll(xhr);
                     }
                 } catch (e) {
-                    this.error(e);
+                    if (e.name !== 'AbortError') {
+                        this.error(e);
+                    }
                 }
             };
 
@@ -195,8 +197,9 @@ function stop(e) {
     e.stopPropagation();
 }
 
-export async function ajax(url, options) {
+async function ajax(url, options) {
     const env = {
+        url,
         data: null,
         method: 'GET',
         headers: {},
@@ -205,8 +208,11 @@ export async function ajax(url, options) {
         responseType: '',
         ...options,
     };
-    await env.beforeSend(env);
-    return send(url, env);
+    if ((await env.beforeSend(env)) === false) {
+        throw abortError(env.xhr);
+    }
+
+    return send(env.url, env);
 }
 
 function send(url, env) {
@@ -217,9 +223,7 @@ function send(url, env) {
             if (prop in xhr) {
                 try {
                     xhr[prop] = env[prop];
-                } catch (e) {
-                    // noop
-                }
+                } catch {}
             }
         }
 
@@ -244,7 +248,12 @@ function send(url, env) {
 
         on(xhr, 'error', () => reject(assign(Error('Network Error'), { xhr })));
         on(xhr, 'timeout', () => reject(assign(Error('Network Timeout'), { xhr })));
+        on(xhr, 'abort', () => reject(abortError(xhr)));
 
         xhr.send(env.data);
     });
+}
+
+function abortError(xhr) {
+    return assign(Error('Network Abort'), { xhr, name: 'AbortError' });
 }

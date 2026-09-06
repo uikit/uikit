@@ -1,4 +1,5 @@
 import * as util from 'uikit-util';
+import VERSION from 'virtual:version';
 import { init } from './state';
 
 const App = function (options) {

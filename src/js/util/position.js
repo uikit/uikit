@@ -1,5 +1,5 @@
 import { offset } from './dimensions';
-import { clamp, isArray, ucfirst } from './lang';
+import { clamp, isArray, isNumber, ucfirst } from './lang';
 import { css } from './style';
 import { offsetViewport, overflowParents } from './viewport';
 
@@ -176,7 +176,7 @@ function getIntersectionArea(...rects) {
     for (const rect of rects) {
         for (const [, , start, end] of dirs) {
             area[start] = Math.max(area[start] || 0, rect[start]);
-            area[end] = Math.min(...[area[end], rect[end]].filter(Boolean));
+            area[end] = Math.min(...[area[end], rect[end]].filter(isNumber));
         }
     }
     return area;
@@ -204,8 +204,8 @@ function flipAxis(element, target, options) {
             element: options.attach.element.map(flipAttachAxis).reverse(),
             target: options.attach.target.map(flipAttachAxis).reverse(),
         },
-        offset: options.offset.reverse(),
-        placement: options.placement.reverse(),
+        offset: [...options.offset].reverse(),
+        placement: [...options.placement].reverse(),
         recursion: true,
     });
 }

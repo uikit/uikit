@@ -181,7 +181,7 @@
  * The same for all style modifiers
  ========================================================================== */
 
-.uk-subnav > .uk-disabled > a {
+.uk-subnav > .uk-disabled > :first-child {
     color: $subnav-item-disabled-color;
     @if(meta.mixin-exists(hook-subnav-item-disabled)) {@include hook-subnav-item-disabled();}
 }

@@ -7,15 +7,14 @@ const clsTransition = 'uk-transition';
 const transitionEnd = 'transitionend';
 const transitionCanceled = 'transitioncanceled';
 
-function transition(element, props, duration = 400, timing = 'linear') {
+function transition(element, props, duration = 400, timing = 'linear', skipReflow) {
     duration = Math.round(duration);
     return Promise.all(
         toNodes(element).map(
             (element) =>
                 new Promise((resolve, reject) => {
-                    for (const name in props) {
-                        // Force reflow: transition won't run for previously hidden element
-                        css(element, name);
+                    if (!skipReflow) {
+                        element.offsetHeight; // force reflow
                     }
 
                     const timer = setTimeout(() => trigger(element, transitionEnd), duration);

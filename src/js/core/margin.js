@@ -27,13 +27,15 @@ export default {
         resize({
             handler(mutations) {
                 for (const {
+                    target,
                     borderBoxSize: [{ inlineSize, blockSize }],
                 } of mutations) {
-                    if (inlineSize || blockSize) {
-                        this.$emit('resize');
+                    // Skip if the element is hidden
+                    if (target === this.$el && !inlineSize && !blockSize) {
                         return;
                     }
                 }
+                this.$emit('resize');
             },
             target: ({ $el }) => [$el, ...children($el)],
         }),

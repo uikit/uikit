@@ -2,6 +2,7 @@ import {
     css,
     getEventPos,
     includes,
+    isEqual,
     isRtl,
     isTouch,
     noop,
@@ -13,7 +14,6 @@ import {
 } from 'uikit-util';
 
 const pointerOptions = { passive: false, capture: true };
-const pointerUpOptions = { passive: true, capture: true };
 const pointerDown = 'touchstart mousedown';
 const pointerMove = 'touchmove mousemove';
 const pointerUp = 'touchend touchcancel mouseup click input scroll';
@@ -26,15 +26,20 @@ export default {
     data: {
         draggable: true,
         threshold: 10,
+        angleThreshold: 45,
     },
 
     created() {
         for (const key of ['start', 'move', 'end']) {
             const fn = this[key];
             this[key] = (e) => {
-                const pos = getEventPos(e).x * (isRtl ? -1 : 1);
+                const pos = getEventPos(e);
 
-                this.prevPos = pos === this.pos ? this.prevPos : this.pos;
+                if (isRtl) {
+                    pos.x = -pos.x;
+                }
+
+                this.prevPos = isEqual(pos, this.pos) ? this.prevPos : this.pos;
                 this.pos = pos;
 
                 fn(e);
@@ -89,7 +94,7 @@ export default {
 
             if (this._transitioner) {
                 this.percent = this._transitioner.percent();
-                this.drag += this._transitioner.getDistance() * this.percent * this.dir;
+                this.drag.x += this._transitioner.getDistance() * this.percent * this.dir;
 
                 this._transitioner.cancel();
                 this._transitioner.translate(this.percent);
@@ -104,17 +109,17 @@ export default {
             on(document, pointerMove, this.move, pointerOptions);
 
             // 'input' event is triggered by video controls
-            on(document, pointerUp, this.end, pointerUpOptions);
+            on(document, pointerUp, this.end, { passive: true, capture: true, once: true });
 
             css(this.list, 'userSelect', 'none');
         },
 
         move(e) {
-            const distance = this.pos - this.drag;
-
+            const distance = this.pos.x - this.drag.x;
             if (
                 distance === 0 ||
-                this.prevPos === this.pos ||
+                (!this.dragging && getAngle(this.pos, this.drag) > this.angleThreshold) ||
+                this.prevPos.x === this.pos.x ||
                 (!this.dragging && Math.abs(distance) < this.threshold)
             ) {
                 return;
@@ -131,7 +136,7 @@ export default {
             let width = getDistance.call(this, prevIndex, nextIndex);
 
             while (nextIndex !== prevIndex && dis > width) {
-                this.drag -= width * this.dir;
+                this.drag.x -= width * this.dir;
 
                 prevIndex = nextIndex;
                 dis -= width;
@@ -181,7 +186,6 @@ export default {
 
         end() {
             off(document, pointerMove, this.move, pointerOptions);
-            off(document, pointerUp, this.end, pointerUpOptions);
 
             if (this.dragging) {
                 setTimeout(on(this.list, 'click', (e) => e.preventDefault(), pointerOptions));
@@ -194,15 +198,14 @@ export default {
                     this._show(false, this.index, true);
                     this._transitioner = null;
                 } else {
-                    const dirChange =
-                        (isRtl ? this.dir * (isRtl ? 1 : -1) : this.dir) < 0 ===
-                        this.prevPos > this.pos;
-                    this.index = dirChange ? this.index : this.prevIndex;
+                    const dirChange = this.dir < 0 === this.prevPos.x > this.pos.x;
 
                     if (dirChange) {
                         trigger(this.slides[this.prevIndex], 'itemhidden', [this]);
                         trigger(this.slides[this.index], 'itemshown', [this]);
                         this.percent = 1 - this.percent;
+                    } else {
+                        this.index = this.prevIndex;
                     }
 
                     this.show(
@@ -233,4 +236,8 @@ function hasSelectableText(el) {
         css(el, 'userSelect') !== 'none' &&
         toArray(el.childNodes).some((el) => el.nodeType === 3 && el.textContent.trim())
     );
+}
+
+function getAngle(pos1, pos2) {
+    return (Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180) / Math.PI;
 }

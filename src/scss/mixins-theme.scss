@@ -2,36 +2,52 @@
 @use "sass:string";
 
 @mixin hook-accordion(){}
-@mixin hook-accordion-item(){}
-@mixin hook-accordion-title(){
-
-    overflow: hidden;
-
-    &::before {
-        content: "";
-        width: ($accordion-title-line-height * 1em);
-        height: ($accordion-title-line-height * 1em);
-        margin-left: $accordion-icon-margin-left;
-        float: right;
-        @include svg-fill($internal-accordion-close-image, "#000", $accordion-icon-color);
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-    }
-
-    .uk-open > &::before { @include svg-fill($internal-accordion-open-image, "#000", $accordion-icon-color); }
-
-}
-@mixin hook-accordion-title-hover(){}
-@mixin hook-accordion-content(){}
+@mixin hook-accordion-default-item(){}
+@mixin hook-accordion-default-item-active(){}
+@mixin hook-accordion-default-title(){}
+@mixin hook-accordion-default-title-hover(){}
+@mixin hook-accordion-default-title-active(){}
+@mixin hook-accordion-default-icon(){ color: $accordion-default-icon-color; }
+@mixin hook-accordion-default-content(){}
 @mixin hook-accordion-misc(){}
-@mixin hook-inverse-accordion-item(){}
-@mixin hook-inverse-accordion-title(){}
-@mixin hook-inverse-accordion-title-hover(){}
+@mixin hook-inverse-accordion-default-item(){}
+@mixin hook-inverse-accordion-default-item-active(){}
+@mixin hook-inverse-accordion-default-title(){}
+@mixin hook-inverse-accordion-default-title-hover(){}
+@mixin hook-inverse-accordion-default-title-active(){}
+@mixin hook-inverse-accordion-default-icon(){ color: $inverse-accordion-default-icon-color; }
+@mixin hook-inverse-accordion-default-content(){}
 @mixin hook-inverse-component-accordion(){
 
-    .uk-accordion-title::before { @include svg-fill($internal-accordion-close-image, "#000", $inverse-global-color); }
+    .uk-accordion-default > * {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-item)) {@include hook-inverse-accordion-default-item();}
+    }
 
-    .uk-open > .uk-accordion-title::before { @include svg-fill($internal-accordion-open-image, "#000", $inverse-global-color); }
+    .uk-accordion-default > .uk-open {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-item-active)) {@include hook-inverse-accordion-default-item-active();}
+    }
+
+    .uk-accordion-default .uk-accordion-title {
+        color: $inverse-accordion-default-title-color;
+        @if(meta.mixin-exists(hook-inverse-accordion-default-title)) {@include hook-inverse-accordion-default-title();}
+    }
+
+    .uk-accordion-default .uk-accordion-title:hover {
+        color: $inverse-accordion-default-title-hover-color;
+        @if(meta.mixin-exists(hook-inverse-accordion-default-title-hover)) {@include hook-inverse-accordion-default-title-hover();}
+    }
+
+    .uk-accordion-default .uk-accordion-title:active {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-title-active)) {@include hook-inverse-accordion-default-title-active();}
+    }
+
+    .uk-accordion-default .uk-accordion-icon {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-icon)) {@include hook-inverse-accordion-default-icon();}
+    }
+
+    .uk-accordion-default .uk-accordion-content {
+        @if(meta.mixin-exists(hook-inverse-accordion-default-content)) {@include hook-inverse-accordion-default-content();}
+    }
 
 }
 @mixin hook-alert(){}
@@ -543,6 +559,9 @@
 @mixin hook-card-secondary(){ box-shadow: $card-secondary-box-shadow; }
 @mixin hook-card-secondary-title(){}
 @mixin hook-card-secondary-hover(){ box-shadow: $card-secondary-hover-box-shadow; }
+@mixin hook-card-overlay(){ box-shadow: $card-overlay-box-shadow; }
+@mixin hook-card-overlay-title(){}
+@mixin hook-card-overlay-hover(){ box-shadow: $card-overlay-hover-box-shadow; }
 @mixin hook-card-misc(){
 
     /*
@@ -1018,8 +1037,6 @@
 @mixin hook-heading-xlarge(){}
 @mixin hook-heading-2xlarge(){}
 @mixin hook-heading-3xlarge(){}
-@mixin hook-heading-primary(){}
-@mixin hook-heading-hero(){}
 @mixin hook-heading-divider(){}
 @mixin hook-heading-bullet(){}
 @mixin hook-heading-line(){}
@@ -1030,8 +1047,6 @@
 @mixin hook-inverse-heading-xlarge(){}
 @mixin hook-inverse-heading-2xlarge(){}
 @mixin hook-inverse-heading-3xlarge(){}
-@mixin hook-inverse-heading-primary(){}
-@mixin hook-inverse-heading-hero(){}
 @mixin hook-inverse-heading-divider(){}
 @mixin hook-inverse-heading-bullet(){}
 @mixin hook-inverse-heading-line(){}
@@ -1061,10 +1076,6 @@
         @if(meta.mixin-exists(hook-inverse-heading-3xlarge)) {@include hook-inverse-heading-3xlarge();}
     }
 
-    @if ($deprecated == true) { .uk-heading-primary { @if (meta.mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}}}
-
-    @if ($deprecated == true) { .uk-heading-hero { @if (meta.mixin-exists(hook-inverse-heading-hero)) {@include hook-inverse-heading-hero();}}}
-
     .uk-heading-divider {
         border-bottom-color: $inverse-heading-divider-border;
         @if(meta.mixin-exists(hook-inverse-heading-divider)) {@include hook-inverse-heading-divider();}
@@ -1092,6 +1103,11 @@
 }
 @mixin hook-icon-button-hover(){}
 @mixin hook-icon-button-active(){}
+@mixin hook-icon-overlay(){
+    transition: 0.1s ease-in-out;
+    transition-property: color;
+}
+@mixin hook-icon-overlay-hover(){}
 @mixin hook-icon-misc(){}
 @mixin hook-inverse-icon-link(){}
 @mixin hook-inverse-icon-link-hover(){}
@@ -1099,6 +1115,8 @@
 @mixin hook-inverse-icon-button(){}
 @mixin hook-inverse-icon-button-hover(){}
 @mixin hook-inverse-icon-button-active(){}
+@mixin hook-inverse-icon-overlay(){}
+@mixin hook-inverse-icon-overlay-hover(){}
 @mixin hook-inverse-component-icon(){
 
     //
@@ -1141,6 +1159,24 @@
         background-color: $inverse-icon-button-active-background;
         color: $inverse-icon-button-active-color;
         @if(meta.mixin-exists(hook-inverse-icon-button-active)) {@include hook-inverse-icon-button-active();}
+    }
+
+    //
+    // Overlay
+    //
+
+    .uk-icon-overlay,
+    a .uk-icon-overlay,
+    &:is(a) .uk-icon-overlay {
+        color: $inverse-icon-overlay-color;
+        @if(meta.mixin-exists(hook-inverse-icon-overlay)) {@include hook-inverse-icon-overlay();}
+    }
+
+    .uk-icon-overlay:hover,
+    a:hover .uk-icon-overlay,
+    &:is(a):hover .uk-icon-overlay {
+        color: $inverse-icon-overlay-hover-color;
+        @if(meta.mixin-exists(hook-inverse-icon-overlay-hover)) {@include hook-inverse-icon-overlay-hover();}
     }
 
 }

@@ -360,7 +360,7 @@ function getStop(stops, percent) {
 
 function getValue(stops, percent) {
     const [start, end, p] = getStop(stops, percent);
-    return start + Math.abs(start - end) * p * (start < end ? 1 : -1);
+    return start + (end - start) * p;
 }
 
 const unitRe = /^-?\d+(?:\.\d+)?(\S+)?/;

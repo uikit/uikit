@@ -6,6 +6,7 @@
 // Modifiers:       `uk-icon-image`
 //                  `uk-icon-link`
 //                  `uk-icon-button`
+//                  `uk-icon-overlay`
 //
 // States:          `uk-preserve`
 //
@@ -19,20 +20,22 @@
 
 @icon-link-color:                               @global-muted-color;
 @icon-link-hover-color:                         @global-color;
-@icon-link-active-color:                        hsl(from @global-color h s calc(l - 5));               // instead of: darken(@global-color, 5%)
+@icon-link-active-color:                        hsl(from @global-color h s calc(l - 5));                // instead of: darken(@global-color, 5%)
 
 @icon-button-size:                              36px;
 @icon-button-border-radius:                     500px;
 @icon-button-background:                        @global-muted-background;
 @icon-button-color:                             @global-muted-color;
 
-@icon-button-hover-background:                  hsl(from @icon-button-background h s calc(l - 5));     // instead of: darken(@icon-button-background, 5%)
+@icon-button-hover-background:                  hsl(from @icon-button-background h s calc(l - 5));      // instead of: darken(@icon-button-background, 5%)
 @icon-button-hover-color:                       @global-color;
 
 @icon-button-active-background:                 hsl(from @icon-button-background h s calc(l - 10));     // instead of: darken(@icon-button-background, 10%)
 @icon-button-active-color:                      @global-color;
 
 @icon-primary-color:                            currentColor;
+@icon-overlay-color:                            rgb(from @global-emphasis-color r g b / 0.6);            // instead of: fade(@global-emphasis-color, 60%);
+@icon-overlay-hover-color:                      @global-emphasis-color;
 
 
 /* ========================================================================
@@ -191,6 +194,22 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
     .hook-icon-button-active();
 }
 
+/*
+ * Overlay
+ */
+
+.uk-icon-overlay,
+a .uk-icon-overlay {
+    color: @icon-overlay-color;
+    .hook-icon-overlay();
+}
+
+.uk-icon-overlay:hover,
+a:hover .uk-icon-overlay {
+    color: @icon-overlay-hover-color;
+    .hook-icon-overlay-hover();
+}
+
 
 // Hooks
 // ========================================================================
@@ -203,6 +222,8 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 .hook-icon-button() {}
 .hook-icon-button-hover() {}
 .hook-icon-button-active() {}
+.hook-icon-overlay() {}
+.hook-icon-overlay-hover() {}
 .hook-icon-misc() {}
 
 
@@ -218,6 +239,8 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 @inverse-icon-button-hover-color:              @inverse-global-color;
 @inverse-icon-button-active-background:        rgb(from @inverse-icon-button-background r g b / ~'calc(alpha + 0.1)');      // instead of: fadein(@inverse-icon-button-background, 10%);
 @inverse-icon-button-active-color:             @inverse-global-color;
+@inverse-icon-overlay-color:                   rgb(from @inverse-global-emphasis-color r g b / 0.6);        // instead of: fade(@inverse-global-emphasis-color, 60%);
+@inverse-icon-overlay-hover-color:             @inverse-global-emphasis-color;
 
 .hook-inverse() {
 
@@ -263,6 +286,24 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
         .hook-inverse-icon-button-active();
     }
 
+    //
+    // Overlay
+    //
+
+    .uk-icon-overlay,
+    a .uk-icon-overlay,
+    a& .uk-icon-overlay {
+        color: @inverse-icon-overlay-color;
+        .hook-inverse-icon-overlay();
+    }
+
+    .uk-icon-overlay:hover,
+    a:hover .uk-icon-overlay,
+    a&:hover .uk-icon-overlay {
+        color: @inverse-icon-overlay-hover-color;
+        .hook-inverse-icon-overlay-hover();
+    }
+
 }
 
 .hook-inverse-icon-link() {}
@@ -271,3 +312,5 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 .hook-inverse-icon-button() {}
 .hook-inverse-icon-button-hover() {}
 .hook-inverse-icon-button-active() {}
+.hook-inverse-icon-overlay() {}
+.hook-inverse-icon-overlay-hover() {}

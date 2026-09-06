@@ -1,3 +1,4 @@
+import LOG from 'virtual:log';
 import { initComputedUpdates } from './computed';
 import { initEvents } from './events';
 import { log } from './log';

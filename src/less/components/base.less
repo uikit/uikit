@@ -139,6 +139,14 @@ a:hover,
     .hook-base-link-hover();
 }
 
+/*
+ * Fix text underline offset if `vertical-align`is set to `middle`
+ */
+
+a:has(.uk-text-middle),
+.uk-link:has(.uk-text-middle),
+.uk-link-toggle:hover .uk-link:has(.uk-text-middle) { text-underline-offset: 0.1875em; }
+
 
 /* Text-level semantics
  ========================================================================== */
@@ -250,8 +258,11 @@ video { vertical-align: middle; }
 
 /*
  * 1. Constrain the element to its parent width.
- * 2. Preserve the intrinsic aspect ratio and auto-scale the height of an image if the `height` attribute is present.
- * 3. Take border and padding into account.
+ * 2. Take border and padding into account.
+ * 3. Reset `height` attribute if present to scale the height based on the intrinsic aspect ratio.
+ * 4. Scale height based on the extrinsic aspect ratio. Works only in Chrome yet.
+ * 5. Size image to fill the element's content box.
+ * Note: Add `iframe` as soon as `attr` is supported in all browsers and remove `uk-responsive`.
  */
 
 canvas,
@@ -261,9 +272,13 @@ video {
     /* 1 */
     max-width: 100%;
     /* 2 */
-    height: auto;
-    /* 3 */
     box-sizing: border-box;
+    /* 3 */
+    height: auto;
+    /* 4 */
+    aspect-ratio: ~'attr(width type(<number>)) / attr(height type(<number>))';
+    /* 5 */
+    object-fit: cover;
 }
 
 /*

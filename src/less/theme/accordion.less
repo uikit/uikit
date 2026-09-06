@@ -11,10 +11,7 @@
 // New
 //
 
-@accordion-icon-margin-left:                   10px;
-@accordion-icon-color:                         @global-color;
-@internal-accordion-open-image:                "../../images/backgrounds/accordion-open.svg";
-@internal-accordion-close-image:               "../../images/backgrounds/accordion-close.svg";
+@accordion-default-icon-color:                 @global-color;
 
 
 // Component
@@ -23,41 +20,38 @@
 .hook-accordion() {}
 
 
-// Item
-// ========================================================================
+/* Default modifier
+ ========================================================================== */
 
-.hook-accordion-item() {}
+/*
+ * Item
+ */
 
+.hook-accordion-default-item() {}
 
-// Title
-// ========================================================================
+.hook-accordion-default-item-active() {}
 
-.hook-accordion-title() {
+/*
+ * Title
+ */
 
-    overflow: hidden;
+.hook-accordion-default-title() {}
 
-    &::before {
-        content: "";
-        width: (@accordion-title-line-height * 1em);
-        height: (@accordion-title-line-height * 1em);
-        margin-left: @accordion-icon-margin-left;
-        float: right;
-        .svg-fill(@internal-accordion-close-image, "#000", @accordion-icon-color);
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-    }
+.hook-accordion-default-title-hover() {}
 
-    .uk-open > &::before { .svg-fill(@internal-accordion-open-image, "#000", @accordion-icon-color); }
+.hook-accordion-default-title-active() {}
 
-}
+/*
+ * Icon
+ */
 
-.hook-accordion-title-hover() {}
+.hook-accordion-default-icon() { color: @accordion-default-icon-color; }
 
+/*
+ * Content
+ */
 
-// Content
-// ========================================================================
-
-.hook-accordion-content() {}
+.hook-accordion-default-content() {}
 
 
 // Miscellaneous
@@ -65,18 +59,17 @@
 
 .hook-accordion-misc() {}
 
+
 // Inverse
 // ========================================================================
 
-.hook-inverse-accordion-item() {}
+@inverse-accordion-default-icon-color:         @inverse-global-color;
 
-.hook-inverse-accordion-title() {}
-.hook-inverse-accordion-title-hover() {}
+.hook-inverse-accordion-default-item() {}
+.hook-inverse-accordion-default-item-active() {}
 
-.hook-inverse() {
-
-    .uk-accordion-title::before { .svg-fill(@internal-accordion-close-image, "#000", @inverse-global-color); }
-
-    .uk-open > .uk-accordion-title::before { .svg-fill(@internal-accordion-open-image, "#000", @inverse-global-color); }
-
-}
+.hook-inverse-accordion-default-title() {}
+.hook-inverse-accordion-default-title-hover() {}
+.hook-inverse-accordion-default-title-active() {}
+.hook-inverse-accordion-default-icon() { color: @inverse-accordion-default-icon-color; }
+.hook-inverse-accordion-default-content() {}

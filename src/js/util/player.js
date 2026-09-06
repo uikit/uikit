@@ -14,7 +14,8 @@ export function play(el) {
 
 export function pause(el) {
     if (isIFrame(el)) {
-        call(el, { func: 'pauseVideo', method: 'pause' });
+        // Safari ignores the attribute loading=lazy when the src gets set through JS
+        el[stateKey] && call(el, { func: 'pauseVideo', method: 'pause' });
     }
 
     if (isHTML5(el)) {
@@ -87,9 +88,7 @@ function enableApi(el) {
                     (youtube && data?.id === id && data.event === 'onReady') ||
                     (vimeo && Number(data?.player_id) === id)
                 );
-            } catch (e) {
-                // noop
-            }
+            } catch {}
         });
 
         el.src = `${el.src}${includes(el.src, '?') ? '&' : '?'}${
