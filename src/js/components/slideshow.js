@@ -36,9 +36,4 @@ export default {
         },
     },
 
-    methods: {
-        getAdjacentSlides() {
-            return [1, -1].map((i) => this.slides[this.getIndex(this.index + i)]);
-        },
-    },
 };

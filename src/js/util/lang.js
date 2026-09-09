@@ -173,11 +173,15 @@ export function sumBy(array, iteratee) {
 
 export function uniqueBy(array, prop) {
     const seen = new Set();
-    return array.filter(({ [prop]: check }) => (seen.has(check) ? false : seen.add(check)));
+    return array.filter(({ [prop]: check }) => !seen.has(check) && seen.add(check));
 }
 
 export function pick(obj, props) {
-    return props.reduce((res, prop) => ({ ...res, [prop]: obj[prop] }), {});
+    const result = {};
+    for (const prop of props) {
+        result[prop] = obj[prop];
+    }
+    return result;
 }
 
 export function clamp(number, min = 0, max = 1) {

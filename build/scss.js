@@ -124,7 +124,7 @@ for (const [vars, file] of [
         (dependencies, key) => resolveDependencies(vars, key, dependencies),
         new Set(),
     );
-    await write(`src/scss/${file}.scss`, useSassModules(Array.from(variables).join('\n')));
+    await write(`src/scss/${file}.scss`, useSassModules([...variables].join('\n')));
 }
 
 /*
@@ -154,9 +154,7 @@ function useSassModules(source) {
     }
 
     return modules.size
-        ? `${Array.from(modules)
-              .map((module) => `@use "sass:${module}";`)
-              .join('\n')}\n\n${source}`
+        ? `${[...modules].map((module) => `@use "sass:${module}";`).join('\n')}\n\n${source}`
         : source;
 }
 
@@ -230,7 +228,7 @@ async function getVariablesFromFile(file, source) {
 
             /* if it's not an SVG add the variable and search for its dependencies */
         } else {
-            dependencies = Array.from(value.matchAll(/\$[\w-]+/g)).map(([value]) => value);
+            dependencies = Array.from(value.matchAll(/\$[\w-]+/g), ([value]) => value);
         }
 
         themeVariables[name] = { value: `${value};`, dependencies };

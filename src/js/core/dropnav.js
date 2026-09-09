@@ -79,7 +79,7 @@ export default {
             dropbar =
                 this._dropbar || query(dropbar, this.$el) || $(`+ .${this.clsDropbar}`, this.$el);
 
-            return dropbar ? dropbar : (this._dropbar = $('<div>'));
+            return dropbar || (this._dropbar = $('<div>'));
         },
 
         dropContainer(_, $el) {

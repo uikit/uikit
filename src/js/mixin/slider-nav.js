@@ -35,7 +35,7 @@ export default {
         nav: ({ selNav }, $el) => $$(selNav, $el),
 
         navChildren() {
-            return this.nav.map((nav) => children(nav)).flat();
+            return this.nav.flatMap((nav) => children(nav));
         },
 
         selNavItem: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,

@@ -261,7 +261,7 @@ function animate(el, show, { transitionElement, _toggle }) {
 }
 
 function toMs(time) {
-    return time ? (endsWith(time, 'ms') ? toFloat(time) : toFloat(time) * 1000) : 0;
+    return toFloat(time) * (endsWith(time, 'ms') ? 1 : 1000);
 }
 
 function preventBackgroundFocus(modal) {
