@@ -1,4 +1,4 @@
-/*! UIkit 3.25.21 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.22 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3396,7 +3396,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.21';
+    var VERSION = '3.25.22';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -7252,6 +7252,7 @@
             active = this;
             this.tracker.init();
             attr(this.targetEl, "aria-expanded", true);
+            setAriaOwns(this);
             const handlers = [
               listenForResize(this),
               listenForEscClose(this),
@@ -7284,6 +7285,7 @@
             active = this.isActive() ? null : active;
             this.tracker.cancel();
             attr(this.targetEl, "aria-expanded", false);
+            attr(parent(this.targetEl), "aria-owns", null);
           }
         }
       ],
@@ -7419,6 +7421,12 @@
         attr(el, "aria-controls", dropEl.id);
       }
       return el;
+    }
+    function setAriaOwns({ targetEl, $el }) {
+      const owner = parent(targetEl);
+      if (owner && !owner.contains($el)) {
+        attr(owner, "aria-owns", $el.id);
+      }
     }
     function listenForResize(drop) {
       const update = () => drop.$emit();
