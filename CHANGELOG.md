@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.22 (September 9, 2026)
+
+### Fixed
+
+- Fix accessibility-tree parentage for Drop components reparented in the DOM
+
 ## 3.25.21 (August 7, 2026)
 
 ### Fixed
