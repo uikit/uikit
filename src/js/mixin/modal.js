@@ -13,9 +13,6 @@ import {
     on,
     once,
     parent,
-    pointerCancel,
-    pointerDown,
-    pointerUp,
     removeClass,
     toFloat,
 } from 'uikit-util';
@@ -23,7 +20,7 @@ import { awaitFrame } from '../util/await';
 import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
-import { maybeDefaultPreventClick } from './event';
+import { maybeDefaultPreventClick, onEscape, onOutsidePointer } from './event';
 import Togglable from './togglable';
 
 const active = [];
@@ -282,35 +279,18 @@ function preventBackgroundFocus(modal) {
 }
 
 function listenForBackgroundClose(modal) {
-    return on(document, pointerDown, ({ target }) => {
-        if (
-            last(active) !== modal ||
-            (modal.overlay && !modal.$el.contains(target)) ||
-            !modal.panel ||
-            modal.panel.contains(target)
-        ) {
-            return;
-        }
-
-        once(
-            document,
-            `${pointerUp} ${pointerCancel} scroll`,
-            ({ defaultPrevented, type, target: newTarget }) => {
-                if (!defaultPrevented && type === pointerUp && target === newTarget) {
-                    modal.hide();
-                }
-            },
-            true,
-        );
-    });
+    return onOutsidePointer(
+        () => modal.hide(),
+        (target) =>
+            (!modal.overlay || modal.$el.contains(target)) &&
+            Boolean(modal.panel) &&
+            !modal.panel.contains(target),
+        () => last(active) === modal,
+    );
 }
 
 function listenForEscClose(modal) {
-    return on(document, 'keydown', (e) => {
-        if (e.keyCode === 27 && last(active) === modal) {
-            modal.hide();
-        }
-    });
+    return onEscape(() => modal.hide(), () => last(active) === modal);
 }
 
 function setAriaExpanded(el, toggled) {
