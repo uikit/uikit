@@ -13,55 +13,7 @@ await emptyDir('src/scss');
 for (const file of (await glob('src/less/**/*.less'))
     .sort()
     .sort((a, b) => a.endsWith('/inverse.less') - b.endsWith('/inverse.less'))) {
-    /* replace all Less stuff with SCSS */
-    let source = (await read(file))
-        .replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
-        .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
-        .replace(/@(?!property)/g, '$') // convert variables
-        .replace(
-            /(:[^'"]*?\([^'"]+?)\s*\/\s*([0-9.-]+)\)/g,
-            (exp, m1, m2) => `${m1} * ${round(1 / parseFloat(m2), 5)})`,
-        )
-        .replace(/--uk-\S+: (\$\S+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
-        .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
-        .replace(/ e\(/g, ' unquote(') // convert escape function
-        .replace(/\.([\w-]*)\s*\((.*)\)\s*{/g, '@mixin $1($2){') // hook -> mixins
-        .replace(/(\$[\w-]*)\s*:(.*);/g, '$1: $2 !default;') // make variables optional
-        .replace(/@mixin ([\w-]*)\s*\((.*)\)\s*{\s*}/g, '// @mixin $1($2){}') // comment empty mixins
-        .replace(/\.(hook[a-zA-Z\-\d]+)(\(\))?;/g, '@if(mixin-exists($1)) {@include $1();}') // hook calls surrounded by a mixin-exists
-        .replace(/\$(import|supports|media|font-face|page|keyframes|-moz-document)/g, '@$1') // replace valid '@' statements
-        .replace(/tint\((\$[\w-]+),\s([^)]*)\)/g, 'mix(white, $1, $2)') // replace Less function tint with mix
-        .replace(/fade\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2) => {
-            return `rgba(${p1}, ${p2 / 100})`;
-        }) // replace Less function fade with rgba
-        .replace(/spin\((\$[\w-]*), ([0-9]+)\)/g, (match, p1, p2) => {
-            return `adjust-hue(${p1}, ${p2})`;
-        }) // replace Less function spin with adjust-hue
-        .replace(/fade(in|out)\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2, p3) => {
-            return `fade-${p1}(${p2}, ${p3 / 100})`;
-        }) // replace Less function fadeout with fade-out
-        .replace(/\.svg-fill/g, '@include svg-fill') // include svg-fill mixin
-        .replace(
-            /(.*):extend\((\.[\w\\@-]*) all\) when \((\$[\w-]*) = (\w+)\) {}/g,
-            '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }',
-        ) // update conditional extend and add !optional to ignore warnings
-        .replace(
-            /(\.[\w\\@-]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*{\s*@if\(mixin-exists\(([\w-]*)\)\) {@include\s([\w-]*)\(\);\s*}\s*}/g,
-            '@if ($2 == $3) { $1 { @if (mixin-exists($4)) {@include $4();}}}',
-        ) // update conditional hook
-        .replace(
-            /([.:][\w\\@-]+(?: ?[.:][\w\\@-]+)*)\s*when\s*\(([$@][\w-]*)\s*=\s*([$@]?[\w-]+)\)\s*({\s*.*?\s*})/gms,
-            '@if ($2 == $3) {\n$1 $4\n}',
-        )
-        .replace(
-            /([.:][\w\\@-]+(?: ?[.:][\w\\@-]+)*)\s*when\s+not\s*\(([$@][\w-]*)\s*=\s*([$@]?[\w-]+)\)\s*({\s*.*?\s*})/gs,
-            '@if ($2 != $3) {\n$1 $4\n}',
-        ) // replace conditionals
-        .replace(/\${/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
-        .replace(/[^(](-\$[\w-]*)/g, ' ($1)') // surround negative variables with brackets
-        .replace(/(--[\w-]+:\s*)~'([^']+)'/g, '$1$2') // string literals in custom properties
-        .replace(/~('[^']+')/g, 'unquote($1)') // string literals: for real
-        .replace(/(\w+)&/g, '&:is($1)'); // replace parent selector & when not at beginning of selector
+    let source = convertLessToSass(await read(file));
 
     /* File name of the current file */
     const filename = path.basename(file, '.less');
@@ -103,6 +55,85 @@ for (const file of (await glob('src/less/**/*.less'))
             useSassModules(source),
         );
     }
+}
+function convertLessToSass(source) {
+    source = rewriteImportsAndVariables(source);
+    source = rewriteMathAndEscapes(source);
+    source = rewriteMixinsAndHooks(source);
+    source = rewriteSassFunctions(source);
+    source = rewriteConditionals(source);
+    return rewriteStringLiterals(source);
+}
+
+function rewriteImportsAndVariables(source) {
+    return source
+        .replace(/\/less\//g, '/scss/')
+        .replace(/\.less/g, '.scss')
+        .replace(/@(?!property)/g, '$');
+}
+
+function rewriteMathAndEscapes(source) {
+    return source
+        .replace(
+            /(:[^'"]*?\([^'"]+?)\s*\/\s*([0-9.-]+)\)/g,
+            (exp, m1, m2) => `${m1} * ${round(1 / parseFloat(m2), 5)})`,
+        )
+        .replace(/--uk-\S+: (\$\S+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
+        .replace(/\\\$/g, '\\@')
+        .replace(/ e\(/g, ' unquote(');
+}
+
+function rewriteMixinsAndHooks(source) {
+    return source
+        .replace(/\.([\w-]*)\s*\((.*)\)\s*{/g, '@mixin $1($2){')
+        .replace(/(\$[\w-]*)\s*:(.*);/g, '$1: $2 !default;')
+        .replace(/@mixin ([\w-]*)\s*\((.*)\)\s*{\s*}/g, '// @mixin $1($2){}')
+        .replace(/\.(hook[a-zA-Z\-\d]+)(\(\))?;/g, '@if(mixin-exists($1)) {@include $1();}')
+        .replace(/\$(import|supports|media|font-face|page|keyframes|-moz-document)/g, '@$1')
+        .replace(/\.svg-fill/g, '@include svg-fill');
+}
+
+function rewriteSassFunctions(source) {
+    return source
+        .replace(/tint\((\$[\w-]+),\s([^)]*)\)/g, 'mix(white, $1, $2)')
+        .replace(/fade\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2) => {
+            return `rgba(${p1}, ${p2 / 100})`;
+        })
+        .replace(/spin\((\$[\w-]*), ([0-9]+)\)/g, (match, p1, p2) => {
+            return `adjust-hue(${p1}, ${p2})`;
+        })
+        .replace(/fade(in|out)\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2, p3) => {
+            return `fade-${p1}(${p2}, ${p3 / 100})`;
+        });
+}
+
+function rewriteConditionals(source) {
+    return source
+        .replace(
+            /(.*):extend\((\.[\w\\@-]*) all\) when \((\$[\w-]*) = (\w+)\) {}/g,
+            '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }',
+        )
+        .replace(
+            /(\.[\w\\@-]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*{\s*@if\(mixin-exists\(([\w-]*)\)\) {@include\s([\w-]*)\(\);\s*}\s*}/g,
+            '@if ($2 == $3) { $1 { @if (mixin-exists($4)) {@include $4();}}}',
+        )
+        .replace(
+            /([.:][\w\\@-]+(?: ?[.:][\w\\@-]+)*)\s*when\s*\(([$@][\w-]*)\s*=\s*([$@]?[\w-]+)\)\s*({\s*.*?\s*})/gms,
+            '@if ($2 == $3) {\n$1 $4\n}',
+        )
+        .replace(
+            /([.:][\w\\@-]+(?: ?[.:][\w\\@-]+)*)\s*when\s+not\s*\(([$@][\w-]*)\s*=\s*([$@]?[\w-]+)\)\s*({\s*.*?\s*})/gs,
+            '@if ($2 != $3) {\n$1 $4\n}',
+        );
+}
+
+function rewriteStringLiterals(source) {
+    return source
+        .replace(/\${/g, '#{$')
+        .replace(/[^(](-\$[\w-]*)/g, ' ($1)')
+        .replace(/(--[\w-]+:\s*)~'([^']+)'/g, '$1$2')
+        .replace(/~('[^']+')/g, 'unquote($1)')
+        .replace(/(\w+)&/g, '&:is($1)');
 }
 
 /* write mixins files */
