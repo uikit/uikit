@@ -60,7 +60,7 @@
     /* 2 */
     align-items: center;
     /* 3 */
-    margin-left: -@subnav-margin-horizontal;
+    margin-left: calc(@subnav-margin-horizontal * -1);                                  // instead of: -@subnav-margin-horizontal;
     /* 4 */
     padding: 0;
     list-style: none;
@@ -126,7 +126,7 @@
  * Set gutter
  */
 
-.uk-subnav-divider { margin-left: -((@subnav-divider-margin-horizontal * 2) + @subnav-divider-border-width); }
+.uk-subnav-divider { margin-left: calc(((@subnav-divider-margin-horizontal * 2) + @subnav-divider-border-width) * -1); }    // instead of: -((@subnav-divider-margin-horizontal * 2) + @subnav-divider-border-width);
 
 /*
  * Align items and divider vertically
@@ -145,7 +145,7 @@
 .uk-subnav-divider > ::before {
     content: "";
     height: @subnav-divider-border-height;
-    margin-left: (@subnav-divider-margin-horizontal - @subnav-margin-horizontal);
+    margin-left: calc(@subnav-divider-margin-horizontal - @subnav-margin-horizontal);                   // instead of: (@subnav-divider-margin-horizontal - @subnav-margin-horizontal);
     margin-right: @subnav-divider-margin-horizontal;
     border-left: @subnav-divider-border-width solid transparent;
 }
@@ -164,7 +164,7 @@
  * Gutter
  */
 
-.uk-subnav-pill { margin-left: -@subnav-pill-margin-horizontal; }
+.uk-subnav-pill { margin-left: calc(@subnav-pill-margin-horizontal - 1); }                              // instead of: -@subnav-pill-margin-horizontal;
 .uk-subnav-pill > * { padding-left: @subnav-pill-margin-horizontal; }
 
 .uk-subnav-pill > * > :first-child {

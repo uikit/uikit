@@ -36,30 +36,30 @@
 
 @button-default-background:                     @global-muted-background;
 @button-default-color:                          @global-emphasis-color;
-@button-default-hover-background:               darken(@button-default-background, 5%);
+@button-default-hover-background:               hsl(from @button-default-background h s calc(l - 5));           // instead of: darken(@button-default-background, 5%);
 @button-default-hover-color:                    @global-emphasis-color;
-@button-default-active-background:              darken(@button-default-background, 10%);
+@button-default-active-background:              hsl(from @button-default-background h s calc(l - 10));          // instead of: darken(@button-default-background, 10%);
 @button-default-active-color:                   @global-emphasis-color;
 
 @button-primary-background:                     @global-primary-background;
 @button-primary-color:                          @global-inverse-color;
-@button-primary-hover-background:               darken(@button-primary-background, 5%);
+@button-primary-hover-background:               hsl(from @button-primary-background h s calc(l - 5));           // instead of: darken(@button-primary-background, 5%);
 @button-primary-hover-color:                    @global-inverse-color;
-@button-primary-active-background:              darken(@button-primary-background, 10%);
+@button-primary-active-background:              hsl(from @button-primary-background h s calc(l - 10));          // instead of: darken(@button-primary-background, 10%);
 @button-primary-active-color:                   @global-inverse-color;
 
 @button-secondary-background:                   @global-secondary-background;
 @button-secondary-color:                        @global-inverse-color;
-@button-secondary-hover-background:             darken(@button-secondary-background, 5%);
+@button-secondary-hover-background:             hsl(from @button-secondary-background h s calc(l - 5));         // instead of: darken(@button-secondary-background, 5%);
 @button-secondary-hover-color:                  @global-inverse-color;
-@button-secondary-active-background:            darken(@button-secondary-background, 10%);
+@button-secondary-active-background:            hsl(from @button-secondary-background h s calc(l - 10));        // instead of: darken(@button-secondary-background, 10%);
 @button-secondary-active-color:                 @global-inverse-color;
 
 @button-danger-background:                      @global-danger-background;
 @button-danger-color:                           @global-inverse-color;
-@button-danger-hover-background:                darken(@button-danger-background, 5%);
+@button-danger-hover-background:                hsl(from @button-danger-background h s calc(l - 5));            // instead of: darken(@button-danger-background, 5%);
 @button-danger-hover-color:                     @global-inverse-color;
-@button-danger-active-background:               darken(@button-danger-background, 10%);
+@button-danger-active-background:               hsl(from @button-danger-background h s calc(l - 10));           // instead of: darken(@button-danger-background, 10%);
 @button-danger-active-color:                    @global-inverse-color;
 
 @button-disabled-background:                    @global-muted-background;
@@ -400,21 +400,21 @@
 
 @inverse-button-default-background:            @inverse-global-primary-background;
 @inverse-button-default-color:                 @inverse-global-inverse-color;
-@inverse-button-default-hover-background:      darken(@inverse-button-default-background, 5%);
+@inverse-button-default-hover-background:      hsl(from @inverse-button-default-background h s calc(l - 5));            // instead of: darken(@inverse-button-default-background, 5%);
 @inverse-button-default-hover-color:           @inverse-global-inverse-color;
-@inverse-button-default-active-background:     darken(@inverse-button-default-background, 10%);
+@inverse-button-default-active-background:     hsl(from @inverse-button-default-background h s calc(l - 10));           // instead of: darken(@inverse-button-default-background, 10%);
 @inverse-button-default-active-color:          @inverse-global-inverse-color;
 @inverse-button-primary-background:            @inverse-global-primary-background;
 @inverse-button-primary-color:                 @inverse-global-inverse-color;
-@inverse-button-primary-hover-background:      darken(@inverse-button-primary-background, 5%);
+@inverse-button-primary-hover-background:      hsl(from @inverse-button-primary-background h s calc(l - 5));            // instead of: darken(@inverse-button-primary-background, 5%);
 @inverse-button-primary-hover-color:           @inverse-global-inverse-color;
-@inverse-button-primary-active-background:     darken(@inverse-button-primary-background, 10%);
+@inverse-button-primary-active-background:     hsl(from @inverse-button-primary-background h s calc(l - 10));           // instead of: darken(@inverse-button-primary-background, 10%);
 @inverse-button-primary-active-color:          @inverse-global-inverse-color;
 @inverse-button-secondary-background:          @inverse-global-primary-background;
 @inverse-button-secondary-color:               @inverse-global-inverse-color;
-@inverse-button-secondary-hover-background:    darken(@inverse-button-secondary-background, 5%);
+@inverse-button-secondary-hover-background:    hsl(from @inverse-button-secondary-background h s calc(l - 5));          // instead of: darken(@inverse-button-secondary-background, 5%);
 @inverse-button-secondary-hover-color:         @inverse-global-inverse-color;
-@inverse-button-secondary-active-background:   darken(@inverse-button-secondary-background, 10%);
+@inverse-button-secondary-active-background:   hsl(from @inverse-button-secondary-background h s calc(l - 10));         // instead of: darken(@inverse-button-secondary-background, 10%);
 @inverse-button-secondary-active-color:        @inverse-global-inverse-color;
 @inverse-button-text-color:                    @inverse-global-emphasis-color;
 @inverse-button-text-hover-color:              @inverse-global-muted-color;

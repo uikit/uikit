@@ -97,12 +97,12 @@
 @nav-secondary-sublist-item-active-color:       @global-emphasis-color;
 
 @nav-medium-line-height:                        1;
-@nav-medium-font-size:                          @nav-medium-font-size-m * 0.825;    // 40px 0.714
-@nav-medium-font-size-m:                        @nav-medium-font-size-l * 0.875;    // 3.5rem / 56px
+@nav-medium-font-size:                          calc(@nav-medium-font-size-m * 0.825);    // 40px 0.714 | instead of: @nav-medium-font-size-m * 0.825;
+@nav-medium-font-size-m:                        calc(@nav-medium-font-size-l * 0.875);    // 3.5rem / 56px | instead of: @nav-medium-font-size-l * 0.875;
 @nav-medium-font-size-l:                        4rem; // 64px
 
 @nav-large-line-height:                         1;
-@nav-large-font-size:                           @nav-large-font-size-m * 0.85;      // 50px 0.78
+@nav-large-font-size:                           calc(@nav-large-font-size-m * 0.85);      // 50px 0.78 | instead of: @nav-large-font-size-m * 0.85
 @nav-large-font-size-m:                         4rem; // 64px
 @nav-large-font-size-l:                         6rem; // 96px
 

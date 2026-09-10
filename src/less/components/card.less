@@ -33,16 +33,16 @@
 @card-body-padding-vertical-l:                 @global-medium-gutter;
 
 @card-header-padding-horizontal:               @global-gutter;
-@card-header-padding-vertical:                 round((@global-gutter / 2));
+@card-header-padding-vertical:                 ~'round(up, calc(@global-gutter / 2), 1px)';                         // instead of: round((@global-gutter / 2));
 
 @card-header-padding-horizontal-l:             @global-medium-gutter;
-@card-header-padding-vertical-l:               round((@global-medium-gutter / 2));
+@card-header-padding-vertical-l:               ~'round(up, calc(@global-medium-gutter / 2), 1px)';                  // instead of: round((@global-medium-gutter / 2));
 
 @card-footer-padding-horizontal:               @global-gutter;
-@card-footer-padding-vertical:                 (@global-gutter / 2);
+@card-footer-padding-vertical:                 calc(@global-gutter / 2);                                            // instead of: (@global-gutter / 2);
 
 @card-footer-padding-horizontal-l:             @global-medium-gutter;
-@card-footer-padding-vertical-l:               round((@global-medium-gutter / 2));
+@card-footer-padding-vertical-l:               ~'round(up, calc(@global-medium-gutter / 2), 1px)';                  // instead of: round((@global-medium-gutter / 2));
 
 @card-title-font-size:                         @global-large-font-size;
 @card-title-line-height:                       1.4;
@@ -60,40 +60,40 @@
 @card-default-background:                      @global-muted-background;
 @card-default-color:                           @global-color;
 @card-default-title-color:                     @global-emphasis-color;
-@card-default-hover-background:                darken(@card-default-background, 5%);
+@card-default-hover-background:                hsl(from @card-default-background h s calc(l - 5));                  // instead of: darken(@card-default-background, 5%);
 @card-default-color-mode:                      dark;
 
 @card-primary-background:                      @global-primary-background;
 @card-primary-color:                           @global-inverse-color;
 @card-primary-title-color:                     @card-primary-color;
-@card-primary-hover-background:                darken(@card-primary-background, 5%);
+@card-primary-hover-background:                hsl(from @card-primary-background h s calc(l - 5));                  // instead of: darken(@card-primary-background, 5%);
 @card-primary-color-mode:                      light;
 
 @card-secondary-background:                    @global-secondary-background;
 @card-secondary-color:                         @global-inverse-color;
 @card-secondary-title-color:                   @card-secondary-color;
-@card-secondary-hover-background:              darken(@card-secondary-background, 5%);
+@card-secondary-hover-background:              hsl(from @card-secondary-background h s calc(l - 5));                // instead of: darken(@card-secondary-background, 5%);
 @card-secondary-color-mode:                    light;
 
-@card-overlay-background:                      fade(@global-background, 90%);
+@card-overlay-background:                      rgb(from @global-background r g b / 0.9);                            // instead of: fade(@global-background, 90%);
 @card-overlay-color:                           @global-color;
 @card-overlay-title-color:                     @global-emphasis-color;
-@card-overlay-hover-background:                fadein(@card-overlay-background, 10%);
+@card-overlay-hover-background:                rgb(from @card-overlay-background r g b / ~'calc(alpha + 0.1)');     // instead of: fadein(@card-overlay-background, 10%);
 @card-overlay-color-mode:                      dark;
 
 @card-small-body-padding-horizontal:           @global-margin;
 @card-small-body-padding-vertical:             @global-margin;
 @card-small-header-padding-horizontal:         @global-margin;
-@card-small-header-padding-vertical:           round((@global-margin / 1.5));
+@card-small-header-padding-vertical:           ~'round(up, calc(@global-margin / 1.5), 1px)';                       // instead of: round((@global-margin / 1.5));
 @card-small-footer-padding-horizontal:         @global-margin;
-@card-small-footer-padding-vertical:           round((@global-margin / 1.5));
+@card-small-footer-padding-vertical:           ~'round(up, calc(@global-margin / 1.5), 1px)';                       // instead of: round((@global-margin / 1.5));
 
 @card-large-body-padding-horizontal-l:         @global-large-gutter;
 @card-large-body-padding-vertical-l:           @global-large-gutter;
 @card-large-header-padding-horizontal-l:       @global-large-gutter;
-@card-large-header-padding-vertical-l:         round((@global-large-gutter / 2));
+@card-large-header-padding-vertical-l:         ~'round(up, calc(@global-large-gutter / 2), 1px)';                   // instead of: round((@global-large-gutter / 2));
 @card-large-footer-padding-horizontal-l:       @global-large-gutter;
-@card-large-footer-padding-vertical-l:         round((@global-large-gutter / 2));
+@card-large-footer-padding-vertical-l:         ~'round(up, calc(@global-large-gutter / 2), 1px)';                   // instead of: round((@global-large-gutter / 2));
 
 
 /* ========================================================================

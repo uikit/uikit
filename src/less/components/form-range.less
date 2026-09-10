@@ -10,8 +10,8 @@
 // ========================================================================
 
 @form-range-track-height:                       3px;
-@form-range-track-background:                   darken(@global-muted-background, 5%);
-@form-range-track-focus-background:             darken(@form-range-track-background, 5%);
+@form-range-track-background:                   hsl(from @global-muted-background h s calc(l - 5));        // instead of: darken(@global-muted-background, 5%);
+@form-range-track-focus-background:             hsl(from @form-range-track-background h s calc(l - 5));    // instead of: darken(@form-range-track-background, 5%);
 
 @form-range-thumb-height:                       15px;
 @form-range-thumb-width:                        @form-range-thumb-height;
@@ -104,7 +104,7 @@
 .uk-range::-webkit-slider-thumb {
     /* 1 */
     -webkit-appearance: none;
-    margin-top: (floor((@form-range-thumb-height / 2)) * -1);
+    margin-top: calc(~'round(down, (@form-range-thumb-height / 2), 1px) * -1');  // instead of: (floor((@form-range-thumb-height / 2)) * -1);
     /* 2 */
     height: @form-range-thumb-height;
     width: @form-range-thumb-width;
@@ -120,7 +120,7 @@
     /* 2 */
     height: @form-range-thumb-height;
     width: @form-range-thumb-width;
-    margin-top: (floor((@form-range-thumb-height / 2)) * -1);
+    margin-top: calc(~'round(down, (@form-range-thumb-height / 2), 1px) * -1');  // instead of: (floor((@form-range-thumb-height / 2)) * -1);
     border-radius: @form-range-thumb-border-radius;
     background: @form-range-thumb-background;
     .hook-form-range-thumb();
@@ -142,10 +142,10 @@
 // Inverse
 // ========================================================================
 
-@inverse-form-range-track-background:          darken(@inverse-global-muted-background, 5%);
-@inverse-form-range-track-focus-background:    fadein(@inverse-form-range-track-background, 5%);
+@inverse-form-range-track-background:          hsl(from @inverse-global-muted-background h s calc(l - 5));                      // instead of: darken(@inverse-global-muted-background, 5%);
+@inverse-form-range-track-focus-background:    rgb(from @inverse-form-range-track-background r g b / ~'calc(alpha + 0.05)');    // instead of: fadein(@inverse-form-range-track-background, 5%);
 
-@inverse-form-range-thumb-background:          fadein(@inverse-global-color, 100%);
+@inverse-form-range-thumb-background:          rgb(from @inverse-global-color r g b / ~'calc(alpha + 1)');                      // instead of: fadein(@inverse-global-color, 100%);
 
 .hook-inverse() {
 

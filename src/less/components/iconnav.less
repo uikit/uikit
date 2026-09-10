@@ -42,7 +42,7 @@
     padding: 0;
     list-style: none;
     /* 3 */
-    margin-left: -@iconnav-margin-horizontal;
+    margin-left: calc(@iconnav-margin-horizontal * -1);                                     // instead of: -@iconnav-margin-horizontal;
     .hook-iconnav();
 }
 
@@ -110,7 +110,7 @@
     flex-direction: column;
     /* 2 */
     margin-left: 0;
-    margin-top: -@iconnav-margin-vertical;
+    margin-top: calc(@iconnav-margin-vertical * -1);                                    // instead of: -@iconnav-margin-vertical;
 }
 
 /* 2 */

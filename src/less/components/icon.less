@@ -20,20 +20,21 @@
 
 @icon-link-color:                               @global-muted-color;
 @icon-link-hover-color:                         @global-color;
-@icon-link-active-color:                        darken(@global-color, 5%);
+@icon-link-active-color:                        hsl(from @global-color h s calc(l - 5));                // instead of: darken(@global-color, 5%)
 
 @icon-button-size:                              36px;
 @icon-button-border-radius:                     500px;
 @icon-button-background:                        @global-muted-background;
 @icon-button-color:                             @global-muted-color;
 
-@icon-button-hover-background:                  darken(@icon-button-background, 5%);
+@icon-button-hover-background:                  hsl(from @icon-button-background h s calc(l - 5));      // instead of: darken(@icon-button-background, 5%)
 @icon-button-hover-color:                       @global-color;
 
-@icon-button-active-background:                 darken(@icon-button-background, 10%);
+@icon-button-active-background:                 hsl(from @icon-button-background h s calc(l - 10));     // instead of: darken(@icon-button-background, 10%)
 @icon-button-active-color:                      @global-color;
 
-@icon-overlay-color:                            fade(@global-emphasis-color, 60%);
+@icon-primary-color:                            currentColor;
+@icon-overlay-color:                            rgb(from @global-emphasis-color r g b / 0.6);            // instead of: fade(@global-emphasis-color, 60%);
 @icon-overlay-hover-color:                      @global-emphasis-color;
 
 
@@ -75,7 +76,7 @@
     /* 8 */
     display: inline-block;
     /* 9 */
-    fill: currentcolor;
+    fill: @icon-primary-color;                 // instead of: currentColor
     /* 10 */
     line-height: 0;
 }
@@ -96,8 +97,10 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
  * Set the fill and stroke color of all SVG elements to the current text color
  */
 
-.uk-icon:not(.uk-preserve) [fill*="#"]:not(.uk-preserve) { fill: currentcolor; }
-.uk-icon:not(.uk-preserve) [stroke*="#"]:not(.uk-preserve) { stroke: currentcolor; }
+.uk-icon:not(.uk-preserve) [fill*="#"]:not(.uk-preserve),
+.uk-icon:not(.uk-preserve) [fill*="currentColor"]:not(.uk-preserve) { fill: @icon-primary-color; }                // instead of: currentColor
+.uk-icon:not(.uk-preserve) [stroke*="#"]:not(.uk-preserve),
+.uk-icon:not(.uk-preserve) [stroke*="currentColor"]:not(.uk-preserve) { stroke: @icon-primary-color; }            // instead of: currentColor
 
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
@@ -232,11 +235,11 @@ a:hover .uk-icon-overlay {
 @inverse-icon-link-active-color:               @inverse-global-color;
 @inverse-icon-button-background:               @inverse-global-muted-background;
 @inverse-icon-button-color:                    @inverse-global-muted-color;
-@inverse-icon-button-hover-background:         fadein(@inverse-icon-button-background, 5%);
+@inverse-icon-button-hover-background:         rgb(from @inverse-icon-button-background r g b / ~'calc(alpha + 0.05)');     // instead of: fadein(@inverse-icon-button-background, 5%);
 @inverse-icon-button-hover-color:              @inverse-global-color;
-@inverse-icon-button-active-background:        fadein(@inverse-icon-button-background, 10%);
+@inverse-icon-button-active-background:        rgb(from @inverse-icon-button-background r g b / ~'calc(alpha + 0.1)');      // instead of: fadein(@inverse-icon-button-background, 10%);
 @inverse-icon-button-active-color:             @inverse-global-color;
-@inverse-icon-overlay-color:                   fade(@inverse-global-emphasis-color, 60%);
+@inverse-icon-overlay-color:                   rgb(from @inverse-global-emphasis-color r g b / 0.6);        // instead of: fade(@inverse-global-emphasis-color, 60%);
 @inverse-icon-overlay-hover-color:             @inverse-global-emphasis-color;
 
 .hook-inverse() {

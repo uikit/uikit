@@ -37,15 +37,14 @@
 
 @form-height:                                   @global-control-height;
 @form-line-height:                              @form-height;
-
 @form-padding-horizontal:                       10px;
 @form-multi-line-padding-horizontal:            @form-padding-horizontal;
-@form-multi-line-padding-vertical:              round(@form-multi-line-padding-horizontal * 0.6);
+@form-multi-line-padding-vertical:              ~'round(up, calc(@form-multi-line-padding-horizontal * 0.6), 1px)';         // instead of: round(@form-multi-line-padding-horizontal * 0.6);
 
 @form-background:                               @global-muted-background;
 @form-color:                                    @global-color;
 
-@form-focus-background:                         darken(@form-background, 5%);
+@form-focus-background:                         hsl(from @form-background h s calc(l - 5));                                 // instead of: darken(@form-background, 5%);
 @form-focus-color:                              @global-color;
 
 @form-disabled-background:                      @global-muted-background;
@@ -71,14 +70,14 @@
 
 @form-radio-size:                               16px;
 @form-radio-margin-top:                         -4px;
-@form-radio-background:                         darken(@global-muted-background, 5%);
+@form-radio-background:                         hsl(from @global-muted-background h s calc(l - 5));                         // instead of: darken(@global-muted-background, 5%);
 
-@form-radio-focus-background:                   darken(@form-radio-background, 5%);
+@form-radio-focus-background:                   hsl(from @form-radio-background h s calc(l - 5));                           // instead of: darken(@form-radio-background, 5%);
 
 @form-radio-checked-background:                 @global-primary-background;
 @form-radio-checked-icon-color:                 @global-inverse-color;
 
-@form-radio-checked-focus-background:           darken(@global-primary-background, 10%);
+@form-radio-checked-focus-background:           hsl(from @global-primary-background h s calc(l - 10));                      // instead of: darken(@global-primary-background, 10%);
 
 @form-radio-disabled-background:                @global-muted-background;
 @form-radio-disabled-icon-color:                @global-muted-color;
@@ -87,7 +86,7 @@
 @form-small-height:                             @global-control-small-height;
 @form-small-padding-horizontal:                 8px;
 @form-small-multi-line-padding-horizontal:      @form-small-padding-horizontal;
-@form-small-multi-line-padding-vertical:        round(@form-small-multi-line-padding-horizontal * 0.6);
+@form-small-multi-line-padding-vertical:        ~'round(up, calc(@form-small-multi-line-padding-horizontal * 0.6), 1px)';   // instead of: round(@form-small-multi-line-padding-horizontal * 0.6);
 @form-small-line-height:                        @form-small-height;
 @form-small-radio-size:                         14px;
 
@@ -95,7 +94,7 @@
 @form-large-height:                             @global-control-large-height;
 @form-large-padding-horizontal:                 12px;
 @form-large-multi-line-padding-horizontal:      @form-large-padding-horizontal;
-@form-large-multi-line-padding-vertical:        round(@form-large-multi-line-padding-horizontal * 0.6);
+@form-large-multi-line-padding-vertical:        ~'round(up, calc(@form-large-multi-line-padding-horizontal * 0.6), 1px)';   // instead of: round(@form-large-multi-line-padding-horizontal * 0.6);
 @form-large-line-height:                        @form-large-height;
 @form-large-radio-size:                         22px;
 
@@ -391,7 +390,7 @@
 
 input.uk-form-width-xsmall { width: @form-width-xsmall; }
 
-select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
+select.uk-form-width-xsmall { width: calc(@form-width-xsmall + 25px); }
 
 .uk-form-width-small { width: @form-width-small; }
 
@@ -813,7 +812,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-background:                      @inverse-global-muted-background;
 @inverse-form-color:                           @inverse-global-color;
-@inverse-form-focus-background:                fadein(@inverse-form-background, 5%);
+@inverse-form-focus-background:                rgb(from @inverse-form-background r g b / ~'calc(alpha + 0.05)');           // instead of: fadein(@inverse-form-background, 5%);
 @inverse-form-focus-color:                     @inverse-global-color;
 @inverse-form-placeholder-color:               @inverse-global-muted-color;
 
@@ -823,12 +822,12 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-radio-background:                @inverse-global-muted-background;
 
-@inverse-form-radio-focus-background:          fadein(@inverse-form-radio-background, 5%);
+@inverse-form-radio-focus-background:          rgb(from @inverse-form-radio-background r g b / ~'calc(alpha + 0.05)');     // instead of: fadein(@inverse-form-radio-background, 5%);
 
 @inverse-form-radio-checked-background:        @inverse-global-primary-background;
 @inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color;
 
-@inverse-form-radio-checked-focus-background:  fadein(@inverse-global-primary-background, 10%);
+@inverse-form-radio-checked-focus-background:  rgb(from @inverse-global-primary-background r g b / ~'calc(alpha + 0.1)');  // instead of: fadein(@inverse-global-primary-background, 10%);
 
 @inverse-form-icon-color:                      @inverse-global-muted-color;
 @inverse-form-icon-hover-color:                @inverse-global-color;

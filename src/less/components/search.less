@@ -28,7 +28,7 @@
 @search-default-height:                             @global-control-height;
 @search-default-padding-horizontal:                 10px;
 @search-default-background:                         @global-muted-background;
-@search-default-focus-background:                   darken(@search-default-background, 2%);
+@search-default-focus-background:                   hsl(from @search-default-background h s calc(l - 2));       // instead of: darken(@search-default-background, 2%);
 
 @search-default-icon-width:                         20px;
 @search-default-icon-padding:                       10px;
@@ -37,7 +37,7 @@
 @search-navbar-height:                              @global-control-height;
 @search-navbar-padding-horizontal:                  10px;
 @search-navbar-background:                          @global-background;
-@search-navbar-focus-background:                    darken(@search-navbar-background, 1%);
+@search-navbar-focus-background:                    hsl(from @search-navbar-background h s calc(l - 1));        // instead of: darken(@search-navbar-background, 1%);
 
 @search-navbar-icon-width:                          20px;
 @search-navbar-icon-padding:                        10px;
@@ -47,7 +47,7 @@
 @search-medium-padding-horizontal:                  12px;
 @search-medium-background:                          @search-default-background;
 @search-medium-font-size:                           @global-large-font-size;
-@search-medium-focus-background:                    darken(@search-medium-background, 2%);
+@search-medium-focus-background:                    hsl(from @search-medium-background h s calc(l - 2));        // instead of: darken(@search-medium-background, 2%);
 
 @search-medium-icon-width:                          24px;
 @search-medium-icon-padding:                        12px;
@@ -57,7 +57,7 @@
 @search-large-padding-horizontal:                   20px;
 @search-large-background:                           @search-default-background;
 @search-large-font-size:                            @global-2xlarge-font-size;
-@search-large-focus-background:                     darken(@search-large-background, 2%);
+@search-large-focus-background:                     hsl(from @search-large-background h s calc(l - 2));         // instead of: darken(@search-large-background, 2%);
 
 @search-large-icon-width:                           40px;
 @search-large-icon-padding:                         20px;
@@ -225,8 +225,8 @@
     padding-right: @search-default-padding-horizontal;
 }
 
-.uk-search-default:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: (@search-default-icon-width + @search-default-padding-horizontal + @search-default-icon-padding); }
-.uk-search-default:has(.uk-search-icon-flip) .uk-search-input { padding-right: (@search-default-icon-width + @search-default-padding-horizontal + @search-default-icon-padding); }
+.uk-search-default:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: calc(@search-default-icon-width + @search-default-padding-horizontal + @search-default-icon-padding); }          // instead of: (@search-default-icon-width + @search-default-padding-horizontal + @search-default-icon-padding)
+.uk-search-default:has(.uk-search-icon-flip) .uk-search-input { padding-right: calc(@search-default-icon-width + @search-default-padding-horizontal + @search-default-icon-padding); } //       instead of: (@search-default-icon-width + @search-default-padding-horizontal + @search-default-icon-padding)
 
 
 /* Navbar modifier
@@ -261,8 +261,8 @@
     padding-right: @search-navbar-padding-horizontal;
 }
 
-.uk-search-navbar:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: (@search-navbar-icon-width + @search-navbar-padding-horizontal + @search-navbar-icon-padding); }
-.uk-search-navbar:has(.uk-search-icon-flip) .uk-search-input { padding-right: (@search-navbar-icon-width + @search-navbar-padding-horizontal + @search-navbar-icon-padding); }
+.uk-search-navbar:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: calc(@search-navbar-icon-width + @search-navbar-padding-horizontal + @search-navbar-icon-padding); }          // instead of: (@search-navbar-icon-width + @search-navbar-padding-horizontal + @search-navbar-icon-padding)
+.uk-search-navbar:has(.uk-search-icon-flip) .uk-search-input { padding-right: calc(@search-navbar-icon-width + @search-navbar-padding-horizontal + @search-navbar-icon-padding); }          // instead of: (@search-navbar-icon-width + @search-navbar-padding-horizontal + @search-navbar-icon-padding)
 
 
 /* Medium modifier
@@ -298,8 +298,8 @@
     padding-right: @search-medium-padding-horizontal;
 }
 
-.uk-search-medium:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: (@search-medium-icon-width + @search-medium-padding-horizontal + @search-medium-icon-padding); }
-.uk-search-medium:has(.uk-search-icon-flip) .uk-search-input { padding-right: (@search-medium-icon-width + @search-medium-padding-horizontal + @search-medium-icon-padding); }
+.uk-search-medium:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: calc(@search-medium-icon-width + @search-medium-padding-horizontal + @search-medium-icon-padding); }          // instead of: (@search-medium-icon-width + @search-medium-padding-horizontal + @search-medium-icon-padding)
+.uk-search-medium:has(.uk-search-icon-flip) .uk-search-input { padding-right: calc(@search-medium-icon-width + @search-medium-padding-horizontal + @search-medium-icon-padding); }          // instead of: (@search-medium-icon-width + @search-medium-padding-horizontal + @search-medium-icon-padding)
 
 
 /* Large modifier
@@ -335,8 +335,8 @@
     padding-right: @search-large-padding-horizontal;
 }
 
-.uk-search-large:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: (@search-large-icon-width + @search-large-padding-horizontal + @search-large-icon-padding); }
-.uk-search-large:has(.uk-search-icon-flip) .uk-search-input { padding-right: (@search-large-icon-width + @search-large-padding-horizontal + @search-large-icon-padding); }
+.uk-search-large:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input { padding-left: calc(@search-large-icon-width + @search-large-padding-horizontal + @search-large-icon-padding); }          // instead of: (@search-large-icon-width + @search-large-padding-horizontal + @search-large-icon-padding)
+.uk-search-large:has(.uk-search-icon-flip) .uk-search-input { padding-right: calc(@search-large-icon-width + @search-large-padding-horizontal + @search-large-icon-padding); }          // instead of: (@search-large-icon-width + @search-large-padding-horizontal + @search-large-icon-padding)
 
 
 /* Toggle
@@ -385,16 +385,16 @@
 @inverse-search-icon-color:                    @inverse-global-muted-color;
 
 @inverse-search-default-background:            @inverse-global-muted-background;
-@inverse-search-default-focus-background:      fadein(@inverse-search-default-background, 5%);
+@inverse-search-default-focus-background:      rgb(from @inverse-search-default-background r g b / ~'calc(alpha + 0.05)');     // instead of: fadein(@inverse-search-default-background, 5%);
 
 @inverse-search-navbar-background:             @inverse-global-muted-background;
-@inverse-search-navbar-focus-background:       fadein(@inverse-search-navbar-background, 5%);
+@inverse-search-navbar-focus-background:       rgb(from @inverse-search-navbar-background r g b / ~'calc(alpha + 0.05)');      // instead of: fadein(@inverse-search-navbar-background, 5%);
 
 @inverse-search-medium-background:             @inverse-search-default-background;
-@inverse-search-medium-focus-background:       fadein(@inverse-search-medium-background, 5%);
+@inverse-search-medium-focus-background:       rgb(from @inverse-search-medium-background r g b / ~'calc(alpha + 0.05)');      // instead of: fadein(@inverse-search-medium-background, 5%);
 
 @inverse-search-large-background:              @inverse-search-default-background;
-@inverse-search-large-focus-background:        fadein(@inverse-search-large-background, 5%);
+@inverse-search-large-focus-background:        rgb(from @inverse-search-large-background r g b / ~'calc(alpha + 0.05)');       // instead of: fadein(@inverse-search-large-background, 5%);
 
 @inverse-search-toggle-color:                  @inverse-global-muted-color;
 @inverse-search-toggle-hover-color:            @inverse-global-color;
