@@ -2,7 +2,7 @@ import { $$, camelize, hyphenate, isEmpty, isPlainObject } from 'uikit-util';
 import App from './app';
 
 const PREFIX = 'uk-';
-const DATA = '__uikit__';
+const elementComponents = new WeakMap();
 
 export const components = {};
 
@@ -60,7 +60,7 @@ export function createComponent(name, element, data, ...args) {
 }
 
 export function getComponents(element) {
-    return element?.[DATA] || {};
+    return elementComponents.get(element) || {};
 }
 
 export function getComponent(element, name) {
@@ -68,17 +68,21 @@ export function getComponent(element, name) {
 }
 
 export function attachToElement(element, instance) {
-    if (!element[DATA]) {
-        element[DATA] = {};
+    let components = elementComponents.get(element);
+
+    if (!components) {
+        components = {};
+        elementComponents.set(element, components);
     }
 
-    element[DATA][instance.$options.name] = instance;
+    components[instance.$options.name] = instance;
 }
 
 export function detachFromElement(element, instance) {
-    delete element[DATA]?.[instance.$options.name];
+    const components = elementComponents.get(element);
+    delete components?.[instance.$options.name];
 
-    if (isEmpty(element[DATA])) {
-        delete element[DATA];
+    if (isEmpty(components)) {
+        elementComponents.delete(element);
     }
 }

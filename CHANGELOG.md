@@ -2,6 +2,10 @@
 
 ## 3.25.22 (September 9, 2026)
 
+### Changed
+
+- Store private component bookkeeping in WeakMaps instead of `__uikit__` element properties
+
 ### Fixed
 
 - Fix accessibility-tree parentage for Drop components reparented in the DOM

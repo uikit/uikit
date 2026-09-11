@@ -25,6 +25,8 @@ import Togglable from './togglable';
 
 const active = [];
 
+const pendingReject = new WeakMap();
+
 export default {
     mixins: [Class, Container, Togglable],
 
@@ -227,10 +229,13 @@ export default {
 };
 
 function animate(el, show, { transitionElement, _toggle }) {
+    let rejectAnimation;
+
     return new Promise((resolve, reject) =>
         once(el, 'show hide', () => {
-            el._reject?.();
-            el._reject = reject;
+            pendingReject.get(el)?.();
+            rejectAnimation = reject;
+            pendingReject.set(el, reject);
 
             _toggle(el, show);
 
@@ -254,7 +259,11 @@ function animate(el, show, { transitionElement, _toggle }) {
                 toMs(css(transitionElement, 'transitionDuration')),
             );
         }),
-    ).then(() => delete el._reject);
+    ).then(() => {
+        if (pendingReject.get(el) === rejectAnimation) {
+            pendingReject.delete(el);
+        }
+    });
 }
 
 function toMs(time) {
@@ -290,7 +299,10 @@ function listenForBackgroundClose(modal) {
 }
 
 function listenForEscClose(modal) {
-    return onEscape(() => modal.hide(), () => last(active) === modal);
+    return onEscape(
+        () => modal.hide(),
+        () => last(active) === modal,
+    );
 }
 
 function setAriaExpanded(el, toggled) {
