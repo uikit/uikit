@@ -104,7 +104,7 @@ export function parseSVG(svg, icon) {
         svg = parseSymbols(svg)[icon] || svg;
     }
 
-    return toNodes(fragment(svg)).filter(isElement)[0];
+    return toNodes(fragment(svg)).find(isElement);
 }
 
 const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;

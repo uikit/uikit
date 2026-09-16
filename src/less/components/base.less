@@ -152,16 +152,10 @@ a:has(.uk-text-middle),
  ========================================================================== */
 
 /*
- * 1. Add the correct text decoration in Edge.
- * 2. The shorthand declaration `underline dotted` is not supported in Safari.
+ * Add the correct text decoration.
  */
 
-abbr[title] {
-    /* 1 */
-    text-decoration: underline dotted;
-    /* 2 */
-    -webkit-text-decoration-style: dotted;
-}
+abbr[title] { text-decoration: underline dotted; }
 
 /*
  * Add the correct font weight in Chrome, Edge, and Safari.
@@ -508,7 +502,6 @@ blockquote footer {
 pre {
     font: @base-pre-font-size e("/") @base-pre-line-height @base-pre-font-family;
     color: @base-pre-color;
-    -moz-tab-size: 4;
     tab-size: 4;
     /* 1 */
     overflow: auto;
@@ -534,32 +527,6 @@ pre code { font-family: @base-pre-font-family; }
     color: @base-selection-color;
     text-shadow: none;
 }
-
-
-/* HTML5 elements
- ========================================================================== */
-
-/*
- * 1. Add the correct display in Edge, IE 10+, and Firefox.
- * 2. Add the correct display in IE.
- */
-
-details, /* 1 */
-main { /* 2 */
-    display: block;
-}
-
-/*
- * Add the correct display in all browsers.
- */
-
-summary { display: list-item; }
-
-/*
- * Add the correct display in IE.
- */
-
-template { display: none; }
 
 
 /* Pass media breakpoints to JS

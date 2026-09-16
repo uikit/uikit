@@ -20,21 +20,17 @@ import {
     overflowParents,
     parent,
     pick,
-    pointerCancel,
-    pointerDown,
     pointerEnter,
     pointerLeave,
-    pointerUp,
     query,
     removeClass,
 } from 'uikit-util';
 import { generateId } from '../api/instance';
 import Class from '../mixin/class';
 import Container from '../mixin/container';
-import { maybeDefaultPreventClick } from '../mixin/event';
+import { maybeDefaultPreventClick, onEscape, onOutsidePointer } from '../mixin/event';
 import Position, { storeScrollPosition } from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import { keyMap } from '../util/keys';
 import { preventBackgroundScroll } from '../util/scroll';
 
 export let active;
@@ -457,7 +453,6 @@ export default {
         },
     },
 };
-
 function getViewport(el, target) {
     return offsetViewport(overflowParents(target).find((parent) => parent.contains(el)));
 }
@@ -502,11 +497,7 @@ function listenForScroll(drop, fn = () => drop.$emit()) {
 }
 
 function listenForEscClose(drop) {
-    return on(document, 'keydown', (e) => {
-        if (e.keyCode === keyMap.ESC) {
-            drop.hide(false);
-        }
-    });
+    return onEscape(() => drop.hide(false));
 }
 
 function listenForScrollClose(drop) {
@@ -514,25 +505,12 @@ function listenForScrollClose(drop) {
 }
 
 function listenForBackgroundClose(drop) {
-    return on(document, pointerDown, ({ target }) => {
-        if (drop.$el.contains(target)) {
-            return;
-        }
-
-        once(
-            document,
-            `${pointerUp} ${pointerCancel} scroll`,
-            ({ defaultPrevented, type, target: newTarget }) => {
-                if (
-                    !defaultPrevented &&
-                    type === pointerUp &&
-                    target === newTarget &&
-                    !drop.targetEl?.contains(target)
-                ) {
-                    drop.hide(false);
-                }
-            },
-            true,
-        );
-    });
+    return onOutsidePointer(
+        (target) => {
+            if (!drop.targetEl?.contains(target)) {
+                drop.hide(false);
+            }
+        },
+        (target) => !drop.$el.contains(target),
+    );
 }

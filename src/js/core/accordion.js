@@ -26,6 +26,8 @@ import { maybeDefaultPreventClick } from '../mixin/event';
 import Togglable from '../mixin/togglable';
 import { keyMap } from '../util/keys';
 
+const wrappers = new WeakMap();
+
 export default {
     mixins: [Class, Togglable],
 
@@ -60,7 +62,9 @@ export default {
         },
 
         contents({ content }) {
-            return this.items.map((item) => item._wrapper?.firstElementChild || $(content, item));
+            return this.items.map(
+                (item) => wrappers.get(item)?.firstElementChild || $(content, item),
+            );
         },
     },
 
@@ -200,13 +204,13 @@ function hide(el, hide) {
 }
 
 async function transition(el, show, { content, duration, velocity, transition }) {
-    content = el._wrapper?.firstElementChild || $(content, el);
+    let wrapper = wrappers.get(el);
+    content = wrapper?.firstElementChild || $(content, el);
 
-    if (!el._wrapper) {
-        el._wrapper = wrapAll(content, '<div>');
+    if (!wrapper) {
+        wrapper = wrapAll(content, '<div>');
+        wrappers.set(el, wrapper);
     }
-
-    const wrapper = el._wrapper;
     css(wrapper, 'overflow', 'hidden');
     const currentHeight = toFloat(css(wrapper, 'height'));
 
@@ -224,7 +228,7 @@ async function transition(el, show, { content, duration, velocity, transition })
     await Transition.start(wrapper, { height: show ? endHeight : 0 }, duration, transition);
 
     unwrap(content);
-    delete el._wrapper;
+    wrappers.delete(el);
 
     if (!show) {
         hide(content, true);
