@@ -1,10 +1,12 @@
 # Changelog
 
-## 3.25.22 (September 9, 2026)
+## WIP
 
 ### Changed
 
 - Store private component bookkeeping in WeakMaps instead of `__uikit__` element properties
+
+## 3.25.22 (September 9, 2026)
 
 ### Fixed
 
