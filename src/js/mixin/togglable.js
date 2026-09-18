@@ -242,15 +242,14 @@ async function toggleTransition(el, show, { animation, duration, velocity, trans
     }
 }
 
-function toggleAnimation(el, show, cmp) {
-    const { animation, duration, _toggle } = cmp;
+async function toggleAnimation(el, show, cmp) {
+    const { animation, duration, origin, _toggle } = cmp;
 
     if (show) {
         _toggle(el, true);
-        return Animation.in(el, animation[0], duration, cmp.origin);
+        return Animation.in(el, animation[0], duration, origin);
     }
 
-    return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() =>
-        _toggle(el, false),
-    );
+    await Animation.out(el, animation[1] || animation[0], duration, origin);
+    _toggle(el, false);
 }
