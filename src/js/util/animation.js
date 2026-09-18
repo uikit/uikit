@@ -62,47 +62,66 @@ export const Transition = {
 };
 
 const clsAnimation = 'uk-animation';
-const animationEnd = 'animationend';
-const animationCanceled = 'animationcanceled';
+const activeAnimations = new WeakMap();
 
 function animate(element, animation, duration = 200, origin, out) {
-    return Promise.all(
-        toNodes(element).map(
-            (element) =>
-                new Promise((resolve, reject) => {
-                    if (hasClass(element, clsAnimation)) {
-                        trigger(element, animationCanceled);
-                    }
+    const animateFn = async (element) => {
+        if (!Element.prototype.getAnimations) {
+            return element;
+        }
 
-                    const classes = [
-                        animation,
-                        clsAnimation,
-                        `${clsAnimation}-${out ? 'leave' : 'enter'}`,
-                        origin && `uk-transform-origin-${origin}`,
-                        out && `${clsAnimation}-reverse`,
-                    ];
+        cancel(element);
 
-                    const timer = setTimeout(() => trigger(element, animationEnd), duration);
+        const existingAnimations = element.getAnimations();
 
-                    once(
-                        element,
-                        [animationEnd, animationCanceled],
-                        ({ type }) => {
-                            clearTimeout(timer);
+        const classes = [
+            animation,
+            clsAnimation,
+            `${clsAnimation}-${out ? 'leave' : 'enter'}`,
+            origin && `uk-transform-origin-${origin}`,
+            out && `${clsAnimation}-reverse`,
+        ];
 
-                            type === animationCanceled ? reject() : resolve(element);
+        css(element, 'animationDuration', `${duration}ms`);
+        addClass(element, classes);
 
-                            css(element, 'animationDuration', '');
-                            removeClass(element, classes);
-                        },
-                        { self: true },
-                    );
+        const animations = element
+            .getAnimations()
+            .filter((animation) => !existingAnimations.includes(animation));
+        const data = { animations, classes };
 
-                    css(element, 'animationDuration', `${duration}ms`);
-                    addClass(element, classes);
-                }),
-        ),
-    );
+        activeAnimations.set(element, data);
+
+        try {
+            await Promise.all(animations.map(({ finished }) => finished));
+            return element;
+        } finally {
+            cleanup(element, data);
+        }
+    };
+
+    return Promise.all(toNodes(element).map(animateFn));
+}
+
+function cleanup(element, data) {
+    if (activeAnimations.get(element) === data) {
+        activeAnimations.delete(element);
+        css(element, 'animationDuration', '');
+        removeClass(element, data.classes);
+    }
+}
+
+function cancel(elements) {
+    for (const element of toNodes(elements)) {
+        const data = activeAnimations.get(element);
+
+        if (data) {
+            for (const animation of data.animations) {
+                animation.cancel();
+            }
+            cleanup(element, data);
+        }
+    }
 }
 
 export const Animation = {
@@ -113,10 +132,8 @@ export const Animation = {
     },
 
     inProgress(element) {
-        return hasClass(element, clsAnimation);
+        return activeAnimations.has(element);
     },
 
-    cancel(element) {
-        trigger(element, animationCanceled);
-    },
+    cancel,
 };
