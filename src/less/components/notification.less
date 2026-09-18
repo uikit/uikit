@@ -24,7 +24,7 @@
 // ========================================================================
 
 @notification-position:                               10px;
-@notification-z-index:                                @global-z-index + 40;
+@notification-z-index:                                calc(@global-z-index + 40);                       // instead of: @global-z-index + 40;
 @notification-width:                                  350px;
 
 @notification-message-margin-top:                     10px;
@@ -34,7 +34,7 @@
 @notification-message-font-size:                      @global-medium-font-size;
 @notification-message-line-height:                    1.4;
 
-@notification-close-top:                              @notification-message-padding + 5px;
+@notification-close-top:                              calc(@notification-message-padding + 5px);        // @notification-message-padding + 5px;
 @notification-close-right:                            @notification-message-padding;
 
 @notification-message-primary-color:                  @global-primary-background;
@@ -77,7 +77,7 @@
 .uk-notification-top-center,
 .uk-notification-bottom-center {
     left: 50%;
-    margin-left: (@notification-width / -2);
+    margin-left: calc(@notification-width / -2);                                // instead of: (@notification-width / -2);
 }
 
 .uk-notification-bottom-left,
