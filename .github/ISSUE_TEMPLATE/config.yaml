@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Our Discord Chats
+    url: https://discord.gg/NEt4Pv7
+    about: Ask the community in the Discord chat.
+  - name: Find Us At Stack Overflow
+    url: https://stackoverflow.com/questions/ask?tags=getuikit
+    about: Look for an answer on Stack Overflow
+  - name: Our Public Documentation Website
+    url: https://getuikit.com/docs
+    about: Search our public documentation
