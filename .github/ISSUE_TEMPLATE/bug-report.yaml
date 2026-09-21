@@ -1,0 +1,61 @@
+name: "Bug Report 🐛"
+title: "[🐛bug] :  "
+description: "Report a bug you have found."
+projects: []
+labels:
+  - "! Bug"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        👋 Hi, thank you for using UIKit!
+
+        Please open an issues only for a bug report or feature request. Make sure no one else has already opened a similar issue. If you need help or have questions about UIkit, there are few places to start:
+        
+        - Search our public documentation: https://getuikit.com/docs
+        - Ask the community in the Discord chat: https://discord.gg/NEt4Pv7
+        - Look for an answer on Stack Overflow: https://stackoverflow.com/questions/ask?tags=getuikit
+
+  - type: input
+    id: uikit-version
+    attributes:
+      label: UIkit Version
+      description: Check if the issue is reproducible with the latest stable version.
+      placeholder: ex. 3.25.23
+   
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What happened? Screenshots please, if relevant!
+      placeholder: "A bug happened!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+    validations:
+      required: true
+
+  - type: input
+    id: reproduction-link
+    attributes:
+      label: Reproduction Link
+      description: |
+        A minimal Codepen that can reproduce the bug. 
+        Start with this [Codepen template](http://codepen.io/anon/pen/XMpryM)
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Steps to Reproduce the Problem
+      placeholder: |
+            1.
+            2.
+            3.
+    validations:
+      required: true
