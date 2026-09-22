@@ -1,13 +1,4 @@
-import {
-    $$,
-    css,
-    filter,
-    data as getData,
-    once,
-    removeClass,
-    toggleClass,
-    trigger,
-} from 'uikit-util';
+import { $$, css, filter, data as getData, removeClass, toggleClass, trigger } from 'uikit-util';
 import { intersection } from '../api/observables';
 import { awaitTimeout } from '../util/await';
 
@@ -121,16 +112,15 @@ export default {
             toggleClass(el, clsInView, inview);
             toggleClass(el, state.cls);
 
-            let match;
-            if ((match = state.cls.match(/\buk-animation-[\w-]+/g))) {
-                const removeAnimationClasses = () => removeClass(el, match);
-                if (inview) {
-                    state.off = once(el, 'animationcancel animationend', removeAnimationClasses, {
-                        self: true,
-                    });
-                } else {
-                    removeAnimationClasses();
-                }
+            const match = state.cls.match(/\buk-animation-[\w-]+/g);
+            if (match) {
+                const animations = (inview && el.getAnimations?.()) || [];
+
+                let active = true;
+                state.off = () => (active = false);
+
+                const cleanup = () => active && removeClass(el, match);
+                Promise.all(animations.map(({ finished }) => finished)).then(cleanup, cleanup);
             }
 
             trigger(el, inview ? 'inview' : 'outview');

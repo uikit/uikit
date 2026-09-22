@@ -4,7 +4,6 @@ import {
     append,
     css,
     dimensions,
-    endsWith,
     includes,
     isFocusable,
     isSameSiteAnchor,
@@ -239,35 +238,15 @@ function animate(el, show, { transitionElement, _toggle }) {
 
             _toggle(el, show);
 
-            const off = once(
-                transitionElement,
-                'transitionstart',
-                () => {
-                    once(transitionElement, 'transitionend transitioncancel', resolve, {
-                        self: true,
-                    });
-                    clearTimeout(timer);
-                },
-                { self: true },
-            );
-
-            const timer = setTimeout(
-                () => {
-                    off();
-                    resolve();
-                },
-                toMs(css(transitionElement, 'transitionDuration')),
-            );
+            Promise.all(
+                (transitionElement.getAnimations?.() ?? []).map(({ finished }) => finished),
+            ).then(resolve, reject);
         }),
     ).then(() => {
         if (pendingReject.get(el) === rejectAnimation) {
             pendingReject.delete(el);
         }
     });
-}
-
-function toMs(time) {
-    return toFloat(time) * (endsWith(time, 'ms') ? 1 : 1000);
 }
 
 function preventBackgroundFocus(modal) {
