@@ -4,7 +4,6 @@ import {
     append,
     css,
     dimensions,
-    endsWith,
     includes,
     isFocusable,
     isSameSiteAnchor,
@@ -13,9 +12,6 @@ import {
     on,
     once,
     parent,
-    pointerCancel,
-    pointerDown,
-    pointerUp,
     removeClass,
     toFloat,
 } from 'uikit-util';
@@ -23,10 +19,12 @@ import { awaitFrame } from '../util/await';
 import { preventBackgroundScroll } from '../util/scroll';
 import Class from './class';
 import Container from './container';
-import { maybeDefaultPreventClick } from './event';
+import { maybeDefaultPreventClick, onEscape, onOutsidePointer } from './event';
 import Togglable from './togglable';
 
 const active = [];
+
+const pendingReject = new WeakMap();
 
 export default {
     mixins: [Class, Container, Togglable],
@@ -230,38 +228,25 @@ export default {
 };
 
 function animate(el, show, { transitionElement, _toggle }) {
+    let rejectAnimation;
+
     return new Promise((resolve, reject) =>
         once(el, 'show hide', () => {
-            el._reject?.();
-            el._reject = reject;
+            pendingReject.get(el)?.();
+            rejectAnimation = reject;
+            pendingReject.set(el, reject);
 
             _toggle(el, show);
 
-            const off = once(
-                transitionElement,
-                'transitionstart',
-                () => {
-                    once(transitionElement, 'transitionend transitioncancel', resolve, {
-                        self: true,
-                    });
-                    clearTimeout(timer);
-                },
-                { self: true },
-            );
-
-            const timer = setTimeout(
-                () => {
-                    off();
-                    resolve();
-                },
-                toMs(css(transitionElement, 'transitionDuration')),
-            );
+            Promise.all(
+                (transitionElement.getAnimations?.() ?? []).map(({ finished }) => finished),
+            ).then(resolve, reject);
         }),
-    ).then(() => delete el._reject);
-}
-
-function toMs(time) {
-    return time ? (endsWith(time, 'ms') ? toFloat(time) : toFloat(time) * 1000) : 0;
+    ).then(() => {
+        if (pendingReject.get(el) === rejectAnimation) {
+            pendingReject.delete(el);
+        }
+    });
 }
 
 function preventBackgroundFocus(modal) {
@@ -282,35 +267,21 @@ function preventBackgroundFocus(modal) {
 }
 
 function listenForBackgroundClose(modal) {
-    return on(document, pointerDown, ({ target }) => {
-        if (
-            last(active) !== modal ||
-            (modal.overlay && !modal.$el.contains(target)) ||
-            !modal.panel ||
-            modal.panel.contains(target)
-        ) {
-            return;
-        }
-
-        once(
-            document,
-            `${pointerUp} ${pointerCancel} scroll`,
-            ({ defaultPrevented, type, target: newTarget }) => {
-                if (!defaultPrevented && type === pointerUp && target === newTarget) {
-                    modal.hide();
-                }
-            },
-            true,
-        );
-    });
+    return onOutsidePointer(
+        () => modal.hide(),
+        (target) =>
+            (!modal.overlay || modal.$el.contains(target)) &&
+            Boolean(modal.panel) &&
+            !modal.panel.contains(target),
+        () => last(active) === modal,
+    );
 }
 
 function listenForEscClose(modal) {
-    return on(document, 'keydown', (e) => {
-        if (e.keyCode === 27 && last(active) === modal) {
-            modal.hide();
-        }
-    });
+    return onEscape(
+        () => modal.hide(),
+        () => last(active) === modal,
+    );
 }
 
 function setAriaExpanded(el, toggled) {

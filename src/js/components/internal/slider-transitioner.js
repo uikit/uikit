@@ -73,24 +73,22 @@ export default function (prev, next, dir, { center, easing, list }) {
         },
 
         translate(percent) {
-            if (percent === this.percent()) {
-                return;
+            if (percent !== this.percent()) {
+                const distance = this.getDistance() * dir * (isRtl ? -1 : 1);
+
+                css(
+                    list,
+                    'transform',
+                    translate(
+                        clamp(
+                            -to + (distance - distance * percent),
+                            -getWidth(list),
+                            dimensions(list).width,
+                        ) * (isRtl ? -1 : 1),
+                        'px',
+                    ),
+                );
             }
-
-            const distance = this.getDistance() * dir * (isRtl ? -1 : 1);
-
-            css(
-                list,
-                'transform',
-                translate(
-                    clamp(
-                        -to + (distance - distance * percent),
-                        -getWidth(list),
-                        dimensions(list).width,
-                    ) * (isRtl ? -1 : 1),
-                    'px',
-                ),
-            );
 
             const actives = this.getActives();
             const itemIn = this.getItemIn();

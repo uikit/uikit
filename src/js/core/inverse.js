@@ -84,7 +84,7 @@ export default {
                     unobserve: observer.unobserve.bind(observer),
                     disconnect() {
                         observer.disconnect();
-                        listener.map((off) => off());
+                        listener.forEach((off) => off());
                     },
                 };
             },

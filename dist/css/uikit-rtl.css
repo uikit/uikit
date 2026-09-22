@@ -1,4 +1,4 @@
-/*! UIkit 3.25.21 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.24 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -53,14 +53,10 @@ a:has(.uk-text-middle),
 /* Text-level semantics
  ========================================================================== */
 /*
- * 1. Add the correct text decoration in Edge.
- * 2. The shorthand declaration `underline dotted` is not supported in Safari.
+ * Add the correct text decoration.
  */
 abbr[title] {
-  /* 1 */
   text-decoration: underline dotted;
-  /* 2 */
-  -webkit-text-decoration-style: dotted;
 }
 /*
  * Add the correct font weight in Chrome, Edge, and Safari.
@@ -394,7 +390,6 @@ blockquote footer::before {
 pre {
   font: 0.875rem / 1.5 Consolas, monaco, monospace;
   color: #666;
-  -moz-tab-size: 4;
   tab-size: 4;
   /* 1 */
   overflow: auto;
@@ -420,29 +415,6 @@ pre code {
   background: #39f;
   color: #fff;
   text-shadow: none;
-}
-/* HTML5 elements
- ========================================================================== */
-/*
- * 1. Add the correct display in Edge, IE 10+, and Firefox.
- * 2. Add the correct display in IE.
- */
-details,
-main {
-  /* 2 */
-  display: block;
-}
-/*
- * Add the correct display in all browsers.
- */
-summary {
-  display: list-item;
-}
-/*
- * Add the correct display in IE.
- */
-template {
-  display: none;
 }
 /* Pass media breakpoints to JS
  ========================================================================== */
@@ -1117,13 +1089,6 @@ button.uk-icon:not(:disabled) {
   cursor: pointer;
 }
 /*
- * Remove the inner border and padding in Firefox.
- */
-.uk-icon::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-/*
  * Set the fill and stroke color of all SVG elements to the current text color
  */
 .uk-icon:not(.uk-preserve) [fill*="#"]:not(.uk-preserve) {
@@ -1395,13 +1360,6 @@ a:hover .uk-icon-overlay {
   align-items: center;
   height: 100%;
   padding: 0;
-}
-/*
- * Removes placeholder transparency in Firefox.
- */
-.uk-input::-moz-placeholder,
-.uk-textarea::-moz-placeholder {
-  opacity: 1;
 }
 /*
  * Improves consistency of cursor style for clickable elements
@@ -1961,13 +1919,6 @@ select.uk-form-width-xsmall {
 }
 .uk-button:not(:disabled) {
   cursor: pointer;
-}
-/*
- * Remove the inner border and padding in Firefox.
- */
-.uk-button::-moz-focus-inner {
-  border: 0;
-  padding: 0;
 }
 /* Hover */
 .uk-button:hover {
@@ -3367,12 +3318,6 @@ select.uk-form-width-xsmall {
 .uk-search-input::-webkit-search-cancel-button,
 .uk-search-input::-webkit-search-decoration {
   -webkit-appearance: none;
-}
-/*
- * Removes placeholder transparency in Firefox.
- */
-.uk-search-input::-moz-placeholder {
-  opacity: 1;
 }
 /*
  * 1. Define consistent box sizing.
@@ -8446,9 +8391,8 @@ iframe[data-uk-cover] {
 }
 /*
  * Overflow fade
- * 1. Overflow
- * 2. Mask
- * 3. Hide scrollbar
+ * 1. Mask
+ * 2. Hide scrollbar
  */
 @property --uk-overflow-fade-start-opacity {
   syntax: "<number>";
@@ -8471,11 +8415,8 @@ iframe[data-uk-cover] {
 .uk-overflow-fade-horizontal,
 .uk-overflow-fade-vertical {
   /* 1 */
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-  /* 2 */
   mask-image: linear-gradient(to var(--uk-overflow-fade-direction), rgba(0, 0, 0, var(--uk-overflow-fade-start-opacity)), #000 100px, #000 calc(100% - 100px), rgba(0, 0, 0, var(--uk-overflow-fade-end-opacity)));
-  /* 3 */
+  /* 2 */
   scrollbar-width: none;
 }
 .uk-overflow-fade-horizontal > *,
