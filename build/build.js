@@ -9,8 +9,7 @@ const bundles = getBundleTasks();
 const components = await getComponentTasks();
 const buildAll =
     args.all ||
-    !Object.keys(args).filter((name) => !['d', 'debug', 'nominify', 'watch', '_'].includes(name))
-        .length;
+    !Object.keys(args).some((name) => !['d', 'debug', 'nominify', 'watch', '_'].includes(name));
 
 if (args.h || args.help) {
     console.log(`

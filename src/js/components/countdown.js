@@ -90,7 +90,7 @@ export default {
                     digits = digits.split('');
 
                     if (digits.length !== el.children.length) {
-                        html(el, digits.map(() => '<span></span>').join(''));
+                        html(el, '<span></span>'.repeat(digits.length));
                     }
 
                     digits.forEach((digit, i) => (el.children[i].textContent = digit));

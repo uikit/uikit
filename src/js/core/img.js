@@ -88,8 +88,7 @@ function setSrcAttrs(el, src) {
         const elements = isTag(parentNode, 'picture') ? children(parentNode) : [el];
         elements.forEach((el) => setSourceProps(el, el));
     } else if (src) {
-        const change = !includes(el.style.backgroundImage, src);
-        if (change) {
+        if (!includes(el.style.backgroundImage, src)) {
             css(el, 'backgroundImage', `url(${escape(src)})`);
             trigger(el, createEvent('load', false));
         }
@@ -145,11 +144,7 @@ function parseSources(sources) {
         sources = parseOptions(sources);
     }
 
-    if (!isArray(sources)) {
-        sources = [sources];
-    }
-
-    return sources.filter((source) => !isEmpty(source));
+    return (isArray(sources) ? sources : [sources]).filter((source) => !isEmpty(source));
 }
 
 function isImg(el) {

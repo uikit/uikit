@@ -55,11 +55,12 @@ export default {
 
     update: {
         read() {
-            const overflow = [];
-            for (const prop of ['Width', 'Height']) {
-                overflow.push(this.$el[`scroll${prop}`] - this.$el[`client${prop}`]);
-            }
-            return { overflow };
+            return {
+                overflow: [
+                    this.$el.scrollWidth - this.$el.clientWidth,
+                    this.$el.scrollHeight - this.$el.clientHeight,
+                ],
+            };
         },
 
         write({ overflow }) {
