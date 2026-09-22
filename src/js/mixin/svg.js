@@ -6,6 +6,7 @@ import {
     includes,
     isElement,
     isTag,
+    queryAll,
     isVoidElement,
     memoize,
     noop,
@@ -21,10 +22,12 @@ export default {
         width: Number,
         height: Number,
         ratio: Number,
+        strokeRatio: Number,
     },
 
     data: {
         ratio: 1,
+        strokeRatio: false
     },
 
     connected() {
@@ -94,6 +97,12 @@ function applyWidthAndHeight(el, ref) {
     const viewBox = attr(ref, 'viewBox');
     if (viewBox && !dimensions.some((val) => val)) {
         dimensions = viewBox.split(' ').slice(2);
+    }
+
+    if (this.strokeRatio) {
+        queryAll('[stroke-width]', el).forEach((node) => {
+            attr(node, 'stroke-width', toFloat(attr(node, 'stroke-width')) * this.strokeRatio);
+        });
     }
 
     dimensions.forEach((val, i) => attr(el, props[i], toFloat(val) * this.ratio || null));
