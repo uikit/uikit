@@ -1,4 +1,4 @@
-/*! UIkit 3.25.23 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.24 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -685,39 +685,52 @@
       }
     };
     const clsAnimation = "uk-animation";
-    const animationEnd = "animationend";
-    const animationCanceled = "animationcanceled";
+    const activeAnimations = /* @__PURE__ */ new WeakMap();
     function animate$2(element, animation, duration = 200, origin, out) {
-      return Promise.all(
-        toNodes(element).map(
-          (element2) => new Promise((resolve, reject) => {
-            if (hasClass(element2, clsAnimation)) {
-              trigger(element2, animationCanceled);
-            }
-            const classes = [
-              animation,
-              clsAnimation,
-              `${clsAnimation}-${out ? "leave" : "enter"}`,
-              origin && `uk-transform-origin-${origin}`,
-              out && `${clsAnimation}-reverse`
-            ];
-            const timer = setTimeout(() => trigger(element2, animationEnd), duration);
-            once(
-              element2,
-              [animationEnd, animationCanceled],
-              ({ type }) => {
-                clearTimeout(timer);
-                type === animationCanceled ? reject() : resolve(element2);
-                css(element2, "animationDuration", "");
-                removeClass(element2, classes);
-              },
-              { self: true }
-            );
-            css(element2, "animationDuration", `${duration}ms`);
-            addClass(element2, classes);
-          })
-        )
-      );
+      const animateFn = async (element2) => {
+        if (!Element.prototype.getAnimations) {
+          return element2;
+        }
+        cancel(element2);
+        const existingAnimations = element2.getAnimations();
+        const classes = [
+          animation,
+          clsAnimation,
+          `${clsAnimation}-${out ? "leave" : "enter"}`,
+          origin && `uk-transform-origin-${origin}`,
+          out && `${clsAnimation}-reverse`
+        ];
+        css(element2, "animationDuration", `${duration}ms`);
+        addClass(element2, classes);
+        const animations = element2.getAnimations().filter((animation2) => !existingAnimations.includes(animation2));
+        const data = { animations, classes };
+        activeAnimations.set(element2, data);
+        try {
+          await Promise.all(animations.map(({ finished }) => finished));
+          return element2;
+        } finally {
+          cleanup(element2, data);
+        }
+      };
+      return Promise.all(toNodes(element).map(animateFn));
+    }
+    function cleanup(element, data) {
+      if (activeAnimations.get(element) === data) {
+        activeAnimations.delete(element);
+        css(element, "animationDuration", "");
+        removeClass(element, data.classes);
+      }
+    }
+    function cancel(elements) {
+      for (const element of toNodes(elements)) {
+        const data = activeAnimations.get(element);
+        if (data) {
+          for (const animation of data.animations) {
+            animation.cancel();
+          }
+          cleanup(element, data);
+        }
+      }
     }
     const Animation = {
       in: animate$2,
@@ -725,11 +738,9 @@
         return animate$2(element, animation, duration, origin, true);
       },
       inProgress(element) {
-        return hasClass(element, clsAnimation);
+        return activeAnimations.has(element);
       },
-      cancel(element) {
-        trigger(element, animationCanceled);
-      }
+      cancel
     };
 
     function ready(fn) {
@@ -1101,7 +1112,7 @@
         return observe$1(ResizeObserver, targets, cb, options);
       }
       const off = [on(window, "load resize", cb), on(document, "loadedmetadata load", cb, true)];
-      return { disconnect: () => off.map((cb2) => cb2()) };
+      return { disconnect: () => off.forEach((cb2) => cb2()) };
     }
     function observeViewportResize(cb) {
       return { disconnect: on([window, window.visualViewport], "resize", cb) };
@@ -2170,25 +2181,27 @@
         const newHeight = height(target);
         css(target, "alignContent", "flex-start");
         height(target, oldHeight);
-        let transitions = [];
+        const transitions = [];
         let targetDuration = duration / 2;
         if (stagger) {
           const nodes = getTransitionNodes(target);
           css(children(target), propsOut);
-          transitions = nodes.reduce(async (promise, child, i, array) => {
-            await promise;
-            if (!isInView(child) || !isCurrentIndex()) {
-              resetProps(child, propsIn);
-              return;
-            }
-            await awaitTimeout(stagger);
-            const transition = Transition.start(child, propsIn, duration / 2, "ease").then(
-              () => isCurrentIndex() && resetProps(child, propsIn)
-            );
-            if (array.length - 1 === i) {
-              await transition;
-            }
-          }, Promise.resolve());
+          transitions.push(
+            nodes.reduce(async (promise, child, i, array) => {
+              await promise;
+              if (!isInView(child) || !isCurrentIndex()) {
+                resetProps(child, propsIn);
+                return;
+              }
+              await awaitTimeout(stagger);
+              const transition = Transition.start(child, propsIn, duration / 2, "ease").then(
+                () => isCurrentIndex() && resetProps(child, propsIn)
+              );
+              if (array.length - 1 === i) {
+                await transition;
+              }
+            }, Promise.resolve())
+          );
           targetDuration += nodes.length * stagger;
         }
         if (!stagger || oldHeight !== newHeight) {
@@ -2870,15 +2883,14 @@
         }
       }
     }
-    function toggleAnimation(el, show, cmp) {
+    async function toggleAnimation(el, show, cmp) {
       const { animation, duration, _toggle } = cmp;
       if (show) {
         _toggle(el, true);
         return Animation.in(el, animation[0], duration, cmp.origin);
       }
-      return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(
-        () => _toggle(el, false)
-      );
+      await Animation.out(el, animation[1] || animation[0], duration, cmp.origin);
+      _toggle(el, false);
     }
 
     const active$1 = [];
@@ -3040,38 +3052,20 @@
       let rejectAnimation;
       return new Promise(
         (resolve, reject) => once(el, "show hide", () => {
-          var _a;
+          var _a, _b, _c;
           (_a = pendingReject.get(el)) == null ? void 0 : _a();
           rejectAnimation = reject;
           pendingReject.set(el, reject);
           _toggle(el, show);
-          const off = once(
-            transitionElement,
-            "transitionstart",
-            () => {
-              once(transitionElement, "transitionend transitioncancel", resolve, {
-                self: true
-              });
-              clearTimeout(timer);
-            },
-            { self: true }
-          );
-          const timer = setTimeout(
-            () => {
-              off();
-              resolve();
-            },
-            toMs(css(transitionElement, "transitionDuration"))
-          );
+          Promise.all(
+            ((_c = (_b = transitionElement.getAnimations) == null ? void 0 : _b.call(transitionElement)) != null ? _c : []).map(({ finished }) => finished)
+          ).then(resolve, reject);
         })
       ).then(() => {
         if (pendingReject.get(el) === rejectAnimation) {
           pendingReject.delete(el);
         }
       });
-    }
-    function toMs(time) {
-      return toFloat(time) * (endsWith(time, "ms") ? 1 : 1e3);
     }
     function preventBackgroundFocus(modal) {
       return on(document, "focusin", (e) => {
@@ -3411,7 +3405,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.23';
+    var VERSION = '3.25.24';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -5489,22 +5483,21 @@
           return this.show(duration, percent, true);
         },
         translate(percent) {
-          if (percent === this.percent()) {
-            return;
+          if (percent !== this.percent()) {
+            const distance = this.getDistance() * dir * (isRtl ? -1 : 1);
+            css(
+              list,
+              "transform",
+              translate(
+                clamp(
+                  -to + (distance - distance * percent),
+                  -getWidth(list),
+                  dimensions$1(list).width
+                ) * (isRtl ? -1 : 1),
+                "px"
+              )
+            );
           }
-          const distance = this.getDistance() * dir * (isRtl ? -1 : 1);
-          css(
-            list,
-            "transform",
-            translate(
-              clamp(
-                -to + (distance - distance * percent),
-                -getWidth(list),
-                dimensions$1(list).width
-              ) * (isRtl ? -1 : 1),
-              "px"
-            )
-          );
           const actives = this.getActives();
           const itemIn = this.getItemIn();
           const itemOut = this.getItemIn(true);
@@ -7451,7 +7444,7 @@
         observeViewportResize(update),
         observeResize(overflowParents(drop.$el).concat(drop.target), update)
       ];
-      return () => off.map((observer) => observer.disconnect());
+      return () => off.forEach((observer) => observer.disconnect());
     }
     function listenForScroll(drop, fn = () => drop.$emit()) {
       return on([document, ...overflowParents(drop.$el)], "scroll", fn, {
@@ -8543,7 +8536,7 @@
               unobserve: observer.unobserve.bind(observer),
               disconnect() {
                 observer.disconnect();
-                listener.map((off) => off());
+                listener.forEach((off) => off());
               }
             };
           },
@@ -9233,7 +9226,7 @@
       ],
       methods: {
         toggle(el, inview) {
-          var _a, _b;
+          var _a, _b, _c;
           const state = (_a = this.elementData) == null ? void 0 : _a.get(el);
           if (!state) {
             return;
@@ -9242,16 +9235,13 @@
           css(el, "opacity", !inview && this.hidden ? 0 : "");
           toggleClass(el, clsInView, inview);
           toggleClass(el, state.cls);
-          let match;
-          if (match = state.cls.match(/\buk-animation-[\w-]+/g)) {
-            const removeAnimationClasses = () => removeClass(el, match);
-            if (inview) {
-              state.off = once(el, "animationcancel animationend", removeAnimationClasses, {
-                self: true
-              });
-            } else {
-              removeAnimationClasses();
-            }
+          const match = state.cls.match(/\buk-animation-[\w-]+/g);
+          if (match) {
+            const animations = inview && ((_c = el.getAnimations) == null ? void 0 : _c.call(el)) || [];
+            let active = true;
+            state.off = () => active = false;
+            const cleanup = () => active && removeClass(el, match);
+            Promise.all(animations.map(({ finished }) => finished)).then(cleanup, cleanup);
           }
           trigger(el, inview ? "inview" : "outview");
           state.inview = inview;
