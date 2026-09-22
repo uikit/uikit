@@ -18,23 +18,23 @@
 
 @alert-margin-vertical:                         @global-margin;
 @alert-padding:                                 15px;
-@alert-padding-right:                           @alert-padding + 14px;
+@alert-padding-right:                           calc(@alert-padding + 14px);                                                                // instead of: @alert-padding + 14px;
 @alert-background:                              @global-muted-background;
 @alert-color:                                   @global-color;
 
-@alert-close-top:                               @alert-padding + 5px;
+@alert-close-top:                               calc(@alert-padding + 5px);                                                                 // instead of: @alert-padding + 5px;
 @alert-close-right:                             @alert-padding;
 
-@alert-primary-background:                      lighten(tint(@global-primary-background, 40%), 20%);
+@alert-primary-background:                      hsl(from color-mix(in srgb, @global-primary-background, white 40%) h s ~'calc(l + 20)');       // instead of: lighten(tint(@global-primary-background, 40%), 20%);
 @alert-primary-color:                           @global-primary-background;
 
-@alert-success-background:                      lighten(tint(@global-success-background, 40%), 25%);
+@alert-success-background:                      hsl(from color-mix(in srgb, @global-success-background, white 40%) h s ~'calc(l + 25)');       // instead of: lighten(tint(@global-success-background, 40%), 25%);
 @alert-success-color:                           @global-success-background;
 
-@alert-warning-background:                      lighten(tint(@global-warning-background, 45%), 15%);
+@alert-warning-background:                      hsl(from color-mix(in srgb, @global-warning-background, white 45%) h s ~'calc(l + 15)');       // instead of: lighten(tint(@global-warning-background, 45%), 15%);
 @alert-warning-color:                           @global-warning-background;
 
-@alert-danger-background:                       lighten(tint(@global-danger-background, 40%), 20%);
+@alert-danger-background:                       hsl(from color-mix(in srgb, @global-danger-background, white 40%) h s ~'calc(l + 20)');        // instead of: lighten(tint(@global-danger-background, 40%), 20%);
 @alert-danger-color:                            @global-danger-background;
 
 
