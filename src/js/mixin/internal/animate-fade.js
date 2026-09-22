@@ -69,29 +69,31 @@ export default function fade(action, target, duration, stagger = 0) {
         css(target, 'alignContent', 'flex-start');
         height(target, oldHeight);
 
-        let transitions = [];
+        const transitions = [];
         let targetDuration = duration / 2;
         if (stagger) {
             const nodes = getTransitionNodes(target);
             css(children(target), propsOut);
 
-            transitions = nodes.reduce(async (promise, child, i, array) => {
-                await promise;
+            transitions.push(
+                nodes.reduce(async (promise, child, i, array) => {
+                    await promise;
 
-                if (!isInView(child) || !isCurrentIndex()) {
-                    resetProps(child, propsIn);
-                    return;
-                }
+                    if (!isInView(child) || !isCurrentIndex()) {
+                        resetProps(child, propsIn);
+                        return;
+                    }
 
-                await awaitTimeout(stagger);
+                    await awaitTimeout(stagger);
 
-                const transition = Transition.start(child, propsIn, duration / 2, 'ease').then(
-                    () => isCurrentIndex() && resetProps(child, propsIn),
-                );
-                if (array.length - 1 === i) {
-                    await transition;
-                }
-            }, Promise.resolve());
+                    const transition = Transition.start(child, propsIn, duration / 2, 'ease').then(
+                        () => isCurrentIndex() && resetProps(child, propsIn),
+                    );
+                    if (array.length - 1 === i) {
+                        await transition;
+                    }
+                }, Promise.resolve()),
+            );
 
             targetDuration += nodes.length * stagger;
         }

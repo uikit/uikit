@@ -56,7 +56,7 @@ export default {
         },
 
         connectChildren() {
-            return this.connects.map((el) => children(el)).flat();
+            return this.connects.flatMap((el) => children(el));
         },
 
         toggles: ({ toggle }, $el) => $$(toggle, $el),

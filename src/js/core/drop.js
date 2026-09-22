@@ -20,21 +20,17 @@ import {
     overflowParents,
     parent,
     pick,
-    pointerCancel,
-    pointerDown,
     pointerEnter,
     pointerLeave,
-    pointerUp,
     query,
     removeClass,
 } from 'uikit-util';
 import { generateId } from '../api/instance';
 import Class from '../mixin/class';
 import Container from '../mixin/container';
-import { maybeDefaultPreventClick } from '../mixin/event';
+import { maybeDefaultPreventClick, onEscape, onOutsidePointer } from '../mixin/event';
 import Position, { storeScrollPosition } from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import { keyMap } from '../util/keys';
 import { preventBackgroundScroll } from '../util/scroll';
 
 export let active;
@@ -251,6 +247,7 @@ export default {
 
                 this.tracker.init();
                 attr(this.targetEl, 'aria-expanded', true);
+                setAriaOwns(this);
 
                 const handlers = [
                     listenForResize(this),
@@ -295,6 +292,7 @@ export default {
                 active = this.isActive() ? null : active;
                 this.tracker.cancel();
                 attr(this.targetEl, 'aria-expanded', false);
+                attr(parent(this.targetEl), 'aria-owns', null);
             },
         },
     ],
@@ -455,7 +453,6 @@ export default {
         },
     },
 };
-
 function getViewport(el, target) {
     return offsetViewport(overflowParents(target).find((parent) => parent.contains(el)));
 }
@@ -477,13 +474,20 @@ function createToggleComponent(drop) {
     return el;
 }
 
+function setAriaOwns({ targetEl, $el }) {
+    const owner = parent(targetEl);
+    if (owner && !owner.contains($el)) {
+        attr(owner, 'aria-owns', $el.id);
+    }
+}
+
 function listenForResize(drop) {
     const update = () => drop.$emit();
     const off = [
         observeViewportResize(update),
         observeResize(overflowParents(drop.$el).concat(drop.target), update),
     ];
-    return () => off.map((observer) => observer.disconnect());
+    return () => off.forEach((observer) => observer.disconnect());
 }
 
 function listenForScroll(drop, fn = () => drop.$emit()) {
@@ -493,11 +497,7 @@ function listenForScroll(drop, fn = () => drop.$emit()) {
 }
 
 function listenForEscClose(drop) {
-    return on(document, 'keydown', (e) => {
-        if (e.keyCode === keyMap.ESC) {
-            drop.hide(false);
-        }
-    });
+    return onEscape(() => drop.hide(false));
 }
 
 function listenForScrollClose(drop) {
@@ -505,25 +505,12 @@ function listenForScrollClose(drop) {
 }
 
 function listenForBackgroundClose(drop) {
-    return on(document, pointerDown, ({ target }) => {
-        if (drop.$el.contains(target)) {
-            return;
-        }
-
-        once(
-            document,
-            `${pointerUp} ${pointerCancel} scroll`,
-            ({ defaultPrevented, type, target: newTarget }) => {
-                if (
-                    !defaultPrevented &&
-                    type === pointerUp &&
-                    target === newTarget &&
-                    !drop.targetEl?.contains(target)
-                ) {
-                    drop.hide(false);
-                }
-            },
-            true,
-        );
-    });
+    return onOutsidePointer(
+        (target) => {
+            if (!drop.targetEl?.contains(target)) {
+                drop.hide(false);
+            }
+        },
+        (target) => !drop.$el.contains(target),
+    );
 }

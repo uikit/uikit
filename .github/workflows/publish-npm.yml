@@ -3,6 +3,14 @@ name: Publish release to npm
 on:
   workflow_dispatch:
     inputs:
+      target:
+        description: NPM tag to publish
+        required: true
+        type: choice
+        options:
+          - dev
+          - latest
+        default: dev
       force:
         description: 'Publish dev version even if commit message is not feat/fix/refactor/perf'
         type: boolean
@@ -22,7 +30,7 @@ jobs:
     if: |
       github.ref != 'refs/heads/main' &&
       (
-        github.event_name == 'workflow_dispatch' ||
+        github.event_name == 'workflow_dispatch' && inputs.target == 'dev' ||
         (
           github.ref == 'refs/heads/develop' &&
           (
@@ -62,7 +70,13 @@ jobs:
         run: npm publish --tag dev
 
   publish-main:
-    if: github.event_name == 'release' && github.event.action == 'published'
+    if: |
+      (github.event_name == 'release' && github.event.action == 'published') ||
+      (
+        github.event_name == 'workflow_dispatch' &&
+        github.ref == 'refs/heads/main' &&
+        inputs.target == 'latest'
+      )
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

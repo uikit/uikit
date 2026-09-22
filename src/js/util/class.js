@@ -47,7 +47,7 @@ export function toggleClass(element, cls, force) {
 function toClasses(str) {
     return str
         ? isArray(str)
-            ? str.map(toClasses).flat()
+            ? str.flatMap(toClasses)
             : String(str).split(' ').filter(Boolean)
         : [];
 }

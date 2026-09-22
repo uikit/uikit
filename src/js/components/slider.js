@@ -302,7 +302,7 @@ export default {
                     slides.add(slide);
                 } while (this.length > j && currentLeft > left && currentLeft < right);
             }
-            return Array.from(slides);
+            return [...slides];
         },
 
         getIndexAt(percent) {

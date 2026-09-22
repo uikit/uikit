@@ -242,7 +242,8 @@ async function toggleTransition(el, show, { animation, duration, velocity, trans
     }
 }
 
-function toggleAnimation(el, show, cmp) {
+async function toggleAnimation(el, show, cmp) {
+    // Do not destructure origin: Tooltip sets it in _toggle's synchronous toggled handler.
     const { animation, duration, _toggle } = cmp;
 
     if (show) {
@@ -250,7 +251,6 @@ function toggleAnimation(el, show, cmp) {
         return Animation.in(el, animation[0], duration, cmp.origin);
     }
 
-    return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() =>
-        _toggle(el, false),
-    );
+    await Animation.out(el, animation[1] || animation[0], duration, cmp.origin);
+    _toggle(el, false);
 }

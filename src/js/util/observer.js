@@ -28,7 +28,7 @@ export function observeResize(targets, cb, options = { box: 'border-box' }) {
 
     // Fallback Safari < 13.1
     const off = [on(window, 'load resize', cb), on(document, 'loadedmetadata load', cb, true)];
-    return { disconnect: () => off.map((cb) => cb()) };
+    return { disconnect: () => off.forEach((cb) => cb()) };
 }
 
 export function observeViewportResize(cb) {
