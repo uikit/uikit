@@ -16,7 +16,7 @@
 @form-range-track-border-radius:                500px;
 
 @form-range-thumb-border-width:                 @global-border-width;
-@form-range-thumb-border:                       darken(@global-border, 10%);
+@form-range-thumb-border:                       hsl(from @global-border h s calc(l - 10));            // instead of: darken(@global-border, 10%);
 
 
 // Component
@@ -48,9 +48,9 @@
 // Inverse
 // ========================================================================
 
-@inverse-form-range-thumb-background:           darken(fadein(@inverse-global-color, 100%), 50%);
+@inverse-form-range-thumb-background:           hsl(from rgb(from @inverse-global-color r g b / ~'calc(alpha + 1)') h s calc(l - 50)); // instead of: darken(fadein(@inverse-global-color, 100%), 50%);
 
-@inverse-form-range-thumb-border:               darken(fadein(@inverse-global-border, 100%), 10%);
+@inverse-form-range-thumb-border:               hsl(from rgb(from @inverse-global-border r g b / ~'calc(alpha + 1)') h s calc(l - 10)); // instead of: darken(fadein(@inverse-global-border, 100%), 10%);
 
 .hook-inverse-form-range-track() {}
 .hook-inverse-form-range-track-focus() {}
