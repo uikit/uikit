@@ -28,7 +28,7 @@
 
 @list-padding-left:                             30px;
 
-@list-marker-height:                            (@global-line-height * 1em);
+@list-marker-height:                            calc(@global-line-height * 1em); // instead of: (@global-line-height * 1em);
 
 @list-muted-color:                              @global-muted-color;
 @list-emphasis-color:                           @global-emphasis-color;
@@ -121,7 +121,7 @@
     top: 0;
     left: 0;
     width: @list-padding-left;
-    height: @global-line-height * 1em;
+    height: calc(@global-line-height * 1em); // instead of: (@global-line-height * 1em);
     .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;

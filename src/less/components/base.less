@@ -43,10 +43,10 @@
 @base-heading-text-transform:                   none;
 @base-heading-margin-top:                       @global-medium-margin;
 @base-h1-font-size-m:                           @global-2xlarge-font-size;
-@base-h1-font-size:                             @base-h1-font-size-m * 0.85;
+@base-h1-font-size:                             calc(@base-h1-font-size-m * 0.85);          // instead of: (@base-h1-font-size-m * 0.85)
 @base-h1-line-height:                           1.2;
 @base-h2-font-size-m:                           @global-xlarge-font-size;
-@base-h2-font-size:                             @base-h2-font-size-m * 0.85;
+@base-h2-font-size:                             calc(@base-h2-font-size-m * 0.85);          // instead of: (@base-h2-font-size-m * 0.85)
 @base-h2-line-height:                           1.3;
 @base-h3-font-size:                             @global-large-font-size;
 @base-h3-line-height:                           1.4;
