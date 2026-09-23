@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.25.25 (September 23, 2026)
 
 ### Fixed
 

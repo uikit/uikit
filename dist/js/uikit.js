@@ -1,4 +1,4 @@
-/*! UIkit 3.25.24 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.25 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3058,7 +3058,7 @@
           pendingReject.set(el, reject);
           _toggle(el, show);
           Promise.all(
-            ((_c = (_b = transitionElement.getAnimations) == null ? void 0 : _b.call(transitionElement)) != null ? _c : []).map(({ finished }) => finished)
+            ((_c = (_b = transitionElement == null ? void 0 : transitionElement.getAnimations) == null ? void 0 : _b.call(transitionElement)) != null ? _c : []).map(({ finished }) => finished)
           ).then(resolve, reject);
         })
       ).then(() => {
@@ -3405,7 +3405,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.24';
+    var VERSION = '3.25.25';
 
     function initWatches(instance) {
       instance._watches = [];
