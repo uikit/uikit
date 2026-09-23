@@ -239,7 +239,7 @@ function animate(el, show, { transitionElement, _toggle }) {
             _toggle(el, show);
 
             Promise.all(
-                (transitionElement.getAnimations?.() ?? []).map(({ finished }) => finished),
+                (transitionElement?.getAnimations?.() ?? []).map(({ finished }) => finished),
             ).then(resolve, reject);
         }),
     ).then(() => {

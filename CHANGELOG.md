@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression when closing Lightbox
+
 ## 3.25.23 (September 16, 2026)
 
 ### Changed
