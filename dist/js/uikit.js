@@ -8267,9 +8267,9 @@
         dimensions = viewBox.split(" ").slice(2);
       }
       if (this.strokeRatio) {
-        queryAll("[stroke-width]", el).forEach((node) => {
-          attr(node, "stroke-width", toFloat(attr(node, "stroke-width")) * this.strokeRatio);
-        });
+        el.querySelectorAll("[stroke-width]").forEach(
+          (node) => attr(node, "stroke-width", toFloat(attr(node, "stroke-width")) * this.strokeRatio)
+        );
       }
       dimensions.forEach((val, i) => attr(el, props[i], toFloat(val) * this.ratio || null));
     }
