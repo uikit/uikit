@@ -264,12 +264,12 @@ h6,
  */
 h1,
 .uk-h1 {
-  font-size: 2.23125rem;
+  font-size: calc(2.625rem * 0.85);
   line-height: 1.2;
 }
 h2,
 .uk-h2 {
-  font-size: 1.7rem;
+  font-size: calc(2rem * 0.85);
   line-height: 1.3;
 }
 h3,
@@ -487,15 +487,15 @@ a.uk-link-reset,
    Component: Heading
  ========================================================================== */
 .uk-heading-small {
-  font-size: 2.6rem;
+  font-size: calc(calc(4rem * 0.8125) * 0.8);
   line-height: 1.2;
 }
 .uk-heading-medium {
-  font-size: 2.8875rem;
+  font-size: calc(calc(4rem * 0.875) * 0.825);
   line-height: 1.1;
 }
 .uk-heading-large {
-  font-size: 3.4rem;
+  font-size: calc(4rem * 0.85);
   line-height: 1.1;
 }
 .uk-heading-xlarge {
@@ -513,10 +513,10 @@ a.uk-link-reset,
 /* Tablet Landscape and bigger */
 @media (min-width: 960px) {
   .uk-heading-small {
-    font-size: 3.25rem;
+    font-size: calc(4rem * 0.8125);
   }
   .uk-heading-medium {
-    font-size: 3.5rem;
+    font-size: calc(4rem * 0.875);
   }
   .uk-heading-large {
     font-size: 4rem;
@@ -764,7 +764,7 @@ a.uk-link-reset,
   top: 0;
   left: 0;
   width: 30px;
-  height: 1.5em;
+  height: calc(1.5 * 1em);
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%20%20%20%20%3Ccircle%20fill%3D%22%23666%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%20%2F%3E%0D%0A%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -1024,12 +1024,12 @@ a.uk-link-reset,
   .uk-table-responsive th:not(:first-child):not(.uk-table-link),
   .uk-table-responsive td:not(:first-child):not(.uk-table-link),
   .uk-table-responsive .uk-table-link:not(:first-child) > a {
-    padding-top: 5px !important;
+    padding-top: round(up, calc(@table-cell-padding-vertical / 3), 1px) !important;
   }
   .uk-table-responsive th:not(:last-child):not(.uk-table-link),
   .uk-table-responsive td:not(:last-child):not(.uk-table-link),
   .uk-table-responsive .uk-table-link:not(:last-child) > a {
-    padding-bottom: 5px !important;
+    padding-bottom: round(up, calc(@table-cell-padding-vertical / 3), 1px) !important;
   }
   .uk-table-justify.uk-table-responsive th,
   .uk-table-justify.uk-table-responsive td {
@@ -1080,7 +1080,7 @@ a.uk-link-reset,
   /* 8 */
   display: inline-block;
   /* 9 */
-  fill: currentcolor;
+  fill: currentColor;
   /* 10 */
   line-height: 0;
 }
@@ -1091,11 +1091,13 @@ button.uk-icon:not(:disabled) {
 /*
  * Set the fill and stroke color of all SVG elements to the current text color
  */
-.uk-icon:not(.uk-preserve) [fill*="#"]:not(.uk-preserve) {
-  fill: currentcolor;
+.uk-icon:not(.uk-preserve) [fill*="#"]:not(.uk-preserve),
+.uk-icon:not(.uk-preserve) [fill*="currentColor"]:not(.uk-preserve) {
+  fill: currentColor;
 }
-.uk-icon:not(.uk-preserve) [stroke*="#"]:not(.uk-preserve) {
-  stroke: currentcolor;
+.uk-icon:not(.uk-preserve) [stroke*="#"]:not(.uk-preserve),
+.uk-icon:not(.uk-preserve) [stroke*="currentColor"]:not(.uk-preserve) {
+  stroke: currentColor;
 }
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
@@ -1139,7 +1141,7 @@ button.uk-icon:not(:disabled) {
 /* OnClick + Active */
 .uk-icon-link:active,
 .uk-active > .uk-icon-link {
-  color: #595959;
+  color: hsl(from #666 h s calc(l - 5));
 }
 /*
  * Button
@@ -1162,13 +1164,13 @@ button.uk-icon:not(:disabled) {
 }
 /* Hover */
 .uk-icon-button:hover {
-  background-color: #ebebeb;
+  background-color: hsl(from #f8f8f8 h s calc(l - 5));
   color: #666;
 }
 /* OnClick + Active */
 .uk-icon-button:active,
 .uk-active > .uk-icon-button {
-  background-color: #dfdfdf;
+  background-color: hsl(from #f8f8f8 h s calc(l - 10));
   color: #666;
 }
 /*
@@ -1176,7 +1178,7 @@ button.uk-icon:not(:disabled) {
  */
 .uk-icon-overlay,
 a .uk-icon-overlay {
-  color: rgba(51, 51, 51, 0.6);
+  color: rgb(from #333 r g b / 0.6);
   transition: 0.1s ease-in-out;
   transition-property: color;
 }
@@ -1235,21 +1237,21 @@ a:hover .uk-icon-overlay {
 /* Webkit */
 .uk-range::-webkit-slider-runnable-track {
   height: 3px;
-  background: #ebebeb;
+  background: hsl(from #f8f8f8 h s calc(l - 5));
   border-radius: 500px;
 }
 .uk-range:focus::-webkit-slider-runnable-track,
 .uk-range:active::-webkit-slider-runnable-track {
-  background: #dedede;
+  background: hsl(from hsl(from #f8f8f8 h s calc(l - 5)) h s calc(l - 5));
 }
 /* Firefox */
 .uk-range::-moz-range-track {
   height: 3px;
-  background: #ebebeb;
+  background: hsl(from #f8f8f8 h s calc(l - 5));
   border-radius: 500px;
 }
 .uk-range:focus::-moz-range-track {
-  background: #dedede;
+  background: hsl(from hsl(from #f8f8f8 h s calc(l - 5)) h s calc(l - 5));
 }
 /*
  * Thumb
@@ -1260,13 +1262,13 @@ a:hover .uk-icon-overlay {
 .uk-range::-webkit-slider-thumb {
   /* 1 */
   -webkit-appearance: none;
-  margin-top: -7px;
+  margin-top: calc(round(down, (@form-range-thumb-height / 2), 1px) * -1);
   /* 2 */
   height: 15px;
   width: 15px;
   border-radius: 500px;
   background: #fff;
-  border: 1px solid #cccccc;
+  border: 1px solid hsl(from #e5e5e5 h s calc(l - 10));
 }
 /* Firefox */
 .uk-range::-moz-range-thumb {
@@ -1275,10 +1277,10 @@ a:hover .uk-icon-overlay {
   /* 2 */
   height: 15px;
   width: 15px;
-  margin-top: -7px;
+  margin-top: calc(round(down, (@form-range-thumb-height / 2), 1px) * -1);
   border-radius: 500px;
   background: #fff;
-  border: 1px solid #cccccc;
+  border: 1px solid hsl(from #e5e5e5 h s calc(l - 10));
 }
 /* ========================================================================
    Component: Form
@@ -1444,7 +1446,7 @@ a:hover .uk-icon-overlay {
 .uk-select[multiple],
 .uk-select[size],
 .uk-textarea {
-  padding: 6px 10px;
+  padding: round(up, calc(@form-multi-line-padding-horizontal * 0.6), 1px) 10px;
   vertical-align: top;
 }
 .uk-select[multiple],
@@ -1516,7 +1518,7 @@ input.uk-form-width-xsmall {
   width: 50px;
 }
 select.uk-form-width-xsmall {
-  width: 75px;
+  width: calc(50px + 25px);
 }
 .uk-form-width-small {
   width: 130px;
@@ -1610,7 +1612,7 @@ select.uk-form-width-xsmall {
 /* Focus */
 .uk-radio:focus,
 .uk-checkbox:focus {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: hsl(from transparent h s calc(l - 5));
   outline: none;
   border-color: #1e87f0;
 }
@@ -1627,7 +1629,7 @@ select.uk-form-width-xsmall {
 .uk-radio:checked:focus,
 .uk-checkbox:checked:focus,
 .uk-checkbox:indeterminate:focus {
-  background-color: #0e6dcd;
+  background-color: hsl(from #1e87f0 h s calc(l - 10));
 }
 /*
  * Icons
@@ -1674,7 +1676,7 @@ select.uk-form-width-xsmall {
 }
 /* Multi-line */
 .uk-form-small:is(.uk-select[multiple], .uk-select[size], .uk-textarea) {
-  padding: 5px 8px;
+  padding: round(up, calc(@form-small-multi-line-padding-horizontal * 0.6), 1px) 8px;
 }
 /* Any element */
 .uk-form-small:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) {
@@ -1699,7 +1701,7 @@ select.uk-form-width-xsmall {
 }
 /* Multi-line */
 .uk-form-large:is(.uk-select[multiple], .uk-select[size], .uk-textarea) {
-  padding: 7px 12px;
+  padding: round(up, calc(@form-large-multi-line-padding-horizontal * 0.6), 1px) 12px;
 }
 /* Any element */
 .uk-form-large:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) {
@@ -1959,13 +1961,13 @@ select.uk-form-width-xsmall {
 }
 /* Hover */
 .uk-button-primary:hover {
-  background-color: #0f7ae5;
+  background-color: hsl(from #1e87f0 h s calc(l - 5));
   color: #fff;
 }
 /* OnClick + Active */
 .uk-button-primary:active,
 .uk-button-primary.uk-active {
-  background-color: #0e6dcd;
+  background-color: hsl(from #1e87f0 h s calc(l - 10));
   color: #fff;
 }
 /*
@@ -1978,13 +1980,13 @@ select.uk-form-width-xsmall {
 }
 /* Hover */
 .uk-button-secondary:hover {
-  background-color: #151515;
+  background-color: hsl(from #222 h s calc(l - 5));
   color: #fff;
 }
 /* OnClick + Active */
 .uk-button-secondary:active,
 .uk-button-secondary.uk-active {
-  background-color: #080808;
+  background-color: hsl(from #222 h s calc(l - 10));
   color: #fff;
 }
 /*
@@ -1997,13 +1999,13 @@ select.uk-form-width-xsmall {
 }
 /* Hover */
 .uk-button-danger:hover {
-  background-color: #ee395b;
+  background-color: hsl(from #f0506e h s calc(l - 5));
   color: #fff;
 }
 /* OnClick + Active */
 .uk-button-danger:active,
 .uk-button-danger.uk-active {
-  background-color: #ec2147;
+  background-color: hsl(from #f0506e h s calc(l - 10));
   color: #fff;
 }
 /*
@@ -2293,14 +2295,14 @@ select.uk-form-width-xsmall {
 /* Tablet landscape and bigger */
 @media (min-width: 960px) {
   .uk-section-xlarge {
-    padding-top: 210px;
-    padding-bottom: 210px;
+    padding-top: calc(70px + 140px);
+    padding-bottom: calc(70px + 140px);
   }
   .uk-section-xlarge-top {
-    padding-top: 210px;
+    padding-top: calc(70px + 140px);
   }
   .uk-section-xlarge-bottom {
-    padding-bottom: 210px;
+    padding-bottom: calc(70px + 140px);
   }
 }
 /* Style modifiers
@@ -2456,10 +2458,10 @@ select.uk-form-width-xsmall {
   width: calc(100% + 15px);
 }
 .uk-container-item-padding-remove-left {
-  margin-left: -15px;
+  margin-left: calc(15px * -1);
 }
 .uk-container-item-padding-remove-right {
-  margin-right: -15px;
+  margin-right: calc(15px * -1);
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
@@ -2468,10 +2470,10 @@ select.uk-form-width-xsmall {
     width: calc(100% + 30px);
   }
   .uk-container-item-padding-remove-left {
-    margin-left: -30px;
+    margin-left: calc(30px * -1);
   }
   .uk-container-item-padding-remove-right {
-    margin-right: -30px;
+    margin-right: calc(30px * -1);
   }
 }
 /* Tablet landscape and bigger */
@@ -2481,10 +2483,10 @@ select.uk-form-width-xsmall {
     width: calc(100% + 40px);
   }
   .uk-container-item-padding-remove-left {
-    margin-left: -40px;
+    margin-left: calc(40px * -1);
   }
   .uk-container-item-padding-remove-right {
-    margin-right: -40px;
+    margin-right: calc(40px * -1);
   }
 }
 /* ========================================================================
@@ -2561,8 +2563,8 @@ select.uk-form-width-xsmall {
 /* Tablet landscape and bigger */
 @media (min-width: 960px) {
   .uk-tile-xlarge {
-    padding-top: 210px;
-    padding-bottom: 210px;
+    padding-top: calc(70px + 140px);
+    padding-bottom: calc(70px + 140px);
   }
 }
 /* Style modifiers
@@ -2611,11 +2613,11 @@ select.uk-form-width-xsmall {
 }
 .uk-card-header {
   display: flow-root;
-  padding: 15px 30px;
+  padding: round(up, calc(@global-gutter / 2), 1px) 30px;
 }
 .uk-card-footer {
   display: flow-root;
-  padding: 15px 30px;
+  padding: calc(30px / 2) 30px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
@@ -2623,10 +2625,10 @@ select.uk-form-width-xsmall {
     padding: 40px 40px;
   }
   .uk-card-header {
-    padding: 20px 40px;
+    padding: round(up, calc(@global-medium-gutter / 2), 1px) 40px;
   }
   .uk-card-footer {
-    padding: 20px 40px;
+    padding: round(up, calc(@global-medium-gutter / 2), 1px) 40px;
   }
 }
 /*
@@ -2752,7 +2754,7 @@ select.uk-form-width-xsmall {
  */
 .uk-card-overlay {
   --uk-inverse: dark;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgb(from #fff r g b / 0.9);
   color: #666;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
@@ -2760,7 +2762,7 @@ select.uk-form-width-xsmall {
   color: #333;
 }
 .uk-card-overlay.uk-card-hover:hover {
-  background-color: #ffffff;
+  background-color: rgb(from rgb(from #fff r g b / 0.9) r g b / calc(alpha + 0.1));
   box-shadow: 0 14px 25px rgba(0, 0, 0, 0.16);
 }
 /* Size modifier
@@ -2773,10 +2775,10 @@ select.uk-form-width-xsmall {
   padding: 20px 20px;
 }
 .uk-card-small .uk-card-header {
-  padding: 13px 20px;
+  padding: round(up, calc(@global-margin / 1.5), 1px) 20px;
 }
 .uk-card-small .uk-card-footer {
-  padding: 13px 20px;
+  padding: round(up, calc(@global-margin / 1.5), 1px) 20px;
 }
 /*
  * Large
@@ -2788,10 +2790,10 @@ select.uk-form-width-xsmall {
     padding: 70px 70px;
   }
   .uk-card-large .uk-card-header {
-    padding: 35px 70px;
+    padding: round(up, calc(@global-large-gutter / 2), 1px) 70px;
   }
   .uk-card-large .uk-card-footer {
-    padding: 35px 70px;
+    padding: round(up, calc(@global-large-gutter / 2), 1px) 70px;
   }
 }
 /*
@@ -2913,7 +2915,7 @@ select.uk-form-width-xsmall {
  * Circle
  */
 .uk-spinner > * > * {
-  stroke-dasharray: 88px;
+  stroke-dasharray: round(up, calc(2 * 3.141 * @spinner-radius));
   stroke-dashoffset: 0;
   transform-origin: center;
   animation: uk-spinner-dash 1.4s ease-in-out infinite;
@@ -2922,14 +2924,14 @@ select.uk-form-width-xsmall {
 }
 @keyframes uk-spinner-dash {
   0% {
-    stroke-dashoffset: 88px;
+    stroke-dashoffset: round(up, calc(2 * 3.141 * @spinner-radius));
   }
   50% {
-    stroke-dashoffset: 22px;
+    stroke-dashoffset: calc(round(up, calc(2 * 3.141 * @spinner-radius)) / 4);
     transform: rotate(135deg);
   }
   100% {
-    stroke-dashoffset: 88px;
+    stroke-dashoffset: round(up, calc(2 * 3.141 * @spinner-radius));
     transform: rotate(450deg);
   }
 }
@@ -2974,7 +2976,7 @@ select.uk-form-width-xsmall {
 .uk-alert {
   position: relative;
   margin-bottom: 20px;
-  padding: 15px 29px 15px 15px;
+  padding: 15px calc(15px + 14px) 15px 15px;
   background: #f8f8f8;
   color: #666;
 }
@@ -2993,7 +2995,7 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 .uk-alert-close {
   position: absolute;
-  top: 20px;
+  top: calc(15px + 5px);
   right: 15px;
   color: inherit;
   opacity: 0.4;
@@ -3017,28 +3019,28 @@ select.uk-form-width-xsmall {
  * Primary
  */
 .uk-alert-primary {
-  background: #d8eafc;
+  background: hsl(from color-mix(in srgb, #1e87f0, white 40%) h s calc(l + 20));
   color: #1e87f0;
 }
 /*
  * Success
  */
 .uk-alert-success {
-  background: #edfbf6;
+  background: hsl(from color-mix(in srgb, #32d296, white 40%) h s calc(l + 25));
   color: #32d296;
 }
 /*
  * Warning
  */
 .uk-alert-warning {
-  background: #fff6ee;
+  background: hsl(from color-mix(in srgb, #faa05a, white 45%) h s calc(l + 15));
   color: #faa05a;
 }
 /*
  * Danger
  */
 .uk-alert-danger {
-  background: #fef4f6;
+  background: hsl(from color-mix(in srgb, #f0506e, white 40%) h s calc(l + 20));
   color: #f0506e;
 }
 /*
@@ -3168,14 +3170,14 @@ select.uk-form-width-xsmall {
  */
 .uk-overlay-default {
   --uk-inverse: dark;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgb(from #fff r g b / 0.9);
 }
 /*
  * Primary
  */
 .uk-overlay-primary {
   --uk-inverse: light;
-  background: rgba(34, 34, 34, 0.9);
+  background: rgb(from #222 r g b / 0.9);
 }
 /* ========================================================================
    Component: Article
@@ -3197,7 +3199,7 @@ select.uk-form-width-xsmall {
 /* Title
  ========================================================================== */
 .uk-article-title {
-  font-size: 2.23125rem;
+  font-size: calc(2.625rem * 0.85);
   line-height: 1.2;
 }
 /* Tablet landscape and bigger */
@@ -3415,7 +3417,7 @@ select.uk-form-width-xsmall {
 }
 /* Focus */
 .uk-search-default .uk-search-input:focus {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: hsl(from transparent h s calc(l - 2));
   border-color: #1e87f0;
 }
 /*
@@ -3426,10 +3428,10 @@ select.uk-form-width-xsmall {
   padding-right: 10px;
 }
 .uk-search-default:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
-  padding-left: 40px;
+  padding-left: calc(20px + 10px + 10px);
 }
 .uk-search-default:has(.uk-search-icon-flip) .uk-search-input {
-  padding-right: 40px;
+  padding-right: calc(20px + 10px + 10px);
 }
 /* Navbar modifier
  ========================================================================== */
@@ -3459,10 +3461,10 @@ select.uk-form-width-xsmall {
   padding-right: 10px;
 }
 .uk-search-navbar:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
-  padding-left: 40px;
+  padding-left: calc(20px + 10px + 10px);
 }
 .uk-search-navbar:has(.uk-search-icon-flip) .uk-search-input {
-  padding-right: 40px;
+  padding-right: calc(20px + 10px + 10px);
 }
 /* Medium modifier
  ========================================================================== */
@@ -3482,7 +3484,7 @@ select.uk-form-width-xsmall {
 }
 /* Focus */
 .uk-search-medium .uk-search-input:focus {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: hsl(from transparent h s calc(l - 2));
   border-color: #1e87f0;
 }
 /*
@@ -3493,10 +3495,10 @@ select.uk-form-width-xsmall {
   padding-right: 12px;
 }
 .uk-search-medium:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
-  padding-left: 48px;
+  padding-left: calc(24px + 12px + 12px);
 }
 .uk-search-medium:has(.uk-search-icon-flip) .uk-search-input {
-  padding-right: 48px;
+  padding-right: calc(24px + 12px + 12px);
 }
 /* Large modifier
  ========================================================================== */
@@ -3516,7 +3518,7 @@ select.uk-form-width-xsmall {
 }
 /* Focus */
 .uk-search-large .uk-search-input:focus {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: hsl(from transparent h s calc(l - 2));
   border-color: #1e87f0;
 }
 /*
@@ -3527,10 +3529,10 @@ select.uk-form-width-xsmall {
   padding-right: 20px;
 }
 .uk-search-large:has(.uk-search-icon:not(.uk-search-icon-flip)) .uk-search-input {
-  padding-left: 80px;
+  padding-left: calc(40px + 20px + 20px);
 }
 .uk-search-large:has(.uk-search-icon-flip) .uk-search-input {
-  padding-right: 80px;
+  padding-right: calc(40px + 20px + 20px);
 }
 /* Toggle
  ========================================================================== */
@@ -3621,7 +3623,7 @@ select.uk-form-width-xsmall {
   display: none;
   /* 2 */
   position: absolute;
-  z-index: 1020;
+  z-index: calc(1000 + 20);
   --uk-position-offset: 20px;
   --uk-position-viewport-offset: 15px;
   /* 3 */
@@ -3720,7 +3722,7 @@ select.uk-form-width-xsmall {
 .uk-dropnav-dropbar {
   /* 1 */
   position: absolute;
-  z-index: 980;
+  z-index: calc(1000 - 20);
   /* 2 */
   padding: 0;
   /* 3 */
@@ -3747,7 +3749,7 @@ select.uk-form-width-xsmall {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1010;
+  z-index: calc(1000 + 10);
   /* 3 */
   overflow-y: auto;
   /* 4 */
@@ -3852,13 +3854,13 @@ select.uk-form-width-xsmall {
 }
 .uk-modal-header {
   display: flow-root;
-  padding: 10px 20px;
+  padding: calc(20px / 2) 20px;
   background: #fff;
   border-bottom: 1px solid #e5e5e5;
 }
 .uk-modal-footer {
   display: flow-root;
-  padding: 10px 20px;
+  padding: calc(20px / 2) 20px;
   background: #fff;
   border-top: 1px solid #e5e5e5;
 }
@@ -3868,10 +3870,10 @@ select.uk-form-width-xsmall {
     padding: 30px 30px;
   }
   .uk-modal-header {
-    padding: 15px 30px;
+    padding: calc(30px / 2) 30px;
   }
   .uk-modal-footer {
-    padding: 15px 30px;
+    padding: calc(30px / 2) 30px;
   }
 }
 /*
@@ -3893,7 +3895,7 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 [class*="uk-modal-close-"] {
   position: absolute;
-  z-index: 1010;
+  z-index: calc(1000 + 10);
   top: 10px;
   right: 10px;
   padding: 5px;
@@ -3917,9 +3919,9 @@ select.uk-form-width-xsmall {
 .uk-modal-close-outside {
   top: 0;
   /* 1 */
-  right: -5px;
-  transform: translate(0, -100%);
-  color: #ffffff;
+  right: calc(5px * -1);
+  transform: translate(0, calc(100% * -1));
+  color: hsl(from #fff h s calc(l + 20));
 }
 .uk-modal-close-outside:hover {
   color: #fff;
@@ -3929,7 +3931,7 @@ select.uk-form-width-xsmall {
   /* 1 */
   .uk-modal-close-outside {
     right: 0;
-    transform: translate(100%, -100%);
+    transform: translate(100%, calc(100% * -1));
   }
 }
 /*
@@ -4044,8 +4046,8 @@ select.uk-form-width-xsmall {
 .uk-slider-container-offset {
   margin-left: -25px;
   margin-right: -25px;
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: calc(-1 * -25px);
+  padding-right: calc(-1 * -25px);
 }
 /* Items
  ========================================================================== */
@@ -4106,7 +4108,7 @@ select.uk-form-width-xsmall {
   /* 1 */
   position: relative;
   /* 2 */
-  z-index: 980;
+  z-index: calc(1000 - 20);
   /* 3 */
   box-sizing: border-box;
 }
@@ -4166,7 +4168,7 @@ select.uk-form-width-xsmall {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -270px;
+  left: calc(270px * -1);
   /* 2 */
   box-sizing: border-box;
   width: 270px;
@@ -4178,7 +4180,7 @@ select.uk-form-width-xsmall {
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-offcanvas-bar {
-    left: -350px;
+    left: calc(350px * -1);
     width: 350px;
     padding: 30px 30px;
   }
@@ -4186,12 +4188,12 @@ select.uk-form-width-xsmall {
 /* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-bar {
   left: auto;
-  right: -270px;
+  right: calc(270px * -1);
 }
 /* Tablet landscape and bigger */
 @media (min-width: 640px) {
   .uk-offcanvas-flip .uk-offcanvas-bar {
-    right: -350px;
+    right: calc(350px * -1);
   }
 }
 /*
@@ -4349,7 +4351,7 @@ select.uk-form-width-xsmall {
   left: 270px;
 }
 .uk-offcanvas-flip.uk-offcanvas-container-animation {
-  left: -270px;
+  left: calc(270px * -1);
 }
 /* Tablet landscape and bigger */
 @media (min-width: 640px) {
@@ -4357,7 +4359,7 @@ select.uk-form-width-xsmall {
     left: 350px;
   }
   .uk-offcanvas-flip.uk-offcanvas-container-animation {
-    left: -350px;
+    left: calc(350px * -1);
   }
 }
 /* ========================================================================
@@ -4432,7 +4434,7 @@ select.uk-form-width-xsmall {
   position: fixed;
   top: 10px;
   left: 10px;
-  z-index: 1040;
+  z-index: calc(1000 + 40);
   /* 2 */
   box-sizing: border-box;
   width: 350px;
@@ -4447,7 +4449,7 @@ select.uk-form-width-xsmall {
 .uk-notification-top-center,
 .uk-notification-bottom-center {
   left: 50%;
-  margin-left: -175px;
+  margin-left: calc(350px / -2);
 }
 .uk-notification-bottom-left,
 .uk-notification-bottom-right,
@@ -4486,7 +4488,7 @@ select.uk-form-width-xsmall {
 .uk-notification-close {
   display: none;
   position: absolute;
-  top: 20px;
+  top: calc(15px + 5px);
   right: 15px;
 }
 .uk-notification-message:hover .uk-notification-close {
@@ -4533,7 +4535,7 @@ select.uk-form-width-xsmall {
   display: none;
   /* 2 */
   position: absolute;
-  z-index: 1030;
+  z-index: calc(1000 + 30);
   --uk-position-offset: 10px;
   --uk-position-viewport-offset: 10;
   /* 3 */
@@ -4568,7 +4570,7 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 .uk-sortable-drag {
   position: fixed !important;
-  z-index: 1050 !important;
+  z-index: calc(1000 + 50) !important;
   pointer-events: none;
 }
 /* Placeholder
@@ -4631,7 +4633,7 @@ select.uk-form-width-xsmall {
   padding: 0;
   list-style: none;
   /* 3 */
-  margin-left: -15px;
+  margin-left: calc(15px * -1);
 }
 /*
  * Space is allocated based on content dimensions, but shrinks: 0 1 auto
@@ -4679,7 +4681,7 @@ select.uk-form-width-xsmall {
   flex-direction: column;
   /* 2 */
   margin-left: 0;
-  margin-top: -15px;
+  margin-top: calc(15px * -1);
 }
 /* 2 */
 .uk-thumbnav-vertical > * {
@@ -4703,7 +4705,7 @@ select.uk-form-width-xsmall {
   padding: 0;
   list-style: none;
   /* 3 */
-  margin-left: -10px;
+  margin-left: calc(10px * -1);
 }
 /*
  * Space is allocated based on content dimensions, but shrinks: 0 1 auto
@@ -4758,7 +4760,7 @@ select.uk-form-width-xsmall {
   flex-direction: column;
   /* 2 */
   margin-left: 0;
-  margin-top: -10px;
+  margin-top: calc(10px * -1);
 }
 /* 2 */
 .uk-iconnav-vertical > * {
@@ -4802,7 +4804,7 @@ select.uk-form-width-xsmall {
  */
 /* Horizontal */
 .uk-grid {
-  margin-left: -30px;
+  margin-left: calc(30px * -1);
 }
 .uk-grid > * {
   padding-left: 30px;
@@ -4817,7 +4819,7 @@ select.uk-form-width-xsmall {
 @media (min-width: 1200px) {
   /* Horizontal */
   .uk-grid {
-    margin-left: -40px;
+    margin-left: calc(40px * -1);
   }
   .uk-grid > * {
     padding-left: 40px;
@@ -4835,7 +4837,7 @@ select.uk-form-width-xsmall {
 /* Horizontal */
 .uk-grid-small,
 .uk-grid-column-small {
-  margin-left: -15px;
+  margin-left: calc(15px * -1);
 }
 .uk-grid-small > *,
 .uk-grid-column-small > * {
@@ -4855,7 +4857,7 @@ select.uk-form-width-xsmall {
 /* Horizontal */
 .uk-grid-medium,
 .uk-grid-column-medium {
-  margin-left: -30px;
+  margin-left: calc(30px * -1);
 }
 .uk-grid-medium > *,
 .uk-grid-column-medium > * {
@@ -4875,7 +4877,7 @@ select.uk-form-width-xsmall {
 /* Horizontal */
 .uk-grid-large,
 .uk-grid-column-large {
-  margin-left: -40px;
+  margin-left: calc(40px * -1);
 }
 .uk-grid-large > *,
 .uk-grid-column-large > * {
@@ -4894,7 +4896,7 @@ select.uk-form-width-xsmall {
   /* Horizontal */
   .uk-grid-large,
   .uk-grid-column-large {
-    margin-left: -70px;
+    margin-left: calc(70px * -1);
   }
   .uk-grid-large > *,
   .uk-grid-column-large > * {
@@ -4953,41 +4955,41 @@ select.uk-form-width-xsmall {
  */
 /* Horizontal */
 .uk-grid-divider {
-  margin-left: -60px;
+  margin-left: calc((30px * 2) * -1);
 }
 .uk-grid-divider > * {
-  padding-left: 60px;
+  padding-left: calc(30px * 2);
 }
 .uk-grid-divider > :not(.uk-first-column)::before {
   left: 30px;
 }
 /* Vertical */
 .uk-grid-divider.uk-grid-stack > .uk-grid-margin {
-  margin-top: 60px;
+  margin-top: calc(30px * 2);
 }
 .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
-  top: -30px;
-  left: 60px;
+  top: calc(30px * -1);
+  left: calc(30px * 2);
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
   .uk-grid-divider {
-    margin-left: -80px;
+    margin-left: calc((40px * 2) * -1);
   }
   .uk-grid-divider > * {
-    padding-left: 80px;
+    padding-left: calc(40px * 2);
   }
   .uk-grid-divider > :not(.uk-first-column)::before {
     left: 40px;
   }
   /* Vertical */
   .uk-grid-divider.uk-grid-stack > .uk-grid-margin {
-    margin-top: 80px;
+    margin-top: calc(40px * 2);
   }
   .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
-    top: -40px;
-    left: 80px;
+    top: calc(40px * -1);
+    left: calc(40px * 2);
   }
 }
 /*
@@ -4996,11 +4998,11 @@ select.uk-form-width-xsmall {
 /* Horizontal */
 .uk-grid-divider.uk-grid-small,
 .uk-grid-divider.uk-grid-column-small {
-  margin-left: -30px;
+  margin-left: calc((15px * 2) * -1);
 }
 .uk-grid-divider.uk-grid-small > *,
 .uk-grid-divider.uk-grid-column-small > * {
-  padding-left: 30px;
+  padding-left: calc(15px * 2);
 }
 .uk-grid-divider.uk-grid-small > :not(.uk-first-column)::before,
 .uk-grid-divider.uk-grid-column-small > :not(.uk-first-column)::before {
@@ -5009,17 +5011,17 @@ select.uk-form-width-xsmall {
 /* Vertical */
 .uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin,
 .uk-grid-divider.uk-grid-row-small.uk-grid-stack > .uk-grid-margin {
-  margin-top: 30px;
+  margin-top: calc(15px * 2);
 }
 .uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin::before {
-  top: -15px;
-  left: 30px;
+  top: calc(15px * -1);
+  left: calc(15px * 2);
 }
 .uk-grid-divider.uk-grid-row-small.uk-grid-stack > .uk-grid-margin::before {
-  top: -15px;
+  top: calc(15px * -1);
 }
 .uk-grid-divider.uk-grid-column-small.uk-grid-stack > .uk-grid-margin::before {
-  left: 30px;
+  left: calc(15px * 2);
 }
 /*
  * Medium
@@ -5027,11 +5029,11 @@ select.uk-form-width-xsmall {
 /* Horizontal */
 .uk-grid-divider.uk-grid-medium,
 .uk-grid-divider.uk-grid-column-medium {
-  margin-left: -60px;
+  margin-left: calc((30px * 2) * -1);
 }
 .uk-grid-divider.uk-grid-medium > *,
 .uk-grid-divider.uk-grid-column-medium > * {
-  padding-left: 60px;
+  padding-left: calc(30px * 2);
 }
 .uk-grid-divider.uk-grid-medium > :not(.uk-first-column)::before,
 .uk-grid-divider.uk-grid-column-medium > :not(.uk-first-column)::before {
@@ -5040,17 +5042,17 @@ select.uk-form-width-xsmall {
 /* Vertical */
 .uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin,
 .uk-grid-divider.uk-grid-row-medium.uk-grid-stack > .uk-grid-margin {
-  margin-top: 60px;
+  margin-top: calc(30px * 2);
 }
 .uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin::before {
-  top: -30px;
-  left: 60px;
+  top: calc(30px * -1);
+  left: calc(30px * 2);
 }
 .uk-grid-divider.uk-grid-row-medium.uk-grid-stack > .uk-grid-margin::before {
-  top: -30px;
+  top: calc(30px * -1);
 }
 .uk-grid-divider.uk-grid-column-medium.uk-grid-stack > .uk-grid-margin::before {
-  left: 60px;
+  left: calc(30px * 2);
 }
 /*
  * Large
@@ -5058,11 +5060,11 @@ select.uk-form-width-xsmall {
 /* Horizontal */
 .uk-grid-divider.uk-grid-large,
 .uk-grid-divider.uk-grid-column-large {
-  margin-left: -80px;
+  margin-left: calc((40px * 2) * -1);
 }
 .uk-grid-divider.uk-grid-large > *,
 .uk-grid-divider.uk-grid-column-large > * {
-  padding-left: 80px;
+  padding-left: calc(40px * 2);
 }
 .uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before,
 .uk-grid-divider.uk-grid-column-large > :not(.uk-first-column)::before {
@@ -5071,28 +5073,28 @@ select.uk-form-width-xsmall {
 /* Vertical */
 .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin,
 .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin {
-  margin-top: 80px;
+  margin-top: calc(40px * 2);
 }
 .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin::before {
-  top: -40px;
-  left: 80px;
+  top: calc(40px * -1);
+  left: calc(40px * 2);
 }
 .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin::before {
-  top: -40px;
+  top: calc(40px * -1);
 }
 .uk-grid-divider.uk-grid-column-large.uk-grid-stack > .uk-grid-margin::before {
-  left: 80px;
+  left: calc(40px * 2);
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
   .uk-grid-divider.uk-grid-large,
   .uk-grid-divider.uk-grid-column-large {
-    margin-left: -140px;
+    margin-left: calc((70px * 2) * -1);
   }
   .uk-grid-divider.uk-grid-large > *,
   .uk-grid-divider.uk-grid-column-large > * {
-    padding-left: 140px;
+    padding-left: calc(70px * 2);
   }
   .uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before,
   .uk-grid-divider.uk-grid-column-large > :not(.uk-first-column)::before {
@@ -5101,17 +5103,17 @@ select.uk-form-width-xsmall {
   /* Vertical */
   .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin,
   .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin {
-    margin-top: 140px;
+    margin-top: calc(70px * 2);
   }
   .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin::before {
-    top: -70px;
-    left: 140px;
+    top: calc(70px * -1);
+    left: calc(70px * 2);
   }
   .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin::before {
-    top: -70px;
+    top: calc(70px * -1);
   }
   .uk-grid-divider.uk-grid-column-large.uk-grid-stack > .uk-grid-margin::before {
-    left: 140px;
+    left: calc(70px * 2);
   }
 }
 /* Match child of a grid cell
@@ -5398,11 +5400,11 @@ ul.uk-nav-sub {
  * Medium
  */
 .uk-nav-medium {
-  font-size: 2.8875rem;
+  font-size: calc(calc(4rem * 0.875) * 0.825);
   line-height: 1;
 }
 .uk-nav-large {
-  font-size: 3.4rem;
+  font-size: calc(4rem * 0.85);
   line-height: 1;
 }
 .uk-nav-xlarge {
@@ -5412,7 +5414,7 @@ ul.uk-nav-sub {
 /* Tablet Landscape and bigger */
 @media (min-width: 960px) {
   .uk-nav-medium {
-    font-size: 3.5rem;
+    font-size: calc(4rem * 0.875);
   }
   .uk-nav-large {
     font-size: 4rem;
@@ -5523,7 +5525,7 @@ ul.uk-nav-sub {
   width: max-content;
   box-sizing: border-box;
   /* 3 */
-  z-index: 990;
+  z-index: calc(1000 - 10);
   /* 4 */
   height: 100%;
   align-items: stretch;
@@ -5717,7 +5719,7 @@ ul.uk-nav-sub {
  */
 /* Gutter Horizontal */
 .uk-navbar-dropdown .uk-drop-grid {
-  margin-left: -30px;
+  margin-left: calc(30px * -1);
 }
 .uk-navbar-dropdown .uk-drop-grid > * {
   padding-left: 30px;
@@ -5730,16 +5732,16 @@ ul.uk-nav-sub {
  * Width modifier
  */
 .uk-navbar-dropdown-width-2:not(.uk-drop-stack) {
-  width: 400px;
+  width: calc(200px * 2);
 }
 .uk-navbar-dropdown-width-3:not(.uk-drop-stack) {
-  width: 600px;
+  width: calc(200px * 3);
 }
 .uk-navbar-dropdown-width-4:not(.uk-drop-stack) {
-  width: 800px;
+  width: calc(200px * 4);
 }
 .uk-navbar-dropdown-width-5:not(.uk-drop-stack) {
-  width: 1000px;
+  width: calc(200px * 5);
 }
 /*
  * Size modifier
@@ -5878,7 +5880,7 @@ ul.uk-nav-sub {
   /* 2 */
   align-items: center;
   /* 3 */
-  margin-left: -20px;
+  margin-left: calc(20px * -1);
   /* 4 */
   padding: 0;
   list-style: none;
@@ -5933,7 +5935,7 @@ ul.uk-nav-sub {
  * Set gutter
  */
 .uk-subnav-divider {
-  margin-left: -41px;
+  margin-left: calc(((20px * 2) + 1px) * -1);
 }
 /*
  * Align items and divider vertically
@@ -5949,7 +5951,7 @@ ul.uk-nav-sub {
 .uk-subnav-divider > ::before {
   content: "";
   height: 1.5em;
-  margin-left: 0px;
+  margin-left: calc(20px - 20px);
   margin-right: 20px;
   border-left: 1px solid transparent;
 }
@@ -5963,7 +5965,7 @@ ul.uk-nav-sub {
  * Gutter
  */
 .uk-subnav-pill {
-  margin-left: -20px;
+  margin-left: calc(20px - 1);
 }
 .uk-subnav-pill > * {
   padding-left: 20px;
@@ -6062,7 +6064,7 @@ ul.uk-nav-sub {
   /* 2 */
   align-items: center;
   /* 3 */
-  margin-left: 0;
+  margin-left: calc(0 * -1);
   /* 4 */
   padding: 0;
   list-style: none;
@@ -6124,7 +6126,7 @@ ul.uk-nav-sub {
   /* 1 */
   flex-wrap: wrap;
   /* 2 */
-  margin-left: -20px;
+  margin-left: calc(20px * -1);
   /* 3 */
   padding: 0;
   list-style: none;
@@ -6255,16 +6257,16 @@ ul.uk-nav-sub {
  */
 .uk-slidenav {
   padding: 5px 10px;
-  color: rgba(102, 102, 102, 0.5);
+  color: rgb(from #666 r g b / 0.5);
   transition: color 0.1s ease-in-out;
 }
 /* Hover */
 .uk-slidenav:hover {
-  color: rgba(102, 102, 102, 0.9);
+  color: rgb(from #666 r g b / 0.9);
 }
 /* OnClick */
 .uk-slidenav:active {
-  color: rgba(102, 102, 102, 0.5);
+  color: rgb(from #666 r g b / 0.5);
 }
 /* Icon modifier
  ========================================================================== */
@@ -6301,7 +6303,7 @@ ul.uk-nav-sub {
   padding: 0;
   list-style: none;
   /* 3 */
-  margin-left: -12px;
+  margin-left: calc(12px * -1);
 }
 /*
  * 1. Space is allocated solely based on content dimensions: 0 0 auto
@@ -6330,23 +6332,23 @@ ul.uk-nav-sub {
   text-indent: 100%;
   overflow: hidden;
   white-space: nowrap;
-  border: 1px solid rgba(102, 102, 102, 0.4);
+  border: 1px solid rgb(from #666 r g b / 0.4);
   transition: 0.2s ease-in-out;
   transition-property: background-color, border-color;
 }
 /* Hover */
 .uk-dotnav > * > :hover {
-  background-color: rgba(102, 102, 102, 0.6);
+  background-color: rgb(from #666 r g b / 0.6);
   border-color: transparent;
 }
 /* OnClick */
 .uk-dotnav > * > :active {
-  background-color: rgba(102, 102, 102, 0.2);
+  background-color: rgb(from #666 r g b / 0.2);
   border-color: transparent;
 }
 /* Active */
 .uk-dotnav > .uk-active > * {
-  background-color: rgba(102, 102, 102, 0.6);
+  background-color: rgb(from #666 r g b / 0.6);
   border-color: transparent;
 }
 /* Modifier: 'uk-dotnav-vertical'
@@ -6360,7 +6362,7 @@ ul.uk-nav-sub {
   flex-direction: column;
   /* 2 */
   margin-left: 0;
-  margin-top: -12px;
+  margin-top: calc(12px * -1);
 }
 /* 2 */
 .uk-dotnav-vertical > * {
@@ -6505,7 +6507,7 @@ ul.uk-nav-sub {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1010;
+  z-index: calc(1000 + 10);
   /* 5 */
   background: #000;
   /* 6 */
@@ -6812,7 +6814,7 @@ ul.uk-nav-sub {
  */
 @keyframes uk-slide-top-small {
   0% {
-    transform: translateY(-10px);
+    transform: translateY(calc(10px * -1));
   }
   100% {
     transform: translateY(0);
@@ -6828,7 +6830,7 @@ ul.uk-nav-sub {
 }
 @keyframes uk-slide-left-small {
   0% {
-    transform: translateX(-10px);
+    transform: translateX(calc(10px * -1));
   }
   100% {
     transform: translateX(0);
@@ -6847,7 +6849,7 @@ ul.uk-nav-sub {
  */
 @keyframes uk-slide-top-medium {
   0% {
-    transform: translateY(-50px);
+    transform: translateY(calc(50px * -1));
   }
   100% {
     transform: translateY(0);
@@ -6863,7 +6865,7 @@ ul.uk-nav-sub {
 }
 @keyframes uk-slide-left-medium {
   0% {
-    transform: translateX(-50px);
+    transform: translateX(calc(50px * -1));
   }
   100% {
     transform: translateX(0);
@@ -7887,12 +7889,12 @@ td.uk-text-break {
 .uk-column-divider {
   column-rule: 1px solid #e5e5e5;
   /* 1 */
-  column-gap: 60px;
+  column-gap: calc(30px * 2);
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   .uk-column-divider {
-    column-gap: 80px;
+    column-gap: calc(40px * 2);
   }
 }
 /* Width modifiers
@@ -8647,7 +8649,7 @@ iframe[data-uk-cover] {
     content: "";
     /* 1 */
     position: absolute;
-    bottom: -30px;
+    bottom: calc(30px * -1);
     left: 0;
     right: 0;
     z-index: -1;
@@ -8673,7 +8675,7 @@ iframe[data-uk-cover] {
   display: block;
   margin-right: 10px;
   float: left;
-  font-size: 4.5em;
+  font-size: calc((1.5 * 3) * 1em);
   line-height: 1;
   margin-bottom: -2px;
 }
@@ -9745,10 +9747,10 @@ iframe[data-uk-cover] {
   z-index: -1;
 }
 .uk-position-z-index-high {
-  z-index: 990;
+  z-index: calc(1000 - 10);
 }
 .uk-position-z-index-highest {
-  z-index: 1060;
+  z-index: calc(1000 + 60);
 }
 /* ========================================================================
    Component: Transition
@@ -10027,7 +10029,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]),
 .uk-overlay-primary,
 .uk-offcanvas-bar {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
   /* Webkit */
   /* Firefox */
   /* Webkit */
@@ -10125,8 +10127,8 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar :not(pre) > code,
 .uk-offcanvas-bar :not(pre) > kbd,
 .uk-offcanvas-bar :not(pre) > samp {
-  color: rgba(255, 255, 255, 0.7);
-  background-color: rgba(255, 255, 255, 0.1);
+  color: rgb(from #fff r g b / 0.7);
+  background-color: rgb(from #fff r g b / 0.1);
 }
 .uk-light em,
 .uk-section-primary:not(.uk-preserve-color) em,
@@ -10365,7 +10367,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) blockquote footer,
 .uk-overlay-primary blockquote footer,
 .uk-offcanvas-bar blockquote footer {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light hr,
 .uk-light .uk-hr,
@@ -10389,7 +10391,7 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-hr,
 .uk-offcanvas-bar hr,
 .uk-offcanvas-bar .uk-hr {
-  border-top-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light :focus-visible,
 .uk-section-primary:not(.uk-preserve-color) :focus-visible,
@@ -10426,7 +10428,7 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-link-muted a,
 .uk-offcanvas-bar a.uk-link-muted,
 .uk-offcanvas-bar .uk-link-muted a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light a.uk-link-muted:hover,
 .uk-light .uk-link-muted a:hover,
@@ -10461,7 +10463,7 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar a.uk-link-muted:hover,
 .uk-offcanvas-bar .uk-link-muted a:hover,
 .uk-offcanvas-bar .uk-link-toggle:hover .uk-link-muted {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light a.uk-link-text:hover,
 .uk-light .uk-link-text a:hover,
@@ -10496,7 +10498,7 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar a.uk-link-text:hover,
 .uk-offcanvas-bar .uk-link-text a:hover,
 .uk-offcanvas-bar .uk-link-toggle:hover .uk-link-text {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light a.uk-link-heading:hover,
 .uk-light .uk-link-heading a:hover,
@@ -10544,7 +10546,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-heading-divider,
 .uk-overlay-primary .uk-heading-divider,
 .uk-offcanvas-bar .uk-heading-divider {
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-heading-bullet::before,
 .uk-section-primary:not(.uk-preserve-color) .uk-heading-bullet::before,
@@ -10557,7 +10559,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-heading-bullet::before,
 .uk-overlay-primary .uk-heading-bullet::before,
 .uk-offcanvas-bar .uk-heading-bullet::before {
-  border-left-color: rgba(255, 255, 255, 0.2);
+  border-left-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-heading-line > ::before,
 .uk-light .uk-heading-line > ::after,
@@ -10581,7 +10583,7 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-heading-line > ::after,
 .uk-offcanvas-bar .uk-heading-line > ::before,
 .uk-offcanvas-bar .uk-heading-line > ::after {
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-divider-icon,
 .uk-section-primary:not(.uk-preserve-color) .uk-divider-icon,
@@ -10594,7 +10596,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-divider-icon,
 .uk-overlay-primary .uk-divider-icon,
 .uk-offcanvas-bar .uk-divider-icon {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22rgba%28255,%20255,%20255,%200.2%29%22%20stroke-width%3D%222%22%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%227%22%20%2F%3E%0D%0A%3C%2Fsvg%3E%0D%0A");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22rgb%28from%20%23fff%20r%20g%20b%20/%200.2%29%22%20stroke-width%3D%222%22%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%227%22%20%2F%3E%0D%0A%3C%2Fsvg%3E%0D%0A");
 }
 .uk-light .uk-divider-icon::before,
 .uk-light .uk-divider-icon::after,
@@ -10618,7 +10620,7 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-divider-icon::after,
 .uk-offcanvas-bar .uk-divider-icon::before,
 .uk-offcanvas-bar .uk-divider-icon::after {
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-divider-small::after,
 .uk-section-primary:not(.uk-preserve-color) .uk-divider-small::after,
@@ -10631,7 +10633,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-divider-small::after,
 .uk-overlay-primary .uk-divider-small::after,
 .uk-offcanvas-bar .uk-divider-small::after {
-  border-top-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-divider-vertical,
 .uk-section-primary:not(.uk-preserve-color) .uk-divider-vertical,
@@ -10644,7 +10646,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-divider-vertical,
 .uk-overlay-primary .uk-divider-vertical,
 .uk-offcanvas-bar .uk-divider-vertical {
-  border-left-color: rgba(255, 255, 255, 0.2);
+  border-left-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-list-muted > ::marker,
 .uk-section-primary:not(.uk-preserve-color) .uk-list-muted > ::marker,
@@ -10657,7 +10659,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-list-muted > ::marker,
 .uk-overlay-primary .uk-list-muted > ::marker,
 .uk-offcanvas-bar .uk-list-muted > ::marker {
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: rgb(from #fff r g b / 0.5) !important;
 }
 .uk-light .uk-list-emphasis > ::marker,
 .uk-section-primary:not(.uk-preserve-color) .uk-list-emphasis > ::marker,
@@ -10709,7 +10711,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-list-bullet > ::before,
 .uk-overlay-primary .uk-list-bullet > ::before,
 .uk-offcanvas-bar .uk-list-bullet > ::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%20%20%20%20%3Ccircle%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%20%2F%3E%0D%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%20%20%20%20%3Ccircle%20fill%3D%22rgb%28from%20%23fff%20r%20g%20b%20/%200.7%29%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%20%2F%3E%0D%0A%3C%2Fsvg%3E");
 }
 .uk-light .uk-list-divider > :nth-child(n+2),
 .uk-section-primary:not(.uk-preserve-color) .uk-list-divider > :nth-child(n+2),
@@ -10722,7 +10724,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-list-divider > :nth-child(n+2),
 .uk-overlay-primary .uk-list-divider > :nth-child(n+2),
 .uk-offcanvas-bar .uk-list-divider > :nth-child(n+2) {
-  border-top-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-list-striped > *:nth-of-type(odd),
 .uk-section-primary:not(.uk-preserve-color) .uk-list-striped > *:nth-of-type(odd),
@@ -10735,8 +10737,8 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-list-striped > *:nth-of-type(odd),
 .uk-overlay-primary .uk-list-striped > *:nth-of-type(odd),
 .uk-offcanvas-bar .uk-list-striped > *:nth-of-type(odd) {
-  border-top-color: rgba(255, 255, 255, 0.2);
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
+  border-bottom-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-list-striped > :nth-of-type(odd),
 .uk-section-primary:not(.uk-preserve-color) .uk-list-striped > :nth-of-type(odd),
@@ -10749,7 +10751,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-list-striped > :nth-of-type(odd),
 .uk-overlay-primary .uk-list-striped > :nth-of-type(odd),
 .uk-offcanvas-bar .uk-list-striped > :nth-of-type(odd) {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgb(from #fff r g b / 0.1);
 }
 .uk-light .uk-table th,
 .uk-section-primary:not(.uk-preserve-color) .uk-table th,
@@ -10762,7 +10764,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-table th,
 .uk-overlay-primary .uk-table th,
 .uk-offcanvas-bar .uk-table th {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-table caption,
 .uk-section-primary:not(.uk-preserve-color) .uk-table caption,
@@ -10775,7 +10777,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-table caption,
 .uk-overlay-primary .uk-table caption,
 .uk-offcanvas-bar .uk-table caption {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-table > tr.uk-active,
 .uk-light .uk-table tbody tr.uk-active,
@@ -10799,7 +10801,7 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-table tbody tr.uk-active,
 .uk-offcanvas-bar .uk-table > tr.uk-active,
 .uk-offcanvas-bar .uk-table tbody tr.uk-active {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgb(from rgb(from #fff r g b / 0.1) r g b / calc(alpha - 0.02));
 }
 .uk-light .uk-table-divider > tr:not(:first-child),
 .uk-light .uk-table-divider > :not(:first-child) > tr,
@@ -10834,7 +10836,7 @@ iframe[data-uk-cover] {
 .uk-offcanvas-bar .uk-table-divider > tr:not(:first-child),
 .uk-offcanvas-bar .uk-table-divider > :not(:first-child) > tr,
 .uk-offcanvas-bar .uk-table-divider > :first-child > tr:not(:first-child) {
-  border-top-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-table-striped > tr:nth-of-type(odd),
 .uk-light .uk-table-striped tbody tr:nth-of-type(odd),
@@ -10858,9 +10860,9 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-table-striped tbody tr:nth-of-type(odd),
 .uk-offcanvas-bar .uk-table-striped > tr:nth-of-type(odd),
 .uk-offcanvas-bar .uk-table-striped tbody tr:nth-of-type(odd) {
-  background: rgba(255, 255, 255, 0.1);
-  border-top-color: rgba(255, 255, 255, 0.2);
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+  background: rgb(from #fff r g b / 0.1);
+  border-top-color: rgb(from #fff r g b / 0.2);
+  border-bottom-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-table-hover > tr:hover,
 .uk-light .uk-table-hover tbody tr:hover,
@@ -10884,7 +10886,7 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-table-hover tbody tr:hover,
 .uk-offcanvas-bar .uk-table-hover > tr:hover,
 .uk-offcanvas-bar .uk-table-hover tbody tr:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgb(from rgb(from #fff r g b / 0.1) r g b / calc(alpha - 0.02));
 }
 .uk-light .uk-icon-link,
 .uk-section-primary:not(.uk-preserve-color) .uk-icon-link,
@@ -10897,7 +10899,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-icon-link,
 .uk-overlay-primary .uk-icon-link,
 .uk-offcanvas-bar .uk-icon-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-icon-link:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-icon-link:hover,
@@ -10910,7 +10912,7 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-icon-link:hover,
 .uk-overlay-primary .uk-icon-link:hover,
 .uk-offcanvas-bar .uk-icon-link:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-icon-link:active,
 .uk-light .uk-active > .uk-icon-link,
@@ -10934,7 +10936,7 @@ iframe[data-uk-cover] {
 .uk-overlay-primary .uk-active > .uk-icon-link,
 .uk-offcanvas-bar .uk-icon-link:active,
 .uk-offcanvas-bar .uk-active > .uk-icon-link {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-icon-button,
 .uk-section-primary:not(.uk-preserve-color) .uk-icon-button,
@@ -10947,8 +10949,8 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-icon-button,
 .uk-overlay-primary .uk-icon-button,
 .uk-offcanvas-bar .uk-icon-button {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(from #fff r g b / 0.1);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-icon-button:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-icon-button:hover,
@@ -10961,8 +10963,8 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-icon-button:hover,
 .uk-overlay-primary .uk-icon-button:hover,
 .uk-offcanvas-bar .uk-icon-button:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.7);
+  background-color: rgb(from rgb(from #fff r g b / 0.1) r g b / calc(alpha + 0.05));
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-icon-button:active,
 .uk-section-primary:not(.uk-preserve-color) .uk-icon-button:active,
@@ -10975,8 +10977,8 @@ iframe[data-uk-cover] {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-icon-button:active,
 .uk-overlay-primary .uk-icon-button:active,
 .uk-offcanvas-bar .uk-icon-button:active {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.7);
+  background-color: rgb(from rgb(from #fff r g b / 0.1) r g b / calc(alpha + 0.1));
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-icon-overlay,
 .uk-light a .uk-icon-overlay,
@@ -11011,7 +11013,7 @@ a.uk-overlay-primary .uk-icon-overlay,
 .uk-offcanvas-bar .uk-icon-overlay,
 .uk-offcanvas-bar a .uk-icon-overlay,
 a.uk-offcanvas-bar .uk-icon-overlay {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgb(from #fff r g b / 0.6);
 }
 .uk-light .uk-icon-overlay:hover,
 .uk-light a:hover .uk-icon-overlay,
@@ -11059,7 +11061,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-range::-webkit-slider-runnable-track,
 .uk-overlay-primary .uk-range::-webkit-slider-runnable-track,
 .uk-offcanvas-bar .uk-range::-webkit-slider-runnable-track {
-  background: rgba(242, 242, 242, 0.1);
+  background: hsl(from rgb(from #fff r g b / 0.1) h s calc(l - 5));
 }
 .uk-light .uk-range:focus::-webkit-slider-runnable-track,
 .uk-light .uk-range:active::-webkit-slider-runnable-track,
@@ -11083,7 +11085,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-range:active::-webkit-slider-runnable-track,
 .uk-offcanvas-bar .uk-range:focus::-webkit-slider-runnable-track,
 .uk-offcanvas-bar .uk-range:active::-webkit-slider-runnable-track {
-  background: rgba(242, 242, 242, 0.15);
+  background: rgb(from hsl(from rgb(from #fff r g b / 0.1) h s calc(l - 5)) r g b / calc(alpha + 0.05));
 }
 .uk-light .uk-range::-moz-range-track,
 .uk-section-primary:not(.uk-preserve-color) .uk-range::-moz-range-track,
@@ -11096,7 +11098,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-range::-moz-range-track,
 .uk-overlay-primary .uk-range::-moz-range-track,
 .uk-offcanvas-bar .uk-range::-moz-range-track {
-  background: rgba(242, 242, 242, 0.1);
+  background: hsl(from rgb(from #fff r g b / 0.1) h s calc(l - 5));
 }
 .uk-light .uk-range:focus::-moz-range-track,
 .uk-section-primary:not(.uk-preserve-color) .uk-range:focus::-moz-range-track,
@@ -11109,7 +11111,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-range:focus::-moz-range-track,
 .uk-overlay-primary .uk-range:focus::-moz-range-track,
 .uk-offcanvas-bar .uk-range:focus::-moz-range-track {
-  background: rgba(242, 242, 242, 0.15);
+  background: rgb(from hsl(from rgb(from #fff r g b / 0.1) h s calc(l - 5)) r g b / calc(alpha + 0.05));
 }
 .uk-light .uk-range::-webkit-slider-thumb,
 .uk-section-primary:not(.uk-preserve-color) .uk-range::-webkit-slider-thumb,
@@ -11122,8 +11124,8 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-range::-webkit-slider-thumb,
 .uk-overlay-primary .uk-range::-webkit-slider-thumb,
 .uk-offcanvas-bar .uk-range::-webkit-slider-thumb {
-  background: #808080;
-  border-color: #e6e6e6;
+  background: hsl(from rgb(from rgb(from #fff r g b / 0.7) r g b / calc(alpha + 1)) h s calc(l - 50));
+  border-color: hsl(from rgb(from rgb(from #fff r g b / 0.2) r g b / calc(alpha + 1)) h s calc(l - 10));
 }
 .uk-light .uk-range::-moz-range-thumb,
 .uk-section-primary:not(.uk-preserve-color) .uk-range::-moz-range-thumb,
@@ -11136,8 +11138,8 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-range::-moz-range-thumb,
 .uk-overlay-primary .uk-range::-moz-range-thumb,
 .uk-offcanvas-bar .uk-range::-moz-range-thumb {
-  background: #808080;
-  border-color: #e6e6e6;
+  background: hsl(from rgb(from rgb(from #fff r g b / 0.7) r g b / calc(alpha + 1)) h s calc(l - 50));
+  border-color: hsl(from rgb(from rgb(from #fff r g b / 0.2) r g b / calc(alpha + 1)) h s calc(l - 10));
 }
 .uk-light .uk-input,
 .uk-light .uk-select,
@@ -11172,10 +11174,10 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-offcanvas-bar .uk-input,
 .uk-offcanvas-bar .uk-select,
 .uk-offcanvas-bar .uk-textarea {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
+  background-color: rgb(from #fff r g b / 0.1);
+  color: rgb(from #fff r g b / 0.7);
   background-clip: padding-box;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-input:focus,
 .uk-light .uk-select:focus,
@@ -11210,9 +11212,9 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-offcanvas-bar .uk-input:focus,
 .uk-offcanvas-bar .uk-select:focus,
 .uk-offcanvas-bar .uk-textarea:focus {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.7);
-  border-color: rgba(255, 255, 255, 0.7);
+  background-color: rgb(from rgb(from #fff r g b / 0.1) r g b / calc(alpha + 0.05));
+  color: rgb(from #fff r g b / 0.7);
+  border-color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-input::placeholder,
 .uk-section-primary:not(.uk-preserve-color) .uk-input::placeholder,
@@ -11225,7 +11227,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-input::placeholder,
 .uk-overlay-primary .uk-input::placeholder,
 .uk-offcanvas-bar .uk-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-textarea::placeholder,
 .uk-section-primary:not(.uk-preserve-color) .uk-textarea::placeholder,
@@ -11238,7 +11240,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-textarea::placeholder,
 .uk-overlay-primary .uk-textarea::placeholder,
 .uk-offcanvas-bar .uk-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-select:not([multiple]):not([size]),
 .uk-section-primary:not(.uk-preserve-color) .uk-select:not([multiple]):not([size]),
@@ -11251,7 +11253,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-select:not([multiple]):not([size]),
 .uk-overlay-primary .uk-select:not([multiple]):not([size]),
 .uk-offcanvas-bar .uk-select:not([multiple]):not([size]) {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0D%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0D%0A%3C%2Fsvg%3E%0D%0A");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgb%28from%20%23fff%20r%20g%20b%20/%200.7%29%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0D%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgb%28from%20%23fff%20r%20g%20b%20/%200.7%29%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0D%0A%3C%2Fsvg%3E%0D%0A");
 }
 .uk-light .uk-input[list]:hover,
 .uk-light .uk-input[list]:focus,
@@ -11275,7 +11277,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-input[list]:focus,
 .uk-offcanvas-bar .uk-input[list]:hover,
 .uk-offcanvas-bar .uk-input[list]:focus {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%2212%2012%208%206%2016%206%22%20%2F%3E%0D%0A%3C%2Fsvg%3E%0D%0A");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgb%28from%20%23fff%20r%20g%20b%20/%200.7%29%22%20points%3D%2212%2012%208%206%2016%206%22%20%2F%3E%0D%0A%3C%2Fsvg%3E%0D%0A");
 }
 .uk-light .uk-radio,
 .uk-light .uk-checkbox,
@@ -11299,8 +11301,8 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-checkbox,
 .uk-offcanvas-bar .uk-radio,
 .uk-offcanvas-bar .uk-checkbox {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgb(from #fff r g b / 0.1);
+  border-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-radio:focus,
 .uk-light .uk-checkbox:focus,
@@ -11324,8 +11326,8 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-checkbox:focus,
 .uk-offcanvas-bar .uk-radio:focus,
 .uk-offcanvas-bar .uk-checkbox:focus {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.7);
+  background-color: rgb(from rgb(from #fff r g b / 0.1) r g b / calc(alpha + 0.05));
+  border-color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-radio:checked,
 .uk-light .uk-checkbox:checked,
@@ -11396,7 +11398,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-offcanvas-bar .uk-radio:checked:focus,
 .uk-offcanvas-bar .uk-checkbox:checked:focus,
 .uk-offcanvas-bar .uk-checkbox:indeterminate:focus {
-  background-color: #ffffff;
+  background-color: rgb(from #fff r g b / calc(alpha + 0.1));
 }
 .uk-light .uk-radio:checked,
 .uk-section-primary:not(.uk-preserve-color) .uk-radio:checked,
@@ -11461,7 +11463,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-form-icon,
 .uk-overlay-primary .uk-form-icon,
 .uk-offcanvas-bar .uk-form-icon {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-form-icon:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-form-icon:hover,
@@ -11474,7 +11476,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-form-icon:hover,
 .uk-overlay-primary .uk-form-icon:hover,
 .uk-offcanvas-bar .uk-form-icon:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-button-default,
 .uk-section-primary:not(.uk-preserve-color) .uk-button-default,
@@ -11489,7 +11491,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-offcanvas-bar .uk-button-default {
   background-color: transparent;
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.7);
+  border-color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-button-default:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-button-default:hover,
@@ -11557,7 +11559,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-button-primary:hover,
 .uk-overlay-primary .uk-button-primary:hover,
 .uk-offcanvas-bar .uk-button-primary:hover {
-  background-color: #f2f2f2;
+  background-color: hsl(from #fff h s calc(l - 5));
   color: #666;
 }
 .uk-light .uk-button-primary:active,
@@ -11582,7 +11584,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-button-primary.uk-active,
 .uk-offcanvas-bar .uk-button-primary:active,
 .uk-offcanvas-bar .uk-button-primary.uk-active {
-  background-color: #e6e6e6;
+  background-color: hsl(from #fff h s calc(l - 10));
   color: #666;
 }
 .uk-light .uk-button-secondary,
@@ -11610,7 +11612,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-button-secondary:hover,
 .uk-overlay-primary .uk-button-secondary:hover,
 .uk-offcanvas-bar .uk-button-secondary:hover {
-  background-color: #f2f2f2;
+  background-color: hsl(from #fff h s calc(l - 5));
   color: #666;
 }
 .uk-light .uk-button-secondary:active,
@@ -11635,7 +11637,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-button-secondary.uk-active,
 .uk-offcanvas-bar .uk-button-secondary:active,
 .uk-offcanvas-bar .uk-button-secondary.uk-active {
-  background-color: #e6e6e6;
+  background-color: hsl(from #fff h s calc(l - 10));
   color: #666;
 }
 .uk-light .uk-button-text,
@@ -11688,7 +11690,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-button-text:disabled,
 .uk-overlay-primary .uk-button-text:disabled,
 .uk-offcanvas-bar .uk-button-text:disabled {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-button-link,
 .uk-section-primary:not(.uk-preserve-color) .uk-button-link,
@@ -11714,7 +11716,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-button-link:hover,
 .uk-overlay-primary .uk-button-link:hover,
 .uk-offcanvas-bar .uk-button-link:hover {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light.uk-card-badge,
 .uk-section-primary:not(.uk-preserve-color).uk-card-badge,
@@ -11741,7 +11743,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-close,
 .uk-overlay-primary .uk-close,
 .uk-offcanvas-bar .uk-close {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-close:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-close:hover,
@@ -11754,7 +11756,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-close:hover,
 .uk-overlay-primary .uk-close:hover,
 .uk-offcanvas-bar .uk-close:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-totop,
 .uk-section-primary:not(.uk-preserve-color) .uk-totop,
@@ -11767,7 +11769,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-totop,
 .uk-overlay-primary .uk-totop,
 .uk-offcanvas-bar .uk-totop {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-totop:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-totop:hover,
@@ -11780,7 +11782,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-totop:hover,
 .uk-overlay-primary .uk-totop:hover,
 .uk-offcanvas-bar .uk-totop:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-totop:active,
 .uk-section-primary:not(.uk-preserve-color) .uk-totop:active,
@@ -11861,7 +11863,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-article-meta,
 .uk-overlay-primary .uk-article-meta,
 .uk-offcanvas-bar .uk-article-meta {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-search-input,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-input,
@@ -11874,7 +11876,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-input,
 .uk-overlay-primary .uk-search-input,
 .uk-offcanvas-bar .uk-search-input {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-search-input::placeholder,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-input::placeholder,
@@ -11887,7 +11889,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-input::placeholder,
 .uk-overlay-primary .uk-search-input::placeholder,
 .uk-offcanvas-bar .uk-search-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-search .uk-search-icon,
 .uk-section-primary:not(.uk-preserve-color) .uk-search .uk-search-icon,
@@ -11900,7 +11902,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search .uk-search-icon,
 .uk-overlay-primary .uk-search .uk-search-icon,
 .uk-offcanvas-bar .uk-search .uk-search-icon {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-search .uk-search-icon:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-search .uk-search-icon:hover,
@@ -11913,7 +11915,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search .uk-search-icon:hover,
 .uk-overlay-primary .uk-search .uk-search-icon:hover,
 .uk-offcanvas-bar .uk-search .uk-search-icon:hover {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-search-default .uk-search-input,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-default .uk-search-input,
@@ -11927,7 +11929,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-search-default .uk-search-input,
 .uk-offcanvas-bar .uk-search-default .uk-search-input {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-search-default .uk-search-input:focus,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-default .uk-search-input:focus,
@@ -11940,7 +11942,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-default .uk-search-input:focus,
 .uk-overlay-primary .uk-search-default .uk-search-input:focus,
 .uk-offcanvas-bar .uk-search-default .uk-search-input:focus {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgb(from transparent r g b / calc(alpha + 0.05));
 }
 .uk-light .uk-search-navbar .uk-search-input,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-navbar .uk-search-input,
@@ -11954,7 +11956,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-search-navbar .uk-search-input,
 .uk-offcanvas-bar .uk-search-navbar .uk-search-input {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-search-navbar .uk-search-input:focus,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-navbar .uk-search-input:focus,
@@ -11967,7 +11969,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-navbar .uk-search-input:focus,
 .uk-overlay-primary .uk-search-navbar .uk-search-input:focus,
 .uk-offcanvas-bar .uk-search-navbar .uk-search-input:focus {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgb(from transparent r g b / calc(alpha + 0.05));
 }
 .uk-light .uk-search-medium .uk-search-input,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-medium .uk-search-input,
@@ -11981,7 +11983,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-search-medium .uk-search-input,
 .uk-offcanvas-bar .uk-search-medium .uk-search-input {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-search-medium .uk-search-input:focus,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-medium .uk-search-input:focus,
@@ -11994,7 +11996,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-medium .uk-search-input:focus,
 .uk-overlay-primary .uk-search-medium .uk-search-input:focus,
 .uk-offcanvas-bar .uk-search-medium .uk-search-input:focus {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgb(from transparent r g b / calc(alpha + 0.05));
 }
 .uk-light .uk-search-large .uk-search-input,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-large .uk-search-input,
@@ -12008,7 +12010,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-search-large .uk-search-input,
 .uk-offcanvas-bar .uk-search-large .uk-search-input {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-search-large .uk-search-input:focus,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-large .uk-search-input:focus,
@@ -12021,7 +12023,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-large .uk-search-input:focus,
 .uk-overlay-primary .uk-search-large .uk-search-input:focus,
 .uk-offcanvas-bar .uk-search-large .uk-search-input:focus {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgb(from transparent r g b / calc(alpha + 0.05));
 }
 .uk-light .uk-search-toggle,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-toggle,
@@ -12034,7 +12036,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-toggle,
 .uk-overlay-primary .uk-search-toggle,
 .uk-offcanvas-bar .uk-search-toggle {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-search-toggle:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-search-toggle:hover,
@@ -12047,7 +12049,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-search-toggle:hover,
 .uk-overlay-primary .uk-search-toggle:hover,
 .uk-offcanvas-bar .uk-search-toggle:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-accordion-default .uk-accordion-title,
 .uk-section-primary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-title,
@@ -12073,7 +12075,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-accordion-default .uk-accordion-title:hover,
 .uk-overlay-primary .uk-accordion-default .uk-accordion-title:hover,
 .uk-offcanvas-bar .uk-accordion-default .uk-accordion-title:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-accordion-default .uk-accordion-icon,
 .uk-section-primary:not(.uk-preserve-color) .uk-accordion-default .uk-accordion-icon,
@@ -12086,7 +12088,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-accordion-default .uk-accordion-icon,
 .uk-overlay-primary .uk-accordion-default .uk-accordion-icon,
 .uk-offcanvas-bar .uk-accordion-default .uk-accordion-icon {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-thumbnav > * > *::after,
 .uk-section-primary:not(.uk-preserve-color) .uk-thumbnav > * > *::after,
@@ -12112,7 +12114,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-iconnav > * > a,
 .uk-overlay-primary .uk-iconnav > * > a,
 .uk-offcanvas-bar .uk-iconnav > * > a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-iconnav > * > a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
@@ -12125,7 +12127,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-iconnav > * > a:hover,
 .uk-overlay-primary .uk-iconnav > * > a:hover,
 .uk-offcanvas-bar .uk-iconnav > * > a:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-iconnav > .uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
@@ -12138,7 +12140,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-iconnav > .uk-active > a,
 .uk-overlay-primary .uk-iconnav > .uk-active > a,
 .uk-offcanvas-bar .uk-iconnav > .uk-active > a {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-grid-divider > :not(.uk-first-column)::before,
 .uk-section-primary:not(.uk-preserve-color) .uk-grid-divider > :not(.uk-first-column)::before,
@@ -12151,7 +12153,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-grid-divider > :not(.uk-first-column)::before,
 .uk-overlay-primary .uk-grid-divider > :not(.uk-first-column)::before,
 .uk-offcanvas-bar .uk-grid-divider > :not(.uk-first-column)::before {
-  border-left-color: rgba(255, 255, 255, 0.2);
+  border-left-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before,
 .uk-section-primary:not(.uk-preserve-color) .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before,
@@ -12164,7 +12166,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before,
 .uk-overlay-primary .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before,
 .uk-offcanvas-bar .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
-  border-top-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-nav-default > li > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-default > li > a,
@@ -12177,7 +12179,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-default > li > a,
 .uk-overlay-primary .uk-nav-default > li > a,
 .uk-offcanvas-bar .uk-nav-default > li > a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-nav-default > li > a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-default > li > a:hover,
@@ -12190,7 +12192,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-default > li > a:hover,
 .uk-overlay-primary .uk-nav-default > li > a:hover,
 .uk-offcanvas-bar .uk-nav-default > li > a:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-nav-default > li.uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-default > li.uk-active > a,
@@ -12229,7 +12231,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-default .uk-nav-divider,
 .uk-overlay-primary .uk-nav-default .uk-nav-divider,
 .uk-offcanvas-bar .uk-nav-default .uk-nav-divider {
-  border-top-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-nav-default .uk-nav-sub a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-default .uk-nav-sub a,
@@ -12242,7 +12244,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-default .uk-nav-sub a,
 .uk-overlay-primary .uk-nav-default .uk-nav-sub a,
 .uk-offcanvas-bar .uk-nav-default .uk-nav-sub a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-nav-default .uk-nav-sub a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-default .uk-nav-sub a:hover,
@@ -12255,7 +12257,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-default .uk-nav-sub a:hover,
 .uk-overlay-primary .uk-nav-default .uk-nav-sub a:hover,
 .uk-offcanvas-bar .uk-nav-default .uk-nav-sub a:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-nav-default .uk-nav-sub li.uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-default .uk-nav-sub li.uk-active > a,
@@ -12281,7 +12283,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-primary > li > a,
 .uk-overlay-primary .uk-nav-primary > li > a,
 .uk-offcanvas-bar .uk-nav-primary > li > a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-nav-primary > li > a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-primary > li > a:hover,
@@ -12294,7 +12296,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-primary > li > a:hover,
 .uk-overlay-primary .uk-nav-primary > li > a:hover,
 .uk-offcanvas-bar .uk-nav-primary > li > a:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-nav-primary > li.uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-primary > li.uk-active > a,
@@ -12333,7 +12335,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-primary .uk-nav-divider,
 .uk-overlay-primary .uk-nav-primary .uk-nav-divider,
 .uk-offcanvas-bar .uk-nav-primary .uk-nav-divider {
-  border-top-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-nav-primary .uk-nav-sub a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-primary .uk-nav-sub a,
@@ -12346,7 +12348,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-primary .uk-nav-sub a,
 .uk-overlay-primary .uk-nav-primary .uk-nav-sub a,
 .uk-offcanvas-bar .uk-nav-primary .uk-nav-sub a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-nav-primary .uk-nav-sub a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-primary .uk-nav-sub a:hover,
@@ -12359,7 +12361,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-primary .uk-nav-sub a:hover,
 .uk-overlay-primary .uk-nav-primary .uk-nav-sub a:hover,
 .uk-offcanvas-bar .uk-nav-primary .uk-nav-sub a:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-nav-primary .uk-nav-sub li.uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-primary .uk-nav-sub li.uk-active > a,
@@ -12399,7 +12401,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-nav-secondary > li > a:hover,
 .uk-offcanvas-bar .uk-nav-secondary > li > a:hover {
   color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgb(from #fff r g b / 0.1);
 }
 .uk-light .uk-nav-secondary > li.uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-secondary > li.uk-active > a,
@@ -12413,7 +12415,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-nav-secondary > li.uk-active > a,
 .uk-offcanvas-bar .uk-nav-secondary > li.uk-active > a {
   color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgb(from #fff r g b / 0.1);
 }
 .uk-light .uk-nav-secondary .uk-nav-subtitle,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-secondary .uk-nav-subtitle,
@@ -12426,7 +12428,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-secondary .uk-nav-subtitle,
 .uk-overlay-primary .uk-nav-secondary .uk-nav-subtitle,
 .uk-offcanvas-bar .uk-nav-secondary .uk-nav-subtitle {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-nav-secondary > li > a:hover .uk-nav-subtitle,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-secondary > li > a:hover .uk-nav-subtitle,
@@ -12439,7 +12441,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-secondary > li > a:hover .uk-nav-subtitle,
 .uk-overlay-primary .uk-nav-secondary > li > a:hover .uk-nav-subtitle,
 .uk-offcanvas-bar .uk-nav-secondary > li > a:hover .uk-nav-subtitle {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-nav-secondary > li.uk-active > a .uk-nav-subtitle,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-secondary > li.uk-active > a .uk-nav-subtitle,
@@ -12478,7 +12480,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-secondary .uk-nav-divider,
 .uk-overlay-primary .uk-nav-secondary .uk-nav-divider,
 .uk-offcanvas-bar .uk-nav-secondary .uk-nav-divider {
-  border-top-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-nav-secondary .uk-nav-sub a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-secondary .uk-nav-sub a,
@@ -12491,7 +12493,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-secondary .uk-nav-sub a,
 .uk-overlay-primary .uk-nav-secondary .uk-nav-sub a,
 .uk-offcanvas-bar .uk-nav-secondary .uk-nav-sub a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-nav-secondary .uk-nav-sub a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-secondary .uk-nav-sub a:hover,
@@ -12504,7 +12506,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav-secondary .uk-nav-sub a:hover,
 .uk-overlay-primary .uk-nav-secondary .uk-nav-sub a:hover,
 .uk-offcanvas-bar .uk-nav-secondary .uk-nav-sub a:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-nav-secondary .uk-nav-sub li.uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-nav-secondary .uk-nav-sub li.uk-active > a,
@@ -12530,7 +12532,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider),
 .uk-overlay-primary .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider),
 .uk-offcanvas-bar .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
-  border-top-color: rgba(255, 255, 255, 0.2);
+  border-top-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-navbar-nav > li > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-navbar-nav > li > a,
@@ -12543,7 +12545,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-navbar-nav > li > a,
 .uk-overlay-primary .uk-navbar-nav > li > a,
 .uk-offcanvas-bar .uk-navbar-nav > li > a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-navbar-nav > li:hover > a,
 .uk-light .uk-navbar-nav > li > a[aria-expanded="true"],
@@ -12567,7 +12569,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-navbar-nav > li > a[aria-expanded="true"],
 .uk-offcanvas-bar .uk-navbar-nav > li:hover > a,
 .uk-offcanvas-bar .uk-navbar-nav > li > a[aria-expanded="true"] {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-navbar-nav > li > a:active,
 .uk-section-primary:not(.uk-preserve-color) .uk-navbar-nav > li > a:active,
@@ -12606,7 +12608,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-navbar-item,
 .uk-overlay-primary .uk-navbar-item,
 .uk-offcanvas-bar .uk-navbar-item {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-navbar-toggle,
 .uk-section-primary:not(.uk-preserve-color) .uk-navbar-toggle,
@@ -12619,7 +12621,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-navbar-toggle,
 .uk-overlay-primary .uk-navbar-toggle,
 .uk-offcanvas-bar .uk-navbar-toggle {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-navbar-toggle:hover,
 .uk-light .uk-navbar-toggle[aria-expanded="true"],
@@ -12643,7 +12645,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-navbar-toggle[aria-expanded="true"],
 .uk-offcanvas-bar .uk-navbar-toggle:hover,
 .uk-offcanvas-bar .uk-navbar-toggle[aria-expanded="true"] {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-subnav > * > :first-child,
 .uk-section-primary:not(.uk-preserve-color) .uk-subnav > * > :first-child,
@@ -12656,7 +12658,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-subnav > * > :first-child,
 .uk-overlay-primary .uk-subnav > * > :first-child,
 .uk-offcanvas-bar .uk-subnav > * > :first-child {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-subnav > * > a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-subnav > * > a:hover,
@@ -12669,7 +12671,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-subnav > * > a:hover,
 .uk-overlay-primary .uk-subnav > * > a:hover,
 .uk-offcanvas-bar .uk-subnav > * > a:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-subnav > .uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-subnav > .uk-active > a,
@@ -12695,7 +12697,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before,
 .uk-overlay-primary .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before,
 .uk-offcanvas-bar .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
-  border-left-color: rgba(255, 255, 255, 0.2);
+  border-left-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-subnav-pill > * > :first-child,
 .uk-section-primary:not(.uk-preserve-color) .uk-subnav-pill > * > :first-child,
@@ -12709,7 +12711,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-subnav-pill > * > :first-child,
 .uk-offcanvas-bar .uk-subnav-pill > * > :first-child {
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-subnav-pill > * > a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-subnav-pill > * > a:hover,
@@ -12722,8 +12724,8 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-subnav-pill > * > a:hover,
 .uk-overlay-primary .uk-subnav-pill > * > a:hover,
 .uk-offcanvas-bar .uk-subnav-pill > * > a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
+  background-color: rgb(from #fff r g b / 0.1);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-subnav-pill > * > a:active,
 .uk-section-primary:not(.uk-preserve-color) .uk-subnav-pill > * > a:active,
@@ -12736,8 +12738,8 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-subnav-pill > * > a:active,
 .uk-overlay-primary .uk-subnav-pill > * > a:active,
 .uk-offcanvas-bar .uk-subnav-pill > * > a:active {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
+  background-color: rgb(from #fff r g b / 0.1);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-subnav-pill > .uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-subnav-pill > .uk-active > a,
@@ -12764,7 +12766,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-subnav > .uk-disabled > a,
 .uk-overlay-primary .uk-subnav > .uk-disabled > a,
 .uk-offcanvas-bar .uk-subnav > .uk-disabled > a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-breadcrumb > * > *,
 .uk-section-primary:not(.uk-preserve-color) .uk-breadcrumb > * > *,
@@ -12777,7 +12779,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-breadcrumb > * > *,
 .uk-overlay-primary .uk-breadcrumb > * > *,
 .uk-offcanvas-bar .uk-breadcrumb > * > * {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-breadcrumb > * > :hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-breadcrumb > * > :hover,
@@ -12790,7 +12792,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-breadcrumb > * > :hover,
 .uk-overlay-primary .uk-breadcrumb > * > :hover,
 .uk-offcanvas-bar .uk-breadcrumb > * > :hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-breadcrumb > :last-child > *,
 .uk-section-primary:not(.uk-preserve-color) .uk-breadcrumb > :last-child > *,
@@ -12803,7 +12805,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-breadcrumb > :last-child > *,
 .uk-overlay-primary .uk-breadcrumb > :last-child > *,
 .uk-offcanvas-bar .uk-breadcrumb > :last-child > * {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before,
 .uk-section-primary:not(.uk-preserve-color) .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before,
@@ -12816,7 +12818,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before,
 .uk-overlay-primary .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before,
 .uk-offcanvas-bar .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-pagination > * > *,
 .uk-section-primary:not(.uk-preserve-color) .uk-pagination > * > *,
@@ -12829,7 +12831,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-pagination > * > *,
 .uk-overlay-primary .uk-pagination > * > *,
 .uk-offcanvas-bar .uk-pagination > * > * {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-pagination > * > :hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-pagination > * > :hover,
@@ -12842,7 +12844,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-pagination > * > :hover,
 .uk-overlay-primary .uk-pagination > * > :hover,
 .uk-offcanvas-bar .uk-pagination > * > :hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-pagination > .uk-active > *,
 .uk-section-primary:not(.uk-preserve-color) .uk-pagination > .uk-active > *,
@@ -12855,7 +12857,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-pagination > .uk-active > *,
 .uk-overlay-primary .uk-pagination > .uk-active > *,
 .uk-offcanvas-bar .uk-pagination > .uk-active > * {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-pagination > .uk-disabled > *,
 .uk-section-primary:not(.uk-preserve-color) .uk-pagination > .uk-disabled > *,
@@ -12868,7 +12870,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-pagination > .uk-disabled > *,
 .uk-overlay-primary .uk-pagination > .uk-disabled > *,
 .uk-offcanvas-bar .uk-pagination > .uk-disabled > * {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-tab::before,
 .uk-section-primary:not(.uk-preserve-color) .uk-tab::before,
@@ -12881,7 +12883,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-tab::before,
 .uk-overlay-primary .uk-tab::before,
 .uk-offcanvas-bar .uk-tab::before {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-tab > * > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-tab > * > a,
@@ -12894,7 +12896,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-tab > * > a,
 .uk-overlay-primary .uk-tab > * > a,
 .uk-offcanvas-bar .uk-tab > * > a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-tab > * > a:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-tab > * > a:hover,
@@ -12907,7 +12909,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-tab > * > a:hover,
 .uk-overlay-primary .uk-tab > * > a:hover,
 .uk-offcanvas-bar .uk-tab > * > a:hover {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from #fff r g b / 0.7);
 }
 .uk-light .uk-tab > .uk-active > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-tab > .uk-active > a,
@@ -12934,7 +12936,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-tab > .uk-disabled > a,
 .uk-overlay-primary .uk-tab > .uk-disabled > a,
 .uk-offcanvas-bar .uk-tab > .uk-disabled > a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-slidenav,
 .uk-section-primary:not(.uk-preserve-color) .uk-slidenav,
@@ -12947,7 +12949,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-slidenav,
 .uk-overlay-primary .uk-slidenav,
 .uk-offcanvas-bar .uk-slidenav {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from rgb(from #fff r g b / 0.7) r g b / 0.7);
 }
 .uk-light .uk-slidenav:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-slidenav:hover,
@@ -12960,7 +12962,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-slidenav:hover,
 .uk-overlay-primary .uk-slidenav:hover,
 .uk-offcanvas-bar .uk-slidenav:hover {
-  color: rgba(255, 255, 255, 0.95);
+  color: rgb(from rgb(from #fff r g b / 0.7) r g b / 0.95);
 }
 .uk-light .uk-slidenav:active,
 .uk-section-primary:not(.uk-preserve-color) .uk-slidenav:active,
@@ -12973,7 +12975,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-slidenav:active,
 .uk-overlay-primary .uk-slidenav:active,
 .uk-offcanvas-bar .uk-slidenav:active {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(from rgb(from #fff r g b / 0.7) r g b / 0.7);
 }
 .uk-light .uk-dotnav > * > *,
 .uk-section-primary:not(.uk-preserve-color) .uk-dotnav > * > *,
@@ -12987,7 +12989,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-dotnav > * > *,
 .uk-offcanvas-bar .uk-dotnav > * > * {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.9);
+  border-color: rgb(from rgb(from #fff r g b / 0.7) r g b / 0.9);
 }
 .uk-light .uk-dotnav > * > :hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-dotnav > * > :hover,
@@ -13000,7 +13002,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-dotnav > * > :hover,
 .uk-overlay-primary .uk-dotnav > * > :hover,
 .uk-offcanvas-bar .uk-dotnav > * > :hover {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgb(from rgb(from #fff r g b / 0.7) r g b / 0.9);
   border-color: transparent;
 }
 .uk-light .uk-dotnav > * > :active,
@@ -13014,7 +13016,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-dotnav > * > :active,
 .uk-overlay-primary .uk-dotnav > * > :active,
 .uk-offcanvas-bar .uk-dotnav > * > :active {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(from rgb(from #fff r g b / 0.7) r g b / 0.5);
   border-color: transparent;
 }
 .uk-light .uk-dotnav > .uk-active > *,
@@ -13028,7 +13030,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-dotnav > .uk-active > *,
 .uk-overlay-primary .uk-dotnav > .uk-active > *,
 .uk-offcanvas-bar .uk-dotnav > .uk-active > * {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgb(from rgb(from #fff r g b / 0.7) r g b / 0.9);
   border-color: transparent;
 }
 .uk-light .uk-text-lead,
@@ -13055,7 +13057,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-text-meta,
 .uk-overlay-primary .uk-text-meta,
 .uk-offcanvas-bar .uk-text-meta {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(from #fff r g b / 0.5);
 }
 .uk-light .uk-text-muted,
 .uk-section-primary:not(.uk-preserve-color) .uk-text-muted,
@@ -13068,7 +13070,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-text-muted,
 .uk-overlay-primary .uk-text-muted,
 .uk-offcanvas-bar .uk-text-muted {
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: rgb(from #fff r g b / 0.5) !important;
 }
 .uk-light .uk-text-emphasis,
 .uk-section-primary:not(.uk-preserve-color) .uk-text-emphasis,
@@ -13120,7 +13122,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-card-secondary > :not([class*="uk-card-media"]) .uk-column-divider,
 .uk-overlay-primary .uk-column-divider,
 .uk-offcanvas-bar .uk-column-divider {
-  column-rule-color: rgba(255, 255, 255, 0.2);
+  column-rule-color: rgb(from #fff r g b / 0.2);
 }
 .uk-light .uk-logo,
 .uk-section-primary:not(.uk-preserve-color) .uk-logo,
@@ -13196,7 +13198,7 @@ a.uk-offcanvas-bar:hover .uk-icon-overlay {
 .uk-overlay-primary .uk-table-striped tbody tr:nth-of-type(even):last-child,
 .uk-offcanvas-bar .uk-table-striped > tr:nth-of-type(even):last-child,
 .uk-offcanvas-bar .uk-table-striped tbody tr:nth-of-type(even):last-child {
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgb(from #fff r g b / 0.2);
 }
 /*
  * Pass dropbar behind color to JS

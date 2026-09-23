@@ -12,15 +12,15 @@
 
 @inverse-global-color-mode:                     light;
 
-@inverse-global-color:                          fade(@global-inverse-color, 70%);
+@inverse-global-color:                          rgb(from @global-inverse-color r g b / 0.7);                    // instead of: fade(@global-inverse-color, 70%);
 @inverse-global-emphasis-color:                 @global-inverse-color;
-@inverse-global-muted-color:                    fade(@global-inverse-color, 50%);
+@inverse-global-muted-color:                    rgb(from @global-inverse-color r g b / 0.5);                    // instead of: fade(@global-inverse-color, 50%);
 @inverse-global-inverse-color:                  @global-color;
 
 @inverse-global-primary-background:             @global-inverse-color;
-@inverse-global-muted-background:               fade(@global-inverse-color, 10%);
+@inverse-global-muted-background:               rgb(from @global-inverse-color r g b / 0.1);                    // fade(@global-inverse-color, 10%);
 
-@inverse-global-border:                         fade(@global-inverse-color, 20%);
+@inverse-global-border:                         rgb(from @global-inverse-color r g b / 0.2);                    // fade(@global-inverse-color, 20%);
 
 
 /* ========================================================================

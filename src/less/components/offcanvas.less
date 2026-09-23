@@ -88,7 +88,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -@offcanvas-bar-width;
+    left: calc(@offcanvas-bar-width * -1);                                                    // instead of: -@offcanvas-bar-width;
     /* 2 */
     box-sizing: border-box;
     width: @offcanvas-bar-width;
@@ -103,7 +103,7 @@
 @media (min-width: @breakpoint-small) {
 
     .uk-offcanvas-bar {
-        left: -@offcanvas-bar-width-s;
+        left: calc(@offcanvas-bar-width-s * -1);                                              // instead of: -@offcanvas-bar-width-s;
         width: @offcanvas-bar-width-s;
         padding: @offcanvas-bar-padding-vertical-s @offcanvas-bar-padding-horizontal-s;
     }
@@ -117,13 +117,13 @@
 /* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-bar {
     left: auto;
-    right: -@offcanvas-bar-width;
+    right: calc(@offcanvas-bar-width * -1)                                                      // instead of: -@offcanvas-bar-width;
 }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-offcanvas-flip .uk-offcanvas-bar { right: -@offcanvas-bar-width-s; }
+    .uk-offcanvas-flip .uk-offcanvas-bar { right: calc(@offcanvas-bar-width-s * -1); }          // instead of: -@offcanvas-bar-width-s
 
 }
 
@@ -306,14 +306,14 @@
 
 :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: @offcanvas-bar-width; }
 
-.uk-offcanvas-flip.uk-offcanvas-container-animation { left: -@offcanvas-bar-width; }
+.uk-offcanvas-flip.uk-offcanvas-container-animation { left: calc(@offcanvas-bar-width * -1); }                  // instead of: -@offcanvas-bar-width;
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
     :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: @offcanvas-bar-width-s; }
 
-    .uk-offcanvas-flip.uk-offcanvas-container-animation { left: -@offcanvas-bar-width-s; }
+    .uk-offcanvas-flip.uk-offcanvas-container-animation { left: calc(@offcanvas-bar-width-s * -1); }            // instead of: -@offcanvas-bar-width-s;
 
 }
 
