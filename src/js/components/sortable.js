@@ -19,6 +19,7 @@ import {
     offsetViewport,
     on,
     parent,
+    pointerCancel,
     pointerDown,
     pointerMove,
     pointerUp,
@@ -33,6 +34,8 @@ import {
 } from 'uikit-util';
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
+
+const pointerEnd = [pointerUp, pointerCancel];
 
 export default {
     mixins: [Class, Animate],
@@ -193,7 +196,7 @@ export default {
             this.origin = { target, index: index(placeholder), ...this.pos };
 
             on(document, pointerMove, this.move);
-            on(document, pointerUp, this.end);
+            on(document, pointerEnd, this.end);
 
             if (!this.threshold) {
                 this.start(e);
@@ -232,7 +235,7 @@ export default {
 
         end() {
             off(document, pointerMove, this.move);
-            off(document, pointerUp, this.end);
+            off(document, pointerEnd, this.end);
 
             if (!this.drag) {
                 return;

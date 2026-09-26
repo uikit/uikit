@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Handle canceled Pointer Events while dragging Sortable items.
+
 ## 3.25.25 (September 23, 2026)
 
 ### Fixed
