@@ -5,6 +5,7 @@
 ### Fixed
 
 - Handle canceled Pointer Events while dragging Sortable items.
+- Fix truncated Breadcrumb component not displaying an ellipsis.
 
 ## 3.25.25 (September 23, 2026)
 
