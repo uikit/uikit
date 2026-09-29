@@ -47,6 +47,18 @@
 
 .uk-breadcrumb > * { display: contents; }
 
+/*
+ * Truncate the last item when combined with the Text component's truncate modifier.
+ */
+
+.uk-breadcrumb.uk-text-truncate { display: flex; }
+
+.uk-breadcrumb.uk-text-truncate > :last-child > * {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 /* Items
  ========================================================================== */
