@@ -25,6 +25,7 @@
 - Move logo, dropcap and floating shadow from utility to their own components
 - Moved Search component LESS import to load after the Form component
 - Use `row-gap` for stacked grid columns instead of relying on the `uk-grid` attribute
+- Lazy load native hover-autoplay videos when they enter the viewport
 
 ### Fixed
 
