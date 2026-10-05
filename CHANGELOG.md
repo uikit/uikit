@@ -4,7 +4,8 @@
 
 ### Fixed
 
-- Handle canceled Pointer Events while dragging Sortable items.
+- Fix handling of canceled Pointer Events while dragging Sortable items
+- Fix preventing Slider autoplay from starting its next transition before the prior one is painted
 
 ## 3.25.25 (September 23, 2026)
 
