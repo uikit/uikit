@@ -1,4 +1,4 @@
-/*! UIkit 3.25.25 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.26 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2127,15 +2127,14 @@
       return sorted;
     }
     function getOffset(element, offset = false) {
-      let { offsetTop, offsetLeft, offsetHeight, offsetWidth } = element;
+      let { offsetTop, offsetLeft, offsetHeight } = element;
       if (offset) {
         [offsetTop, offsetLeft] = offsetPosition(element);
       }
       return {
         top: offsetTop,
         left: offsetLeft,
-        bottom: offsetTop + offsetHeight,
-        right: offsetLeft + offsetWidth
+        bottom: offsetTop + offsetHeight
       };
     }
 
@@ -3293,6 +3292,7 @@
         },
         {
           // iOS workaround for slider stopping if swiping fast
+          // https://bugs.webkit.org/show_bug.cgi?id=184251
           name: pointerMove,
           el: ({ list }) => list,
           handler: noop,
@@ -3342,7 +3342,7 @@
           const edge = prevIndex === nextIndex;
           let itemShown;
           for (const i of [this.index, this.prevIndex]) {
-            if (!includes([nextIndex, prevIndex], i)) {
+            if (i !== nextIndex && i !== prevIndex) {
               trigger(slides[i], "itemhidden", [this]);
               if (edge) {
                 itemShown = true;
@@ -3405,7 +3405,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.25';
+    var VERSION = '3.25.26';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -4174,9 +4174,9 @@
           await this._show(prev, next, force);
           prev && trigger(prev, "itemhidden", [this]);
           trigger(next, "itemshown", [this]);
-          stack.shift();
           this._transitioner = null;
           await awaitFrame();
+          stack.shift();
           if (stack.length) {
             this.show(stack.shift(), true);
           }
@@ -5921,6 +5921,7 @@
       }
     };
 
+    const pointerEnd = [pointerUp$1, pointerCancel];
     var sortable = {
       mixins: [Class, Animate],
       props: {
@@ -6043,7 +6044,7 @@
           this.placeholder = placeholder;
           this.origin = { target, index: index(placeholder), ...this.pos };
           on(document, pointerMove$1, this.move);
-          on(document, pointerUp$1, this.end);
+          on(document, pointerEnd, this.end);
           if (!this.threshold) {
             this.start(e);
           }
@@ -6069,7 +6070,7 @@
         }),
         end() {
           off(document, pointerMove$1, this.move);
-          off(document, pointerUp$1, this.end);
+          off(document, pointerEnd, this.end);
           if (!this.drag) {
             return;
           }
