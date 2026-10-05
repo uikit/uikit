@@ -4,6 +4,7 @@ import {
     isTag,
     isTouch,
     mute,
+    observeIntersection,
     parent,
     pause,
     play,
@@ -44,7 +45,7 @@ export default {
     },
 
     beforeConnect() {
-        const isVideo = isTag(this.$el, 'video');
+        const isVideo = (this.isVideo = isTag(this.$el, 'video'));
 
         this.restart = isVideo && this.restart;
         this.parallax = isVideo && this.autoplay === 'parallax';
@@ -56,7 +57,11 @@ export default {
             this.$el.loop = false;
         }
 
-        if (this.autoplay === 'inview' && isVideo && !hasAttr(this.$el, 'preload')) {
+        if (
+            ['hover', 'inview'].includes(this.autoplay) &&
+            isVideo &&
+            !hasAttr(this.$el, 'preload')
+        ) {
             this.$el.preload = 'none';
         }
 
@@ -82,7 +87,21 @@ export default {
         }
     },
 
+    connected() {
+        if (
+            this.isVideo &&
+            !this.$el.controls &&
+            !this.$el.poster &&
+            (this.manualControl || this.inviewQueued)
+        ) {
+            this.cancelPreview = preview(this.$el);
+        }
+    },
+
     disconnected() {
+        this.cancelPreview?.();
+        this.cancelPreview = null;
+
         if (this.$el[loopKey]) {
             this.$el.loop = true;
         }
@@ -188,7 +207,7 @@ export default {
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 this.pause();
 
-                if (isTag(this.$el, 'video')) {
+                if (this.isVideo) {
                     this.$el.currentTime = this.reducedMotionTime;
                 }
             } else {
@@ -201,6 +220,7 @@ export default {
                 queue.set(this.$el, this.inviewQueued);
                 playNextQueued();
             } else {
+                this.cancelPreview?.();
                 play(this.$el);
             }
         },
@@ -219,6 +239,31 @@ export default {
 
 function isPlaying(videoEl) {
     return !videoEl.paused && !videoEl.ended;
+}
+
+function preview($el) {
+    if (!$el.requestVideoFrameCallback) {
+        return;
+    }
+
+    let frame;
+    const pausePreview = () => {
+        disconnect();
+        pause($el);
+    };
+
+    const observer = observeIntersection($el, () => {
+        observer.disconnect();
+        frame = $el.requestVideoFrameCallback(pausePreview);
+        play($el);
+    });
+
+    const disconnect = () => {
+        observer.disconnect();
+        $el.cancelVideoFrameCallback(frame);
+    };
+
+    return disconnect;
 }
 
 const queue = new Map();
