@@ -29,7 +29,7 @@ import {
 } from 'uikit-util';
 import Class from '../mixin/class';
 import Container from '../mixin/container';
-import { keyMap } from '../util/keys';
+import { getNavigationIndex, keyMap } from '../util/keys';
 import { active } from './drop';
 
 export default {
@@ -200,20 +200,7 @@ export default {
                 }
 
                 const active = this.getActive();
-                let next = -1;
-
-                if (keyCode === keyMap.HOME) {
-                    next = 0;
-                } else if (keyCode === keyMap.END) {
-                    next = 'last';
-                } else if (keyCode === keyMap.UP) {
-                    next = 'previous';
-                } else if (keyCode === keyMap.DOWN) {
-                    next = 'next';
-                } else if (keyCode === keyMap.ESC) {
-                    active.targetEl?.focus();
-                }
-
+                const next = getNavigationIndex(keyCode, keyMap.UP, keyMap.DOWN);
                 if (~next) {
                     e.preventDefault();
                     const elements = $$(selFocusable, current);
@@ -225,6 +212,10 @@ export default {
                         )
                     ].focus();
                     return;
+                }
+
+                if (keyCode === keyMap.ESC) {
+                    active.targetEl?.focus();
                 }
 
                 handleNavItemNavigation(e, this.items, active);
@@ -417,25 +408,15 @@ export default {
 
 function handleNavItemNavigation(e, toggles, active) {
     const { current, keyCode } = e;
-    let next = -1;
-
-    if (keyCode === keyMap.HOME) {
-        next = 0;
-    } else if (keyCode === keyMap.END) {
-        next = 'last';
-    } else if (keyCode === keyMap.LEFT) {
-        next = 'previous';
-    } else if (keyCode === keyMap.RIGHT) {
-        next = 'next';
-    } else if (keyCode === keyMap.TAB) {
-        active.targetEl?.focus();
-        active.hide?.(false);
-    }
+    const next = getNavigationIndex(keyCode);
 
     if (~next) {
         e.preventDefault();
         active.hide?.(false);
         toggles[getIndex(next, toggles, toggles.indexOf(active.targetEl || current))].focus();
+    } else if (keyCode === keyMap.TAB) {
+        active.targetEl?.focus();
+        active.hide?.(false);
     }
 }
 

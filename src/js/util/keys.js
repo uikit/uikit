@@ -10,3 +10,17 @@ export const keyMap = {
     RIGHT: 39,
     DOWN: 40,
 };
+
+export function getNavigationIndex(keyCode, previousKey = keyMap.LEFT, nextKey = keyMap.RIGHT) {
+    switch (keyCode) {
+        case keyMap.HOME:
+            return 0;
+        case keyMap.END:
+            return 'last';
+        case previousKey:
+            return 'previous';
+        case nextKey:
+            return 'next';
+    }
+    return -1;
+}
