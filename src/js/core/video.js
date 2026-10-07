@@ -52,7 +52,7 @@ export default {
         this.restart = isVideo && this.restart;
         this.parallax = isVideo && this.autoplay === 'parallax';
         this.manualControl = ['hover', 'parallax'].includes(this.autoplay);
-        this.inviewQueued = this.autoplay === 'inview' && this.inviewQueued;
+        this.inviewQueued = isVideo && this.autoplay === 'inview' && this.inviewQueued;
 
         if (this.inviewQueued) {
             this.$el[loopKey] = this.$el.loop;
