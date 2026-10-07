@@ -366,11 +366,11 @@
  * Small
  */
 
-.uk-card-small.uk-card-body,
-.uk-card-small .uk-card-body { padding: @card-small-body-padding-vertical @card-small-body-padding-horizontal; }
+.uk-card-small:where(.uk-card-body),
+.uk-card-small :where(.uk-card-body) { padding: @card-small-body-padding-vertical @card-small-body-padding-horizontal; }
 
-.uk-card-small .uk-card-header { padding: @card-small-header-padding-vertical @card-small-header-padding-horizontal; }
-.uk-card-small .uk-card-footer { padding: @card-small-footer-padding-vertical @card-small-footer-padding-horizontal; }
+.uk-card-small :where(.uk-card-header) { padding: @card-small-header-padding-vertical @card-small-header-padding-horizontal; }
+.uk-card-small :where(.uk-card-footer) { padding: @card-small-footer-padding-vertical @card-small-footer-padding-horizontal; }
 
 /*
  * Large
@@ -379,11 +379,11 @@
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-card-large.uk-card-body,
-    .uk-card-large .uk-card-body { padding: @card-large-body-padding-vertical-l @card-large-body-padding-horizontal-l; }
+    .uk-card-large:where(.uk-card-body),
+    .uk-card-large :where(.uk-card-body) { padding: @card-large-body-padding-vertical-l @card-large-body-padding-horizontal-l; }
 
-    .uk-card-large .uk-card-header { padding: @card-large-header-padding-vertical-l @card-large-header-padding-horizontal-l; }
-    .uk-card-large .uk-card-footer { padding: @card-large-footer-padding-vertical-l @card-large-footer-padding-horizontal-l; }
+    .uk-card-large :where(.uk-card-header) { padding: @card-large-header-padding-vertical-l @card-large-header-padding-horizontal-l; }
+    .uk-card-large :where(.uk-card-footer) { padding: @card-large-footer-padding-vertical-l @card-large-footer-padding-horizontal-l; }
 
 }
 
