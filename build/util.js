@@ -170,8 +170,6 @@ export async function compile(
                 console.error(error);
             }
         });
-
-        await watcher.close();
     }
 }
 
