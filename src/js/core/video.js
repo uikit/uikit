@@ -99,6 +99,8 @@ export default {
     },
 
     disconnected() {
+        this._reverseAbort?.abort();
+
         this.cancelPreview?.();
         this.cancelPreview = null;
 
