@@ -163,8 +163,6 @@ export default {
                 continue;
             }
 
-            toggle.id = generateId(this, toggle);
-
             const active = includes(activeItems, this.items[index]);
 
             attr(content, {
@@ -176,21 +174,10 @@ export default {
                 attr(children(content), 'role', 'presentation');
             }
 
-            const controls = [content.id];
-            for (const { children } of this.connects) {
-                const item = children[index];
-
-                if (!item) {
-                    continue;
-                }
-
-                attr(item, {
-                    id: generateId(this, item),
-                    role: 'tabpanel',
-                    'aria-labelledby': toggle.id,
-                });
-                controls.push(item.id);
-            }
+            const controls = [
+                content.id,
+                ...this.connects.map(({ children }) => children[index]?.id).filter(Boolean),
+            ];
 
             attr(toggle, {
                 role: isTag(toggle, 'a') ? 'button' : null,
