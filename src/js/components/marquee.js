@@ -90,12 +90,11 @@ export default {
             }
 
             const listStart = dimensions(this.list)[dir[0]];
-            const listEnd = Math[!vertical && isRtl ? 'min' : 'max'](
-                ...items.map((el) => dimensions(el)[dir[1]]),
-            );
+            const itemEnds = items.map((el) => dimensions(el)[dir[1]]);
+            const listEnd = Math[!vertical && isRtl ? 'min' : 'max'](...itemEnds);
 
-            for (const el of items) {
-                const elEnd = dimensions(el)[dir[1]];
+            for (const [index, el] of items.entries()) {
+                const elEnd = itemEnds[index];
                 const line1 = listEnd - elEnd;
                 const line2 = elEnd - listStart;
                 const path = vertical
