@@ -227,7 +227,6 @@ export default {
     },
 };
 
-const rejectKey = Symbol();
 function animate(el, show, { transitionElement, _toggle }) {
     let rejectAnimation;
 
