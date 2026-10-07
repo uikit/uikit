@@ -1,4 +1,5 @@
-import { children, hasClass, isTag, queryAll, toArray } from 'uikit-util';
+import { attr, children, hasClass, isTag, queryAll, toArray } from 'uikit-util';
+import { generateId } from '../api/instance';
 import { lazyload } from '../api/observables';
 import Togglable from '../mixin/togglable';
 
@@ -36,6 +37,29 @@ export default {
     },
 
     observe: lazyload({ targets: ({ connectChildren }) => connectChildren }),
+
+    update() {
+        for (const index in this.toggles) {
+            const toggle = this.toggles[index];
+            if (!toggle) {
+                continue;
+            }
+
+            toggle.id = generateId(this, toggle);
+
+            for (const { children } of this.connects) {
+                const item = children[index];
+
+                if (item) {
+                    attr(item, {
+                        id: generateId(this, item),
+                        role: 'tabpanel',
+                        'aria-labelledby': toggle.id,
+                    });
+                }
+            }
+        }
+    },
 
     methods: {
         showConnects(index, animate) {
