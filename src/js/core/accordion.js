@@ -232,13 +232,8 @@ export default {
                     return transition(el, show, this);
                 });
 
-            const hideIndex = () => {
-                const index = findIndex(children(this.connects[0]), (el) => hasClass(el, this.cls));
-
-                return index === next
-                    ? findIndex(this.items, (i) => i !== item && includes(activeItems, i))
-                    : index;
-            };
+            const hideIndex = () =>
+                findIndex(this.items, (i) => i !== item && includes(activeItems, i));
 
             return Promise.all([
                 ...items.map(toggle),
