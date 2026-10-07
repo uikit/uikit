@@ -44,7 +44,7 @@
     /* 2 */
     align-items: center;
     /* 3 */
-    margin-left: -@pagination-margin-horizontal;
+    margin-left: calc(@pagination-margin-horizontal * -1);                          // instead of: -@pagination-margin-horizontal;
     /* 4 */
     padding: 0;
     list-style: none;

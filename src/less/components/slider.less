@@ -57,8 +57,8 @@
 .uk-slider-container-offset {
     margin-left: @slider-container-margin-left;
     margin-right: @slider-container-margin-right;
-    padding-left: -@slider-container-margin-left;
-    padding-right: -@slider-container-margin-right;
+    padding-left: calc(-1 * @slider-container-margin-left);                     // instead of: -@slider-container-margin-left;
+    padding-right: calc(-1 * @slider-container-margin-right);                   // instead of: -@slider-container-margin-right;
 }
 
 /* Items

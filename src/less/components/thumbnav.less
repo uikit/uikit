@@ -36,7 +36,7 @@
     padding: 0;
     list-style: none;
     /* 3 */
-    margin-left: -@thumbnav-margin-horizontal;
+    margin-left: calc(@thumbnav-margin-horizontal * -1);                                // instead of: -@thumbnav-margin-horizontal;
     .hook-thumbnav();
 }
 
@@ -87,7 +87,7 @@
     flex-direction: column;
     /* 2 */
     margin-left: 0;
-    margin-top: -@thumbnav-margin-vertical;
+    margin-top: calc(@thumbnav-margin-vertical * -1);                                   // instead of: -@thumbnav-margin-vertical;
 }
 
 /* 2 */

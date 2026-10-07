@@ -18,9 +18,9 @@
 @slidenav-padding-vertical:                     5px;
 @slidenav-padding-horizontal:                   10px;
 
-@slidenav-color:                                fade(@global-color, 50%);
-@slidenav-hover-color:                          fade(@global-color, 90%);
-@slidenav-active-color:                         fade(@global-color, 50%);
+@slidenav-color:                                rgb(from @global-color r g b / 0.5);                   // instead of: fade(@global-color, 50%);
+@slidenav-hover-color:                          rgb(from @global-color r g b / 0.9);                   // instead of: fade(@global-color, 90%);
+@slidenav-active-color:                         rgb(from @global-color r g b / 0.5);                   // instead of: fade(@global-color, 50%);
 
 @slidenav-large-padding-vertical:               10px;
 @slidenav-large-padding-horizontal:             @slidenav-large-padding-vertical;
@@ -109,9 +109,9 @@
 // Inverse
 // ========================================================================
 
-@inverse-slidenav-color:                       fade(@inverse-global-color, 70%);
-@inverse-slidenav-hover-color:                 fade(@inverse-global-color, 95%);
-@inverse-slidenav-active-color:                fade(@inverse-global-color, 70%);
+@inverse-slidenav-color:                       rgb(from @inverse-global-color r g b / 0.7);                     // instead of: fade(@inverse-global-color, 70%);
+@inverse-slidenav-hover-color:                 rgb(from @inverse-global-color r g b / 0.95);                    // instead of: fade(@inverse-global-color, 95%);
+@inverse-slidenav-active-color:                rgb(from @inverse-global-color r g b / 0.7);                     // instead of: fade(@inverse-global-color, 70%);
 
 .hook-inverse() {
 

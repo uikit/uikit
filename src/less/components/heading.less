@@ -13,25 +13,25 @@
 // Variables
 // ========================================================================
 
-@heading-small-font-size:                       @heading-small-font-size-m * 0.8;       // 38px 0.73
-@heading-medium-font-size:                      @heading-medium-font-size-m * 0.825;    // 40px 0.714
-@heading-large-font-size:                       @heading-large-font-size-m * 0.85;      // 50px 0.78
-@heading-xlarge-font-size:                      @heading-large-font-size-m;             // 4rem / 64px
-@heading-2xlarge-font-size:                     @heading-xlarge-font-size-m;            // 6rem / 96px
-@heading-3xlarge-font-size:                     @heading-2xlarge-font-size-m;           // 8rem / 128px
+@heading-small-font-size:                       calc(@heading-small-font-size-m * 0.8);         // 38px 0.73        || instead of: (@heading-small-font-size-m * 0.8)
+@heading-medium-font-size:                      calc(@heading-medium-font-size-m * 0.825);      // 40px 0.714       || instead of: (@heading-medium-font-size-m * 0.825)
+@heading-large-font-size:                       calc(@heading-large-font-size-m * 0.85);        // 50px 0.78        || instead of: (@heading-large-font-size-m * 0.85)
+@heading-xlarge-font-size:                      @heading-large-font-size-m;                     // 4rem / 64px
+@heading-2xlarge-font-size:                     @heading-xlarge-font-size-m;                    // 6rem / 96px
+@heading-3xlarge-font-size:                     @heading-2xlarge-font-size-m;                   // 8rem / 128px
 
-@heading-small-font-size-m:                     @heading-medium-font-size-l * 0.8125;   // 3.25rem / 52px
-@heading-medium-font-size-m:                    @heading-medium-font-size-l * 0.875;    // 3.5rem / 56px
-@heading-large-font-size-m:                     @heading-medium-font-size-l;            // 4rem / 64px
-@heading-xlarge-font-size-m:                    @heading-large-font-size-l;             // 6rem / 96px
-@heading-2xlarge-font-size-m:                   @heading-xlarge-font-size-l;            // 8rem / 128px
-@heading-3xlarge-font-size-m:                   @heading-2xlarge-font-size-l;           // 11rem / 176px
+@heading-small-font-size-m:                     calc(@heading-medium-font-size-l * 0.8125);     // 3.25rem / 52px   || instead of: (@heading-medium-font-size-l * 0.8125)
+@heading-medium-font-size-m:                    calc(@heading-medium-font-size-l * 0.875);      // 3.5rem / 56px    || instead of: (@heading-medium-font-size-l * 0.875)
+@heading-large-font-size-m:                     @heading-medium-font-size-l;                    // 4rem / 64px
+@heading-xlarge-font-size-m:                    @heading-large-font-size-l;                     // 6rem / 96px
+@heading-2xlarge-font-size-m:                   @heading-xlarge-font-size-l;                    // 8rem / 128px
+@heading-3xlarge-font-size-m:                   @heading-2xlarge-font-size-l;                   // 11rem / 176px
 
-@heading-medium-font-size-l:                    4rem;                                   // 64px
-@heading-large-font-size-l:                     6rem;                                   // 96px
-@heading-xlarge-font-size-l:                    8rem;                                   // 128px
-@heading-2xlarge-font-size-l:                   11rem;                                  // 176px
-@heading-3xlarge-font-size-l:                   15rem;                                  // 240px
+@heading-medium-font-size-l:                    4rem;                                           // 64px
+@heading-large-font-size-l:                     6rem;                                           // 96px
+@heading-xlarge-font-size-l:                    8rem;                                           // 128px
+@heading-2xlarge-font-size-l:                   11rem;                                          // 176px
+@heading-3xlarge-font-size-l:                   15rem;                                          // 240px
 
 @heading-small-line-height:                     1.2;
 @heading-medium-line-height:                    1.1;
