@@ -1,7 +1,6 @@
 import {
     css,
     getEventPos,
-    includes,
     isEqual,
     isRtl,
     isTouch,
@@ -81,6 +80,7 @@ export default {
 
         {
             // iOS workaround for slider stopping if swiping fast
+            // https://bugs.webkit.org/show_bug.cgi?id=184251
             name: pointerMove,
             el: ({ list }) => list,
             handler: noop,
@@ -154,7 +154,7 @@ export default {
             let itemShown;
 
             for (const i of [this.index, this.prevIndex]) {
-                if (!includes([nextIndex, prevIndex], i)) {
+                if (i !== nextIndex && i !== prevIndex) {
                     trigger(slides[i], 'itemhidden', [this]);
 
                     if (edge) {

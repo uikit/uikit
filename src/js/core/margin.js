@@ -112,7 +112,7 @@ export function getRows(elements) {
 }
 
 function getOffset(element, offset = false) {
-    let { offsetTop, offsetLeft, offsetHeight, offsetWidth } = element;
+    let { offsetTop, offsetLeft, offsetHeight } = element;
 
     if (offset) {
         [offsetTop, offsetLeft] = offsetPosition(element);
@@ -122,6 +122,5 @@ function getOffset(element, offset = false) {
         top: offsetTop,
         left: offsetLeft,
         bottom: offsetTop + offsetHeight,
-        right: offsetLeft + offsetWidth,
     };
 }

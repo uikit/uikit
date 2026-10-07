@@ -158,10 +158,10 @@ export default {
             prev && trigger(prev, 'itemhidden', [this]);
             trigger(next, 'itemshown', [this]);
 
-            stack.shift();
             this._transitioner = null;
 
             await awaitFrame();
+            stack.shift();
             if (stack.length) {
                 this.show(stack.shift(), true);
             }
