@@ -48,7 +48,11 @@ export function css(element, property, value, priority) {
                 priority,
             );
         } else if (isArray(property)) {
-            return Object.fromEntries(property.map((prop) => [prop, css(element, prop)]));
+            const values = {};
+            for (const prop of property) {
+                values[prop] = css(element, prop);
+            }
+            return values;
         } else if (isObject(property)) {
             for (const prop in property) {
                 css(element, prop, property[prop], value);
