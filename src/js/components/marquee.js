@@ -45,6 +45,12 @@ export default {
         },
     },
 
+    watch: {
+        items() {
+            this.$emit();
+        },
+    },
+
     observe: [
         resize({
             target: ({ $el, items }) => [$el, ...items],
