@@ -13,7 +13,6 @@ import {
     queryAll,
     toggleClass,
 } from 'uikit-util';
-import { generateId } from '../api/instance';
 import { swipe } from '../api/observables';
 import Connect from '../mixin/connect';
 import { maybeDefaultPreventClick } from '../mixin/event';
@@ -160,27 +159,11 @@ export default {
         attr(children(this.$el), 'role', 'presentation');
 
         for (const index in this.toggles) {
-            const toggle = this.toggles[index];
-            toggle.id = generateId(this, toggle);
+            const controls = this.connects
+                .map(({ children }) => children[index]?.id)
+                .filter(Boolean);
 
-            const controls = [];
-
-            for (const { children } of this.connects) {
-                const item = children[index];
-
-                if (!item) {
-                    continue;
-                }
-
-                attr(item, {
-                    id: generateId(this, item),
-                    role: 'tabpanel',
-                    'aria-labelledby': toggle.id,
-                });
-                controls.push(item.id);
-            }
-
-            attr(toggle, {
+            attr(this.toggles[index], {
                 role: 'tab',
                 'aria-controls': controls.join(' '),
             });
