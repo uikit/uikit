@@ -13,12 +13,13 @@ import {
     query,
 } from 'uikit-util';
 import { intersection } from '../api/observables';
+import Media from '../mixin/media';
 import ScrollDriven from '../mixin/scroll-driven';
 
 const loopKey = Symbol();
 
 export default {
-    mixins: [ScrollDriven],
+    mixins: [Media, ScrollDriven],
 
     args: 'autoplay',
 
@@ -42,6 +43,7 @@ export default {
         hoverTarget: false,
         hoverRewind: 0,
         reducedMotionTime: 0,
+        media: '(prefers-reduced-motion: reduce)',
     },
 
     beforeConnect() {
@@ -196,7 +198,9 @@ export default {
 
             const { duration, seeking } = this.$el;
 
-            if (!isNaN(duration) && !seeking) {
+            if (this.matchMedia) {
+                this._autoplay();
+            } else if (!isNaN(duration) && !seeking) {
                 this.$el.currentTime = percent * duration;
             }
         },
@@ -206,7 +210,7 @@ export default {
 
     methods: {
         _autoplay() {
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (this.matchMedia) {
                 this.pause();
 
                 if (this.isVideo) {
