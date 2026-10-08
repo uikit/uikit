@@ -277,23 +277,23 @@ const queue = new Map();
 const played = new WeakMap();
 
 let frame;
-async function playNextQueued() {
+function playNextQueued() {
     cancelAnimationFrame(frame);
-    await new Promise((resolve) => (frame = requestAnimationFrame(resolve)));
+    frame = requestAnimationFrame(() => {
+        const getPlayed = (el) => played.get(el) ?? 0;
+        const videos = shuffle(queue.keys()).sort((a, b) => getPlayed(a) - getPlayed(b));
 
-    const getPlayed = (el) => played.get(el) ?? 0;
-    const videos = shuffle(queue.keys()).sort((a, b) => getPlayed(a) - getPlayed(b));
+        for (const el of videos) {
+            const maxQueued = queue.get(el);
 
-    for (const el of videos) {
-        const maxQueued = queue.get(el);
+            if (isPlaying(el) || videos.filter(isPlaying).length / queue.size >= maxQueued) {
+                continue;
+            }
 
-        if (isPlaying(el) || videos.filter(isPlaying).length / queue.size >= maxQueued) {
-            continue;
+            played.set(el, getPlayed(el) + 1);
+            play(el);
         }
-
-        played.set(el, getPlayed(el) + 1);
-        play(el);
-    }
+    });
 }
 
 function shuffle(array) {
