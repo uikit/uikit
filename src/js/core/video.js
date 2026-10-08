@@ -148,6 +148,13 @@ export default {
             },
         },
         {
+            name: 'loadedmetadata durationchange',
+            filter: ({ parallax }) => parallax,
+            handler() {
+                this.$emit('resize');
+            },
+        },
+        {
             name: 'error pause ended',
             filter: ({ inviewQueued }) => inviewQueued,
             handler(e) {
