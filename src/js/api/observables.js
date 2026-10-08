@@ -36,11 +36,9 @@ export function mutation(options) {
 export function lazyload(options = {}) {
     return intersection({
         handler: function (entries, observer) {
-            const { targets = this.$el, preload = 5 } = options;
+            const { targets = this.$el, preload = 5, media = false } = options;
             for (const el of toNodes(isFunction(targets) ? targets(this) : targets)) {
-                $$('[loading="lazy"]', el)
-                    .slice(0, preload - 1)
-                    .forEach((el) => removeAttr(el, 'loading'));
+                (media ? preloadMedia : loadLazyElements)(el, preload);
             }
 
             for (const { isIntersecting, target } of entries) {
@@ -49,6 +47,20 @@ export function lazyload(options = {}) {
         },
         ...options,
     });
+}
+
+export function preloadMedia(el, preload = 5) {
+    loadLazyElements(el, preload);
+
+    for (const video of $$('video[preload="none"]', el)) {
+        video.preload = '';
+    }
+}
+
+function loadLazyElements(el, preload) {
+    $$('[loading="lazy"]', el)
+        .slice(0, preload - 1)
+        .forEach((el) => removeAttr(el, 'loading'));
 }
 
 export function viewport(options) {
