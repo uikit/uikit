@@ -6,12 +6,11 @@
 
 - Add Marquee component
 - Add options to control an additional switcher container to Accordion component
-- Add parallax options to Video component
 - Add `inview-margin` option to change the autoplay inview area in Video component
 - Add `inview-queued` option to limit the number of simultaneously playing videos in Video component
 - Add `hover-rewind` option to fast rewind videos after hovering in Video component
 - Add `reduced-motion-time` option to control which frame is shown when autoplay is prevented due to `prefers-reduced-motion` in Video component
-- Add `parallax` autoplay mode and `parallax-start`, `parallax-end`, `parallax-target`, `parallax-easing` options to Video component
+- Add `parallax` autoplay mode and `parallax-start`, `parallax-end`, `parallax-target`, and `parallax-easing` options to Video component
 - Add text balance class to Text component
 - Add margin trim block class to Margin component
 - Add margin vertical auto gap class to Margin component
@@ -21,7 +20,7 @@
 - IMPORTANT: Rename `uk-box-shadow-bottom` class to `uk-floating-shadow`
 - Refactor selector specificity in Grid, Base and Form components to remove important keywords in Margin component
 - Refactor classes with single-direction margin to override classes with multiple margin directions in Margin component
-- Respect `prefers-reduced-motion` preference for all autoplay modes except hover in Video component
+- Respect `prefers-reduced-motion` preference for all autoplay modes in Video component
 - Move logo, dropcap and floating shadow from utility to their own components
 - Moved Search component LESS import to load after the Form component
 - Use `row-gap` for stacked grid columns instead of relying on the `uk-grid` attribute
