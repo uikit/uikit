@@ -49,13 +49,14 @@ export default {
     beforeConnect() {
         const isVideo = (this.isVideo = isTag(this.$el, 'video'));
 
-        if (['hover', 'parallax'].includes(this.autoplay) && !isVideo) {
-            this.autoplay = false;
+        this.interactionDriven = ['hover', 'parallax'].includes(this.autoplay);
+
+        if (this.interactionDriven && !isVideo) {
+            this.interactionDriven = this.autoplay = false;
         }
 
         this.restart = isVideo && this.restart;
         this.parallax = this.autoplay === 'parallax';
-        this.manualControl = ['hover', 'parallax'].includes(this.autoplay);
         this.inviewQueued = isVideo && this.autoplay === 'inview' && this.inviewQueued;
 
         if (this.inviewQueued) {
@@ -93,7 +94,7 @@ export default {
         if (
             !this.$el.controls &&
             !this.$el.poster &&
-            (this.manualControl || this.inviewQueued)
+            (this.interactionDriven || this.inviewQueued)
         ) {
             this.cancelPreview = preview(this.$el);
         }
@@ -176,7 +177,7 @@ export default {
         }),
 
         intersection({
-            filter: ({ $el, manualControl }) => !manualControl && $el.preload !== 'none',
+            filter: ({ $el, interactionDriven }) => !interactionDriven && $el.preload !== 'none',
             handler([{ isIntersecting }]) {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
