@@ -3,6 +3,7 @@ import {
     children,
     css,
     dimensions,
+    getIndex,
     hasClass,
     inBrowser,
     isRtl,
@@ -11,7 +12,7 @@ import {
     toggleClass,
     toPx,
 } from 'uikit-util';
-import { intersection, resize } from '../api/observables';
+import { intersection, preloadMedia, resize } from '../api/observables';
 import Class from '../mixin/class';
 
 const hasAnimationApi = inBrowser && window.Animation;
@@ -57,8 +58,29 @@ export default {
         }),
         intersection({
             handler(entries) {
+                let active;
                 for (const entry of entries) {
                     entry.target.inert = !entry.isIntersecting;
+                    active ||= entry.isIntersecting && entry.target;
+                }
+
+                if (!active) {
+                    return;
+                }
+
+                const { items } = this;
+                const index = items.indexOf(active);
+                if (!~index) {
+                    return;
+                }
+
+                const direction = this.reverse ? 1 : -1;
+                for (let offset = 1; offset < items.length; offset++) {
+                    const item = items[getIndex(index + direction * offset, items)];
+                    if (item.inert) {
+                        preloadMedia(item);
+                        break;
+                    }
                 }
             },
             target: ({ items }) => items,
@@ -66,6 +88,12 @@ export default {
             options: ({ $el }) => ({ root: $el }),
         }),
     ],
+
+    methods: {
+        vertical() {
+            return hasClass(this.$el, `${this.$options.id}-vertical`);
+        },
+    },
 
     events: {
         name: [pointerEnter, pointerLeave],
@@ -86,7 +114,7 @@ export default {
         write() {
             const prefix = this.$options.id;
             const items = this.items;
-            const vertical = hasClass(this.$el, `${prefix}-vertical`);
+            const vertical = this.vertical();
 
             css(items, 'offset', 'none');
 
