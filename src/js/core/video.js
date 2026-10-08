@@ -282,16 +282,18 @@ function playNextQueued() {
     frame = requestAnimationFrame(() => {
         const getPlayed = (el) => played.get(el) ?? 0;
         const videos = shuffle(queue.keys()).sort((a, b) => getPlayed(a) - getPlayed(b));
+        let active = videos.filter(isPlaying).length;
 
         for (const el of videos) {
             const maxQueued = queue.get(el);
 
-            if (isPlaying(el) || videos.filter(isPlaying).length / queue.size >= maxQueued) {
+            if (isPlaying(el) || active / queue.size >= maxQueued) {
                 continue;
             }
 
             played.set(el, getPlayed(el) + 1);
             play(el);
+            active++;
         }
     });
 }
