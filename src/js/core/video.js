@@ -140,7 +140,7 @@ export default {
             filter: ({ autoplay }) => autoplay === 'hover',
 
             handler(e) {
-                if (!isTouch(e)) {
+                if (!isTouch(e) && !this.matchMedia) {
                     this._reverseAbort?.abort();
                     this.pause();
                     this._reverseAbort = playReverse(this.$el, this.hoverRewind);
@@ -182,7 +182,7 @@ export default {
                 if (!document.fullscreenElement) {
                     if (isIntersecting) {
                         if (this.autoplay) {
-                            this._autoplay();
+                            this.play();
                         }
                     } else {
                         this.pause();
@@ -206,7 +206,7 @@ export default {
             const { duration, seeking } = this.$el;
 
             if (this.matchMedia) {
-                this._autoplay();
+                this.play();
             } else if (!isNaN(duration) && !seeking) {
                 this.$el.currentTime = percent * duration;
             }
@@ -216,20 +216,14 @@ export default {
     },
 
     methods: {
-        _autoplay() {
+        play() {
             if (this.matchMedia) {
                 this.pause();
 
                 if (this.isVideo) {
                     this.$el.currentTime = this.reducedMotionTime;
                 }
-            } else {
-                this.play();
-            }
-        },
-
-        play() {
-            if (this.inviewQueued) {
+            } else if (this.inviewQueued) {
                 queue.set(this.$el, this.inviewQueued);
                 playNextQueued();
             } else {
