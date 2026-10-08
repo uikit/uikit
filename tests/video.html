@@ -335,25 +335,25 @@
                         <td><code>autoplay</code></td>
                         <td>Boolean, String</td>
                         <td>true</td>
-                        <td>Disable or enable autoplay (`false`, `true`). Videos will stop when hidden and continue playing when leaving the viewport. Use `inview` to also stop the video when leaving the viewport. Use `hover` to play the video only on hover. Use `parallax` to connect video playback to scrolling. Note: `hover` and `parallax` do not work with iframes.</td>
+                        <td>Disable or enable autoplay (`false`, `true`). Videos will stop when hidden and continue playing when leaving the viewport. Use `inview` to also stop the video when leaving the viewport. Use `hover` to play the video only on hover, and `parallax` to connect video playback to scrolling. Both modes set iframe autoplay to `false` and are supported by native videos only.</td>
                     </tr>
                     <tr>
                         <td><code>restart</code></td>
                         <td>Boolean</td>
                         <td>false</td>
-                        <td>Seeks the video back to the beginning whenever autoplay pauses it.</td>
+                        <td>Seeks the video back to the beginning whenever autoplay pauses it. Native videos only.</td>
                     </tr>
                     <tr>
                         <td><code>hover-target</code></td>
                         <td>CSS Selector</td>
                         <td>self</td>
-                        <td>Element used as the hover trigger when `autoplay` is set to `hover`.</td>
+                        <td>Element used as the hover trigger when `autoplay` is set to `hover`. Native videos only.</td>
                     </tr>
                     <tr>
                         <td><code>hover-rewind</code></td>
                         <td>Number</td>
                         <td>0</td>
-                        <td>The rate at which the video is being rewound once the element is no longer hovered, when autoplay option is set to `hover`. The rewind speed accelerates after 5 seconds of playback.</td>
+                        <td>The rate at which the video is rewound once the element is no longer hovered, when the autoplay option is set to `hover`. After 5 seconds of playback, the rewind speed increases by half the configured rate for every additional 5 seconds of playback. Native videos only.</td>
                     </tr>
                     <tr>
                         <td><code>inview-margin</code></td>
@@ -365,37 +365,37 @@
                         <td><code>inview-queued</code></td>
                         <td>Number</td>
                         <td>0</td>
-                        <td>Limits the number of simultaneously playing videos when multiple videos are in view. The value is a ratio (0–1) of videos that may play at once relative to all queued in-view videos.</td>
+                        <td>Limits the number of simultaneously playing videos when multiple videos are in view. The value is a ratio (0–1) of videos that may play at once relative to all queued in-view videos. Native videos only.</td>
                     </tr>
                     <tr>
                         <td><code>parallax-target</code></td>
                         <td>CSS selector</td>
                         <td>false</td>
-                        <td>Element dimension reference for the parallax duration. Defaults to the video element.</td>
+                        <td>Element dimension reference for the parallax duration. Defaults to the video element. Native videos only.</td>
                     </tr>
                     <tr>
                         <td><code>parallax-start</code></td>
                         <td>Length</td>
                         <td>0</td>
-                        <td>Start offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the target's top border and viewport's bottom border intersect.</td>
+                        <td>Start offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the target's top border and viewport's bottom border intersect. Native videos only.</td>
                     </tr>
                     <tr>
                         <td><code>parallax-end</code></td>
                         <td>Length</td>
                         <td>0</td>
-                        <td>End offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the target's bottom border and the viewport's top border intersect.</td>
+                        <td>End offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the target's bottom border and the viewport's top border intersect. Native videos only.</td>
                     </tr>
                     <tr>
                         <td><code>parallax-easing</code></td>
                         <td>Number</td>
                         <td>0</td>
-                        <td>Animation easing during scrolling.</td>
+                        <td>Animation easing during scrolling. Native videos only.</td>
                     </tr>
                     <tr>
                         <td><code>reduced-motion-time</code></td>
                         <td>Number</td>
                         <td>0</td>
-                        <td>The time in seconds to seek to when autoplay is prevented by the `prefers-reduced-motion` media query. The video is paused at this position to display a still frame.</td>
+                        <td>The time in seconds to seek to when autoplay is prevented by the `prefers-reduced-motion` media query. The video is paused at this position to display a still frame. Native videos only.</td>
                     </tr>
                 </tbody>
             </table>
