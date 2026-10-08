@@ -49,8 +49,12 @@ export default {
     beforeConnect() {
         const isVideo = (this.isVideo = isTag(this.$el, 'video'));
 
+        if (['hover', 'parallax'].includes(this.autoplay) && !isVideo) {
+            this.autoplay = false;
+        }
+
         this.restart = isVideo && this.restart;
-        this.parallax = isVideo && this.autoplay === 'parallax';
+        this.parallax = this.autoplay === 'parallax';
         this.manualControl = ['hover', 'parallax'].includes(this.autoplay);
         this.inviewQueued = isVideo && this.autoplay === 'inview' && this.inviewQueued;
 
@@ -72,14 +76,10 @@ export default {
         }
 
         if (this.autoplay === 'hover') {
-            if (isVideo) {
-                this.hoverTarget = query(this.hoverTarget, this.$el) || this.$el;
+            this.hoverTarget = query(this.hoverTarget, this.$el) || this.$el;
 
-                if (!isFocusable(this.hoverTarget)) {
-                    this.hoverTarget.tabIndex = 0;
-                }
-            } else {
-                this.autoplay = true;
+            if (!isFocusable(this.hoverTarget)) {
+                this.hoverTarget.tabIndex = 0;
             }
         }
 
@@ -91,7 +91,6 @@ export default {
 
     connected() {
         if (
-            this.isVideo &&
             !this.$el.controls &&
             !this.$el.poster &&
             (this.manualControl || this.inviewQueued)
