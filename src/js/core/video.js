@@ -204,11 +204,9 @@ export default {
             }
 
             const { duration, seeking } = this.$el;
-
-            if (this.matchMedia) {
-                this.play();
-            } else if (!isNaN(duration) && !seeking) {
-                this.$el.currentTime = percent * duration;
+            if (!isNaN(duration) && !seeking) {
+                const value = this.matchMedia ? this.reducedMotionTime : percent * duration;
+                setCurrentTime(this.$el, value);
             }
         },
 
@@ -221,7 +219,7 @@ export default {
                 this.pause();
 
                 if (this.isVideo) {
-                    this.$el.currentTime = this.reducedMotionTime;
+                    setCurrentTime(this.$el, this.reducedMotionTime);
                 }
             } else if (this.inviewQueued) {
                 queue.set(this.$el, this.inviewQueued);
@@ -238,11 +236,17 @@ export default {
             queue.delete(this.$el);
 
             if (this.restart) {
-                this.$el.currentTime = 0;
+                setCurrentTime(this.$el, 0);
             }
         },
     },
 };
+
+function setCurrentTime(videoEl, time) {
+    if (videoEl.currentTime !== time) {
+        videoEl.currentTime = time;
+    }
+}
 
 function isPlaying(videoEl) {
     return !videoEl.paused && !videoEl.ended;
