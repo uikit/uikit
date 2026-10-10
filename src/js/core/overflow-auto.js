@@ -36,7 +36,10 @@ export default {
             return {
                 max: Math.max(
                     this.minHeight,
-                    height(this.container) - (dimensions(this.content).height - height(this.$el)),
+                    Math.floor(
+                        height(this.container) -
+                            (dimensions(this.content).height - height(this.$el)),
+                    ),
                 ),
             };
         },
