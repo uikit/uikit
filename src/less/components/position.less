@@ -175,14 +175,19 @@
 
 /*
  * Cover
+ * 1. Make replaced elements (e.g. images and videos) fill the container
  */
 
 .uk-position-cover {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
+}
+
+/* 1 */
+:where(img,video).uk-position-cover {
+    box-sizing: border-box;
+    width: ~'calc(100% - (var(--uk-position-margin-offset) * 2))';
+    height: ~'calc(100% - (var(--uk-position-margin-offset) * 2))';
 }
 
 
