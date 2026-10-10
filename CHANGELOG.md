@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Overflow Auto continuously rewriting a fractional `max-height` on every frame
+
 ## 3.25.26 (October 5, 2026)
 
 ### Fixed
