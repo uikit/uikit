@@ -1,4 +1,4 @@
-import { css, dimensions, height, isVisible } from 'uikit-util';
+import { boxModelAdjust, css, dimensions, isVisible } from 'uikit-util';
 import { resize } from '../api/observables';
 import Class from '../mixin/class';
 
@@ -48,3 +48,7 @@ export default {
         events: ['resize'],
     },
 };
+
+function height(el) {
+    return dimensions(el).height - boxModelAdjust(el, 'height', css(el, 'boxSizing'));
+}
