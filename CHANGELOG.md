@@ -14,6 +14,7 @@
 - Add text balance class to Text component
 - Add margin trim block class to Margin component
 - Add margin vertical auto gap class to Margin component
+- Add position cover support for images and videos in Position component
 
 ### Changed
 
