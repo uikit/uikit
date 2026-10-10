@@ -27,10 +27,13 @@
  ========================================================================== */
 
 /*
- * Hide not active items
+ * 1. Hide not active items
+ * 2. Do not hide the first child if the switcher is not activated
  */
 
-.uk-switcher > :not(.uk-active) { display: none; }
+/* 1 */
+.uk-switcher:has(> .uk-active) > :not(.uk-active),
+.uk-switcher:not(:has(> .uk-active)) > :not(:first-child) { display: none; }
 
 /*
  * Remove margin from the last-child
