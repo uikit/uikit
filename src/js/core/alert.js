@@ -32,7 +32,7 @@ export default {
 
     methods: {
         async close() {
-            await this.toggleElement(this.$el, false, animate);
+            await this.toggleElement(this.$el, false, this.animation ? animate : false);
             this.$destroy(true);
         },
     },
