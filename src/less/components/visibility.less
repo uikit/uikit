@@ -114,10 +114,10 @@
  *    Note: `clip-path` doesn't work with `tabindex` on touch devices.
  */
 
-.uk-hidden-visually:not(:focus):not(:active):not(:focus-within),
-.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-visible):not(:has(:focus-visible)),
+.uk-hidden-visually:not(:focus, :active, :focus-within),
+.uk-visible-toggle:not(:hover, :focus) .uk-hidden-hover:not(:focus-visible, :has(:focus-visible)),
 // Fallback for Safari 18.3 `:not(:has(...)) invalidation` bug. Remove when fixed.
-.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-within) {
+.uk-visible-toggle:not(:hover, :focus) .uk-hidden-hover:not(:focus-within) {
     /* 1 */
     position: absolute !important;
     /* 2 */
@@ -135,7 +135,7 @@
  * Note: `clip-path` doesn't work with hover for elements outside of the toggle box.
  */
 
-.uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) { opacity: 0 !important; }
+.uk-visible-toggle:not(:hover, :focus) .uk-invisible-hover:not(:focus-within) { opacity: 0 !important; }
 
 
 /* Based on Hover Capability of the Pointing Device
