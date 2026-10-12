@@ -271,7 +271,7 @@
  */
 
 .uk-input,
-.uk-select:not([multiple]):not([size]) {
+.uk-select:not([multiple], [size]) {
     height: @form-height;
     vertical-align: middle;
     .hook-form-single-line();
@@ -403,7 +403,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * 3. Set `color` for options in the select dropdown, because the inherited `color` might be too light.
  */
 
-.uk-select:not([multiple]):not([size]) {
+.uk-select:not([multiple], [size]) {
     /* 1 */
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -415,13 +415,13 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 }
 
 /* 3 */
-.uk-select:not([multiple]):not([size]) option { color: @form-select-option-color; }
+.uk-select:not([multiple], [size]) option { color: @form-select-option-color; }
 
 /*
  * Disabled
  */
 
-.uk-select:not([multiple]):not([size]):disabled { .svg-fill(@internal-form-select-image, "#000", @form-select-disabled-icon-color); }
+.uk-select:not([multiple], [size]):disabled { .svg-fill(@internal-form-select-image, "#000", @form-select-disabled-icon-color); }
 
 
 /* Datalist
@@ -539,7 +539,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-form-small:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: @form-small-font-size; }
 
 /* Single-line */
-.uk-form-small:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
+.uk-form-small:is(.uk-input, .uk-search-input, .uk-select:not([multiple], [size])) {
     height: @form-small-height;
     padding-left: @form-small-padding-horizontal;
     padding-right: @form-small-padding-horizontal;
@@ -549,7 +549,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-form-small:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: @form-small-multi-line-padding-vertical @form-small-multi-line-padding-horizontal; }
 
 /* Any element */
-.uk-form-small:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: @form-small-line-height; }
+.uk-form-small:not(select, input, textarea, [type="radio"], [type="checkbox"]) { line-height: @form-small-line-height; }
 
 /* Radio + Checkbox */
 .uk-form-small:is(.uk-radio, .uk-checkbox) {
@@ -564,7 +564,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-form-large:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: @form-large-font-size; }
 
 /* Single-line */
-.uk-form-large:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
+.uk-form-large:is(.uk-input, .uk-search-input, .uk-select:not([multiple], [size])) {
     height: @form-large-height;
     padding-left: @form-large-padding-horizontal;
     padding-right: @form-large-padding-horizontal;
@@ -574,7 +574,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-form-large:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: @form-large-multi-line-padding-vertical @form-large-multi-line-padding-horizontal; }
 
 /* Any element */
-.uk-form-large:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: @form-large-line-height; }
+.uk-form-large:not(select, input, textarea, [type="radio"], [type="checkbox"]) { line-height: @form-large-line-height; }
 
 /* Radio + Checkbox */
 .uk-form-large:is(.uk-radio, .uk-checkbox) {
@@ -755,7 +755,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Make `input` element clickable through icon, e.g. if it's a `span`
  */
 
-.uk-form-icon:not(a):not(button):not(input) { pointer-events: none; }
+.uk-form-icon:not(a, button, input) { pointer-events: none; }
 
 /*
  * Input padding
@@ -856,7 +856,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     // Select
     //
 
-    .uk-select:not([multiple]):not([size]) { .svg-fill(@internal-form-select-image, "#000", @inverse-form-select-icon-color); }
+    .uk-select:not([multiple], [size]) { .svg-fill(@internal-form-select-image, "#000", @inverse-form-select-icon-color); }
 
     //
     // Datalist
