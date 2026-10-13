@@ -6,6 +6,7 @@
 
 - Add Marquee component
 - Add options to control an additional switcher container to Accordion component
+- Add `uk-switcher-animation` attribute to override animations for connected Switcher containers
 - Add `inview-margin` option to change the autoplay inview area in Video component
 - Add `inview-queued` option to limit the number of simultaneously playing videos in Video component
 - Add `hover-rewind` option to fast rewind videos after hovering in Video component
