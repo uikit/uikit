@@ -1,7 +1,10 @@
-import { attr, children, hasClass, isTag, queryAll, toArray } from 'uikit-util';
+import { attr, children, data, hasClass, isTag, queryAll, toArray } from 'uikit-util';
+import App from '../api';
 import { generateId } from '../api/instance';
 import { lazyload } from '../api/observables';
 import Togglable from '../mixin/togglable';
+
+const TogglableComponent = App.extend(Togglable);
 
 export default {
     mixins: [Togglable],
@@ -63,13 +66,21 @@ export default {
 
     methods: {
         showConnects(index, animate) {
-            const toggle = async ({ children }) => {
+            const toggle = async (el) => {
+                const { children } = el;
+
+                const animation = data(el, 'uk-switcher-animation');
+
+                let togglable = animation
+                    ? new TogglableComponent({ data: { ...this.$props, animation } })
+                    : this;
+
                 const actives = toArray(children).filter(
                     (child, i) => i !== index && hasClass(child, this.cls),
                 );
 
-                if (await this.toggleElement(actives, false, animate)) {
-                    await this.toggleElement(children[index], true, animate);
+                if (await togglable.toggleElement(actives, false, animate)) {
+                    await togglable.toggleElement(children[index], true, animate);
                 }
             };
 
