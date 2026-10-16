@@ -36,7 +36,7 @@
         "@eslint/js": "^10.0.1",
         "@rollup/plugin-alias": "^6.0.0",
         "archiver": "^8.0.0",
-        "camelcase": "^9.0.0",
+        "camelcase": "^10.0.0",
         "clean-css": "^5.3.3",
         "esbuild": "^0.28.0",
         "eslint": "^10.0.0",
