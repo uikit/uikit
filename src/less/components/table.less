@@ -261,11 +261,11 @@
 
     .uk-table-responsive th:not(:first-child):not(.uk-table-link),
     .uk-table-responsive td:not(:first-child):not(.uk-table-link),
-    .uk-table-responsive .uk-table-link:not(:first-child) > a { padding-top: round((@table-cell-padding-vertical / 3)) !important; }
+    .uk-table-responsive .uk-table-link:not(:first-child) > a { padding-top: ~'round(up, calc(@table-cell-padding-vertical / 3), 1px)' !important; }     // instead of: round((@table-cell-padding-vertical / 3))
 
     .uk-table-responsive th:not(:last-child):not(.uk-table-link),
     .uk-table-responsive td:not(:last-child):not(.uk-table-link),
-    .uk-table-responsive .uk-table-link:not(:last-child) > a { padding-bottom: round((@table-cell-padding-vertical / 3)) !important; }
+    .uk-table-responsive .uk-table-link:not(:last-child) > a { padding-bottom: ~'round(up, calc(@table-cell-padding-vertical / 3), 1px)' !important; }   // instead of: round((@table-cell-padding-vertical / 3))
 
     .uk-table-justify.uk-table-responsive th,
     .uk-table-justify.uk-table-responsive td {
@@ -300,7 +300,7 @@
 
 @inverse-table-header-cell-color:                       @inverse-global-color;
 @inverse-table-caption-color:                           @inverse-global-muted-color;
-@inverse-table-row-active-background:                   fadeout(@inverse-global-muted-background, 2%);
+@inverse-table-row-active-background:                   rgb(from @inverse-global-muted-background r g b / calc(alpha - 0.02)); // instead of: fadeout(@inverse-global-muted-background, 2%);
 @inverse-table-divider-border:                          @inverse-global-border;
 @inverse-table-striped-row-background:                  @inverse-global-muted-background;
 @inverse-table-hover-row-background:                    @inverse-table-row-active-background;
