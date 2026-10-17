@@ -26,7 +26,7 @@
 // Variables
 // ========================================================================
 
-@modal-z-index:                                 @global-z-index + 10;
+@modal-z-index:                                 calc(@global-z-index + 10);                         // instead of: @global-z-index + 10;
 @modal-background:                              rgba(0,0,0,0.6);
 
 @modal-padding-horizontal:                      15px;
@@ -46,15 +46,15 @@
 @modal-body-padding-vertical-s:                 @global-gutter;
 
 @modal-header-padding-horizontal:               20px;
-@modal-header-padding-vertical:                 (@modal-header-padding-horizontal / 2);
+@modal-header-padding-vertical:                 calc(@modal-header-padding-horizontal / 2);             // instead of: (@modal-header-padding-horizontal / 2);
 @modal-header-padding-horizontal-s:             @global-gutter;
-@modal-header-padding-vertical-s:               (@modal-header-padding-horizontal-s / 2);
+@modal-header-padding-vertical-s:               calc(@modal-header-padding-horizontal-s / 2);           // instead of: (@modal-header-padding-horizontal-s / 2);
 @modal-header-background:                       @global-muted-background;
 
 @modal-footer-padding-horizontal:               20px;
-@modal-footer-padding-vertical:                 (@modal-footer-padding-horizontal / 2);
+@modal-footer-padding-vertical:                 calc(@modal-footer-padding-horizontal / 2);             // instead of: (@modal-footer-padding-horizontal / 2);
 @modal-footer-padding-horizontal-s:             @global-gutter;
-@modal-footer-padding-vertical-s:               (@modal-footer-padding-horizontal-s / 2);
+@modal-footer-padding-vertical-s:               calc(@modal-footer-padding-horizontal-s / 2);           // instead of: (@modal-footer-padding-horizontal-s / 2);
 @modal-footer-background:                       @global-muted-background;
 
 @modal-title-font-size:                         @global-xlarge-font-size;
@@ -65,7 +65,7 @@
 
 @modal-close-outside-position:                  0;
 @modal-close-outside-translate:                 100%;
-@modal-close-outside-color:                     lighten(@global-inverse-color, 20%);
+@modal-close-outside-color:                     hsl(from @global-inverse-color h s ~'calc(l + 20)');    // instead of: lighten(@global-inverse-color, 20%);
 @modal-close-outside-hover-color:               @global-inverse-color;
 
 
@@ -308,8 +308,8 @@
 .uk-modal-close-outside {
     top: @modal-close-outside-position;
     /* 1 */
-    right: -@modal-close-padding;
-    transform: translate(0, -(@modal-close-outside-translate));
+    right: calc(@modal-close-padding * -1);                                                                     // instead of: -@modal-close-padding;
+    transform: translate(0, calc(@modal-close-outside-translate * -1));                                         // instead of: -(@modal-close-outside-translate)
     color: @modal-close-outside-color;
     .hook-modal-close-outside();
 }
@@ -325,7 +325,7 @@
     /* 1 */
     .uk-modal-close-outside {
         right: @modal-close-outside-position;
-        transform: translate(@modal-close-outside-translate, -(@modal-close-outside-translate));
+        transform: translate(@modal-close-outside-translate, calc(@modal-close-outside-translate * -1));        // instead of: -(@modal-close-outside-translate)
     }
 
 }
