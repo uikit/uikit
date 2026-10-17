@@ -1,9 +1,12 @@
 import {
     $,
+    attr,
     getTargetedElement,
+    isFocusable,
     isSameSiteAnchor,
     off,
     on,
+    once,
     scrollIntoView,
     trigger,
 } from 'uikit-util';
@@ -31,6 +34,14 @@ export default {
 
             if (trigger(this.$el, 'beforescroll', [this, el])) {
                 await scrollIntoView(el, { offset: this.offset });
+
+                if (!isFocusable(el)) {
+                    attr(el, 'tabindex', '-1');
+                    once(el, 'blur', () => attr(el, 'tabindex', null));
+                }
+
+                el.focus({ preventScroll: true });
+
                 trigger(this.$el, 'scrolled', [this, el]);
             }
         },
