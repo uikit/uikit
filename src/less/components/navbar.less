@@ -171,7 +171,7 @@
     width: max-content;
     box-sizing: border-box;
     /* 3 */
-    z-index: @global-z-index - 10;
+    z-index: calc(@global-z-index - 10);                                            // instead of: @global-z-index - 10
     /* 4 */
     height: 100%;
     align-items: stretch;
@@ -427,7 +427,7 @@
  */
 
 /* Gutter Horizontal */
-.uk-navbar-dropdown .uk-drop-grid { margin-left: -@navbar-dropdown-grid-gutter-horizontal; }
+.uk-navbar-dropdown .uk-drop-grid { margin-left: calc(@navbar-dropdown-grid-gutter-horizontal * -1); }          // instead of: -@navbar-dropdown-grid-gutter-horizontal;
 .uk-navbar-dropdown .uk-drop-grid > * { padding-left: @navbar-dropdown-grid-gutter-horizontal; }
 
 /* Gutter Vertical */
@@ -437,10 +437,10 @@
  * Width modifier
  */
 
-.uk-navbar-dropdown-width-2:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 2); }
-.uk-navbar-dropdown-width-3:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 3); }
-.uk-navbar-dropdown-width-4:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 4); }
-.uk-navbar-dropdown-width-5:not(.uk-drop-stack) { width: (@navbar-dropdown-width * 5); }
+.uk-navbar-dropdown-width-2:not(.uk-drop-stack) { width: calc(@navbar-dropdown-width * 2); }                    // instead of: (@navbar-dropdown-width * 2);
+.uk-navbar-dropdown-width-3:not(.uk-drop-stack) { width: calc(@navbar-dropdown-width * 3); }                    // instead of: (@navbar-dropdown-width * 3);
+.uk-navbar-dropdown-width-4:not(.uk-drop-stack) { width: calc(@navbar-dropdown-width * 4); }                    // instead of: (@navbar-dropdown-width * 4);
+.uk-navbar-dropdown-width-5:not(.uk-drop-stack) { width: calc(@navbar-dropdown-width * 5); }                    // instead of: (@navbar-dropdown-width * 5);
 
 /*
  * Size modifier
