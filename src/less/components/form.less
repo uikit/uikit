@@ -61,12 +61,12 @@
 @form-width-medium:                             200px;
 @form-width-large:                              500px;
 
-@form-select-padding-right:                     20px;
+@form-select-padding-inline-end:                20px;
 @form-select-icon-color:                        @global-color;
 @form-select-option-color:                      @global-color;
 @form-select-disabled-icon-color:               @global-muted-color;
 
-@form-datalist-padding-right:                   20px;
+@form-datalist-padding-inline-end:              20px;
 @form-datalist-icon-color:                      @global-color;
 
 @form-radio-size:                               16px;
@@ -106,7 +106,7 @@
 
 @form-horizontal-label-width:                   200px;
 @form-horizontal-label-margin-top:              7px;
-@form-horizontal-controls-margin-left:          215px;
+@form-horizontal-controls-margin-inline-start:  215px;
 @form-horizontal-controls-text-padding-top:     7px;
 
 @form-icon-width:                               @form-height;
@@ -408,10 +408,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     -webkit-appearance: none;
     -moz-appearance: none;
     /* 2 */
-    padding-right: @form-select-padding-right;
+    padding-inline-end: @form-select-padding-inline-end;
     .svg-fill(@internal-form-select-image, "#000", @form-select-icon-color);
     background-repeat: no-repeat;
-    background-position: 100% 50%;
+    background-position: var(--dir-end) 50%;
 }
 
 /* 3 */
@@ -432,9 +432,9 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  */
 
  .uk-input[list] {
-    padding-right: @form-datalist-padding-right;
+    padding-inline-end: @form-datalist-padding-inline-end;
     background-repeat: no-repeat;
-    background-position: 100% 50%;
+    background-position: var(--dir-end) 50%;
 }
 
 .uk-input[list]:hover,
@@ -541,8 +541,8 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 /* Single-line */
 .uk-form-small:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
     height: @form-small-height;
-    padding-left: @form-small-padding-horizontal;
-    padding-right: @form-small-padding-horizontal;
+    padding-inline-start: @form-small-padding-horizontal;
+    padding-inline-end: @form-small-padding-horizontal;
 }
 
 /* Multi-line */
@@ -566,8 +566,8 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 /* Single-line */
 .uk-form-large:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
     height: @form-large-height;
-    padding-left: @form-large-padding-horizontal;
-    padding-right: @form-large-padding-horizontal;
+    padding-inline-start: @form-large-padding-horizontal;
+    padding-inline-end: @form-large-padding-horizontal;
 }
 
 /* Multi-line */
@@ -647,7 +647,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     width: 100%;
     height: 100%;
     /* 2 */
-    left: 0;
+    inset-inline-start: 0;
     /* 3 */
     -webkit-appearance: none;
     /* 4 */
@@ -706,11 +706,11 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-form-horizontal .uk-form-label {
         width: @form-horizontal-label-width;
         margin-top: @form-horizontal-label-margin-top;
-        float: left;
+        float: inline-start;
         .hook-form-horizontal-label();
     }
 
-    .uk-form-horizontal .uk-form-controls { margin-left: @form-horizontal-controls-margin-left; }
+    .uk-form-horizontal .uk-form-controls { margin-inline-start: @form-horizontal-controls-margin-inline-start; }
 
     /* Better vertical alignment if controls are checkboxes and radio buttons with text */
     .uk-form-horizontal .uk-form-controls-text { padding-top: @form-horizontal-controls-text-padding-top; }
@@ -733,7 +733,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
+    inset-inline-start: 0;
     /* 2 */
     width: @form-icon-width;
     /* 3 */
@@ -761,18 +761,18 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Input padding
  */
 
-.uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input { padding-left: @form-icon-width !important; }
+.uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input { padding-inline-start: @form-icon-width !important; }
 
 /*
  * Position modifier
  */
 
 .uk-form-icon-flip {
-    right: 0;
-    left: auto;
+    inset-inline-end: 0;
+    inset-inline-start: auto;
 }
 
-.uk-form-icon-flip ~ .uk-input { padding-right: @form-icon-width !important; }
+.uk-form-icon-flip ~ .uk-input { padding-inline-end: @form-icon-width !important; }
 
 
 // Hooks

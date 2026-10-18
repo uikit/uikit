@@ -75,13 +75,13 @@
 }
 
 .uk-divider-icon::before {
-    right: ~'calc(50% + (@{divider-icon-width} / 2))';
+    inset-inline-end: ~'calc(50% + (@{divider-icon-width} / 2))';
     width: @divider-icon-line-width;
     .hook-divider-icon-line-left();
 }
 
 .uk-divider-icon::after {
-    left: ~'calc(50% + (@{divider-icon-width} / 2))';
+    inset-inline-start: ~'calc(50% + (@{divider-icon-width} / 2))';
     width: @divider-icon-line-width;
     .hook-divider-icon-line-right();
 }
@@ -116,9 +116,9 @@
 .uk-divider-vertical {
     width: max-content;
     height: @divider-vertical-height;
-    margin-left: auto;
-    margin-right: auto;
-    border-left: @divider-vertical-border-width solid @divider-vertical-border;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    border-inline-start: @divider-vertical-border-width solid @divider-vertical-border;
     .hook-divider-vertical();
 }
 
@@ -164,7 +164,7 @@
     }
 
     .uk-divider-vertical {
-        border-left-color: @inverse-divider-vertical-border;
+        border-inline-start-color: @inverse-divider-vertical-border;
         .hook-inverse-divider-vertical();
     }
 
