@@ -4,7 +4,6 @@ import {
     assign,
     css,
     hasClass,
-    height,
     html,
     isString,
     isTag,
@@ -49,8 +48,6 @@ export default {
                 } else {
                     css(this.$el, 'display', 'block');
                 }
-
-                height(this.$el); // force reflow
             },
         },
 
