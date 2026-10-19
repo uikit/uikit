@@ -122,7 +122,11 @@
  * Open
  */
 
-.uk-modal.uk-open { opacity: 1; }
+.uk-modal.uk-open {
+    opacity: 1;
+
+    @starting-style { opacity: 0; }
+}
 
 
 /* Page
@@ -172,6 +176,11 @@
 .uk-open > .uk-modal-dialog {
     opacity: 1;
     transform: translateY(0);
+
+    @starting-style {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
 }
 
 
