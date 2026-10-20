@@ -24,7 +24,7 @@ import {
 import { wrapInPicture } from '../core/img';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
-import { keyMap } from '../util/keys';
+import { getNavigationIndex } from '../util/keys';
 import Animations from './internal/lightbox-animations';
 
 export default {
@@ -212,18 +212,7 @@ export default {
                     return;
                 }
 
-                let i = -1;
-
-                if (keyCode === keyMap.LEFT) {
-                    i = 'previous';
-                } else if (keyCode === keyMap.RIGHT) {
-                    i = 'next';
-                } else if (keyCode === keyMap.HOME) {
-                    i = 0;
-                } else if (keyCode === keyMap.END) {
-                    i = 'last';
-                }
-
+                const i = getNavigationIndex(keyCode);
                 if (~i) {
                     this.show(i);
                 }

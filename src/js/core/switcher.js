@@ -19,7 +19,7 @@ import { generateId } from '../api/instance';
 import { lazyload, swipe } from '../api/observables';
 import { maybeDefaultPreventClick } from '../mixin/event';
 import Togglable from '../mixin/togglable';
-import { keyMap } from '../util/keys';
+import { getNavigationIndex, keyMap } from '../util/keys';
 
 const selDisabled = '.uk-disabled *, .uk-disabled, [disabled]';
 
@@ -126,18 +126,11 @@ export default {
                 const { current, keyCode } = e;
                 const isVertical = matches(this.$el, this.selVertical);
 
-                let i =
-                    keyCode === keyMap.HOME
-                        ? 0
-                        : keyCode === keyMap.END
-                          ? 'last'
-                          : (keyCode === keyMap.LEFT && !isVertical) ||
-                              (keyCode === keyMap.UP && isVertical)
-                            ? 'previous'
-                            : (keyCode === keyMap.RIGHT && !isVertical) ||
-                                (keyCode === keyMap.DOWN && isVertical)
-                              ? 'next'
-                              : -1;
+                const i = getNavigationIndex(
+                    keyCode,
+                    isVertical ? keyMap.UP : keyMap.LEFT,
+                    isVertical ? keyMap.DOWN : keyMap.RIGHT,
+                );
 
                 if (~i) {
                     e.preventDefault();

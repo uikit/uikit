@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.25.27 (October 20, 2026)
+
+### Fixed
+
+- Fix Overflow Auto continuously rewriting a fractional `max-height` on every frame
+- Fix Scroll not focusing the destination after scrolling
+
 ## 3.25.26 (October 5, 2026)
 
 ### Fixed

@@ -15,7 +15,7 @@ import {
     toggleClass,
 } from 'uikit-util';
 import { generateId } from '../api/instance';
-import { keyMap } from '../util/keys';
+import { getNavigationIndex, keyMap } from '../util/keys';
 import { maybeDefaultPreventClick } from './event';
 
 export default {
@@ -175,17 +175,7 @@ export default {
                     return;
                 }
 
-                let i =
-                    keyCode === keyMap.HOME
-                        ? 0
-                        : keyCode === keyMap.END
-                          ? 'last'
-                          : keyCode === keyMap.LEFT
-                            ? 'previous'
-                            : keyCode === keyMap.RIGHT
-                              ? 'next'
-                              : -1;
-
+                const i = getNavigationIndex(keyCode);
                 if (~i) {
                     e.preventDefault();
                     this.show(i);
