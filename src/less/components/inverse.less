@@ -10,17 +10,28 @@
 // Variables
 // ========================================================================
 
-@inverse-global-color-mode:                     light;
+@inverse-global-color-mode:                     light; // FIXME: need to change inverse process
 
-@inverse-global-color:                          rgb(from @global-inverse-color r g b / 0.7);                    // instead of: fade(@global-inverse-color, 70%);
-@inverse-global-emphasis-color:                 @global-inverse-color;
-@inverse-global-muted-color:                    rgb(from @global-inverse-color r g b / 0.5);                    // instead of: fade(@global-inverse-color, 50%);
-@inverse-global-inverse-color:                  @global-color;
+@inverse-global-color:                          rgb(from @global-inverse-color r g b / 0.7); // FIXME: need to change .svg-fill function
+@inverse-global-inverse-color:                  @global-color; // FIXME: need to change .svg-fill function
 
-@inverse-global-primary-background:             @global-inverse-color;
-@inverse-global-muted-background:               rgb(from @global-inverse-color r g b / 0.1);                    // fade(@global-inverse-color, 10%);
+@inverse-global-border:                         rgb(from @global-inverse-color r g b / 0.2); // FIXME: need to change .svg-fill function
 
-@inverse-global-border:                         rgb(from @global-inverse-color r g b / 0.2);                    // fade(@global-inverse-color, 20%);
+.hook-inverse-variables() {
+    
+    --inverse-global-color-mode:                     @inverse-global-color-mode;
+
+    --inverse-global-color:                          rgb(from var(--global-inverse-color) r g b / 0.7);
+    --inverse-global-emphasis-color:                 var(--global-inverse-color);
+    --inverse-global-muted-color:                    rgb(from var(--global-inverse-color) r g b / 0.5);
+    --inverse-global-inverse-color:                  var(--global-color);
+
+    --inverse-global-primary-background:             var(--global-inverse-color);
+    --inverse-global-muted-background:               rgb(from var(--global-inverse-color) r g b / 0.1);
+
+    --inverse-global-border:                         @inverse-global-border;
+
+}
 
 
 /* ========================================================================

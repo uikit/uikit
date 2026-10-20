@@ -22,36 +22,40 @@
 // Variables
 // ========================================================================
 
-@table-margin-vertical:                         @global-margin;
+.hook-table-variables() {
 
-@table-cell-padding-vertical:                   16px;
-@table-cell-padding-horizontal:                 12px;
+    --table-margin-vertical:                         var(--global-margin);
 
-@table-header-cell-font-size:                   @global-font-size;
-@table-header-cell-font-weight:                 bold;
-@table-header-cell-color:                       @global-color;
+    --table-cell-padding-vertical:                   16px;
+    --table-cell-padding-horizontal:                 12px;
 
-@table-footer-font-size:                        @global-small-font-size;
+    --table-header-cell-font-size:                   var(--global-font-size);
+    --table-header-cell-font-weight:                 bold;
+    --table-header-cell-color:                       var(--global-color);
 
-@table-caption-font-size:                       @global-small-font-size;
-@table-caption-color:                           @global-muted-color;
+    --table-footer-font-size:                        var(--global-small-font-size);
 
-@table-row-active-background:                   #ffd;
+    --table-caption-font-size:                       var(--global-small-font-size);
+    --table-caption-color:                           var(--global-muted-color);
 
-@table-divider-border-width:                    @global-border-width;
-@table-divider-border:                          @global-border;
+    --table-row-active-background:                   #ffd;
 
-@table-striped-row-background:                  @global-muted-background;
+    --table-divider-border-width:                    var(--global-border-width);
+    --table-divider-border:                          var(--global-border);
 
-@table-hover-row-background:                    @table-row-active-background;
+    --table-striped-row-background:                  var(--global-muted-background);
 
-@table-small-cell-padding-vertical:             10px;
-@table-small-cell-padding-horizontal:           12px;
+    --table-hover-row-background:                    var(--table-row-active-background);
 
-@table-large-cell-padding-vertical:             22px;
-@table-large-cell-padding-horizontal:           12px;
+    --table-small-cell-padding-vertical:             10px;
+    --table-small-cell-padding-horizontal:           12px;
 
-@table-expand-min-width:                        150px;
+    --table-large-cell-padding-vertical:             22px;
+    --table-large-cell-padding-horizontal:           12px;
+
+    --table-expand-min-width:                        150px;
+
+}
 
 
 /* ========================================================================
@@ -71,12 +75,12 @@
     /* 2 */
     width: 100%;
     /* 3 */
-    margin-bottom: @table-margin-vertical;
+    margin-bottom: var(--table-margin-vertical);
     .hook-table();
 }
 
 /* Add margin if adjacent element */
-* + .uk-table { margin-top: @table-margin-vertical; }
+* + .uk-table { margin-top: var(--table-margin-vertical); }
 
 
 /* Header cell
@@ -87,13 +91,13 @@
  */
 
 .uk-table th {
-    padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
+    padding: var(--table-cell-padding-vertical) var(--table-cell-padding-horizontal);
     text-align: left;
     vertical-align: bottom;
     /* 1 */
-    font-size: @table-header-cell-font-size;
-    font-weight: @table-header-cell-font-weight;
-    color: @table-header-cell-color;
+    font-size: var(--table-header-cell-font-size);
+    font-weight: var(--table-header-cell-font-weight);
+    color: var(--table-header-cell-color);
     .hook-table-header-cell();
 }
 
@@ -102,7 +106,7 @@
  ========================================================================== */
 
 .uk-table td {
-    padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
+    padding: var(--table-cell-padding-vertical) var(--table-cell-padding-horizontal);
     vertical-align: top;
     .hook-table-cell();
 }
@@ -118,7 +122,7 @@
  ========================================================================== */
 
 .uk-table tfoot {
-    font-size: @table-footer-font-size;
+    font-size: var(--table-footer-font-size);
     .hook-table-footer();
 }
 
@@ -127,9 +131,9 @@
  ========================================================================== */
 
 .uk-table caption {
-    font-size: @table-caption-font-size;
+    font-size: var(--table-caption-font-size);
     text-align: left;
-    color: @table-caption-color;
+    color: var(--table-caption-color);
     .hook-table-caption();
 }
 
@@ -151,7 +155,7 @@
 .uk-table-divider > tr:not(:first-child),
 .uk-table-divider > :not(:first-child) > tr,
 .uk-table-divider > :first-child > tr:not(:first-child) {
-    border-top: @table-divider-border-width solid @table-divider-border;
+    border-top: var(--table-divider-border-width) solid var(--table-divider-border);
     .hook-table-divider();
 }
 
@@ -161,7 +165,7 @@
 
 .uk-table-striped > tr:nth-of-type(odd),
 .uk-table-striped tbody tr:nth-of-type(odd) {
-    background: @table-striped-row-background;
+    background: var(--table-striped-row-background);
     .hook-table-striped();
 }
 
@@ -171,7 +175,7 @@
 
 .uk-table-hover > tr:hover,
 .uk-table-hover tbody tr:hover {
-    background: @table-hover-row-background;
+    background: var(--table-hover-row-background);
     .hook-table-hover();
 }
 
@@ -181,7 +185,7 @@
 
 .uk-table > tr.uk-active,
 .uk-table tbody tr.uk-active {
-    background: @table-row-active-background;
+    background: var(--table-row-active-background);
     .hook-table-row-active();
 }
 
@@ -190,13 +194,13 @@
 
 .uk-table-small th,
 .uk-table-small td {
-    padding: @table-small-cell-padding-vertical @table-small-cell-padding-horizontal;
+    padding: var(--table-small-cell-padding-vertical) var(--table-small-cell-padding-horizontal);
     .hook-table-small();
 }
 
 .uk-table-large th,
 .uk-table-large td {
-    padding: @table-large-cell-padding-vertical @table-large-cell-padding-horizontal;
+    padding: var(--table-large-cell-padding-vertical) var(--table-large-cell-padding-horizontal);
     .hook-table-large();
 }
 
@@ -215,7 +219,7 @@
  ========================================================================== */
 
 .uk-table-shrink { width: 1px; }
-.uk-table-expand { min-width: @table-expand-min-width; }
+.uk-table-expand { min-width: var(--table-expand-min-width); }
 
 
 /* Cell link modifier
@@ -229,10 +233,10 @@
 
 .uk-table-link > a {
     display: block;
-    padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
+    padding: var(--table-cell-padding-vertical) var(--table-cell-padding-horizontal);
 }
 
-.uk-table-small .uk-table-link > a { padding: @table-small-cell-padding-vertical @table-small-cell-padding-horizontal; }
+.uk-table-small .uk-table-link > a { padding: var(--table-small-cell-padding-vertical) var(--table-small-cell-padding-horizontal); }
 
 
 /* Responsive table
@@ -261,11 +265,11 @@
 
     .uk-table-responsive th:not(:first-child):not(.uk-table-link),
     .uk-table-responsive td:not(:first-child):not(.uk-table-link),
-    .uk-table-responsive .uk-table-link:not(:first-child) > a { padding-top: ~'round(up, calc(@table-cell-padding-vertical / 3), 1px)' !important; }     // instead of: round((@table-cell-padding-vertical / 3))
+    .uk-table-responsive .uk-table-link:not(:first-child) > a { padding-top: ~'round(up, calc(var(--table-cell-padding-vertical) / 3), 1px)' !important; }
 
     .uk-table-responsive th:not(:last-child):not(.uk-table-link),
     .uk-table-responsive td:not(:last-child):not(.uk-table-link),
-    .uk-table-responsive .uk-table-link:not(:last-child) > a { padding-bottom: ~'round(up, calc(@table-cell-padding-vertical / 3), 1px)' !important; }   // instead of: round((@table-cell-padding-vertical / 3))
+    .uk-table-responsive .uk-table-link:not(:last-child) > a { padding-bottom: ~'round(up, calc(var(--table-cell-padding-vertical) / 3), 1px)' !important; }
 
     .uk-table-justify.uk-table-responsive th,
     .uk-table-justify.uk-table-responsive td {
@@ -298,47 +302,49 @@
 // Inverse
 // ========================================================================
 
-@inverse-table-header-cell-color:                       @inverse-global-color;
-@inverse-table-caption-color:                           @inverse-global-muted-color;
-@inverse-table-row-active-background:                   rgb(from @inverse-global-muted-background r g b / calc(alpha - 0.02)); // instead of: fadeout(@inverse-global-muted-background, 2%);
-@inverse-table-divider-border:                          @inverse-global-border;
-@inverse-table-striped-row-background:                  @inverse-global-muted-background;
-@inverse-table-hover-row-background:                    @inverse-table-row-active-background;
+.hook-table-variables() {
+    --inverse-table-header-cell-color:                       var(--inverse-global-color);
+    --inverse-table-caption-color:                           var(--inverse-global-muted-color);
+    --inverse-table-row-active-background:                   rgb(from var(--inverse-global-muted-background) r g b / ~'calc(alpha - 0.02)');
+    --inverse-table-divider-border:                          var(--inverse-global-border);
+    --inverse-table-striped-row-background:                  var(--inverse-global-muted-background);
+    --inverse-table-hover-row-background:                    var(--inverse-table-row-active-background);
+}
 
 .hook-inverse() {
 
     .uk-table th {
-        color: @inverse-table-header-cell-color;
+        color: var(--inverse-table-header-cell-color);
         .hook-inverse-table-header-cell();
     }
 
     .uk-table caption {
-        color: @inverse-table-caption-color;
+        color: var(--inverse-table-caption-color);
         .hook-inverse-table-caption();
     }
 
     .uk-table > tr.uk-active,
     .uk-table tbody tr.uk-active {
-        background: @inverse-table-row-active-background;
+        background: var(--inverse-table-row-active-background);
         .hook-inverse-table-row-active();
     }
 
     .uk-table-divider > tr:not(:first-child),
     .uk-table-divider > :not(:first-child) > tr,
     .uk-table-divider > :first-child > tr:not(:first-child) {
-        border-top-color: @inverse-table-divider-border;
+        border-top-color: var(--inverse-table-divider-border);
         .hook-inverse-table-divider();
     }
 
     .uk-table-striped > tr:nth-of-type(odd),
     .uk-table-striped tbody tr:nth-of-type(odd) {
-        background: @inverse-table-striped-row-background;
+        background: var(--inverse-table-striped-row-background);
         .hook-inverse-table-striped();
     }
 
     .uk-table-hover > tr:hover,
     .uk-table-hover tbody tr:hover {
-        background: @inverse-table-hover-row-background;
+        background: var(--inverse-table-hover-row-background);
         .hook-inverse-table-hover();
     }
 

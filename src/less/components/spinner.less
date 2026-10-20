@@ -9,11 +9,15 @@
 // Variables
 // ========================================================================
 
-@spinner-size:                                  30px;
-@spinner-stroke-width:                          1;
-@spinner-radius:                                ~'round(down, calc((@spinner-size - @spinner-stroke-width) / 2))';  // Minus stroke width to prevent overflow clipping | instead of: floor(((@spinner-size - @spinner-stroke-width) / 2));
-@spinner-circumference:                         ~'round(up, calc(2 * 3.141 * @spinner-radius))';                        // instead of: round(2 * 3.141 * @spinner-radius);
-@spinner-duration:                              1.4s;
+.hook-spinner-variables() {
+
+    --spinner-size:                                  30px;
+    --spinner-stroke-width:                          1;
+    --spinner-radius:                                ~'round(down, calc((var(--spinner-size) - var(--spinner-stroke-width)) / 2))';
+    --spinner-circumference:                         ~'round(up, calc(2 * 3.141 * var(--spinner-radius)))';
+    --spinner-duration:                              1.4s;
+
+}
 
 
 /* ========================================================================
@@ -32,7 +36,7 @@
 /* SVG
  ========================================================================== */
 
-.uk-spinner > * { animation: uk-spinner-rotate @spinner-duration linear infinite; }
+.uk-spinner > * { animation: uk-spinner-rotate var(--spinner-duration) linear infinite; }
 
 @keyframes uk-spinner-rotate {
     0% { transform: rotate(0deg); }
@@ -44,22 +48,22 @@
  */
 
 .uk-spinner > * > * {
-    stroke-dasharray: @spinner-circumference;
+    stroke-dasharray: var(--spinner-circumference);
     stroke-dashoffset: 0;
     transform-origin: center;
-    animation: uk-spinner-dash @spinner-duration ease-in-out infinite;
-    stroke-width: @spinner-stroke-width;
+    animation: uk-spinner-dash var(--spinner-duration) ease-in-out infinite;
+    stroke-width: var(--spinner-stroke-width);
     stroke-linecap: round;
 }
 
 @keyframes uk-spinner-dash {
-    0% { stroke-dashoffset: @spinner-circumference; }
+    0% { stroke-dashoffset: var(--spinner-circumference); }
     50% {
-        stroke-dashoffset: calc(@spinner-circumference / 4);                        // instead of: (@spinner-circumference / 4);
+        stroke-dashoffset: calc(var(--spinner-circumference) / 4);
         transform: rotate(135deg);
     }
     100% {
-        stroke-dashoffset: @spinner-circumference;
+        stroke-dashoffset: var(--spinner-circumference);
         transform: rotate(450deg);
     }
 }

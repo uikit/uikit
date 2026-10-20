@@ -16,26 +16,30 @@
 // Variables
 // ========================================================================
 
-@alert-margin-vertical:                         @global-margin;
-@alert-padding:                                 15px;
-@alert-padding-right:                           calc(@alert-padding + 14px);                                                                // instead of: @alert-padding + 14px;
-@alert-background:                              @global-muted-background;
-@alert-color:                                   @global-color;
+.hook-alert-variables() {
 
-@alert-close-top:                               calc(@alert-padding + 5px);                                                                 // instead of: @alert-padding + 5px;
-@alert-close-right:                             @alert-padding;
+    --alert-margin-vertical:                         var(--global-margin);
+    --alert-padding:                                 15px;
+    --alert-padding-right:                           calc(var(--alert-padding) + 14px);
+    --alert-background:                              var(--global-muted-background);
+    --alert-color:                                   var(--global-color);
 
-@alert-primary-background:                      hsl(from color-mix(in srgb, @global-primary-background, white 40%) h s ~'calc(l + 20)');       // instead of: lighten(tint(@global-primary-background, 40%), 20%);
-@alert-primary-color:                           @global-primary-background;
+    --alert-close-top:                               calc(var(--alert-padding) + 5px);
+    --alert-close-right:                             var(--alert-padding);
 
-@alert-success-background:                      hsl(from color-mix(in srgb, @global-success-background, white 40%) h s ~'calc(l + 25)');       // instead of: lighten(tint(@global-success-background, 40%), 25%);
-@alert-success-color:                           @global-success-background;
+    --alert-primary-background:                      hsl(from color-mix(in srgb, var(--global-primary-background), white 40%) h s ~'calc(l + 20)');
+    --alert-primary-color:                           var(--global-primary-background);
 
-@alert-warning-background:                      hsl(from color-mix(in srgb, @global-warning-background, white 45%) h s ~'calc(l + 15)');       // instead of: lighten(tint(@global-warning-background, 45%), 15%);
-@alert-warning-color:                           @global-warning-background;
+    --alert-success-background:                      hsl(from color-mix(in srgb, var(--global-success-background), white 40%) h s ~'calc(l + 25)');
+    --alert-success-color:                           var(--global-success-background);
 
-@alert-danger-background:                       hsl(from color-mix(in srgb, @global-danger-background, white 40%) h s ~'calc(l + 20)');        // instead of: lighten(tint(@global-danger-background, 40%), 20%);
-@alert-danger-color:                            @global-danger-background;
+    --alert-warning-background:                      hsl(from color-mix(in srgb, var(--global-warning-background), white 45%) h s ~'calc(l + 15)');
+    --alert-warning-color:                           var(--global-warning-background);
+
+    --alert-danger-background:                       hsl(from color-mix(in srgb, var(--global-danger-background), white 40%) h s ~'calc(l + 20)');
+    --alert-danger-color:                            var(--global-danger-background);
+    
+}
 
 
 /* ========================================================================
@@ -44,15 +48,15 @@
 
 .uk-alert {
     position: relative;
-    margin-bottom: @alert-margin-vertical;
-    padding: @alert-padding @alert-padding-right @alert-padding @alert-padding;
-    background: @alert-background;
-    color: @alert-color;
+    margin-bottom: var(--alert-margin-vertical);
+    padding: var(--alert-padding) var(--alert-padding-right) var(--alert-padding) var(--alert-padding);
+    background: var(--alert-background);
+    color: var(--alert-color);
     .hook-alert();
 }
 
 /* Add margin if adjacent element */
-* + .uk-alert { margin-top: @alert-margin-vertical; }
+* + .uk-alert { margin-top: var(--alert-margin-vertical); }
 
 /*
  * Remove margin from the last-child
@@ -67,8 +71,8 @@
 
 .uk-alert-close {
     position: absolute;
-    top: @alert-close-top;
-    right: @alert-close-right;
+    top: var(--alert-close-top);
+    right: var(--alert-close-right);
     .hook-alert-close();
 }
 
@@ -95,8 +99,8 @@
  */
 
 .uk-alert-primary {
-    background: @alert-primary-background;
-    color: @alert-primary-color;
+    background: var(--alert-primary-background);
+    color: var(--alert-primary-color);
     .hook-alert-primary();
 }
 
@@ -105,8 +109,8 @@
  */
 
 .uk-alert-success {
-    background: @alert-success-background;
-    color: @alert-success-color;
+    background: var(--alert-success-background);
+    color: var(--alert-success-color);
     .hook-alert-success();
 }
 
@@ -115,8 +119,8 @@
  */
 
 .uk-alert-warning {
-    background: @alert-warning-background;
-    color: @alert-warning-color;
+    background: var(--alert-warning-background);
+    color: var(--alert-warning-color);
     .hook-alert-warning();
 }
 
@@ -125,8 +129,8 @@
  */
 
 .uk-alert-danger {
-    background: @alert-danger-background;
-    color: @alert-danger-color;
+    background: var(--alert-danger-background);
+    color: var(--alert-danger-color);
     .hook-alert-danger();
 }
 

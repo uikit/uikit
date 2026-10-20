@@ -20,33 +20,45 @@
 // Variables
 // ========================================================================
 
-@tile-padding-horizontal:                      15px;
-@tile-padding-horizontal-s:                    @global-gutter;
-@tile-padding-horizontal-m:                    @global-medium-gutter;
-@tile-padding-vertical:                        @global-medium-margin;
-@tile-padding-vertical-m:                      @global-large-margin;
+@tile-default-color-mode:                      dark; // FIXME: need to change inverse process
 
-@tile-xsmall-padding-vertical:                 @global-margin;
+@tile-muted-color-mode:                        dark; // FIXME: need to change inverse process
 
-@tile-small-padding-vertical:                  @global-medium-margin;
+@tile-primary-color-mode:                      light; // FIXME: need to change inverse process
 
-@tile-large-padding-vertical:                  @global-large-margin;
-@tile-large-padding-vertical-m:                @global-xlarge-margin;
+@tile-secondary-color-mode:                    light; // FIXME: need to change inverse process
 
-@tile-xlarge-padding-vertical:                 @global-xlarge-margin;
-@tile-xlarge-padding-vertical-m:               calc(@global-large-margin + @global-xlarge-margin);              // instead of: calc(@global-large-margin + @global-xlarge-margin);
+.hook-tile-variables() {
 
-@tile-default-background:                      @global-background;
-@tile-default-color-mode:                      dark;
+    --tile-padding-horizontal:                      15px;
+    --tile-padding-horizontal-s:                    var(--global-gutter);
+    --tile-padding-horizontal-m:                    var(--global-medium-gutter);
+    --tile-padding-vertical:                        var(--global-medium-margin);
+    --tile-padding-vertical-m:                      var(--global-large-margin);
 
-@tile-muted-background:                        @global-muted-background;
-@tile-muted-color-mode:                        dark;
+    --tile-xsmall-padding-vertical:                 var(--global-margin);
 
-@tile-primary-background:                      @global-primary-background;
-@tile-primary-color-mode:                      light;
+    --tile-small-padding-vertical:                  var(--global-medium-margin);
 
-@tile-secondary-background:                    @global-secondary-background;
-@tile-secondary-color-mode:                    light;
+    --tile-large-padding-vertical:                  var(--global-large-margin);
+    --tile-large-padding-vertical-m:                var(--global-xlarge-margin);
+
+    --tile-xlarge-padding-vertical:                 var(--global-xlarge-margin);
+    --tile-xlarge-padding-vertical-m:               calc(var(--global-large-margin) + var(--global-xlarge-margin));
+
+    --tile-default-background:                      var(--global-background);
+    --tile-default-color-mode:                      @tile-default-color-mode;
+
+    --tile-muted-background:                        var(--global-muted-background);
+    --tile-muted-color-mode:                        @tile-muted-color-mode;
+
+    --tile-primary-background:                      var(--global-primary-background);
+    --tile-primary-color-mode:                      @tile-primary-color-mode;
+
+    --tile-secondary-background:                    var(--global-secondary-background);
+    --tile-secondary-color-mode:                    @tile-secondary-color-mode;
+
+}
 
 
 /* ========================================================================
@@ -57,10 +69,10 @@
     display: flow-root;
     position: relative;
     box-sizing: border-box;
-    padding-left: @tile-padding-horizontal;
-    padding-right: @tile-padding-horizontal;
-    padding-top: @tile-padding-vertical;
-    padding-bottom: @tile-padding-vertical;
+    padding-left: var(--tile-padding-horizontal);
+    padding-right: var(--tile-padding-horizontal);
+    padding-top: var(--tile-padding-vertical);
+    padding-bottom: var(--tile-padding-vertical);
     .hook-tile();
 }
 
@@ -68,8 +80,8 @@
 @media (min-width: @breakpoint-small) {
 
     .uk-tile {
-        padding-left: @tile-padding-horizontal-s;
-        padding-right: @tile-padding-horizontal-s;
+        padding-left: var(--tile-padding-horizontal-s);
+        padding-right: var(--tile-padding-horizontal-s);
     }
 
 }
@@ -78,10 +90,10 @@
 @media (min-width: @breakpoint-medium) {
 
     .uk-tile {
-        padding-left: @tile-padding-horizontal-m;
-        padding-right: @tile-padding-horizontal-m;
-        padding-top: @tile-padding-vertical-m;
-        padding-bottom: @tile-padding-vertical-m;
+        padding-left: var(--tile-padding-horizontal-m);
+        padding-right: var(--tile-padding-horizontal-m);
+        padding-top: var(--tile-padding-vertical-m);
+        padding-bottom: var(--tile-padding-vertical-m);
     }
 
 }
@@ -101,8 +113,8 @@
  */
 
 .uk-tile-xsmall {
-    padding-top: @tile-xsmall-padding-vertical;
-    padding-bottom: @tile-xsmall-padding-vertical;
+    padding-top: var(--tile-xsmall-padding-vertical);
+    padding-bottom: var(--tile-xsmall-padding-vertical);
 }
 
 /*
@@ -110,8 +122,8 @@
  */
 
 .uk-tile-small {
-    padding-top: @tile-small-padding-vertical;
-    padding-bottom: @tile-small-padding-vertical;
+    padding-top: var(--tile-small-padding-vertical);
+    padding-bottom: var(--tile-small-padding-vertical);
 }
 
 /*
@@ -119,16 +131,16 @@
  */
 
 .uk-tile-large {
-    padding-top: @tile-large-padding-vertical;
-    padding-bottom: @tile-large-padding-vertical;
+    padding-top: var(--tile-large-padding-vertical);
+    padding-bottom: var(--tile-large-padding-vertical);
 }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
     .uk-tile-large {
-        padding-top: @tile-large-padding-vertical-m;
-        padding-bottom: @tile-large-padding-vertical-m;
+        padding-top: var(--tile-large-padding-vertical-m);
+        padding-bottom: var(--tile-large-padding-vertical-m);
     }
 
 }
@@ -139,16 +151,16 @@
  */
 
 .uk-tile-xlarge {
-    padding-top: @tile-xlarge-padding-vertical;
-    padding-bottom: @tile-xlarge-padding-vertical;
+    padding-top: var(--tile-xlarge-padding-vertical);
+    padding-bottom: var(--tile-xlarge-padding-vertical);
 }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
     .uk-tile-xlarge {
-        padding-top: @tile-xlarge-padding-vertical-m;
-        padding-bottom: @tile-xlarge-padding-vertical-m;
+        padding-top: var(--tile-xlarge-padding-vertical-m);
+        padding-bottom: var(--tile-xlarge-padding-vertical-m);
     }
 
 }
@@ -162,8 +174,8 @@
  */
 
 .uk-tile-default {
-    --uk-inverse: @tile-default-color-mode;
-    background-color: @tile-default-background;
+    --uk-inverse: var(--tile-default-color-mode);
+    background-color: var(--tile-default-background);
     .hook-tile-default();
 }
 
@@ -180,8 +192,8 @@
  */
 
 .uk-tile-muted {
-    --uk-inverse: @tile-muted-color-mode;
-    background-color: @tile-muted-background;
+    --uk-inverse: var(--tile-muted-color-mode);
+    background-color: var(--tile-muted-background);
     .hook-tile-muted();
 }
 
@@ -198,8 +210,8 @@
  */
 
 .uk-tile-primary {
-    --uk-inverse: @tile-primary-color-mode;
-    background-color: @tile-primary-background;
+    --uk-inverse: var(--tile-primary-color-mode);
+    background-color: var(--tile-primary-background);
     .hook-tile-primary();
 }
 
@@ -216,8 +228,8 @@
  */
 
 .uk-tile-secondary {
-    --uk-inverse: @tile-secondary-color-mode;
-    background-color: @tile-secondary-background;
+    --uk-inverse: var(--tile-secondary-color-mode);
+    background-color: var(--tile-secondary-background);
     .hook-tile-secondary();
 }
 

@@ -16,15 +16,19 @@
 // Variables
 // ========================================================================
 
-@tab-margin-horizontal:                  20px;
+.hook-tab-variables() {
+    
+    --tab-margin-horizontal:                  20px;
 
-@tab-item-padding-horizontal:            10px;
-@tab-item-padding-vertical:              5px;
-@tab-item-color:                         @global-muted-color;
-@tab-item-hover-color:                   @global-color;
-@tab-item-hover-text-decoration:         none;
-@tab-item-active-color:                  @global-emphasis-color;
-@tab-item-disabled-color:                @global-muted-color;
+    --tab-item-padding-horizontal:            10px;
+    --tab-item-padding-vertical:              5px;
+    --tab-item-color:                         var(--global-muted-color);
+    --tab-item-hover-color:                   var(--global-color);
+    --tab-item-hover-text-decoration:         none;
+    --tab-item-active-color:                  var(--global-emphasis-color);
+    --tab-item-disabled-color:                var(--global-muted-color);
+
+}
 
 
 /* ========================================================================
@@ -42,7 +46,7 @@
     /* 1 */
     flex-wrap: wrap;
     /* 2 */
-    margin-left: calc(@tab-margin-horizontal * -1);                             // instead of: -@tab-margin-horizontal;
+    margin-left: calc(var(--tab-margin-horizontal) * -1);
     /* 3 */
     padding: 0;
     list-style: none;
@@ -59,7 +63,7 @@
     /* 1 */
     flex: none;
     /* 2 */
-    padding-left: @tab-margin-horizontal;
+    padding-left: var(--tab-margin-horizontal);
     /* 3 */
     position: relative;
 }
@@ -85,27 +89,27 @@
     /* 3 */
     justify-content: center;
     /* 4 */
-    padding: @tab-item-padding-vertical @tab-item-padding-horizontal;
-    color: @tab-item-color;
+    padding: var(--tab-item-padding-vertical) var(--tab-item-padding-horizontal);
+    color: var(--tab-item-color);
     .hook-tab-item();
 }
 
 /* Hover */
 .uk-tab > * > a:hover {
-    color: @tab-item-hover-color;
-    text-decoration: @tab-item-hover-text-decoration;
+    color: var(--tab-item-hover-color);
+    text-decoration: var(--tab-item-hover-text-decoration);
     .hook-tab-item-hover();
 }
 
 /* Active */
 .uk-tab > .uk-active > a {
-    color: @tab-item-active-color;
+    color: var(--tab-item-active-color);
     .hook-tab-item-active();
 }
 
 /* Disabled */
 .uk-tab > .uk-disabled > a {
-    color: @tab-item-disabled-color;
+    color: var(--tab-item-disabled-color);
     .hook-tab-item-disabled();
 }
 
@@ -182,10 +186,12 @@
 // Inverse
 // ========================================================================
 
-@inverse-tab-item-color:                       @inverse-global-muted-color;
-@inverse-tab-item-hover-color:                 @inverse-global-color;
-@inverse-tab-item-active-color:                @inverse-global-emphasis-color;
-@inverse-tab-item-disabled-color:              @inverse-global-muted-color;
+.hook-tab-variables() {
+    --inverse-tab-item-color:                       var(--inverse-global-muted-color);
+    --inverse-tab-item-hover-color:                 var(--inverse-global-color);
+    --inverse-tab-item-active-color:                var(--inverse-global-emphasis-color);
+    --inverse-tab-item-disabled-color:              var(--inverse-global-muted-color);
+}
 
 .hook-inverse() {
 
@@ -194,22 +200,22 @@
     }
 
     .uk-tab > * > a {
-        color: @inverse-tab-item-color;
+        color: var(--inverse-tab-item-color);
         .hook-inverse-tab-item();
     }
 
     .uk-tab > * > a:hover {
-        color: @inverse-tab-item-hover-color;
+        color: var(--inverse-tab-item-hover-color);
         .hook-inverse-tab-item-hover();
     }
 
     .uk-tab > .uk-active > a {
-        color: @inverse-tab-item-active-color;
+        color: var(--inverse-tab-item-active-color);
         .hook-inverse-tab-item-active();
     }
 
     .uk-tab > .uk-disabled > a {
-        color: @inverse-tab-item-disabled-color;
+        color: var(--inverse-tab-item-disabled-color);
         .hook-inverse-tab-item-disabled();
     }
 

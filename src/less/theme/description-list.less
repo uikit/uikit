@@ -7,18 +7,22 @@
 // Variables
 // ========================================================================
 
-@description-list-term-font-size:                      @global-small-font-size;
-@description-list-term-font-weight:                    normal;
-@description-list-term-text-transform:                 uppercase;
+.hook-description-list-variables() {
+
+    --description-list-term-font-size:                      var(--global-small-font-size);
+    --description-list-term-font-weight:                    normal;
+    --description-list-term-text-transform:                 uppercase;
+
+}
 
 
 // Component
 // ========================================================================
 
 .hook-description-list-term() {
-    font-size: @description-list-term-font-size;
-    font-weight: @description-list-term-font-weight;
-    text-transform: @description-list-term-text-transform;
+    font-size: var(--description-list-term-font-size);
+    font-weight: var(--description-list-term-font-weight);
+    text-transform: var(--description-list-term-text-transform);
 }
 
 .hook-description-list-description() {}

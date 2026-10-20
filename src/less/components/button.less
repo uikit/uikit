@@ -22,59 +22,63 @@
 // Variables
 // ========================================================================
 
-@button-line-height:                            @global-control-height;
-@button-small-line-height:                      @global-control-small-height;
-@button-large-line-height:                      @global-control-large-height;
+.hook-button-variables() {
 
-@button-font-size:                              @global-font-size;
-@button-small-font-size:                        @global-small-font-size;
-@button-large-font-size:                        @global-medium-font-size;
+    --button-line-height:                            var(--global-control-height);
+    --button-small-line-height:                      var(--global-control-small-height);
+    --button-large-line-height:                      var(--global-control-large-height);
 
-@button-padding-horizontal:                     @global-gutter;
-@button-small-padding-horizontal:               @global-small-gutter;
-@button-large-padding-horizontal:               @global-medium-gutter;
+    --button-font-size:                              var(--global-font-size);
+    --button-small-font-size:                        var(--global-small-font-size);
+    --button-large-font-size:                        var(--global-medium-font-size);
 
-@button-default-background:                     @global-muted-background;
-@button-default-color:                          @global-emphasis-color;
-@button-default-hover-background:               hsl(from @button-default-background h s calc(l - 5));           // instead of: darken(@button-default-background, 5%);
-@button-default-hover-color:                    @global-emphasis-color;
-@button-default-active-background:              hsl(from @button-default-background h s calc(l - 10));          // instead of: darken(@button-default-background, 10%);
-@button-default-active-color:                   @global-emphasis-color;
+    --button-padding-horizontal:                     var(--global-gutter);
+    --button-small-padding-horizontal:               var(--global-small-gutter);
+    --button-large-padding-horizontal:               var(--global-medium-gutter);
 
-@button-primary-background:                     @global-primary-background;
-@button-primary-color:                          @global-inverse-color;
-@button-primary-hover-background:               hsl(from @button-primary-background h s calc(l - 5));           // instead of: darken(@button-primary-background, 5%);
-@button-primary-hover-color:                    @global-inverse-color;
-@button-primary-active-background:              hsl(from @button-primary-background h s calc(l - 10));          // instead of: darken(@button-primary-background, 10%);
-@button-primary-active-color:                   @global-inverse-color;
+    --button-default-background:                     var(--global-muted-background);
+    --button-default-color:                          var(--global-emphasis-color);
+    --button-default-hover-background:               hsl(from var(--button-default-background) h s calc(l - 5));
+    --button-default-hover-color:                    var(--global-emphasis-color);
+    --button-default-active-background:              hsl(from var(--button-default-background) h s calc(l - 10));
+    --button-default-active-color:                   var(--global-emphasis-color);
 
-@button-secondary-background:                   @global-secondary-background;
-@button-secondary-color:                        @global-inverse-color;
-@button-secondary-hover-background:             hsl(from @button-secondary-background h s calc(l - 5));         // instead of: darken(@button-secondary-background, 5%);
-@button-secondary-hover-color:                  @global-inverse-color;
-@button-secondary-active-background:            hsl(from @button-secondary-background h s calc(l - 10));        // instead of: darken(@button-secondary-background, 10%);
-@button-secondary-active-color:                 @global-inverse-color;
+    --button-primary-background:                     var(--global-primary-background);
+    --button-primary-color:                          var(--global-inverse-color);
+    --button-primary-hover-background:               hsl(from var(--button-primary-background) h s calc(l - 5));
+    --button-primary-hover-color:                    var(--global-inverse-color);
+    --button-primary-active-background:              hsl(from var(--button-primary-background) h s calc(l - 10));
+    --button-primary-active-color:                   var(--global-inverse-color);
 
-@button-danger-background:                      @global-danger-background;
-@button-danger-color:                           @global-inverse-color;
-@button-danger-hover-background:                hsl(from @button-danger-background h s calc(l - 5));            // instead of: darken(@button-danger-background, 5%);
-@button-danger-hover-color:                     @global-inverse-color;
-@button-danger-active-background:               hsl(from @button-danger-background h s calc(l - 10));           // instead of: darken(@button-danger-background, 10%);
-@button-danger-active-color:                    @global-inverse-color;
+    --button-secondary-background:                   var(--global-secondary-background);
+    --button-secondary-color:                        var(--global-inverse-color);
+    --button-secondary-hover-background:             hsl(from var(--button-secondary-background) h s calc(l - 5));
+    --button-secondary-hover-color:                  var(--global-inverse-color);
+    --button-secondary-active-background:            hsl(from var(--button-secondary-background) h s calc(l - 10));
+    --button-secondary-active-color:                 var(--global-inverse-color);
 
-@button-disabled-background:                    @global-muted-background;
-@button-disabled-color:                         @global-muted-color;
+    --button-danger-background:                      var(--global-danger-background);
+    --button-danger-color:                           var(--global-inverse-color);
+    --button-danger-hover-background:                hsl(from var(--button-danger-background) h s calc(l - 5));
+    --button-danger-hover-color:                     var(--global-inverse-color);
+    --button-danger-active-background:               hsl(from var(--button-danger-background) h s calc(l - 10));
+    --button-danger-active-color:                    var(--global-inverse-color);
 
-@button-text-line-height:                       @global-line-height;
-@button-text-color:                             @global-emphasis-color;
-@button-text-hover-color:                       @global-muted-color;
-@button-text-disabled-color:                    @global-muted-color;
+    --button-disabled-background:                    var(--global-muted-background);
+    --button-disabled-color:                         var(--global-muted-color);
 
-@button-link-line-height:                       @global-line-height;
-@button-link-color:                             @global-emphasis-color;
-@button-link-hover-color:                       @global-muted-color;
-@button-link-hover-text-decoration:             none;
-@button-link-disabled-color:                    @global-muted-color;
+    --button-text-line-height:                       var(--global-line-height);
+    --button-text-color:                             var(--global-emphasis-color);
+    --button-text-hover-color:                       var(--global-muted-color);
+    --button-text-disabled-color:                    var(--global-muted-color);
+
+    --button-link-line-height:                       var(--global-line-height);
+    --button-link-color:                             var(--global-emphasis-color);
+    --button-link-hover-color:                       var(--global-muted-color);
+    --button-link-hover-text-decoration:             none;
+    --button-link-disabled-color:                    var(--global-muted-color);
+    
+}
 
 
 /* ========================================================================
@@ -113,11 +117,11 @@
     /* 7 */
     display: inline-block;
     box-sizing: border-box;
-    padding: 0 @button-padding-horizontal;
+    padding: 0 var(--button-padding-horizontal);
     vertical-align: middle;
-    font-size: @button-font-size;
+    font-size: var(--button-font-size);
     /* 8 */
-    line-height: @button-line-height;
+    line-height: var(--button-line-height);
     /* 9 */
     text-align: center;
     /* 10 */
@@ -150,23 +154,23 @@
  */
 
 .uk-button-default {
-    background-color: @button-default-background;
-    color: @button-default-color;
+    background-color: var(--button-default-background);
+    color: var(--button-default-color);
     .hook-button-default();
 }
 
 /* Hover */
 .uk-button-default:hover {
-    background-color: @button-default-hover-background;
-    color: @button-default-hover-color;
+    background-color: var(--button-default-hover-background);
+    color: var(--button-default-hover-color);
     .hook-button-default-hover();
 }
 
 /* OnClick + Active */
 .uk-button-default:active,
 .uk-button-default.uk-active {
-    background-color: @button-default-active-background;
-    color: @button-default-active-color;
+    background-color: var(--button-default-active-background);
+    color: var(--button-default-active-color);
     .hook-button-default-active();
 }
 
@@ -175,23 +179,23 @@
  */
 
 .uk-button-primary {
-    background-color: @button-primary-background;
-    color: @button-primary-color;
+    background-color: var(--button-primary-background);
+    color: var(--button-primary-color);
     .hook-button-primary();
 }
 
 /* Hover */
 .uk-button-primary:hover {
-    background-color: @button-primary-hover-background;
-    color: @button-primary-hover-color;
+    background-color: var(--button-primary-hover-background);
+    color: var(--button-primary-hover-color);
     .hook-button-primary-hover();
 }
 
 /* OnClick + Active */
 .uk-button-primary:active,
 .uk-button-primary.uk-active {
-    background-color: @button-primary-active-background;
-    color: @button-primary-active-color;
+    background-color: var(--button-primary-active-background);
+    color: var(--button-primary-active-color);
     .hook-button-primary-active();
 }
 
@@ -200,23 +204,23 @@
  */
 
 .uk-button-secondary {
-    background-color: @button-secondary-background;
-    color: @button-secondary-color;
+    background-color: var(--button-secondary-background);
+    color: var(--button-secondary-color);
     .hook-button-secondary();
 }
 
 /* Hover */
 .uk-button-secondary:hover {
-    background-color: @button-secondary-hover-background;
-    color: @button-secondary-hover-color;
+    background-color: var(--button-secondary-hover-background);
+    color: var(--button-secondary-hover-color);
     .hook-button-secondary-hover();
 }
 
 /* OnClick + Active */
 .uk-button-secondary:active,
 .uk-button-secondary.uk-active {
-    background-color: @button-secondary-active-background;
-    color: @button-secondary-active-color;
+    background-color: var(--button-secondary-active-background);
+    color: var(--button-secondary-active-color);
     .hook-button-secondary-active();
 }
 
@@ -225,23 +229,23 @@
  */
 
 .uk-button-danger {
-    background-color: @button-danger-background;
-    color: @button-danger-color;
+    background-color: var(--button-danger-background);
+    color: var(--button-danger-color);
     .hook-button-danger();
 }
 
 /* Hover */
 .uk-button-danger:hover {
-    background-color: @button-danger-hover-background;
-    color: @button-danger-hover-color;
+    background-color: var(--button-danger-hover-background);
+    color: var(--button-danger-hover-color);
     .hook-button-danger-hover();
 }
 
 /* OnClick + Active */
 .uk-button-danger:active,
 .uk-button-danger.uk-active {
-    background-color: @button-danger-active-background;
-    color: @button-danger-active-color;
+    background-color: var(--button-danger-active-background);
+    color: var(--button-danger-active-color);
     .hook-button-danger-active();
 }
 
@@ -254,8 +258,8 @@
 .uk-button-primary:disabled,
 .uk-button-secondary:disabled,
 .uk-button-danger:disabled {
-    background-color: @button-disabled-background;
-    color: @button-disabled-color;
+    background-color: var(--button-disabled-background);
+    color: var(--button-disabled-color);
     .hook-button-disabled();
 }
 
@@ -264,16 +268,16 @@
  ========================================================================== */
 
 .uk-button-small {
-    padding: 0 @button-small-padding-horizontal;
-    line-height: @button-small-line-height;
-    font-size: @button-small-font-size;
+    padding: 0 var(--button-small-padding-horizontal);
+    line-height: var(--button-small-line-height);
+    font-size: var(--button-small-font-size);
     .hook-button-small();
 }
 
 .uk-button-large {
-    padding: 0 @button-large-padding-horizontal;
-    line-height: @button-large-line-height;
-    font-size: @button-large-font-size;
+    padding: 0 var(--button-large-padding-horizontal);
+    line-height: var(--button-large-line-height);
+    font-size: var(--button-large-font-size);
     .hook-button-large();
 }
 
@@ -290,22 +294,22 @@
 .uk-button-text {
     /* 1 */
     padding: 0;
-    line-height: @button-text-line-height;
+    line-height: var(--button-text-line-height);
     background: none;
     /* 2 */
-    color: @button-text-color;
+    color: var(--button-text-color);
     .hook-button-text();
 }
 
 /* Hover */
 .uk-button-text:hover {
-    color: @button-text-hover-color;
+    color: var(--button-text-hover-color);
     .hook-button-text-hover();
 }
 
 /* Disabled */
 .uk-button-text:disabled {
-    color: @button-text-disabled-color;
+    color: var(--button-text-disabled-color);
     .hook-button-text-disabled();
 }
 
@@ -318,22 +322,22 @@
 .uk-button-link {
     /* 1 */
     padding: 0;
-    line-height: @button-link-line-height;
+    line-height: var(--button-link-line-height);
     background: none;
     /* 2 */
-    color: @button-link-color;
+    color: var(--button-link-color);
     .hook-button-link();
 }
 
 /* Hover */
 .uk-button-link:hover {
-    color: @button-link-hover-color;
-    text-decoration: @button-link-hover-text-decoration;
+    color: var(--button-link-hover-color);
+    text-decoration: var(--button-link-hover-text-decoration);
 }
 
 /* Disabled */
 .uk-button-link:disabled {
-    color: @button-link-disabled-color;
+    color: var(--button-link-disabled-color);
     text-decoration: none;
 }
 
@@ -390,29 +394,31 @@
 // Inverse
 // ========================================================================
 
-@inverse-button-default-background:            @inverse-global-primary-background;
-@inverse-button-default-color:                 @inverse-global-inverse-color;
-@inverse-button-default-hover-background:      hsl(from @inverse-button-default-background h s calc(l - 5));            // instead of: darken(@inverse-button-default-background, 5%);
-@inverse-button-default-hover-color:           @inverse-global-inverse-color;
-@inverse-button-default-active-background:     hsl(from @inverse-button-default-background h s calc(l - 10));           // instead of: darken(@inverse-button-default-background, 10%);
-@inverse-button-default-active-color:          @inverse-global-inverse-color;
-@inverse-button-primary-background:            @inverse-global-primary-background;
-@inverse-button-primary-color:                 @inverse-global-inverse-color;
-@inverse-button-primary-hover-background:      hsl(from @inverse-button-primary-background h s calc(l - 5));            // instead of: darken(@inverse-button-primary-background, 5%);
-@inverse-button-primary-hover-color:           @inverse-global-inverse-color;
-@inverse-button-primary-active-background:     hsl(from @inverse-button-primary-background h s calc(l - 10));           // instead of: darken(@inverse-button-primary-background, 10%);
-@inverse-button-primary-active-color:          @inverse-global-inverse-color;
-@inverse-button-secondary-background:          @inverse-global-primary-background;
-@inverse-button-secondary-color:               @inverse-global-inverse-color;
-@inverse-button-secondary-hover-background:    hsl(from @inverse-button-secondary-background h s calc(l - 5));          // instead of: darken(@inverse-button-secondary-background, 5%);
-@inverse-button-secondary-hover-color:         @inverse-global-inverse-color;
-@inverse-button-secondary-active-background:   hsl(from @inverse-button-secondary-background h s calc(l - 10));         // instead of: darken(@inverse-button-secondary-background, 10%);
-@inverse-button-secondary-active-color:        @inverse-global-inverse-color;
-@inverse-button-text-color:                    @inverse-global-emphasis-color;
-@inverse-button-text-hover-color:              @inverse-global-muted-color;
-@inverse-button-text-disabled-color:           @inverse-global-muted-color;
-@inverse-button-link-color:                    @inverse-global-emphasis-color;
-@inverse-button-link-hover-color:              @inverse-global-muted-color;
+.hook-button-variables() {
+    --inverse-button-default-background:            var(--inverse-global-primary-background);
+    --inverse-button-default-color:                 var(--inverse-global-inverse-color);
+    --inverse-button-default-hover-background:      hsl(from var(--inverse-button-default-background) h s calc(l - 5));
+    --inverse-button-default-hover-color:           var(--inverse-global-inverse-color);
+    --inverse-button-default-active-background:     hsl(from var(--inverse-button-default-background) h s calc(l - 10));
+    --inverse-button-default-active-color:          var(--inverse-global-inverse-color);
+    --inverse-button-primary-background:            var(--inverse-global-primary-background);
+    --inverse-button-primary-color:                 var(--inverse-global-inverse-color);
+    --inverse-button-primary-hover-background:      hsl(from var(--inverse-button-primary-background) h s calc(l - 5));
+    --inverse-button-primary-hover-color:           var(--inverse-global-inverse-color);
+    --inverse-button-primary-active-background:     hsl(from var(--inverse-button-primary-background) h s calc(l - 10));
+    --inverse-button-primary-active-color:          var(--inverse-global-inverse-color);
+    --inverse-button-secondary-background:          var(--inverse-global-primary-background);
+    --inverse-button-secondary-color:               var(--inverse-global-inverse-color);
+    --inverse-button-secondary-hover-background:    hsl(from var(--inverse-button-secondary-background) h s calc(l - 5));
+    --inverse-button-secondary-hover-color:         var(--inverse-global-inverse-color);
+    --inverse-button-secondary-active-background:   hsl(from var(--inverse-button-secondary-background) h s calc(l - 10));
+    --inverse-button-secondary-active-color:        var(--inverse-global-inverse-color);
+    --inverse-button-text-color:                    var(--inverse-global-emphasis-color);
+    --inverse-button-text-hover-color:              var(--inverse-global-muted-color);
+    --inverse-button-text-disabled-color:           var(--inverse-global-muted-color);
+    --inverse-button-link-color:                    var(--inverse-global-emphasis-color);
+    --inverse-button-link-hover-color:              var(--inverse-global-muted-color);
+}
 
 .hook-inverse() {
 
@@ -421,21 +427,21 @@
     //
 
     .uk-button-default {
-        background-color: @inverse-button-default-background;
-        color: @inverse-button-default-color;
+        background-color: var(--inverse-button-default-background);
+        color: var(--inverse-button-default-color);
         .hook-inverse-button-default();
     }
 
     .uk-button-default:hover {
-        background-color: @inverse-button-default-hover-background;
-        color: @inverse-button-default-hover-color;
+        background-color: var(--inverse-button-default-hover-background);
+        color: var(--inverse-button-default-hover-color);
         .hook-inverse-button-default-hover();
     }
 
     .uk-button-default:active,
     .uk-button-default.uk-active {
-        background-color: @inverse-button-default-active-background;
-        color: @inverse-button-default-active-color;
+        background-color: var(--inverse-button-default-active-background);
+        color: var(--inverse-button-default-active-color);
         .hook-inverse-button-default-active();
     }
 
@@ -444,21 +450,21 @@
     //
 
     .uk-button-primary {
-        background-color: @inverse-button-primary-background;
-        color: @inverse-button-primary-color;
+        background-color: var(--inverse-button-primary-background);
+        color: var(--inverse-button-primary-color);
         .hook-inverse-button-primary();
     }
 
     .uk-button-primary:hover {
-        background-color: @inverse-button-primary-hover-background;
-        color: @inverse-button-primary-hover-color;
+        background-color: var(--inverse-button-primary-hover-background);
+        color: var(--inverse-button-primary-hover-color);
         .hook-inverse-button-primary-hover();
     }
 
     .uk-button-primary:active,
     .uk-button-primary.uk-active {
-        background-color: @inverse-button-primary-active-background;
-        color: @inverse-button-primary-active-color;
+        background-color: var(--inverse-button-primary-active-background);
+        color: var(--inverse-button-primary-active-color);
         .hook-inverse-button-primary-active();
     }
 
@@ -467,21 +473,21 @@
     //
 
     .uk-button-secondary {
-        background-color: @inverse-button-secondary-background;
-        color: @inverse-button-secondary-color;
+        background-color: var(--inverse-button-secondary-background);
+        color: var(--inverse-button-secondary-color);
         .hook-inverse-button-secondary();
     }
 
     .uk-button-secondary:hover {
-        background-color: @inverse-button-secondary-hover-background;
-        color: @inverse-button-secondary-hover-color;
+        background-color: var(--inverse-button-secondary-hover-background);
+        color: var(--inverse-button-secondary-hover-color);
         .hook-inverse-button-secondary-hover();
     }
 
     .uk-button-secondary:active,
     .uk-button-secondary.uk-active {
-        background-color: @inverse-button-secondary-active-background;
-        color: @inverse-button-secondary-active-color;
+        background-color: var(--inverse-button-secondary-active-background);
+        color: var(--inverse-button-secondary-active-color);
         .hook-inverse-button-secondary-active();
     }
 
@@ -490,17 +496,17 @@
     //
 
     .uk-button-text {
-        color: @inverse-button-text-color;
+        color: var(--inverse-button-text-color);
         .hook-inverse-button-text();
     }
 
     .uk-button-text:hover {
-        color: @inverse-button-text-hover-color;
+        color: var(--inverse-button-text-hover-color);
         .hook-inverse-button-text-hover();
     }
 
     .uk-button-text:disabled {
-        color: @inverse-button-text-disabled-color;
+        color: var(--inverse-button-text-disabled-color);
         .hook-inverse-button-text-disabled();
     }
 
@@ -509,11 +515,11 @@
     //
 
     .uk-button-link {
-        color: @inverse-button-link-color;
+        color: var(--inverse-button-link-color);
         .hook-inverse-button-link();
     }
 
-    .uk-button-link:hover { color: @inverse-button-link-hover-color; }
+    .uk-button-link:hover { color: var(--inverse-button-link-hover-color); }
 
 }
 

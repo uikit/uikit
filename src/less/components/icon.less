@@ -16,26 +16,29 @@
 // Variables
 // ========================================================================
 
-@icon-image-size:                               20px;
+.hook-icon-variables() {
+    
+    --icon-image-size:                               20px;
 
-@icon-link-color:                               @global-muted-color;
-@icon-link-hover-color:                         @global-color;
-@icon-link-active-color:                        hsl(from @global-color h s calc(l - 5));                // instead of: darken(@global-color, 5%)
+    --icon-link-color:                               var(--global-muted-color);
+    --icon-link-hover-color:                         var(--global-color);
+    --icon-link-active-color:                        hsl(from var(--global-color) h s calc(l - 5));
+    --icon-button-size:                              36px;
+    --icon-button-border-radius:                     500px;
+    --icon-button-background:                        var(--global-muted-background);
+    --icon-button-color:                             var(--global-muted-color);
 
-@icon-button-size:                              36px;
-@icon-button-border-radius:                     500px;
-@icon-button-background:                        @global-muted-background;
-@icon-button-color:                             @global-muted-color;
+    --icon-button-hover-background:                  hsl(from var(--icon-button-background) h s calc(l - 5));
+    --icon-button-hover-color:                       var(--global-color);
 
-@icon-button-hover-background:                  hsl(from @icon-button-background h s calc(l - 5));      // instead of: darken(@icon-button-background, 5%)
-@icon-button-hover-color:                       @global-color;
+    --icon-button-active-background:                 hsl(from var(--icon-button-background) h s calc(l - 10));
+    --icon-button-active-color:                      var(--global-color);
 
-@icon-button-active-background:                 hsl(from @icon-button-background h s calc(l - 10));     // instead of: darken(@icon-button-background, 10%)
-@icon-button-active-color:                      @global-color;
+    --icon-primary-color:                            currentColor;
+    --icon-overlay-color:                            rgb(from var(--global-emphasis-color) r g b / 0.6);
+    --icon-overlay-hover-color:                      var(--global-emphasis-color);
 
-@icon-primary-color:                            currentColor;
-@icon-overlay-color:                            rgb(from @global-emphasis-color r g b / 0.6);            // instead of: fade(@global-emphasis-color, 60%);
-@icon-overlay-hover-color:                      @global-emphasis-color;
+}
 
 
 /* ========================================================================
@@ -76,7 +79,7 @@
     /* 8 */
     display: inline-block;
     /* 9 */
-    fill: @icon-primary-color;                 // instead of: currentColor
+    fill: var(--icon-primary-color);
     /* 10 */
     line-height: 0;
 }
@@ -90,9 +93,9 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
  */
 
 .uk-icon:not(.uk-preserve) [fill*="#"]:not(.uk-preserve),
-.uk-icon:not(.uk-preserve) [fill*="currentColor"]:not(.uk-preserve) { fill: @icon-primary-color; }                // instead of: currentColor
+.uk-icon:not(.uk-preserve) [fill*="currentColor"]:not(.uk-preserve) { fill: var(--icon-primary-color); }
 .uk-icon:not(.uk-preserve) [stroke*="#"]:not(.uk-preserve),
-.uk-icon:not(.uk-preserve) [stroke*="currentColor"]:not(.uk-preserve) { stroke: @icon-primary-color; }            // instead of: currentColor
+.uk-icon:not(.uk-preserve) [stroke*="currentColor"]:not(.uk-preserve) { stroke: var(--icon-primary-color); }
 
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
@@ -111,8 +114,8 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
  */
 
 .uk-icon-image {
-    width: @icon-image-size;
-    height: @icon-image-size;
+    width: var(--icon-image-size);
+    height: var(--icon-image-size);
     /* 1 */
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -133,21 +136,21 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
  */
 
 .uk-icon-link {
-    color: @icon-link-color;
+    color: var(--icon-link-color);
     /* 1 */
     text-decoration: none !important;
     .hook-icon-link();
 }
 
 .uk-icon-link:hover {
-    color: @icon-link-hover-color;
+    color: var(--icon-link-hover-color);
     .hook-icon-link-hover();
 }
 
 /* OnClick + Active */
 .uk-icon-link:active,
 .uk-active > .uk-icon-link {
-    color: @icon-link-active-color;
+    color: var(--icon-link-active-color);
     .hook-icon-link-active();
 }
 
@@ -158,11 +161,11 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 
 .uk-icon-button {
     box-sizing: border-box;
-    width: @icon-button-size;
-    height: @icon-button-size;
-    border-radius: @icon-button-border-radius;
-    background: @icon-button-background;
-    color: @icon-button-color;
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
+    border-radius: var(--icon-button-border-radius);
+    background: var(--icon-button-background);
+    color: var(--icon-button-color);
     vertical-align: middle;
     /* 1 */
     display: inline-flex;
@@ -173,16 +176,16 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 
 /* Hover */
 .uk-icon-button:hover {
-    background-color: @icon-button-hover-background;
-    color: @icon-button-hover-color;
+    background-color: var(--icon-button-hover-background);
+    color: var(--icon-button-hover-color);
     .hook-icon-button-hover();
 }
 
 /* OnClick + Active */
 .uk-icon-button:active,
 .uk-active > .uk-icon-button {
-    background-color: @icon-button-active-background;
-    color: @icon-button-active-color;
+    background-color: var(--icon-button-active-background);
+    color: var(--icon-button-active-color);
     .hook-icon-button-active();
 }
 
@@ -192,13 +195,13 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 
 .uk-icon-overlay,
 a .uk-icon-overlay {
-    color: @icon-overlay-color;
+    color: var(--icon-overlay-color);
     .hook-icon-overlay();
 }
 
 .uk-icon-overlay:hover,
 a:hover .uk-icon-overlay {
-    color: @icon-overlay-hover-color;
+    color: var(--icon-overlay-hover-color);
     .hook-icon-overlay-hover();
 }
 
@@ -222,17 +225,19 @@ a:hover .uk-icon-overlay {
 // Inverse
 // ========================================================================
 
-@inverse-icon-link-color:                      @inverse-global-muted-color;
-@inverse-icon-link-hover-color:                @inverse-global-color;
-@inverse-icon-link-active-color:               @inverse-global-color;
-@inverse-icon-button-background:               @inverse-global-muted-background;
-@inverse-icon-button-color:                    @inverse-global-muted-color;
-@inverse-icon-button-hover-background:         rgb(from @inverse-icon-button-background r g b / ~'calc(alpha + 0.05)');     // instead of: fadein(@inverse-icon-button-background, 5%);
-@inverse-icon-button-hover-color:              @inverse-global-color;
-@inverse-icon-button-active-background:        rgb(from @inverse-icon-button-background r g b / ~'calc(alpha + 0.1)');      // instead of: fadein(@inverse-icon-button-background, 10%);
-@inverse-icon-button-active-color:             @inverse-global-color;
-@inverse-icon-overlay-color:                   rgb(from @inverse-global-emphasis-color r g b / 0.6);        // instead of: fade(@inverse-global-emphasis-color, 60%);
-@inverse-icon-overlay-hover-color:             @inverse-global-emphasis-color;
+.hook-icon-variables() {
+    --inverse-icon-link-color:                      var(--inverse-global-muted-color);
+    --inverse-icon-link-hover-color:                var(--inverse-global-color);
+    --inverse-icon-link-active-color:               var(--inverse-global-color);
+    --inverse-icon-button-background:               var(--inverse-global-muted-background);
+    --inverse-icon-button-color:                    var(--inverse-global-muted-color);
+    --inverse-icon-button-hover-background:         rgb(from var(--inverse-icon-button-background) r g b / ~'calc(alpha + 0.05)');
+    --inverse-icon-button-hover-color:              var(--inverse-global-color);
+    --inverse-icon-button-active-background:        rgb(from var(--inverse-icon-button-background) r g b / ~'calc(alpha + 0.1)');
+    --inverse-icon-button-active-color:             var(--inverse-global-color);
+    --inverse-icon-overlay-color:                   rgb(from var(--inverse-global-emphasis-color) r g b / 0.6);
+    --inverse-icon-overlay-hover-color:             var(--inverse-global-emphasis-color);
+}
 
 .hook-inverse() {
 
@@ -241,18 +246,18 @@ a:hover .uk-icon-overlay {
     //
 
     .uk-icon-link {
-        color: @inverse-icon-link-color;
+        color: var(--inverse-icon-link-color);
         .hook-inverse-icon-link();
     }
 
     .uk-icon-link:hover {
-        color: @inverse-icon-link-hover-color;
+        color: var(--inverse-icon-link-hover-color);
         .hook-inverse-icon-link-hover();
     }
 
     .uk-icon-link:active,
     .uk-active > .uk-icon-link {
-        color: @inverse-icon-link-active-color;
+        color: var(--inverse-icon-link-active-color);
         .hook-inverse-icon-link-active();
     }
 
@@ -261,20 +266,20 @@ a:hover .uk-icon-overlay {
     //
 
     .uk-icon-button {
-        background-color: @inverse-icon-button-background;
-        color: @inverse-icon-button-color;
+        background-color: var(--inverse-icon-button-background);
+        color: var(--inverse-icon-button-color);
         .hook-inverse-icon-button();
     }
 
     .uk-icon-button:hover {
-        background-color: @inverse-icon-button-hover-background;
-        color: @inverse-icon-button-hover-color;
+        background-color: var(--inverse-icon-button-hover-background);
+        color: var(--inverse-icon-button-hover-color);
         .hook-inverse-icon-button-hover();
     }
 
     .uk-icon-button:active {
-        background-color: @inverse-icon-button-active-background;
-        color: @inverse-icon-button-active-color;
+        background-color: var(--inverse-icon-button-active-background);
+        color: var(--inverse-icon-button-active-color);
         .hook-inverse-icon-button-active();
     }
 
@@ -285,14 +290,14 @@ a:hover .uk-icon-overlay {
     .uk-icon-overlay,
     a .uk-icon-overlay,
     a& .uk-icon-overlay {
-        color: @inverse-icon-overlay-color;
+        color: var(--inverse-icon-overlay-color);
         .hook-inverse-icon-overlay();
     }
 
     .uk-icon-overlay:hover,
     a:hover .uk-icon-overlay,
     a&:hover .uk-icon-overlay {
-        color: @inverse-icon-overlay-hover-color;
+        color: var(--inverse-icon-overlay-hover-color);
         .hook-inverse-icon-overlay-hover();
     }
 

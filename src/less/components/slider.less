@@ -14,8 +14,12 @@
 // Variables
 // ========================================================================
 
-@slider-container-margin-left:                      -25px;
-@slider-container-margin-right:                     @slider-container-margin-left;
+.hook-slider-variables() {
+
+    --slider-container-margin-left:                      -25px;
+    --slider-container-margin-right:                     var(--slider-container-margin-left);
+
+}
 
 
 /* ========================================================================
@@ -55,10 +59,10 @@
  */
 
 .uk-slider-container-offset {
-    margin-left: @slider-container-margin-left;
-    margin-right: @slider-container-margin-right;
-    padding-left: calc(-1 * @slider-container-margin-left);                     // instead of: -@slider-container-margin-left;
-    padding-right: calc(-1 * @slider-container-margin-right);                   // instead of: -@slider-container-margin-right;
+    margin-left: var(--slider-container-margin-left);
+    margin-right: var(--slider-container-margin-right);
+    padding-left: calc(-1 * var(--slider-container-margin-left));
+    padding-right: calc(-1 * var(--slider-container-margin-right));
 }
 
 /* Items

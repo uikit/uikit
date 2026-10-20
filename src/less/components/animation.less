@@ -26,21 +26,25 @@
 // Variables
 // ========================================================================
 
-@animation-duration:                            0.5s;
-@animation-fade-duration:                       0.8s;
-@animation-stroke-duration:                     2s;
-@animation-kenburns-duration:                   15s;
-@animation-fast-duration:                       0.1s;
+.hook-animation-variables() {
 
-@animation-slide-small-translate:               10px;
-@animation-slide-medium-translate:              50px;
+    --animation-duration:                            0.5s;
+    --animation-fade-duration:                       0.8s;
+    --animation-stroke-duration:                     2s;
+    --animation-kenburns-duration:                   15s;
+    --animation-fast-duration:                       0.1s;
+
+    --animation-slide-small-translate:               10px;
+    --animation-slide-medium-translate:              50px;
+    
+}
 
 
 /* ========================================================================
    Component: Animation
  ========================================================================== */
 
-[class*="uk-animation-"] { animation: @animation-duration ease-out both; }
+[class*="uk-animation-"] { animation: var(--animation-duration) ease-out both; }
 
 
 /* Animations
@@ -52,7 +56,7 @@
 
 .uk-animation-fade {
     animation-name: uk-fade;
-    animation-duration: @animation-fade-duration;
+    animation-duration: var(--animation-fade-duration);
     animation-timing-function: linear;
 }
 
@@ -96,7 +100,7 @@
 
 .uk-animation-kenburns {
     animation-name: uk-kenburns;
-    animation-duration: @animation-kenburns-duration;
+    animation-duration: var(--animation-kenburns-duration);
 }
 
 /*
@@ -115,7 +119,7 @@
 
 .uk-animation-stroke {
     animation-name: uk-stroke;
-    animation-duration: @animation-stroke-duration;
+    animation-duration: var(--animation-stroke-duration);
     stroke-dasharray: var(--uk-animation-stroke);
 }
 
@@ -132,7 +136,7 @@
 /* Duration modifier
  ========================================================================== */
 
-.uk-animation-fast { animation-duration: @animation-fast-duration; }
+.uk-animation-fast { animation-duration: var(--animation-fast-duration); }
 
 
 /* Toggle animation based on the State of the Parent Element
@@ -196,22 +200,22 @@
  */
 
 @keyframes uk-slide-top-small {
-    0% { transform: translateY(calc(@animation-slide-small-translate * -1)); }                      // instead of: -@animation-slide-small-translate);
+    0% { transform: translateY(calc(var(--animation-slide-small-translate) * -1)); }
     100% { transform: translateY(0); }
 }
 
 @keyframes uk-slide-bottom-small {
-    0% { transform: translateY(@animation-slide-small-translate); }
+    0% { transform: translateY(var(--animation-slide-small-translate)); }
     100% { transform: translateY(0); }
 }
 
 @keyframes uk-slide-left-small {
-    0% { transform: translateX(calc(@animation-slide-small-translate * -1)); }                      // instead of: -@animation-slide-small-translate);
+    0% { transform: translateX(calc(var(--animation-slide-small-translate) * -1)); }
     100% { transform: translateX(0); }
 }
 
 @keyframes uk-slide-right-small {
-    0% { transform: translateX(@animation-slide-small-translate); }
+    0% { transform: translateX(var(--animation-slide-small-translate)); }
     100% { transform: translateX(0); }
 }
 
@@ -220,22 +224,22 @@
  */
 
 @keyframes uk-slide-top-medium {
-    0% { transform: translateY(calc(@animation-slide-medium-translate * -1)); }                     // instead of: -@animation-slide-medium-translate);
+    0% { transform: translateY(calc(var(--animation-slide-medium-translate) * -1)); }
     100% { transform: translateY(0); }
 }
 
 @keyframes uk-slide-bottom-medium {
-    0% { transform: translateY(@animation-slide-medium-translate); }
+    0% { transform: translateY(var(--animation-slide-medium-translate)); }
     100% { transform: translateY(0); }
 }
 
 @keyframes uk-slide-left-medium {
-    0% { transform: translateX(calc(@animation-slide-medium-translate * -1)); }                     // instead of: -@animation-slide-medium-translate);
+    0% { transform: translateX(calc(var(--animation-slide-medium-translate) * -1)); }
     100% { transform: translateX(0); }
 }
 
 @keyframes uk-slide-right-medium {
-    0% { transform: translateX(@animation-slide-medium-translate); }
+    0% { transform: translateX(var(--animation-slide-medium-translate)); }
     100% { transform: translateX(0); }
 }
 

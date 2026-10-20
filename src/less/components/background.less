@@ -9,10 +9,14 @@
 // Variables
 // ========================================================================
 
-@background-default-background:                 @global-background;
-@background-muted-background:                   @global-muted-background;
-@background-primary-background:                 @global-primary-background;
-@background-secondary-background:               @global-secondary-background;
+.hook-background-variables() {
+
+    --background-default-background:                 var(--global-background);
+    --background-muted-background:                   var(--global-muted-background);
+    --background-primary-background:                 var(--global-primary-background);
+    --background-secondary-background:               var(--global-secondary-background);
+    
+}
 
 
 /* ========================================================================
@@ -23,10 +27,10 @@
 /* Color
  ========================================================================== */
 
-.uk-background-default { background-color: @background-default-background; }
-.uk-background-muted { background-color: @background-muted-background; }
-.uk-background-primary { background-color: @background-primary-background; }
-.uk-background-secondary { background-color: @background-secondary-background; }
+.uk-background-default { background-color: var(--background-default-background); }
+.uk-background-muted { background-color: var(--background-muted-background); }
+.uk-background-primary { background-color: var(--background-primary-background); }
+.uk-background-secondary { background-color: var(--background-secondary-background); }
 
 
 /* Size

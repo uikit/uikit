@@ -11,7 +11,11 @@
 // Variables
 // ========================================================================
 
-@dropnav-dropbar-z-index:                       calc(@global-z-index - 20);                     // instead of: @global-z-index - 20;
+.hook-dropnav-variables() {
+
+    --dropnav-dropbar-z-index:                       calc(var(--global-z-index) - 20);
+
+}
 
 
 /* ========================================================================
@@ -26,7 +30,7 @@
 .uk-dropnav-dropbar {
     /* 1 */
     position: absolute;
-    z-index: @dropnav-dropbar-z-index;
+    z-index: var(--dropnav-dropbar-z-index);
     /* 2 */
     padding: 0;
     /* 3 */

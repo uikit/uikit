@@ -13,10 +13,14 @@
 // Variables
 // ========================================================================
 
-@sticky-z-index:                                calc(@global-z-index - 20);                             // instead of: @global-z-index - 20
+.hook-sticky-variables() {
 
-@sticky-animation-duration:                     0.2s;
-@sticky-reverse-animation-duration:             0.2s;
+    --sticky-z-index:                                calc(var(--global-z-index) - 20);
+
+    --sticky-animation-duration:                     0.2s;
+    --sticky-reverse-animation-duration:             0.2s;
+
+}
 
 
 /* ========================================================================
@@ -34,7 +38,7 @@
     /* 1 */
     position: relative;
     /* 2 */
-    z-index: @sticky-z-index;
+    z-index: var(--sticky-z-index);
     /* 3 */
     box-sizing: border-box;
 }
@@ -45,9 +49,9 @@
  * Faster animations
  */
 
-.uk-sticky[class*="uk-animation-"] { animation-duration: @sticky-animation-duration; }
+.uk-sticky[class*="uk-animation-"] { animation-duration: var(--sticky-animation-duration); }
 
-.uk-sticky.uk-animation-reverse { animation-duration: @sticky-reverse-animation-duration; }
+.uk-sticky.uk-animation-reverse { animation-duration: var(--sticky-reverse-animation-duration); }
 
 /*
  * Placeholder

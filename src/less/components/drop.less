@@ -18,12 +18,16 @@
 // Variables
 // ========================================================================
 
-@drop-z-index:                              calc(@global-z-index + 20);                     // instead of: @global-z-index + 20;
-@drop-margin:                               @global-margin;
-@drop-viewport-margin:                      15px;
-@drop-width:                                300px;
+.hook-drop-variables() {
 
-@drop-parent-icon-margin-left:              0.25em;
+    --drop-z-index:                              calc(var(--global-z-index) + 20);
+    --drop-margin:                               var(--global-margin);
+    --drop-viewport-margin:                      15px;
+    --drop-width:                                300px;
+
+    --drop-parent-icon-margin-left:              0.25em;
+
+}
 
 
 /* ========================================================================
@@ -41,12 +45,12 @@
     display: none;
     /* 2 */
     position: absolute;
-    z-index: @drop-z-index;
-    --uk-position-offset: @drop-margin;
-    --uk-position-viewport-offset: @drop-viewport-margin;
+    z-index: var(--drop-z-index);
+    --uk-position-offset: var(--drop-margin);
+    --uk-position-viewport-offset: var(--drop-viewport-margin);
     /* 3 */
     box-sizing: border-box;
-    width: @drop-width;
+    width: var(--drop-width);
 }
 
 /* Show */
@@ -63,7 +67,7 @@
  ========================================================================== */
 
 .uk-drop-parent-icon {
-    margin-left: @drop-parent-icon-margin-left;
+    margin-left: var(--drop-parent-icon-margin-left);
     transition: transform 0.3s ease-out;
 }
 

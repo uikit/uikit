@@ -29,91 +29,95 @@
 // Variables
 // ========================================================================
 
-@nav-item-padding-vertical:                     5px;
-@nav-item-padding-horizontal:                   0;
+.hook-nav-variables() {
+    
+    --nav-item-padding-vertical:                     5px;
+    --nav-item-padding-horizontal:                   0;
 
-@nav-sublist-padding-vertical:                  5px;
-@nav-sublist-padding-left:                      15px;
-@nav-sublist-deeper-padding-left:               15px;
-@nav-sublist-item-padding-vertical:             2px;
+    --nav-sublist-padding-vertical:                  5px;
+    --nav-sublist-padding-left:                      15px;
+    --nav-sublist-deeper-padding-left:               15px;
+    --nav-sublist-item-padding-vertical:             2px;
 
-@nav-parent-icon-margin-left:                   0.25em;
+    --nav-parent-icon-margin-left:                   0.25em;
 
-@nav-header-padding-vertical:                   @nav-item-padding-vertical;
-@nav-header-padding-horizontal:                 @nav-item-padding-horizontal;
-@nav-header-font-size:                          @global-small-font-size;
-@nav-header-text-transform:                     uppercase;
-@nav-header-margin-top:                         @global-margin;
+    --nav-header-padding-vertical:                   var(--nav-item-padding-vertical);
+    --nav-header-padding-horizontal:                 var(--nav-item-padding-horizontal);
+    --nav-header-font-size:                          var(--global-small-font-size);
+    --nav-header-text-transform:                     uppercase;
+    --nav-header-margin-top:                         var(--global-margin);
 
-@nav-divider-margin-vertical:                   5px;
-@nav-divider-margin-horizontal:                 0;
+    --nav-divider-margin-vertical:                   5px;
+    --nav-divider-margin-horizontal:                 0;
 
-@nav-default-font-size:                         @global-font-size;
-@nav-default-line-height:                       @global-line-height;
-@nav-default-item-color:                        @global-muted-color;
-@nav-default-item-hover-color:                  @global-color;
-@nav-default-item-active-color:                 @global-emphasis-color;
-@nav-default-subtitle-font-size:                @global-small-font-size;
-@nav-default-header-color:                      @global-emphasis-color;
-@nav-default-divider-border-width:              @global-border-width;
-@nav-default-divider-border:                    @global-border;
-@nav-default-sublist-font-size:                 @nav-default-font-size;
-@nav-default-sublist-line-height:               @nav-default-line-height;
-@nav-default-sublist-item-color:                @global-muted-color;
-@nav-default-sublist-item-hover-color:          @global-color;
-@nav-default-sublist-item-active-color:         @global-emphasis-color;
+    --nav-default-font-size:                         var(--global-font-size);
+    --nav-default-line-height:                       var(--global-line-height);
+    --nav-default-item-color:                        var(--global-muted-color);
+    --nav-default-item-hover-color:                  var(--global-color);
+    --nav-default-item-active-color:                 var(--global-emphasis-color);
+    --nav-default-subtitle-font-size:                var(--global-small-font-size);
+    --nav-default-header-color:                      var(--global-emphasis-color);
+    --nav-default-divider-border-width:              var(--global-border-width);
+    --nav-default-divider-border:                    var(--global-border);
+    --nav-default-sublist-font-size:                 var(--nav-default-font-size);
+    --nav-default-sublist-line-height:               var(--nav-default-line-height);
+    --nav-default-sublist-item-color:                var(--global-muted-color);
+    --nav-default-sublist-item-hover-color:          var(--global-color);
+    --nav-default-sublist-item-active-color:         var(--global-emphasis-color);
 
-@nav-primary-font-size:                         @global-large-font-size;
-@nav-primary-line-height:                       @global-line-height;
-@nav-primary-item-color:                        @global-muted-color;
-@nav-primary-item-hover-color:                  @global-color;
-@nav-primary-item-active-color:                 @global-emphasis-color;
-@nav-primary-subtitle-font-size:                @global-medium-font-size;
-@nav-primary-header-color:                      @global-emphasis-color;
-@nav-primary-divider-border-width:              @global-border-width;
-@nav-primary-divider-border:                    @global-border;
-@nav-primary-sublist-font-size:                 @global-medium-font-size;
-@nav-primary-sublist-line-height:               @global-line-height;
-@nav-primary-sublist-item-color:                @global-muted-color;
-@nav-primary-sublist-item-hover-color:          @global-color;
-@nav-primary-sublist-item-active-color:         @global-emphasis-color;
+    --nav-primary-font-size:                         var(--global-large-font-size);
+    --nav-primary-line-height:                       var(--global-line-height);
+    --nav-primary-item-color:                        var(--global-muted-color);
+    --nav-primary-item-hover-color:                  var(--global-color);
+    --nav-primary-item-active-color:                 var(--global-emphasis-color);
+    --nav-primary-subtitle-font-size:                var(--global-medium-font-size);
+    --nav-primary-header-color:                      var(--global-emphasis-color);
+    --nav-primary-divider-border-width:              var(--global-border-width);
+    --nav-primary-divider-border:                    var(--global-border);
+    --nav-primary-sublist-font-size:                 var(--global-medium-font-size);
+    --nav-primary-sublist-line-height:               var(--global-line-height);
+    --nav-primary-sublist-item-color:                var(--global-muted-color);
+    --nav-primary-sublist-item-hover-color:          var(--global-color);
+    --nav-primary-sublist-item-active-color:         var(--global-emphasis-color);
 
-@nav-secondary-font-size:                       @global-font-size;
-@nav-secondary-line-height:                     @global-line-height;
-@nav-secondary-item-color:                      @global-emphasis-color;
-@nav-secondary-item-hover-color:                @global-emphasis-color;
-@nav-secondary-item-active-color:               @global-emphasis-color;
-@nav-secondary-subtitle-font-size:              @global-small-font-size;
-@nav-secondary-subtitle-color:                  @global-muted-color;
-@nav-secondary-subtitle-hover-color:            @global-color;
-@nav-secondary-subtitle-active-color:           @global-emphasis-color;
-@nav-secondary-header-color:                    @global-emphasis-color;
-@nav-secondary-divider-border-width:            @global-border-width;
-@nav-secondary-divider-border:                  @global-border;
-@nav-secondary-sublist-font-size:               @global-small-font-size;
-@nav-secondary-sublist-line-height:             @global-line-height;
-@nav-secondary-sublist-item-color:              @global-muted-color;
-@nav-secondary-sublist-item-hover-color:        @global-color;
-@nav-secondary-sublist-item-active-color:       @global-emphasis-color;
+    --nav-secondary-font-size:                       var(--global-font-size);
+    --nav-secondary-line-height:                     var(--global-line-height);
+    --nav-secondary-item-color:                      var(--global-emphasis-color);
+    --nav-secondary-item-hover-color:                var(--global-emphasis-color);
+    --nav-secondary-item-active-color:               var(--global-emphasis-color);
+    --nav-secondary-subtitle-font-size:              var(--global-small-font-size);
+    --nav-secondary-subtitle-color:                  var(--global-muted-color);
+    --nav-secondary-subtitle-hover-color:            var(--global-color);
+    --nav-secondary-subtitle-active-color:           var(--global-emphasis-color);
+    --nav-secondary-header-color:                    var(--global-emphasis-color);
+    --nav-secondary-divider-border-width:            var(--global-border-width);
+    --nav-secondary-divider-border:                  var(--global-border);
+    --nav-secondary-sublist-font-size:               var(--global-small-font-size);
+    --nav-secondary-sublist-line-height:             var(--global-line-height);
+    --nav-secondary-sublist-item-color:              var(--global-muted-color);
+    --nav-secondary-sublist-item-hover-color:        var(--global-color);
+    --nav-secondary-sublist-item-active-color:       var(--global-emphasis-color);
 
-@nav-medium-line-height:                        1;
-@nav-medium-font-size:                          calc(@nav-medium-font-size-m * 0.825);    // 40px 0.714 | instead of: @nav-medium-font-size-m * 0.825;
-@nav-medium-font-size-m:                        calc(@nav-medium-font-size-l * 0.875);    // 3.5rem / 56px | instead of: @nav-medium-font-size-l * 0.875;
-@nav-medium-font-size-l:                        4rem; // 64px
+    --nav-medium-line-height:                        1;
+    --nav-medium-font-size:                          calc(var(--nav-medium-font-size-m) * 0.825);
+    --nav-medium-font-size-m:                        calc(var(--nav-medium-font-size-l) * 0.875);
+    --nav-medium-font-size-l:                        4rem; // 64px
 
-@nav-large-line-height:                         1;
-@nav-large-font-size:                           calc(@nav-large-font-size-m * 0.85);      // 50px 0.78 | instead of: @nav-large-font-size-m * 0.85
-@nav-large-font-size-m:                         4rem; // 64px
-@nav-large-font-size-l:                         6rem; // 96px
+    --nav-large-line-height:                         1;
+    --nav-large-font-size:                           calc(var(--nav-large-font-size-m) * 0.85);
+    --nav-large-font-size-m:                         4rem; // 64px
+    --nav-large-font-size-l:                         6rem; // 96px
 
-@nav-xlarge-line-height:                        1;
-@nav-xlarge-font-size:                          4rem; // 64px
-@nav-xlarge-font-size-m:                        6rem; // 96px
-@nav-xlarge-font-size-l:                        8rem; // 128px
+    --nav-xlarge-line-height:                        1;
+    --nav-xlarge-font-size:                          4rem; // 64px
+    --nav-xlarge-font-size-m:                        6rem; // 96px
+    --nav-xlarge-font-size-l:                        8rem; // 128px
 
-@nav-dividers-margin-top:                       5px;
-@nav-dividers-border-width:                     @global-border-width;
-@nav-dividers-border:                           @global-border;
+    --nav-dividers-margin-top:                       5px;
+    --nav-dividers-border-width:                     var(--global-border-width);
+    --nav-dividers-border:                           var(--global-border);
+
+}
 
 
 /* ========================================================================
@@ -152,7 +156,7 @@
  * Must target `a` elements to exclude other elements (e.g. lists)
  */
 
-.uk-nav > li > a { padding: @nav-item-padding-vertical @nav-item-padding-horizontal; }
+.uk-nav > li > a { padding: var(--nav-item-padding-vertical) var(--nav-item-padding-horizontal); }
 
 
 /* Sublists
@@ -164,7 +168,7 @@
  */
 
 ul.uk-nav-sub {
-    padding: @nav-sublist-padding-vertical 0 @nav-sublist-padding-vertical @nav-sublist-padding-left;
+    padding: var(--nav-sublist-padding-vertical) 0 var(--nav-sublist-padding-vertical) var(--nav-sublist-padding-left);
     .hook-nav-sub();
 }
 
@@ -172,13 +176,13 @@ ul.uk-nav-sub {
  * Level 3 and deeper
  */
 
-.uk-nav-sub ul { padding-left: @nav-sublist-deeper-padding-left; }
+.uk-nav-sub ul { padding-left: var(--nav-sublist-deeper-padding-left); }
 
 /*
  * Items
  */
 
-.uk-nav-sub a { padding: @nav-sublist-item-padding-vertical 0; }
+.uk-nav-sub a { padding: var(--nav-sublist-item-padding-vertical) 0; }
 
 
 /* Parent icon
@@ -197,20 +201,20 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-header {
-    padding: @nav-header-padding-vertical @nav-header-padding-horizontal;
-    text-transform: @nav-header-text-transform;
-    font-size: @nav-header-font-size;
+    padding: var(--nav-header-padding-vertical) var(--nav-header-padding-horizontal);
+    text-transform: var(--nav-header-text-transform);
+    font-size: var(--nav-header-font-size);
     .hook-nav-header();
 }
 
-.uk-nav-header:not(:first-child) { margin-top: @nav-header-margin-top; }
+.uk-nav-header:not(:first-child) { margin-top: var(--nav-header-margin-top); }
 
 
 /* Divider
  ========================================================================== */
 
 .uk-nav .uk-nav-divider {
-    margin: @nav-divider-margin-vertical @nav-divider-margin-horizontal;
+    margin: var(--nav-divider-margin-vertical) var(--nav-divider-margin-horizontal);
     .hook-nav-divider();
 }
 
@@ -219,8 +223,8 @@ ul.uk-nav-sub {
  ========================================================================== */
 
 .uk-nav-default {
-    font-size: @nav-default-font-size;
-    line-height: @nav-default-line-height;
+    font-size: var(--nav-default-font-size);
+    line-height: var(--nav-default-line-height);
     .hook-nav-default();
 }
 
@@ -229,19 +233,19 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-default > li > a {
-    color: @nav-default-item-color;
+    color: var(--nav-default-item-color);
     .hook-nav-default-item();
 }
 
 /* Hover */
 .uk-nav-default > li > a:hover {
-    color: @nav-default-item-hover-color;
+    color: var(--nav-default-item-hover-color);
     .hook-nav-default-item-hover();
 }
 
 /* Active */
 .uk-nav-default > li.uk-active > a {
-    color: @nav-default-item-active-color;
+    color: var(--nav-default-item-active-color);
     .hook-nav-default-item-active();
 }
 
@@ -250,7 +254,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-default .uk-nav-subtitle {
-    font-size: @nav-default-subtitle-font-size;
+    font-size: var(--nav-default-subtitle-font-size);
     .hook-nav-default-subtitle();
 }
 
@@ -259,7 +263,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-default .uk-nav-header {
-    color: @nav-default-header-color;
+    color: var(--nav-default-header-color);
     .hook-nav-default-header();
 }
 
@@ -268,7 +272,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-default .uk-nav-divider {
-    border-top: @nav-default-divider-border-width solid @nav-default-divider-border;
+    border-top: var(--nav-default-divider-border-width) solid var(--nav-default-divider-border);
     .hook-nav-default-divider();
 }
 
@@ -277,23 +281,23 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-default .uk-nav-sub {
-    font-size: @nav-default-sublist-font-size;
-    line-height: @nav-default-sublist-line-height;
+    font-size: var(--nav-default-sublist-font-size);
+    line-height: var(--nav-default-sublist-line-height);
 }
 
-.uk-nav-default .uk-nav-sub a { color: @nav-default-sublist-item-color; }
+.uk-nav-default .uk-nav-sub a { color: var(--nav-default-sublist-item-color); }
 
-.uk-nav-default .uk-nav-sub a:hover { color: @nav-default-sublist-item-hover-color; }
+.uk-nav-default .uk-nav-sub a:hover { color: var(--nav-default-sublist-item-hover-color); }
 
-.uk-nav-default .uk-nav-sub li.uk-active > a { color: @nav-default-sublist-item-active-color; }
+.uk-nav-default .uk-nav-sub li.uk-active > a { color: var(--nav-default-sublist-item-active-color); }
 
 
 /* Primary modifier
  ========================================================================== */
 
 .uk-nav-primary {
-    font-size: @nav-primary-font-size;
-    line-height: @nav-primary-line-height;
+    font-size: var(--nav-primary-font-size);
+    line-height: var(--nav-primary-line-height);
     .hook-nav-primary();
 }
 
@@ -302,19 +306,19 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-primary > li > a {
-    color: @nav-primary-item-color;
+    color: var(--nav-primary-item-color);
     .hook-nav-primary-item();
 }
 
 /* Hover */
 .uk-nav-primary > li > a:hover {
-    color: @nav-primary-item-hover-color;
+    color: var(--nav-primary-item-hover-color);
     .hook-nav-primary-item-hover();
 }
 
 /* Active */
 .uk-nav-primary > li.uk-active > a {
-    color: @nav-primary-item-active-color;
+    color: var(--nav-primary-item-active-color);
     .hook-nav-primary-item-active();
 }
 
@@ -323,7 +327,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-primary .uk-nav-subtitle {
-    font-size: @nav-primary-subtitle-font-size;
+    font-size: var(--nav-primary-subtitle-font-size);
     .hook-nav-primary-subtitle();
 }
 
@@ -332,7 +336,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-primary .uk-nav-header {
-    color: @nav-primary-header-color;
+    color: var(--nav-primary-header-color);
     .hook-nav-primary-header();
 }
 
@@ -341,7 +345,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-primary .uk-nav-divider {
-    border-top: @nav-primary-divider-border-width solid @nav-primary-divider-border;
+    border-top: var(--nav-primary-divider-border-width) solid var(--nav-primary-divider-border);
     .hook-nav-primary-divider();
 }
 
@@ -350,23 +354,23 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-primary .uk-nav-sub {
-    font-size: @nav-primary-sublist-font-size;
-    line-height: @nav-primary-sublist-line-height;
+    font-size: var(--nav-primary-sublist-font-size);
+    line-height: var(--nav-primary-sublist-line-height);
 }
 
-.uk-nav-primary .uk-nav-sub a { color: @nav-primary-sublist-item-color; }
+.uk-nav-primary .uk-nav-sub a { color: var(--nav-primary-sublist-item-color); }
 
-.uk-nav-primary .uk-nav-sub a:hover { color: @nav-primary-sublist-item-hover-color; }
+.uk-nav-primary .uk-nav-sub a:hover { color: var(--nav-primary-sublist-item-hover-color); }
 
-.uk-nav-primary .uk-nav-sub li.uk-active > a { color: @nav-primary-sublist-item-active-color; }
+.uk-nav-primary .uk-nav-sub li.uk-active > a { color: var(--nav-primary-sublist-item-active-color); }
 
 
 /* Secondary modifier
  ========================================================================== */
 
 .uk-nav-secondary {
-    font-size: @nav-secondary-font-size;
-    line-height: @nav-secondary-line-height;
+    font-size: var(--nav-secondary-font-size);
+    line-height: var(--nav-secondary-line-height);
     .hook-nav-secondary();
 }
 
@@ -375,19 +379,19 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-secondary > li > a {
-    color: @nav-secondary-item-color;
+    color: var(--nav-secondary-item-color);
     .hook-nav-secondary-item();
 }
 
 /* Hover */
 .uk-nav-secondary > li > a:hover {
-    color: @nav-secondary-item-hover-color;
+    color: var(--nav-secondary-item-hover-color);
     .hook-nav-secondary-item-hover();
 }
 
 /* Active */
 .uk-nav-secondary > li.uk-active > a {
-    color: @nav-secondary-item-active-color;
+    color: var(--nav-secondary-item-active-color);
     .hook-nav-secondary-item-active();
 }
 
@@ -396,20 +400,20 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-secondary .uk-nav-subtitle {
-    font-size: @nav-secondary-subtitle-font-size;
-    color: @nav-secondary-subtitle-color;
+    font-size: var(--nav-secondary-subtitle-font-size);
+    color: var(--nav-secondary-subtitle-color);
     .hook-nav-secondary-subtitle();
 }
 
 /* Hover */
 .uk-nav-secondary > li > a:hover .uk-nav-subtitle {
-    color: @nav-secondary-subtitle-hover-color;
+    color: var(--nav-secondary-subtitle-hover-color);
     .hook-nav-secondary-subtitle-hover();
 }
 
 /* Active */
 .uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
-    color: @nav-secondary-subtitle-active-color;
+    color: var(--nav-secondary-subtitle-active-color);
     .hook-nav-secondary-subtitle-active();
 }
 
@@ -418,7 +422,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-secondary .uk-nav-header {
-    color: @nav-secondary-header-color;
+    color: var(--nav-secondary-header-color);
     .hook-nav-secondary-header();
 }
 
@@ -427,7 +431,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-secondary .uk-nav-divider {
-    border-top: @nav-secondary-divider-border-width solid @nav-secondary-divider-border;
+    border-top: var(--nav-secondary-divider-border-width) solid var(--nav-secondary-divider-border);
     .hook-nav-secondary-divider();
 }
 
@@ -436,15 +440,15 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-secondary .uk-nav-sub {
-    font-size: @nav-secondary-sublist-font-size;
-    line-height: @nav-secondary-sublist-line-height;
+    font-size: var(--nav-secondary-sublist-font-size);
+    line-height: var(--nav-secondary-sublist-line-height);
 }
 
-.uk-nav-secondary .uk-nav-sub a { color: @nav-secondary-sublist-item-color; }
+.uk-nav-secondary .uk-nav-sub a { color: var(--nav-secondary-sublist-item-color); }
 
-.uk-nav-secondary .uk-nav-sub a:hover { color: @nav-secondary-sublist-item-hover-color; }
+.uk-nav-secondary .uk-nav-sub a:hover { color: var(--nav-secondary-sublist-item-hover-color); }
 
-.uk-nav-secondary .uk-nav-sub li.uk-active > a { color: @nav-secondary-sublist-item-active-color; }
+.uk-nav-secondary .uk-nav-sub li.uk-active > a { color: var(--nav-secondary-sublist-item-active-color); }
 
 
 /* Size modifier
@@ -455,38 +459,38 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-medium {
-    font-size: @nav-medium-font-size;
-    line-height: @nav-medium-line-height;
+    font-size: var(--nav-medium-font-size);
+    line-height: var(--nav-medium-line-height);
     .hook-nav-medium();
 }
 
 .uk-nav-large {
-    font-size: @nav-large-font-size;
-    line-height: @nav-large-line-height;
+    font-size: var(--nav-large-font-size);
+    line-height: var(--nav-large-line-height);
     .hook-nav-large();
 }
 
 .uk-nav-xlarge {
-    font-size: @nav-xlarge-font-size;
-    line-height: @nav-xlarge-line-height;
+    font-size: var(--nav-xlarge-font-size);
+    line-height: var(--nav-xlarge-line-height);
     .hook-nav-xlarge();
 }
 
 /* Tablet Landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-nav-medium { font-size: @nav-medium-font-size-m; }
-    .uk-nav-large { font-size: @nav-large-font-size-m; }
-    .uk-nav-xlarge { font-size: @nav-xlarge-font-size-m; }
+    .uk-nav-medium { font-size: var(--nav-medium-font-size-m); }
+    .uk-nav-large { font-size: var(--nav-large-font-size-m); }
+    .uk-nav-xlarge { font-size: var(--nav-xlarge-font-size-m); }
 
 }
 
 /* Laptop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-nav-medium { font-size: @nav-medium-font-size-l; }
-    .uk-nav-large { font-size: @nav-large-font-size-l; }
-    .uk-nav-xlarge { font-size: @nav-xlarge-font-size-l; }
+    .uk-nav-medium { font-size: var(--nav-medium-font-size-l); }
+    .uk-nav-large { font-size: var(--nav-large-font-size-l); }
+    .uk-nav-xlarge { font-size: var(--nav-xlarge-font-size-l); }
 
 }
 
@@ -509,7 +513,7 @@ ul.uk-nav-sub {
 .uk-nav-center .uk-nav-sub ul { padding-left: 0; }
 
 /* Parent icon  */
-.uk-nav-center .uk-nav-parent-icon { margin-left: @nav-parent-icon-margin-left; }
+.uk-nav-center .uk-nav-parent-icon { margin-left: var(--nav-parent-icon-margin-left); }
 
 
 /* Style modifier
@@ -521,9 +525,9 @@ ul.uk-nav-sub {
  */
 
 .uk-nav.uk-nav-divider > :not(.uk-nav-header, .uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
-    margin-top: @nav-dividers-margin-top;
-    padding-top: @nav-dividers-margin-top;
-    border-top: @nav-dividers-border-width solid @nav-dividers-border;
+    margin-top: var(--nav-dividers-margin-top);
+    padding-top: var(--nav-dividers-margin-top);
+    border-top: var(--nav-dividers-border-width) solid var(--nav-dividers-border);
     .hook-nav-dividers();
 }
 
@@ -569,37 +573,39 @@ ul.uk-nav-sub {
 // Inverse
 // ========================================================================
 
-@inverse-nav-default-item-color:                    @inverse-global-muted-color;
-@inverse-nav-default-item-hover-color:              @inverse-global-color;
-@inverse-nav-default-item-active-color:             @inverse-global-emphasis-color;
-@inverse-nav-default-header-color:                  @inverse-global-emphasis-color;
-@inverse-nav-default-divider-border:                @inverse-global-border;
-@inverse-nav-default-sublist-item-color:            @inverse-global-muted-color;
-@inverse-nav-default-sublist-item-hover-color:      @inverse-global-color;
-@inverse-nav-default-sublist-item-active-color:     @inverse-global-emphasis-color;
+.hook-nav-variables() {
+    --inverse-nav-default-item-color:                    var(--inverse-global-muted-color);
+    --inverse-nav-default-item-hover-color:              var(--inverse-global-color);
+    --inverse-nav-default-item-active-color:             var(--inverse-global-emphasis-color);
+    --inverse-nav-default-header-color:                  var(--inverse-global-emphasis-color);
+    --inverse-nav-default-divider-border:                var(--inverse-global-border);
+    --inverse-nav-default-sublist-item-color:            var(--inverse-global-muted-color);
+    --inverse-nav-default-sublist-item-hover-color:      var(--inverse-global-color);
+    --inverse-nav-default-sublist-item-active-color:     var(--inverse-global-emphasis-color);
 
-@inverse-nav-primary-item-color:                    @inverse-global-muted-color;
-@inverse-nav-primary-item-hover-color:              @inverse-global-color;
-@inverse-nav-primary-item-active-color:             @inverse-global-emphasis-color;
-@inverse-nav-primary-header-color:                  @inverse-global-emphasis-color;
-@inverse-nav-primary-divider-border:                @inverse-global-border;
-@inverse-nav-primary-sublist-item-color:            @inverse-global-muted-color;
-@inverse-nav-primary-sublist-item-hover-color:      @inverse-global-color;
-@inverse-nav-primary-sublist-item-active-color:     @inverse-global-emphasis-color;
+    --inverse-nav-primary-item-color:                    var(--inverse-global-muted-color);
+    --inverse-nav-primary-item-hover-color:              var(--inverse-global-color);
+    --inverse-nav-primary-item-active-color:             var(--inverse-global-emphasis-color);
+    --inverse-nav-primary-header-color:                  var(--inverse-global-emphasis-color);
+    --inverse-nav-primary-divider-border:                var(--inverse-global-border);
+    --inverse-nav-primary-sublist-item-color:            var(--inverse-global-muted-color);
+    --inverse-nav-primary-sublist-item-hover-color:      var(--inverse-global-color);
+    --inverse-nav-primary-sublist-item-active-color:     var(--inverse-global-emphasis-color);
 
-@inverse-nav-secondary-item-color:                  @inverse-global-emphasis-color;
-@inverse-nav-secondary-item-hover-color:            @inverse-global-emphasis-color;
-@inverse-nav-secondary-item-active-color:           @inverse-global-emphasis-color;
-@inverse-nav-secondary-subtitle-color:              @inverse-global-muted-color;
-@inverse-nav-secondary-subtitle-hover-color:        @inverse-global-color;
-@inverse-nav-secondary-subtitle-active-color:       @inverse-global-emphasis-color;
-@inverse-nav-secondary-header-color:                @inverse-global-emphasis-color;
-@inverse-nav-secondary-divider-border:              @inverse-global-border;
-@inverse-nav-secondary-sublist-item-color:          @inverse-global-muted-color;
-@inverse-nav-secondary-sublist-item-hover-color:    @inverse-global-color;
-@inverse-nav-secondary-sublist-item-active-color:   @inverse-global-emphasis-color;
+    --inverse-nav-secondary-item-color:                  var(--inverse-global-emphasis-color);
+    --inverse-nav-secondary-item-hover-color:            var(--inverse-global-emphasis-color);
+    --inverse-nav-secondary-item-active-color:           var(--inverse-global-emphasis-color);
+    --inverse-nav-secondary-subtitle-color:              var(--inverse-global-muted-color);
+    --inverse-nav-secondary-subtitle-hover-color:        var(--inverse-global-color);
+    --inverse-nav-secondary-subtitle-active-color:       var(--inverse-global-emphasis-color);
+    --inverse-nav-secondary-header-color:                var(--inverse-global-emphasis-color);
+    --inverse-nav-secondary-divider-border:              var(--inverse-global-border);
+    --inverse-nav-secondary-sublist-item-color:          var(--inverse-global-muted-color);
+    --inverse-nav-secondary-sublist-item-hover-color:    var(--inverse-global-color);
+    --inverse-nav-secondary-sublist-item-active-color:   var(--inverse-global-emphasis-color);
 
-@inverse-nav-dividers-border:                       @inverse-global-border;
+    --inverse-nav-dividers-border:                       var(--inverse-global-border);
+}
 
 .hook-inverse() {
 
@@ -608,127 +614,127 @@ ul.uk-nav-sub {
     //
 
     .uk-nav-default > li > a {
-        color: @inverse-nav-default-item-color;
+        color: var(--inverse-nav-default-item-color);
         .hook-inverse-nav-default-item();
     }
 
     .uk-nav-default > li > a:hover {
-        color: @inverse-nav-default-item-hover-color;
+        color: var(--inverse-nav-default-item-hover-color);
         .hook-inverse-nav-default-item-hover();
     }
 
     .uk-nav-default > li.uk-active > a {
-        color: @inverse-nav-default-item-active-color;
+        color: var(--inverse-nav-default-item-active-color);
         .hook-inverse-nav-default-item-active();
     }
 
     .uk-nav-default .uk-nav-header {
-        color: @inverse-nav-default-header-color;
+        color: var(--inverse-nav-default-header-color);
         .hook-inverse-nav-default-header();
     }
 
     .uk-nav-default .uk-nav-divider {
-        border-top-color: @inverse-nav-default-divider-border;
+        border-top-color: var(--inverse-nav-default-divider-border);
         .hook-inverse-nav-default-divider();
     }
 
-    .uk-nav-default .uk-nav-sub a { color: @inverse-nav-default-sublist-item-color; }
+    .uk-nav-default .uk-nav-sub a { color: var(--inverse-nav-default-sublist-item-color); }
 
-    .uk-nav-default .uk-nav-sub a:hover { color: @inverse-nav-default-sublist-item-hover-color; }
+    .uk-nav-default .uk-nav-sub a:hover { color: var(--inverse-nav-default-sublist-item-hover-color); }
 
-    .uk-nav-default .uk-nav-sub li.uk-active > a { color: @inverse-nav-default-sublist-item-active-color; }
+    .uk-nav-default .uk-nav-sub li.uk-active > a { color: var(--inverse-nav-default-sublist-item-active-color); }
 
     //
     // Primary
     //
 
     .uk-nav-primary > li > a {
-        color: @inverse-nav-primary-item-color;
+        color: var(--inverse-nav-primary-item-color);
         .hook-inverse-nav-primary-item();
     }
 
     .uk-nav-primary > li > a:hover {
-        color: @inverse-nav-primary-item-hover-color;
+        color: var(--inverse-nav-primary-item-hover-color);
         .hook-inverse-nav-primary-item-hover();
     }
 
     .uk-nav-primary > li.uk-active > a {
-        color: @inverse-nav-primary-item-active-color;
+        color: var(--inverse-nav-primary-item-active-color);
         .hook-inverse-nav-primary-item-active();
     }
 
     .uk-nav-primary .uk-nav-header {
-        color: @inverse-nav-primary-header-color;
+        color: var(--inverse-nav-primary-header-color);
         .hook-inverse-nav-primary-header();
     }
 
     .uk-nav-primary .uk-nav-divider {
-        border-top-color: @inverse-nav-primary-divider-border;
+        border-top-color: var(--inverse-nav-primary-divider-border);
         .hook-inverse-nav-primary-divider();
     }
 
-    .uk-nav-primary .uk-nav-sub a { color: @inverse-nav-primary-sublist-item-color; }
+    .uk-nav-primary .uk-nav-sub a { color: var(--inverse-nav-primary-sublist-item-color); }
 
-    .uk-nav-primary .uk-nav-sub a:hover { color: @inverse-nav-primary-sublist-item-hover-color; }
+    .uk-nav-primary .uk-nav-sub a:hover { color: var(--inverse-nav-primary-sublist-item-hover-color); }
 
-    .uk-nav-primary .uk-nav-sub li.uk-active > a { color: @inverse-nav-primary-sublist-item-active-color; }
+    .uk-nav-primary .uk-nav-sub li.uk-active > a { color: var(--inverse-nav-primary-sublist-item-active-color); }
 
     //
     // Secondary
     //
 
     .uk-nav-secondary > li > a {
-        color: @inverse-nav-secondary-item-color;
+        color: var(--inverse-nav-secondary-item-color);
         .hook-inverse-nav-secondary-item();
     }
 
     .uk-nav-secondary > li > a:hover {
-        color: @inverse-nav-secondary-item-hover-color;
+        color: var(--inverse-nav-secondary-item-hover-color);
         .hook-inverse-nav-secondary-item-hover();
     }
 
     .uk-nav-secondary > li.uk-active > a {
-        color: @inverse-nav-secondary-item-active-color;
+        color: var(--inverse-nav-secondary-item-active-color);
         .hook-inverse-nav-secondary-item-active();
     }
 
     .uk-nav-secondary .uk-nav-subtitle {
-        color: @inverse-nav-secondary-subtitle-color;
+        color: var(--inverse-nav-secondary-subtitle-color);
         .hook-inverse-nav-secondary-subtitle();
     }
 
     .uk-nav-secondary > li > a:hover .uk-nav-subtitle {
-        color: @inverse-nav-secondary-subtitle-hover-color;
+        color: var(--inverse-nav-secondary-subtitle-hover-color);
         .hook-inverse-nav-secondary-subtitle-hover();
     }
 
     .uk-nav-secondary > li.uk-active > a .uk-nav-subtitle {
-        color: @inverse-nav-secondary-subtitle-active-color;
+        color: var(--inverse-nav-secondary-subtitle-active-color);
         .hook-inverse-nav-secondary-subtitle-active();
     }
 
     .uk-nav-secondary .uk-nav-header {
-        color: @inverse-nav-secondary-header-color;
+        color: var(--inverse-nav-secondary-header-color);
         .hook-inverse-nav-secondary-header();
     }
 
     .uk-nav-secondary .uk-nav-divider {
-        border-top-color: @inverse-nav-secondary-divider-border;
+        border-top-color: var(--inverse-nav-secondary-divider-border);
         .hook-inverse-nav-secondary-divider();
     }
 
-    .uk-nav-secondary .uk-nav-sub a { color: @inverse-nav-secondary-sublist-item-color; }
+    .uk-nav-secondary .uk-nav-sub a { color: var(--inverse-nav-secondary-sublist-item-color); }
 
-    .uk-nav-secondary .uk-nav-sub a:hover { color: @inverse-nav-secondary-sublist-item-hover-color; }
+    .uk-nav-secondary .uk-nav-sub a:hover { color: var(--inverse-nav-secondary-sublist-item-hover-color); }
 
-    .uk-nav-secondary .uk-nav-sub li.uk-active > a { color: @inverse-nav-secondary-sublist-item-active-color; }
+    .uk-nav-secondary .uk-nav-sub li.uk-active > a { color: var(--inverse-nav-secondary-sublist-item-active-color); }
 
     //
     // Dividers
     //
 
     .uk-nav.uk-nav-divider > :not(.uk-nav-divider) + :not(.uk-nav-header, .uk-nav-divider) {
-        border-top-color: @inverse-nav-dividers-border;
+        border-top-color: var(--inverse-nav-dividers-border);
         .hook-inverse-nav-dividers();
     }
 

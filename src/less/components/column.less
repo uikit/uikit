@@ -13,23 +13,27 @@
 // Variables
 // ========================================================================
 
-@column-gutter:                                 @global-gutter;
-@column-gutter-l:                               @global-medium-gutter;
+.hook-column-variables() {
 
-@column-divider-rule-color:                     @global-border;
-@column-divider-rule-width:                     1px;
+    --column-gutter:                                 var(--global-gutter);
+    --column-gutter-l:                               var(--global-medium-gutter);
+
+    --column-divider-rule-color:                     var(--global-border);
+    --column-divider-rule-width:                     1px;
+    
+}
 
 
 /* ========================================================================
    Component: Column
  ========================================================================== */
 
-[class*="uk-column-"] { column-gap: @column-gutter; }
+[class*="uk-column-"] { column-gap: var(--column-gutter); }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    [class*="uk-column-"] { column-gap: @column-gutter-l; }
+    [class*="uk-column-"] { column-gap: var(--column-gutter-l); }
 
 }
 
@@ -48,16 +52,16 @@
  */
 
 .uk-column-divider {
-    column-rule: @column-divider-rule-width solid @column-divider-rule-color;
+    column-rule: var(--column-divider-rule-width) solid var(--column-divider-rule-color);
     /* 1 */
-    column-gap: calc(@column-gutter * 2);                                       // instead of: (@column-gutter * 2);
+    column-gap: calc(var(--column-gutter) * 2);
 }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
     .uk-column-divider {
-        column-gap: calc(@column-gutter-l * 2);                                 // instead of: (@column-gutter-l * 2);
+        column-gap: calc(var(--column-gutter-l) * 2);
     }
 
 }
@@ -134,10 +138,12 @@
 // Inverse
 // ========================================================================
 
-@inverse-column-divider-rule-color:                    @inverse-global-border;
+.hook-column-variables() {
+    --inverse-column-divider-rule-color:                    var(--inverse-global-border);
+}
 
 .hook-inverse() {
 
-    .uk-column-divider { column-rule-color: @inverse-column-divider-rule-color; }
+    .uk-column-divider { column-rule-color: var(--inverse-column-divider-rule-color); }
 
 }

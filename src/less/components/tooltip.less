@@ -20,15 +20,19 @@
 // Variables
 // ========================================================================
 
-@tooltip-z-index:                               calc(@global-z-index + 30);                             // instead of: @global-z-index + 30;
-@tooltip-margin:                                10px;
-@tooltip-max-width:                             200px;
-@tooltip-padding-vertical:                      3px;
-@tooltip-padding-horizontal:                    6px;
-@tooltip-background:                            #666;
-@tooltip-border-radius:                         2px;
-@tooltip-color:                                 @global-inverse-color;
-@tooltip-font-size:                             12px;
+.hook-tooltip-variables() {
+
+    --tooltip-z-index:                               calc(var(--global-z-index) + 30);
+    --tooltip-margin:                                10px;
+    --tooltip-max-width:                             200px;
+    --tooltip-padding-vertical:                      3px;
+    --tooltip-padding-horizontal:                    6px;
+    --tooltip-background:                            #666;
+    --tooltip-border-radius:                         2px;
+    --tooltip-color:                                 var(--global-inverse-color);
+    --tooltip-font-size:                             12px;
+
+}
 
 
 
@@ -49,20 +53,20 @@
     display: none;
     /* 2 */
     position: absolute;
-    z-index: @tooltip-z-index;
-    --uk-position-offset: @tooltip-margin;
+    z-index: var(--tooltip-z-index);
+    --uk-position-offset: var(--tooltip-margin);
     --uk-position-viewport-offset: 10;
     /* 3 */
     top: 0;
     /* 4 */
     box-sizing: border-box;
-    max-width: @tooltip-max-width;
-    padding: @tooltip-padding-vertical @tooltip-padding-horizontal;
+    max-width: var(--tooltip-max-width);
+    padding: var(--tooltip-padding-vertical) var(--tooltip-padding-horizontal);
     /* 5 */
-    background: @tooltip-background;
-    border-radius: @tooltip-border-radius;
-    color: @tooltip-color;
-    font-size: @tooltip-font-size;
+    background: var(--tooltip-background);
+    border-radius: var(--tooltip-border-radius);
+    color: var(--tooltip-color);
+    font-size: var(--tooltip-font-size);
     .hook-tooltip();
 }
 

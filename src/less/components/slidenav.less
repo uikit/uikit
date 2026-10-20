@@ -15,15 +15,19 @@
 // Variables
 // ========================================================================
 
-@slidenav-padding-vertical:                     5px;
-@slidenav-padding-horizontal:                   10px;
+.hook-slidenav-variables() {
+    
+    --slidenav-padding-vertical:                     5px;
+    --slidenav-padding-horizontal:                   10px;
 
-@slidenav-color:                                rgb(from @global-color r g b / 0.5);                   // instead of: fade(@global-color, 50%);
-@slidenav-hover-color:                          rgb(from @global-color r g b / 0.9);                   // instead of: fade(@global-color, 90%);
-@slidenav-active-color:                         rgb(from @global-color r g b / 0.5);                   // instead of: fade(@global-color, 50%);
+    --slidenav-color:                                rgb(from var(--global-color) r g b / 0.5);
+    --slidenav-hover-color:                          rgb(from var(--global-color) r g b / 0.9);
+    --slidenav-active-color:                         rgb(from var(--global-color) r g b / 0.5);
 
-@slidenav-large-padding-vertical:               10px;
-@slidenav-large-padding-horizontal:             @slidenav-large-padding-vertical;
+    --slidenav-large-padding-vertical:               10px;
+    --slidenav-large-padding-horizontal:             var(--slidenav-large-padding-vertical);
+
+}
 
 
 /* ========================================================================
@@ -35,20 +39,20 @@
  */
 
 .uk-slidenav {
-    padding: @slidenav-padding-vertical @slidenav-padding-horizontal;
-    color: @slidenav-color;
+    padding: var(--slidenav-padding-vertical) var(--slidenav-padding-horizontal);
+    color: var(--slidenav-color);
     .hook-slidenav();
 }
 
 /* Hover */
 .uk-slidenav:hover {
-    color: @slidenav-hover-color;
+    color: var(--slidenav-hover-color);
     .hook-slidenav-hover();
 }
 
 /* OnClick */
 .uk-slidenav:active {
-    color: @slidenav-active-color;
+    color: var(--slidenav-active-color);
     .hook-slidenav-active();
 }
 
@@ -77,7 +81,7 @@
  ========================================================================== */
 
 .uk-slidenav-large {
-    padding: @slidenav-large-padding-vertical @slidenav-large-padding-horizontal;
+    padding: var(--slidenav-large-padding-vertical) var(--slidenav-large-padding-horizontal);
     .hook-slidenav-large();
 }
 
@@ -109,24 +113,26 @@
 // Inverse
 // ========================================================================
 
-@inverse-slidenav-color:                       rgb(from @inverse-global-color r g b / 0.7);                     // instead of: fade(@inverse-global-color, 70%);
-@inverse-slidenav-hover-color:                 rgb(from @inverse-global-color r g b / 0.95);                    // instead of: fade(@inverse-global-color, 95%);
-@inverse-slidenav-active-color:                rgb(from @inverse-global-color r g b / 0.7);                     // instead of: fade(@inverse-global-color, 70%);
+.hook-slidenav-variables() {
+    --inverse-slidenav-color:                       rgb(from var(--inverse-global-color) r g b / 0.7);
+    --inverse-slidenav-hover-color:                 rgb(from var(--inverse-global-color) r g b / 0.95);
+    --inverse-slidenav-active-color:                rgb(from var(--inverse-global-color) r g b / 0.7);
+}
 
 .hook-inverse() {
 
     .uk-slidenav {
-        color: @inverse-slidenav-color;
+        color: var(--inverse-slidenav-color);
         .hook-inverse-slidenav();
     }
 
     .uk-slidenav:hover {
-        color: @inverse-slidenav-hover-color;
+        color: var(--inverse-slidenav-hover-color);
         .hook-inverse-slidenav-hover();
     }
 
     .uk-slidenav:active {
-        color: @inverse-slidenav-active-color;
+        color: var(--inverse-slidenav-active-color);
         .hook-inverse-slidenav-active();
     }
 

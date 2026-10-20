@@ -7,16 +7,20 @@
 // Variables
 // ========================================================================
 
-@form-range-thumb-background:                   @global-background;
+.hook-form-range-variables() {
 
-//
-// New
-//
+  --form-range-thumb-background:                   var(--global-background);
 
-@form-range-track-border-radius:                500px;
+  //
+  // New
+  //
 
-@form-range-thumb-border-width:                 @global-border-width;
-@form-range-thumb-border:                       hsl(from @global-border h s calc(l - 10));            // instead of: darken(@global-border, 10%);
+  --form-range-track-border-radius:                500px;
+
+  --form-range-thumb-border-width:                 var(--global-border-width);
+  --form-range-thumb-border:                       hsl(from var(--global-border) h s calc(l - 10));
+
+}
 
 
 // Component
@@ -28,7 +32,7 @@
 // Track
 // ========================================================================
 
-.hook-form-range-track() { border-radius: @form-range-track-border-radius; }
+.hook-form-range-track() { border-radius: var(--form-range-track-border-radius); }
 
 .hook-form-range-track-focus() {}
 
@@ -36,7 +40,7 @@
 // Thumb
 // ========================================================================
 
-.hook-form-range-thumb() { border: @form-range-thumb-border-width solid @form-range-thumb-border; }
+.hook-form-range-thumb() { border: var(--form-range-thumb-border-width) solid var(--form-range-thumb-border); }
 
 
 // Miscellaneous
@@ -48,10 +52,12 @@
 // Inverse
 // ========================================================================
 
-@inverse-form-range-thumb-background:           hsl(from rgb(from @inverse-global-color r g b / ~'calc(alpha + 1)') h s calc(l - 50)); // instead of: darken(fadein(@inverse-global-color, 100%), 50%);
+.hook-form-range-variables() {
+  --inverse-form-range-thumb-background:           hsl(from rgb(from var(--inverse-global-color) r g b / ~'calc(alpha + 1)') h s calc(l - 50));
 
-@inverse-form-range-thumb-border:               hsl(from rgb(from @inverse-global-border r g b / ~'calc(alpha + 1)') h s calc(l - 10)); // instead of: darken(fadein(@inverse-global-border, 100%), 10%);
+  --inverse-form-range-thumb-border:               hsl(from rgb(from var(--inverse-global-border) r g b / ~'calc(alpha + 1)') h s calc(l - 10));
+}
 
 .hook-inverse-form-range-track() {}
 .hook-inverse-form-range-track-focus() {}
-.hook-inverse-form-range-thumb() { border-color: @inverse-form-range-thumb-border; }
+.hook-inverse-form-range-thumb() { border-color: var(--inverse-form-range-thumb-border); }
