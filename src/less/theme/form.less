@@ -12,8 +12,8 @@
 @form-background:                               @global-background;
 @form-focus-background:                         @global-background;
 
-@form-small-line-height:                        @form-small-height - (2* @form-border-width);
-@form-large-line-height:                        @form-large-height - (2* @form-border-width);
+@form-small-line-height:                        calc(@form-small-height - (2* @form-border-width)); // instead of: @form-small-height - (2* @form-border-width)
+@form-large-line-height:                        calc(@form-large-height - (2* @form-border-width)); // instead of: @form-large-height - (2* @form-border-width)
 
 @form-radio-background:                         transparent;
 
@@ -37,7 +37,7 @@
 @form-blank-focus-border-style:                 solid;
 
 @form-radio-border-width:                       @global-border-width;
-@form-radio-border:                             darken(@global-border, 10%);
+@form-radio-border:                             hsl(from @global-border h s calc(l - 10)); // instead of: darken(@global-border, 10%);
 
 @form-radio-focus-border:                       @global-primary-background;
 

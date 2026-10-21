@@ -7,9 +7,9 @@
 // Variables
 // ========================================================================
 
-@button-line-height:                            @global-control-height - (@button-border-width * 2);
-@button-small-line-height:                      @global-control-small-height - (@button-border-width * 2);
-@button-large-line-height:                      @global-control-large-height - (@button-border-width * 2);
+@button-line-height:                            calc(@global-control-height - (@button-border-width * 2));  // instead of: @global-control-height - (@button-border-width * 2); 
+@button-small-line-height:                      calc(@global-control-small-height - (@button-border-width * 2));  // instead of: @global-control-small-height - (@button-border-width * 2)
+@button-large-line-height:                      calc(@global-control-large-height - (@button-border-width * 2));  // instead of: @global-control-large-height - (@button-border-width * 2)
 
 @button-font-size:                              @global-small-font-size;
 @button-large-font-size:                        @global-small-font-size;
@@ -31,8 +31,8 @@
 @button-border-width:                           @global-border-width;
 
 @button-default-border:                         @global-border;
-@button-default-hover-border:                   darken(@global-border, 20%);
-@button-default-active-border:                  darken(@global-border, 30%);
+@button-default-hover-border:                   hsl(from @global-border h s calc(l - 20)); // instead of: darken(@global-border, 20%);
+@button-default-active-border:                  hsl(from @global-border h s calc(l - 30)); // instead of: darken(@global-border, 30%);
 
 @button-disabled-border:                        @global-border;
 
@@ -159,7 +159,7 @@
      */
 
     .uk-button-group > .uk-button:nth-child(n+2),
-    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: -@button-border-width; }
+    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: calc(@button-border-width * -1); } // instead of: -@button-border-width
 
     /*
      * Create position context to superimpose the successor elements border
