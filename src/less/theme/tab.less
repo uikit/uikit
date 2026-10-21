@@ -7,18 +7,22 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+.hook-tab-variables() {
 
-@tab-border-width:                              @global-border-width;
-@tab-border:                                    @global-border;
+    //
+    // New
+    //
 
-@tab-item-border-width:                         @global-border-width;
-@tab-item-font-size:                            @global-small-font-size;
-@tab-item-text-transform:                       uppercase;
+    --tab-border-width:                              var(--global-border-width);
+    --tab-border:                                    var(--global-border);
 
-@tab-item-active-border:                        @global-primary-background;
+    --tab-item-border-width:                         var(--global-border-width);
+    --tab-item-font-size:                            var(--global-small-font-size);
+    --tab-item-text-transform:                       uppercase;
+
+    --tab-item-active-border:                        var(--global-primary-background);
+
+}
 
 
 // Component
@@ -32,9 +36,9 @@
         content: "";
         position: absolute;
         bottom: 0;
-        left: @tab-margin-horizontal;
+        left: var(--tab-margin-horizontal);
         right: 0;
-        border-bottom: @tab-border-width solid @tab-border;
+        border-bottom: var(--tab-border-width) solid var(--tab-border);
     }
 
 }
@@ -44,15 +48,15 @@
 // ========================================================================
 
 .hook-tab-item() {
-    border-bottom: @tab-item-border-width solid transparent;
-    font-size: @tab-item-font-size;
-    text-transform: @tab-item-text-transform;
+    border-bottom: var(--tab-item-border-width) solid transparent;
+    font-size: var(--tab-item-font-size);
+    text-transform: var(--tab-item-text-transform);
     transition: color 0.1s ease-in-out;
 }
 
 .hook-tab-item-hover() {}
 
-.hook-tab-item-active() { border-color: @tab-item-active-border; }
+.hook-tab-item-active() { border-color: var(--tab-item-active-border); }
 
 .hook-tab-item-disabled() {}
 
@@ -70,7 +74,7 @@
 }
 
 .hook-tab-bottom-item() {
-    border-top: @tab-item-border-width solid transparent;
+    border-top: var(--tab-item-border-width) solid transparent;
     border-bottom: none;
 }
 
@@ -81,14 +85,14 @@
         bottom: 0;
         left: auto;
         right: 0;
-        border-left: @tab-border-width solid @tab-border;
+        border-left: var(--tab-border-width) solid var(--tab-border);
         border-bottom: none;
     }
 
 }
 
 .hook-tab-left-item() {
-    border-right: @tab-item-border-width solid transparent;
+    border-right: var(--tab-item-border-width) solid transparent;
     border-bottom: none;
 }
 
@@ -99,14 +103,14 @@
         bottom: 0;
         left: 0;
         right: auto;
-        border-left: @tab-border-width solid @tab-border;
+        border-left: var(--tab-border-width) solid var(--tab-border);
         border-bottom: none;
     }
 
 }
 
 .hook-tab-right-item() {
-    border-left: @tab-item-border-width solid transparent;
+    border-left: var(--tab-item-border-width) solid transparent;
     border-bottom: none;
 }
 
@@ -116,7 +120,7 @@
 
 .hook-tab-misc() {
 
-    .uk-tab .uk-dropdown { margin-left: (@tab-margin-horizontal + @tab-item-padding-horizontal); }
+    .uk-tab .uk-dropdown { margin-left: calc(var(--tab-margin-horizontal) + var(--tab-item-padding-horizontal)); }
 
 }
 
@@ -124,15 +128,17 @@
 // Inverse
 // ========================================================================
 
-@inverse-tab-border:                        @inverse-global-border;
+.hook-tab-variables() {
+    --inverse-tab-border:                        var(--inverse-global-border);
+}
 
 .hook-inverse-tab() {
 
-    &::before { border-color: @inverse-tab-border; }
+    &::before { border-color: var(--inverse-tab-border); }
 
 }
 
 .hook-inverse-tab-item() {}
 .hook-inverse-tab-item-hover() {}
-.hook-inverse-tab-item-active() { border-color: @inverse-global-primary-background; }
+.hook-inverse-tab-item-active() { border-color: var(--inverse-global-primary-background); }
 .hook-inverse-tab-item-disabled() {}

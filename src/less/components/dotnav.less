@@ -13,17 +13,21 @@
 // Variables
 // ========================================================================
 
-@dotnav-margin-horizontal:                      12px;
-@dotnav-margin-vertical:                        @dotnav-margin-horizontal;
+.hook-dotnav-variables() {
 
-@dotnav-item-width:                             10px;
-@dotnav-item-height:                            @dotnav-item-width;
-@dotnav-item-border-radius:                     50%;
+    --dotnav-margin-horizontal:                      12px;
+    --dotnav-margin-vertical:                        var(--dotnav-margin-horizontal);
 
-@dotnav-item-background:                        fade(@global-color, 20%);
-@dotnav-item-hover-background:                  fade(@global-color, 60%);
-@dotnav-item-onclick-background:                fade(@global-color, 20%);
-@dotnav-item-active-background:                 fade(@global-color, 60%);
+    --dotnav-item-width:                             10px;
+    --dotnav-item-height:                            var(--dotnav-item-width);
+    --dotnav-item-border-radius:                     50%;
+
+    --dotnav-item-background:                        rgb(from var(--global-color) r g b / 0.2);
+    --dotnav-item-hover-background:                  rgb(from var(--global-color) r g b / 0.6);
+    --dotnav-item-onclick-background:                rgb(from var(--global-color) r g b / 0.2);
+    --dotnav-item-active-background:                 rgb(from var(--global-color) r g b / 0.6);
+
+}
 
 
 /* ========================================================================
@@ -45,7 +49,7 @@
     padding: 0;
     list-style: none;
     /* 3 */
-    margin-left: -@dotnav-margin-horizontal;
+    margin-left: calc(var(--dotnav-margin-horizontal) * -1);
     .hook-dotnav();
 }
 
@@ -58,7 +62,7 @@
     /* 1 */
     flex: none;
     /* 2 */
-    padding-left: @dotnav-margin-horizontal;
+    padding-left: var(--dotnav-margin-horizontal);
 }
 
 
@@ -73,10 +77,10 @@
 .uk-dotnav > * > * {
     display: block;
     box-sizing: border-box;
-    width: @dotnav-item-width;
-    height: @dotnav-item-height;
-    border-radius: @dotnav-item-border-radius;
-    background: @dotnav-item-background;
+    width: var(--dotnav-item-width);
+    height: var(--dotnav-item-height);
+    border-radius: var(--dotnav-item-border-radius);
+    background: var(--dotnav-item-background);
     /* 1 */
     text-indent: 100%;
     overflow: hidden;
@@ -86,19 +90,19 @@
 
 /* Hover */
 .uk-dotnav > * > :hover {
-    background-color: @dotnav-item-hover-background;
+    background-color: var(--dotnav-item-hover-background);
     .hook-dotnav-item-hover();
 }
 
 /* OnClick */
 .uk-dotnav > * > :active {
-    background-color: @dotnav-item-onclick-background;
+    background-color: var(--dotnav-item-onclick-background);
     .hook-dotnav-item-onclick();
 }
 
 /* Active */
 .uk-dotnav > .uk-active > * {
-    background-color: @dotnav-item-active-background;
+    background-color: var(--dotnav-item-active-background);
     .hook-dotnav-item-active();
 }
 
@@ -116,13 +120,13 @@
     flex-direction: column;
     /* 2 */
     margin-left: 0;
-    margin-top: -@dotnav-margin-vertical;
+    margin-top: calc(var(--dotnav-margin-vertical) * -1);
 }
 
 /* 2 */
 .uk-dotnav-vertical > * {
     padding-left: 0;
-    padding-top: @dotnav-margin-vertical;
+    padding-top: var(--dotnav-margin-vertical);
 }
 
 
@@ -142,30 +146,32 @@
 // Inverse
 // ========================================================================
 
-@inverse-dotnav-item-background:               fade(@inverse-global-color, 50%);
-@inverse-dotnav-item-hover-background:         fade(@inverse-global-color, 90%);
-@inverse-dotnav-item-onclick-background:       fade(@inverse-global-color, 50%);
-@inverse-dotnav-item-active-background:        fade(@inverse-global-color, 90%);
+.hook-dotnav-variables() {
+    --inverse-dotnav-item-background:               rgb(from var(--inverse-global-color) r g b / 0.5);
+    --inverse-dotnav-item-hover-background:         rgb(from var(--inverse-global-color) r g b / 0.9);
+    --inverse-dotnav-item-onclick-background:       rgb(from var(--inverse-global-color) r g b / 0.5);
+    --inverse-dotnav-item-active-background:        rgb(from var(--inverse-global-color) r g b / 0.9);
+}
 
 .hook-inverse() {
 
     .uk-dotnav > * > * {
-        background-color: @inverse-dotnav-item-background;
+        background-color: var(--inverse-dotnav-item-background);
         .hook-inverse-dotnav-item();
     }
 
     .uk-dotnav > * > :hover {
-        background-color: @inverse-dotnav-item-hover-background;
+        background-color: var(--inverse-dotnav-item-hover-background);
         .hook-inverse-dotnav-item-hover();
     }
 
     .uk-dotnav > * > :active {
-        background-color: @inverse-dotnav-item-onclick-background;
+        background-color: var(--inverse-dotnav-item-onclick-background);
         .hook-inverse-dotnav-item-onclick();
     }
 
     .uk-dotnav > .uk-active > * {
-        background-color: @inverse-dotnav-item-active-background;
+        background-color: var(--inverse-dotnav-item-active-background);
         .hook-inverse-dotnav-item-active();
     }
 

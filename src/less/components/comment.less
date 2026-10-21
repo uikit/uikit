@@ -18,18 +18,22 @@
 // Variables
 // ========================================================================
 
-@comment-header-margin-bottom:                  @global-margin;
+.hook-comment-variables() {
 
-@comment-title-font-size:                       @global-medium-font-size;
-@comment-title-line-height:                     1.4;
+    --comment-header-margin-bottom:                  var(--global-margin);
 
-@comment-meta-font-size:                        @global-small-font-size;
-@comment-meta-line-height:                      1.4;
-@comment-meta-color:                            @global-muted-color;
+    --comment-title-font-size:                       var(--global-medium-font-size);
+    --comment-title-line-height:                     1.4;
 
-@comment-list-margin-top:                       @global-large-margin;
-@comment-list-padding-left:                     30px;
-@comment-list-padding-left-m:                   100px;
+    --comment-meta-font-size:                        var(--global-small-font-size);
+    --comment-meta-line-height:                      1.4;
+    --comment-meta-color:                            var(--global-muted-color);
+
+    --comment-list-margin-top:                       var(--global-large-margin);
+    --comment-list-padding-left:                     30px;
+    --comment-list-padding-left-m:                   100px;
+    
+}
 
 
 /* ========================================================================
@@ -53,7 +57,7 @@
 
 .uk-comment-header {
     display: flow-root;
-    margin-bottom: @comment-header-margin-bottom;
+    margin-bottom: var(--comment-header-margin-bottom);
     .hook-comment-header();
 }
 
@@ -69,8 +73,8 @@
  ========================================================================== */
 
 .uk-comment-title {
-    font-size: @comment-title-font-size;
-    line-height: @comment-title-line-height;
+    font-size: var(--comment-title-font-size);
+    line-height: var(--comment-title-line-height);
     .hook-comment-title();
 }
 
@@ -79,9 +83,9 @@
  ========================================================================== */
 
 .uk-comment-meta {
-    font-size: @comment-meta-font-size;
-    line-height: @comment-meta-line-height;
-    color: @comment-meta-color;
+    font-size: var(--comment-meta-font-size);
+    line-height: var(--comment-meta-line-height);
+    color: var(--comment-meta-color);
     .hook-comment-meta();
 }
 
@@ -104,7 +108,7 @@
 
 /* Adjacent siblings */
 .uk-comment-list > :nth-child(n+2) {
-    margin-top: @comment-list-margin-top;
+    margin-top: var(--comment-list-margin-top);
     .hook-comment-list-adjacent();
 }
 
@@ -114,8 +118,8 @@
  */
 
 .uk-comment-list .uk-comment ~ ul {
-    margin: @comment-list-margin-top 0 0 0;
-    padding-left: @comment-list-padding-left;
+    margin: var(--comment-list-margin-top) 0 0 0;
+    padding-left: var(--comment-list-padding-left);
     list-style: none;
     .hook-comment-list-sub();
 }
@@ -123,13 +127,13 @@
 /* Tablet and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-comment-list .uk-comment ~ ul { padding-left: @comment-list-padding-left-m; }
+    .uk-comment-list .uk-comment ~ ul { padding-left: var(--comment-list-padding-left-m); }
 
 }
 
 /* Adjacent siblings */
 .uk-comment-list .uk-comment ~ ul > :nth-child(n+2) {
-    margin-top: @comment-list-margin-top;
+    margin-top: var(--comment-list-margin-top);
     .hook-comment-list-sub-adjacent();
 }
 

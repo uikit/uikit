@@ -7,33 +7,37 @@
 // Variables
 // ========================================================================
 
-@search-default-background:                         transparent;
+.hook-search-variables() {
 
-@search-navbar-focus-background:                    @search-navbar-background;
+    --search-default-background:                         transparent;
 
-@search-medium-background:                          transparent;
+    --search-navbar-focus-background:                    var(--search-navbar-background);
 
-@search-large-background:                           transparent;
+    --search-medium-background:                          transparent;
 
-//
-// New
-//
+    --search-large-background:                           transparent;
 
-@search-default-border-width:                       @global-border-width;
-@search-default-border:                             @global-border;
-@search-default-focus-border:                       @global-primary-background;
+    //
+    // New
+    //
 
-@search-navbar-border-width:                        @global-border-width;
-@search-navbar-border:                              @global-border;
-@search-navbar-focus-border:                        @global-primary-background;
+    --search-default-border-width:                       var(--global-border-width);
+    --search-default-border:                             var(--global-border);
+    --search-default-focus-border:                       var(--global-primary-background);
 
-@search-medium-border-width:                        @global-border-width;
-@search-medium-border:                              @global-border;
-@search-medium-focus-border:                        @global-primary-background;
+    --search-navbar-border-width:                        var(--global-border-width);
+    --search-navbar-border:                              var(--global-border);
+    --search-navbar-focus-border:                        var(--global-primary-background);
 
-@search-large-border-width:                         @global-border-width;
-@search-large-border:                               @global-border;
-@search-large-focus-border:                         @global-primary-background;
+    --search-medium-border-width:                        var(--global-border-width);
+    --search-medium-border:                              var(--global-border);
+    --search-medium-focus-border:                        var(--global-primary-background);
+
+    --search-large-border-width:                         var(--global-border-width);
+    --search-large-border:                               var(--global-border);
+    --search-large-focus-border:                         var(--global-primary-background);
+
+}
 
 
 // Component
@@ -51,33 +55,33 @@
 // Default modifiers
 // ========================================================================
 
-.hook-search-default-input() { border: @search-default-border-width solid @search-default-border; }
+.hook-search-default-input() { border: var(--search-default-border-width) solid var(--search-default-border); }
 
-.hook-search-default-input-focus() { border-color: @search-default-focus-border; }
+.hook-search-default-input-focus() { border-color: var(--search-default-focus-border); }
 
 
 // Navbar modifiers
 // ========================================================================
 
-.hook-search-navbar-input() { border: @search-navbar-border-width solid @search-navbar-border; }
+.hook-search-navbar-input() { border: var(--search-navbar-border-width) solid var(--search-navbar-border); }
 
-.hook-search-navbar-input-focus() { border-color: @search-navbar-focus-border; }
+.hook-search-navbar-input-focus() { border-color: var(--search-navbar-focus-border); }
 
 
 // Medium modifiers
 // ========================================================================
 
-.hook-search-medium-input() { border: @search-medium-border-width solid @search-medium-border; }
+.hook-search-medium-input() { border: var(--search-medium-border-width) solid var(--search-medium-border); }
 
-.hook-search-medium-input-focus() { border-color: @search-medium-focus-border; }
+.hook-search-medium-input-focus() { border-color: var(--search-medium-focus-border); }
 
 
 // Large modifiers
 // ========================================================================
 
-.hook-search-large-input() { border: @search-large-border-width solid @search-large-border; }
+.hook-search-large-input() { border: var(--search-large-border-width) solid var(--search-large-border); }
 
-.hook-search-large-input-focus() { border-color: @search-large-focus-border; }
+.hook-search-large-input-focus() { border-color: var(--search-large-focus-border); }
 
 
 // Toggle
@@ -97,24 +101,26 @@
 // Inverse
 // ========================================================================
 
-@inverse-search-default-background:             transparent;
+.hook-search-variables() {
+    --inverse-search-default-background:             transparent;
 
-@inverse-search-navbar-background:              transparent;
+    --inverse-search-navbar-background:              transparent;
 
-@inverse-search-medium-background:              transparent;
+    --inverse-search-medium-background:              transparent;
 
-@inverse-search-large-background:               transparent;
+    --inverse-search-large-background:               transparent;
+}
 
-.hook-inverse-search-default-input() { border-color: @inverse-global-border; }
+.hook-inverse-search-default-input() { border-color: var(--inverse-global-border); }
 .hook-inverse-search-default-input-focus() {}
 
-.hook-inverse-search-navbar-input() { border-color: @inverse-global-border; }
+.hook-inverse-search-navbar-input() { border-color: var(--inverse-global-border); }
 .hook-inverse-search-navbar-input-focus() {}
 
-.hook-inverse-search-medium-input() { border-color: @inverse-global-border; }
+.hook-inverse-search-medium-input() { border-color: var(--inverse-global-border); }
 .hook-inverse-search-medium-input-focus() {}
 
-.hook-inverse-search-large-input() { border-color: @inverse-global-border; }
+.hook-inverse-search-large-input() { border-color: var(--inverse-global-border); }
 .hook-inverse-search-large-input-focus() {}
 
 .hook-inverse-search-toggle() {}

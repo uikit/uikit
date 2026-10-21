@@ -14,13 +14,17 @@
 // Variables
 // ========================================================================
 
-@link-muted-color:                              @global-muted-color;
-@link-muted-hover-color:                        @global-color;
+.hook-link-variables() {
+    
+    --link-muted-color:                              var(--global-muted-color);
+    --link-muted-hover-color:                        var(--global-color);
 
-@link-text-hover-color:                         @global-muted-color;
+    --link-text-hover-color:                         var(--global-muted-color);
 
-@link-heading-hover-color:                      @global-primary-background;
-@link-heading-hover-text-decoration:            none;
+    --link-heading-hover-color:                      var(--global-primary-background);
+    --link-heading-hover-text-decoration:            none;
+
+}
 
 
 /* ========================================================================
@@ -34,14 +38,14 @@
 a.uk-link-muted,
 .uk-link-muted a,
 .uk-link-toggle .uk-link-muted {
-    color: @link-muted-color;
+    color: var(--link-muted-color);
     .hook-link-muted();
 }
 
 a.uk-link-muted:hover,
 .uk-link-muted a:hover,
 .uk-link-toggle:hover .uk-link-muted {
-    color: @link-muted-hover-color;
+    color: var(--link-muted-hover-color);
     .hook-link-muted-hover();
 }
 
@@ -59,7 +63,7 @@ a.uk-link-text,
 a.uk-link-text:hover,
 .uk-link-text a:hover,
 .uk-link-toggle:hover .uk-link-text {
-    color: @link-text-hover-color;
+    color: var(--link-text-hover-color);
     .hook-link-text-hover();
 }
 
@@ -77,8 +81,8 @@ a.uk-link-heading,
 a.uk-link-heading:hover,
 .uk-link-heading a:hover,
 .uk-link-toggle:hover .uk-link-heading {
-    color: @link-heading-hover-color;
-    text-decoration: @link-heading-hover-text-decoration;
+    color: var(--link-heading-hover-color);
+    text-decoration: var(--link-heading-hover-text-decoration);
     .hook-link-heading-hover();
 }
 
@@ -125,37 +129,39 @@ a.uk-link-reset,
 // Inverse
 // ========================================================================
 
-@inverse-link-muted-color:                        @inverse-global-muted-color;
-@inverse-link-muted-hover-color:                  @inverse-global-color;
-@inverse-link-text-hover-color:                   @inverse-global-muted-color;
-@inverse-link-heading-hover-color:                @inverse-global-primary-background;
+.hook-link-variables() {
+    --inverse-link-muted-color:                        var(--inverse-global-muted-color);
+    --inverse-link-muted-hover-color:                  var(--inverse-global-color);
+    --inverse-link-text-hover-color:                   var(--inverse-global-muted-color);
+    --inverse-link-heading-hover-color:                var(--inverse-global-primary-background);
+}
 
 .hook-inverse() {
 
     a.uk-link-muted,
     .uk-link-muted a {
-        color: @inverse-link-muted-color;
+        color: var(--inverse-link-muted-color);
         .hook-inverse-link-muted();
     }
 
     a.uk-link-muted:hover,
     .uk-link-muted a:hover,
     .uk-link-toggle:hover .uk-link-muted {
-        color: @inverse-link-muted-hover-color;
+        color: var(--inverse-link-muted-hover-color);
         .hook-inverse-link-muted-hover();
     }
 
     a.uk-link-text:hover,
     .uk-link-text a:hover,
     .uk-link-toggle:hover .uk-link-text {
-        color: @inverse-link-text-hover-color;
+        color: var(--inverse-link-text-hover-color);
         .hook-inverse-link-text-hover();
     }
 
     a.uk-link-heading:hover,
     .uk-link-heading a:hover,
     .uk-link-toggle:hover .uk-link-heading {
-        color: @inverse-link-heading-hover-color;
+        color: var(--inverse-link-heading-hover-color);
         .hook-inverse-link-heading-hover();
     }
 

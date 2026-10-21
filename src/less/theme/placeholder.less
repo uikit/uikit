@@ -7,20 +7,24 @@
 // Variables
 // ========================================================================
 
-@placeholder-background:                        transparent;
+.hook-placeholder-variables() {
 
-//
-// New
-//
+    --placeholder-background:                        transparent;
 
-@placeholder-border-width:                      @global-border-width;
-@placeholder-border:                            @global-border;
+    //
+    // New
+    //
+
+    --placeholder-border-width:                      var(--global-border-width);
+    --placeholder-border:                            var(--global-border);
+
+}
 
 
 // Component
 // ========================================================================
 
-.hook-placeholder() { border: @placeholder-border-width dashed @placeholder-border; }
+.hook-placeholder() { border: var(--placeholder-border-width) dashed var(--placeholder-border); }
 
 
 // Miscellaneous

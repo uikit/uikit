@@ -9,10 +9,14 @@
 // Variables
 // ========================================================================
 
-@placeholder-margin-vertical:                   @global-margin;
-@placeholder-padding-vertical:                  @global-gutter;
-@placeholder-padding-horizontal:                @global-gutter;
-@placeholder-background:                        @global-muted-background;
+.hook-placeholder-variables() {
+
+    --placeholder-margin-vertical:                   var(--global-margin);
+    --placeholder-padding-vertical:                  var(--global-gutter);
+    --placeholder-padding-horizontal:                var(--global-gutter);
+    --placeholder-background:                        var(--global-muted-background);
+    
+}
 
 
 /* ========================================================================
@@ -20,14 +24,14 @@
  ========================================================================== */
 
 .uk-placeholder {
-    margin-bottom: @placeholder-margin-vertical;
-    padding: @placeholder-padding-vertical @placeholder-padding-horizontal;
-    background: @placeholder-background;
+    margin-bottom: var(--placeholder-margin-vertical);
+    padding: var(--placeholder-padding-vertical) var(--placeholder-padding-horizontal);
+    background: var(--placeholder-background);
     .hook-placeholder();
 }
 
 /* Add margin if adjacent element */
-* + .uk-placeholder { margin-top: @placeholder-margin-vertical; }
+* + .uk-placeholder { margin-top: var(--placeholder-margin-vertical); }
 
 /*
  * Remove margin from the last-child

@@ -12,15 +12,19 @@
 // Variables
 // ========================================================================
 
-@article-margin-top:                            @global-large-margin;
+.hook-article-variables() {
 
-@article-title-font-size-m:                     @global-2xlarge-font-size;
-@article-title-font-size:                       @article-title-font-size-m * 0.85;
-@article-title-line-height:                     1.2;
+    --article-margin-top:                            var(--global-large-margin);
 
-@article-meta-font-size:                        @global-small-font-size;
-@article-meta-line-height:                      1.4;
-@article-meta-color:                            @global-muted-color;
+    --article-title-font-size-m:                     var(--global-2xlarge-font-size);
+    --article-title-font-size:                       calc(var(--article-title-font-size-m) * 0.85);
+    --article-title-line-height:                     1.2;
+
+    --article-meta-font-size:                        var(--global-small-font-size);
+    --article-meta-line-height:                      1.4;
+    --article-meta-color:                            var(--global-muted-color);
+    
+}
 
 
 /* ========================================================================
@@ -43,7 +47,7 @@
  ========================================================================== */
 
 .uk-article + .uk-article {
-    margin-top: @article-margin-top;
+    margin-top: var(--article-margin-top);
     .hook-article-adjacent();
 }
 
@@ -52,15 +56,15 @@
  ========================================================================== */
 
 .uk-article-title {
-    font-size: @article-title-font-size;
-    line-height: @article-title-line-height;
+    font-size: var(--article-title-font-size);
+    line-height: var(--article-title-line-height);
     .hook-article-title();
 }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-article-title { font-size: @article-title-font-size-m; }
+    .uk-article-title { font-size: var(--article-title-font-size-m); }
 
 }
 
@@ -69,9 +73,9 @@
  ========================================================================== */
 
 .uk-article-meta {
-    font-size: @article-meta-font-size;
-    line-height: @article-meta-line-height;
-    color: @article-meta-color;
+    font-size: var(--article-meta-font-size);
+    line-height: var(--article-meta-line-height);
+    color: var(--article-meta-color);
     .hook-article-meta();
 }
 
@@ -91,7 +95,9 @@
 // Inverse
 // ========================================================================
 
-@inverse-article-meta-color:                   @inverse-global-muted-color;
+.hook-article-variables() {
+    --inverse-article-meta-color:                   var(--inverse-global-muted-color);
+}
 
 .hook-inverse() {
 
@@ -100,7 +106,7 @@
     }
 
     .uk-article-meta {
-        color: @inverse-article-meta-color;
+        color: var(--inverse-article-meta-color);
         .hook-inverse-article-meta();
     }
 

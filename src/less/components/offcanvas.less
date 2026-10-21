@@ -23,24 +23,30 @@
 // Variables
 // ========================================================================
 
-@offcanvas-z-index:                             @global-z-index;
+@offcanvas-bar-color-mode:                      light; // FIXME: need to change inverse process
 
-@offcanvas-bar-width:                           270px;
-@offcanvas-bar-padding-vertical:                20px;
-@offcanvas-bar-padding-horizontal:              20px;
-@offcanvas-bar-background:                      @global-secondary-background;
-@offcanvas-bar-color-mode:                      light;
+.hook-offcanvas-variables() {
+    
+    --offcanvas-z-index:                             var(--global-z-index);
 
-@offcanvas-bar-width-s:                         350px;
-@offcanvas-bar-padding-vertical-s:              @global-gutter;
-@offcanvas-bar-padding-horizontal-s:            @global-gutter;
+    --offcanvas-bar-width:                           270px;
+    --offcanvas-bar-padding-vertical:                20px;
+    --offcanvas-bar-padding-horizontal:              20px;
+    --offcanvas-bar-background:                      var(--global-secondary-background);
+    --offcanvas-bar-color-mode:                      @offcanvas-bar-color-mode;
 
-@offcanvas-close-position:                      5px;
-@offcanvas-close-padding:                       5px;
+    --offcanvas-bar-width-s:                         350px;
+    --offcanvas-bar-padding-vertical-s:              var(--global-gutter);
+    --offcanvas-bar-padding-horizontal-s:            var(--global-gutter);
 
-@offcanvas-close-position-s:                    10px;
+    --offcanvas-close-position:                      5px;
+    --offcanvas-close-padding:                       5px;
 
-@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
+    --offcanvas-close-position-s:                    10px;
+
+    --offcanvas-overlay-background:                  rgba(0,0,0,0.1);
+
+}
 
 
 /* ========================================================================
@@ -60,7 +66,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: @offcanvas-z-index;
+    z-index: var(--offcanvas-z-index);
 }
 
 /*
@@ -83,17 +89,17 @@
  */
 
 .uk-offcanvas-bar {
-    --uk-inverse: @offcanvas-bar-color-mode;
+    --uk-inverse: var(--offcanvas-bar-color-mode);
     /* 1 */
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -@offcanvas-bar-width;
+    left: calc(var(--offcanvas-bar-width) * -1);
     /* 2 */
     box-sizing: border-box;
-    width: @offcanvas-bar-width;
-    padding: @offcanvas-bar-padding-vertical @offcanvas-bar-padding-horizontal;
-    background: @offcanvas-bar-background;
+    width: var(--offcanvas-bar-width);
+    padding: var(--offcanvas-bar-padding-vertical) var(--offcanvas-bar-padding-horizontal);
+    background: var(--offcanvas-bar-background);
     /* 3 */
     overflow-y: auto;
     .hook-offcanvas-bar();
@@ -103,9 +109,9 @@
 @media (min-width: @breakpoint-small) {
 
     .uk-offcanvas-bar {
-        left: -@offcanvas-bar-width-s;
-        width: @offcanvas-bar-width-s;
-        padding: @offcanvas-bar-padding-vertical-s @offcanvas-bar-padding-horizontal-s;
+        left: calc(var(--offcanvas-bar-width-s) * -1);
+        width: var(--offcanvas-bar-width-s);
+        padding: var(--offcanvas-bar-padding-vertical-s) var(--offcanvas-bar-padding-horizontal-s);
     }
 
 }
@@ -117,13 +123,13 @@
 /* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-bar {
     left: auto;
-    right: -@offcanvas-bar-width;
+    right: calc(var(--offcanvas-bar-width) * -1)
 }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-offcanvas-flip .uk-offcanvas-bar { right: -@offcanvas-bar-width-s; }
+    .uk-offcanvas-flip .uk-offcanvas-bar { right: calc(var(--offcanvas-bar-width-s) * -1); }
 
 }
 
@@ -176,12 +182,12 @@
     right: 0;
 }
 
-.uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width; }
+.uk-open > .uk-offcanvas-reveal { width: var(--offcanvas-bar-width); }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width-s; }
+    .uk-open > .uk-offcanvas-reveal { width: var(--offcanvas-bar-width-s); }
 
 }
 
@@ -201,10 +207,10 @@
 
 .uk-offcanvas-close {
     position: absolute;
-    z-index: @offcanvas-z-index;
-    top: @offcanvas-close-position;
-    right: @offcanvas-close-position;
-    padding: @offcanvas-close-padding;
+    z-index: var(--offcanvas-z-index);
+    top: var(--offcanvas-close-position);
+    right: var(--offcanvas-close-position);
+    padding: var(--offcanvas-close-padding);
     .hook-offcanvas-close();
 }
 
@@ -212,8 +218,8 @@
 @media (min-width: @breakpoint-small) {
 
     .uk-offcanvas-close {
-        top: @offcanvas-close-position-s;
-        right: @offcanvas-close-position-s;
+        top: var(--offcanvas-close-position-s);
+        right: var(--offcanvas-close-position-s);
     }
 
 }
@@ -254,7 +260,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: @offcanvas-overlay-background;
+    background: var(--offcanvas-overlay-background);
     /* 2 */
     opacity: 0;
     transition: opacity 0.15s linear;
@@ -304,16 +310,16 @@
  * Activate slide-out animation
  */
 
-:not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: @offcanvas-bar-width; }
+:not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: var(--offcanvas-bar-width); }
 
-.uk-offcanvas-flip.uk-offcanvas-container-animation { left: -@offcanvas-bar-width; }
+.uk-offcanvas-flip.uk-offcanvas-container-animation { left: calc(var(--offcanvas-bar-width) * -1); }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: @offcanvas-bar-width-s; }
+    :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: var(--offcanvas-bar-width-s); }
 
-    .uk-offcanvas-flip.uk-offcanvas-container-animation { left: -@offcanvas-bar-width-s; }
+    .uk-offcanvas-flip.uk-offcanvas-container-animation { left: calc(var(--offcanvas-bar-width-s) * -1); }
 
 }
 

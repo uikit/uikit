@@ -9,9 +9,13 @@
 // Variables
 // ========================================================================
 
-@height-small-height:                           150px;
-@height-medium-height:                          300px;
-@height-large-height:                           450px;
+.hook-height-variables() {
+  
+  --height-small-height:                           150px;
+  --height-medium-height:                          300px;
+  --height-large-height:                           450px;
+
+}
 
 
 /* ========================================================================
@@ -40,13 +44,13 @@
  * Useful for `overflow: auto`
  */
 
-.uk-height-small { height: @height-small-height; }
-.uk-height-medium { height: @height-medium-height; }
-.uk-height-large { height: @height-large-height; }
+.uk-height-small { height: var(--height-small-height); }
+.uk-height-medium { height: var(--height-medium-height); }
+.uk-height-large { height: var(--height-large-height); }
 
-.uk-height-max-small { max-height: @height-small-height; }
-.uk-height-max-medium { max-height: @height-medium-height; }
-.uk-height-max-large { max-height: @height-large-height; }
+.uk-height-max-small { max-height: var(--height-small-height); }
+.uk-height-max-medium { max-height: var(--height-medium-height); }
+.uk-height-max-large { max-height: var(--height-large-height); }
 
 
 // Hooks
