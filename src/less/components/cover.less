@@ -28,9 +28,9 @@
     max-width: none;
     /* 3 */
     position: absolute;
-    left: 50%;
+    inset-inline-start: 50%;
     top: 50%;
-    --uk-position-translate-x: -50%;
+    --uk-position-translate-x: calc(-50% * var(--uk-dir-sign));
     --uk-position-translate-y: -50%;
     transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
 }

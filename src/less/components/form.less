@@ -411,7 +411,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     padding-inline-end: @form-select-padding-inline-end;
     .svg-fill(@internal-form-select-image, "#000", @form-select-icon-color);
     background-repeat: no-repeat;
-    background-position: var(--dir-end) 50%;
+    background-position: var(--uk-dir-end) 50%;
 }
 
 /* 3 */
@@ -434,7 +434,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  .uk-input[list] {
     padding-inline-end: @form-datalist-padding-inline-end;
     background-repeat: no-repeat;
-    background-position: var(--dir-end) 50%;
+    background-position: var(--uk-dir-end) 50%;
 }
 
 .uk-input[list]:hover,
@@ -631,7 +631,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 /*
  * 1. Position and resize the form control to always cover its container
- * 2. Required for Firefox for positioning to the left
+ * 2. Required for Firefox for positioning to the left/start
  * 3. Required for Webkit to make `height` work
  * 4. Hide controls and show cursor
  * 5. Needed for the cursor

@@ -167,7 +167,7 @@
 
 .uk-overflow-fade-horizontal {
     overflow-x: auto;
-    --uk-overflow-fade-direction: var(--dir-side-end);
+    --uk-overflow-fade-direction: var(--uk-dir-side-end);
 }
 
 .uk-overflow-fade-vertical {
@@ -324,18 +324,18 @@
 .uk-object-top-left { object-position: 0 0; }
 .uk-object-top-center { object-position: 50% 0; }
 .uk-object-top-right { object-position: 100% 0; }
-.uk-object-top-start { object-position: var(--dir-start) 0; }
-.uk-object-top-end { object-position: var(--dir-end) 0; }
+.uk-object-top-start { object-position: var(--uk-dir-start) 0; }
+.uk-object-top-end { object-position: var(--uk-dir-end) 0; }
 .uk-object-center-left { object-position: 0 50%; }
 .uk-object-center-center { object-position: 50% 50%; }
 .uk-object-center-right { object-position: 100% 50%; }
-.uk-object-center-start { object-position: var(--dir-start) 50%; }
-.uk-object-center-end { object-position: var(--dir-end) 50%; }
+.uk-object-center-start { object-position: var(--uk-dir-start) 50%; }
+.uk-object-center-end { object-position: var(--uk-dir-end) 50%; }
 .uk-object-bottom-left { object-position: 0 100%; }
 .uk-object-bottom-center { object-position: 50% 100%; }
 .uk-object-bottom-right { object-position: 100% 100%; }
-.uk-object-bottom-start { object-position: var(--dir-start) 100%; }
-.uk-object-bottom-end { object-position: var(--dir-end) 100%; }
+.uk-object-bottom-start { object-position: var(--uk-dir-start) 100%; }
+.uk-object-bottom-end { object-position: var(--uk-dir-end) 100%; }
 
 
 /* Border
@@ -535,7 +535,7 @@
 /* Transform
 ========================================================================== */
 
-.uk-transform-center { transform: translate(-50%, -50%); }
+.uk-transform-center { transform: translate(calc(-50% * var(--uk-dir-sign)), -50%); }
 
 
 /* Transform Origin
@@ -544,17 +544,17 @@
 .uk-transform-origin-top-left { transform-origin: 0 0; }
 .uk-transform-origin-top-center { transform-origin: 50% 0; }
 .uk-transform-origin-top-right { transform-origin: 100% 0; }
-.uk-transform-origin-top-start { transform-origin: var(--dir-start) 0; }
-.uk-transform-origin-top-end { transform-origin: var(--dir-end) 0; }
+.uk-transform-origin-top-start { transform-origin: var(--uk-dir-start) 0; }
+.uk-transform-origin-top-end { transform-origin: var(--uk-dir-end) 0; }
 .uk-transform-origin-center-left { transform-origin: 0 50%; }
 .uk-transform-origin-center-right { transform-origin: 100% 50%; }
-.uk-transform-origin-center-start { transform-origin: var(--dir-start) 50%; }
-.uk-transform-origin-center-end { transform-origin: var(--dir-end) 50%; }
+.uk-transform-origin-center-start { transform-origin: var(--uk-dir-start) 50%; }
+.uk-transform-origin-center-end { transform-origin: var(--uk-dir-end) 50%; }
 .uk-transform-origin-bottom-left { transform-origin: 0 100%; }
 .uk-transform-origin-bottom-center { transform-origin: 50% 100%; }
 .uk-transform-origin-bottom-right { transform-origin: 100% 100%; }
-.uk-transform-origin-bottom-start { transform-origin: var(--dir-start) 100%; }
-.uk-transform-origin-bottom-end { transform-origin: var(--dir-end) 100%; }
+.uk-transform-origin-bottom-start { transform-origin: var(--uk-dir-start) 100%; }
+.uk-transform-origin-bottom-end { transform-origin: var(--uk-dir-end) 100%; }
 
 
 // Hooks

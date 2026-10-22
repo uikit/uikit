@@ -77,13 +77,13 @@
 .uk-divider-icon::before {
     inset-inline-end: ~'calc(50% + (@{divider-icon-width} / 2))';
     width: @divider-icon-line-width;
-    .hook-divider-icon-line-left();
+    .hook-divider-icon-line-start();
 }
 
 .uk-divider-icon::after {
     inset-inline-start: ~'calc(50% + (@{divider-icon-width} / 2))';
     width: @divider-icon-line-width;
-    .hook-divider-icon-line-right();
+    .hook-divider-icon-line-end();
 }
 
 
@@ -130,8 +130,8 @@
 
 .hook-divider-icon() {}
 .hook-divider-icon-line() {}
-.hook-divider-icon-line-left() {}
-.hook-divider-icon-line-right() {}
+.hook-divider-icon-line-start() {}
+.hook-divider-icon-line-end() {}
 .hook-divider-small() {}
 .hook-divider-vertical() {}
 .hook-divider-misc() {}

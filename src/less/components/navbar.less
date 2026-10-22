@@ -170,8 +170,8 @@
 .uk-navbar-center:not(:only-child) {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    inset-inline-start: 50%;
+    transform: translate(calc(-50% * var(--uk-dir-sign)), -50%);
     /* 2 */
     width: max-content;
     box-sizing: border-box;

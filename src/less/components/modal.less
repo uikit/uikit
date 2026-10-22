@@ -325,7 +325,7 @@
     /* 1 */
     .uk-modal-close-outside {
         inset-inline-end: @modal-close-outside-position;
-        transform: translate(@modal-close-outside-translate, -(@modal-close-outside-translate));
+        transform: translate(calc(@modal-close-outside-translate * var(--uk-dir-sign)), -(@modal-close-outside-translate));
     }
 
 }
