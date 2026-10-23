@@ -75,15 +75,15 @@
 }
 
 .uk-divider-icon::before {
-    right: ~'calc(50% + (@{divider-icon-width} / 2))';
+    inset-inline-end: ~'calc(50% + (@{divider-icon-width} / 2))';
     width: @divider-icon-line-width;
-    .hook-divider-icon-line-left();
+    .hook-divider-icon-line-start();
 }
 
 .uk-divider-icon::after {
-    left: ~'calc(50% + (@{divider-icon-width} / 2))';
+    inset-inline-start: ~'calc(50% + (@{divider-icon-width} / 2))';
     width: @divider-icon-line-width;
-    .hook-divider-icon-line-right();
+    .hook-divider-icon-line-end();
 }
 
 
@@ -116,9 +116,9 @@
 .uk-divider-vertical {
     width: max-content;
     height: @divider-vertical-height;
-    margin-left: auto;
-    margin-right: auto;
-    border-left: @divider-vertical-border-width solid @divider-vertical-border;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    border-inline-start: @divider-vertical-border-width solid @divider-vertical-border;
     .hook-divider-vertical();
 }
 
@@ -130,8 +130,8 @@
 
 .hook-divider-icon() {}
 .hook-divider-icon-line() {}
-.hook-divider-icon-line-left() {}
-.hook-divider-icon-line-right() {}
+.hook-divider-icon-line-start() {}
+.hook-divider-icon-line-end() {}
 .hook-divider-small() {}
 .hook-divider-vertical() {}
 .hook-divider-misc() {}
@@ -164,7 +164,7 @@
     }
 
     .uk-divider-vertical {
-        border-left-color: @inverse-divider-vertical-border;
+        border-inline-start-color: @inverse-divider-vertical-border;
         .hook-inverse-divider-vertical();
     }
 
