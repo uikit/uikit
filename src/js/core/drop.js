@@ -462,7 +462,6 @@ function createToggleComponent(drop) {
 
     if (el) {
         drop.$create('toggle', el, { target: drop.$el, mode: drop.mode });
-        el.ariaHasPopup = true;
 
         const dropEl = drop.$el;
         if (!dropEl.id) {
