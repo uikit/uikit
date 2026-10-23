@@ -3,10 +3,27 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Release version (for example, 3.26.0)'
+      bump:
+        description: 'Version bump (premajor/preminor/prepatch start a prerelease; prerelease continues it)'
         required: true
-        type: string
+        type: choice
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+          - prepatch
+          - preminor
+          - premajor
+          - prerelease
+      preid:
+        description: 'Prerelease identifier (ignored for major/minor/patch)'
+        required: true
+        type: choice
+        default: beta
+        options:
+          - beta
+          - rc
   pull_request:
     branches: [main]
     types: [closed]
@@ -55,8 +72,11 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_VERSION: ${{ inputs.version }}
+          RELEASE_BUMP: ${{ inputs.bump }}
+          RELEASE_PREID: ${{ inputs.preid }}
         run: |
+          RELEASE_VERSION=$(node build/ci-release.js --resolve --bump "$RELEASE_BUMP" --preid "$RELEASE_PREID")
+          echo "Preparing release v$RELEASE_VERSION"
           branch="release/v$RELEASE_VERSION"
           git check-ref-format "refs/heads/$branch"
           if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then

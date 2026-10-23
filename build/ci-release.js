@@ -7,11 +7,18 @@ import { args, getVersion, logFile, read, replaceInFile } from './util.js';
 
 const $$ = $({ stdio: 'inherit' });
 
-if (Boolean(args.prepare) === Boolean(args.build)) {
-    throw new Error('Use --prepare --version <version> or --build.');
+if ([args.prepare, args.build, args.resolve].filter(Boolean).length !== 1) {
+    throw new Error(
+        'Use --resolve --bump <type> --preid <identifier>, --prepare --version <version>, or --build.',
+    );
 }
 
 const prevVersion = await getVersion();
+if (args.resolve) {
+    console.log(validateVersion(semver.inc(prevVersion, args.bump, args.preid), prevVersion));
+    process.exit(0);
+}
+
 const version = args.prepare ? validateVersion(args.version, prevVersion) : prevVersion;
 const tag = `v${version}`;
 
