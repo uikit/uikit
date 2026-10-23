@@ -19,7 +19,6 @@
         "icons": "node build/icons",
         "prefix": "node build/prefix",
         "scope": "node build/scope",
-        "release": "node build/release",
         "watch": "node build/watch.js"
     },
     "repository": {
