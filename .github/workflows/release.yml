@@ -1,0 +1,182 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (for example, 3.26.0)'
+        required: true
+        type: string
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: release-${{ github.event_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.pull_request.merged == true &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        startsWith(github.event.pull_request.head.ref, 'release/v')
+      )
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    outputs:
+      tag: ${{ steps.build.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && 'develop' || github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm eslint
+
+      - name: Prepare release pull request
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          branch="release/v$RELEASE_VERSION"
+          git check-ref-format "refs/heads/$branch"
+          if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+            test "$(git show "origin/$branch:package.json" | jq -r .version)" = "$RELEASE_VERSION"
+          else
+            node build/ci-release.js --prepare --version "$RELEASE_VERSION"
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git checkout -b "$branch"
+            git add package.json CHANGELOG.md .github/ISSUE_TEMPLATE/bug-report.md src/scss
+            git add --update -- dist
+            git commit -m "chore(release): v$RELEASE_VERSION"
+            git push origin "$branch"
+          fi
+          pr=$(gh pr list --base main --head "$branch" --state all --json url --jq '.[0].url // empty')
+          if [ -n "$pr" ]; then
+            echo "$pr"
+          else
+            gh pr create --base main --head "$branch" \
+              --title "chore(release): v$RELEASE_VERSION" \
+              --body 'Prepared from develop, including generated SCSS and tracked dist assets. Merging this PR publishes the GitHub release and npm package, then merges the release tag back into develop.'
+          fi
+
+      - name: Validate and build release
+        if: github.event_name == 'pull_request'
+        id: build
+        env:
+          RELEASE_BRANCH: ${{ github.event.pull_request.head.ref }}
+          RELEASE_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: node build/ci-release.js --build
+
+      - name: Tag release
+        if: github.event_name == 'pull_request'
+        env:
+          RELEASE_TAG: ${{ steps.build.outputs.tag }}
+        run: |
+          if git rev-parse --verify "refs/tags/$RELEASE_TAG" >/dev/null 2>&1; then
+            if [ "$(git rev-list -n 1 "$RELEASE_TAG")" != "$(git rev-parse HEAD)" ]; then
+              echo "::error::Tag $RELEASE_TAG already points to a different commit."
+              exit 1
+            fi
+          else
+            git tag "$RELEASE_TAG"
+            git push origin "refs/tags/$RELEASE_TAG"
+          fi
+
+      - name: Publish GitHub release
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ steps.build.outputs.tag }}
+          RELEASE_ASSET: ${{ steps.build.outputs.asset }}
+          RELEASE_NOTES: ${{ steps.build.outputs.notes-file }}
+          RELEASE_PRERELEASE: ${{ steps.build.outputs.prerelease }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "$RELEASE_ASSET" --clobber
+          else
+            flags=(--latest)
+            if [ "$RELEASE_PRERELEASE" = true ]; then
+              flags=(--prerelease --latest=false)
+            fi
+            gh release create "$RELEASE_TAG" --verify-tag --title "$RELEASE_TAG" \
+              --notes-file "$RELEASE_NOTES" "${flags[@]}" "$RELEASE_ASSET"
+          fi
+
+      - name: Publish to npm
+        if: github.event_name == 'pull_request'
+        env:
+          RELEASE_PRERELEASE: ${{ steps.build.outputs.prerelease }}
+        run: |
+          name=$(jq -er .name package.json)
+          version=$(jq -er .version package.json)
+          versions=$(npm view "$name" versions --json)
+          jq -e 'type == "array" and all(.[]; type == "string")' <<< "$versions" >/dev/null
+          if jq -e --arg version "$version" 'index($version) != null' <<< "$versions" >/dev/null; then
+            echo "$name@$version is already published; skipping."
+          else
+            tag=latest
+            if [ "$RELEASE_PRERELEASE" = true ]; then
+              tag=next
+            fi
+            npm publish --tag "$tag"
+          fi
+
+  notify-site:
+    needs: release
+    if: needs.release.outputs.tag != ''
+    runs-on: ubuntu-latest
+    permissions: {}
+    env:
+      GH_TOKEN: ${{ secrets.UIKIT_SITE_TOKEN }}
+      RELEASE_TAG: ${{ needs.release.outputs.tag }}
+    steps:
+      - name: Notify site of published release
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo '::error::Set UIKIT_SITE_TOKEN with contents write access to uikit/uikit-site.'
+            exit 1
+          fi
+          jq -n --arg tag "$RELEASE_TAG" --arg repo "$GITHUB_REPOSITORY" \
+            '{event_type: "uikit-release", client_payload: {
+              version: ($tag | ltrimstr("v")),
+              tag: $tag,
+              prerelease: ($tag | contains("-")),
+              release_url: ("https://github.com/" + $repo + "/releases/tag/" + $tag)
+            }}' | gh api --method POST repos/uikit/uikit-site/dispatches --input -
+
+  sync-develop:
+    needs: release
+    if: needs.release.outputs.tag != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge release back into develop
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ needs.release.outputs.tag }}
+        run: |
+          gh api --method POST "repos/$GH_REPO/merges" \
+            -f base=develop -f head="$RELEASE_TAG" \
+            -f commit_message="chore(release): merge $RELEASE_TAG into develop"
