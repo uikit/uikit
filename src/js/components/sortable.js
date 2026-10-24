@@ -274,7 +274,7 @@ export default {
             if (target && target.previousElementSibling !== element) {
                 this.animate(() => before(target, element));
             } else if (!target && this.target.lastElementChild !== element) {
-                this.animate(() => append(this.target, element));
+                this.animate(() => after(this.target.lastElementChild, element));
             }
         },
 
