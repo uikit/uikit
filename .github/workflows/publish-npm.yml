@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  publish-dev:
+  check-eligibility:
     if: |
       github.ref != 'refs/heads/main' &&
       (
@@ -24,6 +24,8 @@ jobs:
         github.ref == 'refs/heads/develop'
       )
     runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.eligibility.outputs.publish }}
     steps:
       - uses: actions/checkout@v7
 
@@ -34,28 +36,31 @@ jobs:
         run: |
           if [ "$FORCE" = "true" ] || git log -1 --pretty=%s | grep -Eq '^(revert: )?(feat|fix|refactor|perf)(\(.+\))?: .{1,50}'; then
             echo 'publish=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'publish=false' >> "$GITHUB_OUTPUT"
           fi
 
+  publish-dev:
+    needs: check-eligibility
+    if: needs.check-eligibility.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
       - name: Install pnpm
-        if: steps.eligibility.outputs.publish == 'true'
         uses: pnpm/action-setup@v6
 
       - uses: actions/setup-node@v6
-        if: steps.eligibility.outputs.publish == 'true'
         with:
           node-version: 24
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
       - run: pnpm install
-        if: steps.eligibility.outputs.publish == 'true'
 
       - run: pnpm eslint
-        if: steps.eligibility.outputs.publish == 'true'
 
       - run: node build/ci-publish-dev.js
-        if: steps.eligibility.outputs.publish == 'true'
 
       - name: Publish to NPM
-        if: steps.eligibility.outputs.publish == 'true'
         run: npm publish --tag dev
