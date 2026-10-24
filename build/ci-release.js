@@ -34,13 +34,12 @@ if (args.prepare) {
     }
 }
 
-const notes = args.build && releaseNotes(await read('CHANGELOG.md'), version);
-
 await $$`pnpm compile`;
 await $$`pnpm compile-rtl`;
 await $$`pnpm build-scss`;
 
 if (args.build) {
+    const notes = releaseNotes(await read('CHANGELOG.md'), version);
     const asset = await createPackage(version);
     const notesFile = `${process.env.RUNNER_TEMP}/uikit-${version}-notes.md`;
     await fs.writeFile(notesFile, notes);
