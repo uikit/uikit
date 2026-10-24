@@ -21,39 +21,41 @@ jobs:
       github.ref != 'refs/heads/main' &&
       (
         github.event_name == 'workflow_dispatch' ||
-        (
-          github.ref == 'refs/heads/develop' &&
-          (
-            contains(github.event.head_commit.message, 'fix:') ||
-            contains(github.event.head_commit.message, 'feat:') ||
-            contains(github.event.head_commit.message, 'refactor:') ||
-            contains(github.event.head_commit.message, 'perf:')
-          )
-        )
+        github.ref == 'refs/heads/develop'
       )
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
 
+      - name: Check publication eligibility
+        id: eligibility
+        env:
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+        run: |
+          if [ "$FORCE" = "true" ] || git log -1 --pretty=%s | grep -Eq '^(revert: )?(feat|fix|refactor|perf)(\(.+\))?: .{1,50}'; then
+            echo 'publish=true' >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install pnpm
+        if: steps.eligibility.outputs.publish == 'true'
         uses: pnpm/action-setup@v6
 
       - uses: actions/setup-node@v6
+        if: steps.eligibility.outputs.publish == 'true'
         with:
           node-version: 24
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
       - run: pnpm install
+        if: steps.eligibility.outputs.publish == 'true'
 
       - run: pnpm eslint
+        if: steps.eligibility.outputs.publish == 'true'
 
-      - run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
-            node ./build/publishDev.js --force
-          else
-            node ./build/publishDev.js
-          fi
+      - run: node build/ci-publish-dev.js
+        if: steps.eligibility.outputs.publish == 'true'
 
       - name: Publish to NPM
+        if: steps.eligibility.outputs.publish == 'true'
         run: npm publish --tag dev
