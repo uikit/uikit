@@ -1,4 +1,4 @@
-import { $, $$, isInput, matches, parent, selInput } from 'uikit-util';
+import { $, isInput, parent, selInput } from 'uikit-util';
 import Class from '../mixin/class';
 
 export default {
@@ -37,15 +37,10 @@ export default {
             return;
         }
 
-        let option;
         const prop = isInput(target) ? 'value' : 'textContent';
         const prev = target[prop];
-        const value = input.files?.[0]
-            ? input.files[0].name
-            : matches(input, 'select') &&
-                (option = $$('option', input).find((el) => el.selected))
-              ? option.textContent
-              : input.value;
+        const value =
+            input.files?.[0]?.name ?? input.selectedOptions?.[0]?.label ?? input.value;
 
         if (prev !== value) {
             target[prop] = value;

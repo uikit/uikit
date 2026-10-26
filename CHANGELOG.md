@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Form Custom ignoring option labels when updating its target
+
 ## 3.25.28 (October 26, 2026)
 
 ### Fixed
