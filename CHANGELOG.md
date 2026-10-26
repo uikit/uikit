@@ -2,6 +2,8 @@
 
 ## WIP
 
+## 3.25.28 (October 26, 2026)
+
 ### Fixed
 
 - Fix Scrollspy Nav removing focus from links during updates
