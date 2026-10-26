@@ -84,7 +84,7 @@ function applyAttributes(el) {
 const loadSVG = memoize(async (src) => {
     if (src) {
         const response = await fetch(src);
-        if (response.headers.get('Content-Type') === 'image/svg+xml') {
+        if (/^image\/svg\+xml\s*(;|$)/i.test(response.headers.get('Content-Type'))) {
             return response.text();
         }
     }
