@@ -19,7 +19,7 @@ export function isTag(element, ...tagNames) {
 export function empty(element) {
     element = $(element);
     if (element) {
-        element.innerHTML = '';
+        element.textContent = '';
     }
     return element;
 }
@@ -83,9 +83,27 @@ export function fragment(html) {
     }
 
     const container = document.createElement('template');
-    container.innerHTML = html.trim();
+    container.innerHTML = trustedHTML(html.trim());
 
     return unwrapSingle(container.content.childNodes);
+}
+
+let policy;
+
+// Pages enforcing `require-trusted-types-for 'script'` only accept TrustedHTML in innerHTML.
+// The policy is created on first use; if the page's `trusted-types` directive doesn't allow
+// one named 'uikit', the string is passed through as before.
+function trustedHTML(html) {
+    if (policy === undefined) {
+        try {
+            policy =
+                window.trustedTypes?.createPolicy('uikit', { createHTML: (html) => html }) || null;
+        } catch {
+            policy = null;
+        }
+    }
+
+    return policy ? policy.createHTML(html) : html;
 }
 
 function unwrapSingle(nodes) {
