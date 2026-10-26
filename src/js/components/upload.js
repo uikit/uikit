@@ -172,16 +172,12 @@ export default {
 };
 
 function match(pattern, path) {
-    return path.match(
-        new RegExp(
-            `^${pattern
-                .replace(/\//g, '\\/')
-                .replace(/\*\*/g, '(\\/[^\\/]+)*')
-                .replace(/\*/g, '[^\\/]+')
-                .replace(/((?!\\))\?/g, '$1.')}$`,
-            'i',
-        ),
+    const expression = pattern.replace(
+        /\*\*|[.*+?^${}()|[\]\\]/g,
+        (s) => ({ '**': '.*', '*': '[^/]+', '?': '[^/]', '|': '|' })[s] ?? `\\${s}`,
     );
+
+    return new RegExp(`^(?:${expression})$`, 'i').test(path);
 }
 
 function chunk(files, size) {
