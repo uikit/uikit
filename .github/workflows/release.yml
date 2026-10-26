@@ -158,7 +158,7 @@ jobs:
   notify-site:
     needs: release
     if: needs.release.outputs.tag != ''
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions: {}
     env:
       GH_TOKEN: ${{ secrets.UIKIT_SITE_TOKEN }}
@@ -181,7 +181,7 @@ jobs:
   sync-develop:
     needs: release
     if: needs.release.outputs.tag != ''
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Merge release back into develop
         env:
