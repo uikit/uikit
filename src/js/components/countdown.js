@@ -54,8 +54,8 @@ export default {
         stop() {
             if (this.timer) {
                 clearInterval(this.timer);
-                trigger(this.$el, 'countdownstop');
                 this.timer = null;
+                trigger(this.$el, 'countdownstop');
             }
         },
 
@@ -65,8 +65,8 @@ export default {
             if (!timespan.total) {
                 this.stop();
                 if (!this.end) {
-                    trigger(this.$el, 'countdownend');
                     this.end = true;
+                    trigger(this.$el, 'countdownend');
                     if (this.reload && this.started) {
                         window.location.reload();
                     }
