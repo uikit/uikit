@@ -21,7 +21,7 @@ export function component(name, options) {
 
     App[name] = (element, data) => createComponent(name, element, data);
 
-    const opt = options.options ?? { ...options };
+    const opt = options.options || { ...options };
 
     opt.id = id;
     opt.name = name;

@@ -171,7 +171,7 @@ export default {
 function match(pattern, path) {
     const expression = pattern.replace(
         /\*\*|[.*+?^${}()|[\]\\]/g,
-        (s) => ({ '**': '.*', '*': '[^/]+', '?': '[^/]', '|': '|' })[s] ?? `\\${s}`,
+        (s) => ({ '**': '.*', '*': '[^/]+', '?': '[^/]', '|': '|' })[s] || `\\${s}`,
     );
 
     return new RegExp(`^(?:${expression})$`, 'i').test(path);
