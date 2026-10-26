@@ -46,7 +46,7 @@ export default {
 
     update: {
         read({ percent }, types) {
-            if (!types.has('scroll')) {
+            if (!types.has('scroll') || types.has('resize')) {
                 percent = false;
             }
 
