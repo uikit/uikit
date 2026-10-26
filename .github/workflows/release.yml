@@ -108,31 +108,23 @@ jobs:
           RELEASE_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: node build/ci-release.js --build
 
-      - name: Tag release
-        if: github.event_name == 'pull_request'
-        env:
-          RELEASE_TAG: ${{ steps.build.outputs.tag }}
-        run: |
-          if git rev-parse --verify "refs/tags/$RELEASE_TAG" >/dev/null 2>&1; then
-            if [ "$(git rev-list -n 1 "$RELEASE_TAG")" != "$(git rev-parse HEAD)" ]; then
-              echo "::error::Tag $RELEASE_TAG already points to a different commit."
-              exit 1
-            fi
-          else
-            git tag "$RELEASE_TAG"
-            git push origin "refs/tags/$RELEASE_TAG"
-          fi
-
       - name: Publish GitHub release
         if: github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
+          RELEASE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
           RELEASE_TAG: ${{ steps.build.outputs.tag }}
           RELEASE_ASSET: ${{ steps.build.outputs.asset }}
           RELEASE_NOTES: ${{ steps.build.outputs.notes-file }}
           RELEASE_PRERELEASE: ${{ steps.build.outputs.prerelease }}
         run: |
+          if git rev-parse --verify "refs/tags/$RELEASE_TAG" >/dev/null 2>&1; then
+            if [ "$(git rev-list -n 1 "$RELEASE_TAG")" != "$RELEASE_SHA" ]; then
+              echo "::error::Tag $RELEASE_TAG already points to a different commit."
+              exit 1
+            fi
+          fi
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release upload "$RELEASE_TAG" "$RELEASE_ASSET" --clobber
           else
@@ -140,7 +132,7 @@ jobs:
             if [ "$RELEASE_PRERELEASE" = true ]; then
               flags=(--prerelease --latest=false)
             fi
-            gh release create "$RELEASE_TAG" --verify-tag --title "$RELEASE_TAG" \
+            gh release create "$RELEASE_TAG" --target "$RELEASE_SHA" --title "$RELEASE_TAG" \
               --notes-file "$RELEASE_NOTES" "${flags[@]}" "$RELEASE_ASSET"
           fi
 
