@@ -28,7 +28,7 @@ export default {
     watch: {
         list(list) {
             css(list, {
-                aspectRatio: this.ratio ? this.ratio.replace(':', '/') : undefined,
+                aspectRatio: this.ratio && this.ratio !== 'false' ? this.ratio.replace(':', '/') : '',
                 minHeight: this.minHeight,
                 maxHeight: this.maxHeight,
                 width: '100%',

@@ -13,6 +13,7 @@ import {
 
 const cssNumber = {
     'animation-iteration-count': true,
+    'aspect-ratio': true,
     'column-count': true,
     'fill-opacity': true,
     'flex-grow': true,
