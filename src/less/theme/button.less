@@ -7,44 +7,48 @@
 // Variables
 // ========================================================================
 
-@button-line-height:                            @global-control-height - (@button-border-width * 2);
-@button-small-line-height:                      @global-control-small-height - (@button-border-width * 2);
-@button-large-line-height:                      @global-control-large-height - (@button-border-width * 2);
+.hook-button-variables() {
 
-@button-font-size:                              @global-small-font-size;
-@button-large-font-size:                        @global-small-font-size;
+    --button-line-height:                            calc(var(--global-control-height) - (var(--button-border-width) * 2));
+    --button-small-line-height:                      calc(var(--global-control-small-height) - (var(--button-border-width) * 2));
+    --button-large-line-height:                      calc(var(--global-control-large-height) - (var(--button-border-width) * 2));
 
-@button-default-background:                     transparent;
-@button-default-hover-background:               transparent;
-@button-default-active-background:              transparent;
+    --button-font-size:                              var(--global-small-font-size);
+    --button-large-font-size:                        var(--global-small-font-size);
 
-@button-disabled-background:                    transparent;
+    --button-default-background:                     transparent;
+    --button-default-hover-background:               transparent;
+    --button-default-active-background:              transparent;
 
-@button-text-hover-color:                       @global-emphasis-color;
+    --button-disabled-background:                    transparent;
 
-//
-// New
-//
+    --button-text-hover-color:                       var(--global-emphasis-color);
 
-@button-text-transform:                         uppercase;
+    //
+    // New
+    //
 
-@button-border-width:                           @global-border-width;
+    --button-text-transform:                         uppercase;
 
-@button-default-border:                         @global-border;
-@button-default-hover-border:                   darken(@global-border, 20%);
-@button-default-active-border:                  darken(@global-border, 30%);
+    --button-border-width:                           var(--global-border-width);
 
-@button-disabled-border:                        @global-border;
+    --button-default-border:                         var(--global-border);
+    --button-default-hover-border:                   hsl(from var(--global-border) h s calc(l - 20));
+    --button-default-active-border:                  hsl(from var(--global-border) h s calc(l - 30));
 
-@button-text-border-width:                      @global-border-width;
-@button-text-border:                            currentColor;
+    --button-disabled-border:                        var(--global-border);
+
+    --button-text-border-width:                      var(--global-border-width);
+    --button-text-border:                            currentColor;
+
+}
 
 
 // Component
 // ========================================================================
 
 .hook-button() {
-    text-transform: @button-text-transform;
+    text-transform: var(--button-text-transform);
     transition: 0.1s ease-in-out;
     transition-property: color, background-color, border-color;
 }
@@ -57,17 +61,17 @@
 // Style modifiers
 // ========================================================================
 
-.hook-button-default() { border: @button-border-width solid @button-default-border; }
+.hook-button-default() { border: var(--button-border-width) solid var(--button-default-border); }
 
-.hook-button-default-hover() { border-color: @button-default-hover-border; }
+.hook-button-default-hover() { border-color: var(--button-default-hover-border); }
 
-.hook-button-default-active() { border-color: @button-default-active-border; }
+.hook-button-default-active() { border-color: var(--button-default-active-border); }
 
 //
 // Primary
 //
 
-.hook-button-primary() { border: @button-border-width solid transparent; }
+.hook-button-primary() { border: var(--button-border-width) solid transparent; }
 
 .hook-button-primary-hover() {}
 
@@ -77,7 +81,7 @@
 // Secondary
 //
 
-.hook-button-secondary() { border: @button-border-width solid transparent; }
+.hook-button-secondary() { border: var(--button-border-width) solid transparent; }
 
 .hook-button-secondary-hover() {}
 
@@ -87,7 +91,7 @@
 // Danger
 //
 
-.hook-button-danger() { border: @button-border-width solid transparent; }
+.hook-button-danger() { border: var(--button-border-width) solid transparent; }
 
 .hook-button-danger-hover() {}
 
@@ -97,7 +101,7 @@
 // Disabled
 // ========================================================================
 
-.hook-button-disabled() { border-color: @button-disabled-border; }
+.hook-button-disabled() { border-color: var(--button-disabled-border); }
 
 
 // Size modifiers
@@ -121,7 +125,7 @@
         bottom: 0;
         left: 0;
         right: 100%;
-        border-bottom: @button-text-border-width solid @button-text-border;
+        border-bottom: var(--button-text-border-width) solid var(--button-text-border);
         transition: right 0.3s ease-out;
     }
 
@@ -159,7 +163,7 @@
      */
 
     .uk-button-group > .uk-button:nth-child(n+2),
-    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: -@button-border-width; }
+    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: calc(var(--button-border-width) * -1); }
 
     /*
      * Create position context to superimpose the successor elements border
@@ -182,18 +186,20 @@
 // Inverse
 // ========================================================================
 
-@inverse-button-default-background:            transparent;
-@inverse-button-default-color:                 @inverse-global-emphasis-color;
-@inverse-button-default-hover-background:      transparent;
-@inverse-button-default-hover-color:           @inverse-global-emphasis-color;
-@inverse-button-default-active-background:     transparent;
-@inverse-button-default-active-color:          @inverse-global-emphasis-color;
+.hook-button-variables() {
+    --inverse-button-default-background:            transparent;
+    --inverse-button-default-color:                 var(--inverse-global-emphasis-color);
+    --inverse-button-default-hover-background:      transparent;
+    --inverse-button-default-hover-color:           var(--inverse-global-emphasis-color);
+    --inverse-button-default-active-background:     transparent;
+    --inverse-button-default-active-color:          var(--inverse-global-emphasis-color);
 
-@inverse-button-text-hover-color:              @inverse-global-emphasis-color;
+    --inverse-button-text-hover-color:              var(--inverse-global-emphasis-color);
+}
 
-.hook-inverse-button-default() { border-color: @inverse-global-color; }
-.hook-inverse-button-default-hover() { border-color: @inverse-global-emphasis-color; }
-.hook-inverse-button-default-active() { border-color: @inverse-global-emphasis-color; }
+.hook-inverse-button-default() { border-color: var(--inverse-global-color); }
+.hook-inverse-button-default-hover() { border-color: var(--inverse-global-emphasis-color); }
+.hook-inverse-button-default-active() { border-color: var(--inverse-global-emphasis-color); }
 
 .hook-inverse-button-primary() {}
 .hook-inverse-button-primary-hover() {}
@@ -204,7 +210,7 @@
 .hook-inverse-button-secondary-active() {}
 
 .hook-inverse-button-text() {
-    &::before { border-bottom-color: @inverse-global-emphasis-color; }
+    &::before { border-bottom-color: var(--inverse-global-emphasis-color); }
 }
 .hook-inverse-button-text-hover() {}
 .hook-inverse-button-text-disabled() {}

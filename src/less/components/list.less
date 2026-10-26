@@ -24,33 +24,41 @@
 // Variables
 // ========================================================================
 
-@list-margin-top:                               @global-small-margin;
+@list-bullet-icon-color:                        @global-color; // FIXME: need to change .svg-fill function
 
-@list-padding-left:                             30px;
+@internal-list-bullet-image:                    "../../images/backgrounds/list-bullet.svg"; // FIXME: need to change .svg-fill function
 
-@list-marker-height:                            (@global-line-height * 1em);
+.hook-list-variables() {
 
-@list-muted-color:                              @global-muted-color;
-@list-emphasis-color:                           @global-emphasis-color;
-@list-primary-color:                            @global-primary-background;
-@list-secondary-color:                          @global-secondary-background;
+    --list-margin-top:                               var(--global-small-margin);
 
-@list-bullet-icon-color:                        @global-color;
+    --list-padding-left:                             30px;
 
-@list-divider-margin-top:                       @global-small-margin;
-@list-divider-border-width:                     @global-border-width;
-@list-divider-border:                           @global-border;
+    --list-marker-height:                            calc(var(--global-line-height) * 1em);
 
-@list-striped-padding-vertical:                 @global-small-margin;
-@list-striped-padding-horizontal:               @global-small-margin;
-@list-striped-background:                       @global-muted-background;
+    --list-muted-color:                              var(--global-muted-color);
+    --list-emphasis-color:                           var(--global-emphasis-color);
+    --list-primary-color:                            var(--global-primary-background);
+    --list-secondary-color:                          var(--global-secondary-background);
 
-@list-large-margin-top:                         @global-margin;
-@list-large-divider-margin-top:                 @global-margin;
-@list-large-striped-padding-vertical:           @global-margin;
-@list-large-striped-padding-horizontal:         @global-small-margin;
+    --list-bullet-icon-color:                        var(--global-color);
 
-@internal-list-bullet-image:                    "../../images/backgrounds/list-bullet.svg";
+    --list-divider-margin-top:                       var(--global-small-margin);
+    --list-divider-border-width:                     var(--global-border-width);
+    --list-divider-border:                           var(--global-border);
+
+    --list-striped-padding-vertical:                 var(--global-small-margin);
+    --list-striped-padding-horizontal:               var(--global-small-margin);
+    --list-striped-background:                       var(--global-muted-background);
+
+    --list-large-margin-top:                         var(--global-margin);
+    --list-large-divider-margin-top:                 var(--global-margin);
+    --list-large-striped-padding-vertical:           var(--global-margin);
+    --list-large-striped-padding-horizontal:         var(--global-small-margin);
+
+    --internal-list-bullet-image:                    "../../images/backgrounds/list-bullet.svg";
+
+}
 
 
 /* ========================================================================
@@ -79,7 +87,7 @@
  */
 
 .uk-list > :nth-child(n+2),
-.uk-list > * > ul { margin-top: @list-margin-top; }
+.uk-list > * > ul { margin-top: var(--list-margin-top); }
 
 
 /* Marker modifiers
@@ -89,7 +97,7 @@
 .uk-list-circle,
 .uk-list-square,
 .uk-list-decimal,
-.uk-list-hyphen { padding-left: @list-padding-left; }
+.uk-list-hyphen { padding-left: var(--list-padding-left); }
 
 .uk-list-disc { list-style-type: disc; }
 .uk-list-circle { list-style-type: circle; }
@@ -101,10 +109,10 @@
  * Color modifiers
  */
 
-.uk-list-muted > ::marker { color: @list-muted-color !important; }
-.uk-list-emphasis > ::marker { color: @list-emphasis-color !important; }
-.uk-list-primary > ::marker { color: @list-primary-color !important; }
-.uk-list-secondary > ::marker { color: @list-secondary-color !important; }
+.uk-list-muted > ::marker { color: var(--list-muted-color) !important; }
+.uk-list-emphasis > ::marker { color: var(--list-emphasis-color) !important; }
+.uk-list-primary > ::marker { color: var(--list-primary-color) !important; }
+.uk-list-secondary > ::marker { color: var(--list-secondary-color) !important; }
 
 
 /* Image bullet modifier
@@ -112,7 +120,7 @@
 
 .uk-list-bullet > * {
     position: relative;
-    padding-left: @list-padding-left;
+    padding-left: var(--list-padding-left);
 }
 
 .uk-list-bullet > ::before {
@@ -120,9 +128,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: @list-padding-left;
-    height: @global-line-height * 1em;
-    .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
+    width: var(--list-padding-left);
+    height: calc(var(--global-line-height) * 1em);
+    .svg-fill(var(--internal-list-bullet-image), "#000", var(--list-bullet-icon-color));
     background-repeat: no-repeat;
     background-position: 50% 50%;
 }
@@ -136,9 +144,9 @@
  */
 
 .uk-list-divider > :nth-child(n+2) {
-    margin-top: @list-divider-margin-top;
-    padding-top: @list-divider-margin-top;
-    border-top: @list-divider-border-width solid @list-divider-border;
+    margin-top: var(--list-divider-margin-top);
+    padding-top: var(--list-divider-margin-top);
+    border-top: var(--list-divider-border-width) solid var(--list-divider-border);
     .hook-list-divider();
 }
 
@@ -147,11 +155,11 @@
  */
 
 .uk-list-striped > * {
-    padding: @list-striped-padding-vertical @list-striped-padding-horizontal;
+    padding: var(--list-striped-padding-vertical) var(--list-striped-padding-horizontal);
     .hook-list-striped();
 }
 
-.uk-list-striped > :nth-of-type(odd) { background: @list-striped-background; }
+.uk-list-striped > :nth-of-type(odd) { background: var(--list-striped-background); }
 
 .uk-list-striped > :nth-child(n+2) { margin-top: 0; }
 
@@ -160,7 +168,7 @@
  ========================================================================== */
 
 .uk-list-large > :nth-child(n+2),
-.uk-list-large > * > ul { margin-top: @list-large-margin-top; }
+.uk-list-large > * > ul { margin-top: var(--list-large-margin-top); }
 
 .uk-list-collapse > :nth-child(n+2),
 .uk-list-collapse > * > ul { margin-top: 0; }
@@ -170,8 +178,8 @@
  */
 
 .uk-list-large.uk-list-divider > :nth-child(n+2) {
-    margin-top: @list-large-divider-margin-top;
-    padding-top: @list-large-divider-margin-top;
+    margin-top: var(--list-large-divider-margin-top);
+    padding-top: var(--list-large-divider-margin-top);
 }
 
 .uk-list-collapse.uk-list-divider > :nth-child(n+2) {
@@ -183,7 +191,7 @@
  * Striped
  */
 
-.uk-list-large.uk-list-striped > * { padding: @list-large-striped-padding-vertical @list-large-striped-padding-horizontal; }
+.uk-list-large.uk-list-striped > * { padding: var(--list-large-striped-padding-vertical) var(--list-large-striped-padding-horizontal); }
 
 .uk-list-collapse.uk-list-striped > * {
     padding-top: 0;
@@ -207,29 +215,33 @@
 // Inverse
 // ========================================================================
 
-@inverse-list-muted-color:                        @inverse-global-muted-color;
-@inverse-list-emphasis-color:                     @inverse-global-emphasis-color;
-@inverse-list-primary-color:                      @inverse-global-primary-background;
-@inverse-list-secondary-color:                    @inverse-global-primary-background;
+@inverse-list-bullet-icon-color:                  @inverse-global-color; // FIXME: need to change .svg-fill function
 
-@inverse-list-divider-border:                     @inverse-global-border;
-@inverse-list-striped-background:                 @inverse-global-muted-background;
+.hook-list-variables() {
+    --inverse-list-muted-color:                        var(--inverse-global-muted-color);
+    --inverse-list-emphasis-color:                     var(--inverse-global-emphasis-color);
+    --inverse-list-primary-color:                      var(--inverse-global-primary-background);
+    --inverse-list-secondary-color:                    var(--inverse-global-primary-background);
 
-@inverse-list-bullet-icon-color:                  @inverse-global-color;
+    --inverse-list-divider-border:                     var(--inverse-global-border);
+    --inverse-list-striped-background:                 var(--inverse-global-muted-background);
+
+    --inverse-list-bullet-icon-color:                  var(--inverse-global-color);
+}
 
 .hook-inverse() {
 
-    .uk-list-muted > ::marker { color: @inverse-list-muted-color !important; }
-    .uk-list-emphasis > ::marker { color: @inverse-list-emphasis-color !important; }
-    .uk-list-primary > ::marker { color: @inverse-list-primary-color !important; }
-    .uk-list-secondary > ::marker { color: @inverse-list-secondary-color !important; }
+    .uk-list-muted > ::marker { color: var(--inverse-list-muted-color) !important; }
+    .uk-list-emphasis > ::marker { color: var(--inverse-list-emphasis-color) !important; }
+    .uk-list-primary > ::marker { color: var(--inverse-list-primary-color) !important; }
+    .uk-list-secondary > ::marker { color: var(--inverse-list-secondary-color) !important; }
 
     .uk-list-bullet > ::before {
         .svg-fill(@internal-list-bullet-image, "#000", @inverse-list-bullet-icon-color);
     }
 
     .uk-list-divider > :nth-child(n+2) {
-        border-top-color: @inverse-list-divider-border;
+        border-top-color: var(--inverse-list-divider-border);
         .hook-inverse-list-divider();
     }
 
@@ -237,7 +249,7 @@
         .hook-inverse-list-striped();
     }
 
-    .uk-list-striped > :nth-of-type(odd) { background-color: @inverse-list-striped-background; }
+    .uk-list-striped > :nth-of-type(odd) { background-color: var(--inverse-list-striped-background); }
 
 }
 

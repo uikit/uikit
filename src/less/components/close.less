@@ -9,8 +9,12 @@
 // Variables
 // ========================================================================
 
-@close-color:                                   @global-muted-color;
-@close-hover-color:                             @global-color;
+.hook-close-variables() {
+
+    --close-color:                                   var(--global-muted-color);
+    --close-hover-color:                             var(--global-color);
+    
+}
 
 
 /* ========================================================================
@@ -22,13 +26,13 @@
  */
 
 .uk-close {
-    color: @close-color;
+    color: var(--close-color);
     .hook-close();
 }
 
 /* Hover */
 .uk-close:hover {
-    color: @close-hover-color;
+    color: var(--close-hover-color);
     .hook-close-hover();
 }
 
@@ -46,18 +50,20 @@
 // Inverse
 // ========================================================================
 
-@inverse-close-color:                           @inverse-global-muted-color;
-@inverse-close-hover-color:                     @inverse-global-color;
+.hook-close-variables() {
+    --inverse-close-color:                           var(--inverse-global-muted-color);
+    --inverse-close-hover-color:                     var(--inverse-global-color);
+}
 
 .hook-inverse() {
 
     .uk-close {
-        color: @inverse-close-color;
+        color: var(--inverse-close-color);
         .hook-inverse-close();
     }
 
     .uk-close:hover {
-        color: @inverse-close-hover-color;
+        color: var(--inverse-close-hover-color);
         .hook-inverse-close-hover();
     }
 

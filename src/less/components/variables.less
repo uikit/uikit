@@ -30,94 +30,620 @@
 @breakpoint-medium-max:                        (@breakpoint-large - 1);
 @breakpoint-large-max:                         (@breakpoint-xlarge - 1);
 
-
-// Global variables
-// ========================================================================
-
 //
-// Typography
+// Colors
 //
 
-@global-font-family:                            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-@global-font-size:                              16px;
-@global-line-height:                            1.5;      // 24px
+@global-color:                                 #666; // FIXME: need to change .svg-fill function
+@global-muted-color:                           #999; // FIXME: need to change .svg-fill function
 
-@global-2xlarge-font-size:                      2.625rem; // 42px
-@global-xlarge-font-size:                       2rem;     // 32px
-@global-large-font-size:                        1.5rem;   // 24px
-@global-medium-font-size:                       1.25rem;  // 20px
-@global-small-font-size:                        0.875rem; // 14px
+@global-inverse-color:                         #fff; // FIXME: need to change .svg-fill function
 
 //
 // Colors
 //
 
-@global-color:                                  #666;
-@global-emphasis-color:                         #333;
-@global-muted-color:                            #999;
+@global-border:                                #e5e5e5; // FIXME: need to change .svg-fill function
 
-@global-link-color:                             #1e87f0;
-@global-link-hover-color:                       #0f6ecd;
+:root {
 
-@global-inverse-color:                          #fff;
+    /* Breakpoints
+    ========================================================================== */
 
-//
-// Backgrounds
-//
+    /* Phone Portrait:   Galaxy (360x640), iPhone 6 (375x667), iPhone 6+ (414x736) */
+    /* Phone Landscape:  Galaxy (640x360), iPhone 6 (667x375), iPhone 6+ (736x414) */
+    /* Tablet Portrait:  iPad (768x1024), Galaxy Tab (800x1280), */
+    /* Tablet Landscape: iPad (1024x768), iPad Pro (1024x1366), */
+    /* Desktop:          Galaxy Tab (1280x800), iPad Pro (1366x1024) */
 
-@global-background:                             #fff;
+    --breakpoint-small:                             640px;  /* Phone landscape */
+    --breakpoint-medium:                            960px;  /* Tablet Landscape */
+    --breakpoint-large:                             1200px; /* Desktop */
+    --breakpoint-xlarge:                            1600px; /* Large Screens */
 
-@global-muted-background:                       #f8f8f8;
-@global-primary-background:                     #1e87f0;
-@global-secondary-background:                   #222;
+    --breakpoint-xsmall-max:                        calc(var(--breakpoint-small) - 1);
+    --breakpoint-small-max:                         calc(var(--breakpoint-medium) - 1);
+    --breakpoint-medium-max:                        calc(var(--breakpoint-large) - 1);
+    --breakpoint-large-max:                         calc(var(--breakpoint-xlarge) - 1);
 
-@global-success-background:                     #32d296;
-@global-warning-background:                     #faa05a;
-@global-danger-background:                      #f0506e;
 
-//
-// Borders
-//
+    /* Global variables
+    ========================================================================== */
 
-@global-border-width:                           1px;
-@global-border:                                 #e5e5e5;
+    /*
+     * Typography
+     */
 
-//
-// Box-Shadows
-//
+    --global-font-family:                            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --global-font-size:                              16px;
+    --global-line-height:                            1.5;      // 24px
 
-@global-small-box-shadow:                       0 2px 8px rgba(0,0,0,0.08);
-@global-medium-box-shadow:                      0 5px 15px rgba(0,0,0,0.08);
-@global-large-box-shadow:                       0 14px 25px rgba(0,0,0,0.16);
-@global-xlarge-box-shadow:                      0 28px 50px rgba(0,0,0,0.16);
+    --global-2xlarge-font-size:                      2.625rem; // 42px
+    --global-xlarge-font-size:                       2rem;     // 32px
+    --global-large-font-size:                        1.5rem;   // 24px
+    --global-medium-font-size:                       1.25rem;  // 20px
+    --global-small-font-size:                        0.875rem; // 14px
 
-//
-// Spacings
-//
+    /*
+     * Colors
+     */
 
-// Used in margin, section, list
-@global-margin:                                 20px;
-@global-small-margin:                           10px;
-@global-medium-margin:                          40px;
-@global-large-margin:                           70px;
-@global-xlarge-margin:                          140px;
+    --global-color:                                  @global-color;
+    --global-emphasis-color:                         #333;
+    --global-muted-color:                            @global-muted-color;
 
-// Used in grid, column, container, align, card, padding
-@global-gutter:                                 30px;
-@global-small-gutter:                           15px;
-@global-medium-gutter:                          40px;
-@global-large-gutter:                           70px;
+    --global-link-color:                             #1e87f0;
+    --global-link-hover-color:                       #0f6ecd;
 
-//
-// Controls
-//
+    --global-inverse-color:                          @global-inverse-color;
 
-@global-control-height:                         40px;
-@global-control-small-height:                   30px;
-@global-control-large-height:                   55px;
+    /*
+     * Backgrounds
+     */
 
-//
-// Z-index
-//
+    --global-background:                             #fff;
 
-@global-z-index:                                1000;
+    --global-muted-background:                       #f8f8f8;
+    --global-primary-background:                     #1e87f0;
+    --global-secondary-background:                   #222;
+
+    --global-success-background:                     #32d296;
+    --global-warning-background:                     #faa05a;
+    --global-danger-background:                      #f0506e;
+
+    /*
+     * Borders
+     */
+
+    --global-border-width:                           1px;
+    --global-border:                                 @global-border;
+
+    /*
+     * Box-Shadows
+     */
+
+    --global-small-box-shadow:                       0 2px 8px rgba(0,0,0,0.08);
+    --global-medium-box-shadow:                      0 5px 15px rgba(0,0,0,0.08);
+    --global-large-box-shadow:                       0 14px 25px rgba(0,0,0,0.16);
+    --global-xlarge-box-shadow:                      0 28px 50px rgba(0,0,0,0.16);
+
+    /*
+     * Spacings
+     */
+
+    /* Used in margin, section, list */
+    --global-margin:                                 20px;
+    --global-small-margin:                           10px;
+    --global-medium-margin:                          40px;
+    --global-large-margin:                           70px;
+    --global-xlarge-margin:                          140px;
+
+    /* Used in grid, column, container, align, card, padding */
+    --global-gutter:                                 30px;
+    --global-small-gutter:                           15px;
+    --global-medium-gutter:                          40px;
+    --global-large-gutter:                           70px;
+
+    /*
+     * Controls
+     */
+
+    --global-control-height:                         40px;
+    --global-control-small-height:                   30px;
+    --global-control-large-height:                   55px;
+
+    /*
+     * Z-index
+     */
+
+    --global-z-index:                                1000;
+
+    .hook-global-variables();
+
+
+    /* Base variables
+    ========================================================================== */
+
+    .hook-base-variables();
+
+
+    /* Component variables
+    ========================================================================== */
+
+    /*
+     * Link
+     */
+    
+    .hook-link-variables();
+
+    /*
+     * Heading
+     */
+
+    .hook-heading-variables();
+
+    /*
+     * Divider
+     */
+
+    .hook-divider-variables();
+
+    /*
+     * List
+     */
+
+    .hook-list-variables();
+
+    /*
+     * Description list
+     */
+
+    .hook-description-list-variables();
+
+    /*
+     * Table
+     */
+
+    .hook-table-variables();
+
+    /*
+     * Icon
+     */
+
+    .hook-icon-variables();
+
+    /*
+     * Form range
+     */
+
+    .hook-form-range-variables();
+
+    /*
+     * Form
+     */
+
+    .hook-form-variables();
+
+    /*
+     * Button
+     */
+
+    .hook-button-variables();
+
+    /*
+     * Progress
+     */
+
+    .hook-progress-variables();
+
+    /*
+     * Section
+     */
+
+    .hook-section-variables();
+
+    /*
+     * Container
+     */
+
+    .hook-container-variables();
+
+    /*
+     * Tile
+     */
+
+    .hook-tile-variables();
+
+    /*
+     * Card
+     */
+
+    .hook-card-variables();
+
+    /*
+     * Close
+     */
+
+    .hook-close-variables();
+
+    /*
+     * Spinner
+     */
+
+    .hook-spinner-variables();
+
+    /*
+     * Totop
+     */
+
+    .hook-totop-variables();
+
+    /*
+     * Marker
+     */
+
+    .hook-marker-variables();
+
+    /*
+     * Alert
+     */
+
+    .hook-alert-variables();
+
+    /*
+     * Placeholder
+     */
+
+    .hook-placeholder-variables();
+
+    /*
+     * Badge
+     */
+
+    .hook-badge-variables();
+
+    /*
+     * Label
+     */
+
+    .hook-label-variables();
+
+    /*
+     * Overlay
+     */
+
+    .hook-overlay-variables();
+
+    /*
+     * Article
+     */
+
+    .hook-article-variables();
+
+    /*
+     * Comment
+     */
+
+    .hook-comment-variables();
+
+    /*
+     * Search
+     */
+
+    .hook-search-variables();
+
+    /*
+     * Accordion
+     */
+
+    .hook-accordion-variables();
+
+    /*
+     * Drop
+     */
+
+    .hook-drop-variables();
+
+    /*
+     * Dropbar
+     */
+
+    .hook-dropbar-variables();
+
+    /*
+     * Dropnav
+     */
+
+    .hook-dropnav-variables();
+
+    /*
+     * Modal
+     */
+
+    .hook-modal-variables();
+
+    /*
+     * Slider
+     */
+
+    .hook-slider-variables();
+
+    /*
+     * Sticky
+     */
+
+    .hook-sticky-variables();
+
+    /*
+     * Offcanvas
+     */
+
+    .hook-offcanvas-variables();
+
+    /*
+     * Leader
+     */
+
+    .hook-leader-variables();
+
+    /*
+     * Notification
+     */
+
+    .hook-notification-variables();
+
+    /*
+     * Tooltip
+     */
+
+    .hook-tooltip-variables();
+
+    /*
+     * Sortable
+     */
+
+    .hook-sortable-variables();
+
+    /*
+     * Countdown
+     */
+
+    .hook-countdown-variables();
+
+    /*
+     * Thumbnav
+     */
+
+    .hook-thumbnav-variables();
+
+    /*
+     * Iconnav
+     */
+
+    .hook-iconnav-variables();
+
+    /*
+     * Grid
+     */
+
+    .hook-grid-variables();
+
+    /*
+     * Nav
+     */
+
+    .hook-nav-variables();
+
+    /*
+     * Navbar
+     */
+
+    .hook-navbar-variables();
+
+    /*
+     * Subnav
+     */
+
+    .hook-subnav-variables();
+
+    /*
+     * Breadcrumb
+     */
+
+    .hook-breadcrumb-variables();
+
+    /*
+     * Pagination
+     */
+
+    .hook-pagination-variables();
+
+    /*
+     * Tab
+     */
+
+    .hook-tab-variables();
+
+    /*
+     * Slidenav
+     */
+
+    .hook-slidenav-variables();
+
+    /*
+     * Dotnav
+     */
+
+    .hook-dotnav-variables();
+
+    /*
+     * Dropdown
+     */
+
+    .hook-dropdown-variables();
+
+    /*
+     * Lightbox
+     */
+
+    .hook-lightbox-variables();
+
+    /*
+     * Animation
+     */
+
+    .hook-animation-variables();
+
+    /*
+     * Width
+     */
+
+    .hook-width-variables();
+
+    /*
+     * Height
+     */
+
+    .hook-height-variables();
+
+    /*
+     * Text
+     */
+
+    .hook-text-variables();
+
+    /*
+     * Column
+     */
+
+    .hook-column-variables();
+
+    /*
+     * Background
+     */
+
+    .hook-background-variables();
+
+    /*
+     * Align
+     */
+
+    .hook-align-variables();
+
+    /*
+     * Utility
+     */
+
+    .hook-utility-variables();
+
+    /*
+     * Margin
+     */
+
+    .hook-margin-variables();
+
+    /*
+     * Padding
+     */
+
+    .hook-padding-variables();
+
+    /*
+     * Position
+     */
+
+    .hook-position-variables();
+
+    /*
+     * Transition
+     */
+
+    .hook-transition-variables();
+
+    /*
+     * Inverse
+     */
+
+    .hook-inverse-variables();
+
+    /*
+     * Override and new variables, Need to be loaded last
+     */
+
+    .hook-variables();
+
+}
+
+// Hooks
+// ========================================================================
+
+
+.hook-accordion-variables() {};
+.hook-alert-variables() {};
+.hook-align-variables() {};
+.hook-animation-variables() {};
+.hook-article-variables() {};
+.hook-background-variables() {};
+.hook-badge-variables() {};
+.hook-base-variables() {};
+.hook-breadcrumb-variables() {};
+.hook-button-variables() {};
+.hook-card-variables() {};
+.hook-close-variables() {};
+.hook-column-variables() {};
+.hook-comment-variables() {};
+.hook-container-variables() {};
+.hook-countdown-variables() {};
+.hook-description-list-variables() {};
+.hook-divider-variables() {};
+.hook-dotnav-variables() {};
+.hook-drop-variables() {};
+.hook-dropbar-variables() {};
+.hook-dropdown-variables() {};
+.hook-dropnav-variables() {};
+.hook-form-range-variables() {};
+.hook-form-variables() {};
+.hook-global-variables() {};
+.hook-grid-variables() {};
+.hook-heading-variables() {};
+.hook-height-variables() {};
+.hook-icon-variables() {};
+.hook-iconnav-variables() {};
+.hook-inverse-variables() {};
+.hook-label-variables() {};
+.hook-leader-variables() {};
+.hook-lightbox-variables() {};
+.hook-link-variables() {};
+.hook-list-variables() {};
+.hook-margin-variables() {};
+.hook-marker-variables() {};
+.hook-modal-variables() {};
+.hook-nav-variables() {};
+.hook-navbar-variables() {};
+.hook-notification-variables() {};
+.hook-offcanvas-variables() {};
+.hook-overlay-variables() {};
+.hook-padding-variables() {};
+.hook-pagination-variables() {};
+.hook-placeholder-variables() {};
+.hook-position-variables() {};
+.hook-progress-variables() {};
+.hook-search-variables() {};
+.hook-section-variables() {};
+.hook-slidenav-variables() {};
+.hook-slider-variables() {};
+.hook-sortable-variables() {};
+.hook-spinner-variables() {};
+.hook-sticky-variables() {};
+.hook-subnav-variables() {};
+.hook-tab-variables() {};
+.hook-table-variables() {};
+.hook-text-variables() {};
+.hook-thumbnav-variables() {};
+.hook-tile-variables() {};
+.hook-tooltip-variables() {};
+.hook-totop-variables() {};
+.hook-transition-variables() {};
+.hook-utility-variables() {};
+.hook-variables() {};
+.hook-width-variables() {};

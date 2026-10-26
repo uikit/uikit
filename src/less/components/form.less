@@ -35,89 +35,106 @@
 // Variables
 // ========================================================================
 
-@form-height:                                   @global-control-height;
-@form-line-height:                              @form-height;
+@form-select-icon-color:                        @global-color; // FIXME: need to change .svg-fill function
+@form-select-disabled-icon-color:               @global-muted-color; // FIXME: need to change .svg-fill function
 
-@form-padding-horizontal:                       10px;
-@form-multi-line-padding-horizontal:            @form-padding-horizontal;
-@form-multi-line-padding-vertical:              round(@form-multi-line-padding-horizontal * 0.6);
+@form-datalist-icon-color:                      @global-color; // FIXME: need to change .svg-fill function
 
-@form-background:                               @global-muted-background;
-@form-color:                                    @global-color;
+@form-radio-checked-icon-color:                 @global-inverse-color; // FIXME: need to change .svg-fill function
+@form-radio-disabled-icon-color:                @global-muted-color; // FIXME: need to change .svg-fill function
 
-@form-focus-background:                         darken(@form-background, 5%);
-@form-focus-color:                              @global-color;
+@internal-form-select-image:                     "../../images/backgrounds/form-select.svg"; // FIXME: need to change .svg-fill function
+@internal-form-datalist-image:                   "../../images/backgrounds/form-datalist.svg"; // FIXME: need to change .svg-fill function
+@internal-form-radio-image:                      "../../images/backgrounds/form-radio.svg"; // FIXME: need to change .svg-fill function
+@internal-form-checkbox-image:                   "../../images/backgrounds/form-checkbox.svg"; // FIXME: need to change .svg-fill function
+@internal-form-checkbox-indeterminate-image:     "../../images/backgrounds/form-checkbox-indeterminate.svg"; // FIXME: need to change .svg-fill function
 
-@form-disabled-background:                      @global-muted-background;
-@form-disabled-color:                           @global-muted-color;
+.hook-form-variables() {
+    
+    --form-height:                                   var(--global-control-height);
+    --form-line-height:                              var(--form-height);
+    --form-padding-horizontal:                       10px;
+    --form-multi-line-padding-horizontal:            var(--form-padding-horizontal);
+    --form-multi-line-padding-vertical:              ~'round(up, calc(var(--form-multi-line-padding-horizontal) * 0.6), 1px)';
 
-@form-placeholder-color:                        @global-muted-color;
+    --form-background:                               var(--global-muted-background);
+    --form-color:                                    var(--global-color);
 
-@form-danger-color:                             @global-danger-background;
-@form-success-color:                            @global-success-background;
+    --form-focus-background:                         hsl(from var(--form-background) h s calc(l - 5));
+    --form-focus-color:                              var(--global-color);
 
-@form-width-xsmall:                             50px;
-@form-width-small:                              130px;
-@form-width-medium:                             200px;
-@form-width-large:                              500px;
+    --form-disabled-background:                      var(--global-muted-background);
+    --form-disabled-color:                           var(--global-muted-color);
 
-@form-select-padding-right:                     20px;
-@form-select-icon-color:                        @global-color;
-@form-select-option-color:                      @global-color;
-@form-select-disabled-icon-color:               @global-muted-color;
+    --form-placeholder-color:                        var(--global-muted-color);
 
-@form-datalist-padding-right:                   20px;
-@form-datalist-icon-color:                      @global-color;
+    --form-danger-color:                             var(--global-danger-background);
+    --form-success-color:                            var(--global-success-background);
 
-@form-radio-size:                               16px;
-@form-radio-margin-top:                         -4px;
-@form-radio-background:                         darken(@global-muted-background, 5%);
+    --form-width-xsmall:                             50px;
+    --form-width-small:                              130px;
+    --form-width-medium:                             200px;
+    --form-width-large:                              500px;
 
-@form-radio-focus-background:                   darken(@form-radio-background, 5%);
+    --form-select-padding-right:                     20px;
+    --form-select-icon-color:                        var(--global-color);
+    --form-select-option-color:                      var(--global-color);
+    --form-select-disabled-icon-color:               var(--global-muted-color);
 
-@form-radio-checked-background:                 @global-primary-background;
-@form-radio-checked-icon-color:                 @global-inverse-color;
+    --form-datalist-padding-right:                   20px;
+    --form-datalist-icon-color:                      var(--global-color);      
 
-@form-radio-checked-focus-background:           darken(@global-primary-background, 10%);
+    --form-radio-size:                               16px;
+    --form-radio-margin-top:                         -4px;
+    --form-radio-background:                         hsl(from var(--global-muted-background) h s calc(l - 5));
 
-@form-radio-disabled-background:                @global-muted-background;
-@form-radio-disabled-icon-color:                @global-muted-color;
+    --form-radio-focus-background:                   hsl(from var(--form-radio-background) h s calc(l - 5));
 
-@form-small-font-size:                          @global-small-font-size;
-@form-small-height:                             @global-control-small-height;
-@form-small-padding-horizontal:                 8px;
-@form-small-multi-line-padding-horizontal:      @form-small-padding-horizontal;
-@form-small-multi-line-padding-vertical:        round(@form-small-multi-line-padding-horizontal * 0.6);
-@form-small-line-height:                        @form-small-height;
-@form-small-radio-size:                         14px;
+    --form-radio-checked-background:                 var(--global-primary-background);
+    --form-radio-checked-icon-color:                 var(--global-inverse-color);
 
-@form-large-font-size:                          @global-medium-font-size;
-@form-large-height:                             @global-control-large-height;
-@form-large-padding-horizontal:                 12px;
-@form-large-multi-line-padding-horizontal:      @form-large-padding-horizontal;
-@form-large-multi-line-padding-vertical:        round(@form-large-multi-line-padding-horizontal * 0.6);
-@form-large-line-height:                        @form-large-height;
-@form-large-radio-size:                         22px;
+    --form-radio-checked-focus-background:           hsl(from var(--global-primary-background) h s calc(l - 10));
 
-@form-legend-font-size:                         @global-large-font-size;
-@form-legend-line-height:                       1.4;
+    --form-radio-disabled-background:                var(--global-muted-background);
+    --form-radio-disabled-icon-color:                var(--global-muted-color);
 
-@form-stacked-margin-bottom:                    @global-small-margin;
+    --form-small-font-size:                          var(--global-small-font-size);
+    --form-small-height:                             var(--global-control-small-height);
+    --form-small-padding-horizontal:                 8px;
+    --form-small-multi-line-padding-horizontal:      var(--form-small-padding-horizontal);
+    --form-small-multi-line-padding-vertical:        ~'round(up, calc(var(--form-small-multi-line-padding-horizontal) * 0.6), 1px)';
+    --form-small-line-height:                        var(--form-small-height);
+    --form-small-radio-size:                         14px;
 
-@form-horizontal-label-width:                   200px;
-@form-horizontal-label-margin-top:              7px;
-@form-horizontal-controls-margin-left:          215px;
-@form-horizontal-controls-text-padding-top:     7px;
+    --form-large-font-size:                          var(--global-medium-font-size);
+    --form-large-height:                             var(--global-control-large-height);
+    --form-large-padding-horizontal:                 12px;
+    --form-large-multi-line-padding-horizontal:      var(--form-large-padding-horizontal);
+    --form-large-multi-line-padding-vertical:        ~'round(up, calc(var(--form-large-multi-line-padding-horizontal) * 0.6), 1px)';
+    --form-large-line-height:                        var(--form-large-height);
+    --form-large-radio-size:                         22px;
 
-@form-icon-width:                               @form-height;
-@form-icon-color:                               @global-muted-color;
-@form-icon-hover-color:                         @global-color;
+    --form-legend-font-size:                         var(--global-large-font-size);
+    --form-legend-line-height:                       1.4;
 
-@internal-form-select-image:                     "../../images/backgrounds/form-select.svg";
-@internal-form-datalist-image:                   "../../images/backgrounds/form-datalist.svg";
-@internal-form-radio-image:                      "../../images/backgrounds/form-radio.svg";
-@internal-form-checkbox-image:                   "../../images/backgrounds/form-checkbox.svg";
-@internal-form-checkbox-indeterminate-image:     "../../images/backgrounds/form-checkbox-indeterminate.svg";
+    --form-stacked-margin-bottom:                    var(--global-small-margin);
+
+    --form-horizontal-label-width:                   200px;
+    --form-horizontal-label-margin-top:              7px;
+    --form-horizontal-controls-margin-left:          215px;
+    --form-horizontal-controls-text-padding-top:     7px;
+
+    --form-icon-width:                               var(--form-height);
+    --form-icon-color:                               var(--global-muted-color);
+    --form-icon-hover-color:                         var(--global-color);
+
+    --internal-form-select-image:                     "../../images/backgrounds/form-select.svg";
+    --internal-form-datalist-image:                   "../../images/backgrounds/form-datalist.svg";
+    --internal-form-radio-image:                      "../../images/backgrounds/form-radio.svg";
+    --internal-form-checkbox-image:                   "../../images/backgrounds/form-checkbox.svg";
+    --internal-form-checkbox-indeterminate-image:     "../../images/backgrounds/form-checkbox-indeterminate.svg";
+
+}
 
 
 /* ========================================================================
@@ -260,9 +277,9 @@
     /* 3 */
     border: 0 none;
     /* 4 */
-    padding: 0 @form-padding-horizontal;
-    background: @form-background;
-    color: @form-color;
+    padding: 0 var(--form-padding-horizontal);
+    background: var(--form-background);
+    color: var(--form-color);
     .hook-form();
 }
 
@@ -272,7 +289,7 @@
 
 .uk-input,
 .uk-select:not([multiple]):not([size]) {
-    height: @form-height;
+    height: var(--form-height);
     vertical-align: middle;
     .hook-form-single-line();
 }
@@ -288,7 +305,7 @@
     /* 1 */
     display: inline-block;
     /* 2 */
-    line-height: @form-line-height;
+    line-height: var(--form-line-height);
     /* 3 */
     overflow: hidden;
     text-overflow: ellipsis;
@@ -302,7 +319,7 @@
 .uk-select[multiple],
 .uk-select[size],
 .uk-textarea {
-    padding: @form-multi-line-padding-vertical @form-multi-line-padding-horizontal;
+    padding: var(--form-multi-line-padding-vertical) var(--form-multi-line-padding-horizontal);
     vertical-align: top;
     .hook-form-multi-line();
 }
@@ -315,8 +332,8 @@
 .uk-select:focus,
 .uk-textarea:focus {
     outline: none;
-    background-color: @form-focus-background;
-    color: @form-focus-color;
+    background-color: var(--form-focus-background);
+    color: var(--form-focus-color);
     .hook-form-focus();
 }
 
@@ -324,8 +341,8 @@
 .uk-input:disabled,
 .uk-select:disabled,
 .uk-textarea:disabled {
-    background-color: @form-disabled-background;
-    color: @form-disabled-color;
+    background-color: var(--form-disabled-background);
+    color: var(--form-disabled-color);
     .hook-form-disabled();
 }
 
@@ -333,9 +350,9 @@
  * Placeholder
  */
 
-.uk-input::placeholder { color: @form-placeholder-color; }
+.uk-input::placeholder { color: var(--form-placeholder-color); }
 
-.uk-textarea::placeholder { color: @form-placeholder-color; }
+.uk-textarea::placeholder { color: var(--form-placeholder-color); }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
@@ -347,7 +364,7 @@
 
 .uk-form-danger,
 .uk-form-danger:focus {
-    color: @form-danger-color;
+    color: var(--form-danger-color);
     .hook-form-danger();
 }
 
@@ -357,7 +374,7 @@
 
 .uk-form-success,
 .uk-form-success:focus {
-    color: @form-success-color;
+    color: var(--form-success-color);
     .hook-form-success();
 }
 
@@ -383,15 +400,15 @@
  * Different widths for mini sized `input` and `select` elements
  */
 
-input.uk-form-width-xsmall { width: @form-width-xsmall; }
+input.uk-form-width-xsmall { width: var(--form-width-xsmall); }
 
-select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
+select.uk-form-width-xsmall { width: calc(var(--form-width-xsmall) + 25px); }
 
-.uk-form-width-small { width: @form-width-small; }
+.uk-form-width-small { width: var(--form-width-small); }
 
-.uk-form-width-medium { width: @form-width-medium; }
+.uk-form-width-medium { width: var(--form-width-medium); }
 
-.uk-form-width-large { width: @form-width-large; }
+.uk-form-width-large { width: var(--form-width-large); }
 
 
 /* Select
@@ -408,14 +425,14 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     -webkit-appearance: none;
     -moz-appearance: none;
     /* 2 */
-    padding-right: @form-select-padding-right;
+    padding-right: var(--form-select-padding-right);
     .svg-fill(@internal-form-select-image, "#000", @form-select-icon-color);
     background-repeat: no-repeat;
     background-position: 100% 50%;
 }
 
 /* 3 */
-.uk-select:not([multiple]):not([size]) option { color: @form-select-option-color; }
+.uk-select:not([multiple]):not([size]) option { color: var(--form-select-option-color); }
 
 /*
  * Disabled
@@ -432,7 +449,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  */
 
  .uk-input[list] {
-    padding-right: @form-datalist-padding-right;
+    padding-right: var(--form-datalist-padding-right);
     background-repeat: no-repeat;
     background-position: 100% 50%;
 }
@@ -460,18 +477,18 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-checkbox {
     /* 1 */
     display: inline-block;
-    height: @form-radio-size;
-    width: @form-radio-size;
+    height: var(--form-radio-size);
+    width: var(--form-radio-size);
     /* 2 */
     overflow: hidden;
     /* 3 */
-    margin-top: @form-radio-margin-top;
+    margin-top: var(--form-radio-margin-top);
     vertical-align: middle;
     /* 4 */
     -webkit-appearance: none;
     -moz-appearance: none;
     /* 5 */
-    background-color: @form-radio-background;
+    background-color: var(--form-radio-background);
     /* 6 */
     background-size: cover;
     .hook-form-radio();
@@ -482,7 +499,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 /* Focus */
 .uk-radio:focus,
 .uk-checkbox:focus {
-    background-color: @form-radio-focus-background;
+    background-color: var(--form-radio-focus-background);
     outline: none;
     .hook-form-radio-focus();
 }
@@ -494,7 +511,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-radio:checked,
 .uk-checkbox:checked,
 .uk-checkbox:indeterminate {
-    background-color: @form-radio-checked-background;
+    background-color: var(--form-radio-checked-background);
     .hook-form-radio-checked();
 }
 
@@ -502,7 +519,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-radio:checked:focus,
 .uk-checkbox:checked:focus,
 .uk-checkbox:indeterminate:focus {
-    background-color: @form-radio-checked-focus-background;
+    background-color: var(--form-radio-checked-focus-background);
     .hook-form-radio-checked-focus();
 }
 
@@ -520,7 +537,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 .uk-radio:disabled,
 .uk-checkbox:disabled {
-    background-color: @form-radio-disabled-background;
+    background-color: var(--form-radio-disabled-background);
     .hook-form-radio-disabled();
 }
 
@@ -536,50 +553,50 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Small
  */
 
-.uk-form-small:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: @form-small-font-size; }
+.uk-form-small:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: var(--form-small-font-size); }
 
 /* Single-line */
 .uk-form-small:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
-    height: @form-small-height;
-    padding-left: @form-small-padding-horizontal;
-    padding-right: @form-small-padding-horizontal;
+    height: var(--form-small-height);
+    padding-left: var(--form-small-padding-horizontal);
+    padding-right: var(--form-small-padding-horizontal);
 }
 
 /* Multi-line */
-.uk-form-small:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: @form-small-multi-line-padding-vertical @form-small-multi-line-padding-horizontal; }
+.uk-form-small:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: var(--form-small-multi-line-padding-vertical) var(--form-small-multi-line-padding-horizontal); }
 
 /* Any element */
-.uk-form-small:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: @form-small-line-height; }
+.uk-form-small:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: var(--form-small-line-height); }
 
 /* Radio + Checkbox */
 .uk-form-small:is(.uk-radio, .uk-checkbox) {
-    height: @form-small-radio-size;
-    width: @form-small-radio-size;
+    height: var(--form-small-radio-size);
+    width: var(--form-small-radio-size);
 }
 
 /*
  * Large
  */
 
-.uk-form-large:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: @form-large-font-size; }
+.uk-form-large:is(.uk-input, .uk-search-input, .uk-select, .uk-textarea) { font-size: var(--form-large-font-size); }
 
 /* Single-line */
 .uk-form-large:is(.uk-input, .uk-search-input, .uk-select:not([multiple]):not([size])) {
-    height: @form-large-height;
-    padding-left: @form-large-padding-horizontal;
-    padding-right: @form-large-padding-horizontal;
+    height: var(--form-large-height);
+    padding-left: var(--form-large-padding-horizontal);
+    padding-right: var(--form-large-padding-horizontal);
 }
 
 /* Multi-line */
-.uk-form-large:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: @form-large-multi-line-padding-vertical @form-large-multi-line-padding-horizontal; }
+.uk-form-large:is(.uk-select[multiple], .uk-select[size], .uk-textarea) { padding: var(--form-large-multi-line-padding-vertical) var(--form-large-multi-line-padding-horizontal); }
 
 /* Any element */
-.uk-form-large:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: @form-large-line-height; }
+.uk-form-large:not(select):not(input):not(textarea):not([type="radio"]):not([type="checkbox"]) { line-height: var(--form-large-line-height); }
 
 /* Radio + Checkbox */
 .uk-form-large:is(.uk-radio, .uk-checkbox) {
-    height: @form-large-radio-size;
-    width: @form-large-radio-size;
+    height: var(--form-large-radio-size);
+    width: var(--form-large-radio-size);
 }
 
 
@@ -602,8 +619,8 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     /* 3 */
     padding: 0;
     /* 4 */
-    font-size: @form-legend-font-size;
-    line-height: @form-legend-line-height;
+    font-size: var(--form-legend-font-size);
+    line-height: var(--form-legend-line-height);
     .hook-form-legend();
 }
 
@@ -680,7 +697,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 .uk-form-stacked .uk-form-label {
     display: block;
-    margin-bottom: @form-stacked-margin-bottom;
+    margin-bottom: var(--form-stacked-margin-bottom);
     .hook-form-stacked-label();
 }
 
@@ -694,7 +711,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     /* Behave like `uk-form-stacked` */
     .uk-form-horizontal .uk-form-label {
         display: block;
-        margin-bottom: @form-stacked-margin-bottom;
+        margin-bottom: var(--form-stacked-margin-bottom);
         .hook-form-stacked-label();
     }
 
@@ -704,16 +721,16 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 @media (min-width: @breakpoint-medium) {
 
     .uk-form-horizontal .uk-form-label {
-        width: @form-horizontal-label-width;
-        margin-top: @form-horizontal-label-margin-top;
+        width: var(--form-horizontal-label-width);
+        margin-top: var(--form-horizontal-label-margin-top);
         float: left;
         .hook-form-horizontal-label();
     }
 
-    .uk-form-horizontal .uk-form-controls { margin-left: @form-horizontal-controls-margin-left; }
+    .uk-form-horizontal .uk-form-controls { margin-left: var(--form-horizontal-controls-margin-left); }
 
     /* Better vertical alignment if controls are checkboxes and radio buttons with text */
-    .uk-form-horizontal .uk-form-controls-text { padding-top: @form-horizontal-controls-text-padding-top; }
+    .uk-form-horizontal .uk-form-controls-text { padding-top: var(--form-horizontal-controls-text-padding-top); }
 
 }
 
@@ -735,13 +752,13 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     bottom: 0;
     left: 0;
     /* 2 */
-    width: @form-icon-width;
+    width: var(--form-icon-width);
     /* 3 */
     display: inline-flex;
     justify-content: center;
     align-items: center;
     /* 4 */
-    color: @form-icon-color;
+    color: var(--form-icon-color);
     .hook-form-icon();
 }
 
@@ -749,7 +766,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Required for `a`.
  */
 
-.uk-form-icon:hover { color: @form-icon-hover-color; }
+.uk-form-icon:hover { color: var(--form-icon-hover-color); }
 
 /*
  * Make `input` element clickable through icon, e.g. if it's a `span`
@@ -761,7 +778,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Input padding
  */
 
-.uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input { padding-left: @form-icon-width !important; }
+.uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input { padding-left: var(--form-icon-width) !important; }
 
 /*
  * Position modifier
@@ -772,7 +789,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     left: auto;
 }
 
-.uk-form-icon-flip ~ .uk-input { padding-right: @form-icon-width !important; }
+.uk-form-icon-flip ~ .uk-input { padding-right: var(--form-icon-width) !important; }
 
 
 // Hooks
@@ -805,41 +822,49 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 // Inverse
 // ========================================================================
 
-@inverse-form-background:                      @inverse-global-muted-background;
-@inverse-form-color:                           @inverse-global-color;
-@inverse-form-focus-background:                fadein(@inverse-form-background, 5%);
-@inverse-form-focus-color:                     @inverse-global-color;
-@inverse-form-placeholder-color:               @inverse-global-muted-color;
+@inverse-form-select-icon-color:               @inverse-global-color; // FIXME: need to change .svg-fill function
 
-@inverse-form-select-icon-color:               @inverse-global-color;
+@inverse-form-datalist-icon-color:             @inverse-global-color; // FIXME: need to change .svg-fill function
 
-@inverse-form-datalist-icon-color:             @inverse-global-color;
+@inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color; // FIXME: need to change .svg-fill function
 
-@inverse-form-radio-background:                @inverse-global-muted-background;
+.hook-form-variables() {
+    --inverse-form-background:                      var(--inverse-global-muted-background);
+    --inverse-form-color:                           var(--inverse-global-color);
+    --inverse-form-focus-background:                rgb(from var(--inverse-form-background) r g b / ~'calc(alpha + 0.05)');
+    --inverse-form-focus-color:                     var(--inverse-global-color);
+    --inverse-form-placeholder-color:               var(--inverse-global-muted-color);
 
-@inverse-form-radio-focus-background:          fadein(@inverse-form-radio-background, 5%);
+    --inverse-form-select-icon-color:               var(--inverse-global-color);
 
-@inverse-form-radio-checked-background:        @inverse-global-primary-background;
-@inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color;
+    --inverse-form-datalist-icon-color:             var(--inverse-global-color);
 
-@inverse-form-radio-checked-focus-background:  fadein(@inverse-global-primary-background, 10%);
+    --inverse-form-radio-background:                var(--inverse-global-muted-background);
 
-@inverse-form-icon-color:                      @inverse-global-muted-color;
-@inverse-form-icon-hover-color:                @inverse-global-color;
+    --inverse-form-radio-focus-background:          rgb(from var(--inverse-form-radio-background) r g b / ~'calc(alpha + 0.05)');
+
+    --inverse-form-radio-checked-background:        var(--inverse-global-primary-background);
+    --inverse-form-radio-checked-icon-color:        var(--inverse-global-inverse-color);
+
+    --inverse-form-radio-checked-focus-background:  rgb(from var(--inverse-global-primary-background) r g b / ~'calc(alpha + 0.1)');
+
+    --inverse-form-icon-color:                      var(--inverse-global-muted-color);
+    --inverse-form-icon-hover-color:                var(--inverse-global-color);
+}
 
 .hook-inverse() {
 
     .uk-input,
     .uk-select,
     .uk-textarea {
-        background-color: @inverse-form-background;
-        color: @inverse-form-color;
+        background-color: var(--inverse-form-background);
+        color: var(--inverse-form-color);
         background-clip: padding-box;
         .hook-inverse-form();
 
         &:focus {
-            background-color: @inverse-form-focus-background;
-            color: @inverse-form-focus-color;
+            background-color: var(--inverse-form-focus-background);
+            color: var(--inverse-form-focus-color);
             .hook-inverse-form-focus();
         }
     }
@@ -848,9 +873,9 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     // Placeholder
     //
 
-    .uk-input::placeholder { color: @inverse-form-placeholder-color; }
+    .uk-input::placeholder { color: var(--inverse-form-placeholder-color); }
 
-    .uk-textarea::placeholder { color: @inverse-form-placeholder-color; }
+    .uk-textarea::placeholder { color: var(--inverse-form-placeholder-color); }
 
     //
     // Select
@@ -871,14 +896,14 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
     .uk-radio,
     .uk-checkbox {
-        background-color: @inverse-form-radio-background;
+        background-color: var(--inverse-form-radio-background);
         .hook-inverse-form-radio();
     }
 
     // Focus
     .uk-radio:focus,
     .uk-checkbox:focus {
-        background-color: @inverse-form-radio-focus-background;
+        background-color: var(--inverse-form-radio-focus-background);
         .hook-inverse-form-radio-focus();
     }
 
@@ -886,7 +911,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-radio:checked,
     .uk-checkbox:checked,
     .uk-checkbox:indeterminate {
-        background-color: @inverse-form-radio-checked-background;
+        background-color: var(--inverse-form-radio-checked-background);
         .hook-inverse-form-radio-checked();
     }
 
@@ -894,7 +919,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-radio:checked:focus,
     .uk-checkbox:checked:focus,
     .uk-checkbox:indeterminate:focus {
-        background-color: @inverse-form-radio-checked-focus-background;
+        background-color: var(--inverse-form-radio-checked-focus-background);
         .hook-inverse-form-radio-checked-focus();
     }
 
@@ -910,10 +935,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
     // Icon
     .uk-form-icon {
-        color: @inverse-form-icon-color;
+        color: var(--inverse-form-icon-color);
         .hook-inverse-form-icon();
     }
-    .uk-form-icon:hover { color: @inverse-form-icon-hover-color; }
+    .uk-form-icon:hover { color: var(--inverse-form-icon-hover-color); }
 
 }
 

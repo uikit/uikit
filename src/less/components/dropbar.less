@@ -15,19 +15,25 @@
 // Variables
 // ========================================================================
 
-@dropbar-margin:                                0;
-@dropbar-padding-top:                           15px;
-@dropbar-padding-bottom:                        @dropbar-padding-top;
-@dropbar-padding-horizontal:                    15px;
-@dropbar-padding-horizontal-s:                  @global-gutter;
-@dropbar-padding-horizontal-m:                  @global-medium-gutter;
-@dropbar-background:                            @global-muted-background;
-@dropbar-color:                                 @global-color;
-@dropbar-color-mode:                            dark;
-@dropbar-focus-outline:                         @base-focus-outline;
+@dropbar-color-mode:                            dark; // FIXME: need to change inverse process
 
-@dropbar-large-padding-top:                     40px;
-@dropbar-large-padding-bottom:                  @dropbar-large-padding-top;
+.hook-dropbar-variables() {
+
+    --dropbar-margin:                                0;
+    --dropbar-padding-top:                           15px;
+    --dropbar-padding-bottom:                        var(--dropbar-padding-top);
+    --dropbar-padding-horizontal:                    15px;
+    --dropbar-padding-horizontal-s:                  var(--global-gutter);
+    --dropbar-padding-horizontal-m:                  var(--global-medium-gutter);
+    --dropbar-background:                            var(--global-muted-background);
+    --dropbar-color:                                 var(--global-color);
+    --dropbar-color-mode:                            @dropbar-color-mode;
+    --dropbar-focus-outline:                         var(--base-focus-outline);
+
+    --dropbar-large-padding-top:                     40px;
+    --dropbar-large-padding-bottom:                  var(--dropbar-large-padding-top);
+
+}
 
 
 /* ========================================================================
@@ -41,16 +47,16 @@
  */
 
 .uk-dropbar {
-    --uk-position-offset: @dropbar-margin;
+    --uk-position-offset: var(--dropbar-margin);
     --uk-position-shift-offset: 0;
     --uk-position-viewport-offset: 0;
-    --uk-inverse: @dropbar-color-mode;
+    --uk-inverse: var(--dropbar-color-mode);
     /* 1 */
     width: auto;
     /* 2 */
-    padding: @dropbar-padding-top @dropbar-padding-horizontal @dropbar-padding-bottom @dropbar-padding-horizontal;
-    background: @dropbar-background;
-    color: @dropbar-color;
+    padding: var(--dropbar-padding-top) var(--dropbar-padding-horizontal) var(--dropbar-padding-bottom) var(--dropbar-padding-horizontal);
+    background: var(--dropbar-background);
+    color: var(--dropbar-color);
     .hook-dropbar();
 }
 
@@ -64,8 +70,8 @@
 @media (min-width: @breakpoint-small) {
 
     .uk-dropbar {
-        padding-left: @dropbar-padding-horizontal-s;
-        padding-right: @dropbar-padding-horizontal-s;
+        padding-left: var(--dropbar-padding-horizontal-s);
+        padding-right: var(--dropbar-padding-horizontal-s);
     }
 
 }
@@ -74,8 +80,8 @@
 @media (min-width: @breakpoint-medium) {
 
     .uk-dropbar {
-        padding-left: @dropbar-padding-horizontal-m;
-        padding-right: @dropbar-padding-horizontal-m;
+        padding-left: var(--dropbar-padding-horizontal-m);
+        padding-right: var(--dropbar-padding-horizontal-m);
     }
 
 }
@@ -85,7 +91,7 @@
 .uk-dropbar:extend(.uk-dark all) when (@dropbar-color-mode = dark) {}
 
 .uk-dropbar :focus-visible when not (@dropbar-color-mode = @inverse-global-color-mode) {
-    outline-color: @dropbar-focus-outline !important;
+    outline-color: var(--dropbar-focus-outline) !important;
 }
 
 
@@ -93,8 +99,8 @@
  ========================================================================== */
 
 .uk-dropbar-large {
-    padding-top: @dropbar-large-padding-top;
-    padding-bottom: @dropbar-large-padding-bottom;
+    padding-top: var(--dropbar-large-padding-top);
+    padding-bottom: var(--dropbar-large-padding-bottom);
 }
 
 

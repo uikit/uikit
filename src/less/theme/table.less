@@ -7,16 +7,20 @@
 // Variables
 // ========================================================================
 
-@table-header-cell-font-size:                   @global-small-font-size;
-@table-header-cell-font-weight:                 normal;
-@table-header-cell-color:                       @global-muted-color;
+.hook-table-variables() {
 
-//
-// New
-//
+    --table-header-cell-font-size:                   var(--global-small-font-size);
+    --table-header-cell-font-weight:                 normal;
+    --table-header-cell-color:                       var(--global-muted-color);
 
-@table-striped-border-width:                    @global-border-width;
-@table-striped-border:                          @global-border;
+    //
+    // New
+    //
+
+    --table-striped-border-width:                    var(--global-border-width);
+    --table-striped-border:                          var(--global-border);
+
+}
 
 
 // Component
@@ -39,8 +43,8 @@
 .hook-table-divider() {}
 
 .hook-table-striped() {
-    border-top: @table-striped-border-width solid @table-striped-border;
-    border-bottom: @table-striped-border-width solid @table-striped-border;
+    border-top: var(--table-striped-border-width) solid var(--table-striped-border);
+    border-bottom: var(--table-striped-border-width) solid var(--table-striped-border);
 }
 
 .hook-table-hover() {}
@@ -62,7 +66,7 @@
     .uk-table tbody tr { transition: background-color 0.1s linear; }
 
     .uk-table-striped > tr:nth-of-type(even):last-child,
-    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom: @table-striped-border-width solid @table-striped-border; }
+    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom: var(--table-striped-border-width) solid var(--table-striped-border); }
 
 }
 
@@ -75,12 +79,12 @@
 .hook-inverse-table-row-active() {}
 .hook-inverse-table-divider() {}
 .hook-inverse-table-striped() {
-    border-top-color: @inverse-global-border;
-    border-bottom-color: @inverse-global-border;
+    border-top-color: var(--inverse-global-border);
+    border-bottom-color: var(--inverse-global-border);
 }
 .hook-inverse-table-hover() {}
 
 .hook-inverse() {
     .uk-table-striped > tr:nth-of-type(even):last-child,
-    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom-color: @inverse-global-border; }
+    .uk-table-striped tbody tr:nth-of-type(even):last-child { border-bottom-color: var(--inverse-global-border); }
 }

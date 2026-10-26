@@ -10,11 +10,15 @@
 // Variables
 // ========================================================================
 
-@width-small-width:                             150px;
-@width-medium-width:                            300px;
-@width-large-width:                             450px;
-@width-xlarge-width:                            600px;
-@width-2xlarge-width:                           750px;
+.hook-width-variables() {
+    
+    --width-small-width:                             150px;
+    --width-medium-width:                            300px;
+    --width-large-width:                             450px;
+    --width-xlarge-width:                            600px;
+    --width-2xlarge-width:                           750px;
+
+}
 
 
 /* ========================================================================
@@ -196,11 +200,11 @@
 .uk-width-5-6 { width: ~'calc(500% / 6)'; }
 
 /* Pixel */
-.uk-width-small { width: @width-small-width; }
-.uk-width-medium { width: @width-medium-width; }
-.uk-width-large { width: @width-large-width; }
-.uk-width-xlarge { width: @width-xlarge-width; }
-.uk-width-2xlarge { width: @width-2xlarge-width; }
+.uk-width-small { width: var(--width-small-width); }
+.uk-width-medium { width: var(--width-medium-width); }
+.uk-width-large { width: var(--width-large-width); }
+.uk-width-xlarge { width: var(--width-xlarge-width); }
+.uk-width-2xlarge { width: var(--width-2xlarge-width); }
 
 /* Auto */
 .uk-width-auto { width: auto; }
@@ -239,11 +243,11 @@
     .uk-width-5-6\@s { width: ~'calc(500% / 6)'; }
 
     /* Pixel */
-    .uk-width-small\@s { width: @width-small-width; }
-    .uk-width-medium\@s { width: @width-medium-width; }
-    .uk-width-large\@s { width: @width-large-width; }
-    .uk-width-xlarge\@s { width: @width-xlarge-width; }
-    .uk-width-2xlarge\@s { width: @width-2xlarge-width; }
+    .uk-width-small\@s { width: var(--width-small-width); }
+    .uk-width-medium\@s { width: var(--width-medium-width); }
+    .uk-width-large\@s { width: var(--width-large-width); }
+    .uk-width-xlarge\@s { width: var(--width-xlarge-width); }
+    .uk-width-2xlarge\@s { width: var(--width-2xlarge-width); }
 
     /* Auto */
     .uk-width-auto\@s { width: auto; }
@@ -304,11 +308,11 @@
     .uk-width-5-6\@m { width: ~'calc(500% / 6)'; }
 
     /* Pixel */
-    .uk-width-small\@m { width: @width-small-width; }
-    .uk-width-medium\@m { width: @width-medium-width; }
-    .uk-width-large\@m { width: @width-large-width; }
-    .uk-width-xlarge\@m { width: @width-xlarge-width; }
-    .uk-width-2xlarge\@m { width: @width-2xlarge-width; }
+    .uk-width-small\@m { width: var(--width-small-width); }
+    .uk-width-medium\@m { width: var(--width-medium-width); }
+    .uk-width-large\@m { width: var(--width-large-width); }
+    .uk-width-xlarge\@m { width: var(--width-xlarge-width); }
+    .uk-width-2xlarge\@m { width: var(--width-2xlarge-width); }
 
      /* Auto */
     .uk-width-auto\@m { width: auto; }
@@ -369,11 +373,11 @@
     .uk-width-5-6\@l { width: ~'calc(500% / 6)'; }
 
     /* Pixel */
-    .uk-width-small\@l { width: @width-small-width; }
-    .uk-width-medium\@l { width: @width-medium-width; }
-    .uk-width-large\@l { width: @width-large-width; }
-    .uk-width-xlarge\@l { width: @width-xlarge-width; }
-    .uk-width-2xlarge\@l { width: @width-2xlarge-width; }
+    .uk-width-small\@l { width: var(--width-small-width); }
+    .uk-width-medium\@l { width: var(--width-medium-width); }
+    .uk-width-large\@l { width: var(--width-large-width); }
+    .uk-width-xlarge\@l { width: var(--width-xlarge-width); }
+    .uk-width-2xlarge\@l { width: var(--width-2xlarge-width); }
 
     /* Auto */
     .uk-width-auto\@l { width: auto; }
@@ -434,11 +438,11 @@
     .uk-width-5-6\@xl { width: ~'calc(500% / 6)'; }
 
     /* Pixel */
-    .uk-width-small\@xl { width: @width-small-width; }
-    .uk-width-medium\@xl { width: @width-medium-width; }
-    .uk-width-large\@xl { width: @width-large-width; }
-    .uk-width-xlarge\@xl { width: @width-xlarge-width; }
-    .uk-width-2xlarge\@xl { width: @width-2xlarge-width; }
+    .uk-width-small\@xl { width: var(--width-small-width); }
+    .uk-width-medium\@xl { width: var(--width-medium-width); }
+    .uk-width-large\@xl { width: var(--width-large-width); }
+    .uk-width-xlarge\@xl { width: var(--width-xlarge-width); }
+    .uk-width-2xlarge\@xl { width: var(--width-2xlarge-width); }
 
     /* Auto */
     .uk-width-auto\@xl { width: auto; }

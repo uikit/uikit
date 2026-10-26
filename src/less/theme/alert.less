@@ -7,12 +7,16 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+.hook-alert-variables() {
+    
+    //
+    // New
+    //
 
-@alert-close-opacity:                           0.4;
-@alert-close-hover-opacity:                     0.8;
+    --alert-close-opacity:                           0.4;
+    --alert-close-hover-opacity:                     0.8;
+
+}
 
 
 // Component
@@ -26,12 +30,12 @@
 
 .hook-alert-close() {
     color: inherit;
-    opacity: @alert-close-opacity;
+    opacity: var(--alert-close-opacity);
 }
 
 .hook-alert-close-hover() {
     color: inherit;
-    opacity: @alert-close-hover-opacity;
+    opacity: var(--alert-close-hover-opacity);
 }
 
 

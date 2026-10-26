@@ -15,15 +15,19 @@
 // Variables
 // ========================================================================
 
-@pagination-margin-horizontal:                  0;
+.hook-pagination-variables() {
 
-@pagination-item-padding-vertical:              5px;
-@pagination-item-padding-horizontal:            10px;
-@pagination-item-color:                         @global-muted-color;
-@pagination-item-hover-color:                   @global-color;
-@pagination-item-hover-text-decoration:         none;
-@pagination-item-active-color:                  @global-color;
-@pagination-item-disabled-color:                @global-muted-color;
+    --pagination-margin-horizontal:                  0;
+
+    --pagination-item-padding-vertical:              5px;
+    --pagination-item-padding-horizontal:            10px;
+    --pagination-item-color:                         var(--global-muted-color);
+    --pagination-item-hover-color:                   var(--global-color);
+    --pagination-item-hover-text-decoration:         none;
+    --pagination-item-active-color:                  var(--global-color);
+    --pagination-item-disabled-color:                var(--global-muted-color);
+
+}
 
 
 /* ========================================================================
@@ -44,7 +48,7 @@
     /* 2 */
     align-items: center;
     /* 3 */
-    margin-left: -@pagination-margin-horizontal;
+    margin-left: calc(var(--pagination-margin-horizontal) * -1);
     /* 4 */
     padding: 0;
     list-style: none;
@@ -61,7 +65,7 @@
     /* 1 */
     flex: none;
     /* 2 */
-    padding-left: @pagination-margin-horizontal;
+    padding-left: var(--pagination-margin-horizontal);
     /* 3 */
     position: relative;
 }
@@ -83,27 +87,27 @@
     /* 2 */
     column-gap: 0.25em;
     /* 3 */
-    padding: @pagination-item-padding-vertical @pagination-item-padding-horizontal;
-    color: @pagination-item-color;
+    padding: var(--pagination-item-padding-vertical) var(--pagination-item-padding-horizontal);
+    color: var(--pagination-item-color);
     .hook-pagination-item();
 }
 
 /* Hover */
 .uk-pagination > * > :hover {
-    color: @pagination-item-hover-color;
-    text-decoration: @pagination-item-hover-text-decoration;
+    color: var(--pagination-item-hover-color);
+    text-decoration: var(--pagination-item-hover-text-decoration);
     .hook-pagination-item-hover();
 }
 
 /* Active */
 .uk-pagination > .uk-active > * {
-    color: @pagination-item-active-color;
+    color: var(--pagination-item-active-color);
     .hook-pagination-item-active();
 }
 
 /* Disabled */
 .uk-pagination > .uk-disabled > * {
-    color: @pagination-item-disabled-color;
+    color: var(--pagination-item-disabled-color);
     .hook-pagination-item-disabled();
 }
 
@@ -124,30 +128,32 @@
 // Inverse
 // ========================================================================
 
-@inverse-pagination-item-color:                @inverse-global-muted-color;
-@inverse-pagination-item-hover-color:          @inverse-global-color;
-@inverse-pagination-item-active-color:         @inverse-global-color;
-@inverse-pagination-item-disabled-color:       @inverse-global-muted-color;
+.hook-pagination-variables() {
+    --inverse-pagination-item-color:                var(--inverse-global-muted-color);
+    --inverse-pagination-item-hover-color:          var(--inverse-global-color);
+    --inverse-pagination-item-active-color:         var(--inverse-global-color);
+    --inverse-pagination-item-disabled-color:       var(--inverse-global-muted-color);
+}
 
 .hook-inverse() {
 
     .uk-pagination > * > * {
-        color: @inverse-pagination-item-color;
+        color: var(--inverse-pagination-item-color);
         .hook-inverse-pagination-item();
     }
 
     .uk-pagination > * > :hover {
-        color: @inverse-pagination-item-hover-color;
+        color: var(--inverse-pagination-item-hover-color);
         .hook-inverse-pagination-item-hover();
     }
 
     .uk-pagination > .uk-active > * {
-        color: @inverse-pagination-item-active-color;
+        color: var(--inverse-pagination-item-active-color);
         .hook-inverse-pagination-item-active();
     }
 
     .uk-pagination > .uk-disabled > * {
-        color: @inverse-pagination-item-disabled-color;
+        color: var(--inverse-pagination-item-disabled-color);
         .hook-inverse-pagination-item-disabled();
     }
 

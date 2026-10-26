@@ -7,12 +7,16 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+.hook-list-variables() {
 
-@list-striped-border-width:                     @global-border-width;
-@list-striped-border:                           @global-border;
+    //
+    // New
+    //
+
+    --list-striped-border-width:                     var(--global-border-width);
+    --list-striped-border:                           var(--global-border);
+
+}
 
 
 // Style modifiers
@@ -23,8 +27,8 @@
 .hook-list-striped() {
 
     &:nth-of-type(odd) {
-        border-top: @list-striped-border-width solid @list-striped-border;
-        border-bottom: @list-striped-border-width solid @list-striped-border;
+        border-top: var(--list-striped-border-width) solid var(--list-striped-border);
+        border-bottom: var(--list-striped-border-width) solid var(--list-striped-border);
     }
 
 }
@@ -43,8 +47,8 @@
 .hook-inverse-list-striped() {
 
     &:nth-of-type(odd) {
-        border-top-color: @inverse-global-border;
-        border-bottom-color: @inverse-global-border;
+        border-top-color: var(--inverse-global-border);
+        border-bottom-color: var(--inverse-global-border);
     }
 
 }

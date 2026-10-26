@@ -7,11 +7,15 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+.hook-accordion-variables() {
 
-@accordion-default-icon-color:                 @global-color;
+    //
+    // New
+    //
+
+    --accordion-default-icon-color:                 var(--global-color);
+  
+}
 
 
 // Component
@@ -45,7 +49,7 @@
  * Icon
  */
 
-.hook-accordion-default-icon() { color: @accordion-default-icon-color; }
+.hook-accordion-default-icon() { color: var(--accordion-default-icon-color); }
 
 /*
  * Content
@@ -63,7 +67,9 @@
 // Inverse
 // ========================================================================
 
-@inverse-accordion-default-icon-color:         @inverse-global-color;
+.hook-accordion-variables() {
+  --inverse-accordion-default-icon-color:         var(--inverse-global-color);
+}
 
 .hook-inverse-accordion-default-item() {}
 .hook-inverse-accordion-default-item-active() {}
@@ -71,5 +77,5 @@
 .hook-inverse-accordion-default-title() {}
 .hook-inverse-accordion-default-title-hover() {}
 .hook-inverse-accordion-default-title-active() {}
-.hook-inverse-accordion-default-icon() { color: @inverse-accordion-default-icon-color; }
+.hook-inverse-accordion-default-icon() { color: var(--inverse-accordion-default-icon-color); }
 .hook-inverse-accordion-default-content() {}
