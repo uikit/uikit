@@ -1,4 +1,4 @@
-/*! UIkit 3.25.27 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.28 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -568,6 +568,7 @@
 
     const cssNumber = {
       "animation-iteration-count": true,
+      "aspect-ratio": true,
       "column-count": true,
       "fill-opacity": true,
       "flex-grow": true,
@@ -1744,8 +1745,8 @@
         stop() {
           if (this.timer) {
             clearInterval(this.timer);
-            trigger(this.$el, "countdownstop");
             this.timer = null;
+            trigger(this.$el, "countdownstop");
           }
         },
         update() {
@@ -1753,8 +1754,8 @@
           if (!timespan.total) {
             this.stop();
             if (!this.end) {
-              trigger(this.$el, "countdownend");
               this.end = true;
+              trigger(this.$el, "countdownend");
               if (this.reload && this.started) {
                 window.location.reload();
               }
@@ -3418,7 +3419,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.27';
+    var VERSION = '3.25.28';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -5275,7 +5276,7 @@
       ],
       update: {
         read({ percent }, types) {
-          if (!types.has("scroll")) {
+          if (!types.has("scroll") || types.has("resize")) {
             percent = false;
           }
           if (!isVisible(this.$el)) {
@@ -5916,7 +5917,7 @@
       watch: {
         list(list) {
           css(list, {
-            aspectRatio: this.ratio ? this.ratio.replace(":", "/") : void 0,
+            aspectRatio: this.ratio && this.ratio !== "false" ? this.ratio.replace(":", "/") : "",
             minHeight: this.minHeight,
             maxHeight: this.maxHeight,
             width: "100%"
@@ -6517,37 +6518,37 @@
       },
       methods: {
         async upload(files) {
-          files = toArray(files);
-          if (!files.length) {
-            return;
-          }
-          if (!this.multiple) {
-            files = files.slice(0, 1);
-          }
-          trigger(this.$el, "upload", [files]);
-          for (const file of files) {
-            if (this.maxSize && this.maxSize * 1e3 < file.size) {
-              this.fail(this.t("invalidSize", this.maxSize));
+          try {
+            files = toArray(files);
+            if (!files.length) {
               return;
             }
-            if (this.allow && !match$1(this.allow, file.name)) {
-              this.fail(this.t("invalidName", this.allow));
-              return;
+            if (!this.multiple) {
+              files = files.slice(0, 1);
             }
-            if (this.mime && !match$1(this.mime, file.type)) {
-              this.fail(this.t("invalidMime", this.mime));
-              return;
+            trigger(this.$el, "upload", [files]);
+            for (const file of files) {
+              if (this.maxSize && this.maxSize * 1e3 < file.size) {
+                this.fail(this.t("invalidSize", this.maxSize));
+                return;
+              }
+              if (this.allow && !match$1(this.allow, file.name)) {
+                this.fail(this.t("invalidName", this.allow));
+                return;
+              }
+              if (this.mime && !match$1(this.mime, file.type)) {
+                this.fail(this.t("invalidMime", this.mime));
+                return;
+              }
             }
-          }
-          this.beforeAll(this, files);
-          const chunks = chunk(files, this.concurrent);
-          const upload = async (files2) => {
-            const data = new FormData();
-            files2.forEach((file) => data.append(this.name, file));
-            for (const key in this.params) {
-              data.append(key, this.params[key]);
-            }
-            try {
+            await this.beforeAll(this, files);
+            const size = this.concurrent;
+            for (let i = 0; i < files.length; i += size) {
+              const data = new FormData();
+              files.slice(i, i + size).forEach((file) => data.append(this.name, file));
+              for (const key in this.params) {
+                data.append(key, this.params[key]);
+              }
               const xhr = await ajax(this.url, {
                 data,
                 method: this.method,
@@ -6562,35 +6563,27 @@
                 }
               });
               this.complete(xhr);
-              if (chunks.length) {
-                await upload(chunks.shift());
-              } else {
+              if (i + size >= files.length) {
                 this.completeAll(xhr);
               }
-            } catch (e) {
-              if (e.name !== "AbortError") {
-                this.error(e);
-              }
             }
-          };
-          await upload(chunks.shift());
+          } catch (e) {
+            if ((e == null ? void 0 : e.name) !== "AbortError") {
+              this.error(e);
+            }
+          }
         }
       }
     };
     function match$1(pattern, path) {
-      return path.match(
-        new RegExp(
-          `^${pattern.replace(/\//g, "\\/").replace(/\*\*/g, "(\\/[^\\/]+)*").replace(/\*/g, "[^\\/]+").replace(/((?!\\))\?/g, "$1.")}$`,
-          "i"
-        )
+      const expression = pattern.replace(
+        /\*\*|[.*+?^${}()|[\]\\]/g,
+        (s) => {
+          var _a;
+          return (_a = { "**": ".*", "*": "[^/]+", "?": "[^/]", "|": "|" }[s]) != null ? _a : `\\${s}`;
+        }
       );
-    }
-    function chunk(files, size) {
-      const chunks = [];
-      for (let i = 0; i < files.length; i += size) {
-        chunks.push(files.slice(i, i + size));
-      }
-      return chunks;
+      return new RegExp(`^(?:${expression})$`, "i").test(path);
     }
     function stop(e) {
       e.preventDefault();
@@ -7425,15 +7418,12 @@
       return offsetViewport(overflowParents(target).find((parent2) => parent2.contains(el)));
     }
     function createToggleComponent(drop) {
-      const el = query(drop.toggle, drop.$el);
+      const target = drop.$el;
+      const el = query(drop.toggle, target);
       if (el) {
-        drop.$create("toggle", el, { target: drop.$el, mode: drop.mode });
-        el.ariaHasPopup = true;
-        const dropEl = drop.$el;
-        if (!dropEl.id) {
-          dropEl.id = generateId(drop, dropEl);
-        }
-        attr(el, "aria-controls", dropEl.id);
+        drop.$create("toggle", el, { target, mode: drop.mode });
+        target.id = generateId(drop, target);
+        attr(el, "aria-controls", target.id);
       }
       return el;
     }
@@ -9311,7 +9301,6 @@
           write({ active }) {
             const { elements } = this;
             const changed = active !== false && !hasClass(elements[active], this.cls);
-            this.links.forEach((el) => el.blur());
             for (let i = 0; i < elements.length; i++) {
               toggleClass(elements[i], this.cls, +i === active);
             }
@@ -9751,7 +9740,7 @@
     const loadSVG = memoize(async (src) => {
       if (src) {
         const response = await fetch(src);
-        if (response.headers.get("Content-Type") === "image/svg+xml") {
+        if (/^image\/svg\+xml\s*(;|$)/i.test(response.headers.get("Content-Type"))) {
           return response.text();
         }
       }
