@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix Scrollspy Nav removing focus from links during updates
 - Fix Drop incorrectly setting `aria-haspopup="true"` on its toggle; authors must set `aria-haspopup` explicitly when appropriate for the popup's role
 
 ## 3.25.27 (October 20, 2026)

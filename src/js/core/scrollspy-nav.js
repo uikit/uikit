@@ -96,7 +96,6 @@ export default {
                 const { elements } = this;
                 const changed = active !== false && !hasClass(elements[active], this.cls);
 
-                this.links.forEach((el) => el.blur());
                 for (let i = 0; i < elements.length; i++) {
                     toggleClass(elements[i], this.cls, +i === active);
                 }
