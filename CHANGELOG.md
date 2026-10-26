@@ -6,6 +6,8 @@
 
 - Fix Scrollspy Nav removing focus from links during updates
 - Fix Drop incorrectly setting `aria-haspopup="true"` on its toggle; authors must set `aria-haspopup` explicitly when appropriate for the popup's role
+- Fix Upload matching only part of a file name or MIME type when filters contain alternatives
+- Fix Upload interpreting literal filter characters as regular expressions and incorrectly matching double wildcards
 
 ## 3.25.27 (October 20, 2026)
 
