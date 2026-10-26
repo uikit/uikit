@@ -95,48 +95,49 @@ export default {
 
     methods: {
         async upload(files) {
-            files = toArray(files);
+            try {
+                files = toArray(files);
 
-            if (!files.length) {
-                return;
-            }
-
-            if (!this.multiple) {
-                files = files.slice(0, 1);
-            }
-
-            trigger(this.$el, 'upload', [files]);
-
-            for (const file of files) {
-                if (this.maxSize && this.maxSize * 1000 < file.size) {
-                    this.fail(this.t('invalidSize', this.maxSize));
+                if (!files.length) {
                     return;
                 }
 
-                if (this.allow && !match(this.allow, file.name)) {
-                    this.fail(this.t('invalidName', this.allow));
-                    return;
+                if (!this.multiple) {
+                    files = files.slice(0, 1);
                 }
 
-                if (this.mime && !match(this.mime, file.type)) {
-                    this.fail(this.t('invalidMime', this.mime));
-                    return;
+                trigger(this.$el, 'upload', [files]);
+
+                for (const file of files) {
+                    if (this.maxSize && this.maxSize * 1000 < file.size) {
+                        this.fail(this.t('invalidSize', this.maxSize));
+                        return;
+                    }
+
+                    if (this.allow && !match(this.allow, file.name)) {
+                        this.fail(this.t('invalidName', this.allow));
+                        return;
+                    }
+
+                    if (this.mime && !match(this.mime, file.type)) {
+                        this.fail(this.t('invalidMime', this.mime));
+                        return;
+                    }
                 }
-            }
 
-            this.beforeAll(this, files);
+                await this.beforeAll(this, files);
 
-            const chunks = chunk(files, this.concurrent);
-            const upload = async (files) => {
-                const data = new FormData();
+                const size = this.concurrent;
 
-                files.forEach((file) => data.append(this.name, file));
+                for (let i = 0; i < files.length; i += size) {
+                    const data = new FormData();
 
-                for (const key in this.params) {
-                    data.append(key, this.params[key]);
-                }
+                    files.slice(i, i + size).forEach((file) => data.append(this.name, file));
 
-                try {
+                    for (const key in this.params) {
+                        data.append(key, this.params[key]);
+                    }
+
                     const xhr = await ajax(this.url, {
                         data,
                         method: this.method,
@@ -154,19 +155,15 @@ export default {
 
                     this.complete(xhr);
 
-                    if (chunks.length) {
-                        await upload(chunks.shift());
-                    } else {
+                    if (i + size >= files.length) {
                         this.completeAll(xhr);
                     }
-                } catch (e) {
-                    if (e.name !== 'AbortError') {
-                        this.error(e);
-                    }
                 }
-            };
-
-            await upload(chunks.shift());
+            } catch (e) {
+                if (e?.name !== 'AbortError') {
+                    this.error(e);
+                }
+            }
         },
     },
 };
@@ -178,14 +175,6 @@ function match(pattern, path) {
     );
 
     return new RegExp(`^(?:${expression})$`, 'i').test(path);
-}
-
-function chunk(files, size) {
-    const chunks = [];
-    for (let i = 0; i < files.length; i += size) {
-        chunks.push(files.slice(i, i + size));
-    }
-    return chunks;
 }
 
 function stop(e) {
