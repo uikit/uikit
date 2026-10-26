@@ -177,8 +177,6 @@ export default {
 
             filter: ({ mode }) => includes(mode, 'media'),
 
-            el: ({ target }) => target,
-
             handler(e, mediaObj) {
                 if (mediaObj.matches ^ this.isToggled(this.target)) {
                     this.toggle();

@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Form Custom ignoring option labels when updating its target
+- Fix Toggle media mode not updating external targets
 
 ## 3.25.28 (October 26, 2026)
 
