@@ -74,7 +74,7 @@ export function initComputedUpdates(instance) {
 }
 
 function resetComputed(instance) {
-    const values = { ...instance._computed };
+    const values = instance._computed;
     instance._computed = {};
     return values;
 }
