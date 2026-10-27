@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix Drop leaking mouse trackers and pending timers when disconnected
 - Fix Form Custom ignoring option labels when updating its target
 - Fix Toggle media mode not updating external targets
 
