@@ -17,6 +17,7 @@
 - Fix Form Custom ignoring option labels when updating its target
 - Fix Grid parallax retaining transforms when scrolling back past its start
 - Fix Image skipping background updates and load events for prefix-related URLs
+- Fix Inverse losing resize observation of its targets after transitions complete
 - Fix mounted icon aliases not refreshing when their canonical icon is replaced
 - Fix Search icons overwriting author-provided labels on ancestor buttons
 - Fix Toggle media mode not updating external targets
