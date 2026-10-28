@@ -344,7 +344,7 @@ export default {
                     try {
                         const { height, width } = await (
                             await fetch(
-                                `https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(
+                                `https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURIComponent(
                                     src,
                                 )}`,
                                 { credentials: 'omit' },
@@ -463,9 +463,9 @@ function toThumbnavItem(item, videoAutoplay) {
 }
 
 function isImage(src) {
-    return src?.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i);
+    return src?.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|[?#])/i);
 }
 
 function isVideo(src) {
-    return src?.match(/\.(mp4|webm|ogv)($|\?)/i);
+    return src?.match(/\.(mp4|webm|ogv)($|[?#])/i);
 }
