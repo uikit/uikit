@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add support for pages enforcing Trusted Types (`require-trusted-types-for 'script'`) with a Trusted Types policy named `uikit`
+
 ### Fixed
 
 - Fix canceled swipes emitting events
