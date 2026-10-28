@@ -24,6 +24,7 @@
 - Fix stacked Modals releasing shared scroll styles before the last overlay closes
 - Fix Switcher activating tabs on prevented clicks, including after dragging with Overflow Fade
 - Fix Overflow Fade showing incorrect horizontal edge fades in RTL
+- Fix Overflow Fade retaining drag termination listeners after dragging
 - Fix Search icons overwriting author-provided labels on ancestor buttons
 - Fix Toggle media mode not updating external targets
 
