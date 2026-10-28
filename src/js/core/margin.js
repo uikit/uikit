@@ -85,7 +85,7 @@ export function getRows(elements) {
             const offsetCurrent = getOffset(current[0], withOffset);
 
             if (offset.top >= offsetCurrent.bottom - 1 && offset.top !== offsetCurrent.top) {
-                sorted.push([el]);
+                sorted.splice(i + 1, 0, [el]);
                 break;
             }
 

@@ -18,6 +18,7 @@
 - Fix Grid parallax retaining transforms when scrolling back past its start
 - Fix Image skipping background updates and load events for prefix-related URLs
 - Fix Inverse losing resize observation of its targets after transitions complete
+- Fix Margin splitting visual rows when flex order or grid placement differs from DOM order
 - Fix mounted icon aliases not refreshing when their canonical icon is replaced
 - Fix Modal helper promises settling when nested components hide
 - Fix Search icons overwriting author-provided labels on ancestor buttons
