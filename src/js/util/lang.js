@@ -211,44 +211,19 @@ export function pointInRect(point, rect) {
     );
 }
 
-function ratio(dimensions, prop, value) {
-    const aProp = prop === 'width' ? 'height' : 'width';
+function cover(dimensions, maxDimensions) {
+    const scale = Math.max(
+        dimensions.width ? maxDimensions.width / dimensions.width : 0,
+        dimensions.height ? maxDimensions.height / dimensions.height : 0,
+    );
 
     return {
-        [aProp]: dimensions[prop]
-            ? Math.round((value * dimensions[aProp]) / dimensions[prop])
-            : dimensions[aProp],
-        [prop]: value,
+        width: Math.round(dimensions.width * scale),
+        height: Math.round(dimensions.height * scale),
     };
 }
 
-function contain(dimensions, maxDimensions) {
-    dimensions = { ...dimensions };
-
-    for (const prop in dimensions) {
-        dimensions =
-            dimensions[prop] > maxDimensions[prop]
-                ? ratio(dimensions, prop, maxDimensions[prop])
-                : dimensions;
-    }
-
-    return dimensions;
-}
-
-function cover(dimensions, maxDimensions) {
-    dimensions = contain(dimensions, maxDimensions);
-
-    for (const prop in dimensions) {
-        dimensions =
-            dimensions[prop] < maxDimensions[prop]
-                ? ratio(dimensions, prop, maxDimensions[prop])
-                : dimensions;
-    }
-
-    return dimensions;
-}
-
-export const Dimensions = { ratio, contain, cover };
+export const Dimensions = { cover };
 
 export function getIndex(i, elements, current = 0, finite = false) {
     elements = toNodes(elements);
