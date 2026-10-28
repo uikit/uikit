@@ -39,7 +39,6 @@
 - Fix stacked Modals releasing shared scroll styles before the last overlay closes
 - Fix Switcher activating tabs on prevented clicks, including after dragging with Overflow Fade
 - Fix Overflow Fade showing incorrect horizontal edge fades in RTL
-- Fix Overflow Fade retaining drag termination listeners after dragging
 - Fix Search icons overwriting author-provided labels on ancestor buttons
 - Fix Scroll throwing on malformed URL fragments by falling back to literal target IDs
 - Fix SVG initialization remaining pending when a lazy image fails to load
