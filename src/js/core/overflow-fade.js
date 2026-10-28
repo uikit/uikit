@@ -8,6 +8,7 @@ import {
     isRtl,
     isTouch,
     on,
+    once,
     pointerCancel,
     pointerDown,
     pointerMove,
@@ -113,7 +114,7 @@ function handleMouseDrag(e) {
     let started;
 
     const off = on(document, pointerMove, move(e), pointerOptions);
-    on(document, [pointerUp, pointerCancel], end, { capture: true, once: true });
+    once(document, [pointerUp, pointerCancel], end, true);
 
     function move(e) {
         let origin = getEventPos(e);
