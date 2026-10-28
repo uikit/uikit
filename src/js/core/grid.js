@@ -132,7 +132,7 @@ export default {
             },
 
             write({ columns, scrolled, scrollColumns, translates }) {
-                if (!scrolled && !translates) {
+                if (scrolled === false && !translates) {
                     return;
                 }
 

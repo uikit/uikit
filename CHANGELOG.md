@@ -15,6 +15,7 @@
 - Fix Drop leaking mouse trackers and pending timers when disconnected
 - Fix Dropnav keyboard navigation throwing in empty dropdowns
 - Fix Form Custom ignoring option labels when updating its target
+- Fix Grid parallax retaining transforms when scrolling back past its start
 - Fix mounted icon aliases not refreshing when their canonical icon is replaced
 - Fix Search icons overwriting author-provided labels on ancestor buttons
 - Fix Toggle media mode not updating external targets
