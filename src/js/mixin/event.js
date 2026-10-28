@@ -3,7 +3,10 @@ import { on, once } from '../util/event';
 import { keyMap } from '../util/keys';
 
 export function maybeDefaultPreventClick(e) {
-    if (e.target.closest('a[href="#"],a[href=""]')) {
+    if (
+        (e.type === 'keydown' && e.keyCode === keyMap.SPACE) ||
+        e.target.closest('a[href="#"],a[href=""]')
+    ) {
         e.preventDefault();
     }
 }

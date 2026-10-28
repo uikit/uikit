@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix button controls activating twice when pressing Space in Accordion, Nav, Switcher, Tab, Filter, Slider, and Slideshow
 - Fix canceled swipes emitting events
 - Fix Drop leaking mouse trackers and pending timers when disconnected
 - Fix Form Custom ignoring option labels when updating its target
