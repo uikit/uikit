@@ -26,6 +26,7 @@
 - Fix Overflow Fade showing incorrect horizontal edge fades in RTL
 - Fix Overflow Fade retaining drag termination listeners after dragging
 - Fix Search icons overwriting author-provided labels on ancestor buttons
+- Fix Scroll throwing on malformed URL fragments by falling back to literal target IDs
 - Fix Toggle media mode not updating external targets
 
 ## 3.25.28 (October 26, 2026)
