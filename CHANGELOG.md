@@ -27,6 +27,7 @@
 - Fix Overflow Fade retaining drag termination listeners after dragging
 - Fix Search icons overwriting author-provided labels on ancestor buttons
 - Fix Scroll throwing on malformed URL fragments by falling back to literal target IDs
+- Fix SVG initialization remaining pending when a lazy image fails to load
 - Fix Toggle media mode not updating external targets
 
 ## 3.25.28 (October 26, 2026)
