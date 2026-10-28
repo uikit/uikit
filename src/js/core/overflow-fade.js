@@ -5,6 +5,7 @@ import {
     getEventPos,
     hasClass,
     isInput,
+    isRtl,
     isTouch,
     on,
     pointerCancel,
@@ -73,7 +74,9 @@ export default {
 
                 if (!overflow[i - 1]) {
                     const dir = i ? 'Top' : 'Left';
-                    const percent = overflow[i] ? this.$el[`scroll${dir}`] / overflow[i] : 0;
+                    // The horizontal mask runs left to right, even in RTL.
+                    const position = this.$el[`scroll${dir}`] + (!i && isRtl ? overflow[i] : 0);
+                    const percent = overflow[i] ? position / overflow[i] : 0;
 
                     const toValue = (value) =>
                         overflow[i] ? clamp((this.fadeDuration - value) / this.fadeDuration) : 1;
