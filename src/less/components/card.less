@@ -51,31 +51,31 @@
 @card-badge-right:                             15px;
 @card-badge-height:                            22px;
 @card-badge-padding-horizontal:                10px;
-@card-badge-background:                        @global-primary-background;
+@card-badge-background:                        @global-primary-color;
 @card-badge-color:                             @global-inverse-color;
 @card-badge-font-size:                         @global-small-font-size;
 
-@card-hover-background:                        @global-muted-background;
+@card-hover-background:                        @global-muted-color-default;
 
-@card-default-background:                      @global-muted-background;
+@card-default-background:                      @global-muted-color-default;
 @card-default-color:                           @global-color;
 @card-default-title-color:                     @global-emphasis-color;
 @card-default-hover-background:                darken(@card-default-background, 5%);
 @card-default-color-mode:                      dark;
 
-@card-primary-background:                      @global-primary-background;
+@card-primary-background:                      @global-primary-color;
 @card-primary-color:                           @global-inverse-color;
 @card-primary-title-color:                     @card-primary-color;
 @card-primary-hover-background:                darken(@card-primary-background, 5%);
 @card-primary-color-mode:                      light;
 
-@card-secondary-background:                    @global-secondary-background;
+@card-secondary-background:                    @global-secondary-color;
 @card-secondary-color:                         @global-inverse-color;
 @card-secondary-title-color:                   @card-secondary-color;
 @card-secondary-hover-background:              darken(@card-secondary-background, 5%);
 @card-secondary-color-mode:                    light;
 
-@card-overlay-background:                      fade(@global-background, 90%);
+@card-overlay-background:                      fade(@global-default-color, 90%);
 @card-overlay-color:                           @global-color;
 @card-overlay-title-color:                     @global-emphasis-color;
 @card-overlay-hover-background:                fadein(@card-overlay-background, 10%);
@@ -425,7 +425,7 @@
 // Inverse
 // ========================================================================
 
-@inverse-card-badge-background:                     @inverse-global-primary-background;
+@inverse-card-badge-background:                     @inverse-global-primary-color;
 @inverse-card-badge-color:                          @inverse-global-inverse-color;
 
 .hook-inverse() {

@@ -9,8 +9,8 @@
 
 @form-line-height:                              @form-height - (2* @form-border-width);
 
-@form-background:                               @global-background;
-@form-focus-background:                         @global-background;
+@form-background:                               @global-default-color;
+@form-focus-background:                         @global-default-color;
 
 @form-small-line-height:                        @form-small-height - (2* @form-border-width);
 @form-large-line-height:                        @form-large-height - (2* @form-border-width);
@@ -26,12 +26,12 @@
 @form-border-width:                             @global-border-width;
 @form-border:                                   @global-border;
 
-@form-focus-border:                             @global-primary-background;
+@form-focus-border:                             @global-primary-color;
 
 @form-disabled-border:                          @global-border;
 
-@form-danger-border:                            @global-danger-background;
-@form-success-border:                           @global-success-background;
+@form-danger-border:                            @global-danger-color;
+@form-success-border:                           @global-success-color;
 
 @form-blank-focus-border:                       @global-border;
 @form-blank-focus-border-style:                 solid;
@@ -39,7 +39,7 @@
 @form-radio-border-width:                       @global-border-width;
 @form-radio-border:                             darken(@global-border, 10%);
 
-@form-radio-focus-border:                       @global-primary-background;
+@form-radio-focus-border:                       @global-primary-color;
 
 @form-radio-checked-border:                     transparent;
 
@@ -146,7 +146,7 @@
 .hook-inverse-form-radio() { border-color: @inverse-global-border; }
 .hook-inverse-form-radio-focus() { border-color: @inverse-global-color; }
 
-.hook-inverse-form-radio-checked() { border-color: @inverse-global-primary-background; }
+.hook-inverse-form-radio-checked() { border-color: @inverse-global-primary-color; }
 .hook-inverse-form-radio-checked-focus() {}
 
 .hook-inverse-form-label() { color: @inverse-form-label-color; }

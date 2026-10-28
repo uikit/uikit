@@ -48,39 +48,122 @@
 @global-medium-font-size:                       1.25rem;  // 20px
 @global-small-font-size:                        0.875rem; // 14px
 
+
+
+//
+// Palettes
+//
+
+@global-default-color:                          #fff; // use: default backgrounds
+
+@global-muted-color-50:                         oklch(97.9% 0 0); // #f8f8f8 || muted-background, inverse-color
+@global-muted-color-100:                        oklch(94.0% 0 0); // #ebebeb || hover
+@global-muted-color-150:                        oklch(92.2% 0 0); // #e5e5e5 || border || active
+@global-muted-color-200:                        oklch(80.2% 0 0);
+@global-muted-color-300:                        oklch(68.3% 0 0); // #999 || muted-color
+@global-muted-color-400:                        oklch(59.7% 0 0);
+@global-muted-color-500:                        oklch(51% 0 0);   // #666 || global-color
+@global-muted-color-600:                        oklch(41.5% 0 0);
+@global-muted-color-700:                        oklch(32.1% 0 0); // #333 || emphasis-color
+@global-muted-color-800:                        oklch(27.6% 0 0);
+@global-muted-color-900:                        oklch(22.4% 0 0);
+@global-muted-color-950:                        oklch(16.5% 0 0);
+@global-muted-color-default:                    @global-muted-color-50; // use: backgrounds, muted alert/button/card/notification/link/text
+
+@global-primary-color-50:                       oklch(97.8% 0.0104 248.2);
+@global-primary-color-100:                      oklch(92.9% 0.031 248.2);
+@global-primary-color-200:                      oklch(85.3% 0.069 249.5);
+@global-primary-color-300:                      oklch(77.6% 0.106 250.8);
+@global-primary-color-400:                      oklch(69.9% 0.144 252.1);
+@global-primary-color-450:                      oklch(66.1% 0.163 252.8);
+@global-primary-color-500:                      oklch(62.27% 0.1814 253.48); // #1e87f0 || primary, link
+@global-primary-color-550:                      oklch(58.4% 0.177 254.1);    // hover
+@global-primary-color-600:                      oklch(54.6% 0.172 254.8);    // #0e6dcd || active || link-hover
+@global-primary-color-700:                      oklch(47.0% 0.156 256.1);
+@global-primary-color-800:                      oklch(39.3% 0.138 257.5);
+@global-primary-color-900:                      oklch(31.6% 0.119 258.8);
+@global-primary-color-950:                      oklch(27.8% 0.108 260.1);
+@global-primary-color:                          @global-primary-color-500; // use: backgrounds, primary alert/button/card/notification/link/text
+
+@global-secondary-color-50:                     oklch(98.0% 0 0);
+@global-secondary-color-100:                    oklch(91.7% 0 0);
+@global-secondary-color-200:                    oklch(82.2% 0 0);
+@global-secondary-color-300:                    oklch(72.7% 0 0);
+@global-secondary-color-400:                    oklch(63.2% 0 0);
+@global-secondary-color-500:                    oklch(53.7% 0 0);
+@global-secondary-color-600:                    oklch(44.2% 0 0);
+@global-secondary-color-700:                    oklch(34.7% 0 0);
+@global-secondary-color-750:                    oklch(30.0% 0 0);
+@global-secondary-color-800:                    oklch(25.2% 0 0); // #222 || secondary-background
+@global-secondary-color-850:                    oklch(19.6% 0 0); // hover
+@global-secondary-color-900:                    oklch(13.4% 0 0); // active
+@global-secondary-color-950:                    oklch(8.0% 0 0);
+@global-secondary-color:                        @global-secondary-color-800; // use: backgrounds, secondary button/card
+
+@global-success-color-50:                       oklch(98.4% 0.010 174);
+@global-success-color-100:                      oklch(97.6% 0.0161 172.7);   // #edfbf6 || alert-background
+@global-success-color-200:                      oklch(90.7% 0.062 169.3);
+@global-success-color-300:                      oklch(83.8% 0.109 165.8);
+@global-success-color-350:                      oklch(80.4% 0.132 164.1);
+@global-success-color-400:                      oklch(76.94% 0.1553 162.44); // #32d296 || success
+@global-success-color-450:                      oklch(72.8% 0.150 161.4);    // hover
+@global-success-color-500:                      oklch(68.6% 0.144 160.4);    // active
+@global-success-color-600:                      oklch(60.3% 0.133 158.4);
+@global-success-color-700:                      oklch(52.0% 0.119 156.4);
+@global-success-color-800:                      oklch(43.7% 0.105 154.4);
+@global-success-color-900:                      oklch(35.4% 0.089 152.4);
+@global-success-color-950:                      oklch(31.3% 0.083 150.4);
+@global-success-color:                          @global-success-color-400; // use: backgrounds, success alert/notification/link/text
+
+@global-warning-color-50:                       oklch(98.4% 0.010 66);
+@global-warning-color-100:                      oklch(97.8% 0.0144 64.35);  // #fff6ee || alert-background
+@global-warning-color-200:                      oklch(91.3% 0.055 61.8);
+@global-warning-color-300:                      oklch(84.8% 0.096 59.3);
+@global-warning-color-350:                      oklch(81.6% 0.117 58.1);
+@global-warning-color-400:                      oklch(78.32% 0.1372 56.83); // #faa05a || warning
+@global-warning-color-450:                      oklch(74.5% 0.135 55.9);    // hover
+@global-warning-color-500:                      oklch(70.7% 0.132 55.0);    // active
+@global-warning-color-600:                      oklch(63.1% 0.126 53.2);
+@global-warning-color-700:                      oklch(55.5% 0.121 51.4);
+@global-warning-color-800:                      oklch(47.9% 0.115 49.6);
+@global-warning-color-900:                      oklch(40.3% 0.106 47.8);
+@global-warning-color-950:                      oklch(36.5% 0.098 46.9);
+@global-warning-color:                          @global-warning-color-400; // use: backgrounds, warning alert/notification/link/text
+
+@global-danger-color-50:                        oklch(98.4% 0.007 5);
+@global-danger-color-100:                       oklch(97.5% 0.011 3.5);     // #fef4f6 || alert-background
+@global-danger-color-200:                       oklch(89.6% 0.055 6.0);
+@global-danger-color-300:                       oklch(81.7% 0.103 8.4);
+@global-danger-color-400:                       oklch(73.7% 0.149 10.9);
+@global-danger-color-450:                       oklch(69.7% 0.172 12.1);
+@global-danger-color-500:                       oklch(65.79% 0.1955 13.34); // #f0506e || danger
+@global-danger-color-550:                       oklch(63.3% 0.212 16.3);    // hover
+@global-danger-color-600:                       oklch(60.74% 0.2292 19.23); // active
+@global-danger-color-700:                       oklch(54.1% 0.207 20.0);
+@global-danger-color-800:                       oklch(47.0% 0.180 19.0);
+@global-danger-color-900:                       oklch(39.5% 0.151 17.5);
+@global-danger-color-950:                       oklch(35.6% 0.137 16.5);
+@global-danger-color:                           @global-danger-color-500; // use: backgrounds, danger alert/button/notification/link/text
+
 //
 // Colors
 //
 
-@global-color:                                  #666;
-@global-emphasis-color:                         #333;
-@global-muted-color:                            #999;
+@global-color:                                  @global-muted-color-500;
+@global-emphasis-color:                         @global-muted-color-700;
+@global-muted-color:                            @global-muted-color-300;
 
-@global-link-color:                             #1e87f0;
-@global-link-hover-color:                       #0f6ecd;
+@global-link-color:                             @global-primary-color-500;
+@global-link-hover-color:                       @global-primary-color-600;
 
 @global-inverse-color:                          #fff;
-
-//
-// Backgrounds
-//
-
-@global-background:                             #fff;
-
-@global-muted-background:                       #f8f8f8;
-@global-primary-background:                     #1e87f0;
-@global-secondary-background:                   #222;
-
-@global-success-background:                     #32d296;
-@global-warning-background:                     #faa05a;
-@global-danger-background:                      #f0506e;
 
 //
 // Borders
 //
 
 @global-border-width:                           1px;
-@global-border:                                 #e5e5e5;
+@global-border:                                 @global-muted-color-150;
 
 //
 // Box-Shadows
