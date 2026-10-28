@@ -1,6 +1,6 @@
 import { css, getEventPos, matches, on, once, resetProps, scrollParents, width } from 'uikit-util';
 
-let prevented;
+let scrollLocks = 0;
 export function preventBackgroundScroll(el) {
     // 'overscroll-behavior: contain' only works consistently if el overflows (Safari)
     const off = on(
@@ -44,21 +44,26 @@ export function preventBackgroundScroll(el) {
         { passive: true },
     );
 
-    if (prevented) {
-        return off;
-    }
-    prevented = true;
-
     const { scrollingElement } = document;
     const props = {
         overflowY: CSS.supports('overflow', 'clip') ? 'clip' : 'hidden',
         touchAction: 'none',
         scrollbarGutter: width(window) - scrollingElement.clientWidth ? 'stable' : '',
     };
-    css(scrollingElement, props);
+
+    if (!scrollLocks++) {
+        css(scrollingElement, props);
+    }
+
+    let released = false;
     return () => {
-        prevented = false;
+        if (released) {
+            return;
+        }
+        released = true;
         off();
-        resetProps(scrollingElement, props);
+        if (!--scrollLocks) {
+            resetProps(scrollingElement, props);
+        }
     };
 }
