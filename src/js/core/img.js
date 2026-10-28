@@ -7,7 +7,6 @@ import {
     data,
     escape,
     fragment,
-    includes,
     isArray,
     isEmpty,
     isTag,
@@ -88,8 +87,9 @@ function setSrcAttrs(el, src) {
         const elements = isTag(parentNode, 'picture') ? children(parentNode) : [el];
         elements.forEach((el) => setSourceProps(el, el));
     } else if (src) {
-        if (!includes(el.style.backgroundImage, src)) {
-            css(el, 'backgroundImage', `url(${escape(src)})`);
+        const previousBackground = el.style.backgroundImage;
+        css(el, 'backgroundImage', `url(${escape(src)})`);
+        if (el.style.backgroundImage !== previousBackground) {
             trigger(el, createEvent('load', false));
         }
     }
