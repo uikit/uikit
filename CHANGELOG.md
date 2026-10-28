@@ -22,6 +22,7 @@
 - Fix mounted icon aliases not refreshing when their canonical icon is replaced
 - Fix Modal helper promises settling when nested components hide
 - Fix stacked Modals releasing shared scroll styles before the last overlay closes
+- Fix Switcher activating tabs on prevented clicks, including after dragging with Overflow Fade
 - Fix Search icons overwriting author-provided labels on ancestor buttons
 - Fix Toggle media mode not updating external targets
 
