@@ -9,6 +9,7 @@
 - Fix canceled swipes emitting events
 - Fix Drop leaking mouse trackers and pending timers when disconnected
 - Fix Form Custom ignoring option labels when updating its target
+- Fix mounted icon aliases not refreshing when their canonical icon is replaced
 - Fix Search icons overwriting author-provided labels on ancestor buttons
 - Fix Toggle media mode not updating external targets
 
