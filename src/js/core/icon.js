@@ -140,17 +140,9 @@ export const Search = {
                 ? 'search-medium'
                 : this.$props.icon;
 
-        if (hasAttr(this.$el, 'aria-label')) {
-            return;
-        }
-
-        if (isToggle) {
-            this.$el.ariaLabel = this.t('toggle');
-        } else {
-            const button = this.$el.closest('a,button');
-            if (button) {
-                button.ariaLabel = this.t('submit');
-            }
+        const target = isToggle ? this.$el : this.$el.closest('a,button');
+        if (target && !hasAttr(target, 'aria-label')) {
+            target.ariaLabel = this.t(isToggle ? 'toggle' : 'submit');
         }
     },
 };
