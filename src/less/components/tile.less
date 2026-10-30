@@ -36,16 +36,16 @@
 @tile-xlarge-padding-vertical:                 @global-xlarge-margin;
 @tile-xlarge-padding-vertical-m:               (@global-large-margin + @global-xlarge-margin);
 
-@tile-default-background:                      @global-background;
+@tile-default-background:                      @global-default-color;
 @tile-default-color-mode:                      dark;
 
-@tile-muted-background:                        @global-muted-background;
+@tile-muted-background:                        @global-muted-color-default;
 @tile-muted-color-mode:                        dark;
 
-@tile-primary-background:                      @global-primary-background;
+@tile-primary-background:                      @global-primary-color;
 @tile-primary-color-mode:                      light;
 
-@tile-secondary-background:                    @global-secondary-background;
+@tile-secondary-background:                    @global-secondary-color;
 @tile-secondary-color-mode:                    light;
 
 
@@ -249,8 +249,8 @@
 // Inverse
 // ========================================================================
 
-@inverse-tile-default-background:                   @inverse-global-background;
-@inverse-tile-muted-background:                     @inverse-global-muted-background;
+@inverse-tile-default-background:                   @inverse-global-default-color;
+@inverse-tile-muted-background:                     @inverse-global-muted-color-default;
 
 .hook-inverse() {
 

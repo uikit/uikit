@@ -21,7 +21,7 @@
 @dropbar-padding-horizontal:                    15px;
 @dropbar-padding-horizontal-s:                  @global-gutter;
 @dropbar-padding-horizontal-m:                  @global-medium-gutter;
-@dropbar-background:                            @global-muted-background;
+@dropbar-background:                            @global-muted-color-default;
 @dropbar-color:                                 @global-color;
 @dropbar-color-mode:                            dark;
 @dropbar-focus-outline:                         @base-focus-outline;
@@ -134,7 +134,7 @@
 // Inverse
 // ========================================================================
 
-@inverse-dropbar-background:                   @inverse-global-background; // FIXME: Should use the muted background, but the muted is semi-transparent!
+@inverse-dropbar-background:                   @inverse-global-muted-color-default;
 @inverse-dropbar-color:                        @inverse-global-color;
 
 .hook-inverse() {

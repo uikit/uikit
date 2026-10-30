@@ -13,14 +13,14 @@
 
 @base-code-padding-horizontal:                  6px;
 @base-code-padding-vertical:                    2px;
-@base-code-background:                          @global-muted-background;
+@base-code-background:                          @global-muted-color-default;
 
 @base-blockquote-color:                         @global-emphasis-color;
 
 @base-blockquote-footer-color:                  @global-color;
 
 @base-pre-padding:                              10px;
-@base-pre-background:                           @global-background;
+@base-pre-background:                           @global-default-color;
 @base-pre-border-width:                         @global-border-width;
 @base-pre-border:                               @global-border;
 @base-pre-border-radius:                        3px;
@@ -111,7 +111,7 @@
 
 @inverse-base-blockquote-color:                @inverse-global-emphasis-color;
 @inverse-base-blockquote-footer-color:         @inverse-global-color;
-@inverse-base-pre-background:                  @inverse-global-background;
+@inverse-base-pre-background:                  @inverse-global-default-color;
 @inverse-base-pre-border:                      @inverse-global-border;
 @inverse-base-pre-color:                       @inverse-global-color;
 
@@ -119,7 +119,7 @@
 .hook-inverse-base-link-hover() {}
 
 .hook-inverse-base-code() {
-    background-color: @inverse-global-muted-background;
+    background-color: @inverse-global-muted-color-default;
 }
 
 .hook-inverse-base-heading() {}

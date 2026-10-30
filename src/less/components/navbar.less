@@ -34,7 +34,7 @@
 // Variables
 // ========================================================================
 
-@navbar-background:                             @global-muted-background;
+@navbar-background:                             @global-muted-color-default;
 @navbar-gap:                                    0px; // Must have a unit because of `calc`
 @navbar-color-mode:                             dark;
 
@@ -64,7 +64,7 @@
 @navbar-dropdown-viewport-margin:               15px;
 @navbar-dropdown-width:                         200px;
 @navbar-dropdown-padding:                       15px;
-@navbar-dropdown-background:                    @global-muted-background;
+@navbar-dropdown-background:                    @global-muted-color-default;
 @navbar-dropdown-color:                         @global-color;
 @navbar-dropdown-color-mode:                    dark;
 @navbar-dropdown-focus-outline:                 @base-focus-outline;
@@ -611,7 +611,7 @@
 // Inverse
 // ========================================================================
 
-@inverse-navbar-background:                             @inverse-global-background; // FIXME: Should use the muted background, but the muted is semi-transparent!
+@inverse-navbar-background:                             @inverse-global-muted-color-default;
 
 @inverse-navbar-nav-item-color:                         @inverse-global-muted-color;
 @inverse-navbar-nav-item-hover-color:                   @inverse-global-color;
@@ -621,7 +621,7 @@
 @inverse-navbar-toggle-color:                           @inverse-global-muted-color;
 @inverse-navbar-toggle-hover-color:                     @inverse-global-color;
 
-@inverse-navbar-dropdown-background:                    @inverse-global-background; // FIXME: Should use the muted background, but the muted is semi-transparent!
+@inverse-navbar-dropdown-background:                    @inverse-global-muted-color-default;
 @inverse-navbar-dropdown-color:                         @inverse-global-color;
 
 @inverse-navbar-dropdown-nav-item-color:                @inverse-global-muted-color;

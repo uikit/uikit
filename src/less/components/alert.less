@@ -19,23 +19,23 @@
 @alert-margin-vertical:                         @global-margin;
 @alert-padding:                                 15px;
 @alert-padding-right:                           @alert-padding + 14px;
-@alert-background:                              @global-muted-background;
+@alert-background:                              @global-muted-color-default;
 @alert-color:                                   @global-color;
 
 @alert-close-top:                               @alert-padding + 5px;
 @alert-close-right:                             @alert-padding;
 
-@alert-primary-background:                      lighten(tint(@global-primary-background, 40%), 20%);
-@alert-primary-color:                           @global-primary-background;
+@alert-primary-background:                      lighten(tint(@global-primary-color, 40%), 20%);
+@alert-primary-color:                           @global-primary-color;
 
-@alert-success-background:                      lighten(tint(@global-success-background, 40%), 25%);
-@alert-success-color:                           @global-success-background;
+@alert-success-background:                      lighten(tint(@global-success-color, 40%), 25%);
+@alert-success-color:                           @global-success-color;
 
-@alert-warning-background:                      lighten(tint(@global-warning-background, 45%), 15%);
-@alert-warning-color:                           @global-warning-background;
+@alert-warning-background:                      lighten(tint(@global-warning-color, 45%), 15%);
+@alert-warning-color:                           @global-warning-color;
 
-@alert-danger-background:                       lighten(tint(@global-danger-background, 40%), 20%);
-@alert-danger-color:                            @global-danger-background;
+@alert-danger-background:                       lighten(tint(@global-danger-color, 40%), 20%);
+@alert-danger-color:                            @global-danger-color;
 
 
 /* ========================================================================
@@ -149,7 +149,7 @@
 // Inverse
 // ========================================================================
 
-@inverse-alert-background:                              @inverse-global-muted-background;
+@inverse-alert-background:                              @inverse-global-muted-color-default;
 @inverse-alert-color:                                   @inverse-global-color;
 
 .hook-inverse() {

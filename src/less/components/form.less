@@ -42,19 +42,19 @@
 @form-multi-line-padding-horizontal:            @form-padding-horizontal;
 @form-multi-line-padding-vertical:              round(@form-multi-line-padding-horizontal * 0.6);
 
-@form-background:                               @global-muted-background;
+@form-background:                               @global-muted-color-default;
 @form-color:                                    @global-color;
 
 @form-focus-background:                         darken(@form-background, 5%);
 @form-focus-color:                              @global-color;
 
-@form-disabled-background:                      @global-muted-background;
+@form-disabled-background:                      @global-muted-color-default;
 @form-disabled-color:                           @global-muted-color;
 
 @form-placeholder-color:                        @global-muted-color;
 
-@form-danger-color:                             @global-danger-background;
-@form-success-color:                            @global-success-background;
+@form-danger-color:                             @global-danger-color;
+@form-success-color:                            @global-success-color;
 
 @form-width-xsmall:                             50px;
 @form-width-small:                              130px;
@@ -71,16 +71,16 @@
 
 @form-radio-size:                               16px;
 @form-radio-margin-top:                         -4px;
-@form-radio-background:                         darken(@global-muted-background, 5%);
+@form-radio-background:                         darken(@global-muted-color-default, 5%);
 
 @form-radio-focus-background:                   darken(@form-radio-background, 5%);
 
-@form-radio-checked-background:                 @global-primary-background;
+@form-radio-checked-background:                 @global-primary-color;
 @form-radio-checked-icon-color:                 @global-inverse-color;
 
-@form-radio-checked-focus-background:           darken(@global-primary-background, 10%);
+@form-radio-checked-focus-background:           darken(@global-primary-color, 10%);
 
-@form-radio-disabled-background:                @global-muted-background;
+@form-radio-disabled-background:                @global-muted-color-default;
 @form-radio-disabled-icon-color:                @global-muted-color;
 
 @form-small-font-size:                          @global-small-font-size;
@@ -805,32 +805,32 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 // Inverse
 // ========================================================================
 
-@inverse-form-background:                      @inverse-global-muted-background;
+@inverse-form-background:                      @inverse-global-muted-color-default;
 @inverse-form-color:                           @inverse-global-color;
 @inverse-form-focus-background:                fadein(@inverse-form-background, 5%);
 @inverse-form-focus-color:                     @inverse-global-color;
 @inverse-form-placeholder-color:               @inverse-global-muted-color;
 
-@inverse-form-disabled-background:             @inverse-global-muted-background;
+@inverse-form-disabled-background:             @inverse-global-muted-color-default;
 @inverse-form-disabled-color:                  @inverse-global-muted-color;
 
-@inverse-form-danger-color:                    @global-danger-background;
-@inverse-form-success-color:                   @global-success-background;
+@inverse-form-danger-color:                    @global-danger-color;
+@inverse-form-success-color:                   @global-success-color;
 
 @inverse-form-select-icon-color:               @inverse-global-color;
 
 @inverse-form-datalist-icon-color:             @inverse-global-color;
 
-@inverse-form-radio-background:                @inverse-global-muted-background;
+@inverse-form-radio-background:                @inverse-global-muted-color-default;
 
 @inverse-form-radio-focus-background:          fadein(@inverse-form-radio-background, 5%);
 
-@inverse-form-radio-checked-background:        @inverse-global-primary-background;
+@inverse-form-radio-checked-background:        @inverse-global-primary-color;
 @inverse-form-radio-checked-icon-color:        @inverse-global-emphasis-color;
 
-@inverse-form-radio-checked-focus-background:  fadein(@inverse-global-primary-background, 10%);
+@inverse-form-radio-checked-focus-background:  fadein(@inverse-global-primary-color, 10%);
 
-@inverse-form-radio-disabled-background:       @inverse-global-muted-background;
+@inverse-form-radio-disabled-background:       @inverse-global-muted-color-default;
 @inverse-form-radio-disabled-icon-color:       @inverse-global-muted-color;
 
 @inverse-form-icon-color:                      @inverse-global-muted-color;
