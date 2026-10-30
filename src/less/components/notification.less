@@ -189,3 +189,47 @@
 .hook-notification-message-warning() {}
 .hook-notification-message-danger() {}
 .hook-notification-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-notification-message-background:         @inverse-global-background; // FIXME: Should use the muted background, but the muted is semi-transparent!
+@inverse-notification-message-color:              @inverse-global-color;
+
+@inverse-notification-message-primary-color:      @global-primary-background;
+@inverse-notification-message-success-color:      @global-success-background;
+@inverse-notification-message-warning-color:      @global-warning-background;
+@inverse-notification-message-danger-color:       @global-danger-background;
+
+.hook-inverse() {
+
+    .uk-notification-message {
+        background: @inverse-notification-message-background;
+        color: @inverse-notification-message-color;
+        .hook-inverse-notification-message();
+    }
+
+    .uk-notification-message-primary {
+        .hook-inverse-notification-message-primary();
+    }
+
+    .uk-notification-message-success {
+        .hook-inverse-notification-message-success();
+    }
+
+    .uk-notification-message-warning {
+        .hook-inverse-notification-message-warning();
+    }
+
+    .uk-notification-message-danger {
+        .hook-inverse-notification-message-danger();
+    }
+
+}
+
+.hook-inverse-notification-message() {}
+.hook-inverse-notification-message-primary() {}
+.hook-inverse-notification-message-success() {}
+.hook-inverse-notification-message-warning() {}
+.hook-inverse-notification-message-danger() {}

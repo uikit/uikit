@@ -42,3 +42,24 @@
 // ========================================================================
 
 .hook-dropbar-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-dropbar-background:                   @inverse-global-background;
+
+@inverse-dropbar-top-box-shadow:               0 12px 7px -6px rgba(0, 0, 0, 0.25);
+@inverse-dropbar-bottom-box-shadow:            0 -12px 7px -6px rgba(0, 0, 0, 0.25);
+@inverse-dropbar-left-box-shadow:              12px 0 7px -6px rgba(0, 0, 0, 0.25);
+@inverse-dropbar-right-box-shadow:             -12px 0 7px -6px rgba(0, 0, 0, 0.25);
+
+.hook-inverse-dropbar() {}
+
+.hook-inverse-dropbar-top() { box-shadow: @inverse-dropbar-top-box-shadow; }
+
+.hook-inverse-dropbar-bottom() { box-shadow: @inverse-dropbar-bottom-box-shadow; }
+
+.hook-inverse-dropbar-left() { box-shadow: @inverse-dropbar-left-box-shadow; }
+
+.hook-inverse-dropbar-right() { box-shadow: @inverse-dropbar-right-box-shadow; }

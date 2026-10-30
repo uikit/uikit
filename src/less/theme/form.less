@@ -138,16 +138,45 @@
 // Inverse
 // ========================================================================
 
+@inverse-form-background:                       @inverse-global-background;
+@inverse-form-focus-background:                 @inverse-global-background;
+
+@inverse-form-radio-background:                 transparent;
+
+@inverse-form-border:                           @inverse-global-border;
+@inverse-form-focus-border:                     @global-primary-background;
+
+@inverse-form-disabled-border:                  @inverse-global-border;
+
+@inverse-form-blank-focus-border:               @inverse-global-border;
+
+@inverse-form-radio-border:                     @inverse-global-border;
+@inverse-form-radio-focus-border:               @global-primary-background;
+
+@inverse-form-radio-checked-border:             transparent;
+
+@inverse-form-radio-disabled-border:            @inverse-global-border;
+
 @inverse-form-label-color:                      @inverse-global-emphasis-color;
 
-.hook-inverse-form() { border-color: @inverse-global-border; }
-.hook-inverse-form-focus() { border-color: @inverse-global-color; }
+.hook-inverse-form() { border-color: @inverse-form-border; }
+.hook-inverse-form-focus() { border-color: @inverse-form-focus-border; }
+.hook-inverse-form-disabled() { border-color: @inverse-form-disabled-border; }
 
-.hook-inverse-form-radio() { border-color: @inverse-global-border; }
-.hook-inverse-form-radio-focus() { border-color: @inverse-global-color; }
+.hook-inverse-form-danger() {}
+
+.hook-inverse-form-success() {}
+
+.hook-inverse-form-blank() { border-color: transparent; }
+.hook-inverse-form-blank-focus() { border-color: @inverse-form-blank-focus-border; }
+
+.hook-inverse-form-radio() { border-color: @inverse-form-radio-border; }
+.hook-inverse-form-radio-focus() { border-color: @inverse-form-radio-focus-border; }
 
 .hook-inverse-form-radio-checked() { border-color: @inverse-global-primary-background; }
 .hook-inverse-form-radio-checked-focus() {}
+
+.hook-inverse-form-radio-disabled() { border-color: @inverse-form-radio-disabled-border; }
 
 .hook-inverse-form-label() { color: @inverse-form-label-color; }
 

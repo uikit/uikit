@@ -129,3 +129,42 @@
 .hook-dropbar-left() {}
 .hook-dropbar-right() {}
 .hook-dropbar-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-dropbar-background:                   @inverse-global-background; // FIXME: Should use the muted background, but the muted is semi-transparent!
+@inverse-dropbar-color:                        @inverse-global-color;
+
+.hook-inverse() {
+
+    .uk-dropbar {
+        background: @inverse-dropbar-background;
+        color: @inverse-dropbar-color;
+        .hook-inverse-dropbar();
+    }
+
+    .uk-dropbar-top {
+        .hook-inverse-dropbar-top();
+    }
+
+    .uk-dropbar-bottom {
+        .hook-inverse-dropbar-bottom();
+    }
+
+    .uk-dropbar-left {
+        .hook-inverse-dropbar-left();
+    }
+
+    .uk-dropbar-right {
+        .hook-inverse-dropbar-right();
+    }
+
+}
+
+.hook-inverse-dropbar() {}
+.hook-inverse-dropbar-top() {}
+.hook-inverse-dropbar-bottom() {}
+.hook-inverse-dropbar-left() {}
+.hook-inverse-dropbar-right() {}
