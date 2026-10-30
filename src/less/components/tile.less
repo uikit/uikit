@@ -245,3 +245,72 @@
 .hook-tile-secondary() {}
 .hook-tile-secondary-hover() {}
 .hook-tile-misc() {}
+
+// Inverse
+// ========================================================================
+
+@inverse-tile-default-background:                   @inverse-global-background;
+@inverse-tile-muted-background:                     @inverse-global-muted-background;
+
+.hook-inverse() {
+
+    //
+    // Default
+    //
+
+    .uk-tile-default {
+        background-color: @inverse-tile-default-background;
+        .hook-inverse-tile-default();
+    }
+
+    .uk-tile-default.uk-tile-hover:hover {
+        .hook-inverse-tile-default-hover();
+    }
+
+    //
+    // Muted
+    //
+
+    .uk-tile-muted {
+        background-color: @inverse-tile-muted-background;
+        .hook-inverse-tile-muted();
+    }
+
+    .uk-tile-muted.uk-tile-hover:hover {
+        .hook-inverse-tile-muted-hover();
+    }
+
+    //
+    // Primary
+    //
+
+    .uk-tile-primary {
+        .hook-inverse-tile-primary();
+    }
+
+    .uk-tile-primary.uk-tile-hover:hover {
+        .hook-inverse-tile-primary-hover();
+    }
+    
+    //
+    // Secondary
+    //
+
+    .uk-tile-secondary {
+        .hook-inverse-tile-secondary();
+    }
+
+    .uk-tile-secondary.uk-tile-hover:hover {
+        .hook-inverse-tile-secondary-hover();
+    }
+
+}
+
+.hook-inverse-tile-default() {}
+.hook-inverse-tile-default-hover() {}
+.hook-inverse-tile-muted() {}
+.hook-inverse-tile-muted-hover() {}
+.hook-inverse-tile-primary() {}
+.hook-inverse-tile-primary-hover() {}
+.hook-inverse-tile-secondary() {}
+.hook-inverse-tile-secondary-hover() {}

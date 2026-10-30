@@ -144,3 +144,42 @@
 .hook-alert-warning() {}
 .hook-alert-danger() {}
 .hook-alert-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-alert-background:                              @inverse-global-muted-background;
+@inverse-alert-color:                                   @inverse-global-color;
+
+.hook-inverse() {
+
+    .uk-alert {
+        background: @inverse-alert-background;
+        color: @inverse-alert-color;
+        .hook-inverse-alert();
+    }
+
+    .uk-alert-primary {
+        .hook-inverse-alert-primary();
+    }
+
+    .uk-alert-success {
+        .hook-inverse-alert-success();
+    }
+
+    .uk-alert-warning {
+        .hook-inverse-alert-warning();
+    }
+
+    .uk-alert-danger {
+        .hook-inverse-alert-danger();
+    }
+
+}
+
+.hook-inverse-alert() {}
+.hook-inverse-alert-primary() {}
+.hook-inverse-alert-success() {}
+.hook-inverse-alert-warning() {}
+.hook-inverse-alert-danger() {}

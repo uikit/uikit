@@ -364,3 +364,74 @@
 .hook-modal-close-full() {}
 .hook-modal-close-full-hover() {}
 .hook-modal-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-modal-background:                       rgba(0,0,0,0.7);
+@inverse-modal-dialog-background:                @inverse-global-background;
+@inverse-modal-header-background:                @inverse-global-muted-background;
+@inverse-modal-footer-background:                @inverse-global-muted-background;
+@inverse-modal-close-outside-color:              lighten(@inverse-global-inverse-color, 20%);
+@inverse-modal-close-outside-hover-color:        @inverse-global-inverse-color;
+
+.hook-inverse() {
+
+    .uk-modal {
+        background: @inverse-modal-background;
+        .hook-inverse-modal();
+    }
+    
+    // Dialog
+    .uk-modal-dialog {
+        background: @inverse-modal-dialog-background;
+        .hook-inverse-modal-dialog();
+    }
+
+    //
+    // Sections
+    //
+
+    .uk-modal-header {
+        background: @inverse-modal-header-background;
+        .hook-inverse-modal-header();
+    }
+
+    .uk-modal-footer {
+        background: @inverse-modal-footer-background;
+        .hook-inverse-modal-footer();
+    }
+
+    //
+    // Close
+    //
+    
+    .uk-modal-close-outside {
+        color: @modal-close-outside-color;
+        .hook-inverse-modal-close-outside();
+    }
+
+    .uk-modal-close-outside:hover {
+        color: @modal-close-outside-hover-color;
+        .hook-inverse-modal-close-outside-hover();
+    }
+
+    .uk-modal-close-full {
+        .hook-inverse-modal-close-full();
+    }
+
+    .uk-modal-close-full:hover {
+        .hook-inverse-modal-close-full-hover();
+    }
+
+}
+
+.hook-inverse-modal() {}
+.hook-inverse-modal-dialog() {}
+.hook-inverse-modal-header() {}
+.hook-inverse-modal-footer() {}
+.hook-inverse-modal-close-outside() {}
+.hook-inverse-modal-close-outside-hover() {}
+.hook-inverse-modal-close-full() {}
+.hook-inverse-modal-close-full-hover() {}
