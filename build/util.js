@@ -1,11 +1,12 @@
 import alias from '@rollup/plugin-alias';
-import CleanCSS from 'clean-css';
+import cssnano from 'cssnano';
 import less from 'less';
 import minimist from 'minimist';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { styleText } from 'node:util';
 import pLimit from 'p-limit';
+import postcss from 'postcss';
 import { rollup, watch as rollupWatch } from 'rollup';
 import { default as esbuild, minify as esbuildMinify } from 'rollup-plugin-esbuild';
 import { optimize } from 'svgo';
@@ -46,14 +47,13 @@ export async function logFile(file) {
 }
 
 export async function minify(file) {
-    const { styles } = await limit(() =>
-        new CleanCSS({
-            advanced: false,
-            keepSpecialComments: 0,
-            rebase: false,
-            returnPromise: true,
-        }).minify([file]),
-    );
+    const styles = await limit(async () => {
+        const { css } = await postcss([cssnano({ preset: 'default' })]).process(await read(file), {
+            from: file,
+            map: false,
+        });
+        return css;
+    });
 
     await write(`${path.join(path.dirname(file), path.basename(file, '.css'))}.min.css`, styles);
 
