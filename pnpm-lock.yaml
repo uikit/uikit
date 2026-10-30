@@ -178,9 +178,9 @@ importers:
       camelcase:
         specifier: ^10.0.0
         version: 10.0.0
-      clean-css:
-        specifier: ^5.3.3
-        version: 5.3.3
+      cssnano:
+        specifier: ^9.9.0
+        version: 9.9.0(postcss@8.5.32)
       esbuild:
         specifier: ^0.28.2
         version: 0.28.2
@@ -208,6 +208,9 @@ importers:
       p-limit:
         specifier: ^7.3.3
         version: 7.3.3
+      postcss:
+        specifier: ^8.5.32
+        version: 8.5.32
       prettier:
         specifier: ^3.9.10
         version: 3.9.10
@@ -240,6 +243,13 @@ packages:
 
   '@cacheable/utils@2.5.0':
     resolution: {integrity: sha512-buipgOVDkkPXNR5+xBpDw7Zk2n1EvU7qBJCNUcL7rhQ//kfpOXPAvQ511Os0vpLYJ1pZnvudNytkQt2hst3wqA==}
+
+  '@colordx/core@7.3.0':
+    resolution: {integrity: sha512-LVzTTPhX7wpy7TkGjouA9zbbCBIw92RGm7ZQqSKFE0oYE3sMx2FGXz90eVpgw7k/+wrrY+qJ86nHXifZWMS5jA==}
+
+  '@csstools/css-tokenizer@4.0.2':
+    resolution: {integrity: sha512-OoKoR0f76dCY666JlcbhmVTs2drYj1GUXZTYTcbUgJjh9Nv41aFfZ21bPQTERm5+L5cBDo466NltB2lplS5GBw==}
+    engines: {node: '>=20.19.0'}
 
   '@esbuild/aix-ppc64@0.28.2':
     resolution: {integrity: sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==}
@@ -970,12 +980,22 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
+  baseline-browser-mapping@2.11.35:
+    resolution: {integrity: sha512-GNk8KX52CHqeNKGk8+7tZnQab/2k1t/BgrUHPKNdijzpEhF1saPQZHVKb6m5loSAxB39gyrTYw34Qf9CQ3u1qQ==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
   brace-expansion@5.0.12:
     resolution: {integrity: sha512-YovQ3rzhaLMIrDjNDMkNS01tea93qhEhG5xy8f6+R0l+dw3Ki+5sCoIoI942iuLZTHWogWktgwVDhU09iNEimQ==}
     engines: {node: 20 || >=22}
+
+  browserslist@4.29.5:
+    resolution: {integrity: sha512-khTmKu5NGYTotqcYo8Bew2k4RAE9PuXRSFRXG2lQBrCEQHyeQ/vX6gKMxfokwywBsLiXZMnHsmWMG1pnO8J7uQ==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
 
   buffer-crc32@1.0.0:
     resolution: {integrity: sha512-Db1SbgBS/fg/392AblrMJk97KggmvYhr4pB5ZIMTWtaivCPMWLkmb7m21cJvpvgK+J3nsU2CmmixNBZx4vFj/w==}
@@ -991,12 +1011,14 @@ packages:
     resolution: {integrity: sha512-p1wew5BGDCONz/5R+xHF6ByqXQM2V+5r4e+FdlFUeROawuMPimdDOFLw5k2QSqp1rm5h2QAglToqJyvnsl3ArQ==}
     engines: {node: '>=22'}
 
+  caniuse-api@4.0.0:
+    resolution: {integrity: sha512-B0hQ1OLyJuHTQSOWXvwibWqM6DCoqJdvBA6X1S/53bd4XU7LJ1yurIPlrsouol3mw1jh9pGI4ivubSpmJeIqCA==}
+
+  caniuse-lite@1.0.30001820:
+    resolution: {integrity: sha512-gfWD6MxqVCqAOwmODfZf7DchWvlrA+SRdNX7ceLfg3xRqe5ssjjpF7EgslC/0tiLiNTajdaNN/q8c/5u/7Gz8w==}
+
   chardet@2.2.0:
     resolution: {integrity: sha512-rddelWYNPRrXq6PtNEN2S3f6t9ILzvqaN5pVgi4kqt9jHQaXIial9PznB5iSPVlQSLNaaH22ItWz3EJtQ10+OA==}
-
-  clean-css@5.3.3:
-    resolution: {integrity: sha512-D5J+kHaVb/wKSFcyyV75uCn8fiY4sV38XJoe4CUyGQ+mOU/fMVYUdH1hJC+CJQ5uY3EnW27SbJYS4X8BiLrAFg==}
-    engines: {node: '>= 10.0'}
 
   cli-width@4.1.0:
     resolution: {integrity: sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ==}
@@ -1045,6 +1067,12 @@ packages:
     resolution: {integrity: sha512-wD5oz5xibMOPHzy13CyGmogB3phdvcDaB5t0W/Nr5Z2O/agcB8YwOz6e2Lsp10pNDzBoDO9nVa3RGs/2BttpHQ==}
     engines: {node: '>= 6'}
 
+  cssnano@9.9.0:
+    resolution: {integrity: sha512-JS914Th2NRk2979JHJvbE3UjPtLmyXtPnr23NNul9BOQwEt9r/A2aM1STrKtKHAPc3XRaUDwMoqkXnjEpgHkAw==}
+    engines: {node: ^22.22.3 || ^24.15.0 || >=26.0}
+    peerDependencies:
+      postcss: ^8.5.29
+
   csso@5.0.5:
     resolution: {integrity: sha512-0LrrStPOdJj+SPCCrGhzryycLjwcgUSHBtxNA8aIDxf0GLsRh1cKYhB00Gd1lDOS4yGH69+SNn13+TWbVHETFQ==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
@@ -1081,6 +1109,9 @@ packages:
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
+
+  electron-to-chromium@1.5.475:
+    resolution: {integrity: sha512-S9tceHJbIsHH8VRwh9x+8lJO50SYwTdwVGdEjdz2FERyP59j1N6rdXOSklIusrhxt9GG/WN4V/kRgmDHl9MM5w==}
 
   entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
@@ -1389,6 +1420,10 @@ packages:
     engines: {node: '>= 4.4.x'}
     hasBin: true
 
+  node-releases@2.0.63:
+    resolution: {integrity: sha512-6li2QanLsAXpIH2R6j77MzRyvOyrvdTqlKtO4CgBdHGNvN99ZZfyxszHc5o5+IZBWD5u6Hzwg83JoGXmqZNG9Q==}
+    engines: {node: '>=18'}
+
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
@@ -1445,6 +1480,12 @@ packages:
   picomatch@4.0.7:
     resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
     engines: {node: '>=12'}
+
+  postcss-calc@11.2.3:
+    resolution: {integrity: sha512-pFW3MR2a4W7uHcSGUiyQGGXZWHon83ljbNwnUJ1mRKublWQbv+3o9NiqhlV4TJfNby+U+zLY2OgiywzhA5eFqw==}
+    engines: {node: ^22.22.3 || ^24.15 || >=26.0}
+    peerDependencies:
+      postcss: ^8.5.29
 
   postcss@8.5.32:
     resolution: {integrity: sha512-LJlKCCAUFKOuZxipUdYw1NzIITEsPcgyOG9LkvRJvuKj/bRzbuRY0ARXvL0pWGpsZvn8jku+LMep2eU0seHp8g==}
@@ -1619,6 +1660,12 @@ packages:
     resolution: {integrity: sha512-gwXJnPRewT4rT7sBi/IvxKTjsms7jX7QIDLOClApuZwR49SXbrB1z2NLUZ+vDHyqCj/n58OzRRqaW+B8OZi8vg==}
     engines: {node: '>=18.12.0'}
 
+  update-browserslist-db@1.3.4:
+    resolution: {integrity: sha512-t8wonIOdQyOjtPd2VktlBu6QjTVTks6v8bSi7kd0r2Vll8TK1JYDZtRRdbmCHOAMphkZgrzK+L+vXK4pyZ8t4A==}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
+
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
@@ -1668,6 +1715,10 @@ snapshots:
     dependencies:
       hashery: 1.5.1
       keyv: 5.6.0
+
+  '@colordx/core@7.3.0': {}
+
+  '@csstools/css-tokenizer@4.0.2': {}
 
   '@esbuild/aix-ppc64@0.28.2':
     optional: true
@@ -2121,11 +2172,21 @@ snapshots:
 
   base64-js@1.5.1: {}
 
+  baseline-browser-mapping@2.11.35: {}
+
   boolbase@1.0.0: {}
 
   brace-expansion@5.0.12:
     dependencies:
       balanced-match: 4.0.4
+
+  browserslist@4.29.5:
+    dependencies:
+      baseline-browser-mapping: 2.11.35
+      caniuse-lite: 1.0.30001820
+      electron-to-chromium: 1.5.475
+      node-releases: 2.0.63
+      update-browserslist-db: 1.3.4(browserslist@4.29.5)
 
   buffer-crc32@1.0.0: {}
 
@@ -2144,11 +2205,14 @@ snapshots:
 
   camelcase@10.0.0: {}
 
-  chardet@2.2.0: {}
-
-  clean-css@5.3.3:
+  caniuse-api@4.0.0:
     dependencies:
-      source-map: 0.6.1
+      browserslist: 4.29.5
+      caniuse-lite: 1.0.30001820
+
+  caniuse-lite@1.0.30001820: {}
+
+  chardet@2.2.0: {}
 
   cli-width@4.1.0: {}
 
@@ -2201,6 +2265,15 @@ snapshots:
 
   css-what@7.0.0: {}
 
+  cssnano@9.9.0(postcss@8.5.32):
+    dependencies:
+      '@colordx/core': 7.3.0
+      '@csstools/css-tokenizer': 4.0.2
+      browserslist: 4.29.5
+      caniuse-api: 4.0.0
+      postcss: 8.5.32
+      postcss-calc: 11.2.3(postcss@8.5.32)
+
   csso@5.0.5:
     dependencies:
       css-tree: 2.2.1
@@ -2233,6 +2306,8 @@ snapshots:
       dom-serializer: 2.0.0
       domelementtype: 2.3.0
       domhandler: 5.0.3
+
+  electron-to-chromium@1.5.475: {}
 
   entities@4.5.0: {}
 
@@ -2568,6 +2643,8 @@ snapshots:
       sax: 1.6.1
     optional: true
 
+  node-releases@2.0.63: {}
+
   normalize-path@3.0.0: {}
 
   npm-run-path@6.0.0:
@@ -2615,6 +2692,11 @@ snapshots:
   picocolors@1.1.1: {}
 
   picomatch@4.0.7: {}
+
+  postcss-calc@11.2.3(postcss@8.5.32):
+    dependencies:
+      '@csstools/css-tokenizer': 4.0.2
+      postcss: 8.5.32
 
   postcss@8.5.32:
     dependencies:
@@ -2753,7 +2835,8 @@ snapshots:
 
   source-map-js@1.2.2: {}
 
-  source-map@0.6.1: {}
+  source-map@0.6.1:
+    optional: true
 
   streamx@2.28.1:
     dependencies:
@@ -2847,6 +2930,12 @@ snapshots:
     dependencies:
       pathe: 2.0.3
       picomatch: 4.0.7
+
+  update-browserslist-db@1.3.4(browserslist@4.29.5):
+    dependencies:
+      browserslist: 4.29.5
+      escalade: 3.2.0
+      picocolors: 1.1.1
 
   uri-js@4.4.1:
     dependencies:
