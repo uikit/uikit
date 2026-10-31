@@ -390,29 +390,32 @@
 // Inverse
 // ========================================================================
 
-@inverse-button-default-background:            @inverse-global-primary-background;
-@inverse-button-default-color:                 @inverse-global-inverse-color;
+@inverse-button-default-background:            @inverse-global-background;
+@inverse-button-default-color:                 @inverse-global-emphasis-color;
 @inverse-button-default-hover-background:      darken(@inverse-button-default-background, 5%);
-@inverse-button-default-hover-color:           @inverse-global-inverse-color;
+@inverse-button-default-hover-color:           @inverse-global-emphasis-color;
 @inverse-button-default-active-background:     darken(@inverse-button-default-background, 10%);
-@inverse-button-default-active-color:          @inverse-global-inverse-color;
+@inverse-button-default-active-color:          @inverse-global-emphasis-color;
 @inverse-button-primary-background:            @inverse-global-primary-background;
-@inverse-button-primary-color:                 @inverse-global-inverse-color;
+@inverse-button-primary-color:                 @inverse-global-emphasis-color;
 @inverse-button-primary-hover-background:      darken(@inverse-button-primary-background, 5%);
-@inverse-button-primary-hover-color:           @inverse-global-inverse-color;
+@inverse-button-primary-hover-color:           @inverse-global-emphasis-color;
 @inverse-button-primary-active-background:     darken(@inverse-button-primary-background, 10%);
-@inverse-button-primary-active-color:          @inverse-global-inverse-color;
-@inverse-button-secondary-background:          @inverse-global-primary-background;
-@inverse-button-secondary-color:               @inverse-global-inverse-color;
+@inverse-button-primary-active-color:          @inverse-global-emphasis-color;
+@inverse-button-secondary-background:          @inverse-global-secondary-background;
+@inverse-button-secondary-color:               @inverse-global-emphasis-color;
 @inverse-button-secondary-hover-background:    darken(@inverse-button-secondary-background, 5%);
-@inverse-button-secondary-hover-color:         @inverse-global-inverse-color;
+@inverse-button-secondary-hover-color:         @inverse-global-emphasis-color;
 @inverse-button-secondary-active-background:   darken(@inverse-button-secondary-background, 10%);
-@inverse-button-secondary-active-color:        @inverse-global-inverse-color;
+@inverse-button-secondary-active-color:        @inverse-global-emphasis-color;
+@inverse-button-disabled-background:           @inverse-global-muted-background;
+@inverse-button-disabled-color:                @inverse-global-muted-color;
 @inverse-button-text-color:                    @inverse-global-emphasis-color;
 @inverse-button-text-hover-color:              @inverse-global-muted-color;
 @inverse-button-text-disabled-color:           @inverse-global-muted-color;
 @inverse-button-link-color:                    @inverse-global-emphasis-color;
 @inverse-button-link-hover-color:              @inverse-global-muted-color;
+@inverse-button-link-disabled-color:           @inverse-global-muted-color;
 
 .hook-inverse() {
 
@@ -486,6 +489,19 @@
     }
 
     //
+    // Disabled
+    //
+
+    .uk-button-default:disabled,
+    .uk-button-primary:disabled,
+    .uk-button-secondary:disabled,
+    .uk-button-danger:disabled {
+        background-color: @inverse-button-disabled-background;
+        color: @inverse-button-disabled-color;
+        .hook-inverse-button-disabled();
+    }
+
+    //
     // Text
     //
 
@@ -514,6 +530,8 @@
     }
 
     .uk-button-link:hover { color: @inverse-button-link-hover-color; }
+    
+    .uk-button-link:disabled { color: @inverse-button-link-disabled-color; }
 
 }
 
@@ -526,6 +544,7 @@
 .hook-inverse-button-secondary() {}
 .hook-inverse-button-secondary-hover() {}
 .hook-inverse-button-secondary-active() {}
+.hook-inverse-button-disabled() {}
 .hook-inverse-button-text() {}
 .hook-inverse-button-text-hover() {}
 .hook-inverse-button-text-disabled() {}

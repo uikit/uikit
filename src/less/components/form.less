@@ -811,6 +811,12 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 @inverse-form-focus-color:                     @inverse-global-color;
 @inverse-form-placeholder-color:               @inverse-global-muted-color;
 
+@inverse-form-disabled-background:             @inverse-global-muted-background;
+@inverse-form-disabled-color:                  @inverse-global-muted-color;
+
+@inverse-form-danger-color:                    @global-danger-background;
+@inverse-form-success-color:                   @global-success-background;
+
 @inverse-form-select-icon-color:               @inverse-global-color;
 
 @inverse-form-datalist-icon-color:             @inverse-global-color;
@@ -820,9 +826,12 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 @inverse-form-radio-focus-background:          fadein(@inverse-form-radio-background, 5%);
 
 @inverse-form-radio-checked-background:        @inverse-global-primary-background;
-@inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color;
+@inverse-form-radio-checked-icon-color:        @inverse-global-emphasis-color;
 
 @inverse-form-radio-checked-focus-background:  fadein(@inverse-global-primary-background, 10%);
+
+@inverse-form-radio-disabled-background:       @inverse-global-muted-background;
+@inverse-form-radio-disabled-icon-color:       @inverse-global-muted-color;
 
 @inverse-form-icon-color:                      @inverse-global-muted-color;
 @inverse-form-icon-hover-color:                @inverse-global-color;
@@ -842,6 +851,51 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
             color: @inverse-form-focus-color;
             .hook-inverse-form-focus();
         }
+    }
+
+    //
+    // Disabled
+    //
+
+    .uk-input:disabled,
+    .uk-select:disabled,
+    .uk-textarea:disabled {
+        background-color: @inverse-form-disabled-background;
+        color: @inverse-form-disabled-color;
+        .hook-inverse-form-disabled();
+    }
+
+    //
+    // Error
+    //
+
+    .uk-form-danger,
+    .uk-form-danger:focus {
+        color: @inverse-form-danger-color;
+        .hook-inverse-form-danger();
+    }
+
+    //
+    // Success
+    //
+
+    .uk-form-success,
+    .uk-form-success:focus {
+        color: @inverse-form-success-color;
+        .hook-inverse-form-success();
+    }
+
+    //
+    // Blank
+    //
+
+    .uk-form-blank {
+        background: none;
+        .hook-inverse-form-blank();
+    }
+
+    .uk-form-blank:focus {
+        .hook-inverse-form-blank-focus();
     }
 
     //
@@ -903,6 +957,20 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-checkbox:checked { .svg-fill(@internal-form-checkbox-image, "#000", @inverse-form-radio-checked-icon-color); }
     .uk-checkbox:indeterminate { .svg-fill(@internal-form-checkbox-indeterminate-image, "#000", @inverse-form-radio-checked-icon-color); }
 
+    //
+    // Disabled
+    //
+
+    .uk-radio:disabled,
+    .uk-checkbox:disabled {
+        background-color: @inverse-form-radio-disabled-background;
+        .hook-inverse-form-radio-disabled();
+    }
+
+    .uk-radio:disabled:checked { .svg-fill(@internal-form-radio-image, "#000", @inverse-form-radio-disabled-icon-color); }
+    .uk-checkbox:disabled:checked { .svg-fill(@internal-form-checkbox-image, "#000", @inverse-form-radio-disabled-icon-color); }
+    .uk-checkbox:disabled:indeterminate { .svg-fill(@internal-form-checkbox-indeterminate-image, "#000", @inverse-form-radio-disabled-icon-color); }
+
     // Label
     .uk-form-label {
         .hook-inverse-form-label();
@@ -919,9 +987,15 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 .hook-inverse-form() {}
 .hook-inverse-form-focus() {}
+.hook-inverse-form-disabled() {}
+.hook-inverse-form-danger() {}
+.hook-inverse-form-success() {}
+.hook-inverse-form-blank() {}
+.hook-inverse-form-blank-focus() {}
 .hook-inverse-form-radio() {}
 .hook-inverse-form-radio-focus() {}
 .hook-inverse-form-radio-checked() {}
 .hook-inverse-form-radio-checked-focus() {}
+.hook-inverse-form-radio-disabled() {}
 .hook-inverse-form-label() {}
 .hook-inverse-form-icon() {}

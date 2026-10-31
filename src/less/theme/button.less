@@ -191,8 +191,8 @@
 
 @inverse-button-text-hover-color:              @inverse-global-emphasis-color;
 
-.hook-inverse-button-default() { border-color: @inverse-global-color; }
-.hook-inverse-button-default-hover() { border-color: @inverse-global-emphasis-color; }
+.hook-inverse-button-default() { border-color: @inverse-global-border; }
+.hook-inverse-button-default-hover() { border-color: @inverse-global-color; }
 .hook-inverse-button-default-active() { border-color: @inverse-global-emphasis-color; }
 
 .hook-inverse-button-primary() {}
@@ -202,6 +202,8 @@
 .hook-inverse-button-secondary() {}
 .hook-inverse-button-secondary-hover() {}
 .hook-inverse-button-secondary-active() {}
+
+.hook-inverse-button-disabled() { border-color: @inverse-global-border; }
 
 .hook-inverse-button-text() {
     &::before { border-bottom-color: @inverse-global-emphasis-color; }

@@ -77,3 +77,20 @@
 
 .hook-tooltip() {}
 .hook-tooltip-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-tooltip-background:                        #333;
+
+.hook-inverse() {
+
+    .uk-tooltip {
+        background-color: @inverse-tile-default-background;
+        .hook-inverse-tooltip();
+    }
+
+}
+
+.hook-inverse-tooltip() {}

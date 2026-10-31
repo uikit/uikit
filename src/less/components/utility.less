@@ -559,10 +559,29 @@
 // Inverse
 // ========================================================================
 
+@box-shadow-bottom-background:                 #000;
+
 @inverse-logo-color:                           @inverse-global-emphasis-color;
 @inverse-logo-hover-color:                     @inverse-global-emphasis-color;
 
+@inverse-dragover-box-shadow:                  0 0 20px rgba(0,0,0,0.4);
+
 .hook-inverse() {
+
+    .uk-box-shadow-small { box-shadow: @inverse-global-small-box-shadow; }
+    .uk-box-shadow-medium { box-shadow: @inverse-global-medium-box-shadow; }
+    .uk-box-shadow-large { box-shadow: @inverse-global-large-box-shadow; }
+    .uk-box-shadow-xlarge { box-shadow: @inverse-global-xlarge-box-shadow; }
+
+    .uk-box-shadow-hover-small:hover { box-shadow: @inverse-global-small-box-shadow; }
+    .uk-box-shadow-hover-medium:hover { box-shadow: @inverse-global-medium-box-shadow; }
+    .uk-box-shadow-hover-large:hover { box-shadow: @inverse-global-large-box-shadow; }
+    .uk-box-shadow-hover-xlarge:hover { box-shadow: @inverse-global-xlarge-box-shadow; }
+    
+    .uk-box-shadow-bottom::after {
+        background: @box-shadow-bottom-background;
+        .hook-inverse-box-shadow-bottom();
+    }
 
     .uk-dropcap::first-letter,
     .uk-dropcap p:first-of-type::first-letter {
@@ -581,9 +600,11 @@
 
     .uk-logo:has(.uk-logo-inverse) > :not(picture:has(.uk-logo-inverse)):not(.uk-logo-inverse) { display: none; }
     .uk-logo-inverse { display: block; }
-
+    
+    .uk-dragover { box-shadow: @inverse-dragover-box-shadow; }
 }
 
+.hook-inverse-box-shadow-bottom() {}
 .hook-inverse-dropcap() {}
 .hook-inverse-logo() {}
 .hook-inverse-logo-hover() {}
