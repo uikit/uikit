@@ -43,4 +43,28 @@
 // Inverse
 // ========================================================================
 
+@inverse-label-success-background:             @global-success-color;
+@inverse-label-success-color:                  @inverse-global-emphasis-color;
+
+@inverse-label-warning-background:             @global-warning-color;
+@inverse-label-warning-color:                  @inverse-global-emphasis-color;
+
+@inverse-label-danger-background:              @global-danger-color;
+@inverse-label-danger-color:                   @inverse-global-emphasis-color;
+
 .hook-inverse-label() {}
+
+.hook-inverse-success-label() {
+    background-color: @inverse-label-success-background;
+    color: @inverse-label-success-color;
+}
+
+.hook-inverse-warning-label() {
+    background-color: @inverse-label-warning-background;
+    color: @inverse-label-warning-color;
+}
+
+.hook-inverse-danger-label() {
+    background-color: @inverse-label-danger-background;
+    color: @inverse-label-danger-color;
+}

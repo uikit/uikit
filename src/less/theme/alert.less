@@ -74,3 +74,41 @@
     }
 
 }
+
+
+// Inverse
+// ========================================================================
+
+@inverse-alert-primary-background:                      fade(@global-primary-color, 10%);
+@inverse-alert-primary-color:                           fade(lighten(@global-primary-color, 20%), 90%);
+
+@inverse-alert-success-background:                      fade(@global-success-color, 10%);
+@inverse-alert-success-color:                           fade(lighten(@global-success-color, 25%), 90%);
+
+@inverse-alert-warning-background:                      fade(@global-warning-color, 10%);
+@inverse-alert-warning-color:                           fade(lighten(@global-warning-color, 15%), 90%);
+
+@inverse-alert-danger-background:                       fade(@global-danger-color, 10%);
+@inverse-alert-danger-color:                            fade(lighten(@global-danger-color, 20%), 90%);
+
+.hook-inverse-alert() {}
+
+.hook-inverse-alert-primary() {
+    background: @inverse-alert-primary-background;
+    color: @inverse-alert-primary-color;
+}
+
+.hook-inverse-alert-success() {
+    background: @inverse-alert-success-background;
+    color: @inverse-alert-success-color;
+}
+
+.hook-inverse-alert-warning() {
+    background: @inverse-alert-warning-background;
+    color: @inverse-alert-warning-color;
+}
+
+.hook-inverse-alert-danger() {
+    background: @inverse-alert-danger-background;
+    color: @inverse-alert-danger-color;
+}

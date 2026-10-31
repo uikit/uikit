@@ -57,5 +57,12 @@
 // Inverse
 // ========================================================================
 
+@inverse-text-meta-link-color:                  @inverse-text-meta-color;
+@inverse-text-meta-link-hover-color:            @inverse-global-color;
+
 .hook-inverse-text-lead() {}
-.hook-inverse-text-meta() {}
+.hook-inverse-text-meta() {
+    > a { color: @inverse-text-meta-link-color; }
+
+    > a:hover { color: @inverse-text-meta-link-hover-color; }
+}

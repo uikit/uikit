@@ -36,7 +36,7 @@
 @modal-padding-vertical-s:                      50px;
 
 @modal-dialog-width:                            600px;
-@modal-dialog-background:                       @global-background;
+@modal-dialog-background:                       @global-default-color;
 
 @modal-container-width:                         1200px;
 
@@ -49,13 +49,13 @@
 @modal-header-padding-vertical:                 (@modal-header-padding-horizontal / 2);
 @modal-header-padding-horizontal-s:             @global-gutter;
 @modal-header-padding-vertical-s:               (@modal-header-padding-horizontal-s / 2);
-@modal-header-background:                       @global-muted-background;
+@modal-header-background:                       @global-muted-color-default;
 
 @modal-footer-padding-horizontal:               20px;
 @modal-footer-padding-vertical:                 (@modal-footer-padding-horizontal / 2);
 @modal-footer-padding-horizontal-s:             @global-gutter;
 @modal-footer-padding-vertical-s:               (@modal-footer-padding-horizontal-s / 2);
-@modal-footer-background:                       @global-muted-background;
+@modal-footer-background:                       @global-muted-color-default;
 
 @modal-title-font-size:                         @global-xlarge-font-size;
 @modal-title-line-height:                       1.3;
@@ -364,3 +364,74 @@
 .hook-modal-close-full() {}
 .hook-modal-close-full-hover() {}
 .hook-modal-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-modal-background:                       rgba(0,0,0,0.7);
+@inverse-modal-dialog-background:                @inverse-global-default-color;
+@inverse-modal-header-background:                @inverse-global-muted-color-default;
+@inverse-modal-footer-background:                @inverse-global-muted-color-default;
+@inverse-modal-close-outside-color:              lighten(@inverse-global-inverse-color, 20%);
+@inverse-modal-close-outside-hover-color:        @inverse-global-inverse-color;
+
+.hook-inverse() {
+
+    .uk-modal {
+        background: @inverse-modal-background;
+        .hook-inverse-modal();
+    }
+    
+    // Dialog
+    .uk-modal-dialog {
+        background: @inverse-modal-dialog-background;
+        .hook-inverse-modal-dialog();
+    }
+
+    //
+    // Sections
+    //
+
+    .uk-modal-header {
+        background: @inverse-modal-header-background;
+        .hook-inverse-modal-header();
+    }
+
+    .uk-modal-footer {
+        background: @inverse-modal-footer-background;
+        .hook-inverse-modal-footer();
+    }
+
+    //
+    // Close
+    //
+    
+    .uk-modal-close-outside {
+        color: @modal-close-outside-color;
+        .hook-inverse-modal-close-outside();
+    }
+
+    .uk-modal-close-outside:hover {
+        color: @modal-close-outside-hover-color;
+        .hook-inverse-modal-close-outside-hover();
+    }
+
+    .uk-modal-close-full {
+        .hook-inverse-modal-close-full();
+    }
+
+    .uk-modal-close-full:hover {
+        .hook-inverse-modal-close-full-hover();
+    }
+
+}
+
+.hook-inverse-modal() {}
+.hook-inverse-modal-dialog() {}
+.hook-inverse-modal-header() {}
+.hook-inverse-modal-footer() {}
+.hook-inverse-modal-close-outside() {}
+.hook-inverse-modal-close-outside-hover() {}
+.hook-inverse-modal-close-full() {}
+.hook-inverse-modal-close-full-hover() {}

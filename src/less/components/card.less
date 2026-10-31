@@ -51,31 +51,31 @@
 @card-badge-right:                             15px;
 @card-badge-height:                            22px;
 @card-badge-padding-horizontal:                10px;
-@card-badge-background:                        @global-primary-background;
+@card-badge-background:                        @global-primary-color;
 @card-badge-color:                             @global-inverse-color;
 @card-badge-font-size:                         @global-small-font-size;
 
-@card-hover-background:                        @global-muted-background;
+@card-hover-background:                        @global-muted-color-default;
 
-@card-default-background:                      @global-muted-background;
+@card-default-background:                      @global-muted-color-default;
 @card-default-color:                           @global-color;
 @card-default-title-color:                     @global-emphasis-color;
 @card-default-hover-background:                darken(@card-default-background, 5%);
 @card-default-color-mode:                      dark;
 
-@card-primary-background:                      @global-primary-background;
+@card-primary-background:                      @global-primary-color;
 @card-primary-color:                           @global-inverse-color;
 @card-primary-title-color:                     @card-primary-color;
 @card-primary-hover-background:                darken(@card-primary-background, 5%);
 @card-primary-color-mode:                      light;
 
-@card-secondary-background:                    @global-secondary-background;
+@card-secondary-background:                    @global-secondary-color;
 @card-secondary-color:                         @global-inverse-color;
 @card-secondary-title-color:                   @card-secondary-color;
 @card-secondary-hover-background:              darken(@card-secondary-background, 5%);
 @card-secondary-color-mode:                    light;
 
-@card-overlay-background:                      fade(@global-background, 90%);
+@card-overlay-background:                      fade(@global-default-color, 90%);
 @card-overlay-color:                           @global-color;
 @card-overlay-title-color:                     @global-emphasis-color;
 @card-overlay-hover-background:                fadein(@card-overlay-background, 10%);
@@ -425,11 +425,114 @@
 // Inverse
 // ========================================================================
 
-@inverse-card-badge-background:                     @inverse-global-primary-background;
-@inverse-card-badge-color:                          @inverse-global-inverse-color;
+@inverse-card-hover-background:                     @inverse-global-muted-color;
+
+@inverse-card-default-background:                   @inverse-global-muted-color-default;
+@inverse-card-default-color:                        @inverse-global-color;
+@inverse-card-default-title-color:                  @inverse-global-emphasis-color;
+@inverse-card-default-hover-background:             darken(@inverse-card-default-background, 5%);
+
+@inverse-card-overlay-background:                   fade(@inverse-global-default-color, 90%);
+@inverse-card-overlay-color:                        @inverse-global-color;
+@inverse-card-overlay-title-color:                  @inverse-global-emphasis-color;
+@inverse-card-overlay-hover-background:             fadein(@inverse-card-overlay-background, 10%);
+
+@inverse-card-badge-background:                     @inverse-global-primary-color;
+@inverse-card-badge-color:                          @inverse-global-emphasis-color;
 
 .hook-inverse() {
 
+    .uk-card {
+        .hook-inverse-card();
+    }
+
+    // Hover
+    .uk-card-hover:not(.uk-card-default, .uk-card-primary, .uk-card-secondary, .uk-card-overlay):hover {
+        background-color: @inverse-card-hover-background;
+        .hook-inverse-card-hover();
+    }
+
+    //
+    // Default
+    //
+
+    .uk-card-default {
+        background-color: @inverse-card-default-background;
+        color: @inverse-card-default-color;
+        .hook-inverse-card-default();
+    }
+
+    .uk-card-default .uk-card-title {
+        color: @inverse-card-default-title-color;
+        .hook-inverse-card-default-title();
+    }
+
+    .uk-card-default.uk-card-hover:hover {
+        background-color: @inverse-card-default-hover-background;
+        .hook-inverse-card-default-hover();
+    }
+
+    .uk-card-default .uk-card-header {
+        .hook-inverse-card-default-header();
+    }
+
+    .uk-card-default .uk-card-footer {
+        .hook-inverse-card-default-footer();
+    }
+    
+    //
+    // Primary
+    //
+
+    .uk-card-primary {
+        .hook-inverse-card-primary();
+    }
+
+    .uk-card-primary .uk-card-title {
+        .hook-inverse-card-primary-title();
+    }
+
+    .uk-card-primary.uk-card-hover:hover {
+        .hook-inverse-card-primary-hover();
+    }
+
+    //
+    // Secondary
+    //
+
+    .uk-card-secondary {
+        .hook-inverse-card-secondary();
+    }
+    
+    .uk-card-secondary .uk-card-title {
+        .hook-inverse-card-secondary-title();
+    }
+
+    .uk-card-secondary.uk-card-hover:hover {
+        .hook-inverse-card-secondary-hover();
+    }
+
+    //
+    // Overlay
+    //
+
+    .uk-card-overlay {
+        background-color: @inverse-card-overlay-background;
+        color: @inverse-card-overlay-color;
+        .hook-inverse-card-overlay();
+    }
+
+    .uk-card-overlay .uk-card-title {
+        color: @inverse-card-overlay-title-color;
+        .hook-inverse-card-overlay-title();
+    }
+
+    .uk-card-overlay.uk-card-hover:hover {
+        background-color: @inverse-card-overlay-hover-background;
+        .hook-inverse-card-overlay-hover();
+    }
+
+    // Badge
     &.uk-card-badge {
         background-color: @inverse-card-badge-background;
         color: @inverse-card-badge-color;
@@ -438,4 +541,20 @@
 
 }
 
+.hook-inverse-card() {};
+.hook-inverse-card-hover() {}
+.hook-inverse-card-default() {}
+.hook-inverse-card-default-title() {}
+.hook-inverse-card-default-hover() {}
+.hook-inverse-card-default-header() {}
+.hook-inverse-card-default-footer() {}
+.hook-inverse-card-primary() {}
+.hook-inverse-card-primary-title() {}
+.hook-inverse-card-primary-hover() {}
+.hook-inverse-card-secondary() {}
+.hook-inverse-card-secondary-title() {}
+.hook-inverse-card-secondary-hover() {}
+.hook-inverse-card-overlay() {}
+.hook-inverse-card-overlay-title() {}
+.hook-inverse-card-overlay-hover() {}
 .hook-inverse-card-badge() {}

@@ -7,9 +7,9 @@
 // Variables
 // ========================================================================
 
-@card-hover-background:                        @global-background;
+@card-hover-background:                        @global-default-color;
 
-@card-default-background:                      @global-background;
+@card-default-background:                      @global-default-color;
 @card-default-hover-background:                @card-default-background;
 
 @card-primary-hover-background:                @card-primary-background;
@@ -234,3 +234,52 @@
     }
 
 }
+
+
+// Inverse
+// ========================================================================
+
+@inverse-card-hover-background:                @inverse-global-default-color;
+
+@inverse-card-default-background:              @inverse-global-default-color;
+@inverse-card-default-hover-background:        @inverse-card-default-background;
+
+@inverse-card-hover-box-shadow:                @inverse-global-large-box-shadow;
+
+@inverse-card-default-box-shadow:              @inverse-global-medium-box-shadow;
+@inverse-card-default-hover-box-shadow:        @inverse-global-large-box-shadow;
+
+@inverse-card-default-header-border:           @inverse-global-border;
+@inverse-card-default-footer-border:           @inverse-global-border;
+
+@inverse-card-primary-box-shadow:              @inverse-global-medium-box-shadow;
+@inverse-card-primary-hover-box-shadow:        @inverse-global-large-box-shadow;
+
+@inverse-card-secondary-box-shadow:            @inverse-global-medium-box-shadow;
+@inverse-card-secondary-hover-box-shadow:      @inverse-global-large-box-shadow;
+
+@inverse-card-overlay-box-shadow:              @inverse-global-medium-box-shadow;
+@inverse-card-overlay-hover-box-shadow:        @inverse-global-large-box-shadow;
+
+.hook-inverse-card() {}
+.hook-inverse-card-hover() { box-shadow: @inverse-card-hover-box-shadow; }
+
+.hook-inverse-card-default() { box-shadow: @inverse-card-default-box-shadow; }
+.hook-inverse-card-default-title() {}
+.hook-inverse-card-default-hover() { box-shadow: @inverse-card-default-hover-box-shadow; }
+.hook-inverse-card-default-header() { border-bottom-color: @inverse-card-default-header-border; }
+.hook-inverse-card-default-footer() { border-top-color: @inverse-card-default-footer-border }
+
+.hook-inverse-card-primary() { box-shadow: @inverse-card-primary-box-shadow; }
+.hook-inverse-card-primary-title() {}
+.hook-inverse-card-primary-hover() { box-shadow: @inverse-card-primary-hover-box-shadow; }
+
+.hook-inverse-card-secondary() { box-shadow: @inverse-card-secondary-box-shadow; }
+.hook-inverse-card-secondary-title() {}
+.hook-inverse-card-secondary-hover() { box-shadow: @inverse-card-secondary-hover-box-shadow; }
+
+.hook-inverse-card-overlay() { box-shadow: @inverse-card-overlay-box-shadow; }
+.hook-inverse-card-overlay-title() {}
+.hook-inverse-card-overlay-hover() { box-shadow: @inverse-card-overlay-hover-box-shadow; }
+
+.hook-inverse-card-badge() {}

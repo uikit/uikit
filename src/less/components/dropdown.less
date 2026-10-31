@@ -19,7 +19,7 @@
 @dropdown-viewport-margin:                      15px;
 @dropdown-min-width:                            200px;
 @dropdown-padding:                              15px;
-@dropdown-background:                           @global-muted-background;
+@dropdown-background:                           @global-muted-color-default;
 @dropdown-color:                                @global-color;
 @dropdown-color-mode:                           dark;
 @dropdown-focus-outline:                        @base-focus-outline;
@@ -211,3 +211,63 @@
 .hook-dropdown-nav-header() {}
 .hook-dropdown-nav-divider() {}
 .hook-dropdown-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-dropdown-background:                   @inverse-global-muted-color-default;
+@inverse-dropdown-color:                        @inverse-global-color;
+
+@inverse-dropdown-nav-item-color:               @inverse-global-muted-color;
+@inverse-dropdown-nav-item-hover-color:         @inverse-global-color;
+@inverse-dropdown-nav-header-color:             @inverse-global-emphasis-color;
+@inverse-dropdown-nav-divider-border:           @inverse-global-border;
+@inverse-dropdown-nav-sublist-item-color:       @inverse-global-muted-color;
+@inverse-dropdown-nav-sublist-item-hover-color: @inverse-global-color;
+
+.hook-inverse() {
+
+    .uk-dropdown {
+        background: @inverse-dropdown-background;
+        color: @inverse-dropdown-color;
+        .hook-inverse-dropdown();
+    }
+
+    // Items
+    .uk-dropdown-nav > li > a {
+        color: @inverse-dropdown-nav-item-color;
+        .hook-inverse-dropdown-nav-item();
+    }
+
+    // Hover + Active
+    .uk-dropdown-nav > li > a:hover,
+    .uk-dropdown-nav > li.uk-active > a {
+        color: @inverse-dropdown-nav-item-hover-color;
+        .hook-inverse-dropdown-nav-item-hover();
+    }
+
+    // Header
+    .uk-dropdown-nav .uk-nav-header {
+        color: @inverse-dropdown-nav-header-color;
+        .hook-inverse-dropdown-nav-header();
+    }
+
+    // Divider
+    .uk-dropdown-nav .uk-nav-divider {
+        border-top-color: @inverse-dropdown-nav-divider-border;
+        .hook-inverse-dropdown-nav-divider();
+    }
+
+    // Sublists
+    .uk-dropdown-nav .uk-nav-sub a { color: @inverse-dropdown-nav-sublist-item-color; }
+    .uk-dropdown-nav .uk-nav-sub a:hover,
+    .uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: @inverse-dropdown-nav-sublist-item-hover-color; }
+
+}
+
+.hook-inverse-dropdown() {}
+.hook-inverse-dropdown-nav-item() {}
+.hook-inverse-dropdown-nav-item-hover() {}
+.hook-inverse-dropdown-nav-header() {}
+.hook-inverse-dropdown-nav-divider() {}
