@@ -64,6 +64,7 @@ export default {
                     [...toNodes(target), document.documentElement],
                     handler,
                 );
+                const transitionObserver = observeResize([], handler);
                 const listener = [
                     on(document, 'scroll itemshown itemhidden', handler, {
                         passive: true,
@@ -71,11 +72,11 @@ export default {
                     }),
                     on(document, 'show hide transitionstart', (e) => {
                         handler();
-                        return observer.observe(e.target);
+                        return transitionObserver.observe(e.target);
                     }),
                     on(document, 'shown hidden transitionend transitioncancel', (e) => {
                         handler();
-                        return observer.unobserve(e.target);
+                        return transitionObserver.unobserve(e.target);
                     }),
                 ];
 
@@ -84,6 +85,7 @@ export default {
                     unobserve: observer.unobserve.bind(observer),
                     disconnect() {
                         observer.disconnect();
+                        transitionObserver.disconnect();
                         listener.forEach((off) => off());
                     },
                 };

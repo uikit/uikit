@@ -9,12 +9,11 @@ export default {
     args: 'animation',
 
     props: {
-        animation: Boolean,
         close: String,
     },
 
     data: {
-        animation: true,
+        animation: [true],
         selClose: '.uk-alert-close',
         duration: 150,
     },
@@ -32,7 +31,11 @@ export default {
 
     methods: {
         async close() {
-            await this.toggleElement(this.$el, false, this.animation ? animate : false);
+            await this.toggleElement(
+                this.$el,
+                false,
+                this.animation[0] === true || this.animation[0] === 1 ? animate : true,
+            );
             this.$destroy(true);
         },
     },

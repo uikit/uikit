@@ -5,8 +5,10 @@ import {
     getEventPos,
     hasClass,
     isInput,
+    isRtl,
     isTouch,
     on,
+    once,
     pointerCancel,
     pointerDown,
     pointerMove,
@@ -73,7 +75,9 @@ export default {
 
                 if (!overflow[i - 1]) {
                     const dir = i ? 'Top' : 'Left';
-                    const percent = overflow[i] ? this.$el[`scroll${dir}`] / overflow[i] : 0;
+                    // The horizontal mask runs left to right, even in RTL.
+                    const position = this.$el[`scroll${dir}`] + (!i && isRtl ? overflow[i] : 0);
+                    const percent = overflow[i] ? position / overflow[i] : 0;
 
                     const toValue = (value) =>
                         overflow[i] ? clamp((this.fadeDuration - value) / this.fadeDuration) : 1;
@@ -110,7 +114,7 @@ function handleMouseDrag(e) {
     let started;
 
     const off = on(document, pointerMove, move(e), pointerOptions);
-    on(document, [pointerUp, pointerCancel], end, { capture: true, once: true });
+    once(document, [pointerUp, pointerCancel], end, true);
 
     function move(e) {
         let origin = getEventPos(e);
