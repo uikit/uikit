@@ -114,11 +114,11 @@ export default {
         this._style = pick(this.$el.style, ['width', 'height']);
     },
 
+    beforeDisconnect() {
+        this.hide(false, false);
+    },
+
     disconnected() {
-        if (this.isActive()) {
-            this.hide(false);
-            active = null;
-        }
         css(this.$el, this._style);
     },
 

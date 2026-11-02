@@ -1,6 +1,36 @@
 # Changelog
 
-## WIP
+## 3.25.29 (November 2, 2026)
+
+### Removed
+
+- Remove `Dimensions.ratio` and `Dimensions.contain` utilities
+
+### Fixed
+
+- Fix Alert ignoring custom animation names
+- Fix button controls activating twice when pressing Space in Accordion, Nav, Switcher, Tab, Filter, Slider, and Slideshow
+- Fix canceled swipes emitting events
+- Fix Cover losing its aspect ratio for narrow targets
+- Fix Drop leaking mouse trackers and pending timers when disconnected
+- Fix Dropnav keyboard navigation throwing in empty dropdowns
+- Fix Form Custom ignoring option labels when updating its target
+- Fix Grid parallax retaining transforms when scrolling back past its start
+- Fix Image skipping background updates and load events for prefix-related URLs
+- Fix Inverse losing resize observation of its targets after transitions complete
+- Fix Lightbox recognizing image and video URLs with fragments
+- Fix Lightbox encoding Vimeo URLs with multiple query parameters
+- Fix Margin splitting visual rows when flex order or grid placement differs from DOM order
+- Fix mounted icon aliases not refreshing when their canonical icon is replaced
+- Fix Modal helper promises settling when nested components hide
+- Fix stacked Modals releasing shared scroll styles before the last overlay closes
+- Fix Switcher activating tabs on prevented clicks, including after dragging with Overflow Fade
+- Fix Overflow Fade showing incorrect horizontal edge fades in RTL
+- Fix Overflow Fade retaining drag termination listeners after dragging
+- Fix Search icons overwriting author-provided labels on ancestor buttons
+- Fix Scroll throwing on malformed URL fragments by falling back to literal target IDs
+- Fix SVG initialization remaining pending when a lazy image fails to load
+- Fix Toggle media mode not updating external targets
 
 ## 3.25.28 (October 26, 2026)
 

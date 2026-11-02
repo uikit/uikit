@@ -3,19 +3,18 @@ import { registerComputed } from './computed';
 import { registerWatch } from './watch';
 
 export function initObservers(instance) {
-    for (const observer of instance.$options.observe || []) {
-        registerObservable(instance, observer);
+    for (const [index, observer] of (instance.$options.observe || []).entries()) {
+        registerObservable(instance, observer, `_observe${index}`);
     }
 }
 
-function registerObservable(instance, observable) {
+function registerObservable(instance, observable, key) {
     let { observe, target = instance.$el, handler, options, filter, args } = observable;
 
     if (filter && !filter.call(instance, instance)) {
         return;
     }
 
-    const key = `_observe${instance._disconnect.length}`;
     if (isFunction(target) && !hasOwn(instance, key)) {
         registerComputed(instance, key, () => {
             const targets = target.call(instance, instance);

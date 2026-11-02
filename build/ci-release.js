@@ -68,10 +68,7 @@ function releaseChangelog(changelog, version, date) {
     if (!/^## WIP\s*$/m.test(changelog)) {
         throw new Error('CHANGELOG.md must contain a WIP section before preparing a release.');
     }
-    const result = changelog.replace(
-        /^## WIP[^\S\n]*$/m,
-        `## WIP\n\n## ${versionFormat(version)} (${date})`,
-    );
+    const result = changelog.replace(/^## WIP[^\S\n]*$/m, `## ${versionFormat(version)} (${date})`);
     releaseNotes(result, version);
     return result;
 }

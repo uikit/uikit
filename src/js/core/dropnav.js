@@ -210,7 +210,7 @@ export default {
                             elements,
                             findIndex(elements, (el) => matches(el, ':focus')),
                         )
-                    ].focus();
+                    ]?.focus();
                     return;
                 }
 

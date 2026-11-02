@@ -164,7 +164,7 @@ function install({ modal }) {
 
         return assign(
             new Promise((resolve) => {
-                const off = on(dialog.$el, 'hide', () => resolve(hideFn()));
+                const off = on(dialog.$el, 'hide', () => resolve(hideFn()), { self: true });
 
                 on(dialog.$el, 'submit', 'form', (e) => {
                     e.preventDefault();

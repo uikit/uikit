@@ -108,6 +108,7 @@ export default {
 
             handler(e) {
                 if (
+                    !e.defaultPrevented &&
                     !matches(e.current, selDisabled) &&
                     (e.type === 'click' || e.keyCode === keyMap.SPACE)
                 ) {

@@ -83,7 +83,12 @@ export function isSameSiteAnchor(el) {
 export function getTargetedElement(el) {
     if (isSameSiteAnchor(el)) {
         const { hash, ownerDocument } = toNode(el);
-        const id = decodeURIComponent(hash).slice(1);
+        let id = hash.slice(1);
+        try {
+            id = decodeURIComponent(id);
+        } catch {
+            // Fall back to the literal fragment for malformed encoding.
+        }
         return id
             ? ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0]
             : ownerDocument.documentElement;

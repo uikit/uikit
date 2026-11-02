@@ -20,24 +20,25 @@ export function callUpdate(instance, e = 'update') {
         return;
     }
 
-    if (!instance._updateCount) {
-        instance._updateCount = 0;
-        requestAnimationFrame(() => (instance._updateCount = 0));
-    }
-
     if (!instance._queued) {
         instance._queued = new Set();
         fastdom.read(() => {
             if (instance._connected) {
-                runUpdates(instance, instance._queued);
+                if (!instance._updateCount) {
+                    instance._updateCount = 0;
+                    requestAnimationFrame(() => (instance._updateCount = 0));
+                }
+
+                if (instance._updateCount < 10) {
+                    instance._updateCount++;
+                    runUpdates(instance, instance._queued);
+                }
             }
             instance._queued = null;
         });
     }
 
-    if (instance._updateCount++ < 20) {
-        instance._queued.add(e.type || e);
-    }
+    instance._queued.add(e.type || e);
 }
 
 function runUpdates(instance, types) {
