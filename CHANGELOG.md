@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.25.29 (November 2, 2026)
 
 ### Removed
 
