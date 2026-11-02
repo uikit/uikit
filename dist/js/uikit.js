@@ -1,4 +1,4 @@
-/*! UIkit 3.25.28 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.29 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -156,28 +156,17 @@
     function pointInRect(point, rect) {
       return point.x <= rect.right && point.x >= rect.left && point.y <= rect.bottom && point.y >= rect.top;
     }
-    function ratio(dimensions, prop, value) {
-      const aProp = prop === "width" ? "height" : "width";
+    function cover$1(dimensions, maxDimensions) {
+      const scale = Math.max(
+        dimensions.width ? maxDimensions.width / dimensions.width : 0,
+        dimensions.height ? maxDimensions.height / dimensions.height : 0
+      );
       return {
-        [aProp]: dimensions[prop] ? Math.round(value * dimensions[aProp] / dimensions[prop]) : dimensions[aProp],
-        [prop]: value
+        width: Math.round(dimensions.width * scale),
+        height: Math.round(dimensions.height * scale)
       };
     }
-    function contain(dimensions, maxDimensions) {
-      dimensions = { ...dimensions };
-      for (const prop in dimensions) {
-        dimensions = dimensions[prop] > maxDimensions[prop] ? ratio(dimensions, prop, maxDimensions[prop]) : dimensions;
-      }
-      return dimensions;
-    }
-    function cover$1(dimensions, maxDimensions) {
-      dimensions = contain(dimensions, maxDimensions);
-      for (const prop in dimensions) {
-        dimensions = dimensions[prop] < maxDimensions[prop] ? ratio(dimensions, prop, maxDimensions[prop]) : dimensions;
-      }
-      return dimensions;
-    }
-    const Dimensions = { ratio, contain, cover: cover$1 };
+    const Dimensions = { cover: cover$1 };
     function getIndex(i, elements, current = 0, finite = false) {
       elements = toNodes(elements);
       const { length } = elements;
@@ -350,7 +339,11 @@
     function getTargetedElement(el) {
       if (isSameSiteAnchor(el)) {
         const { hash, ownerDocument } = toNode(el);
-        const id = decodeURIComponent(hash).slice(1);
+        let id = hash.slice(1);
+        try {
+          id = decodeURIComponent(id);
+        } catch {
+        }
         return id ? ownerDocument.getElementById(id) || ownerDocument.getElementsByName(id)[0] : ownerDocument.documentElement;
       }
     }
@@ -1912,22 +1905,23 @@
       if (!instance._updates.length) {
         return;
       }
-      if (!instance._updateCount) {
-        instance._updateCount = 0;
-        requestAnimationFrame(() => instance._updateCount = 0);
-      }
       if (!instance._queued) {
         instance._queued = /* @__PURE__ */ new Set();
         fastdom.read(() => {
           if (instance._connected) {
-            runUpdates(instance, instance._queued);
+            if (!instance._updateCount) {
+              instance._updateCount = 0;
+              requestAnimationFrame(() => instance._updateCount = 0);
+            }
+            if (instance._updateCount < 10) {
+              instance._updateCount++;
+              runUpdates(instance, instance._queued);
+            }
           }
           instance._queued = null;
         });
       }
-      if (instance._updateCount++ < 20) {
-        instance._queued.add(e.type || e);
-      }
+      instance._queued.add(e.type || e);
     }
     function runUpdates(instance, types) {
       for (const { read, write, events = [] } of instance._updates) {
@@ -2002,8 +1996,11 @@
           const pos = getEventPos(e);
           const target = "tagName" in e.target ? e.target : parent(e.target);
           once(document, `${pointerUp$1} ${pointerCancel} scroll`, (e2) => {
+            if (e2.type !== pointerUp$1 || !target) {
+              return;
+            }
             const { x, y } = getEventPos(e2);
-            if (e2.type !== "scroll" && target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
+            if (x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
               setTimeout(() => {
                 trigger(target, "swipe");
                 trigger(target, `swipe${swipeDirection(pos.x, pos.y, x, y)}`);
@@ -2105,7 +2102,7 @@
           }
           const offsetCurrent = getOffset(current[0], withOffset);
           if (offset.top >= offsetCurrent.bottom - 1 && offset.top !== offsetCurrent.top) {
-            sorted.push([el]);
+            sorted.splice(i + 1, 0, [el]);
             break;
           }
           if (offset.bottom - 1 > offsetCurrent.top || offset.top === offsetCurrent.top) {
@@ -2369,7 +2366,7 @@
     }
 
     function maybeDefaultPreventClick(e) {
-      if (e.target.closest('a[href="#"],a[href=""]')) {
+      if (e.type === "keydown" && e.keyCode === keyMap.SPACE || e.target.closest('a[href="#"],a[href=""]')) {
         e.preventDefault();
       }
     }
@@ -2608,8 +2605,9 @@
         const elements = isTag(parentNode, "picture") ? children(parentNode) : [el];
         elements.forEach((el2) => setSourceProps(el2, el2));
       } else if (src) {
-        if (!includes(el.style.backgroundImage, src)) {
-          css(el, "backgroundImage", `url(${escape(src)})`);
+        const previousBackground = el.style.backgroundImage;
+        css(el, "backgroundImage", `url(${escape(src)})`);
+        if (el.style.backgroundImage !== previousBackground) {
           trigger(el, createEvent("load", false));
         }
       }
@@ -2662,7 +2660,7 @@
       return isTag(el, "img");
     }
 
-    let prevented;
+    let scrollLocks = 0;
     function preventBackgroundScroll(el) {
       const off = on(
         el,
@@ -2697,21 +2695,25 @@
         },
         { passive: true }
       );
-      if (prevented) {
-        return off;
-      }
-      prevented = true;
       const { scrollingElement } = document;
       const props = {
         overflowY: CSS.supports("overflow", "clip") ? "clip" : "hidden",
         touchAction: "none",
         scrollbarGutter: width(window) - scrollingElement.clientWidth ? "stable" : ""
       };
-      css(scrollingElement, props);
+      if (!scrollLocks++) {
+        css(scrollingElement, props);
+      }
+      let released = false;
       return () => {
-        prevented = false;
+        if (released) {
+          return;
+        }
+        released = true;
         off();
-        resetProps(scrollingElement, props);
+        if (!--scrollLocks) {
+          resetProps(scrollingElement, props);
+        }
       };
     }
 
@@ -3065,13 +3067,13 @@
       let rejectAnimation;
       return new Promise(
         (resolve, reject) => once(el, "show hide", () => {
-          var _a, _b, _c;
+          var _a, _b;
           (_a = pendingReject.get(el)) == null ? void 0 : _a();
           rejectAnimation = reject;
           pendingReject.set(el, reject);
           _toggle(el, show);
           Promise.all(
-            ((_c = (_b = transitionElement == null ? void 0 : transitionElement.getAnimations) == null ? void 0 : _b.call(transitionElement)) != null ? _c : []).map(({ finished }) => finished)
+            (((_b = transitionElement == null ? void 0 : transitionElement.getAnimations) == null ? void 0 : _b.call(transitionElement)) || []).map(({ finished }) => finished)
           ).then(resolve, reject);
         })
       ).then(() => {
@@ -3419,7 +3421,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.28';
+    var VERSION = '3.25.29';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -3502,7 +3504,7 @@
       });
     }
     function resetComputed(instance) {
-      const values = { ...instance._computed };
+      const values = instance._computed;
       instance._computed = {};
       return values;
     }
@@ -3538,16 +3540,15 @@
     }
 
     function initObservers(instance) {
-      for (const observer of instance.$options.observe || []) {
-        registerObservable(instance, observer);
+      for (const [index, observer] of (instance.$options.observe || []).entries()) {
+        registerObservable(instance, observer, `_observe${index}`);
       }
     }
-    function registerObservable(instance, observable) {
+    function registerObservable(instance, observable, key) {
       let { observe, target = instance.$el, handler, options, filter, args } = observable;
       if (filter && !filter.call(instance, instance)) {
         return;
       }
-      const key = `_observe${instance._disconnect.length}`;
       if (isFunction(target) && !hasOwn(instance, key)) {
         registerComputed(instance, key, () => {
           const targets2 = target.call(instance, instance);
@@ -3748,7 +3749,7 @@
     const elementComponents = /* @__PURE__ */ new WeakMap();
     const components$2 = {};
     function component(name, options) {
-      var _a, _b;
+      var _a;
       const id = PREFIX + hyphenate(name);
       if (!options) {
         if (!components$2[id].options) {
@@ -3758,10 +3759,10 @@
       }
       name = camelize(name);
       App[name] = (element, data) => createComponent(name, element, data);
-      const opt = (_a = options.options) != null ? _a : { ...options };
+      const opt = options.options || { ...options };
       opt.id = id;
       opt.name = name;
-      (_b = opt.install) == null ? void 0 : _b.call(opt, App, opt, name);
+      (_a = opt.install) == null ? void 0 : _a.call(opt, App, opt, name);
       if (App._initialized && !opt.functional) {
         requestAnimationFrame(() => createComponent(name, `[${id}],[data-${id}]`));
       }
@@ -4612,7 +4613,7 @@
             } else if (matches2 = src.match(/\/\/.*?vimeo\.[a-z]+\/(\d+)[&?]?(.*)?/)) {
               try {
                 const { height, width } = await (await fetch(
-                  `https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(
+                  `https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURIComponent(
                 src
               )}`,
                   { credentials: "omit" }
@@ -4703,10 +4704,10 @@
       return el;
     }
     function isImage(src) {
-      return src == null ? void 0 : src.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|\?)/i);
+      return src == null ? void 0 : src.match(/\.(avif|jpe?g|jfif|a?png|gif|svg|webp)($|[?#])/i);
     }
     function isVideo(src) {
-      return src == null ? void 0 : src.match(/\.(mp4|webm|ogv)($|\?)/i);
+      return src == null ? void 0 : src.match(/\.(mp4|webm|ogv)($|[?#])/i);
     }
 
     const selDisabled$1 = ".uk-disabled *, .uk-disabled, [disabled]";
@@ -4929,12 +4930,16 @@
     }
 
     function getMaxPathLength(el) {
-      return isVisible(el) ? Math.ceil(
-        Math.max(0, ...$$("[stroke]", el).map((stroke) => {
-          var _a;
-          return ((_a = stroke.getTotalLength) == null ? void 0 : _a.call(stroke)) || 0;
-        }))
-      ) : 0;
+      try {
+        return Math.ceil(
+          Math.max(0, ...$$("[stroke]", el).map((stroke) => {
+            var _a;
+            return ((_a = stroke.getTotalLength) == null ? void 0 : _a.call(stroke)) || 0;
+          }))
+        );
+      } catch {
+        return 0;
+      }
     }
 
     const props = {
@@ -6578,10 +6583,7 @@
     function match$1(pattern, path) {
       const expression = pattern.replace(
         /\*\*|[.*+?^${}()|[\]\\]/g,
-        (s) => {
-          var _a;
-          return (_a = { "**": ".*", "*": "[^/]+", "?": "[^/]", "|": "|" }[s]) != null ? _a : `\\${s}`;
-        }
+        (s) => ({ "**": ".*", "*": "[^/]+", "?": "[^/]", "|": "|" })[s] || `\\${s}`
       );
       return new RegExp(`^(?:${expression})$`, "i").test(path);
     }
@@ -6913,11 +6915,10 @@
       mixins: [Class, Togglable],
       args: "animation",
       props: {
-        animation: Boolean,
         close: String
       },
       data: {
-        animation: true,
+        animation: [true],
         selClose: ".uk-alert-close",
         duration: 150
       },
@@ -6931,7 +6932,11 @@
       },
       methods: {
         async close() {
-          await this.toggleElement(this.$el, false, this.animation ? animate : false);
+          await this.toggleElement(
+            this.$el,
+            false,
+            this.animation[0] === true || this.animation[0] === 1 ? animate : true
+          );
           this.$destroy(true);
         }
       }
@@ -7163,11 +7168,10 @@
         attr(this.targetEl, "aria-expanded", false);
         this._style = pick(this.$el.style, ["width", "height"]);
       },
+      beforeDisconnect() {
+        this.hide(false, false);
+      },
       disconnected() {
-        if (this.isActive()) {
-          this.hide(false);
-          active = null;
-        }
         css(this.$el, this._style);
       },
       events: [
@@ -7596,7 +7600,7 @@
           el: ({ dropContainer }) => dropContainer,
           delegate: ({ clsDrop }) => `.${clsDrop}`,
           handler(e) {
-            var _a;
+            var _a, _b;
             const { current, keyCode, target } = e;
             if (isInput(target) || !includes(this.dropdowns, current)) {
               return;
@@ -7606,15 +7610,15 @@
             if (~next) {
               e.preventDefault();
               const elements = $$(selFocusable, current);
-              elements[getIndex(
+              (_a = elements[getIndex(
                 next,
                 elements,
                 findIndex(elements, (el) => matches(el, ":focus"))
-              )].focus();
+              )]) == null ? void 0 : _a.focus();
               return;
             }
             if (keyCode === keyMap.ESC) {
-              (_a = active2.targetEl) == null ? void 0 : _a.focus();
+              (_b = active2.targetEl) == null ? void 0 : _b.focus();
             }
             handleNavItemNavigation(e, this.items, active2);
           }
@@ -7793,15 +7797,14 @@
         }
       },
       update() {
-        var _a;
+        var _a, _b, _c, _d, _e, _f;
         const { target, input } = this;
         if (!target) {
           return;
         }
-        let option;
         const prop = isInput(target) ? "value" : "textContent";
         const prev = target[prop];
-        const value = ((_a = input.files) == null ? void 0 : _a[0]) ? input.files[0].name : matches(input, "select") && (option = $$("option", input).find((el) => el.selected)) ? option.textContent : input.value;
+        const value = (_f = (_e = (_b = (_a = input.files) == null ? void 0 : _a[0]) == null ? void 0 : _b.name) != null ? _e : (_d = (_c = input.selectedOptions) == null ? void 0 : _c[0]) == null ? void 0 : _d.label) != null ? _f : input.value;
         if (prev !== value) {
           target[prop] = value;
         }
@@ -7914,7 +7917,7 @@
             };
           },
           write({ columns, scrolled, scrollColumns, translates }) {
-            if (!scrolled && !translates) {
+            if (scrolled === false && !translates) {
               return;
             }
             columns.forEach(
@@ -8333,16 +8336,9 @@
       beforeConnect() {
         const isToggle = hasClass(this.$el, "uk-search-toggle") || hasClass(this.$el, "uk-navbar-toggle");
         this.icon = isToggle ? "search-toggle-icon" : hasClass(this.$el, "uk-search-icon") && this.$el.closest(".uk-search-large") ? "search-large" : this.$el.closest(".uk-search-medium") ? "search-medium" : this.$props.icon;
-        if (hasAttr(this.$el, "aria-label")) {
-          return;
-        }
-        if (isToggle) {
-          this.$el.ariaLabel = this.t("toggle");
-        } else {
-          const button = this.$el.closest("a,button");
-          if (button) {
-            button.ariaLabel = this.t("submit");
-          }
+        const target = isToggle ? this.$el : this.$el.closest("a,button");
+        if (target && !hasAttr(target, "aria-label")) {
+          target.ariaLabel = this.t(isToggle ? "toggle" : "submit");
         }
       }
     };
@@ -8428,7 +8424,7 @@
           apply(
             document.body,
             (el) => each(UIkit.getComponents(el), (cmp) => {
-              cmp.$options.isIcon && cmp.icon in added && cmp.$reset();
+              cmp.$options.isIcon && (aliases[cmp.icon] || cmp.icon) in added && cmp.$reset();
             })
           );
         }
@@ -8495,6 +8491,7 @@
               [...toNodes(target), document.documentElement],
               handler
             );
+            const transitionObserver = observeResize([], handler);
             const listener = [
               on(document, "scroll itemshown itemhidden", handler, {
                 passive: true,
@@ -8502,11 +8499,11 @@
               }),
               on(document, "show hide transitionstart", (e) => {
                 handler();
-                return observer.observe(e.target);
+                return transitionObserver.observe(e.target);
               }),
               on(document, "shown hidden transitionend transitioncancel", (e) => {
                 handler();
-                return observer.unobserve(e.target);
+                return transitionObserver.unobserve(e.target);
               })
             ];
             return {
@@ -8514,6 +8511,7 @@
               unobserve: observer.unobserve.bind(observer),
               disconnect() {
                 observer.disconnect();
+                transitionObserver.disconnect();
                 listener.forEach((off) => off());
               }
             };
@@ -8716,7 +8714,7 @@
         const dialog = modal.dialog(tmpl(options), options);
         return assign(
           new Promise((resolve) => {
-            const off = on(dialog.$el, "hide", () => resolve(hideFn()));
+            const off = on(dialog.$el, "hide", () => resolve(hideFn()), { self: true });
             on(dialog.$el, "submit", "form", (e) => {
               e.preventDefault();
               resolve(submitFn(dialog));
@@ -9019,7 +9017,8 @@
             );
             if (!overflow[i - 1]) {
               const dir = i ? "Top" : "Left";
-              const percent = overflow[i] ? this.$el[`scroll${dir}`] / overflow[i] : 0;
+              const position = this.$el[`scroll${dir}`] + (!i && isRtl ? overflow[i] : 0);
+              const percent = overflow[i] ? position / overflow[i] : 0;
               const toValue = (value) => overflow[i] ? clamp((this.fadeDuration - value) / this.fadeDuration) : 1;
               css(this.$el, {
                 "--uk-overflow-fade-start-opacity": toValue(percent),
@@ -9041,7 +9040,7 @@
       const { $el: el, threshold, $options } = this;
       let started;
       const off = on(document, pointerMove$1, move(e), pointerOptions);
-      on(document, [pointerUp$1, pointerCancel], end, { capture: true, once: true });
+      once(document, [pointerUp$1, pointerCancel], end, true);
       function move(e2) {
         let origin = getEventPos(e2);
         let pos = origin;
@@ -9715,7 +9714,13 @@
       methods: {
         async getSvg() {
           if (isTag(this.$el, "img") && !this.$el.complete && this.$el.loading === "lazy") {
-            await new Promise((resolve) => once(this.$el, "load", resolve));
+            await new Promise(
+              (resolve, reject) => once(
+                this.$el,
+                "load error",
+                (event) => event.type === "load" ? resolve() : reject(event)
+              )
+            );
           }
           return parseSVG(await loadSVG(this.src), this.icon) || Promise.reject("SVG not found.");
         }
@@ -9823,7 +9828,7 @@
           name: "click keydown",
           delegate: ({ toggle }) => toggle,
           handler(e) {
-            if (!matches(e.current, selDisabled) && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
+            if (!e.defaultPrevented && !matches(e.current, selDisabled) && (e.type === "click" || e.keyCode === keyMap.SPACE)) {
               maybeDefaultPreventClick(e);
               this.show(e.current);
             }
@@ -10062,7 +10067,6 @@
         {
           name: "mediachange",
           filter: ({ mode }) => includes(mode, "media"),
-          el: ({ target }) => target,
           handler(e, mediaObj) {
             if (mediaObj.matches ^ this.isToggled(this.target)) {
               this.toggle();
