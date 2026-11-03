@@ -255,5 +255,5 @@ export function getIndex(i, elements, current = 0, finite = false) {
 
 export function memoize(fn) {
     const cache = Object.create(null);
-    return (key, ...args) => cache[key] || (cache[key] = fn(key, ...args));
+    return (key, ...args) => (cache[key] ||= fn(key, ...args));
 }
