@@ -12,7 +12,6 @@ on:
       - 'develop'
 
 permissions:
-  id-token: write
   contents: read
 
 jobs:
@@ -44,6 +43,9 @@ jobs:
     needs: check-eligibility
     if: needs.check-eligibility.outputs.publish == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v7
 
