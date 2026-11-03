@@ -71,7 +71,7 @@ export default {
                 index = findIndex(items, ({ source: src }) => source === src);
             }
 
-            this.panel = this.panel || this.$create('lightboxPanel', { ...this.$props, items });
+            this.panel ||= this.$create('lightboxPanel', { ...this.$props, items });
 
             on(this.panel.$el, 'hidden', () => (this.panel = null));
 
