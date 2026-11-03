@@ -79,10 +79,7 @@ export default {
                     const slide = this.slides[item];
 
                     if (slide) {
-                        if (!slide.id) {
-                            slide.id = generateId(this, slide);
-                        }
-                        ariaControls = slide.id;
+                        ariaControls = slide.id ||= generateId(this, slide);
                     }
 
                     ariaLabel = this.t('slideX', toFloat(cmd) + 1);
@@ -90,18 +87,14 @@ export default {
                     button.role = 'tab';
                 } else {
                     if (this.list) {
-                        if (!this.list.id) {
-                            this.list.id = generateId(this, this.list);
-                        }
-
-                        ariaControls = this.list.id;
+                        ariaControls = this.list.id ||= generateId(this, this.list);
                     }
 
                     ariaLabel = this.t(cmd);
                 }
 
                 attr(button, 'aria-controls', ariaControls);
-                button.ariaLabel = button.ariaLabel || ariaLabel;
+                button.ariaLabel ||= ariaLabel;
             }
         },
 
@@ -126,7 +119,9 @@ export default {
     update: [
         {
             write() {
-                this.navItems.concat(this.nav).forEach((el) => el && (el.hidden = this.maxIndex < 1));
+                this.navItems
+                    .concat(this.nav)
+                    .forEach((el) => el && (el.hidden = this.maxIndex < 1));
                 this.updateNav();
             },
 
