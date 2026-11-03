@@ -174,26 +174,6 @@ jobs:
               release_url: ("https://github.com/" + $repo + "/releases/tag/" + $tag)
             }}' | gh api --method POST repos/uikit/uikit-site/dispatches --input -
 
-  cleanup-release-branch:
-    needs: release
-    if: >-
-      always() &&
-      github.event_name == 'pull_request' &&
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.head.repo.full_name == github.repository &&
-      startsWith(github.event.pull_request.head.ref, 'release/v')
-    runs-on: ubuntu-slim
-    permissions:
-      contents: write
-    steps:
-      - name: Delete release branch
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE_BRANCH: ${{ github.event.pull_request.head.ref }}
-        run: |
-          gh api --method DELETE \
-            "repos/$GITHUB_REPOSITORY/git/refs/heads/$RELEASE_BRANCH"
-
   sync-develop:
     needs: release
     if: needs.release.outputs.tag != ''
