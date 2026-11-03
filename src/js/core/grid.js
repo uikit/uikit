@@ -201,8 +201,6 @@ function transpose(rows) {
 }
 
 function push(array, index, value) {
-    if (!array[index]) {
-        array[index] = [];
-    }
+    array[index] ||= [];
     array[index].push(value);
 }

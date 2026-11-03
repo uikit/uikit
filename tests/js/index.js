@@ -31,8 +31,8 @@ if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
     styles.custom = getParam('style');
 }
 
-storage[key] = storage[key] || 'core';
-storage[keyinverse] = storage[keyinverse] || '';
+storage[key] ||= 'core';
+storage[keyinverse] ||= '';
 
 const dir = storage._uikit_dir || 'ltr';
 
