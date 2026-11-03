@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Preserve image alternative text when replacing an image with an SVG
+
 ## 3.25.29 (November 2, 2026)
 
 ### Removed

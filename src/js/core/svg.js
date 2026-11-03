@@ -1,4 +1,14 @@
-import { addClass, attr, css, includes, isTag, memoize, once, removeAttr } from 'uikit-util';
+import {
+    addClass,
+    attr,
+    css,
+    hasAttr,
+    includes,
+    isTag,
+    memoize,
+    once,
+    removeAttr,
+} from 'uikit-util';
 import { mutation } from '../api/observables';
 import Svg, { parseSVG } from '../mixin/svg';
 import { getMaxPathLength } from '../util/svg';
@@ -64,7 +74,7 @@ export default {
 };
 
 function applyAttributes(el) {
-    const { $el } = this;
+    const { $el, attributes } = this;
 
     addClass(el, attr($el, 'class'), 'uk-svg');
 
@@ -73,12 +83,22 @@ function applyAttributes(el) {
         css(el, prop, css($el, prop));
     }
 
-    for (const attribute in this.attributes) {
-        const [prop, value] = this.attributes[attribute].split(':', 2);
+    for (const attribute in attributes) {
+        const [prop, value] = attributes[attribute].split(':', 2);
         attr(el, prop, value);
     }
 
-    el.ariaHidden = this.$el.ariaHidden;
+    el.ariaHidden ||= $el.ariaHidden;
+
+    if (!el.ariaHidden) {
+        el.ariaLabel ||= $el.ariaLabel || $el.alt || null;
+
+        if (el.ariaLabel) {
+            el.role ||= 'img';
+        } else if (hasAttr($el, 'alt')) {
+            el.ariaHidden = true;
+        }
+    }
 
     if (!this.$el.id) {
         removeAttr(el, 'id');
