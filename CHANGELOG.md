@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add support for pages enforcing Trusted Types (`require-trusted-types-for 'script'`) with a Trusted Types policy named `uikit`
+
 ### Fixed
 
 - Preserve image alternative text when replacing an image with an SVG
