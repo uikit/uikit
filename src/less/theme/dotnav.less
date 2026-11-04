@@ -15,7 +15,7 @@
 
 @dotnav-item-border-width:                           1px;
 
-@dotnav-item-border:                                 fade(@global-color, 40%);
+@dotnav-item-border:                                 rgb(from @global-color r g b / 0.4);               // instead of: fade(@global-color, 40%);
 @dotnav-item-hover-border:                           transparent;
 @dotnav-item-onclick-border:                         transparent;
 @dotnav-item-active-border:                          transparent;
@@ -51,7 +51,7 @@
 @inverse-dotnav-item-background:                     transparent;
 
 .hook-inverse-dotnav() {}
-.hook-inverse-dotnav-item() { border-color: fade(@inverse-global-color, 90%); }
+.hook-inverse-dotnav-item() { border-color: rgb(from @inverse-global-color r g b / 0.9); }      // instead of: fade(@inverse-global-color, 90%);
 .hook-inverse-dotnav-item-hover() { border-color: transparent; }
 .hook-inverse-dotnav-item-onclick() { border-color: transparent; }
 .hook-inverse-dotnav-item-active() { border-color: transparent; }

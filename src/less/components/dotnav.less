@@ -20,10 +20,10 @@
 @dotnav-item-height:                            @dotnav-item-width;
 @dotnav-item-border-radius:                     50%;
 
-@dotnav-item-background:                        fade(@global-color, 20%);
-@dotnav-item-hover-background:                  fade(@global-color, 60%);
-@dotnav-item-onclick-background:                fade(@global-color, 20%);
-@dotnav-item-active-background:                 fade(@global-color, 60%);
+@dotnav-item-background:                        rgb(from @global-color r g b / 0.2);                   // instead of: fade(@global-color, 20%);
+@dotnav-item-hover-background:                  rgb(from @global-color r g b / 0.6);                   // instead of: fade(@global-color, 60%);
+@dotnav-item-onclick-background:                rgb(from @global-color r g b / 0.2);                   // instead of: fade(@global-color, 20%);
+@dotnav-item-active-background:                 rgb(from @global-color r g b / 0.6);                   // instead of: fade(@global-color, 60%);
 
 
 /* ========================================================================
@@ -45,7 +45,7 @@
     padding: 0;
     list-style: none;
     /* 3 */
-    margin-left: -@dotnav-margin-horizontal;
+    margin-left: calc(@dotnav-margin-horizontal * -1);                          // instead of: -@dotnav-margin-horizontal;
     .hook-dotnav();
 }
 
@@ -116,7 +116,7 @@
     flex-direction: column;
     /* 2 */
     margin-left: 0;
-    margin-top: -@dotnav-margin-vertical;
+    margin-top: calc(@dotnav-margin-vertical * -1);                             // instead of: -@dotnav-margin-vertical;
 }
 
 /* 2 */
@@ -142,10 +142,10 @@
 // Inverse
 // ========================================================================
 
-@inverse-dotnav-item-background:               fade(@inverse-global-color, 50%);
-@inverse-dotnav-item-hover-background:         fade(@inverse-global-color, 90%);
-@inverse-dotnav-item-onclick-background:       fade(@inverse-global-color, 50%);
-@inverse-dotnav-item-active-background:        fade(@inverse-global-color, 90%);
+@inverse-dotnav-item-background:               rgb(from @inverse-global-color r g b / 0.5);                    // instead of: fade(@inverse-global-color, 50%);
+@inverse-dotnav-item-hover-background:         rgb(from @inverse-global-color r g b / 0.9);                    // instead of: fade(@inverse-global-color, 90%);
+@inverse-dotnav-item-onclick-background:       rgb(from @inverse-global-color r g b / 0.5);                    // instead of: fade(@inverse-global-color, 50%);
+@inverse-dotnav-item-active-background:        rgb(from @inverse-global-color r g b / 0.9);                    // instead of: fade(@inverse-global-color, 90%);
 
 .hook-inverse() {
 

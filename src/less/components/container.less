@@ -151,8 +151,8 @@
 .uk-container-item-padding-remove-left,
 .uk-container-item-padding-remove-right { width: ~'calc(100% + @{container-padding-horizontal})'; }
 
-.uk-container-item-padding-remove-left { margin-left: -@container-padding-horizontal; }
-.uk-container-item-padding-remove-right { margin-right: -@container-padding-horizontal; }
+.uk-container-item-padding-remove-left { margin-left: calc(@container-padding-horizontal * -1); }               // instead of: -@container-padding-horizontal;
+.uk-container-item-padding-remove-right { margin-right: calc(@container-padding-horizontal * -1); }             // instead of: -@container-padding-horizontal;
 
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-small) {
@@ -160,8 +160,8 @@
     .uk-container-item-padding-remove-left,
     .uk-container-item-padding-remove-right { width: ~'calc(100% + @{container-padding-horizontal-s})'; }
 
-    .uk-container-item-padding-remove-left { margin-left: -@container-padding-horizontal-s; }
-    .uk-container-item-padding-remove-right { margin-right: -@container-padding-horizontal-s; }
+    .uk-container-item-padding-remove-left { margin-left: calc(@container-padding-horizontal-s * -1); }         // instead of: -@container-padding-horizontal-s
+    .uk-container-item-padding-remove-right { margin-right: calc(@container-padding-horizontal-s * -1); }       // instead of: -@container-padding-horizontal-s
 
 }
 
@@ -171,8 +171,8 @@
     .uk-container-item-padding-remove-left,
     .uk-container-item-padding-remove-right { width: ~'calc(100% + @{container-padding-horizontal-m})'; }
 
-    .uk-container-item-padding-remove-left { margin-left: -@container-padding-horizontal-m; }
-    .uk-container-item-padding-remove-right { margin-right: -@container-padding-horizontal-m; }
+    .uk-container-item-padding-remove-left { margin-left: calc(@container-padding-horizontal-m * -1); }         // instead of: -@container-padding-horizontal-m
+    .uk-container-item-padding-remove-right { margin-right: calc(@container-padding-horizontal-m * -1); }       // instead of: -@container-padding-horizontal-m
 
 }
 
