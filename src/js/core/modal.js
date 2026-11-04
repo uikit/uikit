@@ -95,7 +95,7 @@ function install({ modal }) {
             ({ i18n }) => `<div class="uk-modal-body">${
                 isString(message) ? message : html(message)
             }</div>
-            <div class="uk-modal-footer uk-text-right">
+            <div class="uk-modal-footer uk-text-end">
                 <button class="uk-button uk-button-primary uk-modal-close" type="button" autofocus>${
                     i18n.ok
                 }</button>
@@ -108,7 +108,7 @@ function install({ modal }) {
         return openDialog(
             ({ i18n }) => `<form>
                 <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
-                <div class="uk-modal-footer uk-text-right">
+                <div class="uk-modal-footer uk-text-end">
                     <button class="uk-button uk-button-default uk-modal-close" type="button">${
                         i18n.cancel
                     }</button>
@@ -127,7 +127,7 @@ function install({ modal }) {
                     <label>${isString(message) ? message : html(message)}</label>
                     <input class="uk-input" autofocus>
                 </div>
-                <div class="uk-modal-footer uk-text-right">
+                <div class="uk-modal-footer uk-text-end">
                     <button class="uk-button uk-button-default uk-modal-close" type="button">${
                         i18n.cancel
                     }</button>

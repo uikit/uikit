@@ -148,10 +148,14 @@
 
         .uk-navbar-left,
         .uk-navbar-right,
+        .uk-navbar-start,
+        .uk-navbar-end,
         [class*="uk-navbar-center"] { gap: @navbar-gap-m; }
 
         .uk-navbar-center-left { right: ~'calc(100% + @{navbar-gap-m})'; }
         .uk-navbar-center-right { left: ~'calc(100% + @{navbar-gap-m})'; }
+        .uk-navbar-center-start { inset-inline-end: ~'calc(100% + @{navbar-gap-m})'; }
+        .uk-navbar-center-end { inset-inline-start: ~'calc(100% + @{navbar-gap-m})'; }
 
     }
 

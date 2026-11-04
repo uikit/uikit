@@ -59,7 +59,7 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    left: 0;
+    inset-inline-start: 0;
     z-index: @offcanvas-z-index;
 }
 
@@ -68,8 +68,8 @@
  */
 
 .uk-offcanvas-flip .uk-offcanvas {
-    right: 0;
-    left: auto;
+    inset-inline-start: auto;
+    inset-inline-end: 0;
 }
 
 
@@ -88,7 +88,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -@offcanvas-bar-width;
+    inset-inline-start: -@offcanvas-bar-width;
     /* 2 */
     box-sizing: border-box;
     width: @offcanvas-bar-width;
@@ -103,7 +103,7 @@
 @media (min-width: @breakpoint-small) {
 
     .uk-offcanvas-bar {
-        left: -@offcanvas-bar-width-s;
+        inset-inline-start: -@offcanvas-bar-width-s;
         width: @offcanvas-bar-width-s;
         padding: @offcanvas-bar-padding-vertical-s @offcanvas-bar-padding-horizontal-s;
     }
@@ -116,14 +116,14 @@
 
 /* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-bar {
-    left: auto;
-    right: -@offcanvas-bar-width;
+    inset-inline-start: auto;
+    inset-inline-end: -@offcanvas-bar-width;
 }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-offcanvas-flip .uk-offcanvas-bar { right: -@offcanvas-bar-width-s; }
+    .uk-offcanvas-flip .uk-offcanvas-bar { inset-inline-end: -@offcanvas-bar-width-s; }
 
 }
 
@@ -131,18 +131,18 @@
  * Open
  */
 
-.uk-open > .uk-offcanvas-bar { left: 0; }
+.uk-open > .uk-offcanvas-bar { inset-inline-start: 0; }
 .uk-offcanvas-flip .uk-open > .uk-offcanvas-bar {
-    left: auto;
-    right: 0;
+    inset-inline-start: auto;
+    inset-inline-end: 0;
 }
 
 /*
  * Slide Animation (Used in slide and push mode)
  */
 
-.uk-offcanvas-bar-animation { transition: left 0.3s ease-out; }
-.uk-offcanvas-flip .uk-offcanvas-bar-animation { transition-property: right; }
+.uk-offcanvas-bar-animation { transition: inset-inline-start 0.3s ease-out; }
+.uk-offcanvas-flip .uk-offcanvas-bar-animation { transition-property: inset-inline-end; }
 
 /*
  * Reveal Animation
@@ -157,7 +157,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
+    inset-inline-start: 0;
     /* 2 */
     width: 0;
     overflow: hidden;
@@ -167,13 +167,13 @@
 
 .uk-offcanvas-reveal .uk-offcanvas-bar {
     /* 4 */
-    left: 0;
+    inset-inline-start: 0;
 }
 
 .uk-offcanvas-flip .uk-offcanvas-reveal .uk-offcanvas-bar {
     /* 4 */
-    left: auto;
-    right: 0;
+    inset-inline-start: auto;
+    inset-inline-end: 0;
 }
 
 .uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width; }
@@ -190,8 +190,8 @@
  */
 
 .uk-offcanvas-flip .uk-offcanvas-reveal {
-    right: 0;
-    left: auto;
+    inset-inline-start: auto;
+    inset-inline-end: 0;
 }
 
 
@@ -203,7 +203,7 @@
     position: absolute;
     z-index: @offcanvas-z-index;
     top: @offcanvas-close-position;
-    right: @offcanvas-close-position;
+    inset-inline-end: @offcanvas-close-position;
     padding: @offcanvas-close-padding;
     .hook-offcanvas-close();
 }
@@ -213,7 +213,7 @@
 
     .uk-offcanvas-close {
         top: @offcanvas-close-position-s;
-        right: @offcanvas-close-position-s;
+        inset-inline-end: @offcanvas-close-position-s;
     }
 
 }
@@ -252,8 +252,8 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     background: @offcanvas-overlay-background;
     /* 2 */
     opacity: 0;
@@ -286,15 +286,15 @@
 
 /*
  * Prepare slide-out animation (Used in reveal and push mode)
- * Using `position: left` instead of `transform` because position `fixed` elements like sticky navbars
+ * Using `position/inset-inline: left/start` instead of `transform` because position `fixed` elements like sticky navbars
  * lose their fixed state and behaves like `absolute` within a transformed container
  * 1. Provide a fixed width and prevent shrinking
  */
 
 .uk-offcanvas-container {
     position: relative;
-    left: 0;
-    transition: left 0.3s ease-out;
+    inset-inline-start: 0;
+    transition: inset-inline-start 0.3s ease-out;
     /* 1 */
     box-sizing: border-box;
     width: 100%;
@@ -304,16 +304,16 @@
  * Activate slide-out animation
  */
 
-:not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: @offcanvas-bar-width; }
+:not(.uk-offcanvas-flip).uk-offcanvas-container-animation { inset-inline-start: @offcanvas-bar-width; }
 
-.uk-offcanvas-flip.uk-offcanvas-container-animation { left: -@offcanvas-bar-width; }
+.uk-offcanvas-flip.uk-offcanvas-container-animation { inset-inline-start: auto; }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: @offcanvas-bar-width-s; }
+    :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { inset-inline-start: @offcanvas-bar-width-s; }
 
-    .uk-offcanvas-flip.uk-offcanvas-container-animation { left: -@offcanvas-bar-width-s; }
+    .uk-offcanvas-flip.uk-offcanvas-container-animation { inset-inline-start: auto; inset-inline-end: @offcanvas-bar-width-s; }
 
 }
 

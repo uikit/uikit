@@ -8,11 +8,11 @@
         }
 
         [aria-expanded="true"] .uk-accordion-icon svg > .line-1 {
-            transform: rotate(-45deg);
+            transform: rotate(calc(-45deg * var(--dir-sign)));
             opacity: 0;
         }
         
-        [aria-expanded="true"] .uk-accordion-icon svg > .line-2 { transform: rotate(90deg); }
+        [aria-expanded="true"] .uk-accordion-icon svg > .line-2 { transform: rotate(calc(90deg * var(--dir-sign))); }
 
     </style>
     <rect class="line-1" fill="#000" width="13" height="1" x="0" y="6" />

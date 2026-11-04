@@ -28,8 +28,8 @@
 @comment-meta-color:                            @global-muted-color;
 
 @comment-list-margin-top:                       @global-large-margin;
-@comment-list-padding-left:                     30px;
-@comment-list-padding-left-m:                   100px;
+@comment-list-padding-inline-start:             30px;
+@comment-list-padding-inline-start-m:           100px;
 
 
 /* ========================================================================
@@ -115,7 +115,7 @@
 
 .uk-comment-list .uk-comment ~ ul {
     margin: @comment-list-margin-top 0 0 0;
-    padding-left: @comment-list-padding-left;
+    padding-inline-start: @comment-list-padding-inline-start;
     list-style: none;
     .hook-comment-list-sub();
 }
@@ -123,7 +123,7 @@
 /* Tablet and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-comment-list .uk-comment ~ ul { padding-left: @comment-list-padding-left-m; }
+    .uk-comment-list .uk-comment ~ ul { padding-inline-start: @comment-list-padding-inline-start-m; }
 
 }
 

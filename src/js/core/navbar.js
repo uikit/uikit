@@ -29,7 +29,7 @@ export default {
     watch: {
         items() {
             const justify = hasClass(this.$el, 'uk-navbar-justify');
-            const containers = $$('.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right', this.$el);
+            const containers = $$('.uk-navbar-nav, .uk-navbar-left, .uk-navbar-right, .uk-navbar-start, .uk-navbar-end', this.$el);
             for (const container of containers) {
                 const items = justify
                     ? $$('.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle', container)

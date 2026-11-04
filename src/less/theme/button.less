@@ -119,17 +119,17 @@
         content: "";
         position: absolute;
         bottom: 0;
-        left: 0;
-        right: 100%;
+        inset-inline-start: 0;
+        inset-inline-end: 100%;
         border-bottom: @button-text-border-width solid @button-text-border;
-        transition: right 0.3s ease-out;
+        transition: inset-inline-end 0.3s ease-out;
     }
 
 }
 
 .hook-button-text-hover() {
 
-    &::before { right: 0; }
+    &::before { inset-inline-end: 0; }
 
 }
 
@@ -159,7 +159,7 @@
      */
 
     .uk-button-group > .uk-button:nth-child(n+2),
-    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: -@button-border-width; }
+    .uk-button-group > div:nth-child(n+2) .uk-button { margin-inline-start: -@button-border-width; }
 
     /*
      * Create position context to superimpose the successor elements border
