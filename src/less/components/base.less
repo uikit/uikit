@@ -11,78 +11,82 @@
 // Variables
 // ========================================================================
 
-@base-body-background:                          @global-background;
-@base-body-font-family:                         @global-font-family;
-@base-body-font-weight:                         normal;
-@base-body-font-size:                           @global-font-size;
-@base-body-line-height:                         @global-line-height;
-@base-body-color:                               @global-color;
+.hook-base-variables() {
 
-@base-link-color:                               @global-link-color;
-@base-link-text-decoration:                     none;
-@base-link-hover-color:                         @global-link-hover-color;
-@base-link-hover-text-decoration:               underline;
+    --base-body-background:                          var(--global-background);
+    --base-body-font-family:                         var(--global-font-family);
+    --base-body-font-weight:                         normal;
+    --base-body-font-size:                           var(--global-font-size);
+    --base-body-line-height:                         var(--global-line-height);
+    --base-body-color:                               var(--global-color);
 
-@base-strong-font-weight:                       bolder;
-@base-code-font-size:                           @global-small-font-size;
-@base-code-font-family:                         Consolas, monaco, monospace;
-@base-code-color:                               @global-danger-background;
-@base-em-color:                                 @global-danger-background;
-@base-ins-background:                           #ffd;
-@base-ins-color:                                @global-color;
-@base-mark-background:                          #ffd;
-@base-mark-color:                               @global-color;
-@base-quote-font-style:                         italic;
-@base-small-font-size:                          80%;
+    --base-link-color:                               var(--global-link-color);
+    --base-link-text-decoration:                     none;
+    --base-link-hover-color:                         var(--global-link-hover-color);
+    --base-link-hover-text-decoration:               underline;
 
-@base-margin-vertical:                          @global-margin;
+    --base-strong-font-weight:                       bolder;
+    --base-code-font-size:                           var(--global-small-font-size);
+    --base-code-font-family:                         Consolas, monaco, monospace;
+    --base-code-color:                               var(--global-danger-background);
+    --base-em-color:                                 var(--global-danger-background);
+    --base-ins-background:                           #ffd;
+    --base-ins-color:                                var(--global-color);
+    --base-mark-background:                          #ffd;
+    --base-mark-color:                               var(--global-color);
+    --base-quote-font-style:                         italic;
+    --base-small-font-size:                          80%;
 
-@base-heading-font-family:                      @global-font-family;
-@base-heading-font-weight:                      normal;
-@base-heading-color:                            @global-emphasis-color;
-@base-heading-text-transform:                   none;
-@base-heading-margin-top:                       @global-medium-margin;
-@base-h1-font-size-m:                           @global-2xlarge-font-size;
-@base-h1-font-size:                             @base-h1-font-size-m * 0.85;
-@base-h1-line-height:                           1.2;
-@base-h2-font-size-m:                           @global-xlarge-font-size;
-@base-h2-font-size:                             @base-h2-font-size-m * 0.85;
-@base-h2-line-height:                           1.3;
-@base-h3-font-size:                             @global-large-font-size;
-@base-h3-line-height:                           1.4;
-@base-h4-font-size:                             @global-medium-font-size;
-@base-h4-line-height:                           1.4;
-@base-h5-font-size:                             @global-font-size;
-@base-h5-line-height:                           1.4;
-@base-h6-font-size:                             @global-small-font-size;
-@base-h6-line-height:                           1.4;
+    --base-margin-vertical:                          var(--global-margin);
 
-@base-list-padding-left:                        30px;
+    --base-heading-font-family:                      var(--global-font-family);
+    --base-heading-font-weight:                      normal;
+    --base-heading-color:                            var(--global-emphasis-color);
+    --base-heading-text-transform:                   none;
+    --base-heading-margin-top:                       var(--global-medium-margin);
+    --base-h1-font-size-m:                           var(--global-2xlarge-font-size);
+    --base-h1-font-size:                             calc(var(--base-h1-font-size-m) * 0.85);
+    --base-h1-line-height:                           1.2;
+    --base-h2-font-size-m:                           var(--global-xlarge-font-size);
+    --base-h2-font-size:                             calc(var(--base-h2-font-size-m) * 0.85);
+    --base-h2-line-height:                           1.3;
+    --base-h3-font-size:                             var(--global-large-font-size);
+    --base-h3-line-height:                           1.4;
+    --base-h4-font-size:                             var(--global-medium-font-size);
+    --base-h4-line-height:                           1.4;
+    --base-h5-font-size:                             var(--global-font-size);
+    --base-h5-line-height:                           1.4;
+    --base-h6-font-size:                             var(--global-small-font-size);
+    --base-h6-line-height:                           1.4;
 
-@base-hr-margin-vertical:                       @global-margin;
-@base-hr-border-width:                          @global-border-width;
-@base-hr-border:                                @global-border;
+    --base-list-padding-left:                        30px;
 
-@base-blockquote-font-size:                     @global-medium-font-size;
-@base-blockquote-line-height:                   1.5;
-@base-blockquote-font-style:                    italic;
-@base-blockquote-margin-vertical:               @global-margin;
-@base-blockquote-footer-margin-top:             @global-small-margin;
-@base-blockquote-footer-font-size:              @global-small-font-size;
-@base-blockquote-footer-line-height:            1.5;
+    --base-hr-margin-vertical:                       var(--global-margin);
+    --base-hr-border-width:                          var(--global-border-width);
+    --base-hr-border:                                var(--global-border);
 
-@base-pre-font-size:                            @global-small-font-size;
-@base-pre-line-height:                          1.5;
-@base-pre-font-family:                          @base-code-font-family;
-@base-pre-color:                                @global-color;
+    --base-blockquote-font-size:                     var(--global-medium-font-size);
+    --base-blockquote-line-height:                   1.5;
+    --base-blockquote-font-style:                    italic;
+    --base-blockquote-margin-vertical:               var(--global-margin);
+    --base-blockquote-footer-margin-top:             var(--global-small-margin);
+    --base-blockquote-footer-font-size:              var(--global-small-font-size);
+    --base-blockquote-footer-line-height:            1.5;
 
-@base-focus-outline-width:                      2px;
-@base-focus-outline-style:                      dotted;
-@base-focus-outline:                            @global-emphasis-color;
-@base-focus-outline-offset:                     1px;
+    --base-pre-font-size:                            var(--global-small-font-size);
+    --base-pre-line-height:                          1.5;
+    --base-pre-font-family:                          var(--base-code-font-family);
+    --base-pre-color:                                var(--global-color);
 
-@base-selection-background:                     #39f;
-@base-selection-color:                          @global-inverse-color;
+    --base-focus-outline-width:                      2px;
+    --base-focus-outline-style:                      dotted;
+    --base-focus-outline:                            var(--global-emphasis-color);
+    --base-focus-outline-offset:                     1px;
+
+    --base-selection-background:                     #39f;
+    --base-selection-color:                          var(--global-inverse-color);
+
+}
 
 
 /* ========================================================================
@@ -97,15 +101,15 @@
 
 html {
     /* 1 */
-    font-family: @base-body-font-family;
-    font-size: @base-body-font-size;
-    font-weight: @base-body-font-weight;
-    line-height: @base-body-line-height;
+    font-family: var(--base-body-font-family);
+    font-size: var(--base-body-font-size);
+    font-weight: var(--base-body-font-weight);
+    line-height: var(--base-body-line-height);
     /* 2 */
     -webkit-text-size-adjust: 100%;
     /* 3 */
-    background: @base-body-background;
-    color: @base-body-color;
+    background: var(--base-body-background);
+    color: var(--base-body-color);
     .hook-base-body();
 }
 
@@ -125,8 +129,8 @@ body { margin: 0; }
 
 a,
 .uk-link {
-    color: @base-link-color;
-    text-decoration: @base-link-text-decoration;
+    color: var(--base-link-color);
+    text-decoration: var(--base-link-text-decoration);
     cursor: pointer;
     .hook-base-link();
 }
@@ -134,8 +138,8 @@ a,
 a:hover,
 .uk-link:hover,
 .uk-link-toggle:hover .uk-link {
-    color: @base-link-hover-color;
-    text-decoration: @base-link-hover-text-decoration;
+    color: var(--base-link-hover-color);
+    text-decoration: var(--base-link-hover-text-decoration);
     .hook-base-link-hover();
 }
 
@@ -162,7 +166,7 @@ abbr[title] { text-decoration: underline dotted; }
  */
 
 b,
-strong { font-weight: @base-strong-font-weight; }
+strong { font-weight: var(--base-strong-font-weight); }
 
 /*
  * 1. Consolas has a better baseline in running text compared to `Courier`
@@ -174,11 +178,11 @@ strong { font-weight: @base-strong-font-weight; }
 :not(pre) > kbd,
 :not(pre) > samp {
     /* 1 */
-    font-family: @base-code-font-family;
+    font-family: var(--base-code-font-family);
     /* 2 */
-    font-size: @base-code-font-size;
+    font-size: var(--base-code-font-size);
     /* 3 */
-    color: @base-code-color;
+    color: var(--base-code-color);
     white-space: nowrap;
     .hook-base-code();
 }
@@ -187,15 +191,15 @@ strong { font-weight: @base-strong-font-weight; }
  * Emphasize
  */
 
-em { color: @base-em-color; }
+em { color: var(--base-em-color); }
 
 /*
  * Insert
  */
 
 ins {
-    background: @base-ins-background;
-    color: @base-ins-color;
+    background: var(--base-ins-background);
+    color: var(--base-ins-color);
     text-decoration: none;
 }
 
@@ -204,21 +208,21 @@ ins {
  */
 
 mark {
-    background: @base-mark-background;
-    color: @base-mark-color;
+    background: var(--base-mark-background);
+    color: var(--base-mark-color);
 }
 
 /*
  * Quote
  */
 
-q { font-style: @base-quote-font-style; }
+q { font-style: var(--base-quote-font-style); }
 
 /*
  * Add the correct font size in all browsers.
  */
 
-small { font-size: @base-small-font-size; }
+small { font-size: var(--base-small-font-size); }
 
 /*
  * Prevents `sub` and `sup` affecting `line-height` in all browsers.
@@ -310,7 +314,7 @@ dl,
 pre,
 address,
 fieldset,
-figure { margin: 0 0 @base-margin-vertical 0; }
+figure { margin: 0 0 var(--base-margin-vertical) 0; }
 
 /* Add margin if adjacent element */
 * + p,
@@ -320,7 +324,7 @@ figure { margin: 0 0 @base-margin-vertical 0; }
 * + pre,
 * + address,
 * + fieldset,
-* + figure { margin-top: @base-margin-vertical; }
+* + figure { margin-top: var(--base-margin-vertical); }
 
 
 /* Headings
@@ -338,11 +342,11 @@ h6, .uk-h6,
 .uk-heading-xlarge,
 .uk-heading-2xlarge,
 .uk-heading-3xlarge {
-    margin: 0 0 @base-margin-vertical 0;
-    font-family: @base-heading-font-family;
-    font-weight: @base-heading-font-weight;
-    color: @base-heading-color;
-    text-transform: @base-heading-text-transform;
+    margin: 0 0 var(--base-margin-vertical) 0;
+    font-family: var(--base-heading-font-family);
+    font-weight: var(--base-heading-font-weight);
+    color: var(--base-heading-color);
+    text-transform: var(--base-heading-text-transform);
     .hook-base-heading();
 }
 
@@ -358,53 +362,53 @@ h6, .uk-h6,
 * + .uk-heading-large,
 * + .uk-heading-xlarge,
 * + .uk-heading-2xlarge,
-* + .uk-heading-3xlarge { margin-top: @base-heading-margin-top; }
+* + .uk-heading-3xlarge { margin-top: var(--base-heading-margin-top); }
 
 /*
  * Sizes
  */
 
 h1, .uk-h1 {
-    font-size: @base-h1-font-size;
-    line-height: @base-h1-line-height;
+    font-size: var(--base-h1-font-size);
+    line-height: var(--base-h1-line-height);
     .hook-base-h1();
 }
 
 h2, .uk-h2 {
-    font-size: @base-h2-font-size;
-    line-height: @base-h2-line-height;
+    font-size: var(--base-h2-font-size);
+    line-height: var(--base-h2-line-height);
     .hook-base-h2();
 }
 
 h3, .uk-h3 {
-    font-size: @base-h3-font-size;
-    line-height: @base-h3-line-height;
+    font-size: var(--base-h3-font-size);
+    line-height: var(--base-h3-line-height);
     .hook-base-h3();
 }
 
 h4, .uk-h4 {
-    font-size: @base-h4-font-size;
-    line-height: @base-h4-line-height;
+    font-size: var(--base-h4-font-size);
+    line-height: var(--base-h4-line-height);
     .hook-base-h4();
 }
 
 h5, .uk-h5 {
-    font-size: @base-h5-font-size;
-    line-height: @base-h5-line-height;
+    font-size: var(--base-h5-font-size);
+    line-height: var(--base-h5-line-height);
     .hook-base-h5();
 }
 
 h6, .uk-h6 {
-    font-size: @base-h6-font-size;
-    line-height: @base-h6-line-height;
+    font-size: var(--base-h6-font-size);
+    line-height: var(--base-h6-line-height);
     .hook-base-h6();
 }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    h1, .uk-h1 { font-size: @base-h1-font-size-m; }
-    h2, .uk-h2 { font-size: @base-h2-font-size-m; }
+    h1, .uk-h1 { font-size: var(--base-h1-font-size-m); }
+    h2, .uk-h2 { font-size: var(--base-h2-font-size-m); }
 
 }
 
@@ -413,7 +417,7 @@ h6, .uk-h6 {
  ========================================================================== */
 
 ul,
-ol { padding-left: @base-list-padding-left; }
+ol { padding-left: var(--base-list-padding-left); }
 
 /*
  * Reset margin for nested lists
@@ -447,15 +451,15 @@ hr, .uk-hr {
     /* 2 */
     text-align: inherit;
     /* 3 */
-    margin: 0 0 @base-hr-margin-vertical 0;
+    margin: 0 0 var(--base-hr-margin-vertical) 0;
     border: 0;
-    border-top: @base-hr-border-width solid @base-hr-border;
+    border-top: var(--base-hr-border-width) solid var(--base-hr-border);
     .hook-base-hr();
 }
 
 /* Add margin if adjacent element */
 * + hr,
-* + .uk-hr { margin-top: @base-hr-margin-vertical; }
+* + .uk-hr { margin-top: var(--base-hr-margin-vertical); }
 
 
 /* Address
@@ -468,15 +472,15 @@ address { font-style: normal; }
  ========================================================================== */
 
 blockquote {
-    margin: 0 0 @base-blockquote-margin-vertical 0;
-    font-size: @base-blockquote-font-size;
-    line-height: @base-blockquote-line-height;
-    font-style: @base-blockquote-font-style;
+    margin: 0 0 var(--base-blockquote-margin-vertical) 0;
+    font-size: var(--base-blockquote-font-size);
+    line-height: var(--base-blockquote-line-height);
+    font-style: var(--base-blockquote-font-style);
     .hook-base-blockquote();
 }
 
 /* Add margin if adjacent element */
-* + blockquote { margin-top: @base-blockquote-margin-vertical; }
+* + blockquote { margin-top: var(--base-blockquote-margin-vertical); }
 
 /*
  * Content
@@ -485,9 +489,9 @@ blockquote {
 blockquote p:last-of-type { margin-bottom: 0; }
 
 blockquote footer {
-    margin-top: @base-blockquote-footer-margin-top;
-    font-size: @base-blockquote-footer-font-size;
-    line-height: @base-blockquote-footer-line-height;
+    margin-top: var(--base-blockquote-footer-margin-top);
+    font-size: var(--base-blockquote-footer-font-size);
+    line-height: var(--base-blockquote-footer-line-height);
     .hook-base-blockquote-footer();
 }
 
@@ -500,15 +504,15 @@ blockquote footer {
  */
 
 pre {
-    font: @base-pre-font-size e("/") @base-pre-line-height @base-pre-font-family;
-    color: @base-pre-color;
+    font: var(--base-pre-font-size) e("/") var(--base-pre-line-height) var(--base-pre-font-family);
+    color: var(--base-pre-color);
     tab-size: 4;
     /* 1 */
     overflow: auto;
     .hook-base-pre();
 }
 
-pre code { font-family: @base-pre-font-family; }
+pre code { font-family: var(--base-pre-font-family); }
 
 
 /* Focus
@@ -516,15 +520,15 @@ pre code { font-family: @base-pre-font-family; }
 
 :focus { outline: none; }
 
-:focus-visible { outline: @base-focus-outline-width @base-focus-outline-style @base-focus-outline; }
+:focus-visible { outline: var(--base-focus-outline-width) var(--base-focus-outline-style) var(--base-focus-outline); }
 
 
 /* Selection pseudo-element
  ========================================================================== */
 
 ::selection {
-    background: @base-selection-background;
-    color: @base-selection-color;
+    background: var(--base-selection-background);
+    color: var(--base-selection-color);
     text-shadow: none;
 }
 
@@ -569,18 +573,20 @@ pre code { font-family: @base-pre-font-family; }
 // Inverse
 // ========================================================================
 
-@inverse-base-color:                           @inverse-global-color;
-@inverse-base-link-color:                      @inverse-global-emphasis-color;
-@inverse-base-link-hover-color:                @inverse-global-emphasis-color;
-@inverse-base-code-color:                      @inverse-global-color;
-@inverse-base-em-color:                        @inverse-global-emphasis-color;
-@inverse-base-heading-color:                   @inverse-global-emphasis-color;
-@inverse-base-hr-border:                       @inverse-global-border;
-@inverse-base-focus-outline:                   @inverse-global-emphasis-color;
+.hook-base-variables() {
+    --inverse-base-color:                           var(--inverse-global-color);
+    --inverse-base-link-color:                      var(--inverse-global-emphasis-color);
+    --inverse-base-link-hover-color:                var(--inverse-global-emphasis-color);
+    --inverse-base-code-color:                      var(--inverse-global-color);
+    --inverse-base-em-color:                        var(--inverse-global-emphasis-color);
+    --inverse-base-heading-color:                   var(--inverse-global-emphasis-color);
+    --inverse-base-hr-border:                       var(--inverse-global-border);
+    --inverse-base-focus-outline:                   var(--inverse-global-emphasis-color);
+}
 
 .hook-inverse() {
 
-    color: @inverse-base-color;
+    color: var(--inverse-base-color);
 
     // Base
     // ========================================================================
@@ -591,14 +597,14 @@ pre code { font-family: @base-pre-font-family; }
 
     a,
     .uk-link {
-        color: @inverse-base-link-color;
+        color: var(--inverse-base-link-color);
         .hook-inverse-base-link();
     }
 
     a:hover,
     .uk-link:hover,
     .uk-link-toggle:hover .uk-link {
-        color: @inverse-base-link-hover-color;
+        color: var(--inverse-base-link-hover-color);
         .hook-inverse-base-link-hover();
     }
 
@@ -609,7 +615,7 @@ pre code { font-family: @base-pre-font-family; }
     :not(pre) > code,
     :not(pre) > kbd,
     :not(pre) > samp {
-        color: @inverse-base-code-color;
+        color: var(--inverse-base-code-color);
         .hook-inverse-base-code();
     }
 
@@ -617,7 +623,7 @@ pre code { font-family: @base-pre-font-family; }
     // Emphasize
     //
 
-    em { color: @inverse-base-em-color; }
+    em { color: var(--inverse-base-em-color); }
 
     //
     // Headings
@@ -635,7 +641,7 @@ pre code { font-family: @base-pre-font-family; }
     .uk-heading-xlarge,
     .uk-heading-2xlarge,
     .uk-heading-3xlarge {
-        color: @inverse-base-heading-color;
+        color: var(--inverse-base-heading-color);
         .hook-inverse-base-heading();
     }
 
@@ -680,7 +686,7 @@ pre code { font-family: @base-pre-font-family; }
     //
 
     hr, .uk-hr {
-        border-top-color: @inverse-base-hr-border;
+        border-top-color: var(--inverse-base-hr-border);
         .hook-inverse-base-hr();
     }
 
@@ -688,7 +694,7 @@ pre code { font-family: @base-pre-font-family; }
     // Focus
     //
 
-    :focus-visible { outline-color: @inverse-base-focus-outline; }
+    :focus-visible { outline-color: var(--inverse-base-focus-outline); }
 
 }
 

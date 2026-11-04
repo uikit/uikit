@@ -7,12 +7,16 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+.hook-comment-variables() {
 
-@comment-primary-padding:                       @global-gutter;
-@comment-primary-background:                    @global-muted-background;
+    //
+    // New
+    //
+
+    --comment-primary-padding:                       var(--global-gutter);
+    --comment-primary-background:                    var(--global-muted-background);
+
+}
 
 
 // Component
@@ -61,8 +65,8 @@
 // ========================================================================
 
 .hook-comment-primary() {
-    padding: @comment-primary-padding;
-    background-color: @comment-primary-background;
+    padding: var(--comment-primary-padding);
+    background-color: var(--comment-primary-background);
 }
 
 

@@ -7,12 +7,16 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+.hook-article-variables() {
 
-@article-meta-link-color:                       @article-meta-color;
-@article-meta-link-hover-color:                 @global-color;
+    //
+    // New
+    //
+
+    --article-meta-link-color:                       var(--article-meta-color);
+    --article-meta-link-hover-color:                 var(--global-color);
+
+}
 
 
 // Component
@@ -38,10 +42,10 @@
 
 .hook-article-meta() {
 
-    a { color: @article-meta-link-color; }
+    a { color: var(--article-meta-link-color); }
 
     a:hover {
-        color: @article-meta-link-hover-color;
+        color: var(--article-meta-link-hover-color);
         text-decoration: none;
     }
 

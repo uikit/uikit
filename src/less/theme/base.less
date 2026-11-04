@@ -7,23 +7,27 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+.hook-base-variables() {
+    
+    //
+    // New
+    //
 
-@base-code-padding-horizontal:                  6px;
-@base-code-padding-vertical:                    2px;
-@base-code-background:                          @global-muted-background;
+    --base-code-padding-horizontal:                  6px;
+    --base-code-padding-vertical:                    2px;
+    --base-code-background:                          var(--global-muted-background);
 
-@base-blockquote-color:                         @global-emphasis-color;
+    --base-blockquote-color:                         var(--global-emphasis-color);
 
-@base-blockquote-footer-color:                  @global-color;
+    --base-blockquote-footer-color:                  var(--global-color);
 
-@base-pre-padding:                              10px;
-@base-pre-background:                           @global-background;
-@base-pre-border-width:                         @global-border-width;
-@base-pre-border:                               @global-border;
-@base-pre-border-radius:                        3px;
+    --base-pre-padding:                              10px;
+    --base-pre-background:                           var(--global-background);
+    --base-pre-border-width:                         var(--global-border-width);
+    --base-pre-border:                               var(--global-border);
+    --base-pre-border-radius:                        3px;
+
+}
 
 
 // Body
@@ -44,8 +48,8 @@
 // ========================================================================
 
 .hook-base-code() {
-    padding: @base-code-padding-vertical @base-code-padding-horizontal;
-    background: @base-code-background;
+    padding: var(--base-code-padding-vertical) var(--base-code-padding-horizontal);
+    background: var(--base-code-background);
 }
 
 
@@ -77,12 +81,12 @@
 // ========================================================================
 
 .hook-base-blockquote() {
-    color: @base-blockquote-color;
+    color: var(--base-blockquote-color);
 }
 
 .hook-base-blockquote-footer() {
 
-    color: @base-blockquote-footer-color;
+    color: var(--base-blockquote-footer-color);
 
     &::before { content: "— "; }
 
@@ -93,10 +97,10 @@
 // ========================================================================
 
 .hook-base-pre() {
-    padding: @base-pre-padding;
-    border: @base-pre-border-width solid @base-pre-border;
-    border-radius: @base-pre-border-radius;
-    background: @base-pre-background;
+    padding: var(--base-pre-padding);
+    border: var(--base-pre-border-width) solid var(--base-pre-border);
+    border-radius: var(--base-pre-border-radius);
+    background: var(--base-pre-background);
 }
 
 
@@ -109,14 +113,16 @@
 // Inverse
 // ========================================================================
 
-@inverse-base-blockquote-color:                @inverse-global-emphasis-color;
-@inverse-base-blockquote-footer-color:         @inverse-global-color;
+.hook-base-variables() {
+    --inverse-base-blockquote-color:                var(--inverse-global-emphasis-color);
+    --inverse-base-blockquote-footer-color:         var(--inverse-global-color);
+}
 
 .hook-inverse-base-link() {}
 .hook-inverse-base-link-hover() {}
 
 .hook-inverse-base-code() {
-    background-color: @inverse-global-muted-background;
+    background-color: var(--inverse-global-muted-background);
 }
 
 .hook-inverse-base-heading() {}
@@ -128,7 +134,7 @@
 .hook-inverse-base-h5() {}
 .hook-inverse-base-h6() {}
 
-.hook-inverse-base-blockquote() { color: @inverse-base-blockquote-color; }
-.hook-inverse-base-blockquote-footer() { color: @inverse-base-blockquote-footer-color; }
+.hook-inverse-base-blockquote() { color: var(--inverse-base-blockquote-color); }
+.hook-inverse-base-blockquote-footer() { color: var(--inverse-base-blockquote-footer-color); }
 
 .hook-inverse-base-hr() {}

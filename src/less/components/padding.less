@@ -11,25 +11,29 @@
 // Variables
 // ========================================================================
 
-@padding-padding:                                       @global-gutter;
-@padding-padding-l:                                     @global-medium-gutter;
+.hook-padding-variables() {
+    
+    --padding-padding:                                       var(--global-gutter);
+    --padding-padding-l:                                     var(--global-medium-gutter);
 
-@padding-small-padding:                                 @global-small-gutter;
+    --padding-small-padding:                                 var(--global-small-gutter);
 
-@padding-large-padding:                                 @global-medium-gutter;
-@padding-large-padding-l:                               @global-large-gutter;
+    --padding-large-padding:                                 var(--global-medium-gutter);
+    --padding-large-padding-l:                               var(--global-large-gutter);
+
+}
 
 
 /* ========================================================================
    Component: Padding
  ========================================================================== */
 
-.uk-padding { padding: @padding-padding; }
+.uk-padding { padding: var(--padding-padding); }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-padding { padding: @padding-padding-l; }
+    .uk-padding { padding: var(--padding-padding-l); }
 
 }
 
@@ -37,18 +41,18 @@
 /* Small
  ========================================================================== */
 
-.uk-padding-small { padding: @padding-small-padding; }
+.uk-padding-small { padding: var(--padding-small-padding); }
 
 
 /* Large
  ========================================================================== */
 
-.uk-padding-large { padding: @padding-large-padding; }
+.uk-padding-large { padding: var(--padding-large-padding); }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-padding-large { padding: @padding-large-padding-l; }
+    .uk-padding-large { padding: var(--padding-large-padding-l); }
 
 }
 

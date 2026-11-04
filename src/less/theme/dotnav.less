@@ -7,18 +7,22 @@
 // Variables
 // ========================================================================
 
-@dotnav-item-background:                             transparent;
+.hook-dotnav-variables() {
 
-//
-// New
-//
+    --dotnav-item-background:                             transparent;
 
-@dotnav-item-border-width:                           1px;
+    //
+    // New
+    //
 
-@dotnav-item-border:                                 fade(@global-color, 40%);
-@dotnav-item-hover-border:                           transparent;
-@dotnav-item-onclick-border:                         transparent;
-@dotnav-item-active-border:                          transparent;
+    --dotnav-item-border-width:                           1px;
+
+    --dotnav-item-border:                                 rgb(from var(--global-color) r g b / 0.4);
+    --dotnav-item-hover-border:                           transparent;
+    --dotnav-item-onclick-border:                         transparent;
+    --dotnav-item-active-border:                          transparent;
+
+}
 
 
 // Component
@@ -27,16 +31,16 @@
 .hook-dotnav() {}
 
 .hook-dotnav-item() {
-    border: @dotnav-item-border-width solid @dotnav-item-border;
+    border: var(--dotnav-item-border-width) solid var(--dotnav-item-border);
     transition: 0.2s ease-in-out;
     transition-property: background-color, border-color;
 }
 
-.hook-dotnav-item-hover() { border-color: @dotnav-item-hover-border; }
+.hook-dotnav-item-hover() { border-color: var(--dotnav-item-hover-border); }
 
-.hook-dotnav-item-onclick() { border-color: @dotnav-item-onclick-border; }
+.hook-dotnav-item-onclick() { border-color: var(--dotnav-item-onclick-border); }
 
-.hook-dotnav-item-active() { border-color: @dotnav-item-active-border; }
+.hook-dotnav-item-active() { border-color: var(--dotnav-item-active-border); }
 
 
 // Miscellaneous
@@ -48,10 +52,12 @@
 // Inverse
 // ========================================================================
 
-@inverse-dotnav-item-background:                     transparent;
+.hook-dotnav-variables() {
+    --inverse-dotnav-item-background:                     transparent;
+}
 
 .hook-inverse-dotnav() {}
-.hook-inverse-dotnav-item() { border-color: fade(@inverse-global-color, 90%); }
+.hook-inverse-dotnav-item() { border-color: rgb(from var(--inverse-global-color) r g b / 0.9); }
 .hook-inverse-dotnav-item-hover() { border-color: transparent; }
 .hook-inverse-dotnav-item-onclick() { border-color: transparent; }
 .hook-inverse-dotnav-item-active() { border-color: transparent; }

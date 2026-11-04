@@ -11,12 +11,16 @@
 // Variables
 // ========================================================================
 
-@description-list-term-color:                   @global-emphasis-color;
-@description-list-term-margin-top:              @global-margin;
+.hook-description-list-variables() {
 
-@description-list-divider-term-margin-top:      @global-margin;
-@description-list-divider-term-border-width:    @global-border-width;
-@description-list-divider-term-border:          @global-border;
+    --description-list-term-color:                   var(--global-emphasis-color);
+    --description-list-term-margin-top:              var(--global-margin);
+
+    --description-list-divider-term-margin-top:      var(--global-margin);
+    --description-list-divider-term-border-width:    var(--global-border-width);
+    --description-list-divider-term-border:          var(--global-border);
+    
+}
 
 
 /* ========================================================================
@@ -28,12 +32,12 @@
  */
 
 .uk-description-list > dt {
-    color: @description-list-term-color;
+    color: var(--description-list-term-color);
     .hook-description-list-term();
 }
 
 .uk-description-list > dt:nth-child(n+2) {
-    margin-top: @description-list-term-margin-top;
+    margin-top: var(--description-list-term-margin-top);
 }
 
 /*
@@ -53,9 +57,9 @@
  */
 
 .uk-description-list-divider > dt:nth-child(n+2) {
-    margin-top: @description-list-divider-term-margin-top;
-    padding-top: @description-list-divider-term-margin-top;
-    border-top: @description-list-divider-term-border-width solid @description-list-divider-term-border;
+    margin-top: var(--description-list-divider-term-margin-top);
+    padding-top: var(--description-list-divider-term-margin-top);
+    border-top: var(--description-list-divider-term-border-width) solid var(--description-list-divider-term-border);
     .hook-description-list-divider-term();
 }
 

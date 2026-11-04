@@ -7,20 +7,24 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+.hook-label-variables() {
 
-@label-border-radius:                           2px;
-@label-text-transform:                          uppercase;
+    //
+    // New
+    //
+
+    --label-border-radius:                           2px;
+    --label-text-transform:                          uppercase;
+
+}
 
 
 // Component
 // ========================================================================
 
 .hook-label() {
-    border-radius: @label-border-radius;
-    text-transform: @label-text-transform;
+    border-radius: var(--label-border-radius);
+    text-transform: var(--label-text-transform);
 }
 
 

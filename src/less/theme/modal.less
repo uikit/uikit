@@ -7,23 +7,27 @@
 // Variables
 // ========================================================================
 
-@modal-header-background:                       @modal-dialog-background;
-@modal-footer-background:                       @modal-dialog-background;
+.hook-modal-variables() {
 
-//
-// New
-//
+    --modal-header-background:                       var(--modal-dialog-background);
+    --modal-footer-background:                       var(--modal-dialog-background);
 
-@modal-header-border-width:                    @global-border-width;
-@modal-header-border:                          @global-border;
+    //
+    // New
+    //
 
-@modal-footer-border-width:                    @global-border-width;
-@modal-footer-border:                          @global-border;
+    --modal-header-border-width:                    var(--global-border-width);
+    --modal-header-border:                          var(--global-border);
 
-@modal-close-full-padding:                     10px;
-@modal-close-full-background:                  @modal-dialog-background;
+    --modal-footer-border-width:                    var(--global-border-width);
+    --modal-footer-border:                          var(--global-border);
 
-@modal-close-full-padding-m:                   @global-margin;
+    --modal-close-full-padding:                     10px;
+    --modal-close-full-background:                  var(--modal-dialog-background);
+
+    --modal-close-full-padding-m:                   var(--global-margin);
+
+}
 
 
 // Component
@@ -47,11 +51,11 @@
 // Sections
 // ========================================================================
 
-.hook-modal-header() { border-bottom: @modal-header-border-width solid @modal-header-border; }
+.hook-modal-header() { border-bottom: var(--modal-header-border-width) solid var(--modal-header-border); }
 
 .hook-modal-body() {}
 
-.hook-modal-footer() { border-top: @modal-footer-border-width solid @modal-footer-border; }
+.hook-modal-footer() { border-top: var(--modal-footer-border-width) solid var(--modal-footer-border); }
 
 
 // Title
@@ -78,8 +82,8 @@
 .hook-modal-close-full() {
     top: 0;
     right: 0;
-    padding: @modal-close-full-padding;
-    background: @modal-close-full-background;
+    padding: var(--modal-close-full-padding);
+    background: var(--modal-close-full-background);
 }
 
 .hook-modal-close-full-hover() {}
@@ -94,7 +98,7 @@
     @media (min-width: @breakpoint-medium) {
 
         .uk-modal-close-full {
-            padding: @modal-close-full-padding-m;
+            padding: var(--modal-close-full-padding-m);
         }
 
     }

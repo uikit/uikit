@@ -15,31 +15,35 @@
 // Variables
 // ========================================================================
 
-@subnav-margin-horizontal:                      20px;
+.hook-subnav-variables() {
 
-@subnav-item-color:                             @global-muted-color;
-@subnav-item-hover-color:                       @global-color;
-@subnav-item-hover-text-decoration:             none;
-@subnav-item-active-color:                      @global-emphasis-color;
+    --subnav-margin-horizontal:                      20px;
 
-@subnav-divider-margin-horizontal:              @subnav-margin-horizontal;
-@subnav-divider-border-height:                  1.5em;
-@subnav-divider-border-width:                   @global-border-width;
-@subnav-divider-border:                         @global-border;
+    --subnav-item-color:                             var(--global-muted-color);
+    --subnav-item-hover-color:                       var(--global-color);
+    --subnav-item-hover-text-decoration:             none;
+    --subnav-item-active-color:                      var(--global-emphasis-color);
 
-@subnav-pill-margin-horizontal:                 @subnav-margin-horizontal;
-@subnav-pill-item-padding-vertical:             5px;
-@subnav-pill-item-padding-horizontal:           10px;
-@subnav-pill-item-background:                   transparent;
-@subnav-pill-item-color:                        @subnav-item-color;
-@subnav-pill-item-hover-background:             @global-muted-background;
-@subnav-pill-item-hover-color:                  @global-color;
-@subnav-pill-item-onclick-background:           @subnav-pill-item-hover-background;
-@subnav-pill-item-onclick-color:                @subnav-pill-item-hover-color;
-@subnav-pill-item-active-background:            @global-primary-background;
-@subnav-pill-item-active-color:                 @global-inverse-color;
+    --subnav-divider-margin-horizontal:              var(--subnav-margin-horizontal);
+    --subnav-divider-border-height:                  1.5em;
+    --subnav-divider-border-width:                   var(--global-border-width);
+    --subnav-divider-border:                         var(--global-border);
 
-@subnav-item-disabled-color:                    @global-muted-color;
+    --subnav-pill-margin-horizontal:                 var(--subnav-margin-horizontal);
+    --subnav-pill-item-padding-vertical:             5px;
+    --subnav-pill-item-padding-horizontal:           10px;
+    --subnav-pill-item-background:                   transparent;
+    --subnav-pill-item-color:                        var(--subnav-item-color);
+    --subnav-pill-item-hover-background:             var(--global-muted-background);
+    --subnav-pill-item-hover-color:                  var(--global-color);
+    --subnav-pill-item-onclick-background:           var(--subnav-pill-item-hover-background);
+    --subnav-pill-item-onclick-color:                var(--subnav-pill-item-hover-color);
+    --subnav-pill-item-active-background:            var(--global-primary-background);
+    --subnav-pill-item-active-color:                 var(--global-inverse-color);
+
+    --subnav-item-disabled-color:                    var(--global-muted-color);
+
+}
 
 
 /* ========================================================================
@@ -60,7 +64,7 @@
     /* 2 */
     align-items: center;
     /* 3 */
-    margin-left: -@subnav-margin-horizontal;
+    margin-left: calc(var(--subnav-margin-horizontal) * -1);
     /* 4 */
     padding: 0;
     list-style: none;
@@ -77,7 +81,7 @@
     /* 1 */
     flex: none;
     /* 2 */
-    padding-left: @subnav-margin-horizontal;
+    padding-left: var(--subnav-margin-horizontal);
     /* 3 */
     position: relative;
 }
@@ -101,20 +105,20 @@
     /* 2 */
     column-gap: 0.25em;
     /* 3 */
-    color: @subnav-item-color;
+    color: var(--subnav-item-color);
     .hook-subnav-item();
 }
 
 /* Hover */
 .uk-subnav > * > a:hover {
-    color: @subnav-item-hover-color;
-    text-decoration: @subnav-item-hover-text-decoration;
+    color: var(--subnav-item-hover-color);
+    text-decoration: var(--subnav-item-hover-text-decoration);
     .hook-subnav-item-hover();
 }
 
 /* Active */
 .uk-subnav > .uk-active > a {
-    color: @subnav-item-active-color;
+    color: var(--subnav-item-active-color);
     .hook-subnav-item-active();
 }
 
@@ -126,7 +130,7 @@
  * Set gutter
  */
 
-.uk-subnav-divider { margin-left: -((@subnav-divider-margin-horizontal * 2) + @subnav-divider-border-width); }
+.uk-subnav-divider { margin-left: calc(((var(--subnav-divider-margin-horizontal) * 2) + var(--subnav-divider-border-width)) * -1); }
 
 /*
  * Align items and divider vertically
@@ -144,15 +148,15 @@
 
 .uk-subnav-divider > ::before {
     content: "";
-    height: @subnav-divider-border-height;
-    margin-left: (@subnav-divider-margin-horizontal - @subnav-margin-horizontal);
-    margin-right: @subnav-divider-margin-horizontal;
-    border-left: @subnav-divider-border-width solid transparent;
+    height: var(--subnav-divider-border-height);
+    margin-left: calc(var(--subnav-divider-margin-horizontal) - var(--subnav-margin-horizontal));
+    margin-right: var(--subnav-divider-margin-horizontal);
+    border-left: var(--subnav-divider-border-width) solid transparent;
 }
 
 /* 1 */
 .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
-    border-left-color: @subnav-divider-border;
+    border-left-color: var(--subnav-divider-border);
     .hook-subnav-divider();
 }
 
@@ -164,34 +168,34 @@
  * Gutter
  */
 
-.uk-subnav-pill { margin-left: -@subnav-pill-margin-horizontal; }
-.uk-subnav-pill > * { padding-left: @subnav-pill-margin-horizontal; }
+.uk-subnav-pill { margin-left: calc(var(--subnav-pill-margin-horizontal) - 1); }
+.uk-subnav-pill > * { padding-left: var(--subnav-pill-margin-horizontal); }
 
 .uk-subnav-pill > * > :first-child {
-    padding: @subnav-pill-item-padding-vertical @subnav-pill-item-padding-horizontal;
-    background: @subnav-pill-item-background;
-    color: @subnav-pill-item-color;
+    padding: var(--subnav-pill-item-padding-vertical) var(--subnav-pill-item-padding-horizontal);
+    background: var(--subnav-pill-item-background);
+    color: var(--subnav-pill-item-color);
     .hook-subnav-pill-item();
 }
 
 /* Hover */
 .uk-subnav-pill > * > a:hover {
-    background-color: @subnav-pill-item-hover-background;
-    color: @subnav-pill-item-hover-color;
+    background-color: var(--subnav-pill-item-hover-background);
+    color: var(--subnav-pill-item-hover-color);
     .hook-subnav-pill-item-hover();
 }
 
 /* OnClick */
 .uk-subnav-pill > * > a:active {
-    background-color: @subnav-pill-item-onclick-background;
-    color: @subnav-pill-item-onclick-color;
+    background-color: var(--subnav-pill-item-onclick-background);
+    color: var(--subnav-pill-item-onclick-color);
     .hook-subnav-pill-item-onclick();
 }
 
 /* Active */
 .uk-subnav-pill > .uk-active > a {
-    background-color: @subnav-pill-item-active-background;
-    color: @subnav-pill-item-active-color;
+    background-color: var(--subnav-pill-item-active-background);
+    color: var(--subnav-pill-item-active-color);
     .hook-subnav-pill-item-active();
 }
 
@@ -201,7 +205,7 @@
  ========================================================================== */
 
 .uk-subnav > .uk-disabled > :first-child {
-    color: @subnav-item-disabled-color;
+    color: var(--subnav-item-disabled-color);
     .hook-subnav-item-disabled();
 }
 
@@ -227,34 +231,36 @@
 // Inverse
 // ========================================================================
 
-@inverse-subnav-item-color:                    @inverse-global-muted-color;
-@inverse-subnav-item-hover-color:              @inverse-global-color;
-@inverse-subnav-item-active-color:             @inverse-global-emphasis-color;
-@inverse-subnav-divider-border:                @inverse-global-border;
-@inverse-subnav-pill-item-background:          transparent;
-@inverse-subnav-pill-item-color:               @inverse-global-muted-color;
-@inverse-subnav-pill-item-hover-background:    @inverse-global-muted-background;
-@inverse-subnav-pill-item-hover-color:         @inverse-global-color;
-@inverse-subnav-pill-item-onclick-background:  @inverse-subnav-pill-item-hover-background;
-@inverse-subnav-pill-item-onclick-color:       @inverse-subnav-pill-item-hover-color;
-@inverse-subnav-pill-item-active-background:   @inverse-global-primary-background;
-@inverse-subnav-pill-item-active-color:        @inverse-global-inverse-color;
-@inverse-subnav-item-disabled-color:           @inverse-global-muted-color;
+.hook-subnav-variables() {
+    --inverse-subnav-item-color:                    var(--inverse-global-muted-color);
+    --inverse-subnav-item-hover-color:              var(--inverse-global-color);
+    --inverse-subnav-item-active-color:             var(--inverse-global-emphasis-color);
+    --inverse-subnav-divider-border:                var(--inverse-global-border);
+    --inverse-subnav-pill-item-background:          transparent;
+    --inverse-subnav-pill-item-color:               var(--inverse-global-muted-color);
+    --inverse-subnav-pill-item-hover-background:    var(--inverse-global-muted-background);
+    --inverse-subnav-pill-item-hover-color:         var(--inverse-global-color);
+    --inverse-subnav-pill-item-onclick-background:  var(--inverse-subnav-pill-item-hover-background);
+    --inverse-subnav-pill-item-onclick-color:       var(--inverse-subnav-pill-item-hover-color);
+    --inverse-subnav-pill-item-active-background:   var(--inverse-global-primary-background);
+    --inverse-subnav-pill-item-active-color:        var(--inverse-global-inverse-color);
+    --inverse-subnav-item-disabled-color:           var(--inverse-global-muted-color);
+}
 
 .hook-inverse() {
 
     .uk-subnav > * > :first-child {
-        color: @inverse-subnav-item-color;
+        color: var(--inverse-subnav-item-color);
         .hook-inverse-subnav-item();
     }
 
     .uk-subnav > * > a:hover {
-        color: @inverse-subnav-item-hover-color;
+        color: var(--inverse-subnav-item-hover-color);
         .hook-inverse-subnav-item-hover();
     }
 
     .uk-subnav > .uk-active > a {
-        color: @inverse-subnav-item-active-color;
+        color: var(--inverse-subnav-item-active-color);
         .hook-inverse-subnav-item-active();
     }
 
@@ -263,7 +269,7 @@
     //
 
     .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
-        border-left-color: @inverse-subnav-divider-border;
+        border-left-color: var(--inverse-subnav-divider-border);
         .hook-inverse-subnav-divider();
     }
 
@@ -272,26 +278,26 @@
     //
 
     .uk-subnav-pill > * > :first-child {
-        background-color: @inverse-subnav-pill-item-background;
-        color: @inverse-subnav-pill-item-color;
+        background-color: var(--inverse-subnav-pill-item-background);
+        color: var(--inverse-subnav-pill-item-color);
         .hook-inverse-subnav-pill-item();
     }
 
     .uk-subnav-pill > * > a:hover {
-        background-color: @inverse-subnav-pill-item-hover-background;
-        color: @inverse-subnav-pill-item-hover-color;
+        background-color: var(--inverse-subnav-pill-item-hover-background);
+        color: var(--inverse-subnav-pill-item-hover-color);
         .hook-inverse-subnav-pill-item-hover();
     }
 
     .uk-subnav-pill > * > a:active {
-        background-color: @inverse-subnav-pill-item-onclick-background;
-        color: @inverse-subnav-pill-item-onclick-color;
+        background-color: var(--inverse-subnav-pill-item-onclick-background);
+        color: var(--inverse-subnav-pill-item-onclick-color);
         .hook-inverse-subnav-pill-item-onclick();
     }
 
     .uk-subnav-pill > .uk-active > a {
-        background-color: @inverse-subnav-pill-item-active-background;
-        color: @inverse-subnav-pill-item-active-color;
+        background-color: var(--inverse-subnav-pill-item-active-background);
+        color: var(--inverse-subnav-pill-item-active-color);
         .hook-inverse-subnav-pill-item-active();
     }
 
@@ -300,7 +306,7 @@
     //
 
     .uk-subnav > .uk-disabled > a {
-        color: @inverse-subnav-item-disabled-color;
+        color: var(--inverse-subnav-item-disabled-color);
         .hook-inverse-subnav-item-disabled();
     }
 

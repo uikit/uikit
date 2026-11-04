@@ -11,25 +11,33 @@
 // Variables
 // ========================================================================
 
-@divider-margin-vertical:                       @global-margin;
+@divider-icon-color:                            @global-border; // FIXME: need to change .svg-fill function
 
-@divider-icon-width:                            50px;
-@divider-icon-height:                           20px;
-@divider-icon-color:                            @global-border;
-@divider-icon-line-top:                         50%;
-@divider-icon-line-width:                       100%;
-@divider-icon-line-border-width:                @global-border-width;
-@divider-icon-line-border:                      @global-border;
+@internal-divider-icon-image:                   "../../images/backgrounds/divider-icon.svg";  // FIXME: need to change .svg-fill function
 
-@internal-divider-icon-image:                   "../../images/backgrounds/divider-icon.svg";
+.hook-divider-variables() {
 
-@divider-small-width:                           100px;
-@divider-small-border-width:                    @global-border-width;
-@divider-small-border:                          @global-border;
+    --divider-margin-vertical:                       var(--global-margin);
 
-@divider-vertical-height:                       100px;
-@divider-vertical-border-width:                 @global-border-width;
-@divider-vertical-border:                       @global-border;
+    --divider-icon-width:                            50px;
+    --divider-icon-height:                           20px;
+    --divider-icon-color:                            var(--global-border);
+    --divider-icon-line-top:                         50%;
+    --divider-icon-line-width:                       100%;
+    --divider-icon-line-border-width:                var(--global-border-width);
+    --divider-icon-line-border:                      var(--global-border);
+
+    --internal-divider-icon-image:                   "../../images/backgrounds/divider-icon.svg";
+
+    --divider-small-width:                           100px;
+    --divider-small-border-width:                    var(--global-border-width);
+    --divider-small-border:                          var(--global-border);
+
+    --divider-vertical-height:                       100px;
+    --divider-vertical-border-width:                 var(--global-border-width);
+    --divider-vertical-border:                       var(--global-border);
+    
+}
 
 
 /* ========================================================================
@@ -45,11 +53,11 @@
     /* 1 */
     border: none;
     /* 2 */
-    margin-bottom: @divider-margin-vertical;
+    margin-bottom: var(--divider-margin-vertical);
 }
 
 /* Add margin if adjacent element */
-* + [class*="uk-divider"] { margin-top: @divider-margin-vertical; }
+* + [class*="uk-divider"] { margin-top: var(--divider-margin-vertical); }
 
 
 /* Icon
@@ -57,7 +65,7 @@
 
 .uk-divider-icon {
     position: relative;
-    height: @divider-icon-height;
+    height: var(--divider-icon-height);
     .svg-fill(@internal-divider-icon-image, "#000", @divider-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -68,21 +76,21 @@
 .uk-divider-icon::after {
     content: "";
     position: absolute;
-    top: @divider-icon-line-top;
-    max-width: ~'calc(50% - (@{divider-icon-width} / 2))';
-    border-bottom: @divider-icon-line-border-width solid @divider-icon-line-border;
+    top: var(--divider-icon-line-top);
+    max-width: ~'calc(50% - (var(--divider-icon-width) / 2))';
+    border-bottom: var(--divider-icon-line-border-width) solid var(--divider-icon-line-border);
     .hook-divider-icon-line();
 }
 
 .uk-divider-icon::before {
-    right: ~'calc(50% + (@{divider-icon-width} / 2))';
-    width: @divider-icon-line-width;
+    right: ~'calc(50% + (var(--divider-icon-width) / 2))';
+    width: var(--divider-icon-line-width);
     .hook-divider-icon-line-left();
 }
 
 .uk-divider-icon::after {
-    left: ~'calc(50% + (@{divider-icon-width} / 2))';
-    width: @divider-icon-line-width;
+    left: ~'calc(50% + (var(--divider-icon-width) / 2))';
+    width: var(--divider-icon-line-width);
     .hook-divider-icon-line-right();
 }
 
@@ -102,9 +110,9 @@
 .uk-divider-small::after {
     content: "";
     display: inline-block;
-    width: @divider-small-width;
+    width: var(--divider-small-width);
     max-width: 100%;
-    border-top: @divider-small-border-width solid @divider-small-border;
+    border-top: var(--divider-small-border-width) solid var(--divider-small-border);
     vertical-align: top;
     .hook-divider-small();
 }
@@ -115,10 +123,10 @@
 
 .uk-divider-vertical {
     width: max-content;
-    height: @divider-vertical-height;
+    height: var(--divider-vertical-height);
     margin-left: auto;
     margin-right: auto;
-    border-left: @divider-vertical-border-width solid @divider-vertical-border;
+    border-left: var(--divider-vertical-border-width) solid var(--divider-vertical-border);
     .hook-divider-vertical();
 }
 
@@ -140,10 +148,14 @@
 // Inverse
 // ========================================================================
 
-@inverse-divider-icon-color:                      @inverse-global-border;
-@inverse-divider-icon-line-border:                @inverse-global-border;
-@inverse-divider-small-border:                    @inverse-global-border;
-@inverse-divider-vertical-border:                 @inverse-global-border;
+@inverse-divider-icon-color:                      @inverse-global-border; // FIXME: need to change .svg-fill function
+
+.hook-divider-variables() {
+    --inverse-divider-icon-color:                      var(--inverse-global-border);
+    --inverse-divider-icon-line-border:                var(--inverse-global-border);
+    --inverse-divider-small-border:                    var(--inverse-global-border);
+    --inverse-divider-vertical-border:                 var(--inverse-global-border);
+}
 
 .hook-inverse() {
 
@@ -154,17 +166,17 @@
 
     .uk-divider-icon::before,
     .uk-divider-icon::after {
-        border-bottom-color: @inverse-divider-icon-line-border;
+        border-bottom-color: var(--inverse-divider-icon-line-border);
         .hook-inverse-divider-icon-line();
     }
 
     .uk-divider-small::after {
-        border-top-color: @inverse-divider-small-border;
+        border-top-color: var(--inverse-divider-small-border);
         .hook-inverse-divider-small();
     }
 
     .uk-divider-vertical {
-        border-left-color: @inverse-divider-vertical-border;
+        border-left-color: var(--inverse-divider-vertical-border);
         .hook-inverse-divider-vertical();
     }
 

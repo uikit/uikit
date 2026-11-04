@@ -17,11 +17,15 @@
 // Variables
 // ========================================================================
 
-@sortable-dragged-z-index:                      @global-z-index + 50;
+.hook-sortable-variables() {
 
-@sortable-placeholder-opacity:                  0;
+    --sortable-dragged-z-index:                      calc(var(--global-z-index) + 50);
 
-@sortable-empty-height:                         50px;
+    --sortable-placeholder-opacity:                  0;
+
+    --sortable-empty-height:                         50px;
+
+}
 
 
 /* ========================================================================
@@ -45,7 +49,7 @@
 
 .uk-sortable-drag {
     position: fixed !important;
-    z-index: @sortable-dragged-z-index !important;
+    z-index: var(--sortable-dragged-z-index) !important;
     pointer-events: none;
     .hook-sortable-drag();
 }
@@ -55,7 +59,7 @@
  ========================================================================== */
 
 .uk-sortable-placeholder {
-    opacity: @sortable-placeholder-opacity;
+    opacity: var(--sortable-placeholder-opacity);
     pointer-events: none;
     .hook-sortable-placeholder();
 }
@@ -65,7 +69,7 @@
  ========================================================================== */
 
 .uk-sortable-empty {
-    min-height: @sortable-empty-height;
+    min-height: var(--sortable-empty-height);
     .hook-sortable-empty();
 }
 

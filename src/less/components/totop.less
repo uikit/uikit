@@ -9,12 +9,16 @@
 // Variables
 // ========================================================================
 
-@totop-padding:                                 5px;
-@totop-color:                                   @global-muted-color;
+.hook-totop-variables() {
+    
+    --totop-padding:                                 5px;
+    --totop-color:                                   var(--global-muted-color);
 
-@totop-hover-color:                             @global-color;
+    --totop-hover-color:                             var(--global-color);
 
-@totop-active-color:                            @global-emphasis-color;
+    --totop-active-color:                            var(--global-emphasis-color);
+
+}
 
 
 /* ========================================================================
@@ -26,20 +30,20 @@
  */
 
 .uk-totop {
-    padding: @totop-padding;
-    color: @totop-color;
+    padding: var(--totop-padding);
+    color: var(--totop-color);
     .hook-totop();
 }
 
 /* Hover */
 .uk-totop:hover {
-    color: @totop-hover-color;
+    color: var(--totop-hover-color);
     .hook-totop-hover();
 }
 
 /* OnClick */
 .uk-totop:active {
-    color: @totop-active-color;
+    color: var(--totop-active-color);
     .hook-totop-active();
 }
 
@@ -58,24 +62,26 @@
 // Inverse
 // ========================================================================
 
-@inverse-totop-color:                       @inverse-global-muted-color;
-@inverse-totop-hover-color:                 @inverse-global-color;
-@inverse-totop-active-color:                @inverse-global-emphasis-color;
+.hook-totop-variables() {
+    --inverse-totop-color:                       var(--inverse-global-muted-color);
+    --inverse-totop-hover-color:                 var(--inverse-global-color);
+    --inverse-totop-active-color:                var(--inverse-global-emphasis-color);
+}
 
 .hook-inverse() {
 
     .uk-totop {
-        color: @inverse-totop-color;
+        color: var(--inverse-totop-color);
         .hook-inverse-totop();
     }
 
     .uk-totop:hover {
-        color: @inverse-totop-hover-color;
+        color: var(--inverse-totop-hover-color);
         .hook-inverse-totop-hover();
     }
 
     .uk-totop:active {
-        color: @inverse-totop-active-color;
+        color: var(--inverse-totop-active-color);
         .hook-inverse-totop-active();
     }
 

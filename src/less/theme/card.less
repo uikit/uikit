@@ -7,41 +7,45 @@
 // Variables
 // ========================================================================
 
-@card-hover-background:                        @global-background;
+.hook-card-variables() {
 
-@card-default-background:                      @global-background;
-@card-default-hover-background:                @card-default-background;
+    --card-hover-background:                        var(--global-background);
 
-@card-primary-hover-background:                @card-primary-background;
+    --card-default-background:                      var(--global-background);
+    --card-default-hover-background:                var(--card-default-background);
 
-@card-secondary-hover-background:              @card-secondary-background;
+    --card-primary-hover-background:                var(--card-primary-background);
 
-//
-// New
-//
+    --card-secondary-hover-background:              var(--card-secondary-background);
 
-@card-badge-border-radius:                     2px;
-@card-badge-text-transform:                    uppercase;
+    //
+    // New
+    //
 
-@card-hover-box-shadow:                        @global-large-box-shadow;
+    --card-badge-border-radius:                     2px;
+    --card-badge-text-transform:                    uppercase;
 
-@card-default-box-shadow:                      @global-medium-box-shadow;
-@card-default-hover-box-shadow:                @global-large-box-shadow;
+    --card-hover-box-shadow:                        var(--global-large-box-shadow);
 
-@card-default-header-border-width:             @global-border-width;
-@card-default-header-border:                   @global-border;
+    --card-default-box-shadow:                      var(--global-medium-box-shadow);
+    --card-default-hover-box-shadow:                var(--global-large-box-shadow);
 
-@card-default-footer-border-width:             @global-border-width;
-@card-default-footer-border:                   @global-border;
+    --card-default-header-border-width:             var(--global-border-width);
+    --card-default-header-border:                   var(--global-border);
 
-@card-primary-box-shadow:                      @global-medium-box-shadow;
-@card-primary-hover-box-shadow:                @global-large-box-shadow;
+    --card-default-footer-border-width:             var(--global-border-width);
+    --card-default-footer-border:                   var(--global-border);
 
-@card-secondary-box-shadow:                    @global-medium-box-shadow;
-@card-secondary-hover-box-shadow:              @global-large-box-shadow;
+    --card-primary-box-shadow:                      var(--global-medium-box-shadow);
+    --card-primary-hover-box-shadow:                var(--global-large-box-shadow);
 
-@card-overlay-box-shadow:                      @global-medium-box-shadow;
-@card-overlay-hover-box-shadow:                @global-large-box-shadow;
+    --card-secondary-box-shadow:                    var(--global-medium-box-shadow);
+    --card-secondary-hover-box-shadow:              var(--global-large-box-shadow);
+
+    --card-overlay-box-shadow:                      var(--global-medium-box-shadow);
+    --card-overlay-hover-box-shadow:                var(--global-large-box-shadow);
+
+}
 
 
 // Component
@@ -84,59 +88,59 @@
 // ========================================================================
 
 .hook-card-badge() {
-    border-radius: @card-badge-border-radius;
-    text-transform: @card-badge-text-transform;
+    border-radius: var(--card-badge-border-radius);
+    text-transform: var(--card-badge-text-transform);
 }
 
 
 // Hover modifier
 // ========================================================================
 
-.hook-card-hover() { box-shadow: @card-hover-box-shadow; }
+.hook-card-hover() { box-shadow: var(--card-hover-box-shadow); }
 
 
 // Style modifiers
 // ========================================================================
 
-.hook-card-default() { box-shadow: @card-default-box-shadow; }
+.hook-card-default() { box-shadow: var(--card-default-box-shadow); }
 
 .hook-card-default-title() {}
 
-.hook-card-default-hover() { box-shadow: @card-default-hover-box-shadow; }
+.hook-card-default-hover() { box-shadow: var(--card-default-hover-box-shadow); }
 
-.hook-card-default-header() { border-bottom: @card-default-header-border-width solid @card-default-header-border; }
+.hook-card-default-header() { border-bottom: var(--card-default-header-border-width) solid var(--card-default-header-border); }
 
-.hook-card-default-footer() { border-top: @card-default-footer-border-width  solid @card-default-footer-border; }
+.hook-card-default-footer() { border-top: var(--card-default-footer-border-width)  solid var(--card-default-footer-border); }
 
 //
 // Primary
 //
 
-.hook-card-primary() { box-shadow: @card-primary-box-shadow; }
+.hook-card-primary() { box-shadow: var(--card-primary-box-shadow); }
 
 .hook-card-primary-title() {}
 
-.hook-card-primary-hover() { box-shadow: @card-primary-hover-box-shadow; }
+.hook-card-primary-hover() { box-shadow: var(--card-primary-hover-box-shadow); }
 
 //
 // Secondary
 //
 
-.hook-card-secondary() { box-shadow: @card-secondary-box-shadow; }
+.hook-card-secondary() { box-shadow: var(--card-secondary-box-shadow); }
 
 .hook-card-secondary-title() {}
 
-.hook-card-secondary-hover() { box-shadow: @card-secondary-hover-box-shadow; }
+.hook-card-secondary-hover() { box-shadow: var(--card-secondary-hover-box-shadow); }
 
 //
 // Overlay
 //
 
-.hook-card-overlay() { box-shadow: @card-overlay-box-shadow; }
+.hook-card-overlay() { box-shadow: var(--card-overlay-box-shadow); }
 
 .hook-card-overlay-title() {}
 
-.hook-card-overlay-hover() { box-shadow: @card-overlay-hover-box-shadow; }
+.hook-card-overlay-hover() { box-shadow: var(--card-overlay-hover-box-shadow); }
 
 
 // Miscellaneous
@@ -149,44 +153,44 @@
      */
 
     .uk-card-body > .uk-nav-default {
-        margin-left: -@card-body-padding-horizontal;
-        margin-right: -@card-body-padding-horizontal;
+        margin-left: calc(var(--card-body-padding-horizontal) * -1);
+        margin-right: calc(var(--card-body-padding-horizontal) * -1);
     }
     .uk-card-body > .uk-nav-default:only-child {
-        margin-top: (-@card-body-padding-vertical + 15px);
-        margin-bottom: (-@card-body-padding-vertical + 15px);
+        margin-top: calc((var(--card-body-padding-vertical) * -1) + 15px);
+        margin-bottom: calc((var(--card-body-padding-vertical) * -1) + 15px);
     }
 
     .uk-card-body > .uk-nav-default > li > a,
     .uk-card-body > .uk-nav-default .uk-nav-header,
     .uk-card-body > .uk-nav-default .uk-nav-divider {
-        padding-left: @card-body-padding-horizontal;
-        padding-right: @card-body-padding-horizontal;
+        padding-left: var(--card-body-padding-horizontal);
+        padding-right: var(--card-body-padding-horizontal);
     }
 
-    .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-body-padding-horizontal; }
+    .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: calc(var(--nav-sublist-deeper-padding-left) + var(--card-body-padding-horizontal)); }
 
 
     /* Desktop and bigger */
     @media (min-width: @breakpoint-large) {
 
         .uk-card-body > .uk-nav-default {
-            margin-left: -@card-body-padding-horizontal-l;
-            margin-right: -@card-body-padding-horizontal-l;
+            margin-left: calc(var(--card-body-padding-horizontal-l) * -1);
+            margin-right: calc(var(--card-body-padding-horizontal-l) * -1);
         }
         .uk-card-body > .uk-nav-default:only-child {
-            margin-top: (-@card-body-padding-vertical-l + 15px);
-            margin-bottom: (-@card-body-padding-vertical-l + 15px);
+            margin-top: calc((var(--card-body-padding-vertical-l) * -1) + 15px);
+            margin-bottom: calc((var(--card-body-padding-vertical-l) * -1) + 15px);
         }
 
         .uk-card-body > .uk-nav-default > li > a,
         .uk-card-body > .uk-nav-default .uk-nav-header,
         .uk-card-body > .uk-nav-default .uk-nav-divider {
-            padding-left: @card-body-padding-horizontal-l;
-            padding-right: @card-body-padding-horizontal-l;
+            padding-left: var(--card-body-padding-horizontal-l);
+            padding-right: var(--card-body-padding-horizontal-l);
         }
 
-        .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-body-padding-horizontal-l; }
+        .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: calc(var(--nav-sublist-deeper-padding-left) + var(--card-body-padding-horizontal-l)); }
 
     }
 
@@ -195,22 +199,22 @@
      */
 
     .uk-card-small > .uk-nav-default {
-        margin-left: -@card-small-body-padding-horizontal;
-        margin-right: -@card-small-body-padding-horizontal;
+        margin-left: calc(var(--card-small-body-padding-horizontal) * -1);
+        margin-right: calc(var(--card-small-body-padding-horizontal) * -1);
     }
     .uk-card-small > .uk-nav-default:only-child {
-        margin-top: (-@card-small-body-padding-vertical + 15px);
-        margin-bottom: (-@card-small-body-padding-vertical + 15px);
+        margin-top: calc((var(--card-small-body-padding-vertical) * -1) + 15px);
+        margin-bottom: calc((var(--card-small-body-padding-vertical) * -1) + 15px);
     }
 
     .uk-card-small > .uk-nav-default > li > a,
     .uk-card-small > .uk-nav-default .uk-nav-header,
     .uk-card-small > .uk-nav-default .uk-nav-divider {
-        padding-left: @card-small-body-padding-horizontal;
-        padding-right: @card-small-body-padding-horizontal;
+        padding-left: var(--card-small-body-padding-horizontal);
+        padding-right: var(--card-small-body-padding-horizontal);
     }
 
-    .uk-card-small > .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-small-body-padding-horizontal; }
+    .uk-card-small > .uk-nav-default .uk-nav-sub { padding-left: calc(var(--nav-sublist-deeper-padding-left) + var(--card-small-body-padding-horizontal)); }
 
     /*
      * Large
@@ -229,7 +233,7 @@
             padding-right: 0;
         }
 
-        .uk-card-large > .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left; }
+        .uk-card-large > .uk-nav-default .uk-nav-sub { padding-left: var(--nav-sublist-deeper-padding-left); }
 
     }
 

@@ -9,31 +9,35 @@
 // Variables
 // ========================================================================
 
-@text-lead-font-size:                           @global-large-font-size;
-@text-lead-line-height:                         1.5;
-@text-lead-color:                               @global-emphasis-color;
+.hook-text-variables() {
 
-@text-meta-font-size:                           @global-small-font-size;
-@text-meta-line-height:                         1.4;
-@text-meta-color:                               @global-muted-color;
+    --text-lead-font-size:                           var(--global-large-font-size);
+    --text-lead-line-height:                         1.5;
+    --text-lead-color:                               var(--global-emphasis-color);
 
-@text-small-font-size:                          @global-small-font-size;
-@text-small-line-height:                        1.5;
+    --text-meta-font-size:                           var(--global-small-font-size);
+    --text-meta-line-height:                         1.4;
+    --text-meta-color:                               var(--global-muted-color);
 
-@text-large-font-size:                          @global-large-font-size;
-@text-large-line-height:                        1.5;
+    --text-small-font-size:                          var(--global-small-font-size);
+    --text-small-line-height:                        1.5;
 
-@text-muted-color:                              @global-muted-color;
-@text-emphasis-color:                           @global-emphasis-color;
-@text-primary-color:                            @global-primary-background;
-@text-secondary-color:                          @global-secondary-background;
-@text-success-color:                            @global-success-background;
-@text-warning-color:                            @global-warning-background;
-@text-danger-color:                             @global-danger-background;
+    --text-large-font-size:                          var(--global-large-font-size);
+    --text-large-line-height:                        1.5;
 
-@text-background-color:                         @global-primary-background;
+    --text-muted-color:                              var(--global-muted-color);
+    --text-emphasis-color:                           var(--global-emphasis-color);
+    --text-primary-color:                            var(--global-primary-background);
+    --text-secondary-color:                          var(--global-secondary-background);
+    --text-success-color:                            var(--global-success-background);
+    --text-warning-color:                            var(--global-warning-background);
+    --text-danger-color:                             var(--global-danger-background);
 
-@text-stroke-text-stroke:                       ~'calc(1.4px + 0.002em)';
+    --text-background-color:                         var(--global-primary-background);
+
+    --text-stroke-text-stroke:                       ~'calc(1.4px + 0.002em)';
+
+}
 
 
 /* ========================================================================
@@ -45,16 +49,16 @@
  ========================================================================== */
 
 .uk-text-lead {
-    font-size: @text-lead-font-size;
-    line-height: @text-lead-line-height;
-    color: @text-lead-color;
+    font-size: var(--text-lead-font-size);
+    line-height: var(--text-lead-line-height);
+    color: var(--text-lead-color);
     .hook-text-lead();
 }
 
 .uk-text-meta {
-    font-size: @text-meta-font-size;
-    line-height: @text-meta-line-height;
-    color: @text-meta-color;
+    font-size: var(--text-meta-font-size);
+    line-height: var(--text-meta-line-height);
+    color: var(--text-meta-color);
     .hook-text-meta();
 }
 
@@ -63,20 +67,20 @@
  ========================================================================== */
 
 .uk-text-small {
-    font-size: @text-small-font-size;
-    line-height: @text-small-line-height;
+    font-size: var(--text-small-font-size);
+    line-height: var(--text-small-line-height);
     .hook-text-small();
 }
 
 .uk-text-large {
-    font-size: @text-large-font-size;
-    line-height: @text-large-line-height;
+    font-size: var(--text-large-font-size);
+    line-height: var(--text-large-line-height);
     .hook-text-large();
 }
 
 .uk-text-default {
-    font-size: @global-font-size;
-    line-height: @global-line-height;
+    font-size: var(--global-font-size);
+    line-height: var(--global-line-height);
 }
 
 
@@ -114,13 +118,13 @@
 /* Color modifiers
  ========================================================================== */
 
-.uk-text-muted { color: @text-muted-color !important; }
-.uk-text-emphasis { color: @text-emphasis-color !important; }
-.uk-text-primary { color: @text-primary-color !important; }
-.uk-text-secondary { color: @text-secondary-color !important; }
-.uk-text-success { color: @text-success-color !important; }
-.uk-text-warning { color: @text-warning-color !important; }
-.uk-text-danger { color: @text-danger-color !important; }
+.uk-text-muted { color: var(--text-muted-color) !important; }
+.uk-text-emphasis { color: var(--text-emphasis-color) !important; }
+.uk-text-primary { color: var(--text-primary-color) !important; }
+.uk-text-secondary { color: var(--text-secondary-color) !important; }
+.uk-text-success { color: var(--text-success-color) !important; }
+.uk-text-warning { color: var(--text-warning-color) !important; }
+.uk-text-danger { color: var(--text-danger-color) !important; }
 
 
 /* Background modifier
@@ -141,7 +145,7 @@
     /* 3 */
     display: inline-block;
     /* 4 */
-    background-color: @text-background-color;
+    background-color: var(--text-background-color);
     .hook-text-background();
 }
 
@@ -245,7 +249,7 @@ td.uk-text-truncate { max-width: 0; }
  ========================================================================== */
 
 .uk-text-stroke {
-    -webkit-text-stroke: @text-stroke-text-stroke;
+    -webkit-text-stroke: var(--text-stroke-text-stroke);
     -webkit-text-fill-color: transparent;
 }
 
@@ -266,29 +270,31 @@ td.uk-text-truncate { max-width: 0; }
 // Inverse
 // ========================================================================
 
-@inverse-text-lead-color:                      @inverse-global-emphasis-color;
-@inverse-text-meta-color:                      @inverse-global-muted-color;
-@inverse-text-muted-color:                     @inverse-global-muted-color;
-@inverse-text-emphasis-color:                  @inverse-global-emphasis-color;
-@inverse-text-primary-color:                   @inverse-global-primary-background;
-@inverse-text-secondary-color:                 @inverse-global-primary-background;
+.hook-text-variables() {
+    --inverse-text-lead-color:                      var(--inverse-global-emphasis-color);
+    --inverse-text-meta-color:                      var(--inverse-global-muted-color);
+    --inverse-text-muted-color:                     var(--inverse-global-muted-color);
+    --inverse-text-emphasis-color:                  var(--inverse-global-emphasis-color);
+    --inverse-text-primary-color:                   var(--inverse-global-primary-background);
+    --inverse-text-secondary-color:                 var(--inverse-global-primary-background);
+}
 
 .hook-inverse() {
 
     .uk-text-lead {
-        color: @inverse-text-lead-color;
+        color: var(--inverse-text-lead-color);
         .hook-inverse-text-lead();
     }
 
     .uk-text-meta {
-        color: @inverse-text-meta-color;
+        color: var(--inverse-text-meta-color);
         .hook-inverse-text-meta();
     }
 
-    .uk-text-muted { color: @inverse-text-muted-color !important; }
-    .uk-text-emphasis { color: @inverse-text-emphasis-color !important; }
-    .uk-text-primary { color: @inverse-text-primary-color !important; }
-    .uk-text-secondary { color: @inverse-text-secondary-color !important; }
+    .uk-text-muted { color: var(--inverse-text-muted-color) !important; }
+    .uk-text-emphasis { color: var(--inverse-text-emphasis-color) !important; }
+    .uk-text-primary { color: var(--inverse-text-primary-color) !important; }
+    .uk-text-secondary { color: var(--inverse-text-secondary-color) !important; }
 
 }
 

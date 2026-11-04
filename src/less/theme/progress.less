@@ -7,14 +7,18 @@
 // Variables
 // ========================================================================
 
-@progress-border-radius:                        500px;
+.hook-progress-variables() {
+    
+    --progress-border-radius:                        500px;
+
+}
 
 
 // Component
 // ========================================================================
 
 .hook-progress() {
-    border-radius: @progress-border-radius;
+    border-radius: var(--progress-border-radius);
     overflow: hidden;
 }
 

@@ -31,33 +31,37 @@
 // Variables
 // ========================================================================
 
-@panel-scrollable-height:                       170px;
-@panel-scrollable-padding:                      10px;
-@panel-scrollable-border-width:                 @global-border-width;
-@panel-scrollable-border:                       @global-border;
+.hook-utility-variables() {
 
-@overflow-fade-size:                            100px;
+    --panel-scrollable-height:                       170px;
+    --panel-scrollable-padding:                      10px;
+    --panel-scrollable-border-width:                 var(--global-border-width);
+    --panel-scrollable-border:                       var(--global-border);
 
-@border-rounded-border-radius:                  5px;
+    --overflow-fade-size:                            100px;
 
-@box-shadow-duration:                           0.1s;
+    --border-rounded-border-radius:                  5px;
 
-@box-shadow-bottom-height:                      30px;
-@box-shadow-bottom-bottom:                      -@box-shadow-bottom-height;
-@box-shadow-bottom-border-radius:               100%;
-@box-shadow-bottom-background:                  #444;
-@box-shadow-bottom-blur:                        20px;
+    --box-shadow-duration:                           0.1s;
 
-@dropcap-margin-right:                          10px;
-@dropcap-font-size:                             ((@global-line-height * 3) * 1em);
-@dropcap-line-height:                           1;
+    --box-shadow-bottom-height:                      30px;
+    --box-shadow-bottom-bottom:                      calc(var(--box-shadow-bottom-height) * -1);
+    --box-shadow-bottom-border-radius:               100%;
+    --box-shadow-bottom-background:                  #444;
+    --box-shadow-bottom-blur:                        20px;
 
-@logo-font-size:                                @global-large-font-size;
-@logo-font-family:                              @global-font-family;
-@logo-color:                                    @global-emphasis-color;
-@logo-hover-color:                              @global-emphasis-color;
+    --dropcap-margin-right:                          10px;
+    --dropcap-font-size:                             calc((var(--global-line-height) * 3) * 1em);
+    --dropcap-line-height:                           1;
 
-@dragover-box-shadow:                           0 0 20px rgba(100,100,100,0.3);
+    --logo-font-size:                                var(--global-large-font-size);
+    --logo-font-family:                              var(--global-font-family);
+    --logo-color:                                    var(--global-emphasis-color);
+    --logo-hover-color:                              var(--global-emphasis-color);
+
+    --dragover-box-shadow:                           0 0 20px rgba(100,100,100,0.3);
+
+}
 
 
 /* ========================================================================
@@ -86,9 +90,9 @@
  */
 
 .uk-panel-scrollable {
-    height: @panel-scrollable-height;
-    padding: @panel-scrollable-padding;
-    border: @panel-scrollable-border-width solid @panel-scrollable-border;
+    height: var(--panel-scrollable-height);
+    padding: var(--panel-scrollable-padding);
+    border: var(--panel-scrollable-border-width) solid var(--panel-scrollable-border);
     overflow: auto;
     resize: both;
     .hook-panel-scrollable();
@@ -179,8 +183,8 @@
     mask-image: linear-gradient(
         to var(--uk-overflow-fade-direction),
         rgba(0,0,0,var(--uk-overflow-fade-start-opacity)),
-        #000 @overflow-fade-size,
-        #000 ~'calc(100% - @{overflow-fade-size})',
+        #000 var(--overflow-fade-size),
+        #000 ~'calc(100% - var(--overflow-fade-size))',
         rgba(0,0,0,var(--uk-overflow-fade-end-opacity))
     );
     /* 2 */
@@ -335,7 +339,7 @@
 
 .uk-border-circle { border-radius: 50%; }
 .uk-border-pill { border-radius: 500px; }
-.uk-border-rounded { border-radius: @border-rounded-border-radius; }
+.uk-border-rounded { border-radius: var(--border-rounded-border-radius); }
 
 /*
  * Fix `overflow: hidden` to be ignored with border-radius and CSS transforms in Webkit
@@ -347,21 +351,21 @@
 /* Box-shadow
  ========================================================================== */
 
-.uk-box-shadow-small { box-shadow: @global-small-box-shadow; }
-.uk-box-shadow-medium { box-shadow: @global-medium-box-shadow; }
-.uk-box-shadow-large { box-shadow: @global-large-box-shadow; }
-.uk-box-shadow-xlarge { box-shadow: @global-xlarge-box-shadow; }
+.uk-box-shadow-small { box-shadow: var(--global-small-box-shadow); }
+.uk-box-shadow-medium { box-shadow: var(--global-medium-box-shadow); }
+.uk-box-shadow-large { box-shadow: var(--global-large-box-shadow); }
+.uk-box-shadow-xlarge { box-shadow: var(--global-xlarge-box-shadow); }
 
 /*
  * Hover
  */
 
-[class*="uk-box-shadow-hover"] { transition: box-shadow @box-shadow-duration ease-in-out; }
+[class*="uk-box-shadow-hover"] { transition: box-shadow var(--box-shadow-duration) ease-in-out; }
 
-.uk-box-shadow-hover-small:hover { box-shadow: @global-small-box-shadow; }
-.uk-box-shadow-hover-medium:hover { box-shadow: @global-medium-box-shadow; }
-.uk-box-shadow-hover-large:hover { box-shadow: @global-large-box-shadow; }
-.uk-box-shadow-hover-xlarge:hover { box-shadow: @global-xlarge-box-shadow; }
+.uk-box-shadow-hover-small:hover { box-shadow: var(--global-small-box-shadow); }
+.uk-box-shadow-hover-medium:hover { box-shadow: var(--global-medium-box-shadow); }
+.uk-box-shadow-hover-large:hover { box-shadow: var(--global-large-box-shadow); }
+.uk-box-shadow-hover-xlarge:hover { box-shadow: var(--global-xlarge-box-shadow); }
 
 
 /* Box-shadow bottom
@@ -387,15 +391,15 @@
         content: "";
         /* 1 */
         position: absolute;
-        bottom: @box-shadow-bottom-bottom;
+        bottom: var(--box-shadow-bottom-bottom);
         left: 0;
         right: 0;
         z-index: -1;
         /* 2 */
-        height: @box-shadow-bottom-height;
-        border-radius: @box-shadow-bottom-border-radius;
-        background: @box-shadow-bottom-background;
-        filter: blur(@box-shadow-bottom-blur);
+        height: var(--box-shadow-bottom-height);
+        border-radius: var(--box-shadow-bottom-border-radius);
+        background: var(--box-shadow-bottom-background);
+        filter: blur(var(--box-shadow-bottom-blur));
         /* 3 */
         will-change: filter;
         .hook-box-shadow-bottom();
@@ -418,10 +422,10 @@
 /* 1 */
 .uk-dropcap > p:first-of-type::first-letter {
     display: block;
-    margin-right: @dropcap-margin-right;
+    margin-right: var(--dropcap-margin-right);
     float: left;
-    font-size: @dropcap-font-size;
-    line-height: @dropcap-line-height;
+    font-size: var(--dropcap-font-size);
+    line-height: var(--dropcap-line-height);
     .hook-dropcap();
 }
 
@@ -445,9 +449,9 @@
 
 .uk-logo {
     /* 1 */
-    font-size: @logo-font-size;
-    font-family: @logo-font-family;
-    color: @logo-color;
+    font-size: var(--logo-font-size);
+    font-family: var(--logo-font-family);
+    color: var(--logo-color);
     /* 2 */
     text-decoration: none;
     .hook-logo();
@@ -461,7 +465,7 @@
 
 /* Hover */
 .uk-logo:hover {
-    color: @logo-hover-color;
+    color: var(--logo-hover-color);
     /* 1 */
     text-decoration: none;
     .hook-logo-hover();
@@ -501,7 +505,7 @@
  * Create a box-shadow when dragging a file over the upload area
  */
 
-.uk-dragover { box-shadow: @dragover-box-shadow; }
+.uk-dragover { box-shadow: var(--dragover-box-shadow); }
 
 
 /* Blend modes
@@ -559,8 +563,10 @@
 // Inverse
 // ========================================================================
 
-@inverse-logo-color:                           @inverse-global-emphasis-color;
-@inverse-logo-hover-color:                     @inverse-global-emphasis-color;
+.hook-utility-variables() {
+    --inverse-logo-color:                           var(--inverse-global-emphasis-color);
+    --inverse-logo-hover-color:                     var(--inverse-global-emphasis-color);
+}
 
 .hook-inverse() {
 
@@ -570,12 +576,12 @@
     }
 
     .uk-logo {
-        color: @inverse-logo-color;
+        color: var(--inverse-logo-color);
         .hook-inverse-logo();
     }
 
     .uk-logo:hover {
-        color: @inverse-logo-hover-color;
+        color: var(--inverse-logo-hover-color);
         .hook-inverse-logo-hover();
     }
 

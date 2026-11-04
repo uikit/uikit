@@ -15,35 +15,41 @@
 // Variables
 // ========================================================================
 
-@dropdown-margin:                               @global-small-margin;
-@dropdown-viewport-margin:                      15px;
-@dropdown-min-width:                            200px;
-@dropdown-padding:                              15px;
-@dropdown-background:                           @global-muted-background;
-@dropdown-color:                                @global-color;
-@dropdown-color-mode:                           dark;
-@dropdown-focus-outline:                        @base-focus-outline;
+@dropdown-color-mode:                           dark; // FIXME: need to change inverse process
 
-@dropdown-large-padding:                        40px;
+.hook-dropdown-variables() {
+    
+    --dropdown-margin:                               var(--global-small-margin);
+    --dropdown-viewport-margin:                      15px;
+    --dropdown-min-width:                            200px;
+    --dropdown-padding:                              15px;
+    --dropdown-background:                           var(--global-muted-background);
+    --dropdown-color:                                var(--global-color);
+    --dropdown-color-mode:                           @dropdown-color-mode;
+    --dropdown-focus-outline:                        var(--base-focus-outline);
 
-@dropdown-dropbar-margin:                       @dropdown-margin;
-@dropdown-dropbar-padding-top:                  @dropdown-padding;
-@dropdown-dropbar-padding-bottom:               @dropdown-padding;
-@dropdown-dropbar-viewport-margin:              15px;
-@dropdown-dropbar-viewport-margin-s:            @global-gutter;
-@dropdown-dropbar-viewport-margin-m:            @global-medium-gutter;
+    --dropdown-large-padding:                        40px;
 
-@dropdown-dropbar-large-padding-top:            @dropdown-large-padding;
-@dropdown-dropbar-large-padding-bottom:         @dropdown-large-padding;
+    --dropdown-dropbar-margin:                       var(--dropdown-margin);
+    --dropdown-dropbar-padding-top:                  var(--dropdown-padding);
+    --dropdown-dropbar-padding-bottom:               var(--dropdown-padding);
+    --dropdown-dropbar-viewport-margin:              15px;
+    --dropdown-dropbar-viewport-margin-s:            var(--global-gutter);
+    --dropdown-dropbar-viewport-margin-m:            var(--global-medium-gutter);
 
-@dropdown-nav-item-color:                       @global-muted-color;
-@dropdown-nav-item-hover-color:                 @global-color;
-@dropdown-nav-subtitle-font-size:               @global-small-font-size;
-@dropdown-nav-header-color:                     @global-emphasis-color;
-@dropdown-nav-divider-border-width:             @global-border-width;
-@dropdown-nav-divider-border:                   @global-border;
-@dropdown-nav-sublist-item-color:               @global-muted-color;
-@dropdown-nav-sublist-item-hover-color:         @global-color;
+    --dropdown-dropbar-large-padding-top:            var(--dropdown-large-padding);
+    --dropdown-dropbar-large-padding-bottom:         var(--dropdown-large-padding);
+
+    --dropdown-nav-item-color:                       var(--global-muted-color);
+    --dropdown-nav-item-hover-color:                 var(--global-color);
+    --dropdown-nav-subtitle-font-size:               var(--global-small-font-size);
+    --dropdown-nav-header-color:                     var(--global-emphasis-color);
+    --dropdown-nav-divider-border-width:             var(--global-border-width);
+    --dropdown-nav-divider-border:                   var(--global-border);
+    --dropdown-nav-sublist-item-color:               var(--global-muted-color);
+    --dropdown-nav-sublist-item-hover-color:         var(--global-color);
+
+}
 
 
 /* ========================================================================
@@ -58,17 +64,17 @@
  */
 
 .uk-dropdown {
-    --uk-position-offset: @dropdown-margin;
-    --uk-position-viewport-offset: @dropdown-viewport-margin;
-    --uk-inverse: @dropdown-color-mode;
+    --uk-position-offset: var(--dropdown-margin);
+    --uk-position-viewport-offset: var(--dropdown-viewport-margin);
+    --uk-inverse: var(--dropdown-color-mode);
     /* 1 */
     width: auto;
     /* 2 */
-    min-width: @dropdown-min-width;
+    min-width: var(--dropdown-min-width);
     /* 3 */
-    padding: @dropdown-padding;
-    background: @dropdown-background;
-    color: @dropdown-color;
+    padding: var(--dropdown-padding);
+    background: var(--dropdown-background);
+    color: var(--dropdown-color);
     .hook-dropdown();
 }
 
@@ -83,14 +89,14 @@
 .uk-dropdown:extend(.uk-dark all) when (@dropdown-color-mode = dark) {}
 
 .uk-dropdown :focus-visible when not (@dropdown-color-mode = @inverse-global-color-mode) {
-    outline-color: @dropdown-focus-outline !important;
+    outline-color: var(--dropdown-focus-outline) !important;
 }
 
 
 /* Size modifier
  ========================================================================== */
 
-.uk-dropdown-large { padding: @dropdown-large-padding; }
+.uk-dropdown-large { padding: var(--dropdown-large-padding); }
 
 
 /* Dropbar modifier
@@ -103,34 +109,34 @@
  */
 
 .uk-dropdown-dropbar {
-    --uk-position-offset: @dropdown-dropbar-margin;
+    --uk-position-offset: var(--dropdown-dropbar-margin);
     /* 1 */
     width: auto;
     /* 2 */
     background: transparent;
     /* 3 */
-    padding: @dropdown-dropbar-padding-top 0 @dropdown-dropbar-padding-bottom 0;
-    --uk-position-viewport-offset: @dropdown-dropbar-viewport-margin;
+    padding: var(--dropdown-dropbar-padding-top) 0 var(--dropdown-dropbar-padding-bottom) 0;
+    --uk-position-viewport-offset: var(--dropdown-dropbar-viewport-margin);
     .hook-dropdown-dropbar();
 }
 
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-dropdown-dropbar { --uk-position-viewport-offset: @dropdown-dropbar-viewport-margin-s; }
+    .uk-dropdown-dropbar { --uk-position-viewport-offset: var(--dropdown-dropbar-viewport-margin-s); }
 
 }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-dropdown-dropbar { --uk-position-viewport-offset: @dropdown-dropbar-viewport-margin-m; }
+    .uk-dropdown-dropbar { --uk-position-viewport-offset: var(--dropdown-dropbar-viewport-margin-m); }
 
 }
 
 .uk-dropdown-dropbar-large {
-    padding-top: @dropdown-dropbar-large-padding-top;
-    padding-bottom: @dropdown-dropbar-large-padding-bottom;
+    padding-top: var(--dropdown-dropbar-large-padding-top);
+    padding-bottom: var(--dropdown-dropbar-large-padding-bottom);
     .hook-dropdown-dropbar-large();
 }
 
@@ -148,14 +154,14 @@
  */
 
 .uk-dropdown-nav > li > a {
-    color: @dropdown-nav-item-color;
+    color: var(--dropdown-nav-item-color);
     .hook-dropdown-nav-item();
 }
 
 /* Hover + Active */
 .uk-dropdown-nav > li > a:hover,
 .uk-dropdown-nav > li.uk-active > a {
-    color: @dropdown-nav-item-hover-color;
+    color: var(--dropdown-nav-item-hover-color);
     .hook-dropdown-nav-item-hover();
 }
 
@@ -164,7 +170,7 @@
  */
 
 .uk-dropdown-nav .uk-nav-subtitle {
-    font-size: @dropdown-nav-subtitle-font-size;
+    font-size: var(--dropdown-nav-subtitle-font-size);
     .hook-dropdown-nav-subtitle();
 }
 
@@ -173,7 +179,7 @@
  */
 
 .uk-dropdown-nav .uk-nav-header {
-    color: @dropdown-nav-header-color;
+    color: var(--dropdown-nav-header-color);
     .hook-dropdown-nav-header();
 }
 
@@ -182,7 +188,7 @@
  */
 
 .uk-dropdown-nav .uk-nav-divider {
-    border-top: @dropdown-nav-divider-border-width solid @dropdown-nav-divider-border;
+    border-top: var(--dropdown-nav-divider-border-width) solid var(--dropdown-nav-divider-border);
     .hook-dropdown-nav-divider();
 }
 
@@ -190,10 +196,10 @@
  * Sublists
  */
 
-.uk-dropdown-nav .uk-nav-sub a { color: @dropdown-nav-sublist-item-color; }
+.uk-dropdown-nav .uk-nav-sub a { color: var(--dropdown-nav-sublist-item-color); }
 
 .uk-dropdown-nav .uk-nav-sub a:hover,
-.uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: @dropdown-nav-sublist-item-hover-color; }
+.uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: var(--dropdown-nav-sublist-item-hover-color); }
 
 
 // Hooks

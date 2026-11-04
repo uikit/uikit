@@ -13,8 +13,12 @@
 // Variables
 // ========================================================================
 
-@thumbnav-margin-horizontal:                    15px;
-@thumbnav-margin-vertical:                      @thumbnav-margin-horizontal;
+.hook-thumbnav-variables() {
+    
+    --thumbnav-margin-horizontal:                    15px;
+    --thumbnav-margin-vertical:                      var(--thumbnav-margin-horizontal);
+
+}
 
 
 /* ========================================================================
@@ -36,7 +40,7 @@
     padding: 0;
     list-style: none;
     /* 3 */
-    margin-left: -@thumbnav-margin-horizontal;
+    margin-left: calc(var(--thumbnav-margin-horizontal) * -1);
     .hook-thumbnav();
 }
 
@@ -47,7 +51,7 @@
 
 .uk-thumbnav > * {
     /* 1 */
-    padding-left: @thumbnav-margin-horizontal;
+    padding-left: var(--thumbnav-margin-horizontal);
 }
 
 
@@ -87,13 +91,13 @@
     flex-direction: column;
     /* 2 */
     margin-left: 0;
-    margin-top: -@thumbnav-margin-vertical;
+    margin-top: calc(var(--thumbnav-margin-vertical) * -1);
 }
 
 /* 2 */
 .uk-thumbnav-vertical > * {
     padding-left: 0;
-    padding-top: @thumbnav-margin-vertical;
+    padding-top: var(--thumbnav-margin-vertical);
 }
 
 

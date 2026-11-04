@@ -9,11 +9,15 @@
 // Variables
 // ========================================================================
 
-@marker-padding:                                 5px;
-@marker-background:                              @global-secondary-background;
-@marker-color:                                   @global-inverse-color;
+.hook-marker-variables() {
 
-@marker-hover-color:                             @global-inverse-color;
+    --marker-padding:                                 5px;
+    --marker-background:                              var(--global-secondary-background);
+    --marker-color:                                   var(--global-inverse-color);
+
+    --marker-hover-color:                             var(--global-inverse-color);
+
+}
 
 
 /* ========================================================================
@@ -25,15 +29,15 @@
  */
 
 .uk-marker {
-    padding: @marker-padding;
-    background: @marker-background;
-    color: @marker-color;
+    padding: var(--marker-padding);
+    background: var(--marker-background);
+    color: var(--marker-color);
     .hook-marker();
 }
 
 /* Hover */
 .uk-marker:hover {
-    color: @marker-hover-color;
+    color: var(--marker-hover-color);
     .hook-marker-hover();
 }
 
@@ -51,20 +55,22 @@
 // Inverse
 // ========================================================================
 
-@inverse-marker-background:                  @global-muted-background;
-@inverse-marker-color:                       @global-color;
-@inverse-marker-hover-color:                 @global-color;
+.hook-marker-variables() {
+    --inverse-marker-background:                  var(--global-muted-background);
+    --inverse-marker-color:                       var(--global-color);
+    --inverse-marker-hover-color:                 var(--global-color);
+}
 
 .hook-inverse() {
 
     .uk-marker {
-        background: @inverse-marker-background;
-        color: @inverse-marker-color;
+        background: var(--inverse-marker-background);
+        color: var(--inverse-marker-color);
         .hook-inverse-marker();
     }
 
     .uk-marker:hover {
-        color: @inverse-marker-hover-color;
+        color: var(--inverse-marker-hover-color);
         .hook-inverse-marker-hover();
     }
 

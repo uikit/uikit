@@ -7,12 +7,16 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+.hook-subnav-variables() {
+    
+    //
+    // New
+    //
 
-@subnav-item-font-size:                         @global-small-font-size;
-@subnav-item-text-transform:                    uppercase;
+    --subnav-item-font-size:                         var(--global-small-font-size);
+    --subnav-item-text-transform:                    uppercase;
+
+}
 
 
 // Component
@@ -21,8 +25,8 @@
 .hook-subnav() {}
 
 .hook-subnav-item() {
-    font-size: @subnav-item-font-size;
-    text-transform: @subnav-item-text-transform;
+    font-size: var(--subnav-item-font-size);
+    text-transform: var(--subnav-item-text-transform);
     transition: 0.1s ease-in-out;
     transition-property: color, background-color;
 }

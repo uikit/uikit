@@ -26,47 +26,51 @@
 // Variables
 // ========================================================================
 
-@modal-z-index:                                 @global-z-index + 10;
-@modal-background:                              rgba(0,0,0,0.6);
+.hook-modal-variables() {
 
-@modal-padding-horizontal:                      15px;
-@modal-padding-horizontal-s:                    @global-gutter;
-@modal-padding-horizontal-m:                    @global-medium-gutter;
-@modal-padding-vertical:                        @modal-padding-horizontal;
-@modal-padding-vertical-s:                      50px;
+    --modal-z-index:                                 calc(var(--global-z-index) + 10);
+    --modal-background:                              rgba(0,0,0,0.6);
 
-@modal-dialog-width:                            600px;
-@modal-dialog-background:                       @global-background;
+    --modal-padding-horizontal:                      15px;
+    --modal-padding-horizontal-s:                    var(--global-gutter);
+    --modal-padding-horizontal-m:                    var(--global-medium-gutter);
+    --modal-padding-vertical:                        var(--modal-padding-horizontal);
+    --modal-padding-vertical-s:                      50px;
 
-@modal-container-width:                         1200px;
+    --modal-dialog-width:                            600px;
+    --modal-dialog-background:                       var(--global-background);
 
-@modal-body-padding-horizontal:                 20px;
-@modal-body-padding-vertical:                   20px;
-@modal-body-padding-horizontal-s:               @global-gutter;
-@modal-body-padding-vertical-s:                 @global-gutter;
+    --modal-container-width:                         1200px;
 
-@modal-header-padding-horizontal:               20px;
-@modal-header-padding-vertical:                 (@modal-header-padding-horizontal / 2);
-@modal-header-padding-horizontal-s:             @global-gutter;
-@modal-header-padding-vertical-s:               (@modal-header-padding-horizontal-s / 2);
-@modal-header-background:                       @global-muted-background;
+    --modal-body-padding-horizontal:                 20px;
+    --modal-body-padding-vertical:                   20px;
+    --modal-body-padding-horizontal-s:               var(--global-gutter);
+    --modal-body-padding-vertical-s:                 var(--global-gutter);
 
-@modal-footer-padding-horizontal:               20px;
-@modal-footer-padding-vertical:                 (@modal-footer-padding-horizontal / 2);
-@modal-footer-padding-horizontal-s:             @global-gutter;
-@modal-footer-padding-vertical-s:               (@modal-footer-padding-horizontal-s / 2);
-@modal-footer-background:                       @global-muted-background;
+    --modal-header-padding-horizontal:               20px;
+    --modal-header-padding-vertical:                 calc(var(--modal-header-padding-horizontal) / 2);
+    --modal-header-padding-horizontal-s:             var(--global-gutter);
+    --modal-header-padding-vertical-s:               calc(var(--modal-header-padding-horizontal-s) / 2);
+    --modal-header-background:                       var(--global-muted-background);
 
-@modal-title-font-size:                         @global-xlarge-font-size;
-@modal-title-line-height:                       1.3;
+    --modal-footer-padding-horizontal:               20px;
+    --modal-footer-padding-vertical:                 calc(var(--modal-footer-padding-horizontal) / 2);
+    --modal-footer-padding-horizontal-s:             var(--global-gutter);
+    --modal-footer-padding-vertical-s:               calc(var(--modal-footer-padding-horizontal-s) / 2);
+    --modal-footer-background:                       var(--global-muted-background);
 
-@modal-close-position:                          @global-small-margin;
-@modal-close-padding:                           5px;
+    --modal-title-font-size:                         var(--global-xlarge-font-size);
+    --modal-title-line-height:                       1.3;
 
-@modal-close-outside-position:                  0;
-@modal-close-outside-translate:                 100%;
-@modal-close-outside-color:                     lighten(@global-inverse-color, 20%);
-@modal-close-outside-hover-color:               @global-inverse-color;
+    --modal-close-position:                          var(--global-small-margin);
+    --modal-close-padding:                           5px;
+
+    --modal-close-outside-position:                  0;
+    --modal-close-outside-translate:                 100%;
+    --modal-close-outside-color:                     hsl(from var(--global-inverse-color) h s ~'calc(l + 20)');
+    --modal-close-outside-hover-color:               var(--global-inverse-color);
+
+}
 
 
 /* ========================================================================
@@ -91,13 +95,13 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: @modal-z-index;
+    z-index: var(--modal-z-index);
     /* 3 */
     overflow-y: auto;
     /* 4 */
-    padding: @modal-padding-vertical @modal-padding-horizontal;
+    padding: var(--modal-padding-vertical) var(--modal-padding-horizontal);
     /* 5 */
-    background: @modal-background;
+    background: var(--modal-background);
     /* 6 */
     opacity: 0;
     transition: opacity 0.15s linear;
@@ -107,7 +111,7 @@
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-modal { padding: @modal-padding-vertical-s @modal-padding-horizontal-s; }
+    .uk-modal { padding: var(--modal-padding-vertical-s) var(--modal-padding-horizontal-s); }
 
 }
 
@@ -115,8 +119,8 @@
 @media (min-width: @breakpoint-medium) {
 
     .uk-modal {
-        padding-left: @modal-padding-horizontal-m;
-        padding-right: @modal-padding-horizontal-m;
+        padding-left: var(--modal-padding-horizontal-m);
+        padding-right: var(--modal-padding-horizontal-m);
     }
 
 }
@@ -155,11 +159,11 @@
     /* 2 */
     box-sizing: border-box;
     margin: 0 auto;
-    width: @modal-dialog-width;
+    width: var(--modal-dialog-width);
     /* 3 */
     max-width: 100% !important;
     /* 4 */
-    background: @modal-dialog-background;
+    background: var(--modal-dialog-background);
     /* 5 */
     opacity: 0;
     transform: translateY(-100px);
@@ -186,7 +190,7 @@
  * Take the same size as the Container component
  */
 
-.uk-modal-container .uk-modal-dialog { width: @modal-container-width; }
+.uk-modal-container .uk-modal-dialog { width: var(--modal-container-width); }
 
 /*
  * Full size
@@ -215,30 +219,30 @@
 
 .uk-modal-body {
     display: flow-root;
-    padding: @modal-body-padding-vertical @modal-body-padding-horizontal;
+    padding: var(--modal-body-padding-vertical) var(--modal-body-padding-horizontal);
     .hook-modal-body();
 }
 
 .uk-modal-header {
     display: flow-root;
-    padding: @modal-header-padding-vertical @modal-header-padding-horizontal;
-    background: @modal-header-background;
+    padding: var(--modal-header-padding-vertical) var(--modal-header-padding-horizontal);
+    background: var(--modal-header-background);
     .hook-modal-header();
 }
 
 .uk-modal-footer {
     display: flow-root;
-    padding: @modal-footer-padding-vertical @modal-footer-padding-horizontal;
-    background: @modal-footer-background;
+    padding: var(--modal-footer-padding-vertical) var(--modal-footer-padding-horizontal);
+    background: var(--modal-footer-background);
     .hook-modal-footer();
 }
 
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-modal-body { padding: @modal-body-padding-vertical-s @modal-body-padding-horizontal-s; }
-    .uk-modal-header { padding: @modal-header-padding-vertical-s @modal-header-padding-horizontal-s; }
-    .uk-modal-footer { padding: @modal-footer-padding-vertical-s @modal-footer-padding-horizontal-s; }
+    .uk-modal-body { padding: var(--modal-body-padding-vertical-s) var(--modal-body-padding-horizontal-s); }
+    .uk-modal-header { padding: var(--modal-header-padding-vertical-s) var(--modal-header-padding-horizontal-s); }
+    .uk-modal-footer { padding: var(--modal-footer-padding-vertical-s) var(--modal-footer-padding-horizontal-s); }
 
 }
 
@@ -255,8 +259,8 @@
  ========================================================================== */
 
 .uk-modal-title {
-    font-size: @modal-title-font-size;
-    line-height: @modal-title-line-height;
+    font-size: var(--modal-title-font-size);
+    line-height: var(--modal-title-line-height);
     .hook-modal-title();
 }
 
@@ -267,10 +271,10 @@
 
 [class*="uk-modal-close-"] {
     position: absolute;
-    z-index: @modal-z-index;
-    top: @modal-close-position;
-    right: @modal-close-position;
-    padding: @modal-close-padding;
+    z-index: var(--modal-z-index);
+    top: var(--modal-close-position);
+    right: var(--modal-close-position);
+    padding: var(--modal-close-padding);
     .hook-modal-close();
 }
 
@@ -306,16 +310,15 @@
  */
 
 .uk-modal-close-outside {
-    top: @modal-close-outside-position;
+    top: var(--modal-close-outside-position);
     /* 1 */
-    right: -@modal-close-padding;
-    transform: translate(0, -(@modal-close-outside-translate));
-    color: @modal-close-outside-color;
+    right: calc(var(--modal-close-padding) * -1);
+    transform: translate(0, calc(var(--modal-close-outside-translate) * -1));
     .hook-modal-close-outside();
 }
 
 .uk-modal-close-outside:hover {
-    color: @modal-close-outside-hover-color;
+    color: var(--modal-close-outside-hover-color);
     .hook-modal-close-outside-hover();
 }
 
@@ -324,8 +327,8 @@
 
     /* 1 */
     .uk-modal-close-outside {
-        right: @modal-close-outside-position;
-        transform: translate(@modal-close-outside-translate, -(@modal-close-outside-translate));
+        right: var(--modal-close-outside-position);
+        transform: translate(var(--modal-close-outside-translate), calc(var(--modal-close-outside-translate) * -1));
     }
 
 }

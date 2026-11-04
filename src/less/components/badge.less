@@ -9,13 +9,17 @@
 // Variables
 // ========================================================================
 
-@badge-size:                                    18px;
-@badge-padding-vertical:                        0;
-@badge-padding-horizontal:                      5px;
-@badge-border-radius:                           500px;
-@badge-background:                              @global-primary-background;
-@badge-color:                                   @global-inverse-color;
-@badge-font-size:                               11px;
+.hook-badge-variables() {
+
+    --badge-size:                                    18px;
+    --badge-padding-vertical:                        0;
+    --badge-padding-horizontal:                      5px;
+    --badge-border-radius:                           500px;
+    --badge-background:                              var(--global-primary-background);
+    --badge-color:                                   var(--global-inverse-color);
+    --badge-font-size:                               11px;
+    
+}
 
 
 /* ========================================================================
@@ -29,15 +33,15 @@
 
 .uk-badge {
     box-sizing: border-box;
-    min-width: @badge-size;
-    height: @badge-size;
-    padding: @badge-padding-vertical @badge-padding-horizontal;
-    border-radius: @badge-border-radius;
+    min-width: var(--badge-size);
+    height: var(--badge-size);
+    padding: var(--badge-padding-vertical) var(--badge-padding-horizontal);
+    border-radius: var(--badge-border-radius);
     vertical-align: middle;
     /* 1 */
-    background: @badge-background;
-    color: @badge-color !important;
-    font-size: @badge-font-size;
+    background: var(--badge-background);
+    color: var(--badge-color) !important;
+    font-size: var(--badge-font-size);
     /* 2 */
     display: inline-flex;
     justify-content: center;
@@ -69,14 +73,16 @@
 // Inverse
 // ========================================================================
 
-@inverse-badge-background:                     @inverse-global-primary-background;
-@inverse-badge-color:                          @inverse-global-inverse-color;
+.hook-badge-variables() {
+    --inverse-badge-background:                     var(--inverse-global-primary-background);
+    --inverse-badge-color:                          var(--inverse-global-inverse-color);
+}
 
 .hook-inverse() {
 
     .uk-badge {
-        background-color: @inverse-badge-background;
-        color: @inverse-badge-color !important;
+        background-color: var(--inverse-badge-background);
+        color: var(--inverse-badge-color) !important;
         .hook-inverse-badge();
     }
 

@@ -13,14 +13,18 @@
 // Variables
 // ========================================================================
 
-@iconnav-margin-horizontal:                      @global-small-margin;
-@iconnav-margin-vertical:                        @iconnav-margin-horizontal;
+.hook-iconnav-variables() {
+    
+    --iconnav-margin-horizontal:                      var(--global-small-margin);
+    --iconnav-margin-vertical:                        var(--iconnav-margin-horizontal);
 
-@iconnav-item-color:                             @global-muted-color;
+    --iconnav-item-color:                             var(--global-muted-color);
 
-@iconnav-item-hover-color:                       @global-color;
+    --iconnav-item-hover-color:                       var(--global-color);
 
-@iconnav-item-active-color:                      @global-color;
+    --iconnav-item-active-color:                      var(--global-color);
+
+}
 
 
 /* ========================================================================
@@ -42,7 +46,7 @@
     padding: 0;
     list-style: none;
     /* 3 */
-    margin-left: -@iconnav-margin-horizontal;
+    margin-left: calc(var(--iconnav-margin-horizontal) * -1);
     .hook-iconnav();
 }
 
@@ -53,7 +57,7 @@
 
 .uk-iconnav > * {
     /* 1 */
-    padding-left: @iconnav-margin-horizontal;
+    padding-left: var(--iconnav-margin-horizontal);
 }
 
 
@@ -78,7 +82,7 @@
     /* 3 */
     line-height: 0;
     /* 4 */
-    color: @iconnav-item-color;
+    color: var(--iconnav-item-color);
     /* 5 */
     text-decoration: none;
     .hook-iconnav-item();
@@ -86,13 +90,13 @@
 
 /* Hover */
 .uk-iconnav > * > a:hover {
-    color: @iconnav-item-hover-color;
+    color: var(--iconnav-item-hover-color);
     .hook-iconnav-item-hover();
 }
 
 /* Active */
 .uk-iconnav > .uk-active > a {
-    color: @iconnav-item-active-color;
+    color: var(--iconnav-item-active-color);
     .hook-iconnav-item-active();
 }
 
@@ -110,13 +114,13 @@
     flex-direction: column;
     /* 2 */
     margin-left: 0;
-    margin-top: -@iconnav-margin-vertical;
+    margin-top: calc(var(--iconnav-margin-vertical) * -1);
 }
 
 /* 2 */
 .uk-iconnav-vertical > * {
     padding-left: 0;
-    padding-top: @iconnav-margin-vertical;
+    padding-top: var(--iconnav-margin-vertical);
 }
 
 
@@ -135,24 +139,26 @@
 // Inverse
 // ========================================================================
 
-@inverse-iconnav-item-color:               @inverse-global-muted-color;
-@inverse-iconnav-item-hover-color:         @inverse-global-color;
-@inverse-iconnav-item-active-color:        @inverse-global-color;
+.hook-iconnav-variables() {
+    --inverse-iconnav-item-color:               var(--inverse-global-muted-color);
+    --inverse-iconnav-item-hover-color:         var(--inverse-global-color);
+    --inverse-iconnav-item-active-color:        var(--inverse-global-color);
+}
 
 .hook-inverse() {
 
     .uk-iconnav > * > a {
-        color: @inverse-iconnav-item-color;
+        color: var(--inverse-iconnav-item-color);
         .hook-inverse-iconnav-item();
     }
 
     .uk-iconnav > * > a:hover {
-        color: @inverse-iconnav-item-hover-color;
+        color: var(--inverse-iconnav-item-hover-color);
         .hook-inverse-iconnav-item-hover();
     }
 
     .uk-iconnav > .uk-active > a {
-        color: @inverse-iconnav-item-active-color;
+        color: var(--inverse-iconnav-item-active-color);
         .hook-inverse-iconnav-item-active();
     }
 

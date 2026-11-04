@@ -23,24 +23,28 @@
 // Variables
 // ========================================================================
 
-@notification-position:                               10px;
-@notification-z-index:                                @global-z-index + 40;
-@notification-width:                                  350px;
+.hook-notification-variables() {
 
-@notification-message-margin-top:                     10px;
-@notification-message-padding:                        @global-small-gutter;
-@notification-message-background:                     @global-muted-background;
-@notification-message-color:                          @global-color;
-@notification-message-font-size:                      @global-medium-font-size;
-@notification-message-line-height:                    1.4;
+    --notification-position:                               10px;
+    --notification-z-index:                                calc(var(--global-z-index) + 40);
+    --notification-width:                                  350px;
 
-@notification-close-top:                              @notification-message-padding + 5px;
-@notification-close-right:                            @notification-message-padding;
+    --notification-message-margin-top:                     10px;
+    --notification-message-padding:                        var(--global-small-gutter);
+    --notification-message-background:                     var(--global-muted-background);
+    --notification-message-color:                          var(--global-color);
+    --notification-message-font-size:                      var(--global-medium-font-size);
+    --notification-message-line-height:                    1.4;
 
-@notification-message-primary-color:                  @global-primary-background;
-@notification-message-success-color:                  @global-success-background;
-@notification-message-warning-color:                  @global-warning-background;
-@notification-message-danger-color:                   @global-danger-background;
+    --notification-close-top:                              calc(var(--notification-message-padding) + 5px);
+    --notification-close-right:                            var(--notification-message-padding);
+
+    --notification-message-primary-color:                  var(--global-primary-background);
+    --notification-message-success-color:                  var(--global-success-background);
+    --notification-message-warning-color:                  var(--global-warning-background);
+    --notification-message-danger-color:                   var(--global-danger-background);
+
+}
 
 
 /* ========================================================================
@@ -55,12 +59,12 @@
 .uk-notification {
     /* 1 */
     position: fixed;
-    top: @notification-position;
-    left: @notification-position;
-    z-index: @notification-z-index;
+    top: var(--notification-position);
+    left: var(--notification-position);
+    z-index: var(--notification-z-index);
     /* 2 */
     box-sizing: border-box;
-    width: @notification-width;
+    width: var(--notification-width);
     .hook-notification();
 }
 
@@ -71,20 +75,20 @@
 .uk-notification-top-right,
 .uk-notification-bottom-right {
     left: auto;
-    right: @notification-position;
+    right: var(--notification-position);
 }
 
 .uk-notification-top-center,
 .uk-notification-bottom-center {
     left: 50%;
-    margin-left: (@notification-width / -2);
+    margin-left: calc(var(--notification-width) / -2);
 }
 
 .uk-notification-bottom-left,
 .uk-notification-bottom-right,
 .uk-notification-bottom-center {
     top: auto;
-    bottom: @notification-position;
+    bottom: var(--notification-position);
 }
 
 
@@ -95,8 +99,8 @@
 @media (max-width: @breakpoint-xsmall-max) {
 
     .uk-notification {
-        left: @notification-position;
-        right: @notification-position;
+        left: var(--notification-position);
+        right: var(--notification-position);
         width: auto;
         margin: 0;
     }
@@ -109,16 +113,16 @@
 
 .uk-notification-message {
     position: relative;
-    padding: @notification-message-padding;
-    background: @notification-message-background;
-    color: @notification-message-color;
-    font-size: @notification-message-font-size;
-    line-height: @notification-message-line-height;
+    padding: var(--notification-message-padding);
+    background: var(--notification-message-background);
+    color: var(--notification-message-color);
+    font-size: var(--notification-message-font-size);
+    line-height: var(--notification-message-line-height);
     cursor: pointer;
     .hook-notification-message();
 }
 
-* + .uk-notification-message { margin-top: @notification-message-margin-top; }
+* + .uk-notification-message { margin-top: var(--notification-message-margin-top); }
 
 
 /* Close
@@ -128,8 +132,8 @@
 .uk-notification-close {
     display: none;
     position: absolute;
-    top: @notification-close-top;
-    right: @notification-close-right;
+    top: var(--notification-close-top);
+    right: var(--notification-close-right);
     .hook-notification-close();
 }
 
@@ -144,7 +148,7 @@
  */
 
 .uk-notification-message-primary {
-    color: @notification-message-primary-color;
+    color: var(--notification-message-primary-color);
     .hook-notification-message-primary();
 }
 
@@ -153,7 +157,7 @@
  */
 
 .uk-notification-message-success {
-    color: @notification-message-success-color;
+    color: var(--notification-message-success-color);
     .hook-notification-message-success();
 }
 
@@ -162,7 +166,7 @@
  */
 
 .uk-notification-message-warning {
-    color: @notification-message-warning-color;
+    color: var(--notification-message-warning-color);
     .hook-notification-message-warning();
 }
 
@@ -171,7 +175,7 @@
  */
 
 .uk-notification-message-danger {
-    color: @notification-message-danger-color;
+    color: var(--notification-message-danger-color);
     .hook-notification-message-danger();
 }
 

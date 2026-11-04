@@ -9,11 +9,15 @@
 // Variables
 // ========================================================================
 
-@progress-height:                               15px;
-@progress-margin-vertical:                      @global-margin;
-@progress-background:                           @global-muted-background;
+.hook-progress-variables() {
 
-@progress-bar-background:                       @global-primary-background;
+    --progress-height:                               15px;
+    --progress-margin-vertical:                      var(--global-margin);
+    --progress-background:                           var(--global-muted-background);
+
+    --progress-bar-background:                       var(--global-primary-background);
+
+}
 
 
 /* ========================================================================
@@ -28,7 +32,7 @@
  * 5. Style
  */
 
-.uk-progress {
+.uk-progress-progress {
     /* 1 */
     vertical-align: baseline;
     /* 2 */
@@ -37,15 +41,15 @@
     /* 3 */
     border: 0;
     /* 4 */
-    background-color: @progress-background;
+    background-color: var(--progress-background);
     /* 5 */
-    margin-bottom: @progress-margin-vertical;
-    height: @progress-height;
+    margin-bottom: var(--progress-margin-vertical);
+    height: var(--progress-height);
     .hook-progress();
 }
 
 /* Add margin if adjacent element */
-* + .uk-progress { margin-top: @progress-margin-vertical; }
+* + .uk-progress { margin-top: var(--progress-margin-vertical); }
 
 /*
  * Show background color set on `uk-progress` in Chrome, Safari and Edge.
@@ -60,13 +64,13 @@
  */
 
 .uk-progress::-webkit-progress-value {
-    background-color: @progress-bar-background;
+    background-color: var(--progress-bar-background);
     transition: width 0.6s ease;
     .hook-progress-bar();
 }
 
 .uk-progress::-moz-progress-bar {
-    background-color: @progress-bar-background;
+    background-color: var(--progress-bar-background);
     /* 1 */
     transition: width 0.6s ease;
     .hook-progress-bar();

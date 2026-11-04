@@ -13,19 +13,23 @@
 // Variables
 // ========================================================================
 
-@label-padding-vertical:                        0;
-@label-padding-horizontal:                      @global-small-margin;
-@label-background:                              @global-primary-background;
-@label-line-height:                             @global-line-height;
-@label-font-size:                               @global-small-font-size;
-@label-color:                                   @global-inverse-color;
+.hook-label-variables() {
+    
+    --label-padding-vertical:                        0;
+    --label-padding-horizontal:                      var(--global-small-margin);
+    --label-background:                              var(--global-primary-background);
+    --label-line-height:                             var(--global-line-height);
+    --label-font-size:                               var(--global-small-font-size);
+    --label-color:                                   var(--global-inverse-color);
 
-@label-success-background:                      @global-success-background;
-@label-success-color:                           @global-inverse-color;
-@label-warning-background:                      @global-warning-background;
-@label-warning-color:                           @global-inverse-color;
-@label-danger-background:                       @global-danger-background;
-@label-danger-color:                            @global-inverse-color;
+    --label-success-background:                      var(--global-success-background);
+    --label-success-color:                           var(--global-inverse-color);
+    --label-warning-background:                      var(--global-warning-background);
+    --label-warning-color:                           var(--global-inverse-color);
+    --label-danger-background:                       var(--global-danger-background);
+    --label-danger-color:                            var(--global-inverse-color);
+
+}
 
 
 /* ========================================================================
@@ -34,11 +38,11 @@
 
 .uk-label {
     display: inline-block;
-    padding: @label-padding-vertical @label-padding-horizontal;
-    background: @label-background;
-    line-height: @label-line-height;
-    font-size: @label-font-size;
-    color: @label-color;
+    padding: var(--label-padding-vertical) var(--label-padding-horizontal);
+    background: var(--label-background);
+    line-height: var(--label-line-height);
+    font-size: var(--label-font-size);
+    color: var(--label-color);
     vertical-align: middle;
     white-space: nowrap;
     .hook-label();
@@ -53,8 +57,8 @@
  */
 
 .uk-label-success {
-    background-color: @label-success-background;
-    color: @label-success-color;
+    background-color: var(--label-success-background);
+    color: var(--label-success-color);
     .hook-label-success();
 }
 
@@ -63,8 +67,8 @@
  */
 
 .uk-label-warning {
-    background-color: @label-warning-background;
-    color: @label-warning-color;
+    background-color: var(--label-warning-background);
+    color: var(--label-warning-color);
     .hook-label-warning();
 }
 
@@ -73,8 +77,8 @@
  */
 
 .uk-label-danger {
-    background-color: @label-danger-background;
-    color: @label-danger-color;
+    background-color: var(--label-danger-background);
+    color: var(--label-danger-color);
     .hook-label-danger();
 }
 
@@ -94,14 +98,16 @@
 // Inverse
 // ========================================================================
 
-@inverse-label-background:                     @inverse-global-primary-background;
-@inverse-label-color:                          @inverse-global-inverse-color;
+.hook-label-variables() {
+    --inverse-label-background:                     var(--inverse-global-primary-background);
+    --inverse-label-color:                          var(--inverse-global-inverse-color);
+}
 
 .hook-inverse() {
 
     .uk-label {
-        background-color: @inverse-label-background;
-        color: @inverse-label-color;
+        background-color: var(--inverse-label-background);
+        color: var(--inverse-label-color);
         .hook-inverse-label();
     }
 

@@ -13,8 +13,12 @@
 // Variables
 // ========================================================================
 
-@countdown-separator-line-height:               2;
-@countdown-separator-font-size:                 0.5em;
+.hook-countdown-variables() {
+
+    --countdown-separator-line-height:               2;
+    --countdown-separator-font-size:                 0.5em;
+    
+}
 
 
 /* ========================================================================
@@ -55,8 +59,8 @@
  ========================================================================== */
 
 .uk-countdown-separator {
-    font-size: @countdown-separator-font-size;
-    line-height: @countdown-separator-line-height;
+    font-size: var(--countdown-separator-font-size);
+    line-height: var(--countdown-separator-line-height);
     .hook-countdown-separator();
 }
 

@@ -11,16 +11,20 @@
 // Variables
 // ========================================================================
 
-@breadcrumb-item-font-size:                         @global-small-font-size;
-@breadcrumb-item-color:                             @global-muted-color;
-@breadcrumb-item-hover-color:                       @global-color;
-@breadcrumb-item-hover-text-decoration:             none;
-@breadcrumb-item-active-color:                      @global-color;
+.hook-breadcrumb-variables() {
 
-@breadcrumb-divider:                                "/";
-@breadcrumb-divider-margin-horizontal:              20px;
-@breadcrumb-divider-font-size:                      @breadcrumb-item-font-size;
-@breadcrumb-divider-color:                          @global-muted-color;
+    --breadcrumb-item-font-size:                         var(--global-small-font-size);
+    --breadcrumb-item-color:                             var(--global-muted-color);
+    --breadcrumb-item-hover-color:                       var(--global-color);
+    --breadcrumb-item-hover-text-decoration:             none;
+    --breadcrumb-item-active-color:                      var(--global-color);
+
+    --breadcrumb-divider:                                "/";
+    --breadcrumb-divider-margin-horizontal:              20px;
+    --breadcrumb-divider-font-size:                      var(--breadcrumb-item-font-size);
+    --breadcrumb-divider-color:                          var(--global-muted-color);
+
+}
 
 
 /* ========================================================================
@@ -52,15 +56,15 @@
  ========================================================================== */
 
 .uk-breadcrumb > * > * {
-    font-size: @breadcrumb-item-font-size;
-    color: @breadcrumb-item-color;
+    font-size: var(--breadcrumb-item-font-size);
+    color: var(--breadcrumb-item-color);
     .hook-breadcrumb-item();
 }
 
 /* Hover */
 .uk-breadcrumb > * > :hover {
-    color: @breadcrumb-item-hover-color;
-    text-decoration: @breadcrumb-item-hover-text-decoration;
+    color: var(--breadcrumb-item-hover-color);
+    text-decoration: var(--breadcrumb-item-hover-text-decoration);
     .hook-breadcrumb-item-hover();
 }
 
@@ -72,7 +76,7 @@
 /* Active */
 .uk-breadcrumb > :last-child > span,
 .uk-breadcrumb > :last-child > a:not([href]) {
-    color: @breadcrumb-item-active-color;
+    color: var(--breadcrumb-item-active-color);
     .hook-breadcrumb-item-active();
 }
 
@@ -84,13 +88,13 @@
  */
 
 .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
-    content: @breadcrumb-divider;
+    content: var(--breadcrumb-divider);
     display: inline-block;
     /* 1 */
-    margin: 0 @breadcrumb-divider-margin-horizontal;
+    margin: 0 var(--breadcrumb-divider-margin-horizontal);
     /* 2 */
-    font-size: @breadcrumb-divider-font-size;
-    color: @breadcrumb-divider-color;
+    font-size: var(--breadcrumb-divider-font-size);
+    color: var(--breadcrumb-divider-color);
     .hook-breadcrumb-divider();
 }
 
@@ -112,20 +116,22 @@
 // Inverse
 // ========================================================================
 
-@inverse-breadcrumb-item-color:                @inverse-global-muted-color;
-@inverse-breadcrumb-item-hover-color:          @inverse-global-color;
-@inverse-breadcrumb-item-active-color:         @inverse-global-color;
-@inverse-breadcrumb-divider-color:             @inverse-global-muted-color;
+.hook-breadcrumb-variables() {
+    --inverse-breadcrumb-item-color:                var(--inverse-global-muted-color);
+    --inverse-breadcrumb-item-hover-color:          var(--inverse-global-color);
+    --inverse-breadcrumb-item-active-color:         var(--inverse-global-color);
+    --inverse-breadcrumb-divider-color:             var(--inverse-global-muted-color);
+}
 
 .hook-inverse() {
 
     .uk-breadcrumb > * > * {
-        color: @inverse-breadcrumb-item-color;
+        color: var(--inverse-breadcrumb-item-color);
         .hook-inverse-breadcrumb-item();
     }
 
     .uk-breadcrumb > * > :hover {
-        color: @inverse-breadcrumb-item-hover-color;
+        color: var(--inverse-breadcrumb-item-hover-color);
         .hook-inverse-breadcrumb-item-hover();
     }
 
@@ -135,7 +141,7 @@
     }
 
     .uk-breadcrumb > :last-child > * {
-        color: @inverse-breadcrumb-item-active-color;
+        color: var(--inverse-breadcrumb-item-active-color);
         .hook-inverse-breadcrumb-item-active();
     }
 
@@ -144,7 +150,7 @@
     //
 
     .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
-        color: @inverse-breadcrumb-divider-color;
+        color: var(--inverse-breadcrumb-divider-color);
         .hook-inverse-breadcrumb-divider();
     }
 
