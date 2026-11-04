@@ -5,6 +5,7 @@
 ### Fixed
 
 - Preserve image alternative text when replacing an image with an SVG
+- Hide Breadcrumb dividers from screen readers using empty alternative text
 
 ## 3.25.29 (November 2, 2026)
 
