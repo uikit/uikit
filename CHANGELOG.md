@@ -43,6 +43,10 @@
 
 ## 3.25.30 (November 9, 2026)
 
+### Added
+
+- Add support for `details` and `summary` elements in Accordion component
+
 ### Fixed
 
 - Fix preserving image alternative text when replacing an image with an SVG
