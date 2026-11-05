@@ -21,7 +21,7 @@
 @dropbar-padding-horizontal:                    15px;
 @dropbar-padding-horizontal-s:                  @global-gutter;
 @dropbar-padding-horizontal-m:                  @global-medium-gutter;
-@dropbar-background:                            @global-muted-background;
+@dropbar-background:                            @global-muted-color-default;
 @dropbar-color:                                 @global-color;
 @dropbar-color-mode:                            dark;
 @dropbar-focus-outline:                         @base-focus-outline;
@@ -129,3 +129,42 @@
 .hook-dropbar-left() {}
 .hook-dropbar-right() {}
 .hook-dropbar-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-dropbar-background:                   @inverse-global-muted-color-default;
+@inverse-dropbar-color:                        @inverse-global-color;
+
+.hook-inverse() {
+
+    .uk-dropbar {
+        background: @inverse-dropbar-background;
+        color: @inverse-dropbar-color;
+        .hook-inverse-dropbar();
+    }
+
+    .uk-dropbar-top {
+        .hook-inverse-dropbar-top();
+    }
+
+    .uk-dropbar-bottom {
+        .hook-inverse-dropbar-bottom();
+    }
+
+    .uk-dropbar-left {
+        .hook-inverse-dropbar-left();
+    }
+
+    .uk-dropbar-right {
+        .hook-inverse-dropbar-right();
+    }
+
+}
+
+.hook-inverse-dropbar() {}
+.hook-inverse-dropbar-top() {}
+.hook-inverse-dropbar-bottom() {}
+.hook-inverse-dropbar-left() {}
+.hook-inverse-dropbar-right() {}
