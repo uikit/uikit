@@ -77,7 +77,16 @@ export default {
 
     watch: {
         items(items, prev) {
-            if (prev || hasClass(items, this.clsOpen)) {
+            if (prev) {
+                return;
+            }
+
+            for (const item of filter(items, 'details')) {
+                item.open ||= hasClass(item, this.clsOpen);
+                toggleClass(item, this.clsOpen, item.open);
+            }
+
+            if (hasClass(items, this.clsOpen)) {
                 return;
             }
 
@@ -108,7 +117,7 @@ export default {
                     this.clsOpen,
                 );
 
-                hide(el, !isOpen);
+                setHidden(el, !isOpen);
             }
             this.$emit();
         },
@@ -134,6 +143,9 @@ export default {
                 }
 
                 maybeDefaultPreventClick(e);
+                if (isTag(e.current, 'summary')) {
+                    e.preventDefault();
+                }
 
                 const off = keepScrollPosition(e.target);
                 this.toggle(item).finally(off);
@@ -212,7 +224,7 @@ export default {
                     toggleClass(el, this.clsOpen, show);
 
                     if (!animate || !this.hasAnimation) {
-                        hide($(this.content, el), !show);
+                        setHidden($(this.content, el), !show, el);
                         return;
                     }
 
@@ -230,8 +242,13 @@ export default {
     },
 };
 
-function hide(el, hide) {
-    el && (el.hidden = hide);
+function setHidden(content, hidden, item) {
+    if (content) {
+        content.hidden = hidden;
+    }
+    if (isTag(item, 'details')) {
+        item.open = !hidden;
+    }
 }
 
 async function transition(el, show, { content, duration, velocity, transition }) {
@@ -246,7 +263,7 @@ async function transition(el, show, { content, duration, velocity, transition })
     const currentHeight = toFloat(css(wrapper, 'height'));
 
     await Transition.cancel(wrapper);
-    hide(content, false);
+    setHidden(content, false, el);
 
     const endHeight =
         sumBy(['marginTop', 'marginBottom'], (prop) => css(content, prop)) +
@@ -262,7 +279,7 @@ async function transition(el, show, { content, duration, velocity, transition })
     wrappers.delete(el);
 
     if (!show) {
-        hide(content, true);
+        setHidden(content, true, el);
     }
 }
 

@@ -37,6 +37,10 @@
 
 ## WIP
 
+### Added
+
+- Add support for `details` and `summary` elements in Accordion component
+
 ### Fixed
 
 - Fix preserving image alternative text when replacing an image with an SVG
