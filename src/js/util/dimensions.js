@@ -191,7 +191,7 @@ export function toPx(value, property = 'width', element = window, offsetDim = fa
 const calcRe = /-?\d+(?:\.\d+)?(?:v[wh]|%|px)?/g;
 const parseCalc = memoize((calc) => calc.toString().replace(/\s/g, '').match(calcRe) || []);
 const unitRe = /(?:v[hw]|%)$/;
-const parseUnit = memoize((str) => (str.match(unitRe) || [])[0]);
+const parseUnit = memoize((str) => str.match(unitRe)?.[0]);
 
 function percent(base, value) {
     return (base * toFloat(value)) / 100;

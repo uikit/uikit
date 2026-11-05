@@ -1,6 +1,6 @@
 import { inBrowser } from './env';
 import { on } from './event';
-import { toNodes } from './lang';
+import { noop, toNodes } from './lang';
 
 export function observeIntersection(targets, cb, options = {}, { intersecting = true } = {}) {
     const observer = new IntersectionObserver(
@@ -26,9 +26,7 @@ export function observeResize(targets, cb, options = { box: 'border-box' }) {
         return observe(ResizeObserver, targets, cb, options);
     }
 
-    // Fallback Safari < 13.1
-    const off = [on(window, 'load resize', cb), on(document, 'loadedmetadata load', cb, true)];
-    return { disconnect: () => off.forEach((cb) => cb()) };
+    return { disconnect: noop };
 }
 
 export function observeViewportResize(cb) {
