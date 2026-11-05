@@ -129,7 +129,7 @@ export default {
 
                 columns.forEach((column, i) =>
                     column.forEach((el, j) => {
-                        let [x, y] = (translates && translates[i][j]) || [0, 0];
+                        let [x, y] = translates?.[i][j] ?? [0, 0];
 
                         if (scrolled) {
                             y += scrolled * scrollColumns[i];
