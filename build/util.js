@@ -96,7 +96,7 @@ export async function compile(
             svgPlugin(),
 
             esbuild({
-                target: 'safari12',
+                target: 'safari13.1',
                 sourceMap: !!debug,
                 minify: false,
                 supported: { 'template-literal': true, destructuring: true },
@@ -135,7 +135,7 @@ export async function compile(
                 debug
                     ? undefined
                     : esbuildMinify({
-                          target: 'safari12',
+                          target: 'safari13.1',
                           supported: { 'template-literal': true, destructuring: true },
                       }),
             ],
