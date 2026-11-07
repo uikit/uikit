@@ -5,6 +5,7 @@
 ### Added
 
 - Add Marquee component
+- Add support for `h1-h6/a` and `details/summary` markup to Accordion component
 - Add options to control an additional switcher container to Accordion component
 - Add `uk-switcher-animation` attribute to override animations for connected Switcher containers
 - Add `inview-margin` option to change the autoplay inview area in Video component
@@ -20,6 +21,7 @@
 
 ### Changed
 
+- IMPORTANT: Use heading element with `<a>` inside for the accordion title
 - IMPORTANT: Rename `uk-box-shadow-bottom` class to `uk-floating-shadow`
 - Refactor selector specificity in Grid, Base and Form components to remove important keywords in Margin component
 - Refactor classes with single-direction margin to override classes with multiple margin directions in Margin component
