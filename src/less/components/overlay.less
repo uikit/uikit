@@ -90,3 +90,20 @@
 .hook-overlay-default() {}
 .hook-overlay-primary() {}
 .hook-overlay-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-overlay-default-background:              fade(@inverse-global-background, 90%);
+
+.hook-inverse() {
+
+    .uk-overlay-default {
+        background: @inverse-overlay-default-background;
+        .hook-inverse-overlay-default();
+    }
+
+}
+
+.hook-inverse-overlay-default() {}

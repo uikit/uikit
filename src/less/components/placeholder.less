@@ -43,3 +43,20 @@
 
 .hook-placeholder() {}
 .hook-placeholder-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-placeholder-background:                  @inverse-global-muted-background;
+
+.hook-inverse() {
+
+    .uk-placeholder {
+        background: @inverse-placeholder-background;
+        .hook-inverse-placeholder();
+    }
+
+}
+
+.hook-inverse-placeholder() {}

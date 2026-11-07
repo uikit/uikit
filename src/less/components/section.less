@@ -255,3 +255,37 @@
 .hook-section-primary() {}
 .hook-section-overlap() {}
 .hook-section-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-section-default-background:              @inverse-global-background;
+@inverse-section-muted-background:                @inverse-global-muted-background;
+
+.hook-inverse() {
+
+    .uk-section-default {
+        background: @inverse-section-default-background;
+        .hook-inverse-section-default();
+    }
+
+    .uk-section-muted {
+        background: @inverse-section-muted-background;
+        .hook-inverse-section-muted();
+    }
+
+    .uk-section-primary {
+        .hook-inverse-section-primary();
+    }
+    
+    .uk-section-secondary {
+        .hook-inverse-section-secondary();
+    }
+
+}
+
+.hook-inverse-section-default() {}
+.hook-inverse-section-muted() {}
+.hook-inverse-section-primary() {}
+.hook-inverse-section-secondary() {}

@@ -111,6 +111,9 @@
 
 @inverse-base-blockquote-color:                @inverse-global-emphasis-color;
 @inverse-base-blockquote-footer-color:         @inverse-global-color;
+@inverse-base-pre-background:                  @inverse-global-background;
+@inverse-base-pre-border:                      @inverse-global-border;
+@inverse-base-pre-color:                       @inverse-global-color;
 
 .hook-inverse-base-link() {}
 .hook-inverse-base-link-hover() {}
@@ -130,5 +133,11 @@
 
 .hook-inverse-base-blockquote() { color: @inverse-base-blockquote-color; }
 .hook-inverse-base-blockquote-footer() { color: @inverse-base-blockquote-footer-color; }
+
+.hook-inverse-base-pre {
+    color: @inverse-base-pre-color;
+    border-color: @inverse-base-pre-border;
+    background: @inverse-base-pre-background;
+}
 
 .hook-inverse-base-hr() {}

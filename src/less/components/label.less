@@ -95,7 +95,7 @@
 // ========================================================================
 
 @inverse-label-background:                     @inverse-global-primary-background;
-@inverse-label-color:                          @inverse-global-inverse-color;
+@inverse-label-color:                          @inverse-global-emphasis-color;
 
 .hook-inverse() {
 
@@ -105,6 +105,21 @@
         .hook-inverse-label();
     }
 
+    .uk-label-success {
+        .hook-inverse-label-success();
+    }
+
+    .uk-label-warning {
+        .hook-inverse-label-warning();
+    }
+
+    .uk-label-danger {
+        .hook-inverse-label-danger();
+    }
+
 }
 
 .hook-inverse-label() {}
+.hook-inverse-label-success() {}
+.hook-inverse-label-warning() {}
+.hook-inverse-label-danger() {}

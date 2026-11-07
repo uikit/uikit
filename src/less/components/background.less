@@ -138,3 +138,17 @@
 .hook-background-misc();
 
 .hook-background-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-background-default-background:                 @inverse-global-background;
+@inverse-background-muted-background:                   @inverse-global-muted-background;
+
+.hook-inverse() {
+
+    .uk-background-default { background-color: @inverse-background-default-background; }
+    .uk-background-muted { background-color: @inverse-background-muted-background; }
+
+}
