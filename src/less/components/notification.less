@@ -29,7 +29,7 @@
 
 @notification-message-margin-top:                     10px;
 @notification-message-padding:                        @global-small-gutter;
-@notification-message-background:                     @global-muted-background;
+@notification-message-background:                     @global-muted-color-default;
 @notification-message-color:                          @global-color;
 @notification-message-font-size:                      @global-medium-font-size;
 @notification-message-line-height:                    1.4;
@@ -37,10 +37,10 @@
 @notification-close-top:                              @notification-message-padding + 5px;
 @notification-close-right:                            @notification-message-padding;
 
-@notification-message-primary-color:                  @global-primary-background;
-@notification-message-success-color:                  @global-success-background;
-@notification-message-warning-color:                  @global-warning-background;
-@notification-message-danger-color:                   @global-danger-background;
+@notification-message-primary-color:                  @global-primary-color;
+@notification-message-success-color:                  @global-success-color;
+@notification-message-warning-color:                  @global-warning-color;
+@notification-message-danger-color:                   @global-danger-color;
 
 
 /* ========================================================================
@@ -189,3 +189,47 @@
 .hook-notification-message-warning() {}
 .hook-notification-message-danger() {}
 .hook-notification-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-notification-message-background:         @inverse-global-muted-color-default;
+@inverse-notification-message-color:              @inverse-global-color;
+
+@inverse-notification-message-primary-color:      @global-primary-color;
+@inverse-notification-message-success-color:      @global-success-color;
+@inverse-notification-message-warning-color:      @global-warning-color;
+@inverse-notification-message-danger-color:       @global-danger-color;
+
+.hook-inverse() {
+
+    .uk-notification-message {
+        background: @inverse-notification-message-background;
+        color: @inverse-notification-message-color;
+        .hook-inverse-notification-message();
+    }
+
+    .uk-notification-message-primary {
+        .hook-inverse-notification-message-primary();
+    }
+
+    .uk-notification-message-success {
+        .hook-inverse-notification-message-success();
+    }
+
+    .uk-notification-message-warning {
+        .hook-inverse-notification-message-warning();
+    }
+
+    .uk-notification-message-danger {
+        .hook-inverse-notification-message-danger();
+    }
+
+}
+
+.hook-inverse-notification-message() {}
+.hook-inverse-notification-message-primary() {}
+.hook-inverse-notification-message-success() {}
+.hook-inverse-notification-message-warning() {}
+.hook-inverse-notification-message-danger() {}

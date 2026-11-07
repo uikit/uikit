@@ -100,3 +100,28 @@
     }
 
 }
+
+
+// Inverse
+// ========================================================================
+
+@inverse-modal-header-background:              @inverse-modal-dialog-background;
+@inverse-modal-footer-background:              @inverse-modal-dialog-background;
+
+@inverse-modal-header-border:                  @inverse-global-border;
+
+@inverse-modal-footer-border:                  @inverse-global-border;
+
+@inverse-modal-close-full-background:          @inverse-modal-dialog-background;
+
+.hook-inverse-modal() {}
+.hook-inverse-modal-dialog() {}
+
+.hook-inverse-modal-header() { border-bottom-color: @inverse-modal-header-border; }
+.hook-inverse-modal-footer() { border-top-color: @inverse-modal-footer-border; }
+
+.hook-inverse-modal-close-outside() {}
+.hook-inverse-modal-close-outside-hover() {}
+
+.hook-inverse-modal-close-full() { background: @inverse-modal-close-full-background; }
+.hook-inverse-modal-close-full-hover() {}
