@@ -37,7 +37,10 @@
     .hook-accordion();
 }
 
-.uk-accordion-title { display: block; }
+/* Hide marker */
+.uk-accordion summary { list-style: none; }
+/* Hide marker in Safari before 18.4 */
+.uk-accordion summary::-webkit-details-marker { display: none; }
 
 .uk-accordion-content { display: flow-root; }
 
@@ -70,19 +73,8 @@
  * Title
  */
 
-/*
-* 1. Center content vertically, e.g. an icon
-* 2. Imitate white space gap when using flexbox
-* 3. Reset link
- */
-
 .uk-accordion-default .uk-accordion-title {
-    /* 1 */
-    display: flex;
-    align-items: center;
-    /* 2 */
-    column-gap: @accordion-default-title-gap;
-    /* 3 */
+    margin: 0;
     font-size: @accordion-default-title-font-size;
     line-height: @accordion-default-title-line-height;
     color: @accordion-default-title-color;
@@ -99,6 +91,28 @@
 /* Active */
 .uk-accordion-default > .uk-open .uk-accordion-title {
     .hook-accordion-default-title-active();
+}
+
+/*
+ * Toggle
+ * 1. Center content vertically, e.g. an icon
+ * 2. Imitate white space gap when using flexbox
+ * 3. Reset link
+ */
+
+.uk-accordion-default .uk-accordion-title > a,
+.uk-accordion-default summary.uk-accordion-title {
+    /* 1 */
+    display: flex;
+    align-items: center;
+    /* 2 */
+    column-gap: @accordion-default-title-gap;
+}
+
+.uk-accordion-default .uk-accordion-title > a {
+    /* 3 */
+    color: inherit;
+    text-decoration: none;
 }
 
 /*
