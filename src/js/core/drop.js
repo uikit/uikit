@@ -193,7 +193,7 @@ export default {
 
             handler(e) {
                 e.preventDefault();
-                if (!matches(this.$el, ':focus,:hover')) {
+                if (!matches(this.$el, ':focus-within,:hover')) {
                     this.hide();
                 }
             },
@@ -212,12 +212,12 @@ export default {
         },
 
         {
-            name: `${pointerLeave} focusout`,
+            name: pointerLeave,
 
             filter: ({ mode }) => includes(mode, 'hover'),
 
             handler(e) {
-                if (!isTouch(e) && e.relatedTarget) {
+                if (!isTouch(e) && e.relatedTarget && !matches(this.$el, ':focus-within')) {
                     this.hide();
                 }
             },
@@ -251,6 +251,7 @@ export default {
                 const handlers = [
                     listenForResize(this),
                     listenForEscClose(this),
+                    listenForFocusClose(this),
                     listenForBackgroundClose(this),
                     this.autoUpdate && listenForScroll(this),
                     this.closeOnScroll && listenForScrollClose(this),
@@ -499,6 +500,14 @@ function listenForEscClose(drop) {
 
 function listenForScrollClose(drop) {
     return listenForScroll(drop, () => drop.hide(false));
+}
+
+function listenForFocusClose(drop) {
+    return on(document, 'focusin', ({ target }) => {
+        if (!drop.$el.contains(target) && !drop.targetEl?.contains(target)) {
+            drop.hide(false);
+        }
+    });
 }
 
 function listenForBackgroundClose(drop) {

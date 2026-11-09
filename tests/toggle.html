@@ -113,10 +113,37 @@
 
                     <h3>Mode Hover</h3>
 
-                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~; mode: hover">Hover, Focus</button>
+                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~; mode: hover">Hover, Activate</button>
 
                     <p>What's up?</p>
-                    <p hidden>Hovered, Focused</p>
+                    <p hidden>Hovered, Activated</p>
+
+                </div>
+                <div>
+
+                    <h3>Mode Focus</h3>
+
+                    <div class="uk-alert uk-alert-danger" uk-toggle="cls: uk-alert-success uk-alert-danger; mode: focus">
+                        Focus this alert or its <a href="#">nested link</a>.
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Mode Hover, Focus</h3>
+
+                    <div class="uk-alert uk-alert-danger" uk-toggle="cls: uk-alert-success uk-alert-danger; mode: hover,focus">
+                        Hover or focus this alert or its <a href="#">nested link</a>.
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Mode Hover, Focus, Click</h3>
+
+                    <div class="uk-alert uk-alert-danger" uk-toggle="cls: uk-alert-success uk-alert-danger; mode: hover,focus,click">
+                        Hover, focus or click this alert or its <a href="#">nested link</a>.
+                    </div>
 
                 </div>
             </div>
@@ -144,7 +171,7 @@
                             <td><code>mode</code></td>
                             <td>String</td>
                             <td>click</td>
-                            <td>Comma-separated list of trigger behaviour modes (hover, click, media).</td>
+                            <td>Comma-separated list of trigger behaviour modes (hover, focus, click, media). Focus includes descendants. Combine hover,focus for decorative effects; add click only for explicit activation.</td>
                         </tr>
                         <tr>
                             <td><code>media</code></td>
