@@ -156,14 +156,6 @@ export function each(obj, cb) {
     return true;
 }
 
-export function sortBy(array, prop) {
-    return array
-        .slice()
-        .sort(({ [prop]: propA = 0 }, { [prop]: propB = 0 }) =>
-            propA > propB ? 1 : propB > propA ? -1 : 0,
-        );
-}
-
 export function sumBy(array, iteratee) {
     return array.reduce(
         (sum, item) => sum + toFloat(isFunction(iteratee) ? iteratee(item) : item[iteratee]),

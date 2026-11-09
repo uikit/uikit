@@ -36,22 +36,18 @@
         </div>
 
         <script>
-            const {ready, $} = UIkit.util;
+            const {$} = UIkit.util;
 
-            ready(() => {
+            const bar = $('#js-progressbar');
+            const animate = setInterval(() => {
 
-                const bar = $('#js-progressbar');
-                const animate = setInterval(() => {
+                bar.value += 10;
 
-                    bar.value += 10;
+                if (bar.value >= bar.max) {
+                    clearInterval(animate);
+                }
 
-                    if (bar.value >= bar.max) {
-                        clearInterval(animate);
-                    }
-
-                }, 1000);
-
-            });
+            }, 1000);
 
         </script>
 

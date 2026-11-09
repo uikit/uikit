@@ -33,6 +33,10 @@
 - Replace clean-css with cssnano for stylesheet minification
 - Raise the esbuild compilation and minification target to Safari 14
 
+### Removed
+
+- Remove `sortBy`, `ready` and `empty` utility functions
+
 ### Fixed
 
 - Fix `hover-target` not being focusable in Video component
