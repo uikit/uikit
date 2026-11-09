@@ -18,14 +18,13 @@ export function isTag(element, ...tagNames) {
 
 export function empty(element) {
     element = $(element);
-    if (element) {
-        element.innerHTML = '';
-    }
+    element?.replaceChildren();
     return element;
 }
 
+const replaceChildren = applyFn('replaceChildren');
 export function html(parent, html) {
-    return isUndefined(html) ? $(parent).innerHTML : append(empty(parent), html);
+    return isUndefined(html) ? $(parent).innerHTML : replaceChildren(parent, html);
 }
 
 export const prepend = applyFn('prepend');
