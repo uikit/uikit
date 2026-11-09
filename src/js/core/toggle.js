@@ -8,11 +8,11 @@ import {
     isTag,
     isTouch,
     matches,
-    once,
     pointerDown,
     pointerEnter,
     pointerLeave,
     queryAll,
+    startsWith,
     trigger,
 } from 'uikit-util';
 import { lazyload } from '../api/observables';
@@ -69,72 +69,65 @@ export default {
             filter: ({ mode }) => includes(mode, 'hover'),
 
             handler(e) {
-                this._preventClick = null;
-
-                if (!isTouch(e) || isBoolean(this._showState) || this.$el.disabled) {
-                    return;
-                }
-
-                // Clicking a button does not give it focus on all browsers and platforms
-                // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#clicking_and_focus
-                trigger(this.$el, 'focus');
-                once(
-                    document,
-                    pointerDown,
-                    () => trigger(this.$el, 'blur'),
-                    true,
-                    (e) => !this.$el.contains(e.target),
-                );
-
-                // Prevent initial click to prevent double toggle through focus + click
-                if (includes(this.mode, 'click')) {
-                    this._preventClick = true;
-                }
+                // Some browsers omit or misreport pointerType on click events.
+                this._touch = isTouch(e);
             },
         },
 
         {
-            name: `${pointerEnter} ${pointerLeave} focus blur`,
+            name: `${pointerEnter} ${pointerLeave} focusin focusout`,
 
-            filter: ({ mode }) => includes(mode, 'hover'),
+            filter: ({ mode }) => ['hover', 'focus'].some((m) => includes(mode, m)),
 
             handler(e) {
-                if (isTouch(e) || this.$el.disabled || document.readyState === 'loading') {
+                const focus = startsWith(e.type, 'focus');
+                const { mode, $el, target } = this;
+                if (
+                    !includes(mode, focus ? 'focus' : 'hover') ||
+                    (focus && $el.contains(e.relatedTarget)) ||
+                    $el.disabled ||
+                    isTouch(e) ||
+                    document.readyState === 'loading'
+                ) {
                     return;
                 }
 
-                const show = includes([pointerEnter, 'focus'], e.type);
-                const expanded = this.isToggled(this.target);
+                const leave = includes([pointerLeave, 'focusout'], e.type);
+                const expanded = this.isToggled(target);
+                if (leave) {
+                    if (
+                        !isBoolean(this._showState) ||
+                        (includes(mode, focus ? 'hover' : 'focus') &&
+                            matches($el, focus ? ':hover' : ':focus-within'))
+                    ) {
+                        return;
+                    }
 
-                // Skip hide if still hovered or focused
-                if (
-                    !show &&
-                    (!isBoolean(this._showState) ||
-                        (e.type === pointerLeave && matches(this.$el, ':focus')) ||
-                        (e.type === 'blur' && matches(this.$el, ':hover')))
-                ) {
-                    // Reset showState if already hidden
-                    if (expanded === this._showState) {
-                        this._showState = null;
+                    const initial = this._showState;
+                    this._showState = null;
+                    if (expanded !== initial) {
+                        this.toggle('togglehide');
+                    } else {
+                        // Drops may have canceled a delayed hide on pointer re-entry.
+                        trigger(target, 'togglehide', [this]);
                     }
                     return;
                 }
 
-                // Skip show if state does not change e.g. hover + focus received
-                if (show && isBoolean(this._showState) && expanded !== this._showState) {
-                    return;
+                // Remember the state to restore when hover and focus end.
+                this._showState ??= expanded;
+
+                if (expanded === this._showState) {
+                    this.toggle('toggleshow');
                 }
-
-                this._showState = show ? expanded : null;
-
-                this.toggle(`toggle${show ? 'show' : 'hide'}`);
             },
         },
 
         {
             name: 'keydown',
 
-            filter: ({ $el, mode }) => includes(mode, 'click') && !isTag($el, 'input'),
+            // Focus effects follow focus state; explicit activation must be opted into.
+            filter: (toggle) => isClickable(toggle) && !isTag(toggle.$el, 'input'),
 
             handler(e) {
                 if (e.keyCode === keyMap.SPACE || e.keyCode === keyMap.ENTER) {
@@ -147,26 +140,31 @@ export default {
         {
             name: 'click',
 
-            filter: ({ mode }) => ['click', 'hover'].some((m) => includes(mode, m)),
+            filter: isClickable,
 
             handler(e) {
+                const touch = this._touch;
+                this._touch = false;
+
                 if (e.defaultPrevented) {
                     return;
+                }
+
+                const activate =
+                    includes(this.mode, 'click') || e.detail === 0 || isTouch(e) || touch;
+                if (activate && includes(this.mode, 'hover') && !this.$el.disabled) {
+                    this._showState ??= this.isToggled(this.target);
                 }
 
                 const link = e.target.closest('a[href]');
                 const isButtonLike =
                     isSameSiteAnchor(link) && (!link.hash || matches(this.target, link.hash));
 
-                if (this._preventClick || isButtonLike || (link && !this.isToggled(this.target))) {
+                if (isButtonLike || (link && !this.isToggled(this.target))) {
                     e.preventDefault();
                 }
 
-                if (
-                    !this._preventClick &&
-                    includes(this.mode, 'click') &&
-                    (!link || isButtonLike || e.defaultPrevented)
-                ) {
+                if (activate && (!link || e.defaultPrevented)) {
                     this.toggle();
                 }
             },
@@ -219,3 +217,8 @@ export default {
         },
     },
 };
+
+// Focus-only effects do not opt into explicit activation.
+function isClickable({ mode }) {
+    return includes(mode, 'click') || (includes(mode, 'hover') && !includes(mode, 'focus'));
+}

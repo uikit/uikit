@@ -4,13 +4,11 @@ import {
     addClass,
     after,
     css,
-    findIndex,
-    getIndex,
     hasClass,
     height,
     includes,
-    isInput,
     isRtl,
+    isVisible,
     matches,
     noop,
     observeResize,
@@ -29,7 +27,7 @@ import {
 } from 'uikit-util';
 import Class from '../mixin/class';
 import Container from '../mixin/container';
-import { getNavigationIndex, keyMap } from '../util/keys';
+import { keyMap } from '../util/keys';
 import { active } from './drop';
 
 export default {
@@ -65,7 +63,7 @@ export default {
         delayShow: 160,
         duration: 200,
         container: false,
-        selNavItem: '> li > a, > ul > li > a',
+        selNavItem: '> li > a, > li > button, > ul > li > a, > ul > li > button',
     },
 
     computed: {
@@ -135,7 +133,7 @@ export default {
 
     events: [
         {
-            name: 'mouseover focusin',
+            name: 'mouseover',
 
             delegate: ({ selNavItem }) => selNavItem,
 
@@ -161,27 +159,25 @@ export default {
             delegate: ({ selNavItem }) => selNavItem,
 
             handler(e) {
-                const { current, keyCode } = e;
-                const active = this.getActive();
-
-                if (keyCode === keyMap.DOWN) {
-                    if (active?.targetEl === current) {
-                        e.preventDefault();
-                        $(selFocusable, active.$el)?.focus();
-                    } else {
-                        const dropdown = this.dropdowns.find(
-                            (el) => this.getDropdown(el)?.targetEl === current,
-                        );
-
-                        if (dropdown) {
-                            e.preventDefault();
-                            current.click();
-                            once(dropdown, 'show', (e) => $(selFocusable, e.target)?.focus());
-                        }
-                    }
+                if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) {
+                    return;
                 }
 
-                handleNavItemNavigation(e, this.items, active);
+                const { current, keyCode, shiftKey } = e;
+                const active = this.getActive();
+
+                if (keyCode === keyMap.ESC && active) {
+                    closeDropdown(e, active);
+                    return;
+                }
+
+                if (active?.targetEl === current && keyCode === keyMap.TAB && !shiftKey) {
+                    const [first] = getFocusableElements(active.$el);
+                    if (first) {
+                        e.preventDefault();
+                        first.focus();
+                    }
+                }
             },
         },
 
@@ -193,32 +189,34 @@ export default {
             delegate: ({ clsDrop }) => `.${clsDrop}`,
 
             handler(e) {
-                const { current, keyCode, target } = e;
-
-                if (isInput(target) || !includes(this.dropdowns, current)) {
+                if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) {
                     return;
                 }
 
+                const { current, keyCode, target } = e;
+
                 const active = this.getActive();
-                const next = getNavigationIndex(keyCode, keyMap.UP, keyMap.DOWN);
-                if (~next) {
-                    e.preventDefault();
-                    const elements = $$(selFocusable, current);
-                    elements[
-                        getIndex(
-                            next,
-                            elements,
-                            findIndex(elements, (el) => matches(el, ':focus')),
-                        )
-                    ]?.focus();
+                if (!active || active.$el !== current) {
                     return;
                 }
 
                 if (keyCode === keyMap.ESC) {
-                    active.targetEl?.focus();
+                    closeDropdown(e, active);
+                    return;
                 }
 
-                handleNavItemNavigation(e, this.items, active);
+                const elements = getFocusableElements(current);
+                if (keyCode === keyMap.TAB) {
+                    if (target === elements[e.shiftKey ? 0 : elements.length - 1]) {
+                        active.targetEl.focus();
+                        if (e.shiftKey) {
+                            e.preventDefault();
+                        } else {
+                            // Resume native Tab navigation after the toggle.
+                            active.hide(false, false);
+                        }
+                    }
+                }
             },
         },
 
@@ -406,18 +404,20 @@ export default {
     },
 };
 
-function handleNavItemNavigation(e, toggles, active) {
-    const { current, keyCode } = e;
-    const next = getNavigationIndex(keyCode);
+function closeDropdown(e, drop) {
+    e.preventDefault();
+    drop.hide(false);
+    drop.targetEl?.focus();
+}
 
-    if (~next) {
-        e.preventDefault();
-        active.hide?.(false);
-        toggles[getIndex(next, toggles, toggles.indexOf(active.targetEl || current))].focus();
-    } else if (keyCode === keyMap.TAB) {
-        active.targetEl?.focus();
-        active.hide?.(false);
-    }
+function getFocusableElements(el, selector = selFocusable) {
+    return $$(selector, el).filter(
+        (el) =>
+            el.tabIndex >= 0 &&
+            !matches(el, ':disabled') &&
+            !el.closest('[inert]') &&
+            isVisible(el),
+    );
 }
 
 // Prevents initial pointer events from opening dropdowns on page load (Safari/Firefox)
@@ -425,7 +425,7 @@ function preventInitialPointerEnter(el) {
     const off = () => handlers.forEach((handler) => handler());
     const handlers = [
         once(el.ownerDocument, pointerMove, (e) => el.contains(e.target) || off()),
-        on(el, `mouseenter ${pointerEnter}`, (e) => e.stopPropagation(), { capture: true }),
-        on(el, `mouseleave ${pointerLeave}`, off, { capture: true }),
+        on(el, `mouseenter ${pointerEnter}`, (e) => e.stopPropagation(), true),
+        on(el, `mouseleave ${pointerLeave}`, off, true),
     ];
 }

@@ -40,6 +40,7 @@
 ### Fixed
 
 - Fix `hover-target` not being focusable in Video component
+- Fix Navbar and Dropnav keyboard navigation to follow the disclosure pattern
 
 ## 3.25.31 (November 10, 2026)
 
