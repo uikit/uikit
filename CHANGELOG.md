@@ -31,7 +31,7 @@
 - Use `row-gap` for stacked grid columns instead of relying on the `uk-grid` attribute
 - Show switcher content item if no navigation is connected
 - Replace clean-css with cssnano for stylesheet minification
-- Raise the esbuild compilation and minification target to Safari 13.1
+- Raise the esbuild compilation and minification target to Safari 14
 
 ### Fixed
 
