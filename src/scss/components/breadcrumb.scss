@@ -72,16 +72,18 @@
 /*
  * Divider
  * `nth-child` makes it also work without JS if it's only one row
- * 1. Remove space between inline block elements.
- * 2. Style
+ * 1. Use alternative text to hide divider from screen readers
+ * 2. Remove space between inline block elements.
+ * 3. Style
  */
 
 .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
-    content: $breadcrumb-divider;
-    display: inline-block;
     /* 1 */
-    margin: 0 $breadcrumb-divider-margin-horizontal;
+    content: $breadcrumb-divider / "";
+    display: inline-block;
     /* 2 */
+    margin: 0 $breadcrumb-divider-margin-horizontal;
+    /* 3 */
     font-size: $breadcrumb-divider-font-size;
     color: $breadcrumb-divider-color;
     @if(meta.mixin-exists(hook-breadcrumb-divider)) {@include hook-breadcrumb-divider();}
