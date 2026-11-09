@@ -132,7 +132,10 @@ export default {
             delegate: ({ targets, $props }) => `${targets} ${$props.toggle}`,
 
             handler(e) {
-                if (e.type === 'keydown' && e.keyCode !== keyMap.SPACE) {
+                if (
+                    !e.target.closest('a,button,summary') ||
+                    (e.type === 'keydown' && e.keyCode !== keyMap.SPACE)
+                ) {
                     return;
                 }
 
