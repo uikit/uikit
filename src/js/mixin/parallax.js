@@ -317,15 +317,13 @@ function parseStops(stops, fn = toFloat) {
         percent = percent ? toFloat(percent) / 100 : null;
 
         if (i === 0) {
-            if (percent === null) {
-                percent = 0;
-            } else if (percent) {
+            percent ??= 0;
+            if (percent) {
                 result.push([value, 0]);
             }
         } else if (i === length - 1) {
-            if (percent === null) {
-                percent = 1;
-            } else if (percent !== 1) {
+            percent ??= 1;
+            if (percent !== 1) {
                 result.push([value, percent]);
                 percent = 1;
             }
