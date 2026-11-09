@@ -1,4 +1,4 @@
-/*! UIkit 3.25.29 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.30 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -6034,15 +6034,17 @@ ul.uk-nav-sub {
 /*
  * Divider
  * `nth-child` makes it also work without JS if it's only one row
- * 1. Remove space between inline block elements.
- * 2. Style
+ * 1. Use alternative text to hide divider from screen readers
+ * 2. Remove space between inline block elements.
+ * 3. Style
  */
 .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
-  content: "/";
-  display: inline-block;
   /* 1 */
-  margin: 0 20px;
+  content: "/" / "";
+  display: inline-block;
   /* 2 */
+  margin: 0 20px;
+  /* 3 */
   font-size: 0.875rem;
   color: #999;
 }

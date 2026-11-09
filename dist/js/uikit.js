@@ -1,4 +1,4 @@
-/*! UIkit 3.25.29 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.30 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1332,7 +1332,7 @@
     }
     function getCoveringElement(target) {
       const { document } = toWindow(target);
-      target = target || document.body;
+      target || (target = document.body);
       const { left, width, top } = dimensions$1(target);
       for (const position of top ? [0, top] : [0]) {
         let coverEl;
@@ -3421,7 +3421,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.29';
+    var VERSION = '3.25.30';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -3948,6 +3948,7 @@
           this.updateNav();
         },
         navItems(items) {
+          var _a;
           for (const el of items) {
             const cmd = data(el, this.attrItem);
             const button = $("a,button", el) || el;
@@ -3957,24 +3958,18 @@
               const item = toNumber(cmd);
               const slide = this.slides[item];
               if (slide) {
-                if (!slide.id) {
-                  slide.id = generateId(this, slide);
-                }
-                ariaControls = slide.id;
+                ariaControls = slide.id || (slide.id = generateId(this, slide));
               }
               ariaLabel = this.t("slideX", toFloat(cmd) + 1);
               button.role = "tab";
             } else {
               if (this.list) {
-                if (!this.list.id) {
-                  this.list.id = generateId(this, this.list);
-                }
-                ariaControls = this.list.id;
+                ariaControls = (_a = this.list).id || (_a.id = generateId(this, this.list));
               }
               ariaLabel = this.t(cmd);
             }
             attr(button, "aria-controls", ariaControls);
-            button.ariaLabel = button.ariaLabel || ariaLabel;
+            button.ariaLabel || (button.ariaLabel = ariaLabel);
           }
         },
         slides(slides) {
@@ -4754,7 +4749,7 @@
             const { source } = toItem(index);
             index = findIndex(items, ({ source: src }) => source === src);
           }
-          this.panel = this.panel || this.$create("lightboxPanel", { ...this.$props, items });
+          this.panel || (this.panel = this.$create("lightboxPanel", { ...this.$props, items }));
           on(this.panel.$el, "hidden", () => this.panel = null);
           return this.panel.show(index);
         },
@@ -7974,9 +7969,7 @@
       return columns;
     }
     function push(array, index, value) {
-      if (!array[index]) {
-        array[index] = [];
-      }
+      array[index] || (array[index] = []);
       array[index].push(value);
     }
 
@@ -8436,9 +8429,7 @@
       if (!icons[icon]) {
         return null;
       }
-      if (!parsed[icon]) {
-        parsed[icon] = parseSVG(icons[applyRtl(icon)] || icons[icon]);
-      }
+      parsed[icon] || (parsed[icon] = parseSVG(icons[applyRtl(icon)] || icons[icon]));
       return parsed[icon].cloneNode(true);
     }
     function applyRtl(icon) {
@@ -9727,17 +9718,25 @@
       }
     };
     function applyAttributes(el) {
-      const { $el } = this;
+      const { $el, attributes } = this;
       addClass(el, attr($el, "class"), "uk-svg");
       for (let i = 0; i < $el.style.length; i++) {
         const prop = $el.style[i];
         css(el, prop, css($el, prop));
       }
-      for (const attribute in this.attributes) {
-        const [prop, value] = this.attributes[attribute].split(":", 2);
+      for (const attribute in attributes) {
+        const [prop, value] = attributes[attribute].split(":", 2);
         attr(el, prop, value);
       }
-      el.ariaHidden = this.$el.ariaHidden;
+      el.ariaHidden || (el.ariaHidden = $el.ariaHidden);
+      if (!el.ariaHidden) {
+        el.ariaLabel || (el.ariaLabel = $el.ariaLabel || $el.alt || null);
+        if (el.ariaLabel) {
+          el.role || (el.role = "img");
+        } else if (hasAttr($el, "alt")) {
+          el.ariaHidden = true;
+        }
+      }
       if (!this.$el.id) {
         removeAttr(el, "id");
       }
