@@ -1,25 +1,9 @@
-import { once } from './event';
 import { parent } from './filter';
 import { isElement, isString, isUndefined, startsWith, toArray, toNode, toNodes } from './lang';
 import { find, findAll } from './selector';
 
-export function ready(fn) {
-    if (document.readyState !== 'loading') {
-        fn();
-        return;
-    }
-
-    once(document, 'DOMContentLoaded', fn);
-}
-
 export function isTag(element, ...tagNames) {
     return tagNames.some((tagName) => element?.tagName?.toLowerCase() === tagName.toLowerCase());
-}
-
-export function empty(element) {
-    element = $(element);
-    element?.replaceChildren();
-    return element;
 }
 
 const replaceChildren = applyFn('replaceChildren');
