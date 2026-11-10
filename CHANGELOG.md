@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.25.31 (November 10, 2026)
+
+### Fixed
+
+- Fix Drop ignoring the first hover when moved into its container
+
 ## 3.25.30 (November 9, 2026)
 
 ### Fixed
