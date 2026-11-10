@@ -74,10 +74,7 @@ jobs:
           RELEASE_VERSION=$(node build/ci-release.js --resolve --bump "$RELEASE_BUMP" --preid "$RELEASE_PREID")
           echo "Preparing release v$RELEASE_VERSION"
           branch="release/v$RELEASE_VERSION"
-          git check-ref-format "refs/heads/$branch"
-          if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
-            test "$(git show "origin/$branch:package.json" | jq -r .version)" = "$RELEASE_VERSION"
-          else
+          if ! git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
             node build/ci-release.js --prepare --version "$RELEASE_VERSION"
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -137,11 +134,9 @@ jobs:
         env:
           RELEASE_PRERELEASE: ${{ steps.build.outputs.prerelease }}
         run: |
-          name=$(jq -er .name package.json)
-          version=$(jq -er .version package.json)
-          versions=$(npm view "$name" versions --json)
-          jq -e 'type == "array" and all(.[]; type == "string")' <<< "$versions" >/dev/null
-          if jq -e --arg version "$version" 'index($version) != null' <<< "$versions" >/dev/null; then
+          name=$(jq -r .name package.json)
+          version=$(jq -r .version package.json)
+          if npm view "$name@$version" version >/dev/null 2>&1; then
             echo "$name@$version is already published; skipping."
           else
             tag=latest
@@ -162,10 +157,6 @@ jobs:
     steps:
       - name: Notify site of published release
         run: |
-          if [ -z "$GH_TOKEN" ]; then
-            echo '::error::Set UIKIT_SITE_TOKEN with contents write access to uikit/uikit-site.'
-            exit 1
-          fi
           jq -n --arg tag "$RELEASE_TAG" --arg repo "$GITHUB_REPOSITORY" \
             '{event_type: "uikit-release", client_payload: {
               version: ($tag | ltrimstr("v")),
