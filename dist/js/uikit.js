@@ -1,4 +1,4 @@
-/*! UIkit 3.25.30 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
+/*! UIkit 3.25.31 | https://www.getuikit.com | (c) 2014 - 2026 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3421,7 +3421,7 @@
       return Math.atan2(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x)) * 180 / Math.PI;
     }
 
-    var VERSION = '3.25.30';
+    var VERSION = '3.25.31';
 
     function initWatches(instance) {
       instance._watches = [];
@@ -7164,9 +7164,9 @@
         this._style = pick(this.$el.style, ["width", "height"]);
       },
       beforeDisconnect() {
-        this.hide(false, false);
-      },
-      disconnected() {
+        if (!this.$el.isConnected || this.isActive()) {
+          this.hide(false, false);
+        }
         css(this.$el, this._style);
       },
       events: [

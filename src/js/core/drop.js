@@ -115,10 +115,9 @@ export default {
     },
 
     beforeDisconnect() {
-        this.hide(false, false);
-    },
-
-    disconnected() {
+        if (!this.$el.isConnected || this.isActive()) {
+            this.hide(false, false);
+        }
         css(this.$el, this._style);
     },
 
