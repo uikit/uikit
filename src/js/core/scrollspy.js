@@ -114,7 +114,7 @@ export default {
 
             const match = state.cls.match(/\buk-animation-[\w-]+/g);
             if (match) {
-                const animations = (inview && el.getAnimations?.()) || [];
+                const animations = inview ? el.getAnimations() : [];
 
                 let active = true;
                 state.off = () => (active = false);
