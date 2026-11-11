@@ -20,7 +20,7 @@
  ========================================================================== */
 
 /*
- * 1. Fallback for Safari 15 and older
+ * 1. Fallback for Safari 15.8 and older
  * 2. Clip child elements
  *    `clip` prevents accidental scrolling through elements in slide getting focused
  *    `clip` also works in only one direction
@@ -45,12 +45,17 @@
 
 /*
  * Fade out
+ * 1. Prevent box-shadows from being clipped
+ * 2. Fix Chrome rendering glitches when using `no-clip`
+ * 3. Fallback for Safari does not support `no-clip`
  */
 
 .uk-marquee-fade {
     --uk-overflow-fade-size: 100px;
     --uk-overflow-fade-direction: right;
+    will-change: transform;
 }
+
 .uk-marquee-fade.uk-marquee-vertical { --uk-overflow-fade-direction: bottom; }
 
 .uk-marquee-fade {
@@ -61,6 +66,32 @@
         #000 ~'calc(100% - var(--uk-overflow-fade-size))',
         rgba(0, 0, 0, var(--uk-overflow-fade-end-opacity))
     );
+    /* 1 */
+    mask-clip: no-clip;
+    mask-repeat: repeat-y;
+}
+
+/* 1 */
+.uk-marquee-fade.uk-marquee-vertical { mask-repeat: repeat-x; }
+
+/* 2 */
+.uk-marquee-fade .uk-marquee-items { will-change: transform; }
+
+@supports (font: -apple-system-body) {
+
+    .uk-marquee-fade:not(.uk-marquee-vertical) {
+        margin: -200px 0;
+        padding: 200px 0;
+    }
+
+    .uk-marquee-fade.uk-marquee-vertical {
+        margin: 0 -200px;
+        padding: 0 200px;
+    }
+
+    .uk-marquee-fade { pointer-events: none; }
+    .uk-marquee-fade > * { pointer-events: auto; }
+
 }
 
 
