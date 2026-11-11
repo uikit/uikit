@@ -66,10 +66,6 @@ const activeAnimations = new WeakMap();
 
 function animate(element, animation, duration = 200, origin, out) {
     const animateFn = async (element) => {
-        if (!Element.prototype.getAnimations) {
-            return element;
-        }
-
         cancel(element);
 
         const existingAnimations = element.getAnimations();

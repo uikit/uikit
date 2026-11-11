@@ -5,7 +5,6 @@ import {
     dimensions,
     getIndex,
     hasClass,
-    inBrowser,
     isRtl,
     pointerEnter,
     pointerLeave,
@@ -14,8 +13,6 @@ import {
 } from 'uikit-util';
 import { intersection, preloadMedia, resize } from '../api/observables';
 import Class from '../mixin/class';
-
-const hasAnimationApi = inBrowser && window.Animation;
 
 export default {
     mixins: [Class],
@@ -99,7 +96,7 @@ export default {
         name: [pointerEnter, pointerLeave],
         el: ({ $el }) => $el,
         self: true,
-        filter: ({ pause }) => hasAnimationApi && pause,
+        filter: ({ pause }) => pause,
         handler(e) {
             for (const el of this.items) {
                 for (const animation of el.getAnimations()) {
