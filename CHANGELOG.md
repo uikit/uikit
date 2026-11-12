@@ -12,6 +12,7 @@
 
 - Fix preserving image alternative text when replacing an image with an SVG
 - Fix hiding Breadcrumb dividers from screen readers using empty alternative text
+- Add `animate` parameter to Alert `close()` method
 
 ## 3.25.29 (November 2, 2026)
 

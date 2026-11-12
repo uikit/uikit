@@ -30,11 +30,15 @@ export default {
     },
 
     methods: {
-        async close() {
+        async close(animated = true) {
             await this.toggleElement(
                 this.$el,
                 false,
-                this.animation[0] === true || this.animation[0] === 1 ? animate : true,
+                !animated
+                    ? false
+                    : this.animation[0] === true || this.animation[0] === 1
+                        ? animate
+                        : true,
             );
             this.$destroy(true);
         },
