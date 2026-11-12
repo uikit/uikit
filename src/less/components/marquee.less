@@ -46,8 +46,7 @@
 /*
  * Fade out
  * 1. Prevent box-shadows from being clipped
- * 2. Fix Chrome rendering glitches when using `no-clip`
- * 3. Fallback for Safari does not support `no-clip`
+ * 2. Fallback for Safari does not support `no-clip`
  */
 
 .uk-marquee-fade {
@@ -75,8 +74,6 @@
 .uk-marquee-fade.uk-marquee-vertical { mask-repeat: repeat-x; }
 
 /* 2 */
-.uk-marquee-fade .uk-marquee-items { will-change: transform; }
-
 @supports (font: -apple-system-body) {
 
     .uk-marquee-fade:not(.uk-marquee-vertical) {
@@ -100,11 +97,14 @@
 
 /*
  * 1. Create a containing block.
+ * 2. Optimize animation, also required for fade to fix Chrome rendering glitches when using `no-clip`
  */
 
 .uk-marquee-items {
     /* 1 */
     position: relative;
+    /* 2 */
+    will-change: transform;
 }
 
 /*
