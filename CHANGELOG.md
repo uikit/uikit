@@ -39,6 +39,7 @@
 
 ### Fixed
 
+- Fix slide state classes not being removed after reversing the drag direction in Slider and Slideshow components
 - Fix `hover-target` not being focusable in Video component
 - Fix Navbar and Dropnav keyboard navigation to follow the disclosure pattern
 

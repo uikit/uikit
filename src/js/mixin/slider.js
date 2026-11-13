@@ -5,6 +5,7 @@ import {
     clamp,
     getIndex,
     hasClass,
+    includes,
     isNumber,
     isRtl,
     removeClass,
@@ -197,6 +198,36 @@ export default {
             );
         },
 
+        // Activates the slides without a transition, e.g. while dragging
+        _seek(prevIndex, nextIndex) {
+            const { slides } = this;
+            const { triggerShow, triggerShown, triggerHide, triggerHidden } = useTriggers(this);
+
+            if (~this.prevIndex) {
+                for (const i of new Set([this.index, this.prevIndex])) {
+                    if (!includes([nextIndex, prevIndex], i)) {
+                        triggerHide(slides[i]);
+                        triggerHidden(slides[i]);
+                    }
+                }
+            }
+
+            const changed = this.prevIndex !== prevIndex || this.index !== nextIndex;
+
+            this.prevIndex = prevIndex;
+            this.index = nextIndex;
+
+            if (prevIndex !== nextIndex) {
+                triggerHide(slides[prevIndex]);
+            }
+
+            triggerShow(slides[nextIndex]);
+
+            if (changed) {
+                triggerShown(slides[prevIndex]);
+            }
+        },
+
         _translate(percent, prev = this.prevIndex, next = this.index) {
             const transitioner = this._getTransitioner(prev === next ? false : prev, next);
             transitioner.translate(percent);
@@ -225,4 +256,49 @@ function getDirection(index, prevIndex) {
 
 export function speedUp(x) {
     return 0.5 * x + 300; // parabola through (400,500; 600,600; 1800,1200)
+}
+
+function useTriggers(cmp) {
+    const { clsSlideActive, clsEnter, clsLeave } = cmp;
+
+    return { triggerShow, triggerShown, triggerHide, triggerHidden };
+
+    function triggerShow(el) {
+        if (hasClass(el, clsLeave)) {
+            triggerHide(el);
+            triggerHidden(el);
+        }
+
+        if (!hasClass(el, clsSlideActive)) {
+            trigger(el, 'beforeitemshow', [cmp]);
+            trigger(el, 'itemshow', [cmp]);
+        }
+    }
+
+    function triggerShown(el) {
+        if (hasClass(el, clsEnter)) {
+            trigger(el, 'itemshown', [cmp]);
+        }
+    }
+
+    function triggerHide(el) {
+        if (!hasClass(el, clsSlideActive)) {
+            triggerShow(el);
+        }
+
+        if (hasClass(el, clsEnter)) {
+            triggerShown(el);
+        }
+
+        if (!hasClass(el, clsLeave)) {
+            trigger(el, 'beforeitemhide', [cmp]);
+            trigger(el, 'itemhide', [cmp]);
+        }
+    }
+
+    function triggerHidden(el) {
+        if (hasClass(el, clsLeave)) {
+            trigger(el, 'itemhidden', [cmp]);
+        }
+    }
 }
