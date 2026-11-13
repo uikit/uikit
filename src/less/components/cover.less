@@ -14,7 +14,7 @@
 
 /*
  * Works with iframes and embedded content
- * 1. Use attribute to apply transform instantly. Needed if transform is transitioned.
+ * 1. Use attribute to apply positioning instantly. Needed if transitions are applied.
  * 2. Reset responsiveness for embedded content
  * 3. Center object
  * Note: Percent values on the `top` property only works if this element
@@ -32,7 +32,7 @@
     top: 50%;
     --uk-position-translate-x: -50%;
     --uk-position-translate-y: -50%;
-    transform: translate(var(--uk-position-translate-x), var(--uk-position-translate-y));
+    translate: var(--uk-position-translate-x) var(--uk-position-translate-y);
 }
 
 iframe[uk-cover],

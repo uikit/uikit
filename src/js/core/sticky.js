@@ -203,8 +203,9 @@ export default {
                 const overflow = this.overflowFlip ? 0 : Math.max(0, elementBox - viewport);
                 const topOffset =
                     getOffset(referenceElement).top -
-                    // offset possible `transform: translateY` animation 'uk-animation-slide-top' while hiding
-                    new DOMMatrix(css(referenceElement, 'transform')).m42;
+                    // Offset possible slide animations while hiding.
+                    new DOMMatrix(css(referenceElement, 'transform')).m42 -
+                    toPx(css(referenceElement, 'translate').split(' ')[1], 'height', referenceElement, true);
                 const elHeight = dimensions(this.$el).height;
 
                 const start =

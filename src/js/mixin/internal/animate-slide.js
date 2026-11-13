@@ -147,6 +147,7 @@ function getPositionWithMargin(el) {
         height,
         width,
         transform: '',
+        translate: '',
         ...position(el),
         ...css(el, ['marginTop', 'marginLeft']),
     };

@@ -135,7 +135,7 @@ export default {
                             y += scrolled * scrollColumns[i];
                         }
 
-                        css(el, 'transform', `translate(${x}px, ${y}px)`);
+                        css(el, 'translate', `${x}px ${y}px`);
                     }),
                 );
             },

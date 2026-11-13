@@ -70,7 +70,11 @@ async function compile(file, dist, develop, rtl) {
                     },
                     processors: [
                         {
-                            expr: ['--uk-position-translate-x', 'stroke-dashoffset'].join('|'),
+                            expr: [
+                                '^translate$',
+                                '--uk-position-translate-x',
+                                'stroke-dashoffset',
+                            ].join('|'),
                             action(prop, value, context) {
                                 return { prop, value: context.util.negate(value) };
                             },
