@@ -38,6 +38,10 @@
                     <option value="0">Do not pause on hover</option>
                     <option value="1">Pause On Hover</option>
                 </select>
+                <select id="js-draggable-switcher" class="uk-select uk-form-width-medium" aria-label="Draggable switcher">
+                    <option value="0">Not draggable</option>
+                    <option value="1">Draggable</option>
+                </select>
                 <input id="js-pause-velocity-switcher" type="number" class="uk-input uk-form-width-small" aria-label="Velocity On Hover" value="10">
                 <select id="js-fade-size-switcher" class="uk-select uk-form-width-medium" aria-label="Fade Size">
                     <option value="0">Without Fade</option>
@@ -597,6 +601,12 @@
                             <td>10</td>
                             <td>The animation velocity while being paused (pixel/s).</td>
                         </tr>
+                        <tr>
+                            <td><code>draggable</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Enable pointer dragging.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -607,7 +617,7 @@
 
             const {$$, attr, on} = UIkit.util;
 
-            for (const attribute of ['reverse', 'velocity', 'pause', 'pause-velocity', 'fade-size']) {
+            for (const attribute of ['reverse', 'velocity', 'pause', 'pause-velocity', 'fade-size', 'draggable']) {
                 on(`#js-${attribute}-switcher`, 'change', e =>
                     attr($$('[uk-marquee]'), attribute, e.target.value)
                 );

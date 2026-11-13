@@ -1,22 +1,6 @@
-import {
-    children,
-    clamp,
-    css,
-    getEventPos,
-    hasClass,
-    isInput,
-    isRtl,
-    isTouch,
-    on,
-    once,
-    pointerCancel,
-    pointerDown,
-    pointerMove,
-    pointerUp,
-    selInput,
-    toggleClass,
-} from 'uikit-util';
+import { children, clamp, css, hasClass, isRtl, pointerDown, toggleClass } from 'uikit-util';
 import { mutation, resize } from '../api/observables';
+import { drag } from '../mixin/internal/drag';
 
 export default {
     data: {
@@ -95,53 +79,14 @@ export default {
 };
 
 function handleMouseDrag(e) {
-    const { target, button, defaultPrevented } = e;
-
-    if (
-        defaultPrevented ||
-        button > 0 ||
-        isTouch(e) ||
-        target.closest(selInput) ||
-        isInput(target)
-    ) {
-        return;
-    }
-
-    e.preventDefault();
-
-    const pointerOptions = { passive: false, capture: true };
     const { $el: el, threshold, $options } = this;
-    let started;
+    const vertical = hasClass(el, `${$options.id}-vertical`);
 
-    const off = on(document, pointerMove, move(e), pointerOptions);
-    once(document, [pointerUp, pointerCancel], end, true);
-
-    function move(e) {
-        let origin = getEventPos(e);
-        let pos = origin;
-        let lastPos = pos;
-
-        return function (e) {
-            lastPos = pos;
-            pos = getEventPos(e);
-
-            const isVertical = hasClass(el, `${$options.id}-vertical`);
-            const prop = isVertical ? 'y' : 'x';
-
-            started ||= Math.abs(pos[prop] - origin[prop]) > threshold;
-
-            if (started) {
-                const delta = lastPos[prop] - pos[prop];
-                el[isVertical ? 'scrollTop' : 'scrollLeft'] += delta;
-            }
-        };
-    }
-
-    function end() {
-        off();
-
-        if (started) {
-            setTimeout(on(el, 'click', (e) => e.preventDefault(), pointerOptions));
-        }
-    }
+    drag(e, el, {
+        threshold,
+        vertical,
+        move(delta) {
+            el[vertical ? 'scrollTop' : 'scrollLeft'] -= delta;
+        },
+    });
 }

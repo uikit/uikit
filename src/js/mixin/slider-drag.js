@@ -1,15 +1,5 @@
-import {
-    css,
-    getEventPos,
-    isEqual,
-    isRtl,
-    isTouch,
-    noop,
-    off,
-    on,
-    selInput,
-    toArray,
-} from 'uikit-util';
+import { css, getEventPos, isEqual, isRtl, isTouch, noop, off, on, selInput } from 'uikit-util';
+import { hasSelectableText } from './internal/drag';
 
 const pointerOptions = { passive: false, capture: true };
 const pointerDown = 'touchstart mousedown';
@@ -196,13 +186,6 @@ function getDistance(prev, next) {
     return (
         this._getTransitioner(prev, prev !== next && next).getDistance() ||
         this.slides[prev].offsetWidth
-    );
-}
-
-function hasSelectableText(el) {
-    return (
-        css(el, 'userSelect') !== 'none' &&
-        toArray(el.childNodes).some((el) => el.nodeType === 3 && el.textContent.trim())
     );
 }
 
