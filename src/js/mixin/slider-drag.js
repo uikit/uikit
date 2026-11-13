@@ -9,7 +9,6 @@ import {
     on,
     selInput,
     toArray,
-    trigger,
 } from 'uikit-util';
 
 const pointerOptions = { passive: false, capture: true };
@@ -130,7 +129,7 @@ export default {
             this.dragging = true;
             this.dir = distance < 0 ? 1 : -1;
 
-            let { slides, prevIndex } = this;
+            let { prevIndex } = this;
             let dis = Math.abs(distance);
             let nextIndex = this.getIndex(prevIndex + this.dir);
             let width = getDistance.call(this, prevIndex, nextIndex);
@@ -146,42 +145,12 @@ export default {
 
             this.percent = dis / width;
 
-            const prev = slides[prevIndex];
-            const next = slides[nextIndex];
-            const changed = this.index !== nextIndex;
-            const edge = prevIndex === nextIndex;
-
-            let itemShown;
-
-            for (const i of [this.index, this.prevIndex]) {
-                if (i !== nextIndex && i !== prevIndex) {
-                    trigger(slides[i], 'itemhidden', [this]);
-
-                    if (edge) {
-                        itemShown = true;
-                        this.prevIndex = prevIndex;
-                    }
-                }
-            }
-
-            if ((this.index === prevIndex && this.prevIndex !== prevIndex) || itemShown) {
-                trigger(slides[this.index], 'itemshown', [this]);
-            }
-
-            if (changed) {
-                this.prevIndex = prevIndex;
-                this.index = nextIndex;
-
-                if (!edge) {
-                    trigger(prev, 'beforeitemhide', [this]);
-                    trigger(prev, 'itemhide', [this]);
-                }
-
-                trigger(next, 'beforeitemshow', [this]);
-                trigger(next, 'itemshow', [this]);
-            }
-
-            this._transitioner = this._translate(Math.abs(this.percent), prev, !edge && next);
+            this._seek(prevIndex, nextIndex);
+            this._transitioner = this._translate(
+                this.percent,
+                prevIndex,
+                prevIndex !== nextIndex && nextIndex,
+            );
         },
 
         end() {
@@ -190,30 +159,29 @@ export default {
             if (this.dragging) {
                 setTimeout(on(this.list, 'click', (e) => e.preventDefault(), pointerOptions));
 
-                this.dragging = null;
-
                 if (this.index === this.prevIndex) {
+                    this.dragging = null;
                     this.percent = 1 - this.percent;
                     this.dir *= -1;
                     this._show(false, this.index, true);
                     this._transitioner = null;
                 } else {
+                    // Return to the previous slide if the drag direction was reversed
                     const dirChange = this.dir < 0 === this.prevPos.x > this.pos.x;
+                    const dir = dirChange ? -this.dir : this.dir;
+                    const index = dirChange ? this.index : this.prevIndex;
 
                     if (dirChange) {
-                        trigger(this.slides[this.prevIndex], 'itemhidden', [this]);
-                        trigger(this.slides[this.index], 'itemshown', [this]);
                         this.percent = 1 - this.percent;
-                    } else {
-                        this.index = this.prevIndex;
                     }
 
-                    this.show(
-                        (this.dir > 0 && !dirChange) || (this.dir < 0 && dirChange)
-                            ? 'next'
-                            : 'previous',
-                        true,
-                    );
+                    // Swap the slides while still dragging, so they are not treated as a new transition
+                    this.dir = dir;
+                    this._seek(index, this.getIndex(index + dir, index));
+                    this.index = index;
+
+                    this.dragging = null;
+                    this.show(dir > 0 ? 'next' : 'previous', true);
                 }
             }
 
