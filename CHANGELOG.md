@@ -2,6 +2,10 @@
 
 ## 3.25.31 (November 10, 2026)
 
+### Added
+
+- Add support for pages enforcing Trusted Types (`require-trusted-types-for 'script'`) with a Trusted Types policy named `uikit`
+
 ### Fixed
 
 - Fix Drop ignoring the first hover when moved into its container
