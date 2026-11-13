@@ -132,6 +132,8 @@
  *    `max-width` needed to keep image responsiveness and prevent content overflow
  * 2. Create position context
  * 3. Create animation along offset-path
+ *    Use a large finite iteration count instead of `infinite`, because Firefox throttles
+ *    infinite animations on elements clipped out of view, so items pop in late after wrapping
  */
 
 .uk-marquee-items > * {
@@ -145,7 +147,7 @@
     offset-anchor: 0 0;
     offset-rotate: 0deg;
     offset-path: path(var(--uk-marquee-path));
-    animation: var(--uk-marquee-duration) linear calc(var(--uk-marquee-start) / -100 * var(--uk-marquee-duration)) infinite var(--uk-marquee-direction) uk-marquee;
+    animation: var(--uk-marquee-duration) linear calc(var(--uk-marquee-start) / -100 * var(--uk-marquee-duration)) 1000000 var(--uk-marquee-direction) uk-marquee;
 }
 
 @keyframes uk-marquee {
