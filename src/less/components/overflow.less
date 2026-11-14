@@ -1,0 +1,162 @@
+// Name:            Overflow
+// Description:     Component to create scrolling areas
+//
+// Component:       `uk-overflow-hidden`
+//                  `uk-overflow-auto`
+//                  `uk-overflow-fade-horizontal`
+//                  `uk-overflow-fade-vertical`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Overflow
+ ========================================================================== */
+
+.uk-overflow-hidden { overflow: hidden; }
+
+/*
+ * Enable scrollbars if content is clipped
+ */
+
+.uk-overflow-auto { overflow: auto; }
+
+.uk-overflow-auto > :last-child { margin-bottom: 0; }
+
+
+/* Overflow fade
+ ========================================================================== */
+
+/*
+ * Fade out
+ * 1. Allow custom properties to be animated
+ * 2. Default overflow behavior, can be overridden, hide scrollbars
+ */
+
+/* 1 */
+@property --uk-overflow-fade-start-opacity {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+}
+
+@property --uk-overflow-fade-end-opacity {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+}
+
+/* 2 */
+:where(.uk-overflow-fade-horizontal, .uk-overflow-fade-vertical) {
+    overflow: auto;
+    scrollbar-width: none;
+}
+
+.uk-overflow-fade-horizontal { --uk-overflow-fade-direction: right; }
+.uk-overflow-fade-vertical { --uk-overflow-fade-direction: bottom; }
+
+.uk-overflow-fade-horizontal,
+.uk-overflow-fade-vertical {
+    mask-image: linear-gradient(
+        to var(--uk-overflow-fade-direction),
+
+        rgba(0, 0, 0, var(--uk-overflow-fade-start-opacity)),
+        #000 var(--uk-overflow-fade-size, 100px),
+        #000 ~'calc(100% - var(--uk-overflow-fade-size, 100px))',
+        rgba(0, 0, 0, var(--uk-overflow-fade-end-opacity))
+    );
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-overflow-fade-horizontal > :last-child,
+.uk-overflow-fade-vertical > :last-child { margin-bottom: 0; }
+
+/*
+ * Animate modifier to remove fades at the start and end position, for example when using finite scrolling areas.
+ * 1. Remove fade if content doesn’t overflow and the scroll timeline is inactive.
+ */
+
+@supports (animation-timeline: scroll(self x)) {
+    .uk-overflow-fade-animate {
+        /* 1 */
+        --uk-overflow-fade-start-opacity: 1;
+        --uk-overflow-fade-end-opacity: 1;
+
+        animation: uk-overflow-fade-animate linear both;
+        animation-timeline: scroll(self x);
+    }
+
+    .uk-overflow-fade-vertical.uk-overflow-fade-animate { animation-timeline: scroll(self y); }
+
+    .uk-overflow-fade-horizontal.uk-overflow-fade-animate:dir(rtl) { animation-direction: reverse; }
+}
+
+@keyframes uk-overflow-fade-animate {
+    0% {
+        --uk-overflow-fade-start-opacity: 1;
+        --uk-overflow-fade-end-opacity: 0;
+    }
+
+    5%, 95% {
+        --uk-overflow-fade-start-opacity: 0;
+        --uk-overflow-fade-end-opacity: 0;
+    }
+
+    100% {
+        --uk-overflow-fade-start-opacity: 0;
+        --uk-overflow-fade-end-opacity: 1;
+    }
+}
+
+/*
+ * Offset modifier to prevent box-shadows from being clipped
+ */
+
+.uk-overflow-fade-offset { display: flow-root; }
+
+.uk-overflow-fade-offset > :where(.uk-overflow-fade-horizontal) {
+    margin-top: -200px;
+    margin-bottom: -200px;
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+
+.uk-overflow-fade-offset > :where(.uk-overflow-fade-vertical) {
+    margin-left: -200px;
+    margin-right: -200px;
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+.uk-overflow-fade-offset > * { pointer-events: none; }
+.uk-overflow-fade-offset > * > * { pointer-events: auto; }
+
+/*
+ * Outside modifier to move clipping area and fade outside
+ */
+
+.uk-overflow-fade-outside:where(.uk-overflow-fade-horizontal) {
+    margin-left: ~'calc(-1 * var(--uk-overflow-fade-size-outside, 20px))';
+    margin-right: ~'calc(-1 * var(--uk-overflow-fade-size-outside, 20px))';
+    padding-left: var(--uk-overflow-fade-size-outside, 20px);
+    padding-right: var(--uk-overflow-fade-size-outside, 20px);
+}
+
+.uk-overflow-fade-outside:where(.uk-overflow-fade-vertical) {
+    margin-top: ~'calc(-1 * var(--uk-overflow-fade-size-outside, 20px))';
+    margin-bottom: ~'calc(-1 * var(--uk-overflow-fade-size-outside, 20px))';
+    padding-top: var(--uk-overflow-fade-size-outside, 20px);
+    padding-bottom: var(--uk-overflow-fade-size-outside, 20px);
+}
+
+.uk-overflow-fade-outside { --uk-overflow-fade-size: var(--uk-overflow-fade-size-outside, 20px); }
+
+/* Preserve trailing scroll padding to align the last item. */
+.uk-overflow-fade-outside.uk-overflow-fade-horizontal > * { min-width: max-content; }
