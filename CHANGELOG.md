@@ -5,6 +5,9 @@
 ### Added
 
 - Add Marquee component
+- Add overflow fade animate modifier to animate edge fades based on scroll position to Overflow component
+- Add overflow fade offset wrapper to preserve overflowing content around the fade area to Overflow component
+- Add overflow fade outside modifier to move the fade area outside the content bounds to Overflow component
 - Add support for `h1-h6/a` and `details/summary` markup to Accordion component
 - Add options to control an additional switcher container to Accordion component
 - Add `uk-switcher-animation` attribute to override animations for connected Switcher containers

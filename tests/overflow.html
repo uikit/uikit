@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Overflow - UIkit tests</title>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Overflow</h1>
+
+            <div class="uk-grid uk-child-width-1-2@m">
+                <div>
+
+                    <h2>Overflow Auto</h2>
+
+                    <div class="uk-overflow-auto">
+                        <table class="uk-table uk-table-striped uk-table-small uk-text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Table Heading</th>
+                                    <th>Table Heading</th>
+                                    <th>Table Heading</th>
+                                    <th>Table Heading</th>
+                                    <th>Table Heading</th>
+                                    <th>Table Heading</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                </tr>
+                                <tr>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                </tr>
+                                <tr>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                    <td>Table Data</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>Table Footer</td>
+                                    <td>Table Footer</td>
+                                    <td>Table Footer</td>
+                                    <td>Table Footer</td>
+                                    <td>Table Footer</td>
+                                    <td>Table Footer</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h2>Pre scrollable</h2>
+
+<pre class="uk-overflow-auto uk-height-medium uk-resize"><code>&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;&lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;&lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;…&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                </div>
+            </div>
+
+            <h2>Overflow Auto JS</h2>
+
+            <div class="uk-grid uk-child-width-1-2@m">
+                <div>
+
+                    <div class="uk-height-medium">
+                        <div class="js-wrapper">
+
+                            <p>Some content before the overflow auto container.</p>
+
+                            <div uk-overflow-auto="selContainer: .uk-height-medium; selContent: .js-wrapper">
+                                <div class="uk-grid uk-grid-small">
+                                    <div class="uk-width-1-2"><img src="images/light.jpg" width="1800" height="1200" alt=""></div>
+                                    <div class="uk-width-1-2"><img src="images/dark.jpg" width="1800" height="1200" alt=""></div>
+                                </div>
+                            </div>
+
+                            <p>Some content after the overflow auto container.</p>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-height-medium">
+                        <div class="js-wrapper">
+
+                            <p>Some content before the overflow auto container.</p>
+
+                            <div uk-overflow-auto="selContainer: .uk-height-medium; selContent: .js-wrapper">
+                                <div class="uk-grid uk-grid-small">
+                                    <div class="uk-width-1-2"><img src="images/light.jpg" width="1800" height="1200" alt=""></div>
+                                    <div class="uk-width-1-2"><img src="images/dark.jpg" width="1800" height="1200" alt=""></div>
+                                    <div class="uk-width-1-2"><img src="images/photo.jpg" width="1800" height="1200" alt=""></div>
+                                    <div class="uk-width-1-2"><img src="images/photo2.jpg" width="1800" height="1200" alt=""></div>
+                                </div>
+                            </div>
+
+                            <p>Some content after the overflow auto container.</p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h3>JavaScript Options</h3>
+
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>sel-container</code></td>
+                        <td>CSS selector</td>
+                        <td><code>.uk-modal</code></td>
+                        <td>The container element which provides the height.</td>
+                    </tr>
+                    <tr>
+                        <td><code>sel-content</code></td>
+                        <td>CSS selector</td>
+                        <td><code>.uk-modal-dialog</code></td>
+                        <td>The element which wraps the inner content to provide its height.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Overflow Fade</h2>
+
+            <div class="uk-grid uk-child-width-1-2@m">
+                <div>
+
+                    <h3>No Animation</h3>
+
+                    <div class="uk-margin">
+                        <div class="uk-overflow-fade-horizontal">
+                            <div class="uk-grid uk-grid-collapse uk-child-width-auto uk-flex-nowrap uk-text-center">
+                                <div>
+                                    <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-primary uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-secondary uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-margin-medium">
+                        <div class="uk-overflow-fade-horizontal">
+                            <ul class="uk-subnav uk-flex-nowrap" uk-dropnav="mode: click; container: body">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                <li>
+                                    <a href>Parent <span uk-drop-parent-icon></span></a>
+                                    <div class="uk-dropdown">
+                                        <ul class="uk-nav uk-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#">Item</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Offset</h4>
+
+                    <div class="uk-margin">
+                        <div class="uk-overflow-fade-offset">
+                            <div class="uk-overflow-fade-horizontal">
+                                <div class="uk-grid uk-child-width-auto uk-flex-nowrap uk-text-center">
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-primary uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-margin-medium">
+                        <div class="uk-overflow-fade-offset">
+                            <div class="uk-overflow-fade-horizontal">
+                                <ul class="uk-subnav uk-subnav-pill uk-flex-nowrap" uk-dropnav="mode: click; container: body">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li>
+                                        <a href>Parent <span uk-drop-parent-icon></span></a>
+                                        <div class="uk-dropdown">
+                                            <ul class="uk-nav uk-dropdown-nav">
+                                                <li class="uk-active"><a href="#">Active</a></li>
+                                                <li><a href="#">Item</a></li>
+                                                <li class="uk-nav-header">Header</li>
+                                                <li><a href="#">Item</a></li>
+                                                <li><a href="#">Item</a></li>
+                                                <li class="uk-nav-divider"></li>
+                                                <li><a href="#">Item</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-margin-medium">
+                        <div class="uk-overflow-fade-offset">
+                            <div class="uk-overflow-fade-horizontal">
+                                <nav uk-dropnav="mode: click; container: body">
+                                    <ul class="uk-flex-nowrap" uk-tab>
+                                        <li class="uk-active"><a href="#">Left</a></li>
+                                        <li>
+                                            <a href>Parent <span uk-drop-parent-icon></span></a>
+                                            <div class="uk-dropdown">
+                                                <ul class="uk-nav uk-dropdown-nav">
+                                                    <li class="uk-active"><a href="#">Active</a></li>
+                                                    <li><a href="#">Item</a></li>
+                                                    <li class="uk-nav-header">Header</li>
+                                                    <li><a href="#">Item</a></li>
+                                                    <li><a href="#">Item</a></li>
+                                                    <li class="uk-nav-divider"></li>
+                                                    <li><a href="#">Item</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Outside</h4>
+
+                    <div class="uk-margin">
+                        <div class="uk-overflow-fade-offset">
+                            <div class="uk-overflow-fade-horizontal uk-overflow-fade-outside">
+                                <div class="uk-grid uk-child-width-auto uk-flex-nowrap uk-text-center">
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-primary uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Animation</h3>
+
+                    <div class="uk-margin">
+                        <div class="uk-overflow-fade-horizontal uk-overflow-fade-animate" uk-overflow-fade>
+                            <div class="uk-grid uk-grid-collapse uk-child-width-auto uk-flex-nowrap uk-text-center">
+                                <div>
+                                    <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-primary uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-secondary uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                                <div>
+                                    <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-margin-medium">
+                        <div class="uk-overflow-fade-horizontal uk-overflow-fade-animate" uk-overflow-fade>
+                            <ul class="uk-subnav uk-flex-nowrap" uk-dropnav="mode: click; container: body">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                <li>
+                                    <a href>Parent <span uk-drop-parent-icon></span></a>
+                                    <div class="uk-dropdown">
+                                        <ul class="uk-nav uk-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#">Item</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Offset</h4>
+
+                    <div class="uk-margin">
+                        <div class="uk-overflow-fade-offset">
+                            <div class="uk-overflow-fade-horizontal uk-overflow-fade-animate" uk-overflow-fade>
+                                <div class="uk-grid uk-child-width-auto uk-flex-nowrap uk-text-center">
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-primary uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-margin-medium">
+                        <div class="uk-overflow-fade-offset">
+                            <div class="uk-overflow-fade-horizontal uk-overflow-fade-animate" uk-overflow-fade>
+                                <ul class="uk-subnav uk-subnav-pill uk-flex-nowrap" uk-dropnav="mode: click; container: body">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li>
+                                        <a href>Parent <span uk-drop-parent-icon></span></a>
+                                        <div class="uk-dropdown">
+                                            <ul class="uk-nav uk-dropdown-nav">
+                                                <li class="uk-active"><a href="#">Active</a></li>
+                                                <li><a href="#">Item</a></li>
+                                                <li class="uk-nav-header">Header</li>
+                                                <li><a href="#">Item</a></li>
+                                                <li><a href="#">Item</a></li>
+                                                <li class="uk-nav-divider"></li>
+                                                <li><a href="#">Item</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-margin-medium">
+                        <div class="uk-overflow-fade-offset">
+                            <div class="uk-overflow-fade-horizontal uk-overflow-fade-animate" uk-overflow-fade>
+                                <nav uk-dropnav="mode: click; container: body">
+                                    <ul class="uk-flex-nowrap" uk-tab>
+                                        <li class="uk-active"><a href="#">Left</a></li>
+                                        <li>
+                                            <a href>Parent <span uk-drop-parent-icon></span></a>
+                                            <div class="uk-dropdown">
+                                                <ul class="uk-nav uk-dropdown-nav">
+                                                    <li class="uk-active"><a href="#">Active</a></li>
+                                                    <li><a href="#">Item</a></li>
+                                                    <li class="uk-nav-header">Header</li>
+                                                    <li><a href="#">Item</a></li>
+                                                    <li><a href="#">Item</a></li>
+                                                    <li class="uk-nav-divider"></li>
+                                                    <li><a href="#">Item</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Outside</h4>
+
+                    <div class="uk-margin">
+                        <div class="uk-overflow-fade-offset">
+                            <div class="uk-overflow-fade-horizontal uk-overflow-fade-animate uk-overflow-fade-outside" uk-overflow-fade>
+                                <div class="uk-grid uk-child-width-auto uk-flex-nowrap uk-text-center">
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-primary uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                    <div>
+                                        <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="uk-grid uk-child-width-1-2@m">
+                <div>
+
+                    <h3>Vertical</h3>
+
+                    <div class="uk-grid uk-child-width-1-4@m">
+                        <div>
+
+                            <div class="uk-overflow-fade-vertical">
+                                <div class="uk-height-large">
+                                    <div class="uk-grid uk-child-width-1-1 uk-text-center">
+                                        <div>
+                                            <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-primary uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-secondary uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                            <div class="uk-overflow-fade-offset">
+                                <div class="uk-overflow-fade-vertical">
+                                    <div class="uk-height-large">
+                                        <div class="uk-grid uk-child-width-1-1 uk-text-center">
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-primary uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                            <div class="uk-overflow-fade-offset">
+                                <div class="uk-overflow-fade-vertical">
+                                    <div class="uk-height-large">
+                                        <ul class="uk-tab-left uk-flex-nowrap" uk-tab>
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                            <div class="uk-overflow-fade-offset">
+                                <div class="uk-overflow-fade-vertical uk-overflow-fade-outside">
+                                    <div class="uk-height-large">
+                                        <div class="uk-grid uk-child-width-1-1 uk-text-center">
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-primary uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Vertical</h3>
+
+                    <div class="uk-grid uk-child-width-1-4@m">
+                        <div>
+
+                            <div class="uk-overflow-fade-vertical uk-overflow-fade-animate" uk-overflow-fade>
+                                <div class="uk-height-large">
+                                    <div class="uk-grid uk-child-width-1-1 uk-text-center">
+                                        <div>
+                                            <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-default uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-primary uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-secondary uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                        <div>
+                                            <div class="uk-tile uk-tile-muted uk-tile-hover uk-padding">Tile</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                            <div class="uk-overflow-fade-offset">
+                                <div class="uk-overflow-fade-vertical uk-overflow-fade-animate" uk-overflow-fade>
+                                    <div class="uk-height-large">
+                                        <div class="uk-grid uk-child-width-1-1 uk-text-center">
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-primary uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                            <div class="uk-overflow-fade-offset">
+                                <div class="uk-overflow-fade-vertical uk-overflow-fade-animate" uk-overflow-fade>
+                                    <div class="uk-height-large">
+                                        <ul class="uk-tab-left uk-flex-nowrap" uk-tab>
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Item</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                            <div class="uk-overflow-fade-offset">
+                                <div class="uk-overflow-fade-vertical uk-overflow-fade-animate uk-overflow-fade-outside" uk-overflow-fade>
+                                    <div class="uk-height-large">
+                                        <div class="uk-grid uk-child-width-1-1 uk-text-center">
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-primary uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-secondary uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                            <div>
+                                                <div class="uk-card uk-card-default uk-card-hover uk-card-body">Card</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

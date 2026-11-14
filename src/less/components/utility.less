@@ -4,7 +4,6 @@
 // Component:       `uk-panel-*`
 //                  `uk-clearfix`
 //                  `uk-float-*`
-//                  `uk-overflow-*`
 //                  `uk-resize-*`
 //                  `uk-display-*`
 //                  `uk-inline-*`
@@ -32,8 +31,6 @@
 @panel-scrollable-padding:                      10px;
 @panel-scrollable-border-width:                 @global-border-width;
 @panel-scrollable-border:                       @global-border;
-
-@overflow-fade-size:                            100px;
 
 @border-rounded-border-radius:                  5px;
 
@@ -112,65 +109,6 @@
 
 /* 1 */
 [class*="uk-float-"] { max-width: 100%; }
-
-
-/* Overflow
- ========================================================================== */
-
-.uk-overflow-hidden { overflow: hidden; }
-
-/*
- * Enable scrollbars if content is clipped
- */
-
-.uk-overflow-auto { overflow: auto; }
-
-.uk-overflow-auto > :last-child { margin-bottom: 0; }
-
-/*
- * Overflow fade
- * 1. Mask
- * 2. Hide scrollbar
- */
-
-@property --uk-overflow-fade-start-opacity {
-    syntax: "<number>";
-    inherits: false;
-    initial-value: 0;
-}
-
-@property --uk-overflow-fade-end-opacity {
-    syntax: "<number>";
-    inherits: false;
-    initial-value: 0;
-}
-
-.uk-overflow-fade-horizontal {
-    overflow-x: auto;
-    --uk-overflow-fade-direction: right;
-}
-
-.uk-overflow-fade-vertical {
-    overflow-y: auto;
-    --uk-overflow-fade-direction: bottom;
-}
-
-.uk-overflow-fade-horizontal,
-.uk-overflow-fade-vertical {
-    /* 1 */
-    mask-image: linear-gradient(
-        to var(--uk-overflow-fade-direction),
-        rgba(0,0,0,var(--uk-overflow-fade-start-opacity)),
-        #000 @overflow-fade-size,
-        #000 ~'calc(100% - @{overflow-fade-size})',
-        rgba(0,0,0,var(--uk-overflow-fade-end-opacity))
-    );
-    /* 2 */
-    scrollbar-width: none;
-}
-
-.uk-overflow-fade-horizontal > *,
-.uk-overflow-fade-vertical > * { min-width: max-content; }
 
 
 /* Box Sizing
