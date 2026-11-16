@@ -42,3 +42,22 @@
 // ========================================================================
 
 .hook-notification-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-notification-message-primary-color:      @global-primary-background;
+@inverse-notification-message-success-color:      @global-success-background;
+@inverse-notification-message-warning-color:      @global-warning-background;
+@inverse-notification-message-danger-color:       @global-danger-background;
+
+.hook-inverse-notification-message() {}
+
+.uk-notification-message-primary { color: @inverse-notification-message-primary-color; }
+
+.uk-notification-message-success { color: @inverse-notification-message-success-color; }
+
+.uk-notification-message-warning { color: @inverse-notification-message-warning-color; }
+
+.uk-notification-message-danger { color: @inverse-notification-message-danger-color; }
