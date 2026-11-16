@@ -88,9 +88,9 @@
     /* 2 */
     position: fixed;
     top: 0;
-    right: 0;
+    inset-inline-end: 0;
     bottom: 0;
-    left: 0;
+    inset-inline-start: 0;
     z-index: @modal-z-index;
     /* 3 */
     overflow-y: auto;
@@ -115,8 +115,8 @@
 @media (min-width: @breakpoint-medium) {
 
     .uk-modal {
-        padding-left: @modal-padding-horizontal-m;
-        padding-right: @modal-padding-horizontal-m;
+        padding-inline-start: @modal-padding-horizontal-m;
+        padding-inline-end: @modal-padding-horizontal-m;
     }
 
 }
@@ -269,7 +269,7 @@
     position: absolute;
     z-index: @modal-z-index;
     top: @modal-close-position;
-    right: @modal-close-position;
+    inset-inline-end: @modal-close-position;
     padding: @modal-close-padding;
     .hook-modal-close();
 }
@@ -308,7 +308,7 @@
 .uk-modal-close-outside {
     top: @modal-close-outside-position;
     /* 1 */
-    right: -@modal-close-padding;
+    inset-inline-end: -@modal-close-padding;
     transform: translate(0, -(@modal-close-outside-translate));
     color: @modal-close-outside-color;
     .hook-modal-close-outside();
@@ -324,8 +324,8 @@
 
     /* 1 */
     .uk-modal-close-outside {
-        right: @modal-close-outside-position;
-        transform: translate(@modal-close-outside-translate, -(@modal-close-outside-translate));
+        inset-inline-end: @modal-close-outside-position;
+        transform: translate(calc(@modal-close-outside-translate * var(--uk-dir-sign)), -(@modal-close-outside-translate));
     }
 
 }

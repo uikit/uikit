@@ -12,6 +12,10 @@
 //                  `uk-notification-bottom-left`
 //                  `uk-notification-bottom-center`
 //                  `uk-notification-bottom-right`
+//                  `uk-notification-top-start`
+//                  `uk-notification-top-end`
+//                  `uk-notification-bottom-start`
+//                  `uk-notification-bottom-end`
 //                  `uk-notification-message-primary`
 //                  `uk-notification-message-success`
 //                  `uk-notification-message-warning`
@@ -35,7 +39,7 @@
 @notification-message-line-height:                    1.4;
 
 @notification-close-top:                              @notification-message-padding + 5px;
-@notification-close-right:                            @notification-message-padding;
+@notification-close-inline-end:                            @notification-message-padding;
 
 @notification-message-primary-color:                  @global-primary-background;
 @notification-message-success-color:                  @global-success-background;
@@ -56,7 +60,7 @@
     /* 1 */
     position: fixed;
     top: @notification-position;
-    left: @notification-position;
+    inset-inline-start: @notification-position;
     z-index: @notification-z-index;
     /* 2 */
     box-sizing: border-box;
@@ -68,20 +72,34 @@
 /* Position modifiers
 ========================================================================== */
 
+.uk-notification-top-left,
+.uk-notification-bottom-left {
+    inset-inline-start: auto;
+    left: @notification-position;
+}
+
 .uk-notification-top-right,
 .uk-notification-bottom-right {
-    left: auto;
+    inset-inline-start: auto;
     right: @notification-position;
+}
+
+.uk-notification-top-end,
+.uk-notification-bottom-end {
+    inset-inline-start: auto;
+    inset-inline-end: @notification-position;
 }
 
 .uk-notification-top-center,
 .uk-notification-bottom-center {
-    left: 50%;
-    margin-left: (@notification-width / -2);
+    inset-inline-start: 50%;
+    margin-inline-start: (@notification-width / -2);
 }
 
 .uk-notification-bottom-left,
 .uk-notification-bottom-right,
+.uk-notification-bottom-start,
+.uk-notification-bottom-end,
 .uk-notification-bottom-center {
     top: auto;
     bottom: @notification-position;
@@ -95,8 +113,8 @@
 @media (max-width: @breakpoint-xsmall-max) {
 
     .uk-notification {
-        left: @notification-position;
-        right: @notification-position;
+        inset-inline-start: @notification-position;
+        inset-inline-end: @notification-position;
         width: auto;
         margin: 0;
     }
@@ -129,7 +147,7 @@
     display: none;
     position: absolute;
     top: @notification-close-top;
-    right: @notification-close-right;
+    inset-inline-end: @notification-close-inline-end;
     .hook-notification-close();
 }
 

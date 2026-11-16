@@ -14,7 +14,7 @@ export default {
     data: {
         media: 960,
         attrItem: 'uk-tab-item',
-        selVertical: '.uk-tab-left,.uk-tab-right',
+        selVertical: '.uk-tab-left,.uk-tab-right,.uk-tab-start,.uk-tab-end',
     },
 
     connected() {
@@ -22,7 +22,11 @@ export default {
             ? 'uk-tab-left'
             : hasClass(this.$el, 'uk-tab-right')
               ? 'uk-tab-right'
-              : false;
+              : hasClass(this.$el, 'uk-tab-start')
+                ? 'uk-tab-start'
+                : hasClass(this.$el, 'uk-tab-end')
+                  ? 'uk-tab-end'
+                  : false;
 
         if (cls) {
             this.$create('toggle', this.$el, { cls, mode: 'media', media: this.media });
