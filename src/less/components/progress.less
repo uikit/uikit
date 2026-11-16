@@ -11,9 +11,9 @@
 
 @progress-height:                               15px;
 @progress-margin-vertical:                      @global-margin;
-@progress-background:                           @global-muted-background;
+@progress-background:                           @global-muted-color-default;
 
-@progress-bar-background:                       @global-primary-background;
+@progress-bar-background:                       @global-primary-color;
 
 
 /* ========================================================================
@@ -81,3 +81,20 @@
 .hook-progress() {}
 .hook-progress-bar() {}
 .hook-progress-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-progress-background:                     @inverse-global-muted-color-default;
+
+.hook-inverse() {
+
+    .uk-progress {
+        background-color: @inverse-progress-background;
+        .hook-inverse-progress();
+    }
+
+}
+
+.hook-inverse-progress() {}

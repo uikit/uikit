@@ -28,7 +28,7 @@
 @offcanvas-bar-width:                           270px;
 @offcanvas-bar-padding-vertical:                20px;
 @offcanvas-bar-padding-horizontal:              20px;
-@offcanvas-bar-background:                      @global-secondary-background;
+@offcanvas-bar-background:                      @global-secondary-color;
 @offcanvas-bar-color-mode:                      light;
 
 @offcanvas-bar-width-s:                         350px;
@@ -327,3 +327,20 @@
 .hook-offcanvas-close() {}
 .hook-offcanvas-overlay() {}
 .hook-offcanvas-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-offcanvas-overlay-background:            rgba(0,0,0,0.3);
+
+.hook-inverse() {
+
+    .uk-offcanvas-overlay::before {
+        background: @offcanvas-overlay-background;
+        .hook-inverse-offcanvas-overlay();
+    }
+
+}
+
+.hook-inverse-offcanvas-overlay() {}
