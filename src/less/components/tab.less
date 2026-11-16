@@ -42,7 +42,7 @@
     /* 1 */
     flex-wrap: wrap;
     /* 2 */
-    margin-left: -@tab-margin-horizontal;
+    margin-left: calc(@tab-margin-horizontal * -1);                             // instead of: -@tab-margin-horizontal;
     /* 3 */
     padding: 0;
     list-style: none;

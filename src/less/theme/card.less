@@ -149,12 +149,12 @@
      */
 
     .uk-card-body > .uk-nav-default {
-        margin-left: -@card-body-padding-horizontal;
-        margin-right: -@card-body-padding-horizontal;
+        margin-left: calc(@card-body-padding-horizontal * -1); // instead of: -@card-body-padding-horizontal
+        margin-right: calc(@card-body-padding-horizontal * -1); // instead of: -@card-body-padding-horizontal
     }
     .uk-card-body > .uk-nav-default:only-child {
-        margin-top: (-@card-body-padding-vertical + 15px);
-        margin-bottom: (-@card-body-padding-vertical + 15px);
+        margin-top: calc((@card-body-padding-vertical * -1) + 15px); // instead of: (-@card-body-padding-vertical + 15px)
+        margin-bottom: calc((@card-body-padding-vertical * -1) + 15px); // instead of: (-@card-body-padding-vertical + 15px)
     }
 
     .uk-card-body > .uk-nav-default > li > a,
@@ -164,19 +164,19 @@
         padding-right: @card-body-padding-horizontal;
     }
 
-    .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-body-padding-horizontal; }
+    .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: calc(@nav-sublist-deeper-padding-left + @card-body-padding-horizontal); } // instead of: @nav-sublist-deeper-padding-left + @card-body-padding-horizontal
 
 
     /* Desktop and bigger */
     @media (min-width: @breakpoint-large) {
 
         .uk-card-body > .uk-nav-default {
-            margin-left: -@card-body-padding-horizontal-l;
-            margin-right: -@card-body-padding-horizontal-l;
+            margin-left: calc(@card-body-padding-horizontal-l * -1); // instead of: -@card-body-padding-horizontal-l
+            margin-right: calc(@card-body-padding-horizontal-l * -1); // instead of: -@card-body-padding-horizontal-l
         }
         .uk-card-body > .uk-nav-default:only-child {
-            margin-top: (-@card-body-padding-vertical-l + 15px);
-            margin-bottom: (-@card-body-padding-vertical-l + 15px);
+            margin-top: calc((@card-body-padding-vertical-l * -1) + 15px); // instead of: (-@card-body-padding-vertical-l + 15px)
+            margin-bottom: calc((@card-body-padding-vertical-l * -1) + 15px); // instead of: (-@card-body-padding-vertical-l + 15px)
         }
 
         .uk-card-body > .uk-nav-default > li > a,
@@ -186,7 +186,7 @@
             padding-right: @card-body-padding-horizontal-l;
         }
 
-        .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-body-padding-horizontal-l; }
+        .uk-card-body > .uk-nav-default .uk-nav-sub { padding-left: calc(@nav-sublist-deeper-padding-left + @card-body-padding-horizontal-l); } // instead of: @nav-sublist-deeper-padding-left + @card-body-padding-horizontal-l
 
     }
 
@@ -195,12 +195,12 @@
      */
 
     .uk-card-small > .uk-nav-default {
-        margin-left: -@card-small-body-padding-horizontal;
-        margin-right: -@card-small-body-padding-horizontal;
+        margin-left: calc(@card-small-body-padding-horizontal * -1); // instead of: -@card-small-body-padding-horizontal
+        margin-right: calc(@card-small-body-padding-horizontal * -1); // instead of: -@card-small-body-padding-horizontal
     }
     .uk-card-small > .uk-nav-default:only-child {
-        margin-top: (-@card-small-body-padding-vertical + 15px);
-        margin-bottom: (-@card-small-body-padding-vertical + 15px);
+        margin-top: calc((@card-small-body-padding-vertical * -1) + 15px); // instead of: (-@card-small-body-padding-vertical + 15px)
+        margin-bottom: calc((@card-small-body-padding-vertical * -1) + 15px); // instead of: (-@card-small-body-padding-vertical + 15px)
     }
 
     .uk-card-small > .uk-nav-default > li > a,
@@ -210,7 +210,7 @@
         padding-right: @card-small-body-padding-horizontal;
     }
 
-    .uk-card-small > .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-small-body-padding-horizontal; }
+    .uk-card-small > .uk-nav-default .uk-nav-sub { padding-left: calc(@nav-sublist-deeper-padding-left + @card-small-body-padding-horizontal); } // instead of: @nav-sublist-deeper-padding-left + @card-small-body-padding-horizontal
 
     /*
      * Large

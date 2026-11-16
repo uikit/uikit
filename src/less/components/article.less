@@ -15,7 +15,7 @@
 @article-margin-top:                            @global-large-margin;
 
 @article-title-font-size-m:                     @global-2xlarge-font-size;
-@article-title-font-size:                       @article-title-font-size-m * 0.85;
+@article-title-font-size:                       calc(@article-title-font-size-m * 0.85);            // instead of: @article-title-font-size-m * 0.85;
 @article-title-line-height:                     1.2;
 
 @article-meta-font-size:                        @global-small-font-size;

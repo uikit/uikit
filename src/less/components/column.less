@@ -50,14 +50,14 @@
 .uk-column-divider {
     column-rule: @column-divider-rule-width solid @column-divider-rule-color;
     /* 1 */
-    column-gap: (@column-gutter * 2);
+    column-gap: calc(@column-gutter * 2);                                       // instead of: (@column-gutter * 2);
 }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
     .uk-column-divider {
-        column-gap: (@column-gutter-l * 2);
+        column-gap: calc(@column-gutter-l * 2);                                 // instead of: (@column-gutter-l * 2);
     }
 
 }
