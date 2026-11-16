@@ -59,8 +59,9 @@
 }
 
 /*
- * 1. Reset list style without interfering with grid
+ * 1. Reset list style without interfering with grid.
  * 2. Prevent displaying the callout information on iOS.
+ * 3. Prevent items from wrapping into the next line.
  */
 
 .uk-marquee:not(.uk-marquee-vertical) .uk-marquee-items:not(.uk-grid) {
@@ -73,6 +74,7 @@
     -webkit-touch-callout: none;
 }
 
+/* 3 */
 .uk-marquee:not(.uk-marquee-vertical) .uk-marquee-items.uk-grid { flex-wrap: nowrap; }
 
 
@@ -80,10 +82,11 @@
  ========================================================================== */
 
 /*
- * 1. Let items take content dimensions (0 0 auto)
- *    `max-width` needed to keep image responsiveness and prevent content overflow
- * 2. Create position context
- * 3. Create animation along offset-path
+ * 1. Prevent items from shrinking if they have a width.
+ * 2. Prevent items from overflowing the container.
+ *    Needed to shrink large images, if there is no grid with width classes.
+ * 3. Create position context
+ * 4. Create animation along offset-path
  *    Use a large finite iteration count instead of `infinite`, because Firefox throttles
  *    infinite animations on elements clipped out of view, so items pop in late after wrapping
  */
@@ -91,11 +94,12 @@
 .uk-marquee-items > * {
     /* 1 */
     flex: none !important;
-    box-sizing: border-box;
-    max-width: 100%;
     /* 2 */
-    position: relative;
+    max-width: 100%;
+    box-sizing: border-box;
     /* 3 */
+    position: relative;
+    /* 4 */
     offset-anchor: 0 0;
     offset-rotate: 0deg;
     offset-path: path(var(--uk-marquee-path));

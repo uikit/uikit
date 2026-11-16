@@ -81,8 +81,9 @@
 }
 
 /*
- * 1. Reset list style without interfering with grid
+ * 1. Reset list style without interfering with grid.
  * 2. Prevent displaying the callout information on iOS.
+ * 3. Prevent items from wrapping into the next line.
  */
 
 .uk-slider-items:not(.uk-grid) {
@@ -95,6 +96,7 @@
     -webkit-touch-callout: none;
 }
 
+/* 3 */
 .uk-slider-items.uk-grid { flex-wrap: nowrap; }
 
 
@@ -102,17 +104,19 @@
  ========================================================================== */
 
 /*
- * 1. Let items take content dimensions (0 0 auto)
- *    `max-width` needed to keep image responsiveness and prevent content overflow
- * 2. Create position context
+ * 1. Prevent items from shrinking if they have a width.
+ * 2. Prevent items from overflowing the container.
+ *    Needed to shrink large images, if there is no grid with width classes.
+ * 3. Create position context
  */
 
 .uk-slider-items > * {
     /* 1 */
     flex: none !important;
-    box-sizing: border-box;
-    max-width: 100%;
     /* 2 */
+    max-width: 100%;
+    box-sizing: border-box;
+    /* 3 */
     position: relative;
 }
 

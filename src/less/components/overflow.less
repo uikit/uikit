@@ -158,5 +158,22 @@
 
 .uk-overflow-fade-outside { --uk-overflow-fade-size: var(--uk-overflow-fade-size-outside, 20px); }
 
-/* Preserve trailing scroll padding to align the last item. */
-.uk-overflow-fade-outside.uk-overflow-fade-horizontal > * { min-width: max-content; }
+/*
+ * Prepare flex-based content for native scrolling.
+ * Marquee and Slider manage their items separately.
+ * 1. Prevent items from wrapping into the next line.
+ * 2. Prevent items from shrinking if they have a width.
+ * 3. Add scrollable space to fix last item from stopping inside the outside fade on the right.
+ */
+
+/* 1 */
+.uk-overflow-fade-grid { flex-wrap: nowrap; }
+
+/* 2 */
+.uk-overflow-fade-grid > * { flex: none !important; }
+
+/* 3 */
+.uk-overflow-fade-horizontal.uk-overflow-fade-outside > .uk-overflow-fade-grid::after {
+    content: "";
+    flex: 0 0 var(--uk-overflow-fade-size-outside, 20px);
+}
