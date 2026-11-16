@@ -38,6 +38,7 @@
 
 ### Removed
 
+- Remove container offset from Slider component. Use Overflow component instead.
 - Remove `sortBy`, `ready` and `empty` utility functions
 
 ### Fixed
