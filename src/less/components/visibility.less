@@ -98,9 +98,9 @@
  ========================================================================== */
 
 /*
- * Mind that `display: none`, `visibility: hidden` and `opacity: 0`
- * remove the element from the accessibility tree and that
- * `display: none` and `visibility: hidden` are not focusable.
+ * Mind that `display: none` and `visibility: hidden` remove the element from the
+ * accessibility tree and are not focusable, whereas `opacity: 0` keeps the element
+ * in the accessibility tree, focusable and clickable.
  *
  * The target stays visible if any element within receives focus through keyboard.
  */
@@ -114,7 +114,7 @@
  *    Note: `clip-path` doesn't work with `tabindex` on touch devices.
  */
 
-.uk-hidden-visually:not(:focus, :active, :focus-within),
+.uk-hidden-visually:not(:active, :focus-within),
 .uk-visible-toggle:not(:hover, :focus) .uk-hidden-hover:not(:focus-visible, :has(:focus-visible)),
 // Fallback for Safari 18.3 `:not(:has(...)) invalidation` bug. Remove when fixed.
 .uk-visible-toggle:not(:hover, :focus) .uk-hidden-hover:not(:focus-within) {
