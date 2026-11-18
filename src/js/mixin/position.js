@@ -1,13 +1,5 @@
-import {
-    css,
-    dimensions,
-    flipPosition,
-    includes,
-    isRtl,
-    positionAt,
-    scrollParent,
-    toPx,
-} from 'uikit-util';
+import { css, dimensions, flipPosition, includes, isRtl, scrollParent, toPx } from 'uikit-util';
+import { positionAt } from './internal/position';
 
 export default {
     props: {

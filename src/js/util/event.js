@@ -117,7 +117,7 @@ function toEventTarget(target) {
     return isEventTarget(target) ? target : toNode(target);
 }
 
-export function toEventTargets(target) {
+function toEventTargets(target) {
     return isArray(target)
         ? target.map(toEventTarget).filter(Boolean)
         : isString(target)

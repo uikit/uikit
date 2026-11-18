@@ -39,7 +39,7 @@
 ### Removed
 
 - Remove container offset from Slider component. Use Overflow component instead.
-- Remove `sortBy`, `ready` and `empty` utility functions
+- Remove `sortBy`, `ready`, `empty`, `MouseTracker`, `play`, `pause`, `mute`, `positionAt`, `swap`, `isVoidElement` and `toEventTargets` utility functions
 
 ### Fixed
 

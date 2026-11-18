@@ -1,7 +1,6 @@
 import {
     $,
     $$,
-    MouseTracker,
     addClass,
     append,
     attr,
@@ -32,6 +31,7 @@ import { maybeDefaultPreventClick, onEscape, onOutsidePointer } from '../mixin/e
 import Position, { storeScrollPosition } from '../mixin/position';
 import Togglable from '../mixin/togglable';
 import { preventBackgroundScroll } from '../util/scroll';
+import { MouseTracker } from './internal/mouse-tracker';
 
 export let active;
 

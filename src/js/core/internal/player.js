@@ -1,6 +1,4 @@
-import { isTag } from './dom';
-import { once } from './event';
-import { includes, noop } from './lang';
+import { includes, isTag, noop, once } from 'uikit-util';
 
 export function play(el) {
     if (isIFrame(el)) {

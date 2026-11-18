@@ -139,10 +139,6 @@ export function isEqual(value, other) {
     );
 }
 
-export function swap(value, a, b) {
-    return value.replace(new RegExp(`${a}|${b}`, 'g'), (match) => (match === a ? b : a));
-}
-
 export function last(array) {
     return array[array.length - 1];
 }

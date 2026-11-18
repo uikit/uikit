@@ -6,7 +6,6 @@ import {
     includes,
     isElement,
     isTag,
-    isVoidElement,
     memoize,
     noop,
     remove,
@@ -119,3 +118,25 @@ const parseSymbols = memoize(function (svg) {
 
     return symbols;
 });
+
+const voidElements = {
+    area: true,
+    base: true,
+    br: true,
+    col: true,
+    embed: true,
+    hr: true,
+    img: true,
+    input: true,
+    keygen: true,
+    link: true,
+    meta: true,
+    param: true,
+    source: true,
+    track: true,
+    wbr: true,
+};
+
+function isVoidElement(element) {
+    return toNodes(element).some((element) => voidElements[element.tagName.toLowerCase()]);
+}

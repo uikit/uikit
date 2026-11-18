@@ -1,6 +1,4 @@
-import { dimensions } from './dimensions';
-import { getEventPos, on } from './event';
-import { last, pointInRect } from './lang';
+import { dimensions, getEventPos, last, on, pointInRect } from 'uikit-util';
 
 export class MouseTracker {
     init() {

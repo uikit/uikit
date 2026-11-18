@@ -3,11 +3,8 @@ import {
     isFocusable,
     isTag,
     isTouch,
-    mute,
     observeIntersection,
     parent,
-    pause,
-    play,
     pointerEnter,
     pointerLeave,
     query,
@@ -15,6 +12,7 @@ import {
 import { intersection } from '../api/observables';
 import Media from '../mixin/media';
 import ScrollDriven from '../mixin/scroll-driven';
+import { mute, pause, play } from './internal/player';
 
 const loopKey = Symbol();
 

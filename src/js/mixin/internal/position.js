@@ -1,7 +1,13 @@
-import { offset } from './dimensions';
-import { clamp, isArray, isNumber, ucfirst } from './lang';
-import { css } from './style';
-import { offsetViewport, overflowParents } from './viewport';
+import {
+    clamp,
+    css,
+    isArray,
+    isNumber,
+    offset,
+    offsetViewport,
+    overflowParents,
+    ucfirst,
+} from 'uikit-util';
 
 const dirs = [
     ['width', 'x', 'left', 'right'],
