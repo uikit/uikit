@@ -115,9 +115,7 @@
  */
 
 .uk-hidden-visually:not(:active, :focus-within),
-.uk-visible-toggle:not(:hover, :focus) .uk-hidden-hover:not(:focus-visible, :has(:focus-visible)),
-// Fallback for Safari 18.3 `:not(:has(...)) invalidation` bug. Remove when fixed.
-.uk-visible-toggle:not(:hover, :focus) .uk-hidden-hover:not(:focus-within) {
+.uk-visible-toggle:not(:hover, :focus) .uk-hidden-hover:not(:focus-visible, :has(:focus-visible)) {
     /* 1 */
     position: absolute !important;
     /* 2 */
@@ -135,7 +133,7 @@
  * Note: `clip-path` doesn't work with hover for elements outside of the toggle box.
  */
 
-.uk-visible-toggle:not(:hover, :focus) .uk-invisible-hover:not(:focus-within) { opacity: 0 !important; }
+.uk-visible-toggle:not(:hover, :focus) .uk-invisible-hover:not(:focus-visible, :has(:focus-visible)) { opacity: 0 !important; }
 
 
 /* Based on Hover Capability of the Pointing Device
