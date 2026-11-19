@@ -1,11 +1,7 @@
 import {
-    children,
-    clamp,
-    css,
     getEventPos,
     hasClass,
     isInput,
-    isRtl,
     isTouch,
     on,
     once,
@@ -14,83 +10,17 @@ import {
     pointerMove,
     pointerUp,
     selInput,
-    toggleClass,
 } from 'uikit-util';
-import { mutation, resize } from '../api/observables';
 
 export default {
     data: {
         threshold: 5,
-        fadeDuration: 0.05,
     },
 
-    events: [
-        {
-            name: 'scroll',
+    events: {
+        name: pointerDown,
 
-            self: true,
-
-            passive: true,
-
-            handler() {
-                this.$emit();
-            },
-        },
-        {
-            name: pointerDown,
-
-            handler: handleMouseDrag,
-        },
-    ],
-
-    observe: [
-        mutation({
-            options: {
-                subtree: true,
-                childList: true,
-            },
-        }),
-        resize({
-            target: ({ $el }) => [$el, ...children($el)],
-        }),
-    ],
-
-    update: {
-        read() {
-            return {
-                overflow: [
-                    this.$el.scrollWidth - this.$el.clientWidth,
-                    this.$el.scrollHeight - this.$el.clientHeight,
-                ],
-            };
-        },
-
-        write({ overflow }) {
-            for (let i = 0; i < 2; i++) {
-                toggleClass(
-                    this.$el,
-                    `${this.$options.id}-${i ? 'vertical' : 'horizontal'}`,
-                    overflow[i] && !overflow[i - 1],
-                );
-
-                if (!overflow[i - 1]) {
-                    const dir = i ? 'Top' : 'Left';
-                    // The horizontal mask runs left to right, even in RTL.
-                    const position = this.$el[`scroll${dir}`] + (!i && isRtl ? overflow[i] : 0);
-                    const percent = overflow[i] ? position / overflow[i] : 0;
-
-                    const toValue = (value) =>
-                        overflow[i] ? clamp((this.fadeDuration - value) / this.fadeDuration) : 1;
-
-                    css(this.$el, {
-                        '--uk-overflow-fade-start-opacity': toValue(percent),
-                        '--uk-overflow-fade-end-opacity': toValue(1 - percent),
-                    });
-                }
-            }
-        },
-
-        events: ['resize'],
+        handler: handleMouseDrag,
     },
 };
 

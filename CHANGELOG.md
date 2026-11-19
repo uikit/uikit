@@ -27,6 +27,7 @@
 
 - IMPORTANT: Use heading element with `<a>` inside for the accordion title
 - IMPORTANT: Rename `uk-box-shadow-bottom` class to `uk-floating-shadow`
+- IMPORTANT: Set `uk-overflow-fade-horizontal` or `uk-overflow-fade-vertical` class manually in Overflow Fade component
 - Refactor selector specificity in Grid, Base and Form components to remove important keywords in Margin component
 - Refactor classes with single-direction margin to override classes with multiple margin directions in Margin component
 - Respect `prefers-reduced-motion` preference for all autoplay modes in Video component
@@ -39,6 +40,7 @@
 
 ### Removed
 
+- Remove JavaScript edge fade calculation from Overflow Fade component. Use the CSS-only animate modifier instead.
 - Remove container offset from Slider component. Use Overflow component instead.
 - Remove `sortBy`, `ready`, `empty`, `MouseTracker`, `play`, `pause`, `mute`, `positionAt`, `swap`, `isVoidElement` and `toEventTargets` utility functions
 
