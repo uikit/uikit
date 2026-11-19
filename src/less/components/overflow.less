@@ -80,15 +80,17 @@
 
 /*
  * Animate modifier to remove fades at the start and end position, for example when using finite scrolling areas.
- * 1. Remove fade if content doesn’t overflow and the scroll timeline is inactive.
+ * 1. Remove fades if content doesn’t overflow or scroll timelines are unavailable.
  */
+
+/* 1 */
+.uk-overflow-fade-animate {
+    --uk-overflow-fade-start-opacity: 1;
+    --uk-overflow-fade-end-opacity: 1;
+}
 
 @supports (animation-timeline: scroll(self x)) {
     .uk-overflow-fade-animate {
-        /* 1 */
-        --uk-overflow-fade-start-opacity: 1;
-        --uk-overflow-fade-end-opacity: 1;
-
         animation: uk-overflow-fade-animate linear both;
         animation-timeline: scroll(self x);
     }
