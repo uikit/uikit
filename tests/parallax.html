@@ -16,7 +16,7 @@
     <body>
 
         <div class="uk-section-default">
-            <div class="uk-section uk-background-cover uk-background-primary uk-overflow-hidden uk-light uk-flex" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -400; sepia: 100" uk-height-viewport="offset-top: true">
+            <div class="uk-section uk-background-cover uk-background-primary uk-overflow-hidden uk-light uk-flex" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -400; sepia: 100; bg-size: 1800,1200" uk-height-viewport="offset-top: true">
 
                 <h1 class="uk-heading-xlarge uk-margin-auto uk-margin-auto-vertical">Parallax</h1>
 
@@ -177,6 +177,12 @@
                                 <td>Length</td>
                                 <td>0</td>
                                 <td>End offset. The value can be in vh, % and px. It supports basic mathematics operands + and -. The default value of `0` means that the target's bottom border and the viewport's top border intersect.</td>
+                            </tr>
+                            <tr>
+                                <td><code>bg-size</code></td>
+                                <td>List</td>
+                                <td>undefined</td>
+                                <td>Width and height of the background image (e.g. 1800,1200). It lets a <code>background-size: cover</code> image animate right away instead of after it's loaded. Only the aspect ratio matters.</td>
                             </tr>
                             <tr>
                                 <td><code>media</code></td>

@@ -44,7 +44,7 @@ const { keys } = Object;
 export default {
     mixins: [Media],
 
-    props: fillObject(keys(props), 'list'),
+    props: { ...fillObject(keys(props), 'list'), bgSize: 'list' },
 
     data: fillObject(keys(props), undefined),
 
@@ -58,7 +58,7 @@ export default {
             }
             const result = {};
             for (const prop in stops) {
-                result[prop] = props[prop](prop, $el, stops[prop], stops);
+                result[prop] = props[prop](prop, $el, stops[prop], stops, properties);
             }
             return result;
         },
@@ -191,7 +191,7 @@ function strokeFn(prop, el, stops) {
     };
 }
 
-function backgroundFn(prop, el, stops, props) {
+function backgroundFn(prop, el, stops, props, { bgSize: [width, height] = [] }) {
     if (stops.length === 1) {
         stops.unshift(0);
     }
@@ -205,7 +205,9 @@ function backgroundFn(prop, el, stops, props) {
     }
 
     if (getCssValue(el, 'backgroundSize', '') === 'cover') {
-        return backgroundCoverFn(prop, el, stops, props);
+        const dimImage =
+            width && height ? { width, height } : getBackgroundImageDimensions(el);
+        return backgroundCoverFn(dimImage, el, props);
     }
 
     const positions = {};
@@ -216,9 +218,7 @@ function backgroundFn(prop, el, stops, props) {
     return setBackgroundPosFn(bgProps, positions, props);
 }
 
-function backgroundCoverFn(prop, el, stops, props) {
-    const dimImage = getBackgroundImageDimensions(el);
-
+function backgroundCoverFn(dimImage, el, props) {
     if (!dimImage.width) {
         return noop;
     }
