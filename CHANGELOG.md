@@ -5,9 +5,10 @@
 ### Added
 
 - Add Marquee component
-- Add overflow fade animate modifier to animate edge fades based on scroll position to Overflow component
-- Add overflow fade offset wrapper to preserve overflowing content around the fade area to Overflow component
-- Add overflow fade outside modifier to move the fade area outside the content bounds to Overflow component
+- Add overflow fade animate to adjust edge fades based on scroll position to Overflow component
+- Add overflow fade offset to preserve content that overflows perpendicular to the fade direction to Overflow component
+- Add overflow fade outside to move the fade area outside the content bounds to Overflow component
+- Add overflow fade grid to prepare flex-based content for native scrolling to Overflow component
 - Add support for `h1-h6/a` and `details/summary` markup to Accordion component
 - Add options to control an additional switcher container to Accordion component
 - Add `uk-switcher-animation` attribute to override animations for connected Switcher containers
@@ -25,10 +26,10 @@
 
 ### Changed
 
+- IMPORTANT: Remove `uk-overflow-fade` attribute. Use `uk-overflow-fade-*` classes and `uk-overflow-drag` attribute instead
+- IMPORTANT: Remove `uk-slider-container-offset` class and its Less variable. Use `uk-overflow-fade-offset` class instead
 - IMPORTANT: Use heading element with `<a>` inside for the accordion title
 - IMPORTANT: Rename `uk-box-shadow-bottom` class to `uk-floating-shadow`
-- IMPORTANT: Set `uk-overflow-fade-horizontal` or `uk-overflow-fade-vertical` class manually in Overflow Fade component
-- IMPORTANT: Rename Overflow Fade JavaScript component to Overflow Drag. Use `uk-overflow-drag` attribute instead of `uk-overflow-fade`
 - Refactor selector specificity in Grid, Base and Form components to remove important keywords in Margin component
 - Refactor classes with single-direction margin to override classes with multiple margin directions in Margin component
 - Respect `prefers-reduced-motion` preference for all autoplay modes in Video component
