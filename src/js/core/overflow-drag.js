@@ -40,7 +40,7 @@ function handleMouseDrag(e) {
     e.preventDefault();
 
     const pointerOptions = { passive: false, capture: true };
-    const { $el: el, threshold, $options } = this;
+    const { $el: el, threshold } = this;
     let started;
 
     const off = on(document, pointerMove, move(e), pointerOptions);
@@ -55,7 +55,7 @@ function handleMouseDrag(e) {
             lastPos = pos;
             pos = getEventPos(e);
 
-            const isVertical = hasClass(el, `${$options.id}-vertical`);
+            const isVertical = hasClass(el, 'uk-overflow-fade-vertical');
             const prop = isVertical ? 'y' : 'x';
 
             started ||= Math.abs(pos[prop] - origin[prop]) > threshold;

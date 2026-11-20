@@ -28,6 +28,7 @@
 - IMPORTANT: Use heading element with `<a>` inside for the accordion title
 - IMPORTANT: Rename `uk-box-shadow-bottom` class to `uk-floating-shadow`
 - IMPORTANT: Set `uk-overflow-fade-horizontal` or `uk-overflow-fade-vertical` class manually in Overflow Fade component
+- IMPORTANT: Rename Overflow Fade JavaScript component to Overflow Drag. Use `uk-overflow-drag` attribute instead of `uk-overflow-fade`
 - Refactor selector specificity in Grid, Base and Form components to remove important keywords in Margin component
 - Refactor classes with single-direction margin to override classes with multiple margin directions in Margin component
 - Respect `prefers-reduced-motion` preference for all autoplay modes in Video component
