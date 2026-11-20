@@ -518,7 +518,7 @@
 
 ### Changed
 
-- IMPORTANT: Remove `@lightbox-toolbar-icon-*` and `@lightbox-button-*`from Lightbox component
+- IMPORTANT: Remove `@lightbox-toolbar-icon-*` and `@lightbox-button-*` from Lightbox component
 - IMPORTANT: Rename `@lightbox-toolbar-*` to `@lightbox-caption-*` in Lightbox component
 - IMPORTANT: Rename `@lightbox-item-color` to `@lightbox-color` in Lightbox component
 - Set `delay-controls: 0` prevents hiding controls in Lightbox component
@@ -3636,8 +3636,8 @@
 - IMPORTANT: Remove caption from Modal component. Use Lightbox component instead
 - IMPORTANT: Remove lightbox modifier from Modal component. Use Lightbox component instead
 - IMPORTANT: Remove center option from Modal component. Use `uk-margin-auto-vertical` modifier
-- IMPORTANT: Renamed `@modal-dialog-margin-vertical` to `@modal-padding-vertical-s`
-- IMPORTANT: Renamed `@modal-dialog-margin-vertical-xs` to `@modal-padding-vertical`
+- IMPORTANT: Rename `@modal-dialog-margin-vertical` to `@modal-padding-vertical-s`
+- IMPORTANT: Rename `@modal-dialog-margin-vertical-xs` to `@modal-padding-vertical`
 - Refactored Modal component
 - `offsetTop` in Height Viewport component only applies if its element's top position is smaller than half the viewport
 - Larger width for form width x-small
@@ -3708,7 +3708,7 @@
 ### Changed
 
 - IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
-- IMPORTANT: Renamed `transition` option to `easing` in Scroll component
+- IMPORTANT: Rename `transition` option to `easing` in Scroll component
 - Improve flip behaviour in Drop component
 - Improve `class` handling
 
