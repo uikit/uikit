@@ -11,6 +11,7 @@ import {
     isRtl,
     isString,
     isTag,
+    swap,
 } from 'uikit-util';
 import accordionIcon from '../../images/components/accordion-icon.svg';
 import closeIcon from '../../images/components/close-icon.svg';
@@ -273,8 +274,4 @@ function getIcon(icon) {
 
 function applyRtl(icon) {
     return isRtl ? swap(swap(icon, 'left', 'right'), 'previous', 'next') : icon;
-}
-
-function swap(value, a, b) {
-    return value.replace(new RegExp(`${a}|${b}`, 'g'), (match) => (match === a ? b : a));
 }

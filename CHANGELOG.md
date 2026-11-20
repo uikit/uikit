@@ -44,7 +44,7 @@
 
 - Remove JavaScript edge fade calculation from Overflow Fade component. Use the CSS-only animate modifier instead.
 - Remove container offset from Slider component. Use Overflow component instead.
-- Remove `sortBy`, `ready`, `empty`, `MouseTracker`, `play`, `pause`, `mute`, `positionAt`, `swap`, `isVoidElement` and `toEventTargets` utility functions
+- Remove `sortBy`, `ready`, `empty`, `MouseTracker`, `play`, `pause`, `mute`, `positionAt`, `isVoidElement` and `toEventTargets` utility functions
 
 ### Fixed
 
