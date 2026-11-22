@@ -65,7 +65,7 @@ on(window, 'load', async () => {
     const $container = prepend(
         document.body,
         `
-        <div class="uk-container">
+        <div class="uk-container" dir="ltr">
             <select class="uk-select uk-form-width-small" style="margin: 20px 20px 20px 0" aria-label="Component switcher">
                 <option value="index.html">Overview</option>
                 ${tests
