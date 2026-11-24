@@ -330,7 +330,7 @@ export default {
 };
 
 function isFinite(list, center) {
-    if (!list || list.length < 2) {
+    if (!list || children(list).length < 2) {
         return true;
     }
 
