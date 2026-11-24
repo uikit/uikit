@@ -51,6 +51,7 @@
 - Fix slide state classes not being removed after reversing the drag direction in Slider and Slideshow components
 - Fix `hover-target` not being focusable in Video component
 - Fix Navbar and Dropnav keyboard navigation to follow the disclosure pattern
+- Fix slide translate in and out events being triggered for the wrong slides in RTL in Slider component
 
 ## 3.25.31 (November 10, 2026)
 

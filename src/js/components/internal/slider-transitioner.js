@@ -105,7 +105,7 @@ export default function (prev, next, dir, { center, easing, list }) {
                     (!isOut &&
                         (isActive ||
                             (dir * (isRtl ? -1 : 1) === -1) ^
-                                (getElLeft(slide, list) > getElLeft(prev || next))));
+                                (getElLeft(slide, list) > getElLeft(prev || next, list))));
 
                 triggerUpdate(slide, `itemtranslate${translateIn ? 'in' : 'out'}`, {
                     dir,
