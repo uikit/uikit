@@ -30,6 +30,7 @@
 - IMPORTANT: Remove `uk-slider-container-offset` class and its Less variable. Use `uk-overflow-fade-offset` class instead
 - IMPORTANT: Use heading element with `<a>` inside for the accordion title
 - IMPORTANT: Rename `uk-box-shadow-bottom` class to `uk-floating-shadow`
+- IMPORTANT: Rename `uk-height-max-*` to `uk-max-height-*` in Height component
 - Refactor selector specificity in Grid, Base and Form components to remove important keywords in Margin component
 - Refactor classes with single-direction margin to override classes with multiple margin directions in Margin component
 - Respect `prefers-reduced-motion` preference for all autoplay modes in Video component
