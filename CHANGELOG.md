@@ -20,6 +20,7 @@
 - Add text balance class to Text component
 - Add margin trim block class to Margin component
 - Add margin vertical auto gap class to Margin component
+- Add intrinsic min widths classes to Width component
 - Add position cover support for images and videos in Position component
 - Add `duration` option to control Notification transition duration
 - Add `bg-size` option to set the background image dimensions in Parallax component
