@@ -19,9 +19,9 @@ import {
 import { generateId } from '../api/instance';
 import { parseOptions } from '../api/options';
 import Container from '../mixin/container';
+import { onEscape } from '../mixin/event';
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import { keyMap } from '../util/keys';
 
 export default {
     mixins: [Container, Togglable, Position],
@@ -54,7 +54,11 @@ export default {
             }
 
             const titleAttr = attr(this.$el, 'title');
-            const off = on(this.$el, ['blur', pointerLeave], (e) => !isTouch(e) && this.hide());
+            const off = on(this.$el, ['blur', pointerLeave], (e) => {
+                if (!isTouch(e) && !(e.type === pointerLeave && matches(this.$el, 'input:focus'))) {
+                    this.hide();
+                }
+            });
 
             this.reset = () => {
                 attr(this.$el, { title: titleAttr, 'aria-describedby': null });
@@ -69,10 +73,6 @@ export default {
         },
 
         async hide() {
-            if (matches(this.$el, 'input:focus')) {
-                return;
-            }
-
             clearTimeout(this.showTimer);
 
             if (this.isToggled(this.tooltip || null)) {
@@ -108,15 +108,12 @@ export default {
                         : `${align}-${flipPosition(dir)}`;
 
                 const handlers = [
-                    once(
-                        document,
-                        `keydown ${pointerDown}`,
-                        this.hide,
-                        false,
-                        (e) =>
-                            (e.type === pointerDown && !this.$el.contains(e.target)) ||
-                            (e.type === 'keydown' && e.keyCode === keyMap.ESC),
-                    ),
+                    onEscape(this.hide),
+                    on(document, pointerDown, ({ target }) => {
+                        if (!this.$el.contains(target)) {
+                            this.hide();
+                        }
+                    }),
                     on([document, ...overflowParents(this.$el)], 'scroll', update, {
                         passive: true,
                     }),
