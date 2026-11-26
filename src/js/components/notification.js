@@ -86,9 +86,7 @@ export default {
         },
 
         [pointerEnter]() {
-            if (this.timer) {
-                clearTimeout(this.timer);
-            }
+            clearTimeout(this.timer);
         },
 
         [pointerLeave]() {
@@ -100,26 +98,20 @@ export default {
 
     methods: {
         async close(immediate) {
-            const removeFn = (el) => {
-                const container = parent(el);
-
-                trigger(el, 'close', [this]);
-                remove(el);
-
-                if (!container?.hasChildNodes()) {
-                    remove(container);
-                }
-            };
-
-            if (this.timer) {
-                clearTimeout(this.timer);
-            }
+            clearTimeout(this.timer);
 
             if (!immediate) {
                 await Transition.start(this.$el, this.startProps, this.duration);
             }
 
-            removeFn(this.$el);
+            const container = parent(this.$el);
+
+            trigger(this.$el, 'close', [this]);
+            remove(this.$el);
+
+            if (!container?.hasChildNodes()) {
+                remove(container);
+            }
         },
     },
 };

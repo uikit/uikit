@@ -4,12 +4,12 @@ import Animations, { translate, translated } from '../../mixin/internal/slidesho
 export default {
     ...Animations,
     fade: {
-        percent: (current) => 1 - css(current, 'opacity'),
+        percent: opacityPercent,
         translate: (percent) => [{ opacity: 1 - percent, zIndex: 0 }, { zIndex: -1 }],
     },
 
     scale: {
-        percent: (current) => 1 - css(current, 'opacity'),
+        percent: opacityPercent,
 
         translate: (percent) => [
             { opacity: 1 - percent, transform: scale3d(1 + 0.5 * percent), zIndex: 0 },
@@ -50,4 +50,8 @@ export default {
 
 export function scale3d(value) {
     return `scale3d(${value}, ${value}, 1)`;
+}
+
+export function opacityPercent(current) {
+    return 1 - css(current, 'opacity');
 }

@@ -41,6 +41,7 @@
 - Show switcher content item if no navigation is connected
 - Replace clean-css with cssnano for stylesheet minification
 - Raise the esbuild compilation and minification target to Safari 14
+- Use only `inert` instead of `inert` and `aria-hidden` for slides outside the viewport in Slider component
 
 ### Removed
 

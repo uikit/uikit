@@ -2,7 +2,7 @@ import { attr, children, data, hasClass, isTag, queryAll, toArray } from 'uikit-
 import App from '../api';
 import { generateId } from '../api/instance';
 import { lazyload } from '../api/observables';
-import Togglable from '../mixin/togglable';
+import Togglable from './togglable';
 
 const TogglableComponent = App.extend(Togglable);
 
@@ -19,9 +19,15 @@ export default {
     },
 
     computed: {
+        connectSelector: ({ connect }) => connect,
+
         connects: {
-            get: ({ connect }, $el) => (connect ? queryAll(connect, $el) : []),
-            observe: ({ connect }) => connect,
+            get(_, $el) {
+                return this.connectSelector ? queryAll(this.connectSelector, $el) : [];
+            },
+            observe() {
+                return this.connectSelector;
+            },
         },
 
         connectChildren() {
@@ -39,11 +45,13 @@ export default {
         },
     },
 
-    observe: lazyload({ targets: ({ connectChildren }) => connectChildren }),
+    observe: lazyload({
+        targets: ({ connectChildren }) => connectChildren,
+        filter: ({ connectSelector }) => connectSelector,
+    }),
 
     update() {
-        for (const index in this.toggles) {
-            const toggle = this.toggles[index];
+        for (const [index, toggle] of this.toggles.entries()) {
             if (!toggle) {
                 continue;
             }
@@ -65,13 +73,17 @@ export default {
     },
 
     methods: {
+        getConnectIds(index) {
+            return this.connects.map(({ children }) => children[index]?.id).filter(Boolean);
+        },
+
         showConnects(index, animate) {
             const toggle = async (el) => {
                 const { children } = el;
 
                 const animation = data(el, 'uk-switcher-animation');
 
-                let togglable = animation
+                const togglable = animation
                     ? new TogglableComponent({ data: { ...this.$props, animation } })
                     : this;
 

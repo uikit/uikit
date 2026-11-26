@@ -138,5 +138,5 @@ const voidElements = {
 };
 
 function isVoidElement(element) {
-    return toNodes(element).some((element) => voidElements[element.tagName.toLowerCase()]);
+    return voidElements[element.tagName.toLowerCase()];
 }

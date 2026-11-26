@@ -300,15 +300,13 @@ export default {
 
     update: {
         read() {
+            const { offsetHeight, offsetWidth } = this.$el;
             for (const media of $$(`${this.selList} :not([controls]):is(img,video)`, this.$el)) {
                 toggleClass(
                     media,
                     this.clsZoom,
-                    (media.naturalHeight || media.videoHeight) - this.$el.offsetHeight >
-                        Math.max(
-                            0,
-                            (media.naturalWidth || media.videoWidth) - this.$el.offsetWidth,
-                        ),
+                    (media.naturalHeight || media.videoHeight) - offsetHeight >
+                        Math.max(0, (media.naturalWidth || media.videoWidth) - offsetWidth),
                 );
             }
         },

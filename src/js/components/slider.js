@@ -10,7 +10,6 @@ import {
     includes,
     isVisible,
     last,
-    sumBy,
     toFloat,
     toNumber,
     toggleClass,
@@ -44,6 +43,10 @@ export default {
     },
 
     computed: {
+        slideWidths() {
+            return this.slides.map((el) => dimensions(el).width);
+        },
+
         finite({ finite }) {
             return finite || isFinite(this.list, this.center);
         },
@@ -132,7 +135,7 @@ export default {
         intersection({
             handler(entries) {
                 for (const { target, isIntersecting } of entries) {
-                    target.ariaHidden = target.inert = !isIntersecting;
+                    target.inert = !isIntersecting;
                 }
             },
             target: ({ list }) => children(list),
@@ -238,23 +241,27 @@ export default {
 
             const next = this.slides[index];
             let width = (dimensions(this.list).width - dimensions(next).width) / 2;
+            const orders = [];
             let j = 0;
 
             while (width > 0) {
                 const slideIndex = this.getIndex(--j + index, index);
                 const slide = this.slides[slideIndex];
 
-                css(slide, 'order', slideIndex > index ? -2 : -1);
+                orders.push([slide, slideIndex > index ? -2 : -1]);
                 width -= dimensions(slide).width;
+            }
+
+            for (const [slide, order] of orders) {
+                css(slide, 'order', order);
             }
         },
 
         updateActiveClasses(currentIndex = this.index) {
-            let actives = this._getTransitioner(currentIndex).getActives();
-
-            if (this.active !== 'all') {
-                actives = [this.slides[this.getValidIndex(currentIndex)]];
-            }
+            const actives =
+                this.active === 'all'
+                    ? this._getTransitioner(currentIndex).getActives()
+                    : [this.slides[this.getValidIndex(currentIndex)]];
 
             const activeClasses = [
                 this.clsActive,
@@ -306,20 +313,19 @@ export default {
         },
 
         getIndexAt(percent) {
+            const widths = this.slideWidths;
+            const width = (i) => widths[i] ?? 0;
             let index = -1;
             const scrollDist = this.center
-                ? getWidth(this.list) -
-                  (dimensions(this.slides[0]).width + dimensions(last(this.slides)).width) / 2
-                : getWidth(this.list, this.maxIndex);
+                ? sum(widths) - (width(0) + width(widths.length - 1)) / 2
+                : sum(widths.slice(0, this.maxIndex));
 
             let dist = percent * scrollDist;
             let slidePercent;
 
             do {
-                const slideWidth = dimensions(this.slides[++index]).width;
-                const slideDist = this.center
-                    ? (slideWidth + dimensions(this.slides[index + 1]).width) / 2
-                    : slideWidth;
+                const slideWidth = width(++index);
+                const slideDist = this.center ? (slideWidth + width(index + 1)) / 2 : slideWidth;
                 slidePercent = (dist / slideDist) % 1;
                 dist -= slideDist;
             } while (dist >= 0 && index < this.maxIndex);
@@ -330,21 +336,20 @@ export default {
 };
 
 function isFinite(list, center) {
-    if (!list || children(list).length < 2) {
+    const slides = list ? children(list) : [];
+    if (slides.length < 2) {
         return true;
     }
 
     const { width: listWidth } = dimensions(list);
+    const widths = slides.map((slide) => dimensions(slide).width);
     if (!center) {
-        return Math.ceil(getWidth(list)) < Math.trunc(listWidth + getMaxElWidth(list));
+        return Math.ceil(sum(widths)) < Math.trunc(listWidth + Math.max(0, ...widths));
     }
 
-    const slides = children(list);
     const listHalf = Math.trunc(listWidth / 2);
-    for (const index in slides) {
-        const slide = slides[index];
-        const slideWidth = dimensions(slide).width;
-        const slidesInView = new Set([slide]);
+    for (const [index, slideWidth] of widths.entries()) {
+        const slidesInView = new Set([index]);
 
         let diff = 0;
         for (const i of [-1, 1]) {
@@ -353,29 +358,22 @@ function isFinite(list, center) {
             let j = 0;
 
             while (left < listHalf) {
-                const nextSlide = slides[getIndex(+index + i + j++ * i, slides)];
+                const nextIndex = getIndex(index + i + j++ * i, slides);
 
-                if (slidesInView.has(nextSlide)) {
+                if (slidesInView.has(nextIndex)) {
                     return true;
                 }
 
-                left += dimensions(nextSlide).width;
-                slidesInView.add(nextSlide);
+                left += widths[nextIndex];
+                slidesInView.add(nextIndex);
             }
             diff = Math.max(
                 diff,
-                (slideWidth + dimensions(slides[getIndex(+index + i, slides)]).width) / 2 -
-                    (left - listHalf),
+                (slideWidth + widths[getIndex(index + i, slides)]) / 2 - (left - listHalf),
             );
         }
 
-        if (
-            Math.trunc(diff) >
-            sumBy(
-                slides.filter((slide) => !slidesInView.has(slide)),
-                (slide) => dimensions(slide).width,
-            )
-        ) {
+        if (Math.trunc(diff) > sum(widths.filter((_, i) => !slidesInView.has(i)))) {
             return true;
         }
     }
@@ -383,6 +381,6 @@ function isFinite(list, center) {
     return false;
 }
 
-function getMaxElWidth(list) {
-    return Math.max(0, ...children(list).map((el) => dimensions(el).width));
+function sum(values) {
+    return values.reduce((total, value) => total + value, 0);
 }

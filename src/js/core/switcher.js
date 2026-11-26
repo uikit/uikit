@@ -159,14 +159,10 @@ export default {
     update() {
         attr(children(this.$el), 'role', 'presentation');
 
-        for (const index in this.toggles) {
-            const controls = this.connects
-                .map(({ children }) => children[index]?.id)
-                .filter(Boolean);
-
-            attr(this.toggles[index], {
+        for (const [index, toggle] of this.toggles.entries()) {
+            attr(toggle, {
                 role: 'tab',
-                'aria-controls': controls.join(' '),
+                'aria-controls': this.getConnectIds(index).join(' '),
             });
         }
         attr(this.$el, 'aria-orientation', matches(this.$el, this.selVertical) ? 'vertical' : null);

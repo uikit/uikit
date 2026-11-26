@@ -205,16 +205,18 @@ export default {
                     return;
                 }
 
+                if (keyCode !== keyMap.TAB) {
+                    return;
+                }
+
                 const elements = getFocusableElements(current);
-                if (keyCode === keyMap.TAB) {
-                    if (target === elements[e.shiftKey ? 0 : elements.length - 1]) {
-                        active.targetEl.focus();
-                        if (e.shiftKey) {
-                            e.preventDefault();
-                        } else {
-                            // Resume native Tab navigation after the toggle.
-                            active.hide(false, false);
-                        }
+                if (target === elements[e.shiftKey ? 0 : elements.length - 1]) {
+                    active.targetEl.focus();
+                    if (e.shiftKey) {
+                        e.preventDefault();
+                    } else {
+                        // Resume native Tab navigation after the toggle.
+                        active.hide(false, false);
                     }
                 }
             },
@@ -410,8 +412,8 @@ function closeDropdown(e, drop) {
     drop.targetEl?.focus();
 }
 
-function getFocusableElements(el, selector = selFocusable) {
-    return $$(selector, el).filter(
+function getFocusableElements(el) {
+    return $$(selFocusable, el).filter(
         (el) =>
             el.tabIndex >= 0 &&
             !matches(el, ':disabled') &&

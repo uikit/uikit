@@ -105,72 +105,73 @@ export default {
         },
     },
 
-    update: {
-        write(data) {
-            if (!this.drag || !parent(this.placeholder)) {
-                return;
-            }
+    update: [
+        {
+            write(data) {
+                if (!this.drag || !parent(this.placeholder)) {
+                    return;
+                }
 
-            const {
-                pos: { x, y },
-                origin: { offsetTop, offsetLeft },
-                placeholder,
-            } = this;
+                const { x, y } = this.pos;
+                const { placeholder } = this;
 
-            css(this.drag, {
-                top: y - offsetTop,
-                left: x - offsetLeft,
-            });
+                const sortable = this.getSortable(document.elementFromPoint(x, y));
 
-            const sortable = this.getSortable(document.elementFromPoint(x, y));
+                if (!sortable) {
+                    return;
+                }
 
-            if (!sortable) {
-                return;
-            }
+                const { items } = sortable;
 
-            const { items } = sortable;
+                if (items.some(Transition.inProgress)) {
+                    return;
+                }
 
-            if (items.some(Transition.inProgress)) {
-                return;
-            }
+                const target = findTarget(items, { x, y });
 
-            const target = findTarget(items, { x, y });
+                if (items.length && (!target || target === placeholder)) {
+                    return;
+                }
 
-            if (items.length && (!target || target === placeholder)) {
-                return;
-            }
+                const previous = this.getSortable(placeholder);
+                const insertTarget = findInsertTarget(
+                    sortable.target,
+                    target,
+                    placeholder,
+                    { x, y },
+                    sortable === previous && data.moved !== target,
+                );
 
-            const previous = this.getSortable(placeholder);
-            const insertTarget = findInsertTarget(
-                sortable.target,
-                target,
-                placeholder,
-                { x, y },
-                sortable === previous && data.moved !== target,
-            );
+                if (insertTarget === false || insertTarget === placeholder) {
+                    return;
+                }
 
-            if (insertTarget === false) {
-                return;
-            }
+                if (sortable !== previous) {
+                    previous.remove(placeholder);
+                    data.moved = target;
+                } else {
+                    delete data.moved;
+                }
 
-            if (insertTarget && placeholder === insertTarget) {
-                return;
-            }
+                sortable.insert(placeholder, insertTarget);
 
-            if (sortable !== previous) {
-                previous.remove(placeholder);
-                data.moved = target;
-            } else {
-                delete data.moved;
-            }
+                this.touched.add(sortable);
+            },
 
-            sortable.insert(placeholder, insertTarget);
-
-            this.touched.add(sortable);
+            events: ['move'],
         },
+        {
+            // Position the drag element after the layout reads above (it has `pointer-events: none`)
+            write() {
+                const { drag, pos, origin } = this;
+                if (drag && parent(this.placeholder)) {
+                    css(drag, { top: pos.y - origin.offsetTop, left: pos.x - origin.offsetLeft });
+                }
+            },
 
-        events: ['move'],
-    },
+            events: ['move'],
+        },
+    ],
 
     methods: {
         init(e) {
@@ -299,10 +300,14 @@ export default {
     },
 };
 
-let trackTimer;
+let trackFrame;
 function trackScroll(pos) {
     let last = Date.now();
-    trackTimer = setInterval(() => {
+    // Sub-pixel scroll distance dropped by browsers rounding `scrollTop`
+    let rest = 0;
+    const step = () => {
+        trackFrame = requestAnimationFrame(step);
+
         let { x, y } = pos;
         y += document.scrollingElement.scrollTop;
 
@@ -317,23 +322,25 @@ function trackScroll(pos) {
                 const { top, bottom, height } = offsetViewport(scrollEl);
 
                 if (top < y && top + 35 > y) {
-                    scroll -= dist;
+                    scroll -= dist - rest;
                 } else if (bottom > y && bottom - 35 < y) {
-                    scroll += dist;
+                    scroll += dist + rest;
                 } else {
                     return;
                 }
 
                 if (scroll > 0 && scroll < scrollHeight - height) {
                     scrollEl.scrollTop = scroll;
+                    rest = scroll - scrollEl.scrollTop;
                     return true;
                 }
             });
-    }, 15);
+    };
+    trackFrame = requestAnimationFrame(step);
 }
 
 function untrackScroll() {
-    clearInterval(trackTimer);
+    cancelAnimationFrame(trackFrame);
 }
 
 function appendDrag(container, element) {
@@ -418,14 +425,12 @@ function isHorizontal(list, placeholder) {
         append(list, placeholder);
     }
 
-    const items = children(list);
-    const isHorizontal = items.some((el, i) => {
-        const rectA = dimensions(el);
-        return items.slice(i + 1).some((el) => {
-            const rectB = dimensions(el);
-            return !linesIntersect([rectA.left, rectA.right], [rectB.left, rectB.right]);
-        });
-    });
+    const rects = children(list).map(dimensions);
+    const isHorizontal = rects.some((rectA, i) =>
+        rects
+            .slice(i + 1)
+            .some((rectB) => !linesIntersect([rectA.left, rectA.right], [rectB.left, rectB.right])),
+    );
 
     if (single) {
         remove(placeholder);

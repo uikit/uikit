@@ -50,18 +50,15 @@ export default {
         collapsible: true,
         multiple: false,
         clsOpen: 'uk-open',
-        cls: 'uk-active',
         toggle: '.uk-accordion-title',
         content: '.uk-accordion-content',
         offset: 0,
         switcherConnect: '',
     },
 
-    beforeConnect() {
-        this.connect = this.$props.connect = this.switcherConnect;
-    },
-
     computed: {
+        connectSelector: ({ switcherConnect }) => switcherConnect,
+
         items: ({ targets }, $el) => $$(targets, $el),
 
         toggles({ toggle }) {
@@ -189,14 +186,9 @@ export default {
                 attr(children(content), 'role', 'presentation');
             }
 
-            const controls = [
-                content.id,
-                ...this.connects.map(({ children }) => children[index]?.id).filter(Boolean),
-            ];
-
             attr(toggle, {
                 role: isTag(toggle, 'a') ? 'button' : null,
-                'aria-controls': controls.join(' '),
+                'aria-controls': [content.id, ...this.getConnectIds(index)].join(' '),
                 'aria-expanded': active,
                 'aria-disabled': !this.collapsible && activeItems.length < 2 && active,
             });
@@ -234,12 +226,14 @@ export default {
                     return transition(el, show, this);
                 });
 
-            const hideIndex = () =>
-                findIndex(this.items, (i) => i !== item && includes(activeItems, i));
-
             return Promise.all([
                 ...items.map(toggle),
-                this.showConnects(isActive ? hideIndex() : next, animate),
+                this.showConnects(
+                    isActive
+                        ? findIndex(this.items, (i) => i !== item && includes(activeItems, i))
+                        : next,
+                    animate,
+                ),
             ]);
         },
     },

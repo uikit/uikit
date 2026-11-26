@@ -183,27 +183,15 @@ function stop(e) {
 }
 
 async function ajax(url, options) {
-    const env = {
-        url,
-        data: null,
-        method: 'GET',
-        headers: {},
-        xhr: new XMLHttpRequest(),
-        beforeSend: noop,
-        responseType: '',
-        ...options,
-    };
+    const env = { url, headers: {}, xhr: new XMLHttpRequest(), ...options };
+
     if ((await env.beforeSend(env)) === false) {
         throw abortError(env.xhr);
     }
 
-    return send(env.url, env);
-}
+    const { xhr } = env;
 
-function send(url, env) {
     return new Promise((resolve, reject) => {
-        const { xhr } = env;
-
         for (const prop in env) {
             if (prop in xhr) {
                 try {
@@ -212,7 +200,7 @@ function send(url, env) {
             }
         }
 
-        xhr.open(env.method.toUpperCase(), url);
+        xhr.open(env.method.toUpperCase(), env.url);
 
         for (const header in env.headers) {
             xhr.setRequestHeader(header, env.headers[header]);

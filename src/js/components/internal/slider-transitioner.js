@@ -3,7 +3,6 @@ import {
     clamp,
     css,
     dimensions,
-    findIndex,
     includes,
     isRtl,
     noop,
@@ -23,6 +22,7 @@ export default function (prev, next, dir, { center, easing, list }) {
         : from + dimensions(prev).width * dir * (isRtl ? -1 : 1);
 
     const { promise, resolve } = withResolvers();
+    const getNextActives = () => inView(list, getLeft(next || prev, list, center));
 
     return {
         dir,
@@ -91,11 +91,13 @@ export default function (prev, next, dir, { center, easing, list }) {
             }
 
             const actives = this.getActives();
-            const itemIn = this.getItemIn();
-            const itemOut = this.getItemIn(true);
+            const nextActives = getNextActives();
+            const itemIn = firstNotIn(nextActives, actives);
+            const itemOut = firstNotIn(actives, nextActives);
 
             percent = prev ? clamp(percent, -1, 1) : 0;
 
+            const refLeft = getElLeft(prev || next, list);
             for (const slide of children(list)) {
                 const isActive = includes(actives, slide);
                 const isIn = slide === itemIn;
@@ -104,8 +106,7 @@ export default function (prev, next, dir, { center, easing, list }) {
                     isIn ||
                     (!isOut &&
                         (isActive ||
-                            (dir * (isRtl ? -1 : 1) === -1) ^
-                                (getElLeft(slide, list) > getElLeft(prev || next, list))));
+                            (dir * (isRtl ? -1 : 1) === -1) ^ (getElLeft(slide, list) > refLeft)));
 
                 triggerUpdate(slide, `itemtranslate${translateIn ? 'in' : 'out'}`, {
                     dir,
@@ -125,22 +126,20 @@ export default function (prev, next, dir, { center, easing, list }) {
         },
 
         getItemIn(out = false) {
-            let actives = this.getActives();
-            let nextActives = inView(list, getLeft(next || prev, list, center));
+            const actives = this.getActives();
+            const nextActives = getNextActives();
 
-            if (out) {
-                const temp = actives;
-                actives = nextActives;
-                nextActives = temp;
-            }
-
-            return nextActives[findIndex(nextActives, (el) => !includes(actives, el))];
+            return out ? firstNotIn(actives, nextActives) : firstNotIn(nextActives, actives);
         },
 
         getActives() {
             return inView(list, getLeft(prev || next, list, center));
         },
     };
+}
+
+function firstNotIn(items, exclude) {
+    return items.find((el) => !includes(exclude, el));
 }
 
 function getLeft(el, list, center) {

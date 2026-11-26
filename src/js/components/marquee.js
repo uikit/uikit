@@ -111,14 +111,15 @@ export default {
 
             css(items, 'offset', 'none');
 
+            const rtl = !vertical && isRtl;
             const dir = vertical ? ['top', 'bottom'] : ['left', 'right'];
-            if (!vertical && isRtl) {
+            if (rtl) {
                 dir.reverse();
             }
 
             const listStart = dimensions(this.list)[dir[0]];
             const itemEnds = items.map((el) => dimensions(el)[dir[1]]);
-            const listEnd = Math[!vertical && isRtl ? 'min' : 'max'](...itemEnds);
+            const listEnd = Math[rtl ? 'min' : 'max'](...itemEnds);
 
             for (const [index, el] of items.entries()) {
                 const elEnd = itemEnds[index];

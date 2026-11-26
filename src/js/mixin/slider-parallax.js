@@ -7,10 +7,6 @@ export default {
         parallax: Boolean,
     },
 
-    data: {
-        parallax: false,
-    },
-
     computed: {
         parallaxTargetFallback() {
             return this.list;

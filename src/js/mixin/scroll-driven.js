@@ -11,6 +11,7 @@ export default {
     },
 
     data: {
+        parallax: false,
         parallaxTarget: false,
         parallaxStart: 0,
         parallaxEnd: 0,
@@ -35,11 +36,7 @@ export default {
 
     update: {
         read() {
-            if (!this.parallax) {
-                return;
-            }
-
-            const target = this.parallaxTarget;
+            const target = this.parallax && this.parallaxTarget;
 
             if (!target) {
                 return;

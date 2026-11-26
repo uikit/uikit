@@ -43,28 +43,23 @@ function handleMouseDrag(e) {
     const { $el: el, threshold } = this;
     let started;
 
-    const off = on(document, pointerMove, move(e), pointerOptions);
+    const isVertical = hasClass(el, 'uk-overflow-fade-vertical');
+    const prop = isVertical ? 'y' : 'x';
+    const origin = getEventPos(e);
+    let pos = origin;
+
+    const off = on(document, pointerMove, move, pointerOptions);
     once(document, [pointerUp, pointerCancel], end, true);
 
     function move(e) {
-        let origin = getEventPos(e);
-        let pos = origin;
-        let lastPos = pos;
+        const lastPos = pos;
+        pos = getEventPos(e);
 
-        return function (e) {
-            lastPos = pos;
-            pos = getEventPos(e);
+        started ||= Math.abs(pos[prop] - origin[prop]) > threshold;
 
-            const isVertical = hasClass(el, 'uk-overflow-fade-vertical');
-            const prop = isVertical ? 'y' : 'x';
-
-            started ||= Math.abs(pos[prop] - origin[prop]) > threshold;
-
-            if (started) {
-                const delta = lastPos[prop] - pos[prop];
-                el[isVertical ? 'scrollTop' : 'scrollLeft'] += delta;
-            }
-        };
+        if (started) {
+            el[isVertical ? 'scrollTop' : 'scrollLeft'] += lastPos[prop] - pos[prop];
+        }
     }
 
     function end() {
