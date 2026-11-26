@@ -6,6 +6,11 @@
 //                  `uk-overflow-fade-horizontal`
 //                  `uk-overflow-fade-vertical`
 //
+// Sub-objects:     `uk-overflow-fade-offset`
+//
+// Modifiers:       `uk-overflow-fade-animate`
+//                  `uk-overflow-fade-outside`
+//
 // ========================================================================
 
 
@@ -161,21 +166,12 @@
 .uk-overflow-fade-outside { --uk-overflow-fade-size: var(--uk-overflow-fade-size-outside, 20px); }
 
 /*
- * Prepare flex-based content for native scrolling.
- * Marquee and Slider manage their items separately.
- * 1. Prevent items from wrapping into the next line.
- * 2. Prevent items from shrinking if they have a width.
- * 3. Add scrollable space to fix last item from stopping inside the outside fade on the right.
+ * Known issue with outside and grids which have no `min-width: max-content`.
+ * The last item stops inside the outside fade on the right.
+ * Possible fix is to add scrollable space at the end of the grid.
+ *
+ * .uk-overflow-fade-horizontal.uk-overflow-fade-outside > ::after {
+ *     content: "";
+ *     flex: 0 0 var(--uk-overflow-fade-size-outside, 20px);
+ * }
  */
-
-/* 1 */
-.uk-overflow-fade-grid { flex-wrap: nowrap; }
-
-/* 2 */
-.uk-overflow-fade-grid > * { flex: none !important; }
-
-/* 3 */
-.uk-overflow-fade-horizontal.uk-overflow-fade-outside > .uk-overflow-fade-grid::after {
-    content: "";
-    flex: 0 0 var(--uk-overflow-fade-size-outside, 20px);
-}
