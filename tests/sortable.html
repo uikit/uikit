@@ -14,17 +14,6 @@
             }
 
         </style>
-        <script>
-
-            const {on, ready} = UIkit.util;
-
-            ready(() =>
-                on(document.body, 'start moved added removed stop', (e, sortable, el) =>
-                    console.log(e.type, sortable, el)
-                )
-            );
-
-        </script>
     </head>
 
     <body>
@@ -295,6 +284,16 @@
             </div>
 
         </div>
+
+        <script>
+
+            const {on} = UIkit.util;
+
+            on(document.body, 'start moved added removed stop', (e, sortable, el) =>
+                console.log(e.type, sortable, el)
+            );
+
+        </script>
 
     </body>
 </html>
