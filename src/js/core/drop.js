@@ -504,7 +504,12 @@ function listenForScrollClose(drop) {
 
 function listenForFocusClose(drop) {
     return on(document, 'focusin', ({ target }) => {
-        if (!drop.$el.contains(target) && !drop.targetEl?.contains(target)) {
+        // pointer presses are handled by `listenForBackgroundClose`
+        if (
+            matches(target, ':focus-visible') &&
+            !drop.$el.contains(target) &&
+            !drop.targetEl?.contains(target)
+        ) {
             drop.hide(false);
         }
     });
