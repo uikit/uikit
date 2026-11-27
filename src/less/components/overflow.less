@@ -3,18 +3,13 @@
 //
 // Component:       `uk-overflow-hidden`
 //                  `uk-overflow-auto`
-//                  `uk-overflow-fade-horizontal`
-//                  `uk-overflow-fade-vertical`
-//
-// Sub-objects:     `uk-overflow-fade-offset`
+//                  `uk-overflow-fade-x`
+//                  `uk-overflow-fade-y`
+//                  `uk-overflow-offset`
 //
 // Modifiers:       `uk-overflow-fade-animate`
 //                  `uk-overflow-fade-outside`
 //
-// ========================================================================
-
-
-// Variables
 // ========================================================================
 
 
@@ -31,6 +26,33 @@
 .uk-overflow-auto { overflow: auto; }
 
 .uk-overflow-auto > :last-child { margin-bottom: 0; }
+
+
+/* Overflow offset
+ ========================================================================== */
+
+/*
+ * Offset modifier to prevent box-shadows from being clipped
+ */
+
+[class*="uk-overflow-offset"] { display: flow-root; }
+
+.uk-overflow-offset-y > * {
+    margin-top: -100px;
+    margin-bottom: -100px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.uk-overflow-offset-x > * {
+    margin-left: -100px;
+    margin-right: -100px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+[class*="uk-overflow-offset"] > * { pointer-events: none; }
+[class*="uk-overflow-offset"] > * > * { pointer-events: auto; }
 
 
 /* Overflow fade
@@ -56,16 +78,16 @@
 }
 
 /* 2 */
-:where(.uk-overflow-fade-horizontal, .uk-overflow-fade-vertical) {
+:where(.uk-overflow-fade-x, .uk-overflow-fade-y) {
     overflow: auto;
     scrollbar-width: none;
 }
 
-.uk-overflow-fade-horizontal { --uk-overflow-fade-direction: right; }
-.uk-overflow-fade-vertical { --uk-overflow-fade-direction: bottom; }
+.uk-overflow-fade-x { --uk-overflow-fade-direction: right; }
+.uk-overflow-fade-y { --uk-overflow-fade-direction: bottom; }
 
-.uk-overflow-fade-horizontal,
-.uk-overflow-fade-vertical {
+.uk-overflow-fade-x,
+.uk-overflow-fade-y {
     mask-image: linear-gradient(
         to var(--uk-overflow-fade-direction),
 
@@ -80,8 +102,8 @@
  * Remove margin from the last-child
  */
 
-.uk-overflow-fade-horizontal > :last-child,
-.uk-overflow-fade-vertical > :last-child { margin-bottom: 0; }
+.uk-overflow-fade-x > :last-child,
+.uk-overflow-fade-y > :last-child { margin-bottom: 0; }
 
 /*
  * Animate modifier to remove fades at the start and end position, for example when using finite scrolling areas.
@@ -100,9 +122,9 @@
         animation-timeline: scroll(self x);
     }
 
-    .uk-overflow-fade-vertical.uk-overflow-fade-animate { animation-timeline: scroll(self y); }
+    .uk-overflow-fade-y.uk-overflow-fade-animate { animation-timeline: scroll(self y); }
 
-    .uk-overflow-fade-horizontal.uk-overflow-fade-animate:dir(rtl) { animation-direction: reverse; }
+    .uk-overflow-fade-x.uk-overflow-fade-animate:dir(rtl) { animation-direction: reverse; }
 }
 
 @keyframes uk-overflow-fade-animate {
@@ -123,40 +145,17 @@
 }
 
 /*
- * Offset modifier to prevent box-shadows from being clipped
- */
-
-.uk-overflow-fade-offset { display: flow-root; }
-
-.uk-overflow-fade-offset > :where(.uk-overflow-fade-horizontal) {
-    margin-top: -100px;
-    margin-bottom: -100px;
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
-
-.uk-overflow-fade-offset > :where(.uk-overflow-fade-vertical) {
-    margin-left: -100px;
-    margin-right: -100px;
-    padding-left: 100px;
-    padding-right: 100px;
-}
-
-.uk-overflow-fade-offset > * { pointer-events: none; }
-.uk-overflow-fade-offset > * > * { pointer-events: auto; }
-
-/*
  * Outside modifier to move clipping area and fade outside
  */
 
-.uk-overflow-fade-outside:where(.uk-overflow-fade-horizontal) {
+.uk-overflow-fade-outside:where(.uk-overflow-fade-x) {
     margin-left: ~'calc(-1 * var(--uk-overflow-fade-size-outside, 20px))';
     margin-right: ~'calc(-1 * var(--uk-overflow-fade-size-outside, 20px))';
     padding-left: var(--uk-overflow-fade-size-outside, 20px);
     padding-right: var(--uk-overflow-fade-size-outside, 20px);
 }
 
-.uk-overflow-fade-outside:where(.uk-overflow-fade-vertical) {
+.uk-overflow-fade-outside:where(.uk-overflow-fade-y) {
     margin-top: ~'calc(-1 * var(--uk-overflow-fade-size-outside, 20px))';
     margin-bottom: ~'calc(-1 * var(--uk-overflow-fade-size-outside, 20px))';
     padding-top: var(--uk-overflow-fade-size-outside, 20px);
@@ -170,7 +169,7 @@
  * The last item stops inside the outside fade on the right.
  * Possible fix is to add scrollable space at the end of the grid.
  *
- * .uk-overflow-fade-horizontal.uk-overflow-fade-outside > ::after {
+ * .uk-overflow-fade-x.uk-overflow-fade-outside > ::after {
  *     content: "";
  *     flex: 0 0 var(--uk-overflow-fade-size-outside, 20px);
  * }
